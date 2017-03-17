@@ -6,10 +6,8 @@ package io.github.lordjbs.ConCore;
 * https://lordjbs.github.io
 */
 
-public class PrivateCon
-{
-    static void log(String log)
-    {
-        System.out.println(log);
-    }
+public class PrivateCon {
+	static void log(String log) {
+		System.out.println(log);
+	}
 }
