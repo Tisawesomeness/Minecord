@@ -33,6 +33,7 @@ public class InfoCommand extends Command {
 	private static final String helpServer = "https://discord.gg/tPf5Mka";
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
+		Config.update();
 		
 		//Calculate uptime
 		long uptimeRaw = System.currentTimeMillis() - Bot.birth;
