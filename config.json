@@ -5,7 +5,7 @@
 	"notificationTime": 4000,
 	"deleteCommands": true,
 	"sendTyping": true,
-	"invite": "https://goo.gl/LaA2sA",
+	"invite": "https://goo.gl/Zh81Gb",
 	"serverAddressRegex": "^((?=[a-z0-9-]{1,63}\\.)[a-z0-9]+(-[a-z0-9]+)*\\.)+[a-z0-9]+(\\2)*(:([0-5]?[0-9]{1,4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))?$",
 	"chatCodeRegex": "§[a-fA-Fklmnor0-9]",
 	"deleteChars": "�ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãxåæçèéêëìíîïðñòóôõöøùúûüýþÿ",
