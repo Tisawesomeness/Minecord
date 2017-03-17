@@ -16,6 +16,9 @@ import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
+import io.github.lordjbs.ConCore.ConCore;
+import io.github.lordjbs.ConCore.Console.Logger;
+
 public class Bot {
 	
 	protected static JDA jda;
@@ -32,6 +35,7 @@ public class Bot {
 		new Config(new File("./config.json"));
 		listener = new Listener();
 		Registry.init();
+		ConCore.initConCore();
 		
 		//Fetch main class
 		try {
@@ -70,7 +74,7 @@ public class Bot {
 			} else {
 				
 				//Initialize JDA
-				System.out.println("Booting...");
+				Logger.Log("Booting...");
 				JDABuilder builder = new JDABuilder(AccountType.BOT)
 					.setToken(Config.getClientToken())
 					.setAudioEnabled(false)
@@ -87,7 +91,7 @@ public class Bot {
 				
 				//Update main class
 				main.getDeclaredMethods()[MethodName.SET_JDA.num].invoke(null, jda);
-				System.out.println("Bot started.");
+				Logger.Log("Bot started.");
 				main.getDeclaredMethods()[MethodName.SET_BIRTH.num].invoke(null, System.currentTimeMillis());
 				birth = System.currentTimeMillis();
 				
