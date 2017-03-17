@@ -7,9 +7,9 @@ Feel free to contribute to the dev branch with whatever you like, but make sure 
 1. Your code blocks should look like the one below. This is Java, not C++.
 ```
 public static void main(String[] args) throws Exception {
-		cl = Thread.currentThread().getContextClassLoader();
-		load(args);
-	}
+	cl = Thread.currentThread().getContextClassLoader();
+	load(args);
+}
 ```
 2. PLEASE comment all of your code so that people can find their way around it. You don't have to be excessive, just enough so that it is understandable.
 3. Do not touch the version value in Bot class or the default elevated users list.
