@@ -9,11 +9,11 @@ package io.github.lordjbs.ConCore.Console;
 public class LogMore {
 	static void Log(String log, int mode) {
 		if (mode == 1) {
-			System.out.println("MineCordBot > CodeName: Log -> ");
+			System.out.println("MineCordBot > CodeName: Log -> " + log);
 		} else if (mode == 2) {
-			System.out.println("MineCordBot > CodeName: Warn -> ");
+			System.out.println("MineCordBot > CodeName: Warn -> " + log);
 		} else if (mode == 3) {
-			System.out.println("MineCordBot > CodeName: Error -> ");
+			System.out.println("MineCordBot > CodeName: Error -> " + log);
 		} else {
 			System.out.println("Error: Unknown mode.");
 		}
