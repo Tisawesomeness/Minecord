@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding//src/com/tisawesomeness/minecord/command/player/AvatarCommand.java=UTF-8
+encoding//src/com/tisawesomeness/minecord/command/player/BodyCommand.java=UTF-8
+encoding//src/com/tisawesomeness/minecord/command/player/CapeCommand.java=UTF-8
+encoding//src/com/tisawesomeness/minecord/command/player/HeadCommand.java=UTF-8
+encoding//src/com/tisawesomeness/minecord/command/player/HistoryCommand.java=UTF-8
+encoding//src/com/tisawesomeness/minecord/command/player/SkinCommand.java=UTF-8
+encoding//src/com/tisawesomeness/minecord/command/player/UuidCommand.java=UTF-8
+encoding//src/com/tisawesomeness/minecord/command/utility/ServerCommand.java=UTF-8
+encoding/config.json=UTF-8
