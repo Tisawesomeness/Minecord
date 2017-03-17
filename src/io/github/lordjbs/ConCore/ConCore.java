@@ -6,17 +6,13 @@ import io.github.lordjbs.ConCore.Console.Logger;
 * ConCore version C.1
 * Copyright (C) 2017 by lordjbs.
 * https://lordjbs.github.io
+*
+* MineCord Version!
 */
 public class ConCore extends PrivateCon
 {
-    public static String logName;
-
-    public static void initConCore(String logname)
+    public static void initConCore()
     {
-        //set name
-        log("ConCore > (line 15; io.github.lordjbs.ConCore.ConCore) setting name!");
-        logName = logname;
-
         log("ConCore > (line 18; io.github.lordjbs.ConCore.ConCore) Success! ConCore successfully started");
     }
 
