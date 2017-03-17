@@ -23,7 +23,7 @@ public class Bot {
 	
 	protected static JDA jda;
 	private static Listener listener; 
-	private static final String version = "0.1.0";
+	private static final String version = "0.1.1";
 	public static long birth;
 	public static Thread thread;
 	private static final String mainClass = "com.tisawesomeness.minecord.Main";
