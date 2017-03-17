@@ -3,7 +3,7 @@ A robust Discord bot written in JDA for various Minecraft functions.
 Invite: https://goo.gl/Zh81Gb
 
 ### Conventions
-Feel free to contribute to the dev branch with whatever you like, but make sure to follow these conventions.
+Feel free to contribute **to the dev branch** with whatever you like, but make sure to follow these conventions.
 1. Your code blocks should look like the one below. This is Java, not C++.
 ```
 public static void main(String[] args) throws Exception {
