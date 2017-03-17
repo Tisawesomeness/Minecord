@@ -14,13 +14,13 @@ public class LogMore
     {
         if(mode == 1)
         {
-            System.out.println(ConCore.logName + " > CodeName: Log -> ");
+            System.out.println("MineCordBot > CodeName: Log -> ");
         }else if(mode == 2)
         {
-            System.out.println(ConCore.logName + " > CodeName: Warn -> ");
+            System.out.println("MineCordBot > CodeName: Warn -> ");
         }else if(mode == 3)
         {
-            System.out.println(ConCore.logName + " > CodeName: Error -> ");
+            System.out.println("MineCordBot > CodeName: Error -> ");
 
         }else{
             System.out.println("Error: Unknown mode.");
