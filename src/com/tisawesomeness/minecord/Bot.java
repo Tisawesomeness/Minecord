@@ -35,7 +35,7 @@ public class Bot {
 		new Config(new File("./config.json"));
 		listener = new Listener();
 		Registry.init();
-		ConCore.initConCore("MineCordBot");
+		ConCore.initConCore();
 		
 		//Fetch main class
 		try {
