@@ -1,6 +1,7 @@
 {
 	"clientToken": "your token here",
 	"game": "{prefix}help | {guilds} guilds",
+	"name": "Minecord",
 	"prefix": "&",
 	"notificationTime": 4000,
 	"deleteCommands": true,

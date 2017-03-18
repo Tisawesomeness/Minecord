@@ -15,6 +15,7 @@ public class Config {
 
 	private static String clientToken;
 	private static String game;
+	private static String name;
 	private static String prefix;
 	private static int notificationTime;
 	private static boolean deleteCommands;
@@ -33,6 +34,7 @@ public class Config {
 			JSONObject config = new JSONObject(FileUtils.readFileToString(configFile, "UTF-8"));
 			clientToken = config.getString("clientToken");
 			game = config.getString("game");
+			name = config.getString("name");
 			prefix = config.getString("prefix");
 			notificationTime = config.getInt("notificationTime");
 			deleteCommands = config.getBoolean("deleteCommands");
@@ -60,10 +62,14 @@ public class Config {
 			.replaceAll("\\{users\\}", String.valueOf(Bot.jda.getUsers().size()))
 			.replaceAll("\\{channels\\}", String.valueOf(Bot.jda.getTextChannels().size()))
 		));
+		if (name != "") {
+			Bot.jda.getSelfUser().getManager().setName(name);
+		}
 	}
 
 	protected static String getClientToken() {return clientToken;}
 	public static String getGame() {return game;}
+	public static String getName() {return name;}
 	public static String getPrefix() {return prefix;}
 	public static int getNotificationTime() {return notificationTime;}
 	public static boolean getDeleteCommands() {return deleteCommands;}
