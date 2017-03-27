@@ -6,6 +6,8 @@ import java.util.TimerTask;
 
 import javax.security.auth.login.LoginException;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Registry;
 
@@ -16,26 +18,32 @@ import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
-import io.github.lordjbs.ConCore.ConCore;
-import io.github.lordjbs.ConCore.Console.Logger;
-
 public class Bot {
 	
 	protected static JDA jda;
-	private static Listener listener; 
+	private static Listener listener;
 	private static final String version = "0.1.1";
 	public static long birth;
+	public static String[] args;
+	
 	public static Thread thread;
 	private static final String mainClass = "com.tisawesomeness.minecord.Main";
 
 	public Bot(String[] args) {
+
+		//Parse reload
+		boolean reload = false;
+		if (args.length > 0 && ArrayUtils.contains(args, "reload")) {
+			reload = true;
+			ArrayUtils.remove(args, ArrayUtils.indexOf(args, "reload"));
+		}
+		Bot.args = args;
 
 		//Pre-init
 		thread = Thread.currentThread();
 		new Config(new File("./config.json"));
 		listener = new Listener();
 		Registry.init();
-		ConCore.initConCore();
 		
 		//Fetch main class
 		try {
@@ -44,7 +52,7 @@ public class Bot {
 				.loadClass(mainClass);
 			
 			//If this is a reload
-			if (args.length > 0 && args[0] == "reload") {
+			if (reload && Config.getDevMode()) {
 				
 				//Get main class info
 				Object jo = main.getDeclaredMethods()[MethodName.GET_JDA.num].invoke(null, "ignore");
@@ -74,7 +82,7 @@ public class Bot {
 			} else {
 				
 				//Initialize JDA
-				Logger.Log("Booting...");
+				System.out.println("Starting JDA...");
 				JDABuilder builder = new JDABuilder(AccountType.BOT)
 					.setToken(Config.getClientToken())
 					.setAudioEnabled(false)
@@ -84,25 +92,27 @@ public class Bot {
 				try {
 					jda = builder.buildBlocking();
 				//Exit inescapable errors
-				} catch (LoginException | IllegalArgumentException | InterruptedException | RateLimitedException e) {
-					e.printStackTrace();
+				} catch (LoginException | IllegalArgumentException | InterruptedException | RateLimitedException ex) {
+					ex.printStackTrace();
 					System.exit(1);
 				}
 				
 				//Update main class
-				main.getDeclaredMethods()[MethodName.SET_JDA.num].invoke(null, jda);
-				Logger.Log("Bot started.");
-				main.getDeclaredMethods()[MethodName.SET_BIRTH.num].invoke(null, System.currentTimeMillis());
-				birth = System.currentTimeMillis();
+				if (Config.getDevMode()) {
+					main.getDeclaredMethods()[MethodName.SET_JDA.num].invoke(null, jda);
+					birth = System.currentTimeMillis();
+					main.getDeclaredMethods()[MethodName.SET_BIRTH.num].invoke(null, birth);
+				}
 				
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-
+		
 		//Post-init
 		Config.update();
 		Registry.enabled = true;
+		System.out.println("Bot started.");
 
 	}
 	
@@ -117,6 +127,7 @@ public class Bot {
 			Class<?> main = Thread.currentThread().getContextClassLoader().getSystemClassLoader()
 				.loadClass(mainClass);
 			String[] args = new String[]{"reload"};
+			ArrayUtils.addAll(args, Bot.args);
 			main.getDeclaredMethods()[MethodName.SET_MESSAGE.num].invoke(null, m);
 			main.getDeclaredMethods()[MethodName.LOAD.num].invoke(null, (Object) args);
 		} catch (Exception ex) {
