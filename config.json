@@ -1,10 +1,10 @@
 {
 	"clientToken": "your token here",
-	"devMode": true,
-	"debugMode": true,
+	"devMode": false,
+	"debugMode": false,
 	"game": "{prefix}help | {guilds} guilds",
 	"name": "Minecord",
-	"prefix": ">&",
+	"prefix": "&",
 	"notificationTime": 4000,
 	"deleteCommands": true,
 	"sendTyping": true,
