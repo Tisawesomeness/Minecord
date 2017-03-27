@@ -3,7 +3,7 @@
 	"devMode": true,
 	"debugMode": true,
 	"game": "{prefix}help | {guilds} guilds",
-	"name": "Minecord (BETA)",
+	"name": "Minecord",
 	"prefix": ">&",
 	"notificationTime": 4000,
 	"deleteCommands": true,
