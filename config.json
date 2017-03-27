@@ -1,6 +1,7 @@
 {
-	"clientToken": "",
+	"clientToken": "your token here",
 	"devMode": true,
+	"debugMode": true,
 	"game": "{prefix}help | {guilds} guilds",
 	"name": "Minecord (BETA)",
 	"prefix": ">&",

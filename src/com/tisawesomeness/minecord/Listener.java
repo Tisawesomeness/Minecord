@@ -133,7 +133,11 @@ public class Listener extends ListenerAdapter {
 					//Catch exceptions
 					if (result == null) {
 						if (exception != null) {exception.printStackTrace();}
-						MessageUtils.notify(":x: There was an unexpected exception: `" + exception + "`", c);
+						String m = ":x: There was an unexpected exception: `" + exception + "`";
+						if (Config.getDebugMode()) {
+							m = m + "\n" + exception.getStackTrace();
+						}
+						MessageUtils.notify(m, c);
 					//If message is empty
 					} if (result.message == null) {
 						if (result.outcome != null && result.outcome != Outcome.SUCCESS) {

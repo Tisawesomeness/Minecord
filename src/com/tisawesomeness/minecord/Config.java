@@ -15,6 +15,7 @@ public class Config {
 
 	private static String clientToken;
 	private static boolean devMode;
+	private static boolean debugMode;
 	private static String game;
 	private static String name;
 	private static String prefix;
@@ -44,6 +45,7 @@ public class Config {
 				clientToken = config.getString("clientToken");
 			}
 			devMode = config.getBoolean("devMode");
+			debugMode = config.getBoolean("debugMode");
 			game = config.getString("game");
 			name = config.getString("name");
 			prefix = config.getString("prefix");
@@ -77,6 +79,7 @@ public class Config {
 
 	protected static String getClientToken() {return clientToken;}
 	public static boolean getDevMode() {return devMode;}
+	public static boolean getDebugMode() {return debugMode;}
 	public static String getGame() {return game;}
 	public static String getName() {return name;}
 	public static String getPrefix() {return prefix;}
