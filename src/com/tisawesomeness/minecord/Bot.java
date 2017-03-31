@@ -98,9 +98,9 @@ public class Bot {
 				}
 				
 				//Update main class
+				birth = System.currentTimeMillis();
 				if (Config.getDevMode()) {
 					main.getDeclaredMethods()[MethodName.SET_JDA.num].invoke(null, jda);
-					birth = System.currentTimeMillis();
 					main.getDeclaredMethods()[MethodName.SET_BIRTH.num].invoke(null, birth);
 				}
 				
