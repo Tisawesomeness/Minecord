@@ -1,11 +1,75 @@
 # Minecord
-A robust Discord bot written in JDA for various Minecraft functions.
-Invite: https://goo.gl/Zh81Gb
+A robust Discord bot using the JDA library for various Minecraft functions.
+- Invite: https://goo.gl/Zh81Gb
+- Bot User: Minecord#1216
+
+### Command List
+#### General Commands
+- `&help` - Displays this help menu.
+- `&info` - Shows the bot info
+- `&status` - Checks the status of Mojang servers.
+- `&sales` - Looks up the sale statistics.
+- `&purge [number]` - Cleans the bot messages.
+
+#### Utility Commands:
+- `&codes` - Lists the available chat codes.
+- `&server <address>[:port]` - Fetches the stats of a server.
+
+#### Player Commands:
+- `&uuid <username> [date]` - Gets the UUID of a player.
+- `&history <username|uuid> [date]` - Gets the name history of a player.
+- `&avatar <username|uuid> [date] [overlay?]` - Gets the avatar of a player.
+- `&head <username|uuid> [date] [overlay?]` - Gets the head render of a player.
+- `&body username|uuid> [date] [overlay?]` - Gets the body render of a player.
+- `&skin <username|uuid> [date]` - Gets the skin of a player.
+- `&cape <username|uuid> [date]` - Gets the cape of a player.
+
+#### Admin Commands:
+- `&msg <mention> <message>` - Open the DMs.
+- `&reload` - Reloads the bot.
+- `&shutdown` - Shuts down the bot.
+- `&dump` - Dumps a memory heap to file. This might break things, make sure you know what you are doing.
+- `&test` - Test command.
+
+### Config
+- *Client Token:* Your unique bot token. **Do not upload it to GitHub, or people will be able to steal your bot!**
+- *Dev Mode:* Turning this on will let you reload code using `&reload` on the fly. When hosting the bot, it's best to keep this off in order to decrease memory usage.
+- *Debug Mode:* Prints additional info to console.
+- *Game:* This is the game that the bot is playing, shown under the username. `{prefix}`, `{guilds}`, `{channels}`, and `{users}` are available variables.
+- *Name:* The name of the bot.
+- *Prefix:* The prefix of the bot. Use `>&` instead of `&` if you want to host your own bot alongside the main one.
+- *Notification Time:* The default time to show notifications in miliseconds (4000ms = 4s). This value is multiplied based on the length of the notification sent.
+- *Delete Commands:* If true, the commands sent by players (like `&help`) will be deleted to clean up chat. Requires permission to manage messages.
+- *Send Typing:* If true, the bot will send typing packets.
+- *Invite:* The invite link to use in `&info`.
+- *Elevated Skip Cooldown:* Whether or not elevated users skip command cooldowns.
+- *Elevated Users:* A list of user IDs. Elevated users can do `&help admin` to view hidden commands, `&msg`, `&reload`, `&shutdown`, `&dump`, `&test`, and `&purge` in all servers.
+
+#### Default Config
+```json
+{
+	"clientToken": "your token here",
+	"devMode": false,
+	"debugMode": false,
+	"game": "{prefix}help | {guilds} guilds",
+	"name": "Minecord",
+	"prefix": "&",
+	"notificationTime": 4000,
+	"deleteCommands": true,
+	"sendTyping": true,
+	"invite": "https://goo.gl/Zh81Gb",
+	"elevatedSkipCooldown": true,
+	"elevatedUsers": [
+		"211261249386708992",
+		"220591718158827520"
+	]
+}
+```
 
 ### Conventions
 Feel free to contribute **to the dev branch** with whatever you like, but make sure to follow these conventions.
 1. Your code blocks should look like the one below. This is Java, not C++.
-```
+```java
 public static void main(String[] args) throws Exception {
 	cl = Thread.currentThread().getContextClassLoader();
 	load(args);
