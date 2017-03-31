@@ -1,6 +1,10 @@
 package com.tisawesomeness.minecord;
 
+import java.io.File;
 import java.net.URL;
+
+import org.apache.commons.io.FileUtils;
+import org.json.JSONObject;
 
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Message;
@@ -12,11 +16,18 @@ public class Main {
 	static ClassLoader cl;
 	static Bot bot;
 	
-	//Start loader
+	//Check for dev mode
 	public static void main(String[] args) throws Exception {
-		cl = Thread.currentThread().getContextClassLoader();
-		load(args);
+		JSONObject config = new JSONObject(FileUtils.readFileToString(new File("./config.json"), "UTF-8"));
+		if (config.optBoolean("devMode", false)) {
+			cl = Thread.currentThread().getContextClassLoader();
+			load(args);
+		} else {
+			new Bot(args);
+		}
 	}
+	
+	//Start loader
 	public static void load(String[] args) throws Exception {
 		new Thread(new Loader(args)).start();
 	}

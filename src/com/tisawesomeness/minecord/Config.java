@@ -14,6 +14,8 @@ import net.dv8tion.jda.core.entities.Game;
 public class Config {
 
 	private static String clientToken;
+	private static boolean devMode;
+	private static boolean debugMode;
 	private static String game;
 	private static String name;
 	private static String prefix;
@@ -21,18 +23,29 @@ public class Config {
 	private static boolean deleteCommands;
 	private static boolean sendTyping;
 	private static String invite;
-	private static String serverAddressRegex;
-	private static String chatCodeRegex;
-	private static String deleteChars;
 	private static boolean elevatedSkipCooldown;
 	
 	private static ArrayList<String> elevatedUsers = new ArrayList<String>();
 
-	public Config(File configFile) {
+	public Config(File file) {
+		
+		//Look for client token
+		for (String arg : Bot.args) {
+			if (arg.matches("{32,}")) {
+				System.out.println("Found custom client token: " + arg);
+				clientToken = arg;
+				break;
+			}
+		}
+		
 		try {
 			//Parse config JSON
-			JSONObject config = new JSONObject(FileUtils.readFileToString(configFile, "UTF-8"));
-			clientToken = config.getString("clientToken");
+			JSONObject config = new JSONObject(FileUtils.readFileToString(file, "UTF-8"));
+			if (clientToken == null) {
+				clientToken = config.getString("clientToken");
+			}
+			devMode = config.getBoolean("devMode");
+			debugMode = config.getBoolean("debugMode");
 			game = config.getString("game");
 			name = config.getString("name");
 			prefix = config.getString("prefix");
@@ -40,9 +53,6 @@ public class Config {
 			deleteCommands = config.getBoolean("deleteCommands");
 			sendTyping = config.getBoolean("sendTyping");
 			invite = config.getString("invite");
-			serverAddressRegex = config.getString("serverAddressRegex");
-			chatCodeRegex = config.getString("chatCodeRegex");
-			deleteChars = config.getString("deleteChars");
 			elevatedSkipCooldown = config.getBoolean("elevatedSkipCooldown");
 			
 			JSONArray eu = config.getJSONArray("elevatedUsers");
@@ -68,6 +78,8 @@ public class Config {
 	}
 
 	protected static String getClientToken() {return clientToken;}
+	public static boolean getDevMode() {return devMode;}
+	public static boolean getDebugMode() {return debugMode;}
 	public static String getGame() {return game;}
 	public static String getName() {return name;}
 	public static String getPrefix() {return prefix;}
@@ -75,9 +87,6 @@ public class Config {
 	public static boolean getDeleteCommands() {return deleteCommands;}
 	public static boolean getSendTyping() {return sendTyping;}
 	public static String getInvite() {return invite;}
-	public static String getServerAddressRegex() {return serverAddressRegex;}
-	public static String getChatCodeRegex() {return chatCodeRegex;}
-	public static String getDeleteChars() {return deleteChars;}
 	public static boolean getElevatedSkipCooldown() {return elevatedSkipCooldown;}
 	public static ArrayList<String> getElevatedUsers() {return elevatedUsers;}
 	

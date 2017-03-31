@@ -14,6 +14,10 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 public class ServerCommand extends Command {
 	
+	final String serverAddressRegex = "^((?=[a-z0-9-]{1,63}\\.)[a-z0-9]+(-[a-z0-9]+)*\\.)+[a-z0-9]+(\\2)*(:([0-5]?[0-9]{1,4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))?$";
+	final String chatCodeRegex = "Â§[a-fA-Fklmnor0-9]";
+	final String deleteChars = "ï¿½Ã€Ã�Ã‚ÃƒÃ„Ã…Ã†Ã‡ÃˆÃ‰ÃŠÃ‹ÃŒÃ�ÃŽÃ�Ã�Ã‘Ã’Ã“Ã”Ã•Ã–Ã—Ã˜Ã™ÃšÃ›ÃœÃ�ÃžÃŸÃ Ã¡Ã¢Ã£xÃ¥Ã¦Ã§Ã¨Ã©ÃªÃ«Ã¬Ã­Ã®Ã¯Ã°Ã±Ã²Ã³Ã´ÃµÃ¶Ã¸Ã¹ÃºÃ»Ã¼Ã½Ã¾Ã¿";
+	
 	public CommandInfo getInfo() {
 		return new CommandInfo(
 			"server",
@@ -29,13 +33,14 @@ public class ServerCommand extends Command {
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		
+		//Parse arguments
 		if (args.length == 0) {
 			String m = ":warning: Incorrect arguments." +
 				"\n" + Config.getPrefix() + "server <address>[:port]";
 			return new Result(Outcome.WARNING, m, 2);
 		}
 		String arg = args[0];
-		if (!arg.matches(Config.getServerAddressRegex())) {
+		if (!arg.matches(serverAddressRegex)) {
 			return new Result(Outcome.ERROR, ":x: That is not a valid server address.");
 		}
 		
@@ -69,9 +74,9 @@ public class ServerCommand extends Command {
 		String motd = server.getString("motd");
 
 		String address = hostname + ":" + port;
-		version = clean(version.replaceAll(Config.getChatCodeRegex(), ""), Config.getDeleteChars());
+		version = clean(version.replaceAll(chatCodeRegex, ""), deleteChars);
 		String playerInfo = online + "/" + max;
-		motd = clean(motd.replaceAll(Config.getChatCodeRegex(), ""), Config.getDeleteChars());
+		motd = clean(motd.replaceAll(chatCodeRegex, ""), deleteChars);
 		
 		//Build and format message
 		String m = "**Address:** " + address +
