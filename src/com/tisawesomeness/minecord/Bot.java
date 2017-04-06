@@ -108,7 +108,7 @@ public class Bot {
 					.setGame(Game.of(Config.getGame()))
 					.addListener(listener);
 				try {
-					if (Config.getLogJDA()) {
+					if (!Config.getLogJDA()) {
 						SimpleLog.LEVEL = Level.OFF;
 					}
 					jda = builder.buildBlocking();
