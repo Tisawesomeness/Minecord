@@ -66,6 +66,10 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 }
 ```
 
+### Command-Line Arguments
+- `-c <path/to/config.json>` - Defines a custom path to the config.json. Defaults to the current directory.
+- `-t <token>` - Overrides the token provided in the config.
+
 ### Conventions
 Feel free to contribute **to the dev branch** with whatever you like, but make sure to follow these conventions.
 1. Your code blocks should look like the one below. This is Java, not C++.
