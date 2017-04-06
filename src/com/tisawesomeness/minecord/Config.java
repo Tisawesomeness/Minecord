@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,11 +31,18 @@ public class Config {
 	public Config(File file) {
 		
 		//Look for client token
-		for (String arg : Bot.args) {
-			if (arg.matches("{32,}")) {
-				System.out.println("Found custom client token: " + arg);
-				clientToken = arg;
-				break;
+		String[] args = Bot.args;
+		if (args.length > 1 && ArrayUtils.contains(args, "-t")) {
+			int index = ArrayUtils.indexOf(args, "-t");
+			if (index + 1 < args.length) {
+				args = ArrayUtils.remove(args, index);
+				String token = args[index];
+				if (token.matches("{32,}")) {
+					System.out.println("Found custom client token: " + token);
+					clientToken = token;
+					args = ArrayUtils.remove(args, index);
+				}
+				Bot.args = args;
 			}
 		}
 		

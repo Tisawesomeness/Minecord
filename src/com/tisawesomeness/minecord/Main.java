@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.URL;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.json.JSONObject;
 
 import net.dv8tion.jda.core.JDA;
@@ -16,9 +17,19 @@ public class Main {
 	static ClassLoader cl;
 	static Bot bot;
 	
-	//Check for dev mode
 	public static void main(String[] args) throws Exception {
-		JSONObject config = new JSONObject(FileUtils.readFileToString(new File("./config.json"), "UTF-8"));
+		
+		//Parse config arg
+		String path = "./config.json";
+		if (args.length > 1 && ArrayUtils.contains(args, "-c")) {
+			int index = ArrayUtils.indexOf(args, "-c");
+			if (index + 1 < args.length) {
+				path = args[index + 1];
+			}
+		}
+		
+		//Check for dev mode
+		JSONObject config = new JSONObject(FileUtils.readFileToString(new File(path), "UTF-8"));
 		if (config.optBoolean("devMode", false)) {
 			cl = Thread.currentThread().getContextClassLoader();
 			load(args);
