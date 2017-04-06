@@ -2,6 +2,7 @@
 	"clientToken": "your token here",
 	"devMode": false,
 	"debugMode": false,
+	"logJDA": true,
 	"game": "{prefix}help | {guilds} guilds",
 	"name": "Minecord",
 	"prefix": "&",

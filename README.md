@@ -35,6 +35,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Client Token:* Your unique bot token. **Do not upload it to GitHub, or people will be able to steal your bot!**
 - *Dev Mode:* Turning this on will let you reload code using `&reload` on the fly. When hosting the bot, it's best to keep this off in order to decrease memory usage.
 - *Debug Mode:* Prints additional info to console.
+- *Log JDA:* Whether or not to log messages from the JDA library.
 - *Game:* This is the game that the bot is playing, shown under the username. `{prefix}`, `{guilds}`, `{channels}`, and `{users}` are available variables.
 - *Name:* The name of the bot.
 - *Prefix:* The prefix of the bot. Use `>&` instead of `&` if you want to host your own bot alongside the main one.
@@ -51,6 +52,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 	"clientToken": "your token here",
 	"devMode": false,
 	"debugMode": false,
+	"logJDA": true,
 	"game": "{prefix}help | {guilds} guilds",
 	"name": "Minecord",
 	"prefix": "&",

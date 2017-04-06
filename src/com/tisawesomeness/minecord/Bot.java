@@ -17,6 +17,8 @@ import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
+import net.dv8tion.jda.core.utils.SimpleLog;
+import net.dv8tion.jda.core.utils.SimpleLog.Level;
 
 public class Bot {
 	
@@ -106,6 +108,9 @@ public class Bot {
 					.setGame(Game.of(Config.getGame()))
 					.addListener(listener);
 				try {
+					if (Config.getLogJDA()) {
+						SimpleLog.LEVEL = Level.OFF;
+					}
 					jda = builder.buildBlocking();
 				//Exit inescapable errors
 				} catch (LoginException | IllegalArgumentException | InterruptedException | RateLimitedException ex) {
