@@ -10,6 +10,7 @@
 	"deleteCommands": true,
 	"sendTyping": true,
 	"invite": "https://goo.gl/Zh81Gb",
+	"showMemory": true,
 	"elevatedSkipCooldown": true,
 	"elevatedUsers": [
 		"211261249386708992",

@@ -43,6 +43,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Delete Commands:* If true, the commands sent by players (like `&help`) will be deleted to clean up chat. Requires permission to manage messages.
 - *Send Typing:* If true, the bot will send typing packets.
 - *Invite:* The invite link to use in `&info`.
+- *Show Memory:* Whether or not to show the memory in `&info`.
 - *Elevated Skip Cooldown:* Whether or not elevated users skip command cooldowns.
 - *Elevated Users:* A list of user IDs. Elevated users can do `&help admin` to view hidden commands, `&msg`, `&reload`, `&shutdown`, `&dump`, `&test`, and `&purge` in all servers.
 
@@ -60,6 +61,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 	"deleteCommands": true,
 	"sendTyping": true,
 	"invite": "https://goo.gl/Zh81Gb",
+	"showMemory": true,
 	"elevatedSkipCooldown": true,
 	"elevatedUsers": [
 		"211261249386708992",

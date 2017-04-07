@@ -87,7 +87,9 @@ public class InfoCommand extends Command {
 		eb.addField("Channels", e.getJDA().getTextChannels().size() + "", true);
 		eb.addField("Users", e.getJDA().getUsers().size() + "", true);
 		eb.addField("Uptime", uptime, true);
-		eb.addField("Memory", memory, true);
+		if (Config.getShowMemory()) {
+			eb.addField("Memory", memory, true);
+		}
 		eb.addField("Invite", Config.getInvite(), true);
 		eb.addField("Help Server", helpServer, true);
 		eb.addField("Credits", "Mojang API, Crafatar, and MCAPI", true);

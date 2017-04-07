@@ -25,6 +25,7 @@ public class Config {
 	private static boolean deleteCommands;
 	private static boolean sendTyping;
 	private static String invite;
+	private static boolean showMemory;
 	private static boolean elevatedSkipCooldown;
 	
 	private static ArrayList<String> elevatedUsers = new ArrayList<String>();
@@ -63,6 +64,7 @@ public class Config {
 			deleteCommands = config.getBoolean("deleteCommands");
 			sendTyping = config.getBoolean("sendTyping");
 			invite = config.getString("invite");
+			showMemory = config.getBoolean("showMemory");
 			elevatedSkipCooldown = config.getBoolean("elevatedSkipCooldown");
 			
 			JSONArray eu = config.getJSONArray("elevatedUsers");
@@ -98,7 +100,9 @@ public class Config {
 	public static boolean getDeleteCommands() {return deleteCommands;}
 	public static boolean getSendTyping() {return sendTyping;}
 	public static String getInvite() {return invite;}
+	public static boolean getShowMemory() {return showMemory;}
 	public static boolean getElevatedSkipCooldown() {return elevatedSkipCooldown;}
+	
 	public static ArrayList<String> getElevatedUsers() {return elevatedUsers;}
 	
 }
