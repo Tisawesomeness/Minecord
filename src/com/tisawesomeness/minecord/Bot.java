@@ -17,12 +17,14 @@ import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
+import net.dv8tion.jda.core.utils.SimpleLog;
+import net.dv8tion.jda.core.utils.SimpleLog.Level;
 
 public class Bot {
 	
 	protected static JDA jda;
 	private static Listener listener;
-	private static final String version = "0.2.0";
+	private static final String version = "0.2.1";
 	public static long birth;
 	public static String[] args;
 	
@@ -33,23 +35,39 @@ public class Bot {
 
 		//Parse reload
 		boolean reload = false;
-		if (args.length > 0 && ArrayUtils.contains(args, "reload")) {
+		if (args.length > 0 && ArrayUtils.contains(args, "-r")) {
 			reload = true;
-			ArrayUtils.remove(args, ArrayUtils.indexOf(args, "reload"));
+			args = ArrayUtils.remove(args, ArrayUtils.indexOf(args, "-r"));
 		}
 		Bot.args = args;
+		
+		//Parse config path
+		String path = "./config.json";
+		if (args.length > 1 && ArrayUtils.contains(args, "-c")) {
+			int index = ArrayUtils.indexOf(args, "-c");
+			if (index + 1 < args.length) {
+				args = ArrayUtils.remove(args, index);
+				path = args[index];
+				System.out.println("Found custom client token: " + path);
+				args = ArrayUtils.remove(args, index);
+			}
+		}
 
 		//Pre-init
 		thread = Thread.currentThread();
-		new Config(new File("./config.json"));
+		new Config(new File(path));
 		listener = new Listener();
 		Registry.init();
 		
 		//Fetch main class
 		try {
-			@SuppressWarnings("static-access")
-			Class<?> main = Thread.currentThread().getContextClassLoader().getSystemClassLoader()
-				.loadClass(mainClass);
+			Class<?> main = null;
+			if (Config.getDevMode()) {
+				@SuppressWarnings("static-access")
+				Class<?> clazz = Thread.currentThread().getContextClassLoader().getSystemClassLoader()
+					.loadClass(mainClass);
+				main = clazz;
+			}
 			
 			//If this is a reload
 			if (reload && Config.getDevMode()) {
@@ -90,6 +108,9 @@ public class Bot {
 					.setGame(Game.of(Config.getGame()))
 					.addListener(listener);
 				try {
+					if (!Config.getLogJDA()) {
+						SimpleLog.LEVEL = Level.OFF;
+					}
 					jda = builder.buildBlocking();
 				//Exit inescapable errors
 				} catch (LoginException | IllegalArgumentException | InterruptedException | RateLimitedException ex) {
@@ -126,7 +147,7 @@ public class Bot {
 			//Reload this class using reflection
 			Class<?> main = Thread.currentThread().getContextClassLoader().getSystemClassLoader()
 				.loadClass(mainClass);
-			String[] args = new String[]{"reload"};
+			String[] args = new String[]{"-r"};
 			ArrayUtils.addAll(args, Bot.args);
 			main.getDeclaredMethods()[MethodName.SET_MESSAGE.num].invoke(null, m);
 			main.getDeclaredMethods()[MethodName.LOAD.num].invoke(null, (Object) args);

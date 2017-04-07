@@ -18,12 +18,9 @@ import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.entities.impl.JDAImpl;
-import net.dv8tion.jda.core.entities.impl.UserImpl;
-import net.dv8tion.jda.core.events.guild.GuildAvailableEvent;
+import net.dv8tion.jda.core.events.guild.GenericGuildEvent;
 import net.dv8tion.jda.core.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.core.events.guild.GuildLeaveEvent;
-import net.dv8tion.jda.core.events.guild.GuildUnavailableEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
@@ -175,40 +172,28 @@ public class Listener extends ListenerAdapter {
 		}
 	}
 	
-	//Message elevated users on guild join/leave
 	@Override
-	public void onGuildJoin(GuildJoinEvent e) {
+	public void onGenericGuild(GenericGuildEvent e) {
+		//Update guild, channel, and user count
 		Config.update();
+		
+		//Create message
+		String type = "join";
+		if (e instanceof GuildLeaveEvent) {
+			type = "leave";
+		} else if (!(e instanceof GuildJoinEvent)) {
+			return;
+		}
 		String m = 
-			"Joined guild `" + e.getGuild().getName() +
+			type + " guild `" + e.getGuild().getName() +
 			"` with owner `" + e.getGuild().getOwner().getEffectiveName() + "`";
+		
+		//Send message
 		System.out.println(m);
 		for (String id : Config.getElevatedUsers()) {
-			User user = new UserImpl(id, (JDAImpl) e.getJDA());
+			User user = e.getJDA().getUserById(id);
 			user.openPrivateChannel().complete().sendMessage(m).queue();
 		}
-	}
-	@Override
-	public void onGuildLeave(GuildLeaveEvent e) {
-		Config.update();
-		String m = 
-			"Left guild `" + e.getGuild().getName() +
-			"` with owner `" + e.getGuild().getOwner().getEffectiveName() + "`";
-		System.out.println(m);
-		for (String id : Config.getElevatedUsers()) {
-			User user = new UserImpl(id, (JDAImpl) e.getJDA());
-			user.openPrivateChannel().complete().sendMessage(m).queue();
-		}
-	}
-	
-	//Update config on guild available/unavailable
-	@Override
-	public void onGuildAvailable(GuildAvailableEvent e) {
-		Config.update();
-	}
-	@Override
-	public void onGuildUnavailable(GuildUnavailableEvent e) {
-		Config.update();
 	}
 	
 }

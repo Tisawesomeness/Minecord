@@ -2,14 +2,14 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.tisawesomeness</groupId>
   <artifactId>minecord</artifactId>
-  <version>0.2.0</version>
+  <version>0.2.1</version>
   
   <repositories>
     <repository>
- 	  <id>bintray-dv8fromtheworld-maven</id>
- 	  <name>bintray</name>
- 	  <url>https://dl.bintray.com/dv8fromtheworld/maven</url>
- 	</repository>
+       <id>bintray-dv8fromtheworld-maven</id>
+       <name>bintray</name>
+       <url>https://dl.bintray.com/dv8fromtheworld/maven</url>
+     </repository>
   </repositories>
   
   <dependencies>
@@ -83,15 +83,26 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>1.6</version>
+        <version>2.4.3</version>
         <executions>
           <execution>
             <phase>package</phase>
             <goals>
               <goal>shade</goal>
             </goals>
+            <configuration>
+              <relocations>
+                <relocation>
+                  <pattern>org.apache.commons</pattern>
+                  <shadedPattern>shaded.apache.commons</shadedPattern>
+                </relocation>
+              </relocations>
+            </configuration>
           </execution>
         </executions>
+        <configuration>
+          <createDependencyReducedPom>false</createDependencyReducedPom>
+        </configuration>
       </plugin>
     </plugins>
   </build>

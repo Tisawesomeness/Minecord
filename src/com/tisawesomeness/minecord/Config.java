@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,6 +17,7 @@ public class Config {
 	private static String clientToken;
 	private static boolean devMode;
 	private static boolean debugMode;
+	private static boolean logJDA;
 	private static String game;
 	private static String name;
 	private static String prefix;
@@ -23,6 +25,7 @@ public class Config {
 	private static boolean deleteCommands;
 	private static boolean sendTyping;
 	private static String invite;
+	private static boolean showMemory;
 	private static boolean elevatedSkipCooldown;
 	
 	private static ArrayList<String> elevatedUsers = new ArrayList<String>();
@@ -30,11 +33,18 @@ public class Config {
 	public Config(File file) {
 		
 		//Look for client token
-		for (String arg : Bot.args) {
-			if (arg.matches("{32,}")) {
-				System.out.println("Found custom client token: " + arg);
-				clientToken = arg;
-				break;
+		String[] args = Bot.args;
+		if (args.length > 1 && ArrayUtils.contains(args, "-t")) {
+			int index = ArrayUtils.indexOf(args, "-t");
+			if (index + 1 < args.length) {
+				args = ArrayUtils.remove(args, index);
+				String token = args[index];
+				if (token.matches("{32,}")) {
+					System.out.println("Found custom client token: " + token);
+					clientToken = token;
+					args = ArrayUtils.remove(args, index);
+				}
+				Bot.args = args;
 			}
 		}
 		
@@ -46,6 +56,7 @@ public class Config {
 			}
 			devMode = config.getBoolean("devMode");
 			debugMode = config.getBoolean("debugMode");
+			logJDA = config.getBoolean("logJDA");
 			game = config.getString("game");
 			name = config.getString("name");
 			prefix = config.getString("prefix");
@@ -53,6 +64,7 @@ public class Config {
 			deleteCommands = config.getBoolean("deleteCommands");
 			sendTyping = config.getBoolean("sendTyping");
 			invite = config.getString("invite");
+			showMemory = config.getBoolean("showMemory");
 			elevatedSkipCooldown = config.getBoolean("elevatedSkipCooldown");
 			
 			JSONArray eu = config.getJSONArray("elevatedUsers");
@@ -80,6 +92,7 @@ public class Config {
 	protected static String getClientToken() {return clientToken;}
 	public static boolean getDevMode() {return devMode;}
 	public static boolean getDebugMode() {return debugMode;}
+	public static boolean getLogJDA() {return logJDA;}
 	public static String getGame() {return game;}
 	public static String getName() {return name;}
 	public static String getPrefix() {return prefix;}
@@ -87,7 +100,9 @@ public class Config {
 	public static boolean getDeleteCommands() {return deleteCommands;}
 	public static boolean getSendTyping() {return sendTyping;}
 	public static String getInvite() {return invite;}
+	public static boolean getShowMemory() {return showMemory;}
 	public static boolean getElevatedSkipCooldown() {return elevatedSkipCooldown;}
+	
 	public static ArrayList<String> getElevatedUsers() {return elevatedUsers;}
 	
 }

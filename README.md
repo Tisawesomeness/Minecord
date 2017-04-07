@@ -35,6 +35,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Client Token:* Your unique bot token. **Do not upload it to GitHub, or people will be able to steal your bot!**
 - *Dev Mode:* Turning this on will let you reload code using `&reload` on the fly. When hosting the bot, it's best to keep this off in order to decrease memory usage.
 - *Debug Mode:* Prints additional info to console.
+- *Log JDA:* Whether or not to log messages from the JDA library.
 - *Game:* This is the game that the bot is playing, shown under the username. `{prefix}`, `{guilds}`, `{channels}`, and `{users}` are available variables.
 - *Name:* The name of the bot.
 - *Prefix:* The prefix of the bot. Use `>&` instead of `&` if you want to host your own bot alongside the main one.
@@ -42,6 +43,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Delete Commands:* If true, the commands sent by players (like `&help`) will be deleted to clean up chat. Requires permission to manage messages.
 - *Send Typing:* If true, the bot will send typing packets.
 - *Invite:* The invite link to use in `&info`.
+- *Show Memory:* Whether or not to show the memory in `&info`.
 - *Elevated Skip Cooldown:* Whether or not elevated users skip command cooldowns.
 - *Elevated Users:* A list of user IDs. Elevated users can do `&help admin` to view hidden commands, `&msg`, `&reload`, `&shutdown`, `&dump`, `&test`, and `&purge` in all servers.
 
@@ -51,6 +53,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 	"clientToken": "your token here",
 	"devMode": false,
 	"debugMode": false,
+	"logJDA": true,
 	"game": "{prefix}help | {guilds} guilds",
 	"name": "Minecord",
 	"prefix": "&",
@@ -58,6 +61,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 	"deleteCommands": true,
 	"sendTyping": true,
 	"invite": "https://goo.gl/Zh81Gb",
+	"showMemory": true,
 	"elevatedSkipCooldown": true,
 	"elevatedUsers": [
 		"211261249386708992",
@@ -65,6 +69,10 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 	]
 }
 ```
+
+### Command-Line Arguments
+- `-c <path/to/config.json>` - Defines a custom path to the config.json. Defaults to the current directory.
+- `-t <token>` - Overrides the token provided in the config.
 
 ### Conventions
 Feel free to contribute **to the dev branch** with whatever you like, but make sure to follow these conventions.
