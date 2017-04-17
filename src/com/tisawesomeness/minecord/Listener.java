@@ -178,9 +178,9 @@ public class Listener extends ListenerAdapter {
 		Config.update();
 		
 		//Create message
-		String type = "join";
+		String type = "Joined";
 		if (e instanceof GuildLeaveEvent) {
-			type = "leave";
+			type = "Left";
 		} else if (!(e instanceof GuildJoinEvent)) {
 			return;
 		}
