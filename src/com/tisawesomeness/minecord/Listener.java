@@ -116,12 +116,13 @@ public class Listener extends ListenerAdapter {
 					//Run command
 					Result result = null;
 					Exception exception = null;
+					cmd.cooldowns.put(a, System.currentTimeMillis());
+					cmd.uses++;
 					try {
 						result = cmd.run(args, e);
 					} catch (Exception ex) {
 						exception = ex;
 					}
-					cmd.cooldowns.put(a, System.currentTimeMillis());
 					
 					//Cancel typing
 					if (Config.getSendTyping() && ci.typing) {

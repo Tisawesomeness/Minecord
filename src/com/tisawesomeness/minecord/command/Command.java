@@ -12,6 +12,7 @@ import net.dv8tion.jda.core.entities.User;
  */
 public abstract class Command implements ICommand {
 	
+	public int uses = 0;
 	public HashMap<User, Long> cooldowns = new HashMap<User, Long>();
 	
 	/**
