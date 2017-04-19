@@ -3,6 +3,7 @@
 	"devMode": false,
 	"debugMode": false,
 	"logJDA": true,
+	"logChannel": "303574484483309569",
 	"game": "{prefix}help | {guilds} guilds",
 	"name": "Minecord",
 	"prefix": "&",

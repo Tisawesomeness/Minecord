@@ -36,6 +36,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Dev Mode:* Turning this on will let you reload code using `&reload` on the fly. When hosting the bot, it's best to keep this off in order to decrease memory usage.
 - *Debug Mode:* Prints additional info to console.
 - *Log JDA:* Whether or not to log messages from the JDA library.
+- *Log Channel:* The bot will send any logging messages to this channel.
 - *Game:* This is the game that the bot is playing, shown under the username. `{prefix}`, `{guilds}`, `{channels}`, and `{users}` are available variables.
 - *Name:* The name of the bot.
 - *Prefix:* The prefix of the bot. Use `>&` instead of `&` if you want to host your own bot alongside the main one.
@@ -55,6 +56,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 	"devMode": false,
 	"debugMode": false,
 	"logJDA": true,
+	"logChannel": "303574484483309569",
 	"game": "{prefix}help | {guilds} guilds",
 	"name": "Minecord",
 	"prefix": "&",

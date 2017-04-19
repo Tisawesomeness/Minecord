@@ -18,6 +18,7 @@ public class Config {
 	private static boolean devMode;
 	private static boolean debugMode;
 	private static boolean logJDA;
+	private static String logChannel;
 	private static String game;
 	private static String name;
 	private static String prefix;
@@ -58,6 +59,7 @@ public class Config {
 			devMode = config.getBoolean("devMode");
 			debugMode = config.getBoolean("debugMode");
 			logJDA = config.getBoolean("logJDA");
+			logChannel = config.getString("logChannel");
 			game = config.getString("game");
 			name = config.getString("name");
 			prefix = config.getString("prefix");
@@ -95,6 +97,7 @@ public class Config {
 	public static boolean getDevMode() {return devMode;}
 	public static boolean getDebugMode() {return debugMode;}
 	public static boolean getLogJDA() {return logJDA;}
+	public static String getLogChannel() {return logChannel;}
 	public static String getGame() {return game;}
 	public static String getName() {return name;}
 	public static String getPrefix() {return prefix;}

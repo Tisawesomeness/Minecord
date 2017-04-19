@@ -14,8 +14,10 @@ import com.tisawesomeness.minecord.command.Command.Outcome;
 import com.tisawesomeness.minecord.command.Command.Result;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.ChannelType;
+import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.guild.GenericGuildEvent;
@@ -30,7 +32,7 @@ public class Listener extends ListenerAdapter {
 	public void onMessageReceived(MessageReceivedEvent e) {
 		//Process text message
 		if (e.getChannelType() == ChannelType.TEXT) {
-
+			
 			//If the message was sent by a human and commands are enabled
 			if (Registry.enabled && e.getMessage() != null && !e.getMessage().getAuthor().isBot()) {
 				
@@ -45,6 +47,14 @@ public class Listener extends ListenerAdapter {
 				} else if (e.getMessage().getRawContent().replaceFirst("@!", "@").startsWith(mention)) {
 					msg = ArrayUtils.removeElement(msg, msg[0]);
 					name = msg[0].replaceFirst(Pattern.quote(mention), "");
+				} else if (e.getMessage().isMentioned(e.getJDA().getSelfUser())) {
+					
+					//Send any message mentioning the bot to the logging channel
+					EmbedBuilder eb = new EmbedBuilder();
+					eb.setAuthor(e.getAuthor().getName(), null, e.getAuthor().getEffectiveAvatarUrl());
+					eb.setDescription(e.getMessage().getContent());
+					e.getJDA().getTextChannelById(Config.getLogChannel()).sendMessage(eb.build());
+					
 				} else {
 					return;
 				}
@@ -175,7 +185,10 @@ public class Listener extends ListenerAdapter {
 		//Process private message
 		} else if (e.getChannelType() == ChannelType.PRIVATE) {
 			if (e.getAuthor() != e.getJDA().getSelfUser()) {
-				System.out.println("[DM] " + e.getAuthor().getName() + ": " + e.getMessage().getContent());
+				EmbedBuilder eb = new EmbedBuilder();
+				eb.setAuthor(e.getAuthor().getName(), null, e.getAuthor().getEffectiveAvatarUrl());
+				eb.setDescription(e.getMessage().getContent());
+				e.getJDA().getTextChannelById(Config.getLogChannel()).sendMessage(eb.build());
 			}
 		}
 	}
@@ -192,16 +205,14 @@ public class Listener extends ListenerAdapter {
 		} else if (!(e instanceof GuildJoinEvent)) {
 			return;
 		}
-		String m = 
-			type + " guild `" + e.getGuild().getName() +
-			"` with owner `" + e.getGuild().getOwner().getEffectiveName() + "`";
 		
-		//Send message
-		System.out.println(m);
-		for (String id : Config.getElevatedUsers()) {
-			User user = e.getJDA().getUserById(id);
-			user.openPrivateChannel().complete().sendMessage(m).queue();
-		}
+		//Build message
+		Member owner = e.getGuild().getOwner();
+		EmbedBuilder eb = new EmbedBuilder();
+		eb.setAuthor(owner.getEffectiveName(), null, owner.getEffectiveName());
+		eb.setDescription(type + " guild `" + e.getGuild().getName() + "`");
+		eb.setThumbnail(e.getGuild().getIconUrl());
+		e.getJDA().getTextChannelById(Config.getLogChannel()).sendMessage(eb.build());
 	}
 	
 }
