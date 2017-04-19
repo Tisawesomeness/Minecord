@@ -30,17 +30,24 @@ public class Listener extends ListenerAdapter {
 	public void onMessageReceived(MessageReceivedEvent e) {
 		//Process text message
 		if (e.getChannelType() == ChannelType.TEXT) {
-			
-			if (
-				//If the message starts with the right prefix and was sent by a human and commands are enabled
-				Registry.enabled &&
-				e.getMessage() != null &&
-				e.getMessage().getContent().startsWith(Config.getPrefix()) &&
-				!e.getMessage().getAuthor().isBot()
-			) {
+
+			//If the message was sent by a human and commands are enabled
+			if (Registry.enabled && e.getMessage() != null && !e.getMessage().getAuthor().isBot()) {
+				
 				//Extract the command name and argument list
-				String[] msg = e.getMessage().getContent().split(" ");
-				String name = msg[0].replaceFirst(Pattern.quote(Config.getPrefix()), "");
+				String mention = e.getJDA().getSelfUser().getAsMention();
+				String[] msg = e.getMessage().getRawContent().split(" ");
+				String name = "";
+				
+				if (e.getMessage().getContent().startsWith(Config.getPrefix())) {
+					msg = e.getMessage().getContent().split(" ");
+					name = msg[0].replaceFirst(Pattern.quote(Config.getPrefix()), "");
+				} else if (e.getMessage().getRawContent().replaceFirst("@!", "@").startsWith(mention)) {
+					msg = ArrayUtils.removeElement(msg, msg[0]);
+					name = msg[0].replaceFirst(Pattern.quote(mention), "");
+				} else {
+					return;
+				}
 				String[] args = ArrayUtils.removeElement(msg, msg[0]);
 				
 				//If the command has been registered

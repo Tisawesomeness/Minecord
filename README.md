@@ -39,6 +39,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Game:* This is the game that the bot is playing, shown under the username. `{prefix}`, `{guilds}`, `{channels}`, and `{users}` are available variables.
 - *Name:* The name of the bot.
 - *Prefix:* The prefix of the bot. Use `>&` instead of `&` if you want to host your own bot alongside the main one.
+- *Respond To Mentions:* This option decides if the bot will respond to being mentioned at the beginning of a message, so you can use `@Minecord#1216 help` to execute `&help`.
 - *Notification Time:* The default time to show notifications in miliseconds (4000ms = 4s). This value is multiplied based on the length of the notification sent.
 - *Delete Commands:* If true, the commands sent by players (like `&help`) will be deleted to clean up chat. Requires permission to manage messages.
 - *Send Typing:* If true, the bot will send typing packets.
@@ -57,6 +58,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 	"game": "{prefix}help | {guilds} guilds",
 	"name": "Minecord",
 	"prefix": "&",
+	"respondToMentions": true,
 	"notificationTime": 4000,
 	"deleteCommands": true,
 	"sendTyping": true,

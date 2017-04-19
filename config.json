@@ -6,6 +6,7 @@
 	"game": "{prefix}help | {guilds} guilds",
 	"name": "Minecord",
 	"prefix": "&",
+	"respondToMentions": true,
 	"notificationTime": 4000,
 	"deleteCommands": true,
 	"sendTyping": true,
