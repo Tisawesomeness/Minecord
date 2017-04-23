@@ -41,6 +41,9 @@ public class Listener extends ListenerAdapter {
 				String[] msg = e.getMessage().getRawContent().split(" ");
 				String name = "";
 				
+				System.out.println(e.getMessage().getRawContent());
+				System.out.println(mention);
+				
 				if (e.getMessage().getContent().startsWith(Config.getPrefix())) {
 					msg = e.getMessage().getContent().split(" ");
 					name = msg[0].replaceFirst(Pattern.quote(Config.getPrefix()), "");
@@ -53,7 +56,7 @@ public class Listener extends ListenerAdapter {
 					EmbedBuilder eb = new EmbedBuilder();
 					eb.setAuthor(e.getAuthor().getName(), null, e.getAuthor().getEffectiveAvatarUrl());
 					eb.setDescription(e.getMessage().getContent());
-					e.getJDA().getTextChannelById(Config.getLogChannel()).sendMessage(eb.build());
+					e.getJDA().getTextChannelById(Config.getLogChannel()).sendMessage(eb.build()).queue();
 					
 				} else {
 					return;
@@ -188,7 +191,7 @@ public class Listener extends ListenerAdapter {
 				EmbedBuilder eb = new EmbedBuilder();
 				eb.setAuthor(e.getAuthor().getName(), null, e.getAuthor().getEffectiveAvatarUrl());
 				eb.setDescription(e.getMessage().getContent());
-				e.getJDA().getTextChannelById(Config.getLogChannel()).sendMessage(eb.build());
+				e.getJDA().getTextChannelById(Config.getLogChannel()).sendMessage(eb.build()).queue();
 			}
 		}
 	}
@@ -212,7 +215,7 @@ public class Listener extends ListenerAdapter {
 		eb.setAuthor(owner.getEffectiveName(), null, owner.getEffectiveName());
 		eb.setDescription(type + " guild `" + e.getGuild().getName() + "`");
 		eb.setThumbnail(e.getGuild().getIconUrl());
-		e.getJDA().getTextChannelById(Config.getLogChannel()).sendMessage(eb.build());
+		e.getJDA().getTextChannelById(Config.getLogChannel()).sendMessage(eb.build()).queue();
 	}
 	
 }
