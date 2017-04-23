@@ -39,6 +39,7 @@ public class Registry {
 			new CapeCommand(),
 			new Text(true, "\n**Admin Commands:**"),
 			new MsgCommand(),
+			new UsageCommand(),
 			new ReloadCommand(),
 			new ShutdownCommand(),
 			new DumpCommand(),
