@@ -10,19 +10,21 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Registry;
+import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import net.dv8tion.jda.core.utils.SimpleLog;
 import net.dv8tion.jda.core.utils.SimpleLog.Level;
 
 public class Bot {
 	
-	protected static JDA jda;
+	public static JDA jda;
 	private static Listener listener;
 	private static final String version = "0.2.1";
 	public static long birth;
@@ -73,15 +75,18 @@ public class Bot {
 			if (reload && Config.getDevMode()) {
 				
 				//Get main class info
-				Object jo = main.getDeclaredMethods()[MethodName.GET_JDA.num].invoke(null, "ignore");
-				jda = (JDA) jo;
 				Object mo = main.getDeclaredMethods()[MethodName.GET_MESSAGE.num].invoke(null, "ignore");
 				Message m = (Message) mo;
+				Object uo = main.getDeclaredMethods()[MethodName.GET_USER.num].invoke(null, "ignore");
+				User u = (User) uo;
+				Object jo = main.getDeclaredMethods()[MethodName.GET_JDA.num].invoke(null, "ignore");
+				jda = (JDA) jo;
 				Object bo = main.getDeclaredMethods()[MethodName.GET_BIRTH.num].invoke(null, "ignore");
 				birth = (long) bo;
 				//Prepare commands
 				jda.addEventListener(listener);
 				m.editMessage(":white_check_mark: Bot reloaded!").queue();
+				MessageUtils.log(":white_check_mark: Bot reloaded by " + u.getName());
 				
 				//Delete notification
 				if (Config.getNotificationTime() >= 0) {
@@ -124,6 +129,7 @@ public class Bot {
 					main.getDeclaredMethods()[MethodName.SET_JDA.num].invoke(null, jda);
 					main.getDeclaredMethods()[MethodName.SET_BIRTH.num].invoke(null, birth);
 				}
+				MessageUtils.log(":white_check_mark: Bot started!");
 				
 			}
 		} catch (Exception ex) {
@@ -138,7 +144,7 @@ public class Bot {
 	}
 	
 	@SuppressWarnings("static-access")
-	public static void shutdown(Message m) {
+	public static void shutdown(Message m, User u) {
 		
 		//Disable JDA
 		jda.setAutoReconnect(false);
@@ -150,6 +156,7 @@ public class Bot {
 			String[] args = new String[]{"-r"};
 			ArrayUtils.addAll(args, Bot.args);
 			main.getDeclaredMethods()[MethodName.SET_MESSAGE.num].invoke(null, m);
+			main.getDeclaredMethods()[MethodName.SET_USER.num].invoke(null, u);
 			main.getDeclaredMethods()[MethodName.LOAD.num].invoke(null, (Object) args);
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -171,10 +178,12 @@ public class Bot {
 		LOAD(1),
 		GET_MESSAGE(2),
 		SET_MESSAGE(3),
-		GET_JDA(4),
-		SET_JDA(5),
-		GET_BIRTH(6),
-		SET_BIRTH(7);
+		GET_USER(4),
+		SET_USER(5),
+		GET_JDA(6),
+		SET_JDA(7),
+		GET_BIRTH(8),
+		SET_BIRTH(9);
 		
 		int num;
 		private MethodName(int num) {
