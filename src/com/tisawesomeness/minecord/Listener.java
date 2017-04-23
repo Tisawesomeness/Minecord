@@ -56,7 +56,7 @@ public class Listener extends ListenerAdapter {
 					EmbedBuilder eb = new EmbedBuilder();
 					eb.setAuthor(e.getAuthor().getName(), null, e.getAuthor().getEffectiveAvatarUrl());
 					eb.setDescription(e.getMessage().getContent());
-					e.getJDA().getTextChannelById(Config.getLogChannel()).sendMessage(eb.build()).queue();
+					MessageUtils.log(eb.build());
 					
 				} else {
 					return;
@@ -191,7 +191,7 @@ public class Listener extends ListenerAdapter {
 				EmbedBuilder eb = new EmbedBuilder();
 				eb.setAuthor(e.getAuthor().getName(), null, e.getAuthor().getEffectiveAvatarUrl());
 				eb.setDescription(e.getMessage().getContent());
-				e.getJDA().getTextChannelById(Config.getLogChannel()).sendMessage(eb.build()).queue();
+				MessageUtils.log(eb.build());
 			}
 		}
 	}
@@ -215,7 +215,7 @@ public class Listener extends ListenerAdapter {
 		eb.setAuthor(owner.getEffectiveName(), null, owner.getEffectiveName());
 		eb.setDescription(type + " guild `" + e.getGuild().getName() + "`");
 		eb.setThumbnail(e.getGuild().getIconUrl());
-		e.getJDA().getTextChannelById(Config.getLogChannel()).sendMessage(eb.build()).queue();
+		MessageUtils.log(eb.build());
 	}
 	
 }
