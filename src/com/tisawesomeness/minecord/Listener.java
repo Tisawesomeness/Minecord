@@ -20,6 +20,7 @@ import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.guild.GenericGuildEvent;
@@ -34,27 +35,30 @@ public class Listener extends ListenerAdapter {
 	public void onMessageReceived(MessageReceivedEvent e) {
 		//Process text message
 		if (e.getChannelType() == ChannelType.TEXT) {
+			Message m = e.getMessage();
 			
 			//If the message was sent by a human and commands are enabled
-			if (Registry.enabled && e.getMessage() != null && !e.getMessage().getAuthor().isBot()) {
+			if (Registry.enabled && m != null && !m.getAuthor().isBot()) {
 				
 				//Extract the command name and argument list
 				String mention = e.getJDA().getSelfUser().getAsMention();
-				String[] msg = e.getMessage().getRawContent().split(" ");
+				String[] msg = m.getRawContent().split(" ");
 				String name = "";
 				
-				if (e.getMessage().getContent().startsWith(Config.getPrefix())) {
-					msg = e.getMessage().getContent().split(" ");
+				if (m.getContent().startsWith(Config.getPrefix())) {
+					msg = m.getContent().split(" ");
 					name = msg[0].replaceFirst(Pattern.quote(Config.getPrefix()), "");
-				} else if (e.getMessage().getRawContent().replaceFirst("@!", "@").startsWith(mention)) {
+				} else if (m.mentionsEveryone()) {
+					return;
+				} else if (m.getRawContent().replaceFirst("@!", "@").startsWith(mention)) {
 					msg = ArrayUtils.removeElement(msg, msg[0]);
 					name = msg[0].replaceFirst(Pattern.quote(mention), "");
-				} else if (e.getMessage().isMentioned(e.getJDA().getSelfUser())) {
+				} else if (m.isMentioned(e.getJDA().getSelfUser())) {
 					
 					//Send any message mentioning the bot to the logging channel
 					EmbedBuilder eb = new EmbedBuilder();
 					eb.setAuthor(e.getAuthor().getName(), null, e.getAuthor().getEffectiveAvatarUrl());
-					eb.setDescription(e.getMessage().getContent());
+					eb.setDescription(m.getContent());
 					MessageUtils.log(eb.build());
 					return;
 					
@@ -70,7 +74,7 @@ public class Listener extends ListenerAdapter {
 					//Delete message if enabled in the config and the bot has permissions
 					if (e.getGuild().getSelfMember().hasPermission(c, Permission.MESSAGE_MANAGE)) {
 						if (Config.getDeleteCommands()) {
-							e.getMessage().delete().complete();
+							m.delete().complete();
 						}
 					} else {
 						System.out.println("No permission: MESSAGE_MANAGE");
@@ -151,11 +155,11 @@ public class Listener extends ListenerAdapter {
 					//Catch exceptions
 					if (result == null) {
 						if (exception != null) {exception.printStackTrace();}
-						String m = ":x: There was an unexpected exception: `" + exception + "`";
+						String err = ":x: There was an unexpected exception: `" + exception + "`";
 						if (Config.getDebugMode()) {
-							m = m + "\n" + exception.getStackTrace();
+							err = err + "\n" + exception.getStackTrace();
 						}
-						MessageUtils.notify(m, c);
+						MessageUtils.notify(err, c);
 					//If message is empty
 					} if (result.message == null) {
 						if (result.outcome != null && result.outcome != Outcome.SUCCESS) {
