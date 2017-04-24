@@ -54,6 +54,7 @@ public class Listener extends ListenerAdapter {
 					eb.setAuthor(e.getAuthor().getName(), null, e.getAuthor().getEffectiveAvatarUrl());
 					eb.setDescription(e.getMessage().getContent());
 					MessageUtils.log(eb.build());
+					return;
 					
 				} else {
 					return;
