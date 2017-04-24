@@ -60,7 +60,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 	"devMode": false,
 	"debugMode": false,
 	"logJDA": true,
-	"logChannel": "303574484483309569",
+	"logChannel": "306118666745806851",
 	"sendServerCount": false,
     "pwToken": "your token here",
     "netToken": "your token here",
