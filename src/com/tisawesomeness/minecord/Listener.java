@@ -213,7 +213,7 @@ public class Listener extends ListenerAdapter {
 		Guild guild = e.getGuild();
 		Member owner = guild.getOwner();
 		EmbedBuilder eb = new EmbedBuilder();
-		eb.setAuthor(owner.getEffectiveName(), null, owner.getEffectiveName());
+		eb.setAuthor(owner.getEffectiveName(), null, owner.getUser().getAvatarUrl());
 		eb.setDescription(type + " guild `" + guild.getName() + "` with `" + guild.getMembers().size() + "` users.");
 		eb.setThumbnail(guild.getIconUrl());
 		MessageUtils.log(eb.build());
