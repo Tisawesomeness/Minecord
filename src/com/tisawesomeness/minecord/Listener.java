@@ -17,6 +17,7 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.ChannelType;
+import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
@@ -208,11 +209,12 @@ public class Listener extends ListenerAdapter {
 		}
 		
 		//Build message
-		Member owner = e.getGuild().getOwner();
+		Guild guild = e.getGuild();
+		Member owner = guild.getOwner();
 		EmbedBuilder eb = new EmbedBuilder();
 		eb.setAuthor(owner.getEffectiveName(), null, owner.getEffectiveName());
-		eb.setDescription(type + " guild `" + e.getGuild().getName() + "`");
-		eb.setThumbnail(e.getGuild().getIconUrl());
+		eb.setDescription(type + " guild `" + guild.getName() + "` with `" + guild.getMembers().size() + "` users.");
+		eb.setThumbnail(guild.getIconUrl());
 		MessageUtils.log(eb.build());
 	}
 	
