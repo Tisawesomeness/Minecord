@@ -85,8 +85,8 @@ public class Bot {
 				birth = (long) bo;
 				//Prepare commands
 				jda.addEventListener(listener);
-				m.editMessage(":white_check_mark: Bot reloaded!").queue();
-				MessageUtils.log(":white_check_mark: Bot reloaded by " + u.getName());
+				m.editMessage(":white_check_mark: **Bot reloaded!**").queue();
+				MessageUtils.log(":white_check_mark: **Bot reloaded by " + u.getName() + "**");
 				
 				//Delete notification
 				if (Config.getNotificationTime() >= 0) {
@@ -129,7 +129,7 @@ public class Bot {
 					main.getDeclaredMethods()[MethodName.SET_JDA.num].invoke(null, jda);
 					main.getDeclaredMethods()[MethodName.SET_BIRTH.num].invoke(null, birth);
 				}
-				MessageUtils.log(":white_check_mark: Bot started!");
+				MessageUtils.log(":white_check_mark: **Bot started!**");
 				
 			}
 		} catch (Exception ex) {
