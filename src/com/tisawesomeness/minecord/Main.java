@@ -57,7 +57,7 @@ public class Main {
 	public static void setMessage(Message m) {
 		message = m;
 	}
-	public static User getUser(User ignore) {
+	public static User getUser(String ignore) {
 		return user;
 	}
 	public static void setUser(User u) {
