@@ -37,6 +37,9 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Debug Mode:* Prints additional info to console.
 - *Log JDA:* Whether or not to log messages from the JDA library.
 - *Log Channel:* The bot will send any logging messages to this channel.
+- *Send Server Count:* Whether or not the bot should send the guild count to bot list websites.
+- *Pw Token:* The token to use on bots.discord.pw.
+- *Net Token:* The token to use on bots.discordlist.net.
 - *Game:* This is the game that the bot is playing, shown under the username. `{prefix}`, `{guilds}`, `{channels}`, and `{users}` are available variables.
 - *Name:* The name of the bot.
 - *Prefix:* The prefix of the bot. Use `>&` instead of `&` if you want to host your own bot alongside the main one.
@@ -57,6 +60,9 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 	"debugMode": false,
 	"logJDA": true,
 	"logChannel": "303574484483309569",
+	"sendServerCount": false,
+    "pwToken": "your token here",
+    "netToken": "your token here",
 	"game": "{prefix}help | {guilds} guilds",
 	"name": "Minecord",
 	"prefix": "&",

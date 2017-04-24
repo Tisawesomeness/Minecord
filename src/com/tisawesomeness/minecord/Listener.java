@@ -13,6 +13,7 @@ import com.tisawesomeness.minecord.command.Command.CommandInfo;
 import com.tisawesomeness.minecord.command.Command.Outcome;
 import com.tisawesomeness.minecord.command.Command.Result;
 import com.tisawesomeness.minecord.util.MessageUtils;
+import com.tisawesomeness.minecord.util.RequestUtils;
 
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
@@ -216,6 +217,17 @@ public class Listener extends ListenerAdapter {
 		eb.setDescription(type + " guild `" + guild.getName() + "` with `" + guild.getMembers().size() + "` users.");
 		eb.setThumbnail(guild.getIconUrl());
 		MessageUtils.log(eb.build());
+		
+		//Send guild count
+		if (Config.getSendServerCount()) {
+			int servers = e.getJDA().getGuilds().size();
+			String url = "https://bots.discord.pw/api/bots/" + e.getJDA().getSelfUser().getId() + "/stats";
+			String query = "{\"server_count\": " + servers + "}";
+			RequestUtils.post(url, Config.getPwToken());
+			url = "https://bots.discordlist.net/api";
+			query = "{\"token\": \"" + Config.getNetToken() + "\",\"servers\": " + servers + "}";
+			RequestUtils.post(url, query);
+		}
 	}
 	
 }
