@@ -86,7 +86,7 @@ public class Bot {
 				//Prepare commands
 				jda.addEventListener(listener);
 				m.editMessage(":white_check_mark: **Bot reloaded!**").queue();
-				MessageUtils.log(":white_check_mark: **Bot reloaded by " + u.getName() + "**");
+				MessageUtils.log(":arrows_counterclockwise: **Bot reloaded by " + u.getName() + "**");
 				
 				//Delete notification
 				if (Config.getNotificationTime() >= 0) {
