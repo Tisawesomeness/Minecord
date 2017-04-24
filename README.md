@@ -2,6 +2,7 @@
 A robust Discord bot using the JDA library for various Minecraft functions.
 - Invite: https://goo.gl/Zh81Gb
 - Bot User: Minecord#1216
+- Support Server: https://discord.gg/7keuKSb
 
 ### Command List
 #### General Commands
