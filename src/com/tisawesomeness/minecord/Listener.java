@@ -41,9 +41,6 @@ public class Listener extends ListenerAdapter {
 				String[] msg = e.getMessage().getRawContent().split(" ");
 				String name = "";
 				
-				System.out.println(e.getMessage().getRawContent());
-				System.out.println(mention);
-				
 				if (e.getMessage().getContent().startsWith(Config.getPrefix())) {
 					msg = e.getMessage().getContent().split(" ");
 					name = msg[0].replaceFirst(Pattern.quote(Config.getPrefix()), "");
