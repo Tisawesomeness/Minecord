@@ -46,7 +46,7 @@ public class ServerCommand extends Command {
 		
 		//Send a request to MCAPI
 		String url = "https://mcapi.ca/query/" + arg + "/info";
-		String request = RequestUtils.get(url, "application/json");
+		String request = RequestUtils.get(url);
 		if (request == null) {
 			return new Result(Outcome.ERROR, ":x: The MCAPI could not be reached.");
 		}

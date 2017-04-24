@@ -27,7 +27,7 @@ public class NameUtils {
 	
 	private static String getUUIDInternal(String query) {
 		String url = "https://api.mojang.com/users/profiles/minecraft/" + query;
-		String request = RequestUtils.get(url, "application/json");
+		String request = RequestUtils.get(url);
 		if (request == null) {
 			return null;
 		}

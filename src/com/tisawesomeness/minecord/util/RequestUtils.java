@@ -13,6 +13,7 @@ import java.util.Scanner;
 public class RequestUtils {
 	
 	static final String charset = java.nio.charset.StandardCharsets.UTF_8.name();
+	static final String contentType = "application/json";
 	
 	/**
 	 * Performs an HTTP GET request.
@@ -20,7 +21,7 @@ public class RequestUtils {
 	 * @param contentType The content type of the request.
 	 * @return The response of the request in string form.
 	 */
-	public static String get(String url, String contentType) {
+	public static String get(String url) {
 		if (!checkURL(url)) {return null;}
 		try {
 			
@@ -48,7 +49,7 @@ public class RequestUtils {
 	 * @param contentType The content type of the request.
 	 * @return The response of the request in string form.
 	 */
-	public static String post(String url, String query, String contentType) {
+	public static String post(String url, String query) {
 		URLConnection connection;
 		try {
 			

@@ -32,7 +32,7 @@ public class SalesCommand extends Command {
 		
 		//Send a request to Mojang
 		String payload = "{\"metricKeys\":[\"item_sold_minecraft\",\"prepaid_card_redeemed_minecraft\"]}";
-		String request = RequestUtils.post("https://api.mojang.com/orders/statistics", payload, "application/json");
+		String request = RequestUtils.post("https://api.mojang.com/orders/statistics", payload);
 		if (request == null) {
 			return new Result(Outcome.ERROR, ":x: The Mojang API could not be reached.");
 		}
