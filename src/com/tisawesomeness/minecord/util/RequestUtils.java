@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Scanner;
@@ -13,21 +14,29 @@ import java.util.Scanner;
 public class RequestUtils {
 	
 	static final String charset = java.nio.charset.StandardCharsets.UTF_8.name();
+	static final String contentType = "application/json";
 	
 	/**
 	 * Performs an HTTP GET request.
 	 * @param url The request URL.
-	 * @param contentType The content type of the request.
 	 * @return The response of the request in string form.
 	 */
-	public static String get(String url, String contentType) {
+	public static String get(String url) {
+		return get(url, null);
+	}
+	
+	/**
+	 * Performs an HTTP GET request.
+	 * @param url The request URL.
+	 * @param auth The content of the Authorization header.
+	 * @return The response of the request in string form.
+	 */
+	public static String get(String url, String auth) {
 		if (!checkURL(url)) {return null;}
 		try {
 			
-			URLConnection connection = new URL(url).openConnection();
-			connection.setRequestProperty("Accept-Charset", charset);
-			connection.setRequestProperty("Content-Type", contentType);
-			InputStream response = connection.getInputStream();
+			URLConnection conn = open(url, auth);
+			InputStream response = conn.getInputStream();
 			
 			Scanner scanner = new Scanner(response);
 			String responseBody = scanner.useDelimiter("\\A").next();
@@ -38,30 +47,34 @@ public class RequestUtils {
 			e.printStackTrace();
 			return null;
 		}
-		
 	}
 	
 	/**
 	 * Performs an HTTP POST request.
 	 * @param url The request URL.
 	 * @param query The request payload, in string form.
-	 * @param contentType The content type of the request.
 	 * @return The response of the request in string form.
 	 */
-	public static String post(String url, String query, String contentType) {
-		URLConnection connection;
+	public static String post(String url, String query) {
+		return post(url, query, null);
+	}
+	
+	/**
+	 * Performs an HTTP POST request.
+	 * @param url The request URL.
+	 * @param query The request payload, in string form.
+	 * @param auth The content of the Authorization header.
+	 * @return The response of the request in string form.
+	 */
+	public static String post(String url, String query, String auth) {
 		try {
 			
-			connection = new URL(url).openConnection();
-			connection.setDoOutput(true);
-			connection.setRequestProperty("Accept-Charset", charset);
-			connection.setRequestProperty("Content-Type", contentType);
-			
-			OutputStream output = connection.getOutputStream();
+			URLConnection conn = open(url, auth);
+			OutputStream output = conn.getOutputStream();
 			output.write(query.getBytes(charset));
 			output.close();
 			
-			InputStream response = connection.getInputStream();
+			InputStream response = conn.getInputStream();
 
 			String outputStr = null;
 			if (charset != null) {
@@ -77,7 +90,17 @@ public class RequestUtils {
 			e.printStackTrace();
 			return null;
 		}
-		
+	}
+	
+	private static URLConnection open(String url, String auth) throws MalformedURLException, IOException {
+		URLConnection conn = new URL(url).openConnection();
+		conn.setDoOutput(true);
+		conn.setRequestProperty("Accept-Charset", charset);
+		conn.setRequestProperty("Content-Type", contentType);
+		if (auth != null) {
+			conn.setRequestProperty("Authorization", auth);
+		}
+		return conn;
 	}
 	
 	/**

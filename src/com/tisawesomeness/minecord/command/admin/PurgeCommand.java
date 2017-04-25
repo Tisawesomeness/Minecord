@@ -51,6 +51,9 @@ public class PurgeCommand extends Command {
 		int num = 50;
 		if (args.length > 0 && args[0].matches("^[0-9]+$")) {
 			num = Integer.valueOf(args[0]);
+			if (num <= 0 || num > 1000) {
+				return new Result(Outcome.ERROR, ":x: The number must be between 1-1000.");
+			}
 		} else {
 			return new Result(Outcome.WARNING, ":warning: Please specify a number!");
 		}
@@ -62,14 +65,24 @@ public class PurgeCommand extends Command {
 		while (mine.size() < num) {
 			try {
 
-				//Fetch messages in batches of 26
+				//Fetch messages in batches of 25
 				ArrayList<Message> temp = new ArrayList<>();
 				List<Message> msgs = mh.retrievePast(25).complete(true);
+				boolean exit = false;
 				for (Message m : msgs) {
 					if (m.getAuthor() == e.getJDA().getSelfUser()) {
 						temp.add(m);
+						System.out.println(mine.size() + " | " + temp.size() + " | " +
+							m.getAuthor().getName() + " | " + m.getContent());
+					}
+					if (mine.size() + temp.size() >= num) {
+						exit = true;
+						break;
 					}
 				}
+				
+				mine.addAll(temp);
+				if (exit) {break;}
 				
 				//If no messages were found, log it
 				if (temp.size() > 0) {
@@ -77,8 +90,6 @@ public class PurgeCommand extends Command {
 				} else {
 					empty++;
 				}
-				
-				mine.addAll(temp);
 				
 			} catch (RateLimitedException ex) {
 				ex.printStackTrace();

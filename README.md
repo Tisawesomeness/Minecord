@@ -2,6 +2,7 @@
 A robust Discord bot using the JDA library for various Minecraft functions.
 - Invite: https://goo.gl/Zh81Gb
 - Bot User: Minecord#1216
+- Support Server: https://discord.gg/7keuKSb
 
 ### Command List
 #### General Commands
@@ -36,9 +37,14 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Dev Mode:* Turning this on will let you reload code using `&reload` on the fly. When hosting the bot, it's best to keep this off in order to decrease memory usage.
 - *Debug Mode:* Prints additional info to console.
 - *Log JDA:* Whether or not to log messages from the JDA library.
+- *Log Channel:* The bot will send any logging messages to this channel.
+- *Send Server Count:* Whether or not the bot should send the guild count to bot list websites.
+- *Pw Token:* The token to use on bots.discord.pw.
+- *Net Token:* The token to use on bots.discordlist.net.
 - *Game:* This is the game that the bot is playing, shown under the username. `{prefix}`, `{guilds}`, `{channels}`, and `{users}` are available variables.
 - *Name:* The name of the bot.
 - *Prefix:* The prefix of the bot. Use `>&` instead of `&` if you want to host your own bot alongside the main one.
+- *Respond To Mentions:* This option decides if the bot will respond to being mentioned at the beginning of a message, so you can use `@Minecord#1216 help` to execute `&help`.
 - *Notification Time:* The default time to show notifications in miliseconds (4000ms = 4s). This value is multiplied based on the length of the notification sent.
 - *Delete Commands:* If true, the commands sent by players (like `&help`) will be deleted to clean up chat. Requires permission to manage messages.
 - *Send Typing:* If true, the bot will send typing packets.
@@ -54,9 +60,14 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 	"devMode": false,
 	"debugMode": false,
 	"logJDA": true,
+	"logChannel": "306118666745806851",
+	"sendServerCount": false,
+	"pwToken": "your token here",
+	"netToken": "your token here",
 	"game": "{prefix}help | {guilds} guilds",
 	"name": "Minecord",
 	"prefix": "&",
+	"respondToMentions": true,
 	"notificationTime": 4000,
 	"deleteCommands": true,
 	"sendTyping": true,

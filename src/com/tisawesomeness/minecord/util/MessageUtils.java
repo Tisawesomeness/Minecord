@@ -7,6 +7,7 @@ import java.util.TimerTask;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -143,6 +144,25 @@ public class MessageUtils {
 			}
 		}
 		return -1;
+	}
+	
+	/**
+	 * Logs a message to the logging channel.
+	 */
+	public static void log(String m) {
+		Bot.jda.getTextChannelById(Config.getLogChannel()).sendMessage(m).queue();
+	}
+	/**
+	 * Logs a message to the logging channel.
+	 */
+	public static void log(Message m) {
+		Bot.jda.getTextChannelById(Config.getLogChannel()).sendMessage(m).queue();
+	}
+	/**
+	 * Logs a message to the logging channel.
+	 */
+	public static void log(MessageEmbed m) {
+		Bot.jda.getTextChannelById(Config.getLogChannel()).sendMessage(m).queue();
 	}
 
 }

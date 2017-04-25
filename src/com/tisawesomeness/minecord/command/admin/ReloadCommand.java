@@ -34,7 +34,7 @@ public class ReloadCommand extends Command {
 		
 		//Shut down bot
 		Message m = e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
-		Bot.shutdown(m);
+		Bot.shutdown(m, e.getAuthor());
 		
 		return new Result(Outcome.SUCCESS, "");
 	}

@@ -13,9 +13,14 @@ import com.tisawesomeness.minecord.command.Command.CommandInfo;
 import com.tisawesomeness.minecord.command.Command.Outcome;
 import com.tisawesomeness.minecord.command.Command.Result;
 import com.tisawesomeness.minecord.util.MessageUtils;
+import com.tisawesomeness.minecord.util.RequestUtils;
 
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.ChannelType;
+import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.guild.GenericGuildEvent;
@@ -30,17 +35,36 @@ public class Listener extends ListenerAdapter {
 	public void onMessageReceived(MessageReceivedEvent e) {
 		//Process text message
 		if (e.getChannelType() == ChannelType.TEXT) {
+			Message m = e.getMessage();
 			
-			if (
-				//If the message starts with the right prefix and was sent by a human and commands are enabled
-				Registry.enabled &&
-				e.getMessage() != null &&
-				e.getMessage().getContent().startsWith(Config.getPrefix()) &&
-				!e.getMessage().getAuthor().isBot()
-			) {
+			//If the message was sent by a human and commands are enabled
+			if (Registry.enabled && m != null && !m.getAuthor().isBot()) {
+				
 				//Extract the command name and argument list
-				String[] msg = e.getMessage().getContent().split(" ");
-				String name = msg[0].replaceFirst(Pattern.quote(Config.getPrefix()), "");
+				String mention = e.getJDA().getSelfUser().getAsMention();
+				String[] msg = m.getRawContent().split(" ");
+				String name = "";
+				
+				if (m.getContent().startsWith(Config.getPrefix())) {
+					msg = m.getContent().split(" ");
+					name = msg[0].replaceFirst(Pattern.quote(Config.getPrefix()), "");
+				} else if (m.mentionsEveryone()) {
+					return;
+				} else if (m.getRawContent().replaceFirst("@!", "@").startsWith(mention)) {
+					msg = ArrayUtils.removeElement(msg, msg[0]);
+					name = msg[0].replaceFirst(Pattern.quote(mention), "");
+				} else if (m.isMentioned(e.getJDA().getSelfUser())) {
+					
+					//Send any message mentioning the bot to the logging channel
+					EmbedBuilder eb = new EmbedBuilder();
+					eb.setAuthor(e.getAuthor().getName(), null, e.getAuthor().getEffectiveAvatarUrl());
+					eb.setDescription(m.getContent());
+					MessageUtils.log(eb.build());
+					return;
+					
+				} else {
+					return;
+				}
 				String[] args = ArrayUtils.removeElement(msg, msg[0]);
 				
 				//If the command has been registered
@@ -50,7 +74,7 @@ public class Listener extends ListenerAdapter {
 					//Delete message if enabled in the config and the bot has permissions
 					if (e.getGuild().getSelfMember().hasPermission(c, Permission.MESSAGE_MANAGE)) {
 						if (Config.getDeleteCommands()) {
-							e.getMessage().delete().complete();
+							m.delete().complete();
 						}
 					} else {
 						System.out.println("No permission: MESSAGE_MANAGE");
@@ -109,12 +133,13 @@ public class Listener extends ListenerAdapter {
 					//Run command
 					Result result = null;
 					Exception exception = null;
+					cmd.cooldowns.put(a, System.currentTimeMillis());
+					cmd.uses++;
 					try {
 						result = cmd.run(args, e);
 					} catch (Exception ex) {
 						exception = ex;
 					}
-					cmd.cooldowns.put(a, System.currentTimeMillis());
 					
 					//Cancel typing
 					if (Config.getSendTyping() && ci.typing) {
@@ -130,11 +155,11 @@ public class Listener extends ListenerAdapter {
 					//Catch exceptions
 					if (result == null) {
 						if (exception != null) {exception.printStackTrace();}
-						String m = ":x: There was an unexpected exception: `" + exception + "`";
+						String err = ":x: There was an unexpected exception: `" + exception + "`";
 						if (Config.getDebugMode()) {
-							m = m + "\n" + exception.getStackTrace();
+							err = err + "\n" + exception.getStackTrace();
 						}
-						MessageUtils.notify(m, c);
+						MessageUtils.notify(err, c);
 					//If message is empty
 					} if (result.message == null) {
 						if (result.outcome != null && result.outcome != Outcome.SUCCESS) {
@@ -167,7 +192,10 @@ public class Listener extends ListenerAdapter {
 		//Process private message
 		} else if (e.getChannelType() == ChannelType.PRIVATE) {
 			if (e.getAuthor() != e.getJDA().getSelfUser()) {
-				System.out.println("[DM] " + e.getAuthor().getName() + ": " + e.getMessage().getContent());
+				EmbedBuilder eb = new EmbedBuilder();
+				eb.setAuthor(e.getAuthor().getName(), null, e.getAuthor().getEffectiveAvatarUrl());
+				eb.setDescription(e.getMessage().getContent());
+				MessageUtils.log(eb.build());
 			}
 		}
 	}
@@ -178,21 +206,31 @@ public class Listener extends ListenerAdapter {
 		Config.update();
 		
 		//Create message
-		String type = "join";
+		String type = "Joined";
 		if (e instanceof GuildLeaveEvent) {
-			type = "leave";
+			type = "Left";
 		} else if (!(e instanceof GuildJoinEvent)) {
 			return;
 		}
-		String m = 
-			type + " guild `" + e.getGuild().getName() +
-			"` with owner `" + e.getGuild().getOwner().getEffectiveName() + "`";
 		
-		//Send message
-		System.out.println(m);
-		for (String id : Config.getElevatedUsers()) {
-			User user = e.getJDA().getUserById(id);
-			user.openPrivateChannel().complete().sendMessage(m).queue();
+		//Build message
+		Guild guild = e.getGuild();
+		Member owner = guild.getOwner();
+		EmbedBuilder eb = new EmbedBuilder();
+		eb.setAuthor(owner.getEffectiveName(), null, owner.getUser().getAvatarUrl());
+		eb.setDescription(type + " guild `" + guild.getName() + "` with `" + guild.getMembers().size() + "` users.");
+		eb.setThumbnail(guild.getIconUrl());
+		MessageUtils.log(eb.build());
+		
+		//Send guild count
+		if (Config.getSendServerCount()) {
+			int servers = e.getJDA().getGuilds().size();
+			String url = "https://bots.discord.pw/api/bots/" + e.getJDA().getSelfUser().getId() + "/stats";
+			String query = "{\"server_count\": " + servers + "}";
+			RequestUtils.post(url, Config.getPwToken());
+			url = "https://bots.discordlist.net/api";
+			query = "{\"token\": \"" + Config.getNetToken() + "\",\"servers\": " + servers + "}";
+			RequestUtils.post(url, query);
 		}
 	}
 	

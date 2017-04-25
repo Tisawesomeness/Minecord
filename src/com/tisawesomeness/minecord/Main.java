@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.User;
 
 public class Main {
 	
@@ -45,6 +46,7 @@ public class Main {
 
 	//Store data between reloads
 	private static JDA jda;
+	private static User user;
 	private static Message message;
 	private static long birth;
 	
@@ -54,6 +56,12 @@ public class Main {
 	}
 	public static void setMessage(Message m) {
 		message = m;
+	}
+	public static User getUser(String ignore) {
+		return user;
+	}
+	public static void setUser(User u) {
+		user = u;
 	}
 	public static JDA getJDA(String ignore) {
 		return jda;

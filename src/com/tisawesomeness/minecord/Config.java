@@ -18,9 +18,14 @@ public class Config {
 	private static boolean devMode;
 	private static boolean debugMode;
 	private static boolean logJDA;
+	private static String logChannel;
+	private static boolean sendServerCount;
+	private static String pwToken;
+	private static String netToken;
 	private static String game;
 	private static String name;
 	private static String prefix;
+	private static boolean respondToMentions;
 	private static int notificationTime;
 	private static boolean deleteCommands;
 	private static boolean sendTyping;
@@ -57,9 +62,14 @@ public class Config {
 			devMode = config.getBoolean("devMode");
 			debugMode = config.getBoolean("debugMode");
 			logJDA = config.getBoolean("logJDA");
+			logChannel = config.getString("logChannel");
+			sendServerCount = config.getBoolean("sendServerCount");
+			pwToken = config.getString("pwToken");
+			netToken = config.getString("netToken");
 			game = config.getString("game");
 			name = config.getString("name");
 			prefix = config.getString("prefix");
+			respondToMentions = config.getBoolean("respondToMentions");
 			notificationTime = config.getInt("notificationTime");
 			deleteCommands = config.getBoolean("deleteCommands");
 			sendTyping = config.getBoolean("sendTyping");
@@ -93,9 +103,14 @@ public class Config {
 	public static boolean getDevMode() {return devMode;}
 	public static boolean getDebugMode() {return debugMode;}
 	public static boolean getLogJDA() {return logJDA;}
+	public static String getLogChannel() {return logChannel;}
+	public static boolean getSendServerCount() {return sendServerCount;}
+	public static String getPwToken() {return pwToken;}
+	public static String getNetToken() {return netToken;}
 	public static String getGame() {return game;}
 	public static String getName() {return name;}
 	public static String getPrefix() {return prefix;}
+	public static boolean getRespondToMentions() {return respondToMentions;}
 	public static int getNotificationTime() {return notificationTime;}
 	public static boolean getDeleteCommands() {return deleteCommands;}
 	public static boolean getSendTyping() {return sendTyping;}

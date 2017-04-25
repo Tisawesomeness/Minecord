@@ -15,8 +15,8 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class ServerCommand extends Command {
 	
 	final String serverAddressRegex = "^((?=[a-z0-9-]{1,63}\\.)[a-z0-9]+(-[a-z0-9]+)*\\.)+[a-z0-9]+(\\2)*(:([0-5]?[0-9]{1,4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))?$";
-	final String chatCodeRegex = "Â§[a-fA-Fklmnor0-9]";
-	final String deleteChars = "ï¿½Ã€Ã�Ã‚ÃƒÃ„Ã…Ã†Ã‡ÃˆÃ‰ÃŠÃ‹ÃŒÃ�ÃŽÃ�Ã�Ã‘Ã’Ã“Ã”Ã•Ã–Ã—Ã˜Ã™ÃšÃ›ÃœÃ�ÃžÃŸÃ Ã¡Ã¢Ã£xÃ¥Ã¦Ã§Ã¨Ã©ÃªÃ«Ã¬Ã­Ã®Ã¯Ã°Ã±Ã²Ã³Ã´ÃµÃ¶Ã¸Ã¹ÃºÃ»Ã¼Ã½Ã¾Ã¿";
+	final String chatCodeRegex = "§[a-fA-Fklmnor0-9]";
+	final String deleteChars = "Â";
 	
 	public CommandInfo getInfo() {
 		return new CommandInfo(
@@ -46,7 +46,7 @@ public class ServerCommand extends Command {
 		
 		//Send a request to MCAPI
 		String url = "https://mcapi.ca/query/" + arg + "/info";
-		String request = RequestUtils.get(url, "application/json");
+		String request = RequestUtils.get(url);
 		if (request == null) {
 			return new Result(Outcome.ERROR, ":x: The MCAPI could not be reached.");
 		}
@@ -74,10 +74,9 @@ public class ServerCommand extends Command {
 		String motd = server.getString("motd");
 
 		String address = hostname + ":" + port;
-		version = clean(version.replaceAll(chatCodeRegex, ""), deleteChars);
+		version = clean(version).replaceAll(chatCodeRegex, "");
 		String playerInfo = online + "/" + max;
-		motd = clean(motd.replaceAll(chatCodeRegex, ""), deleteChars);
-		
+		motd = clean(motd).replaceAll(chatCodeRegex, "");
 		//Build and format message
 		String m = "**Address:** " + address +
 			"\n" + "**Version:** " + version +
@@ -92,9 +91,9 @@ public class ServerCommand extends Command {
 	}
 	
 	//Deletes each letter in the charset from the string.
-	private String clean(String string, String charset) {
-		if (charset.length() > 0) {
-			char[] chars = charset.toCharArray();
+	private String clean(String string) {
+		if (deleteChars.length() > 0) {
+			char[] chars = deleteChars.toCharArray();
 			for (char c : chars) {
 				string = string.replace(String.valueOf(c), "");
 			}

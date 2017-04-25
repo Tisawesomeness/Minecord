@@ -31,7 +31,7 @@ public class StatusCommand extends Command {
 	public Result run(String[] args, MessageReceivedEvent e) {
 		
 		//Request information from Mojang
-		String request = RequestUtils.get("https://status.mojang.com/check", "application/json");
+		String request = RequestUtils.get("https://status.mojang.com/check");
 		if (request == null) {
 			return new Result(Outcome.ERROR, ":x: The Mojang API could not be reached.");
 		}
