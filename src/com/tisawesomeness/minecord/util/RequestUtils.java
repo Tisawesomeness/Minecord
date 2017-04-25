@@ -11,6 +11,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Scanner;
 
+import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Config;
+
 public class RequestUtils {
 	
 	static final String charset = java.nio.charset.StandardCharsets.UTF_8.name();
@@ -118,5 +121,20 @@ public class RequestUtils {
             return false;
         }
     }
+	
+	/**
+	 * Sends the guild count to bots.discord.pw and bots.discordlist.net
+	 */
+	public static void sendGuilds() {
+		if (Config.getSendServerCount()) {
+			int servers = Bot.jda.getGuilds().size();
+			String url = "https://bots.discord.pw/api/bots/" + Bot.jda.getSelfUser().getId() + "/stats";
+			String query = "{\"server_count\": " + servers + "}";
+			RequestUtils.post(url, Config.getPwToken());
+			url = "https://bots.discordlist.net/api";
+			query = "{\"token\": \"" + Config.getNetToken() + "\",\"servers\": " + servers + "}";
+			RequestUtils.post(url, query);
+		}
+	}
 
 }

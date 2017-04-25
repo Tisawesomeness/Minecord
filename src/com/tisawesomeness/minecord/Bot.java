@@ -11,6 +11,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.util.MessageUtils;
+import com.tisawesomeness.minecord.util.RequestUtils;
 
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -26,7 +27,7 @@ public class Bot {
 	
 	public static JDA jda;
 	private static Listener listener;
-	private static final String version = "0.3.0";
+	private static final String version = "0.3.1";
 	public static long birth;
 	public static String[] args;
 	
@@ -140,6 +141,7 @@ public class Bot {
 		Config.update();
 		Registry.enabled = true;
 		System.out.println("Bot started.");
+		RequestUtils.sendGuilds();
 
 	}
 	
