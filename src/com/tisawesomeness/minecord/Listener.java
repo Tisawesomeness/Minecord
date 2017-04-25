@@ -45,26 +45,31 @@ public class Listener extends ListenerAdapter {
 				String[] msg = m.getRawContent().split(" ");
 				String name = "";
 				
+				//If it starts with the command prefix
 				if (m.getContent().startsWith(Config.getPrefix())) {
 					msg = m.getContent().split(" ");
 					name = msg[0].replaceFirst(Pattern.quote(Config.getPrefix()), "");
+				//Stop if it mentions everyone
 				} else if (m.mentionsEveryone()) {
 					return;
+				//If it starts with the bot mention
 				} else if (m.getRawContent().replaceFirst("@!", "@").startsWith(mention)) {
 					msg = ArrayUtils.removeElement(msg, msg[0]);
 					name = msg[0].replaceFirst(Pattern.quote(mention), "");
+				//If it mentions the bot
 				} else if (m.isMentioned(e.getJDA().getSelfUser())) {
 					
-					//Send any message mentioning the bot to the logging channel
+					//Send the message to the logging channel
 					EmbedBuilder eb = new EmbedBuilder();
 					eb.setAuthor(e.getAuthor().getName(), null, e.getAuthor().getEffectiveAvatarUrl());
 					eb.setDescription(m.getContent());
 					MessageUtils.log(eb.build());
 					return;
-					
+				//Leave if it's none of the above
 				} else {
 					return;
 				}
+				
 				String[] args = ArrayUtils.removeElement(msg, msg[0]);
 				
 				//If the command has been registered
@@ -189,14 +194,12 @@ public class Listener extends ListenerAdapter {
 				}
 			}
 		
-		//Process private message
-		} else if (e.getChannelType() == ChannelType.PRIVATE) {
-			if (e.getAuthor() != e.getJDA().getSelfUser()) {
-				EmbedBuilder eb = new EmbedBuilder();
-				eb.setAuthor(e.getAuthor().getName(), null, e.getAuthor().getEffectiveAvatarUrl());
-				eb.setDescription(e.getMessage().getContent());
-				MessageUtils.log(eb.build());
-			}
+		//Send private message to logging channel if a human sent it
+		} else if (e.getChannelType() == ChannelType.PRIVATE && !e.getAuthor().isBot()) {
+			EmbedBuilder eb = new EmbedBuilder();
+			eb.setAuthor(e.getAuthor().getName(), null, e.getAuthor().getEffectiveAvatarUrl());
+			eb.setDescription(e.getMessage().getContent());
+			MessageUtils.log(eb.build());
 		}
 	}
 	
@@ -222,16 +225,7 @@ public class Listener extends ListenerAdapter {
 		eb.setThumbnail(guild.getIconUrl());
 		MessageUtils.log(eb.build());
 		
-		//Send guild count
-		if (Config.getSendServerCount()) {
-			int servers = e.getJDA().getGuilds().size();
-			String url = "https://bots.discord.pw/api/bots/" + e.getJDA().getSelfUser().getId() + "/stats";
-			String query = "{\"server_count\": " + servers + "}";
-			RequestUtils.post(url, Config.getPwToken());
-			url = "https://bots.discordlist.net/api";
-			query = "{\"token\": \"" + Config.getNetToken() + "\",\"servers\": " + servers + "}";
-			RequestUtils.post(url, query);
-		}
+		RequestUtils.sendGuilds();
 	}
 	
 }
