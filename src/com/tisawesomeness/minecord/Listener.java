@@ -61,7 +61,8 @@ public class Listener extends ListenerAdapter {
 					
 					//Send the message to the logging channel
 					EmbedBuilder eb = new EmbedBuilder();
-					eb.setAuthor(e.getAuthor().getName(), null, e.getAuthor().getEffectiveAvatarUrl());
+					eb.setAuthor(e.getAuthor().getName() + " (" + e.getAuthor().getId() + ")",
+						null, e.getAuthor().getEffectiveAvatarUrl());
 					eb.setDescription(m.getContent());
 					MessageUtils.log(eb.build());
 					return;
@@ -197,8 +198,10 @@ public class Listener extends ListenerAdapter {
 		//Send private message to logging channel if a human sent it
 		} else if (e.getChannelType() == ChannelType.PRIVATE && !e.getAuthor().isBot()) {
 			EmbedBuilder eb = new EmbedBuilder();
-			eb.setAuthor(e.getAuthor().getName(), null, e.getAuthor().getEffectiveAvatarUrl());
+			eb.setAuthor(e.getAuthor().getName() + " (" + e.getAuthor().getId() + ")",
+				null, e.getAuthor().getEffectiveAvatarUrl());
 			eb.setDescription(e.getMessage().getContent());
+			eb.setThumbnail(e.getAuthor().getAvatarUrl());
 			MessageUtils.log(eb.build());
 		}
 	}
@@ -208,20 +211,27 @@ public class Listener extends ListenerAdapter {
 		//Update guild, channel, and user count
 		Config.update();
 		
+		if (!(e instanceof GuildJoinEvent || e instanceof GuildLeaveEvent)) {
+			return;
+		}
+		
 		//Create message
 		String type = "Joined";
 		if (e instanceof GuildLeaveEvent) {
 			type = "Left";
-		} else if (!(e instanceof GuildJoinEvent)) {
-			return;
 		}
 		
 		//Build message
 		Guild guild = e.getGuild();
 		Member owner = guild.getOwner();
 		EmbedBuilder eb = new EmbedBuilder();
-		eb.setAuthor(owner.getEffectiveName(), null, owner.getUser().getAvatarUrl());
-		eb.setDescription(type + " guild `" + guild.getName() + "` with `" + guild.getMembers().size() + "` users.");
+		eb.setAuthor(owner.getEffectiveName() + " (" + owner.getUser().getId() + ")",
+			null, owner.getUser().getAvatarUrl());
+		String add = "`";
+		if (e instanceof GuildJoinEvent) {
+			 add = "` with `" + guild.getMembers().size() + "` users.";
+		}
+		eb.setDescription(type + " guild `" + guild.getName() + add);
 		eb.setThumbnail(guild.getIconUrl());
 		MessageUtils.log(eb.build());
 		
