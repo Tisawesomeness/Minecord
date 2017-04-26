@@ -27,7 +27,7 @@ public class Bot {
 	
 	public static JDA jda;
 	private static Listener listener;
-	private static final String version = "0.3.1";
+	private static final String version = "0.3.2";
 	public static long birth;
 	public static String[] args;
 	
