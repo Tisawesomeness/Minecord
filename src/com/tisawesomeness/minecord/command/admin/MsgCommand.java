@@ -5,7 +5,9 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.util.MessageUtils;
 
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.PrivateChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -16,7 +18,7 @@ public class MsgCommand extends Command {
 		return new CommandInfo(
 			"msg",
 			"Open the DMs.",
-			"<mention> <message>",
+			"<mention|id> <message>",
 			new String[]{
 				"dm",
 				"tell",
@@ -28,8 +30,9 @@ public class MsgCommand extends Command {
 		);
 	}
 	
-	private final String mentionRegex = "<@!?[0-9]+> ";
+	private final String mentionRegex = "<@!?[0-9]+>";
 	private final String idRegex = "[0-9]{18}";
+	private final String messageRegex = "[^ ]+ [^ ]+ ";
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		
@@ -38,7 +41,8 @@ public class MsgCommand extends Command {
 			return new Result(Outcome.WARNING, ":warning: Please specify a message.");
 		}
 		
-		String param = e.getMessage().getRawContent().split(" ")[0];
+		String raw = e.getMessage().getRawContent();
+		String param = raw.split(" ")[1];
 		User user = null;
 		if (param.matches(mentionRegex)) {
 			user = e.getMessage().getMentionedUsers().get(0);
@@ -56,6 +60,14 @@ public class MsgCommand extends Command {
 		} catch (InterruptedException | ExecutionException ex) {
 			ex.printStackTrace();
 		}
+		
+		EmbedBuilder eb = new EmbedBuilder();
+		eb.setAuthor(e.getAuthor().getName() + " (" + e.getAuthor().getId() + ")",
+			null, e.getAuthor().getAvatarUrl());
+		String msg = raw.replaceFirst(messageRegex, "");
+		eb.setDescription("**Sent a DM to " + user.getName() + " (" + user.getId() + "):**\n" + msg);
+		eb.setThumbnail(user.getAvatarUrl());
+		MessageUtils.log(eb.build());
 		
 		return new Result(Outcome.SUCCESS, "");
 	}
