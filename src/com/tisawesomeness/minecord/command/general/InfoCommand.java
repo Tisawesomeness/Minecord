@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -35,33 +36,6 @@ public class InfoCommand extends Command {
 	public Result run(String[] args, MessageReceivedEvent e) {
 		Config.update();
 		
-		//Calculate uptime
-		long uptimeRaw = System.currentTimeMillis() - Bot.birth;
-		uptimeRaw = Math.floorDiv(uptimeRaw, 1000);
-		String uptime = "";
-		
-		if (uptimeRaw >= 86400) {
-			long days = Math.floorDiv(uptimeRaw, 86400);
-			uptime = days + "d";
-			uptimeRaw = uptimeRaw - days * 86400;
-		}
-		if (uptimeRaw >= 3600) {
-			long hours = Math.floorDiv(uptimeRaw, 3600);
-			uptime = uptime + hours + "h";
-			uptimeRaw = uptimeRaw - hours * 3600;
-		}
-		if (uptimeRaw >= 60) {
-			long minutes = Math.floorDiv(uptimeRaw, 60);
-			uptime = uptime + minutes + "m";
-			uptimeRaw = uptimeRaw - minutes * 60;
-		}
-		if (uptimeRaw > 0) {
-			uptime = uptime + uptimeRaw + "s";
-		}
-		if (uptime == "") {
-			uptime = "0s";
-		}
-		
 		//Calculate memory (taken from stackoverflow)
 		long value = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 		final long[] dividers = new long[] {T, G, M, K, 1};
@@ -86,7 +60,7 @@ public class InfoCommand extends Command {
 		eb.addField("Guilds", e.getJDA().getGuilds().size() + "", true);
 		eb.addField("Channels", e.getJDA().getTextChannels().size() + "", true);
 		eb.addField("Users", e.getJDA().getUsers().size() + "", true);
-		eb.addField("Uptime", uptime, true);
+		eb.addField("Uptime", DateUtils.getUptime(), true);
 		if (Config.getShowMemory()) {
 			eb.addField("Memory", memory, true);
 		}
