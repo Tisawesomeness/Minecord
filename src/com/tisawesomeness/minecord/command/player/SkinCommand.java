@@ -33,15 +33,7 @@ public class SkinCommand extends Command {
 		if (args.length == 0) {
 			String m = ":warning: Incorrect arguments." +
 				"\n" + Config.getPrefix() + "skin <username|uuid> [date]" +
-				"\n" + "In [date], you may define a date, time, and timezone." +
-				"\n" + "Date Examples:" +
-				"\n" + "`9/25`" +
-				" | " + "`2/29/2012`" +
-				" | " + "`5/15 8:30`" +
-				" | " + "`3/2/06 2:47:32`" +
-				" | " + "`9:00 PM`" +
-				" | " + "`12/25/12 12:00 AM EST`" +
-				" | " + "`5:22 CST`";
+				"\n" + MessageUtils.dateHelp;
 			return new Result(Outcome.WARNING, m, 5);
 		}
 

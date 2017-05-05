@@ -18,6 +18,18 @@ import net.dv8tion.jda.core.entities.User;
 
 public class MessageUtils {
 	
+	public static final String dateHelp = 
+		"In [date], you may define a date, time, and timezone." +
+		"\n" + "Dates are `mm/dd` or `mm/dd/yyyy`" +
+		"\n" + "Date Examples:" +
+		"\n" + "`9/25`" +
+		" | " + "`2/29/2012`" +
+		" | " + "`5/15 8:30`" +
+		" | " + "`3/2/06 2:47:32`" +
+		" | " + "`9:00 PM`" +
+		" | " + "`12/25/12 12:00 AM EST`" +
+		" | " + "`5:22 CST`";
+	
 	/**
 	 * Sends a notification message deleted after the amount of time set in the config.
 	 * @param m Message to send
