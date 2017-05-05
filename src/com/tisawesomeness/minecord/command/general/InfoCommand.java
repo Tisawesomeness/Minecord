@@ -64,7 +64,6 @@ public class InfoCommand extends Command {
 		if (Config.getShowMemory()) {
 			eb.addField("Memory", memory, true);
 		}
-		eb.addField("Invite", Config.getInvite(), true);
 		eb.addField("Help Server", helpServer, true);
 		eb.addField("Credits", "Mojang API, Crafatar, and MCAPI", true);
 		eb.addField("Library", "Java `1.8.0_101`, JDA `3.0.BETA2_135`", true);

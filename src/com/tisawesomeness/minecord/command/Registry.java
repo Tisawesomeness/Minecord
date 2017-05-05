@@ -22,6 +22,7 @@ public class Registry {
 			new Text("**General Commands:**"),
 			new HelpCommand(),
 			new InfoCommand(),
+			new InviteCommand(),
 			new StatusCommand(),
 			new SalesCommand(),
 			new PurgeCommand(),
