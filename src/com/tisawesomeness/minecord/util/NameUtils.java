@@ -1,25 +1,36 @@
 package com.tisawesomeness.minecord.util;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class NameUtils {
 	
 	public static final String uuidRegex = "[a-f0-9]{32}|[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}";
+	public static final String playerRegex = "[a-zA-Z0-9_]{1,16}";
 	
 	/**
-	 * 
-	 * @param playername
-	 * @return
+	 * Gets a playername from a UUID
+	 * @param uuid A UUID with or without dashes
+	 */
+	public static String getName(String uuid) {
+		String url = "https://api.mojang.com/user/profiles/" + uuid + "/names";
+		String request = RequestUtils.get(url);
+		if (request == null) {
+			return null;
+		}
+		JSONArray names = new JSONArray(request);
+		return names.getJSONObject(names.length() - 1).getString("name");
+	}
+	
+	/**
+	 * Gets a UUID from a playername
 	 */
 	public static String getUUID(String playername) {
 		return getUUIDInternal(playername);
 	}
 	
 	/**
-	 * 
-	 * @param playername
-	 * @param timestamp
-	 * @return
+	 * Gets a UUID from a playername and Unix timestamp
 	 */
 	public static String getUUID(String playername, long timestamp) {
 		return getUUIDInternal(playername + "?at=" + timestamp);
