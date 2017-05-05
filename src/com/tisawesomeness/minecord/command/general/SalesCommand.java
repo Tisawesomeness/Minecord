@@ -48,7 +48,7 @@ public class SalesCommand extends Command {
 			"\n" + "**Last 24 Hours:** " + format(last24h) +
 			"\n" + "**Sales Per Hour:** " + format(velocity);
 		
-		MessageEmbed me = MessageUtils.wrapMessage("Minecraft Sales", null, m, Color.GREEN);
+		MessageEmbed me = MessageUtils.embedMessage("Minecraft Sales", null, m, Color.GREEN);
 		
 		return new Result(Outcome.SUCCESS, me);
 	}

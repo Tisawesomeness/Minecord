@@ -38,7 +38,7 @@ public class UsageCommand extends Command {
 		m = m.substring(0, m.length() - 1);
 
 		String title = "Command usage for " + DateUtils.getUptime();
-		MessageEmbed me = MessageUtils.wrapMessage(title, null, m, MessageUtils.randomColor());
+		MessageEmbed me = MessageUtils.embedMessage(title, null, m, MessageUtils.randomColor());
 		return new Result(Outcome.SUCCESS, me);
 	}
 	

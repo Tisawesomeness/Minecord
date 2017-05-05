@@ -121,7 +121,7 @@ public class HistoryCommand extends Command {
 			player = player + "'s Name History";
 		}
 		
-		MessageEmbed me = MessageUtils.wrapMessage(player, url, m, MessageUtils.randomColor());
+		MessageEmbed me = MessageUtils.embedMessage(player, url, m, MessageUtils.randomColor());
 		
 		return new Result(Outcome.SUCCESS, new EmbedBuilder(me).build());
 	}

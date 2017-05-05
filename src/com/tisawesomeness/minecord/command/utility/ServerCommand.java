@@ -85,7 +85,7 @@ public class ServerCommand extends Command {
 		String thumb = "https://mcapi.ca/query/" + arg + "/icon";
 		e.getChannel().sendMessage("https://mcapi.ca/query/" + arg + "/icon");
 		
-		MessageEmbed me = MessageUtils.wrapMessage("Server Status", null, m, Color.GREEN);
+		MessageEmbed me = MessageUtils.embedMessage("Server Status", null, m, Color.GREEN);
 		
 		return new Result(Outcome.SUCCESS, new EmbedBuilder(me).setThumbnail(thumb).build());
 	}

@@ -77,7 +77,7 @@ public class CapeCommand extends Command {
 		//Logic to decide message
 		String url;
 		if (minecraftCape && optifineCape) {
-			e.getTextChannel().sendMessage(MessageUtils.wrapImage(
+			e.getTextChannel().sendMessage(MessageUtils.embedImage(
 				player, minecraftUrl, MessageUtils.randomColor())).queue();
 			url = optifineUrl;
 		} else if (minecraftCape) {
@@ -88,7 +88,7 @@ public class CapeCommand extends Command {
 			return new Result(Outcome.WARNING, ":warning: " + user + " does not have a cape!");
 		}
 		
-		MessageEmbed me = MessageUtils.wrapImage(player, url, MessageUtils.randomColor());
+		MessageEmbed me = MessageUtils.embedImage(player, url, MessageUtils.randomColor());
 		
 		return new Result(Outcome.SUCCESS, new EmbedBuilder(me).build());
 	}

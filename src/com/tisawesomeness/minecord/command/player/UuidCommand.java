@@ -85,7 +85,7 @@ public class UuidCommand extends Command {
 			title = title + "'s UUID";
 		}
 		
-		MessageEmbed me = MessageUtils.wrapMessage(title, url, uuid, MessageUtils.randomColor());
+		MessageEmbed me = MessageUtils.embedMessage(title, url, uuid, MessageUtils.randomColor());
 		
 		return new Result(Outcome.SUCCESS, new EmbedBuilder(me).build());
 	}

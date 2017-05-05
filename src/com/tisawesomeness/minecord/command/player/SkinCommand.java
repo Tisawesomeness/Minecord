@@ -89,7 +89,7 @@ public class SkinCommand extends Command {
 			player = player + "'s Skin";
 		}
 		
-		MessageEmbed me = MessageUtils.wrapImage(player, url, MessageUtils.randomColor());
+		MessageEmbed me = MessageUtils.embedImage(player, url, MessageUtils.randomColor());
 		
 		return new Result(Outcome.SUCCESS, new EmbedBuilder(me).build());
 	}

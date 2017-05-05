@@ -100,7 +100,7 @@ public class BodyCommand extends Command {
 			player = player + "'s Body";
 		}
 		
-		MessageEmbed me = MessageUtils.wrapImage(player, url, MessageUtils.randomColor());
+		MessageEmbed me = MessageUtils.embedImage(player, url, MessageUtils.randomColor());
 		
 		return new Result(Outcome.SUCCESS, new EmbedBuilder(me).build());
 	}
