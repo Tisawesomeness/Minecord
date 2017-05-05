@@ -14,6 +14,7 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.core.entities.User;
 
 public class MessageUtils {
 	
@@ -85,6 +86,7 @@ public class MessageUtils {
 		if (title != null) {eb.setAuthor(title, url, null);}
 		eb.setDescription(body);
 		eb.setColor(color);
+		eb = addFooter(eb);
 		return eb.build();
 	}
 	
@@ -100,14 +102,21 @@ public class MessageUtils {
 		if (title != null) {eb.setAuthor(title, null, null);}
 		eb.setImage(url);
 		eb.setColor(color);
+		eb = addFooter(eb);
 		return eb.build();
 	}
 	
+	public static EmbedBuilder addFooter(EmbedBuilder eb) {
+		User user = Bot.jda.getUserById(Bot.getAuthor());
+		return eb.setFooter("Minecord " + Bot.getVersion() + " | Made with ❤ by " + user.getName(),
+			user.getAvatarUrl());
+	}
+	
 	/**
-	 * Returns a random color.
+	 * Returns one of 16 random colors
 	 */
 	public static Color randomColor() {
-		Color[] colors = new Color[]{
+		final Color[] colors = new Color[]{
 			new Color(0, 0, 0),
 			new Color(0, 0, 170),
 			new Color(0, 170, 0),

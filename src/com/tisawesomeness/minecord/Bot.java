@@ -27,9 +27,11 @@ public class Bot {
 	
 	public static JDA jda;
 	private static Listener listener;
-	private static final String version = "0.3.2";
 	public static long birth;
 	public static String[] args;
+
+	private static final String version = "0.3.2";
+	private static final String author = "211261249386708992";
 	
 	public static Thread thread;
 	private static final String mainClass = "com.tisawesomeness.minecord.Main";
@@ -172,6 +174,9 @@ public class Bot {
 	
 	public static String getVersion() {
 		return version;
+	}
+	public static String getAuthor() {
+		return author;
 	}
 	
 	//Helps with reflection
