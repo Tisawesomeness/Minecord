@@ -1,10 +1,7 @@
 package com.tisawesomeness.minecord.command.player;
 
-import java.util.Arrays;
-
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
@@ -46,44 +43,28 @@ public class CapeCommand extends Command {
 			return new Result(Outcome.WARNING, m, 5);
 		}
 
+		//Get playername
 		String player = args[0];	
-		if (!player.matches(NameUtils.uuidRegex)) {
-			String uuid = null;
-			
-			//Parse date argument
-			if (args.length > 1) {
-				long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
-				if (timestamp == -1) {
-					String m = ":x: Improperly formatted date. " +
-						"At least a date or time is required. " +
-						"Do `" + Config.getPrefix() + "cape` for more info.";
-					return new Result(Outcome.ERROR, m);
-				}
-				
-			//Get the UUID
-				uuid = NameUtils.getUUID(player, timestamp);
-			} else {
-				uuid = NameUtils.getUUID(player);
-			}
+		if (player.matches(NameUtils.uuidRegex)) {
+			player = NameUtils.getName(player);
 			
 			//Check for errors
-			if (uuid == null) {
+			if (player == null) {
 				String m = ":x: The Mojang API could not be reached." +
-					"\n" + "Are you sure that username exists?";
+					"\n" + "Are you sure that UUID exists?";
 				return new Result(Outcome.ERROR, m, 1.5);
-			} else if (!uuid.matches(NameUtils.uuidRegex)) {
-				String m = ":x: The API responded with an error:\n" + uuid;
+			} else if (!player.matches(NameUtils.playerRegex)) {
+				String m = ":x: The API responded with an error:\n" + player;
 				return new Result(Outcome.ERROR, m, 3);
 			}
-			
-			player = uuid;
 		}
+		String user = player;
 
-		//Fetch skin
-		String url = "https://crafatar.com/capes/" + player;
-		if (!RequestUtils.checkURL(url)) {
-			return new Result(Outcome.WARNING, ":warning: " + args[0] + " does not have a cape!");
-		}
+		//Fetch cape
+		String minecraftUrl = "https://crafatar.com/capes/" + player;
+		boolean minecraftCape = RequestUtils.checkURL(minecraftUrl);
+		String optifineUrl = "http://s.optifine.net/capes/" + player + ".png";
+		boolean optifineCape = RequestUtils.checkURL(optifineUrl);
 		
 		//PROPER APOSTROPHE GRAMMAR THANK THE LORD
 		player = args[0];
@@ -91,6 +72,20 @@ public class CapeCommand extends Command {
 			player = player + "' Cape";
 		} else {
 			player = player + "'s Cape";
+		}
+		
+		//Logic to decide message
+		String url;
+		if (minecraftCape && optifineCape) {
+			e.getTextChannel().sendMessage(MessageUtils.wrapImage(
+				player, minecraftUrl, MessageUtils.randomColor())).queue();
+			url = optifineUrl;
+		} else if (minecraftCape) {
+			url = minecraftUrl;
+		} else if (optifineCape) {
+			url = optifineUrl;
+		} else {
+			return new Result(Outcome.WARNING, ":warning: " + user + " does not have a cape!");
 		}
 		
 		MessageEmbed me = MessageUtils.wrapImage(player, url, MessageUtils.randomColor());
