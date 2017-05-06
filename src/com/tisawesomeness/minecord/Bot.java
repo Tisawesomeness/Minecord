@@ -30,7 +30,7 @@ public class Bot {
 	public static long birth;
 	public static String[] args;
 
-	private static final String version = "0.3.2";
+	private static final String version = "0.4.0";
 	private static final String author = "211261249386708992";
 	
 	public static Thread thread;
