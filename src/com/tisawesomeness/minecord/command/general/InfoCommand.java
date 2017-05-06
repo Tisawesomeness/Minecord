@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.general;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
@@ -9,6 +10,7 @@ import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 public class InfoCommand extends Command {
@@ -36,6 +38,12 @@ public class InfoCommand extends Command {
 	public Result run(String[] args, MessageReceivedEvent e) {
 		Config.update();
 		
+		//If the author used the admin keyword and is an elevated user
+		boolean elevated = false;
+		if (args.length > 0 && args[0].equals("admin") && Config.getElevatedUsers().contains(e.getAuthor().getId())) {
+			elevated = true;
+		}
+		
 		//Calculate memory (taken from stackoverflow)
 		long value = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 		final long[] dividers = new long[] {T, G, M, K, 1};
@@ -60,8 +68,15 @@ public class InfoCommand extends Command {
 		eb.addField("Guilds", e.getJDA().getGuilds().size() + "", true);
 		eb.addField("Channels", e.getJDA().getTextChannels().size() + "", true);
 		eb.addField("Users", e.getJDA().getUsers().size() + "", true);
+		ArrayList<User> users = new ArrayList<User>(e.getJDA().getUsers());
+		for (User u : new ArrayList<User>(users)) {
+			if (u.isBot() || u.isFake()) {
+				users.remove(u);
+			}
+		}
+		eb.addField("Humans", users.size() + "", true);
 		eb.addField("Uptime", DateUtils.getUptime(), true);
-		if (Config.getShowMemory()) {
+		if (Config.getShowMemory() || elevated) {
 			eb.addField("Memory", memory, true);
 		}
 		eb.addField("Help Server", helpServer, true);
