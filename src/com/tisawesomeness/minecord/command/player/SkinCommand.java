@@ -71,7 +71,7 @@ public class SkinCommand extends Command {
 		}
 
 		//Fetch skin
-		String url = "https://crafatar.com/skins/" + player;
+		String url = "https://crafatar.com/skins/" + player + ".png";
 		
 		//PROPER APOSTROPHE GRAMMAR THANK THE LORD
 		player = args[0];
