@@ -7,7 +7,8 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 ### Command List
 #### General Commands
 - `&help` - Displays this help menu.
-- `&info` - Shows the bot info
+- `&info` - Shows the bot info.
+- `&invite` - Give the invite link for the bot.
 - `&status` - Checks the status of Mojang servers.
 - `&sales` - Looks up the sale statistics.
 - `&purge [number]` - Cleans the bot messages.
@@ -34,6 +35,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 
 ### Config
 - *Client Token:* Your unique bot token. **Do not upload it to GitHub, or people will be able to steal your bot!**
+- *Owner:* The user ID of the bot owner.
 - *Dev Mode:* Turning this on will let you reload code using `&reload` on the fly. When hosting the bot, it's best to keep this off in order to decrease memory usage.
 - *Debug Mode:* Prints additional info to console.
 - *Log JDA:* Whether or not to log messages from the JDA library.
@@ -48,7 +50,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Notification Time:* The default time to show notifications in miliseconds (4000ms = 4s). This value is multiplied based on the length of the notification sent.
 - *Delete Commands:* If true, the commands sent by players (like `&help`) will be deleted to clean up chat. Requires permission to manage messages.
 - *Send Typing:* If true, the bot will send typing packets.
-- *Invite:* The invite link to use in `&info`.
+- *Invite:* The invite link to use in `&invite`.
 - *Show Memory:* Whether or not to show the memory in `&info`.
 - *Elevated Skip Cooldown:* Whether or not elevated users skip command cooldowns.
 - *Elevated Users:* A list of user IDs. Elevated users can do `&help admin` to view hidden commands, `&msg`, `&reload`, `&shutdown`, `&dump`, `&test`, and `&purge` in all servers.
@@ -57,6 +59,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 ```json
 {
 	"clientToken": "your token here",
+	"owner": "211261249386708992",
 	"devMode": false,
 	"debugMode": false,
 	"logJDA": true,
