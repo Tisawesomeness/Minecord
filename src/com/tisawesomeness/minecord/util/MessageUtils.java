@@ -112,6 +112,7 @@ public class MessageUtils {
 	public static MessageEmbed embedImage(String title, String url, Color color) {
 		EmbedBuilder eb = new EmbedBuilder();
 		if (title != null) {eb.setAuthor(title, null, null);}
+		if (!url.endsWith(".png")) {url = url + ".png";}
 		eb.setImage(url);
 		eb.setColor(color);
 		eb = addFooter(eb);
@@ -120,7 +121,7 @@ public class MessageUtils {
 	
 	public static EmbedBuilder addFooter(EmbedBuilder eb) {
 		User user = Bot.jda.getUserById(Bot.getAuthor());
-		return eb.setFooter("Minecord " + Bot.getVersion() + " | Made with ❤ by " + user.getName(),
+		return eb.setFooter("Minecord " + Bot.getVersion() + " | Made with \u2764 by " + user.getName(),
 			user.getAvatarUrl());
 	}
 	
