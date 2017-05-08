@@ -119,7 +119,7 @@ public class MessageUtils {
 	}
 	
 	public static EmbedBuilder addFooter(EmbedBuilder eb) {
-		User user = Bot.jda.getUserById(Bot.getAuthor());
+		User user = Bot.jda.getUserById(Config.getOwner());
 		return eb.setFooter("Minecord " + Bot.getVersion() + " | Made with \u2764 by " + user.getName(),
 			user.getAvatarUrl());
 	}

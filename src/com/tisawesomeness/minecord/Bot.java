@@ -31,7 +31,6 @@ public class Bot {
 	public static String[] args;
 
 	private static final String version = "0.4.0";
-	private static final String author = "211261249386708992";
 	
 	public static Thread thread;
 	private static final String mainClass = "com.tisawesomeness.minecord.Main";
@@ -174,9 +173,6 @@ public class Bot {
 	
 	public static String getVersion() {
 		return version;
-	}
-	public static String getAuthor() {
-		return author;
 	}
 	
 	//Helps with reflection
