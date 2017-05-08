@@ -81,7 +81,7 @@ public class HeadCommand extends Command {
 		}
 
 		//Fetch head
-		String url = "https://crafatar.com/renders/head/" + player;
+		String url = "https://crafatar.com/renders/head/" + player + ".png";
 		if (overlay) {url = url + "?overlay";}
 		
 		//PROPER APOSTROPHE GRAMMAR THANK THE LORD

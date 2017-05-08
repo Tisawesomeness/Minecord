@@ -81,7 +81,7 @@ public class BodyCommand extends Command {
 		}
 
 		//Fetch body
-		String url = "https://crafatar.com/renders/body/" + player;
+		String url = "https://crafatar.com/renders/body/" + player + ".png";
 		if (overlay) {url = url + "?overlay";}
 		
 		//PROPER APOSTROPHE GRAMMAR THANK THE LORD

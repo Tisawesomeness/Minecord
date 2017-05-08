@@ -112,6 +112,7 @@ public class MessageUtils {
 	public static MessageEmbed embedImage(String title, String url, Color color) {
 		EmbedBuilder eb = new EmbedBuilder();
 		if (title != null) {eb.setAuthor(title, null, null);}
+		System.out.println(url);
 		eb.setImage(url);
 		eb.setColor(color);
 		eb = addFooter(eb);

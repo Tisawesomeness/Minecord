@@ -85,7 +85,7 @@ public class AvatarCommand extends Command {
 		}
 
 		//Fetch avatar
-		String url = "https://crafatar.com/avatars/" + player;
+		String url = "https://crafatar.com/avatars/" + player + ".png";
 		if (overlay) {url = url + "?overlay";}
 		
 		//PROPER APOSTROPHE GRAMMAR THANK THE LORD
