@@ -6,8 +6,6 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.command.Command.Outcome;
-import com.tisawesomeness.minecord.command.Command.Result;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
@@ -22,7 +20,7 @@ public class BodyCommand extends Command {
 		return new CommandInfo(
 			"body",
 			"Gets the body render of a player.",
-			"username|uuid> [date] [overlay?]",
+			"<username|uuid> [date] [overlay?]",
 			null,
 			2000,
 			false,
