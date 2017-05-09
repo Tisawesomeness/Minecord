@@ -97,7 +97,7 @@ public class Config {
 			.replaceAll("\\{channels\\}", String.valueOf(Bot.jda.getTextChannels().size()))
 		));
 		if (name != "") {
-			Bot.jda.getSelfUser().getManager().setName(name);
+			Bot.jda.getSelfUser().getManager().setName(name).queue();
 		}
 	}
 
