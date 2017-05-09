@@ -14,8 +14,21 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.core.entities.User;
 
 public class MessageUtils {
+	
+	public static final String dateHelp = 
+		"In [date], you may define a date, time, and timezone." +
+		"\n" + "Dates are `mm/dd` or `mm/dd/yyyy`" +
+		"\n" + "Date Examples:" +
+		"\n" + "`9/25`" +
+		" | " + "`2/29/2012`" +
+		" | " + "`5/15 8:30`" +
+		" | " + "`3/2/06 2:47:32`" +
+		" | " + "`9:00 PM`" +
+		" | " + "`12/25/12 12:00 AM EST`" +
+		" | " + "`5:22 CST`";
 	
 	/**
 	 * Sends a notification message deleted after the amount of time set in the config.
@@ -80,11 +93,12 @@ public class MessageUtils {
 	 * @param thumb The URL of the thumbnail.
 	 * @return A MessageEmbed representing the message. You can add additional info (e.g. fields) by passing this variable into a new EmbedBuilder.
 	 */
-	public static MessageEmbed wrapMessage(String title, String url, String body, Color color) {
+	public static MessageEmbed embedMessage(String title, String url, String body, Color color) {
 		EmbedBuilder eb = new EmbedBuilder();
 		if (title != null) {eb.setAuthor(title, url, null);}
 		eb.setDescription(body);
 		eb.setColor(color);
+		eb = addFooter(eb);
 		return eb.build();
 	}
 	
@@ -95,19 +109,27 @@ public class MessageUtils {
 	 * @param color The color of the embed. Discord markdown formatting and newline are supported.
 	 * @return A MessageEmbed representing the message. You can add additional info (e.g. fields) by passing this variable into a new EmbedBuilder.
 	 */
-	public static MessageEmbed wrapImage(String title, String url, Color color) {
+	public static MessageEmbed embedImage(String title, String url, Color color) {
 		EmbedBuilder eb = new EmbedBuilder();
 		if (title != null) {eb.setAuthor(title, null, null);}
+		System.out.println(url);
 		eb.setImage(url);
 		eb.setColor(color);
+		eb = addFooter(eb);
 		return eb.build();
 	}
 	
+	public static EmbedBuilder addFooter(EmbedBuilder eb) {
+		User user = Bot.jda.getUserById(Config.getOwner());
+		return eb.setFooter("Minecord " + Bot.getVersion() + " | Made with \u2764 by " + user.getName(),
+			user.getAvatarUrl());
+	}
+	
 	/**
-	 * Returns a random color.
+	 * Returns one of 16 random colors
 	 */
 	public static Color randomColor() {
-		Color[] colors = new Color[]{
+		final Color[] colors = new Color[]{
 			new Color(0, 0, 0),
 			new Color(0, 0, 170),
 			new Color(0, 170, 0),

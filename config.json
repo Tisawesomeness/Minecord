@@ -1,5 +1,6 @@
 {
 	"clientToken": "your token here",
+	"owner": "211261249386708992",
 	"devMode": false,
 	"debugMode": false,
 	"logJDA": true,

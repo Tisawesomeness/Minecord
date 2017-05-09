@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
+import com.tisawesomeness.minecord.Bot;
+
 public class DateUtils {
 	
 	static final String timestampRegex = "^[0-9]{4,}$";
@@ -183,6 +185,36 @@ public class DateUtils {
 	 */
 	public static String getString(long timestamp) {
 		return new SimpleDateFormat("MM/dd/yy hh:mm:ss a").format(new Date(timestamp));
+	}
+	
+	public static String getUptime() {
+		long uptimeRaw = System.currentTimeMillis() - Bot.birth;
+		uptimeRaw = Math.floorDiv(uptimeRaw, 1000);
+		String uptime = "";
+		
+		if (uptimeRaw >= 86400) {
+			long days = Math.floorDiv(uptimeRaw, 86400);
+			uptime = days + "d";
+			uptimeRaw = uptimeRaw - days * 86400;
+		}
+		if (uptimeRaw >= 3600) {
+			long hours = Math.floorDiv(uptimeRaw, 3600);
+			uptime = uptime + hours + "h";
+			uptimeRaw = uptimeRaw - hours * 3600;
+		}
+		if (uptimeRaw >= 60) {
+			long minutes = Math.floorDiv(uptimeRaw, 60);
+			uptime = uptime + minutes + "m";
+			uptimeRaw = uptimeRaw - minutes * 60;
+		}
+		if (uptimeRaw > 0) {
+			uptime = uptime + uptimeRaw + "s";
+		}
+		if (uptime == "") {
+			uptime = "0s";
+		}
+		
+		return uptime;
 	}
 
 }

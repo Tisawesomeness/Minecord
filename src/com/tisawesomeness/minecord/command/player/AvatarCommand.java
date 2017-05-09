@@ -38,16 +38,8 @@ public class AvatarCommand extends Command {
 		//No arguments message
 		if (args.length == 0) {
 			String m = ":warning: Incorrect arguments." +
-				"\n" + Config.getPrefix() + "avatar <username|uuid> [date] [overlay?]" +
-				"\n" + "In [date], you may define a date, time, and timezone." +
-				"\n" + "Date Examples:" +
-				"\n" + "`9/25`" +
-				" | " + "`2/29/2012`" +
-				" | " + "`5/15 8:30`" +
-				" | " + "`3/2/06 2:47:32`" +
-				" | " + "`9:00 PM`" +
-				" | " + "`12/25/12 12:00 AM EST`" +
-				" | " + "`5:22 CST`";
+				"\n" + Config.getPrefix() + "cape <username|uuid> [date]" +
+				"\n" + MessageUtils.dateHelp;
 			return new Result(Outcome.WARNING, m, 5);
 		}
 		
@@ -93,7 +85,7 @@ public class AvatarCommand extends Command {
 		}
 
 		//Fetch avatar
-		String url = "https://crafatar.com/avatars/" + player;
+		String url = "https://crafatar.com/avatars/" + player + ".png";
 		if (overlay) {url = url + "?overlay";}
 		
 		//PROPER APOSTROPHE GRAMMAR THANK THE LORD
@@ -104,7 +96,7 @@ public class AvatarCommand extends Command {
 			player = player + "'s Avatar";
 		}
 		
-		MessageEmbed me = MessageUtils.wrapImage(player, url, MessageUtils.randomColor());
+		MessageEmbed me = MessageUtils.embedImage(player, url, MessageUtils.randomColor());
 		
 		return new Result(Outcome.SUCCESS, new EmbedBuilder(me).build());
 	}

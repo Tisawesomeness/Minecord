@@ -75,7 +75,7 @@ public class StatusCommand extends Command {
 			"\n" + "**Mojang:** " + responses.get(9) +
 			"\n" + "**Mojang API:** " + responses.get(7);
 		
-		MessageEmbed me = MessageUtils.wrapMessage("Minecraft Status", null, m, color);
+		MessageEmbed me = MessageUtils.embedMessage("Minecraft Status", null, m, color);
 		
 		return new Result(Outcome.SUCCESS, me);
 	}

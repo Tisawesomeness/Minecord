@@ -15,6 +15,7 @@ import net.dv8tion.jda.core.entities.Game;
 public class Config {
 
 	private static String clientToken;
+	private static String owner;
 	private static boolean devMode;
 	private static boolean debugMode;
 	private static boolean logJDA;
@@ -59,6 +60,7 @@ public class Config {
 			if (clientToken == null) {
 				clientToken = config.getString("clientToken");
 			}
+			owner = config.getString("owner");
 			devMode = config.getBoolean("devMode");
 			debugMode = config.getBoolean("debugMode");
 			logJDA = config.getBoolean("logJDA");
@@ -100,6 +102,7 @@ public class Config {
 	}
 
 	protected static String getClientToken() {return clientToken;}
+	public static String getOwner() {return owner;}
 	public static boolean getDevMode() {return devMode;}
 	public static boolean getDebugMode() {return debugMode;}
 	public static boolean getLogJDA() {return logJDA;}

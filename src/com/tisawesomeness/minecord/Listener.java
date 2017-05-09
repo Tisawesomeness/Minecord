@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Future;
@@ -211,30 +212,40 @@ public class Listener extends ListenerAdapter {
 		//Update guild, channel, and user count
 		Config.update();
 		
-		if (!(e instanceof GuildJoinEvent || e instanceof GuildLeaveEvent)) {
+		//Get guild info
+		EmbedBuilder eb = new EmbedBuilder();
+		Guild guild = e.getGuild();
+		Member owner = guild.getOwner();
+		
+		//Create embed
+		if (e instanceof GuildJoinEvent) {
+			
+			eb.setAuthor("Joined guild!", null, owner.getUser().getAvatarUrl());
+			eb.addField("Name", guild.getName(), true);
+			eb.addField("Guild ID", guild.getId(), true);
+			eb.addField("Owner", owner.getEffectiveName(), true);
+			eb.addField("Owner ID", owner.getUser().getId(), true);
+			eb.addField("Users", guild.getMembers().size() + "", true);
+			ArrayList<Member> users = new ArrayList<Member>(guild.getMembers());
+			for (Member u : new ArrayList<Member>(users)) {
+				if (u.getUser().isBot() || u.getUser().isFake()) {
+					users.remove(u);
+				}
+			}
+			eb.addField("Humans", users.size() + "", true);
+			eb.addField("Bots", guild.getMembers().size() - users.size() + "", true);
+			eb.addField("Channels", guild.getTextChannels().size() + "", true);
+			
+		} else if (e instanceof GuildLeaveEvent) {
+			eb.setAuthor(owner.getEffectiveName() + " (" + owner.getUser().getId() + ")",
+				null, owner.getUser().getAvatarUrl());
+			eb.setDescription("Left guild `" + guild.getName() + "` (" + guild.getId() + ")");
+		} else {
 			return;
 		}
 		
-		//Create message
-		String type = "Joined";
-		if (e instanceof GuildLeaveEvent) {
-			type = "Left";
-		}
-		
-		//Build message
-		Guild guild = e.getGuild();
-		Member owner = guild.getOwner();
-		EmbedBuilder eb = new EmbedBuilder();
-		eb.setAuthor(owner.getEffectiveName() + " (" + owner.getUser().getId() + ")",
-			null, owner.getUser().getAvatarUrl());
-		String add = "`";
-		if (e instanceof GuildJoinEvent) {
-			 add = "` with `" + guild.getMembers().size() + "` users.";
-		}
-		eb.setDescription(type + " guild `" + guild.getName() + add);
 		eb.setThumbnail(guild.getIconUrl());
 		MessageUtils.log(eb.build());
-		
 		RequestUtils.sendGuilds();
 	}
 	
