@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.util;
 
 import java.awt.Color;
+import java.time.OffsetDateTime;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -183,7 +184,9 @@ public class MessageUtils {
 	 * Logs a message to the logging channel.
 	 */
 	public static void log(MessageEmbed m) {
-		Bot.jda.getTextChannelById(Config.getLogChannel()).sendMessage(m).queue();
+		EmbedBuilder eb = new EmbedBuilder(m);
+		eb.setTimestamp(OffsetDateTime.now());
+		Bot.jda.getTextChannelById(Config.getLogChannel()).sendMessage(eb.build()).queue();
 	}
 
 }
