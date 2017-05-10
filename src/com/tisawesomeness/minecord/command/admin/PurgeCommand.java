@@ -111,7 +111,7 @@ public class PurgeCommand extends Command {
 			MessageUtils.notify(mine.size() + " messages purged.", e.getTextChannel());
 		}
 		
-		return new Result(Outcome.SUCCESS, "");
+		return new Result(Outcome.SUCCESS);
 	}
 	
 }

@@ -65,7 +65,7 @@ public class MsgCommand extends Command {
 		eb.setThumbnail(user.getAvatarUrl());
 		MessageUtils.log(eb.build());
 		
-		return new Result(Outcome.SUCCESS, "");
+		return new Result(Outcome.SUCCESS);
 	}
 	
 }

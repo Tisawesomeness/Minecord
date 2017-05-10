@@ -24,7 +24,7 @@ public class ShutdownCommand extends Command {
 		MessageUtils.log(":x: **Bot shut down by " + e.getAuthor().getName() + "**");
 		e.getJDA().shutdown();
 		System.exit(0);
-		return new Result(Outcome.SUCCESS, "");
+		return new Result(Outcome.SUCCESS);
 	}
 	
 }

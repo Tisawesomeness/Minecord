@@ -61,7 +61,7 @@ public class SayCommand extends Command {
 		eb.setThumbnail(guild.getIconUrl());
 		MessageUtils.log(eb.build());
 		
-		return new Result(Outcome.SUCCESS, "");
+		return new Result(Outcome.SUCCESS);
 	}
 	
 }
