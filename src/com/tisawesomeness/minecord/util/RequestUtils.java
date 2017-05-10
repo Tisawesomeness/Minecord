@@ -123,17 +123,24 @@ public class RequestUtils {
     }
 	
 	/**
-	 * Sends the guild count to bots.discord.pw and bots.discordlist.net
+	 * Sends the guild count
 	 */
 	public static void sendGuilds() {
 		if (Config.getSendServerCount()) {
 			int servers = Bot.jda.getGuilds().size();
-			String url = "https://bots.discord.pw/api/bots/" + Bot.jda.getSelfUser().getId() + "/stats";
+			String id = Bot.jda.getSelfUser().getId();
+			
+			String url = "https://bots.discord.pw/api/bots/" + id + "/stats";
 			String query = "{\"server_count\": " + servers + "}";
-			RequestUtils.post(url, Config.getPwToken());
+			post(url, query, Config.getPwToken());
+			
 			url = "https://bots.discordlist.net/api";
 			query = "{\"token\": \"" + Config.getNetToken() + "\",\"servers\": " + servers + "}";
-			RequestUtils.post(url, query);
+			post(url, query);
+			
+			url = "https://discordbots.org/api/bots/" + id + "/stats";
+			query = "{\"server_count\": " + servers + "}";
+			post(url, query, Config.getOrgToken());
 		}
 	}
 

@@ -8,6 +8,7 @@
 	"sendServerCount": false,
 	"pwToken": "your token here",
 	"netToken": "your token here",
+	"orgToken": "your token here",
 	"game": "{prefix}help | {guilds} guilds",
 	"name": "Minecord",
 	"prefix": "&",

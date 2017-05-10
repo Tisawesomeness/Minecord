@@ -43,6 +43,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Send Server Count:* Whether or not the bot should send the guild count to bot list websites.
 - *Pw Token:* The token to use on bots.discord.pw.
 - *Net Token:* The token to use on bots.discordlist.net.
+- *Org Token:* The token to use on discordbots.org.
 - *Game:* This is the game that the bot is playing, shown under the username. `{prefix}`, `{guilds}`, `{channels}`, and `{users}` are available variables.
 - *Name:* The name of the bot.
 - *Prefix:* The prefix of the bot. Use `>&` instead of `&` if you want to host your own bot alongside the main one.
@@ -67,6 +68,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 	"sendServerCount": false,
 	"pwToken": "your token here",
 	"netToken": "your token here",
+	"orgToken": "your token here",
 	"game": "{prefix}help | {guilds} guilds",
 	"name": "Minecord",
 	"prefix": "&",
@@ -100,4 +102,4 @@ public static void main(String[] args) throws Exception {
 2. PLEASE comment all of your code so that people can find their way around it. You don't have to be excessive, just enough so that it is understandable.
 3. Do not touch the version value in Bot class or the default elevated users list.
 4. Be very careful when editing the Main, Loader, and Bot classes. They can break very easily.
-5. REMEMBER TO NOT UPLOAD YOUR BOT TOKEN! If you upload it, people can PERMANENTLY gain access to your bot!
+5. **If you upload your bot token, then someone can steal your bot!** Contact me as soon as possible so I can remove the file quickly.
