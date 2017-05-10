@@ -19,8 +19,7 @@ public class SayCommand extends Command {
 			"<channel> <message>",
 			new String[]{
 				"talk",
-				"announce"
-			},
+				"announce"},
 			0,
 			true,
 			true,
