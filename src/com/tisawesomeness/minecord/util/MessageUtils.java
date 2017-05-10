@@ -19,6 +19,11 @@ import net.dv8tion.jda.core.entities.User;
 
 public class MessageUtils {
 	
+	public static final String mentionRegex = "<@!?[0-9]+>";
+	public static final String channelRegex = "<#[0-9]+>";
+	public static final String idRegex = "[0-9]{18}";
+	public static final String messageRegex = "[^ ]+ [^ ]+ ";
+	
 	public static final String dateHelp = 
 		"In [date], you may define a date, time, and timezone." +
 		"\n" + "Dates are `mm/dd` or `mm/dd/yyyy`" +

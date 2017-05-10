@@ -30,10 +30,6 @@ public class MsgCommand extends Command {
 		);
 	}
 	
-	private final String mentionRegex = "<@!?[0-9]+>";
-	private final String idRegex = "[0-9]{18}";
-	private final String messageRegex = "[^ ]+ [^ ]+ ";
-	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		
 		//Check for proper argument length
@@ -44,9 +40,9 @@ public class MsgCommand extends Command {
 		String raw = e.getMessage().getRawContent();
 		String param = raw.split(" ")[1];
 		User user = null;
-		if (param.matches(mentionRegex)) {
+		if (param.matches(MessageUtils.mentionRegex)) {
 			user = e.getMessage().getMentionedUsers().get(0);
-		} else if (param.matches(idRegex)) {
+		} else if (param.matches(MessageUtils.idRegex)) {
 			user = Bot.jda.getUserById(param);
 		} else {
 			return new Result(Outcome.ERROR, ":x: Not a valid user!");
@@ -64,7 +60,7 @@ public class MsgCommand extends Command {
 		EmbedBuilder eb = new EmbedBuilder();
 		eb.setAuthor(e.getAuthor().getName() + " (" + e.getAuthor().getId() + ")",
 			null, e.getAuthor().getAvatarUrl());
-		String msg = raw.replaceFirst(messageRegex, "");
+		String msg = raw.replaceFirst(MessageUtils.messageRegex, "");
 		eb.setDescription("**Sent a DM to " + user.getName() + " (" + user.getId() + "):**\n" + msg);
 		eb.setThumbnail(user.getAvatarUrl());
 		MessageUtils.log(eb.build());

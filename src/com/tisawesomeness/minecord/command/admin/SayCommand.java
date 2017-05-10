@@ -28,10 +28,6 @@ public class SayCommand extends Command {
 		);
 	}
 	
-	private final String channelRegex = "<#[0-9]+>";
-	private final String idRegex = "[0-9]{18}";
-	private final String messageRegex = "[^ ]+ [^ ]+ ";
-	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		
 		//Check for proper argument length
@@ -43,9 +39,9 @@ public class SayCommand extends Command {
 		System.out.println(raw);
 		String param = raw.split(" ")[1];
 		TextChannel channel = null;
-		if (param.matches(channelRegex)) {
+		if (param.matches(MessageUtils.channelRegex)) {
 			channel = e.getMessage().getMentionedChannels().get(0);
-		} else if (param.matches(idRegex)) {
+		} else if (param.matches(MessageUtils.idRegex)) {
 			channel = Bot.jda.getTextChannelById(param);
 		} else {
 			return new Result(Outcome.ERROR, ":x: Not a valid channel!");
@@ -59,7 +55,7 @@ public class SayCommand extends Command {
 		EmbedBuilder eb = new EmbedBuilder();
 		eb.setAuthor(e.getAuthor().getName() + " (" + e.getAuthor().getId() + ")",
 			null, e.getAuthor().getAvatarUrl());
-		msg = raw.replaceFirst(messageRegex, "");
+		msg = raw.replaceFirst(MessageUtils.messageRegex, "");
 		eb.setDescription("**Sent a msg to `" + channel.getName() + "` (" + channel.getId() + ")**\non `" +
 			e.getGuild().getName() + "` (" + e.getGuild().getId() + "):\n" + msg);
 		eb.setThumbnail(e.getGuild().getIconUrl());
