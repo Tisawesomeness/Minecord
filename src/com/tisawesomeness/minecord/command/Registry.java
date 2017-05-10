@@ -41,6 +41,7 @@ public class Registry {
 			new Text(true, "\n**Admin Commands:**"),
 			new SayCommand(),
 			new MsgCommand(),
+			new NameCommand(),
 			new UsageCommand(),
 			new ReloadCommand(),
 			new ShutdownCommand(),
