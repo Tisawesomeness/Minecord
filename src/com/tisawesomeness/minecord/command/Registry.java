@@ -39,6 +39,7 @@ public class Registry {
 			new SkinCommand(),
 			new CapeCommand(),
 			new Text(true, "\n**Admin Commands:**"),
+			new SayCommand(),
 			new MsgCommand(),
 			new UsageCommand(),
 			new ReloadCommand(),
