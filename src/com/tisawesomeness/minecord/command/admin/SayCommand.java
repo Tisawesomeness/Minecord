@@ -7,6 +7,7 @@ import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -51,12 +52,13 @@ public class SayCommand extends Command {
 		
 		//Log it
 		EmbedBuilder eb = new EmbedBuilder();
+		Guild guild = channel.getGuild();
 		eb.setAuthor(e.getAuthor().getName() + " (" + e.getAuthor().getId() + ")",
 			null, e.getAuthor().getAvatarUrl());
 		msg = raw.replaceFirst(MessageUtils.messageRegex, "");
 		eb.setDescription("**Sent a msg to `" + channel.getName() + "` (" + channel.getId() + ")**\non `" +
-			e.getGuild().getName() + "` (" + e.getGuild().getId() + "):\n" + msg);
-		eb.setThumbnail(e.getGuild().getIconUrl());
+			guild.getName() + "` (" + guild.getId() + "):\n" + msg);
+		eb.setThumbnail(guild.getIconUrl());
 		MessageUtils.log(eb.build());
 		
 		return new Result(Outcome.SUCCESS, "");
