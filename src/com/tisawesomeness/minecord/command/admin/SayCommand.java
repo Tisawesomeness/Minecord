@@ -35,7 +35,6 @@ public class SayCommand extends Command {
 		}
 		
 		String raw = e.getMessage().getRawContent();
-		System.out.println(raw);
 		String param = raw.split(" ")[1];
 		TextChannel channel = null;
 		if (param.matches(MessageUtils.channelRegex)) {
