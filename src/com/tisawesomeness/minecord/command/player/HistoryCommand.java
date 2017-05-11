@@ -36,7 +36,7 @@ public class HistoryCommand extends Command {
 		//No arguments message
 		if (args.length == 0) {
 			String m = ":warning: Incorrect arguments." +
-				"\n" + Config.getPrefix() + "uuid <username|uuid> [date] " +
+				"\n" + Config.getPrefix() + "history <username|uuid> [date] " +
 				"\n" + MessageUtils.dateHelp;
 			return new Result(Outcome.WARNING, m, 5);
 		}
@@ -51,7 +51,7 @@ public class HistoryCommand extends Command {
 				if (timestamp == -1) {
 					String m = ":x: Improperly formatted date. " +
 						"At least a date or time is required. " +
-						"Do `" + Config.getPrefix() + "uuid` for more info.";
+						"Do `" + Config.getPrefix() + "history` for more info.";
 					return new Result(Outcome.ERROR, m);
 				}
 				

@@ -38,7 +38,7 @@ public class AvatarCommand extends Command {
 		//No arguments message
 		if (args.length == 0) {
 			String m = ":warning: Incorrect arguments." +
-				"\n" + Config.getPrefix() + "cape <username|uuid> [date]" +
+				"\n" + Config.getPrefix() + "avatar <username|uuid> [date]" +
 				"\n" + MessageUtils.dateHelp;
 			return new Result(Outcome.WARNING, m, 5);
 		}
