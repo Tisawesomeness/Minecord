@@ -64,8 +64,9 @@ public class Listener extends ListenerAdapter {
 					EmbedBuilder eb = new EmbedBuilder();
 					eb.setAuthor(e.getAuthor().getName() + " (" + e.getAuthor().getId() + ")",
 						null, e.getAuthor().getEffectiveAvatarUrl());
-					eb.setDescription("**`" + e.getGuild().getName() +
-						"`** (" + e.getGuild().getId() + ")\n" + m.getContent());
+					eb.setDescription("**`" + e.getGuild().getName() + "`** (" +
+						e.getGuild().getId() + ") in channel `" + e.getChannel().getName() +
+						"` (" + e.getChannel().getId() + ")\n" + m.getContent());
 					MessageUtils.log(eb.build());
 					return;
 				//Leave if it's none of the above
