@@ -58,7 +58,7 @@ public class HeadCommand extends Command {
 					String m = ":x: Improperly formatted date. " +
 						"At least a date or time is required. " +
 						"Do `" + Config.getPrefix() + "head` for more info.";
-					return new Result(Outcome.ERROR, m);
+					return new Result(Outcome.WARNING, m);
 				}
 				
 			//Get the UUID
@@ -71,7 +71,7 @@ public class HeadCommand extends Command {
 			if (uuid == null) {
 				String m = ":x: The Mojang API could not be reached." +
 					"\n" + "Are you sure that username exists?";
-				return new Result(Outcome.ERROR, m, 1.5);
+				return new Result(Outcome.WARNING, m, 1.5);
 			} else if (!uuid.matches(NameUtils.uuidRegex)) {
 				String m = ":x: The API responded with an error:\n" + uuid;
 				return new Result(Outcome.ERROR, m, 3);
