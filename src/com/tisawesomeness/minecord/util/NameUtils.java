@@ -7,6 +7,7 @@ public class NameUtils {
 	
 	public static final String uuidRegex = "[a-f0-9]{32}|[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}";
 	public static final String playerRegex = "[a-zA-Z0-9_]{1,16}";
+	public static final String discordRegex = ".{1,32}";
 	
 	/**
 	 * Gets a playername from a UUID

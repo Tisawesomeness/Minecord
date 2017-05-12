@@ -44,7 +44,7 @@ public class CapeCommand extends Command {
 			if (player == null) {
 				String m = ":x: The Mojang API could not be reached." +
 					"\n" + "Are you sure that UUID exists?";
-				return new Result(Outcome.ERROR, m, 1.5);
+				return new Result(Outcome.WARNING, m, 1.5);
 			} else if (!player.matches(NameUtils.playerRegex)) {
 				String m = ":x: The API responded with an error:\n" + player;
 				return new Result(Outcome.ERROR, m, 3);

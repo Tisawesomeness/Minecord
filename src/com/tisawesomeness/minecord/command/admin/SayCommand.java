@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import java.util.concurrent.ExecutionException;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.tisawesomeness.minecord.Bot;
@@ -8,21 +7,20 @@ import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.PrivateChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
-public class MsgCommand extends Command {
+public class SayCommand extends Command {
 	
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"msg",
-			"Open the DMs.",
-			"<mention|id> <message>",
+			"say",
+			"Send a message",
+			"<channel> <message>",
 			new String[]{
-				"dm",
-				"tell",
-				"pm"},
+				"talk",
+				"announce"},
 			0,
 			true,
 			true,
@@ -39,30 +37,28 @@ public class MsgCommand extends Command {
 		
 		String raw = e.getMessage().getRawContent();
 		String param = raw.split(" ")[1];
-		User user = null;
-		if (param.matches(MessageUtils.mentionRegex)) {
-			user = e.getMessage().getMentionedUsers().get(0);
+		TextChannel channel = null;
+		if (param.matches(MessageUtils.channelRegex)) {
+			channel = e.getMessage().getMentionedChannels().get(0);
 		} else if (param.matches(MessageUtils.idRegex)) {
-			user = Bot.jda.getUserById(param);
+			channel = Bot.jda.getTextChannelById(param);
 		} else {
-			return new Result(Outcome.ERROR, ":x: Not a valid user!");
+			return new Result(Outcome.ERROR, ":x: Not a valid channel!");
 		}
 		
 		//Send the message
-		try {
-			PrivateChannel channel = user.openPrivateChannel().submit().get();
-			String msg = String.join(" ", ArrayUtils.remove(args, 0));
-			channel.sendMessage(msg).queue();
-		} catch (InterruptedException | ExecutionException ex) {
-			ex.printStackTrace();
-		}
+		String msg = String.join(" ", ArrayUtils.remove(args, 0));
+		channel.sendMessage(msg).queue();
 		
+		//Log it
 		EmbedBuilder eb = new EmbedBuilder();
+		Guild guild = channel.getGuild();
 		eb.setAuthor(e.getAuthor().getName() + " (" + e.getAuthor().getId() + ")",
 			null, e.getAuthor().getAvatarUrl());
-		String msg = raw.replaceFirst(MessageUtils.messageRegex, "");
-		eb.setDescription("**Sent a DM to " + user.getName() + " (" + user.getId() + "):**\n" + msg);
-		eb.setThumbnail(user.getAvatarUrl());
+		msg = raw.replaceFirst(MessageUtils.messageRegex, "");
+		eb.setDescription("**Sent a msg to `" + channel.getName() + "` (" + channel.getId() + ")**\non `" +
+			guild.getName() + "` (" + guild.getId() + "):\n" + msg);
+		eb.setThumbnail(guild.getIconUrl());
 		MessageUtils.log(eb.build());
 		
 		return new Result(Outcome.SUCCESS);

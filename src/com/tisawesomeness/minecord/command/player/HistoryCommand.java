@@ -36,7 +36,7 @@ public class HistoryCommand extends Command {
 		//No arguments message
 		if (args.length == 0) {
 			String m = ":warning: Incorrect arguments." +
-				"\n" + Config.getPrefix() + "uuid <username|uuid> [date] " +
+				"\n" + Config.getPrefix() + "history <username|uuid> [date] " +
 				"\n" + MessageUtils.dateHelp;
 			return new Result(Outcome.WARNING, m, 5);
 		}
@@ -51,8 +51,8 @@ public class HistoryCommand extends Command {
 				if (timestamp == -1) {
 					String m = ":x: Improperly formatted date. " +
 						"At least a date or time is required. " +
-						"Do `" + Config.getPrefix() + "uuid` for more info.";
-					return new Result(Outcome.ERROR, m);
+						"Do `" + Config.getPrefix() + "history` for more info.";
+					return new Result(Outcome.WARNING, m);
 				}
 				
 			//Get the UUID
@@ -65,7 +65,7 @@ public class HistoryCommand extends Command {
 			if (uuid == null) {
 				String m = ":x: The Mojang API could not be reached." +
 					"\n" + "Are you sure that username exists?";
-				return new Result(Outcome.ERROR, m, 1.5);
+				return new Result(Outcome.WARNING, m, 1.5);
 			} else if (!uuid.matches(NameUtils.uuidRegex)) {
 				String m = ":x: The API responded with an error:\n" + uuid;
 				return new Result(Outcome.ERROR, m, 3);

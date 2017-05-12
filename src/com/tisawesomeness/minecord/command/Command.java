@@ -117,15 +117,20 @@ public abstract class Command implements ICommand {
 		/**
 		 * Represents the result of a command.
 		 * @param outcome Represents the outcome of the command, either SUCCESS, WARNING, or ERROR.
+		 */
+		public Result(Outcome outcome) {
+			this.outcome = outcome;
+			this.message = null;
+		}
+		
+		/**
+		 * Represents the result of a command.
+		 * @param outcome Represents the outcome of the command, either SUCCESS, WARNING, or ERROR.
 		 * @param message The message to send.
 		 */
 		public Result(Outcome outcome, String message) {
 			this.outcome = outcome;
-			if (message == "") {
-				this.message = null;
-			} else {
-				this.message = new MessageBuilder().append(message).build();
-			}
+			this.message = new MessageBuilder().append(message).build();
 		}
 		
 		/**
@@ -151,16 +156,23 @@ public abstract class Command implements ICommand {
 		/**
 		 * Represents the result of a command.
 		 * @param outcome Represents the outcome of the command, either SUCCESS, WARNING, or ERROR.
+		 * @param notifyMultiplier The value to multiply the notification time by.
+		 */
+		public Result(Outcome outcome, double notifyMultiplier) {
+			this.outcome = outcome;
+			this.message = null;
+			this.notifyMultiplier = notifyMultiplier;
+		}
+		
+		/**
+		 * Represents the result of a command.
+		 * @param outcome Represents the outcome of the command, either SUCCESS, WARNING, or ERROR.
 		 * @param message The message to send.
 		 * @param notifyMultiplier The value to multiply the notification time by.
 		 */
 		public Result(Outcome outcome, String message, double notifyMultiplier) {
 			this.outcome = outcome;
-			if (message == "") {
-				this.message = null;
-			} else {
-				this.message = new MessageBuilder().append(message).build();
-			}
+			this.message = new MessageBuilder().append(message).build();
 			this.notifyMultiplier = notifyMultiplier;
 		}
 		

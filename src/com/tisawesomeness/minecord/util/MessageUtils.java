@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.util;
 
 import java.awt.Color;
+import java.time.OffsetDateTime;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -17,6 +18,11 @@ import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 
 public class MessageUtils {
+	
+	public static final String mentionRegex = "<@!?[0-9]+>";
+	public static final String channelRegex = "<#[0-9]+>";
+	public static final String idRegex = "[0-9]{18}";
+	public static final String messageRegex = "[^ ]+ [^ ]+ ";
 	
 	public static final String dateHelp = 
 		"In [date], you may define a date, time, and timezone." +
@@ -112,7 +118,6 @@ public class MessageUtils {
 	public static MessageEmbed embedImage(String title, String url, Color color) {
 		EmbedBuilder eb = new EmbedBuilder();
 		if (title != null) {eb.setAuthor(title, null, null);}
-		System.out.println(url);
 		eb.setImage(url);
 		eb.setColor(color);
 		eb = addFooter(eb);
@@ -184,7 +189,9 @@ public class MessageUtils {
 	 * Logs a message to the logging channel.
 	 */
 	public static void log(MessageEmbed m) {
-		Bot.jda.getTextChannelById(Config.getLogChannel()).sendMessage(m).queue();
+		EmbedBuilder eb = new EmbedBuilder(m);
+		eb.setTimestamp(OffsetDateTime.now());
+		Bot.jda.getTextChannelById(Config.getLogChannel()).sendMessage(eb.build()).queue();
 	}
 
 }

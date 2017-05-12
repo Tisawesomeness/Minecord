@@ -23,6 +23,7 @@ public class Config {
 	private static boolean sendServerCount;
 	private static String pwToken;
 	private static String netToken;
+	private static String orgToken;
 	private static String game;
 	private static String name;
 	private static String prefix;
@@ -68,6 +69,7 @@ public class Config {
 			sendServerCount = config.getBoolean("sendServerCount");
 			pwToken = config.getString("pwToken");
 			netToken = config.getString("netToken");
+			orgToken = config.getString("orgToken");
 			game = config.getString("game");
 			name = config.getString("name");
 			prefix = config.getString("prefix");
@@ -97,7 +99,7 @@ public class Config {
 			.replaceAll("\\{channels\\}", String.valueOf(Bot.jda.getTextChannels().size()))
 		));
 		if (name != "") {
-			Bot.jda.getSelfUser().getManager().setName(name);
+			Bot.jda.getSelfUser().getManager().setName(name).queue();
 		}
 	}
 
@@ -110,6 +112,7 @@ public class Config {
 	public static boolean getSendServerCount() {return sendServerCount;}
 	public static String getPwToken() {return pwToken;}
 	public static String getNetToken() {return netToken;}
+	public static String getOrgToken() {return orgToken;}
 	public static String getGame() {return game;}
 	public static String getName() {return name;}
 	public static String getPrefix() {return prefix;}
