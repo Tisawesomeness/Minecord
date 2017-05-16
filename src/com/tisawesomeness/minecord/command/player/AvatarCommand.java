@@ -9,16 +9,13 @@ import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
+import com.tisawesomeness.minecord.util.RequestUtils;
 
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 public class AvatarCommand extends Command {
-
-	public String getName() {return "avatar";}
-	public String getDescription() {return "Gets the avatar of a player.";}
-	public String getUsage() {return "<username|uuid> [date] [overlay?]";}
 	
 	public CommandInfo getInfo() {
 		return new CommandInfo(
@@ -87,6 +84,14 @@ public class AvatarCommand extends Command {
 		//Fetch avatar
 		String url = "https://crafatar.com/avatars/" + player + ".png";
 		if (overlay) {url = url + "?overlay";}
+		url = RequestUtils.checkPngExtension(url);
+		if (url == null) {
+			MessageUtils.log("Error embedding image." +
+				"\n" + "Command: `" + Config.getPrefix() + "avatar`" +
+				"\n" + "UUID: `" + player + "`"
+			);
+			return new Result(Outcome.ERROR, ":x: There was an error embedding the image.");
+		}
 		
 		//PROPER APOSTROPHE GRAMMAR THANK THE LORD
 		player = args[0];
