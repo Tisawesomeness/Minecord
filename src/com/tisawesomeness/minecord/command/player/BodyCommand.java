@@ -22,7 +22,9 @@ public class BodyCommand extends Command {
 			"body",
 			"Gets the body render of a player.",
 			"<username|uuid> [date] [overlay?]",
-			null,
+			new String[]{
+				"nude",
+				"nudes"},
 			2000,
 			false,
 			false,
