@@ -123,6 +123,20 @@ public class RequestUtils {
     }
 	
 	/**
+	 * Crafatar is being weird so this method decides whether or not to add a .png extension.
+	 * @param url The URL to check. Do not include a .png extension.
+	 */
+	public static String checkPngExtension(String url) {
+		if (!checkURL(url)) {
+			url = url + ".png";
+			if (!checkURL(url)) {
+				return null;
+			}
+		}
+		return url;
+	}
+	
+	/**
 	 * Sends the guild count
 	 */
 	public static void sendGuilds() {

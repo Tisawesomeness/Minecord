@@ -27,7 +27,10 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&cape <username|uuid> [date]` - Gets the cape of a player.
 
 #### Admin Commands:
+- `&say <channel> <message` - Say a message.
 - `&msg <mention> <message>` - Open the DMs.
+- `&name <guild id> <name>` - Changes the bot's nickname per-guild, enter nothing to reset.
+- `&usage` - Shows how often commands are used.
 - `&reload` - Reloads the bot.
 - `&shutdown` - Shuts down the bot.
 - `&dump` - Dumps a memory heap to file. This might break things, make sure you know what you are doing.

@@ -7,6 +7,7 @@ import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
+import com.tisawesomeness.minecord.util.RequestUtils;
 
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
@@ -72,6 +73,14 @@ public class SkinCommand extends Command {
 
 		//Fetch skin
 		String url = "https://crafatar.com/skins/" + player + ".png";
+		url = RequestUtils.checkPngExtension(url);
+		if (url == null) {
+			MessageUtils.log("Error embedding image." +
+				"\n" + "Command: `" + Config.getPrefix() + "skin`" +
+				"\n" + "UUID: `" + player + "`"
+			);
+			return new Result(Outcome.ERROR, ":x: There was an error embedding the image.");
+		}
 		
 		//PROPER APOSTROPHE GRAMMAR THANK THE LORD
 		player = args[0];

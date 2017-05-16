@@ -36,12 +36,5 @@
 - `&skin <username|uuid> [date]` - Gets the skin of a player.
 - `&cape <username|uuid> [date]` - Gets the cape of a player.
 
-#### Admin Commands:
-- `&msg <mention> <message>` - Open the DMs.
-- `&reload` - Reloads the bot.
-- `&shutdown` - Shuts down the bot.
-- `&dump` - Dumps a memory heap to file. This might break things, make sure you know what you are doing.
-- `&test` - Test command.
-
 ### Selfhosting
 If you want to customize the bot for your specific server, check out the GitHub. There are loads of configuration options for anyone who wants to self-host on their own hardware.

@@ -9,6 +9,7 @@ import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
+import com.tisawesomeness.minecord.util.RequestUtils;
 
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
@@ -21,7 +22,9 @@ public class BodyCommand extends Command {
 			"body",
 			"Gets the body render of a player.",
 			"<username|uuid> [date] [overlay?]",
-			null,
+			new String[]{
+				"nude",
+				"nudes"},
 			2000,
 			false,
 			false,
@@ -81,8 +84,16 @@ public class BodyCommand extends Command {
 		}
 
 		//Fetch body
-		String url = "https://crafatar.com/renders/body/" + player + ".png";
+		String url = "https://crafatar.com/renders/body/" + player;
 		if (overlay) {url = url + "?overlay";}
+		url = RequestUtils.checkPngExtension(url);
+		if (url == null) {
+			MessageUtils.log("Error embedding image." +
+				"\n" + "Command: `" + Config.getPrefix() + "body`" +
+				"\n" + "UUID: `" + player + "`"
+			);
+			return new Result(Outcome.ERROR, ":x: There was an error embedding the image.");
+		}
 		
 		//PROPER APOSTROPHE GRAMMAR THANK THE LORD
 		player = args[0];
