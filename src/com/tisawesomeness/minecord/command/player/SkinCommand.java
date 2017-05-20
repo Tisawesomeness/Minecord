@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.player;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
@@ -14,6 +15,9 @@ import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 public class SkinCommand extends Command {
+	
+	public final String steve = "http://taw.net/cfs-filesystemfile.ashx/__key/CommunityServer.Discussions.Components.Files/200/7607.reference-skin-_2D00_-large.png";
+	public final String alex = "https://articles-images.sftcdn.net/wp-content/uploads/sites/2/2014/09/Alex1.png";
 	
 	public CommandInfo getInfo() {
 		return new CommandInfo(
@@ -75,11 +79,11 @@ public class SkinCommand extends Command {
 		String url = "https://crafatar.com/skins/" + player + ".png";
 		url = RequestUtils.checkPngExtension(url);
 		if (url == null) {
-			MessageUtils.log("Error embedding image." +
-				"\n" + "Command: `" + Config.getPrefix() + "skin`" +
-				"\n" + "UUID: `" + player + "`"
-			);
-			return new Result(Outcome.ERROR, ":x: There was an error embedding the image.");
+			if ((UUID.fromString(NameUtils.formatUUID(player)).hashCode() & 1) != 0) {
+				url = alex;
+			} else {
+				url = steve;
+			}
 		}
 		
 		//PROPER APOSTROPHE GRAMMAR THANK THE LORD
