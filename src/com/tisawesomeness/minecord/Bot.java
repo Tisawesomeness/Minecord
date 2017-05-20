@@ -30,7 +30,7 @@ public class Bot {
 	public static long birth;
 	public static String[] args;
 
-	private static final String version = "0.4.2";
+	private static final String version = "0.4.3";
 	
 	public static Thread thread;
 	private static final String mainClass = "com.tisawesomeness.minecord.Main";

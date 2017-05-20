@@ -53,5 +53,15 @@ public class NameUtils {
 		
 		return response.getString("id");
 	}
+	
+	/**
+	 * Adds dashes to a UUID
+	 */
+	public static String formatUUID(String uuid) {
+		return uuid.replaceFirst(
+			"([0-9a-fA-F]{8})([0-9a-fA-F]{4})([0-9a-fA-F]{4})([0-9a-fA-F]{4})([0-9a-fA-F]+)",
+			"$1-$2-$3-$4-$5"
+		);
+	}
 
 }
