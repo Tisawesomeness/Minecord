@@ -89,8 +89,6 @@ public class Listener extends ListenerAdapter {
 						if (Config.getDeleteCommands()) {
 							m.delete().complete();
 						}
-					} else {
-						System.out.println("No permission: MESSAGE_MANAGE");
 					}
 					
 					//Get command
