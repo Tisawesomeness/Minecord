@@ -50,6 +50,10 @@ public class Listener extends ListenerAdapter {
 				if (m.getContent().startsWith(Config.getPrefix())) {
 					msg = m.getContent().split(" ");
 					name = msg[0].replaceFirst(Pattern.quote(Config.getPrefix()), "");
+					//Stop if it's an empty command
+					if (name.equals("")) {
+						return;
+					}
 				//Stop if it mentions everyone
 				} else if (m.mentionsEveryone()) {
 					return;
