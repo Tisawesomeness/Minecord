@@ -37,10 +37,6 @@ public class PurgeCommand extends Command {
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		
-		//Check for bot permissions
-		if (!e.getGuild().getSelfMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE)) {
-			return new Result(Outcome.ERROR, ":x: I do not have permissions to manage messages!");
-		}
 		//Check if user is elevated or has the manage messages permission
 		if (!Config.getElevatedUsers().contains(e.getAuthor())
 				&& !PermissionUtil.checkPermission(e.getTextChannel(), e.getMember(), Permission.MESSAGE_MANAGE)) {
@@ -49,11 +45,23 @@ public class PurgeCommand extends Command {
 		
 		//Parse args
 		int num = 50;
+		boolean perms = false;
 		if (args.length > 0 && args[0].matches("^[0-9]+$")) {
 			num = Integer.valueOf(args[0]);
-			if (num <= 0 || num > 1000) {
-				return new Result(Outcome.ERROR, ":x: The number must be between 1-1000.");
+			
+			//Check for bot permissions
+			perms = e.getGuild().getSelfMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE);
+			if (perms) {
+				if (num <= 0 || num > 1000) {
+					return new Result(Outcome.ERROR, ":x: The number must be between 1-1000.");
+				}
+			} else {
+				if (num <= 0 || num > 50) {
+					return new Result(Outcome.ERROR,
+						":x: The number must be between 1-50, I don't have permission to manage messages!", 1.5);
+				}
 			}
+			
 		} else {
 			return new Result(Outcome.WARNING, ":warning: Please specify a number!");
 		}
@@ -72,8 +80,6 @@ public class PurgeCommand extends Command {
 				for (Message m : msgs) {
 					if (m.getAuthor() == e.getJDA().getSelfUser()) {
 						temp.add(m);
-						System.out.println(mine.size() + " | " + temp.size() + " | " +
-							m.getAuthor().getName() + " | " + m.getContent());
 					}
 					if (mine.size() + temp.size() >= num) {
 						exit = true;
@@ -106,6 +112,11 @@ public class PurgeCommand extends Command {
 		if (mine.size() == 1) {
 			mine.get(0).delete().queue();
 			MessageUtils.notify("1 message purged.", e.getTextChannel());
+		} else if (!perms) {
+			for (Message m : mine) {
+				m.delete().queue();
+			}
+			MessageUtils.notify(mine.size() + " messages purged.", e.getTextChannel());
 		} else {
 			e.getTextChannel().deleteMessages(mine).queue();
 			MessageUtils.notify(mine.size() + " messages purged.", e.getTextChannel());
