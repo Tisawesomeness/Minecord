@@ -18,10 +18,10 @@ public class Loader implements Runnable {
 		this.args = args;
 	}
 	
-    public void run() {
-    	
-    	//Clear references
-    	bot = null;
+	public void run() {
+		
+		//Clear references
+		bot = null;
 		dl = null;
 		
 		//Dynamically start a new bot
@@ -38,9 +38,9 @@ public class Loader implements Runnable {
 			}
 		}
 		
-    }
-    
-    // Adapted from https://github.com/evacchi/class-reloader
+	}
+	
+	// Adapted from https://github.com/evacchi/class-reloader
  	static class DynamicLoader extends ClassLoader {
 
  		ClassLoader orig;
@@ -70,23 +70,23 @@ public class Loader implements Runnable {
  		}
  		
  		private byte[] loadClassData(String className) throws IOException {
-             try {
-                 Class<?> clazz = orig.loadClass(className);
-                 String name = clazz.getName();
-                 name = name.substring(name.lastIndexOf('.') + 1);
-                 URL url = clazz.getResource(name + ".class");
-                 File f = new File(url.toURI());
-                 int size = (int) f.length();
-                 byte buff[] = new byte[size];
-                 try (DataInputStream dis = new DataInputStream(new FileInputStream(f))) {
-                     dis.readFully(buff);
-                 }
-                 return buff;
-             } catch (Exception ex) {
-                 throw new IOException(ex);
-             }
-         }
+			 try {
+				 Class<?> clazz = orig.loadClass(className);
+				 String name = clazz.getName();
+				 name = name.substring(name.lastIndexOf('.') + 1);
+				 URL url = clazz.getResource(name + ".class");
+				 File f = new File(url.toURI());
+				 int size = (int) f.length();
+				 byte buff[] = new byte[size];
+				 try (DataInputStream dis = new DataInputStream(new FileInputStream(f))) {
+					 dis.readFully(buff);
+				 }
+				 return buff;
+			 } catch (Exception ex) {
+				 throw new IOException(ex);
+			 }
+		 }
  		
  	}
-    
+	
 }

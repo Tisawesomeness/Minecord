@@ -47,20 +47,20 @@ public class InfoCommand extends Command {
 		//Calculate memory (taken from stackoverflow)
 		long value = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 		final long[] dividers = new long[] {T, G, M, K, 1};
-	    final String[] units = new String[] {"TB", "GB", "MB", "KB", "B"};
-	    if (value < 1) {
-	        throw new IllegalArgumentException("Invalid file size: " + value);
-	    }
-	    String memory = null;
-	    for (int i = 0; i < dividers.length; i++) {
-	        final long divider = dividers[i];
-	        if (value >= divider) {
-	            memory = format(value, divider, units[i]);
-	            break;
-	        }
-	    }
+		final String[] units = new String[] {"TB", "GB", "MB", "KB", "B"};
+		if (value < 1) {
+			throw new IllegalArgumentException("Invalid file size: " + value);
+		}
+		String memory = null;
+		for (int i = 0; i < dividers.length; i++) {
+			final long divider = dividers[i];
+			if (value >= divider) {
+				memory = format(value, divider, units[i]);
+				break;
+			}
+		}
 		
-	    //Build message
+		//Build message
 		EmbedBuilder eb = new EmbedBuilder();
 		eb.setColor(MessageUtils.randomColor());
 		eb.addField("Author", "@Tis_awesomeness#8617", true);
@@ -88,8 +88,8 @@ public class InfoCommand extends Command {
 	}
 
 	private static String format(long value, long divider, String unit) {
-	    double result = divider > 1 ? (double) value / (double) divider : (double) value;
-	    return new DecimalFormat("#,##0.#").format(result) + " " + unit;
+		double result = divider > 1 ? (double) value / (double) divider : (double) value;
+		return new DecimalFormat("#,##0.#").format(result) + " " + unit;
 	}
 	
 }

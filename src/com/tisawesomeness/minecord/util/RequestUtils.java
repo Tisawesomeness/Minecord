@@ -81,11 +81,11 @@ public class RequestUtils {
 
 			String outputStr = null;
 			if (charset != null) {
-			    BufferedReader reader = new BufferedReader(new InputStreamReader(response, charset));
-			    for (String line; (line = reader.readLine()) != null;) {
-			        outputStr = line;
-			    }
-			    reader.close();
+				BufferedReader reader = new BufferedReader(new InputStreamReader(response, charset));
+				for (String line; (line = reader.readLine()) != null;) {
+					outputStr = line;
+				}
+				reader.close();
 			}
 			return outputStr;
 			
@@ -112,15 +112,15 @@ public class RequestUtils {
 	 * @return True if the URL exists, false if it doesn't or an error occured.
 	 */
 	public static boolean checkURL(String url) {
-        try {
-            HttpURLConnection.setFollowRedirects(false);
-            HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
-            con.setRequestMethod("HEAD");
-            return (con.getResponseCode() == HttpURLConnection.HTTP_OK);
-        } catch (Exception e) {
-            return false;
-        }
-    }
+		try {
+			HttpURLConnection.setFollowRedirects(false);
+			HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
+			con.setRequestMethod("HEAD");
+			return (con.getResponseCode() == HttpURLConnection.HTTP_OK);
+		} catch (Exception e) {
+			return false;
+		}
+	}
 	
 	/**
 	 * Crafatar is being weird so this method decides whether or not to add a .png extension.
