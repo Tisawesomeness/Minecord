@@ -37,30 +37,34 @@ public class MsgCommand extends Command {
 			return new Result(Outcome.WARNING, ":warning: Please specify a message.");
 		}
 		
-		String raw = e.getMessage().getRawContent();
-		String param = raw.split(" ")[1];
+		//Extract user
+		args = ArrayUtils.remove(MessageUtils.getContent(e.getMessage(), true), 0);
 		User user = null;
-		if (param.matches(MessageUtils.mentionRegex)) {
+		if (args[0].matches(MessageUtils.mentionRegex)) {
 			user = e.getMessage().getMentionedUsers().get(0);
-		} else if (param.matches(MessageUtils.idRegex)) {
-			user = Bot.jda.getUserById(param);
+			if (user.getId() == Bot.jda.getSelfUser().getId()) {
+				user = e.getMessage().getMentionedUsers().get(1);
+			}
+		} else if (args[0].matches(MessageUtils.idRegex)) {
+			user = Bot.jda.getUserById(args[0]);
 		} else {
 			return new Result(Outcome.ERROR, ":x: Not a valid user!");
 		}
 		
 		//Send the message
+		String msg = null;
 		try {
 			PrivateChannel channel = user.openPrivateChannel().submit().get();
-			String msg = String.join(" ", ArrayUtils.remove(args, 0));
+			msg = String.join(" ", ArrayUtils.remove(args, 0));
 			channel.sendMessage(msg).queue();
 		} catch (InterruptedException | ExecutionException ex) {
 			ex.printStackTrace();
+			return new Result(Outcome.ERROR, ":x: An exception occured.");
 		}
 		
 		EmbedBuilder eb = new EmbedBuilder();
 		eb.setAuthor(e.getAuthor().getName() + " (" + e.getAuthor().getId() + ")",
 			null, e.getAuthor().getAvatarUrl());
-		String msg = raw.replaceFirst(MessageUtils.messageRegex, "");
 		eb.setDescription("**Sent a DM to " + user.getName() + " (" + user.getId() + "):**\n" + msg);
 		eb.setThumbnail(user.getAvatarUrl());
 		MessageUtils.log(eb.build());

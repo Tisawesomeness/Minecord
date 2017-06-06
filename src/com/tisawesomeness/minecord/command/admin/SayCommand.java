@@ -35,13 +35,13 @@ public class SayCommand extends Command {
 			return new Result(Outcome.WARNING, ":warning: Please specify a message.");
 		}
 		
-		String raw = e.getMessage().getRawContent();
-		String param = raw.split(" ")[1];
+		//Extract channel
+		args = ArrayUtils.remove(MessageUtils.getContent(e.getMessage(), true), 0);
 		TextChannel channel = null;
-		if (param.matches(MessageUtils.channelRegex)) {
+		if (args[0].matches(MessageUtils.channelRegex)) {
 			channel = e.getMessage().getMentionedChannels().get(0);
-		} else if (param.matches(MessageUtils.idRegex)) {
-			channel = Bot.jda.getTextChannelById(param);
+		} else if (args[0].matches(MessageUtils.idRegex)) {
+			channel = Bot.jda.getTextChannelById(args[0]);
 		} else {
 			return new Result(Outcome.ERROR, ":x: Not a valid channel!");
 		}
@@ -55,7 +55,6 @@ public class SayCommand extends Command {
 		Guild guild = channel.getGuild();
 		eb.setAuthor(e.getAuthor().getName() + " (" + e.getAuthor().getId() + ")",
 			null, e.getAuthor().getAvatarUrl());
-		msg = raw.replaceFirst(MessageUtils.messageRegex, "");
 		eb.setDescription("**Sent a msg to `" + channel.getName() + "` (" + channel.getId() + ")**\non `" +
 			guild.getName() + "` (" + guild.getId() + "):\n" + msg);
 		eb.setThumbnail(guild.getIconUrl());

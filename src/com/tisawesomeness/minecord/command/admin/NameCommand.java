@@ -38,11 +38,10 @@ public class NameCommand extends Command {
 		}
 		
 		//Get guild
-		String raw = e.getMessage().getRawContent();
-		String param = raw.split(" ")[1];
+		args = ArrayUtils.remove(MessageUtils.getContent(e.getMessage(), true), 0);
 		Guild guild = null;
-		if (param.matches(MessageUtils.idRegex)) {
-			guild = Bot.jda.getGuildById(param);
+		if (args[0].matches(MessageUtils.idRegex)) {
+			guild = Bot.jda.getGuildById(args[0]);
 		} else {
 			return new Result(Outcome.ERROR, ":x: Not a valid guild!");
 		}
@@ -63,12 +62,11 @@ public class NameCommand extends Command {
 		EmbedBuilder eb = new EmbedBuilder();
 		eb.setAuthor(e.getAuthor().getName() + " (" + e.getAuthor().getId() + ")",
 			null, e.getAuthor().getAvatarUrl());
-		String msg = raw.replaceFirst(MessageUtils.messageRegex, "");
 		String desc = null;
 		if (args.length == 1) {
 			desc = "**Reset nickname on `" + guild.getName() + "` (" + guild.getId() + "):**";
 		} else {
-			desc = "**Changed nickname on `" + guild.getName() + "` (" + guild.getId() + "):**\n" + msg;
+			desc = "**Changed nickname on `" + guild.getName() + "` (" + guild.getId() + "):**\n" + name;
 		}
 		eb.setDescription(desc);
 		eb.setThumbnail(guild.getIconUrl());
