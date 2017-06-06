@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command.general;
 
+import java.awt.Color;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -62,7 +63,7 @@ public class InfoCommand extends Command {
 		
 		//Build message
 		EmbedBuilder eb = new EmbedBuilder();
-		eb.setColor(MessageUtils.randomColor());
+		eb.setColor(Color.GREEN);
 		eb.addField("Author", "@Tis_awesomeness#8617", true);
 		eb.addField("Version", Bot.getVersion(), true);
 		eb.addField("Guilds", e.getJDA().getGuilds().size() + "", true);

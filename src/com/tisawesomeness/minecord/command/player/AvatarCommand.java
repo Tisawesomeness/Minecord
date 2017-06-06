@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command.player;
 
+import java.awt.Color;
 import java.util.Arrays;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -101,7 +102,7 @@ public class AvatarCommand extends Command {
 			player = player + "'s Avatar";
 		}
 		
-		MessageEmbed me = MessageUtils.embedImage(player, url, MessageUtils.randomColor());
+		MessageEmbed me = MessageUtils.embedImage(player, url, Color.GREEN);
 		
 		return new Result(Outcome.SUCCESS, new EmbedBuilder(me).build());
 	}

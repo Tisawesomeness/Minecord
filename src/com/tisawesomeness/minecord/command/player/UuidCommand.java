@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command.player;
 
+import java.awt.Color;
 import java.util.Arrays;
 
 import com.tisawesomeness.minecord.Config;
@@ -77,7 +78,7 @@ public class UuidCommand extends Command {
 			title = title + "'s UUID";
 		}
 		
-		MessageEmbed me = MessageUtils.embedMessage(title, url, uuid, MessageUtils.randomColor());
+		MessageEmbed me = MessageUtils.embedMessage(title, url, uuid, Color.GREEN);
 		
 		return new Result(Outcome.SUCCESS, new EmbedBuilder(me).build());
 	}

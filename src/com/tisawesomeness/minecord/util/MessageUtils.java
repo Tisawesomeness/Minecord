@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.util;
 
 import java.awt.Color;
 import java.time.OffsetDateTime;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Pattern;
@@ -133,7 +132,6 @@ public class MessageUtils {
 	
 	/**
 	 * Returns one of 16 random colors
-	 */
 	public static Color randomColor() {
 		final Color[] colors = new Color[]{
 			new Color(0, 0, 0),
@@ -155,6 +153,7 @@ public class MessageUtils {
 		};
 		return colors[new Random().nextInt(colors.length)];
 	}
+	 */
 	
 	/**
 	 * Parses boolean arguments.

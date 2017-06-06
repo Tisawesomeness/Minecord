@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command.player;
 
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -94,7 +95,7 @@ public class SkinCommand extends Command {
 			player = player + "'s Skin";
 		}
 		
-		MessageEmbed me = MessageUtils.embedImage(player, url, MessageUtils.randomColor());
+		MessageEmbed me = MessageUtils.embedImage(player, url, Color.GREEN);
 		
 		return new Result(Outcome.SUCCESS, new EmbedBuilder(me).build());
 	}

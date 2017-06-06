@@ -1,5 +1,7 @@
 package com.tisawesomeness.minecord.command.player;
 
+import java.awt.Color;
+
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.util.MessageUtils;
@@ -70,7 +72,7 @@ public class CapeCommand extends Command {
 		String url;
 		if (minecraftCape && optifineCape) {
 			e.getTextChannel().sendMessage(MessageUtils.embedImage(
-				player, minecraftUrl, MessageUtils.randomColor())).queue();
+				player, minecraftUrl, Color.GREEN)).queue();
 			url = optifineUrl;
 		} else if (minecraftCape) {
 			url = minecraftUrl;
@@ -80,7 +82,7 @@ public class CapeCommand extends Command {
 			return new Result(Outcome.WARNING, ":warning: " + user + " does not have a cape!");
 		}
 		
-		MessageEmbed me = MessageUtils.embedImage(player, url, MessageUtils.randomColor());
+		MessageEmbed me = MessageUtils.embedImage(player, url, Color.GREEN);
 		
 		return new Result(Outcome.SUCCESS, new EmbedBuilder(me).build());
 	}

@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command.player;
 
+import java.awt.Color;
 import java.util.Arrays;
 
 import org.json.JSONArray;
@@ -113,7 +114,7 @@ public class HistoryCommand extends Command {
 			player = player + "'s Name History";
 		}
 		
-		MessageEmbed me = MessageUtils.embedMessage(player, url, m, MessageUtils.randomColor());
+		MessageEmbed me = MessageUtils.embedMessage(player, url, m, Color.GREEN);
 		
 		return new Result(Outcome.SUCCESS, new EmbedBuilder(me).build());
 	}

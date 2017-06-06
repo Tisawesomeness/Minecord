@@ -1,5 +1,7 @@
 package com.tisawesomeness.minecord.command.general;
 
+import java.awt.Color;
+
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.Registry;
@@ -63,7 +65,7 @@ public class HelpCommand extends Command {
 		}
 		m = m.substring(0, m.length() - 1); //Remove trailing newline
 		
-		MessageEmbed me = MessageUtils.embedMessage(null, null, m, MessageUtils.randomColor());
+		MessageEmbed me = MessageUtils.embedMessage(null, null, m, Color.GREEN);
 		
 		return new Result(Outcome.SUCCESS, me);
 	}
