@@ -5,6 +5,8 @@ import java.util.Arrays;
 
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.Command.Outcome;
+import com.tisawesomeness.minecord.command.Command.Result;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
@@ -60,8 +62,9 @@ public class UuidCommand extends Command {
 		//Check for errors
 		if (uuid == null) {
 			String m = ":x: The Mojang API could not be reached." +
-				"\n" + "Are you sure that username exists?";
-			return new Result(Outcome.WARNING, m, 1.5);
+				"\n" + "Are you sure that username exists?" +
+				"\n" + "Usernames are case-sensitive.";
+			return new Result(Outcome.WARNING, m, 2);
 		} else if (!uuid.matches(NameUtils.uuidRegex)) {
 			String m = ":x: The API responded with an error:\n" + uuid;
 			return new Result(Outcome.ERROR, m, 3);
