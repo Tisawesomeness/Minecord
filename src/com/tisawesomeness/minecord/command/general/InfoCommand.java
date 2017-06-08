@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command.general;
 
+import java.awt.Color;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -33,7 +34,7 @@ public class InfoCommand extends Command {
 	private static final long M = K * K;
 	private static final long G = M * K;
 	private static final long T = G * K;
-	private static final String helpServer = "https://discord.gg/7keuKSb";
+	public static final String helpServer = "https://discord.gg/7keuKSb";
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		Config.update();
@@ -47,22 +48,22 @@ public class InfoCommand extends Command {
 		//Calculate memory (taken from stackoverflow)
 		long value = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 		final long[] dividers = new long[] {T, G, M, K, 1};
-	    final String[] units = new String[] {"TB", "GB", "MB", "KB", "B"};
-	    if (value < 1) {
-	        throw new IllegalArgumentException("Invalid file size: " + value);
-	    }
-	    String memory = null;
-	    for (int i = 0; i < dividers.length; i++) {
-	        final long divider = dividers[i];
-	        if (value >= divider) {
-	            memory = format(value, divider, units[i]);
-	            break;
-	        }
-	    }
+		final String[] units = new String[] {"TB", "GB", "MB", "KB", "B"};
+		if (value < 1) {
+			throw new IllegalArgumentException("Invalid file size: " + value);
+		}
+		String memory = null;
+		for (int i = 0; i < dividers.length; i++) {
+			final long divider = dividers[i];
+			if (value >= divider) {
+				memory = format(value, divider, units[i]);
+				break;
+			}
+		}
 		
-	    //Build message
+		//Build message
 		EmbedBuilder eb = new EmbedBuilder();
-		eb.setColor(MessageUtils.randomColor());
+		eb.setColor(Color.GREEN);
 		eb.addField("Author", "@Tis_awesomeness#8617", true);
 		eb.addField("Version", Bot.getVersion(), true);
 		eb.addField("Guilds", e.getJDA().getGuilds().size() + "", true);
@@ -79,6 +80,7 @@ public class InfoCommand extends Command {
 		if (Config.getShowMemory() || elevated) {
 			eb.addField("Memory", memory, true);
 		}
+		eb.addField("Invite", Config.getInvite(), true);
 		eb.addField("Help Server", helpServer, true);
 		eb.addField("Credits", "Mojang API, Crafatar, and MCAPI", true);
 		eb.addField("Library", "Java `1.8.0_101`, JDA `3.0.BETA2_135`", true);
@@ -88,8 +90,8 @@ public class InfoCommand extends Command {
 	}
 
 	private static String format(long value, long divider, String unit) {
-	    double result = divider > 1 ? (double) value / (double) divider : (double) value;
-	    return new DecimalFormat("#,##0.#").format(result) + " " + unit;
+		double result = divider > 1 ? (double) value / (double) divider : (double) value;
+		return new DecimalFormat("#,##0.#").format(result) + " " + unit;
 	}
 	
 }

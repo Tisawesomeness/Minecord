@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Future;
-import java.util.regex.Pattern;
-
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.tisawesomeness.minecord.command.Command;
@@ -38,163 +36,157 @@ public class Listener extends ListenerAdapter {
 		if (e.getChannelType() == ChannelType.TEXT) {
 			Message m = e.getMessage();
 			
-			//If the message was sent by a human and commands are enabled
-			if (Registry.enabled && m != null && !m.getAuthor().isBot()) {
+			//If commands are disabled, the message is null, or the sender is a bot, return
+			if (!Registry.enabled || m == null || m.getAuthor().isBot()) {
+				return;
+			}
+			
+			String name = null;
+			String[] args = null;
+			
+			//If the message is a valid command
+			String[] content = MessageUtils.getContent(m, false);
+			if (content != null) {
 				
-				//Extract the command name and argument list
-				String mention = e.getJDA().getSelfUser().getAsMention();
-				String[] msg = m.getRawContent().split(" ");
-				String name = "";
+				//Extract name and argument list
+				name = content[0];
+				args = ArrayUtils.remove(content, 0);
 				
-				//If it starts with the command prefix
-				if (m.getContent().startsWith(Config.getPrefix())) {
-					msg = m.getContent().split(" ");
-					name = msg[0].replaceFirst(Pattern.quote(Config.getPrefix()), "");
-				//Stop if it mentions everyone
-				} else if (m.mentionsEveryone()) {
-					return;
-				//If it starts with the bot mention
-				} else if (m.getRawContent().replaceFirst("@!", "@").startsWith(mention)) {
-					msg = ArrayUtils.removeElement(msg, msg[0]);
-					name = msg[0].replaceFirst(Pattern.quote(mention), "");
-				//If it mentions the bot
-				} else if (m.isMentioned(e.getJDA().getSelfUser())) {
-					
-					//Send the message to the logging channel
-					EmbedBuilder eb = new EmbedBuilder();
-					eb.setAuthor(e.getAuthor().getName() + " (" + e.getAuthor().getId() + ")",
-						null, e.getAuthor().getEffectiveAvatarUrl());
-					eb.setDescription("**`" + e.getGuild().getName() + "`** (" +
-						e.getGuild().getId() + ") in channel `" + e.getChannel().getName() +
-						"` (" + e.getChannel().getId() + ")\n" + m.getContent());
-					MessageUtils.log(eb.build());
-					return;
-				//Leave if it's none of the above
-				} else {
-					return;
+			//If the bot is mentioned and does not mention everyone
+			} else if (m.isMentioned(e.getJDA().getSelfUser()) && !m.mentionsEveryone()) {
+				
+				//Send the message to the logging channel
+				EmbedBuilder eb = new EmbedBuilder();
+				eb.setAuthor(e.getAuthor().getName() + " (" + e.getAuthor().getId() + ")",
+					null, e.getAuthor().getEffectiveAvatarUrl());
+				eb.setDescription("**`" + e.getGuild().getName() + "`** (" +
+					e.getGuild().getId() + ") in channel `" + e.getChannel().getName() +
+					"` (" + e.getChannel().getId() + ")\n" + m.getContent());
+				MessageUtils.log(eb.build());
+				return;
+				
+			//If none of the above are satisfied, get out
+			} else {
+				return;
+			}
+			
+			//If the command has not been registered
+			if (!Registry.commandMap.containsKey(name)) {
+				return;
+			}
+			
+			TextChannel c = e.getTextChannel();
+			
+			//Delete message if enabled in the config and the bot has permissions
+			if (e.getGuild().getSelfMember().hasPermission(c, Permission.MESSAGE_MANAGE)) {
+				if (Config.getDeleteCommands()) {
+					m.delete().complete();
 				}
-				
-				String[] args = ArrayUtils.removeElement(msg, msg[0]);
-				
-				//If the command has been registered
-				if (Registry.commandMap.containsKey(name)) {
-					TextChannel c = e.getTextChannel();
-					
-					//Delete message if enabled in the config and the bot has permissions
-					if (e.getGuild().getSelfMember().hasPermission(c, Permission.MESSAGE_MANAGE)) {
-						if (Config.getDeleteCommands()) {
-							m.delete().complete();
-						}
-					} else {
-						System.out.println("No permission: MESSAGE_MANAGE");
-					}
-					
-					//Get command
-					Command cmd = Registry.commandMap.get(name);
-					CommandInfo ci = cmd.getInfo();
+			}
+			
+			//Get command info
+			Command cmd = Registry.commandMap.get(name);
+			CommandInfo ci = cmd.getInfo();
 
-					//Check for elevation
-					if (ci.elevated && !Config.getElevatedUsers().contains(e.getAuthor().getId())) {
-						MessageUtils.notify(":warning: Insufficient permissions!", c);
-						return;
+			//Check for elevation
+			if (ci.elevated && !Config.getElevatedUsers().contains(e.getAuthor().getId())) {
+				MessageUtils.notify(":warning: Insufficient permissions!", c);
+				return;
+			}
+			
+			//Check for cooldowns, skipping if user is elevated
+			User a = e.getAuthor();
+			if (!(Config.getElevatedSkipCooldown() && Config.getElevatedUsers().contains(a.getId()))
+					&& cmd.cooldowns.containsKey(a) && ci.cooldown > 0) {
+				long last = cmd.cooldowns.get(a);
+				if (System.currentTimeMillis() - ci.cooldown < last) {
+					//Format warning message
+					long time = (long) ci.cooldown + last - System.currentTimeMillis();
+					String seconds = String.valueOf(time);
+					while (seconds.length() < 4) {
+						seconds = "0" + seconds;
 					}
-					
-					//Check for cooldowns, skipping if user is elevated
-					User a = e.getAuthor();
-					if (!(Config.getElevatedSkipCooldown() && Config.getElevatedUsers().contains(a.getId()))
-							&& cmd.cooldowns.containsKey(a) && ci.cooldown > 0) {
-						long last = cmd.cooldowns.get(a);
-						if (System.currentTimeMillis() - ci.cooldown < last) {
-							//Format warning message
-							long time = (long) ci.cooldown + last - System.currentTimeMillis();
-							String seconds = String.valueOf(time);
-							while (seconds.length() < 4) {
-								seconds = "0" + seconds;
-							}
-							seconds = new StringBuilder(seconds).insert(seconds.length() - 3, ".").toString();
-							MessageUtils.notify(":warning: Wait " + seconds + " more seconds.", c);
-							return;
-						} else {
-							cmd.cooldowns.remove(a);
+					seconds = new StringBuilder(seconds).insert(seconds.length() - 3, ".").toString();
+					MessageUtils.notify(":warning: Wait " + seconds + " more seconds.", c);
+					return;
+				} else {
+					cmd.cooldowns.remove(a);
+				}
+			}
+			
+			//Class to send typing notification every 5 seconds
+			class Typing extends TimerTask {
+				Future<Void> fv = null;
+				@Override
+				public void run() {
+					synchronized (this) {
+						fv = c.sendTyping().submit();
+					}
+				}
+			}
+			
+			//Instantiate timer
+			Timer timer = null;
+			Typing typing = null;
+			if (Config.getSendTyping() && ci.typing) {
+				timer = new Timer();
+				typing = new Typing();
+				timer.schedule(typing, 0, 5000);
+			}
+			
+			//Run command
+			Result result = null;
+			Exception exception = null;
+			cmd.cooldowns.put(a, System.currentTimeMillis());
+			cmd.uses++;
+			try {
+				result = cmd.run(args, e);
+			} catch (Exception ex) {
+				exception = ex;
+			}
+			
+			//Cancel typing
+			if (Config.getSendTyping() && ci.typing) {
+				timer.cancel();
+				if (typing.fv != null) {
+					typing.fv.cancel(true);
+					synchronized (this) {
+						notifyAll();
+					}
+				}
+			}
+			
+			//Catch exceptions
+			if (result == null) {
+				if (exception != null) {exception.printStackTrace();}
+				String err = ":x: There was an unexpected exception: `" + exception + "`";
+				if (Config.getDebugMode()) {
+					err = err + "\n" + exception.getStackTrace();
+				}
+				MessageUtils.notify(err, c);
+			//If message is empty
+			} if (result.message == null) {
+				if (result.outcome != null && result.outcome != Outcome.SUCCESS) {
+					System.out.println("Command \"" + ci.name + "\" returned an empty " +
+						result.outcome.toString().toLowerCase());
+				}
+			} else {
+				//Wait for "typing..." to send, then print message
+				//TODO: Find out if typing after sent message is client-specific
+				if (result.outcome == Outcome.SUCCESS) {
+					while (typing != null && typing.fv != null && !typing.fv.isDone()) {
+						synchronized (this) {
+							try {wait();} catch (InterruptedException ex) {}
 						}
 					}
-					
-					//Class to send typing notification every 5 seconds
-					class Typing extends TimerTask {
-						Future<Void> fv = null;
-						@Override
-						public void run() {
-							synchronized (this) {
-								fv = c.sendTyping().submit();
-							}
-						}
+					e.getTextChannel().sendMessage(result.message).queue();
+				} else {
+					//Catch errors
+					if (result.outcome == Outcome.ERROR) {
+						System.out.println("Command \"" + ci.name + "\" returned an error: " +
+							result.message.getContent());
 					}
-					
-					//Instantiate timer
-					Timer timer = null;
-					Typing typing = null;
-					if (Config.getSendTyping() && ci.typing) {
-						timer = new Timer();
-						typing = new Typing();
-						timer.schedule(typing, 0, 5000);
-					}
-					
-					//Run command
-					Result result = null;
-					Exception exception = null;
-					cmd.cooldowns.put(a, System.currentTimeMillis());
-					cmd.uses++;
-					try {
-						result = cmd.run(args, e);
-					} catch (Exception ex) {
-						exception = ex;
-					}
-					
-					//Cancel typing
-					if (Config.getSendTyping() && ci.typing) {
-						timer.cancel();
-						if (typing.fv != null) {
-							typing.fv.cancel(true);
-							synchronized (this) {
-								notifyAll();
-							}
-						}
-					}
-					
-					//Catch exceptions
-					if (result == null) {
-						if (exception != null) {exception.printStackTrace();}
-						String err = ":x: There was an unexpected exception: `" + exception + "`";
-						if (Config.getDebugMode()) {
-							err = err + "\n" + exception.getStackTrace();
-						}
-						MessageUtils.notify(err, c);
-					//If message is empty
-					} if (result.message == null) {
-						if (result.outcome != null && result.outcome != Outcome.SUCCESS) {
-							System.out.println("Command \"" + ci.name + "\" returned an empty " +
-								result.outcome.toString().toLowerCase());
-						}
-					} else {
-						//Wait for "typing..." to send, then print message
-						//TODO: Find out if typing after sent message is client-specific
-						if (result.outcome == Outcome.SUCCESS) {
-							while (typing != null && typing.fv != null && !typing.fv.isDone()) {
-								synchronized (this) {
-									try {wait();} catch (InterruptedException ex) {}
-								}
-							}
-							e.getTextChannel().sendMessage(result.message).queue();
-						} else {
-							//Catch errors
-							if (result.outcome == Outcome.ERROR) {
-								System.out.println("Command \"" + ci.name + "\" returned an error: " +
-									result.message.getContent());
-							}
-							MessageUtils.notify(result.message, c, result.notifyMultiplier);
-						}
-					}
-					
+					MessageUtils.notify(result.message, c, result.notifyMultiplier);
 				}
 			}
 		

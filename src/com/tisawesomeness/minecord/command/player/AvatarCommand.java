@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command.player;
 
+import java.awt.Color;
 import java.util.Arrays;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -71,8 +72,9 @@ public class AvatarCommand extends Command {
 			//Check for errors
 			if (uuid == null) {
 				String m = ":x: The Mojang API could not be reached." +
-					"\n" + "Are you sure that username exists?";
-				return new Result(Outcome.WARNING, m, 1.5);
+					"\n" + "Are you sure that username exists?" +
+					"\n" + "Usernames are case-sensitive.";
+				return new Result(Outcome.WARNING, m, 2);
 			} else if (!uuid.matches(NameUtils.uuidRegex)) {
 				String m = ":x: The API responded with an error:\n" + uuid;
 				return new Result(Outcome.ERROR, m, 3);
@@ -101,7 +103,7 @@ public class AvatarCommand extends Command {
 			player = player + "'s Avatar";
 		}
 		
-		MessageEmbed me = MessageUtils.embedImage(player, url, MessageUtils.randomColor());
+		MessageEmbed me = MessageUtils.embedImage(player, url, Color.GREEN);
 		
 		return new Result(Outcome.SUCCESS, new EmbedBuilder(me).build());
 	}

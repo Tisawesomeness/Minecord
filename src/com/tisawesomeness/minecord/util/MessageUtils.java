@@ -2,11 +2,12 @@ package com.tisawesomeness.minecord.util;
 
 import java.awt.Color;
 import java.time.OffsetDateTime;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
@@ -22,7 +23,6 @@ public class MessageUtils {
 	public static final String mentionRegex = "<@!?[0-9]+>";
 	public static final String channelRegex = "<#[0-9]+>";
 	public static final String idRegex = "[0-9]{18}";
-	public static final String messageRegex = "[^ ]+ [^ ]+ ";
 	
 	public static final String dateHelp = 
 		"In [date], you may define a date, time, and timezone." +
@@ -132,7 +132,6 @@ public class MessageUtils {
 	
 	/**
 	 * Returns one of 16 random colors
-	 */
 	public static Color randomColor() {
 		final Color[] colors = new Color[]{
 			new Color(0, 0, 0),
@@ -154,6 +153,7 @@ public class MessageUtils {
 		};
 		return colors[new Random().nextInt(colors.length)];
 	}
+	 */
 	
 	/**
 	 * Parses boolean arguments.
@@ -192,6 +192,37 @@ public class MessageUtils {
 		EmbedBuilder eb = new EmbedBuilder(m);
 		eb.setTimestamp(OffsetDateTime.now());
 		Bot.jda.getTextChannelById(Config.getLogChannel()).sendMessage(eb.build()).queue();
+	}
+	
+	/**
+	 * Gets the command-useful content of a message, keeping the name and arguments and purging the prefix and mention.
+	 */
+	public static String[] getContent(Message m, boolean raw) {
+		if (m.getContent().startsWith(Config.getPrefix())) {
+			String content = null;
+			if (raw) {
+				content = m.getRawContent();
+			} else {
+				content = m.getContent();
+			}
+			return content.replaceFirst(Pattern.quote(Config.getPrefix()), "").split(" ");
+		} else if (m.getRawContent().replaceFirst("@!", "@").startsWith(Bot.jda.getSelfUser().getAsMention())) {
+			if (raw) {
+				String[] args = m.getRawContent().split(" ");
+				return ArrayUtils.removeElement(args, args[0]);
+			} else {
+				String replace = "@" + m.getMentionedUsers().get(0).getName();
+				String content = StringUtils.removeStart(m.getContent(), replace);
+				if (content.length() >= 5 && content.substring(0, 5).matches("^#[0-9]{4}")) {
+					content = content.replaceFirst("#[0-9]{4} ?", "");
+				} else {
+					content = content.substring(1);
+				}
+				return content.split(" ");
+			}
+		} else {
+			return null;
+		}
 	}
 
 }

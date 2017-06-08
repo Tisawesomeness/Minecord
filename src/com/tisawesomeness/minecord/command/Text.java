@@ -38,8 +38,10 @@ public class Text extends Command {
 		);
 	}
 
+	//When someone types in just "&", meaning a blank name, it should be stopped by the listener.
+	//If this command executes, it will fail silently and log an empty warning.
 	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
-		return new Result(Outcome.ERROR, ":x: Can't run this command!");
+		return new Result(Outcome.WARNING);
 	}
 
 }

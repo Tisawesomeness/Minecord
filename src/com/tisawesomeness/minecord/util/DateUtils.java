@@ -149,10 +149,10 @@ public class DateUtils {
 	 */
 	public static Calendar parse(String string, String format) throws ParseException {
 		SimpleDateFormat inputDateFormat = new SimpleDateFormat(format);
-	    Date date = inputDateFormat.parse(string);
-	    long time = date.getTime();
-	    Calendar cal = Calendar.getInstance();
-	    cal.setTimeInMillis(time);
+		Date date = inputDateFormat.parse(string);
+		long time = date.getTime();
+		Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(time);
 		return cal;
 	}
 	
@@ -165,16 +165,16 @@ public class DateUtils {
 	 */
 	private static Calendar parseUnstable(String string, String format) {
 		SimpleDateFormat inputDateFormat = new SimpleDateFormat(format); //MM/dd/yyyy hh:mm:ss a
-	    Date date = null;
-	    try {
-	        date = inputDateFormat.parse(string);
-	    } catch (ParseException e) {
-	        e.printStackTrace();
-	        return null;
-	    }
-	    long time = date.getTime();
-	    Calendar cal = Calendar.getInstance();
-	    cal.setTimeInMillis(time);
+		Date date = null;
+		try {
+			date = inputDateFormat.parse(string);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+		long time = date.getTime();
+		Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(time);
 		return cal;
 	}
 	

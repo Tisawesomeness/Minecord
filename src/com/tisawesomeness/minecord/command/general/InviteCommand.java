@@ -3,6 +3,8 @@ package com.tisawesomeness.minecord.command.general;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.util.MessageUtils;
+
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 public class InviteCommand extends Command {
@@ -21,9 +23,11 @@ public class InviteCommand extends Command {
 	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
-		return new Result(Outcome.SUCCESS,
-			MessageUtils.embedMessage("Invite me!", null, Config.getInvite(), MessageUtils.randomColor())
-		);
+		EmbedBuilder eb = new EmbedBuilder();
+		eb.addField("Invite me!", Config.getInvite(), true);
+		eb.addField("Help server", InfoCommand.helpServer, true);
+		eb = MessageUtils.addFooter(eb);
+		return new Result(Outcome.SUCCESS, eb.build());
 	}
 	
 }
