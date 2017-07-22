@@ -16,7 +16,7 @@
 	"notificationTime": 4000,
 	"deleteCommands": true,
 	"sendTyping": true,
-	"invite": "https://goo.gl/Zh81Gb",
+	"invite": "https://bot.discord.io/minecord",
 	"showMemory": true,
 	"elevatedSkipCooldown": true,
 	"elevatedUsers": [

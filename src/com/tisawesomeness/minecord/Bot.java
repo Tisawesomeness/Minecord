@@ -30,7 +30,7 @@ public class Bot {
 	public static long birth;
 	public static String[] args;
 
-	private static final String version = "0.4.4";
+	private static final String version = "0.4.5";
 	
 	public static Thread thread;
 	private static final String mainClass = "com.tisawesomeness.minecord.Main";
@@ -113,7 +113,7 @@ public class Bot {
 					.setAudioEnabled(false)
 					.setAutoReconnect(true)
 					.setGame(Game.of(Config.getGame()))
-					.addListener(listener);
+					.addEventListener(listener);
 				try {
 					if (!Config.getLogJDA()) {
 						SimpleLog.LEVEL = Level.OFF;

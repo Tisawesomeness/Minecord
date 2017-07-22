@@ -8,8 +8,6 @@ import org.json.JSONObject;
 
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.command.Command.Outcome;
-import com.tisawesomeness.minecord.command.Command.Result;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
