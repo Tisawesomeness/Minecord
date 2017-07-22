@@ -34,7 +34,7 @@ public class InfoCommand extends Command {
 	private static final long M = K * K;
 	private static final long G = M * K;
 	private static final long T = G * K;
-	public static final String helpServer = "https://discord.gg/7keuKSb";
+	public static final String helpServer = "https://discord.io/minecord";
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		Config.update();
