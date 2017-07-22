@@ -1,8 +1,8 @@
 # Minecord
 A robust Discord bot using the JDA library for various Minecraft functions.
-- Invite: https://goo.gl/Zh81Gb
+- Invite: https://bot.discord.io/minecord
 - Bot User: Minecord#1216
-- Support Server: https://discord.gg/7keuKSb
+- Support Server: https://discord.io/minecord
 
 ### Command List
 #### General Commands
@@ -79,7 +79,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 	"notificationTime": 4000,
 	"deleteCommands": true,
 	"sendTyping": true,
-	"invite": "https://goo.gl/Zh81Gb",
+	"invite": "https://bot.discord.io/minecord",
 	"showMemory": true,
 	"elevatedSkipCooldown": true,
 	"elevatedUsers": [
