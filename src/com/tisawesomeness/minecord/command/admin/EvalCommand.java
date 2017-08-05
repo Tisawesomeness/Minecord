@@ -38,7 +38,8 @@ public class EvalCommand extends Command {
 		code = code.substring(0, code.length() - 1);
 		Object output = engine.eval(code);
 		if (output == null) {output = "null";}
-		return new Result(Outcome.SUCCESS, output.toString());
+		String outputStr = output.toString().replaceAll("@everyone", "@.everyone").replaceAll("@here", "@.here");
+		return new Result(Outcome.SUCCESS, outputStr);
 		
 	}
 
