@@ -27,6 +27,7 @@ public class Bot {
 	
 	public static JDA jda;
 	private static Listener listener;
+	public static Config config;
 	public static long birth;
 	public static String[] args;
 
@@ -59,7 +60,7 @@ public class Bot {
 
 		//Pre-init
 		thread = Thread.currentThread();
-		new Config(new File(path));
+		config = new Config(new File(path));
 		listener = new Listener();
 		Registry.init();
 		
