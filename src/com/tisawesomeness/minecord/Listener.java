@@ -159,7 +159,7 @@ public class Listener extends ListenerAdapter {
 			//Catch exceptions
 			if (result == null) {
 				if (exception != null) {exception.printStackTrace();}
-				String err = ":x: There was an unexpected exception: `" + exception + "`";
+				String err = ":x: There was an unexpected exception: ```" + exception + "```";
 				if (Config.getDebugMode()) {
 					err = err + "\n" + exception.getStackTrace();
 				}

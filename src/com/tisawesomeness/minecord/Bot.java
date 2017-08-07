@@ -27,10 +27,11 @@ public class Bot {
 	
 	public static JDA jda;
 	private static Listener listener;
+	public static Config config;
 	public static long birth;
 	public static String[] args;
 
-	private static final String version = "0.4.5";
+	private static final String version = "0.4.7";
 	
 	public static Thread thread;
 	private static final String mainClass = "com.tisawesomeness.minecord.Main";
@@ -59,7 +60,7 @@ public class Bot {
 
 		//Pre-init
 		thread = Thread.currentThread();
-		new Config(new File(path));
+		config = new Config(new File(path));
 		listener = new Listener();
 		Registry.init();
 		

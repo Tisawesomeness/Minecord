@@ -24,8 +24,8 @@ public class InviteCommand extends Command {
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		EmbedBuilder eb = new EmbedBuilder();
-		eb.addField("Invite me!", Config.getInvite(), true);
-		eb.addField("Help server", InfoCommand.helpServer, true);
+		eb.addField("Invite me!", Config.getInvite(), false);
+		eb.addField("Help server", InfoCommand.helpServer, false);
 		eb = MessageUtils.addFooter(eb);
 		return new Result(Outcome.SUCCESS, eb.build());
 	}

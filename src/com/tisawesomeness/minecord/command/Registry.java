@@ -45,7 +45,7 @@ public class Registry {
 			new UsageCommand(),
 			new ReloadCommand(),
 			new ShutdownCommand(),
-			new DumpCommand(),
+			new EvalCommand(),
 			new TestCommand(),
 			new Text(
 				"\n" + "**Arguments:**" +
