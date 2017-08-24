@@ -33,7 +33,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&usage` - Shows how often commands are used.
 - `&reload` - Reloads the bot.
 - `&shutdown` - Shuts down the bot.
-- `&eval` - Evaluates javascript code. Use "jda" to get a JDA object, "e" for the event, and "config" for the config.
+- `&eval` - Evaluates javascript code with variables `jda`, `config`, `event`, `guild`, `channel`, and `user`.
 - `&test` - Test command.
 
 ### Config
