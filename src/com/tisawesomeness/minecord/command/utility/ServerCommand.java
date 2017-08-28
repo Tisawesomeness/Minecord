@@ -15,7 +15,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class ServerCommand extends Command {
 	
 	final String serverAddressRegex = "^((?=[a-z0-9-]{1,63}\\.)[a-z0-9]+(-[a-z0-9]+)*\\.)+[a-z0-9]+(\\2)*(:([0-5]?[0-9]{1,4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))?$";
-	final String chatCodeRegex = "§[a-fA-Fklmnor0-9]";
+	final String chatCodeRegex = "\u00A7[a-fA-Fklmnor0-9]"; //§
 	final String deleteChars = "Â";
 	
 	public CommandInfo getInfo() {
