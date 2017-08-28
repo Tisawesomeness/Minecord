@@ -4,7 +4,7 @@
 	"devMode": false,
 	"debugMode": false,
 	"logJDA": true,
-	"logChannel": "306118666745806851",
+	"logChannel": "0",
 	"sendServerCount": false,
 	"pwToken": "your token here",
 	"netToken": "your token here",
