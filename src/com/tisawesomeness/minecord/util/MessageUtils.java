@@ -191,7 +191,9 @@ public class MessageUtils {
 	public static void log(MessageEmbed m) {
 		EmbedBuilder eb = new EmbedBuilder(m);
 		eb.setTimestamp(OffsetDateTime.now());
-		Bot.jda.getTextChannelById(Config.getLogChannel()).sendMessage(eb.build()).queue();
+		if (!Config.getLogChannel().equals("0")) {
+			Bot.jda.getTextChannelById(Config.getLogChannel()).sendMessage(eb.build()).queue();
+		}
 	}
 	
 	/**

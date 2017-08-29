@@ -1,4 +1,4 @@
-![A robust Discord bot using the JDA library for various Minecraft functions.](http://i.imgur.com/DxA9Sgy.png)
+![A robust Discord bot using the JDA library for various Minecraft functions.](http://i.imgur.com/avV6Fl6.png)
 
 ### Features
 - 24/7 Uptime

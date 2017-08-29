@@ -13,7 +13,7 @@ public class EvalCommand extends Command {
 	public CommandInfo getInfo() {
 		return new CommandInfo(
 			"eval",
-			"Please don't use this.",
+			"Evaluates some js code.",
 			"<js code>",
 			new String[]{},
 			0,
@@ -35,8 +35,11 @@ public class EvalCommand extends Command {
 		ScriptEngineManager factory = new ScriptEngineManager();
 		ScriptEngine engine = factory.getEngineByName("JavaScript");
 		engine.put("jda", e.getJDA());
-		engine.put("e", e);
 		engine.put("config", Bot.config);
+		engine.put("event", e);
+		engine.put("guild", e.getGuild());
+		engine.put("channel", e.getChannel());
+		engine.put("user", e.getAuthor());
 		
 		//Extract code from message
 		String code = "";
