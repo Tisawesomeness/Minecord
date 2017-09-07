@@ -28,7 +28,7 @@ public class Bot {
 	private static final String mainClass = "com.tisawesomeness.minecord.Main";
 	public static final String helpServer = "https://discord.io/minecord";
 	public static final String website = "https://minecord.github.io";
-	private static final String version = "0.4.8";
+	private static final String version = "0.4.9";
 	
 	public static JDA jda;
 	private static Listener listener;
