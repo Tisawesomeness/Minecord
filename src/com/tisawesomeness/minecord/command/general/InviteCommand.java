@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command.general;
 
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.util.MessageUtils;
@@ -25,8 +26,8 @@ public class InviteCommand extends Command {
 	public Result run(String[] args, MessageReceivedEvent e) {
 		EmbedBuilder eb = new EmbedBuilder();
 		eb.addField("Invite me!", Config.getInvite(), false);
-		eb.addField("Help server", InfoCommand.helpServer, false);
-		eb.addField("Website", InfoCommand.website, true);
+		eb.addField("Help server", Bot.helpServer, false);
+		eb.addField("Website", Bot.website, true);
 		eb = MessageUtils.addFooter(eb);
 		return new Result(Outcome.SUCCESS, eb.build());
 	}
