@@ -16,6 +16,11 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 public class InfoCommand extends Command {
 	
+	private static final long K = 1024;
+	private static final long M = K * K;
+	private static final long G = M * K;
+	private static final long T = G * K;
+	
 	public CommandInfo getInfo() {
 		return new CommandInfo(
 			"info",
@@ -29,12 +34,6 @@ public class InfoCommand extends Command {
 			false,
 			true);
 	}
-	
-	private static final long K = 1024;
-	private static final long M = K * K;
-	private static final long G = M * K;
-	private static final long T = G * K;
-	public static final String helpServer = "https://discord.io/minecord";
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		Config.update();
@@ -81,7 +80,8 @@ public class InfoCommand extends Command {
 			eb.addField("Memory", memory, true);
 		}
 		eb.addField("Invite", Config.getInvite(), true);
-		eb.addField("Help Server", helpServer, true);
+		eb.addField("Help Server", Bot.helpServer, true);
+		eb.addField("Website", Bot.website, true);
 		eb.addField("Credits", "Mojang API, Crafatar, and MCAPI", true);
 		eb.addField("Library", "Java `1.8.0_101`, JDA `3.2.0_228`", true);
 		

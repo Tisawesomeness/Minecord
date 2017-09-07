@@ -177,13 +177,17 @@ public class MessageUtils {
 	 * Logs a message to the logging channel.
 	 */
 	public static void log(String m) {
-		Bot.jda.getTextChannelById(Config.getLogChannel()).sendMessage(m).queue();
+		if (!Config.getLogChannel().equals("0")) {
+			Bot.jda.getTextChannelById(Config.getLogChannel()).sendMessage(m).queue();
+		}
 	}
 	/**
 	 * Logs a message to the logging channel.
 	 */
 	public static void log(Message m) {
-		Bot.jda.getTextChannelById(Config.getLogChannel()).sendMessage(m).queue();
+		if (!Config.getLogChannel().equals("0")) {
+			Bot.jda.getTextChannelById(Config.getLogChannel()).sendMessage(m).queue();
+		}
 	}
 	/**
 	 * Logs a message to the logging channel.
