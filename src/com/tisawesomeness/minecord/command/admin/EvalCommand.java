@@ -1,10 +1,15 @@
 package com.tisawesomeness.minecord.command.admin;
 
+import java.util.regex.Pattern;
+
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.util.MessageUtils;
+
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 public class EvalCommand extends Command {
@@ -53,9 +58,19 @@ public class EvalCommand extends Command {
 		if (output == null) {
 			return new Result(Outcome.ERROR, ":x: Invalid javascript.");
 		}
-		//Prevent accidental @everyone
-		String outputStr = output.toString().replaceAll("@everyone", "@.everyone").replaceAll("@here", "@.here");
-		return new Result(Outcome.SUCCESS, outputStr);
+		
+		//Prevent @everyone and revealing token
+		String outputStr = output.toString()
+			.replaceAll("@everyone", "[everyone]")
+			.replaceAll("@here", "[here]")
+			.replaceAll(Pattern.quote(e.getJDA().getToken()), "[redacted]");
+		
+		EmbedBuilder eb = new EmbedBuilder();
+		eb.addField("Input", "```js\n" + code + "\n```", false);
+		eb.addField("Output", "```js\n" + outputStr + "\n```", false);
+		eb = MessageUtils.addFooter(eb);
+		
+		return new Result(Outcome.SUCCESS, eb.build());
 		
 	}
 

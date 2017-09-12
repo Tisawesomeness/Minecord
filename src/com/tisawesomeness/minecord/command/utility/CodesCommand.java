@@ -26,9 +26,9 @@ public class CodesCommand extends Command {
 	public Result run(String[] args, MessageReceivedEvent e) {
 		
 		String m = "**Chat Codes:**" +
-				"\n" + "Copy-Paste symbol: §" +
-				"\n" + "MOTD code: \\u00A7" +
-				"\n" + "Most servers with plugins let you use & instead of § in chat and config files." +
+				"\n" + "Copy-Paste symbol: `§`" +
+				"\n" + "MOTD code: `\\u00A7`" +
+				"\n" + "Most servers with plugins let you use `&` instead of `§` in chat and config files." +
 				"\n" + "http://i.imgur.com/MWCFs5S.png" +
 				"\n" + "http://i.imgur.com/cWYjhkN.png";
 		return new Result(Outcome.SUCCESS, m);
