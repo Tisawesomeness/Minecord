@@ -3,7 +3,6 @@ package com.tisawesomeness.minecord.command.admin;
 import java.util.concurrent.ExecutionException;
 import org.apache.commons.lang3.ArrayUtils;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
@@ -42,11 +41,11 @@ public class MsgCommand extends Command {
 		User user = null;
 		if (args[0].matches(MessageUtils.mentionRegex)) {
 			user = e.getMessage().getMentionedUsers().get(0);
-			if (user.getId() == Bot.jda.getSelfUser().getId()) {
+			if (user.getId() == e.getJDA().getSelfUser().getId()) {
 				user = e.getMessage().getMentionedUsers().get(1);
 			}
 		} else if (args[0].matches(MessageUtils.idRegex)) {
-			user = Bot.jda.getUserById(args[0]);
+			user = e.getJDA().getUserById(args[0]);
 		} else {
 			return new Result(Outcome.ERROR, ":x: Not a valid user!");
 		}

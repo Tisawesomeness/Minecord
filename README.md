@@ -38,6 +38,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 
 ### Config
 - *Client Token:* Your unique bot token. **Do not upload it to GitHub, or people will be able to steal your bot!**
+- *Shard Count:* The amount of shards to use. Set to 1 if you don't need sharding.
 - *Owner:* The user ID of the bot owner.
 - *Dev Mode:* Turning this on will let you reload code using `&reload` on the fly. When hosting the bot, it's best to keep this off in order to decrease memory usage.
 - *Debug Mode:* Prints additional info to console.
@@ -63,11 +64,12 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 ```json
 {
 	"clientToken": "your token here",
+	"shardCount": 1,
 	"owner": "0",
 	"devMode": false,
 	"debugMode": false,
 	"logJDA": true,
-	"logChannel": "306118666745806851",
+	"logChannel": "0",
 	"sendServerCount": false,
 	"pwToken": "your token here",
 	"netToken": "your token here",

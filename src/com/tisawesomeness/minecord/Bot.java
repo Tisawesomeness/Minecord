@@ -1,10 +1,9 @@
 package com.tisawesomeness.minecord;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import javax.security.auth.login.LoginException;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -16,10 +15,9 @@ import com.tisawesomeness.minecord.util.RequestUtils;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.exceptions.RateLimitedException;
+import net.dv8tion.jda.core.requests.SessionReconnectQueue;
 import net.dv8tion.jda.core.utils.SimpleLog;
 import net.dv8tion.jda.core.utils.SimpleLog.Level;
 
@@ -30,22 +28,17 @@ public class Bot {
 	public static final String website = "https://minecord.github.io";
 	private static final String version = "0.4.10";
 	
-	public static JDA jda;
+	public static ArrayList<JDA> shards = new ArrayList<JDA>();
 	private static Listener listener;
 	public static Config config;
 	public static long birth;
 	public static String[] args;
 	
 	public static Thread thread;
+	
+	@SuppressWarnings("unchecked")
+	public static boolean setup(String[] args, boolean devMode) {
 
-	public Bot(String[] args) {
-
-		//Parse reload
-		boolean reload = false;
-		if (args.length > 0 && ArrayUtils.contains(args, "-r")) {
-			reload = true;
-			args = ArrayUtils.remove(args, ArrayUtils.indexOf(args, "-r"));
-		}
 		Bot.args = args;
 		
 		//Parse config path
@@ -55,14 +48,24 @@ public class Bot {
 			if (index + 1 < args.length) {
 				args = ArrayUtils.remove(args, index);
 				path = args[index];
-				System.out.println("Found custom client token: " + path);
+				System.out.println("Found custom config path: " + path);
 				args = ArrayUtils.remove(args, index);
 			}
+		}
+		Config.read(new File(path)); //Init config
+		
+		//Exit if dev mode
+		if (Config.getDevMode() && !devMode) {return false;}
+		
+		//Parse reload
+		boolean reload = false;
+		if (args.length > 0 && ArrayUtils.contains(args, "-r")) {
+			reload = true;
+			args = ArrayUtils.remove(args, ArrayUtils.indexOf(args, "-r"));
 		}
 
 		//Pre-init
 		thread = Thread.currentThread();
-		config = new Config(new File(path));
 		listener = new Listener();
 		Registry.init();
 		
@@ -84,12 +87,14 @@ public class Bot {
 				Message m = (Message) mo;
 				Object uo = main.getDeclaredMethods()[MethodName.GET_USER.num].invoke(null, "ignore");
 				User u = (User) uo;
-				Object jo = main.getDeclaredMethods()[MethodName.GET_JDA.num].invoke(null, "ignore");
-				jda = (JDA) jo;
+				Object so = main.getDeclaredMethods()[MethodName.GET_SHARDS.num].invoke(null, "ignore");
+				shards = (ArrayList<JDA>) so;
 				Object bo = main.getDeclaredMethods()[MethodName.GET_BIRTH.num].invoke(null, "ignore");
 				birth = (long) bo;
 				//Prepare commands
-				jda.addEventListener(listener);
+				for (JDA jda : shards) {
+					jda.addEventListener(listener);
+				}
 				m.editMessage(":white_check_mark: **Bot reloaded!**").queue();
 				MessageUtils.log(":arrows_counterclockwise: **Bot reloaded by " + u.getName() + "**");
 				
@@ -115,15 +120,20 @@ public class Bot {
 					.setToken(Config.getClientToken())
 					.setAudioEnabled(false)
 					.setAutoReconnect(true)
-					.setGame(Game.of(Config.getGame()))
+					.setReconnectQueue(new SessionReconnectQueue())
 					.addEventListener(listener);
+				if (!Config.getLogJDA()) {
+					SimpleLog.LEVEL = Level.OFF;
+				}
 				try {
-					if (!Config.getLogJDA()) {
-						SimpleLog.LEVEL = Level.OFF;
+					//Create each shard
+					for (int i = 0; i < Config.getShardCount(); i++) {
+						builder.useSharding(i, Config.getShardCount());
+						shards.add(builder.buildBlocking());
+						Thread.sleep(5000);
 					}
-					jda = builder.buildBlocking();
 				//Exit inescapable errors
-				} catch (LoginException | IllegalArgumentException | InterruptedException | RateLimitedException ex) {
+				} catch (Exception ex) {
 					ex.printStackTrace();
 					System.exit(1);
 				}
@@ -131,7 +141,7 @@ public class Bot {
 				//Update main class
 				birth = System.currentTimeMillis();
 				if (Config.getDevMode()) {
-					main.getDeclaredMethods()[MethodName.SET_JDA.num].invoke(null, jda);
+					main.getDeclaredMethods()[MethodName.SET_SHARDS.num].invoke(null, shards);
 					main.getDeclaredMethods()[MethodName.SET_BIRTH.num].invoke(null, birth);
 				}
 				MessageUtils.log(":white_check_mark: **Bot started!**");
@@ -141,11 +151,17 @@ public class Bot {
 			ex.printStackTrace();
 		}
 		
-		//Post-init
+		//Post-init TODO
 		Config.update();
 		Registry.enabled = true;
 		System.out.println("Bot started.");
 		RequestUtils.sendGuilds();
+		
+		return true;
+		
+	}
+
+	public Bot(String[] args) {
 
 	}
 	
@@ -153,8 +169,10 @@ public class Bot {
 	public static void shutdown(Message m, User u) {
 		
 		//Disable JDA
-		jda.setAutoReconnect(false);
-		jda.removeEventListener(listener);
+		for (JDA jda : shards) {
+			jda.setAutoReconnect(false);
+			jda.removeEventListener(listener);
+		}
 		try {
 			//Reload this class using reflection
 			Class<?> main = Thread.currentThread().getContextClassLoader().getSystemClassLoader()
@@ -186,8 +204,8 @@ public class Bot {
 		SET_MESSAGE(3),
 		GET_USER(4),
 		SET_USER(5),
-		GET_JDA(6),
-		SET_JDA(7),
+		GET_SHARDS(6),
+		SET_SHARDS(7),
 		GET_BIRTH(8),
 		SET_BIRTH(9);
 		

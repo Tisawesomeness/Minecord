@@ -125,7 +125,7 @@ public class MessageUtils {
 	}
 	
 	public static EmbedBuilder addFooter(EmbedBuilder eb) {
-		User user = Bot.jda.getUserById(Config.getOwner());
+		User user = DiscordUtils.getUserById(Config.getOwner());
 		return eb.setFooter("Minecord " + Bot.getVersion() + " | Made with \u2764 by " + user.getName(),
 			user.getAvatarUrl());
 	}
@@ -178,7 +178,7 @@ public class MessageUtils {
 	 */
 	public static void log(String m) {
 		if (!Config.getLogChannel().equals("0")) {
-			Bot.jda.getTextChannelById(Config.getLogChannel()).sendMessage(m).queue();
+			DiscordUtils.getTextChannelById(Config.getLogChannel()).sendMessage(m).queue();
 		}
 	}
 	/**
@@ -186,17 +186,17 @@ public class MessageUtils {
 	 */
 	public static void log(Message m) {
 		if (!Config.getLogChannel().equals("0")) {
-			Bot.jda.getTextChannelById(Config.getLogChannel()).sendMessage(m).queue();
+			DiscordUtils.getTextChannelById(Config.getLogChannel()).sendMessage(m).queue();
 		}
 	}
 	/**
 	 * Logs a message to the logging channel.
 	 */
 	public static void log(MessageEmbed m) {
-		EmbedBuilder eb = new EmbedBuilder(m);
-		eb.setTimestamp(OffsetDateTime.now());
 		if (!Config.getLogChannel().equals("0")) {
-			Bot.jda.getTextChannelById(Config.getLogChannel()).sendMessage(eb.build()).queue();
+			EmbedBuilder eb = new EmbedBuilder(m);
+			eb.setTimestamp(OffsetDateTime.now());
+			DiscordUtils.getTextChannelById(Config.getLogChannel()).sendMessage(eb.build()).queue();
 		}
 	}
 	
@@ -212,7 +212,7 @@ public class MessageUtils {
 				content = m.getContent();
 			}
 			return content.replaceFirst(Pattern.quote(Config.getPrefix()), "").split(" ");
-		} else if (m.getRawContent().replaceFirst("@!", "@").startsWith(Bot.jda.getSelfUser().getAsMention())) {
+		} else if (m.getRawContent().replaceFirst("@!", "@").startsWith(Bot.shards.get(0).getSelfUser().getAsMention())) {
 			if (raw) {
 				String[] args = m.getRawContent().split(" ");
 				return ArrayUtils.removeElement(args, args[0]);

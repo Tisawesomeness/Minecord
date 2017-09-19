@@ -2,8 +2,8 @@ package com.tisawesomeness.minecord.command.admin;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -41,7 +41,7 @@ public class SayCommand extends Command {
 		if (args[0].matches(MessageUtils.channelRegex)) {
 			channel = e.getMessage().getMentionedChannels().get(0);
 		} else if (args[0].matches(MessageUtils.idRegex)) {
-			channel = Bot.jda.getTextChannelById(args[0]);
+			channel = DiscordUtils.getTextChannelById(args[0]);
 		} else {
 			return new Result(Outcome.ERROR, ":x: Not a valid channel!");
 		}

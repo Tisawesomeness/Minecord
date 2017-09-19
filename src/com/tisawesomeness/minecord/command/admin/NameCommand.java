@@ -2,9 +2,9 @@ package com.tisawesomeness.minecord.command.admin;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -41,7 +41,7 @@ public class NameCommand extends Command {
 		args = ArrayUtils.remove(MessageUtils.getContent(e.getMessage(), true), 0);
 		Guild guild = null;
 		if (args[0].matches(MessageUtils.idRegex)) {
-			guild = Bot.jda.getGuildById(args[0]);
+			guild = DiscordUtils.getGuildById(args[0]);
 		} else {
 			return new Result(Outcome.ERROR, ":x: Not a valid guild!");
 		}

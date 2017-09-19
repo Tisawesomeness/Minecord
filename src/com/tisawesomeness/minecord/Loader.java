@@ -31,7 +31,7 @@ public class Loader implements Runnable {
 		}
 		Class<?> clazz = dl.loadClass(botClass);
 		try {
-			bot = (Bot) clazz.getConstructors()[0].newInstance((Object) args);
+			clazz.getMethods()[1].invoke(null, (Object) args, (Object) true);
 		} catch (Exception ex) {
 			if (!(ex instanceof ClassCastException)) {
 				ex.printStackTrace();

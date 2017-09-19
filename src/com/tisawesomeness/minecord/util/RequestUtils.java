@@ -141,8 +141,8 @@ public class RequestUtils {
 	 */
 	public static void sendGuilds() {
 		if (Config.getSendServerCount()) {
-			int servers = Bot.jda.getGuilds().size();
-			String id = Bot.jda.getSelfUser().getId();
+			int servers = DiscordUtils.getGuilds().size();
+			String id = Bot.shards.get(0).getSelfUser().getId();
 			
 			String url = "https://bots.discord.pw/api/bots/" + id + "/stats";
 			String query = "{\"server_count\": " + servers + "}";
