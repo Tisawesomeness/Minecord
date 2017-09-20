@@ -8,6 +8,7 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.util.DateUtils;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -62,23 +63,38 @@ public class InfoCommand extends Command {
 		
 		//Build message
 		EmbedBuilder eb = new EmbedBuilder();
+		
 		eb.setColor(Color.GREEN);
 		eb.addField("Author", "@Tis_awesomeness#8617", true);
 		eb.addField("Version", Bot.getVersion(), true);
-		eb.addField("Guilds", e.getJDA().getGuilds().size() + "", true);
-		eb.addField("Channels", e.getJDA().getTextChannels().size() + "", true);
-		eb.addField("Users", e.getJDA().getUsers().size() + "", true);
-		ArrayList<User> users = new ArrayList<User>(e.getJDA().getUsers());
-		for (User u : new ArrayList<User>(users)) {
+		
+		String guilds = DiscordUtils.getGuilds().size() + "";
+		String channels = DiscordUtils.getTextChannels().size() + "";
+		String users = DiscordUtils.getUsers().size() + "";
+		if (Config.getShardCount() > 1) {
+			String shards = e.getJDA().getShardInfo().getShardId() + 1 + "/" + Config.getShardCount();
+			eb.addField("Shard", shards, true);
+			guilds += " {" + e.getJDA().getGuilds().size() + "}";
+			channels += " {" + e.getJDA().getTextChannels().size() + "}";
+			users += " {" + e.getJDA().getUsers().size() + "}";
+		}
+		eb.addField("Guilds", guilds + "", true);
+		eb.addField("Channels", channels, true);
+		eb.addField("Users", users, true);
+		
+		ArrayList<User> userArray = new ArrayList<User>(DiscordUtils.getUsers());
+		for (User u : new ArrayList<User>(userArray)) {
 			if (u.isBot() || u.isFake()) {
-				users.remove(u);
+				userArray.remove(u);
 			}
 		}
-		eb.addField("Humans", users.size() + "", true);
+		eb.addField("Humans", userArray.size() + "", true);
+		
 		eb.addField("Uptime", DateUtils.getUptime(), true);
 		if (Config.getShowMemory() || elevated) {
 			eb.addField("Memory", memory, true);
 		}
+		
 		eb.addField("Invite", Config.getInvite(), true);
 		eb.addField("Help Server", Bot.helpServer, true);
 		eb.addField("Website", Bot.website, true);
