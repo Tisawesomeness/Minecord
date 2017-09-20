@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord;
 
-import java.net.URL;
 import java.util.ArrayList;
 
 import net.dv8tion.jda.core.JDA;
@@ -8,11 +7,8 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
 
 public class Main {
-
-	static final boolean propagate = true;
-	static URL url;
-	static ClassLoader cl;
-	static Bot bot;
+	
+	protected static ClassLoader cl;
 
 	//Store data between reloads
 	private static ArrayList<JDA> shards;

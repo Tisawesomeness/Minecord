@@ -8,11 +8,12 @@ import java.net.URL;
 
 public class Loader implements Runnable {
 
-	final static boolean propagate = false;
-	final static String botClass = "com.tisawesomeness.minecord.Bot";
-	Bot bot;
-	DynamicLoader dl;
-	String[] args;
+	private final static boolean propagate = false;
+	private final static String botClass = "com.tisawesomeness.minecord.Bot";
+	@SuppressWarnings("unused")
+	private Bot bot;
+	private DynamicLoader dl;
+	private String[] args;
 	
 	public Loader(String[] args) {
 		this.args = args;
@@ -32,10 +33,10 @@ public class Loader implements Runnable {
 		Class<?> clazz = dl.loadClass(botClass);
 		try {
 			clazz.getMethods()[1].invoke(null, (Object) args, (Object) true);
+		} catch (ClassCastException ex) {
+			//Do nothing
 		} catch (Exception ex) {
-			if (!(ex instanceof ClassCastException)) {
-				ex.printStackTrace();
-			}
+			ex.printStackTrace();
 		}
 		
 	}
@@ -43,7 +44,7 @@ public class Loader implements Runnable {
 	// Adapted from https://github.com/evacchi/class-reloader
  	static class DynamicLoader extends ClassLoader {
 
- 		ClassLoader orig;
+ 		private ClassLoader orig;
  		DynamicLoader(ClassLoader orig) {
  			this.orig = orig;
  		}

@@ -38,7 +38,6 @@ public class Bot {
 	
 	@SuppressWarnings("unchecked")
 	public static boolean setup(String[] args, boolean devMode) {
-
 		Bot.args = args;
 		
 		//Parse config path
@@ -46,10 +45,8 @@ public class Bot {
 		if (args.length > 1 && ArrayUtils.contains(args, "-c")) {
 			int index = ArrayUtils.indexOf(args, "-c");
 			if (index + 1 < args.length) {
-				args = ArrayUtils.remove(args, index);
-				path = args[index];
+				path = args[index + 1];
 				System.out.println("Found custom config path: " + path);
-				args = ArrayUtils.remove(args, index);
 			}
 		}
 		Config.read(new File(path)); //Init config
@@ -61,7 +58,6 @@ public class Bot {
 		boolean reload = false;
 		if (args.length > 0 && ArrayUtils.contains(args, "-r")) {
 			reload = true;
-			args = ArrayUtils.remove(args, ArrayUtils.indexOf(args, "-r"));
 		}
 
 		//Pre-init
@@ -160,9 +156,9 @@ public class Bot {
 		return true;
 		
 	}
-
+	
 	public Bot(String[] args) {
-
+		//TODO
 	}
 	
 	@SuppressWarnings("static-access")
@@ -188,7 +184,6 @@ public class Bot {
 		
 		//Stop the thread
 		thread.interrupt();
-		return;
 		
 	}
 	

@@ -106,7 +106,7 @@ public class Config {
 				.replaceAll("\\{users\\}", String.valueOf(DiscordUtils.getUsers().size()))
 				.replaceAll("\\{channels\\}", String.valueOf(DiscordUtils.getTextChannels().size()))
 			));
-			if (!name.equals("")) {
+			if (!"".equals(name)) {
 				jda.getSelfUser().getManager().setName(name).queue();
 			}
 		}

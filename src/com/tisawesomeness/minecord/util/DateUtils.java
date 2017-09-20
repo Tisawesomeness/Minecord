@@ -10,15 +10,15 @@ import com.tisawesomeness.minecord.Bot;
 
 public class DateUtils {
 	
-	static final String timestampRegex = "^[0-9]{4,}$";
-	static final String dateRegex = "^(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])$";
-	static final String shortDateRegex = "^(?:(?:(?:0?[13578]|1[02])(\\/|-|\\.)31)\\1|(?:(?:0?[1,3-9]|1[0-2])(\\/|-|\\.)(?:29|30)\\2))(?:\\d{2})$|^(?:0?2(\\/|-|\\.)29\\3(?:(?:(?:0[48]|[2468][048]|[13579][26])|(?:00))))$|^(?:(?:0?[1-9])|(?:1[0-2]))(\\/|-|\\.)(?:0?[1-9]|1\\d|2[0-8])\\4(?:\\d{2})$";
-	static final String fullDateRegex = "^(?:(?:(?:0?[13578]|1[02])(\\/|-|\\.)31)\\1|(?:(?:0?[1,3-9]|1[0-2])(\\/|-|\\.)(?:29|30)\\2))(?:(?:1[6-9]|[2-9]\\d)\\d{2})$|^(?:0?2(\\/|-|\\.)29\\3(?:(?:(?:1[6-9]|[2-9]\\d)(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:(?:0?[1-9])|(?:1[0-2]))(\\/|-|\\.)(?:0?[1-9]|1\\d|2[0-8])\\4(?:(?:1[6-9]|[2-9]\\d)\\d{2})$";
-	static final String timeRegex = "^(0?[1-9]|1[012]):[0-5][0-9]$";
-	static final String timeRegex24 = "^(0?[1-9]|1[0-9]|2[0-4]):[0-5][0-9]$";
-	static final String fullTimeRegex = "^(0?[1-9]|1[012]):[0-5][0-9]:[0-5][0-9]$";
-	static final String fullTimeRegex24 = "^(0?[1-9]|1[0-9]|2[0-4]):[0-5][0-9]:[0-5][0-9]$";
-	static final String timeZoneRegex = "^(?:Z|[+-](?:2[0-3]|[01][0-9]):[0-5][0-9])$";
+	private static final String timestampRegex = "^[0-9]{4,}$";
+	private static final String dateRegex = "^(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])$";
+	private static final String shortDateRegex = "^(?:(?:(?:0?[13578]|1[02])(\\/|-|\\.)31)\\1|(?:(?:0?[1,3-9]|1[0-2])(\\/|-|\\.)(?:29|30)\\2))(?:\\d{2})$|^(?:0?2(\\/|-|\\.)29\\3(?:(?:(?:0[48]|[2468][048]|[13579][26])|(?:00))))$|^(?:(?:0?[1-9])|(?:1[0-2]))(\\/|-|\\.)(?:0?[1-9]|1\\d|2[0-8])\\4(?:\\d{2})$";
+	private static final String fullDateRegex = "^(?:(?:(?:0?[13578]|1[02])(\\/|-|\\.)31)\\1|(?:(?:0?[1,3-9]|1[0-2])(\\/|-|\\.)(?:29|30)\\2))(?:(?:1[6-9]|[2-9]\\d)\\d{2})$|^(?:0?2(\\/|-|\\.)29\\3(?:(?:(?:1[6-9]|[2-9]\\d)(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:(?:0?[1-9])|(?:1[0-2]))(\\/|-|\\.)(?:0?[1-9]|1\\d|2[0-8])\\4(?:(?:1[6-9]|[2-9]\\d)\\d{2})$";
+	private static final String timeRegex = "^(0?[1-9]|1[012]):[0-5][0-9]$";
+	private static final String timeRegex24 = "^(0?[1-9]|1[0-9]|2[0-4]):[0-5][0-9]$";
+	private static final String fullTimeRegex = "^(0?[1-9]|1[012]):[0-5][0-9]:[0-5][0-9]$";
+	private static final String fullTimeRegex24 = "^(0?[1-9]|1[0-9]|2[0-4]):[0-5][0-9]:[0-5][0-9]$";
+	private static final String timeZoneRegex = "^(?:Z|[+-](?:2[0-3]|[01][0-9]):[0-5][0-9])$";
 	
 	/**
 	 * Parses a list of date-related strings to build a date, then a timestamp.
@@ -210,7 +210,7 @@ public class DateUtils {
 		if (uptimeRaw > 0) {
 			uptime = uptime + uptimeRaw + "s";
 		}
-		if (uptime == "") {
+		if ("".equals(uptime)) {
 			uptime = "0s";
 		}
 		

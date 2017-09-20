@@ -78,10 +78,8 @@ public class Listener extends ListenerAdapter {
 			TextChannel c = e.getTextChannel();
 			
 			//Delete message if enabled in the config and the bot has permissions
-			if (e.getGuild().getSelfMember().hasPermission(c, Permission.MESSAGE_MANAGE)) {
-				if (Config.getDeleteCommands()) {
-					m.delete().complete();
-				}
+			if (e.getGuild().getSelfMember().hasPermission(c, Permission.MESSAGE_MANAGE) && Config.getDeleteCommands()) {
+				m.delete().complete();
 			}
 			
 			//Get command info
@@ -116,7 +114,7 @@ public class Listener extends ListenerAdapter {
 			
 			//Class to send typing notification every 5 seconds
 			class Typing extends TimerTask {
-				Future<Void> fv = null;
+				private Future<Void> fv = null;
 				@Override
 				public void run() {
 					synchronized (this) {

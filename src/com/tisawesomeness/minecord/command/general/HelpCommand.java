@@ -46,9 +46,9 @@ public class HelpCommand extends Command {
 					String description = ci.description;
 					
 					//Add text objects
-					if (name == "") {
+					if ("".equals(name)) {
 						if (description != null && (!ci.elevated || elevated)) {
-							m = m + description + "\n";
+							m += description + "\n";
 						}
 						continue;
 					}
@@ -56,10 +56,10 @@ public class HelpCommand extends Command {
 					//Fetch info and build message line
 					String usage = ci.usage;
 					String gap = "";
-					if (usage != "") {
+					if (!"".equals(usage)) {
 						gap = " ";
 					}
-					m = m + "`" + Config.getPrefix() + name + gap + usage + "` **-** " + description + "\n";
+					m += "`" + Config.getPrefix() + name + gap + usage + "` **-** " + description + "\n";
 				}
 			}
 		}
