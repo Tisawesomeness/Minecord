@@ -102,7 +102,6 @@ public class HistoryCommand extends Command {
 			m = name + " | " + date + "\n" + m;
 		}
 		m = m.substring(0, m.length() - 1);
-		System.out.println(m);
 		
 		player = names.getJSONObject(names.length() - 1).getString("name");
 		
