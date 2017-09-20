@@ -33,15 +33,16 @@ public class BodyCommand extends Command {
 		);
 	}
 	
-	public Result run(String[] args, MessageReceivedEvent e) {
+	public Result run(String[] argsOrig, MessageReceivedEvent e) {
 		
 		//No arguments message
-		if (args.length == 0) {
+		if (argsOrig.length == 0) {
 			String m = ":warning: Incorrect arguments." +
 				"\n" + Config.getPrefix() + "body <username|uuid> [date]" +
 				"\n" + MessageUtils.dateHelp;
 			return new Result(Outcome.WARNING, m, 5);
 		}
+		String[] args = argsOrig;
 		
 		//Check for overlay argument
 		boolean overlay = false;

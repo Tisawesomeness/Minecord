@@ -10,9 +10,6 @@ public class Loader implements Runnable {
 
 	private final static boolean propagate = false;
 	private final static String botClass = "com.tisawesomeness.minecord.Bot";
-	@SuppressWarnings("unused")
-	private Bot bot;
-	private DynamicLoader dl;
 	private String[] args;
 	
 	public Loader(String[] args) {
@@ -22,8 +19,7 @@ public class Loader implements Runnable {
 	public void run() {
 		
 		//Clear references
-		bot = null;
-		dl = null;
+		DynamicLoader dl = null;
 		
 		//Dynamically start a new bot
 		dl = new DynamicLoader(Main.cl);

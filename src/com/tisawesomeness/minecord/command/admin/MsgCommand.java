@@ -29,15 +29,15 @@ public class MsgCommand extends Command {
 		);
 	}
 	
-	public Result run(String[] args, MessageReceivedEvent e) {
+	public Result run(String[] argsOrig, MessageReceivedEvent e) {
 		
 		//Check for proper argument length
-		if (args.length < 2) {
+		if (argsOrig.length < 2) {
 			return new Result(Outcome.WARNING, ":warning: Please specify a message.");
 		}
 		
 		//Extract user
-		args = ArrayUtils.remove(MessageUtils.getContent(e.getMessage(), true), 0);
+		String[] args = ArrayUtils.remove(MessageUtils.getContent(e.getMessage(), true), 0);
 		User user = null;
 		if (args[0].matches(MessageUtils.mentionRegex)) {
 			user = e.getMessage().getMentionedUsers().get(0);

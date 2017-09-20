@@ -4,8 +4,8 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 public class Text extends Command {
 
-	boolean elevated = false;
-	String text;
+	private boolean elevated = false;
+	private String text;
 	
 	/**
 	 * A class used represent extra info in the help command.
