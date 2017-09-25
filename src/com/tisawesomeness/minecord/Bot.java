@@ -111,7 +111,6 @@ public class Bot {
 			} else {
 				
 				//Initialize JDA
-				System.out.println("Starting JDA...");
 				JDABuilder builder = new JDABuilder(AccountType.BOT)
 					.setToken(Config.getClientToken())
 					.setAudioEnabled(false)
@@ -124,6 +123,7 @@ public class Bot {
 				try {
 					//Create each shard
 					for (int i = 0; i < Config.getShardCount(); i++) {
+						System.out.println("Starting shard " + (i + 1) + "/" + Config.getShardCount());
 						builder.useSharding(i, Config.getShardCount());
 						shards.add(builder.buildBlocking());
 						Thread.sleep(5000);
@@ -150,7 +150,7 @@ public class Bot {
 		//Post-init TODO
 		Config.update();
 		Registry.enabled = true;
-		System.out.println("Bot started.");
+		System.out.println("Startup finished.");
 		RequestUtils.sendGuilds();
 		
 		return true;
