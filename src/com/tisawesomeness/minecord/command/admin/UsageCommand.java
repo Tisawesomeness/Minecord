@@ -32,10 +32,10 @@ public class UsageCommand extends Command {
 		String m = "";
 		for (Command c : Registry.commands) {
 			CommandInfo ci = c.getInfo();
-			if (ci.name == "") {continue;}
+			if ("".equals(ci.name)) {continue;}
 			
 			//Build message
-			m = m + "`" + Config.getPrefix() + ci.name + "` **-** " + c.uses + "\n";
+			m += "`" + Config.getPrefix() + ci.name + "` **-** " + c.uses + "\n";
 		}
 		m = m.substring(0, m.length() - 1);
 

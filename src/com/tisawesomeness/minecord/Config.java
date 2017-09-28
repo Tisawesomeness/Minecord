@@ -10,11 +10,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.tisawesomeness.minecord.util.DiscordUtils;
+
+import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Game;
 
 public class Config {
 
 	private static String clientToken;
+	private static int shardCount;
 	private static String owner;
 	private static boolean devMode;
 	private static boolean debugMode;
@@ -37,7 +41,7 @@ public class Config {
 	
 	private static ArrayList<String> elevatedUsers = new ArrayList<String>();
 
-	public Config(File file) {
+	public static void read(File file) {
 		
 		//Look for client token
 		String[] args = Bot.args;
@@ -61,6 +65,9 @@ public class Config {
 			if (clientToken == null) {
 				clientToken = config.getString("clientToken");
 			}
+			shardCount = config.getInt("shardCount");
+			if (shardCount < 1) shardCount = 1;
+			
 			owner = config.getString("owner");
 			devMode = config.getBoolean("devMode");
 			debugMode = config.getBoolean("debugMode");
@@ -92,18 +99,21 @@ public class Config {
 	}
 	
 	public static void update() {
-		Bot.jda.getPresence().setGame(Game.of(game
-			.replaceAll("\\{prefix\\}", prefix)
-			.replaceAll("\\{guilds\\}", String.valueOf(Bot.jda.getGuilds().size()))
-			.replaceAll("\\{users\\}", String.valueOf(Bot.jda.getUsers().size()))
-			.replaceAll("\\{channels\\}", String.valueOf(Bot.jda.getTextChannels().size()))
-		));
-		if (name != "") {
-			Bot.jda.getSelfUser().getManager().setName(name).queue();
+		for (JDA jda : Bot.shards) {
+			jda.getPresence().setGame(Game.of(game
+				.replaceAll("\\{prefix\\}", prefix)
+				.replaceAll("\\{guilds\\}", String.valueOf(DiscordUtils.getGuilds().size()))
+				.replaceAll("\\{users\\}", String.valueOf(DiscordUtils.getUsers().size()))
+				.replaceAll("\\{channels\\}", String.valueOf(DiscordUtils.getTextChannels().size()))
+			));
+			if (!"".equals(name)) {
+				jda.getSelfUser().getManager().setName(name).queue();
+			}
 		}
 	}
 
 	protected static String getClientToken() {return clientToken;}
+	public static int getShardCount() {return shardCount;}
 	public static String getOwner() {return owner;}
 	public static boolean getDevMode() {return devMode;}
 	public static boolean getDebugMode() {return debugMode;}

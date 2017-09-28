@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 import com.tisawesomeness.minecord.Bot;
@@ -16,8 +17,8 @@ import com.tisawesomeness.minecord.Config;
 
 public class RequestUtils {
 	
-	static final String charset = java.nio.charset.StandardCharsets.UTF_8.name();
-	static final String contentType = "application/json";
+	private static final String charset = StandardCharsets.UTF_8.name();
+	private static final String contentType = "application/json";
 	
 	/**
 	 * Performs an HTTP GET request.
@@ -126,9 +127,10 @@ public class RequestUtils {
 	 * Crafatar is being weird so this method decides whether or not to add a .png extension.
 	 * @param url The URL to check. Do not include a .png extension.
 	 */
-	public static String checkPngExtension(String url) {
+	public static String checkPngExtension(String urlOrig) {
+		String url = urlOrig;
 		if (!checkURL(url)) {
-			url = url + ".png";
+			url += ".png";
 			if (!checkURL(url)) {
 				return null;
 			}
@@ -141,8 +143,8 @@ public class RequestUtils {
 	 */
 	public static void sendGuilds() {
 		if (Config.getSendServerCount()) {
-			int servers = Bot.jda.getGuilds().size();
-			String id = Bot.jda.getSelfUser().getId();
+			int servers = DiscordUtils.getGuilds().size();
+			String id = Bot.shards.get(0).getSelfUser().getId();
 			
 			String url = "https://bots.discord.pw/api/bots/" + id + "/stats";
 			String query = "{\"server_count\": " + servers + "}";

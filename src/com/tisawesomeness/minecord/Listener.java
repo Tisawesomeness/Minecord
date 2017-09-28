@@ -78,10 +78,8 @@ public class Listener extends ListenerAdapter {
 			TextChannel c = e.getTextChannel();
 			
 			//Delete message if enabled in the config and the bot has permissions
-			if (e.getGuild().getSelfMember().hasPermission(c, Permission.MESSAGE_MANAGE)) {
-				if (Config.getDeleteCommands()) {
-					m.delete().complete();
-				}
+			if (e.getGuild().getSelfMember().hasPermission(c, Permission.MESSAGE_MANAGE) && Config.getDeleteCommands()) {
+				m.delete().complete();
 			}
 			
 			//Get command info
@@ -116,7 +114,7 @@ public class Listener extends ListenerAdapter {
 			
 			//Class to send typing notification every 5 seconds
 			class Typing extends TimerTask {
-				Future<Void> fv = null;
+				private Future<Void> fv = null;
 				@Override
 				public void run() {
 					synchronized (this) {
@@ -159,11 +157,19 @@ public class Listener extends ListenerAdapter {
 			//Catch exceptions
 			if (result == null) {
 				if (exception != null) {exception.printStackTrace();}
-				String err = ":x: There was an unexpected exception: ```" + exception + "```";
+				String err = ":x: There was an unexpected exception: `" + exception.toString() + "`\n```";
 				if (Config.getDebugMode()) {
-					err = err + "\n" + exception.getStackTrace();
+					for (StackTraceElement ste : exception.getStackTrace()) {
+						err += "\n" + ste.toString();
+						String className = ste.getClassName();
+						if (className.contains("net.dv8tion") || className.contains("com.neovisionaries")) {
+							err += "...";
+							break;
+						}
+					}
 				}
-				MessageUtils.notify(err, c);
+				err += "```";
+				MessageUtils.notify(err, c, 3);
 			//If message is empty
 			} if (result.message == null) {
 				if (result.outcome != null && result.outcome != Outcome.SUCCESS) {
