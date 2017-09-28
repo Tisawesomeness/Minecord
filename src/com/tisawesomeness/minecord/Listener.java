@@ -157,11 +157,19 @@ public class Listener extends ListenerAdapter {
 			//Catch exceptions
 			if (result == null) {
 				if (exception != null) {exception.printStackTrace();}
-				String err = ":x: There was an unexpected exception: ```" + exception + "```";
+				String err = ":x: There was an unexpected exception: `" + exception.toString() + "`\n```";
 				if (Config.getDebugMode()) {
-					err = err + "\n" + exception.getStackTrace();
+					for (StackTraceElement ste : exception.getStackTrace()) {
+						err += "\n" + ste.toString();
+						String className = ste.getClassName();
+						if (className.contains("net.dv8tion") || className.contains("com.neovisionaries")) {
+							err += "...";
+							break;
+						}
+					}
 				}
-				MessageUtils.notify(err, c);
+				err += "```";
+				MessageUtils.notify(err, c, 3);
 			//If message is empty
 			} if (result.message == null) {
 				if (result.outcome != null && result.outcome != Outcome.SUCCESS) {
