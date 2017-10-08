@@ -1,93 +1,79 @@
 package com.tisawesomeness.minecord.item;
 
+import java.util.regex.Pattern;
+
 public enum Item {
 	
-	DIAMOND_SWORD("",
-			RecipeType.CRAFTING, Tool.SWORD, 0, 276, "Diamond Sword",
-			"diamond[^a-zA-Z0-9]?sword");
+	AIR(0, 0, "Air"),
+	STONE(1, 0, "Stone"),
+	GRANITE(1, 1, "Granite", Version.V1_8),
+	POLISHED_GRANITE(1, 2, "Polished Granite", "polished[^0-9A-Z]?granite", Version.V1_8),
+	DIORITE(1, 3, "Diorite", Version.V1_8),
+	POLISHED_DIORITE(1, 4, "Polished Diorite", "polished[^0-9A-Z]?diorite", Version.V1_8),
+	ANDESITE(1, 5, "Andesite", Version.V1_8),
+	POLISHED_ANDESITE(1, 6, "Polished Andesite", "polished[^0-9A-Z]?andesite", Version.V1_8),
+	GRASS(2, 0, "Grass"),
+	DIRT(3, 0, "Dirt"),
+	COARSE_DIRT(3, 1, "Coarse Dirt", "coarse[^0-9A-Z]?dirt"),
+	PODZOL(3, 2, "Podzol"),
+	COBBLESTONE(4, 0, "Cobblestone", "cobble"),
+	OAK_PLANKS(5, 0, "Oak Wood Planks", "^[^0-9A-Z]?(oak[^0-9A-Z]?)?(plank)"),
+	SPRUCE_PLANKS(5, 1, "Spruce Wood Planks", "^[^0-9A-Z]?spruce[^0-9A-Z]?(plank)"),
+	BIRCH_PLANKS(5, 2, "Birch Wood Planks", "^[^0-9A-Z]?birch[^0-9A-Z]?(plank)"),
+	JUNGLE_PLANKS(5, 3, "Jungle Wood Planks", "^[^0-9A-Z]?jungle[^0-9A-Z]?(plank)"),
+	ACACIA_PLANKS(5, 4, "Acacia Wood Planks", "^[^0-9A-Z]?acacia[^0-9A-Z]?(plank)"),
+	DARK_OAK_PLANKS(5, 5, "Dark Oak Wood Planks", "^[^0-9A-Z]?dark[^0-9A-Z]?(oak[^0-9A-Z]?)?(plank)");
 	
-	private final String recipe;
-	private final RecipeType type;
-	private final Tool tool;
-	private final int enchantability;
-	private final Version version;
-	private final int id;
-	private final int data;
-	private final String name;
-	private final String[] aliases;
+	public final int id;
+	public final int data;
+	public final String name;
+	public final String aliases;
+	public final Version version;
+	public final Tool tool;
+	public final int enchantability;
 	
-	private Item(String recipe, RecipeType type, int id, String name, String alias) {
-		this(recipe, type, null, -1, Version.V1_8, id, 0, name, new String[]{alias});
+	private Item(int id, int data, String name) {
+		this(id, data, name, null, null, null, 0);
 	}
-	private Item(String recipe, RecipeType type, Tool tool, int enchantability, int id, String name, String alias) {
-		this(recipe, type, tool, enchantability, Version.V1_8, id, 0, name, new String[]{alias});
+	private Item(int id, int data, String name, String aliases) {
+		this(id, data, name, aliases, null, null, 0);
 	}
-	private Item(String recipe, RecipeType type, Version version, int id, String name, String alias) {
-		this(recipe, type, null, -1, version, id, 0, name, new String[]{alias});
+	private Item(int id, int data, String name, Version version) {
+		this(id, data, name, null, version, null, 0);
 	}
-	private Item(String recipe, RecipeType type, int id, int data, String name, String alias) {
-		this(recipe, type, null, -1, Version.V1_8, id, data, name, new String[]{alias});
+	private Item(int id, int data, String name, String aliases, Version version) {
+		this(id, data, name, aliases, version, null, 0);
 	}
-	private Item(String recipe, RecipeType type, Tool tool, int enchantability,
-			Version version, int id, String name, String alias) {
-		this(recipe, type, tool, enchantability, version, id, 0, name, new String[]{alias});
-	}
-	private Item(String recipe, RecipeType type, Tool tool, int enchantability,
-			int id, int data, String name, String alias) {
-		this(recipe, type, tool, enchantability, Version.V1_8, id, data, name, new String[]{alias});
-	}
-	private Item(String recipe, RecipeType type, Version version, int id, int data, String name, String alias) {
-		this(recipe, type, null, -1, version, id, data, name, new String[]{alias});
-	}
-	private Item(String recipe, RecipeType type, Tool tool, int enchantability,
-			Version version, int id, int data, String name, String alias) {
-		this(recipe, type, tool, enchantability, version, id, data, name, new String[]{alias});
-	}
-	private Item(String recipe, RecipeType type, int id, String name, String[] aliases) {
-		this(recipe, type, null, -1, Version.V1_8, id, 0, name, aliases);
-	}
-	private Item(String recipe, RecipeType type, Tool tool, int enchantability, int id, String name, String[] aliases) {
-		this(recipe, type, tool, enchantability, Version.V1_8, id, 0, name, aliases);
-	}
-	private Item(String recipe, RecipeType type, Version version, int id, String name, String[] aliases) {
-		this(recipe, type, null, -1, version, id, 0, name, aliases);
-	}
-	private Item(String recipe, RecipeType type, int id, int data, String name, String[] aliases) {
-		this(recipe, type, null, -1, Version.V1_8, id, data, name, aliases);
-	}
-	private Item(String recipe, RecipeType type, Tool tool, int enchantability,
-			Version version, int id, String name, String[] aliases) {
-		this(recipe, type, tool, enchantability, version, id, 0, name, aliases);
-	}
-	private Item(String recipe, RecipeType type, Tool tool, int enchantability,
-			int id, int data, String name, String[] aliases) {
-		this(recipe, type, tool, enchantability, Version.V1_8, id, data, name, aliases);
-	}
-	private Item(String recipe, RecipeType type, Version version, int id, int data, String name, String[] aliases) {
-		this(recipe, type, null, -1, version, id, data, name, aliases);
+	private Item(int id, int data, String name, String aliases, Tool tool, int enchantability) {
+		this(id, data, name, aliases, null, tool, 0);
 	}
 	
-	private Item(String recipe, RecipeType type, Tool tool, int enchantability,
-			Version version, int id, int data, String name, String[] aliases) {
-		this.recipe = recipe;
-		this.type = type;
-		this.tool = tool;
-		this.enchantability = enchantability;
-		this.version = version;
+	private Item(int id, int data, String name, String aliases, Version version, Tool tool, int enchantability) {
 		this.id = id;
 		this.data = data;
 		this.name = name;
 		this.aliases = aliases;
+		this.version = version;
+		this.tool = tool;
+		this.enchantability = enchantability;
 	}
 	
-	public String getRecipe() {return recipe;}
-	public RecipeType getType() {return type;}
-	public Tool getTool() {return tool;}
-	public int getEnchantability() {return enchantability;}
-	public Version getVersion() {return version;}
-	public int getId() {return id;}
-	public int getData() {return data;}
-	public String toString() {return name;}
-	public String[] getAliases() {return aliases;}
-
+	public boolean matches(String str) {
+		//Item id and data
+		String pattern = "^" + id;
+		if (data != 0) {
+			pattern += ":" + data;
+		}
+		if (Pattern.compile(pattern + "([^0-9:]|$)").matcher(str).find()) {
+			return true;
+		}
+		//Display name
+		if (name.equalsIgnoreCase(str)) {
+			System.out.println("true");
+			return true;
+		}
+		//Regex
+		return aliases != null && Pattern.compile(aliases, Pattern.CASE_INSENSITIVE).matcher(str).find();
+	}
+	
 }

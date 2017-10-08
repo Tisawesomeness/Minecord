@@ -1,10 +1,13 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import java.util.regex.Pattern;
+import java.awt.Color;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.item.Item;
+import com.tisawesomeness.minecord.item.Recipe;
+import com.tisawesomeness.minecord.util.MessageUtils;
 
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 public class RecipeCommand extends Command {
@@ -32,41 +35,36 @@ public class RecipeCommand extends Command {
 		//Convert to single string
 		String string = "";
 		for (String arg : args) {
-			string = string + arg + " ";
+			string += arg + " ";
 		}
-		string.substring(0, string.length() - 1);
+		string = string.substring(0, string.length() - 1);
 		
 		//Search through the item database
-		Item item = null;
-		for (Item search : Item.values()) {
-			//Item id
-			if (Pattern.compile("^" + search.getId() + "([^0-9:]|$)").matcher(string).find()) {
-				item = search;
+		Recipe recipe = null;
+		for (Recipe r : Recipe.values()) {
+			Item i = r.item;
+			if (i.matches(string)) {
+				recipe = r;
 				break;
 			}
-			//Display name
-			if (Pattern.compile(Pattern.quote(search.toString()), Pattern.CASE_INSENSITIVE).matcher(string).find()) {
-				item = search;
-				break;
-			}
-			//Regex list
-			boolean escape = false;
-			for (String alias : search.getAliases()) {
-				if (Pattern.compile(alias, Pattern.CASE_INSENSITIVE).matcher(string).find()) {
-					item = search;
-					escape = true;
-					break;
-				}
-			}
-			if (escape) {break;}
 		}
-		if (item == null) {
+		
+		//If nothing is found
+		if (recipe == null) {
 			return new Result(Outcome.WARNING,
 				":warning: That item does not exist or does not have a recipe! " +
 				"\n" + "Did you spell it correctly?");
 		}
 		
-		return new Result(Outcome.SUCCESS, "Found item: " + item.toString());
+		//Build message
+		EmbedBuilder eb = new EmbedBuilder();
+		eb.setTitle(recipe.type.toString() + " Recipe");
+		if (recipe.version != null) eb.setDescription(recipe.version.toString());
+		eb.setImage(recipe.image);
+		eb.setColor(Color.GREEN);
+		eb = MessageUtils.addFooter(eb);
+		
+		return new Result(Outcome.SUCCESS, eb.build());
 	}
 
 }
