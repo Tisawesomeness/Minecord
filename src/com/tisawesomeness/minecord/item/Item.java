@@ -73,10 +73,7 @@ public enum Item {
 			return true;
 		}
 		//Regex
-		if (aliases != null && Pattern.compile(aliases, Pattern.CASE_INSENSITIVE).matcher(str).find()) {
-			return true;
-		}
-		return false;
+		return aliases != null && Pattern.compile(aliases, Pattern.CASE_INSENSITIVE).matcher(str).find();
 	}
 	
 }
