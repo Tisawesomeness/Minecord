@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command.admin;
 
+import java.time.OffsetDateTime;
 import java.util.regex.Pattern;
 
 import javax.script.ScriptEngine;
@@ -7,9 +8,9 @@ import javax.script.ScriptEngineManager;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 public class EvalCommand extends Command {
@@ -56,22 +57,26 @@ public class EvalCommand extends Command {
 		//Evaluate and print code
 		Object output = engine.eval(code);
 		if (output == null) {
-			return new Result(Outcome.ERROR, ":x: Invalid javascript.");
+			return new Result(Outcome.ERROR, ":x: Recieved null as output.");
 		}
 		
-		//Prevent @everyone and revealing token
-		String outputStr = output.toString()
-			.replaceAll("@everyone", "[everyone]")
-			.replaceAll("@here", "[here]")
-			.replaceAll(Pattern.quote(e.getJDA().getToken()), "[redacted]");
-		
 		EmbedBuilder eb = new EmbedBuilder();
-		eb.addField("Input", "```js\n" + code + "\n```", false);
-		eb.addField("Output", "```js\n" + outputStr + "\n```", false);
-		eb = MessageUtils.addFooter(eb);
+		eb.addField("Input", "```js\n" + clean(code) + "\n```", false);
+		eb.addField("Output", "```js\n" + clean(output.toString()) + "\n```", false);
+		eb.setTimestamp(OffsetDateTime.now());
+		User u = e.getAuthor();
+		eb.setFooter("Sent by " + u.getName() + "#" + u.getDiscriminator() + " (" + u.getId() + ")", u.getAvatarUrl());
 		
 		return new Result(Outcome.SUCCESS, eb.build());
 		
+	}
+	
+	private String clean(String s) {
+		return s.replaceAll("\\\\", "\\\\")
+				.replaceAll("`", "\\\\`")
+				.replaceAll("@everyone", "[everyone]")
+				.replaceAll("@here", "[here]")
+				.replaceAll(Pattern.quote(Bot.shards.get(0).getToken()), "[redacted]");
 	}
 
 }
