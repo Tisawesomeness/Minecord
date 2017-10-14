@@ -4,18 +4,17 @@ import java.awt.Color;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.item.Item;
-import com.tisawesomeness.minecord.item.Recipe;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
-public class RecipeCommand extends Command {
+public class ItemCommand extends Command {
 	
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"recipe",
-			"Looks up an item recipe.",
+			"item",
+			"Looks up an item.",
 			"<item name|id>",
 			null,
 			1000,
@@ -40,25 +39,24 @@ public class RecipeCommand extends Command {
 		string = string.substring(0, string.length() - 1);
 		
 		//Search through the item database
-		Recipe recipe = null;
-		for (Recipe r : Recipe.values()) {
-			Item i = r.item;
+		Item item = null;
+		for (Item i : Item.values()) {
 			if (i.matches(string)) {
-				recipe = r;
+				item = i;
 				break;
 			}
 		}
 		
 		//If nothing is found
-		if (recipe == null) {
+		if (item == null) {
 			return new Result(Outcome.WARNING,
-				":warning: That item does not exist or does not have a recipe! " +
+				":warning: That item does not exist! " +
 				"\n" + "Did you spell it correctly?");
 		}
 		
 		//Build message
-		EmbedBuilder eb = recipe.item.getInfo();
-		eb.setTitle(recipe.type.toString() + " Recipe");
+		EmbedBuilder eb = item.getInfo();
+		eb.setTitle(item.name);
 		eb.setColor(Color.GREEN);
 		eb = MessageUtils.addFooter(eb);
 		
