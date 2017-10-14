@@ -29,6 +29,7 @@ public class Registry {
 			new Text("\n**Utility Commands:**"),
 			new CodesCommand(),
 			new ServerCommand(),
+			new ItemCommand(),
 			new RecipeCommand(),
 			new Text("\n**Player Commands:**"),
 			new UuidCommand(),
