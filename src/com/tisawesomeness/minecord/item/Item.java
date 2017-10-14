@@ -200,9 +200,7 @@ public enum Item {
 			if (r.notes != null) desc += "\n" + r.notes;
 			if (r.version != null) desc += "\n" + r.version.toString();
 			String ext = ".png";
-			if (r.gif) {
-				ext = ".gif";
-			}
+			if (r.gif) ext = ".gif";
 			eb.setImage("https://minecord.github.io/recipes/" + id + "-" + data + ext);
 		} catch (IllegalArgumentException ex) {
 			if (version != null) desc += "\n" + version.toString();
