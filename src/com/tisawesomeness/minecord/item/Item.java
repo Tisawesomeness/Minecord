@@ -18,13 +18,13 @@ public enum Item {
 	DIRT(3, "Dirt"),
 	COARSE_DIRT(3, 1, "Coarse Dirt", "coarse[^0-9A-Z]*dirt"),
 	PODZOL(3, 2, "Podzol"),
-	COBBLESTONE(4, "Cobblestone", "cobble"),
-	OAK_PLANKS(5, "Oak Wood Planks", "^[^0-9A-Z]*(oak[^0-9A-Z]*)?plank"),
-	SPRUCE_PLANKS(5, 1, "Spruce Wood Planks", "spruce[^0-9A-Z]*plank"),
-	BIRCH_PLANKS(5, 2, "Birch Wood Planks", "birch[^0-9A-Z]*plank"),
-	JUNGLE_PLANKS(5, 3, "Jungle Wood Planks", "jungle[^0-9A-Z]*plank"),
-	ACACIA_PLANKS(5, 4, "Acacia Wood Planks", "acacia[^0-9A-Z]*plank"),
-	DARK_OAK_PLANKS(5, 5, "Dark Oak Wood Planks", "dark[^0-9A-Z]*(oak[^0-9A-Z]*)?plank"),
+	COBBLESTONE(4, "Cobblestone", "^[^0-9A-Z]*cobble[^0-9A-Z]*$"),
+	OAK_PLANKS(5, "Oak Wood Planks", "^[^0-9A-Z]*(oak[^0-9A-Z]*(wood[^0-9A-Z]*)?)?plank"),
+	SPRUCE_PLANKS(5, 1, "Spruce Wood Planks", "spruce[^0-9A-Z]*(wood[^0-9A-Z]*)?plank"),
+	BIRCH_PLANKS(5, 2, "Birch Wood Planks", "birch[^0-9A-Z]*(wood[^0-9A-Z]*)?plank"),
+	JUNGLE_PLANKS(5, 3, "Jungle Wood Planks", "jungle[^0-9A-Z]*(wood[^0-9A-Z]*)?plank"),
+	ACACIA_PLANKS(5, 4, "Acacia Wood Planks", "acacia[^0-9A-Z]*(wood[^0-9A-Z]*)?plank"),
+	DARK_OAK_PLANKS(5, 5, "Dark Oak Wood Planks", "dark[^0-9A-Z]*(oak[^0-9A-Z]*(wood[^0-9A-Z]*)?)?plank"),
 	OAK_SAPLING(6, "Oak Sapling", "^[^0-9A-Z]*sapling"),
 	SPRUCE_SAPLING(6, 1, "Spruce Sapling"),
 	BIRCH_SAPLING(6, 2, "Birch Sapling"),
@@ -43,7 +43,7 @@ public enum Item {
 	GOLD_ORE(14, "Gold Ore"),
 	IRON_ORE(15, "Iron Ore"),
 	COAL_ORE(16, "Coal Ore"),
-	OAK_WOOD(17, "Oak Wood", "^[^0-9A-Z]*wood"), //Punch wood
+	OAK_WOOD(17, "Oak Wood", "^[^0-9A-Z]*wood[^0-9A-Z]*$"), //Punch wood
 	SPRUCE_WOOD(17, 1, "Spruce Wood"),
 	BIRCH_WOOD(17, 2, "Birch Wood"),
 	JUNGLE_WOOD(17, 3, "Jungle Wood"),
@@ -130,7 +130,85 @@ public enum Item {
 	MOSSY_COBBLESTONE(48, "Mossy Cobblestone"),
 	OBSIDIAN(49, "Obsidian"),
 	
-	TORCH(50, "Torch");
+	TORCH(50, "Torch"),
+	FIRE(51, "Fire"),
+	MONSTER_SPAWNER(52, "Monster Spawner"),
+	OAK_WOOD_STAIRS(53, "Oak Wood Stairs", "^[^0-9A-Z]*(oak[^0-9A-Z]*)?stair"),
+	CHEST(54, "Chest"),
+	REDSTONE_WIRE(55, "Redstone Wire"),
+	DIAMOND_ORE(56, "Diamond Ore"), //Please mine around
+	DIAMOND_BLOCK(57, "Diamond Block"),
+	CRAFTING_TABLE(58, "Crafting Table"),
+	WHEAT_CROPS(59, "Wheat Crops"),
+	
+	FARMLAND(60, "Farmland"),
+	FURNACE(61, "Furnace"),
+	BURNING_FURNACE(62, "Burning Furnace"),
+	STANDING_SIGN(63, "Standing Sign"),
+	OAK_DOOR_BLOCK(64, "Oak Door Block"),
+	LADDER(65, "Ladder"),
+	RAIL(66, "Rail"),
+	COBBLESTONE_STAIRS(67, "Cobblestone Stairs", "cobble(stone)?[^0-9A-Z]stairs?"),
+	WALL_SIGN(68, "Wall-mounted Sign Block"),
+	LEVER(69, "Lever"),
+	
+	STONE_PRESSURE_PLATE(70, "Stone Pressure Plate"),
+	IRON_DOOR_BLOCK(71, "Iron Door Block"),
+	WOODEN_PRESSURE_PLATE(72, "Wooden Pressure Plate"),
+	REDSTONE_ORE(73, "Redstone Ore"),
+	GLOWING_REDSTONE_ORE(74, "Glowing Redstone Ore"),
+	UNLIT_REDSTONE_TORCH(75, "Redstone Torch (off)"),
+	REDSTONE_TORCH(76, "Redstone Torch"),
+	STONE_BUTTON(77, "Stone Button"),
+	SNOW(78, "Snow Layer"),
+	ICE(79, "Ice"),
+	
+	SNOW_BLOCK(80, "Snow Block"),
+	CACTUS(81, "Cactus"),
+	CLAY(82, "Clay Block"),
+	SUGAR_CANE_BLOCK(83, "Sugar Cane Block"),
+	JUKEBOX(84, "Jukebox"),
+	OAK_FENCE(85, "Oak Fence", "^[^0-9A-Z]*(oak[^0-9A-Z]*(wood[^0-9A-Z]*)?)?fence"),
+	PUMPKIN(86, "Pumpkin"),
+	NETHERRACK(87, "Netherrack"),
+	SOUL_SAND(88, "Soul Sand"),
+	GLOWSTONE(89, "Glowstone"),
+	
+	NETHER_PORTAL(90, "Nether Portal", "^[^0-9A-Z]*portal"),
+	JACK_O_LANTERN(91, "Jack o'Lantern"),
+	CAKE_BLOCK(92, "Cake Block"),
+	UNPOWERED_REDSTONE_REPEATER_BLOCK(93, "Redstone Repeater Block (off)"),
+	REDSTONE_REPEATER_BLOCK(94, "Redstone Repeater Block (off)"),
+	STAINED_GLASS(95, "Stained Glass"),
+	ORANGE_STAINED_GLASS(95, 1, "Orange Stained Glass", "(95)|(stained[^0-A-Z]*glass):orange"),
+	MAGENTA_STAINED_GLASS(95, 2, "Magenta Stained Glass", "(95)|(stained[^0-A-Z]*glass):magenta"),
+	LIGHT_BLUE_STAINED_GLASS(95, 3, "Light Blue Stained Glass", "(aqua[^0-9A-Z]*stained[^0-A-Z]*glass)|((95)|(stained[^0-A-Z]*glass):(aqua)|(light[^0-9A-Z]*blue))"),
+	YELLOW_STAINED_GLASS(95, 4, "Yellow Stained Glass", "(95)|(stained[^0-A-Z]*glass):yellow"),
+	LIME_STAINED_GLASS(95, 5, "Lime Stained Glass", "((95)|(stained[^0-A-Z]*glass):(lime)|(light[^0-9A-Z]*green))|(light[^0-9A-Z]*green[^0-9A-Z]*stained[^0-A-Z]*glass)"),
+	PINK_STAINED_GLASS(95, 6, "Pink Stained Glass", "(95)|(stained[^0-A-Z]*glass):pink"),
+	GRAY_STAINED_GLASS(95, 7, "Gray Stained Glass", "(95)|(stained[^0-A-Z]*glass):gray"),
+	LIGHT_GRAY_STAINED_GLASS(95, 8, "Light Gray Stained Glass", "(95)|(stained[^0-A-Z]*glass):light[^0-9A-Z]*gray"),
+	CYAN_STAINED_GLASS(95, 9, "Cyan Stained Glass", "(95)|(stained[^0-A-Z]*glass):cyan"),
+	PURPLE_STAINED_GLASS(95, 10, "Purple Stained Glass", "(95)|(stained[^0-A-Z]*glass):purple"),
+	BLUE_STAINED_GLASS(95, 11, "Blue Stained Glass", "(95)|(stained[^0-A-Z]*glass):blue"),
+	BROWN_STAINED_GLASS(95, 12, "Brown Stained Glass", "(95)|(stained[^0-A-Z]*glass):brown"),
+	GREEN_STAINED_GLASS(95, 13, "Green Stained Glass", "(95)|(stained[^0-A-Z]*glass):green"),
+	RED_STAINED_GLASS(95, 14, "Red Stained Glass", "(95)|(stained[^0-A-Z]*glass):red"),
+	BLACK_STAINED_GLASS(95, 15, "Black Stained Glass", "(95)|(stained[^0-A-Z]*glass):black"),
+	WOODEN_TRAPDOOR(96, "Wooden Trapdoor", "wood(en)?[^0-9A-Z]*trapdoor"),
+	STONE_MONSTER_EGG(97, "Stone Monster Egg"),
+	COBBLESTONE_MONSTER_EGG(97, 1, "Cobblestone Monster Egg", "cobble[^0-9A-Z]*monster[^0-9A-Z]*egg"),
+	STONE_BRICK_MONSTER_EGG(97, 2, "Stone Brick Monster Egg"),
+	MOSSY_STONE_BRICK_MONSTER_EGG(97, 3, "Mossy Stone Brick Monster Egg", "mossy?[^0-9A-Z]*stone[^0-9A-Z]*brick[^0-9A-Z]*monster[^0-9A-Z]*egg"),
+	CRACKED_STONE_BRICK_MONSTER_EGG(97, 4, "Cracked Stone Brick Monster Egg"),
+	CHISELED_STONE_BRICK_MONSTER_EGG(97, 5, "Chiseled Stone Brick Monster Egg"),
+	STONE_BRICKS(98, "Stone Bricks", "stone[^0-9A-Z]*brick"),
+	MOSSY_STONE_BRICKS(98, 1, "Mossy Stone Bricks", "mossy?[^0-9A-Z]*stone[^0-9A-Z]*bricks?"),
+	CRACKED_STONE_BRICKS(98, 2, "Cracked Stone Bricks", "cracked[^0-9A-Z]*stone[^0-9A-Z]*brick"),
+	CHISELED_STONE_BRICKS(98, 3, "Chiseled Stone Bricks", "chiseled[^0-9A-Z]*stone[^0-9A-Z]*brick"),
+	BROWN_MUSHROOM_BLOCK(99, "Brown Mushroom Block"),
+	
+	RED_MUSHROOM_BLOCK(100, "Red Mushroom Block");
 	
 	public final int id;
 	public final int data;
@@ -186,7 +264,7 @@ public enum Item {
 		for (String s : name.split(" ")) {
 			displayRegex += s + "[^0-9A-Z]*";
 		}
-		displayRegex = displayRegex.substring(0, displayRegex.length() - 10);
+		displayRegex += "$";
 		return name.contains(" ") && Pattern.compile(displayRegex, Pattern.CASE_INSENSITIVE).matcher(str).find();
 	}
 	
