@@ -11,50 +11,47 @@ import com.tisawesomeness.minecord.command.utility.*;
 
 public class Registry {
 	
-	public static Command[] commands;
+	public static Command[] commands = {
+		new Text("**General Commands:**"),
+		new HelpCommand(),
+		new InfoCommand(),
+		new InviteCommand(),
+		new StatusCommand(),
+		new SalesCommand(),
+		new PurgeCommand(),
+		new Text("\n**Utility Commands:**"),
+		new CodesCommand(),
+		new ServerCommand(),
+		new ItemCommand(),
+		new RecipeCommand(),
+		new Text("\n**Player Commands:**"),
+		new UuidCommand(),
+		new HistoryCommand(),
+		new AvatarCommand(),
+		new HeadCommand(),
+		new BodyCommand(),
+		new SkinCommand(),
+		new CapeCommand(),
+		new Text(true, "\n**Admin Commands:**"),
+		new SayCommand(),
+		new MsgCommand(),
+		new NameCommand(),
+		new UsageCommand(),
+		new ReloadCommand(),
+		new ShutdownCommand(),
+		new EvalCommand(),
+		new TestCommand(),
+		new Text(
+			"\n" + "**Arguments:**" +
+			"\n" + "`<>` is required, `[]` is optional, and `?` is true/false." +
+			"\n" + "Simply type a command like `" + Config.getPrefix() +
+				"server` without any arguments to get more details."
+		)
+	};
 	public static TreeMap<String, Command> commandMap;
 	public static boolean enabled = false;
 	
 	public static void init() {
-	
-		//The order that the commands are registered here is the order they will appear in the help menu.
-		commands = new Command[]{
-			new Text("**General Commands:**"),
-			new HelpCommand(),
-			new InfoCommand(),
-			new InviteCommand(),
-			new StatusCommand(),
-			new SalesCommand(),
-			new PurgeCommand(),
-			new Text("\n**Utility Commands:**"),
-			new CodesCommand(),
-			new ServerCommand(),
-			new ItemCommand(),
-			new RecipeCommand(),
-			new Text("\n**Player Commands:**"),
-			new UuidCommand(),
-			new HistoryCommand(),
-			new AvatarCommand(),
-			new HeadCommand(),
-			new BodyCommand(),
-			new SkinCommand(),
-			new CapeCommand(),
-			new Text(true, "\n**Admin Commands:**"),
-			new SayCommand(),
-			new MsgCommand(),
-			new NameCommand(),
-			new UsageCommand(),
-			new ReloadCommand(),
-			new ShutdownCommand(),
-			new EvalCommand(),
-			new TestCommand(),
-			new Text(
-				"\n" + "**Arguments:**" +
-				"\n" + "`<>` is required, `[]` is optional, and `?` is true/false." +
-				"\n" + "Simply type a command like `" + Config.getPrefix() +
-					"server` without any arguments to get more details."
-			)
-		};
 
 		//Map aliases to commands
 		commandMap = new TreeMap<String, Command>(String.CASE_INSENSITIVE_ORDER);
