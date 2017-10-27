@@ -1,10 +1,11 @@
 package com.tisawesomeness.minecord.command.utility;
 
 import java.awt.Color;
+import java.util.regex.Pattern;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.item.Item;
-import com.tisawesomeness.minecord.util.MessageUtils;
+//import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -38,13 +39,21 @@ public class ItemCommand extends Command {
 		}
 		string = string.substring(0, string.length() - 1);
 		
+		//Trim string
+		string = Pattern.compile("(^[^0-9A-Z]+)|([^0-9A-Z\\)]+$)", Pattern.CASE_INSENSITIVE).matcher(string).replaceAll("");
+		
 		//Search through the item database
 		Item item = null;
+		boolean escape = false;
 		for (Item i : Item.values()) {
-			if (i.matches(string)) {
-				item = i;
-				break;
+			for (int mode = 0; mode <= 4; mode++) {
+				if (i.matches(string, mode)) {
+					item = i;
+					escape = true;
+					break;
+				}
 			}
+			if (escape) break;
 		}
 		
 		//If nothing is found
@@ -58,7 +67,8 @@ public class ItemCommand extends Command {
 		EmbedBuilder eb = item.getInfo();
 		eb.setTitle(item.name);
 		eb.setColor(Color.GREEN);
-		eb = MessageUtils.addFooter(eb);
+		eb.setFooter("This command is in beta, please report any bugs to https://goo.gl/KWCxis", null);
+		//eb = MessageUtils.addFooter(eb);
 		
 		return new Result(Outcome.SUCCESS, eb.build());
 	}

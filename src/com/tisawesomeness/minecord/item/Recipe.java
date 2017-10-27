@@ -115,7 +115,7 @@ public enum Recipe {
 	BLACK_STAINED_GLASS("Combine any glass with any dye to change its color."),
 	WOODEN_TRAPDOOR(),
 	STONE_BRICKS(),
-	MOSSY_STONE_BRICKS(),
+	MOSSY_STONE_BRICKS(RecipeType.SHAPELESS),
 	CRACKED_STONE_BRICKS(),
 	CHISELED_STONE_BRICKS();
 	
