@@ -20,7 +20,7 @@ public enum Item {
 	PODZOL(3, 2, "Podzol"),
 	COBBLESTONE(4, "Cobblestone", "^cobble[^0-9A-Z]*$"),
 	OAK_PLANKS(5, "Oak Wood Planks", "^(oak[^0-9A-Z]*(wood[^0-9A-Z]*)?)?plank"),
-	SPRUCE_PLANKS(5, 1, "Spruce Wood Planks", "(spruce[^0-9A-Z]*(wood[^0-9A-Z]*)?plank|((wood[^0-9A-Z]*)?plank:1)"),
+	SPRUCE_PLANKS(5, 1, "Spruce Wood Planks", "(spruce[^0-9A-Z]*(wood[^0-9A-Z]*)?plank)|((wood[^0-9A-Z]*)?plank:1)"),
 	BIRCH_PLANKS(5, 2, "Birch Wood Planks", "(birch[^0-9A-Z]*(wood[^0-9A-Z]*)?plank)|((wood[^0-9A-Z]*)?plank:2)"),
 	JUNGLE_PLANKS(5, 3, "Jungle Wood Planks", "(jungle[^0-9A-Z]*(wood[^0-9A-Z]*)?plank)|((wood[^0-9A-Z]*)?plank:3)"),
 	ACACIA_PLANKS(5, 4, "Acacia Wood Planks", "(acacia[^0-9A-Z]*(wood[^0-9A-Z]*)?plank)|((wood[^0-9A-Z]*)?plank:4)"),
@@ -368,13 +368,13 @@ public enum Item {
 	RED_SANDSTONE_STAIRS(180, "Red Sandstone Stairs", "red[^0-9A-Z]*sandstone[^0-9A-Z]*stair", Version.V1_8),
 	DOUBLE_STONE_SLAB2(181, "Double Red Sandstone Slab", "double[^0-9A-Z]*stone[^0-9A-Z]*slab2", Version.V1_8),
 	STONE_SLAB2(182, "Red Sandstone Slab", "stone[^0-9A-Z]*slab2", Version.V1_8),
-	SPRUCE_FENCE_GATE(183, "Spruce Fence Gate", "spruce[^0-9A-Z]*wood[^0-9A-Z]*fence[^0-9A-Z]*gate", Version.V1_8),
-	BIRCH_FENCE_GATE(184, "Birch Fence Gate", "birch[^0-9A-Z]*(wood[^0-9A-Z]*fence[^0-9A-Z]*gate", Version.V1_8),
-	JUNGLE_FENCE_GATE(185, "Jungle Fence Gate", "jungle[^0-9A-Z]*wood[^0-9A-Z]*fence[^0-9A-Z]*gate", Version.V1_8),
+	SPRUCE_FENCE_GATE(183, "Spruce Fence Gate", "spruce[^0-9A-Z]*(wood[^0-9A-Z]*)?fence[^0-9A-Z]*gate", Version.V1_8),
+	BIRCH_FENCE_GATE(184, "Birch Fence Gate", "birch[^0-9A-Z]*(wood[^0-9A-Z]*)?fence[^0-9A-Z]*gate", Version.V1_8),
+	JUNGLE_FENCE_GATE(185, "Jungle Fence Gate", "jungle[^0-9A-Z]*(wood[^0-9A-Z]*)?fence[^0-9A-Z]*gate", Version.V1_8),
 	DARK_OAK_FENCE_GATE(186, "Dark Oak Fence Gate", "dark[^0-9A-Z]*(oak[^0-9A-Z]*)?(wood[^0-9A-Z]*)?fence[^0-9A-Z]*gate", Version.V1_8),
-	ACACIA_FENCE_GATE(187, "Acacia Fence Gate", "acacia[^0-9A-Z]*wood[^0-9A-Z]*0fence[^0-9A-Z]*gate", Version.V1_8),
-	SPRUCE_FENCE(188, "Spruce Fence", "spruce[^0-9A-Z]*wood[^0-9A-Z]*fence", Version.V1_8),
-	BIRCH_FENCE(189, "Birch Fence", "birch[^0-9A-Z]*wood[^0-9A-Z]*fence", Version.V1_8),
+	ACACIA_FENCE_GATE(187, "Acacia Fence Gate", "acacia[^0-9A-Z]*(wood[^0-9A-Z]*)?fence[^0-9A-Z]*gate", Version.V1_8),
+	SPRUCE_FENCE(188, "Spruce Fence", "spruce[^0-9A-Z]*(wood[^0-9A-Z]*)?fence", Version.V1_8),
+	BIRCH_FENCE(189, "Birch Fence", "birch[^0-9A-Z]*(wood[^0-9A-Z]*)?fence", Version.V1_8),
 	
 	JUNGLE_FENCE(190, "Jungle Fence", "jungle[^0-9A-Z]*wood[^0-9A-Z]*fence", Version.V1_8),
 	DARK_OAK_FENCE(191, "Dark Oak Fence", "dark[^0-9A-Z]*(oak[^0-9A-Z]*)?(wood[^0-9A-Z]*)?fence", Version.V1_8),
@@ -430,10 +430,10 @@ public enum Item {
 	WHITE_GLAZED_TERRACOTTA(235, "White Glazed Terracotta", "^(glazed[^0-9A-Z]*)?terr?acott?a", Version.V1_12),
 	ORANGE_GLAZED_TERRACOTTA(236, "Orange Glazed Terracotta", "orange[^0-9A-Z]*terr?acott?a", Version.V1_12),
 	MAGENTA_GLAZED_TERRACOTTA(237, "Magenta Glazed Terracotta", "magenta[^0-9A-Z]*terr?acott?a", Version.V1_12),
-	LIGHT_BLUE_GLAZED_TERRACOTTA(238, "Light Blue Glazed Terracotta", "((aqua)|(light[^0-9A-Z]*blue))[^0-9A-Z](glazed[^0-9A-Z])?*terr?acott?a", Version.V1_12),
+	LIGHT_BLUE_GLAZED_TERRACOTTA(238, "Light Blue Glazed Terracotta", "((aqua)|(light[^0-9A-Z]*blue))[^0-9A-Z](glazed[^0-9A-Z]*)?terr?acott?a", Version.V1_12),
 	YELLOW_GLAZED_TERRACOTTA(239, "Yellow Glazed Terracotta", "yellow[^0-9A-Z]*terr?acott?a", Version.V1_12),
 	
-	LIME_GLAZED_TERRACOTTA(240, "Lime Glazed Terracotta", "((lime)|(light[^0-9A-Z]*green))[^0-9A-Z](glazed[^0-9A-Z])?*terr?acott?a", Version.V1_12),
+	LIME_GLAZED_TERRACOTTA(240, "Lime Glazed Terracotta", "((lime)|(light[^0-9A-Z]*green))[^0-9A-Z](glazed[^0-9A-Z]*)?terr?acott?a", Version.V1_12),
 	PINK_GLAZED_TERRACOTTA(241, "Pink Glazed Terracotta", "pink[^0-9A-Z]*terr?acott?a", Version.V1_12),
 	GRAY_GLAZED_TERRACOTTA(242, "Gray Glazed Terracotta", "gr(a|e)y[^0-9A-Z]*terr?acott?a", Version.V1_12),
 	LIGHT_GRAY_GLAZED_TERRACOTTA(243, "Light Gray Glazed Terracotta", "light[^0-9A-Z]*gr(a|e)y[^0-9A-Z]*terr?acott?a", Version.V1_12),
@@ -836,7 +836,9 @@ public enum Item {
 	 * Tests if a string matches the current item.
 	 * The enum was designed with the assumption that items will be iterated top to bottom.
 	 * @param str The string to match.
-	 * @param mode The method of matching.
+	 * Before sending a string to this method, trim with the below regex to save time.
+	 * "(^[^0-9A-Z]+)|([^0-9A-Z\)]+$)" (case insensitive)
+	 * @param mode The method of matching. It is preferred to iterate through this parameter.
 	 * 0 is display name.
 	 * 1 is item:data.
 	 * 2 is regex assembled from display name.
@@ -847,15 +849,15 @@ public enum Item {
 	public boolean matches(String str, int mode) {
 		
 		switch (mode) {
-		case 1:
+		case 0:
 			//Display name
 			return name.equalsIgnoreCase(str);
-		case 2:
+		case 1:
 			//Item id and data
 			String pattern = "^[ ]*" + id;
 			if (data != 0) pattern += "[ ]*[:;|/.,\\-_~][ ]*" + data;
 			return Pattern.compile(pattern + "([^0-9:]|$)").matcher(str).find();
-		case 3:
+		case 2:
 			//Display name regex
 			String displayRegex = "^";
 			for (String s : name.split(" ")) {
@@ -863,7 +865,7 @@ public enum Item {
 			}
 			displayRegex += "$";
 			return name.contains(" ") && Pattern.compile(displayRegex, Pattern.CASE_INSENSITIVE).matcher(str).find();
-		case 4:
+		case 3:
 			//Enum name regex
 			String enumRegex = "^";
 			for (String s : this.name().split("_")) {
@@ -871,7 +873,7 @@ public enum Item {
 			}
 			enumRegex += "$";
 			return name.contains(" ") && Pattern.compile(enumRegex, Pattern.CASE_INSENSITIVE).matcher(str).find();
-		case 5:
+		case 4:
 			//Predefined regex
 			return regex != null && Pattern.compile(regex, Pattern.CASE_INSENSITIVE).matcher(str).find();
 		default:
