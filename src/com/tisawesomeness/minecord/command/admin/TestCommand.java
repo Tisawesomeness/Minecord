@@ -21,8 +21,6 @@ public class TestCommand extends Command {
 	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
-		System.out.println(String.join(" ", MessageUtils.getContent(e.getMessage(), false)));
-		System.out.println(String.join(" ", MessageUtils.getContent(e.getMessage(), true)));
 		return new Result(Outcome.SUCCESS, "Test");
 	}
 	
