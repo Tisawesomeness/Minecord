@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.util.regex.Pattern;
 
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.Command.Outcome;
+import com.tisawesomeness.minecord.command.Command.Result;
 import com.tisawesomeness.minecord.item.Item;
 import com.tisawesomeness.minecord.item.Recipe;
 //import com.tisawesomeness.minecord.util.MessageUtils;
@@ -28,6 +30,9 @@ public class RecipeCommand extends Command {
 
 	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
 		
+		return new Result(Outcome.WARNING, "Command is currently disabled.");
+		
+		/*
 		//Check for argument length.
 		if (args.length == 0) {
 			return new Result(Outcome.WARNING, ":warning: You must specify an item!");
@@ -69,10 +74,11 @@ public class RecipeCommand extends Command {
 		EmbedBuilder eb = recipe.item.getInfo();
 		eb.setTitle(recipe.type.toString() + " Recipe");
 		eb.setColor(Color.GREEN);
-		eb.setFooter("This command is in beta, please report any bugs to https://goo.gl/KWCxis", null);
+		eb.setFooter("See an error? Please report them at https://goo.gl/KWCxis", null);
 		//eb = MessageUtils.addFooter(eb);
 		
 		return new Result(Outcome.SUCCESS, eb.build());
+		*/
 	}
 
 }

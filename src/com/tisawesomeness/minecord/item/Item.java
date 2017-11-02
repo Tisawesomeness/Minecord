@@ -265,7 +265,7 @@ public enum Item {
 	JUNGLE_STAIRS(136, "Jungle Wood Stairs", "^jungle[^0-9A-Z]*(wood[^0-9A-Z]*)?stair"),
 	COMMAND_BLOCK(137, "Command Block"), //Overpowered
 	BEACON(138, "Beacon"),
-	COBBLESTONE_WALL(139, "Cobblestone Wall", "^(cobble(stone)?[^0-9A-Z]*)?wall"),
+	COBBLESTONE_WALL(139, "Cobblestone Wall", "^(cobble(stone)?[^0-9A-Z]*)?wall"), //We need to build a wall
 	MOSSY_COBBLESTONE_WALL(139, 1, "Mossy Cobblestone Wall", "(^mossy?[^0-9A-Z]*(cobble(stone)?[^0-9A-Z]*)?wall)|((cobble(stone)?[^0-9A-Z]*)?wall[ ]*[:;|/.,\\-_~][ ]*1)"),
 	
 	FLOWER_POT_BLOCK(140, "Flower Pot Block"),
@@ -298,7 +298,7 @@ public enum Item {
 	LIME_STAINED_HARDENED_CLAY(159, 5, "Lime Hardened Clay", "(((lime)|(light[^0-9A-Z]*green))[^0-9A-Z]*(((hardened)|(stained([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))|((((hardened)|(stained([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))[ ]*[:;|/.,\\-_~][ ]*((lime)|(light[^0-9A-Z]*green)|(3$))))"),
 	PINK_STAINED_HARDENED_CLAY(159, 6, "Pink Hardened Clay", "(pink[^0-9A-Z]*(((hardened)|(stained([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))|(((hardened)|(stained([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))[ ]*[:;|/.,\\-_~][ ]*((pink)|6))"),
 	GRAY_STAINED_HARDENED_CLAY(159, 7, "Gray Hardened Clay", "(gr(a|e)y[^0-9A-Z]*(((hardened)|(stained([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))|(((hardened)|(stained([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))[ ]*[:;|/.,\\-_~][ ]*((gr(a|e)y)|7))"),
-	LIGHT_GRAYSTAINED_HARDENED_CLAY(159, 8, "Light Gray Hardened Clay", "(light[^0-9A-Z]*gr(a|e)y[^0-9A-Z]*(((hardened)|(stained([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))|(((hardened)|(stained([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))[ ]*[:;|/.,\\-_~][ ]*((light[^0-9A-Z]*gr(a|e)y)|(silver)|8))"),
+	LIGHT_GRAY_STAINED_HARDENED_CLAY(159, 8, "Light Gray Hardened Clay", "(light[^0-9A-Z]*gr(a|e)y[^0-9A-Z]*(((hardened)|(stained([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))|(((hardened)|(stained([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))[ ]*[:;|/.,\\-_~][ ]*((light[^0-9A-Z]*gr(a|e)y)|(silver)|8))"),
 	CYAN_STAINED_HARDENED_CLAY(159, 9, "Cyan Hardened Clay", "(cyan[^0-9A-Z]*(((hardened)|(stained([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))|(((hardened)|(stained([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))[ ]*[:;|/.,\\-_~][ ]*((cyan)|9))"),
 	PURPLE_STAINED_HARDENED_CLAY(159, 10, "Purple Hardened Clay", "(purple[^0-9A-Z]*(((hardened)|(stained([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))|(((hardened)|(stained([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))[ ]*[:;|/.,\\-_~][ ]*((purple)|(10)))"),
 	BLUE_STAINED_HARDENED_CLAY(159, 11, "Blue Hardened Clay", "(blue[^0-9A-Z]*(((hardened)|(stained([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))|(((hardened)|(stained([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))[ ]*[:;|/.,\\-_~][ ]*((blue)|(11)))"),
@@ -400,7 +400,7 @@ public enum Item {
 	PURPUR_STAIRS(203, "Purpur Stairs", Version.V1_9),
 	PURPUR_DOUBLE_SLAB(204, "Purpur Double Slab", Version.V1_9),
 	PURPUR_SLAB(205, "Purpur Slab", Version.V1_9),
-	END_BRICKS(206, "End Stone Bricks", "end[^0-9A-Z]*stone[^0-9A-Z]*brick", Version.V1_9),
+	END_BRICKS(206, "End Stone Bricks", "end[^0-9A-Z]*(stone[^0-9A-Z]*)?brick", Version.V1_9),
 	BEETROOTS(207, "Beetroot Block", Version.V1_9),
 	GRASS_PATH(208, "Grass Path", "path", Version.V1_9),
 	END_GATEWAY(209, "End Gateway", "gateway", Version.V1_9),
@@ -414,7 +414,7 @@ public enum Item {
 	BONE_BLOCK(216, "Bone Block", Version.V1_10),
 	STRUCTURE_VOID(217, "Structure Void", Version.V1_10),
 	OBSERVER(218, "Observer", Version.V1_11),
-	WHITE_SHULKER_BOX(219, "White Shulker Box", "^shulker[^0-9A-Z]*box", Version.V1_11),
+	WHITE_SHULKER_BOX(219, "White Shulker Box", Version.V1_11),
 	
 	ORANGE_SHULKER_BOX(220, "Orange Shulker Box", Version.V1_11),
 	MAGENTA_SHULKER_BOX(221, "Magenta Shulker Box", Version.V1_11),
@@ -425,7 +425,7 @@ public enum Item {
 	GRAY_SHULKER_BOX(226, "Gray Shulker Box", "grey[^0-9A-Z]*shulker[^0-9A-Z]*box", Version.V1_11),
 	SILVER_SHULKER_BOX(227, "Light Gray Shulker Box", Version.V1_11),
 	CYAN_SHULKER_BOX(228, "Cyan Shulker Box", Version.V1_11),
-	PURPLE_SHULKER_BOX(229, "Purple Shulker Box", Version.V1_11),
+	PURPLE_SHULKER_BOX(229, "Purple Shulker Box", "^shulker[^0-9A-Z]*box", Version.V1_11),
 	
 	BLUE_SHULKER_BOX(230, "Blue Shulker Box", Version.V1_11),
 	BROWN_SHULKER_BOX(231, "Brown Shulker Box", Version.V1_11),
@@ -859,7 +859,7 @@ public enum Item {
 			return name.equalsIgnoreCase(str);
 		case 1:
 			//Item id and data
-			String pattern = "^[ ]*" + id;
+			String pattern = "^" + id;
 			if (data != 0) pattern += "[ ]*[:;|/.,\\-_~][ ]*" + data;
 			return Pattern.compile(pattern + "$").matcher(str).find();
 		case 2:

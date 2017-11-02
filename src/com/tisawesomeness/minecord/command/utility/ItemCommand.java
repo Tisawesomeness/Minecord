@@ -27,6 +27,9 @@ public class ItemCommand extends Command {
 
 	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
 		
+		return new Result(Outcome.WARNING, "Command is currently disabled.");
+		
+		/*
 		//Check for argument length.
 		if (args.length == 0) {
 			return new Result(Outcome.WARNING, ":warning: You must specify an item!");
@@ -67,10 +70,11 @@ public class ItemCommand extends Command {
 		EmbedBuilder eb = item.getInfo();
 		eb.setTitle(item.name);
 		eb.setColor(Color.GREEN);
-		eb.setFooter("This command is in beta, please report any bugs to https://goo.gl/KWCxis", null);
+		eb.setFooter("See an error? Please report them at https://goo.gl/KWCxis", null);
 		//eb = MessageUtils.addFooter(eb);
 		
 		return new Result(Outcome.SUCCESS, eb.build());
+		*/
 	}
 
 }
