@@ -27,9 +27,6 @@ public class ItemCommand extends Command {
 
 	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
 		
-		return new Result(Outcome.WARNING, "Command is currently disabled.");
-		
-		/*
 		//Check for argument length.
 		if (args.length == 0) {
 			return new Result(Outcome.WARNING, ":warning: You must specify an item!");
@@ -74,7 +71,6 @@ public class ItemCommand extends Command {
 		//eb = MessageUtils.addFooter(eb);
 		
 		return new Result(Outcome.SUCCESS, eb.build());
-		*/
 	}
 
 }

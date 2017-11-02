@@ -216,7 +216,7 @@ public enum Recipe {
 	SEA_LANTERN(Version.V1_8),
 	
 	//170
-	HAY_BALE(),
+	HAY_BLOCK(),
 	CARPET(),
 	ORANGE_CARPET(),
 	MAGENTA_CARPET(),
@@ -263,7 +263,7 @@ public enum Recipe {
 	PURPUR_PILLAR(Version.V1_9),
 	PURPUR_STAIRS(Version.V1_9),
 	PURPUR_SLAB(Version.V1_9),
-	END_STONE_BRICKS(Version.V1_9),
+	END_BRICKS(Version.V1_9),
 	
 	//210
 	MAGMA(Version.V1_10),
@@ -281,7 +281,7 @@ public enum Recipe {
 	LIME_SHULKER_BOX(Version.V1_9, "Combine any shulker box with any dye to change its color."),
 	PINK_SHULKER_BOX(Version.V1_9, "Combine any shulker box with any dye to change its color."),
 	GRAY_SHULKER_BOX(Version.V1_9, "Combine any shulker box with any dye to change its color."),
-	LIGHT_GRAY_SHULKER_BOX(Version.V1_9, "Combine any shulker box with any dye to change its color."),
+	SILVER_SHULKER_BOX(Version.V1_9, "Combine any shulker box with any dye to change its color."),
 	CYAN_SHULKER_BOX(Version.V1_9, "Combine any shulker box with any dye to change its color."),
 	PURPLE_SHULKER_BOX(Version.V1_9, "Combine any shulker box with any dye to change its color.", true),
 	
