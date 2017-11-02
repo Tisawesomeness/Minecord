@@ -45,7 +45,7 @@ public class ServerCommand extends Command {
 		}
 		
 		//Send a request to MCAPI
-		String url = "https://mcapi.ca/query/" + arg + "/info";
+		String url = " https://use.gameapis.net/mc/query/info/" + arg;
 		String request = RequestUtils.get(url);
 		if (request == null) {
 			return new Result(Outcome.ERROR, ":x: The MCAPI could not be reached.");
@@ -71,7 +71,8 @@ public class ServerCommand extends Command {
 		JSONObject players = server.getJSONObject("players");
 		int online = players.getInt("online");
 		int max = players.getInt("max");
-		String motd = server.getString("motd");
+		JSONObject motds = server.getJSONObject("motds");
+		String motd = motds.getString("clean");
 
 		String address = hostname + ":" + port;
 		version = clean(version).replaceAll(chatCodeRegex, "");
@@ -82,8 +83,7 @@ public class ServerCommand extends Command {
 			"\n" + "**Version:** " + version +
 			"\n" + "**Players:** " + playerInfo +
 			"\n" + "**MOTD:** " + motd;
-		String thumb = "https://mcapi.ca/query/" + arg + "/icon";
-		e.getChannel().sendMessage("https://mcapi.ca/query/" + arg + "/icon");
+		String thumb = "https://mcapi.ca/query/icon/" + arg;
 		
 		MessageEmbed me = MessageUtils.embedMessage("Server Status", null, m, Color.GREEN);
 		
