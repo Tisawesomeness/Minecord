@@ -169,6 +169,7 @@ public class Listener extends ListenerAdapter {
 					}
 				}
 				err += "```";
+				MessageUtils.log(err);
 				MessageUtils.notify(err, c, 3);
 			//If message is empty
 			} if (result.message == null) {
