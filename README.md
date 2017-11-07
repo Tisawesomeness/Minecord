@@ -16,6 +16,8 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 #### Utility Commands:
 - `&codes` - Lists the available chat codes.
 - `&server <address>[:port]` - Fetches the stats of a server.
+- `&item <item>` - Looks up an item.
+- `&recipe <item>` - Looks up a recipe.
 
 #### Player Commands:
 - `&uuid <username> [date]` - Gets the UUID of a player.
