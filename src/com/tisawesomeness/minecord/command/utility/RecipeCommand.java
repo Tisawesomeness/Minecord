@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.item.Item;
 import com.tisawesomeness.minecord.item.Recipe;
-//import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -17,7 +16,7 @@ public class RecipeCommand extends Command {
 	public CommandInfo getInfo() {
 		return new CommandInfo(
 			"recipe",
-			"Looks up an item recipe.",
+			"Looks up a recipe.",
 			"<item name|id>",
 			null,
 			1000,

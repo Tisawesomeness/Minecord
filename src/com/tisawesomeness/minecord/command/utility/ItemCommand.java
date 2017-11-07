@@ -5,7 +5,6 @@ import java.util.regex.Pattern;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.item.Item;
-//import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.core.EmbedBuilder;
