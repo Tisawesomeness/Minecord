@@ -20,7 +20,7 @@ public class ItemCommand extends Command {
 			null,
 			1000,
 			true,
-			false,
+			true,
 			true
 		);
 	}
