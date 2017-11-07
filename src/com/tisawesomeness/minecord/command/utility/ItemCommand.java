@@ -19,8 +19,8 @@ public class ItemCommand extends Command {
 			"<item name|id>",
 			null,
 			1000,
-			true,
-			true,
+			false,
+			false,
 			true
 		);
 	}
