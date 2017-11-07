@@ -5,6 +5,7 @@ public enum RecipeType {
 	SHAPELESS("Shapeless"),
 	CRAFTING_SHAPELESS("Crafting/Shapeless"),
 	SMELTING("Smelting"),
+	CRAFTING_SMELTING("Crafting/Smelting"),
 	BREWING("Brewing");
 	
 	private String s;
