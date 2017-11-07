@@ -895,7 +895,7 @@ public enum Item {
 	 */
 	public EmbedBuilder getInfo() {
 		EmbedBuilder eb = new EmbedBuilder();
-		String desc = "Id: `" + id + "`\nData: `" + data + "`";
+		String desc = "**Id: `" + id + "`\nData: `" + data + "`**";
 		
 		//If a recipe for this item exists
 		try {
