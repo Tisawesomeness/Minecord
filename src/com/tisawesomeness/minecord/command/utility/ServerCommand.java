@@ -45,7 +45,7 @@ public class ServerCommand extends Command {
 		}
 		
 		//Send a request to MCAPI
-		String url = " https://use.gameapis.net/mc/query/info/" + arg;
+		String url = "https://use.gameapis.net/mc/query/info/" + arg;
 		String request = RequestUtils.get(url);
 		if (request == null) {
 			return new Result(Outcome.ERROR, ":x: The MCAPI could not be reached.");
