@@ -7,6 +7,7 @@ import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.item.Item;
 import com.tisawesomeness.minecord.item.Recipe;
 //import com.tisawesomeness.minecord.util.MessageUtils;
+import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -57,6 +58,12 @@ public class RecipeCommand extends Command {
 			}
 			if (escape) break;
 		}
+		
+		MessageUtils.log(
+			"Recipe command executed" +
+			"\nCommand: " + e.getMessage().getContent() +
+			"\nRecipe: " + recipe
+		);
 		
 		//If nothing is found
 		if (recipe == null) {

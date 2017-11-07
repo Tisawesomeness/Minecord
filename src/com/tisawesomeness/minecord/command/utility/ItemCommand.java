@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.item.Item;
 //import com.tisawesomeness.minecord.util.MessageUtils;
+import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -55,6 +56,12 @@ public class ItemCommand extends Command {
 			}
 			if (escape) break;
 		}
+		
+		MessageUtils.log(
+			"Item command executed" +
+			"\nCommand: " + e.getMessage().getContent() +
+			"\nRecipe: " + item
+		);
 		
 		//If nothing is found
 		if (item == null) {

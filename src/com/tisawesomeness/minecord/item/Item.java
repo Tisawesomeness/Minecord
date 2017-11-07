@@ -7,7 +7,7 @@ import net.dv8tion.jda.core.EmbedBuilder;
 /**
  * A list of nearly every item in Minecraft. If the item has a recipe,
  * there will be a corresponding entry in the Recipe enum.
- * @author Tis
+ * @author Tis_awesomeness
  */
 public enum Item {
 	
@@ -720,20 +720,20 @@ public enum Item {
 	FIREWORKS(401, "Firework Rocket"),
 	FIREWORK_CHARGE(402, "Firework Star"),
 	ENCHANTED_BOOK(403, "Enchanted Book"),
-	COMPARATOR(404, "Redstone Comparator"),
+	COMPARATOR(404, "Redstone Comparator"), //Not found
 	NETHERBRICK(405, "Nether Brick"),
 	QUARTZ(406, "Nether Quartz"),
 	TNT_MINECART(407, "Minecart with TNT", "minecart[^0-9A-Z]*tnt"),
 	HOPPER_MINECART(408, "Minecart with Hopper", "hopper[^0-9A-Z]*minecart"),
-	PRISMARINE_SHARD(409, "Prismarine Shard"),
+	PRISMARINE_SHARD(409, "Prismarine Shard", Version.V1_8),
 	
-	PRISMARINE_CRYSTALS(410, "Prismarine Crystals"),
-	RABBIT(411, "Raw Rabbit"),
-	COOKED_RABBIT(412, "Cooked Rabbit"),
-	RABBIT_STEW(413, "Rabbit Stew"),
-	RABBIT_FOOT(414, "Rabbit's Foot"),
-	RABBIT_HIDE(415, "Rabbit Hide"),
-	ARMOR_STAND(416, "Armor Stand"),
+	PRISMARINE_CRYSTALS(410, "Prismarine Crystals", Version.V1_8),
+	RABBIT(411, "Raw Rabbit", Version.V1_8),
+	COOKED_RABBIT(412, "Cooked Rabbit", Version.V1_8),
+	RABBIT_STEW(413, "Rabbit Stew", Version.V1_8),
+	RABBIT_FOOT(414, "Rabbit's Foot", Version.V1_8),
+	RABBIT_HIDE(415, "Rabbit Hide", Version.V1_8),
+	ARMOR_STAND(416, "Armor Stand", Version.V1_8),
 	IRON_HORSE_ARMOR(417, "Iron Horse Armor"),
 	GOLDEN_HORSE_ARMOR(418, "Golden Horse Armor"),
 	DIAMOND_HORSE_ARMOR(419, "Diamond Horse Armor"),
@@ -741,38 +741,41 @@ public enum Item {
 	LEAD(420, "Lead"), //blaze it
 	NAME_TAG(421, "Name Tag", "nametag"),
 	COMMAND_BLOCK_MINECART(422, "Minecart with Command Block", "minecart[^0-9A-Z]*command[^0-9A-Z]*block"),
-	MUTTON(423, "Raw Mutton"),
-	COOKED_MUTTON(424, "Cooked Mutton"),
-	BANNER(425, "Banner"),
+	MUTTON(423, "Raw Mutton", Version.V1_8),
+	COOKED_MUTTON(424, "Cooked Mutton", Version.V1_8),
+	BANNER(425, "Banner", Version.V1_8),
+	//Missing ID
 	SPRUCE_DOOR(427, "Spruce Door", "spruce[^0-9A-Z]*wood[^0-9A-Z]*door"),
 	BIRCH_DOOR(428, "Birch Door", "birch[^0-9A-Z]*wood[^0-9A-Z]*door"),
 	JUNGLE_DOOR(429, "Jungle Door", "jungle[^0-9A-Z]*wood[^0-9A-Z]*door"),
 	
 	ACACIA_DOOR(430, "Acacia Door", "acacia[^0-9A-Z]*wood[^0-9A-Z]*door"),
 	DARK_OAK_DOOR(431, "Dark Oak Door", "dark[^0-9A-Z]*(oak[^0-9A-Z]*)?(wood[^0-9A-Z]*)?door"),
-	CHORUS_FRUIT(432, "Chorus Fruit"),
-	POPPED_CHORUS_FRUIT(433, "Popped Chorus Fruit"),
-	BEETROOT(434, "Beetroot"),
-	BEETROOT_SEEDS(435, "Beetroot Seeds"),
-	BEETROOT_SOUP(436, "Beetroot Soup"),
-	DRAGON_BREATH(437, "Dragon's Breath"),
+	CHORUS_FRUIT(432, "Chorus Fruit", Version.V1_9),
+	POPPED_CHORUS_FRUIT(433, "Popped Chorus Fruit", Version.V1_9),
+	BEETROOT(434, "Beetroot", Version.V1_9),
+	BEETROOT_SEEDS(435, "Beetroot Seeds", Version.V1_9),
+	BEETROOT_SOUP(436, "Beetroot Soup", Version.V1_9),
+	DRAGON_BREATH(437, "Dragon's Breath", Version.V1_9),
 	SPLASH_POTION(438, "Splash Potion"),
-	SPECTRAL_ARROW(439, "Spectral Arrow", "glowing[^0-9A-Z]*arrow"),
+	//Potion IDs go here
+	SPECTRAL_ARROW(439, "Spectral Arrow", "glowing[^0-9A-Z]*arrow", Version.V1_9),
 	
-	TIPPED_ARROW(440, "Tipped Arrow"),
-	LINGERING_POTION(441, "Lingering Potion"),
-	SHIELD(442, "Shield"),
-	ELYTRA(443, "Elytra"), //Best item in the game hands down
-	SPRUCE_BOAT(444, "Spruce Boat", "spruce[^0-9A-Z]*(wood[^0-9A-Z]*)?boat"),
-	BIRCH_BOAT(445, "Birch Boat", "birch[^0-9A-Z]*(wood[^0-9A-Z]*)?boat"),
-	JUNGLE_BOAT(446, "Jungle Boat", "jungle[^0-9A-Z]*(wood[^0-9A-Z]*)?boat"),
-	ACACIA_BOAT(447, "Acacia Boat", "acacia[^0-9A-Z]*(wood[^0-9A-Z]*)?boat"),
-	DARK_OAK_BOAT(448, "Dark Oak Boat", "dark(oak[^0-9A-Z]*)?(wood[^0-9A-Z]*)?boat"),
+	TIPPED_ARROW(440, "Tipped Arrow", Version.V1_9),
+	LINGERING_POTION(441, "Lingering Potion", Version.V1_9),
+	//Potion IDs go here
+	SHIELD(442, "Shield", Version.V1_9),
+	ELYTRA(443, "Elytra", Version.V1_9), //Best item in the game hands down
+	SPRUCE_BOAT(444, "Spruce Boat", "spruce[^0-9A-Z]*(wood[^0-9A-Z]*)?boat", Version.V1_9),
+	BIRCH_BOAT(445, "Birch Boat", "birch[^0-9A-Z]*(wood[^0-9A-Z]*)?boat", Version.V1_9),
+	JUNGLE_BOAT(446, "Jungle Boat", "jungle[^0-9A-Z]*(wood[^0-9A-Z]*)?boat", Version.V1_9),
+	ACACIA_BOAT(447, "Acacia Boat", "acacia[^0-9A-Z]*(wood[^0-9A-Z]*)?boat", Version.V1_9),
+	DARK_OAK_BOAT(448, "Dark Oak Boat", "dark(oak[^0-9A-Z]*)?(wood[^0-9A-Z]*)?boat", Version.V1_9),
 	TOTEM_OF_UNDYING(449, "Totem of Undying"), //I want to know what drugs they were on when they thought this was a good idea
 	
-	SHULKER_SHELL(450, "Shulker Shell"),
+	SHULKER_SHELL(450, "Shulker Shell", Version.V1_11),
 	//Missing ID
-	IRON_NUGGET(452, "Iron Nugget"),
+	IRON_NUGGET(452, "Iron Nugget", Version.V1_11_1),
 	
 	
 	
