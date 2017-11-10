@@ -118,7 +118,7 @@ public class Bot {
 					.setReconnectQueue(new SessionReconnectQueue())
 					.addEventListener(listener);
 				if (!Config.getLogJDA()) {
-					SimpleLog.LEVEL = Level.TRACE;
+					SimpleLog.LEVEL = Level.WARN;
 				}
 				try {
 					//Create each shard
