@@ -38,7 +38,7 @@ public class PurgeCommand extends Command {
 	public Result run(String[] args, MessageReceivedEvent e) {
 		
 		//Check if user is elevated or has the manage messages permission
-		if (!Config.getElevatedUsers().contains(e.getAuthor())
+		if (!Config.getElevatedUsers().contains(e.getAuthor().getId())
 				&& !PermissionUtil.checkPermission(e.getTextChannel(), e.getMember(), Permission.MESSAGE_MANAGE)) {
 			return new Result(Outcome.WARNING, ":warning: You must have permission to manage messages in this channel!");
 		}
