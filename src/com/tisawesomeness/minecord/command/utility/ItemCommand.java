@@ -59,7 +59,7 @@ public class ItemCommand extends Command {
 		MessageUtils.log(
 			"Item command executed" +
 			"\nCommand: `" + e.getMessage().getContent() + "`" +
-			"\nRecipe: `" + item + "`"
+			"\nItem: `" + item + "`"
 		);
 		
 		//If nothing is found
