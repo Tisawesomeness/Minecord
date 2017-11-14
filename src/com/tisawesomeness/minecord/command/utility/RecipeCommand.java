@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.utility;
 
 import java.awt.Color;
+import java.util.regex.Pattern;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.item.Item;
@@ -31,7 +32,6 @@ public class RecipeCommand extends Command {
 		if (args.length == 0) {
 			return new Result(Outcome.WARNING, ":warning: You must specify an item!");
 		}
-		
 		//Search through the item database
 		Item[] items = new Item[Recipe.values().length];
 		for (int i = 0; i < items.length; i++) {
@@ -43,8 +43,7 @@ public class RecipeCommand extends Command {
 		if (item != null) {
 			recipe = Recipe.valueOf(item.name());
 		}
-		
-		
+    
 		MessageUtils.log(
 			"Recipe command executed" +
 			"\nCommand: `" + e.getMessage().getContent() + "`" +
