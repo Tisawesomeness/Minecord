@@ -801,6 +801,7 @@ public enum Item {
 	public final Version version;
 	public final Tool tool;
 	public final int enchantability;
+	private static final String prepRegex = "(^[^0-9A-Z]+)|([^0-9A-Z\\)]+$)";
 	
 	private Item(int id, String name) {
 		this(id, 0, name, null, null, null, 0);
@@ -838,6 +839,31 @@ public enum Item {
 		this.version = version;
 		this.tool = tool;
 		this.enchantability = enchantability;
+	}
+	
+	/**
+	 * Prepares a set of command arguments to assemble a
+	 * single string which can be used to sort this enum.
+	 */
+	public static String prepareArgs(String[] args) {
+		//Convert to single string
+		String string = "";
+		for (String arg : args) {
+			string += arg + " ";
+		}
+		//Trim string
+		return Pattern.compile(prepRegex, Pattern.CASE_INSENSITIVE).matcher(string.substring(0, string.length() - 1)).replaceAll("");
+	}
+	
+	public static Item search(Item[] items, String str) {
+		for (Item i : items) {
+			for (int mode = 0; mode <= 4; mode++) {
+				if (i.matches(str, mode)) {
+					return i;
+				}
+			}
+		}
+		return null;
 	}
 	
 	/**

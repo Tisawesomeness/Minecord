@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command.utility;
 
 import java.awt.Color;
-import java.util.regex.Pattern;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.item.Item;
@@ -33,30 +32,18 @@ public class RecipeCommand extends Command {
 			return new Result(Outcome.WARNING, ":warning: You must specify an item!");
 		}
 		
-		//Convert to single string
-		String string = "";
-		for (String arg : args) {
-			string += arg + " ";
-		}
-		string = string.substring(0, string.length() - 1);
-		
-		//Trim string
-		string = Pattern.compile("(^[^0-9A-Z]+)|([^0-9A-Z\\)]+$)", Pattern.CASE_INSENSITIVE).matcher(string).replaceAll("");
-		
 		//Search through the item database
-		Recipe recipe = null;
-		boolean escape = false;
-		for (Recipe r : Recipe.values()) {
-			Item i = r.item;
-			for (int mode = 0; mode <= 4; mode++) {
-				if (i.matches(string, mode)) {
-					recipe = r;
-					escape = true;
-					break;
-				}
-			}
-			if (escape) break;
+		Item[] items = new Item[Recipe.values().length];
+		for (int i = 0; i < items.length; i++) {
+			items[i] = Recipe.values()[i].item;
+			System.out.println(items[i].name());
 		}
+		Item item = Item.search(items, Item.prepareArgs(args));
+		Recipe recipe = null;
+		if (item != null) {
+			recipe = Recipe.valueOf(item.name());
+		}
+		
 		
 		MessageUtils.log(
 			"Recipe command executed" +
