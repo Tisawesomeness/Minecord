@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.tisawesomeness</groupId>
   <artifactId>minecord</artifactId>
-  <version>0.6.0</version>
+  <version>0.6.2</version>
   
   <repositories>
     <repository>
@@ -16,7 +16,7 @@
     <dependency>
       <groupId>net.dv8tion</groupId>
       <artifactId>JDA</artifactId>
-      <version>3.3.0_265</version>
+      <version>3.3.1_301</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>

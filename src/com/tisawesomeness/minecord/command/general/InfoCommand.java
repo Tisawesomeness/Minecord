@@ -99,7 +99,7 @@ public class InfoCommand extends Command {
 		eb.addField("Help Server", Bot.helpServer, true);
 		eb.addField("Website", Bot.website, true);
 		eb.addField("Credits", "Mojang API, Crafatar, and MCAPI", true);
-		eb.addField("Library", "Java `1.8.0_101`, JDA `3.2.0_228`", true);
+		eb.addField("Library", "Java `1.8.0_101`, JDA `3.3.1_301`", true);
 		
 		eb = MessageUtils.addFooter(eb);
 		return new Result(Outcome.SUCCESS, eb.build());

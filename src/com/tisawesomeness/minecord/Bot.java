@@ -6,6 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.slf4j.event.Level;
 
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Registry;
@@ -19,14 +20,13 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.requests.SessionReconnectQueue;
 import net.dv8tion.jda.core.utils.SimpleLog;
-import net.dv8tion.jda.core.utils.SimpleLog.Level;
 
 public class Bot {
 
 	private static final String mainClass = "com.tisawesomeness.minecord.Main";
 	public static final String helpServer = "https://discord.io/minecord";
 	public static final String website = "https://minecord.github.io";
-	private static final String version = "0.6.0";
+	private static final String version = "0.6.2";
 	
 	public static ArrayList<JDA> shards = new ArrayList<JDA>();
 	private static Listener listener;
@@ -118,7 +118,7 @@ public class Bot {
 					.setReconnectQueue(new SessionReconnectQueue())
 					.addEventListener(listener);
 				if (!Config.getLogJDA()) {
-					SimpleLog.LEVEL = Level.OFF;
+					SimpleLog.LEVEL = Level.WARN;
 				}
 				try {
 					//Create each shard
