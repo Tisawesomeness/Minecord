@@ -851,8 +851,10 @@ public enum Item {
 		for (String arg : args) {
 			string += arg + " ";
 		}
-		//Trim string
-		return Pattern.compile(prepRegex, Pattern.CASE_INSENSITIVE).matcher(string.substring(0, string.length() - 1)).replaceAll("");
+		//Trim, then remove "minecraft:" from beginning of string
+		return Pattern.compile(prepRegex, Pattern.CASE_INSENSITIVE).matcher(
+			string.substring(0, string.length() - 1).replace("minecraft:", "")
+		).replaceAll("");
 	}
 	
 	public static Item search(Item[] items, String str) {
