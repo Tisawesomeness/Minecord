@@ -1,4 +1,4 @@
-# Minecord [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e3a1406e9c724dc3a55b897abc9f257b)](https://www.codacy.com/app/Tisawesomeness/Minecord?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Tisawesomeness/Minecord&amp;utm_campaign=Badge_Grade)
+# Minecord [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e3a1406e9c724dc3a55b897abc9f257b)](https://www.codacy.com/app/Tisawesomeness/Minecord?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Tisawesomeness/Minecord&amp;utm_campaign=Badge_Grade) [![Discord Bots](https://discordbots.org/api/widget/status/292279711034245130.png)](https://discordbots.org/bot/292279711034245130) [![Discord Bots](https://discordbots.org/api/widget/servers/292279711034245130.png)](https://discordbots.org/bot/292279711034245130) [![Discord Bots](https://discordbots.org/api/widget/upvotes/292279711034245130.png)](https://discordbots.org/bot/292279711034245130)
 A robust Discord bot using the JDA library for various Minecraft functions.
 - Invite: https://bot.discord.io/minecord
 - Bot User: Minecord#1216
