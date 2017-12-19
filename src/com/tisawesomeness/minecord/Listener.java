@@ -191,7 +191,7 @@ public class Listener extends ListenerAdapter {
 					//Catch errors
 					if (result.outcome == Outcome.ERROR) {
 						System.out.println("Command \"" + ci.name + "\" returned an error: " +
-							result.message.getContentDisplay());
+							result.message.getContentRaw());
 					}
 					MessageUtils.notify(result.message, c, result.notifyMultiplier);
 				}
