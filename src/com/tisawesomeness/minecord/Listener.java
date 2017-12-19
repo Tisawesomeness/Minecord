@@ -88,7 +88,7 @@ public class Listener extends ListenerAdapter {
 
 			//Check for elevation
 			if (ci.elevated && !Config.getElevatedUsers().contains(e.getAuthor().getId())) {
-				MessageUtils.notify(":warning: Insufficient permissions!", c);
+				c.sendMessage(":warning: Insufficient permissions!").queue();
 				return;
 			}
 			
@@ -105,7 +105,7 @@ public class Listener extends ListenerAdapter {
 						seconds = "0" + seconds;
 					}
 					seconds = new StringBuilder(seconds).insert(seconds.length() - 3, ".").toString();
-					MessageUtils.notify(":warning: Wait " + seconds + " more seconds.", c);
+					c.sendMessage(":warning: Wait " + seconds + " more seconds.").queue();
 					return;
 				} else {
 					cmd.cooldowns.remove(a);
@@ -170,7 +170,7 @@ public class Listener extends ListenerAdapter {
 				}
 				err += "```";
 				MessageUtils.log(err);
-				MessageUtils.notify(err, c, 3);
+				c.sendMessage(err).queue();
 			//If message is empty
 			} if (result.message == null) {
 				if (result.outcome != null && result.outcome != Outcome.SUCCESS) {
@@ -193,7 +193,7 @@ public class Listener extends ListenerAdapter {
 						System.out.println("Command \"" + ci.name + "\" returned an error: " +
 							result.message.getContentRaw());
 					}
-					MessageUtils.notify(result.message, c, result.notifyMultiplier);
+					c.sendMessage(result.message).queue();
 				}
 			}
 		

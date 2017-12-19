@@ -2,8 +2,6 @@ package com.tisawesomeness.minecord;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.apache.commons.lang3.ArrayUtils;
 import com.tisawesomeness.minecord.Config;
@@ -90,19 +88,6 @@ public class Bot {
 				}
 				m.editMessage(":white_check_mark: **Bot reloaded!**").queue();
 				MessageUtils.log(":arrows_counterclockwise: **Bot reloaded by " + u.getName() + "**");
-				
-				//Delete notification
-				if (Config.getNotificationTime() >= 0) {
-					class Clean extends TimerTask {
-						@Override
-						public void run() {
-							m.delete().queue();
-						}
-					}
-				
-					Timer timer = new Timer();
-					timer.schedule(new Clean(), (long) (Config.getNotificationTime()));
-				}
 				
 			//If this is the first run
 			} else {
