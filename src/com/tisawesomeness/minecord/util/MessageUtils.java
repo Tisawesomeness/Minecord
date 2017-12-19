@@ -2,8 +2,6 @@ package com.tisawesomeness.minecord.util;
 
 import java.awt.Color;
 import java.time.OffsetDateTime;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -15,7 +13,6 @@ import com.tisawesomeness.minecord.Config;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 
 public class MessageUtils {
@@ -35,60 +32,6 @@ public class MessageUtils {
 		" | " + "`9:00 PM`" +
 		" | " + "`12/25/12 12:00 AM EST`" +
 		" | " + "`5:22 CST`";
-	
-	/**
-	 * Sends a notification message deleted after the amount of time set in the config.
-	 * @param m Message to send
-	 * @param c Channel to send message in
-	 */
-	public static void notify(String m, TextChannel c) {
-		Message msg = c.sendMessage(m).complete();
-		notifyInternal(msg, 1);
-	}
-	
-	/**
-	 * Sends a notification message deleted after the amount of time set in the config.
-	 * @param m Message to send
-	 * @param c Channel to send message in
-	 */
-	public static void notify(Message m, TextChannel c) {
-		Message msg = c.sendMessage(m).complete();
-		notifyInternal(msg, 1);
-	}
-	
-	/**
-	 * Sends a notification message deleted after the amount of time set in the config.
-	 * @param m Message to send
-	 * @param c Channel to send message in
-	 */
-	public static void notify(String m, TextChannel c, double multiplier) {
-		Message msg = c.sendMessage(m).complete();
-		notifyInternal(msg, multiplier);
-	}
-	
-	/**
-	 * Sends a notification message deleted after the amount of time set in the config.
-	 * @param m Message to send
-	 * @param c Channel to send message in
-	 */
-	public static void notify(Message m, TextChannel c, double multiplier) {
-		Message msg = c.sendMessage(m).complete();
-		notifyInternal(msg, multiplier);
-	}
-	
-	private static void notifyInternal(Message m, double multiplier) {
-		if (Config.getNotificationTime() >= 0) {
-			class Clean extends TimerTask {
-				@Override
-				public void run() {
-					m.delete().queue();
-				}
-			}
-		
-			Timer timer = new Timer();
-			timer.schedule(new Clean(), (long) (Config.getNotificationTime()*multiplier));
-		}
-	}
 	
 	/**
 	 * Formats a message to look more fancy using an embed. Pass null in any argument (except color) to remove that aspect of the message.

@@ -32,7 +32,6 @@ public class Config {
 	private static String name;
 	private static String prefix;
 	private static boolean respondToMentions;
-	private static int notificationTime;
 	private static boolean deleteCommands;
 	private static boolean sendTyping;
 	private static String invite;
@@ -80,7 +79,6 @@ public class Config {
 			name = config.getString("name");
 			prefix = config.getString("prefix");
 			respondToMentions = config.getBoolean("respondToMentions");
-			notificationTime = config.getInt("notificationTime");
 			deleteCommands = config.getBoolean("deleteCommands");
 			sendTyping = config.getBoolean("sendTyping");
 			invite = config.getString("invite");
@@ -125,7 +123,6 @@ public class Config {
 	public static String getName() {return name;}
 	public static String getPrefix() {return prefix;}
 	public static boolean getRespondToMentions() {return respondToMentions;}
-	public static int getNotificationTime() {return notificationTime;}
 	public static boolean getDeleteCommands() {return deleteCommands;}
 	public static boolean getSendTyping() {return sendTyping;}
 	public static String getInvite() {return invite;}

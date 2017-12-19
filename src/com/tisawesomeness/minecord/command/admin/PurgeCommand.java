@@ -5,11 +5,11 @@ import java.util.List;
 
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageHistory;
+import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import net.dv8tion.jda.core.utils.PermissionUtil;
@@ -109,17 +109,18 @@ public class PurgeCommand extends Command {
 		}
 		
 		//Delete messages
+		TextChannel c = e.getTextChannel();
 		if (mine.size() == 1) {
 			mine.get(0).delete().queue();
-			MessageUtils.notify("1 message purged.", e.getTextChannel());
+			c.sendMessage("1 message purged.").queue();
 		} else if (!perms) {
 			for (Message m : mine) {
 				m.delete().queue();
 			}
-			MessageUtils.notify(mine.size() + " messages purged.", e.getTextChannel());
+			c.sendMessage(mine.size() + " messages purged.").queue();
 		} else {
 			e.getTextChannel().deleteMessages(mine).queue();
-			MessageUtils.notify(mine.size() + " messages purged.", e.getTextChannel());
+			c.sendMessage(mine.size() + " messages purged.").queue();
 		}
 		
 		return new Result(Outcome.SUCCESS);
