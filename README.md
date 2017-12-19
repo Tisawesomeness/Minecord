@@ -44,7 +44,6 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Owner:* The user ID of the bot owner.
 - *Dev Mode:* Turning this on will let you reload code using `&reload` on the fly. When hosting the bot, it's best to keep this off in order to decrease memory usage.
 - *Debug Mode:* Prints additional info to console.
-- *Log JDA:* Whether or not to log messages from the JDA library.
 - *Log Channel:* The bot will send any logging messages to this channel. Set to 0 to disable.
 - *Send Server Count:* Whether or not the bot should send the guild count to bot list websites.
 - *Pw Token:* The token to use on bots.discord.pw.
@@ -70,7 +69,6 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 	"owner": "0",
 	"devMode": false,
 	"debugMode": false,
-	"logJDA": true,
 	"logChannel": "0",
 	"sendServerCount": false,
 	"pwToken": "your token here",

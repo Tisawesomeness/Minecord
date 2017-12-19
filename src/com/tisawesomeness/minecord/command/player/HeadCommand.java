@@ -90,7 +90,7 @@ public class HeadCommand extends Command {
 		url = RequestUtils.checkPngExtension(url);
 		if (url == null) {
 			MessageUtils.log("Error embedding image." +
-				"\n" + "Command: `" + e.getMessage().getContent() + "`" +
+				"\n" + "Command: `" + e.getMessage().getContentDisplay() + "`" +
 				"\n" + "UUID: `" + player + "`"
 			);
 			return new Result(Outcome.ERROR, ":x: There was an error embedding the image.");

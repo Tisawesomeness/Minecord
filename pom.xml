@@ -16,7 +16,7 @@
     <dependency>
       <groupId>net.dv8tion</groupId>
       <artifactId>JDA</artifactId>
-      <version>3.3.1_301</version>
+      <version>3.3.1_316</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>

@@ -14,6 +14,7 @@ import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.core.entities.Game.GameType;
 
 public class Config {
 
@@ -22,7 +23,6 @@ public class Config {
 	private static String owner;
 	private static boolean devMode;
 	private static boolean debugMode;
-	private static boolean logJDA;
 	private static String logChannel;
 	private static boolean sendServerCount;
 	private static String pwToken;
@@ -71,7 +71,6 @@ public class Config {
 			owner = config.getString("owner");
 			devMode = config.getBoolean("devMode");
 			debugMode = config.getBoolean("debugMode");
-			logJDA = config.getBoolean("logJDA");
 			logChannel = config.getString("logChannel");
 			sendServerCount = config.getBoolean("sendServerCount");
 			pwToken = config.getString("pwToken");
@@ -100,7 +99,7 @@ public class Config {
 	
 	public static void update() {
 		for (JDA jda : Bot.shards) {
-			jda.getPresence().setGame(Game.of(game
+			jda.getPresence().setGame(Game.of(GameType.DEFAULT, game
 				.replaceAll("\\{prefix\\}", prefix)
 				.replaceAll("\\{guilds\\}", String.valueOf(DiscordUtils.getGuilds().size()))
 				.replaceAll("\\{users\\}", String.valueOf(DiscordUtils.getUsers().size()))
@@ -117,7 +116,6 @@ public class Config {
 	public static String getOwner() {return owner;}
 	public static boolean getDevMode() {return devMode;}
 	public static boolean getDebugMode() {return debugMode;}
-	public static boolean getLogJDA() {return logJDA;}
 	public static String getLogChannel() {return logChannel;}
 	public static boolean getSendServerCount() {return sendServerCount;}
 	public static String getPwToken() {return pwToken;}
