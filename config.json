@@ -13,7 +13,7 @@
 	"name": "Minecord",
 	"prefix": "&",
 	"respondToMentions": true,
-	"deleteCommands": true,
+	"deleteCommands": false,
 	"sendTyping": true,
 	"invite": "https://bot.discord.io/minecord",
 	"showMemory": true,
