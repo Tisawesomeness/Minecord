@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command.utility;
 
 import java.awt.Color;
-import java.util.regex.Pattern;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.item.Item;

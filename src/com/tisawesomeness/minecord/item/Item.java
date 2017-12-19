@@ -135,13 +135,13 @@ public enum Item {
 	
 	TORCH(50, "Torch"),
 	FIRE(51, "Fire"),
-	MONSTER_SPAWNER(52, "Monster Spawner"),
+	MONSTER_SPAWNER(52, "Monster Spawner", "mob[^0-9A-Z]*spawner"),
 	OAK_WOOD_STAIRS(53, "Oak Wood Stairs", "^wood[^0-9A-Z]*stairs"),
 	CHEST(54, "Chest"),
 	REDSTONE_WIRE(55, "Redstone Wire", "wire"),
 	DIAMOND_ORE(56, "Diamond Ore"), //Please mine around
 	DIAMOND_BLOCK(57, "Diamond Block"),
-	CRAFTING_TABLE(58, "Crafting Table"),
+	CRAFTING_TABLE(58, "Crafting Table", "workbench"),
 	WHEAT_CROPS(59, "Wheat Crops"),
 	
 	FARMLAND(60, "Farmland"),
@@ -298,7 +298,7 @@ public enum Item {
 	LIME_STAINED_HARDENED_CLAY(159, 5, "Lime Hardened Clay", "(((lime)|(light[^0-9A-Z]*green))[^0-9A-Z]*(((hardened)|(((stained)|(colored)|(dyed))([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))|((((hardened)|(((stained)|(colored)|(dyed))([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))[ ]*[:;|/.,\\-_~][ ]*((lime)|(light[^0-9A-Z]*green)|(3$))))"),
 	PINK_STAINED_HARDENED_CLAY(159, 6, "Pink Hardened Clay", "(pink[^0-9A-Z]*(((hardened)|(((stained)|(colored)|(dyed))([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))|(((hardened)|(((stained)|(colored)|(dyed))([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))[ ]*[:;|/.,\\-_~][ ]*((pink)|6))"),
 	GRAY_STAINED_HARDENED_CLAY(159, 7, "Gray Hardened Clay", "(gr(a|e)y[^0-9A-Z]*(((hardened)|(((stained)|(colored)|(dyed))([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))|(((hardened)|(((stained)|(colored)|(dyed))([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))[ ]*[:;|/.,\\-_~][ ]*((gr(a|e)y)|7))"),
-	LIGHT_GRAY_STAINED_HARDENED_CLAY(159, 8, "Light Gray Hardened Clay", "((light[^0-9A-Z]*gr(a|e)y)|(silver)[^0-9A-Z]*(((hardened)|(((stained)|(colored)|(dyed))([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))|(((hardened)|(((stained)|(colored)|(dyed))([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))[ ]*[:;|/.,\\-_~][ ]*((light[^0-9A-Z]*gr(a|e)y)|(silver)|8))"),
+	LIGHT_GRAY_STAINED_HARDENED_CLAY(159, 8, "Light Gray Hardened Clay", "(((light[^0-9A-Z]*gr(a|e)y)|(silver))[^0-9A-Z]*(((hardened)|(((stained)|(colored)|(dyed))([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))|(((hardened)|(((stained)|(colored)|(dyed))([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))[ ]*[:;|/.,\\-_~][ ]*((light[^0-9A-Z]*gr(a|e)y)|(silver)|8))"),
 	CYAN_STAINED_HARDENED_CLAY(159, 9, "Cyan Hardened Clay", "(cyan[^0-9A-Z]*(((hardened)|(((stained)|(colored)|(dyed))([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))|(((hardened)|(((stained)|(colored)|(dyed))([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))[ ]*[:;|/.,\\-_~][ ]*((cyan)|9))"),
 	PURPLE_STAINED_HARDENED_CLAY(159, 10, "Purple Hardened Clay", "(purple[^0-9A-Z]*(((hardened)|(((stained)|(colored)|(dyed))([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))|(((hardened)|(((stained)|(colored)|(dyed))([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))[ ]*[:;|/.,\\-_~][ ]*((purple)|(10)))"),
 	BLUE_STAINED_HARDENED_CLAY(159, 11, "Blue Hardened Clay", "(blue[^0-9A-Z]*(((hardened)|(((stained)|(colored)|(dyed))([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))|(((hardened)|(((stained)|(colored)|(dyed))([^0-9A-Z]*hardened)?))[^0-9A-Z]*clay|(terr?acott?a)|(159))[ ]*[:;|/.,\\-_~][ ]*((blue)|(11)))"),
