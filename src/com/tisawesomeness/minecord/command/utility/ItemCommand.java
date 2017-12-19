@@ -36,7 +36,7 @@ public class ItemCommand extends Command {
 		
 		MessageUtils.log(
 			"Item command executed" +
-			"\nCommand: `" + e.getMessage().getContent() + "`" +
+			"\nCommand: `" + e.getMessage().getContentDisplay() + "`" +
 			"\nItem: `" + item + "`"
 		);
 		

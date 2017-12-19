@@ -204,21 +204,21 @@ public class MessageUtils {
 	 * Gets the command-useful content of a message, keeping the name and arguments and purging the prefix and mention.
 	 */
 	public static String[] getContent(Message m, boolean raw) {
-		if (m.getContent().startsWith(Config.getPrefix())) {
+		if (m.getContentDisplay().startsWith(Config.getPrefix())) {
 			String content = null;
 			if (raw) {
-				content = m.getRawContent();
+				content = m.getContentRaw();
 			} else {
-				content = m.getContent();
+				content = m.getContentDisplay();
 			}
 			return content.replaceFirst(Pattern.quote(Config.getPrefix()), "").split(" ");
-		} else if (m.getRawContent().replaceFirst("@!", "@").startsWith(Bot.shards.get(0).getSelfUser().getAsMention())) {
+		} else if (m.getContentRaw().replaceFirst("@!", "@").startsWith(Bot.shards.get(0).getSelfUser().getAsMention())) {
 			if (raw) {
-				String[] args = m.getRawContent().split(" ");
+				String[] args = m.getContentRaw().split(" ");
 				return ArrayUtils.removeElement(args, args[0]);
 			} else {
 				String replace = "@" + m.getMentionedUsers().get(0).getName();
-				String content = StringUtils.removeStart(m.getContent(), replace);
+				String content = StringUtils.removeStart(m.getContentDisplay(), replace);
 				if (content.length() >= 5 && content.substring(0, 5).matches("^#[0-9]{4}")) {
 					content = content.replaceFirst("#[0-9]{4} ?", "");
 				} else {

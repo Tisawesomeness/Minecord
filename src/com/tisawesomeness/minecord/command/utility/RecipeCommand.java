@@ -45,7 +45,7 @@ public class RecipeCommand extends Command {
     
 		MessageUtils.log(
 			"Recipe command executed" +
-			"\nCommand: `" + e.getMessage().getContent() + "`" +
+			"\nCommand: `" + e.getMessage().getContentDisplay() + "`" +
 			"\nRecipe: `" + recipe + "`"
 		);
 		

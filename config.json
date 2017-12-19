@@ -4,7 +4,6 @@
 	"owner": "0",
 	"devMode": false,
 	"debugMode": false,
-	"logJDA": true,
 	"logChannel": "0",
 	"sendServerCount": false,
 	"pwToken": "your token here",

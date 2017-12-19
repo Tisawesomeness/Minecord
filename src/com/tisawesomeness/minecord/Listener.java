@@ -61,7 +61,7 @@ public class Listener extends ListenerAdapter {
 					null, e.getAuthor().getEffectiveAvatarUrl());
 				eb.setDescription("**`" + e.getGuild().getName() + "`** (" +
 					e.getGuild().getId() + ") in channel `" + e.getChannel().getName() +
-					"` (" + e.getChannel().getId() + ")\n" + m.getContent());
+					"` (" + e.getChannel().getId() + ")\n" + m.getContentDisplay());
 				MessageUtils.log(eb.build());
 				return;
 				
@@ -191,7 +191,7 @@ public class Listener extends ListenerAdapter {
 					//Catch errors
 					if (result.outcome == Outcome.ERROR) {
 						System.out.println("Command \"" + ci.name + "\" returned an error: " +
-							result.message.getContent());
+							result.message.getContentDisplay());
 					}
 					MessageUtils.notify(result.message, c, result.notifyMultiplier);
 				}
@@ -202,7 +202,7 @@ public class Listener extends ListenerAdapter {
 			EmbedBuilder eb = new EmbedBuilder();
 			eb.setAuthor(e.getAuthor().getName() + " (" + e.getAuthor().getId() + ")",
 				null, e.getAuthor().getEffectiveAvatarUrl());
-			eb.setDescription(e.getMessage().getContent());
+			eb.setDescription(e.getMessage().getContentDisplay());
 			MessageUtils.log(eb.build());
 		}
 	}
