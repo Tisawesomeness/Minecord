@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.command.admin;
+package com.tisawesomeness.minecord.command.general;
 
 import java.util.ArrayList;
 import java.util.List;
