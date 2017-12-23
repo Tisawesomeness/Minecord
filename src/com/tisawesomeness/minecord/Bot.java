@@ -65,12 +65,12 @@ public class Bot {
 		//Connect to database
 		Thread db = new Thread() {
 			public void run() {
-		        try {
+				try {
 					Database.init();
 				} catch (SQLException ex) {
 					ex.printStackTrace();
 				}
-		    }
+			}
 		};
 		db.start();
 		
