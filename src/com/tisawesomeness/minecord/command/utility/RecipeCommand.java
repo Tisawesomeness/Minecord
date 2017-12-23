@@ -42,7 +42,7 @@ public class RecipeCommand extends Command {
 		if (item != null) {
 			recipe = Recipe.valueOf(item.name());
 		}
-    
+		
 		MessageUtils.log(
 			"Recipe command executed" +
 			"\nCommand: `" + e.getMessage().getContentDisplay() + "`" +
