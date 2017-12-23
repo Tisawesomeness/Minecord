@@ -5,8 +5,8 @@ import java.util.Arrays;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
@@ -34,11 +34,12 @@ public class BodyCommand extends Command {
 	}
 	
 	public Result run(String[] argsOrig, MessageReceivedEvent e) {
+		long id = e.getGuild().getIdLong();
 		
 		//No arguments message
 		if (argsOrig.length == 0) {
 			String m = ":warning: Incorrect arguments." +
-				"\n" + Config.getPrefix() + "body <username|uuid> [date]" +
+				"\n" + Database.getPrefix(id) + "body <username|uuid> [date]" +
 				"\n" + MessageUtils.dateHelp;
 			return new Result(Outcome.WARNING, m, 5);
 		}
@@ -60,10 +61,7 @@ public class BodyCommand extends Command {
 			if (args.length > 1) {
 				long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
 				if (timestamp == -1) {
-					String m = ":x: Improperly formatted date. " +
-						"At least a date or time is required. " +
-						"Do `" + Config.getPrefix() + "body` for more info.";
-					return new Result(Outcome.WARNING, m);
+					return new Result(Outcome.WARNING, MessageUtils.dateErrorString(id, "body"));
 				}
 				
 			//Get the UUID

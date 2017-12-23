@@ -2,24 +2,32 @@
 	"clientToken": "your token here",
 	"shardCount": 1,
 	"owner": "0",
-	"devMode": false,
-	"debugMode": false,
-	"logChannel": "0",
-	"sendServerCount": false,
-	"pwToken": "your token here",
-	"netToken": "your token here",
-	"orgToken": "your token here",
-	"game": "{prefix}help | {guilds} guilds",
-	"name": "Minecord",
-	"prefix": "&",
-	"respondToMentions": true,
-	"deleteCommands": false,
-	"sendTyping": true,
-	"invite": "https://bot.discord.io/minecord",
-	"showMemory": true,
-	"elevatedSkipCooldown": true,
-	"elevatedUsers": [
-		"211261249386708992",
-		"220591718158827520"
-	]
+    "settings": {
+        "logChannel": "0",
+        "invite": "https://bot.discord.io/minecord",
+        "prefix": "&",
+        "game": "{prefix}help | {guilds} guilds",
+        "name": "Minecord",
+        "devMode": false,
+        "debugMode": false,
+        "respondToMentions": true,
+        "deleteCommands": false,
+        "sendTyping": true,
+        "showMemory": true,
+        "elevatedSkipCooldown": true
+    },
+    "botLists": {
+        "sendServerCount": false,
+        "pwToken": "your token here",
+        "netToken": "your token here",
+        "orgToken": "your token here"
+    },
+    "database": {
+        "type": "sqlite",
+        "host": "./minecord.db",
+        "port": "3306",
+        "name": "minecord",
+        "user": "minecord",
+        "pass": "password here"
+    }
 }

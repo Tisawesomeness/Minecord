@@ -7,6 +7,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
 import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
 
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -76,7 +77,12 @@ public class EvalCommand extends Command {
 				.replaceAll("`", "\\\\`")
 				.replaceAll("@everyone", "[everyone]")
 				.replaceAll("@here", "[here]")
-				.replaceAll(Pattern.quote(Bot.shards.get(0).getToken()), "[redacted]");
+				.replaceAll(Pattern.quote(Bot.shards.get(0).getToken()), "[redacted]")
+				.replaceAll(Pattern.quote(Config.getPwToken()), "[redacted]")
+				.replaceAll(Pattern.quote(Config.getNetToken()), "[redacted]")
+				.replaceAll(Pattern.quote(Config.getOrgToken()), "[redacted]")
+				.replaceAll(Pattern.quote(Config.getHost()), "[redacted]")
+				.replaceAll(Pattern.quote(Config.getPass()), "[redacted]");
 	}
 
 }

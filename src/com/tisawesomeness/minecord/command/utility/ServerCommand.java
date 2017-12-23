@@ -3,8 +3,8 @@ package com.tisawesomeness.minecord.command.utility;
 import java.awt.Color;
 import org.json.JSONObject;
 
-import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
@@ -36,7 +36,7 @@ public class ServerCommand extends Command {
 		//Parse arguments
 		if (args.length == 0) {
 			String m = ":warning: Incorrect arguments." +
-				"\n" + Config.getPrefix() + "server <address>[:port]";
+				"\n" + Database.getPrefix(e.getGuild().getIdLong()) + "server <address>[:port]";
 			return new Result(Outcome.WARNING, m, 2);
 		}
 		String arg = args[0];

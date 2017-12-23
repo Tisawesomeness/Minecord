@@ -1,11 +1,13 @@
 package com.tisawesomeness.minecord;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.apache.commons.lang3.ArrayUtils;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Registry;
+import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
@@ -47,7 +49,7 @@ public class Bot {
 		Config.read(new File(path)); //Init config
 		
 		//Exit if dev mode
-		if (Config.getDevMode() && !devMode) {return false;}
+		if (Config.getDevMode() && !devMode) return false;
 		
 		//Parse reload
 		boolean reload = false;
@@ -59,6 +61,18 @@ public class Bot {
 		thread = Thread.currentThread();
 		listener = new Listener();
 		Registry.init();
+		
+		//Connect to database
+		Thread db = new Thread() {
+			public void run() {
+		        try {
+					Database.init();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+		    }
+		};
+		db.start();
 		
 		//Fetch main class
 		try {
@@ -122,11 +136,14 @@ public class Bot {
 				MessageUtils.log(":white_check_mark: **Bot started!**");
 				
 			}
+			
+			db.join(); //Wait until connected to database
+			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 		
-		//Post-init TODO
+		//Post-init
 		Config.update();
 		Registry.enabled = true;
 		System.out.println("Startup finished.");
@@ -134,10 +151,6 @@ public class Bot {
 		
 		return true;
 		
-	}
-	
-	public Bot(String[] args) {
-		//TODO
 	}
 	
 	@SuppressWarnings("static-access")

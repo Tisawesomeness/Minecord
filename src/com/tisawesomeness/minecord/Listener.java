@@ -11,6 +11,7 @@ import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.command.Command.CommandInfo;
 import com.tisawesomeness.minecord.command.Command.Outcome;
 import com.tisawesomeness.minecord.command.Command.Result;
+import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
@@ -45,7 +46,7 @@ public class Listener extends ListenerAdapter {
 			String[] args = null;
 			
 			//If the message is a valid command
-			String[] content = MessageUtils.getContent(m, false);
+			String[] content = MessageUtils.getContent(m, false, e.getGuild().getIdLong());
 			if (content != null) {
 				
 				//Extract name and argument list
@@ -87,14 +88,14 @@ public class Listener extends ListenerAdapter {
 			CommandInfo ci = cmd.getInfo();
 
 			//Check for elevation
-			if (ci.elevated && !Config.getElevatedUsers().contains(e.getAuthor().getId())) {
+			User a = e.getAuthor();
+			if (ci.elevated && !Database.isElevated(a.getIdLong())) {
 				c.sendMessage(":warning: Insufficient permissions!").queue();
 				return;
 			}
 			
 			//Check for cooldowns, skipping if user is elevated
-			User a = e.getAuthor();
-			if (!(Config.getElevatedSkipCooldown() && Config.getElevatedUsers().contains(a.getId()))
+			if (!(Config.getElevatedSkipCooldown() && Database.isElevated(a.getIdLong()))
 					&& cmd.cooldowns.containsKey(a) && ci.cooldown > 0) {
 				long last = cmd.cooldowns.get(a);
 				if (System.currentTimeMillis() - ci.cooldown < last) {
