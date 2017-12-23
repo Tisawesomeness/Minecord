@@ -6,8 +6,8 @@ import java.util.Arrays;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
@@ -33,11 +33,12 @@ public class HistoryCommand extends Command {
 	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
+		long id = e.getGuild().getIdLong();
 		
 		//No arguments message
 		if (args.length == 0) {
 			String m = ":warning: Incorrect arguments." +
-				"\n" + Config.getPrefix() + "history <username|uuid> [date] " +
+				"\n" + Database.getPrefix(id) + "history <username|uuid> [date] " +
 				"\n" + MessageUtils.dateHelp;
 			return new Result(Outcome.WARNING, m, 5);
 		}
@@ -50,10 +51,7 @@ public class HistoryCommand extends Command {
 			if (args.length > 1) {
 				long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
 				if (timestamp == -1) {
-					String m = ":x: Improperly formatted date. " +
-						"At least a date or time is required. " +
-						"Do `" + Config.getPrefix() + "history` for more info.";
-					return new Result(Outcome.WARNING, m);
+					return new Result(Outcome.WARNING, MessageUtils.dateErrorString(id, "history"));
 				}
 				
 			//Get the UUID

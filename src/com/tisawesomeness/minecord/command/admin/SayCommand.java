@@ -36,7 +36,7 @@ public class SayCommand extends Command {
 		}
 		
 		//Extract channel
-		String[] args = ArrayUtils.remove(MessageUtils.getContent(e.getMessage(), true), 0);
+		String[] args = ArrayUtils.remove(MessageUtils.getContent(e.getMessage(), true, e.getGuild().getIdLong()), 0);
 		TextChannel channel = null;
 		if (args[0].matches(MessageUtils.channelRegex)) {
 			channel = e.getMessage().getMentionedChannels().get(0);

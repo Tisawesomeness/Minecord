@@ -2,8 +2,8 @@ package com.tisawesomeness.minecord.command.player;
 
 import java.awt.Color;
 
-import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
@@ -28,11 +28,12 @@ public class CapeCommand extends Command {
 	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
+		long id = e.getGuild().getIdLong();
 		
 		//No arguments message
 		if (args.length == 0) {
 			String m = ":warning: Incorrect arguments." +
-				"\n" + Config.getPrefix() + "cape <username|uuid> [date]" +
+				"\n" + Database.getPrefix(id) + "cape <username|uuid> [date]" +
 				"\n" + MessageUtils.dateHelp;
 			return new Result(Outcome.WARNING, m, 5);
 		}

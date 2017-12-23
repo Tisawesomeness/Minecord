@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.command;
 
 import java.util.TreeMap;
 
-import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command.CommandInfo;
 import com.tisawesomeness.minecord.command.admin.*;
 import com.tisawesomeness.minecord.command.general.*;
@@ -19,6 +18,7 @@ public class Registry {
 		new StatusCommand(),
 		new SalesCommand(),
 		new PurgeCommand(),
+		new PrefixCommand(),
 		new Text("\n**Utility Commands:**"),
 		new CodesCommand(),
 		new ServerCommand(),
@@ -37,16 +37,12 @@ public class Registry {
 		new MsgCommand(),
 		new NameCommand(),
 		new UsageCommand(),
+		new PromoteCommand(),
+		new DemoteCommand(),
 		new ReloadCommand(),
 		new ShutdownCommand(),
 		new EvalCommand(),
-		new TestCommand(),
-		new Text(
-			"\n" + "**Arguments:**" +
-			"\n" + "`<>` is required, `[]` is optional, and `?` is true/false." +
-			"\n" + "Simply type a command like `" + Config.getPrefix() +
-				"server` without any arguments to get more details."
-		)
+		new TestCommand()
 	};
 	public static TreeMap<String, Command> commandMap;
 	public static boolean enabled = false;

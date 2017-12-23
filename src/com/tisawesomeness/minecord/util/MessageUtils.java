@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
+import com.tisawesomeness.minecord.database.Database;
 
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
@@ -146,15 +147,15 @@ public class MessageUtils {
 	/**
 	 * Gets the command-useful content of a message, keeping the name and arguments and purging the prefix and mention.
 	 */
-	public static String[] getContent(Message m, boolean raw) {
-		if (m.getContentDisplay().startsWith(Config.getPrefix())) {
+	public static String[] getContent(Message m, boolean raw, long id) {
+		if (m.getContentDisplay().startsWith(Database.getPrefix(id))) {
 			String content = null;
 			if (raw) {
 				content = m.getContentRaw();
 			} else {
 				content = m.getContentDisplay();
 			}
-			return content.replaceFirst(Pattern.quote(Config.getPrefix()), "").split(" ");
+			return content.replaceFirst(Pattern.quote(Database.getPrefix(id)), "").split(" ");
 		} else if (m.getContentRaw().replaceFirst("@!", "@").startsWith(Bot.shards.get(0).getSelfUser().getAsMention())) {
 			if (raw) {
 				String[] args = m.getContentRaw().split(" ");
@@ -172,6 +173,12 @@ public class MessageUtils {
 		} else {
 			return null;
 		}
+	}
+	
+	public static String dateErrorString(long id, String cmd) {
+		return ":x: Improperly formatted date. " +
+			"At least a date or time is required. " +
+			"Do `" + Database.getPrefix(id) + cmd + "` for more info.";
 	}
 
 }

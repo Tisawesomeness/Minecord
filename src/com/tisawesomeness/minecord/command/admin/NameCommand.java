@@ -38,7 +38,7 @@ public class NameCommand extends Command {
 		}
 		
 		//Get guild
-		String[] args = ArrayUtils.remove(MessageUtils.getContent(e.getMessage(), true), 0);
+		String[] args = ArrayUtils.remove(MessageUtils.getContent(e.getMessage(), true, e.getGuild().getIdLong()), 0);
 		Guild guild = null;
 		if (args[0].matches(MessageUtils.idRegex)) {
 			guild = DiscordUtils.getGuildById(args[0]);

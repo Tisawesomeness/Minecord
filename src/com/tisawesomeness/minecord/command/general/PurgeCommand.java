@@ -3,8 +3,8 @@ package com.tisawesomeness.minecord.command.general;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.database.Database;
 
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Message;
@@ -38,7 +38,7 @@ public class PurgeCommand extends Command {
 	public Result run(String[] args, MessageReceivedEvent e) {
 		
 		//Check if user is elevated or has the manage messages permission
-		if (!Config.getElevatedUsers().contains(e.getAuthor().getId())
+		if (!Database.isElevated(e.getAuthor().getIdLong())
 				&& !PermissionUtil.checkPermission(e.getTextChannel(), e.getMember(), Permission.MESSAGE_MANAGE)) {
 			return new Result(Outcome.WARNING, ":warning: You must have permission to manage messages in this channel!");
 		}

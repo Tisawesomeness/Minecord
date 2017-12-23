@@ -37,7 +37,7 @@ public class MsgCommand extends Command {
 		}
 		
 		//Extract user
-		String[] args = ArrayUtils.remove(MessageUtils.getContent(e.getMessage(), true), 0);
+		String[] args = ArrayUtils.remove(MessageUtils.getContent(e.getMessage(), true, e.getGuild().getIdLong()), 0);
 		User user = null;
 		if (args[0].matches(MessageUtils.mentionRegex)) {
 			user = e.getMessage().getMentionedUsers().get(0);
@@ -46,6 +46,7 @@ public class MsgCommand extends Command {
 			}
 		} else if (args[0].matches(MessageUtils.idRegex)) {
 			user = e.getJDA().getUserById(args[0]);
+			if (user == null) return new Result(Outcome.ERROR, ":x: Not a valid user!");
 		} else {
 			return new Result(Outcome.ERROR, ":x: Not a valid user!");
 		}
