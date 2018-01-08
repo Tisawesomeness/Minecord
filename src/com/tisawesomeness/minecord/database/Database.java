@@ -5,15 +5,15 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.tisawesomeness.minecord.Config;
 
 public class Database {
 	
 	private static Connection connect = null;
-	private static ArrayList<DbGuild> guilds = new ArrayList<DbGuild>();
-	private static ArrayList<DbUser> users = new ArrayList<DbUser>();
+	private static HashMap<Long, DbGuild> guilds = new HashMap<Long, DbGuild>();
+	private static HashMap<Long, DbUser> users = new HashMap<Long, DbUser>();
 	private static int goal = 0;
 	
 	public static void init() throws SQLException {
@@ -68,8 +68,9 @@ public class Database {
 			"SELECT * FROM guild;"
 		);
 		while (rs.next()) {
-			guilds.add(new DbGuild(
-				rs.getLong(1),
+			long id = rs.getLong(1);
+			guilds.put(id, new DbGuild(
+				id,
 				rs.getString(2),
 				rs.getBoolean(3),
 				rs.getBoolean(4)
@@ -82,8 +83,9 @@ public class Database {
 			"SELECT * FROM user;"
 		);
 		while (rs.next()) {
-			users.add(new DbUser(
-				rs.getLong(1),
+			long id = rs.getLong(1);
+			users.put(id, new DbUser(
+				id,
 				rs.getBoolean(2),
 				rs.getBoolean(3),
 				rs.getBoolean(4)
@@ -139,7 +141,7 @@ public class Database {
 			//Mirror change in local guild list
 			DbGuild g = getGuild(id);
 			if (g == null) {
-				guilds.add(new DbGuild(id, prefix, false, false));
+				guilds.put(id, new DbGuild(id, prefix, false, false));
 			} else {
 				g.prefix = prefix;
 			}
@@ -158,17 +160,12 @@ public class Database {
 	}
 	
 	public static String getPrefix(long id) {
-		DbGuild guild = Database.getGuild(id);
+		DbGuild guild = getGuild(id);
 		return guild == null ? Config.getPrefix() : guild.prefix;
 	}
 	
 	public static DbGuild getGuild(long id) {
-		for (DbGuild g : guilds) {
-			if (g.id == id) {
-				return g;
-			}
-		}
-		return null;
+		return guilds.get(id);
 	}
 	
 	public static void changeElevated(long id, boolean elevated) throws SQLException {
@@ -207,7 +204,7 @@ public class Database {
 			//Mirror change in local user list
 			DbUser u = getUser(id);
 			if (u == null) {
-				users.add(new DbUser(id, true, false, false));
+				users.put(id, new DbUser(id, true, false, false));
 			} else {
 				u.elevated = true;
 			}
@@ -226,17 +223,12 @@ public class Database {
 	}
 	
 	public static boolean isElevated(long id) {
-		DbUser user = Database.getUser(id);
+		DbUser user = getUser(id);
 		return user == null ? false : user.elevated;
 	}
 	
 	public static DbUser getUser(long id) {
-		for (DbUser u : users) {
-			if (u.id == id) {
-				return u;
-			}
-		}
-		return null;
+		return users.get(id);
 	}
 	
 	public static int getGoal() {return goal;}
