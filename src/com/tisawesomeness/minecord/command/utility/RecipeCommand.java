@@ -35,7 +35,6 @@ public class RecipeCommand extends Command {
 		Item[] items = new Item[Recipe.values().length];
 		for (int i = 0; i < items.length; i++) {
 			items[i] = Recipe.values()[i].item;
-			System.out.println(items[i].name());
 		}
 		Item item = Item.search(items, Item.prepareArgs(args));
 		Recipe recipe = null;
