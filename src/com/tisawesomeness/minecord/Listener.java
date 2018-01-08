@@ -210,8 +210,6 @@ public class Listener extends ListenerAdapter {
 	
 	@Override
 	public void onGenericGuild(GenericGuildEvent e) {
-		//Update guild, channel, and user count
-		Config.update();
 		
 		//Get guild info
 		EmbedBuilder eb = new EmbedBuilder();
@@ -248,6 +246,8 @@ public class Listener extends ListenerAdapter {
 		eb.setThumbnail(guild.getIconUrl());
 		MessageUtils.log(eb.build());
 		RequestUtils.sendGuilds();
+		Config.update(); //Update guild, channel, and user count
+		
 	}
 	
 }
