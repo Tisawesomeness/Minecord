@@ -106,47 +106,25 @@ public class Database {
 	
 	public static void changePrefix(long id, String prefix) throws SQLException {
 		
-		//If prefix is being reset to default
-		if (prefix.equals(Config.getPrefix())) {
-			
-			//If the guild has not been banned or has no cooldown
+		if (prefix.equals(Config.getPrefix())) { //If prefix is being reset to default
+			//If user is in database, has not been banned, and has not upvoted
 			PreparedStatement st = connect.prepareStatement(
 				"SELECT banned, noCooldown FROM guild WHERE id = ?;"
 			);
 			st.setLong(1, id);
 			ResultSet rs = st.executeQuery();
-			rs.next();
-			if (!rs.getBoolean(1) && !rs.getBoolean(2)) {
-				
+			if (rs.next() && !rs.getBoolean(1) && !rs.getBoolean(2)) {
 				//Delete guild
 				st = connect.prepareStatement(
 					"DELETE FROM guild WHERE id = ?;"
 				);
 				st.setLong(1, id);
 				st.executeUpdate();
-				
-				guilds.remove(getGuild(id)); //Mirror change locally
-				
-			} else {
-				
-				replacePrefix(id, prefix); //Update guild with default prefix
-				getGuild(id).prefix = prefix; //Locally change guild prefix to default
-				
+				guilds.remove(id); //Mirror change locally
+				return;
 			}
-			
-		} else {
-			
-			replacePrefix(id, prefix); //Update guild with new prefix
-			
-			//Mirror change in local guild list
-			DbGuild g = getGuild(id);
-			if (g == null) {
-				guilds.put(id, new DbGuild(id, prefix, false, false));
-			} else {
-				g.prefix = prefix;
-			}
-			
 		}
+		replacePrefix(id, prefix); //Update guild with new prefix
 		
 	}
 	
@@ -157,6 +135,14 @@ public class Database {
 		st.setLong(1, id);
 		st.setString(2, prefix);
 		st.executeUpdate();
+
+		//Mirror change in local guild list
+		DbGuild g = getGuild(id);
+		if (g == null) {
+			guilds.put(id, new DbGuild(id, prefix, false, false));
+		} else {
+			g.prefix = prefix;
+		}
 	}
 	
 	public static String getPrefix(long id) {
@@ -170,46 +156,25 @@ public class Database {
 	
 	public static void changeElevated(long id, boolean elevated) throws SQLException {
 		
-		if (!elevated) {
-			
-			//If the user has not been banned or has upvoted
+		if (!elevated) { //If demoting
+			//If user is in database, has not been banned, and has not upvoted
 			PreparedStatement st = connect.prepareStatement(
 				"SELECT banned, upvoted FROM user WHERE id = ?;"
 			);
 			st.setLong(1, id);
 			ResultSet rs = st.executeQuery();
-			rs.next();
-			if (!rs.getBoolean(1) && !rs.getBoolean(2)) {
-				
+			if (rs.next() && !rs.getBoolean(1) && !rs.getBoolean(2)) {
 				//Delete user
 				st = connect.prepareStatement(
 					"DELETE FROM user WHERE id = ?;"
 				);
 				st.setLong(1, id);
 				st.executeUpdate();
-				
-				users.remove(getUser(id)); //Mirror change locally
-				
-			} else {
-				
-				replaceElevated(id, false); //Demote user in database
-				getUser(id).elevated = false; //Demote user locally
-				
+				users.remove(id); //Mirror change locally
+				return;
 			}
-			
-		} else {
-			
-			replaceElevated(id, true); //Elevate user in database
-			
-			//Mirror change in local user list
-			DbUser u = getUser(id);
-			if (u == null) {
-				users.put(id, new DbUser(id, true, false, false));
-			} else {
-				u.elevated = true;
-			}
-			
 		}
+		replaceElevated(id, elevated); //Update elevation
 		
 	}
 	
@@ -220,6 +185,14 @@ public class Database {
 		st.setLong(1, id);
 		st.setBoolean(2, elevated);
 		st.executeUpdate();
+		
+		//Mirror change in local user list
+		DbUser u = getUser(id);
+		if (u == null) {
+			users.put(id, new DbUser(id, elevated, false, false));
+		} else {
+			u.elevated = elevated;
+		}
 	}
 	
 	public static boolean isElevated(long id) {
