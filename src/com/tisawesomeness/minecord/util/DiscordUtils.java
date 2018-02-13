@@ -82,7 +82,6 @@ public class DiscordUtils {
 		if (Config.getFetchVotes()) {
 			long timestamp = System.currentTimeMillis() / 1000;
 			for (String user : RequestUtils.api.getVoterIds(Bot.id, 1)) {
-				if (user.equals("211261249386708992")) {
 				long id = Long.valueOf(user);
 				if (Database.getUpvote(id) < timestamp - 86400) {
 					try {
@@ -92,7 +91,7 @@ public class DiscordUtils {
 					}
 					DiscordUtils.getUserById(user).openPrivateChannel().complete()
 						.sendMessage("Thanks for voting!").queue();
-				} }
+				}
 			}
 		}
 	}
