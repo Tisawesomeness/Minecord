@@ -8,12 +8,6 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.tisawesomeness.minecord.util.DiscordUtils;
-
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.entities.Game.GameType;
-
 public class Config {
 
 	private static String clientToken;
@@ -37,6 +31,7 @@ public class Config {
 	private static String pwToken;
 	private static String netToken;
 	private static String orgToken;
+	private static boolean fetchVotes;
 	
 	private static String type;
 	private static String host;
@@ -90,6 +85,7 @@ public class Config {
 			pwToken = botLists.getString("pwToken");
 			netToken = botLists.getString("netToken");
 			orgToken = botLists.getString("orgToken");
+			fetchVotes = botLists.getBoolean("fetchVotes");
 			
 			JSONObject database = config.getJSONObject("database");
 			type = database.getString("type");
@@ -101,20 +97,6 @@ public class Config {
 			
 		} catch (JSONException | IOException e) {
 			e.printStackTrace();
-		}
-	}
-	
-	public static void update() {
-		for (JDA jda : Bot.shards) {
-			jda.getPresence().setGame(Game.of(GameType.DEFAULT, game
-				.replaceAll("\\{prefix\\}", prefix)
-				.replaceAll("\\{guilds\\}", String.valueOf(DiscordUtils.getGuilds().size()))
-				.replaceAll("\\{users\\}", String.valueOf(DiscordUtils.getUsers().size()))
-				.replaceAll("\\{channels\\}", String.valueOf(DiscordUtils.getTextChannels().size()))
-			));
-			if (!"".equals(name)) {
-				jda.getSelfUser().getManager().setName(name).queue();
-			}
 		}
 	}
 
@@ -139,6 +121,7 @@ public class Config {
 	public static String getPwToken() {return pwToken;}
 	public static String getNetToken() {return netToken;}
 	public static String getOrgToken() {return orgToken;}
+	public static boolean getFetchVotes() {return fetchVotes;}
 	
 	public static String getType() {return type;}
 	public static String getHost() {return host;}

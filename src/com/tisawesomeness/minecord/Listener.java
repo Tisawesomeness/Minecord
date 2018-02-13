@@ -12,6 +12,7 @@ import com.tisawesomeness.minecord.command.Command.CommandInfo;
 import com.tisawesomeness.minecord.command.Command.Outcome;
 import com.tisawesomeness.minecord.command.Command.Result;
 import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
@@ -247,7 +248,7 @@ public class Listener extends ListenerAdapter {
 		eb.setThumbnail(guild.getIconUrl());
 		MessageUtils.log(eb.build());
 		RequestUtils.sendGuilds();
-		Config.update(); //Update guild, channel, and user count
+		DiscordUtils.update(); //Update guild, channel, and user count
 		
 	}
 	

@@ -6,21 +6,22 @@
         "logChannel": "0",
         "invite": "https://bot.discord.io/minecord",
         "prefix": "&",
-        "game": "{prefix}help | {guilds} guilds",
+        "game": "@Minecord help | {guilds} guilds",
         "name": "Minecord",
         "devMode": false,
         "debugMode": false,
         "respondToMentions": true,
         "deleteCommands": false,
         "sendTyping": true,
-        "showMemory": true,
+        "showMemory": false,
         "elevatedSkipCooldown": true
     },
     "botLists": {
         "sendServerCount": false,
         "pwToken": "your token here",
         "netToken": "your token here",
-        "orgToken": "your token here"
+        "orgToken": "your token here",
+        "fetchVotes": false
     },
     "database": {
         "type": "sqlite",
