@@ -5,9 +5,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.discordbots.api.client.DiscordBotListAPI;
+
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
@@ -22,9 +25,10 @@ public class Bot {
 	private static final String mainClass = "com.tisawesomeness.minecord.Main";
 	public static final String helpServer = "https://discord.io/minecord";
 	public static final String website = "https://minecord.github.io";
-	private static final String version = "0.7.0-BETA";
+	private static final String version = "0.7.0-BETA-2";
 	
 	public static ArrayList<JDA> shards = new ArrayList<JDA>();
+	public static String id;
 	private static Listener listener;
 	public static Config config;
 	public static long birth;
@@ -124,6 +128,12 @@ public class Bot {
 					ex.printStackTrace();
 					System.exit(1);
 				}
+				id = shards.get(0).getSelfUser().getId();
+				
+				//Start discordbots.org API
+				if (Config.getSendServerCount() || Config.getFetchVotes()) {
+					RequestUtils.api = new DiscordBotListAPI.Builder().token(Config.getOrgToken()).build();
+				}
 				
 				//Update main class
 				birth = System.currentTimeMillis();
@@ -142,7 +152,7 @@ public class Bot {
 		}
 		
 		//Post-init
-		Config.update();
+		DiscordUtils.update();
 		Registry.enabled = true;
 		System.out.println("Startup finished.");
 		RequestUtils.sendGuilds();

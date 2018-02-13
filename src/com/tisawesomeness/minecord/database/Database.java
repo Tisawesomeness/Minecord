@@ -52,7 +52,7 @@ public class Database {
 			"  id BIGINT(18) NOT NULL," +
 			"  elevated TINYINT(1) NOT NULL DEFAULT 0," +
 			"  banned TINYINT(1) NOT NULL DEFAULT 0," +
-			"  upvoted TINYINT(1) NOT NULL DEFAULT 0," +
+			"  upvote INT NOT NULL DEFAULT 0," +
 			"  PRIMARY KEY (id));"
 		);
 		connect.createStatement().executeUpdate(
@@ -88,7 +88,7 @@ public class Database {
 				id,
 				rs.getBoolean(2),
 				rs.getBoolean(3),
-				rs.getBoolean(4)
+				rs.getInt(4)
 			));
 		}
 		rs.close();
@@ -101,6 +101,8 @@ public class Database {
 			int latest = rs.getInt(1);
 			if (latest > goal) goal = latest;
 		}
+		
+		System.out.println("Database connected.");
 		
 	}
 	
@@ -163,7 +165,7 @@ public class Database {
 			);
 			st.setLong(1, id);
 			ResultSet rs = st.executeQuery();
-			if (rs.next() && !rs.getBoolean(1) && !rs.getBoolean(2)) {
+			if (rs.next() && !rs.getBoolean(1) && rs.getInt(2) != 0) {
 				//Delete user
 				st = connect.prepareStatement(
 					"DELETE FROM user WHERE id = ?;"
@@ -189,7 +191,7 @@ public class Database {
 		//Mirror change in local user list
 		DbUser u = getUser(id);
 		if (u == null) {
-			users.put(id, new DbUser(id, elevated, false, false));
+			users.put(id, new DbUser(id, elevated, false, 0));
 		} else {
 			u.elevated = elevated;
 		}
@@ -198,6 +200,28 @@ public class Database {
 	public static boolean isElevated(long id) {
 		DbUser user = getUser(id);
 		return user == null ? false : user.elevated;
+	}
+	
+	public static void changeUpvote(long id, int upvote) throws SQLException {
+		PreparedStatement st = connect.prepareStatement(
+			"REPLACE INTO user (id, upvote) VALUES(?, ?);"
+		);
+		st.setLong(1, id);
+		st.setInt(2, upvote);
+		st.executeUpdate();
+		
+		//Mirror change in local user list
+		DbUser u = getUser(id);
+		if (u == null) {
+			users.put(id, new DbUser(id, false, false, upvote));
+		} else {
+			u.upvote = upvote;
+		}
+	}
+	
+	public static int getUpvote(long id) {
+		DbUser user = getUser(id);
+		return user == null ? 0 : user.upvote;
 	}
 	
 	public static DbUser getUser(long id) {

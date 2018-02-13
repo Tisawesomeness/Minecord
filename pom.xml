@@ -2,14 +2,18 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.tisawesomeness</groupId>
   <artifactId>minecord</artifactId>
-  <version>0.7.0-BETA</version>
+  <version>0.7.0-BETA-2</version>
   
   <repositories>
     <repository>
-       <id>bintray-dv8fromtheworld-maven</id>
-       <name>bintray</name>
-       <url>https://dl.bintray.com/dv8fromtheworld/maven</url>
-     </repository>
+      <id>bintray-dv8fromtheworld-maven</id>
+      <name>bintray</name>
+      <url>https://dl.bintray.com/dv8fromtheworld/maven</url>
+    </repository>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
   </repositories>
   
   <dependencies>
@@ -17,6 +21,11 @@
       <groupId>net.dv8tion</groupId>
       <artifactId>JDA</artifactId>
       <version>3.5.0_338</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.DiscordBotList</groupId>
+      <artifactId>Java-Wrapper</artifactId>
+      <version>v1.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>

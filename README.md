@@ -49,6 +49,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Pw Token:* The token to use on bots.discord.pw.
 - *Net Token:* The token to use on bots.discordlist.net.
 - *Org Token:* The token to use on discordbots.org.
+- *Fetch Votes:* When true, the bot will look up and reward voting on discordbots.org.
 - *Game:* This is the game that the bot is playing, shown under the username. `{prefix}`, `{guilds}`, `{channels}`, and `{users}` are available variables.
 - *Name:* The name of the bot.
 - *Prefix:* The prefix of the bot. Use `>&` instead of `&` if you want to host your own bot alongside the main one.
@@ -66,26 +67,35 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 	"clientToken": "your token here",
 	"shardCount": 1,
 	"owner": "0",
-	"devMode": false,
-	"debugMode": false,
-	"logChannel": "0",
-	"sendServerCount": false,
-	"pwToken": "your token here",
-	"netToken": "your token here",
-	"orgToken": "your token here",
-	"game": "{prefix}help | {guilds} guilds",
-	"name": "Minecord",
-	"prefix": "&",
-	"respondToMentions": true,
-	"deleteCommands": true,
-	"sendTyping": true,
-	"invite": "https://bot.discord.io/minecord",
-	"showMemory": true,
-	"elevatedSkipCooldown": true,
-	"elevatedUsers": [
-		"211261249386708992",
-		"220591718158827520"
-	]
+    "settings": {
+        "logChannel": "0",
+        "invite": "https://bot.discord.io/minecord",
+        "prefix": "&",
+        "game": "@Minecord help | {guilds} guilds",
+        "name": "Minecord",
+        "devMode": false,
+        "debugMode": false,
+        "respondToMentions": true,
+        "deleteCommands": false,
+        "sendTyping": true,
+        "showMemory": false,
+        "elevatedSkipCooldown": true
+    },
+    "botLists": {
+        "sendServerCount": false,
+        "pwToken": "your token here",
+        "netToken": "your token here",
+        "orgToken": "your token here",
+        "fetchVotes": false
+    },
+    "database": {
+        "type": "sqlite",
+        "host": "./minecord.db",
+        "port": "3306",
+        "name": "minecord",
+        "user": "minecord",
+        "pass": "password here"
+    }
 }
 ```
 

@@ -1,16 +1,21 @@
 package com.tisawesomeness.minecord.util;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
 import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Config;
+import com.tisawesomeness.minecord.database.Database;
 
 import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.entities.Game.GameType;
 
 public class DiscordUtils {
 	
@@ -60,6 +65,36 @@ public class DiscordUtils {
 			if (guild != null) return guild;
 		}
 		return null;
+	}
+	
+	public static void update() {
+		for (JDA jda : Bot.shards) {
+			jda.getPresence().setGame(Game.of(GameType.DEFAULT, Config.getGame()
+				.replaceAll("\\{prefix\\}", Config.getPrefix())
+				.replaceAll("\\{guilds\\}", String.valueOf(DiscordUtils.getGuilds().size()))
+				.replaceAll("\\{users\\}", String.valueOf(DiscordUtils.getUsers().size()))
+				.replaceAll("\\{channels\\}", String.valueOf(DiscordUtils.getTextChannels().size()))
+			));
+			if (!"".equals(Config.getName())) {
+				jda.getSelfUser().getManager().setName(Config.getName()).queue();
+			}
+		}
+		if (Config.getFetchVotes()) {
+			long timestamp = System.currentTimeMillis() / 1000;
+			for (String user : RequestUtils.api.getVoterIds(Bot.id, 1)) {
+				if (user.equals("211261249386708992")) {
+				long id = Long.valueOf(user);
+				if (Database.getUpvote(id) < timestamp - 86400) {
+					try {
+						Database.changeUpvote(id, (int) timestamp);
+					} catch (SQLException ex) {
+						ex.printStackTrace();
+					}
+					DiscordUtils.getUserById(user).openPrivateChannel().complete()
+						.sendMessage("Thanks for voting!").queue();
+				} }
+			}
+		}
 	}
 
 }

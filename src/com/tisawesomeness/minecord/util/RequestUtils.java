@@ -10,15 +10,22 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+import org.discordbots.api.client.DiscordBotListAPI;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
+
+import net.dv8tion.jda.core.JDA;
 
 public class RequestUtils {
 	
 	private static final String charset = StandardCharsets.UTF_8.name();
 	private static final String contentType = "application/json";
+	public static DiscordBotListAPI api = null;
 	
 	/**
 	 * Performs an HTTP GET request.
@@ -144,7 +151,7 @@ public class RequestUtils {
 	public static void sendGuilds() {
 		if (Config.getSendServerCount()) {
 			int servers = DiscordUtils.getGuilds().size();
-			String id = Bot.shards.get(0).getSelfUser().getId();
+			String id = Bot.id;
 			
 			String url = "https://bots.discord.pw/api/bots/" + id + "/stats";
 			String query = "{\"server_count\": " + servers + "}";
@@ -154,9 +161,13 @@ public class RequestUtils {
 			query = "{\"token\": \"" + Config.getNetToken() + "\",\"servers\": " + servers + "}";
 			post(url, query);
 			
-			url = "https://discordbots.org/api/bots/" + id + "/stats";
+			/*url = "https://discordbots.org/api/bots/" + id + "/stats";
 			query = "{\"server_count\": " + servers + "}";
-			post(url, query, Config.getOrgToken());
+			post(url, query, Config.getOrgToken());*/
+			
+			List<Integer> serverCounts = new ArrayList<Integer>();
+			for (JDA jda : Bot.shards) serverCounts.add(jda.getGuilds().size());
+			api.setStats(id, serverCounts);
 		}
 	}
 

@@ -38,7 +38,7 @@ public class InfoCommand extends Command {
 	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
-		Config.update();
+		DiscordUtils.update();
 		
 		//If the author used the admin keyword and is an elevated user
 		boolean elevated = false;
