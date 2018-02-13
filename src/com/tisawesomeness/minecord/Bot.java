@@ -16,7 +16,6 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.requests.SessionReconnectQueue;
 
 public class Bot {
 
@@ -111,7 +110,6 @@ public class Bot {
 					.setToken(Config.getClientToken())
 					.setAudioEnabled(false)
 					.setAutoReconnect(true)
-					.setReconnectQueue(new SessionReconnectQueue())
 					.addEventListener(listener);
 				try {
 					//Create each shard
