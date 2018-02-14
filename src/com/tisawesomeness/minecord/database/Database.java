@@ -43,6 +43,7 @@ public class Database {
 			"CREATE TABLE IF NOT EXISTS guild (" +
 			"  id BIGINT(18) NOT NULL," +
 			"  prefix TINYTEXT NOT NULL," +
+			"  lang TINYTEXT NOT NULL," +
 			"  banned TINYINT(1) NOT NULL DEFAULT 0," +
 			"  noCooldown TINYINT(1) NOT NULL DEFAULT 0," +
 			"  PRIMARY KEY (id));"
@@ -72,8 +73,9 @@ public class Database {
 			guilds.put(id, new DbGuild(
 				id,
 				rs.getString(2),
-				rs.getBoolean(3),
-				rs.getBoolean(4)
+				rs.getString(3),
+				rs.getBoolean(4),
+				rs.getBoolean(5)
 			));
 		}
 		rs.close();
@@ -109,13 +111,13 @@ public class Database {
 	public static void changePrefix(long id, String prefix) throws SQLException {
 		
 		if (prefix.equals(Config.getPrefix())) { //If prefix is being reset to default
-			//If user is in database, has not been banned, and has not upvoted
+			//If guild is in database, has not been banned, has cooldown, and has not changed lang
 			PreparedStatement st = connect.prepareStatement(
-				"SELECT banned, noCooldown FROM guild WHERE id = ?;"
+				"SELECT lang, banned, noCooldown FROM guild WHERE id = ?;"
 			);
 			st.setLong(1, id);
 			ResultSet rs = st.executeQuery();
-			if (rs.next() && !rs.getBoolean(1) && !rs.getBoolean(2)) {
+			if (rs.next() && !rs.getString(1).equals("enUS") && !rs.getBoolean(2) && !rs.getBoolean(3)) {
 				//Delete guild
 				st = connect.prepareStatement(
 					"DELETE FROM guild WHERE id = ?;"
@@ -132,7 +134,8 @@ public class Database {
 	
 	private static void replacePrefix(long id, String prefix) throws SQLException {
 		PreparedStatement st = connect.prepareStatement(
-			"REPLACE INTO guild (id, prefix, banned, noCooldown) VALUES(?, ?, " +
+			"REPLACE INTO guild (id, prefix, lang, banned, noCooldown) VALUES(?, ?, " +
+			"COALESCE((SELECT lang FROM (SELECT * FROM guild) AS temp WHERE id=?), 'enUS'), " +
 			"COALESCE((SELECT banned FROM (SELECT * FROM guild) AS temp WHERE id=?), 0), " +
 			"COALESCE((SELECT noCooldown FROM (SELECT * FROM guild) AS temp WHERE id=?), 0));"
 		);
@@ -140,12 +143,13 @@ public class Database {
 		st.setString(2, prefix);
 		st.setLong(3, id);
 		st.setLong(4, id);
+		st.setLong(5, id);
 		st.executeUpdate();
 
 		//Mirror change in local guild list
 		DbGuild g = getGuild(id);
 		if (g == null) {
-			guilds.put(id, new DbGuild(id, prefix, false, false));
+			guilds.put(id, new DbGuild(id, prefix, "enUS", false, false));
 		} else {
 			g.prefix = prefix;
 		}
