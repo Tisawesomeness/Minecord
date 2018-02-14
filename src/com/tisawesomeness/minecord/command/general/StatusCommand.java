@@ -49,13 +49,11 @@ public class StatusCommand extends Command {
 			
 			//Parse the response
 			String output = ":x:";
-			if (response.equals("green")) {
+			if ("green".equals(response)) {
 				output = ":white_check_mark:";
-			} else if (response.equals("yellow")) {
+			} else if ("yellow".equals(response)) {
 				output = ":warning:";
-				if (color != Color.RED) {
-					color = Color.YELLOW;
-				}
+				if (color != Color.RED) color = Color.YELLOW;
 			} else {
 				color = Color.RED;
 			}
