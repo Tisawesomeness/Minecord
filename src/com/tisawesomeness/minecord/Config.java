@@ -40,27 +40,39 @@ public class Config {
 	private static String user;
 	private static String pass;
 
-	public static void read(File file) {
+	public static void read(boolean reload) {
 		
 		//Look for client token
-		String[] args = Bot.args;
-		if (args.length > 1 && ArrayUtils.contains(args, "-t")) {
-			int index = ArrayUtils.indexOf(args, "-t");
-			if (index + 1 < args.length) {
-				args = ArrayUtils.remove(args, index);
-				String token = args[index];
-				if (token.matches("{32,}")) {
-					System.out.println("Found custom client token: " + token);
-					clientToken = token;
+		if (!reload) {
+			String[] args = Bot.args;
+			if (args.length > 1 && ArrayUtils.contains(args, "-t")) {
+				int index = ArrayUtils.indexOf(args, "-t");
+				if (index + 1 < args.length) {
 					args = ArrayUtils.remove(args, index);
+					String token = args[index];
+					if (token.matches("{32,}")) {
+						System.out.println("Found custom client token: " + token);
+						clientToken = token;
+						args = ArrayUtils.remove(args, index);
+					}
+					Bot.args = args;
 				}
-				Bot.args = args;
+			}
+		}
+		
+		//Parse config path
+		String path = "./config.json";
+		if (Bot.args.length > 1 && ArrayUtils.contains(Bot.args, "-c")) {
+			int index = ArrayUtils.indexOf(Bot.args, "-c");
+			if (index + 1 < Bot.args.length) {
+				path = Bot.args[index + 1];
+				System.out.println("Found custom config path: " + path);
 			}
 		}
 		
 		try {
 			//Parse config JSON
-			JSONObject config = new JSONObject(FileUtils.readFileToString(file, "UTF-8"));
+			JSONObject config = new JSONObject(FileUtils.readFileToString(new File(path), "UTF-8"));
 			if (clientToken == null) clientToken = config.getString("clientToken");
 			shardCount = config.getInt("shardCount");
 			if (shardCount < 1) shardCount = 1;

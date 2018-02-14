@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord;
 
-import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -38,27 +37,14 @@ public class Bot {
 	
 	@SuppressWarnings("unchecked")
 	public static boolean setup(String[] args, boolean devMode) {
+		System.out.println("Bot starting.");
+		
+		//Parse arguments
 		Bot.args = args;
-		
-		//Parse config path
-		String path = "./config.json";
-		if (args.length > 1 && ArrayUtils.contains(args, "-c")) {
-			int index = ArrayUtils.indexOf(args, "-c");
-			if (index + 1 < args.length) {
-				path = args[index + 1];
-				System.out.println("Found custom config path: " + path);
-			}
-		}
-		Config.read(new File(path)); //Init config
-		
-		//Exit if dev mode
+		Config.read(false);
 		if (Config.getDevMode() && !devMode) return false;
-		
-		//Parse reload
 		boolean reload = false;
-		if (args.length > 0 && ArrayUtils.contains(args, "-r")) {
-			reload = true;
-		}
+		if (args.length > 0 && ArrayUtils.contains(args, "-r")) reload = true;
 
 		//Pre-init
 		thread = Thread.currentThread();
