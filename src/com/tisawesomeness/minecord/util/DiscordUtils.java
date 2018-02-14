@@ -71,9 +71,9 @@ public class DiscordUtils {
 		for (JDA jda : Bot.shards) {
 			jda.getPresence().setGame(Game.of(GameType.DEFAULT, Config.getGame()
 				.replaceAll("\\{prefix\\}", Config.getPrefix())
-				.replaceAll("\\{guilds\\}", String.valueOf(DiscordUtils.getGuilds().size()))
-				.replaceAll("\\{users\\}", String.valueOf(DiscordUtils.getUsers().size()))
-				.replaceAll("\\{channels\\}", String.valueOf(DiscordUtils.getTextChannels().size()))
+				.replaceAll("\\{guilds\\}", String.valueOf(getGuilds().size()))
+				.replaceAll("\\{users\\}", String.valueOf(getUsers().size()))
+				.replaceAll("\\{channels\\}", String.valueOf(getTextChannels().size()))
 			));
 			if (!"".equals(Config.getName())) {
 				jda.getSelfUser().getManager().setName(Config.getName()).queue();
@@ -89,8 +89,8 @@ public class DiscordUtils {
 					} catch (SQLException ex) {
 						ex.printStackTrace();
 					}
-					DiscordUtils.getUserById(user).openPrivateChannel().complete()
-						.sendMessage("Thanks for voting!").queue();
+					User u = getUserById(user);
+					if (u != null) u.openPrivateChannel().complete().sendMessage("Thanks for voting!").queue();
 				}
 			}
 		}
