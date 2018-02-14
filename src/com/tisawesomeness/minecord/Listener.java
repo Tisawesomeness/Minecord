@@ -52,7 +52,7 @@ public class Listener extends ListenerAdapter {
 				
 				//Extract name and argument list
 				name = content[0];
-				if (name.equals("")) return; //If there is a space after prefix, don't process any more
+				if ("".equals(name)) return; //If there is a space after prefix, don't process any more
 				args = ArrayUtils.remove(content, 0);
 				
 			//If the bot is mentioned and does not mention everyone

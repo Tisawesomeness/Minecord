@@ -43,15 +43,15 @@ public class DemoteCommand extends Command {
 		} else {
 			
 			//Extract user
-			args = ArrayUtils.remove(MessageUtils.getContent(e.getMessage(), true, e.getGuild().getIdLong()), 0);
+			String[] argsNew = ArrayUtils.remove(MessageUtils.getContent(e.getMessage(), true, e.getGuild().getIdLong()), 0);
 			User user = null;
-			if (args[0].matches(MessageUtils.mentionRegex)) {
+			if (argsNew[0].matches(MessageUtils.mentionRegex)) {
 				user = e.getMessage().getMentionedUsers().get(0);
 				if (user.getId() == e.getJDA().getSelfUser().getId()) {
 					user = e.getMessage().getMentionedUsers().get(1);
 				}
-			} else if (args[0].matches(MessageUtils.idRegex)) {
-				user = e.getJDA().getUserById(args[0]);
+			} else if (argsNew[0].matches(MessageUtils.idRegex)) {
+				user = e.getJDA().getUserById(argsNew[0]);
 				if (user == null) return new Result(Outcome.ERROR, ":x: Not a valid user!");
 			} else {
 				return new Result(Outcome.ERROR, ":x: Not a valid user!");
