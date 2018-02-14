@@ -132,10 +132,14 @@ public class Database {
 	
 	private static void replacePrefix(long id, String prefix) throws SQLException {
 		PreparedStatement st = connect.prepareStatement(
-			"REPLACE INTO guild (id, prefix) VALUES(?, ?);"
+			"REPLACE INTO guild (id, prefix, banned, noCooldown) VALUES(?, ?, " +
+			"COALESCE((SELECT banned FROM (SELECT * FROM guild) AS temp WHERE id=?), 0), " +
+			"COALESCE((SELECT noCooldown FROM (SELECT * FROM guild) AS temp WHERE id=?), 0));"
 		);
 		st.setLong(1, id);
 		st.setString(2, prefix);
+		st.setLong(3, id);
+		st.setLong(4, id);
 		st.executeUpdate();
 
 		//Mirror change in local guild list
@@ -161,11 +165,11 @@ public class Database {
 		if (!elevated) { //If demoting
 			//If user is in database, has not been banned, and has not upvoted
 			PreparedStatement st = connect.prepareStatement(
-				"SELECT banned, upvoted FROM user WHERE id = ?;"
+				"SELECT banned, upvote FROM user WHERE id = ?;"
 			);
 			st.setLong(1, id);
 			ResultSet rs = st.executeQuery();
-			if (rs.next() && !rs.getBoolean(1) && rs.getInt(2) != 0) {
+			if (rs.next() && !rs.getBoolean(1) && rs.getInt(2) == 0) {
 				//Delete user
 				st = connect.prepareStatement(
 					"DELETE FROM user WHERE id = ?;"
@@ -182,10 +186,14 @@ public class Database {
 	
 	private static void replaceElevated(long id, boolean elevated) throws SQLException {
 		PreparedStatement st = connect.prepareStatement(
-			"REPLACE INTO user (id, elevated) VALUES(?, ?);"
+			"REPLACE INTO user (id, elevated, banned, upvote) VALUES(?, ?, " +
+			"COALESCE((SELECT banned FROM (SELECT * FROM user) AS temp WHERE id=?), 0), " +
+			"COALESCE((SELECT upvote FROM (SELECT * FROM user) AS temp WHERE id=?), 0));"
 		);
 		st.setLong(1, id);
 		st.setBoolean(2, elevated);
+		st.setLong(3, id);
+		st.setLong(4, id);
 		st.executeUpdate();
 		
 		//Mirror change in local user list
@@ -204,10 +212,14 @@ public class Database {
 	
 	public static void changeUpvote(long id, int upvote) throws SQLException {
 		PreparedStatement st = connect.prepareStatement(
-			"REPLACE INTO user (id, upvote) VALUES(?, ?);"
+			"REPLACE INTO user (id, elevated, banned, upvote) VALUES(?, " +
+			"COALESCE((SELECT elevated FROM (SELECT * FROM user) AS temp WHERE id=?), 0), " +
+			"COALESCE((SELECT banned FROM (SELECT * FROM user) AS temp WHERE id=?), 0), ?);"
 		);
 		st.setLong(1, id);
-		st.setInt(2, upvote);
+		st.setLong(2, id);
+		st.setLong(3, id);
+		st.setInt(4, upvote);
 		st.executeUpdate();
 		
 		//Mirror change in local user list
