@@ -162,6 +162,7 @@ public class Listener extends ListenerAdapter {
 				if (exception != null) {exception.printStackTrace();}
 				String err = ":x: There was an unexpected exception: `" + exception.toString() + "`\n```";
 				if (Config.getDebugMode()) {
+					exception.printStackTrace();
 					for (StackTraceElement ste : exception.getStackTrace()) {
 						err += "\n" + ste.toString();
 						String className = ste.getClassName();
