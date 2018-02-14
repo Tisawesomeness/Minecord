@@ -30,7 +30,8 @@ public class InfoCommand extends Command {
 			null,
 			new String[]{
 				"about",
-				"stats"},
+				"stats",
+				"ping"},
 			0,
 			false,
 			false,
@@ -95,6 +96,7 @@ public class InfoCommand extends Command {
 		if (Config.getShowMemory() || elevated) {
 			eb.addField("Memory", memory, true);
 		}
+		eb.addField("Ping", e.getJDA().getPing() + "ms", true);
 		
 		eb.addField("Invite", Config.getInvite(), true);
 		eb.addField("Help Server", Bot.helpServer, true);
