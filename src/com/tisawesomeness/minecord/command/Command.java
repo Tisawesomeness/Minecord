@@ -21,6 +21,39 @@ public abstract class Command implements ICommand {
 	public static class CommandInfo {
 		
 		/**
+		 * The name needed to call the command, shown on the help menu.
+		 */
+		public final String name;
+		/**
+		 * The description that appears in the help menu.
+		 */
+		public final String description;
+		/**
+		 * The command usage, such as "\<player\> [time]"
+		 */
+		public final String usage;
+		/**
+		 * A list of aliases that will also call this command.
+		 */
+		public final String[] aliases;
+		/**
+		 * The cooldown of the command in miliseconds. Enter anything less than 1 to disable the cooldown.
+		 */
+		public final int cooldown;
+		/**
+		 * Whether or not to hide the command from the help menu.
+		 */
+		public final boolean hidden;
+		/**
+		 * Whether or not the user must be an elevated user to execute this command.
+		 */
+		public final boolean elevated;
+		/**
+		 * Whether or not the bot will send a typing message.
+		 */
+		public final boolean typing;
+		
+		/**
 		 * Represents all of the data needed to register a command.
 		 * @param name The name needed to call the command, shown on the help menu.
 		 * @param description The description shown on the help menu.
@@ -39,70 +72,15 @@ public abstract class Command implements ICommand {
 			} else {
 				this.name = name;
 			}
-			
-			if (description == null) {
-				this.description = "A command.";
-			} else {
-				this.description = description;
-			}
-			
-			if (usage == null) {
-				this.usage = "";
-			} else {
-				this.usage = usage;
-			}
-			
-			if (aliases == null) {
-				this.aliases = new String[0];
-			} else {
-				this.aliases = aliases;
-			}
-			
+			this.description = description == null ? "A command." : description;
+			this.usage = usage == null ? "" : usage;
+			this.aliases = aliases == null ? new String[0] : aliases;
 			this.cooldown = cooldown;
 			this.hidden = hidden;
 			this.elevated = elevated;
 			this.typing = typing;
+			
 		}
-
-		/**
-		 * The name needed to call the command, shown on the help menu.
-		 */
-		public final String name;
-		
-		/**
-		 * The description that appears in the help menu.
-		 */
-		public final String description;
-		
-		/**
-		 * The command usage, such as "\<player\> [time]"
-		 */
-		public final String usage;
-		
-		/**
-		 * A list of aliases that will also call this command.
-		 */
-		public final String[] aliases;
-		
-		/**
-		 * The cooldown of the command in miliseconds. Enter anything less than 1 to disable the cooldown.
-		 */
-		public final int cooldown;
-		
-		/**
-		 * Whether or not to hide the command from the help menu.
-		 */
-		public final boolean hidden;
-		
-		/**
-		 * Whether or not the user must be an elevated user to execute this command.
-		 */
-		public final boolean elevated;
-		
-		/**
-		 * Whether or not the bot will send a typing message.
-		 */
-		public final boolean typing;
 		
 	}
 	
