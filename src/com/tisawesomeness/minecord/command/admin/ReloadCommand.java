@@ -27,14 +27,13 @@ public class ReloadCommand extends Command {
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		
-		//Check for dev mode
-		if (!Config.getDevMode()) {
-			return new Result(Outcome.ERROR, "You can only reload code in dev mode!");
+		if (Config.getDevMode()) {
+			Message m = e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
+			Bot.shutdown(m, e.getAuthor());
+		} else {
+			e.getChannel().sendMessage(":white_check_mark: Reloaded config.").queue();
+			Config.read(true);
 		}
-		
-		//Shut down bot
-		Message m = e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
-		Bot.shutdown(m, e.getAuthor());
 		
 		return new Result(Outcome.SUCCESS);
 	}
