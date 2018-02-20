@@ -1,9 +1,9 @@
 package com.tisawesomeness.minecord;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,7 +72,7 @@ public class Config {
 		
 		try {
 			//Parse config JSON
-			JSONObject config = new JSONObject(FileUtils.readFileToString(new File(path), "UTF-8"));
+			JSONObject config = new JSONObject(new String(Files.readAllBytes(Paths.get(path)), "UTF-8"));
 			if (clientToken == null) clientToken = config.getString("clientToken");
 			shardCount = config.getInt("shardCount");
 			if (shardCount < 1) shardCount = 1;
