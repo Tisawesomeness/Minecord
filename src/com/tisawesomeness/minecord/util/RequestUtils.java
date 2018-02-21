@@ -1,9 +1,7 @@
 package com.tisawesomeness.minecord.util;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -27,6 +25,14 @@ public class RequestUtils {
 	private static final String contentType = "application/json";
 	public static DiscordBotListAPI api = null;
 	
+	private static String get(URLConnection conn) throws IOException {
+		InputStream response = conn.getInputStream();
+		Scanner scanner = new Scanner(response);
+		String responseBody = scanner.useDelimiter("\\A").next();
+		scanner.close();
+		return responseBody;
+	}
+	
 	/**
 	 * Performs an HTTP GET request.
 	 * @param url The request URL.
@@ -43,21 +49,15 @@ public class RequestUtils {
 	 * @return The response of the request in string form.
 	 */
 	public static String get(String url, String auth) {
-		if (!checkURL(url)) {return null;}
-		try {
-			
-			URLConnection conn = open(url, auth);
-			InputStream response = conn.getInputStream();
-			
-			Scanner scanner = new Scanner(response);
-			String responseBody = scanner.useDelimiter("\\A").next();
-			scanner.close();
-			return responseBody;
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
+		if (checkURL(url)) {
+			try {
+				URLConnection conn = open(url, auth);
+				return get(conn);
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
 		}
+		return null;
 	}
 	
 	/**
@@ -79,28 +79,17 @@ public class RequestUtils {
 	 */
 	public static String post(String url, String query, String auth) {
 		try {
-			
 			URLConnection conn = open(url, auth);
+			
 			OutputStream output = conn.getOutputStream();
 			output.write(query.getBytes(charset));
 			output.close();
 			
-			InputStream response = conn.getInputStream();
-
-			String outputStr = null;
-			if (charset != null) {
-				BufferedReader reader = new BufferedReader(new InputStreamReader(response, charset));
-				for (String line; (line = reader.readLine()) != null;) {
-					outputStr = line;
-				}
-				reader.close();
-			}
-			return outputStr;
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
+			return get(conn);
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
+		return null;
 	}
 	
 	private static URLConnection open(String url, String auth) throws MalformedURLException, IOException {
