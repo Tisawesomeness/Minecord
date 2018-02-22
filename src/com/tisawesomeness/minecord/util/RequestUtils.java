@@ -28,7 +28,7 @@ public class RequestUtils {
 	private static String get(URLConnection conn) throws IOException {
 		InputStream response = conn.getInputStream();
 		Scanner scanner = new Scanner(response);
-		String responseBody = scanner.useDelimiter("\\A").next();
+		String responseBody = scanner.hasNext() ? scanner.useDelimiter("\\A").next() : "";
 		scanner.close();
 		return responseBody;
 	}
