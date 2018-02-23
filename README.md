@@ -49,7 +49,9 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Pw Token:* The token to use on bots.discord.pw.
 - *Net Token:* The token to use on bots.discordlist.net.
 - *Org Token:* The token to use on discordbots.org.
-- *Fetch Votes:* When true, the bot will look up and reward voting on discordbots.org.
+- *Receive Votes:* When true, the bot will receive votes from discordbots.org. **This will set up an HTTP server.**
+- *Webhook URL:* The URL used to receive votes. Keep this random and private, if it leaks, users will be able to fake votes. Set the discordbots.org webhook to http://`your ip`:`port`/`url`.
+- *Webhook Port:* The port used to receive votes.
 - *Game:* This is the game that the bot is playing, shown under the username. `{prefix}`, `{guilds}`, `{channels}`, and `{users}` are available variables.
 - *Name:* The name of the bot.
 - *Prefix:* The prefix of the bot. Use `>&` instead of `&` if you want to host your own bot alongside the main one.
@@ -86,7 +88,9 @@ A robust Discord bot using the JDA library for various Minecraft functions.
         "pwToken": "your token here",
         "netToken": "your token here",
         "orgToken": "your token here",
-        "fetchVotes": false
+        "receiveVotes": false,
+        "webhookURL": "sample",
+        "webhookPort": 8000
     },
     "database": {
         "type": "sqlite",

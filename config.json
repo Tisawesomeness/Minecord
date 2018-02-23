@@ -21,7 +21,9 @@
         "pwToken": "your token here",
         "netToken": "your token here",
         "orgToken": "your token here",
-        "fetchVotes": false
+        "receiveVotes": false,
+        "webhookURL": "sample",
+        "webhookPort": 8000
     },
     "database": {
         "type": "sqlite",

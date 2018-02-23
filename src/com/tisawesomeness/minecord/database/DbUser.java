@@ -5,13 +5,11 @@ public class DbUser {
 	public long id;
 	public boolean elevated;
 	public boolean banned;
-	public int upvote;
 	
-	public DbUser(long id, boolean elevated, boolean banned, int upvote) {
+	public DbUser(long id, boolean elevated, boolean banned) {
 		this.id = id;
 		this.elevated = elevated;
 		this.banned = banned;
-		this.upvote = upvote;
 	}
 
 }

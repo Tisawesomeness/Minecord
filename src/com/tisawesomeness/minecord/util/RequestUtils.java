@@ -97,9 +97,7 @@ public class RequestUtils {
 		conn.setDoOutput(true);
 		conn.setRequestProperty("Accept-Charset", charset);
 		conn.setRequestProperty("Content-Type", contentType);
-		if (auth != null) {
-			conn.setRequestProperty("Authorization", auth);
-		}
+		if (auth != null) conn.setRequestProperty("Authorization", auth);
 		return conn;
 	}
 	

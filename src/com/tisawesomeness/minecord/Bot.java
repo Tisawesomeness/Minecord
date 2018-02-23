@@ -1,14 +1,18 @@
 package com.tisawesomeness.minecord;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.discordbots.api.client.DiscordBotListAPI;
 
+import com.sun.net.httpserver.HttpServer;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.database.VoteHandler;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
@@ -63,6 +67,24 @@ public class Bot {
 		};
 		db.start();
 		
+		//Start web server
+		Thread ws = null;
+		if (Config.getReceiveVotes()) {
+			ws = new Thread() {
+				public void run() {
+					try {
+						HttpServer server = HttpServer.create(new InetSocketAddress(Config.getWebhookPort()), 0);
+						server.createContext("/" + Config.getWebhookURL(), new VoteHandler());
+						server.start();
+						System.out.println("Web server started.");
+					} catch (IOException ex) {
+						ex.printStackTrace();
+					}
+				}
+			};
+			ws.start();
+		}
+		
 		//Fetch main class
 		try {
 			Class<?> main = null;
@@ -116,11 +138,6 @@ public class Bot {
 				}
 				id = shards.get(0).getSelfUser().getId();
 				
-				//Start discordbots.org API
-				if (Config.getSendServerCount() || Config.getFetchVotes()) {
-					RequestUtils.api = new DiscordBotListAPI.Builder().token(Config.getOrgToken()).build();
-				}
-				
 				//Update main class
 				birth = System.currentTimeMillis();
 				if (Config.getDevMode()) {
@@ -130,12 +147,20 @@ public class Bot {
 				MessageUtils.log(":white_check_mark: **Bot started!**");
 				
 			}
-			
-			db.join(); //Wait until connected to database
-			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+		
+		//Start discordbots.org API
+		if (Config.getSendServerCount() || Config.getReceiveVotes()) {
+			RequestUtils.api = new DiscordBotListAPI.Builder().token(Config.getOrgToken()).build();
+		}
+		
+		//Wait for database and web server
+		try {
+			db.join();
+			if (ws != null) ws.join();
+		} catch (InterruptedException ex) {}
 		
 		//Post-init
 		DiscordUtils.update();
