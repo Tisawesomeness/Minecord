@@ -31,7 +31,9 @@ public class Config {
 	private static String pwToken;
 	private static String netToken;
 	private static String orgToken;
-	private static boolean fetchVotes;
+	private static boolean receiveVotes;
+	private static String webhookURL;
+	private static int webhookPort;
 	
 	private static String type;
 	private static String host;
@@ -97,7 +99,9 @@ public class Config {
 			pwToken = botLists.getString("pwToken");
 			netToken = botLists.getString("netToken");
 			orgToken = botLists.getString("orgToken");
-			fetchVotes = botLists.getBoolean("fetchVotes");
+			receiveVotes = botLists.getBoolean("receiveVotes");
+			webhookURL = botLists.getString("webhookURL");
+			webhookPort = botLists.getInt("webhookPort");
 			
 			JSONObject database = config.getJSONObject("database");
 			type = database.getString("type");
@@ -133,7 +137,9 @@ public class Config {
 	public static String getPwToken() {return pwToken;}
 	public static String getNetToken() {return netToken;}
 	public static String getOrgToken() {return orgToken;}
-	public static boolean getFetchVotes() {return fetchVotes;}
+	public static boolean getReceiveVotes() {return receiveVotes;}
+	public static String getWebhookURL() {return webhookURL;}
+	public static int getWebhookPort() {return webhookPort;}
 	
 	public static String getType() {return type;}
 	public static String getHost() {return host;}

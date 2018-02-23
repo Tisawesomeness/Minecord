@@ -53,7 +53,6 @@ public class Database {
 			"  id BIGINT(18) NOT NULL," +
 			"  elevated TINYINT(1) NOT NULL DEFAULT 0," +
 			"  banned TINYINT(1) NOT NULL DEFAULT 0," +
-			"  upvote INT NOT NULL DEFAULT 0," +
 			"  PRIMARY KEY (id));"
 		);
 		connect.createStatement().executeUpdate(
@@ -89,8 +88,7 @@ public class Database {
 			users.put(id, new DbUser(
 				id,
 				rs.getBoolean(2),
-				rs.getBoolean(3),
-				rs.getInt(4)
+				rs.getBoolean(3)
 			));
 		}
 		rs.close();
@@ -169,11 +167,11 @@ public class Database {
 		if (!elevated) { //If demoting
 			//If user is in database, has not been banned, and has not upvoted
 			PreparedStatement st = connect.prepareStatement(
-				"SELECT banned, upvote FROM user WHERE id = ?;"
+				"SELECT banned FROM user WHERE id = ?;"
 			);
 			st.setLong(1, id);
 			ResultSet rs = st.executeQuery();
-			if (rs.next() && !rs.getBoolean(1) && rs.getInt(2) == 0) {
+			if (rs.next() && !rs.getBoolean(1)) {
 				//Delete user
 				st = connect.prepareStatement(
 					"DELETE FROM user WHERE id = ?;"
@@ -190,20 +188,18 @@ public class Database {
 	
 	private static void replaceElevated(long id, boolean elevated) throws SQLException {
 		PreparedStatement st = connect.prepareStatement(
-			"REPLACE INTO user (id, elevated, banned, upvote) VALUES(?, ?, " +
-			"COALESCE((SELECT banned FROM (SELECT * FROM user) AS temp WHERE id=?), 0), " +
-			"COALESCE((SELECT upvote FROM (SELECT * FROM user) AS temp WHERE id=?), 0));"
+			"REPLACE INTO user (id, elevated, banned) VALUES(?, ?, " +
+			"COALESCE((SELECT banned FROM (SELECT * FROM user) AS temp WHERE id=?), 0));"
 		);
 		st.setLong(1, id);
 		st.setBoolean(2, elevated);
 		st.setLong(3, id);
-		st.setLong(4, id);
 		st.executeUpdate();
 		
 		//Mirror change in local user list
 		DbUser u = getUser(id);
 		if (u == null) {
-			users.put(id, new DbUser(id, elevated, false, 0));
+			users.put(id, new DbUser(id, elevated, false));
 		} else {
 			u.elevated = elevated;
 		}
@@ -212,32 +208,6 @@ public class Database {
 	public static boolean isElevated(long id) {
 		DbUser user = getUser(id);
 		return user == null ? false : user.elevated;
-	}
-	
-	public static void changeUpvote(long id, int upvote) throws SQLException {
-		PreparedStatement st = connect.prepareStatement(
-			"REPLACE INTO user (id, elevated, banned, upvote) VALUES(?, " +
-			"COALESCE((SELECT elevated FROM (SELECT * FROM user) AS temp WHERE id=?), 0), " +
-			"COALESCE((SELECT banned FROM (SELECT * FROM user) AS temp WHERE id=?), 0), ?);"
-		);
-		st.setLong(1, id);
-		st.setLong(2, id);
-		st.setLong(3, id);
-		st.setInt(4, upvote);
-		st.executeUpdate();
-		
-		//Mirror change in local user list
-		DbUser u = getUser(id);
-		if (u == null) {
-			users.put(id, new DbUser(id, false, false, upvote));
-		} else {
-			u.upvote = upvote;
-		}
-	}
-	
-	public static int getUpvote(long id) {
-		DbUser user = getUser(id);
-		return user == null ? 0 : user.upvote;
 	}
 	
 	public static DbUser getUser(long id) {
