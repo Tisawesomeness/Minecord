@@ -30,15 +30,14 @@ public class NameCommand extends Command {
 		);
 	}
 	
-	public Result run(String[] argsOrig, MessageReceivedEvent e) {
+	public Result run(String[] args, MessageReceivedEvent e) {
 		
 		//Check for proper argument length
-		if (argsOrig.length < 1) {
+		if (args.length < 1) {
 			return new Result(Outcome.WARNING, ":warning: Please specify a guild.");
 		}
 		
 		//Get guild
-		String[] args = ArrayUtils.remove(MessageUtils.getContent(e.getMessage(), true, e.getGuild().getIdLong()), 0);
 		Guild guild = null;
 		if (args[0].matches(MessageUtils.idRegex)) {
 			guild = DiscordUtils.getGuildById(args[0]);

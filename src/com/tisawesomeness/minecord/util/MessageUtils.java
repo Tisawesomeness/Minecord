@@ -5,8 +5,6 @@ import java.time.OffsetDateTime;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
-
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.database.Database;
@@ -147,29 +145,13 @@ public class MessageUtils {
 	/**
 	 * Gets the command-useful content of a message, keeping the name and arguments and purging the prefix and mention.
 	 */
-	public static String[] getContent(Message m, boolean raw, long id) {
-		if (m.getContentDisplay().startsWith(Database.getPrefix(id))) {
-			String content = null;
-			if (raw) {
-				content = m.getContentRaw();
-			} else {
-				content = m.getContentDisplay();
-			}
+	public static String[] getContent(Message m, long id) {
+		String content = m.getContentRaw();
+		if (m.getContentRaw().startsWith(Database.getPrefix(id))) {
 			return content.replaceFirst(Pattern.quote(Database.getPrefix(id)), "").split(" ");
-		} else if (m.getContentRaw().replaceFirst("@!", "@").startsWith(Bot.shards.get(0).getSelfUser().getAsMention())) {
-			if (raw) {
-				String[] args = m.getContentRaw().split(" ");
-				return ArrayUtils.removeElement(args, args[0]);
-			} else {
-				String replace = "@" + m.getMentionedUsers().get(0).getName();
-				String content = StringUtils.removeStart(m.getContentDisplay(), replace);
-				if (content.length() >= 5 && content.substring(0, 5).matches("^#[0-9]{4}")) {
-					content = content.replaceFirst("#[0-9]{4} ?", "");
-				} else {
-					content = content.substring(1);
-				}
-				return content.split(" ");
-			}
+		} else if (content.replaceFirst("@!", "@").startsWith(Bot.shards.get(0).getSelfUser().getAsMention())) {
+			String[] args = content.split(" ");
+			return ArrayUtils.removeElement(args, args[0]);
 		} else {
 			return null;
 		}
