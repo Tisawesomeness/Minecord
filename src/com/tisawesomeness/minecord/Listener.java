@@ -47,7 +47,7 @@ public class Listener extends ListenerAdapter {
 			String[] args = null;
 			
 			//If the message is a valid command
-			String[] content = MessageUtils.getContent(m, false, e.getGuild().getIdLong());
+			String[] content = MessageUtils.getContent(m, e.getGuild().getIdLong());
 			if (content != null) {
 				
 				//Extract name and argument list

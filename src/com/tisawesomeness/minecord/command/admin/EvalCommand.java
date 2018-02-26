@@ -27,7 +27,7 @@ public class EvalCommand extends Command {
 			true,
 			true,
 			false
-			);
+		);
 	}
 
 	@Override
