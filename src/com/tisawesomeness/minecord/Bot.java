@@ -10,7 +10,7 @@ import org.discordbots.api.client.DiscordBotListAPI;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.database.WebServer;
+import com.tisawesomeness.minecord.database.VoteHandler;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
@@ -71,7 +71,7 @@ public class Bot {
 			ws = new Thread() {
 				public void run() {
 					try {
-						WebServer.init();
+						VoteHandler.init();
 					} catch (IOException ex) {
 						ex.printStackTrace();
 					}
