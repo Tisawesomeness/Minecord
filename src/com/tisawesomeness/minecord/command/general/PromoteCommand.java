@@ -35,7 +35,7 @@ public class PromoteCommand extends Command {
 		}
 
 		//Extract user
-		User user = DiscordUtils.findUser(e.getTextChannel(), args[0]);
+		User user = DiscordUtils.findUser(args[0]);
 		if (user == null) return new Result(Outcome.ERROR, ":x: Not a valid user!");
 		
 		//Don't elevate a normal user

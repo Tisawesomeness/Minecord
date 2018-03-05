@@ -80,9 +80,9 @@ public class DiscordUtils {
 		}
 	}
 	
-	public static User findUser(TextChannel c, String search) {
+	public static User findUser(String search) {
 		Matcher ma = Pattern.compile("(<@!?)?([0-9]{18})>?").matcher(search);
-		return ma.matches() ? c.getJDA().getUserById(ma.group(2)) : null;
+		return ma.matches() ? getUserById(ma.group(2)) : null;
 	}
 
 }
