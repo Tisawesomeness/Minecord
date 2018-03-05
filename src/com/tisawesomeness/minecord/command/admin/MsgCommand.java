@@ -4,6 +4,7 @@ import java.util.concurrent.ExecutionException;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -37,18 +38,8 @@ public class MsgCommand extends Command {
 		}
 		
 		//Extract user
-		User user = null;
-		if (args[0].matches(MessageUtils.mentionRegex)) {
-			user = e.getMessage().getMentionedUsers().get(0);
-			if (user.getId() == e.getJDA().getSelfUser().getId()) {
-				user = e.getMessage().getMentionedUsers().get(1);
-			}
-		} else if (args[0].matches(MessageUtils.idRegex)) {
-			user = e.getJDA().getUserById(args[0]);
-			if (user == null) return new Result(Outcome.ERROR, ":x: Not a valid user!");
-		} else {
-			return new Result(Outcome.ERROR, ":x: Not a valid user!");
-		}
+		User user = DiscordUtils.findUser(e.getTextChannel(), args[0]);
+		if (user == null) return new Result(Outcome.ERROR, ":x: Not a valid user!");
 		
 		//Send the message
 		String msg = null;

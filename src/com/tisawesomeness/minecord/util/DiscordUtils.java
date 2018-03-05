@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
@@ -76,6 +78,11 @@ public class DiscordUtils {
 				jda.getSelfUser().getManager().setName(Config.getName()).queue();
 			}
 		}
+	}
+	
+	public static User findUser(TextChannel c, String search) {
+		Matcher ma = Pattern.compile("(<@!?)?([0-9]{18})>?").matcher(search);
+		return ma.matches() ? c.getJDA().getUserById(ma.group(2)) : null;
 	}
 
 }
