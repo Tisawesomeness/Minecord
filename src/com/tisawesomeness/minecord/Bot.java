@@ -41,7 +41,7 @@ public class Bot {
 	
 	@SuppressWarnings("unchecked")
 	public static boolean setup(String[] args, boolean devMode) {
-		System.out.println("Bot starting.");
+		if (!devMode) System.out.println("Bot starting.");
 		
 		//Parse arguments
 		Bot.args = args;
@@ -49,7 +49,7 @@ public class Bot {
 		if (Config.getDevMode() && !devMode) return false;
 		boolean reload = false;
 		if (args.length > 0 && ArrayUtils.contains(args, "-r")) reload = true;
-
+		
 		//Pre-init
 		thread = Thread.currentThread();
 		listener = new Listener();
@@ -149,6 +149,14 @@ public class Bot {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+		}
+		
+		//Update info in MessageUtils
+		if (!Config.getOwner().equals("0")) {
+			MessageUtils.owner = DiscordUtils.getUserById(Config.getOwner());
+		}
+		if (!Config.getLogChannel().equals("0")) {
+			MessageUtils.logChannel = DiscordUtils.getTextChannelById(Config.getLogChannel());
 		}
 		
 		//Start discordbots.org API
