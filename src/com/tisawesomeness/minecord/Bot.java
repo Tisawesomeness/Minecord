@@ -1,18 +1,16 @@
 package com.tisawesomeness.minecord;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.discordbots.api.client.DiscordBotListAPI;
 
-import com.sun.net.httpserver.HttpServer;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.database.VoteHandler;
+import com.tisawesomeness.minecord.database.WebServer;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
@@ -73,10 +71,7 @@ public class Bot {
 			ws = new Thread() {
 				public void run() {
 					try {
-						HttpServer server = HttpServer.create(new InetSocketAddress(Config.getWebhookPort()), 0);
-						server.createContext("/" + Config.getWebhookURL(), new VoteHandler());
-						server.start();
-						System.out.println("Web server started.");
+						WebServer.init();
 					} catch (IOException ex) {
 						ex.printStackTrace();
 					}
