@@ -51,22 +51,16 @@ public class NameCommand extends Command {
 		}
 		
 		//Set the nickname
-		String name = Config.getName();
-		if (args.length > 1) {
-			name = String.join(" ", ArrayUtils.remove(args, 0));
-		}
+		String name = args.length > 1 ? String.join(" ", ArrayUtils.remove(args, 0)) : Config.getName();
 		guild.getController().setNickname(guild.getSelfMember(), name).queue();
 		
 		//Log it
 		EmbedBuilder eb = new EmbedBuilder();
 		eb.setAuthor(e.getAuthor().getName() + " (" + e.getAuthor().getId() + ")",
 			null, e.getAuthor().getAvatarUrl());
-		String desc = null;
-		if (args.length == 1) {
-			desc = "**Reset nickname on `" + guild.getName() + "` (" + guild.getId() + "):**";
-		} else {
-			desc = "**Changed nickname on `" + guild.getName() + "` (" + guild.getId() + "):**\n" + name;
-		}
+		String desc = args.length == 1 ? "**Reset" : "**Changed";
+		desc += " nickname on `" + guild.getName() + "` (" + guild.getId() + "):**";
+		if (args.length == 1) desc += "\n" + name;
 		eb.setDescription(desc);
 		eb.setThumbnail(guild.getIconUrl());
 		MessageUtils.log(eb.build());
