@@ -12,6 +12,7 @@ import com.tisawesomeness.minecord.database.Database;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 
 public class MessageUtils {
@@ -31,6 +32,9 @@ public class MessageUtils {
 		" | " + "`9:00 PM`" +
 		" | " + "`12/25/12 12:00 AM EST`" +
 		" | " + "`5:22 CST`";
+	
+	public static User owner;
+	public static TextChannel logChannel;
 	
 	/**
 	 * Formats a message to look more fancy using an embed. Pass null in any argument (except color) to remove that aspect of the message.
@@ -67,9 +71,8 @@ public class MessageUtils {
 	}
 	
 	public static EmbedBuilder addFooter(EmbedBuilder eb) {
-		User user = DiscordUtils.getUserById(Config.getOwner());
-		return eb.setFooter("Minecord " + Bot.getVersion() + " | Made with \u2764 by " + user.getName(),
-			user.getAvatarUrl());
+		return eb.setFooter("Minecord " + Bot.getVersion() + " | Made with \u2764 by " + owner.getName(),
+			owner.getAvatarUrl());
 	}
 	
 	/**
@@ -120,7 +123,7 @@ public class MessageUtils {
 	 */
 	public static void log(String m) {
 		if (!Config.getLogChannel().equals("0")) {
-			DiscordUtils.getTextChannelById(Config.getLogChannel()).sendMessage(m).queue();
+			logChannel.sendMessage(m).queue();
 		}
 	}
 	/**
@@ -128,7 +131,7 @@ public class MessageUtils {
 	 */
 	public static void log(Message m) {
 		if (!Config.getLogChannel().equals("0")) {
-			DiscordUtils.getTextChannelById(Config.getLogChannel()).sendMessage(m).queue();
+			logChannel.sendMessage(m).queue();
 		}
 	}
 	/**
@@ -138,7 +141,7 @@ public class MessageUtils {
 		if (!Config.getLogChannel().equals("0")) {
 			EmbedBuilder eb = new EmbedBuilder(m);
 			eb.setTimestamp(OffsetDateTime.now());
-			DiscordUtils.getTextChannelById(Config.getLogChannel()).sendMessage(eb.build()).queue();
+			logChannel.sendMessage(eb.build()).queue();
 		}
 	}
 	
