@@ -36,14 +36,8 @@ public class SayCommand extends Command {
 		}
 		
 		//Extract channel
-		TextChannel channel = null;
-		if (args[0].matches(MessageUtils.channelRegex)) {
-			channel = e.getMessage().getMentionedChannels().get(0);
-		} else if (args[0].matches(MessageUtils.idRegex)) {
-			channel = DiscordUtils.getTextChannelById(args[0]);
-		} else {
-			return new Result(Outcome.ERROR, ":x: Not a valid channel!");
-		}
+		TextChannel channel = DiscordUtils.findChannel(args[0]);
+		if (channel == null) return new Result(Outcome.ERROR, ":x: Not a valid channel!");
 		
 		//Send the message
 		String msg = String.join(" ", ArrayUtils.remove(args, 0));

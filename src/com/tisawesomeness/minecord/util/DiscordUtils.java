@@ -84,5 +84,10 @@ public class DiscordUtils {
 		Matcher ma = Pattern.compile("(<@!?)?([0-9]{18})>?").matcher(search);
 		return ma.matches() ? getUserById(ma.group(2)) : null;
 	}
+	
+	public static TextChannel findChannel(String search) {
+		Matcher ma = Pattern.compile("(<#)?([0-9]{18})>?").matcher(search);
+		return ma.matches() ? getTextChannelById(ma.group(2)) : null;
+	}
 
 }
