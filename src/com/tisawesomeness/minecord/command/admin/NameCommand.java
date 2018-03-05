@@ -38,12 +38,8 @@ public class NameCommand extends Command {
 		}
 		
 		//Get guild
-		Guild guild = null;
-		if (args[0].matches(MessageUtils.idRegex)) {
-			guild = DiscordUtils.getGuildById(args[0]);
-		} else {
-			return new Result(Outcome.ERROR, ":x: Not a valid guild!");
-		}
+		Guild guild = DiscordUtils.getGuildById(args[0]);
+		if (guild == null) return new Result(Outcome.ERROR, ":x: Not a valid guild!");
 		
 		//Check for permissions
 		if (!guild.getSelfMember().hasPermission(Permission.NICKNAME_CHANGE)) {
