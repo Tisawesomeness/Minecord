@@ -38,7 +38,7 @@ public class MsgCommand extends Command {
 		}
 		
 		//Extract user
-		User user = DiscordUtils.findUser(e.getTextChannel(), args[0]);
+		User user = DiscordUtils.findUser(args[0]);
 		if (user == null) return new Result(Outcome.ERROR, ":x: Not a valid user!");
 		
 		//Send the message
