@@ -11,7 +11,7 @@ import com.tisawesomeness.minecord.Config;
 
 public class Database {
 	
-	private static Connection connect = null;
+	private static Connection connect;
 	private static HashMap<Long, DbGuild> guilds = new HashMap<Long, DbGuild>();
 	private static HashMap<Long, DbUser> users = new HashMap<Long, DbUser>();
 	private static int goal = 0;
@@ -61,7 +61,7 @@ public class Database {
 			"  last INT NOT NULL);"
 		);
 		
-		replaceElevated(Long.valueOf(Config.getOwner()), true); //Add owner to elevated
+		changeElevated(Long.valueOf(Config.getOwner()), true); //Add owner to elevated
 		
 		//Import guild list
 		ResultSet rs = connect.createStatement().executeQuery(
@@ -106,31 +106,12 @@ public class Database {
 		
 	}
 	
-	public static void changePrefix(long id, String prefix) throws SQLException {
-		
-		if (prefix.equals(Config.getPrefix())) { //If prefix is being reset to default
-			//If guild is in database, has not been banned, has cooldown, and has not changed lang
-			PreparedStatement st = connect.prepareStatement(
-				"SELECT lang, banned, noCooldown FROM guild WHERE id = ?;"
-			);
-			st.setLong(1, id);
-			ResultSet rs = st.executeQuery();
-			if (rs.next() && !rs.getString(1).equals("enUS") && !rs.getBoolean(2) && !rs.getBoolean(3)) {
-				//Delete guild
-				st = connect.prepareStatement(
-					"DELETE FROM guild WHERE id = ?;"
-				);
-				st.setLong(1, id);
-				st.executeUpdate();
-				guilds.remove(id); //Mirror change locally
-				return;
-			}
-		}
-		replacePrefix(id, prefix); //Update guild with new prefix
-		
+	public static void close() throws SQLException {
+		if (connect != null) connect.close();
 	}
 	
-	private static void replacePrefix(long id, String prefix) throws SQLException {
+	public static void changePrefix(long id, String prefix) throws SQLException {
+		
 		PreparedStatement st = connect.prepareStatement(
 			"REPLACE INTO guild (id, prefix, lang, banned, noCooldown) VALUES(?, ?, " +
 			"COALESCE((SELECT lang FROM (SELECT * FROM guild) AS temp WHERE id=?), 'enUS'), " +
@@ -145,48 +126,64 @@ public class Database {
 		st.executeUpdate();
 
 		//Mirror change in local guild list
-		DbGuild g = getGuild(id);
+		DbGuild g = guilds.get(id);
 		if (g == null) {
 			guilds.put(id, new DbGuild(id, prefix, "enUS", false, false));
 		} else {
 			g.prefix = prefix;
 		}
+		
+		//Delete guild if it contains only default values
+		if (prefix.equals(Config.getPrefix())) {
+			st = connect.prepareStatement(
+				"DELETE FROM guild WHERE lang='enUS' AND banned=0 AND noCooldown=0;"
+			);
+			if (st.executeUpdate() > 0) guilds.remove(id);
+		}
+		
 	}
 	
 	public static String getPrefix(long id) {
-		DbGuild guild = getGuild(id);
+		DbGuild guild = guilds.get(id);
 		return guild == null ? Config.getPrefix() : guild.prefix;
 	}
 	
-	public static DbGuild getGuild(long id) {
-		return guilds.get(id);
+	public static void changeBannedGuild(long id, boolean banned) throws SQLException {
+		
+		PreparedStatement st = connect.prepareStatement(
+			"REPLACE INTO guild (id, prefix, lang, banned, noCooldown) VALUES(?, " +
+			"COALESCE((SELECT prefix FROM (SELECT * FROM guild) AS temp WHERE id=?), 0), " +
+			"COALESCE((SELECT lang FROM (SELECT * FROM guild) AS temp WHERE id=?), 'enUS'), ?, " +
+			"COALESCE((SELECT noCooldown FROM (SELECT * FROM guild) AS temp WHERE id=?), 0));"
+		);
+		st.setLong(1, id);
+		st.setLong(2, id);
+		st.setLong(3, id);
+		st.setBoolean(4, banned);
+		st.setLong(5, id);
+		st.executeUpdate();
+		
+		//Mirror change in local user list
+		DbGuild g = guilds.get(id);
+		if (g == null) {
+			guilds.put(id, new DbGuild(id, Config.getPrefix(), "enUS", banned, false));
+		} else {
+			g.banned = banned;
+		}
+		
+		//Delete guild if it contains only default values
+		if (!banned) {
+			st = connect.prepareStatement(
+				"DELETE FROM guild WHERE prefix=? AND lang='enUS' AND noCooldown=0;"
+			);
+			st.setString(1, Config.getPrefix());
+			if (st.executeUpdate() > 0) guilds.remove(id);
+		}
+		
 	}
 	
 	public static void changeElevated(long id, boolean elevated) throws SQLException {
 		
-		if (!elevated) { //If demoting
-			//If user is in database, has not been banned, and has not upvoted
-			PreparedStatement st = connect.prepareStatement(
-				"SELECT banned FROM user WHERE id = ?;"
-			);
-			st.setLong(1, id);
-			ResultSet rs = st.executeQuery();
-			if (rs.next() && !rs.getBoolean(1)) {
-				//Delete user
-				st = connect.prepareStatement(
-					"DELETE FROM user WHERE id = ?;"
-				);
-				st.setLong(1, id);
-				st.executeUpdate();
-				users.remove(id); //Mirror change locally
-				return;
-			}
-		}
-		replaceElevated(id, elevated); //Update elevation
-		
-	}
-	
-	private static void replaceElevated(long id, boolean elevated) throws SQLException {
 		PreparedStatement st = connect.prepareStatement(
 			"REPLACE INTO user (id, elevated, banned) VALUES(?, ?, " +
 			"COALESCE((SELECT banned FROM (SELECT * FROM user) AS temp WHERE id=?), 0));"
@@ -197,21 +194,62 @@ public class Database {
 		st.executeUpdate();
 		
 		//Mirror change in local user list
-		DbUser u = getUser(id);
+		DbUser u = users.get(id);
 		if (u == null) {
 			users.put(id, new DbUser(id, elevated, false));
 		} else {
 			u.elevated = elevated;
 		}
+		
+		//Delete user if it contains only default values
+		if (!elevated) {
+			st = connect.prepareStatement(
+				"DELETE FROM user WHERE banned=0;"
+			);
+			if (st.executeUpdate() > 0) guilds.remove(id);
+		}
+		
 	}
 	
 	public static boolean isElevated(long id) {
-		DbUser user = getUser(id);
+		DbUser user = users.get(id);
 		return user == null ? false : user.elevated;
 	}
 	
-	public static DbUser getUser(long id) {
-		return users.get(id);
+	public static void changeBannedUser(long id, boolean banned) throws SQLException {
+		
+		PreparedStatement st = connect.prepareStatement(
+			"REPLACE INTO user (id, elevated, banned) VALUES(?, " +
+			"COALESCE((SELECT banned FROM (SELECT * FROM user) AS temp WHERE id=?), 0), ?);"
+		);
+		st.setLong(1, id);
+		st.setLong(2, id);
+		st.setBoolean(3, banned);
+		st.executeUpdate();
+		
+		//Mirror change in local user list
+		DbUser u = users.get(id);
+		if (u == null) {
+			users.put(id, new DbUser(id, false, banned));
+		} else {
+			u.banned = banned;
+		}
+		
+		//Delete user if it contains only default values
+		if (!banned) {
+			st = connect.prepareStatement(
+				"DELETE FROM user WHERE elevated=0;"
+			);
+			if (st.executeUpdate() > 0) users.remove(id);
+		}
+		
+	}
+	
+	public static boolean isBanned(long id) {
+		DbGuild guild = guilds.get(id);
+		if (guild != null) return guild.banned;
+		DbUser user = users.get(id);
+		return user == null ? false : user.banned;
 	}
 	
 	public static int getGoal() {return goal;}
