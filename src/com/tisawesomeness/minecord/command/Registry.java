@@ -39,6 +39,7 @@ public class Registry {
 		new UsageCommand(),
 		new PromoteCommand(),
 		new DemoteCommand(),
+		new BanCommand(),
 		new ReloadCommand(),
 		new ShutdownCommand(),
 		new EvalCommand(),
