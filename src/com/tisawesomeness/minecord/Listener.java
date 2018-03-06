@@ -38,10 +38,10 @@ public class Listener extends ListenerAdapter {
 		if (e.getChannelType() == ChannelType.TEXT) {
 			Message m = e.getMessage();
 			
-			//If commands are disabled, the message is null, or the sender is a bot, return
-			if (!Registry.enabled || m == null || m.getAuthor().isBot()) {
-				return;
-			}
+			//Check if message can be acted upon
+			if (!Registry.enabled || m == null) return;
+			User a = m.getAuthor();
+			if (a.isBot() || Database.isBanned(a.getIdLong()) || Database.isBanned(e.getGuild().getIdLong())) return;
 			
 			String name = null;
 			String[] args = null;
@@ -60,8 +60,7 @@ public class Listener extends ListenerAdapter {
 				
 				//Send the message to the logging channel
 				EmbedBuilder eb = new EmbedBuilder();
-				eb.setAuthor(e.getAuthor().getName() + " (" + e.getAuthor().getId() + ")",
-					null, e.getAuthor().getEffectiveAvatarUrl());
+				eb.setAuthor(a.getName() + " (" + a.getId() + ")", null, a.getEffectiveAvatarUrl());
 				eb.setDescription("**`" + e.getGuild().getName() + "`** (" +
 					e.getGuild().getId() + ") in channel `" + e.getChannel().getName() +
 					"` (" + e.getChannel().getId() + ")\n" + m.getContentDisplay());
@@ -74,9 +73,7 @@ public class Listener extends ListenerAdapter {
 			}
 			
 			//If the command has not been registered
-			if (!Registry.commandMap.containsKey(name)) {
-				return;
-			}
+			if (!Registry.commandMap.containsKey(name)) return;
 			
 			TextChannel c = e.getTextChannel();
 			
@@ -90,7 +87,6 @@ public class Listener extends ListenerAdapter {
 			CommandInfo ci = cmd.getInfo();
 
 			//Check for elevation
-			User a = e.getAuthor();
 			if (ci.elevated && !Database.isElevated(a.getIdLong())) {
 				c.sendMessage(":warning: Insufficient permissions!").queue();
 				return;
