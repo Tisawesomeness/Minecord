@@ -1,8 +1,13 @@
 package com.tisawesomeness.minecord.command.admin;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.database.VoteHandler;
 
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -31,8 +36,17 @@ public class ReloadCommand extends Command {
 			Message m = e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
 			Bot.shutdown(m, e.getAuthor());
 		} else {
-			e.getChannel().sendMessage(":white_check_mark: Reloaded config.").queue();
+			Message m = e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
 			Config.read(true);
+			try {
+				Database.close();
+				Database.init();
+				VoteHandler.close();
+				VoteHandler.init();
+			} catch (SQLException | IOException ex) {
+				ex.printStackTrace();
+			}
+			m.editMessage(":white_check_mark: Reloaded!").queue();
 		}
 		
 		return new Result(Outcome.SUCCESS);
