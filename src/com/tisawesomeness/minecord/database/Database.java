@@ -14,7 +14,6 @@ public class Database {
 	private static Connection connect;
 	private static HashMap<Long, DbGuild> guilds = new HashMap<Long, DbGuild>();
 	private static HashMap<Long, DbUser> users = new HashMap<Long, DbUser>();
-	private static int goal = 0;
 	
 	public static void init() throws SQLException {
 		
@@ -55,11 +54,6 @@ public class Database {
 			"  banned TINYINT(1) NOT NULL DEFAULT 0," +
 			"  PRIMARY KEY (id));"
 		);
-		connect.createStatement().executeUpdate(
-			"CREATE TABLE IF NOT EXISTS goal (" +
-			"  id INT NOT NULL," +
-			"  last INT NOT NULL);"
-		);
 		
 		changeElevated(Long.valueOf(Config.getOwner()), true); //Add owner to elevated
 		
@@ -92,15 +86,6 @@ public class Database {
 			));
 		}
 		rs.close();
-		
-		//Import current goal
-		rs = connect.createStatement().executeQuery(
-			"SELECT last FROM goal;"
-		);
-		while (rs.next()) {
-			int latest = rs.getInt(1);
-			if (latest > goal) goal = latest;
-		}
 		
 		System.out.println("Database connected.");
 		
@@ -251,7 +236,5 @@ public class Database {
 		DbUser user = users.get(id);
 		return user == null ? false : user.banned;
 	}
-	
-	public static int getGoal() {return goal;}
 
 }
