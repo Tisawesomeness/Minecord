@@ -34,6 +34,7 @@ public class Config {
 	private static boolean receiveVotes;
 	private static String webhookURL;
 	private static int webhookPort;
+	private static String webhookAuth;
 	
 	private static String type;
 	private static String host;
@@ -102,6 +103,7 @@ public class Config {
 			receiveVotes = botLists.getBoolean("receiveVotes");
 			webhookURL = botLists.getString("webhookURL");
 			webhookPort = botLists.getInt("webhookPort");
+			webhookAuth = botLists.getString("webhookAuth");
 			
 			JSONObject database = config.getJSONObject("database");
 			type = database.getString("type");
@@ -140,6 +142,7 @@ public class Config {
 	public static boolean getReceiveVotes() {return receiveVotes;}
 	public static String getWebhookURL() {return webhookURL;}
 	public static int getWebhookPort() {return webhookPort;}
+	public static String getWebhookAuth() {return webhookAuth;}
 	
 	public static String getType() {return type;}
 	public static String getHost() {return host;}
