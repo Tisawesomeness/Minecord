@@ -3,10 +3,15 @@ package com.tisawesomeness.minecord;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.tisawesomeness.minecord.util.MessageUtils;
 
 public class Config {
 
@@ -42,6 +47,8 @@ public class Config {
 	private static String dbName;
 	private static String user;
 	private static String pass;
+	
+	private static List<Announcement> announcements;
 
 	public static void read(boolean reload) {
 		
@@ -64,7 +71,7 @@ public class Config {
 		}
 		
 		//Parse config path
-		String path = "./config.json";
+		String path = ".";
 		if (Bot.args.length > 1 && ArrayUtils.contains(Bot.args, "-c")) {
 			int index = ArrayUtils.indexOf(Bot.args, "-c");
 			if (index + 1 < Bot.args.length) {
@@ -72,10 +79,10 @@ public class Config {
 				System.out.println("Found custom config path: " + path);
 			}
 		}
-		
+
+		//Parse config JSON
 		try {
-			//Parse config JSON
-			JSONObject config = new JSONObject(new String(Files.readAllBytes(Paths.get(path)), "UTF-8"));
+			JSONObject config = new JSONObject(new String(Files.readAllBytes(Paths.get(path + "/config.json"))));
 			if (clientToken == null) clientToken = config.getString("clientToken");
 			shardCount = config.getInt("shardCount");
 			if (shardCount < 1) shardCount = 1;
@@ -113,9 +120,31 @@ public class Config {
 			user = database.getString("user");
 			pass = database.getString("pass");
 			
-		} catch (JSONException | IOException e) {
-			e.printStackTrace();
+			//Announcements
+			announcements = new ArrayList<Announcement>();
+			MessageUtils.totalChance = 0;
+			JSONArray announce = new JSONArray(new String(Files.readAllBytes(Paths.get(path + "/announce.json"))));
+			for (Object o : announce) {
+				JSONObject jo = (JSONObject) o;
+				announcements.add(new Announcement(jo.getString("text"), jo.getInt("chance")));
+				MessageUtils.totalChance += jo.getInt("chance");
+			}
+			
+		} catch (JSONException | IOException ex) {
+			ex.printStackTrace();
 		}
+		
+	}
+	
+	public static class Announcement {
+		private String text;
+		private int chance;
+		public Announcement(String text, int chance) {
+			this.text = text;
+			this.chance = chance;
+		}
+		public String getText() {return text;}
+		public int getChance() {return chance;}
 	}
 
 	protected static String getClientToken() {return clientToken;}
@@ -150,5 +179,7 @@ public class Config {
 	public static String getDbName() {return dbName;}
 	public static String getUser() {return user;}
 	public static String getPass() {return pass;}
+	
+	public static List<Announcement> getAnnouncements() {return announcements;}
 	
 }

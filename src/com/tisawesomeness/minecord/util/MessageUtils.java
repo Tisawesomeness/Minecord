@@ -31,6 +31,7 @@ public class MessageUtils {
 	
 	public static User owner;
 	public static TextChannel logChannel;
+	public static int totalChance;
 	
 	/**
 	 * Formats a message to look more fancy using an embed. Pass null in any argument (except color) to remove that aspect of the message.
@@ -67,8 +68,13 @@ public class MessageUtils {
 	}
 	
 	public static EmbedBuilder addFooter(EmbedBuilder eb) {
-		return eb.setFooter("Minecord " + Bot.getVersion() + " | Made with \u2764 by " + owner.getName(),
-			owner.getAvatarUrl());
+		int rand = (int) (Math.random() * MessageUtils.totalChance);
+		int i = -1;
+		while (rand >= 0) {
+			i++;
+			rand -= Config.getAnnouncements().get(i).getChance();
+		}
+		return eb.setFooter(Config.getAnnouncements().get(i).getText(), owner.getAvatarUrl());
 	}
 	
 	/**
