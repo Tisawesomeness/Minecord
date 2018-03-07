@@ -90,7 +90,8 @@ A robust Discord bot using the JDA library for various Minecraft functions.
         "orgToken": "your token here",
         "receiveVotes": false,
         "webhookURL": "sample",
-        "webhookPort": 8000
+        "webhookPort": 8000,
+        "webhookAuth": "auth here"
     },
     "database": {
         "type": "sqlite",

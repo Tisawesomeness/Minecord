@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.database;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import org.json.JSONObject;
@@ -25,10 +26,15 @@ public class VoteHandler {
 		server.createContext("/" + Config.getWebhookURL(), new HttpHandler() {
 			
 			private static final String response = "OK";
+			
 			@Override
 			public void handle(HttpExchange t) throws IOException {
 				
-				if ("POST".equals(t.getRequestMethod())) {
+				//Check if request is a POST request and the authorization is correct
+				if ("POST".equals(t.getRequestMethod())
+						&& t.getRequestHeaders().getOrDefault("Authorization", Arrays.asList("N/A"))
+						.get(0).equals(Config.getWebhookAuth())) {
+					
 					//Get post body
 					Scanner scanner = new Scanner(t.getRequestBody());
 					String body = scanner.useDelimiter("\\A").next();
