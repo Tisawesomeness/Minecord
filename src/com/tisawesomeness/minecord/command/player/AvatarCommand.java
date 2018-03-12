@@ -83,7 +83,7 @@ public class AvatarCommand extends Command {
 		}
 
 		//Fetch avatar
-		String url = "https://crafatar.com/avatars/" + player + ".png";
+		String url = "https://crafatar.com/avatars/" + player.replaceAll("-", "") + ".png";
 		if (overlay) {url = url + "?overlay";}
 		url = RequestUtils.checkPngExtension(url);
 		if (url == null) {

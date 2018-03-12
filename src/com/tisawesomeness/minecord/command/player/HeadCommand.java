@@ -83,7 +83,7 @@ public class HeadCommand extends Command {
 		}
 
 		//Fetch head
-		String url = "https://crafatar.com/renders/head/" + player;
+		String url = "https://crafatar.com/renders/head/" + player.replaceAll("-", "");
 		if (overlay) {url = url + "?overlay";}
 		url = RequestUtils.checkPngExtension(url);
 		if (url == null) {

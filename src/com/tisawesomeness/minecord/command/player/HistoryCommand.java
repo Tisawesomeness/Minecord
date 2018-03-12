@@ -75,7 +75,7 @@ public class HistoryCommand extends Command {
 		}
 
 		//Fetch name history
-		String url = "https://api.mojang.com/user/profiles/" + player + "/names";
+		String url = "https://api.mojang.com/user/profiles/" + player.replaceAll("-", "") + "/names";
 		String request = RequestUtils.get(url);
 		if (request == null) {
 			return new Result(Outcome.ERROR, ":x: The Mojang API could not be reached.");
