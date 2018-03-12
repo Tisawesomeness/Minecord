@@ -76,7 +76,7 @@ public class SkinCommand extends Command {
 		}
 
 		//Fetch skin
-		String url = "https://crafatar.com/skins/" + player + ".png";
+		String url = "https://crafatar.com/skins/" + player.replaceAll("-", "") + ".png";
 		url = RequestUtils.checkPngExtension(url);
 		if (url == null) {
 			if ((UUID.fromString(NameUtils.formatUUID(player)).hashCode() & 1) != 0) {
