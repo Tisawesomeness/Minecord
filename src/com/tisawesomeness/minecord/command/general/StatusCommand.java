@@ -63,15 +63,13 @@ public class StatusCommand extends Command {
 		
 		//Build message
 		String m = "**Minecraft:** " + responses.get(0) +
-			"\n" + "**Skins:** " + responses.get(4) +
-			"\n" + "**Textures:** " + responses.get(8) +
-			"\n" + "**Session:** " + responses.get(1) +
-			"\n" + "**Session Server:** " + responses.get(6) +
 			"\n" + "**Accounts:** " + responses.get(2) +
-			"\n" + "**Auth:** " + responses.get(3) +
-			"\n" + "**Auth Server:** " + responses.get(5) +
-			"\n" + "**Mojang:** " + responses.get(9) +
-			"\n" + "**Mojang API:** " + responses.get(7);
+			"\n" + "**Textures:** " + responses.get(6) +
+			"\n" + "**Session:** " + responses.get(1) +
+			"\n" + "**Session Server:** " + responses.get(4) +
+			"\n" + "**Auth Server:** " + responses.get(3) +
+			"\n" + "**Mojang:** " + responses.get(7) +
+			"\n" + "**Mojang API:** " + responses.get(5);
 		
 		MessageEmbed me = MessageUtils.embedMessage("Minecraft Status", null, m, color);
 		
