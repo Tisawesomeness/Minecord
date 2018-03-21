@@ -45,8 +45,7 @@ public class ServerCommand extends Command {
 		}
 		
 		//Send a request to MCAPI
-		String url = "https://use.gameapis.net/mc/query/info/" + arg;
-		String request = RequestUtils.get(url);
+		String request = RequestUtils.get("https://use.gameapis.net/mc/query/info/" + arg);
 		if (request == null) {
 			return new Result(Outcome.ERROR, ":x: The MCAPI could not be reached.");
 		}
@@ -55,9 +54,8 @@ public class ServerCommand extends Command {
 		JSONObject server = new JSONObject(request);
 		boolean status = server.getBoolean("status");
 		if (!status) {
-			String error = server.getString("error");
 			String m = ":x: A connection error occured: " +
-					"\n" + "`" + error + "`" +
+					"\n" + "`" + server.getString("error") + "`" +
 					"\n" + "The server may be offline, nonexistent, or cannot be contacted." +
 					"\n" + "Did you type the IP correctly? For example," +
 					"\n" + "Use `mc.hypixel.net` instead of `hypixel.net`";
@@ -73,7 +71,7 @@ public class ServerCommand extends Command {
 		int max = players.getInt("max");
 		JSONObject motds = server.getJSONObject("motds");
 		String motd = motds.getString("clean");
-
+		
 		String address = hostname + ":" + port;
 		version = clean(version).replaceAll(chatCodeRegex, "");
 		String playerInfo = online + "/" + max;
@@ -83,7 +81,7 @@ public class ServerCommand extends Command {
 			"\n" + "**Version:** " + version +
 			"\n" + "**Players:** " + playerInfo +
 			"\n" + "**MOTD:** " + motd;
-		String thumb = "https://mcapi.ca/query/icon/" + arg;
+		String thumb = "https://use.gameapis.net/mc/query/icon/" + arg;
 		
 		MessageEmbed me = MessageUtils.embedMessage("Server Status", null, m, Color.GREEN);
 		
