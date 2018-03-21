@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.command.general;
+package com.tisawesomeness.minecord.command.utility;
 
 import java.awt.Color;
 import java.text.DecimalFormat;
