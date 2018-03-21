@@ -15,11 +15,11 @@ public class Registry {
 		new HelpCommand(),
 		new InfoCommand(),
 		new InviteCommand(),
-		new StatusCommand(),
-		new SalesCommand(),
 		new PurgeCommand(),
 		new PrefixCommand(),
 		new Text("\n**Utility Commands:**"),
+		new StatusCommand(),
+		new SalesCommand(),
 		new CodesCommand(),
 		new ServerCommand(),
 		new ItemCommand(),
@@ -49,24 +49,16 @@ public class Registry {
 	public static boolean enabled = false;
 	
 	public static void init() {
-
-		//Map aliases to commands
-		commandMap = new TreeMap<String, Command>(String.CASE_INSENSITIVE_ORDER);
+		commandMap = new TreeMap<String, Command>(String.CASE_INSENSITIVE_ORDER); //Map aliases to commands
 		for (int i = 0; i < commands.length; i++) {
-			
 			//Add command to map
 			Command c = commands[i];
-			if (c == null) {continue;}
-			CommandInfo ci = c.getInfo();
-			commandMap.put(ci.name, c);
-			
-			//Add aliases
-			for (String alias : ci.aliases) {
-				commandMap.put(alias, c);
+			if (c != null) {
+				CommandInfo ci = c.getInfo();
+				commandMap.put(ci.name, c);
+				for (String alias : ci.aliases) commandMap.put(alias, c); //Add aliases
 			}
-			
 		}
-		
 	}
 
 }
