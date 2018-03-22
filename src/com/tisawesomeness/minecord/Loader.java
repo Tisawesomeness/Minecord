@@ -23,7 +23,7 @@ public class Loader implements Runnable {
 		
 		//Dynamically start a new bot
 		dl = new DynamicLoader(Main.cl);
-		if (propagate)Thread.currentThread().setContextClassLoader(dl);
+		if (propagate) Thread.currentThread().setContextClassLoader(dl);
 		Class<?> clazz = dl.loadClass(botClass);
 		try {
 			clazz.getMethods()[1].invoke(null, (Object) args, (Object) true);
