@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -82,26 +83,21 @@ public class Bot {
 		
 		//Fetch main class
 		try {
-			Class<?> main = null;
 			if (Config.getDevMode()) {
 				@SuppressWarnings("static-access")
 				Class<?> clazz = Thread.currentThread().getContextClassLoader().getSystemClassLoader()
 					.loadClass(mainClass);
-				main = clazz;
+				MethodName.clazz = clazz;
 			}
 			
 			//If this is a reload
 			if (reload && Config.getDevMode()) {
 				
 				//Get main class info
-				Object mo = main.getDeclaredMethods()[MethodName.GET_MESSAGE.num].invoke(null, "ignore");
-				Message m = (Message) mo;
-				Object uo = main.getDeclaredMethods()[MethodName.GET_USER.num].invoke(null, "ignore");
-				User u = (User) uo;
-				Object so = main.getDeclaredMethods()[MethodName.GET_SHARDS.num].invoke(null, "ignore");
-				shards = (ArrayList<JDA>) so;
-				Object bo = main.getDeclaredMethods()[MethodName.GET_BIRTH.num].invoke(null, "ignore");
-				birth = (long) bo;
+				Message m = (Message) MethodName.GET_MESSAGE.method().invoke(null, "ignore");
+				User u = (User) MethodName.GET_USER.method().invoke(null, "ignore");
+				shards = (ArrayList<JDA>) MethodName.GET_SHARDS.method().invoke(null, "ignore");
+				birth = (long) MethodName.GET_BIRTH.method().invoke(null, "ignore");
 				//Prepare commands
 				for (JDA jda : shards) {
 					jda.addEventListener(listener);
@@ -136,8 +132,8 @@ public class Bot {
 				//Update main class
 				birth = System.currentTimeMillis();
 				if (Config.getDevMode()) {
-					main.getDeclaredMethods()[MethodName.SET_SHARDS.num].invoke(null, shards);
-					main.getDeclaredMethods()[MethodName.SET_BIRTH.num].invoke(null, birth);
+					MethodName.SET_SHARDS.method().invoke(null, shards);
+					MethodName.SET_BIRTH.method().invoke(null, birth);
 				}
 				MessageUtils.log(":white_check_mark: **Bot started!**");
 				
@@ -185,13 +181,11 @@ public class Bot {
 		}
 		try {
 			//Reload this class using reflection
-			Class<?> main = Thread.currentThread().getContextClassLoader().getSystemClassLoader()
-				.loadClass(mainClass);
 			String[] args = new String[]{"-r"};
 			ArrayUtils.addAll(args, Bot.args);
-			main.getDeclaredMethods()[MethodName.SET_MESSAGE.num].invoke(null, m);
-			main.getDeclaredMethods()[MethodName.SET_USER.num].invoke(null, u);
-			main.getDeclaredMethods()[MethodName.LOAD.num].invoke(null, (Object) args);
+			MethodName.SET_MESSAGE.method().invoke(null, m);
+			MethodName.SET_USER.method().invoke(null, u);
+			MethodName.LOAD.method().invoke(null, (Object) args);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -207,20 +201,28 @@ public class Bot {
 	
 	//Helps with reflection
 	private enum MethodName {
-		MAIN(0),
-		LOAD(1),
-		GET_MESSAGE(2),
-		SET_MESSAGE(3),
-		GET_USER(4),
-		SET_USER(5),
-		GET_SHARDS(6),
-		SET_SHARDS(7),
-		GET_BIRTH(8),
-		SET_BIRTH(9);
+		MAIN("main"),
+		LOAD("load"),
+		GET_MESSAGE("getMessage"),
+		SET_MESSAGE("setMessage"),
+		GET_USER("getUser"),
+		SET_USER("setUser"),
+		GET_SHARDS("getShards"),
+		SET_SHARDS("setShards"),
+		GET_BIRTH("getBirth"),
+		SET_BIRTH("setBirth");
 		
-		int num;
-		private MethodName(int num) {
-			this.num = num;
+		private String name;
+		private MethodName(String name) {
+			this.name = name;
+		}
+		
+		public static Class<?> clazz;
+		public Method method() {
+			for (Method m : clazz.getDeclaredMethods()) {
+				if (m.getName().equals(name)) return m;
+			}
+			return null;
 		}
 	}
 

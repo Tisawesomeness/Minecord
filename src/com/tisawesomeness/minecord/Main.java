@@ -46,7 +46,7 @@ public class Main {
 	public static ArrayList<JDA> getShards(String ignore) {
 		return shards;
 	}
-	public static void setJDA(ArrayList<JDA> s) {
+	public static void setShards(ArrayList<JDA> s) {
 		shards = s;
 	}
 	public static long getBirth(String ignore) {
