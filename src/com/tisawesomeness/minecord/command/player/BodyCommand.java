@@ -10,7 +10,6 @@ import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
-import com.tisawesomeness.minecord.util.RequestUtils;
 
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
@@ -53,7 +52,8 @@ public class BodyCommand extends Command {
 			args = ArrayUtils.remove(args, index);
 		}
 
-		String player = args[0];	
+		String player = args[0];
+		String param = player;
 		if (!player.matches(NameUtils.uuidRegex)) {
 			String uuid = null;
 			
@@ -81,30 +81,18 @@ public class BodyCommand extends Command {
 				return new Result(Outcome.ERROR, m, 3);
 			}
 			
-			player = uuid;
+			param = uuid;
 		}
 
 		//Fetch body
-		String url = "https://crafatar.com/renders/body/" + player.replaceAll("-", "");
-		if (overlay) {url = url + "?overlay";}
-		url = RequestUtils.checkPngExtension(url);
-		if (url == null) {
-			MessageUtils.log("Error embedding image." +
-				"\n" + "Command: `" + e.getMessage().getContentDisplay() + "`" +
-				"\n" + "UUID: `" + player + "`"
-			);
-			return new Result(Outcome.ERROR, ":x: There was an error embedding the image.");
-		}
+		String url = "https://crafatar.com/renders/body/" + param.replaceAll("-", "") + ".png";
+		if (overlay) url += "?overlay";
 		
 		//PROPER APOSTROPHE GRAMMAR THANK THE LORD
-		player = args[0];
-		if (player.endsWith("s")) {
-			player = player + "' Body";
-		} else {
-			player = player + "'s Body";
-		}
+		player += player.endsWith("s") ? "' Body" : "'s Body";
 		
 		MessageEmbed me = MessageUtils.embedImage(player, url, Color.GREEN);
+		new EmbedBuilder(me).setImage(url);
 		
 		return new Result(Outcome.SUCCESS, new EmbedBuilder(me).build());
 	}
