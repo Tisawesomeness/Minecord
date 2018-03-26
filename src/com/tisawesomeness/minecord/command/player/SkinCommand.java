@@ -1,9 +1,7 @@
 package com.tisawesomeness.minecord.command.player;
 
-import java.awt.Color;
+import java.io.IOException;
 import java.util.Arrays;
-import java.util.UUID;
-
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DateUtils;
@@ -11,8 +9,6 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 public class SkinCommand extends Command {
@@ -44,7 +40,8 @@ public class SkinCommand extends Command {
 			return new Result(Outcome.WARNING, m, 5);
 		}
 
-		String player = args[0];	
+		String player = args[0];
+		String param = player;
 		if (!player.matches(NameUtils.uuidRegex)) {
 			String uuid = null;
 			
@@ -72,31 +69,18 @@ public class SkinCommand extends Command {
 				return new Result(Outcome.ERROR, m, 3);
 			}
 			
-			player = uuid;
+			param = uuid;
 		}
 
 		//Fetch skin
-		String url = "https://crafatar.com/skins/" + player.replaceAll("-", "") + ".png";
-		url = RequestUtils.checkPngExtension(url);
-		if (url == null) {
-			if ((UUID.fromString(NameUtils.formatUUID(player)).hashCode() & 1) != 0) {
-				url = alex;
-			} else {
-				url = steve;
-			}
+		String url = "https://crafatar.com/skins/" + param.replaceAll("-", "");
+		try {
+			e.getTextChannel().sendFile(RequestUtils.downloadImage(url), "skin.png").queue();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			return new Result(Outcome.ERROR, ":x: Could not download image.");
 		}
-		
-		//PROPER APOSTROPHE GRAMMAR THANK THE LORD
-		player = args[0];
-		if (player.endsWith("s")) {
-			player = player + "' Skin";
-		} else {
-			player = player + "'s Skin";
-		}
-		
-		MessageEmbed me = MessageUtils.embedImage(player, url, Color.GREEN);
-		
-		return new Result(Outcome.SUCCESS, new EmbedBuilder(me).build());
+		return new Result(Outcome.SUCCESS);
 	}
 	
 }

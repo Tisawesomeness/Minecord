@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.command.player;
 
-import java.awt.Color;
+import java.io.IOException;
 import java.util.Arrays;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -10,9 +10,8 @@ import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
+import com.tisawesomeness.minecord.util.RequestUtils;
 
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 public class AvatarCommand extends Command {
@@ -85,13 +84,13 @@ public class AvatarCommand extends Command {
 		//Fetch avatar
 		String url = "https://crafatar.com/avatars/" + param.replaceAll("-", "");
 		if (overlay) url += "?overlay";
-		
-		//PROPER APOSTROPHE GRAMMAR THANK THE LORD
-		player += player.endsWith("s") ? "' Avatar" : "'s Avatar";
-		
-		MessageEmbed me = MessageUtils.embedImage(player, url, Color.GREEN);
-		
-		return new Result(Outcome.SUCCESS, new EmbedBuilder(me).build());
+		try {
+			e.getTextChannel().sendFile(RequestUtils.downloadImage(url), "avatar.png").queue();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			return new Result(Outcome.ERROR, ":x: Could not download image.");
+		}
+		return new Result(Outcome.SUCCESS);
 	}
 	
 }
