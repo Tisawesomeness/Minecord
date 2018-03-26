@@ -1,5 +1,8 @@
 package com.tisawesomeness.minecord.util;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -12,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.imageio.ImageIO;
 import org.discordbots.api.client.DiscordBotListAPI;
 
 import com.tisawesomeness.minecord.Bot;
@@ -117,19 +121,11 @@ public class RequestUtils {
 		}
 	}
 	
-	/**
-	 * Crafatar is being weird so this method decides whether or not to add a .png extension.
-	 * @param url The URL to check. Do not include a .png extension.
-	 */
-	public static String checkPngExtension(String urlOrig) {
-		String url = urlOrig;
-		if (!checkURL(url)) {
-			url += ".png";
-			if (!checkURL(url)) {
-				return null;
-			}
-		}
-		return url;
+	public static InputStream downloadImage(String url) throws IOException {
+		BufferedImage image = ImageIO.read(new URL(url));
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		ImageIO.write(image, "png", os);
+		return new ByteArrayInputStream(os.toByteArray());
 	}
 	
 	/**
