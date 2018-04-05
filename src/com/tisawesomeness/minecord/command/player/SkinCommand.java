@@ -13,9 +13,6 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 public class SkinCommand extends Command {
 	
-	public final String steve = "http://taw.net/cfs-filesystemfile.ashx/__key/CommunityServer.Discussions.Components.Files/200/7607.reference-skin-_2D00_-large.png";
-	public final String alex = "https://articles-images.sftcdn.net/wp-content/uploads/sites/2/2014/09/Alex1.png";
-	
 	public CommandInfo getInfo() {
 		return new CommandInfo(
 			"skin",
