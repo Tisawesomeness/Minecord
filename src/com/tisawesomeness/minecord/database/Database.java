@@ -1,23 +1,31 @@
 package com.tisawesomeness.minecord.database;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+import javax.sql.DataSource;
+
+import org.sqlite.SQLiteDataSource;
+
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import com.tisawesomeness.minecord.Config;
 
 public class Database {
 	
-	private static Connection connect;
+	private static DataSource source;
 	private static HashMap<Long, DbGuild> guilds = new HashMap<Long, DbGuild>();
 	private static HashMap<Long, DbUser> users = new HashMap<Long, DbUser>();
 	
+	private static Connection getConnect() throws SQLException {
+		return source.getConnection();
+	}
+	
 	public static void init() throws SQLException {
 		
-		//Build database url
+		//Build database source
 		String url = "jdbc:";
 		if (Config.getType().equals("mysql")) {
 			url += "mysql://";
@@ -31,11 +39,20 @@ public class Database {
 		}
 		url += Config.getHost();
 		if (Config.getType().equals("mysql")) {
-			url += ":" + Config.getPort() + "/" + Config.getDbName() + "?autoReconnect=true&useSSL=false";
+			MysqlDataSource ds = new MysqlDataSource();
+			ds.setUrl(url + ":" + Config.getPort() + "/" + Config.getDbName());
+			ds.setUser(Config.getUser());
+			ds.setPassword(Config.getPass());
+			ds.setUseSSL(false);
+			source = ds;
+		} else {
+			SQLiteDataSource ds = new SQLiteDataSource();
+			ds.setUrl(url);
+			source = ds;
 		}
-		
+
 		//Connect to database
-		connect = DriverManager.getConnection(url, Config.getUser(), Config.getPass());
+		Connection connect = getConnect();
 		
 		//Create tables if they do not exist
 		connect.createStatement().executeUpdate(
@@ -92,11 +109,13 @@ public class Database {
 	}
 	
 	public static void close() throws SQLException {
+		Connection connect = getConnect();
 		if (connect != null) connect.close();
 	}
 	
 	public static void changePrefix(long id, String prefix) throws SQLException {
-		
+
+		Connection connect = getConnect();
 		PreparedStatement st = connect.prepareStatement(
 			"REPLACE INTO guild (id, prefix, lang, banned, noCooldown) VALUES(?, ?, " +
 			"COALESCE((SELECT lang FROM (SELECT * FROM guild) AS temp WHERE id=?), 'enUS'), " +
@@ -134,7 +153,8 @@ public class Database {
 	}
 	
 	public static void changeBannedGuild(long id, boolean banned) throws SQLException {
-		
+
+		Connection connect = getConnect();
 		PreparedStatement st = connect.prepareStatement(
 			"REPLACE INTO guild (id, prefix, lang, banned, noCooldown) VALUES(?, " +
 			"COALESCE((SELECT prefix FROM (SELECT * FROM guild) AS temp WHERE id=?), 0), " +
@@ -168,7 +188,8 @@ public class Database {
 	}
 	
 	public static void changeElevated(long id, boolean elevated) throws SQLException {
-		
+
+		Connection connect = getConnect();
 		PreparedStatement st = connect.prepareStatement(
 			"REPLACE INTO user (id, elevated, banned) VALUES(?, ?, " +
 			"COALESCE((SELECT banned FROM (SELECT * FROM user) AS temp WHERE id=?), 0));"
@@ -202,7 +223,8 @@ public class Database {
 	}
 	
 	public static void changeBannedUser(long id, boolean banned) throws SQLException {
-		
+
+		Connection connect = getConnect();
 		PreparedStatement st = connect.prepareStatement(
 			"REPLACE INTO user (id, elevated, banned) VALUES(?, " +
 			"COALESCE((SELECT banned FROM (SELECT * FROM user) AS temp WHERE id=?), 0), ?);"
