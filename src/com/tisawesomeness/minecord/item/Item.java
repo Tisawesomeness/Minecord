@@ -744,7 +744,7 @@ public enum Item {
 	MUTTON(423, "Raw Mutton", Version.V1_8),
 	COOKED_MUTTON(424, "Cooked Mutton", Version.V1_8),
 	BANNER(425, "Banner", Version.V1_8),
-	//Missing ID
+	END_CRYSTAL(426, "End Crystal", "end(er)?[^0-9A-Z]crystal", Version.V1_9),
 	SPRUCE_DOOR(427, "Spruce Door", "spruce[^0-9A-Z]*wood[^0-9A-Z]*door"),
 	BIRCH_DOOR(428, "Birch Door", "birch[^0-9A-Z]*wood[^0-9A-Z]*door"),
 	JUNGLE_DOOR(429, "Jungle Door", "jungle[^0-9A-Z]*wood[^0-9A-Z]*door"),
