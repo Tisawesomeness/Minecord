@@ -47,7 +47,6 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Log Channel:* The bot will send any logging messages to this channel. Set to 0 to disable.
 - *Send Server Count:* Whether or not the bot should send the guild count to bot list websites.
 - *Pw Token:* The token to use on bots.discord.pw.
-- *Net Token:* The token to use on bots.discordlist.net.
 - *Org Token:* The token to use on discordbots.org.
 - *Receive Votes:* When true, the bot will receive votes from discordbots.org. **This will set up an HTTP server.**
 - *Webhook URL:* The URL used to receive votes. Keep this random and private, if it leaks, users will be able to fake votes. Set the discordbots.org webhook to http://`your ip`:`port`/`url`.
@@ -86,7 +85,6 @@ A robust Discord bot using the JDA library for various Minecraft functions.
     "botLists": {
         "sendServerCount": false,
         "pwToken": "your token here",
-        "netToken": "your token here",
         "orgToken": "your token here",
         "receiveVotes": false,
         "webhookURL": "sample",
