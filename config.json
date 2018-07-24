@@ -19,7 +19,6 @@
     "botLists": {
         "sendServerCount": false,
         "pwToken": "your token here",
-        "netToken": "your token here",
         "orgToken": "your token here",
         "receiveVotes": false,
         "webhookURL": "sample",

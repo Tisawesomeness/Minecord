@@ -34,7 +34,6 @@ public class Config {
 	
 	private static boolean sendServerCount;
 	private static String pwToken;
-	private static String netToken;
 	private static String orgToken;
 	private static boolean receiveVotes;
 	private static String webhookURL;
@@ -105,7 +104,6 @@ public class Config {
 			JSONObject botLists = config.getJSONObject("botLists");
 			sendServerCount = botLists.getBoolean("sendServerCount");
 			pwToken = botLists.getString("pwToken");
-			netToken = botLists.getString("netToken");
 			orgToken = botLists.getString("orgToken");
 			receiveVotes = botLists.getBoolean("receiveVotes");
 			webhookURL = botLists.getString("webhookURL");
@@ -166,7 +164,6 @@ public class Config {
 	
 	public static boolean getSendServerCount() {return sendServerCount;}
 	public static String getPwToken() {return pwToken;}
-	public static String getNetToken() {return netToken;}
 	public static String getOrgToken() {return orgToken;}
 	public static boolean getReceiveVotes() {return receiveVotes;}
 	public static String getWebhookURL() {return webhookURL;}

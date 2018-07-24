@@ -140,10 +140,6 @@ public class RequestUtils {
 			String query = "{\"server_count\": " + servers + "}";
 			post(url, query, Config.getPwToken());
 			
-			url = "https://bots.discordlist.net/api";
-			query = "{\"token\": \"" + Config.getNetToken() + "\",\"servers\": " + servers + "}";
-			post(url, query);
-			
 			/*url = "https://discordbots.org/api/bots/" + id + "/stats";
 			query = "{\"server_count\": " + servers + "}";
 			post(url, query, Config.getOrgToken());*/
