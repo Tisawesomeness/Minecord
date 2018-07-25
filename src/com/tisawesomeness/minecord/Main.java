@@ -1,8 +1,6 @@
 package com.tisawesomeness.minecord;
 
-import java.util.ArrayList;
-
-import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.bot.sharding.ShardManager;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
 
@@ -11,7 +9,7 @@ public class Main {
 	protected static ClassLoader cl;
 
 	//Store data between reloads
-	private static ArrayList<JDA> shards;
+	private static ShardManager shards;
 	private static User user;
 	private static Message message;
 	private static long birth;
@@ -43,10 +41,10 @@ public class Main {
 	public static void setUser(User u) {
 		user = u;
 	}
-	public static ArrayList<JDA> getShards(String ignore) {
+	public static ShardManager getShards(String ignore) {
 		return shards;
 	}
-	public static void setShards(ArrayList<JDA> s) {
+	public static void setShards(ShardManager s) {
 		shards = s;
 	}
 	public static long getBirth(String ignore) {

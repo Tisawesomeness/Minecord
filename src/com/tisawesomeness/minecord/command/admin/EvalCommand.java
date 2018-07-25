@@ -77,7 +77,7 @@ public class EvalCommand extends Command {
 				.replaceAll("`", "\\\\`")
 				.replaceAll("@everyone", "[everyone]")
 				.replaceAll("@here", "[here]")
-				.replaceAll(Pattern.quote(Bot.shards.get(0).getToken()), "[redacted]")
+				.replaceAll(Pattern.quote(Config.getClientToken()), "[redacted]")
 				.replaceAll(Pattern.quote(Config.getPwToken()), "[redacted]")
 				.replaceAll(Pattern.quote(Config.getOrgToken()), "[redacted]")
 				.replaceAll(Pattern.quote(Config.getHost()), "[redacted]")

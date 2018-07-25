@@ -2,9 +2,8 @@ package com.tisawesomeness.minecord.command.admin;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import com.tisawesomeness.minecord.Config;
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -38,7 +37,7 @@ public class NameCommand extends Command {
 		}
 		
 		//Get guild
-		Guild guild = DiscordUtils.getGuildById(args[0]);
+		Guild guild = Bot.shardManager.getGuildById(args[0]);
 		if (guild == null) return new Result(Outcome.ERROR, ":x: Not a valid guild!");
 		
 		//Check for permissions
@@ -47,7 +46,7 @@ public class NameCommand extends Command {
 		}
 		
 		//Set the nickname
-		String name = args.length > 1 ? String.join(" ", ArrayUtils.remove(args, 0)) : Config.getName();
+		String name = args.length > 1 ? String.join(" ", ArrayUtils.remove(args, 0)) : e.getJDA().getSelfUser().getName();
 		guild.getController().setNickname(guild.getSelfMember(), name).queue();
 		
 		//Log it

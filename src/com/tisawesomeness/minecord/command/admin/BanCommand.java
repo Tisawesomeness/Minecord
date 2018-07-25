@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command.admin;
 
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
@@ -58,7 +59,7 @@ public class BanCommand extends Command {
 		} else if ("guild".equals(args[0])) {
 			//Get guild from message
 			if (args.length == 1) return new Result(Outcome.WARNING, ":warning: Please define a guild.");
-			Guild guild = DiscordUtils.getGuildById(args[1]);
+			Guild guild = Bot.shardManager.getGuildById(args[1]);
 			if (guild == null) return new Result(Outcome.ERROR, ":x: Not a valid guild!");
 			if (guild.getId().equals(MessageUtils.logChannel.getGuild().getId())) {
 				return new Result(Outcome.WARNING, ":warning: You can't ban the guild with the log channel!");
@@ -77,7 +78,7 @@ public class BanCommand extends Command {
 			String name = null;
 			User user = DiscordUtils.findUser(args[0]);
 			if (user == null) {
-				Guild guild = DiscordUtils.getGuildById(args[0]);
+				Guild guild = Bot.shardManager.getGuildById(args[0]);
 				if (guild == null) return new Result(Outcome.ERROR, ":x: Not a valid user or guild!");
 				id = guild.getIdLong();
 				name = guild.getName();

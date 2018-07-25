@@ -39,7 +39,7 @@ public class Listener extends ListenerAdapter {
 			Message m = e.getMessage();
 			
 			//Check if message can be acted upon
-			if (!Registry.enabled || m == null) return;
+			if (m == null) return;
 			User a = m.getAuthor();
 			if (a.isBot() || Database.isBanned(a.getIdLong()) || Database.isBanned(e.getGuild().getIdLong())) return;
 			
@@ -47,7 +47,7 @@ public class Listener extends ListenerAdapter {
 			String[] args = null;
 			
 			//If the message is a valid command
-			String[] content = MessageUtils.getContent(m, e.getGuild().getIdLong());
+			String[] content = MessageUtils.getContent(m, e.getGuild().getIdLong(), e.getJDA().getSelfUser());
 			if (content != null) {
 				
 				//Extract name and argument list

@@ -46,7 +46,6 @@ public class Registry {
 		new TestCommand()
 	};
 	public static TreeMap<String, Command> commandMap;
-	public static boolean enabled = false;
 	
 	public static void init() {
 		commandMap = new TreeMap<String, Command>(String.CASE_INSENSITIVE_ORDER); //Map aliases to commands
