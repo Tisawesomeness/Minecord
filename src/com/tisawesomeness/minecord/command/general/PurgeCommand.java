@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.command.general;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
 
@@ -78,7 +79,7 @@ public class PurgeCommand extends Command {
 				List<Message> msgs = mh.retrievePast(25).complete(true);
 				boolean exit = false;
 				for (Message m : msgs) {
-					if (m.getAuthor() == e.getJDA().getSelfUser()) {
+					if (m.getAuthor().getId().equals(Bot.id)) {
 						temp.add(m);
 					}
 					if (mine.size() + temp.size() >= num) {

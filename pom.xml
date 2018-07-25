@@ -6,9 +6,9 @@
   
   <repositories>
     <repository>
-      <id>bintray-dv8fromtheworld-maven</id>
-      <name>bintray</name>
-      <url>https://dl.bintray.com/dv8fromtheworld/maven</url>
+      <id>jcenter</id>
+      <name>jcenter-bintray</name>
+      <url>http://jcenter.bintray.com</url>
     </repository>
     <repository>
       <id>jitpack.io</id>
@@ -20,7 +20,7 @@
     <dependency>
       <groupId>net.dv8tion</groupId>
       <artifactId>JDA</artifactId>
-      <version>3.5.0_338</version>
+      <version>3.7.1_386</version>
     </dependency>
     <dependency>
       <groupId>com.github.DiscordBotList</groupId>

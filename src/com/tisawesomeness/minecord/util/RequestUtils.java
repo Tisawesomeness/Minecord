@@ -133,7 +133,7 @@ public class RequestUtils {
 	 */
 	public static void sendGuilds() {
 		if (Config.getSendServerCount()) {
-			int servers = DiscordUtils.getGuilds().size();
+			int servers = Bot.shardManager.getGuilds().size();
 			String id = Bot.id;
 			
 			String url = "https://bots.discord.pw/api/bots/" + id + "/stats";
@@ -145,7 +145,7 @@ public class RequestUtils {
 			post(url, query, Config.getOrgToken());*/
 			
 			List<Integer> serverCounts = new ArrayList<Integer>();
-			for (JDA jda : Bot.shards) serverCounts.add(jda.getGuilds().size());
+			for (JDA jda : Bot.shardManager.getShards()) serverCounts.add(jda.getGuilds().size());
 			api.setStats(id, serverCounts);
 		}
 	}

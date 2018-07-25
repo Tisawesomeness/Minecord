@@ -52,7 +52,6 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Webhook URL:* The URL used to receive votes. Keep this random and private, if it leaks, users will be able to fake votes. Set the discordbots.org webhook to http://`your ip`:`port`/`url`.
 - *Webhook Port:* The port used to receive votes.
 - *Game:* This is the game that the bot is playing, shown under the username. `{prefix}`, `{guilds}`, `{channels}`, and `{users}` are available variables.
-- *Name:* The name of the bot.
 - *Prefix:* The prefix of the bot. Use `>&` instead of `&` if you want to host your own bot alongside the main one.
 - *Respond To Mentions:* This option decides if the bot will respond to being mentioned at the beginning of a message, so you can use `@Minecord#1216 help` to execute `&help`.
 - *Delete Commands:* If true, the commands sent by players (like `&help`) will be deleted to clean up chat. Requires permission to manage messages.
@@ -73,7 +72,6 @@ A robust Discord bot using the JDA library for various Minecraft functions.
         "invite": "https://bot.discord.io/minecord",
         "prefix": "&",
         "game": "@Minecord help | {guilds} guilds",
-        "name": "Minecord",
         "devMode": false,
         "debugMode": false,
         "respondToMentions": true,

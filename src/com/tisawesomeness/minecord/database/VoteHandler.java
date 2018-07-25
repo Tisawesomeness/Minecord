@@ -44,7 +44,7 @@ public class VoteHandler {
 					JSONObject o = new JSONObject(body);
 					boolean upvote = "upvote".equals(o.getString("type"));
 					String msg = upvote ? "Thanks for voting!" : "y u do dis";
-					User u = Bot.shards.get(0).getUserById(o.getString("user"));
+					User u = Bot.shardManager.getUserById(o.getString("user"));
 					u.openPrivateChannel().complete().sendMessage(msg).queue();
 					msg = upvote ? "upvoted!" : "downvoted ;(";
 					MessageUtils.log(u.getName() + "#" + u.getDiscriminator() + " (`" + u.getId() + "`) " + msg);

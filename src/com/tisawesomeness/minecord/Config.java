@@ -23,7 +23,6 @@ public class Config {
 	private static String invite;
 	private static String prefix;
 	private static String game;
-	private static String name;
 	private static boolean devMode;
 	private static boolean debugMode;
 	private static boolean respondToMentions;
@@ -92,7 +91,6 @@ public class Config {
 			invite = settings.getString("invite");
 			prefix = settings.getString("prefix");
 			game = settings.getString("game");
-			name = settings.getString("name");
 			devMode = settings.getBoolean("devMode");
 			debugMode = settings.getBoolean("debugMode");
 			respondToMentions = settings.getBoolean("respondToMentions");
@@ -145,7 +143,7 @@ public class Config {
 		public int getChance() {return chance;}
 	}
 
-	protected static String getClientToken() {return clientToken;}
+	public static String getClientToken() {return clientToken;}
 	public static int getShardCount() {return shardCount;}
 	public static String getOwner() {return owner;}
 
@@ -153,7 +151,6 @@ public class Config {
 	public static String getInvite() {return invite;}
 	public static String getPrefix() {return prefix;}
 	public static String getGame() {return game;}
-	public static String getName() {return name;}
 	public static boolean getDevMode() {return devMode;}
 	public static boolean getDebugMode() {return debugMode;}
 	public static boolean getRespondToMentions() {return respondToMentions;}

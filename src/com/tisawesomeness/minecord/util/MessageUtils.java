@@ -5,13 +5,13 @@ import java.time.OffsetDateTime;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.ArrayUtils;
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.database.Database;
 
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.core.entities.SelfUser;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 
@@ -150,11 +150,11 @@ public class MessageUtils {
 	/**
 	 * Gets the command-useful content of a message, keeping the name and arguments and purging the prefix and mention.
 	 */
-	public static String[] getContent(Message m, long id) {
+	public static String[] getContent(Message m, long id, SelfUser su) {
 		String content = m.getContentRaw();
 		if (m.getContentRaw().startsWith(Database.getPrefix(id))) {
 			return content.replaceFirst(Pattern.quote(Database.getPrefix(id)), "").split(" ");
-		} else if (content.replaceFirst("@!", "@").startsWith(Bot.shards.get(0).getSelfUser().getAsMention())) {
+		} else if (content.replaceFirst("@!", "@").startsWith(su.getAsMention())) {
 			String[] args = content.split(" ");
 			return ArrayUtils.removeElement(args, args[0]);
 		} else {

@@ -7,7 +7,6 @@
         "invite": "https://bot.discord.io/minecord",
         "prefix": "&",
         "game": "@Minecord help | {guilds} guilds",
-        "name": "Minecord",
         "devMode": false,
         "debugMode": false,
         "respondToMentions": true,

@@ -70,9 +70,9 @@ public class InfoCommand extends Command {
 		eb.addField("Author", "@Tis_awesomeness#8617", true);
 		eb.addField("Version", Bot.getVersion(), true);
 		
-		String guilds = DiscordUtils.getGuilds().size() + "";
-		String channels = DiscordUtils.getTextChannels().size() + "";
-		String users = DiscordUtils.getUsers().size() + "";
+		String guilds = Bot.shardManager.getGuilds().size() + "";
+		String channels = Bot.shardManager.getTextChannels().size() + "";
+		String users = Bot.shardManager.getUsers().size() + "";
 		if (Config.getShardCount() > 1) {
 			String shards = e.getJDA().getShardInfo().getShardId() + 1 + "/" + Config.getShardCount();
 			eb.addField("Shard", shards, true);
@@ -84,7 +84,7 @@ public class InfoCommand extends Command {
 		eb.addField("Channels", channels, true);
 		eb.addField("Users", users, true);
 		
-		ArrayList<User> userArray = new ArrayList<User>(DiscordUtils.getUsers());
+		ArrayList<User> userArray = new ArrayList<User>(Bot.shardManager.getUsers());
 		for (User u : new ArrayList<User>(userArray)) {
 			if (u.isBot() || u.isFake()) {
 				userArray.remove(u);
@@ -96,7 +96,7 @@ public class InfoCommand extends Command {
 		if (Config.getShowMemory() || elevated) {
 			eb.addField("Memory", memory, true);
 		}
-		eb.addField("Ping", e.getJDA().getPing() + "ms", true);
+		eb.addField("Ping", Bot.shardManager.getAveragePing() + "ms", true);
 		
 		eb.addField("Invite", Config.getInvite(), true);
 		eb.addField("Help Server", Bot.helpServer, true);
