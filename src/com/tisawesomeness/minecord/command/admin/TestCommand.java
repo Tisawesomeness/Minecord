@@ -20,6 +20,7 @@ public class TestCommand extends Command {
 	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+		System.out.println("test");
 		return new Result(Outcome.SUCCESS, "Test");
 	}
 	

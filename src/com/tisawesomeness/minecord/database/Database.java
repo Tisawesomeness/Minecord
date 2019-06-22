@@ -23,6 +23,7 @@ public class Database {
 		return source.getConnection();
 	}
 	
+	@SuppressWarnings("deprecation") // TODO I'm sorry little one (find a new database class)
 	public static void init() throws SQLException {
 		
 		//Build database source
