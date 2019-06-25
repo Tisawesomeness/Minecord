@@ -33,7 +33,8 @@ public class ServerCommand extends Command {
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		
-		//Parse arguments
+		///Parse arguments
+		/**
 		if (args.length == 0) {
 			String m = ":warning: Incorrect arguments." +
 				"\n" + Config.getPrefix() + "server <address>[:port]";
@@ -88,6 +89,8 @@ public class ServerCommand extends Command {
 		MessageEmbed me = MessageUtils.embedMessage("Server Status", null, m, Color.GREEN);
 		
 		return new Result(Outcome.SUCCESS, new EmbedBuilder(me).setThumbnail(thumb).build());
+		*/
+		return new Result(Outcome.SUCCESS, ":x: This command is temporally disabled because a Issue with the API. Please check for further Updates at the Minecord Server in the announcements channel.");
 	}
 	
 	//Deletes each letter in the charset from the string.
