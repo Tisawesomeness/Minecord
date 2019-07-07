@@ -75,6 +75,14 @@ public class Database {
 		
 		changeElevated(Long.valueOf(Config.getOwner()), true); //Add owner to elevated
 		
+		refresh();
+		System.out.println("Database connected.");
+		
+	}
+
+	public static void refresh() throws SQLException {
+		Connection connect = getConnect();
+
 		//Import guild list
 		ResultSet rs = connect.createStatement().executeQuery(
 			"SELECT * FROM guild;"
@@ -104,9 +112,6 @@ public class Database {
 			));
 		}
 		rs.close();
-		
-		System.out.println("Database connected.");
-		
 	}
 	
 	public static void close() throws SQLException {
@@ -140,10 +145,7 @@ public class Database {
 		
 		//Delete guild if it contains only default values
 		if (prefix.equals(Config.getPrefix())) {
-			st = connect.prepareStatement(
-				"DELETE FROM guild WHERE lang='enUS' AND banned=0 AND noCooldown=0;"
-			);
-			if (st.executeUpdate() > 0) guilds.remove(id);
+			purgeGuilds(id);
 		}
 		
 	}
@@ -178,14 +180,16 @@ public class Database {
 		}
 		
 		//Delete guild if it contains only default values
-		if (!banned) {
-			st = connect.prepareStatement(
-				"DELETE FROM guild WHERE prefix=? AND lang='enUS' AND noCooldown=0;"
-			);
-			st.setString(1, Config.getPrefix());
-			if (st.executeUpdate() > 0) guilds.remove(id);
-		}
+		if (!banned) purgeGuilds(id);
 		
+	}
+
+	private static void purgeGuilds(long id) throws SQLException {
+		PreparedStatement st = getConnect().prepareStatement(
+			"DELETE FROM guild WHERE prefix=? AND lang='enUS' AND banned=0 AND noCooldown=0;"
+		);
+		st.setString(1, Config.getPrefix());
+		if (st.executeUpdate() > 0) guilds.remove(id);
 	}
 	
 	public static void changeElevated(long id, boolean elevated) throws SQLException {
@@ -209,12 +213,7 @@ public class Database {
 		}
 		
 		//Delete user if it contains only default values
-		if (!elevated) {
-			st = connect.prepareStatement(
-				"DELETE FROM user WHERE banned=0;"
-			);
-			if (st.executeUpdate() > 0) guilds.remove(id);
-		}
+		if (!elevated) purgeUsers(id);
 		
 	}
 	
@@ -244,13 +243,15 @@ public class Database {
 		}
 		
 		//Delete user if it contains only default values
-		if (!banned) {
-			st = connect.prepareStatement(
-				"DELETE FROM user WHERE elevated=0;"
-			);
-			if (st.executeUpdate() > 0) users.remove(id);
-		}
+		if (!banned) purgeUsers(id);
 		
+	}
+
+	private static void purgeUsers(long id) throws SQLException {
+		PreparedStatement st = getConnect().prepareStatement(
+			"DELETE FROM user WHERE banned=0 AND elevated=0;"
+		);
+		if (st.executeUpdate() > 0) users.remove(id);
 	}
 	
 	public static boolean isBanned(long id) {
