@@ -2,8 +2,8 @@ package com.tisawesomeness.minecord.command.utility;
 
 import com.tisawesomeness.minecord.command.Command;
 
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class CodesCommand extends Command {
 	
@@ -30,9 +30,9 @@ public class CodesCommand extends Command {
 		
 		if (args.length > 0) {
 			return new Result(Outcome.SUCCESS, "**Chat Codes:**" +
-				"\n" + "Copy-Paste symbol: `§`" +
+				"\n" + "Copy-Paste symbol: `\u00A7`" +
 				"\n" + "MOTD code: `\\u00A7`" +
-				"\n" + "Most servers with plugins let you use `&` instead of `§` in chat and config files." +
+				"\n" + "Some servers with plugins let you use `&` instead of `\u00A7` in chat and config files." +
 				"\n" + "http://i.imgur.com/MWCFs5S.png" +
 				"\n" + "http://i.imgur.com/cWYjhkN.png");
 		} else {

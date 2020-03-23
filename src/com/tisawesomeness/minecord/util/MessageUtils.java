@@ -5,15 +5,17 @@ import java.time.OffsetDateTime;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.ArrayUtils;
+
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.database.Database;
 
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.entities.SelfUser;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.SelfUser;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.User;
 
 public class MessageUtils {
 	
@@ -29,7 +31,7 @@ public class MessageUtils {
 		" | " + "`12/25/12 12:00 AM EST`" +
 		" | " + "`5:22 CST`";
 	
-	public static User owner;
+	public static long ownerID;
 	public static TextChannel logChannel;
 	public static int totalChance;
 	
@@ -74,7 +76,12 @@ public class MessageUtils {
 			i++;
 			rand -= Config.getAnnouncements().get(i).getChance();
 		}
-		return eb.setFooter(Config.getAnnouncements().get(i).getText(), owner.getAvatarUrl());
+		String announcement = Config.getAnnouncements().get(i).getText();
+		if (Config.getOwner().equals("0")) {
+			return eb.setFooter(announcement);
+		}
+		User owner = Bot.shardManager.retrieveUserById(Config.getOwner()).complete();
+		return eb.setFooter(announcement, owner.getAvatarUrl());
 	}
 	
 	/**

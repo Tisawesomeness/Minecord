@@ -6,10 +6,10 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class NameCommand extends Command {
 	
@@ -47,7 +47,7 @@ public class NameCommand extends Command {
 		
 		//Set the nickname
 		String name = args.length > 1 ? String.join(" ", ArrayUtils.remove(args, 0)) : e.getJDA().getSelfUser().getName();
-		guild.getController().setNickname(guild.getSelfMember(), name).queue();
+		guild.modifyNickname(guild.getSelfMember(), name).queue();
 		
 		//Log it
 		EmbedBuilder eb = new EmbedBuilder();

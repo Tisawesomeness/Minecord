@@ -7,9 +7,9 @@ import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class BanCommand extends Command {
 
@@ -22,7 +22,7 @@ public class BanCommand extends Command {
 			new String[]{
 				"bean",
 				"banne",
-				"banné",
+				"bannï¿½",
 				"pingb1nzy"
 			},
 			0,

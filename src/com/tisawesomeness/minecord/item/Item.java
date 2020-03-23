@@ -2,7 +2,7 @@ package com.tisawesomeness.minecord.item;
 
 import java.util.regex.Pattern;
 
-import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.api.EmbedBuilder;
 
 /**
  * A list of nearly every item in Minecraft. If the item has a recipe,

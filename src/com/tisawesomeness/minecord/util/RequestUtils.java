@@ -21,7 +21,7 @@ import org.discordbots.api.client.DiscordBotListAPI;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 
-import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.api.JDA;
 
 public class RequestUtils {
 	

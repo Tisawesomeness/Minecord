@@ -12,16 +12,11 @@ import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class InfoCommand extends Command {
-	
-	private static final long K = 1024;
-	private static final long M = K * K;
-	private static final long G = M * K;
-	private static final long T = G * K;
 	
 	public CommandInfo getInfo() {
 		return new CommandInfo(
@@ -45,22 +40,6 @@ public class InfoCommand extends Command {
 		boolean elevated = false;
 		if (args.length > 0 && args[0].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
 			elevated = true;
-		}
-		
-		//Calculate memory (taken from stackoverflow)
-		long value = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
-		final long[] dividers = new long[] {T, G, M, K, 1};
-		final String[] units = new String[] {"TB", "GB", "MB", "KB", "B"};
-		if (value < 1) {
-			throw new IllegalArgumentException("Invalid file size: " + value);
-		}
-		String memory = null;
-		for (int i = 0; i < dividers.length; i++) {
-			final long divider = dividers[i];
-			if (value >= divider) {
-				memory = format(value, divider, units[i]);
-				break;
-			}
 		}
 		
 		//Build message
@@ -94,18 +73,40 @@ public class InfoCommand extends Command {
 		
 		eb.addField("Uptime", DateUtils.getUptime(), true);
 		if (Config.getShowMemory() || elevated) {
-			eb.addField("Memory", memory, true);
+			eb.addField("Memory", getMemoryString(), true);
 		}
-		eb.addField("Ping", Bot.shardManager.getAveragePing() + "ms", true);
+		eb.addField("Ping", Bot.shardManager.getAverageGatewayPing() + "ms", true);
 		
-		eb.addField("Invite", Config.getInvite(), true);
+		eb.addField("Invite", "Use `" + Database.getPrefix(e.getGuild().getIdLong()) + "invite`", true);
 		eb.addField("Help Server", Bot.helpServer, true);
 		eb.addField("Website", Bot.website, true);
-		eb.addField("Credits", "Mojang API, Crafatar, and MCAPI", true);
+		eb.addField("Credits", "Mojang API, Crafatar, and lucaazalim", true);
 		eb.addField("Library", "Java `1.8.0`, JDA `3.3.1_316`", true);
 		
 		eb = MessageUtils.addFooter(eb);
 		return new Result(Outcome.SUCCESS, eb.build());
+	}
+
+	//Calculate memory (taken from stackoverflow)
+	private static final long K = 1024;
+	private static final long M = K * K;
+	private static final long G = M * K;
+	private static final long T = G * K;
+	private static final long[] dividers = new long[] {T, G, M, K, 1};
+	private static final String[] units = new String[] {"TB", "GB", "MB", "KB", "B"};
+	private static String getMemoryString() {
+		long value = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+		if (value < 1) {
+			throw new IllegalArgumentException("Invalid file size: " + value);
+		}
+		String memory = null;
+		for (int i = 0; i < dividers.length; i++) {
+			final long divider = dividers[i];
+			if (value >= divider) {
+				memory = format(value, divider, units[i]);
+			}
+		}
+		return memory;
 	}
 
 	private static String format(long value, long divider, String unit) {
