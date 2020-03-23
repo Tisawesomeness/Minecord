@@ -1,8 +1,8 @@
 package com.tisawesomeness.minecord;
 
-import net.dv8tion.jda.bot.sharding.ShardManager;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.sharding.ShardManager;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.User;
 
 public class Main {
 	

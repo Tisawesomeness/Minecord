@@ -3,6 +3,10 @@ package com.tisawesomeness.minecord;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.List;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.discordbots.api.client.DiscordBotListAPI;
 
@@ -14,19 +18,22 @@ import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
-import net.dv8tion.jda.bot.sharding.DefaultShardManagerBuilder;
-import net.dv8tion.jda.bot.sharding.ShardManager;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
+import net.dv8tion.jda.api.sharding.ShardManager;
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 
 public class Bot {
 
 	private static final String mainClass = "com.tisawesomeness.minecord.Main";
-	public static final String helpServer = "https://discord.io/minecord";
+	public static final String helpServer = "https://discord.gg/hrfQaD7";
 	public static final String website = "https://minecord.github.io";
-	private static final String version = "0.7.0-BETA-3";
+	private static final String version = "0.7.0-BETA-4";
 	
 	public static ShardManager shardManager;
 	public static String id;
@@ -36,6 +43,11 @@ public class Bot {
 	public static String[] args;
 	
 	public static Thread thread;
+	public static volatile int readyShards = 0;
+	private static final List<GatewayIntent> gateways = Arrays.asList(
+		GatewayIntent.DIRECT_MESSAGES, GatewayIntent.GUILD_MESSAGES);
+	private static final EnumSet<CacheFlag> disabledCacheFlags = EnumSet.of(
+		CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOTE, CacheFlag.VOICE_STATE);
 	
 	public static boolean setup(String[] args, boolean devMode) {
 		if (!devMode) System.out.println("Bot starting.");
@@ -107,13 +119,14 @@ public class Bot {
 			} else {
 				
 				//Initialize JDA
-				shardManager = new DefaultShardManagerBuilder()
+				shardManager = DefaultShardManagerBuilder.create(gateways)
 					.setToken(Config.getClientToken())
-					.setAudioEnabled(false)
 					.setAutoReconnect(true)
 					.addEventListeners(listener)
 					.setShardsTotal(Config.getShardCount())
-					.setGame(Game.playing("Loading..."))
+					.setActivity(Activity.playing("Loading..."))
+					.setMemberCachePolicy(MemberCachePolicy.NONE)
+					.setDisabledCacheFlags(disabledCacheFlags)
 					.build();
 				
 				//Update main class
@@ -122,6 +135,13 @@ public class Bot {
 					MethodName.SET_SHARDS.method().invoke(null, shardManager);
 					MethodName.SET_BIRTH.method().invoke(null, birth);
 				}
+
+				// Wait for shards to ready
+				while (readyShards < shardManager.getShardsTotal()) {
+					System.out.println("Ready shards: " + readyShards + " / " + shardManager.getShardsTotal());
+					Thread.sleep(100);
+				}
+				System.out.println("Shards ready");
 				
 			}
 		} catch (Exception ex) {
@@ -132,29 +152,22 @@ public class Bot {
 		if (Config.getSendServerCount() || Config.getReceiveVotes()) {
 			RequestUtils.api = new DiscordBotListAPI.Builder().token(Config.getOrgToken()).build();
 		}
-		
+
 		//Wait for database and web server
 		try {
 			db.join();
 			if (ws != null) ws.join();
-			while (shardManager.getShardsQueued() > 0) {
-				Thread.sleep(1000);
-			}
-			System.out.println("Done");
+			System.out.println("Bot ready!");
 		} catch (InterruptedException ex) {}
 
-		MessageUtils.log(":white_check_mark: **Bot started!**");
-		
 		//Update persistent bot info
 		id = shardManager.getShardById(0).getSelfUser().getId();
-		if (!Config.getOwner().equals("0")) {
-			MessageUtils.owner = shardManager.getUserById(Config.getOwner());
-		}
 		if (!Config.getLogChannel().equals("0")) {
 			MessageUtils.logChannel = shardManager.getTextChannelById(Config.getLogChannel());
 		}
 		
 		//Post-init
+		MessageUtils.log(":white_check_mark: **Bot started!**");
 		DiscordUtils.update();
 		System.out.println("Startup finished.");
 		RequestUtils.sendGuilds();

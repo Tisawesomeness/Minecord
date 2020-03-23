@@ -9,7 +9,7 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class SkinCommand extends Command {
 	

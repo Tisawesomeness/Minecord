@@ -5,10 +5,9 @@ import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.utils.PermissionUtil;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class DemoteCommand extends Command {
 	
@@ -32,7 +31,7 @@ public class DemoteCommand extends Command {
 		
 		//Check if user is elevated or has the manage messages permission
 		if (!Database.isElevated(e.getAuthor().getIdLong())
-				&& !PermissionUtil.checkPermission(e.getTextChannel(), e.getMember(), Permission.MESSAGE_MANAGE)) {
+				&& !e.getMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE)) {
 			return new Result(Outcome.WARNING, ":warning: You must have permission to manage messages in this channel!");
 		}
 

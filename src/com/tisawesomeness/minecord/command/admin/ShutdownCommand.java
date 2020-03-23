@@ -3,7 +3,7 @@ package com.tisawesomeness.minecord.command.admin;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class ShutdownCommand extends Command {
 	

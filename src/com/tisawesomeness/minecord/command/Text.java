@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.command;
 
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class Text extends Command {
 

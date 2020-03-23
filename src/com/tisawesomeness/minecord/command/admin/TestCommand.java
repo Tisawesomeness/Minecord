@@ -2,7 +2,7 @@ package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.command.Command;
 
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class TestCommand extends Command {
 	
@@ -20,7 +20,6 @@ public class TestCommand extends Command {
 	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
-		System.out.println("test");
 		return new Result(Outcome.SUCCESS, "Test");
 	}
 	

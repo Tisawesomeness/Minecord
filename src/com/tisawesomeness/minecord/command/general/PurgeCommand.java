@@ -7,13 +7,12 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
 
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageHistory;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.exceptions.RateLimitedException;
-import net.dv8tion.jda.core.utils.PermissionUtil;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageHistory;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.exceptions.RateLimitedException;
 
 public class PurgeCommand extends Command {
 	
@@ -40,7 +39,7 @@ public class PurgeCommand extends Command {
 		
 		//Check if user is elevated or has the manage messages permission
 		if (!Database.isElevated(e.getAuthor().getIdLong())
-				&& !PermissionUtil.checkPermission(e.getTextChannel(), e.getMember(), Permission.MESSAGE_MANAGE)) {
+				&& !e.getMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE)) {
 			return new Result(Outcome.WARNING, ":warning: You must have permission to manage messages in this channel!");
 		}
 		

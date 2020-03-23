@@ -2,17 +2,21 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.tisawesomeness</groupId>
   <artifactId>minecord</artifactId>
-  <version>0.7.0-BETA-3</version>
+  <version>0.7.0-BETA-4</version>
   
   <repositories>
     <repository>
       <id>jcenter</id>
       <name>jcenter-bintray</name>
-      <url>http://jcenter.bintray.com</url>
+      <url>https://jcenter.bintray.com</url>
     </repository>
     <repository>
       <id>jitpack.io</id>
       <url>https://jitpack.io</url>
+    </repository>
+    <repository>
+      <id>bungeecord-repo</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </repository>
   </repositories>
   
@@ -20,7 +24,13 @@
     <dependency>
       <groupId>net.dv8tion</groupId>
       <artifactId>JDA</artifactId>
-      <version>3.8.3_463</version>
+      <version>4.1.1_122</version>
+      <exclusions>
+        <exclusion>
+            <groupId>club.minnced</groupId>
+            <artifactId>opus-java</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.github.DiscordBotList</groupId>
@@ -46,6 +56,23 @@
       <groupId>org.xerial</groupId>
       <artifactId>sqlite-jdbc</artifactId>
       <version>3.21.0</version>
+    </dependency>
+    <dependency>
+      <groupId>dnsjava</groupId>
+      <artifactId>dnsjava</artifactId>
+      <version>2.1.8</version>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.2</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.md-5</groupId>
+      <artifactId>bungeecord-chat</artifactId>
+      <version>1.12-SNAPSHOT</version>
+      <type>jar</type>
     </dependency>
   </dependencies>
 
@@ -97,7 +124,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>2.4.3</version>
+        <version>3.2.1</version>
         <executions>
           <execution>
             <phase>package</phase>

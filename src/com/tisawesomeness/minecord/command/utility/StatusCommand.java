@@ -10,8 +10,8 @@ import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class StatusCommand extends Command {
 	
@@ -61,15 +61,15 @@ public class StatusCommand extends Command {
 			responses.add(output);
 		}
 		
-		//Build message
-		String m = "**Minecraft:** " + responses.get(0) +
-			"\n" + "**Accounts:** " + responses.get(2) +
+		//Build message (some status messages seem to not be working)
+		String m = /*"**Minecraft:** " + responses.get(0) +
+			"\n" +*/ "**Accounts:** " + responses.get(2) +
 			"\n" + "**Textures:** " + responses.get(6) +
 			"\n" + "**Session:** " + responses.get(1) +
 			"\n" + "**Session Server:** " + responses.get(4) +
 			"\n" + "**Auth Server:** " + responses.get(3) +
-			"\n" + "**Mojang:** " + responses.get(7) +
-			"\n" + "**Mojang API:** " + responses.get(5);
+			"\n" + /*"**Mojang:** " + responses.get(7) +
+			"\n" +*/ "**Mojang API:** " + responses.get(5);
 		
 		MessageEmbed me = MessageUtils.embedMessage("Minecraft Status", null, m, color);
 		

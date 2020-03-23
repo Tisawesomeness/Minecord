@@ -5,14 +5,14 @@ import java.util.regex.Pattern;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
-import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.User;
 
 public class DiscordUtils {
 	
 	public static void update() {
-		Bot.shardManager.setGame(Game.playing(Config.getGame()
+		Bot.shardManager.setActivity(Activity.playing(Config.getGame()
 			.replaceAll("\\{prefix\\}", Config.getPrefix())
 			.replaceAll("\\{guilds\\}", String.valueOf(Bot.shardManager.getGuilds().size()))
 			.replaceAll("\\{users\\}", String.valueOf(Bot.shardManager.getUsers().size()))

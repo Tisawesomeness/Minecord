@@ -1,8 +1,8 @@
 # Minecord [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3de0f658514246f598b40fb1bdf55af9)](https://www.codacy.com/app/Tis_awesomeness/Minecord?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Tisawesomeness/Minecord&amp;utm_campaign=Badge_Grade) [![Discord Bots](https://discordbots.org/api/widget/status/292279711034245130.png)](https://discordbots.org/bot/292279711034245130) [![Discord Bots](https://discordbots.org/api/widget/servers/292279711034245130.png)](https://discordbots.org/bot/292279711034245130) [![Discord Bots](https://discordbots.org/api/widget/upvotes/292279711034245130.png)](https://discordbots.org/bot/292279711034245130)
 A robust Discord bot using the JDA library for various Minecraft functions.
-- Invite: https://bot.discord.io/minecord
+- Invite: https://discordapp.com/oauth2/authorize?client_id=292279711034245130&scope=bot&permissions=93184
 - Bot User: Minecord#1216
-- Support Server: https://discord.io/minecord
+- Support Server: https://discord.gg/hrfQaD7
 
 ### Command List
 #### General Commands
@@ -103,17 +103,3 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 ### Command-Line Arguments
 - `-c <path/to/config.json>` - Defines a custom path to the config.json. Defaults to the current directory.
 - `-t <token>` - Overrides the token provided in the config.
-
-### Conventions
-Feel free to contribute **to the dev branch** with whatever you like, but make sure to follow these conventions.
-1. Your code blocks should look like the one below. This is Java, not C++.
-```java
-public static void main(String[] args) throws Exception {
-	cl = Thread.currentThread().getContextClassLoader();
-	load(args);
-}
-```
-2. PLEASE comment all of your code so that people can find their way around it. You don't have to be excessive, just enough so that it is understandable.
-3. Do not touch the version value in Bot class or the default elevated users list.
-4. Be very careful when editing the Main, Loader, and Bot classes. They can break very easily.
-5. **If you upload your bot token, then someone can steal your bot!** Contact me as soon as possible so I can remove the file quickly.
