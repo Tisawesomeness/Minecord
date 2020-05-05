@@ -8,6 +8,8 @@ import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.VoteHandler;
+import com.tisawesomeness.minecord.item.Item;
+import com.tisawesomeness.minecord.item.Recipe;
 
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -43,6 +45,8 @@ public class ReloadCommand extends Command {
 				Database.init();
 				VoteHandler.close();
 				VoteHandler.init();
+				Item.init(Config.getPath());
+				Recipe.init(Config.getPath());
 			} catch (SQLException | IOException ex) {
 				ex.printStackTrace();
 			}

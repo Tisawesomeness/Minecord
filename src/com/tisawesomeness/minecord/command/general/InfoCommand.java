@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.command.general;
 
 import java.awt.Color;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
@@ -13,7 +12,6 @@ import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class InfoCommand extends Command {
@@ -50,26 +48,12 @@ public class InfoCommand extends Command {
 		eb.addField("Version", Bot.getVersion(), true);
 		
 		String guilds = Bot.shardManager.getGuilds().size() + "";
-		String channels = Bot.shardManager.getTextChannels().size() + "";
-		String users = Bot.shardManager.getUsers().size() + "";
 		if (Config.getShardCount() > 1) {
 			String shards = e.getJDA().getShardInfo().getShardId() + 1 + "/" + Config.getShardCount();
 			eb.addField("Shard", shards, true);
 			guilds += " {" + e.getJDA().getGuilds().size() + "}";
-			channels += " {" + e.getJDA().getTextChannels().size() + "}";
-			users += " {" + e.getJDA().getUsers().size() + "}";
 		}
 		eb.addField("Guilds", guilds + "", true);
-		eb.addField("Channels", channels, true);
-		eb.addField("Users", users, true);
-		
-		ArrayList<User> userArray = new ArrayList<User>(Bot.shardManager.getUsers());
-		for (User u : new ArrayList<User>(userArray)) {
-			if (u.isBot() || u.isFake()) {
-				userArray.remove(u);
-			}
-		}
-		eb.addField("Humans", userArray.size() + "", true);
 		
 		eb.addField("Uptime", DateUtils.getUptime(), true);
 		if (Config.getShowMemory() || elevated) {

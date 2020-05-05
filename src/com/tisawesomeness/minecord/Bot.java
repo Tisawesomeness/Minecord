@@ -14,6 +14,8 @@ import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.VoteHandler;
+import com.tisawesomeness.minecord.item.Item;
+import com.tisawesomeness.minecord.item.Recipe;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
@@ -38,6 +40,7 @@ public class Bot {
 	public static ShardManager shardManager;
 	public static String id;
 	private static Listener listener;
+	private static ReactListener reactListener;
 	public static Config config;
 	public static long birth;
 	public static String[] args;
@@ -45,12 +48,12 @@ public class Bot {
 	public static Thread thread;
 	public static volatile int readyShards = 0;
 	private static final List<GatewayIntent> gateways = Arrays.asList(
-		GatewayIntent.DIRECT_MESSAGES, GatewayIntent.GUILD_MESSAGES);
+		GatewayIntent.DIRECT_MESSAGES, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS);
 	private static final EnumSet<CacheFlag> disabledCacheFlags = EnumSet.of(
 		CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOTE, CacheFlag.VOICE_STATE);
 	
 	public static boolean setup(String[] args, boolean devMode) {
-		if (!devMode) System.out.println("Bot starting.");
+		if (!devMode) System.out.println("Bot starting...");
 		
 		//Parse arguments
 		Bot.args = args;
@@ -62,32 +65,37 @@ public class Bot {
 		//Pre-init
 		thread = Thread.currentThread();
 		listener = new Listener();
+		reactListener = new ReactListener();
+		ReactMenu.startPurgeThread();
 		Registry.init();
+		try {
+			Item.init(Config.getPath());
+			Recipe.init(Config.getPath());
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			return false;
+		}
 		
 		//Connect to database
-		Thread db = new Thread() {
-			public void run() {
-				try {
-					Database.init();
-				} catch (SQLException ex) {
-					ex.printStackTrace();
-				}
+		Thread db = new Thread(() -> {
+			try {
+				Database.init();
+			} catch (SQLException ex) {
+				ex.printStackTrace();
 			}
-		};
+		});
 		db.start();
 		
 		//Start web server
 		Thread ws = null;
 		if (Config.getReceiveVotes()) {
-			ws = new Thread() {
-				public void run() {
-					try {
-						VoteHandler.init();
-					} catch (IOException ex) {
-						ex.printStackTrace();
-					}
+			ws = new Thread(() -> {
+				try {
+					VoteHandler.init();
+				} catch (IOException ex) {
+					ex.printStackTrace();
 				}
-			};
+			});
 			ws.start();
 		}
 		
@@ -110,7 +118,7 @@ public class Bot {
 				birth = (long) MethodName.GET_BIRTH.method().invoke(null, "ignore");
 				//Prepare commands
 				for (JDA jda : shardManager.getShards()) {
-					jda.addEventListener(listener);
+					jda.addEventListener(listener, reactListener);
 				}
 				m.editMessage(":white_check_mark: **Bot reloaded!**").queue();
 				MessageUtils.log(":arrows_counterclockwise: **Bot reloaded by " + u.getName() + "**");
@@ -122,7 +130,7 @@ public class Bot {
 				shardManager = DefaultShardManagerBuilder.create(gateways)
 					.setToken(Config.getClientToken())
 					.setAutoReconnect(true)
-					.addEventListeners(listener)
+					.addEventListeners(listener, reactListener)
 					.setShardsTotal(Config.getShardCount())
 					.setActivity(Activity.playing("Loading..."))
 					.setMemberCachePolicy(MemberCachePolicy.NONE)
@@ -138,7 +146,7 @@ public class Bot {
 
 				// Wait for shards to ready
 				while (readyShards < shardManager.getShardsTotal()) {
-					System.out.println("Ready shards: " + readyShards + " / " + shardManager.getShardsTotal());
+					//System.out.println("Ready shards: " + readyShards + " / " + shardManager.getShardsTotal());
 					Thread.sleep(100);
 				}
 				System.out.println("Shards ready");
@@ -146,6 +154,7 @@ public class Bot {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return false;
 		}
 		
 		//Start discordbots.org API
@@ -181,7 +190,7 @@ public class Bot {
 		//Disable JDA
 		for (JDA jda : shardManager.getShards()) {
 			jda.setAutoReconnect(false);
-			jda.removeEventListener(listener);
+			jda.removeEventListener(listener, reactListener);
 		}
 		try {
 			//Reload this class using reflection

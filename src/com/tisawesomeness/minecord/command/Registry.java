@@ -24,6 +24,7 @@ public class Registry {
 		new ServerCommand(),
 		new ItemCommand(),
 		new RecipeCommand(),
+		new IngredientCommand(),
 		new Text("\n**Player Commands:**"),
 		new UuidCommand(),
 		new HistoryCommand(),

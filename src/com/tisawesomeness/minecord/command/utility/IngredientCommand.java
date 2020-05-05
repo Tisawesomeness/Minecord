@@ -10,12 +10,12 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-public class RecipeCommand extends Command {
-
+public class IngredientCommand extends Command {
+	
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"recipe",
-			"Looks up a recipe.",
+			"ingredient",
+			"Looks up the recipes an ingredient is used in.",
 			"<item name|id>",
 			null,
 			2500,
@@ -36,35 +36,32 @@ public class RecipeCommand extends Command {
 			}
 		}
 
-		// Check for argument length
+		//Check for argument length
 		if (args.length == 0) {
 			return new Result(Outcome.WARNING, ":warning: You must specify an item!");
 		}
 
 		// Search through the recipe database
-		ArrayList<String> recipes = Recipe.searchOutput(String.join(" ", args), "en_US");
+		ArrayList<String> recipes = Recipe.searchIngredient(String.join(" ", args), "en_US");
 		if (recipes == null) {
 			return new Result(Outcome.WARNING,
-					":warning: That item does not exist! " + "\n" + "Did you spell it correctly?");
+				":warning: That item does not exist! " +
+				"\n" + "Did you spell it correctly?");
 		}
 		if (recipes.size() == 0) {
-			return new Result(Outcome.WARNING, ":warning: That item does not have a recipe!");
-		}
-		if (page >= recipes.size()) {
-			return new Result(Outcome.WARNING, ":warning: That page does not exist!");
+			return new Result(Outcome.WARNING, ":warning: That item is not an ingredient for any recipes!");
 		}
 
 		// Create menu
-		if (e.getGuild().getSelfMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE, Permission.MESSAGE_ADD_REACTION)) {
+		if (e.getGuild().getSelfMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE)) {
 			new Recipe.RecipeMenu(recipes, page, "en_US").post(e.getChannel(), e.getAuthor());
 			return new Result(Outcome.SUCCESS);
 		}
 		EmbedBuilder eb = Recipe.displayImg(recipes.get(page), "en_US");
 		eb.setFooter(String.format(
-			"Page %s/%s | Give the bot manage messages and add reactions permissions to use an interactive menu!", page + 1, recipes.size())
+			"Page %s/%s | Give the bot manage messages permissions to use an interactive menu!", page + 1, recipes.size())
 		, null);
 		return new Result(Outcome.SUCCESS, eb.build());
-
 	}
 
 }
