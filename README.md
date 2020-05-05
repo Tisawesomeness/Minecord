@@ -1,6 +1,6 @@
 # Minecord [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3de0f658514246f598b40fb1bdf55af9)](https://www.codacy.com/app/Tis_awesomeness/Minecord?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Tisawesomeness/Minecord&amp;utm_campaign=Badge_Grade) [![Discord Bots](https://discordbots.org/api/widget/status/292279711034245130.png)](https://discordbots.org/bot/292279711034245130) [![Discord Bots](https://discordbots.org/api/widget/servers/292279711034245130.png)](https://discordbots.org/bot/292279711034245130) [![Discord Bots](https://discordbots.org/api/widget/upvotes/292279711034245130.png)](https://discordbots.org/bot/292279711034245130)
 A robust Discord bot using the JDA library for various Minecraft functions.
-- Invite: https://discordapp.com/oauth2/authorize?client_id=292279711034245130&scope=bot&permissions=93184
+- Invite: https://discordapp.com/oauth2/authorize?client_id=292279711034245130&scope=bot&permissions=93248
 - Bot User: Minecord#1216
 - Support Server: https://discord.gg/hrfQaD7
 
@@ -18,6 +18,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&server <address>[:port]` - Fetches the stats of a server.
 - `&item <item name|id>` - Looks up an item.
 - `&recipe <item name|id>` - Looks up a recipe.
+- `&ingredient <item name|id>` - Looks up the recipes an ingredient is used in.
 
 #### Player Commands:
 - `&uuid <username> [date]` - Gets the UUID of a player.
@@ -29,10 +30,12 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&cape <username|uuid> [date]` - Gets the cape of a player.
 
 #### Admin Commands:
-- `&say <channel> <message` - Say a message.
+- `&say <channel> <message>` - Say a message.
 - `&msg <mention> <message>` - Open the DMs.
 - `&name <guild id> <name>` - Changes the bot's nickname per-guild, enter nothing to reset.
 - `&usage` - Shows how often commands are used.
+- `&promote <user>` - Elevate a user.
+- `&demote <user>` - De-elevate a user.
 - `&reload` - Reloads the bot.
 - `&shutdown` - Shuts down the bot.
 - `&eval` - Evaluates javascript code with variables `jda`, `config`, `event`, `guild`, `channel`, and `user`.
@@ -51,7 +54,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Receive Votes:* When true, the bot will receive votes from discordbots.org. **This will set up an HTTP server.**
 - *Webhook URL:* The URL used to receive votes. Keep this random and private, if it leaks, users will be able to fake votes. Set the discordbots.org webhook to http://`your ip`:`port`/`url`.
 - *Webhook Port:* The port used to receive votes.
-- *Game:* This is the game that the bot is playing, shown under the username. `{prefix}`, `{guilds}`, `{channels}`, and `{users}` are available variables.
+- *Game:* This is the game that the bot is playing, shown under the username. `{prefix}` and `{guilds}` are available variables.
 - *Prefix:* The prefix of the bot. Use `>&` instead of `&` if you want to host your own bot alongside the main one.
 - *Respond To Mentions:* This option decides if the bot will respond to being mentioned at the beginning of a message, so you can use `@Minecord#1216 help` to execute `&help`.
 - *Delete Commands:* If true, the commands sent by players (like `&help`) will be deleted to clean up chat. Requires permission to manage messages.
@@ -59,7 +62,6 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Invite:* The invite link to use in `&invite`.
 - *Show Memory:* Whether or not to show the memory in `&info`.
 - *Elevated Skip Cooldown:* Whether or not elevated users skip command cooldowns.
-- *Elevated Users:* A list of user IDs. Elevated users can do `&help admin` to view hidden commands, `&msg`, `&reload`, `&shutdown`, `&dump`, `&test`, and `&purge` in all servers.
 
 #### Default Config
 ```json
@@ -69,14 +71,14 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 	"owner": "0",
     "settings": {
         "logChannel": "0",
-        "invite": "https://bot.discord.io/minecord",
+        "invite": "https://discordapp.com/oauth2/authorize?client_id=292279711034245130&scope=bot&permissions=93248",
         "prefix": "&",
         "game": "@Minecord help | {guilds} guilds",
         "devMode": false,
         "debugMode": false,
         "respondToMentions": true,
         "deleteCommands": false,
-        "sendTyping": true,
+        "sendTyping": false,
         "showMemory": false,
         "elevatedSkipCooldown": true
     },
