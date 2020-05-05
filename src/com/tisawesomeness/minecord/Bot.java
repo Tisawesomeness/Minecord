@@ -35,7 +35,7 @@ public class Bot {
 	private static final String mainClass = "com.tisawesomeness.minecord.Main";
 	public static final String helpServer = "https://discord.gg/hrfQaD7";
 	public static final String website = "https://minecord.github.io";
-	private static final String version = "0.7.0-BETA-4";
+	private static final String version = "0.7.0";
 	
 	public static ShardManager shardManager;
 	public static String id;
