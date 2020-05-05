@@ -15,8 +15,6 @@ public class DiscordUtils {
 		Bot.shardManager.setActivity(Activity.playing(Config.getGame()
 			.replaceAll("\\{prefix\\}", Config.getPrefix())
 			.replaceAll("\\{guilds\\}", String.valueOf(Bot.shardManager.getGuilds().size()))
-			.replaceAll("\\{users\\}", String.valueOf(Bot.shardManager.getUsers().size()))
-			.replaceAll("\\{channels\\}", String.valueOf(Bot.shardManager.getTextChannels().size()))
 		));
 	}
 	

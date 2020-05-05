@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.tisawesomeness.minecord.util.MessageUtils;
+import com.tisawesomeness.minecord.util.RequestUtils;
 
 public class Config {
 
@@ -48,6 +49,8 @@ public class Config {
 	
 	private static List<Announcement> announcements;
 
+	private static String path;
+
 	public static void read(boolean reload) {
 		
 		//Look for client token
@@ -69,7 +72,7 @@ public class Config {
 		}
 		
 		//Parse config path
-		String path = ".";
+		path = ".";
 		if (Bot.args.length > 1 && ArrayUtils.contains(Bot.args, "-c")) {
 			int index = ArrayUtils.indexOf(Bot.args, "-c");
 			if (index + 1 < Bot.args.length) {
@@ -80,7 +83,7 @@ public class Config {
 
 		//Parse config JSON
 		try {
-			JSONObject config = new JSONObject(new String(Files.readAllBytes(Paths.get(path + "/config.json"))));
+			JSONObject config = RequestUtils.loadJSON(path + "/config.json");
 			if (clientToken == null) clientToken = config.getString("clientToken");
 			shardCount = config.getInt("shardCount");
 			if (shardCount < 1) shardCount = 1;
@@ -175,5 +178,7 @@ public class Config {
 	public static String getPass() {return pass;}
 	
 	public static List<Announcement> getAnnouncements() {return announcements;}
+
+	public static String getPath() {return path;}
 	
 }

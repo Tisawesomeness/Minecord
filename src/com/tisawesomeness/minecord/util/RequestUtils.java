@@ -11,12 +11,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import org.discordbots.api.client.DiscordBotListAPI;
+import org.json.JSONObject;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
@@ -148,6 +151,10 @@ public class RequestUtils {
 			for (JDA jda : Bot.shardManager.getShards()) serverCounts.add(jda.getGuilds().size());
 			api.setStats(id, serverCounts);
 		}
+	}
+
+	public static JSONObject loadJSON(String path) throws IOException {
+		return new JSONObject(new String(Files.readAllBytes(Paths.get(path))));
 	}
 
 }

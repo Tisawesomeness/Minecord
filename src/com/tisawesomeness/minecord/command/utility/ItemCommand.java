@@ -1,7 +1,5 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import java.awt.Color;
-
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.item.Item;
 import com.tisawesomeness.minecord.util.MessageUtils;
@@ -17,7 +15,7 @@ public class ItemCommand extends Command {
 			"Looks up an item.",
 			"<item name|id>",
 			null,
-			1000,
+			2500,
 			false,
 			false,
 			true
@@ -25,14 +23,13 @@ public class ItemCommand extends Command {
 	}
 
 	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
-		
-		//Check for argument length.
+		// Check for argument length
 		if (args.length == 0) {
 			return new Result(Outcome.WARNING, ":warning: You must specify an item!");
 		}
 		
-		//Search through the item database
-		Item item = Item.search(Item.values(), Item.prepareArgs(args));
+		// Search through the item database
+		String item = Item.search(String.join(" ", args), "en_US");
 		
 		MessageUtils.log(
 			"Item command executed" +
@@ -40,19 +37,17 @@ public class ItemCommand extends Command {
 			"\nItem: `" + item + "`"
 		);
 		
-		//If nothing is found
+		// If nothing is found
 		if (item == null) {
 			return new Result(Outcome.WARNING,
 				":warning: That item does not exist! " +
 				"\n" + "Did you spell it correctly?");
 		}
 		
-		//Build message
-		EmbedBuilder eb = item.getInfo();
-		eb.setTitle(item.name);
-		eb.setColor(Color.GREEN);
+		// Build message
+		EmbedBuilder eb = Item.display(item, "en_US", e.getGuild().getIdLong());
 		eb.setFooter("See an error? Please report them at https://goo.gl/KWCxis", null);
-		//eb = MessageUtils.addFooter(eb);
+		// eb = MessageUtils.addFooter(eb);
 		
 		return new Result(Outcome.SUCCESS, eb.build());
 	}
