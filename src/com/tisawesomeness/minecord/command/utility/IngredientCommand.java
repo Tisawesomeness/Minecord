@@ -17,7 +17,7 @@ public class IngredientCommand extends Command {
 			"ingredient",
 			"Looks up the recipes an ingredient is used in.",
 			"<item name|id>",
-			null,
+			new String[]{"ingredients"},
 			2500,
 			false,
 			false,
