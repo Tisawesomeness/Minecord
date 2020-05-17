@@ -21,10 +21,7 @@ public class InfoCommand extends Command {
 			"info",
 			"Shows the bot info",
 			null,
-			new String[]{
-				"about",
-				"stats",
-				"ping"},
+			new String[]{"about", "stats"},
 			0,
 			false,
 			false,
@@ -58,6 +55,7 @@ public class InfoCommand extends Command {
 		eb.addField("Uptime", DateUtils.getUptime(), true);
 		if (Config.getShowMemory() || elevated) {
 			eb.addField("Memory", getMemoryString(), true);
+			eb.addField("Boot Time", DateUtils.getBootTime(), true);
 		}
 		eb.addField("Ping", Bot.shardManager.getAverageGatewayPing() + "ms", true);
 		
@@ -65,7 +63,7 @@ public class InfoCommand extends Command {
 		eb.addField("Help Server", Bot.helpServer, true);
 		eb.addField("Website", Bot.website, true);
 		eb.addField("Credits", "Mojang API, Crafatar, and lucaazalim", true);
-		eb.addField("Library", "Java `1.8.0`, JDA `3.3.1_316`", true);
+		eb.addField("Library", "Java `1.8`, JDA `4.1.1_151`", true);
 		
 		eb = MessageUtils.addFooter(eb);
 		return new Result(Outcome.SUCCESS, eb.build());

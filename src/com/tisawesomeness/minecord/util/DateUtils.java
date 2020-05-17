@@ -2,6 +2,10 @@ package com.tisawesomeness.minecord.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -19,6 +23,7 @@ public class DateUtils {
 	private static final String fullTimeRegex = "^(0?[1-9]|1[012]):[0-5][0-9]:[0-5][0-9]$";
 	private static final String fullTimeRegex24 = "^(0?[1-9]|1[0-9]|2[0-4]):[0-5][0-9]:[0-5][0-9]$";
 	private static final String timeZoneRegex = "^(?:Z|[+-](?:2[0-3]|[01][0-9]):[0-5][0-9])$";
+	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a z").withZone(ZoneId.systemDefault());
 	
 	/**
 	 * Parses a list of date-related strings to build a date, then a timestamp.
@@ -215,6 +220,22 @@ public class DateUtils {
 		}
 		
 		return uptime;
+	}
+
+	/**
+	 * Returns a string with the time the bot took to boot up, in seconds, to 3 decimal places
+	 */
+	public static String getBootTime() {
+		return (double) Bot.bootTime / 1000 + "s";
+	}
+
+	/**
+	 * Generates a string with the formatted date and the amount of days since that date
+	 * @param time The date to measure, must be in the past
+	 * @return A string formatted to "%s (%d days ago)"
+	 */
+	public static String getDateAgo(OffsetDateTime time) {
+		return String.format("%s (**%d** days ago)", time.format(formatter), time.until(OffsetDateTime.now(), ChronoUnit.DAYS));
 	}
 
 }

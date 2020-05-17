@@ -29,10 +29,11 @@ import net.dv8tion.jda.api.JDA;
 public class RequestUtils {
 	
 	private static final String charset = StandardCharsets.UTF_8.name();
-	private static final String contentType = "application/json";
+	private static final String jsonType = "application/json";
+	private static final String plainType = "text/plain";
 	public static DiscordBotListAPI api = null;
 	
-	private static String get(URLConnection conn) throws IOException {
+	private static String get(URLConnection conn, String type) throws IOException {
 		InputStream response = conn.getInputStream();
 		Scanner scanner = new Scanner(response);
 		String responseBody = scanner.hasNext() ? scanner.useDelimiter("\\A").next() : "";
@@ -48,6 +49,15 @@ public class RequestUtils {
 	public static String get(String url) {
 		return get(url, null);
 	}
+
+	/**
+	 * Performs an HTTP GET request.
+	 * @param url The request URL.
+	 * @return The response of the request in string form.
+	 */
+	public static String getPlain(String url) {
+		return getPlain(url, null);
+	}
 	
 	/**
 	 * Performs an HTTP GET request.
@@ -58,11 +68,27 @@ public class RequestUtils {
 	public static String get(String url, String auth) {
 		if (checkURL(url)) {
 			try {
-				URLConnection conn = open(url, auth);
-				return get(conn);
+				URLConnection conn = open(url, auth, jsonType);
+				return get(conn, jsonType);
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Performs an HTTP GET request.
+	 * @param url The request URL.
+	 * @param auth The content of the Authorization header.
+	 * @return The response of the request in string form.
+	 */
+	public static String getPlain(String url, String auth) {
+		try {
+			URLConnection conn = open(url, auth, plainType);
+			return get(conn, plainType);
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
 		return null;
 	}
@@ -86,20 +112,20 @@ public class RequestUtils {
 	 */
 	public static String post(String url, String query, String auth) {
 		try {
-			URLConnection conn = open(url, auth);
+			URLConnection conn = open(url, auth, jsonType);
 			
 			OutputStream output = conn.getOutputStream();
 			output.write(query.getBytes(charset));
 			output.close();
 			
-			return get(conn);
+			return get(conn, jsonType);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 		return null;
 	}
 	
-	private static URLConnection open(String url, String auth) throws MalformedURLException, IOException {
+	private static URLConnection open(String url, String auth, String contentType) throws MalformedURLException, IOException {
 		URLConnection conn = new URL(url).openConnection();
 		conn.setDoOutput(true);
 		conn.setRequestProperty("Accept-Charset", charset);
@@ -119,7 +145,8 @@ public class RequestUtils {
 			HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
 			con.setRequestMethod("HEAD");
 			return (con.getResponseCode() == HttpURLConnection.HTTP_OK);
-		} catch (Exception e) {
+		} catch (Exception ex) {
+			ex.printStackTrace();
 			return false;
 		}
 	}

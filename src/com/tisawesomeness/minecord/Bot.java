@@ -16,6 +16,7 @@ import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.VoteHandler;
 import com.tisawesomeness.minecord.item.Item;
 import com.tisawesomeness.minecord.item.Recipe;
+import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
@@ -43,6 +44,7 @@ public class Bot {
 	private static ReactListener reactListener;
 	public static Config config;
 	public static long birth;
+	public static long bootTime;
 	public static String[] args;
 	
 	public static Thread thread;
@@ -53,7 +55,10 @@ public class Bot {
 		CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOTE, CacheFlag.VOICE_STATE);
 	
 	public static boolean setup(String[] args, boolean devMode) {
-		if (!devMode) System.out.println("Bot starting...");
+		long startTime = System.currentTimeMillis();
+		if (!devMode) {
+			System.out.println("Bot starting...");
+		}
 		
 		//Parse arguments
 		Bot.args = args;
@@ -134,11 +139,11 @@ public class Bot {
 					.setShardsTotal(Config.getShardCount())
 					.setActivity(Activity.playing("Loading..."))
 					.setMemberCachePolicy(MemberCachePolicy.NONE)
-					.setDisabledCacheFlags(disabledCacheFlags)
+					.disableCache(disabledCacheFlags)
 					.build();
 				
 				//Update main class
-				birth = System.currentTimeMillis();
+				birth = startTime;
 				if (Config.getDevMode()) {
 					MethodName.SET_SHARDS.method().invoke(null, shardManager);
 					MethodName.SET_BIRTH.method().invoke(null, birth);
@@ -176,9 +181,10 @@ public class Bot {
 		}
 		
 		//Post-init
+		bootTime = System.currentTimeMillis() - birth;
+		System.out.println("Boot Time: " + DateUtils.getBootTime());
 		MessageUtils.log(":white_check_mark: **Bot started!**");
 		DiscordUtils.update();
-		System.out.println("Startup finished.");
 		RequestUtils.sendGuilds();
 		
 		return true;

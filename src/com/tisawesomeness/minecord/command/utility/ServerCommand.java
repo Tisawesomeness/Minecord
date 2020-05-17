@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +17,6 @@ import br.com.azalim.mcserverping.MCPing;
 import br.com.azalim.mcserverping.MCPingOptions;
 import br.com.azalim.mcserverping.MCPingResponse;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 
@@ -28,7 +28,7 @@ public class ServerCommand extends Command {
 	private final String ipAddressRegex = "((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])";
 	private final String chatCodeRegex = "\u00A7[a-fA-Fklmnor0-9]"; //§
 	
-	private static Set<String> blockedServers;
+	private static Set<String> blockedServers = new HashSet<String>();
 	private static long timestamp = 0;
 	
 	public CommandInfo getInfo() {
@@ -48,7 +48,7 @@ public class ServerCommand extends Command {
 		
 		//Parse arguments
 		if (args.length == 0) {
-			String m = ":warning: Incorrect arguments." +
+			String m = ":warning: You must specify a server." +
 				"\n" + Database.getPrefix(e.getGuild().getIdLong()) + "server <address>[:port]";
 			return new Result(Outcome.WARNING, m, 2);
 		}
@@ -57,18 +57,17 @@ public class ServerCommand extends Command {
 		if (!arg.matches(ipAddressRegex)) {
 			ip = false;
 			if (!arg.matches(serverAddressRegex)) {
-				return new Result(Outcome.ERROR, ":x: That is not a valid server address.");
+				return new Result(Outcome.WARNING, ":warning: That is not a valid server address.");
 			}
 		}
 		
-		//Query Mojang for blocked servers, cached by the hour TODO: bot should not fail if it cannot connect to mojang	
+		//Query Mojang for blocked servers, cached by the hour
 		if (System.currentTimeMillis() - 3600000 > timestamp) {
-			String request = RequestUtils.get("https://sessionserver.mojang.com/blockedservers");
-			if (request == null) {
-				return new Result(Outcome.ERROR, ":x: The Mojang API could not be reached.");
+			String request = RequestUtils.getPlain("https://sessionserver.mojang.com/blockedservers");
+			if (request != null) {
+				blockedServers = new HashSet<String>(Arrays.asList(request.split("\n")));
+				timestamp = System.currentTimeMillis();
 			}
-			blockedServers = new HashSet<String>(Arrays.asList(request.split("\n")));
-			timestamp = System.currentTimeMillis();
 		}
 
 		String hostname = arg;
@@ -81,9 +80,8 @@ public class ServerCommand extends Command {
 		try {
 			MCPingOptions options = MCPingOptions.builder().hostname(hostname).port(port).build();
 			reply = MCPing.getPing(options);
-		} catch (IOException ex) {
-			ex.printStackTrace();
-			return new Result(Outcome.ERROR, ":x: The server is down or unreachable.");
+		} catch (IOException ignore) {
+			return new Result(Outcome.WARNING, ":warning: The server is down or unreachable.\nDid you spell it correctly?");
 		}
 
 		String address = port == 25565 ? hostname : hostname + ":" + port;
@@ -97,11 +95,22 @@ public class ServerCommand extends Command {
 			"\n" + "**Players:** " + playerInfo +
 			"\n" + "**MOTD:** " + motd;
 		if (isBlocked(arg, ip)) m += "\n**BLOCKED BY MOJANG**";
-		
-		MessageEmbed me = MessageUtils.embedMessage("Server Status", null, m, Color.GREEN);
-		
-		//return new Result(Outcome.SUCCESS, new EmbedBuilder(me).setThumbnail(thumb).build());
-		return new Result(Outcome.SUCCESS, new EmbedBuilder(me).build());
+
+		// Upload favicon as byte array
+		EmbedBuilder eb = MessageUtils.addFooter(new EmbedBuilder().setTitle("Server Status").setColor(Color.GREEN));
+		if (reply.getFavicon() == null) {
+			eb.setDescription(m);
+		} else {
+			try {
+				byte[] data = Base64.getDecoder().decode(reply.getFavicon().replace("\n", "").split(",")[1]);
+				e.getChannel().sendFile(data, "favicon.png").embed(eb.setDescription(m).setThumbnail("attachment://favicon.png").build()).queue();
+				return new Result(Outcome.SUCCESS);
+			} catch (IllegalArgumentException ex) {
+				ex.printStackTrace();
+				eb.setDescription(m + "\n:x: Server returned an invalid icon.");
+			}
+		}
+		return new Result(Outcome.SUCCESS, eb.build());
 	}
 	
 	//Checks if a server is blocked by Mojang
@@ -109,10 +118,11 @@ public class ServerCommand extends Command {
 		server = server.toLowerCase();
 		if (blockedServers.contains(sha1(server))) return true;
 		if (ip) {
+			System.out.println("> " + server);
 			int i = server.lastIndexOf('.');
 			while (i >= 0) {
-				i = server.lastIndexOf('.', i) - 1;
 				if (blockedServers.contains(sha1(server.substring(0, i + 1) + ".*"))) return true;
+				i = server.lastIndexOf('.', i) - 1;
 			}
 		} else {
 			int i = 0;
