@@ -11,6 +11,7 @@
         "debugMode": false,
         "respondToMentions": true,
         "deleteCommands": false,
+        "useMenus": true,
         "sendTyping": false,
         "showMemory": false,
         "elevatedSkipCooldown": true

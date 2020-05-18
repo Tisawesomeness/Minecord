@@ -28,6 +28,7 @@ public class Config {
 	private static boolean debugMode;
 	private static boolean respondToMentions;
 	private static boolean deleteCommands;
+	private static boolean useMenus;
 	private static boolean sendTyping;
 	private static boolean showMemory;
 	private static boolean elevatedSkipCooldown;
@@ -98,6 +99,7 @@ public class Config {
 			debugMode = settings.getBoolean("debugMode");
 			respondToMentions = settings.getBoolean("respondToMentions");
 			deleteCommands = settings.getBoolean("deleteCommands");
+			useMenus = settings.getBoolean("useMenus");
 			sendTyping = settings.getBoolean("sendTyping");
 			showMemory = settings.getBoolean("showMemory");
 			elevatedSkipCooldown = settings.getBoolean("elevatedSkipCooldown");
@@ -158,6 +160,7 @@ public class Config {
 	public static boolean getDebugMode() {return debugMode;}
 	public static boolean getRespondToMentions() {return respondToMentions;}
 	public static boolean getDeleteCommands() {return deleteCommands;}
+	public static boolean getUseMenus() {return useMenus;}
 	public static boolean getSendTyping() {return sendTyping;}
 	public static boolean getShowMemory() {return showMemory;}
 	public static boolean getElevatedSkipCooldown() {return elevatedSkipCooldown;}

@@ -66,9 +66,7 @@ public class HelpCommand extends Command {
 		}
 		m = m.substring(0, m.length() - 1); //Remove trailing newline
 		m += "\n\n" + "**Arguments:**" +
-			"\n" + "`<>` is required, `[]` is optional, and `?` is true/false." +
-			"\n" + "Simply type a command like `" + Database.getPrefix(id) +
-			"server` without any arguments to get more details.";
+			"\n" + "`<>` - required, `[]` - optional, `?` - true/false.";
 		
 		MessageEmbed me = MessageUtils.embedMessage(null, null, m, Color.GREEN);
 		

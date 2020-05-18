@@ -16,6 +16,8 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&purge [number]` - Cleans the bot messages.
 - `&guild` - Shows guild info.
 - `&user <user|id>` - Shows user info.
+- `&prefix [prefix]` - A shortcut to change the prefix. Leave blank to show the current prefix.
+- `&settings [setting] [value]` - Change the bot's settings, including prefix.
 
 #### Utility Commands:
 - `&codes` - Lists the available chat codes.
@@ -59,6 +61,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Debug Mode:* Prints additional info to console.
 - *Respond To Mentions:* This option decides if the bot will respond to being mentioned at the beginning of a message, so you can use `@Minecord#1216 help` to execute `&help`.
 - *Delete Commands:* If true, the commands sent by players (like `&help`) will be deleted to clean up chat. Requires permission to manage messages.
+- *Use Menus:* If true, the bot will use a reaction menu for `&recipe` and `&ingredient` if possible.
 - *Send Typing:* If true, the bot will send typing packets.
 - *Show Memory:* Whether or not to show the memory in `&info`.
 - *Elevated Skip Cooldown:* Whether or not elevated users skip command cooldowns.
@@ -93,6 +96,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
         "debugMode": false,
         "respondToMentions": true,
         "deleteCommands": false,
+        "useMenus": true,
         "sendTyping": false,
         "showMemory": false,
         "elevatedSkipCooldown": true

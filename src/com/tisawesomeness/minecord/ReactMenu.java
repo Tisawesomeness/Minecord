@@ -5,12 +5,16 @@ import java.util.LinkedHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import com.tisawesomeness.minecord.database.Database;
+
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.Guild;
 
 /**
  * Represents a menu the user can interact with by reacting to the message
@@ -146,6 +150,14 @@ public abstract class ReactMenu {
      */
     private boolean hasPerms(Permission... permissions) {
         return message.getGuild().getSelfMember().hasPermission(message.getTextChannel(), permissions);
+    }
+
+    /**
+     * Checks if the bot is able to make a react menu in the specified channel
+     * @return True if the guild has menus enabled and the bot has manage message and add reaction permissions
+     */
+    public static boolean canMakeMenu(Guild g, TextChannel c) {
+        return g.getSelfMember().hasPermission(c, Permission.MESSAGE_MANAGE, Permission.MESSAGE_ADD_REACTION) && Database.getUseMenu(g.getIdLong());
     }
     
     /**

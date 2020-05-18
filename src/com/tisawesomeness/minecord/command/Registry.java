@@ -20,6 +20,7 @@ public class Registry {
 		new PrefixCommand(),
 		new GuildCommand(),
 		new UserCommand(),
+		new SettingsCommand(),
 		new Text("\n**Utility Commands:**"),
 		new StatusCommand(),
 		new SalesCommand(),

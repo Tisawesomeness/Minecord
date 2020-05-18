@@ -3,11 +3,11 @@ package com.tisawesomeness.minecord.command.utility;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.item.Recipe;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class RecipeCommand extends Command {
@@ -15,7 +15,7 @@ public class RecipeCommand extends Command {
 	public CommandInfo getInfo() {
 		return new CommandInfo(
 			"recipe",
-			"Looks up a recipe.",
+			"Look up recipes.",
 			"<item name|id>",
 			null,
 			2500,
@@ -55,7 +55,7 @@ public class RecipeCommand extends Command {
 		}
 
 		// Create menu
-		if (e.getGuild().getSelfMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE, Permission.MESSAGE_ADD_REACTION)) {
+		if (ReactMenu.canMakeMenu(e.getGuild(), e.getTextChannel())) {
 			new Recipe.RecipeMenu(recipes, page, "en_US").post(e.getChannel(), e.getAuthor());
 			return new Result(Outcome.SUCCESS);
 		}

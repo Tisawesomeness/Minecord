@@ -17,7 +17,7 @@ public class PrefixCommand extends Command {
 				"resetprefix",
 				"changeprefix"},
 			5000,
-			false,
+			true,
 			false,
 			true
 		);

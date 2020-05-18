@@ -84,7 +84,7 @@ public class Listener extends ListenerAdapter {
 			TextChannel c = e.getTextChannel();
 			
 			//Delete message if enabled in the config and the bot has permissions
-			if (e.getGuild().getSelfMember().hasPermission(c, Permission.MESSAGE_MANAGE) && Config.getDeleteCommands()) {
+			if (e.getGuild().getSelfMember().hasPermission(c, Permission.MESSAGE_MANAGE) && Database.getDeleteCommands(e.getGuild().getIdLong())) {
 				m.delete().complete();
 			}
 			
