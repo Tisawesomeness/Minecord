@@ -10,6 +10,8 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
 public class DiscordUtils {
+
+	public static final String idRegex = "[0-9]{18}";
 	
 	public static void update() {
 		Bot.shardManager.setActivity(Activity.playing(Config.getGame()

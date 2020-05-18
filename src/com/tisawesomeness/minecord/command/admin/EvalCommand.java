@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command.admin;
 
 import java.time.OffsetDateTime;
-import java.util.regex.Pattern;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -9,10 +8,12 @@ import javax.script.ScriptEngineManager;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.database.Database;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 
 public class EvalCommand extends Command {
 
@@ -43,6 +44,7 @@ public class EvalCommand extends Command {
 		ScriptEngine engine = factory.getEngineByName("JavaScript");
 		engine.put("jda", e.getJDA());
 		engine.put("config", Bot.config);
+		engine.put("db", new Database());
 		engine.put("event", e);
 		engine.put("guild", e.getGuild());
 		engine.put("channel", e.getChannel());
@@ -66,22 +68,26 @@ public class EvalCommand extends Command {
 		eb.addField("Output", "```js\n" + clean(output.toString()) + "\n```", false);
 		eb.setTimestamp(OffsetDateTime.now());
 		User u = e.getAuthor();
-		eb.setFooter("Sent by " + u.getName() + "#" + u.getDiscriminator() + " (" + u.getId() + ")", u.getAvatarUrl());
+		eb.setFooter(String.format("Sent by %s (%s)", u.getAsTag(), u.getId()), u.getAvatarUrl());
 		
 		return new Result(Outcome.SUCCESS, eb.build());
 		
 	}
-	
+
 	private String clean(String s) {
-		return s.replaceAll("\\\\", "\\\\")
-				.replaceAll("`", "\\\\`")
-				.replaceAll("@everyone", "[everyone]")
-				.replaceAll("@here", "[here]")
-				.replaceAll(Pattern.quote(Config.getClientToken()), "[redacted]")
-				.replaceAll(Pattern.quote(Config.getPwToken()), "[redacted]")
-				.replaceAll(Pattern.quote(Config.getOrgToken()), "[redacted]")
-				.replaceAll(Pattern.quote(Config.getHost()), "[redacted]")
-				.replaceAll(Pattern.quote(Config.getPass()), "[redacted]");
+		String[] blacklist = new String[]{
+			Config.getClientToken(),
+			Config.getPwToken(),
+			Config.getOrgToken(),
+			Config.getWebhookURL(),
+			Config.getWebhookAuth(),
+			Config.getHost(),
+			Config.getPass()
+		};
+		for (String nono : blacklist) {
+			s = s.replace(nono, "[redacted]");
+		}
+		return MarkdownSanitizer.escape(s.replace("@everyone", "[everyone]").replace("@here", "[here]"));
 	}
 
 }
