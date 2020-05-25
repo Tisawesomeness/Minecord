@@ -24,7 +24,7 @@ import java.io.IOException;
 
 public class ServerCommand extends Command {
 	
-	private final String serverAddressRegex = "[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,18}";
+	private final String serverAddressRegex = "([a-z0-9][a-z0-9\\-]*\\.)+[a-z0-9][a-z0-9\\-]*(:[0-9]{1,6})?";
 	private final String ipAddressRegex = "((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])";
 	private final String chatCodeRegex = "\u00A7[a-fA-Fklmnor0-9]"; //§
 	
