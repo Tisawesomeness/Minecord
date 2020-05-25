@@ -44,7 +44,11 @@ public class GuildCommand extends Command {
             }
             g = Bot.shardManager.getGuildById(args[0]);
             if (g == null) {
-                return new Result(Outcome.WARNING, ":warning: Minecord does not know that guild ID!");
+                long gid = Long.valueOf(args[0]);
+                if (Database.isBanned(gid)) {
+                    return new Result(Outcome.SUCCESS, "**GUILD BANNED FROM MINECORD**\n" + getSettingsStr(gid));
+                }
+                return new Result(Outcome.SUCCESS, getSettingsStr(gid));
             }
         } else {
             g = e.getGuild();
@@ -52,6 +56,8 @@ public class GuildCommand extends Command {
         User owner = g.retrieveOwner().complete().getUser();
 
         // Generate guild info
+        int textChannels = g.getTextChannels().size();
+        int voiceChannels = g.getVoiceChannels().size();
         EmbedBuilder eb = new EmbedBuilder()
             .setTitle(MarkdownSanitizer.escape(g.getName()))
             .setColor(Color.GREEN)
@@ -60,7 +66,7 @@ public class GuildCommand extends Command {
             .addField("Users", String.valueOf(g.getMemberCount()), true)
             .addField("Roles", String.valueOf(g.getRoles().size()), true)
             .addField("Categories", String.valueOf(g.getCategories().size()), true)
-            .addField("Channels", String.format("%d (%d text, %d voice)", g.getChannels().size(), g.getTextChannels().size(), g.getVoiceChannels().size()), true)
+            .addField("Channels", String.format("%d (%d text, %d voice)", textChannels + voiceChannels, textChannels, voiceChannels), true)
             .addField("Region", g.getRegion().getName(), true)
             .addField("Verification Level", g.getVerificationLevel().toString(), true)
             .addField("Owner", MarkdownSanitizer.escape(owner.getAsTag()), true)
@@ -78,15 +84,17 @@ public class GuildCommand extends Command {
             eb.addField("Description", MarkdownSanitizer.escape(g.getDescription()), false);
         }
         if (elevated) {
-            long gid = g.getIdLong();
-            String settings = String.format("prefix: `%s`\ndeleteCommands: `%s`\nuseMenus: `%s`",
-                Database.getPrefix(gid), Database.getDeleteCommands(gid), Database.getUseMenu(gid));
-            eb.addField("Settings", settings, false);
+            eb.addField("Settings", getSettingsStr(g.getIdLong()), false);
             if (Database.isBanned(g.getIdLong())) {
-                eb.setDescription("__**USER BANNED FROM MINECORD**__");
+                eb.setDescription("__**GUILD BANNED FROM MINECORD**__");
             }
         }
         return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+    }
+
+    private static String getSettingsStr(long gid) {
+        return String.format("prefix: `%s`\ndeleteCommands: `%s`\nuseMenus: `%s`",
+            Database.getPrefix(gid), Database.getDeleteCommands(gid), Database.getUseMenu(gid));
     }
     
 }

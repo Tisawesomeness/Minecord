@@ -17,6 +17,7 @@ import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;
+import net.dv8tion.jda.api.requests.ErrorResponse;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 
 public class UserCommand extends Command {
@@ -48,9 +49,14 @@ public class UserCommand extends Command {
             if (!args[0].matches(DiscordUtils.idRegex)) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
-            User u = Bot.shardManager.retrieveUserById(args[0]).complete();
+            User u = Bot.shardManager.retrieveUserById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
             if (u == null) {
-                return new Result(Outcome.WARNING, ":warning: That user ID does not exist.");
+                long gid = Long.valueOf(args[0]);
+                String elevatedStr = String.format("Elevated: `%s`", Database.isElevated(gid));
+                if (Database.isBanned(gid)) {
+                    return new Result(Outcome.SUCCESS, "**USER BANNED FROM MINECORD**\n" + elevatedStr);
+                }
+                return new Result(Outcome.SUCCESS, elevatedStr);
             }
 
             EmbedBuilder eb = new EmbedBuilder()
