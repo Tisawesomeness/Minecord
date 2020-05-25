@@ -1,7 +1,8 @@
 package com.tisawesomeness.minecord.command.general;
 
 import java.awt.Color;
-import java.text.DecimalFormat;
+import java.text.CharacterIterator;
+import java.text.StringCharacterIterator;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
@@ -31,13 +32,13 @@ public class InfoCommand extends Command {
 	public Result run(String[] args, MessageReceivedEvent e) {
 		DiscordUtils.update();
 		
-		//If the author used the admin keyword and is an elevated user
+		// If the author used the admin keyword and is an elevated user
 		boolean elevated = false;
 		if (args.length > 0 && args[0].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
 			elevated = true;
 		}
 		
-		//Build message
+		// Build message
 		EmbedBuilder eb = new EmbedBuilder();
 		
 		eb.setColor(Color.GREEN);
@@ -69,31 +70,22 @@ public class InfoCommand extends Command {
 		return new Result(Outcome.SUCCESS, eb.build());
 	}
 
-	//Calculate memory (taken from stackoverflow)
-	private static final long K = 1024;
-	private static final long M = K * K;
-	private static final long G = M * K;
-	private static final long T = G * K;
-	private static final long[] dividers = new long[] {T, G, M, K, 1};
-	private static final String[] units = new String[] {"TB", "GB", "MB", "KB", "B"};
-	private static String getMemoryString() {
-		long value = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
-		if (value < 1) {
-			throw new IllegalArgumentException("Invalid file size: " + value);
+	// Calculate memory
+	// From https://stackoverflow.com/questions/3758606/how-to-convert-byte-size-into-human-readable-format-in-java/3758880#3758880
+	public static String getMemoryString() {
+		long bytes = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+		long absB = bytes == Long.MIN_VALUE ? Long.MAX_VALUE : Math.abs(bytes);
+		if (absB < 1024) {
+			return bytes + " B";
 		}
-		String memory = null;
-		for (int i = 0; i < dividers.length; i++) {
-			final long divider = dividers[i];
-			if (value >= divider) {
-				memory = format(value, divider, units[i]);
-			}
+		long value = absB;
+		CharacterIterator ci = new StringCharacterIterator("KMGTPE");
+		for (int i = 40; i >= 0 && absB > 0xfffccccccccccccL >> i; i -= 10) {
+			value >>= 10;
+			ci.next();
 		}
-		return memory;
-	}
-
-	private static String format(long value, long divider, String unit) {
-		double result = divider > 1 ? (double) value / (double) divider : (double) value;
-		return new DecimalFormat("#,##0.#").format(result) + " " + unit;
+		value *= Long.signum(bytes);
+		return String.format("%.1f %ciB", value / 1024.0, ci.current());
 	}
 	
 }
