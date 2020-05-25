@@ -24,7 +24,7 @@ public class GuildCommand extends Command {
 			"guild",
 			"Shows guild info.",
 			null,
-			null,
+			new String[]{"guildinfo"},
 			0,
 			false,
 			false,
@@ -60,9 +60,9 @@ public class GuildCommand extends Command {
             .addField("Users", String.valueOf(g.getMemberCount()), true)
             .addField("Roles", String.valueOf(g.getRoles().size()), true)
             .addField("Categories", String.valueOf(g.getCategories().size()), true)
-            .addField("Text Channels", String.valueOf(g.getTextChannels().size()), true)
-            .addField("Voice Channels", String.valueOf(g.getVoiceChannels().size()), true)
+            .addField("Channels", String.format("%d (%d text, %d voice)", g.getChannels().size(), g.getTextChannels().size(), g.getVoiceChannels().size()), true)
             .addField("Region", g.getRegion().getName(), true)
+            .addField("Verification Level", g.getVerificationLevel().toString(), true)
             .addField("Owner", MarkdownSanitizer.escape(owner.getAsTag()), true)
             .addField("Owner ID", owner.getId(), true)
             .addField("Created", DateUtils.getDateAgo(TimeUtil.getTimeCreated(g)), false);
@@ -77,8 +77,14 @@ public class GuildCommand extends Command {
         if (g.getDescription() != null) {
             eb.addField("Description", MarkdownSanitizer.escape(g.getDescription()), false);
         }
-        if (elevated && Database.isBanned(g.getIdLong())) {
-            eb.setDescription("__**USER BANNED FROM MINECORD**__");
+        if (elevated) {
+            long gid = g.getIdLong();
+            String settings = String.format("prefix: `%s`\ndeleteCommands: `%s`\nuseMenus: `%s`",
+                Database.getPrefix(gid), Database.getDeleteCommands(gid), Database.getUseMenu(gid));
+            eb.addField("Settings", settings, false);
+            if (Database.isBanned(g.getIdLong())) {
+                eb.setDescription("__**USER BANNED FROM MINECORD**__");
+            }
         }
         return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
     }
