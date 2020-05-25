@@ -39,12 +39,16 @@ public class ReloadCommand extends Command {
 			Bot.shutdown(m, e.getAuthor());
 		} else {
 			Message m = e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
-			Config.read(true);
 			try {
 				Database.close();
 				Database.init();
-				VoteHandler.close();
-				VoteHandler.init();
+				if (Config.getReceiveVotes()) {
+					VoteHandler.close();
+				}
+				Config.read(true);
+				if (Config.getReceiveVotes()) {
+					VoteHandler.init();
+				}
 				Item.init(Config.getPath());
 				Recipe.init(Config.getPath());
 			} catch (SQLException | IOException ex) {
