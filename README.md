@@ -7,7 +7,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 
 ### Command List
 #### General Commands
-- `&help` - Displays this help menu.
+- `&help` - Displays the help menu.
 - `&info` - Shows the bot info.
 - `&ping` - Pings the bot.
 - `&invite` - Give the invite link for the bot.
@@ -36,16 +36,21 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&cape <username|uuid> [date]` - Gets the cape of a player.
 
 #### Admin Commands:
+- `&help admin` - Displays help, including admin commands.
+- `&info admin` - Displays bot info, including used memory and boot time.
+- `&settings <guild id> admin [setting] [value]` - Change the bot's settings for another guild.
+- `&user <user id> admin` - Show info, ban status, and elevation for a user outside of the current guild.
+- `&guild <guild id> admin` - Show info and ban status for another guild.
 - `&say <channel> <message>` - Say a message.
 - `&msg <mention> <message>` - Open the DMs.
 - `&name <guild id> <name>` - Changes the bot's nickname per-guild, enter nothing to reset.
 - `&usage` - Shows how often commands are used.
 - `&promote <user>` - Elevate a user.
 - `&demote <user>` - De-elevate a user.
-- `&reload` - Reloads the bot.
+- `&reload` - Reloads the bot. In dev mode, this hot reloads all code. Otherwise, this reloads the config, item/recipe files, and restarts the database and vote server.
 - `&shutdown` - Shuts down the bot.
 - `&eval` - Evaluates javascript code with variables `jda`, `config`, `event`, `guild`, `channel`, and `user`.
-- `&test` - Test command.
+- `&test` - Test command. This may change depending on what features are being developed.
 
 ### Config
 
