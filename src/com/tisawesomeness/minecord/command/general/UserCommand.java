@@ -54,7 +54,7 @@ public class UserCommand extends Command {
                 long gid = Long.valueOf(args[0]);
                 String elevatedStr = String.format("Elevated: `%s`", Database.isElevated(gid));
                 if (Database.isBanned(gid)) {
-                    return new Result(Outcome.SUCCESS, "**USER BANNED FROM MINECORD**\n" + elevatedStr);
+                    return new Result(Outcome.SUCCESS, "__**USER BANNED FROM MINECORD**__\n" + elevatedStr);
                 }
                 return new Result(Outcome.SUCCESS, elevatedStr);
             }
@@ -66,7 +66,7 @@ public class UserCommand extends Command {
                 .addField("Bot?", u.isBot() ? "Yes" : "No", true)
                 .addField("Elevated?", Database.isElevated(u.getIdLong()) ? "Yes" : "No", true);
             if (Database.isBanned(u.getIdLong())) {
-                eb.setDescription("**USER BANNED FROM MINECORD**");
+                eb.setDescription("__**USER BANNED FROM MINECORD**__");
             }
             // Since user caching is disabled, retrieveMember() is required
             // This may cause a lot of requests and lag, so it must be explicitly requested

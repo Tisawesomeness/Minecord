@@ -39,7 +39,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&help admin` - Displays help, including admin commands.
 - `&info admin` - Displays bot info, including used memory and boot time.
 - `&settings <guild id> admin [setting] [value]` - Change the bot's settings for another guild.
-- `&user <user id> admin` - Show info, ban status, and elevation for a user outside of the current guild.
+- `&user <user id> admin [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include `mutual` to show mutual guilds.
 - `&guild <guild id> admin` - Show info and ban status for another guild.
 - `&say <channel> <message>` - Say a message.
 - `&msg <mention> <message>` - Open the DMs.
@@ -47,6 +47,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&usage` - Shows how often commands are used.
 - `&promote <user>` - Elevate a user.
 - `&demote <user>` - De-elevate a user.
+- `&ban [user|guild] <id>` - Bans/unbans a user/guild from the bot. Omit user/guild to check for a ban.
 - `&reload` - Reloads the bot. In dev mode, this hot reloads all code. Otherwise, this reloads the config, item/recipe files, and restarts the database and vote server.
 - `&shutdown` - Shuts down the bot.
 - `&eval` - Evaluates javascript code with variables `jda`, `config`, `event`, `guild`, `channel`, and `user`.

@@ -46,7 +46,7 @@ public class GuildCommand extends Command {
             if (g == null) {
                 long gid = Long.valueOf(args[0]);
                 if (Database.isBanned(gid)) {
-                    return new Result(Outcome.SUCCESS, "**GUILD BANNED FROM MINECORD**\n" + getSettingsStr(gid));
+                    return new Result(Outcome.SUCCESS, "__**GUILD BANNED FROM MINECORD**__\n" + getSettingsStr(gid));
                 }
                 return new Result(Outcome.SUCCESS, getSettingsStr(gid));
             }

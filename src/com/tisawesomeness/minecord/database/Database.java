@@ -90,10 +90,10 @@ public class Database {
 		);
 		while (rs.next()) {
 			long id = rs.getLong(1);
-			boolean deleteCommands = rs.getBoolean(6);
-			if (rs.wasNull()) deleteCommands = Config.getDeleteCommands();
-			boolean noMenu = rs.getBoolean(7);
-			if (rs.wasNull()) noMenu = !Config.getUseMenus();
+			Boolean deleteCommands = rs.getBoolean(6);
+			if (rs.wasNull()) deleteCommands = null;
+			Boolean noMenu = rs.getBoolean(7);
+			if (rs.wasNull()) noMenu = null;
 			guilds.put(id, new DbGuild(
 				id,
 				rs.getString(2),
@@ -149,7 +149,7 @@ public class Database {
 		//Mirror change in local guild list
 		DbGuild g = guilds.get(id);
 		if (g == null) {
-			guilds.put(id, new DbGuild(id, prefix, "en_US", false, false, Config.getDeleteCommands(), !Config.getUseMenus()));
+			guilds.put(id, new DbGuild(id, prefix, null, false, false, null, null));
 		} else {
 			g.prefix = prefix;
 		}
@@ -163,7 +163,8 @@ public class Database {
 	
 	public static String getPrefix(long id) {
 		DbGuild guild = guilds.get(id);
-		return guild == null ? Config.getPrefix() : guild.prefix;
+		String prefix = guild == null ? Config.getPrefix() : guild.prefix;
+		return prefix == null ? Config.getPrefix() : prefix;
 	}
 	
 	public static void changeBannedGuild(long id, boolean banned) throws SQLException {
@@ -175,7 +176,7 @@ public class Database {
 			"COALESCE((SELECT lang FROM (SELECT * FROM guild) AS temp WHERE id=?), NULL), ?, " +
 			"COALESCE((SELECT noCooldown FROM (SELECT * FROM guild) AS temp WHERE id=?), 0), " +
 			"COALESCE((SELECT deleteCommands FROM (SELECT * FROM guild) AS temp WHERE id=?), 0), " +
-			"COALESCE((SELECT noCMenu FROM (SELECT * FROM guild) AS temp WHERE id=?), 0));"
+			"COALESCE((SELECT noMenu FROM (SELECT * FROM guild) AS temp WHERE id=?), 0));"
 		);
 		st.setLong(1, id);
 		st.setLong(2, id);
@@ -189,7 +190,7 @@ public class Database {
 		//Mirror change in local user list
 		DbGuild g = guilds.get(id);
 		if (g == null) {
-			guilds.put(id, new DbGuild(id, Config.getPrefix(), "en_US", banned, false, Config.getDeleteCommands(), !Config.getUseMenus()));
+			guilds.put(id, new DbGuild(id, Config.getPrefix(), null, banned, false, null, null));
 		} else {
 			g.banned = banned;
 		}
@@ -222,7 +223,7 @@ public class Database {
 		//Mirror change in local guild list
 		DbGuild g = guilds.get(id);
 		if (g == null) {
-			guilds.put(id, new DbGuild(id, Config.getPrefix(), "en_US", false, false, deleteCommands, !Config.getUseMenus()));
+			guilds.put(id, new DbGuild(id, Config.getPrefix(), null, false, false, deleteCommands, null));
 		} else {
 			g.deleteCommands = deleteCommands;
 		}
@@ -236,7 +237,8 @@ public class Database {
 	
 	public static boolean getDeleteCommands(long id) {
 		DbGuild guild = guilds.get(id);
-		return guild == null ? Config.getDeleteCommands() : guild.deleteCommands;
+		Boolean deleteCommands = guild == null ? Config.getDeleteCommands() : guild.deleteCommands;
+		return deleteCommands == null ? Config.getDeleteCommands() : deleteCommands;
 	}
 	
 	public static void changeUseMenu(long id, boolean useMenu) throws SQLException {
@@ -262,7 +264,7 @@ public class Database {
 		//Mirror change in local guild list
 		DbGuild g = guilds.get(id);
 		if (g == null) {
-			guilds.put(id, new DbGuild(id, Config.getPrefix(), "en_US", false, false, Config.getDeleteCommands(), !useMenu));
+			guilds.put(id, new DbGuild(id, Config.getPrefix(), null, false, false, null, !useMenu));
 		} else {
 			g.noMenu = !useMenu;
 		}
@@ -276,7 +278,8 @@ public class Database {
 	
 	public static boolean getUseMenu(long id) {
 		DbGuild guild = guilds.get(id);
-		return guild == null ? Config.getUseMenus() : !guild.noMenu;
+		Boolean useMenu = guild == null ? Config.getUseMenus() : !guild.noMenu;
+		return useMenu == null ? Config.getUseMenus() : useMenu;
 	}
 
 	private static void purgeGuilds(long id) throws SQLException {

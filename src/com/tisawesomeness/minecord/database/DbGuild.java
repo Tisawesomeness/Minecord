@@ -7,10 +7,10 @@ public class DbGuild {
 	public String lang;
 	public boolean banned;
 	public boolean noCooldown;
-	public boolean deleteCommands;
-	public boolean noMenu;
+	public Boolean deleteCommands;
+	public Boolean noMenu;
 	
-	public DbGuild(long id, String prefix, String lang, boolean banned, boolean noCooldown, boolean deleteCommands, boolean noMenu) {
+	public DbGuild(long id, String prefix, String lang, boolean banned, boolean noCooldown, Boolean deleteCommands, Boolean noMenu) {
 		this.id = id;
 		this.prefix = prefix;
 		this.lang = lang;
