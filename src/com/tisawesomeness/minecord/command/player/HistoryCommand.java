@@ -16,6 +16,7 @@ import com.tisawesomeness.minecord.util.RequestUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 
 public class HistoryCommand extends Command {
 	
@@ -88,7 +89,7 @@ public class HistoryCommand extends Command {
 			
 			//Get info
 			JSONObject change = names.getJSONObject(i);
-			String name = change.getString("name");
+			String name = MarkdownSanitizer.escape(change.getString("name"));
 			String date;
 			if (change.has("changedToAt")) {
 				date = DateUtils.getString(change.getLong("changedToAt"));
