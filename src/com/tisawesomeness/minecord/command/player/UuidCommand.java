@@ -31,7 +31,7 @@ public class UuidCommand extends Command {
 	public Result run(String[] args, MessageReceivedEvent e) {
 		long id = e.getGuild().getIdLong();
 		
-		//No arguments message
+		// No arguments message
 		if (args.length == 0) {
 			String m = ":warning: Incorrect arguments." +
 				"\n" + Database.getPrefix(id) + "uuid <username> [date]" +
@@ -42,20 +42,20 @@ public class UuidCommand extends Command {
 		String username = args[0];
 		String uuid = null;
 		
-		//Parse date argument
+		// Parse date argument
 		if (args.length > 1) {
 			long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
 			if (timestamp == -1) {
 				return new Result(Outcome.WARNING, MessageUtils.dateErrorString(id, "uuid"));
 			}
 			
-		//Get the UUID
+		// Get the UUID
 			uuid = NameUtils.getUUID(username, timestamp);
 		} else {
 			uuid = NameUtils.getUUID(username);
 		}
 		
-		//Check for errors
+		// Check for errors
 		if (uuid == null) {
 			String m = ":x: The Mojang API could not be reached." +
 				"\n" + "Are you sure that username exists?" +
@@ -66,10 +66,10 @@ public class UuidCommand extends Command {
 			return new Result(Outcome.ERROR, m, 3);
 		}
 		
-		//Get NameMC url
+		// Get NameMC url
 		String url = "https://namemc.com/profile/" + uuid;
 		
-		//PROPER APOSTROPHE GRAMMAR THANK THE LORD
+		// Proper apostrophe grammar
 		String title = username;
 		if (title.endsWith("s")) {
 			title = title + "' UUID";
@@ -77,7 +77,8 @@ public class UuidCommand extends Command {
 			title = title + "'s UUID";
 		}
 		
-		MessageEmbed me = MessageUtils.embedMessage(title, url, uuid, Color.GREEN);
+		String m = String.format("Short: `%s`\nLong: `%s`", uuid, NameUtils.formatUUID(uuid));
+		MessageEmbed me = MessageUtils.embedMessage(title, url, m, Color.GREEN);
 		
 		return new Result(Outcome.SUCCESS, new EmbedBuilder(me).build());
 	}
