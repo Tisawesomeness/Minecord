@@ -8,6 +8,7 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 
 import java.awt.Color;
 import java.util.Arrays;
+import java.util.List;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -117,7 +118,7 @@ public class SettingsCommand extends Command {
                     return new Result(Outcome.SUCCESS, String.format("`deleteCommands` is already %s.", isEnabledText(toSet)));
                 }
                 Database.changeDeleteCommands(gid, toSet);
-                return new Result(Outcome.SUCCESS, String.format(":arrows_counterclockwise: Command Deletion changed to `%s`.", args[1]));
+                return new Result(Outcome.SUCCESS, String.format(":arrows_counterclockwise: Command Deletion changed to `%s`.", isEnabledText(toSet)));
             } else if (args[0].equalsIgnoreCase("useMenus")) {
                 Boolean toSet = parseBoolSetting(args[1]);
                 if (toSet == null) {
@@ -128,7 +129,7 @@ public class SettingsCommand extends Command {
                     return new Result(Outcome.SUCCESS, String.format("`useMenus` is already %s.", isEnabledText(toSet)));
                 }
                 Database.changeUseMenu(gid, toSet);
-                return new Result(Outcome.SUCCESS, String.format(":arrows_counterclockwise: Menus changed to `%s`.", args[1]));
+                return new Result(Outcome.SUCCESS, String.format(":arrows_counterclockwise: Menus changed to `%s`.", isEnabledText(toSet)));
             } else {
                 return new Result(Outcome.WARNING, ":warning: That setting does not exist.");
             }
@@ -146,11 +147,13 @@ public class SettingsCommand extends Command {
         return setting ? "enabled" : "disabled";
     }
 
+    private static List<String> truthy = Arrays.asList("enabled", "yes", "y", "true", "t", "on", "1");
+    private static List<String> falsy = Arrays.asList("disabled", "no", "n", "false", "f", "off", "0");
     private static Boolean parseBoolSetting(String input) {
-        if (input.equalsIgnoreCase("enabled")) {
+        if (truthy.contains(input.toLowerCase())) {
             return true;
         }
-        return input.equalsIgnoreCase("disabled") ? false : null;
+        return falsy.contains(input.toLowerCase()) ? false : null;
     }
 
 }
