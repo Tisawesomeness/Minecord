@@ -23,7 +23,7 @@ public class DateUtils {
 	private static final String fullTimeRegex = "^(0?[1-9]|1[012]):[0-5][0-9]:[0-5][0-9]$";
 	private static final String fullTimeRegex24 = "^(0?[1-9]|1[0-9]|2[0-4]):[0-5][0-9]:[0-5][0-9]$";
 	private static final String timeZoneRegex = "^(?:Z|[+-](?:2[0-3]|[01][0-9]):[0-5][0-9])$";
-	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a z").withZone(ZoneId.systemDefault());
+	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy @ hh:mm:ss a z").withZone(ZoneId.systemDefault());
 	
 	/**
 	 * Parses a list of date-related strings to build a date, then a timestamp.

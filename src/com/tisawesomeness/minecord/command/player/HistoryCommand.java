@@ -1,10 +1,10 @@
 package com.tisawesomeness.minecord.command.player;
 
 import java.awt.Color;
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.Arrays;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
@@ -13,10 +13,11 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 
 public class HistoryCommand extends Command {
 	
@@ -36,7 +37,7 @@ public class HistoryCommand extends Command {
 	public Result run(String[] args, MessageReceivedEvent e) {
 		long id = e.getGuild().getIdLong();
 		
-		//No arguments message
+		// No arguments message
 		if (args.length == 0) {
 			String m = ":warning: Incorrect arguments." +
 				"\n" + Database.getPrefix(id) + "history <username|uuid> [date] " +
@@ -48,20 +49,20 @@ public class HistoryCommand extends Command {
 		if (!player.matches(NameUtils.uuidRegex)) {
 			String uuid = null;
 			
-			//Parse date argument
+			// Parse date argument
 			if (args.length > 1) {
 				long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
 				if (timestamp == -1) {
 					return new Result(Outcome.WARNING, MessageUtils.dateErrorString(id, "history"));
 				}
 				
-			//Get the UUID
+			// Get the UUID
 				uuid = NameUtils.getUUID(player, timestamp);
 			} else {
 				uuid = NameUtils.getUUID(player);
 			}
 			
-			//Check for errors
+			// Check for errors
 			if (uuid == null) {
 				String m = ":x: The Mojang API could not be reached." +
 					"\n" + "Are you sure that username exists?" +
@@ -75,48 +76,92 @@ public class HistoryCommand extends Command {
 			player = uuid;
 		}
 
-		//Fetch name history
+		// Fetch name history
 		String url = "https://api.mojang.com/user/profiles/" + player.replaceAll("-", "") + "/names";
 		String request = RequestUtils.get(url);
 		if (request == null) {
 			return new Result(Outcome.ERROR, ":x: The Mojang API could not be reached.");
 		}
 		
-		//Loop over each name change
-		String m = "";
+		// Loop over each name change
 		JSONArray names = new JSONArray(request);
+		ArrayList<String> lines = new ArrayList<String>();
 		for (int i = 0; i < names.length(); i++) {
 			
-			//Get info
+			// Get info
 			JSONObject change = names.getJSONObject(i);
-			String name = MarkdownSanitizer.escape(change.getString("name"));
+			String name = change.getString("name");
 			String date;
 			if (change.has("changedToAt")) {
-				date = DateUtils.getString(change.getLong("changedToAt"));
+				date = DateUtils.getDateAgo(Instant.ofEpochMilli(change.getLong("changedToAt")).atOffset(ZoneOffset.UTC));
 			} else {
 				date = "Original";
 			}
 			
-			//Add to lines
-			m = name + " | " + date + "\n" + m;
+			// Add to lines in reverse
+			lines.add(0, String.format("**%d.** `%s` | %s", i + 1, name, date));
 		}
-		m = m.substring(0, m.length() - 1);
-		
+
+		// Get NameMC url
 		player = names.getJSONObject(names.length() - 1).getString("name");
-		
-		//Get NameMC url
 		url = "https://namemc.com/profile/" + player;
 		
-		//PROPER APOSTROPHE GRAMMAR THANK THE LORD
+		// Proper apostrophe grammar
 		if (player.endsWith("s")) {
-			player = player + "' Name History";
+			player += "' Name History";
 		} else {
-			player = player + "'s Name History";
+			player += "'s Name History";
+		}
+
+		EmbedBuilder eb = new EmbedBuilder()
+			.setTitle(player, url)
+			.setColor(Color.GREEN);
+
+		// Truncate until 6000 char limit reached
+		int chars = getTotalChars(lines);
+		boolean truncated = false;
+		while (chars > 6000 - 4) {
+			truncated = true;
+			lines.remove(lines.size() - 1);
+			chars = getTotalChars(lines);
+		}
+		if (truncated) {
+			lines.add("...");
+		}
+		// If over 2048, use fields, otherwise use description
+		if (chars > 2048) {
+			// Split into fields, avoiding 1024 field char limit
+			ArrayList<String> fields = new ArrayList<String>();
+			String fieldBuf = "";
+			for (int i = 0; i < lines.size(); i++) {
+				String fieldTemp = fieldBuf + lines.get(i) + "\n";
+				if (fieldTemp.length() > 1024) {
+					i -= 1; // The line goes over the char limit, don't include!
+					fields.add(fieldBuf.substring(0, fieldBuf.length() - 1));
+					fieldBuf = "";
+				} else {
+					fieldBuf = fieldTemp;
+				}
+				if (i == lines.size() - 1) {
+					fields.add(fieldTemp);
+				}
+			}
+			for (String field : fields) {
+				eb.addField("Name History", field, false);
+			}
+		} else {
+			eb.setDescription(String.join("\n", lines));
 		}
 		
-		MessageEmbed me = MessageUtils.embedMessage(player, url, m, Color.GREEN);
-		
-		return new Result(Outcome.SUCCESS, new EmbedBuilder(me).build());
+		return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+	}
+
+	private static int getTotalChars(ArrayList<String> lines) {
+		int chars = 0;
+		for (String line : lines) {
+			chars += line.length() + 1; // +1 for newline
+		}
+		return chars;
 	}
 	
 }
