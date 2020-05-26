@@ -13,11 +13,11 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&invite` - Give the invite link for the bot.
 - `&status` - Checks the status of Mojang servers.
 - `&sales` - Looks up the sale statistics.
-- `&purge [number]` - Cleans the bot messages.
+- `&purge [number]` - Cleans the bot messages. Requires Manage Messages permissions.
 - `&guild` - Shows guild info.
 - `&user <user|id>` - Shows user info.
-- `&prefix [prefix]` - A shortcut to change the prefix. Leave blank to show the current prefix.
-- `&settings [setting] [value]` - Change the bot's settings, including prefix.
+- `&prefix [prefix]` - A shortcut to change the prefix. Leave blank to show the current prefix. Requires Manage Server permissions.
+- `&settings [setting] [value]` - Change the bot's settings, including prefix. Requires Manage Server permissions.
 
 #### Utility Commands:
 - `&codes` - Lists the available chat codes.
