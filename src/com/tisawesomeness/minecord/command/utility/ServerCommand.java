@@ -6,7 +6,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
@@ -16,6 +18,8 @@ import com.tisawesomeness.minecord.util.RequestUtils;
 import br.com.azalim.mcserverping.MCPing;
 import br.com.azalim.mcserverping.MCPingOptions;
 import br.com.azalim.mcserverping.MCPingResponse;
+import br.com.azalim.mcserverping.MCPingUtil;
+import br.com.azalim.mcserverping.MCPingResponse.Player;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
@@ -46,7 +50,7 @@ public class ServerCommand extends Command {
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		
-		//Parse arguments
+		// Parse arguments
 		if (args.length == 0) {
 			String m = ":warning: You must specify a server." +
 				"\n" + Database.getPrefix(e.getGuild().getIdLong()) + "server <address>[:port]";
@@ -61,7 +65,7 @@ public class ServerCommand extends Command {
 			}
 		}
 		
-		//Query Mojang for blocked servers, cached by the hour
+		// Query Mojang for blocked servers, cached by the hour
 		if (System.currentTimeMillis() - 3600000 > timestamp) {
 			String request = RequestUtils.getPlain("https://sessionserver.mojang.com/blockedservers");
 			if (request != null) {
@@ -88,13 +92,20 @@ public class ServerCommand extends Command {
 		String version = reply.getVersion().getName().replaceAll(chatCodeRegex, "");
 		String playerInfo = reply.getPlayers().getOnline() + "/" + reply.getPlayers().getMax();
 		String motd = MarkdownSanitizer.escape(reply.getDescription().getStrippedText());
+		List<Player> sample = reply.getPlayers().getSample();
 		
-		//Build and format message
-		String m = "**Address:** " + address +
+		// Build and format message
+		String m = isBlocked(arg, ip) ? "**BLOCKED BY MOJANG**\n" : "";
+		m = "**Address:** " + address +
 			"\n" + "**Version:** " + version +
 			"\n" + "**Players:** " + playerInfo +
 			"\n" + "**MOTD:** " + motd;
-		if (isBlocked(arg, ip)) m += "\n**BLOCKED BY MOJANG**";
+		if (sample.size() > 0) {
+			String sampleStr = sample.stream()
+				.map(p -> MCPingUtil.stripColors(p.getName()))
+				.collect(Collectors.joining("\n"));
+			m += "\n\n" + sampleStr;
+		}
 
 		// Upload favicon as byte array
 		EmbedBuilder eb = MessageUtils.addFooter(new EmbedBuilder().setTitle("Server Status").setColor(Color.GREEN));
@@ -113,7 +124,7 @@ public class ServerCommand extends Command {
 		return new Result(Outcome.SUCCESS, eb.build());
 	}
 	
-	//Checks if a server is blocked by Mojang
+	// Checks if a server is blocked by Mojang
 	private static boolean isBlocked(String server, boolean ip) {
 		server = server.toLowerCase();
 		if (blockedServers.contains(sha1(server))) return true;
@@ -134,7 +145,7 @@ public class ServerCommand extends Command {
 		return false;
 	}
 	
-	//Converts a string to SHA1 (from http://www.sha1-online.com/sha1-java/)
+	// Converts a string to SHA1 (from http://www.sha1-online.com/sha1-java/)
 	private static String sha1(String str) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA1");
