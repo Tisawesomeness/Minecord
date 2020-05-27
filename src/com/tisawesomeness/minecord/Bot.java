@@ -39,7 +39,7 @@ public class Bot {
 	public static final String helpServer = "https://minecord.github.io/support";
 	public static final String website = "https://minecord.github.io";
 	public static final String credits = "Mojang API, Crafatar, and lucaazalim";
-	private static final String version = "0.7.0";
+	private static final String version = "0.8.0";
 	public static final String javaVersion = "1.8";
 	public static final String jdaVersion = "4.1.1_151";
 	public static final Color color = Color.GREEN;
