@@ -40,7 +40,7 @@ public class ServerCommand extends Command {
 			"server",
 			"Fetches the stats of a server.",
 			"<address>[:port]",
-			null,
+			new String[]{"s"},
 			2000,
 			false,
 			false,

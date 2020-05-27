@@ -20,7 +20,7 @@ public class UuidCommand extends Command {
 			"uuid",
 			"Gets the UUID of a player.",
 			"<username> [date]",
-			null,
+			new String[]{"u"},
 			2000,
 			false,
 			false,

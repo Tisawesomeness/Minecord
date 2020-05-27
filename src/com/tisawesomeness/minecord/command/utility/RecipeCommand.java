@@ -17,7 +17,9 @@ public class RecipeCommand extends Command {
 			"recipe",
 			"Look up recipes.",
 			"<item name|id>",
-			null,
+			new String[]{
+				"r",
+				"craft"},
 			2500,
 			false,
 			false,

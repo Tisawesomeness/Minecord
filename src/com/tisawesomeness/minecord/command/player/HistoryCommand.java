@@ -26,7 +26,7 @@ public class HistoryCommand extends Command {
 			"history",
 			"Gets the name history of a player.",
 			"<username|uuid> [date]",
-			null,
+			new String[]{"h"},
 			2000,
 			false,
 			false,
