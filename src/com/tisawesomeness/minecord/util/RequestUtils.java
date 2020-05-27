@@ -31,6 +31,7 @@ public class RequestUtils {
 	private static final String charset = StandardCharsets.UTF_8.name();
 	private static final String jsonType = "application/json";
 	private static final String plainType = "text/plain";
+	private static final String browserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
 	public static DiscordBotListAPI api = null;
 	
 	private static String get(URLConnection conn, String type) throws IOException {
@@ -140,11 +141,24 @@ public class RequestUtils {
 	 * @return True if the URL exists, false if it doesn't or an error occured.
 	 */
 	public static boolean checkURL(String url) {
+		return checkURL(url, false);
+	}
+	
+	/**
+	 * Checks if a URL exists and can respond to an HTTP request.
+	 * @param url The URL to check.
+	 * @param followRedirects If true, pretends to be a browser
+	 * @return True if the URL exists, false if it doesn't or an error occured.
+	 */
+	public static boolean checkURL(String url, boolean fakeUserAgent) {
 		try {
 			HttpURLConnection.setFollowRedirects(false);
 			HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
 			con.setRequestMethod("HEAD");
-			return (con.getResponseCode() == HttpURLConnection.HTTP_OK);
+			if (fakeUserAgent) {
+				con.setRequestProperty("User-Agent", browserAgent);
+			}
+			return con.getResponseCode() == HttpURLConnection.HTTP_OK;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return false;

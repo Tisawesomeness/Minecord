@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command.player;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -12,11 +13,14 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class CapeCommand extends Command {
-	
-	//Mojang capes don't want to work, so here's a list of every single UUID with a Mojang cape
+
+	// Mojang capes don't want to work, so here's a list of every single UUID with a Mojang cape
 	private static final Set<String> mojangUUIDs = new HashSet<String>(Arrays.asList(
 	"5de530b469bf4b5c953a25819953b16f","ee531ba1534a47209f692605dbf58a10","ad93d7382b674b44984792918b8925f7","34fc1bd64dbd4b37bde6919b9489ed63",
 	"17d349da73ff4e6d94de49d64258d39e","e0a4a12dda4c40fd80096725ed21bfb1","89893e8f920e40a9947afbfdb93effd5","898ed21379b249f98602d1bb03d19ba2",
@@ -50,11 +54,11 @@ public class CapeCommand extends Command {
 			true
 		);
 	}
-	
+
 	public Result run(String[] args, MessageReceivedEvent e) {
 		long id = e.getGuild().getIdLong();
-		
-		//No arguments message
+
+		// No arguments message
 		if (args.length == 0) {
 			String m = ":warning: Incorrect arguments." +
 				"\n" + Database.getPrefix(id) + "cape <username|uuid> [date]" +
@@ -62,13 +66,13 @@ public class CapeCommand extends Command {
 			return new Result(Outcome.WARNING, m, 5);
 		}
 
-		//Get playername
+		// Get playername
 		String player = args[0];
 		String uuid = player;
 		if (player.matches(NameUtils.uuidRegex)) {
 			player = NameUtils.getName(player);
-			
-			//Check for errors
+
+			// Check for errors
 			if (player == null) {
 				String m = ":x: The Mojang API could not be reached." +
 					"\n" + "Are you sure that UUID exists?";
@@ -78,58 +82,77 @@ public class CapeCommand extends Command {
 				return new Result(Outcome.ERROR, m, 3);
 			}
 		} else {
-			//Parse date argument
+			// Parse date argument
 			if (args.length > 1) {
 				long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
 				if (timestamp == -1) {
 					return new Result(Outcome.WARNING, MessageUtils.dateErrorString(id, "skin"));
 				}
-				
-			//Get the UUID
+
+				// Get the UUID
 				uuid = NameUtils.getUUID(player, timestamp);
 			} else {
 				uuid = NameUtils.getUUID(player);
 			}
-			
-			//Check for errors
+
+			// Check for errors
 			if (uuid == null) {
 				String m = ":x: The Mojang API could not be reached." +
-					"\n" + "Are you sure that username exists?" +
-					"\n" + "Usernames are case-sensitive.";
+						"\n" +"Are you sure that username exists?" +
+						"\n" + "Usernames are case-sensitive.";
 				return new Result(Outcome.WARNING, m, 2);
 			} else if (!uuid.matches(NameUtils.uuidRegex)) {
 				String m = ":x: The API responded with an error:\n" + uuid;
 				return new Result(Outcome.ERROR, m, 3);
 			}
-			
-			uuid = uuid.replaceAll("-", "").toLowerCase();
+
+			uuid = uuid.replace("-", "").toLowerCase();
 		}
 
-		//Fetch capes
-		boolean mc = false;
-		boolean of = false;
+		// Minecraft capes
+		TextChannel tc = e.getTextChannel();
+		boolean hasCape = false;
 		if (mojangUUIDs.contains(uuid)) {
-			//Mojang cape
-			try {
-				e.getTextChannel().sendFile(RequestUtils.downloadImage("https://minecord.github.io/capes/mojang.png"), "cape.png").queue();
-			} catch (IOException ex) {}
+			// Mojang cape
+			sendImage(tc, "Minecraft Cape", "https://minecord.github.io/capes/mojang.png");
 		} else {
-			//Minecraft cape
-			try {
-				e.getTextChannel().sendFile(RequestUtils.downloadImage("https://crafatar.com/capes/" + uuid), "cape.png").queue();
-			} catch (IOException ex) {
-				mc = true;
+			// Other minecraft capes
+			String url = "https://crafatar.com/capes/" + uuid;
+			if (RequestUtils.checkURL(url)) {
+				sendImage(tc, "Minecraft Cape", url);
+				hasCape = true;
 			}
 		}
-		//Optifine cape
-		try {
-			e.getTextChannel().sendFile(RequestUtils.downloadImage("http://s.optifine.net/capes/" + player + ".png"), "cape.png").queue();
-		} catch (IOException ex) {
-			of = true;
+		// Optifine cape
+		String url = String.format("http://s.optifine.net/capes/%s.png", player);
+		if (RequestUtils.checkURL(url)) {
+			sendImage(tc, "Optifine Cape", url);
+			hasCape = true;
+		}
+		// LabyMod cape (doesn't show in embed, download required)
+		url = String.format("http://capes.labymod.net/capes/%s", NameUtils.formatUUID(uuid));
+		if (RequestUtils.checkURL(url)) {
+			MessageEmbed emb = new EmbedBuilder().setTitle("LabyMod Cape").setColor(Color.GREEN).setImage("attachment://cape.png").build();
+			try {
+				tc.sendFile(RequestUtils.downloadImage(url), "cape.png").embed(emb).queue();
+				hasCape = true;
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+		// MinecraftCapes.co.uk
+		url = String.format("https://www.minecraftcapes.co.uk/gallery/grab-player-capes/%s", player);
+		if (RequestUtils.checkURL(url, true)) {
+			sendImage(tc, "MinecraftCapes.co.uk Cape", url);
+			hasCape = true;
 		}
 		
-		if (mc && of) return new Result(Outcome.WARNING, ":warning: " + player + " does not have a cape!");
+		if (!hasCape) return new Result(Outcome.WARNING, ":warning: " + player + " does not have a cape!");
 		return new Result(Outcome.SUCCESS);
+	}
+
+	private static void sendImage(TextChannel tc, String title, String url) {
+		tc.sendMessage(new EmbedBuilder().setTitle(title).setColor(Color.GREEN).setImage(url).build()).queue();
 	}
 	
 }
