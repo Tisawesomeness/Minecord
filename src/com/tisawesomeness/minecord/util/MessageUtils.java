@@ -46,7 +46,7 @@ public class MessageUtils {
 	 */
 	public static MessageEmbed embedMessage(String title, String url, String body, Color color) {
 		EmbedBuilder eb = new EmbedBuilder();
-		if (title != null) {eb.setAuthor(title, url, null);}
+		if (title != null) eb.setTitle(title, url);
 		eb.setDescription(body);
 		eb.setColor(color);
 		eb = addFooter(eb);
