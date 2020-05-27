@@ -1822,6 +1822,9 @@
   "minecraft.stone_button": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Grian"
+        ],
         "display_name": "Stone Button"
       }
     },
@@ -2001,12 +2004,14 @@
         "search_names": [
           "White Dyed Glass",
           "White Colored Glass",
+          "White Coloured Glass",
           "White Glass"
         ],
         "uncolored": [
           "Stained Glass",
           "Dyed Glass",
-          "Colored Glass"
+          "Colored Glass",
+          "Coloured Glass"
         ],
         "display_name": "White Stained Glass"
       }
@@ -2021,6 +2026,7 @@
         "search_names": [
           "Orange Dyed Glass",
           "Orange Colored Glass",
+          "Orange Coloured Glass",
           "Orange Glass"
         ],
         "display_name": "Orange Stained Glass"
@@ -2037,6 +2043,7 @@
         "search_names": [
           "Magenta Dyed Glass",
           "Magenta Colored Glass",
+          "Magenta Coloured Glass",
           "Magenta Glass"
         ],
         "display_name": "Magenta Stained Glass"
@@ -2053,6 +2060,7 @@
         "search_names": [
           "Light Blue Dyed Glass",
           "Light Blue Colored Glass",
+          "Light Blue Coloured Glass",
           "Light Blue Glass"
         ],
         "display_name": "Light Blue Stained Glass"
@@ -2069,6 +2077,7 @@
         "search_names": [
           "Yellow Dyed Glass",
           "Yellow Colored Glass",
+          "Yellow Coloured Glass",
           "Yellow Glass"
         ],
         "display_name": "Yellow Stained Glass"
@@ -2085,6 +2094,7 @@
         "search_names": [
           "Lime Dyed Glass",
           "Lime Colored Glass",
+          "Lime Coloured Glass",
           "Lime Glass"
         ],
         "display_name": "Lime Stained Glass"
@@ -2101,6 +2111,7 @@
         "search_names": [
           "Pink Dyed Glass",
           "Pink Colored Glass",
+          "Pink Coloured Glass",
           "Pink Glass"
         ],
         "display_name": "Pink Stained Glass"
@@ -2117,6 +2128,7 @@
         "search_names": [
           "Gray Dyed Glass",
           "Gray Colored Glass",
+          "Gray Coloured Glass",
           "Gray Glass"
         ],
         "display_name": "Gray Stained Glass"
@@ -2133,6 +2145,7 @@
         "search_names": [
           "Light Gray Dyed Glass",
           "Light Gray Colored Glass",
+          "Light Gray Coloured Glass",
           "Light Gray Glass"
         ],
         "display_name": "Light Gray Stained Glass"
@@ -2149,6 +2162,7 @@
         "search_names": [
           "Cyan Dyed Glass",
           "Cyan Colored Glass",
+          "Cyan Coloured Glass",
           "Cyan Glass"
         ],
         "display_name": "Cyan Stained Glass"
@@ -2165,6 +2179,7 @@
         "search_names": [
           "Purple Dyed Glass",
           "Purple Colored Glass",
+          "Purple Coloured Glass",
           "Purple Glass"
         ],
         "display_name": "Purple Stained Glass"
@@ -2181,6 +2196,7 @@
         "search_names": [
           "Blue Dyed Glass",
           "Blue Colored Glass",
+          "Blue Coloured Glass",
           "Blue Glass"
         ],
         "display_name": "Blue Stained Glass"
@@ -2197,6 +2213,7 @@
         "search_names": [
           "Brown Dyed Glass",
           "Brown Colored Glass",
+          "Brown Coloured Glass",
           "Brown Glass"
         ],
         "display_name": "Brown Stained Glass"
@@ -2213,6 +2230,7 @@
         "search_names": [
           "Green Dyed Glass",
           "Green Colored Glass",
+          "Green Coloured Glass",
           "Green Glass"
         ],
         "display_name": "Green Stained Glass"
@@ -2229,6 +2247,7 @@
         "search_names": [
           "Red Dyed Glass",
           "Red Colored Glass",
+          "Red Coloured Glass",
           "Red Glass"
         ],
         "display_name": "Red Stained Glass"
@@ -2245,6 +2264,7 @@
         "search_names": [
           "Black Dyed Glass",
           "Black Colored Glass",
+          "Black Coloured Glass",
           "Black Glass"
         ],
         "display_name": "Black Stained Glass"
@@ -3679,13 +3699,15 @@
         "search_names": [
           "White Stained Clay",
           "White Dyed Clay",
-          "White Colored Clay"
+          "White Colored Clay",
+          "White Coloured Clay"
         ],
         "uncolored": [
           "Terracotta",
           "Stained Clay",
           "Dyed Clay",
           "Colored Clay",
+          "Coloured Clay",
           "Hardened Clay"
         ],
         "display_name": "White Terracotta"
@@ -3703,6 +3725,7 @@
           "Orange Stained Clay",
           "Orange Dyed Clay",
           "Orange Colored Clay",
+          "Orange Coloured Clay",
           "Orange Hardened Clay"
         ],
         "display_name": "Orange Terracotta"
@@ -3721,6 +3744,7 @@
           "Magenta Stained Clay",
           "Magenta Dyed Clay",
           "Magenta Colored Clay",
+          "Magenta Coloured Clay",
           "Magenta Hardened Clay"
         ],
         "display_name": "Magenta Terracotta"
@@ -3739,6 +3763,7 @@
           "Light Blue Stained Clay",
           "Light Blue Dyed Clay",
           "Light Blue Colored Clay",
+          "Light Blue Coloured Clay",
           "Light Blue Hardened Clay"
         ],
         "display_name": "Light Blue Terracotta"
@@ -3757,6 +3782,7 @@
           "Yellow Stained Clay",
           "Yellow Dyed Clay",
           "Yellow Colored Clay",
+          "Yellow Coloured Clay",
           "Yellow Hardened Clay"
         ],
         "display_name": "Yellow Terracotta"
@@ -3775,6 +3801,7 @@
           "Lime Stained Clay",
           "Lime Dyed Clay",
           "Lime Colored Clay",
+          "Lime Coloured Clay",
           "Lime Hardened Clay"
         ],
         "display_name": "Lime Terracotta"
@@ -3793,6 +3820,7 @@
           "Pink Stained Clay",
           "Pink Dyed Clay",
           "Pink Colored Clay",
+          "Pink Coloured Clay",
           "Pink Hardened Clay"
         ],
         "display_name": "Pink Terracotta"
@@ -3811,6 +3839,7 @@
           "Gray Stained Clay",
           "Gray Dyed Clay",
           "Gray Colored Clay",
+          "Gray Coloured Clay",
           "Gray Hardened Clay"
         ],
         "display_name": "Gray Terracotta"
@@ -3829,6 +3858,7 @@
           "Light Gray Stained Clay",
           "Light Gray Dyed Clay",
           "Light Gray Colored Clay",
+          "Light Gray Coloured Clay",
           "Light Gray Hardened Clay"
         ],
         "display_name": "Light Gray Terracotta"
@@ -3847,6 +3877,7 @@
           "Cyan Stained Clay",
           "Cyan Dyed Clay",
           "Cyan Colored Clay",
+          "Cyan Coloured Clay",
           "Cyan Hardened Clay"
         ],
         "display_name": "Cyan Terracotta"
@@ -3865,6 +3896,7 @@
           "Purple Stained Clay",
           "Purple Dyed Clay",
           "Purple Colored Clay",
+          "Purple Coloured Clay",
           "Purple Hardened Clay"
         ],
         "display_name": "Purple Terracotta"
@@ -3883,6 +3915,7 @@
           "Blue Stained Clay",
           "Blue Dyed Clay",
           "Blue Colored Clay",
+          "Blue Coloured Clay",
           "Blue Hardened Clay"
         ],
         "display_name": "Blue Terracotta"
@@ -3901,6 +3934,7 @@
           "Brown Stained Clay",
           "Brown Dyed Clay",
           "Brown Colored Clay",
+          "Brown Coloured Clay",
           "Brown Hardened Clay"
         ],
         "display_name": "Brown Terracotta"
@@ -3919,6 +3953,7 @@
           "Green Stained Clay",
           "Green Dyed Clay",
           "Green Colored Clay",
+          "Green Coloured Clay",
           "Green Hardened Clay"
         ],
         "display_name": "Green Terracotta"
@@ -3937,6 +3972,7 @@
           "Red Stained Clay",
           "Red Dyed Clay",
           "Red Colored Clay",
+          "Red Coloured Clay",
           "Red Hardened Clay"
         ],
         "display_name": "Red Terracotta"
@@ -3955,6 +3991,7 @@
           "Black Stained Clay",
           "Black Dyed Clay",
           "Black Colored Clay",
+          "Black Coloured Clay",
           "Black Hardened Clay"
         ],
         "display_name": "Black Terracotta"
@@ -3971,12 +4008,14 @@
         "search_names": [
           "White Glass Pane",
           "White Colored Glass Pane",
+          "White Coloured Glass Pane",
           "White Dyed Glass Pane"
         ],
         "uncolored": [
           "Stained Glass Pane",
           "Dyed Glass Pane",
-          "Colored Glass Pane"
+          "Colored Glass Pane",
+          "Coloured Glass Pane"
         ],
         "display_name": "White Stained Glass Pane"
       }
@@ -3991,6 +4030,7 @@
         "search_names": [
           "Orange Glass Pane",
           "Orange Colored Glass Pane",
+          "Orange Coloured Glass Pane",
           "Orange Dyed Glass Pane"
         ],
         "display_name": "Orange Stained Glass Pane"
@@ -4007,6 +4047,7 @@
         "search_names": [
           "Magenta Glass Pane",
           "Magenta Colored Glass Pane",
+          "Magenta Coloured Glass Pane",
           "Magenta Dyed Glass Pane"
         ],
         "display_name": "Magenta Stained Glass Pane"
@@ -4023,6 +4064,7 @@
         "search_names": [
           "Light Blue Glass Pane",
           "Light Blue Colored Glass Pane",
+          "Light Blue Coloured Glass Pane",
           "Light Blue Dyed Glass Pane"
         ],
         "display_name": "Light Blue Stained Glass Pane"
@@ -4039,6 +4081,7 @@
         "search_names": [
           "Yellow Glass Pane",
           "Yellow Colored Glass Pane",
+          "Yellow Coloured Glass Pane",
           "Yellow Dyed Glass Pane"
         ],
         "display_name": "Yellow Stained Glass Pane"
@@ -4055,6 +4098,7 @@
         "search_names": [
           "Lime Glass Pane",
           "Lime Colored Glass Pane",
+          "Lime Coloured Glass Pane",
           "Lime Dyed Glass Pane"
         ],
         "display_name": "Lime Stained Glass Pane"
@@ -4071,6 +4115,7 @@
         "search_names": [
           "Pink Glass Pane",
           "Pink Colored Glass Pane",
+          "Pink Coloured Glass Pane",
           "Pink Dyed Glass Pane"
         ],
         "display_name": "Pink Stained Glass Pane"
@@ -4087,6 +4132,7 @@
         "search_names": [
           "Gray Glass Pane",
           "Gray Colored Glass Pane",
+          "Gray Coloured Glass Pane",
           "Gray Dyed Glass Pane"
         ],
         "display_name": "Gray Stained Glass Pane"
@@ -4103,6 +4149,7 @@
         "search_names": [
           "Light Gray Glass Pane",
           "Light Gray Colored Glass Pane",
+          "Light Gray Coloured Glass Pane",
           "Light Gray Dyed Glass Pane"
         ],
         "display_name": "Light Gray Stained Glass Pane"
@@ -4119,6 +4166,7 @@
         "search_names": [
           "Cyan Glass Pane",
           "Cyan Colored Glass Pane",
+          "Cyan Coloured Glass Pane",
           "Cyan Dyed Glass Pane"
         ],
         "display_name": "Cyan Stained Glass Pane"
@@ -4135,6 +4183,7 @@
         "search_names": [
           "Purple Glass Pane",
           "Purple Colored Glass Pane",
+          "Purple Coloured Glass Pane",
           "Purple Dyed Glass Pane"
         ],
         "display_name": "Purple Stained Glass Pane"
@@ -4151,6 +4200,7 @@
         "search_names": [
           "Blue Glass Pane",
           "Blue Colored Glass Pane",
+          "Blue Coloured Glass Pane",
           "Blue Dyed Glass Pane"
         ],
         "display_name": "Blue Stained Glass Pane"
@@ -4167,6 +4217,7 @@
         "search_names": [
           "Brown Glass Pane",
           "Brown Colored Glass Pane",
+          "Brown Coloured Glass Pane",
           "Brown Dyed Glass Pane"
         ],
         "display_name": "Brown Stained Glass Pane"
@@ -4183,6 +4234,7 @@
         "search_names": [
           "Green Glass Pane",
           "Green Colored Glass Pane",
+          "Green Coloured Glass Pane",
           "Green Dyed Glass Pane"
         ],
         "display_name": "Green Stained Glass Pane"
@@ -4199,6 +4251,7 @@
         "search_names": [
           "Red Glass Pane",
           "Red Colored Glass Pane",
+          "Red Coloured Glass Pane",
           "Red Dyed Glass Pane"
         ],
         "display_name": "Red Stained Glass Pane"
@@ -4215,6 +4268,7 @@
         "search_names": [
           "Black Glass Pane",
           "Black Colored Glass Pane",
+          "Black Coloured Glass Pane",
           "Black Dyed Glass Pane"
         ],
         "display_name": "Black Stained Glass Pane"
@@ -7333,6 +7387,9 @@
   "minecraft.oak_boat": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Discord Bot"
+        ],
         "display_name": "Oak Boat"
       }
     },
@@ -8296,7 +8353,10 @@
       "en_US": {
         "previously": "Spawn Evoker",
         "search_names": [
-          "Evoker Egg"
+          "Evoker Egg",
+          "Spawn Priest",
+          "Priest Spawn Egg",
+          "Priest Egg"
         ],
         "display_name": "Evoker Spawn Egg"
       }
@@ -8328,7 +8388,10 @@
       "en_US": {
         "previously": "Spawn Vindicator",
         "search_names": [
-          "Vindicator Egg"
+          "Vindicator Egg",
+          "Spawn Johnny",
+          "Johnny Spawn Egg",
+          "Johnny Egg"
         ],
         "display_name": "Vindicator Spawn Egg"
       }
@@ -8406,7 +8469,10 @@
       "en_US": {
         "previously": "Spawn Slime",
         "search_names": [
-          "Slime Egg"
+          "Slime Egg",
+          "Spawn Jerry",
+          "Jerry Spawn Egg",
+          "Jerry Egg"
         ],
         "display_name": "Slime Spawn Egg"
       }
@@ -9296,6 +9362,8 @@
     "lang": {
       "en_US": {
         "search_names": [
+          "Armour Stand",
+          "Enemy Stand",
           "Sethbling"
         ],
         "display_name": "Armor Stand"
@@ -9309,6 +9377,9 @@
   "minecraft.iron_horse_armor": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Iron Horse Armour"
+        ],
         "display_name": "Iron Horse Armor"
       }
     },
@@ -9320,7 +9391,9 @@
     "lang": {
       "en_US": {
         "search_names": [
-          "Gold Horse Armor"
+          "Gold Horse Armor",
+          "Gold Horse Armour",
+          "Golden Horse Armour"
         ],
         "display_name": "Golden Horse Armor"
       }
@@ -9332,6 +9405,9 @@
   "minecraft.diamond_horse_armor": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Diamond Horse Armour"
+        ],
         "display_name": "Diamond Horse Armor"
       }
     },
@@ -12495,6 +12571,9 @@
   "minecraft.leather_horse_armor": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Leather Horse Armour"
+        ],
         "display_name": "Leather Horse Armor"
       }
     },
