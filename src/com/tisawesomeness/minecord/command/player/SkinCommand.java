@@ -1,8 +1,8 @@
 package com.tisawesomeness.minecord.command.player;
 
-import java.awt.Color;
 import java.util.Arrays;
 
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DateUtils;
@@ -72,7 +72,7 @@ public class SkinCommand extends Command {
 
 		//Fetch skin
 		String url = "https://crafatar.com/skins/" + param.replaceAll("-", "");
-		return new Result(Outcome.SUCCESS, new EmbedBuilder().setImage(url).setColor(Color.GREEN).build());
+		return new Result(Outcome.SUCCESS, new EmbedBuilder().setImage(url).setColor(Bot.color).build());
 	}
 	
 }

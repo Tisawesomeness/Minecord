@@ -1,9 +1,9 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import java.awt.Color;
 import java.text.DecimalFormat;
 import org.json.JSONObject;
 
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
@@ -48,7 +48,7 @@ public class SalesCommand extends Command {
 			"\n" + "**Last 24 Hours:** " + format(last24h) +
 			"\n" + "**Sales Per Hour:** " + format(velocity);
 		
-		MessageEmbed me = MessageUtils.embedMessage("Minecraft Sales", null, m, Color.GREEN);
+		MessageEmbed me = MessageUtils.embedMessage("Minecraft Sales", null, m, Bot.color);
 		
 		return new Result(Outcome.SUCCESS, me);
 	}

@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import java.awt.Color;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -10,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.MessageUtils;
@@ -108,7 +108,7 @@ public class ServerCommand extends Command {
 		}
 
 		// Upload favicon as byte array
-		EmbedBuilder eb = MessageUtils.addFooter(new EmbedBuilder().setTitle("Server Status").setColor(Color.GREEN));
+		EmbedBuilder eb = MessageUtils.addFooter(new EmbedBuilder().setTitle("Server Status").setColor(Bot.color));
 		if (reply.getFavicon() == null) {
 			eb.setDescription(m);
 		} else {

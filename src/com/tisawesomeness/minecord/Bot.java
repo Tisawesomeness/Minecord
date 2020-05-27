@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
@@ -41,6 +42,7 @@ public class Bot {
 	private static final String version = "0.7.0";
 	public static final String javaVersion = "1.8";
 	public static final String jdaVersion = "4.1.1_151";
+	public static final Color color = Color.GREEN;
 	
 	public static ShardManager shardManager;
 	public static String id;

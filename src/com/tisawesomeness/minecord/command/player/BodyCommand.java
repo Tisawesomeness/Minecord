@@ -1,10 +1,10 @@
 package com.tisawesomeness.minecord.command.player;
 
-import java.awt.Color;
 import java.util.Arrays;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DateUtils;
@@ -86,7 +86,7 @@ public class BodyCommand extends Command {
 		//Fetch body
 		String url = "https://crafatar.com/renders/body/" + param.replaceAll("-", "");
 		if (overlay) url += "?overlay";
-		return new Result(Outcome.SUCCESS, new EmbedBuilder().setImage(url).setColor(Color.GREEN).build());
+		return new Result(Outcome.SUCCESS, new EmbedBuilder().setImage(url).setColor(Bot.color).build());
 	}
 	
 }

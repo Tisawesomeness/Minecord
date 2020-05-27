@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.item;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -11,6 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
@@ -51,7 +51,7 @@ public class Recipe {
         } catch (URISyntaxException ex) {
             ex.printStackTrace();
         }
-        eb.setColor(Color.GREEN);
+        eb.setColor(Bot.color);
         return eb;
     }
 

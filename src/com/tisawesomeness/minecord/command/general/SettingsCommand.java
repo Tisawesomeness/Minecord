@@ -6,7 +6,6 @@ import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
-import java.awt.Color;
 import java.util.Arrays;
 import java.util.List;
 
@@ -50,7 +49,7 @@ public class SettingsCommand extends Command {
         if (args.length == 0) {
             EmbedBuilder eb = new EmbedBuilder()
                 .setTitle("Minecord Settings")
-                .setColor(Color.GREEN)
+                .setColor(Bot.color)
                 .addField("prefix",
                     String.format(
                         "The prefix used before every command.\n" +

@@ -1,11 +1,11 @@
 package com.tisawesomeness.minecord.command.player;
 
-import java.awt.Color;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DateUtils;
@@ -115,7 +115,7 @@ public class HistoryCommand extends Command {
 
 		EmbedBuilder eb = new EmbedBuilder()
 			.setTitle(player, url)
-			.setColor(Color.GREEN);
+			.setColor(Bot.color);
 
 		// Truncate until 6000 char limit reached
 		int chars = getTotalChars(lines);

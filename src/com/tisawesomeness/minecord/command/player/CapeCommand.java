@@ -1,11 +1,11 @@
 package com.tisawesomeness.minecord.command.player;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DateUtils;
@@ -132,7 +132,7 @@ public class CapeCommand extends Command {
 		// LabyMod cape (doesn't show in embed, download required)
 		url = String.format("http://capes.labymod.net/capes/%s", NameUtils.formatUUID(uuid));
 		if (RequestUtils.checkURL(url)) {
-			MessageEmbed emb = new EmbedBuilder().setTitle("LabyMod Cape").setColor(Color.GREEN).setImage("attachment://cape.png").build();
+			MessageEmbed emb = new EmbedBuilder().setTitle("LabyMod Cape").setColor(Bot.color).setImage("attachment://cape.png").build();
 			try {
 				tc.sendFile(RequestUtils.downloadImage(url), "cape.png").embed(emb).queue();
 				hasCape = true;
@@ -152,7 +152,7 @@ public class CapeCommand extends Command {
 	}
 
 	private static void sendImage(TextChannel tc, String title, String url) {
-		tc.sendMessage(new EmbedBuilder().setTitle(title).setColor(Color.GREEN).setImage(url).build()).queue();
+		tc.sendMessage(new EmbedBuilder().setTitle(title).setColor(Bot.color).setImage(url).build()).queue();
 	}
 	
 }

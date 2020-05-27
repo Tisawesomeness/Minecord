@@ -1,7 +1,5 @@
 package com.tisawesomeness.minecord.command.general;
 
-import java.awt.Color;
-
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
@@ -30,7 +28,7 @@ public class InviteCommand extends Command {
 		eb.addField("Invite me!", Config.getInvite(), false);
 		eb.addField("Help server", Bot.helpServer, false);
 		eb.addField("Website", Bot.website, true);
-		eb.setColor(Color.GREEN);
+		eb.setColor(Bot.color);
 		eb = MessageUtils.addFooter(eb);
 		return new Result(Outcome.SUCCESS, eb.build());
 	}

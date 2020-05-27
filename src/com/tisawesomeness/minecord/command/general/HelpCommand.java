@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command.general;
 
-import java.awt.Color;
-
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.database.Database;
@@ -68,7 +67,7 @@ public class HelpCommand extends Command {
 		m += "\n\n" + "**Arguments:**" +
 			"\n" + "`<>` - required, `[]` - optional, `?` - true/false.";
 		
-		MessageEmbed me = MessageUtils.embedMessage(null, null, m, Color.GREEN);
+		MessageEmbed me = MessageUtils.embedMessage(null, null, m, Bot.color);
 		
 		return new Result(Outcome.SUCCESS, me);
 	}

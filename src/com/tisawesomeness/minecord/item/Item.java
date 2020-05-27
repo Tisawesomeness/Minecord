@@ -1,12 +1,12 @@
 package com.tisawesomeness.minecord.item;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
@@ -143,7 +143,7 @@ public class Item {
 
         // Get rid of trailing newline
         sb.delete(sb.length() - 1, sb.length());
-        return eb.setColor(Color.GREEN);
+        return eb.setColor(Bot.color);
     }
 
     /**

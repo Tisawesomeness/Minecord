@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.command.general;
 
-import java.awt.Color;
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 
@@ -41,7 +40,7 @@ public class InfoCommand extends Command {
 		// Build message
 		EmbedBuilder eb = new EmbedBuilder();
 		
-		eb.setColor(Color.GREEN);
+		eb.setColor(Bot.color);
 		eb.addField("Author", Bot.authorTag, true);
 		eb.addField("Version", Bot.getVersion(), true);
 		

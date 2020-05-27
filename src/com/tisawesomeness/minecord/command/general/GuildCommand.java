@@ -7,8 +7,6 @@ import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
-import java.awt.Color;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;
@@ -60,7 +58,7 @@ public class GuildCommand extends Command {
         int voiceChannels = g.getVoiceChannels().size();
         EmbedBuilder eb = new EmbedBuilder()
             .setTitle(MarkdownSanitizer.escape(g.getName()))
-            .setColor(Color.GREEN)
+            .setColor(Bot.color)
             .setImage(g.getIconUrl())
             .addField("ID", g.getId(), true)
             .addField("Users", String.valueOf(g.getMemberCount()), true)

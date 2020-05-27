@@ -7,7 +7,6 @@ import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
-import java.awt.Color;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,7 +60,7 @@ public class UserCommand extends Command {
 
             EmbedBuilder eb = new EmbedBuilder()
                 .setTitle(MarkdownSanitizer.escape(u.getAsTag()))
-                .setColor(Color.GREEN)
+                .setColor(Bot.color)
                 .addField("ID", u.getId(), true)
                 .addField("Bot?", u.isBot() ? "Yes" : "No", true)
                 .addField("Elevated?", Database.isElevated(u.getIdLong()) ? "Yes" : "No", true);
