@@ -2,8 +2,10 @@ package com.tisawesomeness.minecord;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import com.tisawesomeness.minecord.database.Database;
 
@@ -54,7 +56,7 @@ public abstract class ReactMenu {
      * @param page The page >= 0 to move to
      */
     public void setPage(int page) {
-        setPage(page, false);
+        setPage(page, true);
     }
     /**
      * Moves the menu to a certain page by editing the message
@@ -67,16 +69,19 @@ public abstract class ReactMenu {
         this.page = page;
         if (hasPerms(Permission.MESSAGE_MANAGE, Permission.MESSAGE_ADD_REACTION)) {
             message = message.editMessage(getEmbed(page)).complete();
+            ready = true;
             if (updateButtons) {
-                message.getReactions().stream()
-                    .filter(r -> r.isSelf())
-                    .forEach(r -> r.removeReaction().queue());
-                ready = true;
+                List<String> currentButtons = message.getReactions().stream()
+                    .map(r -> r.getReactionEmote())
+                    .filter(re -> re.isEmoji())
+                    .map(re -> re.getAsCodepoints())
+                    .collect(Collectors.toList());
                 for (String button : buttons.keySet()) {
-                    message.addReaction(button).queue();
+                    if (buttons.get(button) != null && !currentButtons.contains(button)) {
+                        message.addReaction(button).submit();
+                    }
                 }
             }
-            ready = true;
         } else {
             message = message.editMessage(getEmbed(page, true)).complete();
         }
@@ -106,7 +111,9 @@ public abstract class ReactMenu {
         buttons = createButtons(page);
         message = channel.sendMessage(getEmbed(page)).complete();
         for (String button : buttons.keySet()) {
-            message.addReaction(button).queue();
+            if (buttons.get(button) != null) {
+                message.addReaction(button).queue();
+            }
         }
         keepAlive();
         menus.put(getMessageID(), this);
