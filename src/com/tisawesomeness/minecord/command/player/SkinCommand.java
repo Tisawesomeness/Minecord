@@ -1,14 +1,15 @@
 package com.tisawesomeness.minecord.command.player;
 
-import java.io.IOException;
+import java.awt.Color;
 import java.util.Arrays;
+
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
-import com.tisawesomeness.minecord.util.RequestUtils;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class SkinCommand extends Command {
@@ -71,13 +72,7 @@ public class SkinCommand extends Command {
 
 		//Fetch skin
 		String url = "https://crafatar.com/skins/" + param.replaceAll("-", "");
-		try {
-			e.getTextChannel().sendFile(RequestUtils.downloadImage(url), "skin.png").queue();
-		} catch (IOException ex) {
-			ex.printStackTrace();
-			return new Result(Outcome.ERROR, ":x: Could not download image.");
-		}
-		return new Result(Outcome.SUCCESS);
+		return new Result(Outcome.SUCCESS, new EmbedBuilder().setImage(url).setColor(Color.GREEN).build());
 	}
 	
 }
