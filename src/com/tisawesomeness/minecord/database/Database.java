@@ -58,10 +58,12 @@ public class Database {
 		connect.createStatement().executeUpdate(
 			"CREATE TABLE IF NOT EXISTS guild (" +
 			"  id BIGINT(18) NOT NULL," +
-			"  prefix TINYTEXT NOT NULL," +
-			"  lang TINYTEXT NOT NULL," +
+			"  prefix TINYTEXT," +
+			"  lang TINYTEXT," +
 			"  banned TINYINT(1) NOT NULL DEFAULT 0," +
 			"  noCooldown TINYINT(1) NOT NULL DEFAULT 0," +
+			"  deleteCommands TINYINT(1)," +
+			"  noMenu TINYINT(1)," +
 			"  PRIMARY KEY (id));"
 		);
 		connect.createStatement().executeUpdate(
@@ -72,7 +74,10 @@ public class Database {
 			"  PRIMARY KEY (id));"
 		);
 		
-		changeElevated(Long.valueOf(Config.getOwner()), true); //Add owner to elevated
+		// Add owner to elevated
+		if (!Config.getOwner().equals("0")) {
+			changeElevated(Long.valueOf(Config.getOwner()), true);
+		}
 		
 		refresh();
 		System.out.println("Database connected.");
@@ -88,12 +93,18 @@ public class Database {
 		);
 		while (rs.next()) {
 			long id = rs.getLong(1);
+			Boolean deleteCommands = rs.getBoolean(6);
+			if (rs.wasNull()) deleteCommands = null;
+			Boolean noMenu = rs.getBoolean(7);
+			if (rs.wasNull()) noMenu = null;
 			guilds.put(id, new DbGuild(
 				id,
 				rs.getString(2),
 				rs.getString(3),
 				rs.getBoolean(4),
-				rs.getBoolean(5)
+				rs.getBoolean(5),
+				deleteCommands,
+				noMenu
 			));
 		}
 		rs.close();
@@ -122,22 +133,26 @@ public class Database {
 
 		Connection connect = getConnect();
 		PreparedStatement st = connect.prepareStatement(
-			"REPLACE INTO guild (id, prefix, lang, banned, noCooldown) VALUES(?, ?, " +
-			"COALESCE((SELECT lang FROM (SELECT * FROM guild) AS temp WHERE id=?), 'enUS'), " +
+			"REPLACE INTO guild (id, prefix, lang, banned, noCooldown, deleteCommands, noMenu) VALUES(?, ?, " +
+			"COALESCE((SELECT lang FROM (SELECT * FROM guild) AS temp WHERE id=?), NULL), " +
 			"COALESCE((SELECT banned FROM (SELECT * FROM guild) AS temp WHERE id=?), 0), " +
-			"COALESCE((SELECT noCooldown FROM (SELECT * FROM guild) AS temp WHERE id=?), 0));"
+			"COALESCE((SELECT noCooldown FROM (SELECT * FROM guild) AS temp WHERE id=?), 0), " +
+			"COALESCE((SELECT deleteCommands FROM (SELECT * FROM guild) AS temp WHERE id=?), NULL), " +
+			"COALESCE((SELECT noMenu FROM (SELECT * FROM guild) AS temp WHERE id=?), NULL));"
 		);
 		st.setLong(1, id);
 		st.setString(2, prefix);
 		st.setLong(3, id);
 		st.setLong(4, id);
 		st.setLong(5, id);
+		st.setLong(6, id);
+		st.setLong(7, id);
 		st.executeUpdate();
 
 		//Mirror change in local guild list
 		DbGuild g = guilds.get(id);
 		if (g == null) {
-			guilds.put(id, new DbGuild(id, prefix, "enUS", false, false));
+			guilds.put(id, new DbGuild(id, prefix, null, false, false, null, null));
 		} else {
 			g.prefix = prefix;
 		}
@@ -151,29 +166,34 @@ public class Database {
 	
 	public static String getPrefix(long id) {
 		DbGuild guild = guilds.get(id);
-		return guild == null ? Config.getPrefix() : guild.prefix;
+		String prefix = guild == null ? Config.getPrefix() : guild.prefix;
+		return prefix == null ? Config.getPrefix() : prefix;
 	}
 	
 	public static void changeBannedGuild(long id, boolean banned) throws SQLException {
 
 		Connection connect = getConnect();
 		PreparedStatement st = connect.prepareStatement(
-			"REPLACE INTO guild (id, prefix, lang, banned, noCooldown) VALUES(?, " +
-			"COALESCE((SELECT prefix FROM (SELECT * FROM guild) AS temp WHERE id=?), 0), " +
-			"COALESCE((SELECT lang FROM (SELECT * FROM guild) AS temp WHERE id=?), 'enUS'), ?, " +
-			"COALESCE((SELECT noCooldown FROM (SELECT * FROM guild) AS temp WHERE id=?), 0));"
+			"REPLACE INTO guild (id, prefix, lang, banned, noCooldown, deleteCommands, noMenu) VALUES(?, " +
+			"COALESCE((SELECT prefix FROM (SELECT * FROM guild) AS temp WHERE id=?), NULL), " +
+			"COALESCE((SELECT lang FROM (SELECT * FROM guild) AS temp WHERE id=?), NULL), ?, " +
+			"COALESCE((SELECT noCooldown FROM (SELECT * FROM guild) AS temp WHERE id=?), 0), " +
+			"COALESCE((SELECT deleteCommands FROM (SELECT * FROM guild) AS temp WHERE id=?), 0), " +
+			"COALESCE((SELECT noMenu FROM (SELECT * FROM guild) AS temp WHERE id=?), 0));"
 		);
 		st.setLong(1, id);
 		st.setLong(2, id);
 		st.setLong(3, id);
 		st.setBoolean(4, banned);
 		st.setLong(5, id);
+		st.setLong(6, id);
+		st.setLong(7, id);
 		st.executeUpdate();
 		
 		//Mirror change in local user list
 		DbGuild g = guilds.get(id);
 		if (g == null) {
-			guilds.put(id, new DbGuild(id, Config.getPrefix(), "enUS", banned, false));
+			guilds.put(id, new DbGuild(id, Config.getPrefix(), null, banned, false, null, null));
 		} else {
 			g.banned = banned;
 		}
@@ -181,6 +201,88 @@ public class Database {
 		//Delete guild if it contains only default values
 		if (!banned) purgeGuilds(id);
 		
+	}
+	
+	public static void changeDeleteCommands(long id, boolean deleteCommands) throws SQLException {
+
+		Connection connect = getConnect();
+		PreparedStatement st = connect.prepareStatement(
+			"REPLACE INTO guild (id, prefix, lang, banned, noCooldown, deleteCommands, noMenu) VALUES(?, " +
+			"COALESCE((SELECT prefix FROM (SELECT * FROM guild) AS temp WHERE id=?), NULL), " +
+			"COALESCE((SELECT lang FROM (SELECT * FROM guild) AS temp WHERE id=?), NULL), " +
+			"COALESCE((SELECT banned FROM (SELECT * FROM guild) AS temp WHERE id=?), 0), " +
+			"COALESCE((SELECT noCooldown FROM (SELECT * FROM guild) AS temp WHERE id=?), 0), ?, " +
+			"COALESCE((SELECT noMenu FROM (SELECT * FROM guild) AS temp WHERE id=?), NULL));"
+		);
+		st.setLong(1, id);
+		st.setLong(2, id);
+		st.setLong(3, id);
+		st.setLong(4, id);
+		st.setLong(5, id);
+		st.setBoolean(6, deleteCommands);
+		st.setLong(7, id);
+		st.executeUpdate();
+
+		//Mirror change in local guild list
+		DbGuild g = guilds.get(id);
+		if (g == null) {
+			guilds.put(id, new DbGuild(id, Config.getPrefix(), null, false, false, deleteCommands, null));
+		} else {
+			g.deleteCommands = deleteCommands;
+		}
+		
+		//Delete guild if it contains only default values
+		if (deleteCommands == Config.getDeleteCommands()) {
+			purgeGuilds(id);
+		}
+		
+	}
+	
+	public static boolean getDeleteCommands(long id) {
+		DbGuild guild = guilds.get(id);
+		Boolean deleteCommands = guild == null ? Config.getDeleteCommands() : guild.deleteCommands;
+		return deleteCommands == null ? Config.getDeleteCommands() : deleteCommands;
+	}
+	
+	public static void changeUseMenu(long id, boolean useMenu) throws SQLException {
+
+		Connection connect = getConnect();
+		PreparedStatement st = connect.prepareStatement(
+			"REPLACE INTO guild (id, prefix, lang, banned, noCooldown, deleteCommands, noMenu) VALUES(?, " +
+			"COALESCE((SELECT prefix FROM (SELECT * FROM guild) AS temp WHERE id=?), NULL), " +
+			"COALESCE((SELECT lang FROM (SELECT * FROM guild) AS temp WHERE id=?), NULL), " +
+			"COALESCE((SELECT banned FROM (SELECT * FROM guild) AS temp WHERE id=?), 0), " +
+			"COALESCE((SELECT noCooldown FROM (SELECT * FROM guild) AS temp WHERE id=?), 0), " +
+			"COALESCE((SELECT deleteCommands FROM (SELECT * FROM guild) AS temp WHERE id=?), NULL), ?);"
+		);
+		st.setLong(1, id);
+		st.setLong(2, id);
+		st.setLong(3, id);
+		st.setLong(4, id);
+		st.setLong(5, id);
+		st.setLong(6, id);
+		st.setBoolean(7, !useMenu);
+		st.executeUpdate();
+
+		//Mirror change in local guild list
+		DbGuild g = guilds.get(id);
+		if (g == null) {
+			guilds.put(id, new DbGuild(id, Config.getPrefix(), null, false, false, null, !useMenu));
+		} else {
+			g.noMenu = !useMenu;
+		}
+		
+		//Delete guild if it contains only default values
+		if (useMenu == Config.getUseMenus()) {
+			purgeGuilds(id);
+		}
+		
+	}
+	
+	public static boolean getUseMenu(long id) {
+		DbGuild guild = guilds.get(id);
+		Boolean useMenu = guild == null ? Config.getUseMenus() : !guild.noMenu;
+		return useMenu == null ? Config.getUseMenus() : useMenu;
 	}
 
 	private static void purgeGuilds(long id) throws SQLException {

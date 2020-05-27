@@ -1,17 +1,17 @@
 package com.tisawesomeness.minecord.command.player;
 
-import java.io.IOException;
 import java.util.Arrays;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
-import com.tisawesomeness.minecord.util.RequestUtils;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class HeadCommand extends Command {
@@ -84,13 +84,7 @@ public class HeadCommand extends Command {
 		//Fetch head
 		String url = "https://crafatar.com/renders/head/" + param.replaceAll("-", "") + ".png";
 		if (overlay) url += "?overlay";
-		try {
-			e.getTextChannel().sendFile(RequestUtils.downloadImage(url), "avatar.png").queue();
-		} catch (IOException ex) {
-			ex.printStackTrace();
-			return new Result(Outcome.ERROR, ":x: Could not download image.");
-		}
-		return new Result(Outcome.SUCCESS);
+		return new Result(Outcome.SUCCESS, new EmbedBuilder().setImage(url).setColor(Bot.color).build());
 	}
 	
 }

@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.item;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -11,6 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
@@ -51,7 +51,7 @@ public class Recipe {
         } catch (URISyntaxException ex) {
             ex.printStackTrace();
         }
-        eb.setColor(Color.GREEN);
+        eb.setColor(Bot.color);
         return eb;
     }
 
@@ -566,7 +566,7 @@ public class Recipe {
                 boolean hasMore = c == 9 || startingIngredient > 0;
                 while (c < 9) {
                     Emote emote = Emote.valueOf(c + 1);
-                    buttons.put(emote.getCodepoint(), () -> {});
+                    buttons.put(emote.getCodepoint(), null);
                     c++;
                 }
                 // Cycle through ingredients if there's more than 9
@@ -574,15 +574,17 @@ public class Recipe {
                     desc += String.format("\n%s More...", Emote.MORE.getText());
                 }
                 int iFinal = i;
-                buttons.put(Emote.MORE.getCodepoint(), () -> {
-                    if (hasMore) {
+                if (hasMore) {
+                    buttons.put(Emote.MORE.getCodepoint(), () -> {
                         startingIngredient = iFinal;
                         if (startingIngredient >= ingredients.length) {
                             startingIngredient = 0;
                         }
-                    }
-                    setPage(page);
-                });
+                        setPage(page);
+                    });
+                } else {
+                    buttons.put(Emote.MORE.getCodepoint(), null);
+                }
             } else if (type.equals("minecraft:stonecutting")) {
                 String ingredient = getIngredients(recipeObj).toArray(new String[0])[0];
                 ArrayList<String> output = searchItemOutput(ingredient, getLang());
@@ -597,9 +599,9 @@ public class Recipe {
                     }
                 });
                 for (int i = 1; i < 9; i++) {
-                    buttons.put(Emote.valueOf(i + 1).getCodepoint(), () -> {});
+                    buttons.put(Emote.valueOf(i + 1).getCodepoint(), null);
                 }
-                buttons.put(Emote.MORE.getCodepoint(), () -> {});
+                buttons.put(Emote.MORE.getCodepoint(), null);
             }
             return buttons;
         }

@@ -2,4 +2,6 @@
 /.vscode/
 /.settings/
 .project
+.factorypath
+.classpath
 minecord.db

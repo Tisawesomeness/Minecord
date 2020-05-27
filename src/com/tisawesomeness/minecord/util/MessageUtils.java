@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import com.tisawesomeness.minecord.Announcement;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.database.Database;
@@ -33,7 +34,6 @@ public class MessageUtils {
 	
 	public static long ownerID;
 	public static TextChannel logChannel;
-	public static int totalChance;
 	
 	/**
 	 * Formats a message to look more fancy using an embed. Pass null in any argument (except color) to remove that aspect of the message.
@@ -46,7 +46,7 @@ public class MessageUtils {
 	 */
 	public static MessageEmbed embedMessage(String title, String url, String body, Color color) {
 		EmbedBuilder eb = new EmbedBuilder();
-		if (title != null) {eb.setAuthor(title, url, null);}
+		if (title != null) eb.setTitle(title, url);
 		eb.setDescription(body);
 		eb.setColor(color);
 		eb = addFooter(eb);
@@ -70,13 +70,7 @@ public class MessageUtils {
 	}
 	
 	public static EmbedBuilder addFooter(EmbedBuilder eb) {
-		int rand = (int) (Math.random() * MessageUtils.totalChance);
-		int i = -1;
-		while (rand >= 0) {
-			i++;
-			rand -= Config.getAnnouncements().get(i).getChance();
-		}
-		String announcement = Config.getAnnouncements().get(i).getText();
+		String announcement = Announcement.rollAnnouncement();
 		if (Config.getOwner().equals("0")) {
 			return eb.setFooter(announcement);
 		}

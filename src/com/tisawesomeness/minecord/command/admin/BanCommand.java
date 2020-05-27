@@ -10,6 +10,7 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.requests.ErrorResponse;
 
 public class BanCommand extends Command {
 
@@ -17,13 +18,14 @@ public class BanCommand extends Command {
 	public CommandInfo getInfo() {
 		return new CommandInfo(
 			"ban",
-			"Bans a user or guild from using the bot. Omit user or guild to check for a ban.",
-			"<user|guild> <id>",
+			"Bans/unbans a user/guild from the bot. Omit user/guild to check for a ban.",
+			"[user|guild] <id>",
 			new String[]{
 				"bean",
 				"banne",
-				"bann�",
-				"pingb1nzy"
+				"pingb1nzy",
+				"strike",
+				"smite"
 			},
 			0,
 			true,
@@ -42,31 +44,37 @@ public class BanCommand extends Command {
 		if ("user".equals(args[0])) {
 			//Get user from message
 			if (args.length == 1) return new Result(Outcome.WARNING, ":warning: Please define a user.");
-			User user = DiscordUtils.findUser(args[1]);
-			if (user == null) return new Result(Outcome.ERROR, ":x: Not a valid user!");
-			if (user.getId().equals(Config.getOwner())) {
+            if (!args[1].matches(DiscordUtils.idRegex)) {
+                return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
+            }
+			if (args[1].equals(Config.getOwner())) {
 				return new Result(Outcome.WARNING, ":warning: You can't ban the owner!");
 			}
+			long gid = Long.valueOf(args[1]);
 			//Ban or unban user
-			boolean banned = Database.isBanned(user.getIdLong());
-			Database.changeBannedUser(user.getIdLong(), !banned);
+			boolean banned = Database.isBanned(gid);
+			Database.changeBannedUser(gid, !banned);
 			//Format message
-			String msg = user.getName() + "#" + user.getDiscriminator() + " (`" + user.getId() + "`) ";
-			msg += banned ? "has been unbanned." : "was struck with the ban hammer!";
+            User user = Bot.shardManager.retrieveUserById(args[1]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
+			String msg = user == null ? args[1] : user.getAsTag();
+			msg += banned ? " has been unbanned." : " was struck with the ban hammer!";
 			return new Result(Outcome.SUCCESS, msg);
 		
 		//Guild part of command
 		} else if ("guild".equals(args[0])) {
 			//Get guild from message
 			if (args.length == 1) return new Result(Outcome.WARNING, ":warning: Please define a guild.");
+            if (!args[1].matches(DiscordUtils.idRegex)) {
+                return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
+            }
 			Guild guild = Bot.shardManager.getGuildById(args[1]);
-			if (guild == null) return new Result(Outcome.ERROR, ":x: Not a valid guild!");
-			if (guild.getId().equals(MessageUtils.logChannel.getGuild().getId())) {
+			if (guild != null && !Config.getLogChannel().equals("0") && guild.getId().equals(MessageUtils.logChannel.getGuild().getId())) {
 				return new Result(Outcome.WARNING, ":warning: You can't ban the guild with the log channel!");
 			}
+			long gid = Long.valueOf(args[1]);
 			//Ban or unban guild
-			boolean banned = Database.isBanned(guild.getIdLong());
-			Database.changeBannedGuild(guild.getIdLong(), !banned);
+			boolean banned = Database.isBanned(gid);
+			Database.changeBannedGuild(gid, !banned);
 			//Format message
 			String msg = guild.getName() + " (`" + guild.getId() + "`) ";
 			msg += banned ? "has been unbanned." : "was struck with the ban hammer!";
@@ -74,22 +82,11 @@ public class BanCommand extends Command {
 		
 		//Query part of command
 		} else {
-			long id = 0;
-			String name = null;
-			User user = DiscordUtils.findUser(args[0]);
-			if (user == null) {
-				Guild guild = Bot.shardManager.getGuildById(args[0]);
-				if (guild == null) return new Result(Outcome.ERROR, ":x: Not a valid user or guild!");
-				id = guild.getIdLong();
-				name = guild.getName();
-			} else {
-				id = user.getIdLong();
-				name = user.getName() + "#" + user.getDiscriminator();
-			}
-			String msg = name + " (`" + id + "`) ";
-			msg += Database.isBanned(id) ? "is banned!" : "is not banned.";
+            if (!args[0].matches(DiscordUtils.idRegex)) {
+                return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
+            }
+			String msg = args[0] + (Database.isBanned(Long.valueOf(args[0])) ? " is banned!" : " is not banned.");
 			return new Result(Outcome.SUCCESS, msg);
-			
 		}
 		
 	}

@@ -1,16 +1,17 @@
 {
-	"clientToken": "your token here",
-	"shardCount": 1,
-	"owner": "0",
+    "clientToken": "your token here",
+    "shardCount": 1,
+    "owner": "0",
     "settings": {
         "logChannel": "0",
-        "invite": "https://discordapp.com/oauth2/authorize?client_id=292279711034245130&scope=bot&permissions=93248",
+        "invite": "https://minecord.github.io/invite",
         "prefix": "&",
         "game": "@Minecord help | {guilds} guilds",
         "devMode": false,
         "debugMode": false,
         "respondToMentions": true,
         "deleteCommands": false,
+        "useMenus": true,
         "sendTyping": false,
         "showMemory": false,
         "elevatedSkipCooldown": true

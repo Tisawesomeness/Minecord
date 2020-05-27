@@ -8,12 +8,15 @@ import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.exceptions.ErrorResponseException;
+import net.dv8tion.jda.api.requests.ErrorResponse;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 
 public class UserCommand extends Command {
@@ -23,7 +26,7 @@ public class UserCommand extends Command {
 			"user",
 			"Shows user info.",
 			"<user|id>",
-			null,
+			new String[]{"whois", "userinfo"},
 			0,
 			false,
 			false,
@@ -45,12 +48,41 @@ public class UserCommand extends Command {
             if (!args[0].matches(DiscordUtils.idRegex)) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
-            User u = Bot.shardManager.retrieveUserById(args[0]).complete();
+            User u = Bot.shardManager.retrieveUserById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
             if (u == null) {
-                return new Result(Outcome.WARNING, ":warning: That user ID does not exist.");
+                long gid = Long.valueOf(args[0]);
+                String elevatedStr = String.format("Elevated: `%s`", Database.isElevated(gid));
+                if (Database.isBanned(gid)) {
+                    return new Result(Outcome.SUCCESS, "__**USER BANNED FROM MINECORD**__\n" + elevatedStr);
+                }
+                return new Result(Outcome.SUCCESS, elevatedStr);
             }
-            String bannedString = Database.isBanned(u.getIdLong()) ? "\n**USER BANNED FROM MINECORD**" : "";
-            return new Result(Outcome.SUCCESS, String.format("%s `%s`", u.getAsTag(), u.getId()) + bannedString);
+
+            EmbedBuilder eb = new EmbedBuilder()
+                .setTitle(MarkdownSanitizer.escape(u.getAsTag()))
+                .setColor(Bot.color)
+                .addField("ID", u.getId(), true)
+                .addField("Bot?", u.isBot() ? "Yes" : "No", true)
+                .addField("Elevated?", Database.isElevated(u.getIdLong()) ? "Yes" : "No", true);
+            if (Database.isBanned(u.getIdLong())) {
+                eb.setDescription("__**USER BANNED FROM MINECORD**__");
+            }
+            // Since user caching is disabled, retrieveMember() is required
+            // This may cause a lot of requests and lag, so it must be explicitly requested
+            if (args.length > 2 && args[2].equals("mutual")) {
+                String mutualGuilds = Bot.shardManager.getGuilds().stream()
+                    .filter(g -> {
+                        try {
+                            return g.retrieveMember(u).complete() != null;
+                        } catch (ErrorResponseException ex) {
+                            return false;
+                        }
+                    })
+                    .map(g -> String.format("%s `%s`", g.getName(), g.getId()))
+                    .collect(Collectors.joining("\n"));
+                eb.addField("Mutual Guilds", mutualGuilds, false);
+            }
+            return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
         }
         
         // Find user

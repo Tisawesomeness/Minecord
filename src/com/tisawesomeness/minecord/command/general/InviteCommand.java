@@ -28,6 +28,7 @@ public class InviteCommand extends Command {
 		eb.addField("Invite me!", Config.getInvite(), false);
 		eb.addField("Help server", Bot.helpServer, false);
 		eb.addField("Website", Bot.website, true);
+		eb.setColor(Bot.color);
 		eb = MessageUtils.addFooter(eb);
 		return new Result(Outcome.SUCCESS, eb.build());
 	}

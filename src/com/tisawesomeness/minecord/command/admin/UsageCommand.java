@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import java.awt.Color;
-
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.Registry;
@@ -40,7 +39,7 @@ public class UsageCommand extends Command {
 		m = m.substring(0, m.length() - 1);
 
 		String title = "Command usage for " + DateUtils.getUptime();
-		MessageEmbed me = MessageUtils.embedMessage(title, null, m, Color.GREEN);
+		MessageEmbed me = MessageUtils.embedMessage(title, null, m, Bot.color);
 		return new Result(Outcome.SUCCESS, me);
 	}
 	

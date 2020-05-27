@@ -7,15 +7,17 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 
 ### Command List
 #### General Commands
-- `&help` - Displays this help menu.
+- `&help` - Displays the help menu.
 - `&info` - Shows the bot info.
 - `&ping` - Pings the bot.
 - `&invite` - Give the invite link for the bot.
 - `&status` - Checks the status of Mojang servers.
 - `&sales` - Looks up the sale statistics.
-- `&purge [number]` - Cleans the bot messages.
+- `&purge [number]` - Cleans the bot messages. Requires Manage Messages permissions.
 - `&guild` - Shows guild info.
 - `&user <user|id>` - Shows user info.
+- `&prefix [prefix]` - A shortcut to change the prefix. Leave blank to show the current prefix. Requires Manage Server permissions.
+- `&settings [setting] [value]` - Change the bot's settings, including prefix. Requires Manage Server permissions.
 
 #### Utility Commands:
 - `&codes` - Lists the available chat codes.
@@ -34,22 +36,28 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&cape <username|uuid> [date]` - Gets the cape of a player.
 
 #### Admin Commands:
+- `&help admin` - Displays help, including admin commands.
+- `&info admin` - Displays bot info, including used memory and boot time.
+- `&settings <guild id> admin [setting] [value]` - Change the bot's settings for another guild.
+- `&user <user id> admin [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include `mutual` to show mutual guilds.
+- `&guild <guild id> admin` - Show info and ban status for another guild.
 - `&say <channel> <message>` - Say a message.
 - `&msg <mention> <message>` - Open the DMs.
 - `&name <guild id> <name>` - Changes the bot's nickname per-guild, enter nothing to reset.
 - `&usage` - Shows how often commands are used.
 - `&promote <user>` - Elevate a user.
 - `&demote <user>` - De-elevate a user.
-- `&reload` - Reloads the bot.
+- `&ban [user|guild] <id>` - Bans/unbans a user/guild from the bot. Omit user/guild to check for a ban.
+- `&reload` - Reloads the bot. In dev mode, this hot reloads all code. Otherwise, this reloads the config, item/recipe files, and restarts the database and vote server.
 - `&shutdown` - Shuts down the bot.
 - `&eval` - Evaluates javascript code with variables `jda`, `config`, `event`, `guild`, `channel`, and `user`.
-- `&test` - Test command.
+- `&test` - Test command. This may change depending on what features are being developed.
 
 ### Config
 
 - *Client Token:* Your unique bot token. **Do not upload it to GitHub, or people will be able to steal your bot!**
 - *Shard Count:* The amount of shards to use. Set to 1 if you don't need sharding.
-- *Owner:* The user ID of the bot owner.
+- *Owner:* The user ID of the bot owner. The bot will work when owner is 0, but it is *highly encouraged* to set this value.
 
 - *Log Channel:* The bot will send any logging messages to this channel. Set to 0 to disable.
 - *Invite:* The invite link to use in `&invite`.
@@ -59,6 +67,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Debug Mode:* Prints additional info to console.
 - *Respond To Mentions:* This option decides if the bot will respond to being mentioned at the beginning of a message, so you can use `@Minecord#1216 help` to execute `&help`.
 - *Delete Commands:* If true, the commands sent by players (like `&help`) will be deleted to clean up chat. Requires permission to manage messages.
+- *Use Menus:* If true, the bot will use a reaction menu for `&recipe` and `&ingredient` if possible.
 - *Send Typing:* If true, the bot will send typing packets.
 - *Show Memory:* Whether or not to show the memory in `&info`.
 - *Elevated Skip Cooldown:* Whether or not elevated users skip command cooldowns.
@@ -93,6 +102,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
         "debugMode": false,
         "respondToMentions": true,
         "deleteCommands": false,
+        "useMenus": true,
         "sendTyping": false,
         "showMemory": false,
         "elevatedSkipCooldown": true

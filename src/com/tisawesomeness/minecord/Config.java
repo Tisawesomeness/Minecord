@@ -1,17 +1,11 @@
 package com.tisawesomeness.minecord;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 public class Config {
@@ -28,6 +22,7 @@ public class Config {
 	private static boolean debugMode;
 	private static boolean respondToMentions;
 	private static boolean deleteCommands;
+	private static boolean useMenus;
 	private static boolean sendTyping;
 	private static boolean showMemory;
 	private static boolean elevatedSkipCooldown;
@@ -46,8 +41,6 @@ public class Config {
 	private static String dbName;
 	private static String user;
 	private static String pass;
-	
-	private static List<Announcement> announcements;
 
 	private static String path;
 
@@ -98,6 +91,7 @@ public class Config {
 			debugMode = settings.getBoolean("debugMode");
 			respondToMentions = settings.getBoolean("respondToMentions");
 			deleteCommands = settings.getBoolean("deleteCommands");
+			useMenus = settings.getBoolean("useMenus");
 			sendTyping = settings.getBoolean("sendTyping");
 			showMemory = settings.getBoolean("showMemory");
 			elevatedSkipCooldown = settings.getBoolean("elevatedSkipCooldown");
@@ -119,31 +113,10 @@ public class Config {
 			user = database.getString("user");
 			pass = database.getString("pass");
 			
-			//Announcements
-			announcements = new ArrayList<Announcement>();
-			MessageUtils.totalChance = 0;
-			JSONArray announce = new JSONArray(new String(Files.readAllBytes(Paths.get(path + "/announce.json"))));
-			for (Object o : announce) {
-				JSONObject jo = (JSONObject) o;
-				announcements.add(new Announcement(jo.getString("text"), jo.getInt("chance")));
-				MessageUtils.totalChance += jo.getInt("chance");
-			}
-			
 		} catch (JSONException | IOException ex) {
 			ex.printStackTrace();
 		}
 		
-	}
-	
-	public static class Announcement {
-		private String text;
-		private int chance;
-		public Announcement(String text, int chance) {
-			this.text = text;
-			this.chance = chance;
-		}
-		public String getText() {return text;}
-		public int getChance() {return chance;}
 	}
 
 	public static String getClientToken() {return clientToken;}
@@ -158,6 +131,7 @@ public class Config {
 	public static boolean getDebugMode() {return debugMode;}
 	public static boolean getRespondToMentions() {return respondToMentions;}
 	public static boolean getDeleteCommands() {return deleteCommands;}
+	public static boolean getUseMenus() {return useMenus;}
 	public static boolean getSendTyping() {return sendTyping;}
 	public static boolean getShowMemory() {return showMemory;}
 	public static boolean getElevatedSkipCooldown() {return elevatedSkipCooldown;}
@@ -176,8 +150,6 @@ public class Config {
 	public static String getDbName() {return dbName;}
 	public static String getUser() {return user;}
 	public static String getPass() {return pass;}
-	
-	public static List<Announcement> getAnnouncements() {return announcements;}
 
 	public static String getPath() {return path;}
 	
