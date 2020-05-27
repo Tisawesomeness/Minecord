@@ -57,7 +57,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 
 - *Client Token:* Your unique bot token. **Do not upload it to GitHub, or people will be able to steal your bot!**
 - *Shard Count:* The amount of shards to use. Set to 1 if you don't need sharding.
-- *Owner:* The user ID of the bot owner.
+- *Owner:* The user ID of the bot owner. The bot will work when owner is 0, but it is *highly encouraged* to set this value.
 
 - *Log Channel:* The bot will send any logging messages to this channel. Set to 0 to disable.
 - *Invite:* The invite link to use in `&invite`.

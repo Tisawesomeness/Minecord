@@ -74,7 +74,10 @@ public class Database {
 			"  PRIMARY KEY (id));"
 		);
 		
-		changeElevated(Long.valueOf(Config.getOwner()), true); //Add owner to elevated
+		// Add owner to elevated
+		if (!Config.getOwner().equals("0")) {
+			changeElevated(Long.valueOf(Config.getOwner()), true);
+		}
 		
 		refresh();
 		System.out.println("Database connected.");
