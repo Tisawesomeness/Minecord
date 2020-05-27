@@ -24,6 +24,7 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.Message.MentionType;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.GenericGuildEvent;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
@@ -62,7 +63,7 @@ public class Listener extends ListenerAdapter {
 				args = ArrayUtils.remove(content, 0);
 				
 			//If the bot is mentioned and does not mention everyone
-			} else if (m.isMentioned(e.getJDA().getSelfUser()) && !m.mentionsEveryone()) {
+			} else if (m.isMentioned(e.getJDA().getSelfUser(), MentionType.USER)) {
 				
 				//Send the message to the logging channel
 				EmbedBuilder eb = new EmbedBuilder();
