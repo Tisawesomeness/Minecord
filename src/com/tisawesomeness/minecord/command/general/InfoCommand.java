@@ -42,7 +42,7 @@ public class InfoCommand extends Command {
 		EmbedBuilder eb = new EmbedBuilder();
 		
 		eb.setColor(Color.GREEN);
-		eb.addField("Author", "@Tis_awesomeness#8617", true);
+		eb.addField("Author", Bot.authorTag, true);
 		eb.addField("Version", Bot.getVersion(), true);
 		
 		String guilds = Bot.shardManager.getGuilds().size() + "";
@@ -54,17 +54,17 @@ public class InfoCommand extends Command {
 		eb.addField("Guilds", guilds + "", true);
 		
 		eb.addField("Uptime", DateUtils.getUptime(), true);
+		eb.addField("Ping", Bot.shardManager.getAverageGatewayPing() + "ms", true);
 		if (Config.getShowMemory() || elevated) {
 			eb.addField("Memory", getMemoryString(), true);
 			eb.addField("Boot Time", DateUtils.getBootTime(), true);
 		}
-		eb.addField("Ping", Bot.shardManager.getAverageGatewayPing() + "ms", true);
 		
-		eb.addField("Invite", "Use `" + Database.getPrefix(e.getGuild().getIdLong()) + "invite`", true);
-		eb.addField("Help Server", Bot.helpServer, true);
-		eb.addField("Website", Bot.website, true);
-		eb.addField("Credits", "Mojang API, Crafatar, and lucaazalim", true);
-		eb.addField("Library", "Java `1.8`, JDA `4.1.1_151`", true);
+		eb.addField("Library", String.format("Java `%s`, JDA `%s`", Bot.javaVersion, Bot.jdaVersion), true);
+		eb.addField("Credits", Bot.credits, true);
+		eb.addField("Invite", Config.getInvite(), false);
+		eb.addField("Help Server", Bot.helpServer, false);
+		eb.addField("Website", Bot.website, false);
 		
 		eb = MessageUtils.addFooter(eb);
 		return new Result(Outcome.SUCCESS, eb.build());

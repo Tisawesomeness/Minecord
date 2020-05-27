@@ -10,7 +10,6 @@ import java.util.List;
 import org.apache.commons.lang3.ArrayUtils;
 import org.discordbots.api.client.DiscordBotListAPI;
 
-import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.VoteHandler;
@@ -34,9 +33,14 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 public class Bot {
 
 	private static final String mainClass = "com.tisawesomeness.minecord.Main";
-	public static final String helpServer = "https://discord.gg/hrfQaD7";
+	public static final String author = "Tis_awesomeness";
+	public static final String authorTag = "@Tis_awesomeness#8617";
+	public static final String helpServer = "https://minecord.github.io/support";
 	public static final String website = "https://minecord.github.io";
+	public static final String credits = "Mojang API, Crafatar, and lucaazalim";
 	private static final String version = "0.7.0";
+	public static final String javaVersion = "1.8";
+	public static final String jdaVersion = "4.1.1_151";
 	
 	public static ShardManager shardManager;
 	public static String id;
@@ -71,15 +75,16 @@ public class Bot {
 		thread = Thread.currentThread();
 		listener = new Listener();
 		reactListener = new ReactListener();
-		ReactMenu.startPurgeThread();
-		Registry.init();
 		try {
+			Announcement.init(Config.getPath());
 			Item.init(Config.getPath());
 			Recipe.init(Config.getPath());
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			return false;
 		}
+		ReactMenu.startPurgeThread();
+		Registry.init();
 		
 		//Connect to database
 		Thread db = new Thread(() -> {

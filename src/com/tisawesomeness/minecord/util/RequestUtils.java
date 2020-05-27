@@ -19,6 +19,7 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import org.discordbots.api.client.DiscordBotListAPI;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.tisawesomeness.minecord.Bot;
@@ -196,6 +197,10 @@ public class RequestUtils {
 
 	public static JSONObject loadJSON(String path) throws IOException {
 		return new JSONObject(new String(Files.readAllBytes(Paths.get(path))));
+	}
+
+	public static JSONArray loadJSONArray(String path) throws IOException {
+		return new JSONArray(new String(Files.readAllBytes(Paths.get(path))));
 	}
 
 }
