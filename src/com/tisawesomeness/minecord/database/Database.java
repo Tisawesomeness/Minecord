@@ -287,9 +287,8 @@ public class Database {
 
 	private static void purgeGuilds(long id) throws SQLException {
 		PreparedStatement st = getConnect().prepareStatement(
-			"DELETE FROM guild WHERE prefix=? AND lang='enUS' AND banned=0 AND noCooldown=0;"
+			"DELETE FROM guild WHERE prefix IS NULL AND lang IS NULL AND banned=0 AND noCooldown=0 AND deleteCommands IS NULL AND noMenu IS NULL;"
 		);
-		st.setString(1, Config.getPrefix());
 		if (st.executeUpdate() > 0) guilds.remove(id);
 	}
 	
