@@ -231,16 +231,16 @@ public class Database {
 			g.deleteCommands = deleteCommands;
 		}
 		
-		//Delete guild if it contains only default values
-		if (deleteCommands == Config.getDeleteCommands()) {
-			purgeGuilds(id);
-		}
-		
 	}
 	
 	public static boolean getDeleteCommands(long id) {
 		DbGuild guild = guilds.get(id);
-		Boolean deleteCommands = guild == null ? Config.getDeleteCommands() : guild.deleteCommands;
+		Boolean deleteCommands;
+		if (guild == null) {
+			deleteCommands = Config.getDeleteCommands();
+		} else {
+			deleteCommands = guild.deleteCommands == null ? null : guild.deleteCommands; // Blame java
+		}
 		return deleteCommands == null ? Config.getDeleteCommands() : deleteCommands;
 	}
 	
@@ -272,16 +272,16 @@ public class Database {
 			g.noMenu = !useMenu;
 		}
 		
-		//Delete guild if it contains only default values
-		if (useMenu == Config.getUseMenus()) {
-			purgeGuilds(id);
-		}
-		
 	}
 	
 	public static boolean getUseMenu(long id) {
 		DbGuild guild = guilds.get(id);
-		Boolean useMenu = guild == null ? Config.getUseMenus() : !guild.noMenu;
+		Boolean useMenu;
+		if (guild == null) {
+			useMenu = Config.getUseMenus();
+		} else {
+			useMenu = guild.noMenu == null ? null : !guild.noMenu; // Blame java
+		}
 		return useMenu == null ? Config.getUseMenus() : useMenu;
 	}
 
