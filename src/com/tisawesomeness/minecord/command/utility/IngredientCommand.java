@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.tisawesomeness.minecord.ReactMenu;
+import com.tisawesomeness.minecord.ReactMenu.MenuStatus;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.item.Recipe;
 
@@ -53,14 +54,13 @@ public class IngredientCommand extends Command {
 		}
 
 		// Create menu
-		if (ReactMenu.canMakeMenu(e.getGuild(), e.getTextChannel())) {
+		MenuStatus status = ReactMenu.getMenuStatus(e);
+		if (status.isValid()) {
 			new Recipe.RecipeMenu(recipes, page, "en_US").post(e.getChannel(), e.getAuthor());
 			return new Result(Outcome.SUCCESS);
 		}
 		EmbedBuilder eb = Recipe.displayImg(recipes.get(page), "en_US");
-		eb.setFooter(String.format(
-			"Page %s/%s | Give the bot manage messages permissions to use an interactive menu!", page + 1, recipes.size())
-		, null);
+		eb.setFooter(String.format("Page %s/%s%s", page + 1, recipes.size(), status.getReason()), null);
 		return new Result(Outcome.SUCCESS, eb.build());
 	}
 

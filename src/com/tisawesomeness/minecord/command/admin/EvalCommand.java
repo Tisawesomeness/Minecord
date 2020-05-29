@@ -46,9 +46,9 @@ public class EvalCommand extends Command {
 		engine.put("config", Bot.config);
 		engine.put("db", new Database());
 		engine.put("event", e);
-		engine.put("guild", e.getGuild());
-		engine.put("channel", e.getChannel());
 		engine.put("user", e.getAuthor());
+		engine.put("channel", e.getChannel());
+		if (e.isFromGuild()) engine.put("guild", e.getGuild());
 		
 		//Extract code from message
 		String code = "";

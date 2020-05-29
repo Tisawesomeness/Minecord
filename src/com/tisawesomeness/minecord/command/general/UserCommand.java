@@ -36,11 +36,6 @@ public class UserCommand extends Command {
     
     public Result run(String[] args, MessageReceivedEvent e) {
 
-        // Check for argument length
-        if (args.length == 0) {
-            return new Result(Outcome.WARNING, ":warning: You msut specify a user!");
-        }
-
         //If the author used the admin keyword and is an elevated user
         boolean elevated = false;
 		if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
@@ -83,6 +78,16 @@ public class UserCommand extends Command {
                 eb.addField("Mutual Guilds", mutualGuilds, false);
             }
             return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+        }
+        
+        // Guild-only command
+        if (!e.isFromGuild()) {
+            return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
+        }
+
+        // Check for argument length
+        if (args.length == 0) {
+            return new Result(Outcome.WARNING, ":warning: You msut specify a user!");
         }
         
         // Find user

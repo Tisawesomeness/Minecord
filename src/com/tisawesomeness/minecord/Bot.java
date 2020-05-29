@@ -56,7 +56,8 @@ public class Bot {
 	public static Thread thread;
 	public static volatile int readyShards = 0;
 	private static final List<GatewayIntent> gateways = Arrays.asList(
-		GatewayIntent.DIRECT_MESSAGES, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS);
+		GatewayIntent.DIRECT_MESSAGES, GatewayIntent.DIRECT_MESSAGE_REACTIONS,
+		GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS);
 	private static final EnumSet<CacheFlag> disabledCacheFlags = EnumSet.of(
 		CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOTE, CacheFlag.VOICE_STATE);
 	

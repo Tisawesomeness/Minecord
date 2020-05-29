@@ -7,15 +7,14 @@ import java.util.Set;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class CapeCommand extends Command {
@@ -56,12 +55,12 @@ public class CapeCommand extends Command {
 	}
 
 	public Result run(String[] args, MessageReceivedEvent e) {
-		long id = e.getGuild().getIdLong();
+		String prefix = MessageUtils.getPrefix(e);
 
 		// No arguments message
 		if (args.length == 0) {
 			String m = ":warning: Incorrect arguments." +
-				"\n" + Database.getPrefix(id) + "cape <username|uuid> [date]" +
+				"\n" + prefix + "cape <username|uuid> [date]" +
 				"\n" + MessageUtils.dateHelp;
 			return new Result(Outcome.WARNING, m, 5);
 		}
@@ -86,7 +85,7 @@ public class CapeCommand extends Command {
 			if (args.length > 1) {
 				long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
 				if (timestamp == -1) {
-					return new Result(Outcome.WARNING, MessageUtils.dateErrorString(id, "skin"));
+					return new Result(Outcome.WARNING, MessageUtils.dateErrorString(prefix, "skin"));
 				}
 
 				// Get the UUID
@@ -110,23 +109,23 @@ public class CapeCommand extends Command {
 		}
 
 		// Minecraft capes
-		TextChannel tc = e.getTextChannel();
+		MessageChannel c = e.getChannel();
 		boolean hasCape = false;
 		if (mojangUUIDs.contains(uuid)) {
 			// Mojang cape
-			sendImage(tc, "Minecraft Cape", "https://minecord.github.io/capes/mojang.png");
+			sendImage(c, "Minecraft Cape", "https://minecord.github.io/capes/mojang.png");
 		} else {
 			// Other minecraft capes
 			String url = "https://crafatar.com/capes/" + uuid;
 			if (RequestUtils.checkURL(url)) {
-				sendImage(tc, "Minecraft Cape", url);
+				sendImage(c, "Minecraft Cape", url);
 				hasCape = true;
 			}
 		}
 		// Optifine cape
 		String url = String.format("http://s.optifine.net/capes/%s.png", player);
 		if (RequestUtils.checkURL(url)) {
-			sendImage(tc, "Optifine Cape", url);
+			sendImage(c, "Optifine Cape", url);
 			hasCape = true;
 		}
 		// LabyMod cape (doesn't show in embed, download required)
@@ -134,7 +133,7 @@ public class CapeCommand extends Command {
 		if (RequestUtils.checkURL(url)) {
 			MessageEmbed emb = new EmbedBuilder().setTitle("LabyMod Cape").setColor(Bot.color).setImage("attachment://cape.png").build();
 			try {
-				tc.sendFile(RequestUtils.downloadImage(url), "cape.png").embed(emb).queue();
+				c.sendFile(RequestUtils.downloadImage(url), "cape.png").embed(emb).queue();
 				hasCape = true;
 			} catch (IOException ex) {
 				ex.printStackTrace();
@@ -143,7 +142,7 @@ public class CapeCommand extends Command {
 		// MinecraftCapes.co.uk
 		url = String.format("https://www.minecraftcapes.co.uk/gallery/grab-player-capes/%s", player);
 		if (RequestUtils.checkURL(url, true)) {
-			sendImage(tc, "MinecraftCapes.co.uk Cape", url);
+			sendImage(c, "MinecraftCapes.co.uk Cape", url);
 			hasCape = true;
 		}
 		
@@ -151,8 +150,8 @@ public class CapeCommand extends Command {
 		return new Result(Outcome.SUCCESS);
 	}
 
-	private static void sendImage(TextChannel tc, String title, String url) {
-		tc.sendMessage(new EmbedBuilder().setTitle(title).setColor(Bot.color).setImage(url).build()).queue();
+	private static void sendImage(MessageChannel c, String title, String url) {
+		c.sendMessage(new EmbedBuilder().setTitle(title).setColor(Bot.color).setImage(url).build()).queue();
 	}
 	
 }

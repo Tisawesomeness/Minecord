@@ -36,6 +36,11 @@ public class PurgeCommand extends Command {
 	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
+
+		// Guild-only command
+		if (!e.isFromGuild()) {
+			return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
+		}
 		
 		//Check if user is elevated or has the manage messages permission
 		if (!Database.isElevated(e.getAuthor().getIdLong())

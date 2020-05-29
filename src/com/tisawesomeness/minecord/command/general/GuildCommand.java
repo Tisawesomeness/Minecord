@@ -32,7 +32,7 @@ public class GuildCommand extends Command {
     
     public Result run(String[] args, MessageReceivedEvent e) {
 
-        //If the author used the admin keyword and is an elevated user
+        // If the author used the admin keyword and is an elevated user
         boolean elevated = false;
         Guild g;
 		if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
@@ -49,6 +49,9 @@ public class GuildCommand extends Command {
                 return new Result(Outcome.SUCCESS, getSettingsStr(gid));
             }
         } else {
+            if (!e.isFromGuild()) {
+                return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
+            }
             g = e.getGuild();
         }
         User owner = g.retrieveOwner().complete().getUser();

@@ -17,6 +17,7 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.SelfUser;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class MessageUtils {
 	
@@ -151,10 +152,10 @@ public class MessageUtils {
 	/**
 	 * Gets the command-useful content of a message, keeping the name and arguments and purging the prefix and mention.
 	 */
-	public static String[] getContent(Message m, long id, SelfUser su) {
+	public static String[] getContent(Message m, String prefix, SelfUser su) {
 		String content = m.getContentRaw();
-		if (m.getContentRaw().startsWith(Database.getPrefix(id))) {
-			return content.replaceFirst(Pattern.quote(Database.getPrefix(id)), "").split(" ");
+		if (m.getContentRaw().startsWith(prefix)) {
+			return content.replaceFirst(Pattern.quote(prefix), "").split(" ");
 		} else if (content.replaceFirst("@!", "@").startsWith(su.getAsMention())) {
 			String[] args = content.split(" ");
 			return ArrayUtils.removeElement(args, args[0]);
@@ -163,10 +164,19 @@ public class MessageUtils {
 		}
 	}
 	
-	public static String dateErrorString(long id, String cmd) {
+	public static String dateErrorString(String prefix, String cmd) {
 		return ":x: Improperly formatted date. " +
 			"At least a date or time is required. " +
-			"Do `" + Database.getPrefix(id) + cmd + "` for more info.";
+			"Do `" + prefix + cmd + "` for more info.";
+	}
+
+	/**
+	 * Gets the prefix the bot should use in a text or private channel
+	 * @param e The event corresponding to a command
+	 * @return The configured prefix if e is for a text channel, or the default otherwise
+	 */
+	public static String getPrefix(MessageReceivedEvent e) {
+		return e.isFromGuild() ? Database.getPrefix(e.getGuild().getIdLong()) : Config.getPrefix();
 	}
 
 }

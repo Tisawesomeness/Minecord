@@ -45,7 +45,7 @@ public class ItemCommand extends Command {
 		}
 		
 		// Build message
-		EmbedBuilder eb = Item.display(item, "en_US", e.getGuild().getIdLong());
+		EmbedBuilder eb = Item.display(item, "en_US", MessageUtils.getPrefix(e));
 		eb.setFooter("See an error? Please report them at https://goo.gl/KWCxis", null);
 		// eb = MessageUtils.addFooter(eb);
 		

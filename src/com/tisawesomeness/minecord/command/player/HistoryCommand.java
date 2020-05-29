@@ -7,7 +7,6 @@ import java.util.Arrays;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
@@ -35,12 +34,12 @@ public class HistoryCommand extends Command {
 	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
-		long id = e.getGuild().getIdLong();
+		String prefix = MessageUtils.getPrefix(e);
 		
 		// No arguments message
 		if (args.length == 0) {
 			String m = ":warning: Incorrect arguments." +
-				"\n" + Database.getPrefix(id) + "history <username|uuid> [date] " +
+				"\n" + prefix + "history <username|uuid> [date] " +
 				"\n" + MessageUtils.dateHelp;
 			return new Result(Outcome.WARNING, m, 5);
 		}
@@ -53,7 +52,7 @@ public class HistoryCommand extends Command {
 			if (args.length > 1) {
 				long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
 				if (timestamp == -1) {
-					return new Result(Outcome.WARNING, MessageUtils.dateErrorString(id, "history"));
+					return new Result(Outcome.WARNING, MessageUtils.dateErrorString(prefix, "history"));
 				}
 				
 			// Get the UUID
