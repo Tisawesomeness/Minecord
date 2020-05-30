@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.util.DateUtils;
@@ -34,7 +33,7 @@ public class UsageCommand extends Command {
 			if ("".equals(ci.name)) {continue;}
 			
 			//Build message
-			m += "`" + Config.getPrefix() + ci.name + "` **-** " + c.uses + "\n";
+			m += "`" + MessageUtils.getPrefix(e) + ci.name + "` **-** " + c.uses + "\n";
 		}
 		m = m.substring(0, m.length() - 1);
 

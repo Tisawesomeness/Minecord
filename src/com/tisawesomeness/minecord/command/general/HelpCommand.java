@@ -27,7 +27,7 @@ public class HelpCommand extends Command {
 	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
-		long id = e.getGuild().getIdLong();
+		String prefix = MessageUtils.getPrefix(e);
 		
 		//If the author used the admin keyword and is an elevated user
 		boolean elevated = false;
@@ -59,7 +59,7 @@ public class HelpCommand extends Command {
 					if (!"".equals(usage)) {
 						gap = " ";
 					}
-					m += "`" + Database.getPrefix(id) + name + gap + usage + "` **-** " + description + "\n";
+					m += "`" + prefix + name + gap + usage + "` **-** " + description + "\n";
 				}
 			}
 		}

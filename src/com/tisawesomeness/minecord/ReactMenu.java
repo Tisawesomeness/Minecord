@@ -14,8 +14,8 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.entities.Guild;
 
 /**
@@ -163,8 +163,18 @@ public abstract class ReactMenu {
      * Checks if the bot is able to make a react menu in the specified channel
      * @return True if the guild has menus enabled and the bot has manage message and add reaction permissions
      */
-    public static boolean canMakeMenu(Guild g, TextChannel c) {
-        return g.getSelfMember().hasPermission(c, Permission.MESSAGE_MANAGE, Permission.MESSAGE_ADD_REACTION) && Database.getUseMenu(g.getIdLong());
+    public static MenuStatus getMenuStatus(MessageReceivedEvent e) {
+        if (!e.isFromGuild()) {
+            return Config.getUseMenus() ? MenuStatus.PRIVATE_MESSAGE : MenuStatus.DISABLED;
+        }
+        Guild g = e.getGuild();
+        if (!Database.getUseMenu(g.getIdLong())) {
+            return MenuStatus.DISABLED;
+        }
+        if (!g.getSelfMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE, Permission.MESSAGE_ADD_REACTION)) {
+            return MenuStatus.NO_PERMISSION;
+        }
+        return MenuStatus.VALID;
     }
     
     /**
@@ -291,6 +301,46 @@ public abstract class ReactMenu {
                 case 9: return N9;
             }
             return null;
+        }
+    }
+
+    /**
+     * Represents the reason a menu cannot be created, or VALID
+     */
+    public enum MenuStatus {
+        VALID(),
+        DISABLED(),
+        PRIVATE_MESSAGE("Reaction menus cannot be used in DMs."),
+        NO_PERMISSION("Give the bot manage messages permissions to use an interactive menu!");
+
+        private String reason;
+        private boolean useSpacer;
+        private MenuStatus() {
+            this("");
+            this.useSpacer = false;
+        }
+        private MenuStatus(String reason) {
+            this.reason = reason;
+            this.useSpacer = true;
+        }
+
+        /**
+         * Gets the reason a menu is invalid, useful for printing error messages.
+         * @return The reason, formatted with a spacer. May be blank.
+         * @throws IllegalArgumentException If the menu is valid.
+         */
+        public String getReason() {
+            if (isValid()) {
+                throw new IllegalArgumentException("Menu is valid, there is no reason it is invalid.");
+            }
+            String spacer = useSpacer ? " | " : "";
+            return spacer + reason;
+        }
+        /**
+         * @return Whether the menu is valid.
+         */
+        public boolean isValid() {
+            return this == MenuStatus.VALID;
         }
     }
 

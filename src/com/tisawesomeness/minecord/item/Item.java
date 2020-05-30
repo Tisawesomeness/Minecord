@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import org.json.JSONArray;
@@ -44,7 +43,7 @@ public class Item {
      * @param lang The language code to pull names from
      * @return An EmbedBuilder containing properties of the item
      */
-    public static EmbedBuilder display(String item, String lang, long guildID) {
+    public static EmbedBuilder display(String item, String lang, String prefix) {
         // All objects guarenteed to be there (except properties)
         JSONObject itemObj = items.getJSONObject(item);
         JSONObject langObj = itemObj.getJSONObject("lang").getJSONObject(lang);
@@ -126,8 +125,7 @@ public class Item {
 
         // Reference old item
         if (properties != null && properties.has("reference")) {
-            sb.append(String.format("\nTo see the item for 1.12 and below, use `%sitem %s`\n",
-                    Database.getPrefix(guildID), previousID));
+            sb.append(String.format("\nTo see the item for 1.12 and below, use `%sitem %s`\n", prefix, previousID));
         }
 
         // Sprite

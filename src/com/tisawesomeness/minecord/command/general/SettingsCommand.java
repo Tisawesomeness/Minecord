@@ -33,7 +33,10 @@ public class SettingsCommand extends Command {
     public Result run(String[] args, MessageReceivedEvent e) throws Exception {
 
         // If the author used the admin keyword and is an elevated user
-        long gid = e.getGuild().getIdLong();
+        String sourcePrefix = MessageUtils.getPrefix(e);
+        String targetPrefix;
+        long gid;
+        boolean elevated = false;
 		if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
             if (!args[0].matches(DiscordUtils.idRegex)) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
@@ -43,6 +46,14 @@ public class SettingsCommand extends Command {
             }
             gid = Long.valueOf(args[0]);
             args = Arrays.copyOfRange(args, 2, args.length);
+            targetPrefix = Database.getPrefix(gid);
+            elevated = true;
+        } else {
+            if (!e.isFromGuild()) {
+                return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
+            }
+            gid = e.getGuild().getIdLong();
+            targetPrefix = sourcePrefix;
         }
 
         // Build embed with list of settings
@@ -56,7 +67,7 @@ public class SettingsCommand extends Command {
                         "`@%s command` will work regardless of prefix.\n" +
                         "Possible values: Any text between 1-16 characters.\n" +
                         "Current: **`%s`**",
-                        e.getJDA().getSelfUser().getAsTag(), Database.getPrefix(gid)),
+                        e.getJDA().getSelfUser().getAsTag(), targetPrefix),
                 false)
                 .addField("deleteCommands",
                     String.format(
@@ -73,12 +84,12 @@ public class SettingsCommand extends Command {
                         "Requires Manage Message and Add Reaction permissions.\n" +
                         "Possible values: `enabled`, `disabled`\n" +
                         "Current: **%s**",
-                        Database.getPrefix(gid), Database.getPrefix(gid), isEnabled(Database.getUseMenu(gid))
+                        sourcePrefix, sourcePrefix, isEnabled(Database.getUseMenu(gid))
                     ),
                 false)
                 .setDescription(String.format(
                     "`%ssettings <setting> <value>` - Change a setting.",
-                    Database.getPrefix(gid), Database.getPrefix(gid)
+                    sourcePrefix, sourcePrefix
                 ));
             return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
         
@@ -86,8 +97,7 @@ public class SettingsCommand extends Command {
         } else if (args.length > 1) {
 
             // Check if user is elevated or has the manage messages permission
-            if (!Database.isElevated(e.getAuthor().getIdLong())
-                    && !e.getMember().hasPermission(e.getTextChannel(), Permission.MANAGE_SERVER)) {
+            if (elevated || !e.getMember().hasPermission(e.getTextChannel(), Permission.MANAGE_SERVER)) {
                 return new Result(Outcome.WARNING, ":warning: You must have manage server permissions!");
             }
             
@@ -101,7 +111,7 @@ public class SettingsCommand extends Command {
                     return new Result(Outcome.WARNING, "Nice try.");
                 }
                 // Check for duplicate
-                if (args[1].equals(Database.getPrefix(gid))) {
+                if (args[1].equals(targetPrefix)) {
                     return new Result(Outcome.SUCCESS, "That is the current prefix.");
                 }
                 //Set new prefix

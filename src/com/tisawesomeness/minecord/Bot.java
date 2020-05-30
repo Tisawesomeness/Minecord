@@ -39,7 +39,7 @@ public class Bot {
 	public static final String helpServer = "https://minecord.github.io/support";
 	public static final String website = "https://minecord.github.io";
 	public static final String credits = "Mojang API, Crafatar, and lucaazalim";
-	private static final String version = "0.8.0";
+	private static final String version = "0.8.1";
 	public static final String javaVersion = "1.8";
 	public static final String jdaVersion = "4.1.1_151";
 	public static final Color color = Color.GREEN;
@@ -56,7 +56,8 @@ public class Bot {
 	public static Thread thread;
 	public static volatile int readyShards = 0;
 	private static final List<GatewayIntent> gateways = Arrays.asList(
-		GatewayIntent.DIRECT_MESSAGES, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS);
+		GatewayIntent.DIRECT_MESSAGES, GatewayIntent.DIRECT_MESSAGE_REACTIONS,
+		GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS);
 	private static final EnumSet<CacheFlag> disabledCacheFlags = EnumSet.of(
 		CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOTE, CacheFlag.VOICE_STATE);
 	

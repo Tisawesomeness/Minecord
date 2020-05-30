@@ -6,7 +6,6 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
@@ -30,12 +29,12 @@ public class HeadCommand extends Command {
 	}
 	
 	public Result run(String[] argsOrig, MessageReceivedEvent e) {
-		long id = e.getGuild().getIdLong();
+		String prefix = MessageUtils.getPrefix(e);
 		
 		//No arguments message
 		if (argsOrig.length == 0) {
 			String m = ":warning: Incorrect arguments." +
-				"\n" + Database.getPrefix(id) + "head <username|uuid> [date] [overlay?]" +
+				"\n" + prefix + "head <username|uuid> [date] [overlay?]" +
 				"\n" + MessageUtils.dateHelp;
 			return new Result(Outcome.WARNING, m, 5);
 		}
@@ -58,7 +57,7 @@ public class HeadCommand extends Command {
 			if (args.length > 1) {
 				long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
 				if (timestamp == -1) {
-					return new Result(Outcome.WARNING, MessageUtils.dateErrorString(id, "head"));
+					return new Result(Outcome.WARNING, MessageUtils.dateErrorString(prefix, "head"));
 				}
 				
 			//Get the UUID

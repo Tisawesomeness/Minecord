@@ -22,7 +22,7 @@ public class ShutdownCommand extends Command {
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		MessageUtils.log(":x: **Bot shut down by " + e.getAuthor().getName() + "**");
-		e.getTextChannel().sendMessage(":wave: Goodbye!").complete();
+		e.getChannel().sendMessage(":wave: Goodbye!").complete();
 		e.getJDA().shutdown();
 		System.exit(0);
 		return new Result(Outcome.SUCCESS);

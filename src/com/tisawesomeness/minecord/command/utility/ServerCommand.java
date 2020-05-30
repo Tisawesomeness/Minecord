@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
@@ -53,7 +52,7 @@ public class ServerCommand extends Command {
 		// Parse arguments
 		if (args.length == 0) {
 			String m = ":warning: You must specify a server." +
-				"\n" + Database.getPrefix(e.getGuild().getIdLong()) + "server <address>[:port]";
+				"\n" + MessageUtils.getPrefix(e) + "server <address>[:port]";
 			return new Result(Outcome.WARNING, m, 2);
 		}
 		String arg = args[0];
