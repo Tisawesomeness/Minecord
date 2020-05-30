@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.command.general;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.Module;
 import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.MessageUtils;
@@ -37,8 +38,8 @@ public class HelpCommand extends Command {
 
 		//Iterate through every registered command
 		String m = "";
-		for (Command c : Registry.commands) {
-			if (c != null) {
+		for (Module mod : Registry.modules) {
+			for (Command c : mod.getCommands()) {
 				CommandInfo ci = c.getInfo();
 				if (!ci.hidden || elevated) {
 					//Fetch basic info
