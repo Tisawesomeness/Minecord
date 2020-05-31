@@ -11,10 +11,18 @@ public interface ICommand {
 	 * @return The command info.
 	 */
 	public CommandInfo getInfo();
+
+	/**
+	 * Defines the help text shown by &help <command>. Use {&} to substitute the current prefix.
+	 * @return Never-null help string
+	 */
+	public default String getHelp() {
+		return getInfo().description + "\n";
+	}
 	
 	/**
-	 * This method is executed when the command is called.
-	 * @param args The list of arguments passed in by the user, separated by the spaces.
+	 * This method is called when the command is run.
+	 * @param args The list of arguments passed in by the user, separated by spaces.
 	 * @param e The message event.
 	 * @return The Result of the command.
 	 */

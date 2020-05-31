@@ -99,5 +99,20 @@ public class Registry {
 	public static Command getCommand(String name) {
 		return commandMap.get(name);
 	}
+	/**
+	 * Gets the module a command belongs to
+	 * @param cmdName Case-sensitive name of the command
+	 * @return The module, or null if not found. This should never return null unless the command name is incorrect or a command was registered without a module.
+	 */
+	public static String findModuleName(String cmdName) {
+		for (Module m : modules) {
+			for (Command c : m.getCommands()) {
+				if (c.getInfo().name.equals(cmdName)) {
+					return m.getName();
+				}
+			}
+		}
+		return null;
+	}
 
 }

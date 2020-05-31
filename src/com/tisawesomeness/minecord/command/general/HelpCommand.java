@@ -7,6 +7,7 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.Module;
 import com.tisawesomeness.minecord.command.Registry;
+import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -20,8 +21,8 @@ public class HelpCommand extends Command {
 			"Displays help for the bot, a command, or a module.",
 			"[command|module]",
 			new String[]{
-				"commands",
 				"cmds",
+				"commands",
 				"module",
 				"modules",
 				"categories"},
@@ -30,6 +31,16 @@ public class HelpCommand extends Command {
 			false,
 			true
 		);
+	}
+
+	public String getHelp() {
+		return "`{&}help` - Display help for the bot.\n" +
+			"`{&}help <module>` - Display help for a module.\n" +
+			"`{&}help <command>` - Display help for a command.\n" +
+			"\n" +
+			"Examples:\n" +
+			"- `{&}help utility`\n" +
+			"- `{&}help server`\n";
 	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
@@ -65,9 +76,12 @@ public class HelpCommand extends Command {
 		// Module help
 		Module m = Registry.getModule(args[0]);
 		if (m != null) {
+			if (m.isHidden() && !Database.isElevated(e.getAuthor().getIdLong())) {
+				return new Result(Outcome.WARNING, ":warning: You do not have permission to view that module.");
+			}
 			String mUsage = Arrays.asList(m.getCommands()).stream()
 				.map(c -> c.getInfo())
-				.filter(ci -> !ci.hidden || m.getName().equals("Admin")) // All admin commands are hidden
+				.filter(ci -> !ci.hidden || m.isHidden()) // All admin commands are hidden
 				.map(ci -> {
 					// Formatting changes based on whether the command has arguments
 					if (ci.usage == null) {
@@ -82,16 +96,29 @@ public class HelpCommand extends Command {
 				mUsage = mHelp + "\n" + mUsage;
 			}
 			eb.setAuthor(m.getName() + " Module Help", null, url).setDescription(mUsage);
+			return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
 		}
 
 		// Command help
 		Command c = Registry.getCommand(args[0]);
 		if (c != null) {
 			CommandInfo ci = c.getInfo();
-			eb.setAuthor(prefix + ci.name + " Help").setDescription("todo"); // TODO
+			if (ci.elevated && !Database.isElevated(e.getAuthor().getIdLong())) {
+				return new Result(Outcome.WARNING, ":warning: You do not have permission to view that command.");
+			}
+			String help = c.getHelp().replace("{&}", prefix);
+			if (ci.aliases.length > 0) {
+				String aliases = Arrays.asList(ci.aliases).stream()
+					.map(s -> String.format("`%s%s`", prefix, s))
+					.collect(Collectors.joining(", "));
+				help += "\nAliases: " + aliases;
+			}
+			String desc = String.format("%s\nModule: `%s`", help, Registry.findModuleName(ci.name));
+			eb.setAuthor(prefix + ci.name + " Help").setDescription(desc);
+			return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
 		}
 		
-		return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+		return new Result(Outcome.WARNING, ":warning: That command or module does not exist.");
 	}
 
 }
