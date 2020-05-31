@@ -13,7 +13,11 @@ import com.tisawesomeness.minecord.command.utility.*;
  */
 public class Registry {
 	
-	private static final String adminHelp = "< Admin Help >";
+	private static final String adminHelp = "**These commands require elevation to use.**\n\n" +
+	"`{&}info admin` - Displays bot info, including used memory and boot time.\n" +
+	"`{&}settings <guild id> admin [setting] [value]` - Change the bot's settings for another guild.\n" +
+	"`{&}user <user id> admin [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include \"mutual\" to show mutual guilds.\n" +
+	"`{&}guild <guild id> admin` - Show info and ban status for another guild.\n";
 	public static final Module[] modules = {
 		new Module("General",
 			new HelpCommand(),
@@ -72,6 +76,20 @@ public class Registry {
 				for (String alias : ci.aliases) commandMap.put(alias, c);
 			}
 		}
+	}
+
+	/**
+	 * Gets a module, given its name
+	 * @param name Case-insensitive name of the desired module
+	 * @return The module, or null if not found.
+	 */
+	public static Module getModule(String name) {
+		for (Module m : modules) {
+			if (m.getName().equalsIgnoreCase(name)) {
+				return m;
+			}
+		}
+		return null;
 	}
 	/**
 	 * Gets a command, given its name or alias.

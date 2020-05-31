@@ -7,7 +7,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 
 ### Command List
 #### General Commands
-- `&help` - Displays the help menu.
+- `&help [command|module]` - Displays help for the bot, a command, or a module.
 - `&info` - Shows the bot info.
 - `&ping` - Pings the bot.
 - `&invite` - Give the invite link for the bot.
@@ -36,7 +36,6 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&cape <username|uuid> [date]` - Gets the cape of a player.
 
 #### Admin Commands:
-- `&help admin` - Displays help, including admin commands.
 - `&info admin` - Displays bot info, including used memory and boot time.
 - `&settings <guild id> admin [setting] [value]` - Change the bot's settings for another guild.
 - `&user <user id> admin [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include `mutual` to show mutual guilds.

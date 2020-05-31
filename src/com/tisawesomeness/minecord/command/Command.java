@@ -73,7 +73,7 @@ public abstract class Command implements ICommand {
 				this.name = name;
 			}
 			this.description = description == null ? "A command." : description;
-			this.usage = usage == null ? "" : usage;
+			this.usage = usage;
 			this.aliases = aliases == null ? new String[0] : aliases;
 			this.cooldown = cooldown;
 			this.hidden = hidden;
