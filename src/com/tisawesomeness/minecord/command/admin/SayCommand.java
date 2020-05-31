@@ -16,7 +16,7 @@ public class SayCommand extends Command {
 	public CommandInfo getInfo() {
 		return new CommandInfo(
 			"say",
-			"Send a message",
+			"Send a message.",
 			"<channel> <message>",
 			new String[]{
 				"talk",

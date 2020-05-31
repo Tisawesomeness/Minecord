@@ -19,7 +19,7 @@ public class InfoCommand extends Command {
 	public CommandInfo getInfo() {
 		return new CommandInfo(
 			"info",
-			"Shows the bot info",
+			"Shows the bot info.",
 			null,
 			new String[]{"about", "stats"},
 			0,
