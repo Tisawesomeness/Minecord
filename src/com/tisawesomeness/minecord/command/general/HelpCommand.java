@@ -113,6 +113,9 @@ public class HelpCommand extends Command {
 					.collect(Collectors.joining(", "));
 				help += "\nAliases: " + aliases;
 			}
+			if (ci.cooldown > 0) {
+				help += String.format("\nCooldown: `%ss`", ci.cooldown / 1000);
+			}
 			String desc = String.format("%s\nModule: `%s`", help, Registry.findModuleName(ci.name));
 			eb.setAuthor(prefix + ci.name + " Help").setDescription(desc);
 			return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
