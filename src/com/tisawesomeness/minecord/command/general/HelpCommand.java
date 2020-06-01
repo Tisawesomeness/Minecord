@@ -106,7 +106,7 @@ public class HelpCommand extends Command {
 			if (ci.elevated && !Database.isElevated(e.getAuthor().getIdLong())) {
 				return new Result(Outcome.WARNING, ":warning: You do not have permission to view that command.");
 			}
-			String help = c.getHelp().replace("{&}", prefix);
+			String help = c.getHelp().replace("{@}", e.getJDA().getSelfUser().getAsMention()).replace("{&}", prefix);
 			if (ci.aliases.length > 0) {
 				String aliases = Arrays.asList(ci.aliases).stream()
 					.map(s -> String.format("`%s%s`", prefix, s))

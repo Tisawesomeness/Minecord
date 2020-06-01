@@ -13,7 +13,8 @@ public interface ICommand {
 	public CommandInfo getInfo();
 
 	/**
-	 * Defines the help text shown by &help <command>. Use {&} to substitute the current prefix.
+	 * Defines the help text shown by &help <command>.
+	 * Use {&} to substitute the current prefix, or {@} to substitute the bot mention.
 	 * @return Never-null help string
 	 */
 	public default String getHelp() {
