@@ -70,6 +70,8 @@ public class StatusCommand extends Command {
 			"\n" + */"**Auth Server:** " + responses.get(3) +
 			"\n" + /*"**Mojang:** " + responses.get(7) +
 			"\n" +*/ "**Mojang API:** " + responses.get(5);
+		m += "\nSome statuses in the Mojang API are broken, so they are not shown.\n" +
+		"Vote, watch, and comment on [this bug](https://bugs.mojang.com/browse/WEB-2303) if you want it fixed!";
 		
 		MessageEmbed me = MessageUtils.embedMessage("Minecraft Status", null, m, color);
 		
