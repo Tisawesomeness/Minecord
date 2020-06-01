@@ -114,7 +114,11 @@ public class HelpCommand extends Command {
 				help += "\nAliases: " + aliases;
 			}
 			if (ci.cooldown > 0) {
-				help += String.format("\nCooldown: `%ss`", ci.cooldown / 1000);
+				if (ci.cooldown % 1000 == 0) {
+					help += String.format("\nCooldown: `%ss`", ci.cooldown / 1000);
+				} else {
+					help += String.format("\nCooldown: `%ss`", ci.cooldown / 1000.0);
+				}
 			}
 			String desc = String.format("%s\nModule: `%s`", help, Registry.findModuleName(ci.name));
 			eb.setAuthor(prefix + ci.name + " Help").setDescription(desc);
