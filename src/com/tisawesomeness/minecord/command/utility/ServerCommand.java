@@ -48,7 +48,7 @@ public class ServerCommand extends Command {
 	}
 
 	public String getHelp() {
-		return "{&}server <address>[:port} - Fetches the stats of a server.\n" +
+		return "`{&}server <address>[:port}` - Fetches the stats of a server.\n" +
 			"\n" +
 			"Examples:\n" +
 			"- `{&}server hypixel.net`\n" +
