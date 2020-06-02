@@ -2,6 +2,9 @@ package com.tisawesomeness.minecord.util;
 
 import java.awt.Color;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -165,6 +168,44 @@ public class MessageUtils {
 	 */
 	public static String getPrefix(MessageReceivedEvent e) {
 		return e.isFromGuild() ? Database.getPrefix(e.getGuild().getIdLong()) : Config.getPrefix();
+	}
+
+	public static ArrayList<String> splitLinesByLength(String str, int maxLength) {
+		return splitLinesByLength(Arrays.asList(str.split("\n")), maxLength);
+	}
+
+	/**
+	 * Splits a list of lines into groups, making sure that none of them are over the max length.
+	 * This takes into account the additional newline character.
+	 * If a line is over the max length, it is split into multiple lines.
+	 * Useful for getting past Discord's char limits.
+	 * @param lines An ArrayList of String lines without newline characters.
+	 * @param maxLength The maximum length allowed for a string in the returned list.
+	 * @return A list of strings where every string length < maxLength - 1
+	 */
+	public static ArrayList<String> splitLinesByLength(List<String> lines, int maxLength) {
+		ArrayList<String> split = new ArrayList<String>();
+		String splitBuf = "";
+		for (int i = 0; i < lines.size(); i++) {
+			// Max line length check
+			if (lines.get(i).length() > maxLength - 1) {
+				lines.add(i + 1, lines.get(i).substring(maxLength - 1));
+				lines.set(i, lines.get(i).substring(0, maxLength - 1));
+			}
+			String fieldTemp = splitBuf + lines.get(i) + "\n";
+			if (fieldTemp.length() > maxLength) {
+				i -= 1; // The line goes over the char limit, don't include!
+				split.add(splitBuf.substring(0, splitBuf.length() - 1));
+				splitBuf = "";
+			} else {
+				splitBuf = fieldTemp;
+			}
+			// Last line check
+			if (i == lines.size() - 1) {
+				split.add(fieldTemp);
+			}
+		}
+		return split;
 	}
 
 }

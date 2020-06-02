@@ -143,22 +143,7 @@ public class HistoryCommand extends Command {
 		// If over 2048, use fields, otherwise use description
 		if (chars > 2048) {
 			// Split into fields, avoiding 1024 field char limit
-			ArrayList<String> fields = new ArrayList<String>();
-			String fieldBuf = "";
-			for (int i = 0; i < lines.size(); i++) {
-				String fieldTemp = fieldBuf + lines.get(i) + "\n";
-				if (fieldTemp.length() > 1024) {
-					i -= 1; // The line goes over the char limit, don't include!
-					fields.add(fieldBuf.substring(0, fieldBuf.length() - 1));
-					fieldBuf = "";
-				} else {
-					fieldBuf = fieldTemp;
-				}
-				if (i == lines.size() - 1) {
-					fields.add(fieldTemp);
-				}
-			}
-			for (String field : fields) {
+			for (String field : MessageUtils.splitLinesByLength(lines, 1024)) {
 				eb.addField("Name History", field, false);
 			}
 		} else {
