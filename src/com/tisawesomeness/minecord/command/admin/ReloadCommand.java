@@ -32,6 +32,13 @@ public class ReloadCommand extends Command {
 			false
 		);
 	}
+
+	public String getHelp() {
+		if (Config.getDevMode()) {
+			return "Reloads all non-reflection code, keeping the JDA instance.\n";
+		}
+		return "Reloads the config, announcement, and item/recipe files, and restarts the database and vote server.";
+	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		

@@ -34,6 +34,15 @@ public class BanCommand extends Command {
 		);
 	}
 
+	public String getHelp() {
+		return "`{&}ban <id>` - Check if a user or guild is banned.\n" +
+			"`{&}ban <user|guild> <id>` - Ban a user or guild.\n" +
+			"\n" +
+			"`<id>` must be an 18-digit id.\n" +
+			"The user or guild does not have to be seen by Minecord.\n" +
+			"Banned users and guilds will have all commands fail silently.\n";
+	}
+
 	@Override
 	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
 		

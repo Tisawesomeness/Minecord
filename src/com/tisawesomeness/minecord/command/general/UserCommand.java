@@ -33,6 +33,14 @@ public class UserCommand extends Command {
 			false
 		);
     }
+
+    public String getHelp() {
+        return "Shows the info of a user in the current guild.\n" +
+            "\n" +
+            "Examples:\n" +
+            "- `{&}user @Tis_awesomeness`\n" +
+            "- `{&}user 211261249386708992`\n";
+    }
     
     public Result run(String[] args, MessageReceivedEvent e) {
 
@@ -87,7 +95,7 @@ public class UserCommand extends Command {
 
         // Check for argument length
         if (args.length == 0) {
-            return new Result(Outcome.WARNING, ":warning: You msut specify a user!");
+            return new Result(Outcome.WARNING, ":warning: You must specify a user!");
         }
         
         // Find user

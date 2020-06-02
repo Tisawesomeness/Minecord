@@ -46,6 +46,15 @@ public class ServerCommand extends Command {
 			true
 		);
 	}
+
+	public String getHelp() {
+		return "{&}server <address>[:port} - Fetches the stats of a server.\n" +
+			"\n" +
+			"Examples:\n" +
+			"- `{&}server hypixel.net`\n" +
+			"- `{&}server 1.2.3.4`\n" +
+			"- `{&}server mc.example.com:25566`\n";
+	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		

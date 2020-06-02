@@ -19,7 +19,11 @@ public class PingCommand extends Command {
 			false,
 			false
 		);
-    }
+	}
+	
+	public String getHelp() {
+		return "Pings the bot.\nUse {&}server to ping a server.\n";
+	}
     
     public Result run(String[] args, MessageReceivedEvent e) {
         return new Result(Outcome.SUCCESS, String.format(

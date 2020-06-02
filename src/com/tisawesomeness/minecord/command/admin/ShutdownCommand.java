@@ -19,6 +19,10 @@ public class ShutdownCommand extends Command {
 			false
 		);
 	}
+
+	public String getHelp() {
+		return "Shuts down the bot. Note that the bot may reboot if it is run by a restart script.\n";
+	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		MessageUtils.log(":x: **Bot shut down by " + e.getAuthor().getName() + "**");

@@ -29,6 +29,17 @@ public class SettingsCommand extends Command {
         );
     }
 
+    public String getHelp() {
+        return "`{&}settings` - Show all current settings and their possible values.\n" +
+            "`{&}settings <setting> <value>` - Sets <setting> to <value>. The user must have **Manage Server** permissions.\n" +
+            "\n" +
+            "Examples:\n" +
+            "- `{&}settings prefix mc!`\n" +
+            "- {@}` settings prefix &`\n" +
+            "- `{&}settings deleteCommands disabled`\n" +
+            "- `{&}settings useMenus enabled`\n";
+    }
+
     @Override
     public Result run(String[] args, MessageReceivedEvent e) throws Exception {
 

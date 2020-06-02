@@ -27,16 +27,27 @@ public class HeadCommand extends Command {
 			true
 		);
 	}
+
+	public String getHelp() {
+		return "`{&}head <player> [date] [overlay?]` - Gets an image of the player's head.\n" +
+			"\n" +
+			"- `<player>` can be a username or a UUID.\n" +
+			"- `[overlay?]` whether to include the second skin layer.\n" +
+			"- " + DateUtils.dateHelp + "\n" +
+			"\n" +
+			"Examples:\n" +
+			"`{&}head Tis_awesomeness`\n" +
+			"`{&}head Notch 3/2/06 2:47:32`\n" +
+			"`{&}head f6489b797a9f49e2980e265a05dbc3af`\n" +
+			"`{&}head 069a79f4-44e9-4726-a5be-fca90e38aaf5 overlay`\n";
+	}
 	
 	public Result run(String[] argsOrig, MessageReceivedEvent e) {
 		String prefix = MessageUtils.getPrefix(e);
 		
 		//No arguments message
 		if (argsOrig.length == 0) {
-			String m = ":warning: Incorrect arguments." +
-				"\n" + prefix + "head <username|uuid> [date] [overlay?]" +
-				"\n" + MessageUtils.dateHelp;
-			return new Result(Outcome.WARNING, m, 5);
+			return new Result(Outcome.WARNING, ":warning: You must specify a player.", 5);
 		}
 		String[] args = argsOrig;
 		

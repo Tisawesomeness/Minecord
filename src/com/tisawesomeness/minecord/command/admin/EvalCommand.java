@@ -31,6 +31,15 @@ public class EvalCommand extends Command {
 		);
 	}
 
+	String docsLink = "https://docs.oracle.com/javase/8/docs/technotes/guides/scripting/prog_guide/javascript.html#CIHFFHED";
+	public String getHelp() {
+		return "Evaluates some js code using the Rhino engine.\n" +
+			"Variables: `jda`, `config`, `db`, `event`, `user`, `channel`, `guild`\n" +
+			"See [the docs](" + docsLink + ") for information on accessing Java from scripts.\n" +
+			"Sensitive info such as the bot token are cleaned from the input and output. " +
+			"In case this fails, __**never request the bot token and never print all values of the jda or config.**__\n";
+	}
+
 	@Override
 	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
 		

@@ -22,6 +22,16 @@ public class PrefixCommand extends Command {
 			true
 		);
 	}
+
+	public String getHelp() {
+		return "`{&}prefix` - Show the current prefix.\n" +
+			"`{&}prefix <prefix>` - Change the prefix. The user must have **Manage Server** permissions.\n" +
+			"The prefix can be any text between 1-16 characters.\n" +
+			"\n" +
+			"Examples:\n" +
+			"- `{&}prefix mc!`\n" +
+			"- {@}` prefix &`\n";
+	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
 

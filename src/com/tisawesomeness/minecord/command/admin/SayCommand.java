@@ -27,6 +27,11 @@ public class SayCommand extends Command {
 			false
 		);
 	}
+
+	public String getHelp() {
+		return "`{&}say <channel> <message>` - Make the bot send a message.\n" +
+			"`<channel>` is either a # channel name or an 18-digit ID.\n";
+	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		

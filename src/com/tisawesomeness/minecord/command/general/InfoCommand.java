@@ -25,7 +25,8 @@ public class InfoCommand extends Command {
 			0,
 			false,
 			false,
-			true);
+			true
+		);
 	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {

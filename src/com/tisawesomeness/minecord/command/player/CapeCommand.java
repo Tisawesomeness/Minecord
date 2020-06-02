@@ -54,15 +54,26 @@ public class CapeCommand extends Command {
 		);
 	}
 
+	public String getHelp() {
+		return "`{&}cape <player> [date]` - Gets an image of the player's cape.\n" +
+			"Includes Minecraft, Optifine, LabyMod and MinecraftCapes.co.uk capes.\n" +
+			"\n" +
+			"- `<player>` can be a username or a UUID.\n" +
+			"- " + DateUtils.dateHelp + "\n" +
+			"\n" +
+			"Examples:\n" +
+			"`{&}cape jeb_`\n" +
+			"`{&}cape Notch 3/2/06 2:47:32`\n" +
+			"`{&}cape 853c80ef3c3749fdaa49938b674adae6`\n" +
+			"`{&}cape 069a79f4-44e9-4726-a5be-fca90e38aaf5 3/26`\n";
+	}
+
 	public Result run(String[] args, MessageReceivedEvent e) {
 		String prefix = MessageUtils.getPrefix(e);
 
 		// No arguments message
 		if (args.length == 0) {
-			String m = ":warning: Incorrect arguments." +
-				"\n" + prefix + "cape <username|uuid> [date]" +
-				"\n" + MessageUtils.dateHelp;
-			return new Result(Outcome.WARNING, m, 5);
+			return new Result(Outcome.WARNING, ":warning: You must specify a player.", 5);
 		}
 
 		// Get playername

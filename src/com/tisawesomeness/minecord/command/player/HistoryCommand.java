@@ -32,6 +32,19 @@ public class HistoryCommand extends Command {
 			true
 		);
 	}
+
+	public String getHelp() {
+		return "`{&}history <player> [date]` - Gets a player's name history.\n" +
+			"\n" +
+			"- `<player>` can be a username or a UUID.\n" +
+			"- " + DateUtils.dateHelp + "\n" +
+			"\n" +
+			"Examples:\n" +
+			"`{&}history Tis_awesomeness`\n" +
+			"`{&}history Notch 3/2/06 2:47:32`\n" +
+			"`{&}history f6489b797a9f49e2980e265a05dbc3af`\n" +
+			"`{&}history 069a79f4-44e9-4726-a5be-fca90e38aaf5 3/26`\n";
+	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		String prefix = MessageUtils.getPrefix(e);
@@ -40,7 +53,7 @@ public class HistoryCommand extends Command {
 		if (args.length == 0) {
 			String m = ":warning: Incorrect arguments." +
 				"\n" + prefix + "history <username|uuid> [date] " +
-				"\n" + MessageUtils.dateHelp;
+				"\n" + DateUtils.dateHelp;
 			return new Result(Outcome.WARNING, m, 5);
 		}
 

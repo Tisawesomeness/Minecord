@@ -27,6 +27,15 @@ public class Item {
     private static JSONObject items;
     private static JSONObject data;
 
+    public static String help = "Items can be:\n" +
+        "- Namespaced IDs: `minecraft:iron_block`\n" +
+        "- Numeric IDs: `50`\n" +
+        "- ID and data: `35:14`, `wool:14`\n" +
+        "- ID and color: `35:red`, `wool:red`\n" +
+        "- Display names: `Gold Ingot`\n" +
+        "- Nicknames: `Notch Apple`\n" +
+        "- Previous names: `White Hardened Clay`";
+
     /**
      * Initializes the item database by reading from file
      * @param path The path to read from

@@ -20,7 +20,7 @@ public class PurgeCommand extends Command {
 		return new CommandInfo(
 			"purge",
 			"Cleans the bot messages.",
-			"[number]",
+			"<number>",
 			new String[]{
 				"clear",
 				"clean",
@@ -33,6 +33,13 @@ public class PurgeCommand extends Command {
 			false,
 			true
 		);
+	}
+
+	public String getHelp() {
+		return "`{&}purge <number>` - Cleans messages in the current channel **sent by the bot**.\n" +
+			"The user must have *Manage Messages* permissions.\n" +
+			"The number of messages must be between 1-1000.\n" +
+			"If deleting more than 50 messages, the bot must have *Manage Messages* permissions.\n";
 	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
