@@ -42,6 +42,18 @@ public class HelpCommand extends Command {
 			"- `{&}help utility`\n" +
 			"- `{&}help server`\n";
 	}
+
+	public String getAdminHelp() {
+		return "`{&}help` - Display help for the bot.\n" +
+			"`{&}help <module>` - Display help for a module.\n" +
+			"`{&}help <command>` - Display help for a command.\n" +
+			"`{&}help <command> admin` - Include admin-only command usage.\n" +
+			"\n" +
+			"Examples:\n" +
+			"- `{&}help utility`\n" +
+			"- `{&}help server`\n" +
+			"- `{&}help settings admin`\n";
+	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		String prefix = MessageUtils.getPrefix(e);
@@ -102,17 +114,28 @@ public class HelpCommand extends Command {
 		// Command help
 		Command c = Registry.getCommand(args[0]);
 		if (c != null) {
+			// Elevation check
 			CommandInfo ci = c.getInfo();
 			if (ci.elevated && !Database.isElevated(e.getAuthor().getIdLong())) {
 				return new Result(Outcome.WARNING, ":warning: You do not have permission to view that command.");
 			}
-			String help = c.getHelp().replace("{@}", e.getJDA().getSelfUser().getAsMention()).replace("{&}", prefix);
+			// Admin check
+			String help;
+			if (args.length > 1 && args[1].equals("admin")) {
+				help = c.getAdminHelp();
+			} else {
+				help = c.getHelp();
+			}
+			// {@} and {&} substitution
+			help = help.replace("{@}", e.getJDA().getSelfUser().getAsMention()).replace("{&}", prefix);
+			// Alias list formatted with prefix in code blocks
 			if (ci.aliases.length > 0) {
 				String aliases = Arrays.asList(ci.aliases).stream()
 					.map(s -> String.format("`%s%s`", prefix, s))
 					.collect(Collectors.joining(", "));
 				help += "\nAliases: " + aliases;
 			}
+			// If the cooldown is exactly N seconds, treat as int
 			if (ci.cooldown > 0) {
 				if (ci.cooldown % 1000 == 0) {
 					help += String.format("\nCooldown: `%ss`", ci.cooldown / 1000);

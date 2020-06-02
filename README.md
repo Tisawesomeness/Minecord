@@ -36,6 +36,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&cape <username|uuid> [date]` - Gets the cape of a player.
 
 #### Admin Commands:
+- `&help <command> admin` - Displays admin help for a command.
 - `&info admin` - Displays bot info, including used memory and boot time.
 - `&settings <guild id> admin [setting] [value]` - Change the bot's settings for another guild.
 - `&user <user id> admin [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include `mutual` to show mutual guilds.

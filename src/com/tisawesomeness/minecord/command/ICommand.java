@@ -20,6 +20,10 @@ public interface ICommand {
 	public default String getHelp() {
 		return getInfo().description + "\n";
 	}
+
+	public default String getAdminHelp() {
+		return getHelp();
+	}
 	
 	/**
 	 * This method is called when the command is run.
