@@ -41,6 +41,18 @@ public class UserCommand extends Command {
             "- `{&}user @Tis_awesomeness`\n" +
             "- `{&}user 211261249386708992`\n";
     }
+
+    public String getAdminHelp() {
+        return "`{&}user <user|id>` - Shows the info of a user in the current guild.\n" +
+            "`{&}user <user id> admin` - Shows the info, ban status, and elevation of a user.\n" +
+            "`{&}user <user id> admin mutual` - Includes mutual guilds.\n" +
+            "__**Requesting mutual guilds with a large bot may freeze the shard!**__\n" +
+            "\n" +
+            "Examples:\n" +
+            "- `{&}user @Tis_awesomeness`\n" +
+            "- `{&}user 211261249386708992`\n" +
+            "- `{&}user 211261249386708992 admin`\n";
+    }
     
     public Result run(String[] args, MessageReceivedEvent e) {
 

@@ -28,6 +28,11 @@ public class InfoCommand extends Command {
 			true
 		);
 	}
+
+	public String getAdminHelp() {
+		return "`{&}info` - Shows the bot info.\n" +
+			"`{&}info admin` - Includes memory usage and boot time.\n";
+	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		DiscordUtils.update();

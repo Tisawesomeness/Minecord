@@ -29,6 +29,14 @@ public class GuildCommand extends Command {
 			false
 		);
     }
+
+    public String getAdminHelp() {
+        return "`{&}guild` - Shows current guild info.\n" +
+            "`{&}guild <guild id> admin` - Shows the info of another guild.\n" +
+            "\n" +
+            "Examples:\n" +
+            "- `{&}guild 347765748577468416 admin`\n";
+    }
     
     public Result run(String[] args, MessageReceivedEvent e) {
 

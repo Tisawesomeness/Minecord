@@ -40,6 +40,21 @@ public class SettingsCommand extends Command {
             "- `{&}settings useMenus enabled`\n";
     }
 
+    public String getAdminHelp() {
+        return "`{&}settings` - Show all current settings and their possible values.\n" +
+            "`{&}settings <setting> <value>` - Sets <setting> to <value>. The user must have **Manage Server** permissions.\n" +
+            "`{&}settings <guild id> admin` - View settings for another guild.\n" +
+            "`{&}settings <guild id> admin <setting> <value>` - Changes settings in another guild.\n" +
+            "\n" +
+            "Examples:\n" +
+            "- `{&}settings prefix mc!`\n" +
+            "- {@}` settings prefix &`\n" +
+            "- `{&}settings deleteCommands disabled`\n" +
+            "- `{&}settings useMenus enabled`\n" +
+            "- `{&}settings 347765748577468416 admin`\n" +
+            "- `{&}settings 347765748577468416 admin prefix mc!`\n";
+    }
+
     @Override
     public Result run(String[] args, MessageReceivedEvent e) throws Exception {
 
