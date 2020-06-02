@@ -18,7 +18,7 @@ public class BodyCommand extends Command {
 	public CommandInfo getInfo() {
 		return new CommandInfo(
 			"body",
-			"Gets the body render of a player.",
+			"Gets the body of a player.",
 			"<username|uuid> [date] [overlay?]",
 			new String[]{
 				"nude",

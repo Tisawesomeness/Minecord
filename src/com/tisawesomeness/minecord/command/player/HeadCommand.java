@@ -18,7 +18,7 @@ public class HeadCommand extends Command {
 	public CommandInfo getInfo() {
 		return new CommandInfo(
 			"head",
-			"Gets the head render of a player.",
+			"Gets the head of a player.",
 			"<username|uuid> [date] [overlay?]",
 			null,
 			2000,
