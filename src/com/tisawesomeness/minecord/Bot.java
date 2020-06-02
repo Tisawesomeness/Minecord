@@ -48,7 +48,6 @@ public class Bot {
 	public static String id;
 	private static Listener listener;
 	private static ReactListener reactListener;
-	public static Config config;
 	public static long birth;
 	public static long bootTime;
 	public static String[] args;

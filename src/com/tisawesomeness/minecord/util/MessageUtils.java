@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -170,8 +169,17 @@ public class MessageUtils {
 		return e.isFromGuild() ? Database.getPrefix(e.getGuild().getIdLong()) : Config.getPrefix();
 	}
 
+	/**
+	 * Splits a string with newlines into groups, making sure that every group is a whole number of lines and at most the max length.
+	 * The provided String is split into lines, then stored in an ArrayList that follows the other methods specifications.
+	 * If a line is over the max length, it is split into multiple lines.
+	 * Useful for getting past Discord's char limits.
+	 * @param str An ArrayList of String lines without newline characters.
+	 * @param maxLength The maximum length allowed for a string in the returned list.
+	 * @return A list of strings where every string length < maxLength - 1
+	 */
 	public static ArrayList<String> splitLinesByLength(String str, int maxLength) {
-		return splitLinesByLength(Arrays.asList(str.split("\n")), maxLength);
+		return splitLinesByLength(new ArrayList<>(Arrays.asList(str.split("\n"))), maxLength);
 	}
 
 	/**
@@ -183,7 +191,7 @@ public class MessageUtils {
 	 * @param maxLength The maximum length allowed for a string in the returned list.
 	 * @return A list of strings where every string length < maxLength - 1
 	 */
-	public static ArrayList<String> splitLinesByLength(List<String> lines, int maxLength) {
+	public static ArrayList<String> splitLinesByLength(ArrayList<String> lines, int maxLength) {
 		ArrayList<String> split = new ArrayList<String>();
 		String splitBuf = "";
 		for (int i = 0; i < lines.size(); i++) {
