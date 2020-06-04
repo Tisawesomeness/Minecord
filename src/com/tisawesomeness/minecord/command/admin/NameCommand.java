@@ -28,6 +28,11 @@ public class NameCommand extends Command {
 			false
 		);
 	}
+
+	public String getHelp() {
+		return "`{&}name <guild id>` - Resets the bot's nickname for the guild.\n" +
+			"`{&}name <guild id> <name>` - Sets the bot's nickname for the guild. Requires *Change Nickname* permissions.\n";
+	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		

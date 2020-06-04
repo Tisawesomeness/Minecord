@@ -19,13 +19,19 @@ public class InfoCommand extends Command {
 	public CommandInfo getInfo() {
 		return new CommandInfo(
 			"info",
-			"Shows the bot info",
+			"Shows the bot info.",
 			null,
 			new String[]{"about", "stats"},
 			0,
 			false,
 			false,
-			true);
+			true
+		);
+	}
+
+	public String getAdminHelp() {
+		return "`{&}info` - Shows the bot info.\n" +
+			"`{&}info admin` - Includes memory usage and boot time.\n";
 	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {

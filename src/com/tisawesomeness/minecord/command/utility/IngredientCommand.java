@@ -6,6 +6,7 @@ import java.util.Arrays;
 import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.ReactMenu.MenuStatus;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.item.Item;
 import com.tisawesomeness.minecord.item.Recipe;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -24,6 +25,14 @@ public class IngredientCommand extends Command {
 			false,
 			true
 		);
+	}
+
+	public String getHelp() {
+		return "Searches for the recipes containing an ingredient.\n" +
+			"Items and recipes are from Java Edition 1.7 to 1.15.\n" +
+			"All recipe types are searchable, including brewing.\n" +
+			"\n" +
+			Item.help + "\n";
 	}
 
 	public Result run(String[] args, MessageReceivedEvent e) throws Exception {

@@ -24,6 +24,13 @@ public class DateUtils {
 	private static final String fullTimeRegex24 = "^(0?[1-9]|1[0-9]|2[0-4]):[0-5][0-9]:[0-5][0-9]$";
 	private static final String timeZoneRegex = "^(?:Z|[+-](?:2[0-3]|[01][0-9]):[0-5][0-9])$";
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy @ hh:mm:ss a z").withZone(ZoneId.systemDefault());
+
+	public static final String dateHelp =
+		"`[date]` may contain a date, time, and timezone." +
+		"\n" + "Dates are in `mm/dd`, `mm/dd/yy`, or `mm/dd/yyyy`." +
+		"\n" + "Date Examples: " +
+		"\n" + "- `9/25` | `2/29/2012` | `5/15 8:30` | `3/2/06 2:47:32`" +
+		"\n" + "- `9:00 PM` | `12/25/12 12:00 AM EST` | `5:22 CST`";
 	
 	/**
 	 * Parses a list of date-related strings to build a date, then a timestamp.

@@ -16,7 +16,7 @@ public class SayCommand extends Command {
 	public CommandInfo getInfo() {
 		return new CommandInfo(
 			"say",
-			"Send a message",
+			"Send a message.",
 			"<channel> <message>",
 			new String[]{
 				"talk",
@@ -26,6 +26,11 @@ public class SayCommand extends Command {
 			true,
 			false
 		);
+	}
+
+	public String getHelp() {
+		return "`{&}say <channel> <message>` - Make the bot send a message.\n" +
+			"`<channel>` is either a # channel name or an 18-digit ID.\n";
 	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {

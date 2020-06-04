@@ -22,6 +22,13 @@ public class ItemCommand extends Command {
 		);
 	}
 
+	public String getHelp() {
+		return "Searches for a Minecraft item.\n" +
+			"Items are from Java Edition 1.7 to 1.15.\n" +
+			"\n" +
+			Item.help + "\n";
+	}
+
 	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
 		// Check for argument length
 		if (args.length == 0) {

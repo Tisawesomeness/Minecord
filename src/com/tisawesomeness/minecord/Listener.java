@@ -90,19 +90,17 @@ public class Listener extends ListenerAdapter {
 			return;
 		}
 		
-		//If the command has not been registered
-		if (!Registry.commandMap.containsKey(name)) return;
-		
-		MessageChannel c = e.getChannel();
+		// Get command info if the command has been registered
+		Command cmd = Registry.getCommand(name);
+		if (cmd == null) return;
+		CommandInfo ci = cmd.getInfo();
 		
 		//Delete message if enabled in the config and the bot has permissions
 		if (deleteCommands) {
 			m.delete().queue();
 		}
 		
-		//Get command info
-		Command cmd = Registry.commandMap.get(name);
-		CommandInfo ci = cmd.getInfo();
+		MessageChannel c = e.getChannel();
 
 		//Check for elevation
 		if (ci.elevated && !Database.isElevated(a.getIdLong())) {

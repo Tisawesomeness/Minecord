@@ -46,6 +46,15 @@ public class ServerCommand extends Command {
 			true
 		);
 	}
+
+	public String getHelp() {
+		return "`{&}server <address>[:port}` - Fetches the stats of a server.\n" +
+			"\n" +
+			"Examples:\n" +
+			"- `{&}server hypixel.net`\n" +
+			"- `{&}server 1.2.3.4`\n" +
+			"- `{&}server mc.example.com:25566`\n";
+	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		
@@ -99,7 +108,7 @@ public class ServerCommand extends Command {
 			"\n" + "**Version:** " + version +
 			"\n" + "**Players:** " + playerInfo +
 			"\n" + "**MOTD:** " + motd;
-		if (sample.size() > 0) {
+		if (sample != null && sample.size() > 0) {
 			String sampleStr = sample.stream()
 				.map(p -> MCPingUtil.stripColors(p.getName()))
 				.collect(Collectors.joining("\n"));

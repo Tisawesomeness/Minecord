@@ -25,6 +25,11 @@ public class CodesCommand extends Command {
 			true
 		);
 	}
+
+	public String getHelp() {
+		return "`{&}codes` - Shows a list of chat formatting codes.\n" +
+			"`{&}codes detailed` - Also shows hex codes and other info.\n";
+	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		
