@@ -46,7 +46,8 @@ public class Registry {
 			new HeadCommand(),
 			new BodyCommand(),
 			new SkinCommand(),
-			new CapeCommand()
+			new CapeCommand(),
+			new ProfileCommand()
 		),
 		new Module("Admin", true, adminHelp,
 			new SayCommand(),
