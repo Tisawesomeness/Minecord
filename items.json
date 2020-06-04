@@ -9892,10 +9892,10 @@
       "version": "1.9"
     }
   },
-  "minecraft.shield.Yellow": {
+  "minecraft.shield.orange": {
     "lang": {
       "en_US": {
-        "display_name": "Yellow Shield"
+        "display_name": "Orange Shield"
       }
     },
     "properties": {
