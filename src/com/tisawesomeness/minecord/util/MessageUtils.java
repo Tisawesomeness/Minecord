@@ -216,4 +216,17 @@ public class MessageUtils {
 		return split;
 	}
 
+	/**
+	 * Gets the total number of characters in a list of lines, adding 1 for each newline
+	 * @param lines An ArrayList of String lines, without newline characters
+	 * @return The total number of characters
+	 */
+	public static int getTotalChars(ArrayList<String> lines) {
+		int chars = 0;
+		for (String line : lines) {
+			chars += line.length() + 1; // +1 for newline
+		}
+		return chars;
+	}
+
 }

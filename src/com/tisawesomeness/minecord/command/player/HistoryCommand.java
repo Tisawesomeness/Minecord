@@ -1,7 +1,5 @@
 package com.tisawesomeness.minecord.command.player;
 
-import java.time.Instant;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -105,7 +103,7 @@ public class HistoryCommand extends Command {
 			String name = change.getString("name");
 			String date;
 			if (change.has("changedToAt")) {
-				date = DateUtils.getDateAgo(Instant.ofEpochMilli(change.getLong("changedToAt")).atOffset(ZoneOffset.UTC));
+				date = DateUtils.getDateAgo(change.getLong("changedToAt"));
 			} else {
 				date = "Original";
 			}
@@ -130,12 +128,12 @@ public class HistoryCommand extends Command {
 			.setColor(Bot.color);
 
 		// Truncate until 6000 char limit reached
-		int chars = getTotalChars(lines);
+		int chars = MessageUtils.getTotalChars(lines);
 		boolean truncated = false;
 		while (chars > 6000 - 4) {
 			truncated = true;
 			lines.remove(lines.size() - 1);
-			chars = getTotalChars(lines);
+			chars = MessageUtils.getTotalChars(lines);
 		}
 		if (truncated) {
 			lines.add("...");
@@ -151,14 +149,6 @@ public class HistoryCommand extends Command {
 		}
 		
 		return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
-	}
-
-	private static int getTotalChars(ArrayList<String> lines) {
-		int chars = 0;
-		for (String line : lines) {
-			chars += line.length() + 1; // +1 for newline
-		}
-		return chars;
 	}
 	
 }
