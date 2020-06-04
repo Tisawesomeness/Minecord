@@ -194,7 +194,7 @@ public class ProfileCommand extends Command {
             eb.addField("Name History", field, false);
         }
         
-        return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+        return new Result(Outcome.SUCCESS, eb.build());
     }
 
     private static String boolToString(boolean bool) {
