@@ -1331,12 +1331,14 @@
   "minecraft.smooth_quartz": {
     "lang": {
       "en_US": {
-        "previously": "Double Quartz Slab",
-        "display_name": "Smooth Quartz"
+        "previously": "Smooth Quartz",
+        "previously2": "Double Quartz Slab",
+        "display_name": "Smooth Quartz Block"
       }
     },
     "properties": {
       "data": 7,
+      "image_key": "Smooth Quartz",
       "actual_id": "minecraft.double_stone_slab",
       "id": 43
     }
@@ -7434,11 +7436,11 @@
   "minecraft.clay_ball": {
     "lang": {
       "en_US": {
+        "previous_conflict": true,
         "search_names": [
-          "Clay Ball"
+          "Clay (ball)"
         ],
-        "display_name": "Clay",
-        "name_conflict": true
+        "display_name": "Clay Ball"
       }
     },
     "properties": {
@@ -8497,18 +8499,21 @@
       "id": 383
     }
   },
-  "minecraft.zombie_pigman_spawn_egg": {
+  "minecraft.zombified_piglin_spawn_egg": {
     "lang": {
       "en_US": {
-        "previously": "Spawn Zombie Pigman",
+        "previously": "Zombie Pigman Spawn Egg",
+        "previously2": "Spawn Zombie Pigman",
         "search_names": [
-          "Zombie Pigman Egg"
+          "Zombie Pigman Egg",
+          "Zombified Piglin Egg"
         ],
-        "display_name": "Zombie Pigman Spawn Egg"
+        "display_name": "Zombified Piglin Spawn Egg"
       }
     },
     "properties": {
       "data": 57,
+      "previous_id": "minecraft.zombie_pigman_spawn_egg",
       "id": 383
     }
   },
@@ -9892,17 +9897,6 @@
       "version": "1.9"
     }
   },
-  "minecraft.shield.orange": {
-    "lang": {
-      "en_US": {
-        "display_name": "Orange Shield"
-      }
-    },
-    "properties": {
-      "id": 442,
-      "version": "1.9"
-    }
-  },
   "minecraft.shield.black": {
     "lang": {
       "en_US": {
@@ -10006,6 +10000,17 @@
     "lang": {
       "en_US": {
         "display_name": "Magenta Shield"
+      }
+    },
+    "properties": {
+      "id": 442,
+      "version": "1.9"
+    }
+  },
+  "minecraft.shield.orange": {
+    "lang": {
+      "en_US": {
+        "display_name": "Orange Shield"
       }
     },
     "properties": {
@@ -12115,7 +12120,8 @@
   "minecraft.bamboo_sapling": {
     "lang": {
       "en_US": {
-        "display_name": "Bamboo Sapling"
+        "previously": "Bamboo Sapling",
+        "display_name": "Bamboo Shoot"
       }
     },
     "properties": {
@@ -13297,6 +13303,1035 @@
     },
     "properties": {
       "version": "1.15"
+    }
+  },
+  "minecraft.ancient_debris": {
+    "lang": {
+      "en_US": {
+        "display_name": "Ancient Debris"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.basalt": {
+    "lang": {
+      "en_US": {
+        "display_name": "Basalt"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.blackstone": {
+    "lang": {
+      "en_US": {
+        "display_name": "Blackstone"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.blackstone_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Blackstone Slab"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.blackstone_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Blackstone Stairs"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.blackstone_wall": {
+    "lang": {
+      "en_US": {
+        "display_name": "Blackstone Wall"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.chain": {
+    "lang": {
+      "en_US": {
+        "display_name": "Chain"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.chiseled_nether_bricks": {
+    "lang": {
+      "en_US": {
+        "display_name": "Chiseled Nether Bricks"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.chiseled_polished_blackstone": {
+    "lang": {
+      "en_US": {
+        "display_name": "Chiseled Polished Blackstone"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.cracked_nether_bricks": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cracked Nether Bricks"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.cracked_polished_blackstone_bricks": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cracked Polished Blackstone Bricks"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.crimson_button": {
+    "lang": {
+      "en_US": {
+        "display_name": "Crimson Button"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.crimson_door": {
+    "lang": {
+      "en_US": {
+        "display_name": "Crimson Door"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.crimson_fence": {
+    "lang": {
+      "en_US": {
+        "display_name": "Crimson Fence"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.crimson_fence_gate": {
+    "lang": {
+      "en_US": {
+        "display_name": "Crimson Fence Gate"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.crimson_fungus": {
+    "lang": {
+      "en_US": {
+        "display_name": "Crimson Fungus"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.crimson_hyphae": {
+    "lang": {
+      "en_US": {
+        "display_name": "Crimson Hyphae"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.crimson_nylium": {
+    "lang": {
+      "en_US": {
+        "display_name": "Crimson Nylium"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.crimson_planks": {
+    "lang": {
+      "en_US": {
+        "display_name": "Crimson Planks"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.crimson_pressure_plate": {
+    "lang": {
+      "en_US": {
+        "display_name": "Crimson Pressure Plate"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.crimson_roots": {
+    "lang": {
+      "en_US": {
+        "display_name": "Crimson Roots"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.crimson_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Crimson Sign"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.crimson_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Crimson Slab"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.crimson_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Crimson Stairs"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.crimson_stem": {
+    "lang": {
+      "en_US": {
+        "display_name": "Crimson Stem"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.crimson_trapdoor": {
+    "lang": {
+      "en_US": {
+        "display_name": "Crimson Trapdoor"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.crimson_wall_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Crimson Wall Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Crimson Sign",
+      "version": "1.16"
+    }
+  },
+  "minecraft.crying_obsidian": {
+    "lang": {
+      "en_US": {
+        "display_name": "Crying Obsidian"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.gilded_blackstone": {
+    "lang": {
+      "en_US": {
+        "display_name": "Gilded Blackstone"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.hoglin_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "display_name": "Hoglin Spawn Egg"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.lodestone": {
+    "lang": {
+      "en_US": {
+        "display_name": "Lodestone"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.lodestone_compass": {
+    "lang": {
+      "en_US": {
+        "display_name": "Lodestone Compass"
+      }
+    },
+    "properties": {
+      "image_key": "Compass",
+      "version": "1.16"
+    }
+  },
+  "minecraft.music_disc_pigstep": {
+    "lang": {
+      "en_US": {
+        "lore": "Lena Raine - Pigstep",
+        "display_name": "Music Disc",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Music Disc Pigstep",
+      "version": "1.16"
+    }
+  },
+  "minecraft.nether_gold_ore": {
+    "lang": {
+      "en_US": {
+        "display_name": "Nether Gold Ore"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.nether_sprouts": {
+    "lang": {
+      "en_US": {
+        "display_name": "Nether Sprouts"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.netherite_axe": {
+    "lang": {
+      "en_US": {
+        "display_name": "Netherite Axe"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.netherite_block": {
+    "lang": {
+      "en_US": {
+        "display_name": "Block of Netherite"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.netherite_boots": {
+    "lang": {
+      "en_US": {
+        "display_name": "Netherite Boots"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.netherite_chestplate": {
+    "lang": {
+      "en_US": {
+        "display_name": "Netherite Chestplate"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.netherite_helmet": {
+    "lang": {
+      "en_US": {
+        "display_name": "Netherite Helmet"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.netherite_hoe": {
+    "lang": {
+      "en_US": {
+        "display_name": "Netherite Hoe"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.netherite_ingot": {
+    "lang": {
+      "en_US": {
+        "display_name": "Netherite Ingot"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.netherite_leggings": {
+    "lang": {
+      "en_US": {
+        "display_name": "Netherite Leggings"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.netherite_pickaxe": {
+    "lang": {
+      "en_US": {
+        "display_name": "Netherite Pickaxe"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.netherite_scrap": {
+    "lang": {
+      "en_US": {
+        "display_name": "Netherite Scrap"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.netherite_shovel": {
+    "lang": {
+      "en_US": {
+        "display_name": "Netherite Shovel"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.netherite_sword": {
+    "lang": {
+      "en_US": {
+        "display_name": "Netherite Sword"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.piglin_banner_pattern": {
+    "lang": {
+      "en_US": {
+        "lore": "Snout",
+        "display_name": "Banner Pattern",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.piglin_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "display_name": "Piglin Spawn Egg"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.polished_basalt": {
+    "lang": {
+      "en_US": {
+        "display_name": "Polished Basalt"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.polished_blackstone": {
+    "lang": {
+      "en_US": {
+        "display_name": "Polished Blackstone"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.polished_blackstone_brick_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Polished Blackstone Brick Slab"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.polished_blackstone_brick_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Polished Blackstone Brick Stairs"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.polished_blackstone_brick_wall": {
+    "lang": {
+      "en_US": {
+        "display_name": "Polished Blackstone Brick Wall"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.polished_blackstone_bricks": {
+    "lang": {
+      "en_US": {
+        "display_name": "Polished Blackstone Bricks"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.polished_blackstone_button": {
+    "lang": {
+      "en_US": {
+        "display_name": "Polished Blackstone Button"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.polished_blackstone_pressure_plate": {
+    "lang": {
+      "en_US": {
+        "display_name": "Polished Blackstone Pressure Plate"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.polished_blackstone_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Polished Blackstone Slab"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.polished_blackstone_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Polished Blackstone Stairs"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.polished_blackstone_wall": {
+    "lang": {
+      "en_US": {
+        "display_name": "Polished Blackstone Wall"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.potted_crimson_fungus": {
+    "lang": {
+      "en_US": {
+        "display_name": "Potted Crimson Fungus"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.potted_crimson_roots": {
+    "lang": {
+      "en_US": {
+        "display_name": "Potted Crimson Roots"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.potted_warped_fungus": {
+    "lang": {
+      "en_US": {
+        "display_name": "Potted Warped Fungus"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.potted_warped_roots": {
+    "lang": {
+      "en_US": {
+        "display_name": "Potted Warped Roots"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.quartz_bricks": {
+    "lang": {
+      "en_US": {
+        "display_name": "Quartz Bricks"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.respawn_anchor": {
+    "lang": {
+      "en_US": {
+        "display_name": "Respawn Anchor"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.shroomlight": {
+    "lang": {
+      "en_US": {
+        "display_name": "Shroomlight"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.soul_campfire": {
+    "lang": {
+      "en_US": {
+        "display_name": "Soul Campfire"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.soul_fire": {
+    "lang": {
+      "en_US": {
+        "display_name": "Soul Fire"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.soul_lantern": {
+    "lang": {
+      "en_US": {
+        "display_name": "Soul Lantern"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.soul_soil": {
+    "lang": {
+      "en_US": {
+        "display_name": "Soul Soil"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.soul_torch": {
+    "lang": {
+      "en_US": {
+        "display_name": "Soul Torch"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.soul_wall_torch": {
+    "lang": {
+      "en_US": {
+        "display_name": "Soul Wall Torch"
+      }
+    },
+    "properties": {
+      "image_key": "Soul Torch",
+      "version": "1.16"
+    }
+  },
+  "minecraft.strider_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "display_name": "Strider Spawn Egg"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.stripped_crimson_hyphae": {
+    "lang": {
+      "en_US": {
+        "display_name": "Stripped Crimson Hyphae"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.stripped_crimson_stem": {
+    "lang": {
+      "en_US": {
+        "display_name": "Stripped Crimson Stem"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.stripped_warped_hyphae": {
+    "lang": {
+      "en_US": {
+        "display_name": "Stripped Warped Hyphae"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.stripped_warped_stem": {
+    "lang": {
+      "en_US": {
+        "display_name": "Stripped Warped Stem"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.target": {
+    "lang": {
+      "en_US": {
+        "display_name": "Target"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.twisting_vines": {
+    "lang": {
+      "en_US": {
+        "display_name": "Twisting Vines"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.twisting_vines_plant": {
+    "lang": {
+      "en_US": {
+        "display_name": "Twisting Vines Plant"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.warped_button": {
+    "lang": {
+      "en_US": {
+        "display_name": "Warped Button"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.warped_door": {
+    "lang": {
+      "en_US": {
+        "display_name": "Warped Door"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.warped_fence": {
+    "lang": {
+      "en_US": {
+        "display_name": "Warped Fence"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.warped_fence_gate": {
+    "lang": {
+      "en_US": {
+        "display_name": "Warped Fence Gate"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.warped_fungus": {
+    "lang": {
+      "en_US": {
+        "display_name": "Warped Fungus"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.warped_fungus_on_a_stick": {
+    "lang": {
+      "en_US": {
+        "display_name": "Warped Fungus on a Stick"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.warped_hyphae": {
+    "lang": {
+      "en_US": {
+        "display_name": "Warped Hyphae"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.warped_nylium": {
+    "lang": {
+      "en_US": {
+        "display_name": "Warped Nylium"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.warped_planks": {
+    "lang": {
+      "en_US": {
+        "display_name": "Warped Planks"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.warped_pressure_plate": {
+    "lang": {
+      "en_US": {
+        "display_name": "Warped Pressure Plate"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.warped_roots": {
+    "lang": {
+      "en_US": {
+        "display_name": "Warped Roots"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.warped_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Warped Sign"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.warped_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Warped Slab"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.warped_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Warped Stairs"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.warped_stem": {
+    "lang": {
+      "en_US": {
+        "display_name": "Warped Stem"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.warped_trapdoor": {
+    "lang": {
+      "en_US": {
+        "display_name": "Warped Trapdoor"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.warped_wall_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Warped Wall Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Warped Sign",
+      "version": "1.16"
+    }
+  },
+  "minecraft.warped_wart_block": {
+    "lang": {
+      "en_US": {
+        "display_name": "Warped Wart Block"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.weeping_vines": {
+    "lang": {
+      "en_US": {
+        "display_name": "Weeping Vines"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.weeping_vines_plant": {
+    "lang": {
+      "en_US": {
+        "display_name": "Weeping Vines Plant"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.zoglin_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "display_name": "Zoglin Spawn Egg"
+      }
+    },
+    "properties": {
+      "version": "1.16"
     }
   },
   "minecraft.lingering_potion.effect.awkward": {
