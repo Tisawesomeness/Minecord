@@ -159,6 +159,7 @@
         "previously": "Oak Wood Plank",
         "search_names": [
           "Oak Wood Planks",
+          "Oak Wood Plank",
           "Oak Plank",
           "Wood Planks",
           "Wood Plank",
@@ -178,6 +179,7 @@
         "previously": "Spruce Wood Plank",
         "search_names": [
           "Spruce Wood Planks",
+          "Spruce Wood Plank",
           "Spruce Plank"
         ],
         "display_name": "Spruce Planks"
@@ -194,6 +196,7 @@
         "previously": "Birch Wood Plank",
         "search_names": [
           "Birch Wood Planks",
+          "Birch Wood Plank",
           "Birch Plank"
         ],
         "display_name": "Birch Planks"
@@ -210,6 +213,7 @@
         "previously": "Jungle Wood Plank",
         "search_names": [
           "Jungle Wood Planks",
+          "Jungle Wood Plank",
           "Jungle Plank"
         ],
         "display_name": "Jungle Planks"
@@ -226,6 +230,7 @@
         "previously": "Acacia Wood Plank",
         "search_names": [
           "Acacia Wood Planks",
+          "Acacia Wood Plank",
           "Acacia Plank"
         ],
         "display_name": "Acacia Planks"
@@ -242,6 +247,7 @@
         "previously": "Dark Oak Wood Plank",
         "search_names": [
           "Dark Oak Wood Planks",
+          "Dark Oak Wood Plank",
           "Dark Oak Plank",
           "Dark Wood Planks",
           "Dark Wood Plank",
@@ -8506,6 +8512,9 @@
         "previously2": "Spawn Zombie Pigman",
         "search_names": [
           "Zombie Pigman Egg",
+          "Zombified Pigman Spawn Egg",
+          "Zombified Pigman Egg",
+          "Spawn Zombified Pigman",
           "Zombified Piglin Egg"
         ],
         "display_name": "Zombified Piglin Spawn Egg"
@@ -13308,6 +13317,10 @@
   "minecraft.ancient_debris": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Debris",
+          "Netherite Ore"
+        ],
         "display_name": "Ancient Debris"
       }
     },
@@ -13328,6 +13341,9 @@
   "minecraft.blackstone": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Black Stone"
+        ],
         "display_name": "Blackstone"
       }
     },
@@ -13338,6 +13354,9 @@
   "minecraft.blackstone_slab": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Black Stone Slab"
+        ],
         "display_name": "Blackstone Slab"
       }
     },
@@ -13348,6 +13367,11 @@
   "minecraft.blackstone_stairs": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Black Stone Stairs",
+          "Black Stone Stair",
+          "Blackstone Stair"
+        ],
         "display_name": "Blackstone Stairs"
       }
     },
@@ -13358,6 +13382,9 @@
   "minecraft.blackstone_wall": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Black Stone Wall"
+        ],
         "display_name": "Blackstone Wall"
       }
     },
@@ -13368,6 +13395,11 @@
   "minecraft.chain": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Kunai",
+          "Kunai with",
+          "Kunai with Chain"
+        ],
         "display_name": "Chain"
       }
     },
@@ -13388,6 +13420,11 @@
   "minecraft.chiseled_polished_blackstone": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Chiseled Polished Black Stone",
+          "Polished Chiseled Black Stone",
+          "Polished Chiseled Blackstone"
+        ],
         "display_name": "Chiseled Polished Blackstone"
       }
     },
@@ -13408,6 +13445,15 @@
   "minecraft.cracked_polished_blackstone_bricks": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Polished Cracked Blackstone Bricks",
+          "Polished Cracked Black Stone Bricks",
+          "Cracked Polished Black Stone Bricks",
+          "Polished Cracked Blackstone Brick",
+          "Polished Cracked Black Stone Brick",
+          "Cracked Polished Black Stone Brick",
+          "Cracked Polished Blackstone Brick"
+        ],
         "display_name": "Cracked Polished Blackstone Bricks"
       }
     },
@@ -13418,6 +13464,9 @@
   "minecraft.crimson_button": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Crimson Wood Button"
+        ],
         "display_name": "Crimson Button"
       }
     },
@@ -13428,6 +13477,9 @@
   "minecraft.crimson_door": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Crimson Wood Door"
+        ],
         "display_name": "Crimson Door"
       }
     },
@@ -13438,6 +13490,9 @@
   "minecraft.crimson_fence": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Crimson Wood Fence"
+        ],
         "display_name": "Crimson Fence"
       }
     },
@@ -13448,6 +13503,11 @@
   "minecraft.crimson_fence_gate": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Crimson Wood Fence Gate",
+          "Crimson Wood Gate",
+          "Crimson Gate"
+        ],
         "display_name": "Crimson Fence Gate"
       }
     },
@@ -13468,6 +13528,9 @@
   "minecraft.crimson_hyphae": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Crimson Wood"
+        ],
         "display_name": "Crimson Hyphae"
       }
     },
@@ -13478,6 +13541,9 @@
   "minecraft.crimson_nylium": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Crimson Grass"
+        ],
         "display_name": "Crimson Nylium"
       }
     },
@@ -13488,6 +13554,11 @@
   "minecraft.crimson_planks": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Crimson Wood Planks",
+          "Crimson Wood Plank",
+          "Crimson Plank"
+        ],
         "display_name": "Crimson Planks"
       }
     },
@@ -13498,6 +13569,11 @@
   "minecraft.crimson_pressure_plate": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Crimson Wood Pressure Plate",
+          "Crimson Wood Plate",
+          "Crimson Plate"
+        ],
         "display_name": "Crimson Pressure Plate"
       }
     },
@@ -13508,6 +13584,9 @@
   "minecraft.crimson_roots": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Crimson Root"
+        ],
         "display_name": "Crimson Roots"
       }
     },
@@ -13518,6 +13597,9 @@
   "minecraft.crimson_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Crimson Wood Sign"
+        ],
         "display_name": "Crimson Sign"
       }
     },
@@ -13528,6 +13610,9 @@
   "minecraft.crimson_slab": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Crimson Wood Slab"
+        ],
         "display_name": "Crimson Slab"
       }
     },
@@ -13538,6 +13623,11 @@
   "minecraft.crimson_stairs": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Crimson Wood Stairs",
+          "Crimson Wood Stair",
+          "Crimson Stair"
+        ],
         "display_name": "Crimson Stairs"
       }
     },
@@ -13548,6 +13638,10 @@
   "minecraft.crimson_stem": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Crimson Stems",
+          "Crimson Log"
+        ],
         "display_name": "Crimson Stem"
       }
     },
@@ -13558,6 +13652,11 @@
   "minecraft.crimson_trapdoor": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Crimson Wood Trap Door",
+          "Crimson Wood Trapdoor",
+          "Crimson Trap Door"
+        ],
         "display_name": "Crimson Trapdoor"
       }
     },
@@ -13568,6 +13667,9 @@
   "minecraft.crimson_wall_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Crimson Wood Wall Sign"
+        ],
         "display_name": "Crimson Wall Sign"
       }
     },
@@ -13589,6 +13691,11 @@
   "minecraft.gilded_blackstone": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Gilded Black Stone",
+          "Gold Black Stone",
+          "Gold Blackstone"
+        ],
         "display_name": "Gilded Blackstone"
       }
     },
@@ -13599,6 +13706,13 @@
   "minecraft.hoglin_spawn_egg": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Spawn Hoglin",
+          "Hoglin Egg",
+          "Dedodated Ham Spawn Egg",
+          "Spawn Dedodated Ham",
+          "Dedodated Ham Egg"
+        ],
         "display_name": "Hoglin Spawn Egg"
       }
     },
@@ -13609,6 +13723,9 @@
   "minecraft.lodestone": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Lode Stone"
+        ],
         "display_name": "Lodestone"
       }
     },
@@ -13619,6 +13736,9 @@
   "minecraft.lodestone_compass": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Lode Stone Compass"
+        ],
         "display_name": "Lodestone Compass"
       }
     },
@@ -13630,6 +13750,13 @@
   "minecraft.music_disc_pigstep": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Pigstep Disc",
+          "Music Disc Pigstep",
+          "Disc Pigstep",
+          "Lena Raine - Pigstep",
+          "Best Song"
+        ],
         "lore": "Lena Raine - Pigstep",
         "display_name": "Music Disc",
         "name_conflict": true
@@ -13673,6 +13800,9 @@
   "minecraft.netherite_block": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Netherite Block"
+        ],
         "display_name": "Block of Netherite"
       }
     },
@@ -13713,6 +13843,9 @@
   "minecraft.netherite_hoe": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Flex"
+        ],
         "display_name": "Netherite Hoe"
       }
     },
@@ -13753,6 +13886,9 @@
   "minecraft.netherite_scrap": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Scrap"
+        ],
         "display_name": "Netherite Scrap"
       }
     },
@@ -13783,6 +13919,12 @@
   "minecraft.piglin_banner_pattern": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Snout Banner Pattern",
+          "Piglin Banner Pattern",
+          "Snout Pattern",
+          "Piglin Pattern"
+        ],
         "lore": "Snout",
         "display_name": "Banner Pattern",
         "name_conflict": true
@@ -13795,6 +13937,13 @@
   "minecraft.piglin_spawn_egg": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Spawn Piglin",
+          "Piglin Egg",
+          "Pigman Spawn Egg",
+          "Spawn Pigman",
+          "Pigman Egg"
+        ],
         "display_name": "Piglin Spawn Egg"
       }
     },
@@ -13815,6 +13964,9 @@
   "minecraft.polished_blackstone": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Polished Black Stone"
+        ],
         "display_name": "Polished Blackstone"
       }
     },
@@ -13825,6 +13977,9 @@
   "minecraft.polished_blackstone_brick_slab": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Polished Black Stone Brick Slab"
+        ],
         "display_name": "Polished Blackstone Brick Slab"
       }
     },
@@ -13835,6 +13990,11 @@
   "minecraft.polished_blackstone_brick_stairs": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Polished Black Stone Brick Stairs",
+          "Polished Black Stone Brick Stair",
+          "Polished Blackstone Brick Stairs"
+        ],
         "display_name": "Polished Blackstone Brick Stairs"
       }
     },
@@ -13845,6 +14005,9 @@
   "minecraft.polished_blackstone_brick_wall": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Polished Black Stone Brick Wall"
+        ],
         "display_name": "Polished Blackstone Brick Wall"
       }
     },
@@ -13855,6 +14018,11 @@
   "minecraft.polished_blackstone_bricks": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Polished Black Stone Bricks",
+          "Polished Black Stone Brick",
+          "Polished Blackstone Brick"
+        ],
         "display_name": "Polished Blackstone Bricks"
       }
     },
@@ -13865,6 +14033,9 @@
   "minecraft.polished_blackstone_button": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Polished Black Stone Button"
+        ],
         "display_name": "Polished Blackstone Button"
       }
     },
@@ -13875,6 +14046,11 @@
   "minecraft.polished_blackstone_pressure_plate": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Polished Black Stone Pressure Plate",
+          "Polished Black Stone Plate",
+          "Polished Blackstone Plate"
+        ],
         "display_name": "Polished Blackstone Pressure Plate"
       }
     },
@@ -13885,6 +14061,9 @@
   "minecraft.polished_blackstone_slab": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Polished Black Stone Slab"
+        ],
         "display_name": "Polished Blackstone Slab"
       }
     },
@@ -13895,6 +14074,11 @@
   "minecraft.polished_blackstone_stairs": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Polished Black Stone Stairs",
+          "Polished Black Stone Stair",
+          "Polished Blackstone Stair"
+        ],
         "display_name": "Polished Blackstone Stairs"
       }
     },
@@ -13905,6 +14089,9 @@
   "minecraft.polished_blackstone_wall": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Polished Black Stone Wall"
+        ],
         "display_name": "Polished Blackstone Wall"
       }
     },
@@ -13925,6 +14112,9 @@
   "minecraft.potted_crimson_roots": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Potted Crimson Root"
+        ],
         "display_name": "Potted Crimson Roots"
       }
     },
@@ -13945,6 +14135,9 @@
   "minecraft.potted_warped_roots": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Potted Warped Root"
+        ],
         "display_name": "Potted Warped Roots"
       }
     },
@@ -13955,6 +14148,9 @@
   "minecraft.quartz_bricks": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Quartz Brick"
+        ],
         "display_name": "Quartz Bricks"
       }
     },
@@ -13975,6 +14171,9 @@
   "minecraft.shroomlight": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Shroom Light"
+        ],
         "display_name": "Shroomlight"
       }
     },
@@ -13985,6 +14184,11 @@
   "minecraft.soul_campfire": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Soul Camp Fire",
+          "Blue Campfire",
+          "Blue Camp Fire"
+        ],
         "display_name": "Soul Campfire"
       }
     },
@@ -13995,6 +14199,9 @@
   "minecraft.soul_fire": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Blue Fire"
+        ],
         "display_name": "Soul Fire"
       }
     },
@@ -14005,6 +14212,9 @@
   "minecraft.soul_lantern": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Blue Lantern"
+        ],
         "display_name": "Soul Lantern"
       }
     },
@@ -14025,6 +14235,9 @@
   "minecraft.soul_torch": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Blue Torch"
+        ],
         "display_name": "Soul Torch"
       }
     },
@@ -14035,6 +14248,9 @@
   "minecraft.soul_wall_torch": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Blue Wall Torch"
+        ],
         "display_name": "Soul Wall Torch"
       }
     },
@@ -14046,6 +14262,10 @@
   "minecraft.strider_spawn_egg": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Spawn Strider",
+          "Strider Egg"
+        ],
         "display_name": "Strider Spawn Egg"
       }
     },
@@ -14056,6 +14276,9 @@
   "minecraft.stripped_crimson_hyphae": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Stripped Crimson Wood"
+        ],
         "display_name": "Stripped Crimson Hyphae"
       }
     },
@@ -14066,6 +14289,10 @@
   "minecraft.stripped_crimson_stem": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Stripped Crimson Stems",
+          "Stripped Crimson Log"
+        ],
         "display_name": "Stripped Crimson Stem"
       }
     },
@@ -14076,6 +14303,9 @@
   "minecraft.stripped_warped_hyphae": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Stripped Warped Wood"
+        ],
         "display_name": "Stripped Warped Hyphae"
       }
     },
@@ -14086,6 +14316,9 @@
   "minecraft.stripped_warped_stem": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Stripped Warped Log"
+        ],
         "display_name": "Stripped Warped Stem"
       }
     },
@@ -14096,6 +14329,9 @@
   "minecraft.target": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Target Block"
+        ],
         "display_name": "Target"
       }
     },
@@ -14106,6 +14342,9 @@
   "minecraft.twisting_vines": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Warped Vines"
+        ],
         "display_name": "Twisting Vines"
       }
     },
@@ -14116,6 +14355,9 @@
   "minecraft.twisting_vines_plant": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Warped Vines Plant"
+        ],
         "display_name": "Twisting Vines Plant"
       }
     },
@@ -14126,6 +14368,9 @@
   "minecraft.warped_button": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Warped Wood Button"
+        ],
         "display_name": "Warped Button"
       }
     },
@@ -14136,6 +14381,9 @@
   "minecraft.warped_door": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Warped Wood Door"
+        ],
         "display_name": "Warped Door"
       }
     },
@@ -14146,6 +14394,9 @@
   "minecraft.warped_fence": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Warped Wood Fence"
+        ],
         "display_name": "Warped Fence"
       }
     },
@@ -14156,6 +14407,11 @@
   "minecraft.warped_fence_gate": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Warped Wood Fence Gate",
+          "Warped Wood Gate",
+          "Warped Gate"
+        ],
         "display_name": "Warped Fence Gate"
       }
     },
@@ -14176,6 +14432,9 @@
   "minecraft.warped_fungus_on_a_stick": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Fungus on a Stick"
+        ],
         "display_name": "Warped Fungus on a Stick"
       }
     },
@@ -14186,6 +14445,9 @@
   "minecraft.warped_hyphae": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Warped Wood"
+        ],
         "display_name": "Warped Hyphae"
       }
     },
@@ -14196,6 +14458,9 @@
   "minecraft.warped_nylium": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Warped Grass"
+        ],
         "display_name": "Warped Nylium"
       }
     },
@@ -14206,6 +14471,11 @@
   "minecraft.warped_planks": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Warped Wood Planks",
+          "Wapred Wood Plank",
+          "Warped Plank"
+        ],
         "display_name": "Warped Planks"
       }
     },
@@ -14216,6 +14486,11 @@
   "minecraft.warped_pressure_plate": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Warped Wood Pressure Plate",
+          "Warped Wood Plate",
+          "Warped Plate"
+        ],
         "display_name": "Warped Pressure Plate"
       }
     },
@@ -14226,6 +14501,9 @@
   "minecraft.warped_roots": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Warped Root"
+        ],
         "display_name": "Warped Roots"
       }
     },
@@ -14236,6 +14514,9 @@
   "minecraft.warped_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Warped Wood Sign"
+        ],
         "display_name": "Warped Sign"
       }
     },
@@ -14246,6 +14527,9 @@
   "minecraft.warped_slab": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Warped Wood Slab"
+        ],
         "display_name": "Warped Slab"
       }
     },
@@ -14256,6 +14540,11 @@
   "minecraft.warped_stairs": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Warped Wood Stairs",
+          "Warped Wood Stair",
+          "Warped Stair"
+        ],
         "display_name": "Warped Stairs"
       }
     },
@@ -14266,6 +14555,9 @@
   "minecraft.warped_stem": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Warped Log"
+        ],
         "display_name": "Warped Stem"
       }
     },
@@ -14276,6 +14568,11 @@
   "minecraft.warped_trapdoor": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Warped Wood Trap Door",
+          "Warped Wood Trapdoor",
+          "Warped Trap Door"
+        ],
         "display_name": "Warped Trapdoor"
       }
     },
@@ -14286,6 +14583,9 @@
   "minecraft.warped_wall_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Warped Wood Wall Sign"
+        ],
         "display_name": "Warped Wall Sign"
       }
     },
@@ -14297,6 +14597,10 @@
   "minecraft.warped_wart_block": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Warped Nether Wart Block",
+          "Warped Nether Wart"
+        ],
         "display_name": "Warped Wart Block"
       }
     },
@@ -14307,6 +14611,9 @@
   "minecraft.weeping_vines": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Crimson Vines"
+        ],
         "display_name": "Weeping Vines"
       }
     },
@@ -14317,6 +14624,9 @@
   "minecraft.weeping_vines_plant": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Crimson Vines Plant"
+        ],
         "display_name": "Weeping Vines Plant"
       }
     },
@@ -14327,6 +14637,16 @@
   "minecraft.zoglin_spawn_egg": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Spawn Zoglin",
+          "Zoglin Egg",
+          "Spawn Zombie Hoglin",
+          "Zombie Hoglin Egg",
+          "Zombie Hoglin Spawn Egg",
+          "Spawn Zombified Hoglin",
+          "Zombified Hoglin Egg",
+          "Zombified Hoglin Spawn Egg"
+        ],
         "display_name": "Zoglin Spawn Egg"
       }
     },
