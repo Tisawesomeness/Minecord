@@ -7,6 +7,7 @@ import com.tisawesomeness.minecord.ReactMenu.Emote;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.MessageReaction;
 import net.dv8tion.jda.api.entities.MessageReaction.ReactionEmote;
+import net.dv8tion.jda.api.events.message.MessageEmbedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -42,6 +43,19 @@ public class ReactListener extends ListenerAdapter {
             }
         }
     }
+
+    @Override
+    public void onMessageEmbed(MessageEmbedEvent e) {
+        // If embed was removed
+        if (e.getMessageEmbeds().size() == 0) {
+            HashMap<Long, ReactMenu> menus = ReactMenu.getMenus();
+            // If valid menu, delete
+            if (menus.containsKey(e.getMessageIdLong())) {
+                menus.get(e.getMessageIdLong()).disable(true);
+            }
+        }
+    }
+
     /**
      * Removes an emote, whitelisting stars for starboard purposes
      * @param e

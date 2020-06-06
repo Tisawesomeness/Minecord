@@ -89,15 +89,19 @@ public abstract class ReactMenu {
     /**
      * Removes this menu from the registry, meaning nobody can react to it
      */
-    public void disable() {
+    public void disable(boolean delete) {
         ready = false;
         MessageEmbed emb = message.getEmbeds().get(0);
         menus.remove(getMessageID());
-        message = message.editMessage( new EmbedBuilder(emb).setFooter(emb.getFooter().getText() + " (expired)").build()).complete();
-        if (hasPerms(Permission.MESSAGE_MANAGE)) {
-            message.getReactions().stream()
-                .filter(r -> r.isSelf())
-                .forEach(r -> r.removeReaction().queue());
+        if (delete) {
+            message.delete().queue();
+        } else {
+            message = message.editMessage( new EmbedBuilder(emb).setFooter(emb.getFooter().getText() + " (expired)").build()).complete();
+            if (hasPerms(Permission.MESSAGE_MANAGE)) {
+                message.getReactions().stream()
+                    .filter(r -> r.isSelf())
+                    .forEach(r -> r.removeReaction().queue());
+            }
         }
     }
     /**
@@ -112,7 +116,7 @@ public abstract class ReactMenu {
         message = channel.sendMessage(getEmbed(page)).complete();
         for (String button : buttons.keySet()) {
             if (buttons.get(button) != null) {
-                message.addReaction(button).queue();
+                message.addReaction(button).submit();
             }
         }
         keepAlive();
@@ -149,7 +153,7 @@ public abstract class ReactMenu {
         Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
             menus.values().stream()
                 .filter(m -> m.expire < System.currentTimeMillis())
-                .forEach(m -> m.disable());
+                .forEach(m -> m.disable(false));
         }, 10, 1, TimeUnit.MINUTES);
     }
     /**
