@@ -22,7 +22,7 @@ public class RolesCommand extends Command {
 			"roles",
 			"List a user's roles.",
 			"<user|id>",
-			new String[]{"permissions"},
+			null,
 			0,
 			false,
 			false,
@@ -91,7 +91,6 @@ public class RolesCommand extends Command {
             lines.add("...");
         }
 
-        System.out.println(chars);
 		// If over 2048, use fields, otherwise use description
 		if (chars > 2048) {
 			// Split into fields, avoiding 1024 field char limit
