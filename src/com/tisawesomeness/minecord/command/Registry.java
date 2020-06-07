@@ -28,7 +28,8 @@ public class Registry {
 			new PrefixCommand(),
 			new GuildCommand(),
 			new UserCommand(),
-			new SettingsCommand()
+			new SettingsCommand(),
+			new PermsCommand()
 		),
 		new Module("Utility",
 			new StatusCommand(),

@@ -18,6 +18,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&user <user|id>` - Shows user info.
 - `&prefix [prefix]` - A shortcut to change the prefix. Leave blank to show the current prefix. Requires Manage Server permissions.
 - `&settings [setting] [value]` - Change the bot's settings, including prefix. Requires Manage Server permissions.
+- `&perms [channel]` - Test the bot's permissions in a channel. Leave blank to test the current channel.
 
 #### Utility Commands:
 - `&codes` - Lists the available chat codes.
