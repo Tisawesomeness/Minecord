@@ -36,6 +36,7 @@ public class Registry {
 			new SalesCommand(),
 			new CodesCommand(),
 			new ServerCommand(),
+			new Sha1Command(),
 			new ItemCommand(),
 			new RecipeCommand(),
 			new IngredientCommand()
