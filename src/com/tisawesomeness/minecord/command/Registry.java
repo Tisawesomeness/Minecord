@@ -16,6 +16,7 @@ public class Registry {
 	private static final String adminHelp = "**These commands require elevation to use.**\n\n" +
 	"`{&}info admin` - Displays bot info, including used memory and boot time.\n" +
 	"`{&}settings <guild id> admin [setting] [value]` - Change the bot's settings for another guild.\n" +
+	"`{&}perms <channel id> admin` - Test the bot's permissions in any channel.\n" +
 	"`{&}user <user id> admin [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include \"mutual\" to show mutual guilds.\n" +
 	"`{&}guild <guild id> admin` - Show info and ban status for another guild.\n";
 	public static final Module[] modules = {

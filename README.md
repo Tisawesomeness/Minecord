@@ -41,6 +41,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&help <command> admin` - Displays admin help for a command.
 - `&info admin` - Displays bot info, including used memory and boot time.
 - `&settings <guild id> admin [setting] [value]` - Change the bot's settings for another guild.
+- `&perms <channel id> admin` - Test the bot's permissions in any channel.
 - `&user <user id> admin [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include `mutual` to show mutual guilds.
 - `&guild <guild id> admin` - Show info and ban status for another guild.
 - `&say <channel> <message>` - Say a message.
