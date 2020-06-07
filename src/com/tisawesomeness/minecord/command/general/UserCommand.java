@@ -150,6 +150,7 @@ public class UserCommand extends Command {
             .setTitle(MarkdownSanitizer.escape(u.getAsTag()))
             .setColor(mem.getColor())
             .setImage(u.getAvatarUrl())
+            .addField("ID", u.getId(), true)
             .addField("Nickname", mem.getNickname() == null ? "None" : MarkdownSanitizer.escape(mem.getNickname()), true)
             .addField("Bot?", u.isBot() ? "Yes" : "No", true)
             .addField("Joined Server", DateUtils.getDateAgo(mem.getTimeJoined()), false)
