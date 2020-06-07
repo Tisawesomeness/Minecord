@@ -27,6 +27,7 @@ public class Registry {
 			new PurgeCommand(),
 			new PrefixCommand(),
 			new GuildCommand(),
+			new RolesCommand(),
 			new UserCommand(),
 			new SettingsCommand(),
 			new PermsCommand()

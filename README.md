@@ -15,6 +15,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&sales` - Looks up the sale statistics.
 - `&purge [number]` - Cleans the bot messages. Requires Manage Messages permissions.
 - `&guild` - Shows guild info.
+- `&roles <user|id>` - List a user's roles.
 - `&user <user|id>` - Shows user info.
 - `&prefix [prefix]` - A shortcut to change the prefix. Leave blank to show the current prefix. Requires Manage Server permissions.
 - `&settings [setting] [value]` - Change the bot's settings, including prefix. Requires Manage Server permissions.
