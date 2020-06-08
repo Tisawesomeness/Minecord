@@ -10,9 +10,8 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&help [command|module]` - Displays help for the bot, a command, or a module.
 - `&info` - Shows the bot info.
 - `&ping` - Pings the bot.
-- `&invite` - Give the invite link for the bot.
-- `&status` - Checks the status of Mojang servers.
-- `&sales` - Looks up the sale statistics.
+- `&invite` - Get the invite link for the bot.
+- `&vote` - Get all the vote links.
 - `&purge [number]` - Cleans the bot messages. Requires Manage Messages permissions.
 - `&guild` - Shows guild info.
 - `&role <role|id>` - Shows role info.
@@ -23,6 +22,8 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&perms [channel]` - Test the bot's permissions in a channel. Leave blank to test the current channel.
 
 #### Utility Commands:
+- `&status` - Checks the status of Mojang servers.
+- `&sales` - Looks up the sale statistics.
 - `&codes` - Lists the available chat codes.
 - `&server <address>[:port]` - Fetches the stats of a server.
 - `&item <item name|id>` - Looks up an item.
