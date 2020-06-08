@@ -12,6 +12,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&ping` - Pings the bot.
 - `&invite` - Get the invite link for the bot.
 - `&vote` - Get all the vote links.
+- `&credits` - See who made the bot possible.
 - `&purge [number]` - Cleans the bot messages. Requires Manage Messages permissions.
 - `&guild` - Shows guild info.
 - `&role <role|id>` - Shows role info.

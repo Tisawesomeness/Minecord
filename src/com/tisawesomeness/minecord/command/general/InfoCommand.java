@@ -13,6 +13,7 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 public class InfoCommand extends Command {
 	
@@ -66,7 +67,7 @@ public class InfoCommand extends Command {
 		}
 		
 		eb.addField("Library", String.format("Java `%s`, JDA `%s`", Bot.javaVersion, Bot.jdaVersion), true);
-		eb.addField("Credits", Bot.credits, true);
+		eb.addField("Contribute", MarkdownUtil.maskedLink("Contribute on GitHub", Bot.github), true);
 		eb.addField("Invite", Config.getInvite(), false);
 		eb.addField("Help Server", Bot.helpServer, false);
 		eb.addField("Website", Bot.website, false);

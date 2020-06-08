@@ -26,6 +26,7 @@ public class Registry {
 			new PingCommand(),
 			new InviteCommand(),
 			new VoteCommand(),
+			new CreditsCommand(),
 			new PurgeCommand(),
 			new PrefixCommand(),
 			new GuildCommand(),

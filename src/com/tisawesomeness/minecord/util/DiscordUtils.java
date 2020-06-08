@@ -29,7 +29,7 @@ public class DiscordUtils {
 			.replace("{author_tag}", Bot.authorTag)
 			.replace("{help_server}", Bot.helpServer)
 			.replace("{website}", Bot.website)
-			.replace("{credits}", Bot.credits)
+			.replace("{github}", Bot.github)
 			.replace("{java_ver}", Bot.javaVersion)
 			.replace("{jda_ver}", Bot.jdaVersion)
 			.replace("{version}", Bot.getVersion())
