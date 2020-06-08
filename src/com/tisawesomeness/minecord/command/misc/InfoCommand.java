@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.command.general;
+package com.tisawesomeness.minecord.command.misc;
 
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;

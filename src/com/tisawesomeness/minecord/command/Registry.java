@@ -5,6 +5,7 @@ import java.util.TreeMap;
 import com.tisawesomeness.minecord.command.Command.CommandInfo;
 import com.tisawesomeness.minecord.command.admin.*;
 import com.tisawesomeness.minecord.command.general.*;
+import com.tisawesomeness.minecord.command.misc.*;
 import com.tisawesomeness.minecord.command.player.*;
 import com.tisawesomeness.minecord.command.utility.*;
 
@@ -21,20 +22,14 @@ public class Registry {
 	"`{&}guild <guild id> admin` - Show info and ban status for another guild.\n";
 	public static final Module[] modules = {
 		new Module("General",
-			new HelpCommand(),
-			new InfoCommand(),
-			new PingCommand(),
-			new InviteCommand(),
-			new VoteCommand(),
-			new CreditsCommand(),
-			new PurgeCommand(),
-			new PrefixCommand(),
 			new GuildCommand(),
 			new RoleCommand(),
 			new RolesCommand(),
 			new UserCommand(),
-			new SettingsCommand(),
-			new PermsCommand()
+			new PurgeCommand(),
+			new PermsCommand(),
+			new PrefixCommand(),
+			new SettingsCommand()
 		),
 		new Module("Utility",
 			new StatusCommand(),
@@ -55,6 +50,14 @@ public class Registry {
 			new SkinCommand(),
 			new CapeCommand(),
 			new ProfileCommand()
+		),
+		new Module("Misc",
+			new HelpCommand(),
+			new InfoCommand(),
+			new PingCommand(),
+			new InviteCommand(),
+			new VoteCommand(),
+			new CreditsCommand()
 		),
 		new Module("Admin", true, adminHelp,
 			new SayCommand(),

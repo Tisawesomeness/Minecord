@@ -7,20 +7,14 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 
 ### Command List
 #### General Commands
-- `&help [command|module]` - Displays help for the bot, a command, or a module.
-- `&info` - Shows the bot info.
-- `&ping` - Pings the bot.
-- `&invite` - Get the invite link for the bot.
-- `&vote` - Get all the vote links.
-- `&credits` - See who made the bot possible.
-- `&purge [number]` - Cleans the bot messages. Requires Manage Messages permissions.
 - `&guild` - Shows guild info.
 - `&role <role|id>` - Shows role info.
 - `&roles <user|id>` - List a user's roles.
 - `&user <user|id>` - Shows user info.
+- `&purge [number]` - Cleans the bot messages. Requires Manage Messages permissions.
+- `&perms [channel]` - Test the bot's permissions in a channel. Leave blank to test the current channel.
 - `&prefix [prefix]` - A shortcut to change the prefix. Leave blank to show the current prefix. Requires Manage Server permissions.
 - `&settings [setting] [value]` - Change the bot's settings, including prefix. Requires Manage Server permissions.
-- `&perms [channel]` - Test the bot's permissions in a channel. Leave blank to test the current channel.
 
 #### Utility Commands:
 - `&status` - Checks the status of Mojang servers.
@@ -39,6 +33,14 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&body username|uuid> [date] [overlay?]` - Gets the body render of a player.
 - `&skin <username|uuid> [date]` - Gets the skin of a player.
 - `&cape <username|uuid> [date]` - Gets the cape of a player.
+
+### Misc Commands:
+- `&help [command|module]` - Displays help for the bot, a command, or a module.
+- `&info` - Shows the bot info.
+- `&ping` - Pings the bot.
+- `&invite` - Get the invite link for the bot.
+- `&vote` - Get all the vote links.
+- `&credits` - See who made the bot possible.
 
 #### Admin Commands:
 - `&help <command> admin` - Displays admin help for a command.
