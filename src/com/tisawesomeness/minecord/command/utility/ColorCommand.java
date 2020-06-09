@@ -26,6 +26,8 @@ public class ColorCommand extends Command {
 
     public String getHelp() {
         return "`{&}color <color>` - Look up a color.\n" +
+            "`{&}color random` - Get a random Minecraft color.\n" +
+            "`{&}color very random` - Get any random color.\n" +
             "Shows extra info if the color is one of the 16 Minecraft color codes.\n" +
             "\n" +
             "`<color>` can be:\n" +
@@ -41,23 +43,30 @@ public class ColorCommand extends Command {
             return new Result(Outcome.WARNING, ":warning: You must specify a color.");
         }
 
-        // Parse &2 as 2
         String query = String.join(" ", args);
-        char start = query.charAt(0);
-        if (start == '&' || start == '\u00A7') {
-            query = query.substring(1);
-        }
-        Color c = ColorUtils.getColor(query, "en_US");
-        if (c == null) {
-            try {
-                // Since "3" is interpreted as a color code, "i3" is the integer 3
-                if (start == 'i') {
-                    c = new Color(Integer.parseInt(query.substring(1)));
-                } else {
-                    c = Color.decode(query);
+        Color c;
+        if (query.equalsIgnoreCase("rand") || query.equalsIgnoreCase("random")) {
+            c = ColorUtils.randomColor();
+        } else if (query.equalsIgnoreCase("very rand") || query.equalsIgnoreCase("very random")) {
+            c = ColorUtils.veryRandomColor();
+        } else {
+            // Parse &2 as 2
+            char start = query.charAt(0);
+            if (start == '&' || start == '\u00A7') {
+                query = query.substring(1);
+            }
+            c = ColorUtils.getColor(query, "en_US");
+            if (c == null) {
+                try {
+                    // Since "3" is interpreted as a color code, "i3" is the integer 3
+                    if (start == 'i') {
+                        c = new Color(Integer.parseInt(query.substring(1)));
+                    } else {
+                        c = Color.decode(query);
+                    }
+                } catch (NumberFormatException ex) {
+                    return new Result(Outcome.WARNING, ":warning: Not a valid color!");
                 }
-            } catch (NumberFormatException ex) {
-                return new Result(Outcome.WARNING, ":warning: Not a valid color!");
             }
         }
 

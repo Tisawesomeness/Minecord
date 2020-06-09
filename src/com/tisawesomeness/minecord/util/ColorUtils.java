@@ -80,6 +80,12 @@ public class ColorUtils {
 	public static Color randomColor() {
         return mcColors.get((int) (Math.random()*16));
     }
+    /**
+     * Picks a random color out of all possible
+     */
+    public static Color veryRandomColor() {
+        return new Color((int) (Math.random()*0x00FFFFFF));
+    }
 
     /**
      * Gets the hex code for a color
