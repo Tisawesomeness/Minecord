@@ -37,7 +37,7 @@ public class UsageCommand extends Command {
 			.setColor(Bot.color);
 		for (Module m : Registry.modules) {
 			String field = Arrays.asList(m.getCommands()).stream()
-				.filter(c -> !c.getInfo().name.equals(""))
+				.filter(c -> !c.getInfo().name.equals("") && !c.getInfo().description.equals("Look up a color code."))
 				.map(c -> String.format("`%s%s` **-** %d", prefix, c.getInfo().name, c.uses))
 				.collect(Collectors.joining("\n"));
 			eb.addField(String.format("**%s**", m.getName()), field, true);

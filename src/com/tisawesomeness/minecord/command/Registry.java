@@ -20,6 +20,8 @@ public class Registry {
 	"`{&}perms <channel id> admin` - Test the bot's permissions in any channel.\n" +
 	"`{&}user <user id> admin [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include \"mutual\" to show mutual guilds.\n" +
 	"`{&}guild <guild id> admin` - Show info and ban status for another guild.\n";
+
+	private static Command colorCmd = new ColorCommand();
 	public static final Module[] modules = {
 		new Module("General",
 			new GuildCommand(),
@@ -35,7 +37,23 @@ public class Registry {
 			new StatusCommand(),
 			new SalesCommand(),
 			new CodesCommand(),
-			new ColorCommand(),
+			colorCmd,
+			new ColorShortcut(colorCmd, "0"),
+			new ColorShortcut(colorCmd, "1"),
+			new ColorShortcut(colorCmd, "2"),
+			new ColorShortcut(colorCmd, "3"),
+			new ColorShortcut(colorCmd, "4"),
+			new ColorShortcut(colorCmd, "5"),
+			new ColorShortcut(colorCmd, "6"),
+			new ColorShortcut(colorCmd, "7"),
+			new ColorShortcut(colorCmd, "8"),
+			new ColorShortcut(colorCmd, "9"),
+			new ColorShortcut(colorCmd, "a"),
+			new ColorShortcut(colorCmd, "b"),
+			new ColorShortcut(colorCmd, "c"),
+			new ColorShortcut(colorCmd, "d"),
+			new ColorShortcut(colorCmd, "e"),
+			new ColorShortcut(colorCmd, "f"),
 			new ServerCommand(),
 			new Sha1Command(),
 			new ItemCommand(),
