@@ -13,6 +13,8 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -201,6 +203,22 @@ public class RequestUtils {
 
 	public static JSONArray loadJSONArray(String path) throws IOException {
 		return new JSONArray(new String(Files.readAllBytes(Paths.get(path))));
+	}
+	
+	// Converts a string to SHA1 (from http://www.sha1-online.com/sha1-java/)
+	public static String sha1(String str) {
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA1");
+			byte[] result = md.digest(str.getBytes());
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < result.length; i++) {
+				sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
+			}
+			return sb.toString();
+		} catch (NoSuchAlgorithmException ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 
 }

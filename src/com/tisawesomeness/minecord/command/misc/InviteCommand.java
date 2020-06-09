@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.command.general;
+package com.tisawesomeness.minecord.command.misc;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;

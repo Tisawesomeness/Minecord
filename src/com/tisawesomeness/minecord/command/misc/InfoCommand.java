@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.command.general;
+package com.tisawesomeness.minecord.command.misc;
 
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
@@ -13,6 +13,7 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 public class InfoCommand extends Command {
 	
@@ -31,7 +32,7 @@ public class InfoCommand extends Command {
 
 	public String getAdminHelp() {
 		return "`{&}info` - Shows the bot info.\n" +
-			"`{&}info admin` - Includes memory usage and boot time.\n";
+			"`{&}info admin` - Include memory usage and boot time.\n";
 	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
@@ -47,7 +48,7 @@ public class InfoCommand extends Command {
 		EmbedBuilder eb = new EmbedBuilder();
 		
 		eb.setColor(Bot.color);
-		eb.addField("Author", Bot.authorTag, true);
+		eb.addField("Author", Bot.author, true);
 		eb.addField("Version", Bot.getVersion(), true);
 		
 		String guilds = Bot.shardManager.getGuilds().size() + "";
@@ -64,12 +65,14 @@ public class InfoCommand extends Command {
 			eb.addField("Memory", getMemoryString(), true);
 			eb.addField("Boot Time", DateUtils.getBootTime(), true);
 		}
-		
-		eb.addField("Library", String.format("Java `%s`, JDA `%s`", Bot.javaVersion, Bot.jdaVersion), true);
-		eb.addField("Credits", Bot.credits, true);
-		eb.addField("Invite", Config.getInvite(), false);
-		eb.addField("Help Server", Bot.helpServer, false);
-		eb.addField("Website", Bot.website, false);
+		eb.addField("Java Version", MarkdownUtil.monospace(Bot.javaVersion), true);
+		eb.addField("JDA Version", MarkdownUtil.monospace(Bot.jdaVersion), true);
+
+		String links = MarkdownUtil.maskedLink("INVITE", Config.getInvite()) + " | " +
+			MarkdownUtil.maskedLink("SUPPORT", Bot.helpServer) + " | " +
+			MarkdownUtil.maskedLink("WEBSITE", Bot.website) + " | " +
+			MarkdownUtil.maskedLink("GITHUB", Bot.github);
+		eb.addField("Links", "**" + links + "**", false);
 		
 		eb = MessageUtils.addFooter(eb);
 		return new Result(Outcome.SUCCESS, eb.build());

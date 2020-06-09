@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.command.general;
+package com.tisawesomeness.minecord.command.misc;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;

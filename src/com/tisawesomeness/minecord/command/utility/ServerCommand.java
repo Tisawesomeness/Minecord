@@ -1,7 +1,5 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.HashSet;
@@ -135,38 +133,22 @@ public class ServerCommand extends Command {
 	// Checks if a server is blocked by Mojang
 	private static boolean isBlocked(String server, boolean ip) {
 		server = server.toLowerCase();
-		if (blockedServers.contains(sha1(server))) return true;
+		if (blockedServers.contains(RequestUtils.sha1(server))) return true;
 		if (ip) {
 			System.out.println("> " + server);
 			int i = server.lastIndexOf('.');
 			while (i >= 0) {
-				if (blockedServers.contains(sha1(server.substring(0, i + 1) + ".*"))) return true;
+				if (blockedServers.contains(RequestUtils.sha1(server.substring(0, i + 1) + ".*"))) return true;
 				i = server.lastIndexOf('.', i) - 1;
 			}
 		} else {
 			int i = 0;
 			while (i != server.lastIndexOf('.') + 1) {
 				i = server.indexOf('.', i) + 1;
-				if (blockedServers.contains(sha1("*." + server.substring(i)))) return true;
+				if (blockedServers.contains(RequestUtils.sha1("*." + server.substring(i)))) return true;
 			}
 		}
 		return false;
-	}
-	
-	// Converts a string to SHA1 (from http://www.sha1-online.com/sha1-java/)
-	private static String sha1(String str) {
-		try {
-			MessageDigest md = MessageDigest.getInstance("SHA1");
-			byte[] result = md.digest(str.getBytes());
-			StringBuffer sb = new StringBuffer();
-			for (int i = 0; i < result.length; i++) {
-				sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
-			}
-			return sb.toString();
-		} catch (NoSuchAlgorithmException ex) {
-			ex.printStackTrace();
-			return null;
-		}
 	}
 	
 }

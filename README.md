@@ -7,20 +7,20 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 
 ### Command List
 #### General Commands
-- `&help [command|module]` - Displays help for the bot, a command, or a module.
-- `&info` - Shows the bot info.
-- `&ping` - Pings the bot.
-- `&invite` - Give the invite link for the bot.
-- `&status` - Checks the status of Mojang servers.
-- `&sales` - Looks up the sale statistics.
-- `&purge [number]` - Cleans the bot messages. Requires Manage Messages permissions.
 - `&guild` - Shows guild info.
+- `&role <role|id>` - Shows role info.
+- `&roles <user|id>` - List a user's roles.
 - `&user <user|id>` - Shows user info.
+- `&purge [number]` - Cleans the bot messages. Requires Manage Messages permissions.
+- `&perms [channel]` - Test the bot's permissions in a channel. Leave blank to test the current channel.
 - `&prefix [prefix]` - A shortcut to change the prefix. Leave blank to show the current prefix. Requires Manage Server permissions.
 - `&settings [setting] [value]` - Change the bot's settings, including prefix. Requires Manage Server permissions.
 
 #### Utility Commands:
+- `&status` - Checks the status of Mojang servers.
+- `&sales` - Looks up the sale statistics.
 - `&codes` - Lists the available chat codes.
+- `&color` - Look up a color. Shows color code and background color for Minecraft colors.
 - `&server <address>[:port]` - Fetches the stats of a server.
 - `&item <item name|id>` - Looks up an item.
 - `&recipe <item name|id>` - Looks up a recipe.
@@ -35,12 +35,22 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&skin <username|uuid> [date]` - Gets the skin of a player.
 - `&cape <username|uuid> [date]` - Gets the cape of a player.
 
+### Misc Commands:
+- `&help [command|module]` - Displays help for the bot, a command, or a module.
+- `&info` - Shows the bot info.
+- `&ping` - Pings the bot.
+- `&invite` - Get the invite link for the bot.
+- `&vote` - Get all the vote links.
+- `&credits` - See who made the bot possible.
+
 #### Admin Commands:
 - `&help <command> admin` - Displays admin help for a command.
 - `&info admin` - Displays bot info, including used memory and boot time.
-- `&settings <guild id> admin [setting] [value]` - Change the bot's settings for another guild.
-- `&user <user id> admin [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include `mutual` to show mutual guilds.
 - `&guild <guild id> admin` - Show info and ban status for another guild.
+- `&role <role id> admin` - Show role info for any role.
+- `&user <user id> admin [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include `mutual` to show mutual guilds.
+- `&settings <guild id> admin [setting] [value]` - Change the bot's settings for another guild.
+- `&perms <channel id> admin` - Test the bot's permissions in any channel.
 - `&say <channel> <message>` - Say a message.
 - `&msg <mention> <message>` - Open the DMs.
 - `&name <guild id> <name>` - Changes the bot's nickname per-guild, enter nothing to reset.

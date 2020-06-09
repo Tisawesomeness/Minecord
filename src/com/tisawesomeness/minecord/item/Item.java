@@ -27,7 +27,7 @@ public class Item {
     private static JSONObject items;
     private static JSONObject data;
 
-    public static String help = "Items can be:\n" +
+    public static final String help = "Items can be:\n" +
         "- Namespaced IDs: `minecraft:iron_block`\n" +
         "- Numeric IDs: `50`\n" +
         "- ID and data: `35:14`, `wool:14`\n" +
@@ -39,7 +39,7 @@ public class Item {
     /**
      * Initializes the item database by reading from file
      * @param path The path to read from
-     * @throws IOException
+     * @throws IOException when a file isn't found
      */
     public static void init(String path) throws IOException {
         items = RequestUtils.loadJSON(path + "/items.json");

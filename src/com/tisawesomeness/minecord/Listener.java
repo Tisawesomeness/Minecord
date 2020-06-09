@@ -23,6 +23,7 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.Message.MentionType;
 import net.dv8tion.jda.api.events.ReadyEvent;
@@ -47,10 +48,15 @@ public class Listener extends ListenerAdapter {
 		// Get all values that change based on channel type
 		String prefix = MessageUtils.getPrefix(e);
 		boolean deleteCommands = false;
+		boolean canEmbed = true;
 		if (e.isFromType(ChannelType.TEXT)) {
+			Member sm = e.getGuild().getSelfMember();
+			TextChannel tc = e.getTextChannel();
+			if (!sm.hasPermission(e.getTextChannel(), Permission.MESSAGE_WRITE)) return;
 			if (Database.isBanned(e.getGuild().getIdLong())) return;
-			deleteCommands = e.getGuild().getSelfMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE) &&
+			deleteCommands = sm.hasPermission(tc, Permission.MESSAGE_MANAGE) &&
 					Database.getDeleteCommands(e.getGuild().getIdLong());
+			canEmbed = sm.hasPermission(tc, Permission.MESSAGE_EMBED_LINKS);
 		} else if (e.isFromType(ChannelType.PRIVATE)) {
 			prefix = Config.getPrefix();
 		} else {
@@ -87,6 +93,12 @@ public class Listener extends ListenerAdapter {
 			
 		//If none of the above are satisfied, get out
 		} else {
+			return;
+		}
+
+		// Embed links is required for 90% of commands, so send a message if the bot does not have it.
+		if (!canEmbed) {
+			e.getChannel().sendMessage(":warning: I need Embed Links permissions to use commands!").queue();
 			return;
 		}
 		

@@ -117,9 +117,11 @@ public class UserCommand extends Command {
             mem = mentioned.get(0);
         } else {
             if (args[0].matches(DiscordUtils.idRegex)) {
-                mem = e.getGuild().getMemberById(args[0]);
-            }
-            if (mem == null) {
+                mem = e.getGuild().retrieveMemberById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
+                if (mem == null) {
+                    return new Result(Outcome.WARNING, ":warning: That user does not exist.");
+                }
+            } else {
                 if (!User.USER_TAG.matcher(args[0]).matches()) {
                     return new Result(Outcome.WARNING, ":warning: Not a valid user format. Use `name#1234`, a mention, or an 18-digit ID.");
                 }
@@ -148,6 +150,7 @@ public class UserCommand extends Command {
             .setTitle(MarkdownSanitizer.escape(u.getAsTag()))
             .setColor(mem.getColor())
             .setImage(u.getAvatarUrl())
+            .addField("ID", u.getId(), true)
             .addField("Nickname", mem.getNickname() == null ? "None" : MarkdownSanitizer.escape(mem.getNickname()), true)
             .addField("Bot?", u.isBot() ? "Yes" : "No", true)
             .addField("Joined Server", DateUtils.getDateAgo(mem.getTimeJoined()), false)

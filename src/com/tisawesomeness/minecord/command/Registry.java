@@ -1,10 +1,11 @@
 package com.tisawesomeness.minecord.command;
 
-import java.util.TreeMap;
+import java.util.LinkedHashMap;
 
 import com.tisawesomeness.minecord.command.Command.CommandInfo;
 import com.tisawesomeness.minecord.command.admin.*;
 import com.tisawesomeness.minecord.command.general.*;
+import com.tisawesomeness.minecord.command.misc.*;
 import com.tisawesomeness.minecord.command.player.*;
 import com.tisawesomeness.minecord.command.utility.*;
 
@@ -16,25 +17,45 @@ public class Registry {
 	private static final String adminHelp = "**These commands require elevation to use.**\n\n" +
 	"`{&}info admin` - Displays bot info, including used memory and boot time.\n" +
 	"`{&}settings <guild id> admin [setting] [value]` - Change the bot's settings for another guild.\n" +
+	"`{&}perms <channel id> admin` - Test the bot's permissions in any channel.\n" +
 	"`{&}user <user id> admin [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include \"mutual\" to show mutual guilds.\n" +
 	"`{&}guild <guild id> admin` - Show info and ban status for another guild.\n";
+
+	private static Command colorCmd = new ColorCommand();
 	public static final Module[] modules = {
 		new Module("General",
-			new HelpCommand(),
-			new InfoCommand(),
-			new PingCommand(),
-			new InviteCommand(),
-			new PurgeCommand(),
-			new PrefixCommand(),
 			new GuildCommand(),
+			new RoleCommand(),
+			new RolesCommand(),
 			new UserCommand(),
+			new PurgeCommand(),
+			new PermsCommand(),
+			new PrefixCommand(),
 			new SettingsCommand()
 		),
 		new Module("Utility",
 			new StatusCommand(),
 			new SalesCommand(),
 			new CodesCommand(),
+			colorCmd,
+			new ColorShortcut(colorCmd, "0"),
+			new ColorShortcut(colorCmd, "1"),
+			new ColorShortcut(colorCmd, "2"),
+			new ColorShortcut(colorCmd, "3"),
+			new ColorShortcut(colorCmd, "4"),
+			new ColorShortcut(colorCmd, "5"),
+			new ColorShortcut(colorCmd, "6"),
+			new ColorShortcut(colorCmd, "7"),
+			new ColorShortcut(colorCmd, "8"),
+			new ColorShortcut(colorCmd, "9"),
+			new ColorShortcut(colorCmd, "a"),
+			new ColorShortcut(colorCmd, "b"),
+			new ColorShortcut(colorCmd, "c"),
+			new ColorShortcut(colorCmd, "d"),
+			new ColorShortcut(colorCmd, "e"),
+			new ColorShortcut(colorCmd, "f"),
 			new ServerCommand(),
+			new Sha1Command(),
 			new ItemCommand(),
 			new RecipeCommand(),
 			new IngredientCommand()
@@ -48,6 +69,14 @@ public class Registry {
 			new SkinCommand(),
 			new CapeCommand(),
 			new ProfileCommand()
+		),
+		new Module("Misc",
+			new HelpCommand(),
+			new InfoCommand(),
+			new PingCommand(),
+			new InviteCommand(),
+			new VoteCommand(),
+			new CreditsCommand()
 		),
 		new Module("Admin", true, adminHelp,
 			new SayCommand(),
@@ -63,7 +92,7 @@ public class Registry {
 			new TestCommand()
 		)
 	};
-	private static TreeMap<String, Command> commandMap = new TreeMap<String, Command>(String.CASE_INSENSITIVE_ORDER);
+	private static LinkedHashMap<String, Command> commandMap = new LinkedHashMap<String, Command>();
 	
 	/**
 	 * Adds every module to the registry and maps the possible aliases to the command to execute.
