@@ -20,6 +20,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&status` - Checks the status of Mojang servers.
 - `&sales` - Looks up the sale statistics.
 - `&codes` - Lists the available chat codes.
+- `&color` - Look up a color. Shows color code and background color for Minecraft colors.
 - `&server <address>[:port]` - Fetches the stats of a server.
 - `&item <item name|id>` - Looks up an item.
 - `&recipe <item name|id>` - Looks up a recipe.

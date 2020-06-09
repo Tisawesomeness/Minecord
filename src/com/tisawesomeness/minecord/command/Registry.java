@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.command;
 
-import java.util.TreeMap;
+import java.util.LinkedHashMap;
 
 import com.tisawesomeness.minecord.command.Command.CommandInfo;
 import com.tisawesomeness.minecord.command.admin.*;
@@ -35,6 +35,7 @@ public class Registry {
 			new StatusCommand(),
 			new SalesCommand(),
 			new CodesCommand(),
+			new ColorCommand(),
 			new ServerCommand(),
 			new Sha1Command(),
 			new ItemCommand(),
@@ -73,7 +74,7 @@ public class Registry {
 			new TestCommand()
 		)
 	};
-	private static TreeMap<String, Command> commandMap = new TreeMap<String, Command>(String.CASE_INSENSITIVE_ORDER);
+	private static LinkedHashMap<String, Command> commandMap = new LinkedHashMap<String, Command>();
 	
 	/**
 	 * Adds every module to the registry and maps the possible aliases to the command to execute.

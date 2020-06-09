@@ -70,31 +70,6 @@ public class MessageUtils {
 	}
 	
 	/**
-	 * Returns one of 16 random colors
-	public static Color randomColor() {
-		final Color[] colors = new Color[]{
-			new Color(0, 0, 0),
-			new Color(0, 0, 170),
-			new Color(0, 170, 0),
-			new Color(0, 170, 170),
-			new Color(170, 0, 0),
-			new Color(170, 0, 170),
-			new Color(255, 170, 0),
-			new Color(170, 170, 170),
-			new Color(85, 85, 85),
-			new Color(85, 85, 255),
-			new Color(85, 255, 85),
-			new Color(85, 255, 255),
-			new Color(255, 85, 85),
-			new Color(255, 85, 255),
-			new Color(255, 255, 85),
-			new Color(255, 255, 255)
-		};
-		return colors[new Random().nextInt(colors.length)];
-	}
-	 */
-	
-	/**
 	 * Parses boolean arguments.
 	 * @param search The string array to search through.
 	 * @param include A string that also means true.

@@ -16,6 +16,7 @@ import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.VoteHandler;
 import com.tisawesomeness.minecord.item.Item;
 import com.tisawesomeness.minecord.item.Recipe;
+import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
@@ -79,6 +80,7 @@ public class Bot {
 		reactListener = new ReactListener();
 		try {
 			Announcement.init(Config.getPath());
+			ColorUtils.init(Config.getPath());
 			Item.init(Config.getPath());
 			Recipe.init(Config.getPath());
 		} catch (IOException ex) {

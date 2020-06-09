@@ -5,6 +5,7 @@ import java.util.List;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
@@ -82,7 +83,7 @@ public class RoleCommand extends Command {
             .setTitle(role.getName().substring(0, Math.min(MessageEmbed.TITLE_MAX_LENGTH, role.getName().length())))
             .setColor(role.getColorRaw())
             .addField("ID", role.getId(), true)
-            .addField("Color", String.format("#%06x", role.getColorRaw() & 0x00FFFFFF), true) // Mask gets RGB of color
+            .addField("Color", ColorUtils.getHexCode(role.getColorRaw()), true) // Mask gets RGB of color
             .addField("Position", (role.getPosition() + 2) + "/" + roles.size(), true) // Position corrected so @everyone is pos 1
             .addField("Mentionable?", role.isMentionable() ? "Yes" : "No", true)
             .addField("Hoisted?", role.isHoisted() ? "Yes" : "No", true)
