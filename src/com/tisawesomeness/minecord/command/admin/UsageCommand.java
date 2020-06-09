@@ -1,5 +1,8 @@
 package com.tisawesomeness.minecord.command.admin;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.Module;
@@ -7,7 +10,7 @@ import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
-import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class UsageCommand extends Command {
@@ -16,8 +19,8 @@ public class UsageCommand extends Command {
 		return new CommandInfo(
 			"usage",
 			"Shows how often commands are used.",
-			"",
-			new String[0],
+			null,
+			null,
 			0,
 			true,
 			true,
@@ -26,23 +29,21 @@ public class UsageCommand extends Command {
 	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
-		
-		//Iterate over commands
-		String m = "";
-		for (Module mod : Registry.modules) {
-			for (Command c : mod.getCommands()) {
-				CommandInfo ci = c.getInfo();
-				if ("".equals(ci.name)) {continue;}
-				
-				//Build message
-				m += "`" + MessageUtils.getPrefix(e) + ci.name + "` **-** " + c.uses + "\n";
-			}
-		}
-		m = m.substring(0, m.length() - 1);
+		String prefix = MessageUtils.getPrefix(e);
 
-		String title = "Command usage for " + DateUtils.getUptime();
-		MessageEmbed me = MessageUtils.embedMessage(title, null, m, Bot.color);
-		return new Result(Outcome.SUCCESS, me);
+		// Build usage message
+		EmbedBuilder eb = new EmbedBuilder()
+			.setTitle("Command usage for " + DateUtils.getUptime())
+			.setColor(Bot.color);
+		for (Module m : Registry.modules) {
+			String field = Arrays.asList(m.getCommands()).stream()
+				.filter(c -> !c.getInfo().name.equals(""))
+				.map(c -> String.format("`%s%s` **-** %d", prefix, c.getInfo().name, c.uses))
+				.collect(Collectors.joining("\n"));
+			eb.addField(String.format("**%s**", m.getName()), field, true);
+		}
+
+		return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
 	}
 	
 }
