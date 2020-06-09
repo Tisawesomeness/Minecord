@@ -14,7 +14,7 @@ public class VoteCommand extends Command {
 			"vote",
 			"Vote for the bot!",
 			null,
-			new String[]{"upvote", "updoot", "rep"},
+			new String[]{"v", "upvote", "updoot", "rep"},
 			0,
 			false,
 			false,
