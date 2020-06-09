@@ -70,7 +70,10 @@ public class ColorCommand extends Command {
             }
         }
 
-        String formats = ColorUtils.getRGB(c) + "\n" + ColorUtils.getHSV(c) + "\n" + ColorUtils.getCMYK(c);
+        String formats = ColorUtils.getRGB(c) + "\n" +
+            ColorUtils.getHSV(c) + "\n" +
+            ColorUtils.getHSL(c) + "\n" +
+            ColorUtils.getCMYK(c);
         EmbedBuilder eb = new EmbedBuilder()
             .setTitle("Color Info")
             .setColor(c)

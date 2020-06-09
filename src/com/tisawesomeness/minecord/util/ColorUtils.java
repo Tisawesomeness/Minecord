@@ -129,6 +129,31 @@ public class ColorUtils {
         return String.format("`hsv(%d,%d%%,%d%%)`", (int) (360*hsv[0]), Math.round(100*hsv[1]), Math.round(100*hsv[2]));
     }
     /**
+     * Gets the HSL string for the color
+     * @param c The color
+     * @return A string in hsl(h,s%,l%) format, where 0 <= h < 360 and 0% <= s,l <= 100%
+     */
+    public static String getHSL(Color c) {
+        float[] rgb = c.getColorComponents(null);
+        float max = Math.max(rgb[0], Math.max(rgb[1], rgb[2]));
+        float min = Math.min(rgb[0], Math.min(rgb[1], rgb[2]));
+        float C = max - min;
+        float L = (max + min) / 2;
+        int h;
+        if (C == 0) {
+            h = 0;
+        } else if (max == rgb[0]) {
+            h = (int) (60 * (rgb[1] - rgb[2]) / C);
+        } else if (max == rgb[1]) {
+            h = (int) (60 * (2 + (rgb[2] - rgb[0]) / C));
+        } else {
+            h = (int) (60 * (4 + (rgb[0] - rgb[1]) / C));
+        }
+        int s = L % 1 == 0 ? 0 : Math.round(100 * (max - L) / Math.min(L, 1 - L));
+        int l = Math.round(100 * L);
+        return String.format("`hsl(%d,%d%%,%d%%)`", h, s, l);
+    }
+    /**
      * Gets the CMYK string for the color
      * @param c The color
      * @return A string in cmyk(c%,m%,y%,k%) format, where 0% <= c,m,y,k <= 100%
