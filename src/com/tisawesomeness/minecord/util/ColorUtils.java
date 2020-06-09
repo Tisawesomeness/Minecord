@@ -149,6 +149,9 @@ public class ColorUtils {
         } else {
             h = (int) (60 * (4 + (rgb[0] - rgb[1]) / C));
         }
+        if (h < 0) {
+            h += 360;
+        }
         int s = L % 1 == 0 ? 0 : Math.round(100 * (max - L) / Math.min(L, 1 - L));
         int l = Math.round(100 * L);
         return String.format("`hsl(%d,%d%%,%d%%)`", h, s, l);
@@ -173,6 +176,30 @@ public class ColorUtils {
         }
         int K = Math.round(100 * k);
         return String.format("`cmyk(%d%%,%d%%,%d%%,%d%%)`", C, M, Y, K);
+    }
+
+    /**
+     * Converts HSV floats 0-1 to an RGB color
+     */
+    public static Color fromHSV(float h, float s, float v) {
+        return Color.getHSBColor(h, s, v);
+    }
+    /**
+     * Converts HSL floats 0-1 to an RGB color
+     */
+    public static Color fromHSL(float h, float s, float l) {
+        float V = l + s * Math.min(l, 1 - l);
+        float S = V == 0 ? 0 : 2 * (1 - l / V);
+        return fromHSV(h, S, V);
+    }
+    /**
+     * Converts CMYK floats 0-1 to an RGB color
+     */
+    public static Color fromCMYK(float c, float m, float y, float k) {
+        float r = (1 - c) * (1 - k);
+        float g = (1 - m) * (1 - k);
+        float b = (1 - y) * (1 - k);
+        return new Color(r, g, b);
     }
     
     /**
@@ -206,6 +233,92 @@ public class ColorUtils {
      */
     public static String getName(int index) {
         return mcColorNames.get(index);
+    }
+
+    /**
+     * Gets a color from a string using many possible color formats
+     * @param str The string to search with
+     * @param lang The language code to use
+     * @return A color, or null if not found
+     */
+    public static Color parseColor(String str, String lang) {
+        String query = str;
+
+        // Random colors
+        if (query.equalsIgnoreCase("rand") || query.equalsIgnoreCase("random")) {
+            return ColorUtils.randomColor();
+        } else if (query.equalsIgnoreCase("very rand") || query.equalsIgnoreCase("very random")) {
+            return ColorUtils.veryRandomColor();
+        }
+
+        // Parse &2 as 2
+        char start = query.charAt(0);
+        if (start == '&' || start == '\u00A7') {
+            query = query.substring(1);
+        }
+        // Predefined names
+        Color c = ColorUtils.getColor(query, lang);
+        if (c != null) {
+            return c;
+        }
+
+        // 3 or 4 numbers in a color format
+        String[] split = query.replace(", ", ",").replace(" ", ",").replace("%", "").split(",");
+        try {
+            // RGB, HSL, HSV
+            if (split.length == 3) {
+                // format(a, b, c)
+                if (split[0].length() > 4 && split[2].endsWith(")")) {
+                    String prefix = split[0].substring(0, 4);
+                    split[0] = split[0].substring(4);
+                    split[2] = split[2].substring(0, split[2].length() - 1);
+                    // rgb(r,g,b)
+                    if (prefix.equalsIgnoreCase("rgb(")) {
+                        return new Color(Integer.parseInt(split[0]), Integer.parseInt(split[1]), Integer.parseInt(split[2]));
+                    // hsv(h,s,v)
+                    } else if (prefix.equalsIgnoreCase("hsv(")) {
+                        float[] comps = parseSplit(split, 360, 100, 100);
+                        return fromHSV(comps[0], comps[1], comps[2]);
+                    // hsv(h,s,v)
+                    } else if (prefix.equalsIgnoreCase("hsl(")) {
+                        float[] comps = parseSplit(split, 360, 100, 100);
+                        return fromHSL(comps[0], comps[1], comps[2]);
+                    }
+                }
+                // R G B
+                if (Character.isDigit(split[0].charAt(0))) {
+                    return new Color(Integer.parseInt(split[0]), Integer.parseInt(split[1]), Integer.parseInt(split[2]));
+                }
+            // CMYK
+            } else if (split.length == 4 && split[0].length() > 5 && split[3].endsWith(")")) {
+                String prefix = split[0].substring(0, 5);
+                split[0] = split[0].substring(5);
+                split[3] = split[3].substring(0, split[3].length() - 1);
+                // cmyk(c,m,y,k)
+                if (prefix.equalsIgnoreCase("cmyk(")) {
+                    float[] comps = parseSplit(split, 100, 100, 100, 100);
+                    return fromCMYK(comps[0], comps[1], comps[2], comps[3]);
+                }
+            }
+        } catch (NumberFormatException ignore) {}
+
+        // Parse decimal or hex int
+        try {
+            // Since "3" is interpreted as a color code, "i3" is the integer 3
+            if (start == 'i') {
+                return new Color(Integer.parseInt(query.substring(1)));
+            }
+            return Color.decode(query);
+        } catch (NumberFormatException ignore) {}
+
+        return null;
+    }
+    private static float[] parseSplit(String[] split, int... divs) throws NumberFormatException {
+        float[] comps = new float[split.length];
+        for (int i = 0; i < split.length; i++) {
+            comps[i] = Integer.parseInt(split[i]) / (float) divs[i];
+        }
+        return comps;
     }
     
 }

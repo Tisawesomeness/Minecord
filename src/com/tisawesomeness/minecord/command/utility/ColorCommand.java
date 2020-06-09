@@ -34,7 +34,11 @@ public class ColorCommand extends Command {
             "- A color name: `red`, `dark blue`\n" +
             "- A color code: `&b`, `\u00A7b`, `b`\n" +
             "- A hex code: `#55ffff`, `0x55ffff`\n" +
-            "- An RGB int: `5635925`, `i8`\n";
+            "- RGB format: `85 85 255`, `rgb(85,85,255)`\n" +
+            "- Other formats: `hsv(120,100,50)`, `hsl(120 100 25)`, `cmyk(100%,0%,100%,50%)`\n" +
+            "- An RGB int: `5635925`, `i8`\n" +
+            "\n" +
+            "Use `{&}0` through `{&}f` as shortcuts.";
     }
 
     public Result run(String[] args, MessageReceivedEvent e) throws Exception {
@@ -43,31 +47,9 @@ public class ColorCommand extends Command {
             return new Result(Outcome.WARNING, ":warning: You must specify a color.");
         }
 
-        String query = String.join(" ", args);
-        Color c;
-        if (query.equalsIgnoreCase("rand") || query.equalsIgnoreCase("random")) {
-            c = ColorUtils.randomColor();
-        } else if (query.equalsIgnoreCase("very rand") || query.equalsIgnoreCase("very random")) {
-            c = ColorUtils.veryRandomColor();
-        } else {
-            // Parse &2 as 2
-            char start = query.charAt(0);
-            if (start == '&' || start == '\u00A7') {
-                query = query.substring(1);
-            }
-            c = ColorUtils.getColor(query, "en_US");
-            if (c == null) {
-                try {
-                    // Since "3" is interpreted as a color code, "i3" is the integer 3
-                    if (start == 'i') {
-                        c = new Color(Integer.parseInt(query.substring(1)));
-                    } else {
-                        c = Color.decode(query);
-                    }
-                } catch (NumberFormatException ex) {
-                    return new Result(Outcome.WARNING, ":warning: Not a valid color!");
-                }
-            }
+        Color c = ColorUtils.parseColor(String.join(" ", args), "en_US");
+        if (c == null) {
+            return new Result(Outcome.WARNING, ":warning: Not a valid color!");
         }
 
         String formats = ColorUtils.getRGB(c) + "\n" +
