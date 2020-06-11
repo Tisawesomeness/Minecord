@@ -7,7 +7,6 @@ plugins {
     id 'maven-publish'
     id "io.freefair.lombok" version "5.1.0"
     id 'com.github.johnrengelman.shadow' version '5.2.0'
-    id "com.sedmelluq.jdaction" version "1.0.99-beta3"
 }
 
 repositories {
