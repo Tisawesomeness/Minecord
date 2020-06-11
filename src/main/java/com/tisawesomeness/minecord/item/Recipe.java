@@ -31,8 +31,8 @@ public class Recipe {
      * @throws IOException
      */
     public static void init(String path) throws IOException {
-        recipes = RequestUtils.loadJSON(path + "/recipes.json");
-        tags = RequestUtils.loadJSON(path + "/tags.json");
+        recipes = RequestUtils.loadJSONResource("recipes.json");
+        tags = RequestUtils.loadJSONResource("tags.json");
     }
 
     /**

@@ -60,7 +60,7 @@ public class ColorUtils {
      * @throws IOException when the file isn't found
      */
     public static void init(String path) throws IOException {
-        colors = RequestUtils.loadJSON(path + "/colors.json");
+        colors = RequestUtils.loadJSONResource("colors.json");
     }
     
     /**

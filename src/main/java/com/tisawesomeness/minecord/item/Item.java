@@ -42,8 +42,8 @@ public class Item {
      * @throws IOException when a file isn't found
      */
     public static void init(String path) throws IOException {
-        items = RequestUtils.loadJSON(path + "/items.json");
-        data = RequestUtils.loadJSON(path + "/data.json");
+        items = RequestUtils.loadJSONResource("items.json");
+        data = RequestUtils.loadJSONResource("data.json");
     }
 
     /**
