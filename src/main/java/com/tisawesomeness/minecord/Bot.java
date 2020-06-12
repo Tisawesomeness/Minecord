@@ -4,11 +4,11 @@ import java.awt.Color;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.discordbots.api.client.DiscordBotListAPI;
 
 import com.tisawesomeness.minecord.command.Registry;
@@ -72,7 +72,7 @@ public class Bot {
 		Config.read(false);
 		if (Config.getDevMode() && !devMode) return false;
 		boolean reload = false;
-		if (args.length > 0 && ArrayUtils.contains(args, "-r")) reload = true;
+		if (args.length > 0 && Arrays.asList(args).contains("-r")) reload = true;
 		
 		//Pre-init
 		thread = Thread.currentThread();
@@ -209,8 +209,11 @@ public class Bot {
 		}
 		try {
 			//Reload this class using reflection
-			String[] args = new String[]{"-r"};
-			ArrayUtils.addAll(args, Bot.args);
+//			String[] args = new String[]{"-r"};
+//			ArrayUtils.addAll(args, Bot.args);
+			ArrayList<String> argsList = new ArrayList<String>(Arrays.asList(Bot.args));
+			argsList.add(0, "-r");
+			String[] args = argsList.toArray(new String[argsList.size()]);
 			MethodName.SET_MESSAGE.method().invoke(null, m);
 			MethodName.SET_USER.method().invoke(null, u);
 			MethodName.LOAD.method().invoke(null, (Object) args);

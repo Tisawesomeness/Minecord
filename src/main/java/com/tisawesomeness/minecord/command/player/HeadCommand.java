@@ -1,8 +1,7 @@
 package com.tisawesomeness.minecord.command.player;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-
-import org.apache.commons.lang3.ArrayUtils;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
@@ -54,9 +53,11 @@ public class HeadCommand extends Command {
 		//Check for overlay argument
 		boolean overlay = false;
 		int index = MessageUtils.parseBoolean(args, "overlay");
-		if (index != -1) {
+		if (index > 0) {
 			overlay = true;
-			args = ArrayUtils.remove(args, index);
+			ArrayList<String> argsList = new ArrayList<String>(Arrays.asList(args));
+			argsList.remove("overlay");
+			args = argsList.toArray(new String[argsList.size()]);
 		}
 
 		String player = args[0];	

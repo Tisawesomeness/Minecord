@@ -4,9 +4,8 @@ import java.awt.Color;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
-
-import org.apache.commons.lang3.ArrayUtils;
 
 import com.tisawesomeness.minecord.Announcement;
 import com.tisawesomeness.minecord.Bot;
@@ -76,10 +75,11 @@ public class MessageUtils {
 	 * @return The first index of the boolean argument. Returns -1 if not found.
 	 */
 	public static int parseBoolean(String[] search, String include) {
-		
+
+		List<String> searchList = Arrays.asList(search);
 		String[] words = new String[]{"true", "yes", "allow", include};
 		for (String word : words) {
-			int index = ArrayUtils.indexOf(search, word);
+			int index = searchList.indexOf(word);
 			if (index > -1) {
 				return index;
 			}
@@ -123,7 +123,8 @@ public class MessageUtils {
 			return content.replaceFirst(Pattern.quote(prefix), "").split(" ");
 		} else if (content.replaceFirst("@!", "@").startsWith(su.getAsMention())) {
 			String[] args = content.split(" ");
-			return ArrayUtils.removeElement(args, args[0]);
+			return Arrays.copyOfRange(args, 1, args.length);
+//			return ArrayUtils.removeElement(args, args[0]);
 		} else {
 			return null;
 		}

@@ -1,7 +1,5 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
@@ -10,6 +8,8 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import java.util.Arrays;
 
 public class SayCommand extends Command {
 	
@@ -45,7 +45,7 @@ public class SayCommand extends Command {
 		if (channel == null) return new Result(Outcome.ERROR, ":x: Not a valid channel!");
 		
 		//Send the message
-		String msg = String.join(" ", ArrayUtils.remove(args, 0));
+		String msg = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
 		channel.sendMessage(msg).queue();
 		
 		//Log it

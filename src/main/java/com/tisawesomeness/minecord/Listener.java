@@ -1,10 +1,10 @@
 package com.tisawesomeness.minecord;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Future;
-import org.apache.commons.lang3.ArrayUtils;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.Registry;
@@ -77,7 +77,7 @@ public class Listener extends ListenerAdapter {
 			//Extract name and argument list
 			name = content[0];
 			if ("".equals(name)) return; //If there is a space after prefix, don't process any more
-			args = ArrayUtils.remove(content, 0);
+			args = Arrays.copyOfRange(content, 1, content.length);
 			
 		//If the bot is mentioned and does not mention everyone
 		} else if (m.isMentioned(e.getJDA().getSelfUser(), MentionType.USER) && e.isFromGuild()) {

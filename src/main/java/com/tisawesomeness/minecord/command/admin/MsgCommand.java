@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command.admin;
 
+import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
-import org.apache.commons.lang3.ArrayUtils;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.util.DiscordUtils;
@@ -45,7 +45,7 @@ public class MsgCommand extends Command {
 		String msg = null;
 		try {
 			PrivateChannel channel = user.openPrivateChannel().submit().get();
-			msg = String.join(" ", ArrayUtils.remove(args, 0));
+			msg = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
 			channel.sendMessage(msg).queue();
 		} catch (InterruptedException | ExecutionException ex) {
 			ex.printStackTrace();

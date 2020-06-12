@@ -1,8 +1,9 @@
 package com.tisawesomeness.minecord;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -48,26 +49,27 @@ public class Config {
 		
 		//Look for client token
 		if (!reload) {
-			String[] args = Bot.args;
-			if (args.length > 1 && ArrayUtils.contains(args, "-t")) {
-				int index = ArrayUtils.indexOf(args, "-t");
-				if (index + 1 < args.length) {
-					args = ArrayUtils.remove(args, index);
-					String token = args[index];
+			List<String> args = Arrays.asList(Bot.args);
+			if (args.size() > 1 && args.contains("-t")) {
+				int index = args.indexOf("-t");
+				if (index + 1 < args.size()) {
+					args.remove(index);
+					String token = args.get(index);
 					if (token.matches("{32,}")) {
 						System.out.println("Found custom client token: " + token);
 						clientToken = token;
-						args = ArrayUtils.remove(args, index);
+						args.remove(index);
 					}
-					Bot.args = args;
+					Bot.args = args.toArray(new String[args.size()]);
 				}
 			}
 		}
 		
 		//Parse config path
 		path = ".";
-		if (Bot.args.length > 1 && ArrayUtils.contains(Bot.args, "-c")) {
-			int index = ArrayUtils.indexOf(Bot.args, "-c");
+		List<String> args = Arrays.asList(Bot.args);
+		if (args.size() > 1 && args.contains("-c")) {
+			int index = args.indexOf("-c");
 			if (index + 1 < Bot.args.length) {
 				path = Bot.args[index + 1];
 				System.out.println("Found custom config path: " + path);
