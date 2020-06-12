@@ -238,7 +238,9 @@ public class Bot {
 		GET_SHARDS("getShards"),
 		SET_SHARDS("setShards"),
 		GET_BIRTH("getBirth"),
-		SET_BIRTH("setBirth");
+		SET_BIRTH("setBirth"),
+		GET_DEFAULT_LANG("getDefaultLang"),
+		GET_LANG("getLang");
 		
 		private String name;
 		private MethodName(String name) {

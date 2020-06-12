@@ -4,6 +4,9 @@ import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 public class Main {
 	
 	protected static ClassLoader cl;
@@ -53,5 +56,13 @@ public class Main {
 	public static void setBirth(long b) {
 		birth = b;
 	}
+
+	// i18n handlers
+    public static ResourceBundle getDefaultLang(String ignore) {
+	    return ResourceBundle.getBundle("lang");
+    }
+    public static ResourceBundle getLang(Locale l) {
+        return ResourceBundle.getBundle("lang", l);
+    }
 
 }
