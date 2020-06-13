@@ -103,7 +103,7 @@ public abstract class ReactMenu {
     /**
      * Posts the menu in chat
      * @param channel The channel to post in
-     * @param ownerID The owner the menu is assigned to, only they can use buttons
+     * @param owner The owner the menu is assigned to, only they can use buttons
      */
     public void post(MessageChannel channel, User owner) {
         this.ownerID = owner.getIdLong();

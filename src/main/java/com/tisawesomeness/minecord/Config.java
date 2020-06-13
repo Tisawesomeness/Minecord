@@ -55,7 +55,7 @@ public class Config {
 				if (index + 1 < args.size()) {
 					args.remove(index);
 					String token = args.get(index);
-					if (token.matches("{32,}")) {
+					if (token.length() >= 32) {
 						System.out.println("Found custom client token: " + token);
 						clientToken = token;
 						args.remove(index);

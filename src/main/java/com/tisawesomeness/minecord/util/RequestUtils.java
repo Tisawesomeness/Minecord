@@ -165,7 +165,7 @@ public class RequestUtils {
 	 * Checks if a URL exists and can respond to an HTTP request.
 	 * 
 	 * @param url             The URL to check.
-	 * @param followRedirects If true, pretends to be a browser
+	 * @param fakeUserAgent If true, pretends to be a browser
 	 * @return True if the URL exists, false if it doesn't or an error occured.
 	 */
 	public static boolean checkURL(String url, boolean fakeUserAgent) {

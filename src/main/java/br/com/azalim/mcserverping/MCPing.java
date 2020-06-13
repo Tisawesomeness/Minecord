@@ -53,11 +53,11 @@ public class MCPing {
     private static final String SRV_QUERY_PREFIX = "_minecraft._tcp.%s";
 
     /**
-     * Fetches a {@link MCPingResponsew} for the supplied hostname.
+     * Fetches a {@link MCPingResponse} for the supplied hostname.
      * <b>Assumed timeout of 2s and port of 25565.</b>
      *
      * @param address - a valid String hostname
-     * @return {@link MCPingResponsew}
+     * @return {@link MCPingResponse}
      * @throws IOException
      */
     public static MCPingResponse getPing(final String address) throws IOException {
@@ -65,10 +65,10 @@ public class MCPing {
     }
 
     /**
-     * Fetches a {@link MCPingResponsew} for the supplied options.
+     * Fetches a {@link MCPingResponse} for the supplied options.
      *
      * @param options - a filled instance of {@link MCPingOptions}
-     * @return {@link MCPingResponsew}
+     * @return {@link MCPingResponse}
      * @throws IOException
      */
     public static MCPingResponse getPing(final MCPingOptions options) throws IOException {

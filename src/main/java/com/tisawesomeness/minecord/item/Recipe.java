@@ -38,7 +38,7 @@ public class Recipe {
     /**
      * Creates an EmbedBuilder from a recipe
      * 
-     * @param item The name of the recipe
+     * @param recipe The name of the recipe
      * @param lang The language code to pull names from
      * @return An EmbedBuilder containing properties of the item
      */
@@ -151,7 +151,7 @@ public class Recipe {
 
     /**
      * Searches the database for all recipes with an item as an input
-     * @param str The namespaced ID of the item to search with
+     * @param namespacedID The namespaced ID of the item to search with
      * @param lang The language code to pull names from
      * @return Null if the item cannot be found, otherwise a list of recipe names that may be empty
      */
