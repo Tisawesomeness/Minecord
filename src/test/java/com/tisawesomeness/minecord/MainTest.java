@@ -10,7 +10,7 @@ import java.util.Locale;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Tag("Main")
-public class TestMain {
+public class MainTest {
     /**
      * Make sure running tests is not JVM-specific
      */

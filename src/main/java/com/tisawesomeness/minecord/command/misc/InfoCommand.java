@@ -54,7 +54,7 @@ public class InfoCommand extends Command {
 		
 		eb.setColor(Bot.color);
 		eb.addField("Author", Bot.author, true);
-		eb.addField("Version", Bot.getVersion(), true);
+		eb.addField("Version", Bot.version, true);
 		
 		String guilds = sm.getGuilds().size() + "";
 		if (Config.getShardCount() > 1) {

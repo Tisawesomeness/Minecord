@@ -33,7 +33,7 @@ public class DiscordUtils {
 			.replace("{github}", Bot.github)
 			.replace("{java_ver}", Bot.javaVersion)
 			.replace("{jda_ver}", Bot.jdaVersion)
-			.replace("{version}", Bot.getVersion())
+			.replace("{version}", Bot.version)
 			.replace("{invite}", Config.getInvite())
 			.replace("{prefix}", Config.getPrefix());
 	}
