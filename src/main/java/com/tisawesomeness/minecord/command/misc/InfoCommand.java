@@ -13,6 +13,7 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 public class InfoCommand extends Command {
@@ -34,9 +35,13 @@ public class InfoCommand extends Command {
 		return "`{&}info` - Shows the bot info.\n" +
 			"`{&}info admin` - Include memory usage and boot time.\n";
 	}
-	
+
 	public Result run(String[] args, MessageReceivedEvent e) {
-		DiscordUtils.update();
+		return null;
+	}
+	public Result run(String[] args, MessageReceivedEvent e, Bot bot) {
+		ShardManager sm = e.getJDA().getShardManager();
+		DiscordUtils.update(sm);
 		
 		// If the author used the admin keyword and is an elevated user
 		boolean elevated = false;
@@ -51,7 +56,7 @@ public class InfoCommand extends Command {
 		eb.addField("Author", Bot.author, true);
 		eb.addField("Version", Bot.getVersion(), true);
 		
-		String guilds = Bot.shardManager.getGuilds().size() + "";
+		String guilds = sm.getGuilds().size() + "";
 		if (Config.getShardCount() > 1) {
 			String shards = e.getJDA().getShardInfo().getShardId() + 1 + "/" + Config.getShardCount();
 			eb.addField("Shard", shards, true);
@@ -59,11 +64,11 @@ public class InfoCommand extends Command {
 		}
 		eb.addField("Guilds", guilds + "", true);
 		
-		eb.addField("Uptime", DateUtils.getUptime(), true);
-		eb.addField("Ping", Bot.shardManager.getAverageGatewayPing() + "ms", true);
+		eb.addField("Uptime", DateUtils.getUptime(bot.getBirth()), true);
+		eb.addField("Ping", sm.getAverageGatewayPing() + "ms", true);
 		if (Config.getShowMemory() || elevated) {
 			eb.addField("Memory", getMemoryString(), true);
-			eb.addField("Boot Time", DateUtils.getBootTime(), true);
+			eb.addField("Boot Time", DateUtils.getBootTime(bot.getBootTime()), true);
 		}
 		eb.addField("Java Version", MarkdownUtil.monospace(Bot.javaVersion), true);
 		eb.addField("JDA Version", MarkdownUtil.monospace(Bot.jdaVersion), true);

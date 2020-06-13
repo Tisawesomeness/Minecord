@@ -48,7 +48,7 @@ public class GuildCommand extends Command {
             if (!args[0].matches(DiscordUtils.idRegex)) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
-            g = Bot.shardManager.getGuildById(args[0]);
+            g = e.getJDA().getShardManager().getGuildById(args[0]);
             if (g == null) {
                 long gid = Long.valueOf(args[0]);
                 if (Database.isBanned(gid)) {

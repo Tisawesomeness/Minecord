@@ -1,34 +1,41 @@
 package com.tisawesomeness.minecord;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.URL;
 
+@RequiredArgsConstructor
 public class Loader implements Runnable {
 
 	private final static boolean propagate = false;
 	private final static String botClass = "com.tisawesomeness.minecord.Bot";
-	private String[] args;
-	
-	public Loader(String[] args) {
-		this.args = args;
-	}
+	@NonNull private final String[] args;
+	@NonNull private final ClassLoader cl;
 	
 	public void run() {
 		
-		//Clear references
+		// Clear references
 		DynamicLoader dl = null;
 		
-		//Dynamically start a new bot
-		dl = new DynamicLoader(Main.cl);
+		// Dynamically start a new bot
+		dl = new DynamicLoader(cl);
 		if (propagate) Thread.currentThread().setContextClassLoader(dl);
 		Class<?> clazz = dl.loadClass(botClass);
 		try {
-			clazz.getMethods()[1].invoke(null, (Object) args, (Object) true);
+			Object bot = clazz.newInstance();
+			for (Method m : clazz.getDeclaredMethods()) {
+				if (m.getName().equals("setup")) {
+					m.invoke(bot, args, true);
+				}
+			}
 		} catch (ClassCastException ex) {
-			//Do nothing
+			// Do nothing
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

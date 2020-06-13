@@ -28,7 +28,7 @@ public class PingCommand extends Command {
     public Result run(String[] args, MessageReceivedEvent e) {
         return new Result(Outcome.SUCCESS, String.format(
             ":ping_pong: **Pong!** `%s ms`\nUse `%sserver` to ping a server.",
-            Bot.shardManager.getAverageGatewayPing(), MessageUtils.getPrefix(e)
+				e.getJDA().getShardManager().getAverageGatewayPing(), MessageUtils.getPrefix(e)
         ));
     }
 

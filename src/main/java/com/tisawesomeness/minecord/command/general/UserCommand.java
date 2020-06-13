@@ -17,6 +17,7 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 import net.dv8tion.jda.api.requests.ErrorResponse;
+import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 
 public class UserCommand extends Command {
@@ -55,6 +56,7 @@ public class UserCommand extends Command {
     }
     
     public Result run(String[] args, MessageReceivedEvent e) {
+        ShardManager sm = e.getJDA().getShardManager();
 
         //If the author used the admin keyword and is an elevated user
         boolean elevated = false;
@@ -63,7 +65,7 @@ public class UserCommand extends Command {
             if (!args[0].matches(DiscordUtils.idRegex)) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
-            User u = Bot.shardManager.retrieveUserById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
+            User u = sm.retrieveUserById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
             if (u == null) {
                 long gid = Long.valueOf(args[0]);
                 String elevatedStr = String.format("Elevated: `%s`", Database.isElevated(gid));
@@ -85,7 +87,7 @@ public class UserCommand extends Command {
             // Since user caching is disabled, retrieveMember() is required
             // This may cause a lot of requests and lag, so it must be explicitly requested
             if (args.length > 2 && args[2].equals("mutual")) {
-                String mutualGuilds = Bot.shardManager.getGuilds().stream()
+                String mutualGuilds = sm.getGuilds().stream()
                     .filter(g -> {
                         try {
                             return g.retrieveMember(u).complete() != null;

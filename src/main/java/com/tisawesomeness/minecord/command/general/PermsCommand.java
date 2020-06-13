@@ -63,7 +63,7 @@ public class PermsCommand extends Command {
             if (!args[0].matches(DiscordUtils.idRegex)) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
-            c = Bot.shardManager.getTextChannelById(args[0]);
+            c = e.getJDA().getShardManager().getTextChannelById(args[0]);
             if (c == null) {
                 return new Result(Outcome.WARNING, ":warning: That channel does not exist.");
             }

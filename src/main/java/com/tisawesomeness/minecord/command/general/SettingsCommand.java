@@ -67,7 +67,7 @@ public class SettingsCommand extends Command {
             if (!args[0].matches(DiscordUtils.idRegex)) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
-            if (Bot.shardManager.getGuildById(args[0]) == null) {
+            if (e.getJDA().getShardManager().getGuildById(args[0]) == null) {
                 return new Result(Outcome.WARNING, ":warning: Minecord does not know that guild ID!");
             }
             gid = Long.valueOf(args[0]);

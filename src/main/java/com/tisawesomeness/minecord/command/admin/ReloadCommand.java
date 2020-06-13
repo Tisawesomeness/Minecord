@@ -39,23 +39,26 @@ public class ReloadCommand extends Command {
 		}
 		return "Reloads the config, announcement, and item/recipe files, and restarts the database and vote server.";
 	}
-	
+
 	public Result run(String[] args, MessageReceivedEvent e) {
+		return null;
+	}
+	public Result run(String[] args, MessageReceivedEvent e, Bot bot) {
 		
 		if (Config.getDevMode()) {
 			Message m = e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
-			Bot.shutdown(m, e.getAuthor());
+			bot.shutdown(m, e.getAuthor());
 		} else {
 			Message m = e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
 			try {
 				Database.close();
 				Database.init();
 				if (Config.getReceiveVotes()) {
-					VoteHandler.close();
+					bot.getVoteHandler().close();
 				}
-				Config.read(true);
+				Config.read(bot, true);
 				if (Config.getReceiveVotes()) {
-					VoteHandler.init();
+					bot.getVoteHandler().init();
 				}
 				Announcement.init(Config.getPath());
 				Item.init(Config.getPath());

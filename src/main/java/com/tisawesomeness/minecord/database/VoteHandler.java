@@ -6,6 +6,9 @@ import java.net.InetSocketAddress;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import net.dv8tion.jda.api.sharding.ShardManager;
 import org.json.JSONObject;
 
 import com.sun.net.httpserver.HttpExchange;
@@ -17,11 +20,13 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.entities.User;
 
+@RequiredArgsConstructor
 public class VoteHandler {
 	
-	private static HttpServer server;
+	private HttpServer server;
+	@NonNull private final ShardManager sm;
 	
-	public static void init() throws IOException {
+	public void init() throws IOException {
 		server = HttpServer.create(new InetSocketAddress(Config.getWebhookPort()), 0);
 		server.createContext("/" + Config.getWebhookURL(), new HttpHandler() {
 			
@@ -44,10 +49,15 @@ public class VoteHandler {
 					JSONObject o = new JSONObject(body);
 					boolean upvote = "upvote".equals(o.getString("type"));
 					String msg = upvote ? "Thanks for voting!" : "y u do dis";
-					User u = Bot.shardManager.getUserById(o.getString("user"));
-					u.openPrivateChannel().complete().sendMessage(msg).queue();
+					String id = o.getString("user");
+					User u = sm.getUserById(id);
 					msg = upvote ? "upvoted!" : "downvoted ;(";
-					MessageUtils.log(u.getName() + "#" + u.getDiscriminator() + " (`" + u.getId() + "`) " + msg);
+					if (u == null) {
+						MessageUtils.log(String.format("(`%s`) %s", id, msg));
+					} else {
+						u.openPrivateChannel().complete().sendMessage(msg).queue();
+						MessageUtils.log(String.format("%s (`%s`) %s", u.getAsTag(), id, msg));
+					}
 				}
 				
 				//Respond with "OK"
@@ -62,7 +72,7 @@ public class VoteHandler {
 		System.out.println("Web server started.");
 	}
 	
-	public static void close() {
+	public void close() {
 		if (server != null) server.stop(0);
 	}
 	

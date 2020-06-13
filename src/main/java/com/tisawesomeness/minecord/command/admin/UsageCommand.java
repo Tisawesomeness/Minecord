@@ -27,13 +27,16 @@ public class UsageCommand extends Command {
 			false
 		);
 	}
-	
+
 	public Result run(String[] args, MessageReceivedEvent e) {
+		return null;
+	}
+	public Result run(String[] args, MessageReceivedEvent e, Bot bot) {
 		String prefix = MessageUtils.getPrefix(e);
 
 		// Build usage message
 		EmbedBuilder eb = new EmbedBuilder()
-			.setTitle("Command usage for " + DateUtils.getUptime())
+			.setTitle("Command usage for " + DateUtils.getUptime(bot.getBirth()))
 			.setColor(Bot.color);
 		for (Module m : Registry.modules) {
 			String field = Arrays.asList(m.getCommands()).stream()

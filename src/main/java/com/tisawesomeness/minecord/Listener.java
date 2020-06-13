@@ -16,6 +16,8 @@ import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.ChannelType;
@@ -32,13 +34,12 @@ import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.sharding.ShardManager;
 
+@RequiredArgsConstructor
 public class Listener extends ListenerAdapter {
 
-	@Override
-	public void onReady(ReadyEvent e) {
-		Bot.readyShards++;
-	}
+	@NonNull private Bot bot;
 	
 	@Override
 	public void onMessageReceived(MessageReceivedEvent e) {
@@ -166,6 +167,9 @@ public class Listener extends ListenerAdapter {
 		cmd.uses++;
 		try {
 			result = cmd.run(args, e);
+			if (result == null) {
+				result = cmd.run(args, e, bot); // TODO replace with proper CommandContext
+			}
 		} catch (Exception ex) {
 			exception = ex;
 		}
@@ -225,47 +229,45 @@ public class Listener extends ListenerAdapter {
 			}
 		}
 	}
-	
+
 	@Override
-	public void onGenericGuild(GenericGuildEvent e) {
-		
-		//Get guild info
-		EmbedBuilder eb = new EmbedBuilder();
+	public void onGuildJoin(GuildJoinEvent e) {
 		Guild guild = e.getGuild();
 		Member owner = guild.getOwner();
-		
-		//Create embed
-		if (e instanceof GuildJoinEvent) {
-			
-			eb.setAuthor("Joined guild!", null, owner.getUser().getAvatarUrl());
-			eb.addField("Name", guild.getName(), true);
-			eb.addField("Guild ID", guild.getId(), true);
-			eb.addField("Owner", owner.getEffectiveName(), true);
-			eb.addField("Owner ID", owner.getUser().getId(), true);
-			eb.addField("Users", guild.getMembers().size() + "", true);
-			ArrayList<Member> users = new ArrayList<Member>(guild.getMembers());
-			for (Member u : new ArrayList<Member>(users)) {
-				if (u.getUser().isBot() || u.getUser().isFake()) {
-					users.remove(u);
-				}
+		ArrayList<Member> users = new ArrayList<Member>(guild.getMembers());
+		for (Member u : new ArrayList<Member>(users)) {
+			if (u.getUser().isBot() || u.getUser().isFake()) {
+				users.remove(u);
 			}
-			eb.addField("Humans", users.size() + "", true);
-			eb.addField("Bots", guild.getMembers().size() - users.size() + "", true);
-			eb.addField("Channels", guild.getTextChannels().size() + "", true);
-			
-		} else if (e instanceof GuildLeaveEvent) {
-			eb.setAuthor(owner.getEffectiveName() + " (" + owner.getUser().getId() + ")",
-				null, owner.getUser().getAvatarUrl());
-			eb.setDescription("Left guild `" + guild.getName() + "` (" + guild.getId() + ")");
-		} else {
-			return;
 		}
-		
+		EmbedBuilder eb = new EmbedBuilder()
+			.setAuthor("Joined guild!", null, owner.getUser().getAvatarUrl())
+			.addField("Name", guild.getName(), true)
+			.addField("Guild ID", guild.getId(), true)
+			.addField("Owner", owner.getEffectiveName(), true)
+			.addField("Owner ID", owner.getUser().getId(), true)
+			.addField("Users", guild.getMembers().size() + "", true)
+			.addField("Humans", users.size() + "", true)
+			.addField("Bots", guild.getMembers().size() - users.size() + "", true)
+			.addField("Channels", guild.getTextChannels().size() + "", true);
+		updateGuilds(eb, guild, e.getJDA().getShardManager());
+	}
+
+	@Override
+	public void onGuildLeave(GuildLeaveEvent e) {
+		Guild guild = e.getGuild();
+		User owner = guild.getOwner().getUser();
+		EmbedBuilder eb = new EmbedBuilder()
+			.setAuthor(owner.getAsTag(), null, owner.getAvatarUrl())
+			.setDescription(String.format("Left guild %s (`%s`)", guild.getName(), guild.getId()));
+		updateGuilds(eb, guild, e.getJDA().getShardManager());
+	}
+
+	private static void updateGuilds(EmbedBuilder eb, Guild guild, ShardManager sm) {
 		eb.setThumbnail(guild.getIconUrl());
 		MessageUtils.log(eb.build());
-		RequestUtils.sendGuilds();
-		DiscordUtils.update(); //Update guild, channel, and user count
-		
+		RequestUtils.sendGuilds(sm);
+		DiscordUtils.update(sm); // Update guild, channel, and user count
 	}
 	
 }

@@ -9,29 +9,32 @@ import java.util.ResourceBundle;
 
 public class Main {
 	
-	protected static ClassLoader cl;
+	private static ClassLoader cl;
 
-	//Store data between reloads
+	// Store data between reloads
 	private static ShardManager shards;
 	private static User user;
 	private static Message message;
 	private static long birth;
 	
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		
-		if (!Bot.setup(args, false)) {
+		if (!new Bot().setup(args, false)) {
 			cl = Thread.currentThread().getContextClassLoader();
 			load(args);
 		}
 		
 	}
-	
-	//Start loader
-	public static void load(String[] args) throws Exception {
-		new Thread(new Loader(args)).start();
+
+    /**
+     * Starts the dynamic loader in a new thread for use in hot code reloading
+     * @param args The program's args
+     */
+	public static void load(String[] args) {
+		new Thread(new Loader(args, cl)).start();
 	}
 	
-	//Getters and setters
+	// Getters and setters
 	public static Message getMessage(String ignore) {
 		return message;
 	}

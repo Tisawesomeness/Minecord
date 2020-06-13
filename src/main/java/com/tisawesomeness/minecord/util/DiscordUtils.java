@@ -8,13 +8,14 @@ import com.tisawesomeness.minecord.Config;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.sharding.ShardManager;
 
 public class DiscordUtils {
 
 	public static final String idRegex = "[0-9]{2,32}";
 	
-	public static void update() {
-		Bot.shardManager.setActivity(Activity.playing(parseAll(Config.getGame())));
+	public static void update(ShardManager sm) {
+		sm.setActivity(Activity.playing(parseAll(Config.getGame())));
 	}
 
 	/**
@@ -44,7 +45,9 @@ public class DiscordUtils {
 	 * @return The string with resolved variables, though constants such as {version} are unresolved
 	 */
 	public static String parseVariables(String input) {
-		return input.replace("{guilds}", String.valueOf(Bot.shardManager.getGuilds().size()));
+		// TODO currently not used, temporarily disabled
+//		return input.replace("{guilds}", String.valueOf(Bot.shardManager.getGuilds().size()));
+		return input;
 	}
 
 	/**
@@ -57,14 +60,14 @@ public class DiscordUtils {
 		return parseVariables(parseConstants(input));
 	}
 	
-	public static User findUser(String search) {
+	public static User findUser(String search, ShardManager sm) {
 		Matcher ma = Pattern.compile("(<@!?)?([0-9]{18})>?").matcher(search);
-		return ma.matches() ? Bot.shardManager.getUserById(ma.group(2)) : null;
+		return ma.matches() ? sm.getUserById(ma.group(2)) : null;
 	}
 	
-	public static TextChannel findChannel(String search) {
+	public static TextChannel findChannel(String search, ShardManager sm) {
 		Matcher ma = Pattern.compile("(<#)?([0-9]{18})>?").matcher(search);
-		return ma.matches() ? Bot.shardManager.getTextChannelById(ma.group(2)) : null;
+		return ma.matches() ? sm.getTextChannelById(ma.group(2)) : null;
 	}
 
 }

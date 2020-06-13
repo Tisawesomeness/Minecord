@@ -42,7 +42,7 @@ public class NameCommand extends Command {
 		}
 		
 		//Get guild
-		Guild guild = Bot.shardManager.getGuildById(args[0]);
+		Guild guild = e.getJDA().getShardManager().getGuildById(args[0]);
 		if (guild == null) return new Result(Outcome.ERROR, ":x: Not a valid guild!");
 		
 		//Check for permissions

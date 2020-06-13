@@ -45,11 +45,11 @@ public class Config {
 
 	private static String path;
 
-	public static void read(boolean reload) {
+	public static void read(Bot bot, boolean reload) {
 		
 		//Look for client token
 		if (!reload) {
-			List<String> args = Arrays.asList(Bot.args);
+			List<String> args = Arrays.asList(bot.args);
 			if (args.size() > 1 && args.contains("-t")) {
 				int index = args.indexOf("-t");
 				if (index + 1 < args.size()) {
@@ -60,18 +60,18 @@ public class Config {
 						clientToken = token;
 						args.remove(index);
 					}
-					Bot.args = args.toArray(new String[args.size()]);
+					bot.args = args.toArray(new String[args.size()]);
 				}
 			}
 		}
 		
 		//Parse config path
 		path = ".";
-		List<String> args = Arrays.asList(Bot.args);
+		List<String> args = Arrays.asList(bot.args);
 		if (args.size() > 1 && args.contains("-c")) {
 			int index = args.indexOf("-c");
-			if (index + 1 < Bot.args.length) {
-				path = Bot.args[index + 1];
+			if (index + 1 < bot.args.length) {
+				path = bot.args[index + 1];
 				System.out.println("Found custom config path: " + path);
 			}
 		}

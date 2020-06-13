@@ -23,6 +23,8 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
+
+import net.dv8tion.jda.api.sharding.ShardManager;
 import org.discordbots.api.client.DiscordBotListAPI;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -190,11 +192,12 @@ public class RequestUtils {
 
 	/**
 	 * Sends the guild count
+	 * @param sm The ShardManager used to determine the guild count
 	 */
-	public static void sendGuilds() {
+	public static void sendGuilds(ShardManager sm) {
 		if (Config.getSendServerCount()) {
-			int servers = Bot.shardManager.getGuilds().size();
-			String id = Bot.id;
+			int servers = sm.getGuilds().size();
+			String id = sm.getShardById(0).getSelfUser().getId();
 
 			String url = "https://bots.discord.pw/api/bots/" + id + "/stats";
 			String query = "{\"server_count\": " + servers + "}";
@@ -207,7 +210,7 @@ public class RequestUtils {
 			 */
 
 			List<Integer> serverCounts = new ArrayList<Integer>();
-			for (JDA jda : Bot.shardManager.getShards())
+			for (JDA jda : sm.getShards())
 				serverCounts.add(jda.getGuilds().size());
 			api.setStats(id, serverCounts);
 		}

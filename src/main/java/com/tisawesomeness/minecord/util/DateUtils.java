@@ -202,8 +202,8 @@ public class DateUtils {
 		return new SimpleDateFormat("MM/dd/yy hh:mm:ss a").format(new Date(timestamp));
 	}
 	
-	public static String getUptime() {
-		long uptimeRaw = System.currentTimeMillis() - Bot.birth;
+	public static String getUptime(long birth) {
+		long uptimeRaw = System.currentTimeMillis() - birth;
 		uptimeRaw = Math.floorDiv(uptimeRaw, 1000);
 		String uptime = "";
 		
@@ -235,8 +235,8 @@ public class DateUtils {
 	/**
 	 * Returns a string with the time the bot took to boot up, in seconds, to 3 decimal places
 	 */
-	public static String getBootTime() {
-		return (double) Bot.bootTime / 1000 + "s";
+	public static String getBootTime(long bootTime) {
+		return (double) bootTime / 1000 + "s";
 	}
 
 	/**

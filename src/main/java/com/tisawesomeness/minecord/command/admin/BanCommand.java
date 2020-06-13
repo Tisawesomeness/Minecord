@@ -11,6 +11,7 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.requests.ErrorResponse;
+import net.dv8tion.jda.api.sharding.ShardManager;
 
 public class BanCommand extends Command {
 
@@ -45,6 +46,7 @@ public class BanCommand extends Command {
 
 	@Override
 	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+		ShardManager sm = e.getJDA().getShardManager();
 		
 		//Check for proper argument length
 		if (args.length < 1) return new Result(Outcome.WARNING, ":warning: Not enough arguments.");
@@ -64,7 +66,7 @@ public class BanCommand extends Command {
 			boolean banned = Database.isBanned(gid);
 			Database.changeBannedUser(gid, !banned);
 			//Format message
-            User user = Bot.shardManager.retrieveUserById(args[1]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
+            User user = sm.retrieveUserById(args[1]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
 			String msg = user == null ? args[1] : user.getAsTag();
 			msg += banned ? " has been unbanned." : " was struck with the ban hammer!";
 			return new Result(Outcome.SUCCESS, msg);
@@ -76,7 +78,7 @@ public class BanCommand extends Command {
             if (!args[1].matches(DiscordUtils.idRegex)) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
-			Guild guild = Bot.shardManager.getGuildById(args[1]);
+			Guild guild = sm.getGuildById(args[1]);
 			if (guild != null && !Config.getLogChannel().equals("0") && guild.getId().equals(MessageUtils.logChannel.getGuild().getId())) {
 				return new Result(Outcome.WARNING, ":warning: You can't ban the guild with the log channel!");
 			}

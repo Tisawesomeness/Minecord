@@ -89,8 +89,9 @@ public class PurgeCommand extends Command {
 				ArrayList<Message> temp = new ArrayList<>();
 				List<Message> msgs = mh.retrievePast(25).complete(true);
 				boolean exit = false;
+				long botID = e.getJDA().getSelfUser().getIdLong();
 				for (Message m : msgs) {
-					if (m.getAuthor().getId().equals(Bot.id)) {
+					if (m.getAuthor().getIdLong() == botID) {
 						temp.add(m);
 					}
 					if (mine.size() + temp.size() >= num) {

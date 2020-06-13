@@ -41,7 +41,7 @@ public class SayCommand extends Command {
 		}
 		
 		//Extract channel
-		TextChannel channel = DiscordUtils.findChannel(args[0]);
+		TextChannel channel = DiscordUtils.findChannel(args[0], e.getJDA().getShardManager());
 		if (channel == null) return new Result(Outcome.ERROR, ":x: Not a valid channel!");
 		
 		//Send the message

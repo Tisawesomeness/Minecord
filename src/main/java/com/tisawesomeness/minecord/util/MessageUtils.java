@@ -64,8 +64,10 @@ public class MessageUtils {
 		if (Config.getOwner().equals("0")) {
 			return eb.setFooter(announcement);
 		}
-		User owner = Bot.shardManager.retrieveUserById(Config.getOwner()).complete();
-		return eb.setFooter(announcement, owner.getAvatarUrl());
+		// TODO temporarily disabled
+//		User owner = Bot.shardManager.retrieveUserById(Config.getOwner()).complete();
+//		return eb.setFooter(announcement, owner.getAvatarUrl());
+		return eb.setFooter(announcement);
 	}
 	
 	/**

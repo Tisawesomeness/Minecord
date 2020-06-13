@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command;
 
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command.CommandInfo;
 import com.tisawesomeness.minecord.command.Command.Result;
 
@@ -32,5 +33,8 @@ public interface ICommand {
 	 * @return The Result of the command.
 	 */
 	public Result run(String[] args, MessageReceivedEvent e) throws Exception;
+	public default Result run(String[] args, MessageReceivedEvent e, Bot bot) {
+		return null;
+	}
 
 }
