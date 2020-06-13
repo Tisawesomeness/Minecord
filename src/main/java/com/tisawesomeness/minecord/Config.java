@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -49,14 +50,14 @@ public class Config {
 		
 		//Look for client token
 		if (!reload) {
-			List<String> args = Arrays.asList(bot.args);
+			ArrayList<String> args = new ArrayList<>(Arrays.asList(bot.args));
 			if (args.size() > 1 && args.contains("-t")) {
 				int index = args.indexOf("-t");
 				if (index + 1 < args.size()) {
 					args.remove(index);
 					String token = args.get(index);
 					if (token.length() >= 32) {
-						System.out.println("Found custom client token: " + token);
+						System.out.println("Found custom client token");
 						clientToken = token;
 						args.remove(index);
 					}
