@@ -1,10 +1,8 @@
 package com.tisawesomeness.minecord;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.Registry;
@@ -234,22 +232,21 @@ public class Listener extends ListenerAdapter {
 	public void onGuildJoin(GuildJoinEvent e) {
 		Guild guild = e.getGuild();
 		Member owner = guild.getOwner();
-		ArrayList<Member> users = new ArrayList<Member>(guild.getMembers());
-		for (Member u : new ArrayList<Member>(users)) {
-			if (u.getUser().isBot() || u.getUser().isFake()) {
-				users.remove(u);
-			}
-		}
+		List<Member> members = guild.getMembers();
+		long size = members.stream()
+				.map(m -> m.getUser())
+				.filter(u -> !u.isBot() && !u.isFake())
+				.count();
 		EmbedBuilder eb = new EmbedBuilder()
 			.setAuthor("Joined guild!", null, owner.getUser().getAvatarUrl())
 			.addField("Name", guild.getName(), true)
 			.addField("Guild ID", guild.getId(), true)
 			.addField("Owner", owner.getEffectiveName(), true)
 			.addField("Owner ID", owner.getUser().getId(), true)
-			.addField("Users", guild.getMembers().size() + "", true)
-			.addField("Humans", users.size() + "", true)
-			.addField("Bots", guild.getMembers().size() - users.size() + "", true)
-			.addField("Channels", guild.getTextChannels().size() + "", true);
+			.addField("Users", String.valueOf(members.size()), true)
+			.addField("Humans", String.valueOf(size), true)
+			.addField("Bots", String.valueOf(members.size() - size), true)
+			.addField("Channels", String.valueOf(guild.getTextChannels().size()), true);
 		updateGuilds(eb, guild, e.getJDA().getShardManager());
 	}
 
