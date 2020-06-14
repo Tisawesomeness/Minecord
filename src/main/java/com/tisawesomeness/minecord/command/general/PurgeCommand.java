@@ -3,9 +3,8 @@ package com.tisawesomeness.minecord.command.general;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.command.CommandContext;
 
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
@@ -42,7 +41,9 @@ public class PurgeCommand extends Command {
 			"If deleting more than 50 messages, the bot must have *Manage Messages* permissions.\n";
 	}
 	
-	public Result run(String[] args, MessageReceivedEvent e) {
+	public Result run(CommandContext txt) {
+		String[] args = txt.args;
+		MessageReceivedEvent e = txt.e;
 
 		// Guild-only command
 		if (!e.isFromGuild()) {
@@ -50,8 +51,7 @@ public class PurgeCommand extends Command {
 		}
 		
 		//Check if user is elevated or has the manage messages permission
-		if (!Database.isElevated(e.getAuthor().getIdLong())
-				&& !e.getMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE)) {
+		if (!txt.isElevated && !e.getMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE)) {
 			return new Result(Outcome.WARNING, ":warning: You must have permission to manage messages in this channel!");
 		}
 		

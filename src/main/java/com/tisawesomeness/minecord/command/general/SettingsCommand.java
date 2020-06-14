@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.command.general;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
@@ -15,7 +16,6 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class SettingsCommand extends Command {
 
-    @Override
     public CommandInfo getInfo() {
         return new CommandInfo(
             "settings",
@@ -55,19 +55,20 @@ public class SettingsCommand extends Command {
             "- `{&}settings 347765748577468416 admin prefix mc!`\n";
     }
 
-    @Override
-    public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+    public Result run(CommandContext txt) throws Exception {
+        String[] args = txt.args;
+        MessageReceivedEvent e = txt.e;
 
         // If the author used the admin keyword and is an elevated user
-        String sourcePrefix = MessageUtils.getPrefix(e);
+        String sourcePrefix = txt.prefix;
         String targetPrefix;
         long gid;
         boolean elevated = false;
-		if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
+		if (args.length > 1 && args[1].equals("admin") && txt.isElevated) {
             if (!args[0].matches(DiscordUtils.idRegex)) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
-            if (e.getJDA().getShardManager().getGuildById(args[0]) == null) {
+            if (txt.bot.getShardManager().getGuildById(args[0]) == null) {
                 return new Result(Outcome.WARNING, ":warning: Minecord does not know that guild ID!");
             }
             gid = Long.valueOf(args[0]);

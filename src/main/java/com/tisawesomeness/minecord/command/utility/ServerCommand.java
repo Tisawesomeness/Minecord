@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
@@ -18,7 +19,6 @@ import br.com.azalim.mcserverping.MCPingResponse;
 import br.com.azalim.mcserverping.MCPingUtil;
 import br.com.azalim.mcserverping.MCPingResponse.Player;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 
 import java.io.IOException;
@@ -54,15 +54,15 @@ public class ServerCommand extends Command {
 			"- `{&}server mc.example.com:25566`\n";
 	}
 	
-	public Result run(String[] args, MessageReceivedEvent e) {
+	public Result run(CommandContext txt) {
 		
 		// Parse arguments
-		if (args.length == 0) {
+		if (txt.args.length == 0) {
 			String m = ":warning: You must specify a server." +
-				"\n" + MessageUtils.getPrefix(e) + "server <address>[:port]";
+				"\n" + txt.prefix + "server <address>[:port]";
 			return new Result(Outcome.WARNING, m, 2);
 		}
-		String arg = args[0];
+		String arg = txt.args[0];
 		boolean ip = true;
 		if (!arg.matches(ipAddressRegex)) {
 			ip = false;
@@ -120,7 +120,7 @@ public class ServerCommand extends Command {
 		} else {
 			try {
 				byte[] data = Base64.getDecoder().decode(reply.getFavicon().replace("\n", "").split(",")[1]);
-				e.getChannel().sendFile(data, "favicon.png").embed(eb.setDescription(m).setThumbnail("attachment://favicon.png").build()).queue();
+				txt.e.getChannel().sendFile(data, "favicon.png").embed(eb.setDescription(m).setThumbnail("attachment://favicon.png").build()).queue();
 				return new Result(Outcome.SUCCESS);
 			} catch (IllegalArgumentException ex) {
 				ex.printStackTrace();

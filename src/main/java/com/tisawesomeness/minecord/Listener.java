@@ -2,9 +2,9 @@ package com.tisawesomeness.minecord;
 
 import java.util.*;
 import java.util.concurrent.Future;
-import java.util.stream.Collectors;
 
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.command.Command.CommandInfo;
 import com.tisawesomeness.minecord.command.Command.Outcome;
@@ -26,8 +26,6 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.Message.MentionType;
-import net.dv8tion.jda.api.events.ReadyEvent;
-import net.dv8tion.jda.api.events.guild.GenericGuildEvent;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -45,7 +43,7 @@ public class Listener extends ListenerAdapter {
 		if (m == null) return;
 
 		// Get all values that change based on channel type
-		String prefix = MessageUtils.getPrefix(e);
+		String prefix;
 		boolean deleteCommands = false;
 		boolean canEmbed = true;
 		if (e.isFromType(ChannelType.TEXT)) {
@@ -53,6 +51,7 @@ public class Listener extends ListenerAdapter {
 			TextChannel tc = e.getTextChannel();
 			if (!sm.hasPermission(e.getTextChannel(), Permission.MESSAGE_WRITE)) return;
 			if (Database.isBanned(e.getGuild().getIdLong())) return;
+			prefix = Database.getPrefix(e.getGuild().getIdLong());
 			deleteCommands = sm.hasPermission(tc, Permission.MESSAGE_MANAGE) &&
 					Database.getDeleteCommands(e.getGuild().getIdLong());
 			canEmbed = sm.hasPermission(tc, Permission.MESSAGE_EMBED_LINKS);
@@ -114,13 +113,14 @@ public class Listener extends ListenerAdapter {
 		MessageChannel c = e.getChannel();
 
 		//Check for elevation
-		if (ci.elevated && !Database.isElevated(a.getIdLong())) {
+		boolean isElevated = Database.isElevated(a.getIdLong());
+		if (ci.elevated && !isElevated) {
 			c.sendMessage(":warning: Insufficient permissions!").queue();
 			return;
 		}
 		
 		//Check for cooldowns, skipping if user is elevated
-		if (!(Config.getElevatedSkipCooldown() && Database.isElevated(a.getIdLong()))
+		if (!(Config.getElevatedSkipCooldown() && isElevated)
 				&& cmd.cooldowns.containsKey(a) && ci.cooldown > 0) {
 			long last = cmd.cooldowns.get(a);
 			if (System.currentTimeMillis() - ci.cooldown < last) {
@@ -159,15 +159,13 @@ public class Listener extends ListenerAdapter {
 		}
 		
 		//Run command
+		CommandContext txt = new CommandContext(args, e, bot, prefix, isElevated);
 		Result result = null;
 		Exception exception = null;
 		cmd.cooldowns.put(a, System.currentTimeMillis());
 		cmd.uses++;
 		try {
-			result = cmd.run(args, e);
-			if (result == null) {
-				result = cmd.run(args, e, bot); // TODO replace with proper CommandContext
-			}
+			result = cmd.run(txt);
 		} catch (Exception ex) {
 			exception = ex;
 		}

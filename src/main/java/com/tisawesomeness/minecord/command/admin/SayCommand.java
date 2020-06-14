@@ -1,13 +1,14 @@
 package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.entities.User;
 
 import java.util.Arrays;
 
@@ -33,27 +34,27 @@ public class SayCommand extends Command {
 			"`<channel>` is either a # channel name or an 18-digit ID.\n";
 	}
 	
-	public Result run(String[] args, MessageReceivedEvent e) {
+	public Result run(CommandContext txt) {
 		
 		//Check for proper argument length
-		if (args.length < 2) {
+		if (txt.args.length < 2) {
 			return new Result(Outcome.WARNING, ":warning: Please specify a message.");
 		}
 		
 		//Extract channel
-		TextChannel channel = DiscordUtils.findChannel(args[0], e.getJDA().getShardManager());
+		TextChannel channel = DiscordUtils.findChannel(txt.args[0], txt.bot.getShardManager());
 		if (channel == null) return new Result(Outcome.ERROR, ":x: Not a valid channel!");
 		
 		//Send the message
-		String msg = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+		String msg = String.join(" ", Arrays.copyOfRange(txt.args, 1, txt.args.length));
 		channel.sendMessage(msg).queue();
 		
 		//Log it
 		EmbedBuilder eb = new EmbedBuilder();
 		Guild guild = channel.getGuild();
-		eb.setAuthor(e.getAuthor().getName() + " (" + e.getAuthor().getId() + ")",
-			null, e.getAuthor().getAvatarUrl());
-		eb.setDescription("**Sent a msg to `" + channel.getName() + "` (" + channel.getId() + ")**\non `" +
+		User a = txt.e.getAuthor();
+		eb.setAuthor(a.getAsTag() + " (`" + a.getId() + "`)", null, a.getAvatarUrl());
+		eb.setDescription("**Sent a msg to `" + channel.getName() + "` (`" + channel.getId() + "`)**\non `" +
 			guild.getName() + "` (" + guild.getId() + "):\n" + msg);
 		eb.setThumbnail(guild.getIconUrl());
 		MessageUtils.log(eb.build());

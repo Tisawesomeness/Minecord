@@ -1,40 +1,33 @@
 package com.tisawesomeness.minecord.command;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command.CommandInfo;
 import com.tisawesomeness.minecord.command.Command.Result;
-
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public interface ICommand {
 	
 	/**
 	 * @return The command info.
 	 */
-	public CommandInfo getInfo();
+	CommandInfo getInfo();
 
 	/**
 	 * Defines the help text shown by &help <command>.
-	 * Use {&} to substitute the current prefix, or {@} to substitute the bot mention.
+	 * Use {&} to substitute the current prefix, or {\@} to substitute the bot mention.
 	 * @return Never-null help string
 	 */
-	public default String getHelp() {
+	default String getHelp() {
 		return getInfo().description + "\n";
 	}
 
-	public default String getAdminHelp() {
+	default String getAdminHelp() {
 		return getHelp();
 	}
 	
 	/**
 	 * This method is called when the command is run.
-	 * @param args The list of arguments passed in by the user, separated by spaces.
-	 * @param e The message event.
+	 * @param txt The message-specific context.
 	 * @return The Result of the command.
 	 */
-	public Result run(String[] args, MessageReceivedEvent e) throws Exception;
-	public default Result run(String[] args, MessageReceivedEvent e, Bot bot) {
-		return null;
-	}
+	Result run(CommandContext txt) throws Exception;
 
 }

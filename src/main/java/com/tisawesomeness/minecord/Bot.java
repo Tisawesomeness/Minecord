@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -52,19 +53,19 @@ public class Bot {
 			GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS);
 	private static final EnumSet<CacheFlag> disabledCacheFlags = EnumSet.of(
 			CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOTE, CacheFlag.VOICE_STATE);
-	
-	public ShardManager shardManager;
+
 	private long id;
 	private Listener listener;
 	private ReactListener reactListener;
 	private ReadyListener readyListener;
-	@Getter private VoteHandler voteHandler;
-	@Getter private long birth;
-	@Getter private long bootTime;
 	public String[] args;
 	private Thread thread;
 	private ReloadHandler rl;
-	@Setter private PersistPackage pack = null;
+	@Getter private ShardManager shardManager;
+	@Getter private VoteHandler voteHandler;
+	@Getter private long birth;
+	@Getter private long bootTime;
+	@Setter(AccessLevel.PROTECTED) private PersistPackage pack = null;
 
 	private volatile int readyShards = 0;
 	

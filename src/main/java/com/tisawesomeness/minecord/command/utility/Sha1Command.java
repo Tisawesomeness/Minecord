@@ -1,9 +1,8 @@
 package com.tisawesomeness.minecord.command.utility;
 
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.RequestUtils;
-
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class Sha1Command extends Command {
 
@@ -29,11 +28,11 @@ public class Sha1Command extends Command {
             "- `{&}sha1 mc.hypixel.net`\n";
     }
 
-    public Result run(String[] args, MessageReceivedEvent e) throws Exception {
-        if (args.length == 0) {
+    public Result run(CommandContext txt) throws Exception {
+        if (txt.args.length == 0) {
             return new Result(Outcome.WARNING, ":warning: You must specify some text to hash.");
         }
-        return new Result(Outcome.SUCCESS, RequestUtils.sha1(String.join(" ", args)));
+        return new Result(Outcome.SUCCESS, RequestUtils.sha1(String.join(" ", txt.args)));
     }
 
 }

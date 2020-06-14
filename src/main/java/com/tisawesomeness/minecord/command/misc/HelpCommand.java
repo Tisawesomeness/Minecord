@@ -5,13 +5,13 @@ import java.util.stream.Collectors;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.Module;
 import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class HelpCommand extends Command {
 	
@@ -55,10 +55,12 @@ public class HelpCommand extends Command {
 			"- `{&}help settings admin`\n";
 	}
 	
-	public Result run(String[] args, MessageReceivedEvent e) {
-		String prefix = MessageUtils.getPrefix(e);
+	public Result run(CommandContext txt) {
+		String[] args = txt.args;
+		String prefix = txt.prefix;
+
 		EmbedBuilder eb = new EmbedBuilder().setColor(Bot.color);
-		String url = e.getJDA().getSelfUser().getEffectiveAvatarUrl();
+		String url = txt.e.getJDA().getSelfUser().getEffectiveAvatarUrl();
 
 		// General help
 		if (args.length == 0) {
@@ -88,7 +90,7 @@ public class HelpCommand extends Command {
 		// Module help
 		Module m = Registry.getModule(args[0]);
 		if (m != null) {
-			if (m.isHidden() && !Database.isElevated(e.getAuthor().getIdLong())) {
+			if (m.isHidden() && !txt.isElevated) {
 				return new Result(Outcome.WARNING, ":warning: You do not have permission to view that module.");
 			}
 			String mUsage = Arrays.asList(m.getCommands()).stream()
@@ -116,7 +118,7 @@ public class HelpCommand extends Command {
 		if (c != null) {
 			// Elevation check
 			CommandInfo ci = c.getInfo();
-			if (ci.elevated && !Database.isElevated(e.getAuthor().getIdLong())) {
+			if (ci.elevated && !txt.isElevated) {
 				return new Result(Outcome.WARNING, ":warning: You do not have permission to view that command.");
 			}
 			// Admin check
@@ -127,7 +129,7 @@ public class HelpCommand extends Command {
 				help = c.getHelp();
 			}
 			// {@} and {&} substitution
-			help = help.replace("{@}", e.getJDA().getSelfUser().getAsMention()).replace("{&}", prefix);
+			help = help.replace("{@}", txt.e.getJDA().getSelfUser().getAsMention()).replace("{&}", prefix);
 			// Alias list formatted with prefix in code blocks
 			if (ci.aliases.length > 0) {
 				String aliases = Arrays.asList(ci.aliases).stream()

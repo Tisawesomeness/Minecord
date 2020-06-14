@@ -4,13 +4,13 @@ import java.util.Arrays;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class UuidCommand extends Command {
 	
@@ -40,22 +40,21 @@ public class UuidCommand extends Command {
 			"`{&}uuid 069a79f4-44e9-4726-a5be-fca90e38aaf5 3/26`\n";
 	}
 	
-	public Result run(String[] args, MessageReceivedEvent e) {
-		String prefix = MessageUtils.getPrefix(e);
+	public Result run(CommandContext txt) {
 		
 		// No arguments message
-		if (args.length == 0) {
+		if (txt.args.length == 0) {
 			return new Result(Outcome.WARNING, ":warning: You must specify a player.", 5);
 		}
 		
-		String username = args[0];
+		String username = txt.args[0];
 		String uuid = null;
 		
 		// Parse date argument
-		if (args.length > 1) {
-			long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
+		if (txt.args.length > 1) {
+			long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(txt.args, 1, txt.args.length));
 			if (timestamp == -1) {
-				return new Result(Outcome.WARNING, MessageUtils.dateErrorString(prefix, "uuid"));
+				return new Result(Outcome.WARNING, MessageUtils.dateErrorString(txt.prefix, "uuid"));
 			}
 			
 		// Get the UUID

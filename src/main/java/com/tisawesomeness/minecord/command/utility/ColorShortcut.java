@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.command.utility;
 
 import com.tisawesomeness.minecord.command.Command;
 
+import com.tisawesomeness.minecord.command.CommandContext;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class ColorShortcut extends Command {
@@ -30,8 +31,8 @@ public class ColorShortcut extends Command {
         return colorCmd.getHelp();
     }
 
-    public Result run(String[] args, MessageReceivedEvent e) throws Exception {
-        return colorCmd.run(new String[]{colorCode}, e);
+    public Result run(CommandContext txt) throws Exception {
+        return colorCmd.run(txt.withArgs(new String[]{colorCode}));
     }
 
 }

@@ -1,21 +1,19 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.requests.ErrorResponse;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
 public class BanCommand extends Command {
 
-	@Override
 	public CommandInfo getInfo() {
 		return new CommandInfo(
 			"ban",
@@ -44,9 +42,9 @@ public class BanCommand extends Command {
 			"Banned users and guilds will have all commands fail silently.\n";
 	}
 
-	@Override
-	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
-		ShardManager sm = e.getJDA().getShardManager();
+	public Result run(CommandContext txt) throws Exception {
+		ShardManager sm = txt.bot.getShardManager();
+		String[] args = txt.args;
 		
 		//Check for proper argument length
 		if (args.length < 1) return new Result(Outcome.WARNING, ":warning: Not enough arguments.");

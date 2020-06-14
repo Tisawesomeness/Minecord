@@ -5,12 +5,12 @@ import java.util.Arrays;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class AvatarCommand extends Command {
 	
@@ -41,14 +41,13 @@ public class AvatarCommand extends Command {
 			"`{&}avatar 069a79f4-44e9-4726-a5be-fca90e38aaf5 overlay`\n";
 	}
 	
-	public Result run(String[] argsOrig, MessageReceivedEvent e) {
-		String prefix = MessageUtils.getPrefix(e);
+	public Result run(CommandContext txt) {
 		
 		//No arguments message
-		if (argsOrig.length == 0) {
+		if (txt.args.length == 0) {
 			return new Result(Outcome.WARNING, ":warning: You must specify a player.", 5);
 		}
-		String[] args = argsOrig;
+		String[] args = txt.args;
 		
 		//Check for overlay argument
 		boolean overlay = false;
@@ -69,7 +68,7 @@ public class AvatarCommand extends Command {
 			if (args.length > 1) {
 				long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
 				if (timestamp == -1) {
-					return new Result(Outcome.WARNING, MessageUtils.dateErrorString(prefix, "avatar"));
+					return new Result(Outcome.WARNING, MessageUtils.dateErrorString(txt.prefix, "avatar"));
 				}
 				
 			//Get the UUID

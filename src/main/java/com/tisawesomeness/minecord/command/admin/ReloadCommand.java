@@ -7,13 +7,12 @@ import com.tisawesomeness.minecord.Announcement;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.database.VoteHandler;
 import com.tisawesomeness.minecord.item.Item;
 import com.tisawesomeness.minecord.item.Recipe;
 
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class ReloadCommand extends Command {
 	
@@ -40,16 +39,14 @@ public class ReloadCommand extends Command {
 		return "Reloads the config, announcement, and item/recipe files, and restarts the database and vote server.";
 	}
 
-	public Result run(String[] args, MessageReceivedEvent e) {
-		return null;
-	}
-	public Result run(String[] args, MessageReceivedEvent e, Bot bot) {
+	public Result run(CommandContext txt) {
+		Bot bot = txt.bot;
 		
 		if (Config.getDevMode()) {
-			Message m = e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
-			bot.shutdown(m, e.getAuthor());
+			Message m = txt.e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
+			bot.shutdown(m, txt.e.getAuthor());
 		} else {
-			Message m = e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
+			Message m = txt.e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
 			try {
 				Database.close();
 				Database.init();

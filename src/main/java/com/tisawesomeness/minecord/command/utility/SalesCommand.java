@@ -1,6 +1,8 @@
 package com.tisawesomeness.minecord.command.utility;
 
 import java.text.DecimalFormat;
+
+import com.tisawesomeness.minecord.command.CommandContext;
 import org.json.JSONObject;
 
 import com.tisawesomeness.minecord.Bot;
@@ -9,7 +11,6 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class SalesCommand extends Command {
 	
@@ -28,7 +29,7 @@ public class SalesCommand extends Command {
 		);
 	}
 	
-	public Result run(String[] args, MessageReceivedEvent e) {
+	public Result run(CommandContext txt) {
 		
 		//Send a request to Mojang
 		String payload = "{\"metricKeys\":[\"item_sold_minecraft\",\"prepaid_card_redeemed_minecraft\"]}";

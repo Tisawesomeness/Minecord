@@ -2,8 +2,8 @@ package com.tisawesomeness.minecord.command.general;
 
 import java.util.List;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.DateUtils;
@@ -50,15 +50,17 @@ public class RoleCommand extends Command {
             "- `{&}role 347797250266628108 admin`\n";
     }
 
-    public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+    public Result run(CommandContext txt) {
+        String[] args = txt.args;
+        MessageReceivedEvent e = txt.e;
 
         // Find role
         Role role = null;
         List<Role> roles = e.getGuild().getRoles();
         List<Role> mentioned = e.getMessage().getMentionedRoles();
         // Search for any role if admin
-		if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
-            role = e.getJDA().getShardManager().getRoleById(args[0]);
+		if (args.length > 1 && args[1].equals("admin") && txt.isElevated) {
+            role = txt.bot.getShardManager().getRoleById(args[0]);
         // Mentioned roles
         } else if (mentioned.size() > 0) {
             role = mentioned.get(0);

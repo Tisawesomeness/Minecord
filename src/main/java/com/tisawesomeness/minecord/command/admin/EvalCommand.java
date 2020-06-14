@@ -15,6 +15,7 @@ import javax.script.ScriptException;
 
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
@@ -25,7 +26,6 @@ import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 public class EvalCommand extends Command {
 
-	@Override
 	public CommandInfo getInfo() {
 		return new CommandInfo(
 			"eval",
@@ -51,11 +51,11 @@ public class EvalCommand extends Command {
 			"In case this fails, __**never request the bot token and never print all values of the jda or config.**__\n";
 	}
 
-	@Override
-	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+	public Result run(CommandContext txt) {
+		MessageReceivedEvent e = txt.e;
 		
 		// Parse args
-		if (args.length == 0) {
+		if (txt.args.length == 0) {
 			return new Result(Outcome.WARNING, "Missing code argument.");
 		}
 		
@@ -77,7 +77,7 @@ public class EvalCommand extends Command {
 		engine.put("help", help);
 		
 		// Extract code from message
-		String code = String.join(" ", args);
+		String code = String.join(" ", txt.args);
 		
 		// Evaluate code, and catch errors
 		Object output = null;

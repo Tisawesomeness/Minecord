@@ -6,11 +6,11 @@ import java.util.Arrays;
 import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.ReactMenu.MenuStatus;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.item.Item;
 import com.tisawesomeness.minecord.item.Recipe;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class RecipeCommand extends Command {
 
@@ -37,7 +37,8 @@ public class RecipeCommand extends Command {
 			Item.help + "\n";
 	}
 
-	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+	public Result run(CommandContext txt) {
+		String[] args = txt.args;
 
 		// Parse page number
 		int page = 0;
@@ -67,9 +68,9 @@ public class RecipeCommand extends Command {
 		}
 
 		// Create menu
-		MenuStatus status = ReactMenu.getMenuStatus(e);
+		MenuStatus status = ReactMenu.getMenuStatus(txt.e);
 		if (status.isValid()) {
-			new Recipe.RecipeMenu(recipes, page, "en_US").post(e.getChannel(), e.getAuthor());
+			new Recipe.RecipeMenu(recipes, page, "en_US").post(txt.e.getChannel(), txt.e.getAuthor());
 			return new Result(Outcome.SUCCESS);
 		}
 		EmbedBuilder eb = Recipe.displayImg(recipes.get(page), "en_US");

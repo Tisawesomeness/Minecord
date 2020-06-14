@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
@@ -55,15 +55,17 @@ public class PermsCommand extends Command {
     // Error message cannot be "you cannot see that channel" since it reveals the channel exists when the user couldn't have known that otherwise
     private static Result invalidChannel = new Result(Outcome.WARNING, ":warning: That channel does not exist in the current guild or is not visible to you.");
 
-    public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+    public Result run(CommandContext txt) {
+        String[] args = txt.args;
+        MessageReceivedEvent e = txt.e;
 
         TextChannel c;
         // Check any channel id if admin
-		if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
+		if (args.length > 1 && args[1].equals("admin") && txt.isElevated) {
             if (!args[0].matches(DiscordUtils.idRegex)) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
-            c = e.getJDA().getShardManager().getTextChannelById(args[0]);
+            c = txt.bot.getShardManager().getTextChannelById(args[0]);
             if (c == null) {
                 return new Result(Outcome.WARNING, ":warning: That channel does not exist.");
             }

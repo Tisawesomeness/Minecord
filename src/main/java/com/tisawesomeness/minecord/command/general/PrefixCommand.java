@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.general;
 
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.Database;
 
 import net.dv8tion.jda.api.Permission;
@@ -33,7 +34,9 @@ public class PrefixCommand extends Command {
 			"- {@}` prefix &`\n";
 	}
 	
-	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+	public Result run(CommandContext txt) throws Exception {
+		String[] args = txt.args;
+		MessageReceivedEvent e = txt.e;
 
 		// Guild-only command
 		if (!e.isFromGuild()) {
@@ -41,8 +44,7 @@ public class PrefixCommand extends Command {
 		}
 		
 		//Check if user is elevated or has the manage messages permission
-		if (!Database.isElevated(e.getAuthor().getIdLong())
-				&& !e.getMember().hasPermission(e.getTextChannel(), Permission.MANAGE_SERVER)) {
+		if (!txt.isElevated && !e.getMember().hasPermission(e.getTextChannel(), Permission.MANAGE_SERVER)) {
 			return new Result(Outcome.WARNING, ":warning: You must have manage server permissions!");
 		}
 

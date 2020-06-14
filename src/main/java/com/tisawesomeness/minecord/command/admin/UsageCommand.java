@@ -5,13 +5,13 @@ import java.util.stream.Collectors;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.Module;
 import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class UsageCommand extends Command {
 	
@@ -28,15 +28,12 @@ public class UsageCommand extends Command {
 		);
 	}
 
-	public Result run(String[] args, MessageReceivedEvent e) {
-		return null;
-	}
-	public Result run(String[] args, MessageReceivedEvent e, Bot bot) {
-		String prefix = MessageUtils.getPrefix(e);
+	public Result run(CommandContext txt) {
+		String prefix = txt.prefix;
 
 		// Build usage message
 		EmbedBuilder eb = new EmbedBuilder()
-			.setTitle("Command usage for " + DateUtils.getUptime(bot.getBirth()))
+			.setTitle("Command usage for " + DateUtils.getUptime(txt.bot.getBirth()))
 			.setColor(Bot.color);
 		for (Module m : Registry.modules) {
 			String field = Arrays.asList(m.getCommands()).stream()

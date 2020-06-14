@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.command.general;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
@@ -11,7 +12,6 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.Guild.BoostTier;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 import net.dv8tion.jda.api.utils.TimeUtil;
 
@@ -38,17 +38,18 @@ public class GuildCommand extends Command {
             "- `{&}guild 347765748577468416 admin`\n";
     }
     
-    public Result run(String[] args, MessageReceivedEvent e) {
+    public Result run(CommandContext txt) {
+        String[] args = txt.args;
 
         // If the author used the admin keyword and is an elevated user
         boolean elevated = false;
         Guild g;
-		if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
+		if (args.length > 1 && args[1].equals("admin") && txt.isElevated) {
             elevated = true;
             if (!args[0].matches(DiscordUtils.idRegex)) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
-            g = e.getJDA().getShardManager().getGuildById(args[0]);
+            g = txt.bot.getShardManager().getGuildById(args[0]);
             if (g == null) {
                 long gid = Long.valueOf(args[0]);
                 if (Database.isBanned(gid)) {
@@ -57,10 +58,10 @@ public class GuildCommand extends Command {
                 return new Result(Outcome.SUCCESS, getSettingsStr(gid));
             }
         } else {
-            if (!e.isFromGuild()) {
+            if (!txt.e.isFromGuild()) {
                 return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
             }
-            g = e.getGuild();
+            g = txt.e.getGuild();
         }
         User owner = g.retrieveOwner().complete().getUser();
 

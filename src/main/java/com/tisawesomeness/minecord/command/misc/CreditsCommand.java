@@ -3,8 +3,8 @@ package com.tisawesomeness.minecord.command.misc;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 
+import com.tisawesomeness.minecord.command.CommandContext;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 public class CreditsCommand extends Command {
@@ -39,7 +39,7 @@ public class CreditsCommand extends Command {
             MarkdownUtil.maskedLink("LabyMod", "https://www.labymod.net") + ", " +
             MarkdownUtil.maskedLink("MinecraftCapes", "https://www.minecraftcapes.co.uk");
 
-    public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+    public Result run(CommandContext txt) {
         EmbedBuilder eb = new EmbedBuilder()
             .setTitle("Minecord Credits")
             .setColor(Bot.color)

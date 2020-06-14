@@ -4,13 +4,13 @@ import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class MsgCommand extends Command {
 	
@@ -30,7 +30,8 @@ public class MsgCommand extends Command {
 		);
 	}
 	
-	public Result run(String[] args, MessageReceivedEvent e) {
+	public Result run(CommandContext txt) {
+		String[] args = txt.args;
 		
 		//Check for proper argument length
 		if (args.length < 2) {
@@ -38,7 +39,7 @@ public class MsgCommand extends Command {
 		}
 		
 		//Extract user
-		User user = DiscordUtils.findUser(args[0], e.getJDA().getShardManager());
+		User user = DiscordUtils.findUser(args[0], txt.bot.getShardManager());
 		if (user == null) return new Result(Outcome.ERROR, ":x: Not a valid user!");
 		
 		//Send the message
@@ -53,9 +54,9 @@ public class MsgCommand extends Command {
 		}
 		
 		EmbedBuilder eb = new EmbedBuilder();
-		eb.setAuthor(e.getAuthor().getName() + " (" + e.getAuthor().getId() + ")",
-			null, e.getAuthor().getAvatarUrl());
-		eb.setDescription("**Sent a DM to " + user.getName() + " (" + user.getId() + "):**\n" + msg);
+		User a = txt.e.getAuthor();
+		eb.setAuthor(a.getAsTag() + " (`" + a.getId() + "`)", null, a.getAvatarUrl());
+		eb.setDescription("**Sent a DM to " + user.getAsTag() + " (`" + user.getId() + "`):**\n" + msg);
 		eb.setThumbnail(user.getAvatarUrl());
 		MessageUtils.log(eb.build());
 		

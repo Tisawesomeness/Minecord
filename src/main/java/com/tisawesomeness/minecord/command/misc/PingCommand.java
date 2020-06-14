@@ -1,10 +1,8 @@
 package com.tisawesomeness.minecord.command.misc;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.MessageUtils;
-
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class PingCommand extends Command {
 
@@ -25,10 +23,10 @@ public class PingCommand extends Command {
 		return "Pings the bot.\nUse {&}server to ping a server.\n";
 	}
     
-    public Result run(String[] args, MessageReceivedEvent e) {
+    public Result run(CommandContext txt) {
         return new Result(Outcome.SUCCESS, String.format(
             ":ping_pong: **Pong!** `%s ms`\nUse `%sserver` to ping a server.",
-				e.getJDA().getShardManager().getAverageGatewayPing(), MessageUtils.getPrefix(e)
+				txt.bot.getShardManager().getAverageGatewayPing(), txt.prefix
         ));
     }
 

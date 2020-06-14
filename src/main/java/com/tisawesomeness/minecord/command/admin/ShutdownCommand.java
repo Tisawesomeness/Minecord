@@ -1,9 +1,8 @@
 package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.MessageUtils;
-
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class ShutdownCommand extends Command {
 	
@@ -24,10 +23,10 @@ public class ShutdownCommand extends Command {
 		return "Shuts down the bot. Note that the bot may reboot if it is run by a restart script.\n";
 	}
 	
-	public Result run(String[] args, MessageReceivedEvent e) {
-		MessageUtils.log(":x: **Bot shut down by " + e.getAuthor().getName() + "**");
-		e.getChannel().sendMessage(":wave: Goodbye!").complete();
-		e.getJDA().shutdown();
+	public Result run(CommandContext txt) {
+		MessageUtils.log(":x: **Bot shut down by " + txt.e.getAuthor().getName() + "**");
+		txt.e.getChannel().sendMessage(":wave: Goodbye!").complete();
+		txt.e.getJDA().shutdown();
 		System.exit(0);
 		return new Result(Outcome.SUCCESS);
 	}

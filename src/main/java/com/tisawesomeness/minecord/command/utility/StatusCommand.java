@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.command.utility;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import com.tisawesomeness.minecord.command.CommandContext;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -11,7 +12,6 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class StatusCommand extends Command {
 	
@@ -28,7 +28,7 @@ public class StatusCommand extends Command {
 		);
 	}
 	
-	public Result run(String[] args, MessageReceivedEvent e) {
+	public Result run(CommandContext txt) {
 		
 		//Request information from Mojang
 		String request = RequestUtils.get("https://status.mojang.com/check");

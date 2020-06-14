@@ -138,15 +138,6 @@ public class MessageUtils {
 	}
 
 	/**
-	 * Gets the prefix the bot should use in a text or private channel
-	 * @param e The event corresponding to a command
-	 * @return The configured prefix if e is for a text channel, or the default otherwise
-	 */
-	public static String getPrefix(MessageReceivedEvent e) {
-		return e.isFromGuild() ? Database.getPrefix(e.getGuild().getIdLong()) : Config.getPrefix();
-	}
-
-	/**
 	 * Splits a string with newlines into groups, making sure that every group is a whole number of lines and at most the max length.
 	 * The provided String is split into lines, then stored in an ArrayList that follows the other methods specifications.
 	 * If a line is over the max length, it is split into multiple lines.

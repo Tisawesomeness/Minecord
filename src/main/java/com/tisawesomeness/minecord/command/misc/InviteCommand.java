@@ -3,10 +3,10 @@ package com.tisawesomeness.minecord.command.misc;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class InviteCommand extends Command {
 	
@@ -23,7 +23,7 @@ public class InviteCommand extends Command {
 		);
 	}
 	
-	public Result run(String[] args, MessageReceivedEvent e) {
+	public Result run(CommandContext txt) {
 		EmbedBuilder eb = new EmbedBuilder();
 		eb.addField("Invite me!", Config.getInvite(), false);
 		eb.addField("Help server", Bot.helpServer, false);

@@ -1,11 +1,11 @@
 package com.tisawesomeness.minecord.command.utility;
 
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.item.Item;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class ItemCommand extends Command {
 	
@@ -29,18 +29,18 @@ public class ItemCommand extends Command {
 			Item.help + "\n";
 	}
 
-	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+	public Result run(CommandContext txt) {
 		// Check for argument length
-		if (args.length == 0) {
+		if (txt.args.length == 0) {
 			return new Result(Outcome.WARNING, ":warning: You must specify an item!");
 		}
 		
 		// Search through the item database
-		String item = Item.search(String.join(" ", args), "en_US");
+		String item = Item.search(String.join(" ", txt.args), "en_US");
 		
 		MessageUtils.log(
 			"Item command executed" +
-			"\nCommand: `" + e.getMessage().getContentDisplay() + "`" +
+			"\nCommand: `" + txt.e.getMessage().getContentDisplay() + "`" +
 			"\nItem: `" + item + "`"
 		);
 		
@@ -52,7 +52,7 @@ public class ItemCommand extends Command {
 		}
 		
 		// Build message
-		EmbedBuilder eb = Item.display(item, "en_US", MessageUtils.getPrefix(e));
+		EmbedBuilder eb = Item.display(item, "en_US", txt.prefix);
 		eb.setFooter("See an error? Please report them at https://goo.gl/KWCxis", null);
 		// eb = MessageUtils.addFooter(eb);
 		

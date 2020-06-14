@@ -2,11 +2,11 @@ package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class DemoteCommand extends Command {
 	
@@ -26,14 +26,14 @@ public class DemoteCommand extends Command {
 		);
 	}
 	
-	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+	public Result run(CommandContext txt) throws Exception {
 
-		if (args.length == 0) {
+		if (txt.args.length == 0) {
 			return new Result(Outcome.WARNING, ":warning: You must specify a user!");
 		}
 
 		//Extract user
-		User user = DiscordUtils.findUser(args[0], e.getJDA().getShardManager());
+		User user = DiscordUtils.findUser(txt.args[0], txt.bot.getShardManager());
 		if (user == null) return new Result(Outcome.ERROR, ":x: Not a valid user!");
 		long id = user.getIdLong();
 		
@@ -49,9 +49,7 @@ public class DemoteCommand extends Command {
 		
 		//Demote user
 		Database.changeElevated(id, false);
-		return new Result(Outcome.SUCCESS,
-			":arrow_down: Demoted " + user.getName() + "#" + user.getDiscriminator()
-		);
+		return new Result(Outcome.SUCCESS, ":arrow_down: Demoted " + user.getAsTag());
 		
 	}
 

@@ -6,13 +6,12 @@ import java.text.StringCharacterIterator;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
@@ -36,16 +35,13 @@ public class InfoCommand extends Command {
 			"`{&}info admin` - Include memory usage and boot time.\n";
 	}
 
-	public Result run(String[] args, MessageReceivedEvent e) {
-		return null;
-	}
-	public Result run(String[] args, MessageReceivedEvent e, Bot bot) {
-		ShardManager sm = e.getJDA().getShardManager();
+	public Result run(CommandContext txt) {
+		ShardManager sm = txt.bot.getShardManager();
 		DiscordUtils.update(sm);
 		
 		// If the author used the admin keyword and is an elevated user
 		boolean elevated = false;
-		if (args.length > 0 && args[0].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
+		if (txt.args.length > 0 && txt.args[0].equals("admin") && txt.isElevated) {
 			elevated = true;
 		}
 		
@@ -58,17 +54,17 @@ public class InfoCommand extends Command {
 		
 		String guilds = sm.getGuilds().size() + "";
 		if (Config.getShardCount() > 1) {
-			String shards = e.getJDA().getShardInfo().getShardId() + 1 + "/" + Config.getShardCount();
+			String shards = txt.e.getJDA().getShardInfo().getShardId() + 1 + "/" + Config.getShardCount();
 			eb.addField("Shard", shards, true);
-			guilds += " {" + e.getJDA().getGuilds().size() + "}";
+			guilds += " {" + txt.e.getJDA().getGuilds().size() + "}";
 		}
 		eb.addField("Guilds", guilds + "", true);
 		
-		eb.addField("Uptime", DateUtils.getUptime(bot.getBirth()), true);
+		eb.addField("Uptime", DateUtils.getUptime(txt.bot.getBirth()), true);
 		eb.addField("Ping", sm.getAverageGatewayPing() + "ms", true);
 		if (Config.getShowMemory() || elevated) {
 			eb.addField("Memory", getMemoryString(), true);
-			eb.addField("Boot Time", DateUtils.getBootTime(bot.getBootTime()), true);
+			eb.addField("Boot Time", DateUtils.getBootTime(txt.bot.getBootTime()), true);
 		}
 		eb.addField("Java Version", MarkdownUtil.monospace(Bot.javaVersion), true);
 		eb.addField("JDA Version", MarkdownUtil.monospace(Bot.jdaVersion), true);
@@ -85,7 +81,7 @@ public class InfoCommand extends Command {
 
 	// Calculate memory
 	// From https://stackoverflow.com/questions/3758606/how-to-convert-byte-size-into-human-readable-format-in-java/3758880#3758880
-	public static String getMemoryString() {
+	private static String getMemoryString() {
 		long bytes = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 		long absB = bytes == Long.MIN_VALUE ? Long.MAX_VALUE : Math.abs(bytes);
 		if (absB < 1024) {

@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
@@ -14,7 +15,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 public class ProfileCommand extends Command {
@@ -46,20 +46,18 @@ public class ProfileCommand extends Command {
 			"`{&}profile 069a79f4-44e9-4726-a5be-fca90e38aaf5 3/26`\n";
 	}
 
-    @Override
-    public Result run(String[] args, MessageReceivedEvent e) throws Exception {
-		String prefix = MessageUtils.getPrefix(e);
+    public Result run(CommandContext txt) {
 		
 		// No arguments message
-		if (args.length == 0) {
+		if (txt.args.length == 0) {
 			String m = ":warning: Incorrect arguments." +
-				"\n" + prefix + "profile <username|uuid> [date] " +
+				"\n" + txt.prefix + "profile <username|uuid> [date] " +
 				"\n" + DateUtils.dateHelp;
 			return new Result(Outcome.WARNING, m, 5);
         }
 
 		// UUID --> Username
-		String player = args[0];
+		String player = txt.args[0];
 		if (player.matches(NameUtils.uuidRegex)) {
 			player = NameUtils.getName(player);
 
@@ -74,11 +72,11 @@ public class ProfileCommand extends Command {
             }
         
         // Username + Date --> UUID --> Username
-		} else if (args.length > 1) {
+		} else if (txt.args.length > 1) {
 			// Parse date argument
-            long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
+            long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(txt.args, 1, txt.args.length));
             if (timestamp == -1) {
-                return new Result(Outcome.WARNING, MessageUtils.dateErrorString(prefix, "skin"));
+                return new Result(Outcome.WARNING, MessageUtils.dateErrorString(txt.prefix, "skin"));
             }
 
             // Get the UUID

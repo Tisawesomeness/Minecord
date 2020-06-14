@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
@@ -38,7 +39,9 @@ public class RolesCommand extends Command {
             "- `{&}roles 211261249386708992`\n";
     }
 
-    public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+    public Result run(CommandContext txt) {
+        String[] args = txt.args;
+        MessageReceivedEvent e = txt.e;
         
         // Guild-only command
         if (!e.isFromGuild()) {
