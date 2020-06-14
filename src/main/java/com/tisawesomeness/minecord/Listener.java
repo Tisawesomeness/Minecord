@@ -35,7 +35,7 @@ import net.dv8tion.jda.api.sharding.ShardManager;
 @RequiredArgsConstructor
 public class Listener extends ListenerAdapter {
 
-	@NonNull private Bot bot;
+	private @NonNull Bot bot;
 	
 	@Override
 	public void onMessageReceived(MessageReceivedEvent e) {

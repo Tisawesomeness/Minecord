@@ -11,9 +11,9 @@ import net.dv8tion.jda.api.sharding.ShardManager;
  */
 @RequiredArgsConstructor(staticName = "of")
 public class PersistPackage {
-    @Getter @NonNull private final Message msg;
-    @Getter @NonNull private final String userTag;
-    @Getter @NonNull private final ShardManager shardManager;
+    @Getter private final @NonNull Message msg;
+    @Getter private final @NonNull String userTag;
+    @Getter private final @NonNull ShardManager shardManager;
     @Getter private final long birth;
 
     /**

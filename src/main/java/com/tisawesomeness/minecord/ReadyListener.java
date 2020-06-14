@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 @RequiredArgsConstructor
 public class ReadyListener extends ListenerAdapter {
 
-    @NonNull private final Bot bot;
+    private final @NonNull Bot bot;
 
     @Override
     public void onReady(ReadyEvent e) {

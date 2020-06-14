@@ -24,7 +24,7 @@ import net.dv8tion.jda.api.entities.User;
 public class VoteHandler {
 	
 	private HttpServer server;
-	@NonNull private final ShardManager sm;
+	private final @NonNull ShardManager sm;
 	
 	public void init() throws IOException {
 		server = HttpServer.create(new InetSocketAddress(Config.getWebhookPort()), 0);
