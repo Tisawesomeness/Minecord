@@ -3,8 +3,12 @@ package com.tisawesomeness.minecord.database;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +29,23 @@ public class VoteHandler {
 	
 	private HttpServer server;
 	private final @NonNull ShardManager sm;
-	
-	public void init() throws IOException {
+
+	private ExecutorService exe = Executors.newSingleThreadExecutor();
+	public Future<Boolean> start() {
+		return exe.submit(() -> {
+			if (!Config.getReceiveVotes()) {
+				return true;
+			}
+			try {
+				init();
+				return true;
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+			return false;
+		});
+	}
+	private void init() throws IOException {
 		server = HttpServer.create(new InetSocketAddress(Config.getWebhookPort()), 0);
 		server.createContext("/" + Config.getWebhookURL(), new HttpHandler() {
 			
@@ -73,6 +92,7 @@ public class VoteHandler {
 	}
 	
 	public void close() {
+		System.out.println("test");
 		if (server != null) server.stop(0);
 	}
 	

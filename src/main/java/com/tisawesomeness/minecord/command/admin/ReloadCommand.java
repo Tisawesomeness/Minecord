@@ -49,13 +49,13 @@ public class ReloadCommand extends Command {
 			Message m = txt.e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
 			try {
 				Database.close();
-				Database.init();
+				Database.start();
 				if (Config.getReceiveVotes()) {
 					bot.getVoteHandler().close();
 				}
 				Config.read(bot, true);
 				if (Config.getReceiveVotes()) {
-					bot.getVoteHandler().init();
+					bot.getVoteHandler().start();
 				}
 				Announcement.init(Config.getPath());
 				Item.init(Config.getPath());

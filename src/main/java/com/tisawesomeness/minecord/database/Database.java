@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import javax.sql.DataSource;
 
@@ -22,8 +25,20 @@ public class Database {
 	private static Connection getConnect() throws SQLException {
 		return source.getConnection();
 	}
-	
-	public static void init() throws SQLException {
+
+	private static ExecutorService exe = Executors.newSingleThreadExecutor();
+	public static Future<Boolean> start() {
+		return exe.submit(() -> {
+			try {
+				init();
+				return true;
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+			return false;
+		});
+	}
+	private static void init() throws SQLException {
 		
 		//Build database source
 		String url = "jdbc:";

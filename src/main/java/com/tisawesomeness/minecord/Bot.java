@@ -2,11 +2,12 @@ package com.tisawesomeness.minecord;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -65,7 +66,7 @@ public class Bot {
 	@Getter private VoteHandler voteHandler;
 	@Getter private long birth;
 	@Getter private long bootTime;
-	@Setter(AccessLevel.PROTECTED) private PersistPackage pack = null;
+	@Setter private PersistPackage pack = null;
 
 	private volatile int readyShards = 0;
 	
@@ -99,29 +100,8 @@ public class Bot {
 		ReactMenu.startPurgeThread();
 		Registry.init();
 		
-		//Connect to database
-		Thread db = new Thread(() -> {
-			try {
-				Database.init();
-			} catch (SQLException ex) {
-				ex.printStackTrace();
-			}
-		});
-		db.start();
-		
-		//Start web server
-		Thread ws = null;
-		if (Config.getReceiveVotes()) {
-			ws = new Thread(() -> {
-				voteHandler = new VoteHandler(shardManager);
-				try {
-					voteHandler.init();
-				} catch (IOException ex) {
-					ex.printStackTrace();
-				}
-			});
-			ws.start();
-		}
+		// Connect to database
+		Future<Boolean> db = Database.start();
 		
 		//Fetch main class
 		try {
@@ -176,12 +156,19 @@ public class Bot {
 			RequestUtils.api = new DiscordBotListAPI.Builder().token(Config.getOrgToken()).build();
 		}
 
-		//Wait for database and web server
+		// Wait for database
 		try {
-			db.join();
-			if (ws != null) ws.join();
-			System.out.println("Bot ready!");
-		} catch (InterruptedException ex) {}
+			if (!db.get()) {
+				return false;
+			}
+		} catch (InterruptedException | ExecutionException ex) {
+			return false;
+		}
+		System.out.println("Bot ready!");
+
+		// Start web server
+		voteHandler = new VoteHandler(shardManager);
+		Future<Boolean> ws = voteHandler.start();
 
 		//Update persistent bot info
 		if (!Config.getLogChannel().equals("0")) {
