@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +19,7 @@ import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.VoteHandler;
 import com.tisawesomeness.minecord.item.Item;
 import com.tisawesomeness.minecord.item.Recipe;
+import com.tisawesomeness.minecord.setting.SettingRegistry;
 import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
@@ -62,6 +62,7 @@ public class Bot {
 	public String[] args;
 	private Thread thread;
 	private ReloadHandler rl;
+	@Getter private SettingRegistry settings;
 	@Getter private ShardManager shardManager;
 	@Getter private VoteHandler voteHandler;
 	@Getter private long birth;
@@ -164,6 +165,10 @@ public class Bot {
 		} catch (InterruptedException | ExecutionException ex) {
 			return false;
 		}
+
+		// Create settings
+		settings = new SettingRegistry();
+
 		System.out.println("Bot ready!");
 
 		// Start web server

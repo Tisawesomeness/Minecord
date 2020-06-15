@@ -159,7 +159,7 @@ public class Listener extends ListenerAdapter {
 		}
 		
 		//Run command
-		CommandContext txt = new CommandContext(args, e, bot, prefix, isElevated);
+		CommandContext txt = new CommandContext(args, e, bot, isElevated, prefix, bot.getSettings());
 		Result result = null;
 		Exception exception = null;
 		cmd.cooldowns.put(a, System.currentTimeMillis());
