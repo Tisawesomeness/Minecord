@@ -1,5 +1,8 @@
 package com.tisawesomeness.minecord.setting;
 
+import com.tisawesomeness.minecord.setting.impl.DeleteCommandsSetting;
+import com.tisawesomeness.minecord.setting.impl.PrefixSetting;
+import com.tisawesomeness.minecord.setting.impl.UseMenusSetting;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -25,7 +28,10 @@ public class SettingTest {
     public void testSetUserSupport() {
         for (Setting<?> setting : settings) {
             if (!setting.supportsUsers()) {
-                assertEquals(SetStatus.UNSUPPORTED, setting.setUser(0, "dummy"));
+                String from = setting.getDefault().toString();
+                String to = "dummy";
+                String expected = SetStatus.UNSUPPORTED.getMsg(setting.getDisplayName(), from, to);
+                assertEquals(expected, setting.setUser(0, to));
             }
         }
     }
@@ -34,7 +40,10 @@ public class SettingTest {
     public void testSetGuildSupport() {
         for (Setting<?> setting : settings) {
             if (!setting.supportsGuilds()) {
-                assertEquals(SetStatus.UNSUPPORTED, setting.setGuild(0, "dummy"));
+                String from = setting.getDefault().toString();
+                String to = "dummy";
+                String expected = SetStatus.UNSUPPORTED.getMsg(setting.getDisplayName(), from, to);
+                assertEquals(expected, setting.setGuild(0, to));
             }
         }
     }
@@ -43,7 +52,9 @@ public class SettingTest {
     public void testResetUserSupport() {
         for (Setting<?> setting : settings) {
             if (!setting.supportsUsers()) {
-                assertEquals(SetStatus.UNSUPPORTED, setting.resetUser(0));
+                String from = setting.getDefault().toString();
+                String expected = SetStatus.UNSUPPORTED.getMsg(setting.getDisplayName(), from, "");
+                assertEquals(expected, setting.resetUser(0));
             }
         }
     }
@@ -52,7 +63,9 @@ public class SettingTest {
     public void testResetGuildSupport() {
         for (Setting<?> setting : settings) {
             if (!setting.supportsGuilds()) {
-                assertEquals(SetStatus.UNSUPPORTED, setting.resetGuild(0));
+                String from = setting.getDefault().toString();
+                String expected = SetStatus.UNSUPPORTED.getMsg(setting.getDisplayName(), from, "");
+                assertEquals(expected, setting.resetGuild(0));
             }
         }
     }

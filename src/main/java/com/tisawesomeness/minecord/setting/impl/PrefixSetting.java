@@ -1,7 +1,8 @@
-package com.tisawesomeness.minecord.setting;
+package com.tisawesomeness.minecord.setting.impl;
 
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.setting.Setting;
 import lombok.NonNull;
 
 import java.sql.SQLException;
@@ -32,7 +33,7 @@ public class PrefixSetting extends Setting<String> {
         return Optional.of(getDefault());
     }
     public Optional<String> getGuild(long id) {
-        return Optional.of(Database.getPrefix(id));
+        return Optional.ofNullable(Database.getPrefix(id));
     }
     public @NonNull String getDefault() {
         return Config.getPrefix();
@@ -45,7 +46,8 @@ public class PrefixSetting extends Setting<String> {
         try {
             Database.changePrefix(id, setting);
             return true;
-        } catch (SQLException ex) {
+//        } catch (SQLException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return false;
@@ -57,7 +59,10 @@ public class PrefixSetting extends Setting<String> {
         return false; // Not possible right now
     }
 
-    public Optional<String> resolve(String input) {
-        return Optional.empty();
+    public ResolveResult<String> resolve(String input) {
+        if (input.length() > 8) {
+            return new ResolveResult<>(Optional.empty(), "The prefix is too long!");
+        }
+        return new ResolveResult<>(Optional.of(input), null);
     }
 }

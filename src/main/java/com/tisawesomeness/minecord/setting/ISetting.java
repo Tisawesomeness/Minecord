@@ -1,6 +1,8 @@
 package com.tisawesomeness.minecord.setting;
 
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
 
@@ -54,7 +56,44 @@ public interface ISetting<T> {
     /**
      * Parses a setting from user input.
      * @param input The string input extracted from a Discord message.
-     * @return The setting's value or {@code null} if the input is invalid.
+     * @return The setting's value or a message describing why the input is invalid.
      */
-    Optional<T> resolve(@NonNull String input);
+    ResolveResult<T> resolve(@NonNull String input);
+
+    /**
+     * The result of the {@link #resolve(String input)} method, containing a setting value or a message explaining why the input was invalid.
+     * @param <T> The type of the setting.
+     */
+    @RequiredArgsConstructor
+    class ResolveResult<T> {
+        @Getter private final Optional<T> value;
+        private final String msg;
+
+        /**
+         * Creates a successful resolve result.
+         * @param val The value of the setting parsed from user input.
+         */
+        public ResolveResult(T val) {
+            this(Optional.of(val), null);
+        }
+        /**
+         * Creates a failed resolve result.
+         * @param msg The message to display.
+         */
+        public ResolveResult(String msg) {
+            this(Optional.empty(), msg);
+        }
+
+        /**
+         * Gets the status associated with a failed resolve.
+         * @throws UnsupportedOperationException When the value is valid.
+         */
+        public InvalidInputStatus toStatus() {
+            if (value.isPresent()) {
+                throw new UnsupportedOperationException("Resolve returned a valid value, use it.");
+            }
+            return new InvalidInputStatus(msg);
+        }
+    }
+
 }

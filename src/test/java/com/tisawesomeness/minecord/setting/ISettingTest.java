@@ -1,5 +1,8 @@
 package com.tisawesomeness.minecord.setting;
 
+import com.tisawesomeness.minecord.setting.impl.DeleteCommandsSetting;
+import com.tisawesomeness.minecord.setting.impl.PrefixSetting;
+import com.tisawesomeness.minecord.setting.impl.UseMenusSetting;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;

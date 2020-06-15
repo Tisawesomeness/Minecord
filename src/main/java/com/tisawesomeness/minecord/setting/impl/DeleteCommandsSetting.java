@@ -1,24 +1,24 @@
-package com.tisawesomeness.minecord.setting;
+package com.tisawesomeness.minecord.setting.impl;
 
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.setting.BooleanSetting;
 import lombok.NonNull;
 
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class UseMenusSetting extends BooleanSetting {
+public class DeleteCommandsSetting extends BooleanSetting {
     public @NonNull String getDisplayName() {
-        return "Use Menus";
+        return "Delete Commands";
     }
     public boolean isAlias(@NonNull String input) {
-        return input.equalsIgnoreCase("use menus");
+        return input.equalsIgnoreCase("delete commands");
     }
-    private static final String desc = "If enabled, the bot will use a reaction menu for `%srecipe` and `%singredient` if possible.\n" +
-            "Requires Manage Message and Add Reaction permissions.\n" +
-            "Possible values: `enabled`, `disabled`";
     public @NonNull String getDescription(String prefix, String tag) {
-        return String.format(desc, prefix, prefix);
+        return "If enabled, the bot will delete command messages to clear up space.\n" +
+                "Requires Manage Message permissions.\n" +
+                "Possible values: `enabled`, `disabled`";
     }
 
     public boolean supportsUsers() {
@@ -32,7 +32,7 @@ public class UseMenusSetting extends BooleanSetting {
         return Optional.of(false); // No permissions in DMs
     }
     public Optional<Boolean> getGuild(long id) {
-        return Optional.of(Database.getUseMenu(id));
+        return Optional.of(Database.getDeleteCommands(id));
     }
     public Boolean getDefault() {
         return Config.getDeleteCommands();

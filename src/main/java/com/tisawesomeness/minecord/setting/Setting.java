@@ -79,142 +79,162 @@ public abstract class Setting<T> implements ISetting<T> {
         return txt.e.isFromGuild() ? getEffective(txt.e.getGuild()) : getEffective(txt.e.getAuthor());
     }
 
+    private @NonNull SetResult setUserInternal(long id, String input, Optional<T> from, ResolveResult<T> toResult) {
+        if (!supportsUsers()) {
+            return SetStatus.UNSUPPORTED;
+        }
+        Optional<T> toOpt = toResult.getValue();
+        if (!toOpt.isPresent()) {
+            return toResult.toStatus();
+        }
+        T to = toOpt.get();
+        if (!from.isPresent() && to == getDefault()) {
+            return changeUser(id, to) ? SetStatus.SET_TO_DEFAULT : SetStatus.INTERNAL_FAILURE;
+        } else if (from.isPresent() && to == from.get()) {
+            return SetStatus.SET_NO_CHANGE;
+        }
+        return changeUser(id, to) ? SetStatus.SET : SetStatus.INTERNAL_FAILURE;
+    }
+    private @NonNull SetResult setGuildInternal(long id, String input, Optional<T> from, ResolveResult<T> toResult) {
+        if (!supportsGuilds()) {
+            return SetStatus.UNSUPPORTED;
+        }
+        Optional<T> toOpt = toResult.getValue();
+        if (!toOpt.isPresent()) {
+            return toResult.toStatus();
+        }
+        T to = toOpt.get();
+        if (!from.isPresent() && to == getDefault()) {
+            return changeGuild(id, to) ? SetStatus.SET_TO_DEFAULT : SetStatus.INTERNAL_FAILURE;
+        } else if (from.isPresent() && to == from.get()) {
+            return SetStatus.SET_NO_CHANGE;
+        }
+        return changeGuild(id, to) ? SetStatus.SET : SetStatus.INTERNAL_FAILURE;
+    }
+
     /**
      * Changes this setting for the user.
      * @param id The ID of the Discord user.
      * @param input The user-provided input to change the setting to. Resets if {@code null}.
-     * @return A status object representing the result of this function.
+     * @return The string describing the result of the set operation.
      */
-    public @NonNull SetStatus setUser(long id, @Nullable String input) {
-        if (!supportsUsers()) {
-            return SetStatus.UNSUPPORTED;
-        }
+    public @NonNull String setUser(long id, @Nullable String input) {
         if (input == null) {
             return resetUser(id);
         }
-        Optional<T> settingOpt = resolve(input);
-        if (!settingOpt.isPresent()) {
-            return SetStatus.INVALID_INPUT;
-        }
-        T setting = settingOpt.get();
-        Optional<T> currentOpt = getUser(id);
-        if (!currentOpt.isPresent() && setting == getDefault()) {
-            return changeUser(id, setting) ? SetStatus.UNSET_TO_DEFAULT : SetStatus.INTERNAL_FAILURE;
-        } else if (currentOpt.isPresent() && setting == currentOpt.get()) {
-            return SetStatus.SET_NO_CHANGE;
-        }
-        return changeUser(id, setting) ? SetStatus.SET : SetStatus.INTERNAL_FAILURE;
+        Optional<T> from = getUser(id);
+        ResolveResult<T> toResult = resolve(input);
+        return setUserInternal(id, input, from, toResult).getMsg(getDisplayName(),
+                from.orElse(getDefault()).toString(), toResult.getValue().orElse(getDefault()).toString());
     }
     /**
      * Changes this setting for the guild.
      * @param id The ID of the Discord guild.
      * @param input The user-provided input to change the setting to. Resets if {@code null}.
-     * @return A status object representing the result of this function.
+     * @return The string describing the result of the set operation.
      */
-    public @NonNull SetStatus setGuild(long id, @Nullable String input) {
-        if (!supportsGuilds()) {
-            return SetStatus.UNSUPPORTED;
-        }
+    public @NonNull String setGuild(long id, @Nullable String input) {
         if (input == null) {
             return resetGuild(id);
         }
-        Optional<T> settingOpt = resolve(input);
-        if (!settingOpt.isPresent()) {
-            return SetStatus.INVALID_INPUT;
-        }
-        T setting = settingOpt.get();
-        Optional<T> currentOpt = getGuild(id);
-        if (!currentOpt.isPresent() && setting == getDefault()) {
-            return changeGuild(id, setting) ? SetStatus.UNSET_TO_DEFAULT : SetStatus.INTERNAL_FAILURE;
-        } else if (currentOpt.isPresent() && setting == currentOpt.get()) {
-            return SetStatus.SET_NO_CHANGE;
-        }
-        return changeGuild(id, setting) ? SetStatus.SET : SetStatus.INTERNAL_FAILURE;
+        Optional<T> from = getGuild(id);
+        ResolveResult<T> toResult = resolve(input);
+        return setGuildInternal(id, input, from, toResult).getMsg(getDisplayName(),
+                from.orElse(getDefault()).toString(), toResult.getValue().orElse(getDefault()).toString());
     }
     /**
      * Changes this setting for the user.
      * @param u The Discord user.
      * @param input The user-provided input to change the setting to. Resets if {@code null}.
-     * @return A status object representing the result of this function.
+     * @return The string describing the result of the set operation.
      */
-    public @NonNull SetStatus set(@NonNull User u, @Nullable String input) {
+    public @NonNull String set(@NonNull User u, @Nullable String input) {
         return setUser(u.getIdLong(), input);
     }
     /**
      * Changes this setting for the guild.
      * @param g The Discord guild.
      * @param input The user-provided input to change the setting to. Resets if {@code null}.
-     * @return A status object representing the result of this function.
+     * @return The string describing the result of the set operation.
      */
-    public @NonNull SetStatus set(@NonNull Guild g, @Nullable String input) {
+    public @NonNull String set(@NonNull Guild g, @Nullable String input) {
         return setGuild(g.getIdLong(), input);
     }
     /**
      * Changes this setting for the current context.
      * @param txt The context of the executing command.
      * @param input The user-provided input to change the setting to. Resets if {@code null}.
-     * @return A status object representing the result of this function.
+     * @return The string describing the result of the set operation.
      */
-    public @NonNull SetStatus set(@NonNull CommandContext txt, @Nullable String input) {
+    public @NonNull String set(@NonNull CommandContext txt, @Nullable String input) {
         return txt.e.isFromGuild() ? set(txt.e.getGuild(), input) : set(txt.e.getAuthor(), input);
+    }
+
+    private @NonNull SetResult resetUserInternal(long id, Optional<T> from) {
+        if (!supportsUsers()) {
+            return SetStatus.UNSUPPORTED;
+        }
+        if (!from.isPresent()) {
+            return SetStatus.RESET_NO_CHANGE;
+        } else if (from.get() == getDefault()) {
+            return SetStatus.RESET_TO_DEFAULT;
+        }
+        return clearUser(id) ? SetStatus.RESET : SetStatus.INTERNAL_FAILURE;
+    }
+    private @NonNull SetResult resetGuildInternal(long id, Optional<T> from) {
+        if (!supportsGuilds()) {
+            return SetStatus.UNSUPPORTED;
+        }
+        if (!from.isPresent()) {
+            return SetStatus.RESET_NO_CHANGE;
+        } else if (from.get() == getDefault()) {
+            return SetStatus.RESET_TO_DEFAULT;
+        }
+        return clearGuild(id) ? SetStatus.RESET : SetStatus.INTERNAL_FAILURE;
     }
 
     /**
      * Resets this setting for the user. This "unsets" the setting and does NOT change it to the default.
      * @param id The ID of the Discord user.
-     * @return A status object representing the result of this function.
+     * @return The string describing the result of the set operation.
      */
-    public @NonNull SetStatus resetUser(long id) {
-        if (!supportsUsers()) {
-            return SetStatus.UNSUPPORTED;
-        }
-        Optional<T> current = getUser(id);
-        if (!current.isPresent()) {
-            return SetStatus.RESET_NO_CHANGE;
-        } else if (current.get() == getDefault()) {
-            return SetStatus.RESET_TO_DEFAULT;
-        }
-        return clearUser(id) ? SetStatus.RESET : SetStatus.INTERNAL_FAILURE;
+    public @NonNull String resetUser(long id) {
+        Optional<T> from = getUser(id);
+        return resetUserInternal(id, from).getMsg(getDisplayName(),
+                from.orElse(getDefault()).toString(), "");
     }
     /**
      * Resets this setting for the guild. This "unsets" the setting and does NOT change it to the default.
      * @param id The ID of the Discord guild.
-     * @return A status object representing the result of this function.
+     * @return The string describing the result of the set operation.
      */
-    public @NonNull SetStatus resetGuild(long id) {
-        if (!supportsGuilds()) {
-            return SetStatus.UNSUPPORTED;
-        }
-        Optional<T> current = getGuild(id);
-        if (!current.isPresent()) {
-            return SetStatus.RESET_NO_CHANGE;
-        } else if (current.get() == getDefault()) {
-            return SetStatus.RESET_TO_DEFAULT;
-        }
-        return clearGuild(id) ? SetStatus.RESET : SetStatus.INTERNAL_FAILURE;
+    public @NonNull String resetGuild(long id) {
+        Optional<T> from = getGuild(id);
+        return resetGuildInternal(id, from).getMsg(getDisplayName(),
+                from.orElse(getDefault()).toString(), "");
     }
     /**
      * Resets this setting for the user. This "unsets" the setting and does NOT change it to the default.
      * @param u The Discord user.
-     * @return A status object representing the result of this function.
+     * @return The string describing the result of the set operation.
      */
-    public @NonNull SetStatus reset(@NonNull User u) {
+    public @NonNull String reset(@NonNull User u) {
         return resetUser(u.getIdLong());
     }
     /**
      * Resets this setting for the guild. This "unsets" the setting and does NOT change it to the default.
      * @param g The Discord guild.
-     * @return A status object representing the result of this function.
+     * @return The string describing the result of the set operation.
      */
-    public @NonNull SetStatus reset(@NonNull Guild g) {
+    public @NonNull String reset(@NonNull Guild g) {
         return resetUser(g.getIdLong());
     }
     /**
      * Resets this setting for the current context. This "unsets" the setting and does NOT change it to the default.
      * @param txt The context of the executing command.
-     * @return A status object representing the result of this function.
+     * @return The string describing the result of the set operation.
      */
-    public @Nullable SetStatus reset(@NonNull CommandContext txt) {
+    public @Nullable String reset(@NonNull CommandContext txt) {
         return txt.e.isFromGuild() ? reset(txt.e.getGuild()) : reset(txt.e.getAuthor());
     }
 
@@ -240,10 +260,11 @@ public abstract class Setting<T> implements ISetting<T> {
      */
     protected abstract boolean clearUser(long id);
     /**
-     * <p>Resets the setting for the user, leaving it unset. {@link #getGuild(long id)} will return {@link #getDefault()}.</p>
+     * <p>Resets the setting for the guild, leaving it unset. {@link #getGuild(long id)} will return {@link #getDefault()}.</p>
      * <b>This is NOT equivalent to changing the setting to the default!</b> If the default value changes, then the setting for this guild will change also.
      * @param id The ID of the discord guild.
      * @return Whether the setting could be changed.
      */
-     protected abstract boolean clearGuild(long id);
+    protected abstract boolean clearGuild(long id);
+
 }
