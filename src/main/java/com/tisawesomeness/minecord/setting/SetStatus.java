@@ -11,5 +11,6 @@ public enum SetStatus {
     RESET_NO_CHANGE(),
     RESET_TO_DEFAULT(),
     INVALID_INPUT(),
-    INTERNAL_FAILURE()
+    INTERNAL_FAILURE(),
+    UNSUPPORTED()
 }

@@ -86,6 +86,9 @@ public abstract class Setting<T> implements ISetting<T> {
      * @return A status object representing the result of this function.
      */
     public @NonNull SetStatus setUser(long id, @Nullable String input) {
+        if (!supportsUsers()) {
+            return SetStatus.UNSUPPORTED;
+        }
         if (input == null) {
             return resetUser(id);
         }
@@ -109,6 +112,9 @@ public abstract class Setting<T> implements ISetting<T> {
      * @return A status object representing the result of this function.
      */
     public @NonNull SetStatus setGuild(long id, @Nullable String input) {
+        if (!supportsGuilds()) {
+            return SetStatus.UNSUPPORTED;
+        }
         if (input == null) {
             return resetGuild(id);
         }
@@ -159,6 +165,9 @@ public abstract class Setting<T> implements ISetting<T> {
      * @return A status object representing the result of this function.
      */
     public @NonNull SetStatus resetUser(long id) {
+        if (!supportsUsers()) {
+            return SetStatus.UNSUPPORTED;
+        }
         Optional<T> current = getUser(id);
         if (!current.isPresent()) {
             return SetStatus.RESET_NO_CHANGE;
@@ -173,6 +182,9 @@ public abstract class Setting<T> implements ISetting<T> {
      * @return A status object representing the result of this function.
      */
     public @NonNull SetStatus resetGuild(long id) {
+        if (!supportsGuilds()) {
+            return SetStatus.UNSUPPORTED;
+        }
         Optional<T> current = getGuild(id);
         if (!current.isPresent()) {
             return SetStatus.RESET_NO_CHANGE;

@@ -20,6 +20,13 @@ public class DeleteCommandsSetting extends BooleanSetting {
                 "Possible values: `enabled`, `disabled`";
     }
 
+    public boolean supportsUsers() {
+        return false;
+    }
+    public boolean supportsGuilds() {
+        return true;
+    }
+
     public Optional<Boolean> getUser(long id) {
         return Optional.of(false); // No permissions in DMs
     }

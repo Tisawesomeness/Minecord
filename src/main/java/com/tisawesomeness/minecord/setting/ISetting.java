@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.setting;
 
 import lombok.NonNull;
 
-import javax.annotation.Nullable;
 import java.util.Optional;
 
 public interface ISetting<T> {
@@ -17,6 +16,15 @@ public interface ISetting<T> {
      * @return Whether the given string is an alias for this setting.
      */
     boolean isAlias(@NonNull String input);
+
+    /**
+     * Whether the setting can be changed for users.
+     */
+    boolean supportsUsers();
+    /**
+     * Whether the setting can be changed for guilds.
+     */
+    boolean supportsGuilds();
 
     /**
      * Gets the value of this setting for the user.

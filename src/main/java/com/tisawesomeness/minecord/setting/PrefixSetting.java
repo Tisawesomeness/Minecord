@@ -21,6 +21,13 @@ public class PrefixSetting extends Setting<String> {
         return String.format(desc, tag);
     }
 
+    public boolean supportsUsers() {
+        return true;
+    }
+    public boolean supportsGuilds() {
+        return true;
+    }
+
     public Optional<String> getUser(long id) {
         return Optional.of(getDefault());
     }

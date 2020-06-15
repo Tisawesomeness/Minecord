@@ -21,6 +21,13 @@ public class UseMenusSetting extends BooleanSetting {
         return String.format(desc, prefix, prefix);
     }
 
+    public boolean supportsUsers() {
+        return false;
+    }
+    public boolean supportsGuilds() {
+        return true;
+    }
+
     public Optional<Boolean> getUser(long id) {
         return Optional.of(false); // No permissions in DMs
     }

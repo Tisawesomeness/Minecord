@@ -15,7 +15,7 @@ public class MainTest {
      * Make sure running tests is not JVM-specific
      */
     @BeforeAll
-    public static void setLocale() {
+    static void setLocale() {
         Locale.setDefault(Locale.US);
     }
     @Test
