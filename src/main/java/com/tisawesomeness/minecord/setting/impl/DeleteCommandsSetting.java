@@ -2,44 +2,40 @@ package com.tisawesomeness.minecord.setting.impl;
 
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.setting.BooleanSetting;
+import com.tisawesomeness.minecord.util.BooleanUtils;
+import com.tisawesomeness.minecord.setting.ResolveResult;
+import com.tisawesomeness.minecord.setting.ServerSetting;
 import lombok.NonNull;
 
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class DeleteCommandsSetting extends BooleanSetting {
+public class DeleteCommandsSetting extends ServerSetting<Boolean> {
+
     public @NonNull String getDisplayName() {
         return "Delete Commands";
     }
     public boolean isAlias(@NonNull String input) {
         return input.equalsIgnoreCase("delete commands");
     }
-    public @NonNull String getDescription(String prefix, String tag) {
+    public @NonNull String getDescription(@NonNull String prefix, @NonNull String tag) {
         return "If enabled, the bot will delete command messages to clear up space.\n" +
                 "Requires Manage Message permissions.\n" +
                 "Possible values: `enabled`, `disabled`";
     }
 
-    public boolean supportsUsers() {
-        return false;
-    }
-    public boolean supportsGuilds() {
-        return true;
-    }
-
-    public Optional<Boolean> getUser(long id) {
-        return Optional.of(false); // No permissions in DMs
+    public Optional<Boolean> getChannel(long id) {
+        return Optional.empty();
     }
     public Optional<Boolean> getGuild(long id) {
         return Optional.of(Database.getDeleteCommands(id));
     }
-    public Boolean getDefault() {
+    public @NonNull Boolean getDefault() {
         return Config.getDeleteCommands();
     }
 
-    protected boolean changeUser(long id, @NonNull Boolean setting) {
-        return false; // No permissions in DMs
+    protected boolean changeChannel(long id, @NonNull Boolean setting) {
+        return false; // Not possible right now
     }
     protected boolean changeGuild(long id, @NonNull Boolean setting) {
         try {
@@ -50,10 +46,15 @@ public class DeleteCommandsSetting extends BooleanSetting {
         }
         return false;
     }
-    protected boolean clearUser(long id) {
-        return false; // No permissions in DMs
+    protected boolean clearChannel(long id) {
+        return false; // Not possible right now
     }
     protected boolean clearGuild(long id) {
         return false; // Not possible right now
     }
+
+    public ResolveResult<Boolean> resolve(@NonNull String input) {
+        return BooleanUtils.resolve(input);
+    }
+
 }

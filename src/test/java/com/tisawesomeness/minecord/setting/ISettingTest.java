@@ -30,12 +30,5 @@ public class ISettingTest {
             assertTrue(setting.isAlias(setting.getDisplayName()));
         }
     }
-    @Test
-    @DisplayName("Every setting supports either users or guilds")
-    public void testHasSupport() {
-        for (Setting<?> setting : settings) {
-            assertTrue(setting.supportsUsers() || setting.supportsGuilds());
-        }
-    }
 
 }

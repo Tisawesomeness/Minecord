@@ -2,13 +2,16 @@ package com.tisawesomeness.minecord.setting.impl;
 
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.setting.BooleanSetting;
+import com.tisawesomeness.minecord.util.BooleanUtils;
+import com.tisawesomeness.minecord.setting.ResolveResult;
+import com.tisawesomeness.minecord.setting.ServerSetting;
 import lombok.NonNull;
 
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class UseMenusSetting extends BooleanSetting {
+public class UseMenusSetting extends ServerSetting<Boolean> {
+
     public @NonNull String getDisplayName() {
         return "Use Menus";
     }
@@ -22,39 +25,37 @@ public class UseMenusSetting extends BooleanSetting {
         return String.format(desc, prefix, prefix);
     }
 
-    public boolean supportsUsers() {
-        return false;
-    }
-    public boolean supportsGuilds() {
-        return true;
-    }
-
-    public Optional<Boolean> getUser(long id) {
-        return Optional.of(false); // No permissions in DMs
+    public Optional<Boolean> getChannel(long id) {
+        return Optional.empty();
     }
     public Optional<Boolean> getGuild(long id) {
         return Optional.of(Database.getUseMenu(id));
     }
-    public Boolean getDefault() {
+    public @NonNull Boolean getDefault() {
         return Config.getDeleteCommands();
     }
 
-    protected boolean changeUser(long id, @NonNull Boolean setting) {
-        return false; // No permissions in DMs
+    protected boolean changeChannel(long id, @NonNull Boolean setting) {
+        return false; // Not possible right now
     }
     protected boolean changeGuild(long id, @NonNull Boolean setting) {
         try {
-            Database.changeDeleteCommands(id, setting);
+            Database.changeUseMenu(id, setting);
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return false;
     }
-    protected boolean clearUser(long id) {
-        return false; // No permissions in DMs
+    protected boolean clearChannel(long id) {
+        return false; // Not possible right now
     }
     protected boolean clearGuild(long id) {
         return false; // Not possible right now
     }
+
+    public ResolveResult<Boolean> resolve(@NonNull String input) {
+        return BooleanUtils.resolve(input);
+    }
+
 }

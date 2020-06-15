@@ -2,13 +2,15 @@ package com.tisawesomeness.minecord.setting.impl;
 
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.setting.Setting;
+import com.tisawesomeness.minecord.setting.GlobalSetting;
+import com.tisawesomeness.minecord.setting.ResolveResult;
 import lombok.NonNull;
 
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class PrefixSetting extends Setting<String> {
+public class PrefixSetting extends GlobalSetting<String> {
+
     public @NonNull String getDisplayName() {
         return "Prefix";
     }
@@ -18,17 +20,13 @@ public class PrefixSetting extends Setting<String> {
     private static final String desc = "The prefix used before every command.\n" +
             "`@%s command` will work regardless of prefix.\n" +
             "Possible values: Any text between 1-16 characters.";
-    public String getDescription(String prefix, @NonNull String tag) {
+    public String getDescription(@NonNull String prefix, @NonNull String tag) {
         return String.format(desc, tag);
     }
 
-    public boolean supportsUsers() {
-        return true;
+    public Optional<String> getChannel(long id) {
+        return Optional.of(getDefault());
     }
-    public boolean supportsGuilds() {
-        return true;
-    }
-
     public Optional<String> getUser(long id) {
         return Optional.of(getDefault());
     }
@@ -39,6 +37,9 @@ public class PrefixSetting extends Setting<String> {
         return Config.getPrefix();
     }
 
+    protected boolean changeChannel(long id, @NonNull String setting) {
+        return false; // Not possible right now
+    }
     protected boolean changeUser(long id, @NonNull String setting) {
         return false; // Not possible right now
     }
@@ -46,11 +47,14 @@ public class PrefixSetting extends Setting<String> {
         try {
             Database.changePrefix(id, setting);
             return true;
-//        } catch (SQLException ex) {
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return false;
+    }
+
+    protected boolean clearChannel(long id) {
+        return false; // Not possible right now
     }
     protected boolean clearUser(long id) {
         return false; // Not possible right now
@@ -65,4 +69,5 @@ public class PrefixSetting extends Setting<String> {
         }
         return new ResolveResult<>(Optional.of(input), null);
     }
+
 }
