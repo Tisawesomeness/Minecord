@@ -5,15 +5,8 @@ import java.util.ResourceBundle;
 
 public class Main {
 	
-	private static ClassLoader cl;
-	
 	public static void main(String[] args) {
-
-		if (!new Bot().setup(args, false)) {
-			cl = Thread.currentThread().getContextClassLoader();
-            new ReloadHandler().load(args);
-		}
-		
+		new Bot().setup(args, false);
 	}
 
 	// i18n handlers

@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
@@ -61,7 +60,6 @@ public class Bot {
 	private ReadyListener readyListener;
 	public String[] args;
 	private Thread thread;
-	private ReloadHandler rl;
 	@Getter private SettingRegistry settings;
 	@Getter private ShardManager shardManager;
 	@Getter private VoteHandler voteHandler;
@@ -106,47 +104,28 @@ public class Bot {
 		
 		//Fetch main class
 		try {
-			if (Config.getDevMode()) {
-				rl = new ReloadHandler();
-			}
-			
-			//If this is a reload
-			if (reload && Config.getDevMode()) {
-				
-				//Get main class info
-				shardManager = pack.getShardManager();
-				birth = pack.getBirth();
-				//Prepare commands
-				for (JDA jda : shardManager.getShards()) {
-					jda.setAutoReconnect(true);
-					jda.addEventListener(listener, reactListener, readyListener);
-				}
-				pack.getMsg().editMessage(":white_check_mark: **Bot reloaded!**").queue();
-				MessageUtils.log(":arrows_counterclockwise: **Bot reloaded by " + pack.getUserTag() + "**");
 				
 			//If this is the first run
-			} else {
-				birth = startTime;
-				
-				//Initialize JDA
-				shardManager = DefaultShardManagerBuilder.create(gateways)
-					.setToken(Config.getClientToken())
-					.setAutoReconnect(true)
-					.addEventListeners(listener, reactListener, readyListener)
-					.setShardsTotal(Config.getShardCount())
-					.setActivity(Activity.playing("Loading..."))
-					.setMemberCachePolicy(MemberCachePolicy.NONE)
-					.disableCache(disabledCacheFlags)
-					.build();
+			birth = startTime;
 
-				// Wait for shards to ready
-				while (readyShards < shardManager.getShardsTotal()) {
-					//System.out.println("Ready shards: " + readyShards + " / " + shardManager.getShardsTotal());
-					Thread.sleep(100);
-				}
-				System.out.println("Shards ready");
-				
+			//Initialize JDA
+			shardManager = DefaultShardManagerBuilder.create(gateways)
+				.setToken(Config.getClientToken())
+				.setAutoReconnect(true)
+				.addEventListeners(listener, reactListener, readyListener)
+				.setShardsTotal(Config.getShardCount())
+				.setActivity(Activity.playing("Loading..."))
+				.setMemberCachePolicy(MemberCachePolicy.NONE)
+				.disableCache(disabledCacheFlags)
+				.build();
+
+			// Wait for shards to ready
+			while (readyShards < shardManager.getShardsTotal()) {
+				//System.out.println("Ready shards: " + readyShards + " / " + shardManager.getShardsTotal());
+				Thread.sleep(100);
 			}
+			System.out.println("Shards ready");
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return false;
@@ -201,15 +180,6 @@ public class Bot {
 		for (JDA jda : shardManager.getShards()) {
 			jda.setAutoReconnect(false);
 			jda.removeEventListener(listener, reactListener, readyListener);
-		}
-		try {
-			//Reload this class using reflection
-			ArrayList<String> argsList = new ArrayList<String>(Arrays.asList(args));
-			argsList.add(0, "-r");
-			String[] args = argsList.toArray(new String[argsList.size()]);
-			rl.reload(args, PersistPackage.of(m, u.getAsTag(), shardManager, birth));
-		} catch (Exception ex) {
-			ex.printStackTrace();
 		}
 		
 		//Stop the thread

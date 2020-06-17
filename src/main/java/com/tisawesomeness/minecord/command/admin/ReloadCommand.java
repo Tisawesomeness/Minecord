@@ -41,30 +41,25 @@ public class ReloadCommand extends Command {
 
 	public Result run(CommandContext txt) {
 		Bot bot = txt.bot;
-		
-		if (Config.getDevMode()) {
-			Message m = txt.e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
-			bot.shutdown(m, txt.e.getAuthor());
-		} else {
-			Message m = txt.e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
-			try {
-				Database.close();
-				Database.start();
-				if (Config.getReceiveVotes()) {
-					bot.getVoteHandler().close();
-				}
-				Config.read(bot, true);
-				if (Config.getReceiveVotes()) {
-					bot.getVoteHandler().start();
-				}
-				Announcement.init(Config.getPath());
-				Item.init(Config.getPath());
-				Recipe.init(Config.getPath());
-			} catch (SQLException | IOException ex) {
-				ex.printStackTrace();
+
+		Message m = txt.e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
+		try {
+			Database.close();
+			Database.start();
+			if (Config.getReceiveVotes()) {
+				bot.getVoteHandler().close();
 			}
-			m.editMessage(":white_check_mark: Reloaded!").queue();
+			Config.read(bot, true);
+			if (Config.getReceiveVotes()) {
+				bot.getVoteHandler().start();
+			}
+			Announcement.init(Config.getPath());
+			Item.init(Config.getPath());
+			Recipe.init(Config.getPath());
+		} catch (SQLException | IOException ex) {
+			ex.printStackTrace();
 		}
+		m.editMessage(":white_check_mark: Reloaded!").queue();
 		
 		return new Result(Outcome.SUCCESS);
 	}
