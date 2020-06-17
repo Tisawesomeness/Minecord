@@ -20,7 +20,6 @@ public class Config {
 	private static String invite;
 	private static String prefix;
 	private static String game;
-	private static boolean devMode;
 	private static boolean debugMode;
 	private static boolean respondToMentions;
 	private static boolean deleteCommands;
@@ -90,7 +89,6 @@ public class Config {
 			invite = settings.getString("invite");
 			prefix = settings.getString("prefix");
 			game = settings.getString("game");
-			devMode = settings.getBoolean("devMode");
 			debugMode = settings.getBoolean("debugMode");
 			respondToMentions = settings.getBoolean("respondToMentions");
 			deleteCommands = settings.getBoolean("deleteCommands");
@@ -130,7 +128,6 @@ public class Config {
 	public static String getInvite() {return invite;}
 	public static String getPrefix() {return prefix;}
 	public static String getGame() {return game;}
-	public static boolean getDevMode() {return devMode;}
 	public static boolean getDebugMode() {return debugMode;}
 	public static boolean getRespondToMentions() {return respondToMentions;}
 	public static boolean getDeleteCommands() {return deleteCommands;}

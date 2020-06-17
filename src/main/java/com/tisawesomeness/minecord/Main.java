@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 public class Main {
 	
 	public static void main(String[] args) {
-		new Bot().setup(args, false);
+		new Bot().setup(args);
 	}
 
 	// i18n handlers

@@ -10,7 +10,6 @@ import java.util.concurrent.Future;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.discordbots.api.client.DiscordBotListAPI;
 
 import com.tisawesomeness.minecord.command.Registry;
@@ -29,10 +28,7 @@ import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
 @NoArgsConstructor
@@ -65,22 +61,16 @@ public class Bot {
 	@Getter private VoteHandler voteHandler;
 	@Getter private long birth;
 	@Getter private long bootTime;
-	@Setter private PersistPackage pack = null;
 
 	private volatile int readyShards = 0;
 	
-	public boolean setup(String[] args, boolean devMode) {
-		long startTime = System.currentTimeMillis();
-		if (!devMode) {
-			System.out.println("Bot starting...");
-		}
+	public void setup(String[] args) {
+		birth = System.currentTimeMillis();
+		System.out.println("Bot starting...");
 		
 		//Parse arguments
 		this.args = args;
 		Config.read(this, false);
-		if (Config.getDevMode() && !devMode) return false;
-		boolean reload = false;
-		if (args.length > 0 && Arrays.asList(args).contains("-r")) reload = true;
 		
 		//Pre-init
 		thread = Thread.currentThread();
@@ -94,19 +84,14 @@ public class Bot {
 			Recipe.init(Config.getPath());
 		} catch (IOException ex) {
 			ex.printStackTrace();
-			return false;
+			return;
 		}
 		ReactMenu.startPurgeThread();
 		Registry.init();
 		
 		// Connect to database
 		Future<Boolean> db = Database.start();
-		
-		//Fetch main class
 		try {
-				
-			//If this is the first run
-			birth = startTime;
 
 			//Initialize JDA
 			shardManager = DefaultShardManagerBuilder.create(gateways)
@@ -128,7 +113,7 @@ public class Bot {
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return false;
+			return;
 		}
 		
 		//Start discordbots.org API
@@ -139,10 +124,11 @@ public class Bot {
 		// Wait for database
 		try {
 			if (!db.get()) {
-				return false;
+				return;
 			}
 		} catch (InterruptedException | ExecutionException ex) {
-			return false;
+			ex.printStackTrace();
+			return;
 		}
 
 		// Create settings
@@ -160,31 +146,16 @@ public class Bot {
 		}
 		
 		//Post-init
-		bootTime = System.currentTimeMillis() - startTime;
+		bootTime = System.currentTimeMillis() - birth;
 		System.out.println("Boot Time: " + DateUtils.getBootTime(bootTime));
 		MessageUtils.log(":white_check_mark: **Bot started!**");
 		DiscordUtils.update(shardManager);
 		RequestUtils.sendGuilds(shardManager);
 		
-		return true;
-		
 	}
 
 	public void addReadyShard() {
 		readyShards++;
-	}
-	
-	public void shutdown(Message m, User u) {
-		
-		//Disable JDA
-		for (JDA jda : shardManager.getShards()) {
-			jda.setAutoReconnect(false);
-			jda.removeEventListener(listener, reactListener, readyListener);
-		}
-		
-		//Stop the thread
-		thread.interrupt();
-
 	}
 
 }
