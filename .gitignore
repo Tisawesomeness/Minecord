@@ -2,3 +2,4 @@
 .idea
 /build
 minecord.db
+lombok.config
