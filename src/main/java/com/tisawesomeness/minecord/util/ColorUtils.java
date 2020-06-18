@@ -56,10 +56,9 @@ public class ColorUtils {
 
     /**
      * Initializes the color database by reading from file
-     * @param path The path to read from
      * @throws IOException when the file isn't found
      */
-    public static void init(String path) throws IOException {
+    public static void init() throws IOException {
         colors = RequestUtils.loadJSONResource("colors.json");
     }
     

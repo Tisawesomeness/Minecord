@@ -216,16 +216,10 @@ public class RequestUtils {
 		}
 	}
 
-	public static JSONObject loadJSON(String path) throws IOException {
-		return new JSONObject(new String(Files.readAllBytes(Paths.get(path))));
-	}
 	public static JSONObject loadJSONResource(String name) throws IOException {
 		InputStream is = RequestUtils.class.getClassLoader().getResourceAsStream(name);
 		String json = new BufferedReader(new InputStreamReader(is)).lines().collect(Collectors.joining("\n"));
 		return new JSONObject(json);
-	}
-	public static JSONArray loadJSONArray(String path) throws IOException {
-		return new JSONArray(new String(Files.readAllBytes(Paths.get(path))));
 	}
 	
 	// Converts a string to SHA1 (from http://www.sha1-online.com/sha1-java/)

@@ -41,6 +41,12 @@ public class Config {
 	private static String user;
 	private static String pass;
 
+	/**
+	 * Reads data from the config file.
+	 * @param configPath The path to the config.
+	 * @param tokenOverride The token used to override the config, or {@code null} for no override.
+	 * @throws IOException When the config file couldn't be found
+	 */
 	public static void read(Path configPath, @Nullable String tokenOverride) throws IOException {
 
 		// Parse config JSON
@@ -83,7 +89,7 @@ public class Config {
 
 	}
 
-	public static String parseToken(JSONObject config, @Nullable String tokenOverride) {
+	private static String parseToken(JSONObject config, @Nullable String tokenOverride) {
 		if (tokenOverride != null) {
 			return tokenOverride;
 		}

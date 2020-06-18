@@ -26,6 +26,9 @@ public class ArgsHandler implements Callable<Integer>, Serializable {
     @Option(names = {"-c", "-conf", "--config"}, description = "The path to the config file.")
     @Getter private Path configPath;
 
+    @Option(names = {"-a", "-announce", "--announcements"}, description = "The path to the announcements file.")
+    @Getter private Path announcePath;
+
     @Override
     public Integer call() {
 
@@ -39,6 +42,10 @@ public class ArgsHandler implements Callable<Integer>, Serializable {
         // config.json is the default config file
         if (configPath == null) {
             configPath = path.resolve("config.json");
+        }
+        // same for announce.json
+        if (announcePath == null) {
+            announcePath = path.resolve("announce.json");
         }
 
         return 0;

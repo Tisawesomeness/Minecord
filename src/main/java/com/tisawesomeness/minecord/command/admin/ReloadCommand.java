@@ -52,7 +52,7 @@ public class ReloadCommand extends Command {
 			if (Config.getReceiveVotes()) {
 				bot.getVoteHandler().start();
 			}
-			Announcement.init(".");
+			Announcement.read(args.getAnnouncePath());
 			Item.init();
 			Recipe.init();
 		} catch (SQLException | IOException ex) {

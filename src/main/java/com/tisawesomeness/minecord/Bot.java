@@ -50,7 +50,6 @@ public class Bot {
 	private static final EnumSet<CacheFlag> disabledCacheFlags = EnumSet.of(
 			CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOTE, CacheFlag.VOICE_STATE);
 
-	private long id;
 	private Listener listener;
 	private ReactListener reactListener;
 	private ReadyListener readyListener;
@@ -76,8 +75,8 @@ public class Bot {
 		readyListener = new ReadyListener(this);
 		try {
 			Config.read(args.getConfigPath(), args.getTokenOverride());
-			Announcement.init(".");
-			ColorUtils.init(".");
+			Announcement.read(args.getAnnouncePath());
+			ColorUtils.init();
 			Item.init();
 			Recipe.init();
 		} catch (IOException ex) {

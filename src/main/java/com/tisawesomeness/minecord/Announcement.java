@@ -1,10 +1,11 @@
 package com.tisawesomeness.minecord;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 import com.tisawesomeness.minecord.util.DiscordUtils;
-import com.tisawesomeness.minecord.util.RequestUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -23,12 +24,12 @@ public class Announcement {
 
     /**
      * Reads announcements from file and parses their {constants}
-     * @param path The path to the announce.json file
-     * @throws IOException If announce.json is not found
+     * @param announcePath The path to the announce.json file
+     * @throws IOException When the announce file couldn't be found
      */
-    public static void init(String path) throws IOException {
-        announcements = new ArrayList<Announcement>();
-        JSONArray announceArr = RequestUtils.loadJSONArray(path + "/announce.json");
+    public static void read(Path announcePath) throws IOException {
+        announcements = new ArrayList<>();
+        JSONArray announceArr = new JSONArray(new String(Files.readAllBytes(announcePath)));
         for (int i = 0; i < announceArr.length(); i++) {
             JSONObject announceObj = announceArr.getJSONObject(i);
             int weight = announceObj.getInt("weight");
