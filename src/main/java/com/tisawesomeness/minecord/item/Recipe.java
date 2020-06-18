@@ -26,11 +26,10 @@ public class Recipe {
 
     /**
      * Initializes the recipe database by reading from file
-     * 
-     * @param path The path to read from
+     *
      * @throws IOException
      */
-    public static void init(String path) throws IOException {
+    public static void init() throws IOException {
         recipes = RequestUtils.loadJSONResource("recipes.json");
         tags = RequestUtils.loadJSONResource("tags.json");
     }

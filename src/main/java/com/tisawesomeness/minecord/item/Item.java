@@ -38,10 +38,9 @@ public class Item {
 
     /**
      * Initializes the item database by reading from file
-     * @param path The path to read from
      * @throws IOException when a file isn't found
      */
-    public static void init(String path) throws IOException {
+    public static void init() throws IOException {
         items = RequestUtils.loadJSONResource("items.json");
         data = RequestUtils.loadJSONResource("data.json");
     }

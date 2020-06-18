@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import com.tisawesomeness.minecord.Announcement;
+import com.tisawesomeness.minecord.ArgsHandler;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
@@ -46,13 +47,14 @@ public class ReloadCommand extends Command {
 			if (Config.getReceiveVotes()) {
 				bot.getVoteHandler().close();
 			}
-			Config.read(bot, true);
+			ArgsHandler args = bot.getArgs();
+			Config.read(args.getConfigPath(), args.getTokenOverride());
 			if (Config.getReceiveVotes()) {
 				bot.getVoteHandler().start();
 			}
-			Announcement.init(Config.getPath());
-			Item.init(Config.getPath());
-			Recipe.init(Config.getPath());
+			Announcement.init(".");
+			Item.init();
+			Recipe.init();
 		} catch (SQLException | IOException ex) {
 			ex.printStackTrace();
 		}

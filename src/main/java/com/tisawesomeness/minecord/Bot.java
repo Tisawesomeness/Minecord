@@ -54,34 +54,32 @@ public class Bot {
 	private Listener listener;
 	private ReactListener reactListener;
 	private ReadyListener readyListener;
-	public String[] args;
 	private Thread thread;
-	@Getter private SettingRegistry settings;
+	@Getter private ArgsHandler args;
 	@Getter private ShardManager shardManager;
+	@Getter private SettingRegistry settings;
 	@Getter private VoteHandler voteHandler;
 	@Getter private long birth;
 	@Getter private long bootTime;
 
 	private volatile int readyShards = 0;
 	
-	public void setup(String[] args) {
+	public void setup(ArgsHandler args) {
 		birth = System.currentTimeMillis();
 		System.out.println("Bot starting...");
-		
-		//Parse arguments
 		this.args = args;
-		Config.read(this, false);
 		
-		//Pre-init
+		// Pre-init
 		thread = Thread.currentThread();
 		listener = new Listener(this);
 		reactListener = new ReactListener();
 		readyListener = new ReadyListener(this);
 		try {
-			Announcement.init(Config.getPath());
-			ColorUtils.init(Config.getPath());
-			Item.init(Config.getPath());
-			Recipe.init(Config.getPath());
+			Config.read(args.getConfigPath(), args.getTokenOverride());
+			Announcement.init(".");
+			ColorUtils.init(".");
+			Item.init();
+			Recipe.init();
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			return;
@@ -93,7 +91,7 @@ public class Bot {
 		Future<Boolean> db = Database.start();
 		try {
 
-			//Initialize JDA
+			// Initialize JDA
 			shardManager = DefaultShardManagerBuilder.create(gateways)
 				.setToken(Config.getClientToken())
 				.setAutoReconnect(true)
@@ -106,7 +104,7 @@ public class Bot {
 
 			// Wait for shards to ready
 			while (readyShards < shardManager.getShardsTotal()) {
-				//System.out.println("Ready shards: " + readyShards + " / " + shardManager.getShardsTotal());
+				// System.out.println("Ready shards: " + readyShards + " / " + shardManager.getShardsTotal());
 				Thread.sleep(100);
 			}
 			System.out.println("Shards ready");
@@ -116,7 +114,7 @@ public class Bot {
 			return;
 		}
 		
-		//Start discordbots.org API
+		// Start discordbots.org API
 		if (Config.getSendServerCount() || Config.getReceiveVotes()) {
 			RequestUtils.api = new DiscordBotListAPI.Builder().token(Config.getOrgToken()).build();
 		}
@@ -140,12 +138,12 @@ public class Bot {
 		voteHandler = new VoteHandler(shardManager);
 		Future<Boolean> ws = voteHandler.start();
 
-		//Update persistent bot info
+		// Update persistent bot info
 		if (!Config.getLogChannel().equals("0")) {
 			MessageUtils.logChannel = shardManager.getTextChannelById(Config.getLogChannel());
 		}
 		
-		//Post-init
+		// Post-init
 		bootTime = System.currentTimeMillis() - birth;
 		System.out.println("Boot Time: " + DateUtils.getBootTime(bootTime));
 		MessageUtils.log(":white_check_mark: **Bot started!**");

@@ -1,21 +1,19 @@
 package com.tisawesomeness.minecord;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.tisawesomeness.minecord.util.RequestUtils;
+import javax.annotation.Nullable;
 
 public class Config {
 
 	private static String clientToken;
 	private static int shardCount;
 	private static String owner;
-	
+
 	private static String logChannel;
 	private static String invite;
 	private static String prefix;
@@ -27,7 +25,7 @@ public class Config {
 	private static boolean sendTyping;
 	private static boolean showMemory;
 	private static boolean elevatedSkipCooldown;
-	
+
 	private static boolean sendServerCount;
 	private static String pwToken;
 	private static String orgToken;
@@ -35,7 +33,7 @@ public class Config {
 	private static String webhookURL;
 	private static int webhookPort;
 	private static String webhookAuth;
-	
+
 	private static String type;
 	private static String host;
 	private static int port;
@@ -43,81 +41,53 @@ public class Config {
 	private static String user;
 	private static String pass;
 
-	private static String path;
+	public static void read(Path configPath, @Nullable String tokenOverride) throws IOException {
 
-	public static void read(Bot bot, boolean reload) {
-		
-		//Look for client token
-		if (!reload) {
-			ArrayList<String> args = new ArrayList<>(Arrays.asList(bot.args));
-			if (args.size() > 1 && args.contains("-t")) {
-				int index = args.indexOf("-t");
-				if (index + 1 < args.size()) {
-					args.remove(index);
-					String token = args.get(index);
-					if (token.length() >= 32) {
-						System.out.println("Found custom client token");
-						clientToken = token;
-						args.remove(index);
-					}
-					bot.args = args.toArray(new String[args.size()]);
-				}
-			}
-		}
-		
-		//Parse config path
-		path = ".";
-		List<String> args = Arrays.asList(bot.args);
-		if (args.size() > 1 && args.contains("-c")) {
-			int index = args.indexOf("-c");
-			if (index + 1 < bot.args.length) {
-				path = bot.args[index + 1];
-				System.out.println("Found custom config path: " + path);
-			}
-		}
+		// Parse config JSON
+		JSONObject config = new JSONObject(new String(Files.readAllBytes(configPath)));
 
-		//Parse config JSON
-		try {
-			JSONObject config = RequestUtils.loadJSON(path + "/config.json");
-			if (clientToken == null) clientToken = config.getString("clientToken");
-			shardCount = config.getInt("shardCount");
-			if (shardCount < 1) shardCount = 1;
-			owner = config.getString("owner");
-			
-			JSONObject settings = config.getJSONObject("settings");
-			logChannel = settings.getString("logChannel");
-			invite = settings.getString("invite");
-			prefix = settings.getString("prefix");
-			game = settings.getString("game");
-			debugMode = settings.getBoolean("debugMode");
-			respondToMentions = settings.getBoolean("respondToMentions");
-			deleteCommands = settings.getBoolean("deleteCommands");
-			useMenus = settings.getBoolean("useMenus");
-			sendTyping = settings.getBoolean("sendTyping");
-			showMemory = settings.getBoolean("showMemory");
-			elevatedSkipCooldown = settings.getBoolean("elevatedSkipCooldown");
-			
-			JSONObject botLists = config.getJSONObject("botLists");
-			sendServerCount = botLists.getBoolean("sendServerCount");
-			pwToken = botLists.getString("pwToken");
-			orgToken = botLists.getString("orgToken");
-			receiveVotes = botLists.getBoolean("receiveVotes");
-			webhookURL = botLists.getString("webhookURL");
-			webhookPort = botLists.getInt("webhookPort");
-			webhookAuth = botLists.getString("webhookAuth");
-			
-			JSONObject database = config.getJSONObject("database");
-			type = database.getString("type");
-			host = database.getString("host");
-			port = database.getInt("port");
-			dbName = database.getString("name");
-			user = database.getString("user");
-			pass = database.getString("pass");
-			
-		} catch (JSONException | IOException ex) {
-			ex.printStackTrace();
+		clientToken = parseToken(config, tokenOverride);
+		shardCount = config.getInt("shardCount");
+		if (shardCount < 1) shardCount = 1;
+		owner = config.getString("owner");
+
+		JSONObject settings = config.getJSONObject("settings");
+		logChannel = settings.getString("logChannel");
+		invite = settings.getString("invite");
+		prefix = settings.getString("prefix");
+		game = settings.getString("game");
+		debugMode = settings.getBoolean("debugMode");
+		respondToMentions = settings.getBoolean("respondToMentions");
+		deleteCommands = settings.getBoolean("deleteCommands");
+		useMenus = settings.getBoolean("useMenus");
+		sendTyping = settings.getBoolean("sendTyping");
+		showMemory = settings.getBoolean("showMemory");
+		elevatedSkipCooldown = settings.getBoolean("elevatedSkipCooldown");
+
+		JSONObject botLists = config.getJSONObject("botLists");
+		sendServerCount = botLists.getBoolean("sendServerCount");
+		pwToken = botLists.getString("pwToken");
+		orgToken = botLists.getString("orgToken");
+		receiveVotes = botLists.getBoolean("receiveVotes");
+		webhookURL = botLists.getString("webhookURL");
+		webhookPort = botLists.getInt("webhookPort");
+		webhookAuth = botLists.getString("webhookAuth");
+
+		JSONObject database = config.getJSONObject("database");
+		type = database.getString("type");
+		host = database.getString("host");
+		port = database.getInt("port");
+		dbName = database.getString("name");
+		user = database.getString("user");
+		pass = database.getString("pass");
+
+	}
+
+	public static String parseToken(JSONObject config, @Nullable String tokenOverride) {
+		if (tokenOverride != null) {
+			return tokenOverride;
 		}
-		
+		return config.getString("clientToken");
 	}
 
 	public static String getClientToken() {return clientToken;}
@@ -135,7 +105,7 @@ public class Config {
 	public static boolean getSendTyping() {return sendTyping;}
 	public static boolean getShowMemory() {return showMemory;}
 	public static boolean getElevatedSkipCooldown() {return elevatedSkipCooldown;}
-	
+
 	public static boolean getSendServerCount() {return sendServerCount;}
 	public static String getPwToken() {return pwToken;}
 	public static String getOrgToken() {return orgToken;}
@@ -143,7 +113,7 @@ public class Config {
 	public static String getWebhookURL() {return webhookURL;}
 	public static int getWebhookPort() {return webhookPort;}
 	public static String getWebhookAuth() {return webhookAuth;}
-	
+
 	public static String getType() {return type;}
 	public static String getHost() {return host;}
 	public static int getPort() {return port;}
@@ -151,6 +121,4 @@ public class Config {
 	public static String getUser() {return user;}
 	public static String getPass() {return pass;}
 
-	public static String getPath() {return path;}
-	
 }
