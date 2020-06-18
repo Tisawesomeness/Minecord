@@ -60,7 +60,7 @@ public abstract class ChannelSetting<T> extends Setting<T> {
      */
     protected abstract boolean changeChannel(long id, @NonNull T setting);
     private @NonNull SetResult setChannelInternal(long id, String input, Optional<T> from, ResolveResult<T> toResult) {
-        Optional<T> toOpt = toResult.getValue();
+        Optional<T> toOpt = toResult.value;
         if (!toOpt.isPresent()) {
             return toResult.toStatus();
         }
@@ -85,7 +85,7 @@ public abstract class ChannelSetting<T> extends Setting<T> {
         Optional<T> from = getChannel(id);
         ResolveResult<T> toResult = resolve(input);
         return setChannelInternal(id, input, from, toResult).getMsg(getDisplayName(),
-                from.orElse(getDefault()).toString(), toResult.getValue().orElse(getDefault()).toString());
+                from.orElse(getDefault()).toString(), toResult.value.orElse(getDefault()).toString());
     }
     /**
      * Changes this setting for the text channel.

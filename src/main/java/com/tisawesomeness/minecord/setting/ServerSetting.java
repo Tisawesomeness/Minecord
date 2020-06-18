@@ -68,7 +68,7 @@ public abstract class ServerSetting<T> extends ChannelSetting<T> {
      */
     protected abstract boolean changeGuild(long id, @NonNull T setting);
     private @NonNull SetResult setGuildInternal(long id, String input, Optional<T> from, ResolveResult<T> toResult) {
-        Optional<T> toOpt = toResult.getValue();
+        Optional<T> toOpt = toResult.value;
         if (!toOpt.isPresent()) {
             return toResult.toStatus();
         }
@@ -93,7 +93,7 @@ public abstract class ServerSetting<T> extends ChannelSetting<T> {
         Optional<T> from = getGuild(id);
         ResolveResult<T> toResult = resolve(input);
         return setGuildInternal(id, input, from, toResult).getMsg(getDisplayName(),
-                from.orElse(getDefault()).toString(), toResult.getValue().orElse(getDefault()).toString());
+                from.orElse(getDefault()).toString(), toResult.value.orElse(getDefault()).toString());
     }
     /**
      * Changes this setting for the guild.

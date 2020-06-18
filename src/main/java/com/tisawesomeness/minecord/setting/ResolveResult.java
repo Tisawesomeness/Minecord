@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.setting;
 
-import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
@@ -13,7 +12,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public
 class ResolveResult<T> {
-    @Getter private final Optional<T> value;
+    public final Optional<T> value;
     private final String msg;
 
     /**

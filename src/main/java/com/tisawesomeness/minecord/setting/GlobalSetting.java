@@ -61,7 +61,7 @@ public abstract class GlobalSetting<T> extends ServerSetting<T> {
      */
     protected abstract boolean changeUser(long id, @NonNull T setting);
     private @NonNull SetResult setUserInternal(long id, String input, Optional<T> from, ResolveResult<T> toResult) {
-        Optional<T> toOpt = toResult.getValue();
+        Optional<T> toOpt = toResult.value;
         if (!toOpt.isPresent()) {
             return toResult.toStatus();
         }
@@ -86,7 +86,7 @@ public abstract class GlobalSetting<T> extends ServerSetting<T> {
         Optional<T> from = getUser(id);
         ResolveResult<T> toResult = resolve(input);
         return setUserInternal(id, input, from, toResult).getMsg(getDisplayName(),
-                from.orElse(getDefault()).toString(), toResult.getValue().orElse(getDefault()).toString());
+                from.orElse(getDefault()).toString(), toResult.value.orElse(getDefault()).toString());
     }
     /**
      * Changes this setting for the user.
