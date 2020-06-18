@@ -12,8 +12,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-import com.tisawesomeness.minecord.Bot;
-
 public class DateUtils {
 	
 	private static final String timestampRegex = "^[0-9]{4,}$";

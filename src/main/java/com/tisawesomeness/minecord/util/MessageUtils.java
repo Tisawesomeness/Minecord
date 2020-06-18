@@ -8,21 +8,16 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import com.tisawesomeness.minecord.Announcement;
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
-import com.tisawesomeness.minecord.database.Database;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.SelfUser;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class MessageUtils {
-	
-	public static long ownerID;
+
 	public static TextChannel logChannel;
 	
 	/**
@@ -122,13 +117,11 @@ public class MessageUtils {
 		String content = m.getContentRaw();
 		if (m.getContentRaw().startsWith(prefix)) {
 			return content.replaceFirst(Pattern.quote(prefix), "").split(" ");
-		} else if (content.replaceFirst("@!", "@").startsWith(su.getAsMention())) {
+		} else if (Config.getRespondToMentions() && content.replaceFirst("@!", "@").startsWith(su.getAsMention())) {
 			String[] args = content.split(" ");
 			return Arrays.copyOfRange(args, 1, args.length);
-//			return ArrayUtils.removeElement(args, args[0]);
-		} else {
-			return null;
 		}
+		return null;
 	}
 	
 	public static String dateErrorString(String prefix, String cmd) {

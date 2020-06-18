@@ -13,8 +13,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -26,10 +24,8 @@ import javax.imageio.ImageIO;
 
 import net.dv8tion.jda.api.sharding.ShardManager;
 import org.discordbots.api.client.DiscordBotListAPI;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 
 import net.dv8tion.jda.api.JDA;
