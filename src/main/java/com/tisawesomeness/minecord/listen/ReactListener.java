@@ -1,7 +1,8 @@
-package com.tisawesomeness.minecord;
+package com.tisawesomeness.minecord.listen;
 
 import java.util.HashMap;
 
+import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.ReactMenu.Emote;
 
 import net.dv8tion.jda.api.Permission;

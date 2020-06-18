@@ -1,5 +1,6 @@
-package com.tisawesomeness.minecord;
+package com.tisawesomeness.minecord.listen;
 
+import com.tisawesomeness.minecord.Bot;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.events.ReadyEvent;

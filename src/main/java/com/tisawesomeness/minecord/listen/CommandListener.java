@@ -1,8 +1,12 @@
-package com.tisawesomeness.minecord;
+package com.tisawesomeness.minecord.listen;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Future;
 
+import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.Registry;
@@ -10,30 +14,24 @@ import com.tisawesomeness.minecord.command.Command.CommandInfo;
 import com.tisawesomeness.minecord.command.Command.Outcome;
 import com.tisawesomeness.minecord.command.Command.Result;
 import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
-import com.tisawesomeness.minecord.util.RequestUtils;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.ChannelType;
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.Message.MentionType;
-import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
-import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.sharding.ShardManager;
 
 @RequiredArgsConstructor
-public class Listener extends ListenerAdapter {
+public class CommandListener extends ListenerAdapter {
 
 	private @NonNull Bot bot;
 	
@@ -137,7 +135,7 @@ public class Listener extends ListenerAdapter {
 				cmd.cooldowns.remove(a);
 			}
 		}
-		
+
 		//Class to send typing notification every 5 seconds
 		class Typing extends TimerTask {
 			private Future<Void> fv = null;
@@ -224,45 +222,6 @@ public class Listener extends ListenerAdapter {
 				c.sendMessage(result.message).queue();
 			}
 		}
-	}
-
-	@Override
-	public void onGuildJoin(GuildJoinEvent e) {
-		Guild guild = e.getGuild();
-		Member owner = guild.getOwner();
-		List<Member> members = guild.getMembers();
-		long size = members.stream()
-				.map(m -> m.getUser())
-				.filter(u -> !u.isBot() && !u.isFake())
-				.count();
-		EmbedBuilder eb = new EmbedBuilder()
-			.setAuthor("Joined guild!", null, owner.getUser().getAvatarUrl())
-			.addField("Name", guild.getName(), true)
-			.addField("Guild ID", guild.getId(), true)
-			.addField("Owner", owner.getEffectiveName(), true)
-			.addField("Owner ID", owner.getUser().getId(), true)
-			.addField("Users", String.valueOf(members.size()), true)
-			.addField("Humans", String.valueOf(size), true)
-			.addField("Bots", String.valueOf(members.size() - size), true)
-			.addField("Channels", String.valueOf(guild.getTextChannels().size()), true);
-		updateGuilds(eb, guild, e.getJDA().getShardManager());
-	}
-
-	@Override
-	public void onGuildLeave(GuildLeaveEvent e) {
-		Guild guild = e.getGuild();
-		User owner = guild.getOwner().getUser();
-		EmbedBuilder eb = new EmbedBuilder()
-			.setAuthor(owner.getAsTag(), null, owner.getAvatarUrl())
-			.setDescription(String.format("Left guild %s (`%s`)", guild.getName(), guild.getId()));
-		updateGuilds(eb, guild, e.getJDA().getShardManager());
-	}
-
-	private static void updateGuilds(EmbedBuilder eb, Guild guild, ShardManager sm) {
-		eb.setThumbnail(guild.getIconUrl());
-		MessageUtils.log(eb.build());
-		RequestUtils.sendGuilds(sm);
-		DiscordUtils.update(sm); // Update guild, channel, and user count
 	}
 	
 }

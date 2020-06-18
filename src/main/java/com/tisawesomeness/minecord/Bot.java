@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
+import com.tisawesomeness.minecord.listen.CommandListener;
+import com.tisawesomeness.minecord.listen.GuildCountListener;
+import com.tisawesomeness.minecord.listen.ReactListener;
+import com.tisawesomeness.minecord.listen.ReadyListener;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.discordbots.api.client.DiscordBotListAPI;
@@ -50,9 +54,11 @@ public class Bot {
 	private static final EnumSet<CacheFlag> disabledCacheFlags = EnumSet.of(
 			CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOTE, CacheFlag.VOICE_STATE);
 
-	private Listener listener;
+	private CommandListener commandListener;
 	private ReactListener reactListener;
 	private ReadyListener readyListener;
+	private GuildCountListener guildCountListener;
+
 	private Thread thread;
 	@Getter private ArgsHandler args;
 	@Getter private ShardManager shardManager;
@@ -70,9 +76,11 @@ public class Bot {
 		
 		// Pre-init
 		thread = Thread.currentThread();
-		listener = new Listener(this);
+		commandListener = new CommandListener(this);
 		reactListener = new ReactListener();
 		readyListener = new ReadyListener(this);
+		guildCountListener = new GuildCountListener();
+
 		try {
 			Config.read(args.getConfigPath(), args.getTokenOverride());
 			Announcement.read(args.getAnnouncePath());
@@ -94,7 +102,7 @@ public class Bot {
 			shardManager = DefaultShardManagerBuilder.create(gateways)
 				.setToken(Config.getClientToken())
 				.setAutoReconnect(true)
-				.addEventListeners(listener, reactListener, readyListener)
+				.addEventListeners(commandListener, reactListener, readyListener, guildCountListener)
 				.setShardsTotal(Config.getShardCount())
 				.setActivity(Activity.playing("Loading..."))
 				.setMemberCachePolicy(MemberCachePolicy.NONE)
