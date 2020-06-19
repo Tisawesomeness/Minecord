@@ -3,7 +3,6 @@ package com.tisawesomeness.minecord.command.utility;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.item.Item;
-import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 
@@ -37,12 +36,6 @@ public class ItemCommand extends Command {
 		
 		// Search through the item database
 		String item = Item.search(String.join(" ", txt.args), "en_US");
-		
-		MessageUtils.log(
-			"Item command executed" +
-			"\nCommand: `" + txt.e.getMessage().getContentDisplay() + "`" +
-			"\nItem: `" + item + "`"
-		);
 		
 		// If nothing is found
 		if (item == null) {

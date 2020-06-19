@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command.misc;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.MessageUtils;
@@ -25,7 +24,7 @@ public class InviteCommand extends Command {
 	
 	public Result run(CommandContext txt) {
 		EmbedBuilder eb = new EmbedBuilder();
-		eb.addField("Invite me!", Config.getInvite(), false);
+		eb.addField("Invite me!", txt.config.getInvite(), false);
 		eb.addField("Help server", Bot.helpServer, false);
 		eb.addField("Website", Bot.website, true);
 		eb.setColor(Bot.color);

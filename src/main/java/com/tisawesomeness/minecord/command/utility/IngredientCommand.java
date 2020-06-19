@@ -64,7 +64,7 @@ public class IngredientCommand extends Command {
 		}
 
 		// Create menu
-		MenuStatus status = ReactMenu.getMenuStatus(txt.e);
+		MenuStatus status = ReactMenu.getMenuStatus(txt);
 		if (status.isValid()) {
 			new Recipe.RecipeMenu(recipes, page, "en_US").post(txt.e.getChannel(), txt.e.getAuthor());
 			return new Result(Outcome.SUCCESS);

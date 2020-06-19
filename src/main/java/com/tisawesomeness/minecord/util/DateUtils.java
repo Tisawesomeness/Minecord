@@ -114,9 +114,7 @@ public class DateUtils {
 				continue;
 			}
 			Calendar cal = parseUnstable(arg, "Z");
-			if (cal == null) {
-				MessageUtils.log("Invalid date argument: " + arg);
-			} else {
+			if (cal != null) {
 				timezone = cal.getTimeZone();
 			}
 			

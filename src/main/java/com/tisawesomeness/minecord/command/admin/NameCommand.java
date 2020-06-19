@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -70,7 +69,7 @@ public class NameCommand extends Command {
 		if (args.length == 1) desc += "\n" + name;
 		eb.setDescription(desc);
 		eb.setThumbnail(guild.getIconUrl());
-		MessageUtils.log(eb.build());
+		txt.log(eb.build());
 		
 		return new Result(Outcome.SUCCESS);
 	}

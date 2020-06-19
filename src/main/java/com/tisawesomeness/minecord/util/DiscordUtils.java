@@ -14,17 +14,18 @@ public class DiscordUtils {
 
 	public static final String idRegex = "[0-9]{2,32}";
 	
-	public static void update(ShardManager sm) {
-		sm.setActivity(Activity.playing(parseAll(Config.getGame())));
+	public static void update(ShardManager sm, Config config) {
+		sm.setActivity(Activity.playing(parseAll(config.getGame(), config)));
 	}
 
 	/**
 	 * Replaces constants in the input string with their values
 	 * This can be called during init, as long as Config is initialized
 	 * @param input A string with {constants}
+	 * @param config
 	 * @return The string with resolved constants, though variables such as {guilds} are unresolved
 	 */
-	public static String parseConstants(String input) {
+	public static String parseConstants(String input, Config config) {
 		return input
 			.replace("{author}", Bot.author)
 			.replace("{author_tag}", Bot.authorTag)
@@ -34,8 +35,8 @@ public class DiscordUtils {
 			.replace("{java_ver}", Bot.javaVersion)
 			.replace("{jda_ver}", Bot.jdaVersion)
 			.replace("{version}", Bot.version)
-			.replace("{invite}", Config.getInvite())
-			.replace("{prefix}", Config.getPrefix());
+			.replace("{invite}", config.getInvite())
+			.replace("{prefix}", config.getPrefixDefault());
 	}
 
 	/**
@@ -56,8 +57,8 @@ public class DiscordUtils {
 	 * @param input A string with {variables}
 	 * @return The string with resolved variables
 	 */
-	public static String parseAll(String input) {
-		return parseVariables(parseConstants(input));
+	public static String parseAll(String input, Config config) {
+		return parseVariables(parseConstants(input, config));
 	}
 	
 	public static User findUser(String search, ShardManager sm) {

@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.util.MessageUtils;
 
 public class ShutdownCommand extends Command {
 	
@@ -24,7 +23,7 @@ public class ShutdownCommand extends Command {
 	}
 	
 	public Result run(CommandContext txt) {
-		MessageUtils.log(":x: **Bot shut down by " + txt.e.getAuthor().getName() + "**");
+		txt.log(":x: **Bot shut down by " + txt.e.getAuthor().getName() + "**");
 		txt.e.getChannel().sendMessage(":wave: Goodbye!").complete();
 		txt.e.getJDA().shutdown();
 		System.exit(0);

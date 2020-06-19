@@ -5,11 +5,15 @@ import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.setting.GlobalSetting;
 import com.tisawesomeness.minecord.setting.ResolveResult;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import java.sql.SQLException;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 public class PrefixSetting extends GlobalSetting<String> {
+
+    private final @NonNull Config config;
 
     public @NonNull String getDisplayName() {
         return "Prefix";
@@ -34,7 +38,7 @@ public class PrefixSetting extends GlobalSetting<String> {
         return Optional.ofNullable(Database.getPrefix(id));
     }
     public @NonNull String getDefault() {
-        return Config.getPrefix();
+        return config.getPrefixDefault();
     }
 
     protected boolean changeChannel(long id, @NonNull String setting) {

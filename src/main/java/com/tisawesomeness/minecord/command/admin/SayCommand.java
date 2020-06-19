@@ -3,7 +3,6 @@ package com.tisawesomeness.minecord.command.admin;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DiscordUtils;
-import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -57,7 +56,7 @@ public class SayCommand extends Command {
 		eb.setDescription("**Sent a msg to `" + channel.getName() + "` (`" + channel.getId() + "`)**\non `" +
 			guild.getName() + "` (" + guild.getId() + "):\n" + msg);
 		eb.setThumbnail(guild.getIconUrl());
-		MessageUtils.log(eb.build());
+		txt.log(eb.build());
 		
 		return new Result(Outcome.SUCCESS);
 	}

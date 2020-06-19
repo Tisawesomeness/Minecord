@@ -6,11 +6,15 @@ import com.tisawesomeness.minecord.util.BooleanUtils;
 import com.tisawesomeness.minecord.setting.ResolveResult;
 import com.tisawesomeness.minecord.setting.ServerSetting;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import java.sql.SQLException;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 public class DeleteCommandsSetting extends ServerSetting<Boolean> {
+
+    private final @NonNull Config config;
 
     public @NonNull String getDisplayName() {
         return "Delete Commands";
@@ -31,7 +35,7 @@ public class DeleteCommandsSetting extends ServerSetting<Boolean> {
         return Optional.of(Database.getDeleteCommands(id));
     }
     public @NonNull Boolean getDefault() {
-        return Config.getDeleteCommands();
+        return config.shouldDeleteCommandsDefault();
     }
 
     protected boolean changeChannel(long id, @NonNull Boolean setting) {

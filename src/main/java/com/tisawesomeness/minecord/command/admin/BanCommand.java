@@ -1,13 +1,12 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DiscordUtils;
-import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.requests.ErrorResponse;
 import net.dv8tion.jda.api.sharding.ShardManager;
@@ -56,7 +55,7 @@ public class BanCommand extends Command {
             if (!args[1].matches(DiscordUtils.idRegex)) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
-			if (args[1].equals(Config.getOwner())) {
+			if (args[1].equals(txt.config.getOwner())) {
 				return new Result(Outcome.WARNING, ":warning: You can't ban the owner!");
 			}
 			long gid = Long.valueOf(args[1]);
@@ -77,8 +76,12 @@ public class BanCommand extends Command {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
 			Guild guild = sm.getGuildById(args[1]);
-			if (guild != null && !Config.getLogChannel().equals("0") && guild.getId().equals(MessageUtils.logChannel.getGuild().getId())) {
-				return new Result(Outcome.WARNING, ":warning: You can't ban the guild with the log channel!");
+            String logChannelID = txt.config.getLogChannel();
+			if (guild != null && !logChannelID.equals("0")) {
+				TextChannel logChannel = sm.getTextChannelById(logChannelID);
+				if (logChannel != null && guild.getId().equals(logChannel.getGuild().getId())) {
+					return new Result(Outcome.WARNING, ":warning: You can't ban the guild with the log channel!");
+				}
 			}
 			long gid = Long.valueOf(args[1]);
 			//Ban or unban guild

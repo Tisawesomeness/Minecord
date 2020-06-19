@@ -18,7 +18,6 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Member;
@@ -26,7 +25,6 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.entities.Message.MentionType;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -34,6 +32,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 public class CommandListener extends ListenerAdapter {
 
 	private @NonNull Bot bot;
+	private @NonNull Config config;
 	
 	@Override
 	public void onMessageReceived(MessageReceivedEvent e) {
@@ -54,7 +53,7 @@ public class CommandListener extends ListenerAdapter {
 					Database.getDeleteCommands(e.getGuild().getIdLong());
 			canEmbed = sm.hasPermission(tc, Permission.MESSAGE_EMBED_LINKS);
 		} else if (e.isFromType(ChannelType.PRIVATE)) {
-			prefix = Config.getPrefix();
+			prefix = config.getPrefixDefault();
 		} else {
 			return;
 		}
@@ -67,25 +66,26 @@ public class CommandListener extends ListenerAdapter {
 		String[] args = null;
 		
 		//If the message is a valid command
-		String[] content = MessageUtils.getContent(m, prefix, e.getJDA().getSelfUser());
+		String[] content = MessageUtils.getContent(m, prefix, e.getJDA().getSelfUser(), config);
 		if (content != null) {
 			
 			//Extract name and argument list
 			name = content[0];
 			if ("".equals(name)) return; //If there is a space after prefix, don't process any more
 			args = Arrays.copyOfRange(content, 1, content.length);
-			
+
+		// TODO temporarily (probably permanently) disabled
 		//If the bot is mentioned and does not mention everyone
-		} else if (m.isMentioned(e.getJDA().getSelfUser(), MentionType.USER) && e.isFromGuild()) {
-			
-			//Send the message to the logging channel
-			EmbedBuilder eb = new EmbedBuilder();
-			eb.setAuthor(a.getName() + " (" + a.getId() + ")", null, a.getEffectiveAvatarUrl());
-			eb.setDescription("**`" + e.getGuild().getName() + "`** (" +
-				e.getGuild().getId() + ") in channel `" + e.getChannel().getName() +
-				"` (" + e.getChannel().getId() + ")\n" + m.getContentDisplay());
-			MessageUtils.log(eb.build());
-			return;
+//		} else if (m.isMentioned(e.getJDA().getSelfUser(), MentionType.USER) && e.isFromGuild()) {
+//
+//			//Send the message to the logging channel
+//			EmbedBuilder eb = new EmbedBuilder();
+//			eb.setAuthor(a.getName() + " (" + a.getId() + ")", null, a.getEffectiveAvatarUrl());
+//			eb.setDescription("**`" + e.getGuild().getName() + "`** (" +
+//				e.getGuild().getId() + ") in channel `" + e.getChannel().getName() +
+//				"` (" + e.getChannel().getId() + ")\n" + m.getContentDisplay());
+//			MessageUtils.log(eb.build());
+//			return;
 			
 		//If none of the above are satisfied, get out
 		} else {
@@ -118,7 +118,7 @@ public class CommandListener extends ListenerAdapter {
 		}
 		
 		//Check for cooldowns, skipping if user is elevated
-		if (!(Config.getElevatedSkipCooldown() && isElevated)
+		if (!(config.shouldElevatedSkipCooldown() && isElevated)
 				&& cmd.cooldowns.containsKey(a) && ci.cooldown > 0) {
 			long last = cmd.cooldowns.get(a);
 			if (System.currentTimeMillis() - ci.cooldown < last) {
@@ -150,14 +150,14 @@ public class CommandListener extends ListenerAdapter {
 		//Instantiate timer
 		Timer timer = null;
 		Typing typing = null;
-		if (Config.getSendTyping() && ci.typing) {
+		if (config.shouldSendTyping() && ci.typing) {
 			timer = new Timer();
 			typing = new Typing();
 			timer.schedule(typing, 0, 5000);
 		}
 		
 		//Run command
-		CommandContext txt = new CommandContext(args, e, bot, isElevated, prefix, bot.getSettings());
+		CommandContext txt = new CommandContext(args, e, bot, config, isElevated, prefix, bot.getSettings());
 		Result result = null;
 		Exception exception = null;
 		cmd.cooldowns.put(a, System.currentTimeMillis());
@@ -169,7 +169,7 @@ public class CommandListener extends ListenerAdapter {
 		}
 		
 		//Cancel typing
-		if (Config.getSendTyping() && ci.typing) {
+		if (config.shouldSendTyping() && ci.typing) {
 			timer.cancel();
 			if (typing.fv != null) {
 				typing.fv.cancel(true);
@@ -183,7 +183,7 @@ public class CommandListener extends ListenerAdapter {
 		if (result == null) {
 			if (exception != null) {exception.printStackTrace();}
 			String err = ":x: There was an unexpected exception: `" + exception.toString() + "`\n```";
-			if (Config.getDebugMode()) {
+			if (config.isDebugMode()) {
 				exception.printStackTrace();
 				for (StackTraceElement ste : exception.getStackTrace()) {
 					err += "\n" + ste.toString();
@@ -195,7 +195,7 @@ public class CommandListener extends ListenerAdapter {
 				}
 			}
 			err += "```";
-			MessageUtils.log(err);
+			txt.log(err);
 			c.sendMessage(err).queue();
 		//If message is empty
 		} if (result.message == null) {

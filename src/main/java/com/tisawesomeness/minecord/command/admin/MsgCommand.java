@@ -6,7 +6,6 @@ import java.util.concurrent.ExecutionException;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DiscordUtils;
-import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.PrivateChannel;
@@ -58,7 +57,7 @@ public class MsgCommand extends Command {
 		eb.setAuthor(a.getAsTag() + " (`" + a.getId() + "`)", null, a.getAvatarUrl());
 		eb.setDescription("**Sent a DM to " + user.getAsTag() + " (`" + user.getId() + "`):**\n" + msg);
 		eb.setThumbnail(user.getAvatarUrl());
-		MessageUtils.log(eb.build());
+		txt.log(eb.build());
 		
 		return new Result(Outcome.SUCCESS);
 	}

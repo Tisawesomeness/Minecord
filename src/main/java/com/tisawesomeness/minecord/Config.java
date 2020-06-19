@@ -4,42 +4,56 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import lombok.Getter;
 import org.json.JSONObject;
 
 import javax.annotation.Nullable;
 
+/**
+ * Loads the config options from config.json.
+ */
 public class Config {
 
-	private static String clientToken;
-	private static int shardCount;
-	private static String owner;
+	// Some @Getters are omitted since {@code isDeleteCommandsDefault()} doesn't make sense.
+	@Getter private final String clientToken;
+	@Getter private final int shardCount;
+	@Getter private final String owner;
 
-	private static String logChannel;
-	private static String invite;
-	private static String prefix;
-	private static String game;
-	private static boolean debugMode;
-	private static boolean respondToMentions;
-	private static boolean deleteCommands;
-	private static boolean useMenus;
-	private static boolean sendTyping;
-	private static boolean showMemory;
-	private static boolean elevatedSkipCooldown;
+	@Getter private final String prefixDefault;
+	private final boolean deleteCommandsDefault;
+	public boolean shouldDeleteCommandsDefault() { return deleteCommandsDefault; }
+	private final boolean useMenusDefault;
+	public boolean shouldUseMenusDefault() { return useMenusDefault; }
 
-	private static boolean sendServerCount;
-	private static String pwToken;
-	private static String orgToken;
-	private static boolean receiveVotes;
-	private static String webhookURL;
-	private static int webhookPort;
-	private static String webhookAuth;
+	@Getter private final String logChannel;
+	@Getter private final String invite;
+	@Getter private final String game;
+	@Getter private final boolean debugMode;
+	private final boolean respondToMentions;
+	public boolean shouldRespondToMentions() { return respondToMentions; }
+	private final boolean sendTyping;
+	public boolean shouldSendTyping() { return sendTyping; }
+	private final boolean showMemory;
+	public boolean shouldShowMemory() { return showMemory; }
+	private final boolean elevatedSkipCooldown;
+	public boolean shouldElevatedSkipCooldown() { return elevatedSkipCooldown; }
 
-	private static String type;
-	private static String host;
-	private static int port;
-	private static String dbName;
-	private static String user;
-	private static String pass;
+	private final boolean sendServerCount;
+	public boolean shouldSendServerCount() { return sendServerCount; }
+	@Getter private final String pwToken;
+	@Getter private final String orgToken;
+	private final boolean receiveVotes;
+	public boolean shouldReceiveVotes() { return receiveVotes; }
+	@Getter private final String webhookURL;
+	@Getter private final int webhookPort;
+	@Getter private final String webhookAuth;
+
+	@Getter private final String type;
+	@Getter private final String host;
+	@Getter private final int port;
+	@Getter private final String dbName;
+	@Getter private final String user;
+	@Getter private final String pass;
 
 	/**
 	 * Reads data from the config file.
@@ -47,25 +61,32 @@ public class Config {
 	 * @param tokenOverride The token used to override the config, or {@code null} for no override.
 	 * @throws IOException When the config file couldn't be found
 	 */
-	public static void read(Path configPath, @Nullable String tokenOverride) throws IOException {
+	public Config(Path configPath, @Nullable String tokenOverride) throws IOException {
+		this(new JSONObject(new String(Files.readAllBytes(configPath))), tokenOverride);
+	}
 
-		// Parse config JSON
-		JSONObject config = new JSONObject(new String(Files.readAllBytes(configPath)));
+	/**
+	 * Reads data from the config file.
+	 * @param config The config JSON.
+	 * @param tokenOverride The token used to override the config, or {@code null} for no override.
+	 * @throws IOException When the config file couldn't be found
+	 */
+	public Config(JSONObject config, @Nullable String tokenOverride) throws IOException {
 
 		clientToken = parseToken(config, tokenOverride);
-		shardCount = config.getInt("shardCount");
-		if (shardCount < 1) shardCount = 1;
+		shardCount = parseShards(config);
 		owner = config.getString("owner");
 
 		JSONObject settings = config.getJSONObject("settings");
+		prefixDefault = settings.getString("prefix");
+		deleteCommandsDefault = settings.getBoolean("deleteCommands");
+		useMenusDefault = settings.getBoolean("useMenus");
+
 		logChannel = settings.getString("logChannel");
 		invite = settings.getString("invite");
-		prefix = settings.getString("prefix");
 		game = settings.getString("game");
 		debugMode = settings.getBoolean("debugMode");
 		respondToMentions = settings.getBoolean("respondToMentions");
-		deleteCommands = settings.getBoolean("deleteCommands");
-		useMenus = settings.getBoolean("useMenus");
 		sendTyping = settings.getBoolean("sendTyping");
 		showMemory = settings.getBoolean("showMemory");
 		elevatedSkipCooldown = settings.getBoolean("elevatedSkipCooldown");
@@ -96,35 +117,8 @@ public class Config {
 		return config.getString("clientToken");
 	}
 
-	public static String getClientToken() {return clientToken;}
-	public static int getShardCount() {return shardCount;}
-	public static String getOwner() {return owner;}
-
-	public static String getLogChannel() {return logChannel;}
-	public static String getInvite() {return invite;}
-	public static String getPrefix() {return prefix;}
-	public static String getGame() {return game;}
-	public static boolean getDebugMode() {return debugMode;}
-	public static boolean getRespondToMentions() {return respondToMentions;}
-	public static boolean getDeleteCommands() {return deleteCommands;}
-	public static boolean getUseMenus() {return useMenus;}
-	public static boolean getSendTyping() {return sendTyping;}
-	public static boolean getShowMemory() {return showMemory;}
-	public static boolean getElevatedSkipCooldown() {return elevatedSkipCooldown;}
-
-	public static boolean getSendServerCount() {return sendServerCount;}
-	public static String getPwToken() {return pwToken;}
-	public static String getOrgToken() {return orgToken;}
-	public static boolean getReceiveVotes() {return receiveVotes;}
-	public static String getWebhookURL() {return webhookURL;}
-	public static int getWebhookPort() {return webhookPort;}
-	public static String getWebhookAuth() {return webhookAuth;}
-
-	public static String getType() {return type;}
-	public static String getHost() {return host;}
-	public static int getPort() {return port;}
-	public static String getDbName() {return dbName;}
-	public static String getUser() {return user;}
-	public static String getPass() {return pass;}
+	private static int parseShards(JSONObject config) {
+		return Math.max(1, config.getInt("shardCount"));
+	}
 
 }

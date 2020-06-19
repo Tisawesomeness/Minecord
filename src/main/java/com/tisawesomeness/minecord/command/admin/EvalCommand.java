@@ -42,9 +42,9 @@ public class EvalCommand extends Command {
 	String docsLink = "https://docs.oracle.com/javase/8/docs/technotes/guides/scripting/prog_guide/javascript.html#CIHFFHED";
 	public String getHelp() {
 		return "Evaluates some js code using the Rhino engine.\n" +
-			"Variables: `jda`, `sm`, `config`, `db`, `event`, `user`, `channel`\n" +
-			"Not available in DM: `member`, `guild`\n" +
-			"Use `help(obj)` to list the object's fields and methods.\n" +
+			"Variables: `txt`, `bot`, `jda`, `sm`, `config`, `db`, `event`, `user`, `channel`\n" +
+			"Not available in DMs: `member`, `guild`\n" +
+			"Use `help(obj)` to list an object's fields and methods.\n" +
 			"\n" +
 			"See [the docs](" + docsLink + ") for information on accessing Java from scripts.\n" +
 			"Sensitive info such as the bot token are cleaned from the input and output. " +
@@ -62,9 +62,11 @@ public class EvalCommand extends Command {
 		// Javascript engine with JDA, event and config variables.
 		ScriptEngineManager factory = new ScriptEngineManager();
 		ScriptEngine engine = factory.getEngineByName("JavaScript");
+		engine.put("txt", txt);
+		engine.put("bot", txt.bot);
 		engine.put("jda", e.getJDA());
 		engine.put("sm", e.getJDA().getShardManager());
-		engine.put("config", new Config());
+		engine.put("config", txt.config);
 		engine.put("db", new Database());
 		engine.put("event", e);
 		engine.put("user", e.getAuthor());
@@ -85,7 +87,7 @@ public class EvalCommand extends Command {
 		try {
 			output = engine.eval(code);
 		} catch (ScriptException ex) {
-			exMsg = ex.getMessage() == null ? "Null Script Exception" : clean(ex.getMessage());
+			exMsg = ex.getMessage() == null ? "Null Script Exception" : clean(ex.getMessage(), txt.config);
 		}
 		if (output == null) {
 			output = "null";
@@ -93,7 +95,7 @@ public class EvalCommand extends Command {
 		
 		// Build embed
 		EmbedBuilder eb = new EmbedBuilder();
-		String in = clean(code);
+		String in = clean(code, txt.config);
 		if (in.length() > 2048 - 10) {
 			eb.addField("Input", "Input too long!", false);
 		} else if (in.length() > 1024 - 10) {
@@ -112,7 +114,7 @@ public class EvalCommand extends Command {
 		}
 
 		// Check for length
-		String out = clean(output.toString());
+		String out = clean(output.toString(), txt.config);
 		if (out.length() > 1024 - 10) {
 			// Send up to 10 2000-char messages
 			ArrayList<String> lines = MessageUtils.splitLinesByLength(out, 2000 - 10);
@@ -141,15 +143,15 @@ public class EvalCommand extends Command {
 	 * @param s The input string
 	 * @return A cleaned string with blacklisted strings replaced with [redacted]
 	 */
-	private String clean(String s) {
+	private String clean(String s, Config config) {
 		String[] blacklist = new String[]{
-			Config.getClientToken(),
-			Config.getPwToken(),
-			Config.getOrgToken(),
-			Config.getWebhookURL(),
-			Config.getWebhookAuth(),
-			Config.getHost(),
-			Config.getPass()
+			config.getClientToken(),
+			config.getPwToken(),
+			config.getOrgToken(),
+			config.getWebhookURL(),
+			config.getWebhookAuth(),
+			config.getHost(),
+			config.getPass()
 		};
 		for (String nono : blacklist) {
 			s = s.replace(nono, "[redacted]");

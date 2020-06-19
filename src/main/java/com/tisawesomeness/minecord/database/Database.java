@@ -11,16 +11,17 @@ import java.util.concurrent.Future;
 
 import javax.sql.DataSource;
 
-import org.sqlite.SQLiteDataSource;
-
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import com.tisawesomeness.minecord.Config;
+
+import org.sqlite.SQLiteDataSource;
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 public class Database {
 	
 	private static DataSource source;
 	private static HashMap<Long, DbGuild> guilds = new HashMap<Long, DbGuild>();
 	private static HashMap<Long, DbUser> users = new HashMap<Long, DbUser>();
+	public static Config config = null; // TODO change Database to instance
 	
 	private static Connection getConnect() throws SQLException {
 		return source.getConnection();
@@ -42,7 +43,7 @@ public class Database {
 		
 		//Build database source
 		String url = "jdbc:";
-		if (Config.getType().equals("mysql")) {
+		if (config.getType().equals("mysql")) {
 			url += "mysql://";
 			try {
 				Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -52,12 +53,12 @@ public class Database {
 		} else {
 			url += "sqlite:";
 		}
-		url += Config.getHost();
-		if (Config.getType().equals("mysql")) {
+		url += config.getHost();
+		if (config.getType().equals("mysql")) {
 			MysqlDataSource ds = new MysqlDataSource();
-			ds.setUrl(url + ":" + Config.getPort() + "/" + Config.getDbName());
-			ds.setUser(Config.getUser());
-			ds.setPassword(Config.getPass());
+			ds.setUrl(url + ":" + config.getPort() + "/" + config.getDbName());
+			ds.setUser(config.getUser());
+			ds.setPassword(config.getPass());
 			ds.setUseSSL(false);
 			source = ds;
 		} else {
@@ -90,8 +91,8 @@ public class Database {
 		);
 		
 		// Add owner to elevated
-		if (!Config.getOwner().equals("0")) {
-			changeElevated(Long.valueOf(Config.getOwner()), true);
+		if (!config.getOwner().equals("0")) {
+			changeElevated(Long.valueOf(config.getOwner()), true);
 		}
 		
 		refresh();
@@ -173,7 +174,7 @@ public class Database {
 		}
 		
 		//Delete guild if it contains only default values
-		if (prefix.equals(Config.getPrefix())) {
+		if (prefix.equals(config.getPrefixDefault())) {
 			purgeGuilds(id);
 		}
 		
@@ -181,8 +182,8 @@ public class Database {
 	
 	public static String getPrefix(long id) {
 		DbGuild guild = guilds.get(id);
-		String prefix = guild == null ? Config.getPrefix() : guild.prefix;
-		return prefix == null ? Config.getPrefix() : prefix;
+		String prefix = guild == null ? config.getPrefixDefault() : guild.prefix;
+		return prefix == null ? config.getPrefixDefault() : prefix;
 	}
 	
 	public static void changeBannedGuild(long id, boolean banned) throws SQLException {
@@ -208,7 +209,7 @@ public class Database {
 		//Mirror change in local user list
 		DbGuild g = guilds.get(id);
 		if (g == null) {
-			guilds.put(id, new DbGuild(id, Config.getPrefix(), null, banned, false, null, null));
+			guilds.put(id, new DbGuild(id, config.getPrefixDefault(), null, banned, false, null, null));
 		} else {
 			g.banned = banned;
 		}
@@ -241,7 +242,7 @@ public class Database {
 		//Mirror change in local guild list
 		DbGuild g = guilds.get(id);
 		if (g == null) {
-			guilds.put(id, new DbGuild(id, Config.getPrefix(), null, false, false, deleteCommands, null));
+			guilds.put(id, new DbGuild(id, config.getPrefixDefault(), null, false, false, deleteCommands, null));
 		} else {
 			g.deleteCommands = deleteCommands;
 		}
@@ -252,11 +253,11 @@ public class Database {
 		DbGuild guild = guilds.get(id);
 		Boolean deleteCommands;
 		if (guild == null) {
-			deleteCommands = Config.getDeleteCommands();
+			deleteCommands = config.shouldDeleteCommandsDefault();
 		} else {
 			deleteCommands = guild.deleteCommands == null ? null : guild.deleteCommands; // Blame java
 		}
-		return deleteCommands == null ? Config.getDeleteCommands() : deleteCommands;
+		return deleteCommands == null ? config.shouldDeleteCommandsDefault() : deleteCommands;
 	}
 	
 	public static void changeUseMenu(long id, boolean useMenu) throws SQLException {
@@ -282,7 +283,7 @@ public class Database {
 		//Mirror change in local guild list
 		DbGuild g = guilds.get(id);
 		if (g == null) {
-			guilds.put(id, new DbGuild(id, Config.getPrefix(), null, false, false, null, !useMenu));
+			guilds.put(id, new DbGuild(id, config.getPrefixDefault(), null, false, false, null, !useMenu));
 		} else {
 			g.noMenu = !useMenu;
 		}
@@ -293,11 +294,11 @@ public class Database {
 		DbGuild guild = guilds.get(id);
 		Boolean useMenu;
 		if (guild == null) {
-			useMenu = Config.getUseMenus();
+			useMenu = config.shouldUseMenusDefault();
 		} else {
 			useMenu = guild.noMenu == null ? null : !guild.noMenu; // Blame java
 		}
-		return useMenu == null ? Config.getUseMenus() : useMenu;
+		return useMenu == null ? config.shouldUseMenusDefault() : useMenu;
 	}
 
 	private static void purgeGuilds(long id) throws SQLException {

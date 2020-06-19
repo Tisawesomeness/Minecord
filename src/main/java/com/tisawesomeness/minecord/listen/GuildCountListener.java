@@ -1,8 +1,11 @@
 package com.tisawesomeness.minecord.listen;
 
+import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.util.DiscordUtils;
-import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -14,7 +17,11 @@ import net.dv8tion.jda.api.sharding.ShardManager;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 public class GuildCountListener extends ListenerAdapter {
+
+    private final @NonNull Bot bot;
+    private final @NonNull Config config;
 
     @Override
     public void onGuildJoin(GuildJoinEvent e) {
@@ -48,11 +55,11 @@ public class GuildCountListener extends ListenerAdapter {
         updateGuilds(eb, guild, e.getJDA().getShardManager());
     }
 
-    private static void updateGuilds(EmbedBuilder eb, Guild guild, ShardManager sm) {
+    private void updateGuilds(EmbedBuilder eb, Guild guild, ShardManager sm) {
         eb.setThumbnail(guild.getIconUrl());
-        MessageUtils.log(eb.build());
-        RequestUtils.sendGuilds(sm);
-        DiscordUtils.update(sm); // Update guild, channel, and user count
+        bot.log(eb.build());
+        RequestUtils.sendGuilds(sm, config);
+        DiscordUtils.update(sm, config); // Update guild, channel, and user count
     }
 
 }

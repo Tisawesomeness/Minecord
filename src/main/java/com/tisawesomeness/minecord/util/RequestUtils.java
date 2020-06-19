@@ -190,14 +190,14 @@ public class RequestUtils {
 	 * Sends the guild count
 	 * @param sm The ShardManager used to determine the guild count
 	 */
-	public static void sendGuilds(ShardManager sm) {
-		if (Config.getSendServerCount()) {
+	public static void sendGuilds(ShardManager sm, Config config) {
+		if (config.shouldSendServerCount()) {
 			int servers = sm.getGuilds().size();
 			String id = sm.getShardById(0).getSelfUser().getId();
 
 			String url = "https://bots.discord.pw/api/bots/" + id + "/stats";
 			String query = "{\"server_count\": " + servers + "}";
-			post(url, query, Config.getPwToken());
+			post(url, query, config.getPwToken());
 
 			/*
 			 * url = "https://discordbots.org/api/bots/" + id + "/stats"; query =

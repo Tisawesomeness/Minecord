@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.util;
 
 import java.awt.Color;
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,11 +13,8 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.SelfUser;
-import net.dv8tion.jda.api.entities.TextChannel;
 
 public class MessageUtils {
-
-	public static TextChannel logChannel;
 	
 	/**
 	 * Formats a message to look more fancy using an embed. Pass null in any argument (except color) to remove that aspect of the message.
@@ -55,10 +51,10 @@ public class MessageUtils {
 	
 	public static EmbedBuilder addFooter(EmbedBuilder eb) {
 		String announcement = Announcement.rollAnnouncement();
-		if (Config.getOwner().equals("0")) {
-			return eb.setFooter(announcement);
-		}
 		// TODO temporarily disabled
+//		if (Config.getOwner().equals("0")) {
+//			return eb.setFooter(announcement);
+//		}
 //		User owner = Bot.shardManager.retrieveUserById(Config.getOwner()).complete();
 //		return eb.setFooter(announcement, owner.getAvatarUrl());
 		return eb.setFooter(announcement);
@@ -84,40 +80,13 @@ public class MessageUtils {
 	}
 	
 	/**
-	 * Logs a message to the logging channel.
-	 */
-	public static void log(String m) {
-		if (!Config.getLogChannel().equals("0")) {
-			logChannel.sendMessage(m).queue();
-		}
-	}
-	/**
-	 * Logs a message to the logging channel.
-	 */
-	public static void log(Message m) {
-		if (!Config.getLogChannel().equals("0")) {
-			logChannel.sendMessage(m).queue();
-		}
-	}
-	/**
-	 * Logs a message to the logging channel.
-	 */
-	public static void log(MessageEmbed m) {
-		if (!Config.getLogChannel().equals("0")) {
-			EmbedBuilder eb = new EmbedBuilder(m);
-			eb.setTimestamp(OffsetDateTime.now());
-			logChannel.sendMessage(eb.build()).queue();
-		}
-	}
-	
-	/**
 	 * Gets the command-useful content of a message, keeping the name and arguments and purging the prefix and mention.
 	 */
-	public static String[] getContent(Message m, String prefix, SelfUser su) {
+	public static String[] getContent(Message m, String prefix, SelfUser su, Config config) {
 		String content = m.getContentRaw();
 		if (m.getContentRaw().startsWith(prefix)) {
 			return content.replaceFirst(Pattern.quote(prefix), "").split(" ");
-		} else if (Config.getRespondToMentions() && content.replaceFirst("@!", "@").startsWith(su.getAsMention())) {
+		} else if (config.shouldRespondToMentions() && content.replaceFirst("@!", "@").startsWith(su.getAsMention())) {
 			String[] args = content.split(" ");
 			return Arrays.copyOfRange(args, 1, args.length);
 		}

@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.command.CommandContext;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -16,7 +16,6 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.entities.Guild;
 
 /**
  * Represents a menu the user can interact with by reacting to the message
@@ -163,15 +162,16 @@ public abstract class ReactMenu {
      * Checks if the bot is able to make a react menu in the specified channel
      * @return True if the guild has menus enabled and the bot has manage message and add reaction permissions
      */
-    public static MenuStatus getMenuStatus(MessageReceivedEvent e) {
+    public static MenuStatus getMenuStatus(CommandContext txt) {
+        MessageReceivedEvent e = txt.e;
         if (!e.isFromGuild()) {
-            return Config.getUseMenus() ? MenuStatus.PRIVATE_MESSAGE : MenuStatus.DISABLED;
+            return txt.config.shouldUseMenusDefault() ? MenuStatus.PRIVATE_MESSAGE : MenuStatus.DISABLED;
         }
-        Guild g = e.getGuild();
-        if (!Database.getUseMenu(g.getIdLong())) {
+        if (!txt.shouldUseMenus()) {
             return MenuStatus.DISABLED;
         }
-        if (!g.getSelfMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE, Permission.MESSAGE_ADD_REACTION)) {
+        if (!e.getGuild().getSelfMember().hasPermission(e.getTextChannel(),
+                Permission.MESSAGE_MANAGE, Permission.MESSAGE_ADD_REACTION)) {
             return MenuStatus.NO_PERMISSION;
         }
         return MenuStatus.VALID;

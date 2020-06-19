@@ -14,11 +14,12 @@ public class Announcement {
 
     private static ArrayList<Announcement> announcements = new ArrayList<Announcement>();
     private static int totalWeight;
+    public static Config config; // TODO change to instance
     private String text;
     private int weight;
 
     private Announcement(String text, int weight) {
-        this.text = DiscordUtils.parseConstants(text);
+        this.text = DiscordUtils.parseConstants(text, config);
         this.weight = weight;
     }
 

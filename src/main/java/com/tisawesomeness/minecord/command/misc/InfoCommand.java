@@ -4,7 +4,6 @@ import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DateUtils;
@@ -37,7 +36,7 @@ public class InfoCommand extends Command {
 
 	public Result run(CommandContext txt) {
 		ShardManager sm = txt.bot.getShardManager();
-		DiscordUtils.update(sm);
+		DiscordUtils.update(sm, txt.config);
 		
 		// If the author used the admin keyword and is an elevated user
 		boolean elevated = false;
@@ -53,8 +52,9 @@ public class InfoCommand extends Command {
 		eb.addField("Version", Bot.version, true);
 		
 		String guilds = sm.getGuilds().size() + "";
-		if (Config.getShardCount() > 1) {
-			String shards = txt.e.getJDA().getShardInfo().getShardId() + 1 + "/" + Config.getShardCount();
+		int shardTotal = txt.bot.getShardManager().getShardsTotal();
+		if (shardTotal > 1) {
+			String shards = txt.e.getJDA().getShardInfo().getShardId() + 1 + "/" + shardTotal;
 			eb.addField("Shard", shards, true);
 			guilds += " {" + txt.e.getJDA().getGuilds().size() + "}";
 		}
@@ -62,14 +62,14 @@ public class InfoCommand extends Command {
 		
 		eb.addField("Uptime", DateUtils.getUptime(txt.bot.getBirth()), true);
 		eb.addField("Ping", sm.getAverageGatewayPing() + "ms", true);
-		if (Config.getShowMemory() || elevated) {
+		if (txt.config.shouldShowMemory() || elevated) {
 			eb.addField("Memory", getMemoryString(), true);
 			eb.addField("Boot Time", DateUtils.getBootTime(txt.bot.getBootTime()), true);
 		}
 		eb.addField("Java Version", MarkdownUtil.monospace(Bot.javaVersion), true);
 		eb.addField("JDA Version", MarkdownUtil.monospace(Bot.jdaVersion), true);
 
-		String links = MarkdownUtil.maskedLink("INVITE", Config.getInvite()) + " | " +
+		String links = MarkdownUtil.maskedLink("INVITE", txt.config.getInvite()) + " | " +
 			MarkdownUtil.maskedLink("SUPPORT", Bot.helpServer) + " | " +
 			MarkdownUtil.maskedLink("WEBSITE", Bot.website) + " | " +
 			MarkdownUtil.maskedLink("GITHUB", Bot.github);

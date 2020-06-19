@@ -3,37 +3,38 @@ package com.tisawesomeness.minecord.database;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import com.tisawesomeness.minecord.Bot;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import net.dv8tion.jda.api.sharding.ShardManager;
 import org.json.JSONObject;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
-import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.entities.User;
 
-@RequiredArgsConstructor
 public class VoteHandler {
 	
 	private HttpServer server;
-	private final @NonNull ShardManager sm;
+	private final @NonNull Bot bot;
+	private final @NonNull Config config;
+
+	public VoteHandler(Bot bot, Config config) {
+		this.bot = bot;
+		this.config = config;
+	}
 
 	private ExecutorService exe = Executors.newSingleThreadExecutor();
 	public Future<Boolean> start() {
 		return exe.submit(() -> {
-			if (!Config.getReceiveVotes()) {
+			if (!config.shouldReceiveVotes()) {
 				return true;
 			}
 			try {
@@ -46,8 +47,8 @@ public class VoteHandler {
 		});
 	}
 	private void init() throws IOException {
-		server = HttpServer.create(new InetSocketAddress(Config.getWebhookPort()), 0);
-		server.createContext("/" + Config.getWebhookURL(), new HttpHandler() {
+		server = HttpServer.create(new InetSocketAddress(config.getWebhookPort()), 0);
+		server.createContext("/" + config.getWebhookURL(), new HttpHandler() {
 			
 			private static final String response = "OK";
 			
@@ -57,7 +58,7 @@ public class VoteHandler {
 				//Check if request is a POST request and the authorization is correct
 				if ("POST".equals(t.getRequestMethod())
 						&& t.getRequestHeaders().getOrDefault("Authorization", Arrays.asList("N/A"))
-						.get(0).equals(Config.getWebhookAuth())) {
+						.get(0).equals(config.getWebhookAuth())) {
 					
 					//Get post body
 					Scanner scanner = new Scanner(t.getRequestBody());
@@ -69,13 +70,13 @@ public class VoteHandler {
 					boolean upvote = "upvote".equals(o.getString("type"));
 					String msg = upvote ? "Thanks for voting!" : "y u do dis";
 					String id = o.getString("user");
-					User u = sm.getUserById(id);
-					msg = upvote ? "upvoted!" : "downvoted ;(";
+					User u = bot.getShardManager().getUserById(id);
+					String logMsg = upvote ? "upvoted!" : "downvoted ;(";
 					if (u == null) {
-						MessageUtils.log(String.format("(`%s`) %s", id, msg));
+						bot.log(String.format("(`%s`) %s", id, logMsg));
 					} else {
 						u.openPrivateChannel().complete().sendMessage(msg).queue();
-						MessageUtils.log(String.format("%s (`%s`) %s", u.getAsTag(), id, msg));
+						bot.log(String.format("%s (`%s`) %s", u.getAsTag(), id, logMsg));
 					}
 				}
 				

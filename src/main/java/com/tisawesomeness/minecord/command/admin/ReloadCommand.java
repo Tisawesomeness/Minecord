@@ -44,12 +44,12 @@ public class ReloadCommand extends Command {
 		try {
 			Database.close();
 			Database.start();
-			if (Config.getReceiveVotes()) {
+			if (txt.config.shouldReceiveVotes()) {
 				bot.getVoteHandler().close();
 			}
 			ArgsHandler args = bot.getArgs();
-			Config.read(args.getConfigPath(), args.getTokenOverride());
-			if (Config.getReceiveVotes()) {
+			Config reloadedConfig = txt.bot.reloadConfig();
+			if (reloadedConfig.shouldReceiveVotes()) {
 				bot.getVoteHandler().start();
 			}
 			Announcement.read(args.getAnnouncePath());
