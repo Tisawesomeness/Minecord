@@ -8,7 +8,6 @@ import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
-import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
@@ -46,8 +45,7 @@ public class InfoCommand extends Command {
 		
 		// Build message
 		EmbedBuilder eb = new EmbedBuilder();
-		
-		eb.setColor(Bot.color);
+
 		eb.addField("Author", Bot.author, true);
 		eb.addField("Version", Bot.version, true);
 		
@@ -75,7 +73,7 @@ public class InfoCommand extends Command {
 			MarkdownUtil.maskedLink("GITHUB", Bot.github);
 		eb.addField("Links", "**" + links + "**", false);
 		
-		eb = MessageUtils.addFooter(eb);
+		eb = txt.brand(eb);
 		return new Result(Outcome.SUCCESS, eb.build());
 	}
 

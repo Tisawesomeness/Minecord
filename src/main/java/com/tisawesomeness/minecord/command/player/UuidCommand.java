@@ -2,15 +2,11 @@ package com.tisawesomeness.minecord.command.player;
 
 import java.util.Arrays;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
-
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 
 public class UuidCommand extends Command {
 	
@@ -86,9 +82,8 @@ public class UuidCommand extends Command {
 		}
 		
 		String m = String.format("Short: `%s`\nLong: `%s`", uuid, NameUtils.formatUUID(uuid));
-		MessageEmbed me = MessageUtils.embedMessage(title, url, m, Bot.color);
 		
-		return new Result(Outcome.SUCCESS, new EmbedBuilder(me).build());
+		return new Result(Outcome.SUCCESS, txt.embedURL(title, url, m).build());
 	}
 	
 }

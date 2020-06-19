@@ -7,10 +7,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import br.com.azalim.mcserverping.MCPing;
@@ -114,7 +112,7 @@ public class ServerCommand extends Command {
 		}
 
 		// Upload favicon as byte array
-		EmbedBuilder eb = MessageUtils.addFooter(new EmbedBuilder().setTitle("Server Status").setColor(Bot.color));
+		EmbedBuilder eb = txt.brand(new EmbedBuilder().setTitle("Server Status"));
 		if (reply.getFavicon() == null) {
 			eb.setDescription(m);
 		} else {

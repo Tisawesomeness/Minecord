@@ -3,7 +3,6 @@ package com.tisawesomeness.minecord.command.admin;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import com.tisawesomeness.minecord.Announcement;
 import com.tisawesomeness.minecord.ArgsHandler;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
@@ -52,7 +51,7 @@ public class ReloadCommand extends Command {
 			if (reloadedConfig.shouldReceiveVotes()) {
 				bot.getVoteHandler().start();
 			}
-			Announcement.read(args.getAnnouncePath());
+			txt.bot.reloadAnnouncements(reloadedConfig);
 			Item.init();
 			Recipe.init();
 		} catch (SQLException | IOException ex) {

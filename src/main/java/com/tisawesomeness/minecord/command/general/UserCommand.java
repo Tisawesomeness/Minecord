@@ -1,12 +1,10 @@
 package com.tisawesomeness.minecord.command.general;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
-import com.tisawesomeness.minecord.util.MessageUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -80,7 +78,6 @@ public class UserCommand extends Command {
 
             EmbedBuilder eb = new EmbedBuilder()
                 .setTitle(MarkdownSanitizer.escape(u.getAsTag()))
-                .setColor(Bot.color)
                 .addField("ID", u.getId(), true)
                 .addField("Bot?", u.isBot() ? "Yes" : "No", true)
                 .addField("Elevated?", Database.isElevated(u.getIdLong()) ? "Yes" : "No", true);
@@ -102,7 +99,7 @@ public class UserCommand extends Command {
                     .collect(Collectors.joining("\n"));
                 eb.addField("Mutual Guilds", mutualGuilds, false);
             }
-            return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+            return new Result(Outcome.SUCCESS, txt.brand(eb).build());
         }
         
         // Guild-only command
@@ -167,7 +164,7 @@ public class UserCommand extends Command {
         if (elevated && Database.isBanned(u.getIdLong())) {
             eb.setDescription("__**USER BANNED FROM MINECORD**__");
         }
-        return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+        return new Result(Outcome.SUCCESS, txt.addFooter(eb).build());
     }
     
 }

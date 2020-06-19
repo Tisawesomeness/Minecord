@@ -1,64 +1,16 @@
 package com.tisawesomeness.minecord.util;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.tisawesomeness.minecord.Announcement;
 import com.tisawesomeness.minecord.Config;
 
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.SelfUser;
 
 public class MessageUtils {
-	
-	/**
-	 * Formats a message to look more fancy using an embed. Pass null in any argument (except color) to remove that aspect of the message.
-	 * @param title The title or header of the message.
-	 * @param url A URL that the title goes to when clicked. Only works if title is not null.
-	 * @param body The main body of the message.
-	 * @param color The color of the embed. Discord markdown formatting and newline are supported.
-	 * @return A MessageEmbed representing the message. You can add additional info (e.g. fields) by passing this variable into a new EmbedBuilder.
-	 */
-	public static MessageEmbed embedMessage(String title, String url, String body, Color color) {
-		EmbedBuilder eb = new EmbedBuilder();
-		if (title != null) eb.setTitle(title, url);
-		eb.setDescription(body);
-		eb.setColor(color);
-		eb = addFooter(eb);
-		return eb.build();
-	}
-	
-	/**
-	 * Formats an image to look more fancy using an embed.
-	 * @param title The title or header.
-	 * @param url The URL of the image.
-	 * @param color The color of the embed. Discord markdown formatting and newline are supported.
-	 * @return A MessageEmbed representing the message. You can add additional info (e.g. fields) by passing this variable into a new EmbedBuilder.
-	 */
-	public static MessageEmbed embedImage(String title, String url, Color color) {
-		EmbedBuilder eb = new EmbedBuilder();
-		if (title != null) {eb.setAuthor(title, null, null);}
-		eb.setImage(url);
-		eb.setColor(color);
-		eb = addFooter(eb);
-		return eb.build();
-	}
-	
-	public static EmbedBuilder addFooter(EmbedBuilder eb) {
-		String announcement = Announcement.rollAnnouncement();
-		// TODO temporarily disabled
-//		if (Config.getOwner().equals("0")) {
-//			return eb.setFooter(announcement);
-//		}
-//		User owner = Bot.shardManager.retrieveUserById(Config.getOwner()).complete();
-//		return eb.setFooter(announcement, owner.getAvatarUrl());
-		return eb.setFooter(announcement);
-	}
 	
 	/**
 	 * Parses boolean arguments.

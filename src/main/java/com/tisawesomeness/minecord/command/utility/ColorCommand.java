@@ -70,7 +70,7 @@ public class ColorCommand extends Command {
                 .addField("Background Color", ColorUtils.getBackgroundHex(colorID), true);
         }
 
-        return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+        return new Result(Outcome.SUCCESS, txt.addFooter(eb).build());
     }
 
 }

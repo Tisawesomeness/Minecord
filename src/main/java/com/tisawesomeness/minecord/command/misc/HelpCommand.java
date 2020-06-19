@@ -3,13 +3,10 @@ package com.tisawesomeness.minecord.command.misc;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.Module;
 import com.tisawesomeness.minecord.command.Registry;
-import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 
@@ -59,7 +56,7 @@ public class HelpCommand extends Command {
 		String[] args = txt.args;
 		String prefix = txt.prefix;
 
-		EmbedBuilder eb = new EmbedBuilder().setColor(Bot.color);
+		EmbedBuilder eb = txt.brand(new EmbedBuilder());
 		String url = txt.e.getJDA().getSelfUser().getEffectiveAvatarUrl();
 
 		// General help
@@ -84,7 +81,7 @@ public class HelpCommand extends Command {
 					.collect(Collectors.joining(", "));
 				eb.addField(m.getName(), mHelp, false);
 			}
-			return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+			return new Result(Outcome.SUCCESS, eb.build());
 		}
 
 		// Module help
@@ -110,7 +107,7 @@ public class HelpCommand extends Command {
 				mUsage = mHelp + "\n" + mUsage;
 			}
 			eb.setAuthor(m.getName() + " Module Help", null, url).setDescription(mUsage);
-			return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+			return new Result(Outcome.SUCCESS, eb.build());
 		}
 
 		// Command help
@@ -147,7 +144,7 @@ public class HelpCommand extends Command {
 			}
 			String desc = String.format("%s\nModule: `%s`", help, Registry.findModuleName(ci.name));
 			eb.setAuthor(prefix + ci.name + " Help").setDescription(desc);
-			return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+			return new Result(Outcome.SUCCESS, eb.build());
 		}
 		
 		return new Result(Outcome.WARNING, ":warning: That command or module does not exist.");

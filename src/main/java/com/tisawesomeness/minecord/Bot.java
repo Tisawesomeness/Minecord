@@ -76,6 +76,7 @@ public class Bot {
 	@Getter private ArgsHandler args;
 	@Getter private ShardManager shardManager;
 	@Getter private SettingRegistry settings;
+	@Getter private AnnounceRegistry announceRegistry;
 	@Getter private VoteHandler voteHandler;
 	@Getter private long birth;
 	@Getter private long bootTime;
@@ -101,8 +102,7 @@ public class Bot {
 		// Pre-init
 		try {
 			config = new Config(args.getConfigPath(), args.getTokenOverride());
-			Announcement.config = config;
-			Announcement.read(args.getAnnouncePath());
+			announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
 			ColorUtils.init();
 			Item.init();
 			Recipe.init();
@@ -190,6 +190,15 @@ public class Bot {
 	public Config reloadConfig() throws IOException {
 		config = new Config(args.getConfigPath(), args.getTokenOverride());
 		return config;
+	}
+
+	/**
+	 * Reloads the announcement registry from file.
+	 * @param config The config to use for parsing constants and variables.
+	 * @throws IOException When the announce file couldn't be read.
+	 */
+	public void reloadAnnouncements(Config config) throws IOException {
+		announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
 	}
 
 	/**

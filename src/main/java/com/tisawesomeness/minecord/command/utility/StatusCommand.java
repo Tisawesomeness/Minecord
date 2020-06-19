@@ -4,14 +4,12 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+import net.dv8tion.jda.api.EmbedBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
-
-import net.dv8tion.jda.api.entities.MessageEmbed;
 
 public class StatusCommand extends Command {
 	
@@ -73,9 +71,9 @@ public class StatusCommand extends Command {
 		m += "\nSome statuses in the Mojang API are broken, so they are not shown.\n" +
 		"Vote, watch, and comment on [this bug](https://bugs.mojang.com/browse/WEB-2303) if you want it fixed!";
 		
-		MessageEmbed me = MessageUtils.embedMessage("Minecraft Status", null, m, color);
+		EmbedBuilder eb = txt.embedMessage("Minecraft Status", m).setColor(color);
 		
-		return new Result(Outcome.SUCCESS, me);
+		return new Result(Outcome.SUCCESS, eb.build());
 	}
 	
 }

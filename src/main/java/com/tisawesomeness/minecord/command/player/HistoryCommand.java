@@ -3,7 +3,6 @@ package com.tisawesomeness.minecord.command.player;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DateUtils;
@@ -123,8 +122,7 @@ public class HistoryCommand extends Command {
 		}
 
 		EmbedBuilder eb = new EmbedBuilder()
-			.setTitle(player, url)
-			.setColor(Bot.color);
+			.setTitle(player, url);
 
 		// Truncate until 6000 char limit reached
 		int chars = MessageUtils.getTotalChars(lines);
@@ -147,7 +145,7 @@ public class HistoryCommand extends Command {
 			eb.setDescription(String.join("\n", lines));
 		}
 		
-		return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+		return new Result(Outcome.SUCCESS, txt.brand(eb).build());
 	}
 	
 }

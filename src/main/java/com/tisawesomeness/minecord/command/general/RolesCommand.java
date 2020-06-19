@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DiscordUtils;
@@ -77,7 +76,7 @@ public class RolesCommand extends Command {
     
         EmbedBuilder eb = new EmbedBuilder()
             .setTitle("Roles for " + mem.getUser().getAsTag())
-            .setColor(Bot.color);
+            .setColor(mem.getColor());
 
         // Truncate role list until 6000 chars reached
         ArrayList<String> lines = new ArrayList<String>(mem.getRoles().stream()
@@ -104,7 +103,7 @@ public class RolesCommand extends Command {
 			eb.setDescription(String.join("\n", lines));
 		}
         
-        return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+        return new Result(Outcome.SUCCESS, txt.addFooter(eb).build());
     }
 
 }

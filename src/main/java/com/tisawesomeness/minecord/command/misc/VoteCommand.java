@@ -1,9 +1,7 @@
 package com.tisawesomeness.minecord.command.misc;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
@@ -24,7 +22,7 @@ public class VoteCommand extends Command {
 
     public Result run(CommandContext txt) {
         String m = "Top.gg: " + MarkdownUtil.maskedLink("VOTE", "https://top.gg/bot/292279711034245130/vote");
-        return new Result(Outcome.SUCCESS, MessageUtils.embedMessage("Vote for Minecord!", null, m, Bot.color));
+        return new Result(Outcome.SUCCESS, txt.embedMessage("Vote for Minecord!", m).build());
     }
 
 }

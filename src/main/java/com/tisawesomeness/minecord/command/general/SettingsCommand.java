@@ -1,11 +1,9 @@
 package com.tisawesomeness.minecord.command.general;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DiscordUtils;
-import com.tisawesomeness.minecord.util.MessageUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -87,7 +85,6 @@ public class SettingsCommand extends Command {
         if (args.length == 0) {
             EmbedBuilder eb = new EmbedBuilder()
                 .setTitle("Minecord Settings")
-                .setColor(Bot.color)
                 .addField("prefix",
                     String.format(
                         "The prefix used before every command.\n" +
@@ -118,7 +115,7 @@ public class SettingsCommand extends Command {
                     "`%ssettings <setting> <value>` - Change a setting.",
                     sourcePrefix, sourcePrefix
                 ));
-            return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+            return new Result(Outcome.SUCCESS, txt.brand(eb).build());
         
         // Change setting
         } else if (args.length > 1) {

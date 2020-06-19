@@ -34,7 +34,7 @@ public class CodesCommand extends Command {
 			.setColor(ColorUtils.randomColor())
 			.setDescription(desc)
 			.setImage(img);
-		return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+		return new Result(Outcome.SUCCESS, txt.addFooter(eb).build());
 		
 	}
 

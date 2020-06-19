@@ -1,12 +1,10 @@
 package com.tisawesomeness.minecord.command.general;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
-import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -70,7 +68,6 @@ public class GuildCommand extends Command {
         int voiceChannels = g.getVoiceChannels().size();
         EmbedBuilder eb = new EmbedBuilder()
             .setTitle(MarkdownSanitizer.escape(g.getName()))
-            .setColor(Bot.color)
             .setImage(g.getIconUrl())
             .addField("ID", g.getId(), true)
             .addField("Users", String.valueOf(g.getMemberCount()), true)
@@ -99,7 +96,7 @@ public class GuildCommand extends Command {
                 eb.setDescription("__**GUILD BANNED FROM MINECORD**__");
             }
         }
-        return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+        return new Result(Outcome.SUCCESS, txt.brand(eb).build());
     }
 
     private static String getSettingsStr(long gid) {

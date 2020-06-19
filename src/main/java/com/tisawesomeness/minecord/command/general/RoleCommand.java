@@ -4,11 +4,9 @@ import java.util.List;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
-import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -92,7 +90,7 @@ public class RoleCommand extends Command {
             .addField("Managed?", role.isManaged() ? "Yes" : "No", true)
             .addField("Role Created", DateUtils.getDateAgo(role.getTimeCreated()), false);
 
-        return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+        return new Result(Outcome.SUCCESS, txt.addFooter(eb).build());
     }
 
 }

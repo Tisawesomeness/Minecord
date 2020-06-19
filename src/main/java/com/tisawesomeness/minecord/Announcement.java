@@ -1,56 +1,42 @@
 package com.tisawesomeness.minecord;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-
 import com.tisawesomeness.minecord.util.DiscordUtils;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
+import lombok.NonNull;
 
 public class Announcement {
 
-    private static ArrayList<Announcement> announcements = new ArrayList<Announcement>();
-    private static int totalWeight;
-    public static Config config; // TODO change to instance
-    private String text;
-    private int weight;
+    /**
+     * The text of the announcement with only constants parsed.
+     */
+    public final @NonNull String text;
+    /**
+     * <p>The weight of the announcement, where {@code weight / totalWeight} is the chance of this announcement being picked.</p>
+     * <p>An announcement with a weight of 5 is five times as likely to be chosen as one with a weight of 1.</p>
+     * A weight of 0 will never be picked.
+     */
+    public final int weight;
 
-    private Announcement(String text, int weight) {
+    /**
+     * Creates a new announcement.
+     * @param text The unparsed text of the announcement. Constants will be parsed.
+     * @param weight The relative chance of this announcement being picked. Weights of 0 are disabled.
+     * @param config The config used to parse variables.
+     * @throws IllegalArgumentException If the weight is negative.
+     */
+    public Announcement(@NonNull String text, int weight, @NonNull Config config) {
+        if (weight < 0) {
+            throw new IllegalArgumentException("Announcement weight cannot be negative!");
+        }
         this.text = DiscordUtils.parseConstants(text, config);
         this.weight = weight;
     }
 
     /**
-     * Reads announcements from file and parses their {constants}
-     * @param announcePath The path to the announce.json file
-     * @throws IOException When the announce file couldn't be found
+     * Parses the variables of this announcement.
+     * @return The parsed announcement text.
      */
-    public static void read(Path announcePath) throws IOException {
-        announcements = new ArrayList<>();
-        JSONArray announceArr = new JSONArray(new String(Files.readAllBytes(announcePath)));
-        for (int i = 0; i < announceArr.length(); i++) {
-            JSONObject announceObj = announceArr.getJSONObject(i);
-            int weight = announceObj.getInt("weight");
-            announcements.add(new Announcement(announceObj.getString("text"), weight));
-            totalWeight += weight;
-        }
-    }
-    
-    /**
-     * Randomly selects an announcement based on their weights and parses their {variables}
-     * @return The selected announcement string
-     */
-    public static String rollAnnouncement() {
-		int rand = (int) (Math.random() * totalWeight);
-		int i = -1;
-		while (rand >= 0) {
-			i++;
-			rand -= announcements.get(i).weight;
-		}
-		return DiscordUtils.parseVariables(announcements.get(i).text);
+    public String parse() {
+        return DiscordUtils.parseVariables(text);
     }
 
 }
