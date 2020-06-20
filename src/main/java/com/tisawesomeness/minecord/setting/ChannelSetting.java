@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.setting;
 
-import com.tisawesomeness.minecord.command.CommandContext;
 import lombok.NonNull;
 import net.dv8tion.jda.api.entities.GuildChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -27,11 +26,10 @@ public abstract class ChannelSetting<T> extends Setting<T> {
     /**
      * <p>Gets the value of this setting used in the current context.</p>
      * This will get the setting for the current channel, or unset for DMs.
-     * @param txt The context of the executing command.
+     * @param e The event that triggered the executing command.
      * @return The value of the setting, or null if unset.
      */
-    public Optional<T> get(@NonNull CommandContext txt) {
-        MessageReceivedEvent e = txt.e;
+    public Optional<T> get(@NonNull MessageReceivedEvent e) {
         return e.isFromGuild() ? get(e.getTextChannel()) : Optional.empty();
     }
 
@@ -65,9 +63,9 @@ public abstract class ChannelSetting<T> extends Setting<T> {
             return toResult.toStatus();
         }
         T to = toOpt.get();
-        if (!from.isPresent() && to == getDefault()) {
+        if (!from.isPresent() && to.equals(getDefault())) {
             return changeChannel(id, to) ? SetStatus.SET_TO_DEFAULT : SetStatus.INTERNAL_FAILURE;
-        } else if (from.isPresent() && to == from.get()) {
+        } else if (from.isPresent() && to.equals(from.get())) {
             return SetStatus.SET_NO_CHANGE;
         }
         return changeChannel(id, to) ? SetStatus.SET : SetStatus.INTERNAL_FAILURE;

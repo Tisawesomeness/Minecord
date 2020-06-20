@@ -15,6 +15,7 @@ import java.util.Optional;
 public class UseMenusSetting extends ServerSetting<Boolean> {
 
     private final @NonNull Config config;
+    private final @NonNull Database db;
 
     public @NonNull String getDisplayName() {
         return "Use Menus";
@@ -33,7 +34,7 @@ public class UseMenusSetting extends ServerSetting<Boolean> {
         return Optional.empty();
     }
     public Optional<Boolean> getGuild(long id) {
-        return Optional.of(Database.getUseMenu(id));
+        return Optional.of(db.getUseMenu(id));
     }
     public @NonNull Boolean getDefault() {
         return config.shouldUseMenusDefault();
@@ -44,7 +45,7 @@ public class UseMenusSetting extends ServerSetting<Boolean> {
     }
     protected boolean changeGuild(long id, @NonNull Boolean setting) {
         try {
-            Database.changeUseMenu(id, setting);
+            db.changeUseMenu(id, setting);
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();

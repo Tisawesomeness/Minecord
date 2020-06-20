@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.EnumSet;
@@ -75,6 +76,7 @@ public class Bot {
 
 	@Getter private ArgsHandler args;
 	@Getter private ShardManager shardManager;
+	@Getter private Database database;
 	@Getter private SettingRegistry settings;
 	@Getter private AnnounceRegistry announceRegistry;
 	@Getter private VoteHandler voteHandler;
@@ -119,10 +121,9 @@ public class Bot {
 		guildCountListener = new GuildCountListener(this, config);
 		
 		// Connect to database
-		Database.config = config;
-		Future<Boolean> db = Database.start();
-		try {
+		Future<Database> db = Database.start(config);
 
+		try {
 			// Initialize JDA
 			shardManager = DefaultShardManagerBuilder.create(gateways)
 				.setToken(config.getClientToken())
@@ -153,16 +154,16 @@ public class Bot {
 
 		// Wait for database
 		try {
-			if (!db.get()) {
-				return;
-			}
-		} catch (InterruptedException | ExecutionException ex) {
+			database = db.get();
+		} catch (ExecutionException ex) {
 			ex.printStackTrace();
 			return;
+		} catch (InterruptedException ex) {
+			throw new AssertionError();
 		}
 
 		// Create settings
-		settings = new SettingRegistry(config);
+		settings = new SettingRegistry(config, database);
 
 		System.out.println("Bot ready!");
 
@@ -184,21 +185,44 @@ public class Bot {
 	}
 
 	/**
-	 * Reloads the config from file.
-	 * @throws IOException When the config file couldn't be read.
-	 */
-	public Config reloadConfig() throws IOException {
-		config = new Config(args.getConfigPath(), args.getTokenOverride());
-		return config;
-	}
-
-	/**
 	 * Reloads the announcement registry from file.
 	 * @param config The config to use for parsing constants and variables.
 	 * @throws IOException When the announce file couldn't be read.
 	 */
 	public void reloadAnnouncements(Config config) throws IOException {
+
+	}
+
+	public void reload() throws SQLException, IOException, ExecutionException {
+		database.close();
+		if (config.shouldReceiveVotes()) {
+			voteHandler.close();
+		}
+		config = new Config(args.getConfigPath(), args.getTokenOverride());
+		Future<Database> db = Database.start(config);
+		if (config.shouldReceiveVotes()) {
+			voteHandler = new VoteHandler(this, config);
+			Future<Boolean> ws = voteHandler.start();
+		}
 		announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
+		Item.init();
+		Recipe.init();
+		try {
+			database = db.get();
+		} catch (InterruptedException ex) {
+			throw new AssertionError();
+		}
+	}
+
+	public void shutdown(int exit) {
+		try {
+			shardManager.shutdown();
+			database.close();
+			voteHandler.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		System.exit(exit);
 	}
 
 	/**

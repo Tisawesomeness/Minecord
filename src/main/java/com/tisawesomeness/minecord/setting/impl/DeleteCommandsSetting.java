@@ -15,6 +15,7 @@ import java.util.Optional;
 public class DeleteCommandsSetting extends ServerSetting<Boolean> {
 
     private final @NonNull Config config;
+    private final @NonNull Database db;
 
     public @NonNull String getDisplayName() {
         return "Delete Commands";
@@ -32,7 +33,7 @@ public class DeleteCommandsSetting extends ServerSetting<Boolean> {
         return Optional.empty();
     }
     public Optional<Boolean> getGuild(long id) {
-        return Optional.of(Database.getDeleteCommands(id));
+        return Optional.of(db.getDeleteCommands(id));
     }
     public @NonNull Boolean getDefault() {
         return config.shouldDeleteCommandsDefault();
@@ -43,7 +44,7 @@ public class DeleteCommandsSetting extends ServerSetting<Boolean> {
     }
     protected boolean changeGuild(long id, @NonNull Boolean setting) {
         try {
-            Database.changeDeleteCommands(id, setting);
+            db.changeDeleteCommands(id, setting);
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();

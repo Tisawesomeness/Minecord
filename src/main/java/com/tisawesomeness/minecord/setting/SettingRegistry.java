@@ -1,30 +1,48 @@
 package com.tisawesomeness.minecord.setting;
 
 import com.tisawesomeness.minecord.Config;
+import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.setting.impl.DeleteCommandsSetting;
 import com.tisawesomeness.minecord.setting.impl.PrefixSetting;
 import com.tisawesomeness.minecord.setting.impl.UseMenusSetting;
 import lombok.NonNull;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-public class SettingRegistry {
+public class SettingRegistry implements Iterable<Setting<?>> {
     public final @NonNull PrefixSetting prefix;
     public final @NonNull DeleteCommandsSetting deleteCommands;
     public final @NonNull UseMenusSetting useMenus;
     private final List<Setting<?>> settingsList;
+    public final List<ChannelSetting<?>> channelSettings;
+    public final List<ServerSetting<?>> serverSettings;
+    public final List<GlobalSetting<?>> globalSettings;
 
     /**
      * Initializes all the settings and makes them searchable from this registry.
      * @param config The loaded config file with the setting defaults.
+     * @param db The loaded database where the settings are stored.
      */
-    public SettingRegistry(@NonNull Config config) {
-        prefix = new PrefixSetting(config);
-        deleteCommands = new DeleteCommandsSetting(config);
-        useMenus = new UseMenusSetting(config);
+    public SettingRegistry(@NonNull Config config, @NonNull Database db) {
+        prefix = new PrefixSetting(config, db);
+        deleteCommands = new DeleteCommandsSetting(config, db);
+        useMenus = new UseMenusSetting(config, db);
         settingsList = Arrays.asList(prefix, deleteCommands, useMenus);
+
+        channelSettings = Collections.unmodifiableList(settingsList.stream()
+                .filter(s -> s instanceof ChannelSetting<?>)
+                .map(s -> (ChannelSetting<?>) s)
+                .collect(Collectors.toList()));
+        serverSettings = Collections.unmodifiableList(settingsList.stream()
+                .filter(s -> s instanceof ServerSetting<?>)
+                .map(s -> (ServerSetting<?>) s)
+                .collect(Collectors.toList()));
+        globalSettings = Collections.unmodifiableList(settingsList.stream()
+                .filter(s -> s instanceof GlobalSetting<?>)
+                .map(s -> (GlobalSetting<?>) s)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -41,4 +59,10 @@ public class SettingRegistry {
         }
         return Optional.empty();
     }
+
+    @Override
+    public Iterator<Setting<?>> iterator() {
+        return settingsList.iterator();
+    }
+
 }

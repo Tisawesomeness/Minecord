@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.command.misc;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.util.MessageUtils;
 
 public class PingCommand extends Command {
 

@@ -58,19 +58,18 @@ public class UserCommand extends Command {
         String[] args = txt.args;
         MessageReceivedEvent e = txt.e;
         ShardManager sm = txt.bot.getShardManager();
+        Database db = txt.bot.getDatabase();
 
         //If the author used the admin keyword and is an elevated user
-        boolean elevated = false;
 		if (args.length > 1 && args[1].equals("admin") && txt.isElevated) {
-            elevated = true;
             if (!args[0].matches(DiscordUtils.idRegex)) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
             User u = sm.retrieveUserById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
             if (u == null) {
                 long gid = Long.valueOf(args[0]);
-                String elevatedStr = String.format("Elevated: `%s`", Database.isElevated(gid));
-                if (Database.isBanned(gid)) {
+                String elevatedStr = String.format("Elevated: `%s`", db.isElevated(gid));
+                if (db.isBanned(gid)) {
                     return new Result(Outcome.SUCCESS, "__**USER BANNED FROM MINECORD**__\n" + elevatedStr);
                 }
                 return new Result(Outcome.SUCCESS, elevatedStr);
@@ -80,8 +79,8 @@ public class UserCommand extends Command {
                 .setTitle(MarkdownSanitizer.escape(u.getAsTag()))
                 .addField("ID", u.getId(), true)
                 .addField("Bot?", u.isBot() ? "Yes" : "No", true)
-                .addField("Elevated?", Database.isElevated(u.getIdLong()) ? "Yes" : "No", true);
-            if (Database.isBanned(u.getIdLong())) {
+                .addField("Elevated?", db.isElevated(u.getIdLong()) ? "Yes" : "No", true);
+            if (db.isBanned(u.getIdLong())) {
                 eb.setDescription("__**USER BANNED FROM MINECORD**__");
             }
             // Since user caching is disabled, retrieveMember() is required
@@ -161,9 +160,6 @@ public class UserCommand extends Command {
             eb.addField("Boosted", DateUtils.getDateAgo(mem.getTimeBoosted()), false);
         }
         eb.addField("Roles", roles, false);
-        if (elevated && Database.isBanned(u.getIdLong())) {
-            eb.setDescription("__**USER BANNED FROM MINECORD**__");
-        }
         return new Result(Outcome.SUCCESS, txt.addFooter(eb).build());
     }
     

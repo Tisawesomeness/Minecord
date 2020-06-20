@@ -37,48 +37,52 @@ public class CommandListener extends ListenerAdapter {
 	@Override
 	public void onMessageReceived(MessageReceivedEvent e) {
 		Message m = e.getMessage();
-		if (m == null) return;
+		if (m == null) {
+			return;
+		}
+		Database db = bot.getDatabase();
 
-		// Get all values that change based on channel type
-		String prefix;
-		boolean deleteCommands = false;
+		// Get the settings needed before command execution
+		String prefix = bot.getSettings().prefix.getEffective(e);
+		boolean deleteCommands = bot.getSettings().deleteCommands.getEffective(e);
 		boolean canEmbed = true;
+
 		if (e.isFromType(ChannelType.TEXT)) {
 			Member sm = e.getGuild().getSelfMember();
+			// No permissions or guild banned? Don't send message
+			if (!sm.hasPermission(e.getTextChannel(), Permission.MESSAGE_WRITE) ||
+					db.isBanned(e.getGuild().getIdLong())) {
+				return;
+			}
 			TextChannel tc = e.getTextChannel();
-			if (!sm.hasPermission(e.getTextChannel(), Permission.MESSAGE_WRITE)) return;
-			if (Database.isBanned(e.getGuild().getIdLong())) return;
-			prefix = Database.getPrefix(e.getGuild().getIdLong());
-			deleteCommands = sm.hasPermission(tc, Permission.MESSAGE_MANAGE) &&
-					Database.getDeleteCommands(e.getGuild().getIdLong());
 			canEmbed = sm.hasPermission(tc, Permission.MESSAGE_EMBED_LINKS);
-		} else if (e.isFromType(ChannelType.PRIVATE)) {
-			prefix = config.getPrefixDefault();
-		} else {
+		} else if (!e.isFromType(ChannelType.PRIVATE)) {
 			return;
 		}
 		
-		//Check if message can be acted upon
+		// Check if message can be acted upon
 		User a = m.getAuthor();
-		if (a.isBot() || Database.isBanned(a.getIdLong())) return;
+		if (a.isBot() || db.isBanned(a.getIdLong())) {
+			return;
+		}
 		
 		String name = null;
 		String[] args = null;
 		
-		//If the message is a valid command
+		// If the message is a valid command
 		String[] content = MessageUtils.getContent(m, prefix, e.getJDA().getSelfUser(), config);
 		if (content != null) {
 			
-			//Extract name and argument list
+			// Extract name and argument list
 			name = content[0];
 			if ("".equals(name)) return; //If there is a space after prefix, don't process any more
 			args = Arrays.copyOfRange(content, 1, content.length);
 
 		// TODO temporarily (probably permanently) disabled
-		//If the bot is mentioned and does not mention everyone
+		// If the bot is mentioned and does not mention everyone
 //		} else if (m.isMentioned(e.getJDA().getSelfUser(), MentionType.USER) && e.isFromGuild()) {
 //
-//			//Send the message to the logging channel
+//			// Send the message to the logging channel
 //			EmbedBuilder eb = new EmbedBuilder();
 //			eb.setAuthor(a.getName() + " (" + a.getId() + ")", null, a.getEffectiveAvatarUrl());
 //			eb.setDescription("**`" + e.getGuild().getName() + "`** (" +
@@ -87,7 +91,7 @@ public class CommandListener extends ListenerAdapter {
 //			MessageUtils.log(eb.build());
 //			return;
 			
-		//If none of the above are satisfied, get out
+		// If none of the above are satisfied, get out
 		} else {
 			return;
 		}
@@ -103,26 +107,26 @@ public class CommandListener extends ListenerAdapter {
 		if (cmd == null) return;
 		CommandInfo ci = cmd.getInfo();
 		
-		//Delete message if enabled in the config and the bot has permissions
+		// Delete message if enabled in the config and the bot has permissions
 		if (deleteCommands) {
 			m.delete().queue();
 		}
 		
 		MessageChannel c = e.getChannel();
 
-		//Check for elevation
-		boolean isElevated = Database.isElevated(a.getIdLong());
+		// Check for elevation
+		boolean isElevated = db.isElevated(a.getIdLong());
 		if (ci.elevated && !isElevated) {
 			c.sendMessage(":warning: Insufficient permissions!").queue();
 			return;
 		}
 		
-		//Check for cooldowns, skipping if user is elevated
+		// Check for cooldowns, skipping if user is elevated
 		if (!(config.shouldElevatedSkipCooldown() && isElevated)
 				&& cmd.cooldowns.containsKey(a) && ci.cooldown > 0) {
 			long last = cmd.cooldowns.get(a);
 			if (System.currentTimeMillis() - ci.cooldown < last) {
-				//Format warning message
+				// Format warning message
 				long time = (long) ci.cooldown + last - System.currentTimeMillis();
 				String seconds = String.valueOf(time);
 				while (seconds.length() < 4) {
@@ -136,7 +140,7 @@ public class CommandListener extends ListenerAdapter {
 			}
 		}
 
-		//Class to send typing notification every 5 seconds
+		// Class to send typing notification every 5 seconds
 		class Typing extends TimerTask {
 			private Future<Void> fv = null;
 			@Override
@@ -147,7 +151,7 @@ public class CommandListener extends ListenerAdapter {
 			}
 		}
 		
-		//Instantiate timer
+		// Instantiate timer
 		Timer timer = null;
 		Typing typing = null;
 		if (config.shouldSendTyping() && ci.typing) {
@@ -156,7 +160,7 @@ public class CommandListener extends ListenerAdapter {
 			timer.schedule(typing, 0, 5000);
 		}
 		
-		//Run command
+		// Run command
 		CommandContext txt = new CommandContext(args, e, bot, config, isElevated, prefix, bot.getSettings());
 		Result result = null;
 		Exception exception = null;
@@ -168,7 +172,7 @@ public class CommandListener extends ListenerAdapter {
 			exception = ex;
 		}
 		
-		//Cancel typing
+		// Cancel typing
 		if (config.shouldSendTyping() && ci.typing) {
 			timer.cancel();
 			if (typing.fv != null) {
@@ -179,7 +183,7 @@ public class CommandListener extends ListenerAdapter {
 			}
 		}
 		
-		//Catch exceptions
+		// Catch exceptions
 		if (result == null) {
 			if (exception != null) {exception.printStackTrace();}
 			String err = ":x: There was an unexpected exception: `" + exception.toString() + "`\n```";
@@ -197,14 +201,14 @@ public class CommandListener extends ListenerAdapter {
 			err += "```";
 			txt.log(err);
 			c.sendMessage(err).queue();
-		//If message is empty
+		// If message is empty
 		} if (result.message == null) {
 			if (result.outcome != null && result.outcome != Outcome.SUCCESS) {
 				System.out.println("Command \"" + ci.name + "\" returned an empty " +
 					result.outcome.toString().toLowerCase());
 			}
 		} else {
-			//Wait for "typing..." to send, then print message
+			// Wait for "typing..." to send, then print message
 			//TODO: Find out if typing after sent message is client-specific
 			if (result.outcome == Outcome.SUCCESS) {
 				while (typing != null && typing.fv != null && !typing.fv.isDone()) {
@@ -214,7 +218,7 @@ public class CommandListener extends ListenerAdapter {
 				}
 				e.getChannel().sendMessage(result.message).queue();
 			} else {
-				//Catch errors
+				// Catch errors
 				if (result.outcome == Outcome.ERROR) {
 					System.out.println("Command \"" + ci.name + "\" returned an error: " +
 						result.message.getContentRaw());

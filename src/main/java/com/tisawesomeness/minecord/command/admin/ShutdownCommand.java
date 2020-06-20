@@ -25,9 +25,8 @@ public class ShutdownCommand extends Command {
 	public Result run(CommandContext txt) {
 		txt.log(":x: **Bot shut down by " + txt.e.getAuthor().getName() + "**");
 		txt.e.getChannel().sendMessage(":wave: Goodbye!").complete();
-		txt.e.getJDA().shutdown();
-		System.exit(0);
-		return new Result(Outcome.SUCCESS);
+		txt.bot.shutdown(0);
+		throw new AssertionError();
 	}
 	
 }

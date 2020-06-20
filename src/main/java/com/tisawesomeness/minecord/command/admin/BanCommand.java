@@ -42,11 +42,13 @@ public class BanCommand extends Command {
 	}
 
 	public Result run(CommandContext txt) throws Exception {
-		ShardManager sm = txt.bot.getShardManager();
 		String[] args = txt.args;
 		
 		//Check for proper argument length
 		if (args.length < 1) return new Result(Outcome.WARNING, ":warning: Not enough arguments.");
+
+		Database db = txt.bot.getDatabase();
+		ShardManager sm = txt.bot.getShardManager();
 		
 		//User part of command
 		if ("user".equals(args[0])) {
@@ -60,8 +62,8 @@ public class BanCommand extends Command {
 			}
 			long gid = Long.valueOf(args[1]);
 			//Ban or unban user
-			boolean banned = Database.isBanned(gid);
-			Database.changeBannedUser(gid, !banned);
+			boolean banned = db.isBanned(gid);
+			db.changeBannedUser(gid, !banned);
 			//Format message
             User user = sm.retrieveUserById(args[1]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
 			String msg = user == null ? args[1] : user.getAsTag();
@@ -85,8 +87,8 @@ public class BanCommand extends Command {
 			}
 			long gid = Long.valueOf(args[1]);
 			//Ban or unban guild
-			boolean banned = Database.isBanned(gid);
-			Database.changeBannedGuild(gid, !banned);
+			boolean banned = db.isBanned(gid);
+			db.changeBannedGuild(gid, !banned);
 			//Format message
 			String msg = guild.getName() + " (`" + guild.getId() + "`) ";
 			msg += banned ? "has been unbanned." : "was struck with the ban hammer!";
@@ -97,7 +99,7 @@ public class BanCommand extends Command {
             if (!args[0].matches(DiscordUtils.idRegex)) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
-			String msg = args[0] + (Database.isBanned(Long.valueOf(args[0])) ? " is banned!" : " is not banned.");
+			String msg = args[0] + (db.isBanned(Long.valueOf(args[0])) ? " is banned!" : " is not banned.");
 			return new Result(Outcome.SUCCESS, msg);
 		}
 		

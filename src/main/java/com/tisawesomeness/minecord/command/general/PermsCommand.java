@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import net.dv8tion.jda.api.Permission;

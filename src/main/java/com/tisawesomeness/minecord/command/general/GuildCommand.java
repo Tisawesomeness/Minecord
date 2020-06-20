@@ -2,7 +2,8 @@ package com.tisawesomeness.minecord.command.general;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.setting.ServerSetting;
+import com.tisawesomeness.minecord.setting.SettingRegistry;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
@@ -50,10 +51,11 @@ public class GuildCommand extends Command {
             g = txt.bot.getShardManager().getGuildById(args[0]);
             if (g == null) {
                 long gid = Long.valueOf(args[0]);
-                if (Database.isBanned(gid)) {
-                    return new Result(Outcome.SUCCESS, "__**GUILD BANNED FROM MINECORD**__\n" + getSettingsStr(gid));
+                if (txt.bot.getDatabase().isBanned(gid)) {
+                    return new Result(Outcome.SUCCESS,
+                            "__**GUILD BANNED FROM MINECORD**__\n" + getSettingsStr(gid, txt));
                 }
-                return new Result(Outcome.SUCCESS, getSettingsStr(gid));
+                return new Result(Outcome.SUCCESS, getSettingsStr(gid, txt));
             }
         } else {
             if (!txt.e.isFromGuild()) {
@@ -91,17 +93,23 @@ public class GuildCommand extends Command {
             eb.addField("Description", MarkdownSanitizer.escape(g.getDescription()), false);
         }
         if (elevated) {
-            eb.addField("Settings", getSettingsStr(g.getIdLong()), false);
-            if (Database.isBanned(g.getIdLong())) {
+            eb.addField("Settings", getSettingsStr(g.getIdLong(), txt), false);
+            if (txt.bot.getDatabase().isBanned(g.getIdLong())) {
                 eb.setDescription("__**GUILD BANNED FROM MINECORD**__");
             }
         }
         return new Result(Outcome.SUCCESS, txt.brand(eb).build());
     }
 
-    private static String getSettingsStr(long gid) {
-        return String.format("prefix: `%s`\ndeleteCommands: `%s`\nuseMenus: `%s`",
-            Database.getPrefix(gid), Database.getDeleteCommands(gid), Database.getUseMenu(gid));
+    private static String getSettingsStr(long gid, CommandContext txt) {
+        SettingRegistry settings = txt.bot.getSettings();
+        return String.format("prefix: `%s`%ndeleteCommands: `%s`%nuseMenus: `%s`",
+                displaySetting(gid, settings.prefix),
+                displaySetting(gid, settings.deleteCommands),
+                displaySetting(gid, settings.useMenus));
+    }
+    private static String displaySetting(long gid, ServerSetting<?> setting) {
+        return setting.getGuild(gid).map(Object::toString).orElse("`unset`");
     }
     
 }

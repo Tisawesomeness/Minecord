@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -18,28 +19,29 @@ import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 public class Database {
 	
-	private static DataSource source;
-	private static HashMap<Long, DbGuild> guilds = new HashMap<Long, DbGuild>();
-	private static HashMap<Long, DbUser> users = new HashMap<Long, DbUser>();
-	public static Config config = null; // TODO change Database to instance
+	private final DataSource source;
+	private final Config config;
+	private HashMap<Long, DbGuild> guilds = new HashMap<>();
+	private HashMap<Long, DbUser> users = new HashMap<>();
 	
-	private static Connection getConnect() throws SQLException {
+	private Connection getConnect() throws SQLException {
 		return source.getConnection();
 	}
 
 	private static ExecutorService exe = Executors.newSingleThreadExecutor();
-	public static Future<Boolean> start() {
-		return exe.submit(() -> {
-			try {
-				init();
-				return true;
-			} catch (SQLException ex) {
-				ex.printStackTrace();
-			}
-			return false;
-		});
+	/**
+	 * Starts a new database connection.
+	 * @param config The config with login info.
+	 * @return A future database, use {@link Future#get()} to block until the database starts.
+	 * @throws ExecutionException When the database throws a {@link SQLException}.
+	 */
+	public static Future<Database> start(Config config) {
+		return exe.submit(() -> new Database(config));
 	}
-	private static void init() throws SQLException {
+
+	private Database(Config config) throws SQLException {
+
+		this.config = config;
 		
 		//Build database source
 		String url = "jdbc:";
@@ -100,7 +102,7 @@ public class Database {
 		
 	}
 
-	public static void refresh() throws SQLException {
+	public void refresh() throws SQLException {
 		Connection connect = getConnect();
 
 		//Import guild list
@@ -140,12 +142,12 @@ public class Database {
 		rs.close();
 	}
 	
-	public static void close() throws SQLException {
+	public void close() throws SQLException {
 		Connection connect = getConnect();
 		if (connect != null) connect.close();
 	}
 	
-	public static void changePrefix(long id, String prefix) throws SQLException {
+	public void changePrefix(long id, String prefix) throws SQLException {
 
 		Connection connect = getConnect();
 		PreparedStatement st = connect.prepareStatement(
@@ -180,13 +182,13 @@ public class Database {
 		
 	}
 	
-	public static String getPrefix(long id) {
+	public String getPrefix(long id) {
 		DbGuild guild = guilds.get(id);
 		String prefix = guild == null ? config.getPrefixDefault() : guild.prefix;
 		return prefix == null ? config.getPrefixDefault() : prefix;
 	}
 	
-	public static void changeBannedGuild(long id, boolean banned) throws SQLException {
+	public void changeBannedGuild(long id, boolean banned) throws SQLException {
 
 		Connection connect = getConnect();
 		PreparedStatement st = connect.prepareStatement(
@@ -219,7 +221,7 @@ public class Database {
 		
 	}
 	
-	public static void changeDeleteCommands(long id, boolean deleteCommands) throws SQLException {
+	public void changeDeleteCommands(long id, boolean deleteCommands) throws SQLException {
 
 		Connection connect = getConnect();
 		PreparedStatement st = connect.prepareStatement(
@@ -249,7 +251,7 @@ public class Database {
 		
 	}
 	
-	public static boolean getDeleteCommands(long id) {
+	public boolean getDeleteCommands(long id) {
 		DbGuild guild = guilds.get(id);
 		Boolean deleteCommands;
 		if (guild == null) {
@@ -260,7 +262,7 @@ public class Database {
 		return deleteCommands == null ? config.shouldDeleteCommandsDefault() : deleteCommands;
 	}
 	
-	public static void changeUseMenu(long id, boolean useMenu) throws SQLException {
+	public void changeUseMenu(long id, boolean useMenu) throws SQLException {
 
 		Connection connect = getConnect();
 		PreparedStatement st = connect.prepareStatement(
@@ -290,7 +292,7 @@ public class Database {
 		
 	}
 	
-	public static boolean getUseMenu(long id) {
+	public boolean getUseMenu(long id) {
 		DbGuild guild = guilds.get(id);
 		Boolean useMenu;
 		if (guild == null) {
@@ -301,14 +303,14 @@ public class Database {
 		return useMenu == null ? config.shouldUseMenusDefault() : useMenu;
 	}
 
-	private static void purgeGuilds(long id) throws SQLException {
+	private void purgeGuilds(long id) throws SQLException {
 		PreparedStatement st = getConnect().prepareStatement(
 			"DELETE FROM guild WHERE prefix IS NULL AND lang IS NULL AND banned=0 AND noCooldown=0 AND deleteCommands IS NULL AND noMenu IS NULL;"
 		);
 		if (st.executeUpdate() > 0) guilds.remove(id);
 	}
 	
-	public static void changeElevated(long id, boolean elevated) throws SQLException {
+	public void changeElevated(long id, boolean elevated) throws SQLException {
 
 		Connection connect = getConnect();
 		PreparedStatement st = connect.prepareStatement(
@@ -333,12 +335,12 @@ public class Database {
 		
 	}
 	
-	public static boolean isElevated(long id) {
+	public boolean isElevated(long id) {
 		DbUser user = users.get(id);
 		return user == null ? false : user.elevated;
 	}
 	
-	public static void changeBannedUser(long id, boolean banned) throws SQLException {
+	public void changeBannedUser(long id, boolean banned) throws SQLException {
 
 		Connection connect = getConnect();
 		PreparedStatement st = connect.prepareStatement(
@@ -363,14 +365,14 @@ public class Database {
 		
 	}
 
-	private static void purgeUsers(long id) throws SQLException {
+	private void purgeUsers(long id) throws SQLException {
 		PreparedStatement st = getConnect().prepareStatement(
 			"DELETE FROM user WHERE banned=0 AND elevated=0;"
 		);
 		if (st.executeUpdate() > 0) users.remove(id);
 	}
 	
-	public static boolean isBanned(long id) {
+	public boolean isBanned(long id) {
 		DbGuild guild = guilds.get(id);
 		if (guild != null) return guild.banned;
 		DbUser user = users.get(id);

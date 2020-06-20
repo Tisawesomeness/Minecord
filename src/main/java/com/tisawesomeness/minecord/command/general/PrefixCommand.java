@@ -2,8 +2,8 @@ package com.tisawesomeness.minecord.command.general;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.database.Database;
 
+import com.tisawesomeness.minecord.setting.impl.PrefixSetting;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -34,7 +34,7 @@ public class PrefixCommand extends Command {
 			"- {@}` prefix &`\n";
 	}
 	
-	public Result run(CommandContext txt) throws Exception {
+	public Result run(CommandContext txt) {
 		String[] args = txt.args;
 		MessageReceivedEvent e = txt.e;
 
@@ -43,31 +43,28 @@ public class PrefixCommand extends Command {
 			return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
 		}
 		
-		//Check if user is elevated or has the manage messages permission
+		// Check if user is elevated or has the manage messages permission
 		if (!txt.isElevated && !e.getMember().hasPermission(e.getTextChannel(), Permission.MANAGE_SERVER)) {
 			return new Result(Outcome.WARNING, ":warning: You must have manage server permissions!");
 		}
 
+		PrefixSetting prefixSetting = txt.bot.getSettings().prefix;
+
 		if (args.length == 0) {
 			
-			//Print current prefix
+			// Print current prefix
 			return new Result(Outcome.SUCCESS,
-				"The current prefix is `" + Database.getPrefix(e.getGuild().getIdLong()) + "`"
+				"The current prefix is `" + prefixSetting.getEffective(txt) + "`"
 			);
 			
 		} else {
-			
-			//No prefixes longer than 16 characters
-			if (args[0].length() > 16) {
-				return new Result(Outcome.WARNING, ":warning: The prefix you specified is too long!");
-			}
-			//Easter egg for those naughty bois
+
+			// Easter egg for those naughty bois
 			if (args[0].equals("'") && args[1].equals("OR") && args[2].equals("1=1")) {
 				return new Result(Outcome.SUCCESS, "Nice try.");
 			}
-			//Set new prefix
-			Database.changePrefix(e.getGuild().getIdLong(), args[0]);
-			return new Result(Outcome.SUCCESS, ":white_check_mark: Prefix changed to `" + args[0] + "`");
+			// Set new prefix
+			return new Result(Outcome.SUCCESS, prefixSetting.set(e.getGuild(), args[0]));
 			
 		}
 	}

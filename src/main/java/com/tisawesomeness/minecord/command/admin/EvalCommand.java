@@ -16,7 +16,6 @@ import javax.script.ScriptException;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -67,7 +66,7 @@ public class EvalCommand extends Command {
 		engine.put("jda", e.getJDA());
 		engine.put("sm", e.getJDA().getShardManager());
 		engine.put("config", txt.config);
-		engine.put("db", new Database());
+		engine.put("db", txt.bot.getDatabase());
 		engine.put("event", e);
 		engine.put("user", e.getAuthor());
 		engine.put("channel", e.getChannel());

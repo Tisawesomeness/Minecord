@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.command.admin;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.concurrent.ExecutionException;
 
 import com.tisawesomeness.minecord.ArgsHandler;
 import com.tisawesomeness.minecord.Bot;
@@ -41,21 +42,11 @@ public class ReloadCommand extends Command {
 
 		Message m = txt.e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
 		try {
-			Database.close();
-			Database.start();
-			if (txt.config.shouldReceiveVotes()) {
-				bot.getVoteHandler().close();
-			}
-			ArgsHandler args = bot.getArgs();
-			Config reloadedConfig = txt.bot.reloadConfig();
-			if (reloadedConfig.shouldReceiveVotes()) {
-				bot.getVoteHandler().start();
-			}
-			txt.bot.reloadAnnouncements(reloadedConfig);
-			Item.init();
-			Recipe.init();
-		} catch (SQLException | IOException ex) {
+			txt.bot.reload();
+		} catch (SQLException | IOException | ExecutionException ex) {
 			ex.printStackTrace();
+			m.editMessage(":x: Could not reload! Shutting down...").complete();
+			txt.bot.shutdown(1);
 		}
 		m.editMessage(":white_check_mark: Reloaded!").queue();
 		

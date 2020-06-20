@@ -35,12 +35,13 @@ public class PromoteCommand extends Command {
 		if (user == null) return new Result(Outcome.ERROR, ":x: Not a valid user!");
 		
 		//Don't elevate a normal user
-		if (Database.isElevated(user.getIdLong())) {
+		Database db = txt.bot.getDatabase();
+		if (db.isElevated(user.getIdLong())) {
 			return new Result(Outcome.WARNING, ":warning: User is already elevated!");
 		}
 		
 		//Elevate user
-		Database.changeElevated(user.getIdLong(), true);
+		db.changeElevated(user.getIdLong(), true);
 		return new Result(Outcome.SUCCESS, ":arrow_up: Elevated " + user.getAsTag());
 		
 	}

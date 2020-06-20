@@ -2,7 +2,7 @@ package com.tisawesomeness.minecord.command.general;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.setting.ServerSetting;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import java.util.Arrays;
@@ -71,7 +71,7 @@ public class SettingsCommand extends Command {
             }
             gid = Long.valueOf(args[0]);
             args = Arrays.copyOfRange(args, 2, args.length);
-            targetPrefix = Database.getPrefix(gid);
+            targetPrefix = txt.bot.getSettings().prefix.getEffectiveGuild(gid);
             elevated = true;
         } else {
             if (!e.isFromGuild()) {
@@ -83,38 +83,16 @@ public class SettingsCommand extends Command {
 
         // Build embed with list of settings
         if (args.length == 0) {
+            String desc = String.format("`%ssettings <setting> <value>` - Change a setting.", sourcePrefix);
             EmbedBuilder eb = new EmbedBuilder()
-                .setTitle("Minecord Settings")
-                .addField("prefix",
-                    String.format(
-                        "The prefix used before every command.\n" +
-                        "`@%s command` will work regardless of prefix.\n" +
-                        "Possible values: Any text between 1-16 characters.\n" +
-                        "Current: **`%s`**",
-                        e.getJDA().getSelfUser().getAsTag(), targetPrefix),
-                false)
-                .addField("deleteCommands",
-                    String.format(
-                        "If enabled, the bot will delete command messages to clear up space.\n" +
-                        "Requires Manage Message permissions.\n" +
-                        "Possible values: `enabled`, `disabled`\n" +
-                        "Current: **%s**",
-                        isEnabled(Database.getDeleteCommands(gid))
-                    ),
-                false)
-                .addField("useMenus",
-                    String.format(
-                        "If enabled, the bot will use a reaction menu for `%srecipe` and `%singredient` if possible.\n" +
-                        "Requires Manage Message and Add Reaction permissions.\n" +
-                        "Possible values: `enabled`, `disabled`\n" +
-                        "Current: **%s**",
-                        sourcePrefix, sourcePrefix, isEnabled(Database.getUseMenu(gid))
-                    ),
-                false)
-                .setDescription(String.format(
-                    "`%ssettings <setting> <value>` - Change a setting.",
-                    sourcePrefix, sourcePrefix
-                ));
+                    .setTitle("Minecord Settings")
+                    .setDescription(desc);
+            String tag = e.getJDA().getSelfUser().getAsTag();
+            for (ServerSetting<?> setting : txt.bot.getSettings().serverSettings) {
+                String field = setting.getDescription(sourcePrefix, tag) +
+                        String.format("\nCurrent: **`%s`**", setting.getEffectiveGuild(gid));
+                eb.addField(setting.getDisplayName(), field, false);
+            }
             return new Result(Outcome.SUCCESS, txt.brand(eb).build());
         
         // Change setting
@@ -124,48 +102,13 @@ public class SettingsCommand extends Command {
             if (elevated || !e.getMember().hasPermission(e.getTextChannel(), Permission.MANAGE_SERVER)) {
                 return new Result(Outcome.WARNING, ":warning: You must have manage server permissions!");
             }
-            
-            if (args[0].equalsIgnoreCase("prefix")) {
-                //No prefixes longer than 16 characters
-                if (args[1].length() > 16) {
-                    return new Result(Outcome.WARNING, ":warning: The prefix you specified is too long!");
+
+            for (ServerSetting<?> setting : txt.bot.getSettings().serverSettings) {
+                if (setting.isAlias(args[0])) {
+                    return new Result(Outcome.SUCCESS, setting.setGuild(gid, args[1]));
                 }
-                //Easter egg for those naughty bois
-                if (args[1].equals("'") && args[2].equals("OR") && args[3].equals("1=1")) {
-                    return new Result(Outcome.WARNING, "Nice try.");
-                }
-                // Check for duplicate
-                if (args[1].equals(targetPrefix)) {
-                    return new Result(Outcome.SUCCESS, "That is the current prefix.");
-                }
-                //Set new prefix
-                Database.changePrefix(gid, args[1]);
-                return new Result(Outcome.SUCCESS, String.format(":arrows_counterclockwise: Prefix changed to `%s`.", args[1]));
-            } else if (args[0].equalsIgnoreCase("deleteCommands")) {
-                Boolean toSet = parseBoolSetting(args[1]);
-                if (toSet == null) {
-                    return new Result(Outcome.WARNING, ":warning: Not a valid value!");
-                }
-                // Check for duplicate
-                if (toSet == Database.getDeleteCommands(gid)) {
-                    return new Result(Outcome.SUCCESS, String.format("`deleteCommands` is already %s.", isEnabledText(toSet)));
-                }
-                Database.changeDeleteCommands(gid, toSet);
-                return new Result(Outcome.SUCCESS, String.format(":arrows_counterclockwise: Command Deletion changed to `%s`.", isEnabledText(toSet)));
-            } else if (args[0].equalsIgnoreCase("useMenus")) {
-                Boolean toSet = parseBoolSetting(args[1]);
-                if (toSet == null) {
-                    return new Result(Outcome.WARNING, ":warning: Not a valid value!");
-                }
-                // Check for duplicate
-                if (toSet == Database.getUseMenu(gid)) {
-                    return new Result(Outcome.SUCCESS, String.format("`useMenus` is already %s.", isEnabledText(toSet)));
-                }
-                Database.changeUseMenu(gid, toSet);
-                return new Result(Outcome.SUCCESS, String.format(":arrows_counterclockwise: Menus changed to `%s`.", isEnabledText(toSet)));
-            } else {
-                return new Result(Outcome.WARNING, ":warning: That setting does not exist.");
             }
+            return new Result(Outcome.WARNING, ":warning: That setting does not exist.");
 
         }
         

@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.setting;
 
-import com.tisawesomeness.minecord.command.CommandContext;
 import lombok.NonNull;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -27,12 +26,11 @@ public abstract class ServerSetting<T> extends ChannelSetting<T> {
     /**
      * <p>Gets the value of this setting used in the current context.</p>
      * This will get the current channel if it is set, otherwise the current guild is used. Unset for DMs.
-     * @param txt The context of the executing command.
+     * @param e The event that triggered the executing command.
      * @return The value of the setting, or null if unset.
      */
     @Override
-    public Optional<T> get(@NonNull CommandContext txt) {
-        MessageReceivedEvent e = txt.e;
+    public Optional<T> get(@NonNull MessageReceivedEvent e) {
         if (e.isFromGuild()) {
             Optional<T> setting = get(e.getTextChannel());
             if (setting.isPresent()) {
@@ -73,9 +71,9 @@ public abstract class ServerSetting<T> extends ChannelSetting<T> {
             return toResult.toStatus();
         }
         T to = toOpt.get();
-        if (!from.isPresent() && to == getDefault()) {
+        if (!from.isPresent() && to.equals(getDefault())) {
             return changeGuild(id, to) ? SetStatus.SET_TO_DEFAULT : SetStatus.INTERNAL_FAILURE;
-        } else if (from.isPresent() && to == from.get()) {
+        } else if (from.isPresent() && to.equals(from.get())) {
             return SetStatus.SET_NO_CHANGE;
         }
         return changeGuild(id, to) ? SetStatus.SET : SetStatus.INTERNAL_FAILURE;
@@ -115,7 +113,7 @@ public abstract class ServerSetting<T> extends ChannelSetting<T> {
     private @NonNull SetResult resetGuildInternal(long id, Optional<T> from) {
         if (!from.isPresent()) {
             return SetStatus.RESET_NO_CHANGE;
-        } else if (from.get() == getDefault()) {
+        } else if (from.get().equals(getDefault())) {
             return SetStatus.RESET_TO_DEFAULT;
         }
         return clearGuild(id) ? SetStatus.RESET : SetStatus.INTERNAL_FAILURE;

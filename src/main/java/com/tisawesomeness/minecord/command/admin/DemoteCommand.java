@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.Database;
@@ -36,9 +35,10 @@ public class DemoteCommand extends Command {
 		User user = DiscordUtils.findUser(txt.args[0], txt.bot.getShardManager());
 		if (user == null) return new Result(Outcome.ERROR, ":x: Not a valid user!");
 		long id = user.getIdLong();
-		
+
 		//Don't demote a normal user
-		if (!Database.isElevated(id)) {
+		Database db = txt.bot.getDatabase();
+		if (!db.isElevated(id)) {
 			return new Result(Outcome.WARNING, ":warning: User is not elevated!");
 		}
 		
@@ -48,7 +48,7 @@ public class DemoteCommand extends Command {
 		}
 		
 		//Demote user
-		Database.changeElevated(id, false);
+		db.changeElevated(id, false);
 		return new Result(Outcome.SUCCESS, ":arrow_down: Demoted " + user.getAsTag());
 		
 	}

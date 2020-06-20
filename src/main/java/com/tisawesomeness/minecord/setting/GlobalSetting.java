@@ -27,13 +27,12 @@ public abstract class GlobalSetting<T> extends ServerSetting<T> {
     /**
      * <p>Gets the value of this setting used in the current context.</p>
      * This will get the user setting if used in a DM, otherwise it acts like {@link ServerSetting#get(CommandContext txt)}
-     * @param txt The context of the executing command.
+     * @param e The event that triggered the executing command.
      * @return The value of the setting, or null if unset.
      */
     @Override
-    public Optional<T> get(@NonNull CommandContext txt) {
-        MessageReceivedEvent e = txt.e;
-        return e.isFromGuild() ? super.get(txt) : get(e.getAuthor());
+    public Optional<T> get(@NonNull MessageReceivedEvent e) {
+        return e.isFromGuild() ? super.get(e) : get(e.getAuthor());
     }
 
     /**
@@ -66,9 +65,9 @@ public abstract class GlobalSetting<T> extends ServerSetting<T> {
             return toResult.toStatus();
         }
         T to = toOpt.get();
-        if (!from.isPresent() && to == getDefault()) {
+        if (!from.isPresent() && to.equals(getDefault())) {
             return changeUser(id, to) ? SetStatus.SET_TO_DEFAULT : SetStatus.INTERNAL_FAILURE;
-        } else if (from.isPresent() && to == from.get()) {
+        } else if (from.isPresent() && to.equals(from.get())) {
             return SetStatus.SET_NO_CHANGE;
         }
         return changeUser(id, to) ? SetStatus.SET : SetStatus.INTERNAL_FAILURE;
@@ -108,7 +107,7 @@ public abstract class GlobalSetting<T> extends ServerSetting<T> {
     private @NonNull SetResult resetUserInternal(long id, Optional<T> from) {
         if (!from.isPresent()) {
             return SetStatus.RESET_NO_CHANGE;
-        } else if (from.get() == getDefault()) {
+        } else if (from.get().equals(getDefault())) {
             return SetStatus.RESET_TO_DEFAULT;
         }
         return clearUser(id) ? SetStatus.RESET : SetStatus.INTERNAL_FAILURE;
