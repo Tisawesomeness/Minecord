@@ -90,6 +90,9 @@ public class ServerCommand extends Command {
 		try {
 			MCPingOptions options = MCPingOptions.builder().hostname(hostname).port(port).build();
 			reply = MCPing.getPing(options);
+			if (reply == null) {
+				return new Result(Outcome.ERROR, ":x: The server gave a bad response. It might be just starting up, try again later.");
+			}
 		} catch (IOException ignore) {
 			return new Result(Outcome.WARNING, ":warning: The server is down or unreachable.\nDid you spell it correctly?");
 		}
