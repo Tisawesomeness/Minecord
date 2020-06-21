@@ -95,6 +95,9 @@ public class Item {
         if (langObj.has("previously")) {
             prevString += " " + langObj.getString("previously");
             changed = true;
+            if (langObj.has("previously2")) {
+                prevString += ", " + langObj.getString("previously2");
+            }
         }
         if (changed) {
             sb.append(prevString).append("\n");
@@ -138,12 +141,8 @@ public class Item {
         }
 
         // Sprite
-        String imageKey = displayName;
-        if (properties != null && properties.has("image_key")) {
-            imageKey = properties.getString("image_key");
-        }
         try {
-            eb.setThumbnail(new URI("https", "minecord.github.io", String.format("/item/%s.png", imageKey), null).toASCIIString());
+            eb.setThumbnail(new URI("https", "minecord.github.io", String.format("/item/%s.png", getImageKey(item)), null).toASCIIString());
         } catch (URISyntaxException ex) {
             ex.printStackTrace();
         }
@@ -165,6 +164,17 @@ public class Item {
             return searchIDs(toMatch);
         } else if (Character.isDigit(toMatch.charAt(0))) {
             return searchNumerical(toMatch, lang);
+        }
+        // Default potions special case
+        String prepped = toMatch.replace("_", " ").replace(".", " ");
+        if (prepped.equalsIgnoreCase("potion")) {
+            return "minecraft.potion.effect.water";
+        } else if (prepped.equalsIgnoreCase("splash potion")) {
+            return "minecraft.splash_potion.effect.water";
+        } else if (prepped.equalsIgnoreCase("lingering potion")) {
+            return "minecraft.lingering_potion.effect.water";
+        } else if (prepped.equalsIgnoreCase("tipped arrow")) {
+            return "minecraft.tipped_arrow.effect.water";
         }
         return searchGeneral(toMatch, lang);
     }
@@ -374,6 +384,7 @@ public class Item {
             toCheck.add(langObj.optString("block_name"));
             if (!langObj.has("previous_conflict")) {
                 toCheck.add(langObj.optString("previously"));
+                toCheck.add(langObj.optString("previously2"));
             }
             // All the custom search names
             if (langObj.has("search_names")) {
@@ -396,6 +407,7 @@ public class Item {
                 
             }
             // Equals ignore case
+            toCheck.removeIf(t -> t == null);
             toCheck.replaceAll(t -> t.toLowerCase());
             if (toCheck.contains(id)) {
                 return true;
@@ -469,6 +481,19 @@ public class Item {
     private static int getID(String item) {
         JSONObject properties = items.getJSONObject(item).optJSONObject("properties");
         return properties == null ? null : properties.optInt("id", -1);
+    }
+
+    /**
+     * Gets the name of the image file used for an item
+     * @param item The item key
+     * @return The image filename, without the extension or URL
+     */
+    private static String getImageKey(String item) {
+        JSONObject properties = items.getJSONObject(item).optJSONObject("properties");
+        if (properties != null && properties.has("image_key")) {
+            return properties.getString("image_key");
+        }
+        return getDisplayName(item, "en_US");
     }
 
 }
