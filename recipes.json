@@ -154,7 +154,8 @@
     },
     "properties": {
       "version": "1.14"
-    }
+    },
+    "group": "sign"
   },
   "acacia_slab": {
     "result": {
@@ -915,11 +916,6 @@
     "result": {
       "item": "minecraft:beetroot_soup"
     },
-    "pattern": [
-      "BBB",
-      "BBB",
-      " U "
-    ],
     "ingredients": [
       {
         "item": "minecraft:bowl"
@@ -947,14 +943,6 @@
     "lang": {
       "en_US": {
         "notes": "Before 1.14, recipe is shaped."
-      }
-    },
-    "key": {
-      "B": {
-        "item": "minecraft:beetroot"
-      },
-      "U": {
-        "item": "minecraft:bowl"
       }
     },
     "properties": {
@@ -1116,7 +1104,8 @@
     },
     "properties": {
       "version": "1.14"
-    }
+    },
+    "group": "sign"
   },
   "birch_slab": {
     "result": {
@@ -1631,6 +1620,96 @@
       "removed": "1.14"
     },
     "group": "wool"
+  },
+  "blackstone_slab": {
+    "result": {
+      "item": "minecraft:blackstone_slab",
+      "count": 6
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:blackstone"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "blackstone_slab_from_blackstone_stonecutting": {
+    "result": "minecraft:blackstone_slab",
+    "ingredient": {
+      "item": "minecraft:blackstone"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "blackstone_stairs": {
+    "result": {
+      "item": "minecraft:blackstone_stairs",
+      "count": 4
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:blackstone"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "blackstone_stairs_from_blackstone_stonecutting": {
+    "result": "minecraft:blackstone_stairs",
+    "ingredient": {
+      "item": "minecraft:blackstone"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "blackstone_wall": {
+    "result": {
+      "item": "minecraft:blackstone_wall",
+      "count": 6
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:blackstone"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "blackstone_wall_from_blackstone_stonecutting": {
+    "result": "minecraft:blackstone_wall",
+    "ingredient": {
+      "item": "minecraft:blackstone"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
   },
   "blast_furnace": {
     "result": {
@@ -2952,6 +3031,28 @@
       }
     }
   },
+  "chain": {
+    "result": {
+      "item": "minecraft:chain"
+    },
+    "pattern": [
+      "N",
+      "I",
+      "N"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "I": {
+        "item": "minecraft:iron_ingot"
+      },
+      "N": {
+        "item": "minecraft:iron_nugget"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
   "chainmail_boots": {
     "result": {
       "item": "minecraft:chainmail_boots"
@@ -3029,7 +3130,7 @@
   "charcoal": {
     "result": "minecraft:charcoal",
     "ingredient": {
-      "tag": "minecraft:logs"
+      "tag": "minecraft:logs_that_burn"
     },
     "type": "minecraft:smelting",
     "experience": 0.15,
@@ -3073,6 +3174,75 @@
       "B": {
         "item": "minecraft:minecart"
       }
+    }
+  },
+  "chiseled_nether_bricks": {
+    "result": {
+      "item": "minecraft:chiseled_nether_bricks"
+    },
+    "pattern": [
+      "#",
+      "#"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:nether_brick_slab"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "chiseled_nether_bricks_from_nether_bricks_stonecutting": {
+    "result": "minecraft:chiseled_nether_bricks",
+    "ingredient": {
+      "item": "minecraft:nether_bricks"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "chiseled_polished_blackstone": {
+    "result": {
+      "item": "minecraft:chiseled_polished_blackstone"
+    },
+    "pattern": [
+      "#",
+      "#"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:polished_blackstone_slab"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "chiseled_polished_blackstone_from_blackstone_stonecutting": {
+    "result": "minecraft:chiseled_polished_blackstone",
+    "ingredient": {
+      "item": "minecraft:blackstone"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "chiseled_polished_blackstone_from_polished_blackstone_stonecutting": {
+    "result": "minecraft:chiseled_polished_blackstone",
+    "ingredient": {
+      "item": "minecraft:polished_blackstone"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
     }
   },
   "chiseled_quartz_block": {
@@ -3705,6 +3875,30 @@
       }
     }
   },
+  "cracked_nether_bricks": {
+    "result": "minecraft:cracked_nether_bricks",
+    "ingredient": {
+      "item": "minecraft:nether_bricks"
+    },
+    "type": "minecraft:smelting",
+    "experience": 0.1,
+    "properties": {
+      "version": "1.16"
+    },
+    "cookingtime": 200
+  },
+  "cracked_polished_blackstone_bricks": {
+    "result": "minecraft:cracked_polished_blackstone_bricks",
+    "ingredient": {
+      "item": "minecraft:polished_blackstone_bricks"
+    },
+    "type": "minecraft:smelting",
+    "experience": 0.1,
+    "properties": {
+      "version": "1.16"
+    },
+    "cookingtime": 200
+  },
   "cracked_stone_bricks": {
     "result": "minecraft:cracked_stone_bricks",
     "ingredient": {
@@ -3751,6 +3945,207 @@
     "properties": {
       "version": "1.14"
     }
+  },
+  "crimson_button": {
+    "result": {
+      "item": "minecraft:crimson_button"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:crimson_planks"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "wooden_button"
+  },
+  "crimson_door": {
+    "result": {
+      "item": "minecraft:crimson_door",
+      "count": 3
+    },
+    "pattern": [
+      "##",
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:crimson_planks"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "wooden_door"
+  },
+  "crimson_fence": {
+    "result": {
+      "item": "minecraft:crimson_fence",
+      "count": 3
+    },
+    "pattern": [
+      "W#W",
+      "W#W"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:stick"
+      },
+      "W": {
+        "item": "minecraft:crimson_planks"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "wooden_fence"
+  },
+  "crimson_fence_gate": {
+    "result": {
+      "item": "minecraft:crimson_fence_gate"
+    },
+    "pattern": [
+      "#W#",
+      "#W#"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:stick"
+      },
+      "W": {
+        "item": "minecraft:crimson_planks"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "wooden_fence_gate"
+  },
+  "crimson_hyphae": {
+    "result": {
+      "item": "minecraft:crimson_hyphae",
+      "count": 3
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:crimson_stem"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "bark"
+  },
+  "crimson_planks": {
+    "result": {
+      "item": "minecraft:crimson_planks",
+      "count": 4
+    },
+    "ingredients": [
+      {
+        "tag": "minecraft:crimson_stems"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "1.16"
+    },
+    "group": "planks"
+  },
+  "crimson_pressure_plate": {
+    "result": {
+      "item": "minecraft:crimson_pressure_plate"
+    },
+    "pattern": [
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:crimson_planks"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "wooden_pressure_plate"
+  },
+  "crimson_sign": {
+    "result": {
+      "item": "minecraft:crimson_sign",
+      "count": 3
+    },
+    "pattern": [
+      "###",
+      "###",
+      " X "
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:crimson_planks"
+      },
+      "X": {
+        "item": "minecraft:stick"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "sign"
+  },
+  "crimson_stairs": {
+    "result": {
+      "item": "minecraft:crimson_stairs",
+      "count": 4
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:crimson_planks"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "wooden_stairs"
+  },
+  "crimson_trapdoor": {
+    "result": {
+      "item": "minecraft:crimson_trapdoor",
+      "count": 2
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:crimson_planks"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "wooden_trapdoor"
   },
   "crossbow": {
     "result": {
@@ -4359,7 +4754,8 @@
     },
     "properties": {
       "version": "1.14"
-    }
+    },
+    "group": "sign"
   },
   "dark_oak_slab": {
     "result": {
@@ -6475,8 +6871,11 @@
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": {
-        "item": "minecraft:cobblestone"
+        "tag": "minecraft:furnace_materials"
       }
+    },
+    "properties": {
+      "animated": true
     }
   },
   "furnace_minecart": {
@@ -6594,7 +6993,7 @@
   "gold_ingot_from_blasting": {
     "result": "minecraft:gold_ingot",
     "ingredient": {
-      "item": "minecraft:gold_ore"
+      "tag": "minecraft:gold_ores"
     },
     "type": "minecraft:blasting",
     "experience": 1,
@@ -8462,7 +8861,8 @@
     },
     "properties": {
       "version": "1.14"
-    }
+    },
+    "group": "sign"
   },
   "jungle_slab": {
     "result": {
@@ -10513,6 +10913,28 @@
       }
     ]
   },
+  "lodestone": {
+    "result": {
+      "item": "minecraft:lodestone"
+    },
+    "pattern": [
+      "SSS",
+      "S#S",
+      "SSS"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "S": {
+        "item": "minecraft:chiseled_stone_bricks"
+      },
+      "#": {
+        "item": "minecraft:netherite_ingot"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
   "loom": {
     "result": {
       "item": "minecraft:loom"
@@ -11495,6 +11917,236 @@
       "version": "1.10"
     }
   },
+  "netherite_axe_smithing": {
+    "result": {
+      "item": "minecraft:netherite_axe"
+    },
+    "type": "minecraft:smithing",
+    "properties": {
+      "version": "1.16"
+    },
+    "base": {
+      "item": "minecraft:diamond_axe"
+    },
+    "addition": {
+      "item": "minecraft:netherite_ingot"
+    }
+  },
+  "netherite_block": {
+    "result": {
+      "item": "minecraft:netherite_block"
+    },
+    "pattern": [
+      "###",
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:netherite_ingot"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "netherite_boots_smithing": {
+    "result": {
+      "item": "minecraft:netherite_boots"
+    },
+    "type": "minecraft:smithing",
+    "properties": {
+      "version": "1.16"
+    },
+    "base": {
+      "item": "minecraft:diamond_boots"
+    },
+    "addition": {
+      "item": "minecraft:netherite_ingot"
+    }
+  },
+  "netherite_chestplate_smithing": {
+    "result": {
+      "item": "minecraft:netherite_chestplate"
+    },
+    "type": "minecraft:smithing",
+    "properties": {
+      "version": "1.16"
+    },
+    "base": {
+      "item": "minecraft:diamond_chestplate"
+    },
+    "addition": {
+      "item": "minecraft:netherite_ingot"
+    }
+  },
+  "netherite_helmet_smithing": {
+    "result": {
+      "item": "minecraft:netherite_helmet"
+    },
+    "type": "minecraft:smithing",
+    "properties": {
+      "version": "1.16"
+    },
+    "base": {
+      "item": "minecraft:diamond_helmet"
+    },
+    "addition": {
+      "item": "minecraft:netherite_ingot"
+    }
+  },
+  "netherite_hoe_smithing": {
+    "result": {
+      "item": "minecraft:netherite_hoe"
+    },
+    "type": "minecraft:smithing",
+    "properties": {
+      "version": "1.16"
+    },
+    "base": {
+      "item": "minecraft:diamond_hoe"
+    },
+    "addition": {
+      "item": "minecraft:netherite_ingot"
+    }
+  },
+  "netherite_ingot": {
+    "result": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:netherite_scrap"
+      },
+      {
+        "item": "minecraft:netherite_scrap"
+      },
+      {
+        "item": "minecraft:netherite_scrap"
+      },
+      {
+        "item": "minecraft:netherite_scrap"
+      },
+      {
+        "item": "minecraft:gold_ingot"
+      },
+      {
+        "item": "minecraft:gold_ingot"
+      },
+      {
+        "item": "minecraft:gold_ingot"
+      },
+      {
+        "item": "minecraft:gold_ingot"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "netherite_ingot"
+  },
+  "netherite_ingot_from_netherite_block": {
+    "result": {
+      "item": "minecraft:netherite_ingot",
+      "count": 9
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:netherite_block"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "netherite_ingot"
+  },
+  "netherite_leggings_smithing": {
+    "result": {
+      "item": "minecraft:netherite_leggings"
+    },
+    "type": "minecraft:smithing",
+    "properties": {
+      "version": "1.16"
+    },
+    "base": {
+      "item": "minecraft:diamond_leggings"
+    },
+    "addition": {
+      "item": "minecraft:netherite_ingot"
+    }
+  },
+  "netherite_pickaxe_smithing": {
+    "result": {
+      "item": "minecraft:netherite_pickaxe"
+    },
+    "type": "minecraft:smithing",
+    "properties": {
+      "version": "1.16"
+    },
+    "base": {
+      "item": "minecraft:diamond_pickaxe"
+    },
+    "addition": {
+      "item": "minecraft:netherite_ingot"
+    }
+  },
+  "netherite_scrap": {
+    "result": "minecraft:netherite_scrap",
+    "ingredient": {
+      "item": "minecraft:ancient_debris"
+    },
+    "type": "minecraft:smelting",
+    "experience": 2,
+    "properties": {
+      "version": "1.16"
+    },
+    "cookingtime": 200
+  },
+  "netherite_scrap_from_blasting": {
+    "result": "minecraft:netherite_scrap",
+    "ingredient": {
+      "item": "minecraft:ancient_debris"
+    },
+    "type": "minecraft:blasting",
+    "experience": 2,
+    "properties": {
+      "version": "1.16"
+    },
+    "cookingtime": 100
+  },
+  "netherite_shovel_smithing": {
+    "result": {
+      "item": "minecraft:netherite_shovel"
+    },
+    "type": "minecraft:smithing",
+    "properties": {
+      "version": "1.16"
+    },
+    "base": {
+      "item": "minecraft:diamond_shovel"
+    },
+    "addition": {
+      "item": "minecraft:netherite_ingot"
+    }
+  },
+  "netherite_sword_smithing": {
+    "result": {
+      "item": "minecraft:netherite_sword"
+    },
+    "type": "minecraft:smithing",
+    "properties": {
+      "version": "1.16"
+    },
+    "base": {
+      "item": "minecraft:diamond_sword"
+    },
+    "addition": {
+      "item": "minecraft:netherite_ingot"
+    }
+  },
   "night_vision_lingering_potion": {
     "result": "minecraft.lingering_potion.effect.night_vision",
     "reagent": {
@@ -11709,7 +12361,8 @@
       "X": {
         "item": "minecraft:stick"
       }
-    }
+    },
+    "group": "sign"
   },
   "oak_slab": {
     "result": {
@@ -12642,6 +13295,417 @@
       "version": "1.14"
     }
   },
+  "polished_basalt": {
+    "result": {
+      "item": "minecraft:polished_basalt",
+      "count": 4
+    },
+    "pattern": [
+      "SS",
+      "SS"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "S": {
+        "item": "minecraft:basalt"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_basalt_from_basalt_stonecutting": {
+    "result": "minecraft:polished_basalt",
+    "ingredient": {
+      "item": "minecraft:basalt"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone": {
+    "result": {
+      "item": "minecraft:polished_blackstone",
+      "count": 4
+    },
+    "pattern": [
+      "SS",
+      "SS"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "S": {
+        "item": "minecraft:blackstone"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_brick_slab": {
+    "result": {
+      "item": "minecraft:polished_blackstone_brick_slab",
+      "count": 6
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:polished_blackstone_bricks"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_brick_slab_from_blackstone_stonecutting": {
+    "result": "minecraft:polished_blackstone_brick_slab",
+    "ingredient": {
+      "item": "minecraft:blackstone"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_brick_slab_from_polished_blackstone_bricks_stonecutting": {
+    "result": "minecraft:polished_blackstone_brick_slab",
+    "ingredient": {
+      "item": "minecraft:polished_blackstone_bricks"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_brick_slab_from_polished_blackstone_stonecutting": {
+    "result": "minecraft:polished_blackstone_brick_slab",
+    "ingredient": {
+      "item": "minecraft:polished_blackstone"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_brick_stairs": {
+    "result": {
+      "item": "minecraft:polished_blackstone_brick_stairs",
+      "count": 4
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:polished_blackstone_bricks"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_brick_stairs_from_blackstone_stonecutting": {
+    "result": "minecraft:polished_blackstone_brick_stairs",
+    "ingredient": {
+      "item": "minecraft:blackstone"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_brick_stairs_from_polished_blackstone_bricks_stonecutting": {
+    "result": "minecraft:polished_blackstone_brick_stairs",
+    "ingredient": {
+      "item": "minecraft:polished_blackstone_bricks"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_brick_stairs_from_polished_blackstone_stonecutting": {
+    "result": "minecraft:polished_blackstone_brick_stairs",
+    "ingredient": {
+      "item": "minecraft:polished_blackstone"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_brick_wall": {
+    "result": {
+      "item": "minecraft:polished_blackstone_brick_wall",
+      "count": 6
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:polished_blackstone_bricks"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_brick_wall_from_blackstone_stonecutting": {
+    "result": "minecraft:polished_blackstone_brick_wall",
+    "ingredient": {
+      "item": "minecraft:blackstone"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_brick_wall_from_polished_blackstone_bricks_stonecutting": {
+    "result": "minecraft:polished_blackstone_brick_wall",
+    "ingredient": {
+      "item": "minecraft:polished_blackstone_bricks"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_brick_wall_from_polished_blackstone_stonecutting": {
+    "result": "minecraft:polished_blackstone_brick_wall",
+    "ingredient": {
+      "item": "minecraft:polished_blackstone"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_bricks": {
+    "result": {
+      "item": "minecraft:polished_blackstone_bricks",
+      "count": 4
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:polished_blackstone"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_bricks_from_blackstone_stonecutting": {
+    "result": "minecraft:polished_blackstone_bricks",
+    "ingredient": {
+      "item": "minecraft:blackstone"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_bricks_from_polished_blackstone_stonecutting": {
+    "result": "minecraft:polished_blackstone_bricks",
+    "ingredient": {
+      "item": "minecraft:polished_blackstone"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_button": {
+    "result": {
+      "item": "minecraft:polished_blackstone_button"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:polished_blackstone"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_from_blackstone_stonecutting": {
+    "result": "minecraft:polished_blackstone",
+    "ingredient": {
+      "item": "minecraft:blackstone"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_pressure_plate": {
+    "result": {
+      "item": "minecraft:polished_blackstone_pressure_plate"
+    },
+    "pattern": [
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:polished_blackstone"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_slab": {
+    "result": {
+      "item": "minecraft:polished_blackstone_slab",
+      "count": 6
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:polished_blackstone"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_slab_from_blackstone_stonecutting": {
+    "result": "minecraft:polished_blackstone_slab",
+    "ingredient": {
+      "item": "minecraft:blackstone"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_slab_from_polished_blackstone_stonecutting": {
+    "result": "minecraft:polished_blackstone_slab",
+    "ingredient": {
+      "item": "minecraft:polished_blackstone"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_stairs": {
+    "result": {
+      "item": "minecraft:polished_blackstone_stairs",
+      "count": 4
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:polished_blackstone"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_stairs_from_blackstone_stonecutting": {
+    "result": "minecraft:polished_blackstone_stairs",
+    "ingredient": {
+      "item": "minecraft:blackstone"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_stairs_from_polished_blackstone_stonecutting": {
+    "result": "minecraft:polished_blackstone_stairs",
+    "ingredient": {
+      "item": "minecraft:polished_blackstone"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_wall": {
+    "result": {
+      "item": "minecraft:polished_blackstone_wall",
+      "count": 6
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:polished_blackstone"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_wall_from_blackstone_stonecutting": {
+    "result": "minecraft:polished_blackstone_wall",
+    "ingredient": {
+      "item": "minecraft:blackstone"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "polished_blackstone_wall_from_polished_blackstone_stonecutting": {
+    "result": "minecraft:polished_blackstone_wall",
+    "ingredient": {
+      "item": "minecraft:polished_blackstone"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
+  },
   "polished_diorite": {
     "result": {
       "item": "minecraft:polished_diorite",
@@ -13542,6 +14606,36 @@
       }
     }
   },
+  "quartz_bricks": {
+    "result": {
+      "item": "minecraft:quartz_bricks",
+      "count": 4
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:quartz_block"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "quartz_bricks_from_quartz_block_stonecutting": {
+    "result": "minecraft:quartz_bricks",
+    "ingredient": {
+      "item": "minecraft:quartz_block"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.16"
+    }
+  },
   "quartz_from_blasting": {
     "result": "minecraft:quartz",
     "ingredient": {
@@ -13667,11 +14761,6 @@
     "result": {
       "item": "minecraft:rabbit_stew"
     },
-    "pattern": [
-      " R ",
-      "CPM",
-      " B "
-    ],
     "ingredients": [
       {
         "item": "minecraft:baked_potato"
@@ -13693,23 +14782,6 @@
     "lang": {
       "en_US": {
         "notes": "Before 1.14, recipe is shaped."
-      }
-    },
-    "key": {
-      "P": {
-        "item": "minecraft:baked_potato"
-      },
-      "R": {
-        "item": "minecraft:cooked_rabbit"
-      },
-      "B": {
-        "item": "minecraft:bowl"
-      },
-      "C": {
-        "item": "minecraft:carrot"
-      },
-      "M": {
-        "item": "minecraft:brown_mushroom"
       }
     },
     "properties": {
@@ -13721,11 +14793,6 @@
     "result": {
       "item": "minecraft:rabbit_stew"
     },
-    "pattern": [
-      " R ",
-      "CPM",
-      " B "
-    ],
     "ingredients": [
       {
         "item": "minecraft:baked_potato"
@@ -13747,23 +14814,6 @@
     "lang": {
       "en_US": {
         "notes": "Before 1.14, recipe is shaped."
-      }
-    },
-    "key": {
-      "P": {
-        "item": "minecraft:baked_potato"
-      },
-      "R": {
-        "item": "minecraft:cooked_rabbit"
-      },
-      "B": {
-        "item": "minecraft:bowl"
-      },
-      "C": {
-        "item": "minecraft:carrot"
-      },
-      "M": {
-        "item": "minecraft:red_mushroom"
       }
     },
     "properties": {
@@ -14461,6 +15511,28 @@
       "I": {
         "item": "minecraft:stone"
       }
+    }
+  },
+  "respawn_anchor": {
+    "result": {
+      "item": "minecraft:respawn_anchor"
+    },
+    "pattern": [
+      "OOO",
+      "GGG",
+      "OOO"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "G": {
+        "item": "minecraft:glowstone"
+      },
+      "O": {
+        "item": "minecraft:crying_obsidian"
+      }
+    },
+    "properties": {
+      "version": "1.16"
     }
   },
   "sandstone": {
@@ -16461,6 +17533,86 @@
       }
     }
   },
+  "soul_campfire": {
+    "result": {
+      "item": "minecraft:soul_campfire"
+    },
+    "pattern": [
+      " S ",
+      "S#S",
+      "LLL"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "S": {
+        "item": "minecraft:stick"
+      },
+      "#": {
+        "tag": "minecraft:soul_fire_base_blocks"
+      },
+      "L": {
+        "tag": "minecraft:logs"
+      }
+    },
+    "properties": {
+      "animated": true,
+      "version": "1.16"
+    }
+  },
+  "soul_lantern": {
+    "result": {
+      "item": "minecraft:soul_lantern"
+    },
+    "pattern": [
+      "XXX",
+      "X#X",
+      "XXX"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:soul_torch"
+      },
+      "X": {
+        "item": "minecraft:iron_nugget"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "soul_torch": {
+    "result": {
+      "item": "minecraft:soul_torch",
+      "count": 4
+    },
+    "pattern": [
+      "X",
+      "#",
+      "S"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:stick"
+      },
+      "S": {
+        "tag": "minecraft:soul_fire_base_blocks"
+      },
+      "X": [
+        {
+          "item": "minecraft:coal"
+        },
+        {
+          "item": "minecraft:charcoal"
+        }
+      ]
+    },
+    "properties": {
+      "animated": true,
+      "version": "1.16"
+    }
+  },
   "spectral_arrow": {
     "result": {
       "item": "minecraft:spectral_arrow",
@@ -17131,13 +18283,13 @@
     },
     "type": "minecraft.smelting_special_sponge",
     "experience": 0.15,
-    "properties": {
-      "version": "1.8"
-    },
     "lang": {
       "en_US": {
         "notes": "The empty bucket is filled with water after smelting."
       }
+    },
+    "properties": {
+      "version": "1.8"
     },
     "cookingtime": 200
   },
@@ -17296,7 +18448,8 @@
     },
     "properties": {
       "version": "1.14"
-    }
+    },
+    "group": "sign"
   },
   "spruce_slab": {
     "result": {
@@ -17453,8 +18606,11 @@
         "item": "minecraft:stick"
       },
       "X": {
-        "item": "minecraft:cobblestone"
+        "tag": "minecraft:stone_tool_materials"
       }
+    },
+    "properties": {
+      "animated": true
     }
   },
   "stone_brick_slab": {
@@ -17627,8 +18783,11 @@
         "item": "minecraft:stick"
       },
       "X": {
-        "item": "minecraft:cobblestone"
+        "tag": "minecraft:stone_tool_materials"
       }
+    },
+    "properties": {
+      "animated": true
     }
   },
   "stone_pickaxe": {
@@ -17646,8 +18805,11 @@
         "item": "minecraft:stick"
       },
       "X": {
-        "item": "minecraft:cobblestone"
+        "tag": "minecraft:stone_tool_materials"
       }
+    },
+    "properties": {
+      "animated": true
     }
   },
   "stone_pressure_plate": {
@@ -17679,8 +18841,11 @@
         "item": "minecraft:stick"
       },
       "X": {
-        "item": "minecraft:cobblestone"
+        "tag": "minecraft:stone_tool_materials"
       }
+    },
+    "properties": {
+      "animated": true
     }
   },
   "stone_slab": {
@@ -17758,8 +18923,11 @@
         "item": "minecraft:stick"
       },
       "X": {
-        "item": "minecraft:cobblestone"
+        "tag": "minecraft:stone_tool_materials"
       }
+    },
+    "properties": {
+      "animated": true
     }
   },
   "stonecutter": {
@@ -17856,6 +19024,26 @@
     },
     "group": "bark"
   },
+  "stripped_crimson_hyphae": {
+    "result": {
+      "item": "minecraft:stripped_crimson_hyphae",
+      "count": 3
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:stripped_crimson_stem"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "bark"
+  },
   "stripped_dark_oak_wood": {
     "result": {
       "item": "minecraft:stripped_dark_oak_wood",
@@ -17933,6 +19121,26 @@
     },
     "properties": {
       "version": "1.15"
+    },
+    "group": "bark"
+  },
+  "stripped_warped_hyphae": {
+    "result": {
+      "item": "minecraft:stripped_warped_hyphae",
+      "count": 3
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:stripped_warped_stem"
+      }
+    },
+    "properties": {
+      "version": "1.16"
     },
     "group": "bark"
   },
@@ -18062,6 +19270,28 @@
     "type": "minecraft.brewing",
     "base": {
       "item": "minecraft.potion.effect.swiftness"
+    }
+  },
+  "target": {
+    "result": {
+      "item": "minecraft:target"
+    },
+    "pattern": [
+      " R ",
+      "RHR",
+      " R "
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "R": {
+        "item": "minecraft:redstone"
+      },
+      "H": {
+        "item": "minecraft:hay_block"
+      }
+    },
+    "properties": {
+      "version": "1.16"
     }
   },
   "terracotta": {
@@ -18405,46 +19635,6 @@
       "version": "1.9"
     }
   },
-  "tipped_arrow_luck_extended": {
-    "result": {
-      "item": "minecraft.tipped_arrow.effect.luck.extended",
-      "count": 8
-    },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": {
-        "item": "minecraft.lingering_potion.effect.luck.extended"
-      },
-      "A": {
-        "item": "minecraft:arrow"
-      }
-    }
-  },
-  "tipped_arrow_luck_ii": {
-    "result": {
-      "item": "minecraft.tipped_arrow.effect.luck.ii",
-      "count": 8
-    },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": {
-        "item": "minecraft.lingering_potion.effect.luck.ii"
-      },
-      "A": {
-        "item": "minecraft:arrow"
-      }
-    }
-  },
   "tipped_arrow_mundane": {
     "result": {
       "item": "minecraft.tipped_arrow.effect.mundane",
@@ -18758,6 +19948,29 @@
     "key": {
       "P": {
         "item": "minecraft.lingering_potion.effect.slowness.extended"
+      },
+      "A": {
+        "item": "minecraft:arrow"
+      }
+    },
+    "properties": {
+      "version": "1.9"
+    }
+  },
+  "tipped_arrow_slowness_iv": {
+    "result": {
+      "item": "minecraft.tipped_arrow.effect.slowness.iv",
+      "count": 8
+    },
+    "pattern": [
+      "AAA",
+      "APA",
+      "AAA"
+    ],
+    "type": "minecraft:crafting_special_tippedarrow",
+    "key": {
+      "P": {
+        "item": "minecraft.lingering_potion.effect.slowness.iv"
       },
       "A": {
         "item": "minecraft:arrow"
@@ -19282,6 +20495,247 @@
     "base": {
       "item": "minecraft.potion.effect.turtle_master"
     }
+  },
+  "warped_button": {
+    "result": {
+      "item": "minecraft:warped_button"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:warped_planks"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "wooden_button"
+  },
+  "warped_door": {
+    "result": {
+      "item": "minecraft:warped_door",
+      "count": 3
+    },
+    "pattern": [
+      "##",
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:warped_planks"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "wooden_door"
+  },
+  "warped_fence": {
+    "result": {
+      "item": "minecraft:warped_fence",
+      "count": 3
+    },
+    "pattern": [
+      "W#W",
+      "W#W"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:stick"
+      },
+      "W": {
+        "item": "minecraft:warped_planks"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "wooden_fence"
+  },
+  "warped_fence_gate": {
+    "result": {
+      "item": "minecraft:warped_fence_gate"
+    },
+    "pattern": [
+      "#W#",
+      "#W#"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:stick"
+      },
+      "W": {
+        "item": "minecraft:warped_planks"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "wooden_fence_gate"
+  },
+  "warped_fungus_on_a_stick": {
+    "result": {
+      "item": "minecraft:warped_fungus_on_a_stick"
+    },
+    "pattern": [
+      "# ",
+      " X"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:fishing_rod"
+      },
+      "X": {
+        "item": "minecraft:warped_fungus"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "warped_hyphae": {
+    "result": {
+      "item": "minecraft:warped_hyphae",
+      "count": 3
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:warped_stem"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "bark"
+  },
+  "warped_planks": {
+    "result": {
+      "item": "minecraft:warped_planks",
+      "count": 4
+    },
+    "ingredients": [
+      {
+        "tag": "minecraft:warped_stems"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "1.16"
+    },
+    "group": "planks"
+  },
+  "warped_pressure_plate": {
+    "result": {
+      "item": "minecraft:warped_pressure_plate"
+    },
+    "pattern": [
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:warped_planks"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "wooden_pressure_plate"
+  },
+  "warped_sign": {
+    "result": {
+      "item": "minecraft:warped_sign",
+      "count": 3
+    },
+    "pattern": [
+      "###",
+      "###",
+      " X "
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:warped_planks"
+      },
+      "X": {
+        "item": "minecraft:stick"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "sign"
+  },
+  "warped_slab": {
+    "result": {
+      "item": "minecraft:warped_slab",
+      "count": 6
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:warped_planks"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "wooden_slab"
+  },
+  "warped_stairs": {
+    "result": {
+      "item": "minecraft:warped_stairs",
+      "count": 4
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:warped_planks"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "wooden_stairs"
+  },
+  "warped_trapdoor": {
+    "result": {
+      "item": "minecraft:warped_trapdoor",
+      "count": 2
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:warped_planks"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "wooden_trapdoor"
   },
   "water_breathing_lingering_potion": {
     "result": "minecraft.lingering_potion.effect.water_breathing",

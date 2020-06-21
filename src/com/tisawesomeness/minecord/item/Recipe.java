@@ -109,6 +109,9 @@ public class Recipe {
         "minecraft:crafting_special_firework_star", "minecraft:crafting_special_firework_star_fade", "minecraft:crafting_special_firework_rocket",
         "minecraft:crafting_special_shulkerboxcoloring", "minecraft:crafting_special_suspiciousstew"
     );
+    private static List<String> otherTypes = Arrays.asList(
+        "minecraft:stonecutting", "minecraft.brewing", "minecraft:smithing"
+    );
     /**
      * Checks if a recipe type is crafting
      * @param type The type string
@@ -128,7 +131,7 @@ public class Recipe {
      * @param type The type string
      */
     private static boolean isValidType(String type) {
-        return isCrafting(type) || isSmelting(type) || type.equals("minecraft:stonecutting") || type.equals("minecraft.brewing");
+        return isCrafting(type) || isSmelting(type) || otherTypes.contains(type);
     }
 
     /**
@@ -272,6 +275,10 @@ public class Recipe {
             } else {
                 ingredients.add(base.getString("item"));
             }
+        // Smithing recipes
+        } else if (type.equals("minecraft:smithing")) {
+            ingredients.add(recipe.getJSONObject("base").getString("item"));
+            ingredients.add(recipe.getJSONObject("addition").getString("item"));
         }
         return ingredients;
     }
@@ -467,6 +474,8 @@ public class Recipe {
                     item = "minecraft.stonecutter"; break;
                 case "minecraft.brewing":
                     item = "minecraft.brewing_stand"; break;
+                case "minecraft:smithing":
+                    item = "minecraft.smithing_table"; break;
                 default:
                     item = "minecraft.crafting_table";
             }
@@ -528,7 +537,7 @@ public class Recipe {
                 c = 1;
             }
             // Find how to craft each ingredient
-            if (isCrafting(type) || isSmelting(type) || type.equals("minecraft.brewing")) {
+            if (isCrafting(type) || isSmelting(type) || type.equals("minecraft.brewing") || type.equals("minecraft:smithing")) {
                 LinkedHashSet<String> ingredientsSet = getIngredients(recipeObj);
                 if (type.equals("minecraft.brewing")) {
                     if (ingredientsSet.contains("minecraft:blaze_powder")) {
