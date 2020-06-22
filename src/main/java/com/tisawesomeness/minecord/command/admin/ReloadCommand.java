@@ -4,14 +4,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.concurrent.ExecutionException;
 
-import com.tisawesomeness.minecord.ArgsHandler;
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.item.Item;
-import com.tisawesomeness.minecord.item.Recipe;
 
 import net.dv8tion.jda.api.entities.Message;
 
@@ -34,7 +29,8 @@ public class ReloadCommand extends Command {
 	}
 
 	public String getHelp() {
-		return "Reloads the config, announcement, and item/recipe files, and restarts the database and vote server.";
+		return "Reloads the config, announcement, and item/recipe files, and restarts the database and vote server.\n" +
+				"If there is an exception, shut down the bot with {&}shutdown or do a hard reset.";
 	}
 
 	public Result run(CommandContext txt) {

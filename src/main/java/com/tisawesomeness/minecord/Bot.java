@@ -185,14 +185,19 @@ public class Bot {
 	}
 
 	/**
-	 * Reloads the announcement registry from file.
-	 * @param config The config to use for parsing constants and variables.
-	 * @throws IOException When the announce file couldn't be read.
+	 * Reloads the bot. The parts that get reloaded are:
+	 * <ul>
+	 *     <li>The config and announce files.</li>
+	 *     <li>The database.</li>
+	 *     <li>The vote server.</li>
+	 *     <li>The internal item and recipe resource files (open the JAR as archive and replace them to reload these).</li>
+	 * </ul>
+	 * The config is loaded before everything else, so options like login details can change.
+	 * @throws SQLException If the database couldn't close.
+	 * @throws IOException If a file wasn't found, or there was an error starting the vote server.
+	 * @throws ExecutionException If the database couldn't open, the initial read failed, or creating a missing table failed.
+	 * If there is an exception, shut down the bot with &shutdown or do a hard reset.
 	 */
-	public void reloadAnnouncements(Config config) throws IOException {
-
-	}
-
 	public void reload() throws SQLException, IOException, ExecutionException {
 		database.close();
 		if (config.shouldReceiveVotes()) {
@@ -214,6 +219,11 @@ public class Bot {
 		}
 	}
 
+	/**
+	 * Shuts down the bot and exits the JVM.
+	 * TODO make the bot shut down without System.exit()
+	 * @param exit The program exit code, non-zero for failure.
+	 */
 	public void shutdown(int exit) {
 		try {
 			shardManager.shutdown();

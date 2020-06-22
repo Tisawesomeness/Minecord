@@ -28,7 +28,7 @@ public class Database {
 		return source.getConnection();
 	}
 
-	private static ExecutorService exe = Executors.newSingleThreadExecutor();
+	private static final ExecutorService exe = Executors.newSingleThreadExecutor();
 	/**
 	 * Starts a new database connection.
 	 * @param config The config with login info.
