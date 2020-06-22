@@ -7,6 +7,7 @@ import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -83,8 +84,6 @@ public class Bot {
 	@Getter private long birth;
 	@Getter private long bootTime;
 
-	private volatile int readyShards = 0;
-
 	/**
 	 * Starts the bot. Will return early if one of the following happens:
 	 * <ul>
@@ -115,9 +114,10 @@ public class Bot {
 		ReactMenu.startPurgeThread();
 		Registry.init();
 
+		CountDownLatch readyLatch = new CountDownLatch(config.getShardCount());
 		commandListener = new CommandListener(this, config);
 		reactListener = new ReactListener();
-		readyListener = new ReadyListener(this);
+		readyListener = new ReadyListener(readyLatch);
 		guildCountListener = new GuildCountListener(this, config);
 		
 		// Connect to database
@@ -136,11 +136,8 @@ public class Bot {
 				.build();
 
 			// Wait for shards to ready
-			while (readyShards < shardManager.getShardsTotal()) {
-				// System.out.println("Ready shards: " + readyShards + " / " + shardManager.getShardsTotal());
-				Thread.sleep(100);
-			}
-			System.out.println("Shards ready");
+			readyLatch.await();
+			System.out.println("All shards ready!");
 
 		} catch (LoginException | InterruptedException ex) {
 			ex.printStackTrace();
@@ -178,10 +175,6 @@ public class Bot {
 		DiscordUtils.update(shardManager, config);
 		RequestUtils.sendGuilds(shardManager, config);
 		
-	}
-
-	public void addReadyShard() {
-		readyShards++;
 	}
 
 	/**
