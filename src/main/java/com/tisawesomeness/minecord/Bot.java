@@ -121,14 +121,15 @@ public class Bot {
 		guildCountListener = new GuildCountListener(this, config);
 		
 		// Connect to database
-		Future<Database> db = Database.start(config);
+		database = new Database(config);
+		Future<Boolean> db = database.start();
 
 		try {
 			// Initialize JDA
 			shardManager = DefaultShardManagerBuilder.create(gateways)
 				.setToken(config.getClientToken())
 				.setAutoReconnect(true)
-				.addEventListeners(commandListener, reactListener, readyListener, guildCountListener)
+				.addEventListeners(readyListener)
 				.setShardsTotal(config.getShardCount())
 				.setActivity(Activity.playing("Loading..."))
 				.setMemberCachePolicy(MemberCachePolicy.NONE)
@@ -151,7 +152,9 @@ public class Bot {
 
 		// Wait for database
 		try {
-			database = db.get();
+			if (!db.get()) {
+				return;
+			}
 		} catch (ExecutionException ex) {
 			ex.printStackTrace();
 			return;
@@ -162,6 +165,8 @@ public class Bot {
 		// Create settings
 		settings = new SettingRegistry(config, database);
 
+		// Bot has started, start accepting messages
+		shardManager.addEventListener(commandListener, reactListener, guildCountListener);
 		System.out.println("Bot ready!");
 
 		// Start web server
@@ -197,7 +202,9 @@ public class Bot {
 			voteHandler.close();
 		}
 		config = new Config(args.getConfigPath(), args.getTokenOverride());
-		Future<Database> db = Database.start(config);
+		shardManager.restart();
+		Database newDatabase = new Database(config);
+		Future<Boolean> db = newDatabase.start();
 		if (config.shouldReceiveVotes()) {
 			voteHandler = new VoteHandler(this, config);
 			Future<Boolean> ws = voteHandler.start();
@@ -206,7 +213,9 @@ public class Bot {
 		Item.init();
 		Recipe.init();
 		try {
-			database = db.get();
+			if (!db.get()) {
+				throw new SQLException("Database unable to load.");
+			}
 		} catch (InterruptedException ex) {
 			throw new AssertionError();
 		}
@@ -214,7 +223,6 @@ public class Bot {
 
 	/**
 	 * Shuts down the bot and exits the JVM.
-	 * TODO make the bot shut down without System.exit()
 	 * @param exit The program exit code, non-zero for failure.
 	 */
 	public void shutdown(int exit) {

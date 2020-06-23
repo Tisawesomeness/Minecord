@@ -93,8 +93,8 @@ public class VoteHandler {
 	}
 	
 	public void close() {
-		System.out.println("test");
 		if (server != null) server.stop(0);
+		exe.shutdownNow();
 	}
 	
 }

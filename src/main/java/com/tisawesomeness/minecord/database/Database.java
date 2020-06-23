@@ -14,13 +14,15 @@ import javax.sql.DataSource;
 
 import com.tisawesomeness.minecord.Config;
 
+import lombok.RequiredArgsConstructor;
 import org.sqlite.SQLiteDataSource;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
+@RequiredArgsConstructor
 public class Database {
-	
-	private final DataSource source;
+
 	private final Config config;
+	private DataSource source;
 	private HashMap<Long, DbGuild> guilds = new HashMap<>();
 	private HashMap<Long, DbUser> users = new HashMap<>();
 	
@@ -28,20 +30,26 @@ public class Database {
 		return source.getConnection();
 	}
 
-	private static final ExecutorService exe = Executors.newSingleThreadExecutor();
+	private final ExecutorService exe = Executors.newSingleThreadExecutor();
 	/**
 	 * Starts a new database connection.
-	 * @param config The config with login info.
 	 * @return A future database, use {@link Future#get()} to block until the database starts.
 	 * @throws ExecutionException When the database throws a {@link SQLException}.
 	 */
-	public static Future<Database> start(Config config) {
-		return exe.submit(() -> new Database(config));
+	public Future<Boolean> start() {
+		return exe.submit(() -> {
+			try {
+				init(config);
+				System.out.println("yes");
+				return true;
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+			return false;
+		});
 	}
 
-	private Database(Config config) throws SQLException {
-
-		this.config = config;
+	private void init(Config config) throws SQLException {
 		
 		//Build database source
 		String url = "jdbc:";
@@ -145,6 +153,7 @@ public class Database {
 	public void close() throws SQLException {
 		Connection connect = getConnect();
 		if (connect != null) connect.close();
+		exe.shutdownNow();
 	}
 	
 	public void changePrefix(long id, String prefix) throws SQLException {
