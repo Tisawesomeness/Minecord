@@ -26,7 +26,7 @@ public class ShutdownCommand extends Command {
 		txt.log(":x: **Bot shut down by " + txt.e.getAuthor().getName() + "**");
 		txt.e.getChannel().sendMessage(":wave: Goodbye!").complete();
 		txt.bot.shutdown(0);
-		throw new AssertionError();
+		throw new AssertionError("Bot failed to shut down.");
 	}
 	
 }

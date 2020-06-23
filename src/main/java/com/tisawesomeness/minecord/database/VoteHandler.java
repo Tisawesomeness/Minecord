@@ -23,30 +23,9 @@ import net.dv8tion.jda.api.entities.User;
 public class VoteHandler {
 	
 	private HttpServer server;
-	private final @NonNull Bot bot;
-	private final @NonNull Config config;
 
-	public VoteHandler(Bot bot, Config config) {
-		this.bot = bot;
-		this.config = config;
-	}
+	public VoteHandler(Bot bot, Config config) throws IOException {
 
-	private ExecutorService exe = Executors.newSingleThreadExecutor();
-	public Future<Boolean> start() {
-		return exe.submit(() -> {
-			if (!config.shouldReceiveVotes()) {
-				return true;
-			}
-			try {
-				init();
-				return true;
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-			return false;
-		});
-	}
-	private void init() throws IOException {
 		server = HttpServer.create(new InetSocketAddress(config.getWebhookPort()), 0);
 		server.createContext("/" + config.getWebhookURL(), new HttpHandler() {
 			
@@ -94,7 +73,6 @@ public class VoteHandler {
 	
 	public void close() {
 		if (server != null) server.stop(0);
-		exe.shutdownNow();
 	}
 	
 }

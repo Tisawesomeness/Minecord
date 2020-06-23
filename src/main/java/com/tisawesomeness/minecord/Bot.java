@@ -9,6 +9,8 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import com.tisawesomeness.minecord.listen.CommandListener;
@@ -121,8 +123,8 @@ public class Bot {
 		guildCountListener = new GuildCountListener(this, config);
 		
 		// Connect to database
-		database = new Database(config);
-		Future<Boolean> db = database.start();
+		ExecutorService exe = Executors.newSingleThreadExecutor();
+		Future<Database> futureDB = exe.submit(() -> new Database(config));
 
 		try {
 			// Initialize JDA
@@ -152,14 +154,13 @@ public class Bot {
 
 		// Wait for database
 		try {
-			if (!db.get()) {
-				return;
-			}
+			database = futureDB.get();
 		} catch (ExecutionException ex) {
 			ex.printStackTrace();
 			return;
 		} catch (InterruptedException ex) {
-			throw new AssertionError();
+			throw new AssertionError(
+					"It should not be possible to interrupt the main thread before the bot can accept commands.");
 		}
 
 		// Create settings
@@ -170,8 +171,10 @@ public class Bot {
 		System.out.println("Bot ready!");
 
 		// Start web server
-		voteHandler = new VoteHandler(this, config);
-		Future<Boolean> ws = voteHandler.start();
+		Future<VoteHandler> futureVH = null;
+		if (config.shouldReceiveVotes()) {
+			futureVH = exe.submit(() -> new VoteHandler(this, config));
+		}
 		
 		// Post-init
 		bootTime = System.currentTimeMillis() - birth;
@@ -179,6 +182,18 @@ public class Bot {
 		log(":white_check_mark: **Bot started!**");
 		DiscordUtils.update(shardManager, config);
 		RequestUtils.sendGuilds(shardManager, config);
+
+		// Make sure vote handler finishes
+		if (futureVH != null) {
+			try {
+				voteHandler = futureVH.get();
+			} catch (ExecutionException | InterruptedException ex) {
+				// It's possible to be interrupted if the shutdown command
+				// after the bot starts but before the vote handler starts
+				ex.printStackTrace();
+			}
+		}
+		exe.shutdown();
 		
 	}
 
@@ -196,29 +211,35 @@ public class Bot {
 	 * @throws ExecutionException If the database couldn't open, the initial read failed, or creating a missing table failed.
 	 * If there is an exception, shut down the bot with &shutdown or do a hard reset.
 	 */
-	public void reload() throws SQLException, IOException, ExecutionException {
+	public void reload() throws SQLException, IOException, ExecutionException, InterruptedException {
+		System.out.println("Reloading...");
+
+		// Closing everything down
 		database.close();
 		if (config.shouldReceiveVotes()) {
 			voteHandler.close();
 		}
 		config = new Config(args.getConfigPath(), args.getTokenOverride());
-		shardManager.restart();
-		Database newDatabase = new Database(config);
-		Future<Boolean> db = newDatabase.start();
+
+		// Database and vote handler need separate threads
+		ExecutorService exe = Executors.newSingleThreadExecutor();
+		Future<Database> futureDB = exe.submit(() -> new Database(config));
+		Future<VoteHandler> futureVH = null;
 		if (config.shouldReceiveVotes()) {
-			voteHandler = new VoteHandler(this, config);
-			Future<Boolean> ws = voteHandler.start();
+			futureVH = exe.submit(() -> new VoteHandler(this, config));
 		}
+
+		// Start everything up again
 		announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
 		Item.init();
 		Recipe.init();
-		try {
-			if (!db.get()) {
-				throw new SQLException("Database unable to load.");
-			}
-		} catch (InterruptedException ex) {
-			throw new AssertionError();
+		database = futureDB.get();
+		if (futureVH != null) {
+			voteHandler = futureVH.get();
 		}
+		exe.shutdown();
+//		readyLatch.await();
+
 	}
 
 	/**
@@ -226,12 +247,15 @@ public class Bot {
 	 * @param exit The program exit code, non-zero for failure.
 	 */
 	public void shutdown(int exit) {
+		System.out.println("Shutting down...");
 		try {
 			shardManager.shutdown();
 			database.close();
-			voteHandler.close();
+			if (config.shouldReceiveVotes()) {
+				voteHandler.close();
+			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			ex.printStackTrace(); // Since this is an E-stop, must exit regardless of exceptions
 		}
 		System.exit(exit);
 	}

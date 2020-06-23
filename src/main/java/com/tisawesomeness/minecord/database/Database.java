@@ -5,24 +5,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import javax.sql.DataSource;
 
 import com.tisawesomeness.minecord.Config;
 
-import lombok.RequiredArgsConstructor;
 import org.sqlite.SQLiteDataSource;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
-@RequiredArgsConstructor
 public class Database {
 
 	private final Config config;
-	private DataSource source;
+	private final DataSource source;
 	private HashMap<Long, DbGuild> guilds = new HashMap<>();
 	private HashMap<Long, DbUser> users = new HashMap<>();
 	
@@ -30,26 +25,13 @@ public class Database {
 		return source.getConnection();
 	}
 
-	private final ExecutorService exe = Executors.newSingleThreadExecutor();
 	/**
 	 * Starts a new database connection.
 	 * @return A future database, use {@link Future#get()} to block until the database starts.
-	 * @throws ExecutionException When the database throws a {@link SQLException}.
+	 * @throws SQLException when either the initial read or creating a missing table fails.
 	 */
-	public Future<Boolean> start() {
-		return exe.submit(() -> {
-			try {
-				init(config);
-				System.out.println("yes");
-				return true;
-			} catch (SQLException ex) {
-				ex.printStackTrace();
-			}
-			return false;
-		});
-	}
-
-	private void init(Config config) throws SQLException {
+	public Database(Config config) throws SQLException {
+		this.config = config;
 		
 		//Build database source
 		String url = "jdbc:";
@@ -153,7 +135,6 @@ public class Database {
 	public void close() throws SQLException {
 		Connection connect = getConnect();
 		if (connect != null) connect.close();
-		exe.shutdownNow();
 	}
 	
 	public void changePrefix(long id, String prefix) throws SQLException {

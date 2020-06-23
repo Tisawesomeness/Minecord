@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.concurrent.ExecutionException;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 
@@ -34,19 +33,24 @@ public class ReloadCommand extends Command {
 	}
 
 	public Result run(CommandContext txt) {
-		Bot bot = txt.bot;
 
 		Message m = txt.e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
 		try {
 			txt.bot.reload();
-		} catch (SQLException | IOException | ExecutionException ex) {
+		} catch (SQLException | IOException | ExecutionException | InterruptedException ex) {
 			ex.printStackTrace();
-			m.editMessage(":x: Could not reload! Shutting down...").complete();
+			try {
+				m.editMessage(":x: Could not reload! Shutting down...").complete();
+			} catch (Exception ex2) {
+				ex2.printStackTrace(); // Bot must shut down regardless of exceptions
+			}
 			txt.bot.shutdown(1);
+			throw new AssertionError("Bot failed to shut down.");
 		}
 		m.editMessage(":white_check_mark: Reloaded!").queue();
 		
 		return new Result(Outcome.SUCCESS);
+
 	}
 	
 }
