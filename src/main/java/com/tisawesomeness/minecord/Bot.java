@@ -12,6 +12,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import com.tisawesomeness.minecord.listen.CommandListener;
 import com.tisawesomeness.minecord.listen.GuildCountListener;
@@ -23,6 +25,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.hooks.EventListener;
 import org.discordbots.api.client.DiscordBotListAPI;
 
 import com.tisawesomeness.minecord.command.Registry;
@@ -70,13 +73,9 @@ public class Bot {
 	private static final EnumSet<CacheFlag> disabledCacheFlags = EnumSet.of(
 			CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOTE, CacheFlag.VOICE_STATE);
 
-	private CommandListener commandListener;
-	private ReactListener reactListener;
-	private ReadyListener readyListener;
-	private GuildCountListener guildCountListener;
+	ScheduledExecutorService menuExe;
 
 	private Config config;
-
 	@Getter private ArgsHandler args;
 	@Getter private ShardManager shardManager;
 	@Getter private Database database;
@@ -113,14 +112,15 @@ public class Bot {
 			ex.printStackTrace();
 			return;
 		}
-		ReactMenu.startPurgeThread();
+		menuExe = Executors.newSingleThreadScheduledExecutor();
+		menuExe.scheduleAtFixedRate(ReactMenu::purge, 10, 1, TimeUnit.MINUTES);
 		Registry.init();
 
 		CountDownLatch readyLatch = new CountDownLatch(config.getShardCount());
-		commandListener = new CommandListener(this, config);
-		reactListener = new ReactListener();
-		readyListener = new ReadyListener(readyLatch);
-		guildCountListener = new GuildCountListener(this, config);
+		EventListener readyListener = new ReadyListener(readyLatch);
+		EventListener commandListener = new CommandListener(this, config);
+		EventListener reactListener = new ReactListener();
+		EventListener guildCountListener = new GuildCountListener(this, config);
 		
 		// Connect to database
 		ExecutorService exe = Executors.newSingleThreadExecutor();
@@ -249,6 +249,7 @@ public class Bot {
 	public void shutdown(int exit) {
 		System.out.println("Shutting down...");
 		try {
+			menuExe.shutdownNow();
 			shardManager.shutdown();
 			database.close();
 			if (config.shouldReceiveVotes()) {

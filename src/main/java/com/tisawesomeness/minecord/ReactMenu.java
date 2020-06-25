@@ -3,8 +3,6 @@ package com.tisawesomeness.minecord;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import com.tisawesomeness.minecord.command.CommandContext;
@@ -144,12 +142,10 @@ public abstract class ReactMenu {
     /**
      * Purges all expired menus from the list
      */
-    public static void startPurgeThread() {
-        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
-            menus.values().stream()
+    public static void purge() {
+        menus.values().stream()
                 .filter(m -> m.expire < System.currentTimeMillis())
-                .forEach(m -> m.disable());
-        }, 10, 1, TimeUnit.MINUTES);
+                .forEach(ReactMenu::disable);
     }
     /**
      * Check for permissions with less typing
