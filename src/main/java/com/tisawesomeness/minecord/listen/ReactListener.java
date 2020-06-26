@@ -1,7 +1,5 @@
 package com.tisawesomeness.minecord.listen;
 
-import java.util.HashMap;
-
 import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.ReactMenu.Emote;
 
@@ -10,6 +8,8 @@ import net.dv8tion.jda.api.entities.MessageReaction;
 import net.dv8tion.jda.api.entities.MessageReaction.ReactionEmote;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+
+import java.util.HashMap;
 
 public class ReactListener extends ListenerAdapter {
     @Override

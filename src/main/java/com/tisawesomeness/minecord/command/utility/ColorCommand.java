@@ -1,13 +1,12 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import java.awt.Color;
-
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.ColorUtils;
-import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+
+import java.awt.*;
 
 public class ColorCommand extends Command {
 

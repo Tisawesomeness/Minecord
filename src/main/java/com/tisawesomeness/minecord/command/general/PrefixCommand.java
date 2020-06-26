@@ -2,8 +2,8 @@ package com.tisawesomeness.minecord.command.general;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
-
 import com.tisawesomeness.minecord.setting.impl.PrefixSetting;
+
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 

@@ -2,8 +2,8 @@ package com.tisawesomeness.minecord.command.misc;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
-
 import com.tisawesomeness.minecord.command.CommandContext;
+
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 

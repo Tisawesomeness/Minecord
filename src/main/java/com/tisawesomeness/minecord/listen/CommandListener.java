@@ -1,18 +1,13 @@
 package com.tisawesomeness.minecord.listen;
 
-import java.util.Arrays;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.Future;
-
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.command.Command.CommandInfo;
 import com.tisawesomeness.minecord.command.Command.Outcome;
 import com.tisawesomeness.minecord.command.Command.Result;
+import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
@@ -27,6 +22,11 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+
+import java.util.Arrays;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Future;
 
 @RequiredArgsConstructor
 public class CommandListener extends ListenerAdapter {

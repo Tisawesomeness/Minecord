@@ -1,14 +1,15 @@
 package com.tisawesomeness.minecord.util;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
+
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.sharding.ShardManager;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DiscordUtils {
 

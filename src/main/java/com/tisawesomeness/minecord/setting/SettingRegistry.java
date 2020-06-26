@@ -5,11 +5,15 @@ import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.setting.impl.DeleteCommandsSetting;
 import com.tisawesomeness.minecord.setting.impl.PrefixSetting;
 import com.tisawesomeness.minecord.setting.impl.UseMenusSetting;
+
 import lombok.NonNull;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class SettingRegistry implements Iterable<Setting<?>> {
     public final @NonNull PrefixSetting prefix;

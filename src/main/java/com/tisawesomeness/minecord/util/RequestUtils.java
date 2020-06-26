@@ -1,5 +1,13 @@
 package com.tisawesomeness.minecord.util;
 
+import com.tisawesomeness.minecord.Config;
+
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.sharding.ShardManager;
+import org.discordbots.api.client.DiscordBotListAPI;
+import org.json.JSONObject;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -19,16 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-
-import javax.imageio.ImageIO;
-
-import net.dv8tion.jda.api.sharding.ShardManager;
-import org.discordbots.api.client.DiscordBotListAPI;
-import org.json.JSONObject;
-
-import com.tisawesomeness.minecord.Config;
-
-import net.dv8tion.jda.api.JDA;
 
 public class RequestUtils {
 

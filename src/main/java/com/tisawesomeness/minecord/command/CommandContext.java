@@ -5,7 +5,12 @@ import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.setting.SettingRegistry;
 import com.tisawesomeness.minecord.setting.impl.DeleteCommandsSetting;
 import com.tisawesomeness.minecord.setting.impl.UseMenusSetting;
-import lombok.*;
+
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.With;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;

@@ -1,17 +1,16 @@
 package com.tisawesomeness.minecord.item;
 
+import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.util.RequestUtils;
+
+import net.dv8tion.jda.api.EmbedBuilder;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.util.RequestUtils;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import net.dv8tion.jda.api.EmbedBuilder;
 
 public class Item {
 

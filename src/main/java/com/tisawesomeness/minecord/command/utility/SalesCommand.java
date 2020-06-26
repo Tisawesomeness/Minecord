@@ -1,12 +1,12 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import java.text.DecimalFormat;
-
+import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.util.RequestUtils;
+
 import org.json.JSONObject;
 
-import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.util.RequestUtils;
+import java.text.DecimalFormat;
 
 public class SalesCommand extends Command {
 	

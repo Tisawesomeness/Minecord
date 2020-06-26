@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord;
 
 import com.tisawesomeness.minecord.util.DiscordUtils;
+
 import lombok.NonNull;
 
 public class Announcement {

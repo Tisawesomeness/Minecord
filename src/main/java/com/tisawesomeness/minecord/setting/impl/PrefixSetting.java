@@ -2,9 +2,9 @@ package com.tisawesomeness.minecord.setting.impl;
 
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.setting.GlobalSetting;
 import com.tisawesomeness.minecord.setting.ResolveResult;
 import com.tisawesomeness.minecord.setting.ServerSetting;
+
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 

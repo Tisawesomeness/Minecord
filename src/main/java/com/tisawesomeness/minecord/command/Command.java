@@ -1,11 +1,11 @@
 package com.tisawesomeness.minecord.command;
 
-import java.util.HashMap;
-
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
+
+import java.util.HashMap;
 
 /**
  * Represents a command.

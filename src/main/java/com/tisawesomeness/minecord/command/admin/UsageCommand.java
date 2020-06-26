@@ -1,8 +1,5 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.Module;
@@ -10,6 +7,9 @@ import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.util.DateUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class UsageCommand extends Command {
 	

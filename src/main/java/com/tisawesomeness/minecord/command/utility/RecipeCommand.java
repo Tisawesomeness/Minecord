@@ -1,8 +1,5 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.ReactMenu.MenuStatus;
 import com.tisawesomeness.minecord.command.Command;
@@ -11,6 +8,9 @@ import com.tisawesomeness.minecord.item.Item;
 import com.tisawesomeness.minecord.item.Recipe;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class RecipeCommand extends Command {
 

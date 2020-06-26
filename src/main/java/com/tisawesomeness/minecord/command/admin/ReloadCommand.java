@@ -1,13 +1,13 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.concurrent.ExecutionException;
-
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 
 import net.dv8tion.jda.api.entities.Message;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.concurrent.ExecutionException;
 
 public class ReloadCommand extends Command {
 	

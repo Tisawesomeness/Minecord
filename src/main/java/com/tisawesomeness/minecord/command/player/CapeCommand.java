@@ -1,8 +1,5 @@
 package com.tisawesomeness.minecord.command.player;
 
-import java.io.IOException;
-import java.util.Arrays;
-
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
@@ -14,6 +11,9 @@ import com.tisawesomeness.minecord.util.RequestUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+
+import java.io.IOException;
+import java.util.Arrays;
 
 public class CapeCommand extends Command {
 

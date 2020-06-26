@@ -1,9 +1,5 @@
 package com.tisawesomeness.minecord.command.general;
 
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.List;
-
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DiscordUtils;
@@ -11,6 +7,10 @@ import com.tisawesomeness.minecord.util.DiscordUtils;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.List;
 
 public class PermsCommand extends Command {
 

@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.setting;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+
 import lombok.NonNull;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;

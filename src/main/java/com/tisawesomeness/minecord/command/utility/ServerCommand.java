@@ -1,25 +1,24 @@
 package com.tisawesomeness.minecord.command.utility;
 
+import br.com.azalim.mcserverping.MCPing;
+import br.com.azalim.mcserverping.MCPingOptions;
+import br.com.azalim.mcserverping.MCPingResponse;
+import br.com.azalim.mcserverping.MCPingResponse.Player;
+import br.com.azalim.mcserverping.MCPingUtil;
+import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.util.RequestUtils;
+
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.utils.MarkdownSanitizer;
+
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.util.RequestUtils;
-
-import br.com.azalim.mcserverping.MCPing;
-import br.com.azalim.mcserverping.MCPingOptions;
-import br.com.azalim.mcserverping.MCPingResponse;
-import br.com.azalim.mcserverping.MCPingUtil;
-import br.com.azalim.mcserverping.MCPingResponse.Player;
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.utils.MarkdownSanitizer;
-
-import java.io.IOException;
 
 public class ServerCommand extends Command {
 	

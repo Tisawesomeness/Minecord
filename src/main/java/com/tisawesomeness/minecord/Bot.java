@@ -1,6 +1,34 @@
 package com.tisawesomeness.minecord;
 
-import java.awt.Color;
+import com.tisawesomeness.minecord.command.Registry;
+import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.database.VoteHandler;
+import com.tisawesomeness.minecord.listen.CommandListener;
+import com.tisawesomeness.minecord.listen.GuildCountListener;
+import com.tisawesomeness.minecord.listen.ReactListener;
+import com.tisawesomeness.minecord.listen.ReadyListener;
+import com.tisawesomeness.minecord.setting.SettingRegistry;
+import com.tisawesomeness.minecord.util.DateUtils;
+import com.tisawesomeness.minecord.util.DiscordUtils;
+import com.tisawesomeness.minecord.util.RequestUtils;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.hooks.EventListener;
+import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
+import net.dv8tion.jda.api.sharding.ShardManager;
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
+import org.discordbots.api.client.DiscordBotListAPI;
+
+import javax.security.auth.login.LoginException;
+import java.awt.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.OffsetDateTime;
@@ -14,36 +42,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
-import com.tisawesomeness.minecord.listen.CommandListener;
-import com.tisawesomeness.minecord.listen.GuildCountListener;
-import com.tisawesomeness.minecord.listen.ReactListener;
-import com.tisawesomeness.minecord.listen.ReadyListener;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.hooks.EventListener;
-import org.discordbots.api.client.DiscordBotListAPI;
-
-import com.tisawesomeness.minecord.command.Registry;
-import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.database.VoteHandler;
-import com.tisawesomeness.minecord.setting.SettingRegistry;
-import com.tisawesomeness.minecord.util.DateUtils;
-import com.tisawesomeness.minecord.util.DiscordUtils;
-import com.tisawesomeness.minecord.util.RequestUtils;
-
-import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
-import net.dv8tion.jda.api.sharding.ShardManager;
-import net.dv8tion.jda.api.utils.MemberCachePolicy;
-import net.dv8tion.jda.api.utils.cache.CacheFlag;
-import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.requests.GatewayIntent;
-
-import javax.security.auth.login.LoginException;
 
 /**
  * <p>The entry point and central point for Minecord.</p>

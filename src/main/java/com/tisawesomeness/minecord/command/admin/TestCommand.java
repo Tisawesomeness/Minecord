@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.command.Command;
-
 import com.tisawesomeness.minecord.command.CommandContext;
 
 public class TestCommand extends Command {

@@ -1,12 +1,12 @@
 package com.tisawesomeness.minecord.command.player;
 
-import java.util.Arrays;
-
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
+
+import java.util.Arrays;
 
 public class UuidCommand extends Command {
 	

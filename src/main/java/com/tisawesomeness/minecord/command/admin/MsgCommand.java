@@ -1,8 +1,5 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import java.util.Arrays;
-import java.util.concurrent.ExecutionException;
-
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DiscordUtils;
@@ -10,6 +7,9 @@ import com.tisawesomeness.minecord.util.DiscordUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.entities.User;
+
+import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
 
 public class MsgCommand extends Command {
 	

@@ -1,24 +1,19 @@
 package com.tisawesomeness.minecord.database;
 
+import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Config;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
+import net.dv8tion.jda.api.entities.User;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-
-import com.tisawesomeness.minecord.Bot;
-import lombok.NonNull;
-import org.json.JSONObject;
-
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
-import com.sun.net.httpserver.HttpServer;
-import com.tisawesomeness.minecord.Config;
-
-import net.dv8tion.jda.api.entities.User;
 
 public class VoteHandler {
 	

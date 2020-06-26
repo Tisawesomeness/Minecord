@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.util;
 
 import com.tisawesomeness.minecord.setting.ResolveResult;
+
 import lombok.NonNull;
 
 import java.util.Arrays;

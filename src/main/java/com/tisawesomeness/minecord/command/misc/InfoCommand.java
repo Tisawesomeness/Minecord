@@ -1,8 +1,5 @@
 package com.tisawesomeness.minecord.command.misc;
 
-import java.text.CharacterIterator;
-import java.text.StringCharacterIterator;
-
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
@@ -12,6 +9,9 @@ import com.tisawesomeness.minecord.util.DiscordUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
+
+import java.text.CharacterIterator;
+import java.text.StringCharacterIterator;
 
 public class InfoCommand extends Command {
 	

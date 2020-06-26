@@ -1,13 +1,12 @@
 package com.tisawesomeness.minecord;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
 import lombok.Getter;
 import org.json.JSONObject;
 
 import javax.annotation.Nullable;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * Loads the config options from config.json.
