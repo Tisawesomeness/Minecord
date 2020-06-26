@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.item;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -24,8 +23,8 @@ public class Item {
             "minecraft.shield.white", "minecraft.white_shulker_box", "minecraft.white_bed",
             "minecraft.white_glazed_terracotta", "minecraft.white_concrete", "minecraft.white_concrete_powder" };
 
-    private static JSONObject items;
-    private static JSONObject data;
+    private static final JSONObject items = RequestUtils.loadJSONResource("items.json");
+    private static final JSONObject data = RequestUtils.loadJSONResource("data.json");
 
     public static final String help = "Items can be:\n" +
         "- Namespaced IDs: `minecraft:iron_block`\n" +
@@ -35,15 +34,6 @@ public class Item {
         "- Display names: `Gold Ingot`\n" +
         "- Nicknames: `Notch Apple`\n" +
         "- Previous names: `White Hardened Clay`";
-
-    /**
-     * Initializes the item database by reading from file
-     * @throws IOException when a file isn't found
-     */
-    public static void init() throws IOException {
-        items = RequestUtils.loadJSONResource("items.json");
-        data = RequestUtils.loadJSONResource("data.json");
-    }
 
     /**
      * Creates an EmbedBuilder from an item

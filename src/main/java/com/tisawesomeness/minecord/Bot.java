@@ -31,10 +31,7 @@ import org.discordbots.api.client.DiscordBotListAPI;
 import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.VoteHandler;
-import com.tisawesomeness.minecord.item.Item;
-import com.tisawesomeness.minecord.item.Recipe;
 import com.tisawesomeness.minecord.setting.SettingRegistry;
-import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
@@ -73,7 +70,7 @@ public class Bot {
 	private static final EnumSet<CacheFlag> disabledCacheFlags = EnumSet.of(
 			CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOTE, CacheFlag.VOICE_STATE);
 
-	ScheduledExecutorService menuExe;
+	private ScheduledExecutorService menuExe;
 
 	private Config config;
 	@Getter private ArgsHandler args;
@@ -105,9 +102,6 @@ public class Bot {
 		try {
 			config = new Config(args.getConfigPath(), args.getTokenOverride());
 			announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
-			ColorUtils.init();
-			Item.init();
-			Recipe.init();
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			return;
@@ -231,14 +225,11 @@ public class Bot {
 
 		// Start everything up again
 		announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
-		Item.init();
-		Recipe.init();
 		database = futureDB.get();
 		if (futureVH != null) {
 			voteHandler = futureVH.get();
 		}
 		exe.shutdown();
-//		readyLatch.await();
 
 	}
 

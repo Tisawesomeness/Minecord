@@ -212,8 +212,11 @@ public class RequestUtils {
 		}
 	}
 
-	public static JSONObject loadJSONResource(String name) throws IOException {
+	public static JSONObject loadJSONResource(String name) {
 		InputStream is = RequestUtils.class.getClassLoader().getResourceAsStream(name);
+		if (is == null) {
+			throw new IllegalArgumentException("The resource was not found!");
+		}
 		String json = new BufferedReader(new InputStreamReader(is)).lines().collect(Collectors.joining("\n"));
 		return new JSONObject(json);
 	}

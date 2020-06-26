@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.item;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -21,18 +20,8 @@ import net.dv8tion.jda.api.EmbedBuilder;
 
 public class Recipe {
 
-    private static JSONObject recipes;
-    private static JSONObject tags;
-
-    /**
-     * Initializes the recipe database by reading from file
-     *
-     * @throws IOException
-     */
-    public static void init() throws IOException {
-        recipes = RequestUtils.loadJSONResource("recipes.json");
-        tags = RequestUtils.loadJSONResource("tags.json");
-    }
+    private static final JSONObject recipes = RequestUtils.loadJSONResource("recipes.json");
+    private static final JSONObject tags = RequestUtils.loadJSONResource("tags.json");
 
     /**
      * Creates an EmbedBuilder from a recipe

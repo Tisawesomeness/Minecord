@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.util;
 
 import java.awt.Color;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,7 +8,7 @@ import org.json.JSONObject;
 
 public class ColorUtils {
 
-    private static JSONObject colors;
+    private static final JSONObject colors = RequestUtils.loadJSONResource("colors.json");
 
     private static final List<Color> mcColors = Arrays.asList(
         new Color(0, 0, 0),
@@ -53,14 +52,6 @@ public class ColorUtils {
         new Color(63, 63, 21),
         new Color(63, 63, 63)
     );
-
-    /**
-     * Initializes the color database by reading from file
-     * @throws IOException when the file isn't found
-     */
-    public static void init() throws IOException {
-        colors = RequestUtils.loadJSONResource("colors.json");
-    }
     
     /**
      * Searches for a Minecraft color in colors.json
