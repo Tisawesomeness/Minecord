@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord;
 
-import lombok.Getter;
 import org.json.JSONObject;
 
 import javax.annotation.Nullable;
@@ -13,41 +12,32 @@ import java.nio.file.Path;
  */
 public class Config {
 
-	// Some @Getters are omitted since {@code isDeleteCommandsDefault()} doesn't make sense.
-	@Getter private final String clientToken;
-	@Getter private final int shardCount;
-	@Getter private final String owner;
+	public final String clientToken;
+	public final int shardCount;
+	public final String owner;
 
-	@Getter private final String prefixDefault;
-	private final boolean deleteCommandsDefault;
-	public boolean shouldDeleteCommandsDefault() { return deleteCommandsDefault; }
-	private final boolean useMenusDefault;
-	public boolean shouldUseMenusDefault() { return useMenusDefault; }
+	public final String prefixDefault;
+	public final boolean deleteCommandsDefault;
+	public final boolean useMenusDefault;
 
-	@Getter private final String logChannel;
-	@Getter private final String invite;
-	@Getter private final String game;
-	@Getter private final boolean debugMode;
-	private final boolean respondToMentions;
-	public boolean shouldRespondToMentions() { return respondToMentions; }
-	private final boolean sendTyping;
-	public boolean shouldSendTyping() { return sendTyping; }
-	private final boolean showMemory;
-	public boolean shouldShowMemory() { return showMemory; }
-	private final boolean elevatedSkipCooldown;
-	public boolean shouldElevatedSkipCooldown() { return elevatedSkipCooldown; }
+	public final String logChannel;
+	public final String invite;
+	public final String game;
+	public final boolean debugMode;
+	public final boolean respondToMentions;
+	public final boolean sendTyping;
+	public final boolean showMemory;
+	public final boolean elevatedSkipCooldown;
 
-	private final boolean sendServerCount;
-	public boolean shouldSendServerCount() { return sendServerCount; }
-	@Getter private final String pwToken;
-	@Getter private final String orgToken;
-	private final boolean receiveVotes;
-	public boolean shouldReceiveVotes() { return receiveVotes; }
-	@Getter private final String webhookURL;
-	@Getter private final int webhookPort;
-	@Getter private final String webhookAuth;
+	public final boolean sendServerCount;
+	public final String pwToken;
+	public final String orgToken;
+	public final boolean receiveVotes;
+	public final String webhookURL;
+	public final int webhookPort;
+	public final String webhookAuth;
 
-	@Getter private final String dbPath;
+	public final String dbPath;
 
 	/**
 	 * Reads data from the config file.

@@ -21,8 +21,8 @@ public class VoteHandler {
 
 	public VoteHandler(Bot bot, Config config) throws IOException {
 
-		server = HttpServer.create(new InetSocketAddress(config.getWebhookPort()), 0);
-		server.createContext("/" + config.getWebhookURL(), new HttpHandler() {
+		server = HttpServer.create(new InetSocketAddress(config.webhookPort), 0);
+		server.createContext("/" + config.webhookURL, new HttpHandler() {
 			
 			private static final String response = "OK";
 			
@@ -32,7 +32,7 @@ public class VoteHandler {
 				//Check if request is a POST request and the authorization is correct
 				if ("POST".equals(t.getRequestMethod())
 						&& t.getRequestHeaders().getOrDefault("Authorization", Arrays.asList("N/A"))
-						.get(0).equals(config.getWebhookAuth())) {
+						.get(0).equals(config.webhookAuth)) {
 					
 					//Get post body
 					Scanner scanner = new Scanner(t.getRequestBody());

@@ -37,7 +37,7 @@ public class DeleteCommandsSetting extends ServerSetting<Boolean> {
         return Optional.of(db.getDeleteCommands(id));
     }
     public @NonNull Boolean getDefault() {
-        return config.shouldDeleteCommandsDefault();
+        return config.deleteCommandsDefault;
     }
 
     protected boolean changeChannel(long id, @NonNull Boolean setting) {

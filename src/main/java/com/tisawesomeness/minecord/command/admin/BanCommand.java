@@ -57,7 +57,7 @@ public class BanCommand extends Command {
             if (!args[1].matches(DiscordUtils.idRegex)) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
-			if (args[1].equals(txt.config.getOwner())) {
+			if (args[1].equals(txt.config.owner)) {
 				return new Result(Outcome.WARNING, ":warning: You can't ban the owner!");
 			}
 			long gid = Long.valueOf(args[1]);
@@ -78,7 +78,7 @@ public class BanCommand extends Command {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
 			Guild guild = sm.getGuildById(args[1]);
-            String logChannelID = txt.config.getLogChannel();
+            String logChannelID = txt.config.logChannel;
 			if (guild != null && !logChannelID.equals("0")) {
 				TextChannel logChannel = sm.getTextChannelById(logChannelID);
 				if (logChannel != null && guild.getId().equals(logChannel.getGuild().getId())) {

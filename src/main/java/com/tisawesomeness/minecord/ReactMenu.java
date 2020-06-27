@@ -160,7 +160,7 @@ public abstract class ReactMenu {
     public static MenuStatus getMenuStatus(CommandContext txt) {
         MessageReceivedEvent e = txt.e;
         if (!e.isFromGuild()) {
-            return txt.config.shouldUseMenusDefault() ? MenuStatus.PRIVATE_MESSAGE : MenuStatus.DISABLED;
+            return txt.config.useMenusDefault ? MenuStatus.PRIVATE_MESSAGE : MenuStatus.DISABLED;
         }
         if (!txt.shouldUseMenus()) {
             return MenuStatus.DISABLED;

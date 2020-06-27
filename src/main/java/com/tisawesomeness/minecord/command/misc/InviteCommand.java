@@ -23,7 +23,7 @@ public class InviteCommand extends Command {
 	
 	public Result run(CommandContext txt) {
 		EmbedBuilder eb = new EmbedBuilder();
-		eb.addField("Invite me!", txt.config.getInvite(), false);
+		eb.addField("Invite me!", txt.config.invite, false);
 		eb.addField("Help server", Bot.helpServer, false);
 		eb.addField("Website", Bot.website, true);
 		eb = txt.brand(eb);

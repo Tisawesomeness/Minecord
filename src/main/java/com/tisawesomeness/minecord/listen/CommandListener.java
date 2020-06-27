@@ -122,7 +122,7 @@ public class CommandListener extends ListenerAdapter {
 		}
 		
 		// Check for cooldowns, skipping if user is elevated
-		if (!(config.shouldElevatedSkipCooldown() && isElevated)
+		if (!(config.elevatedSkipCooldown && isElevated)
 				&& cmd.cooldowns.containsKey(a) && ci.cooldown > 0) {
 			long last = cmd.cooldowns.get(a);
 			if (System.currentTimeMillis() - ci.cooldown < last) {
@@ -154,7 +154,7 @@ public class CommandListener extends ListenerAdapter {
 		// Instantiate timer
 		Timer timer = null;
 		Typing typing = null;
-		if (config.shouldSendTyping() && ci.typing) {
+		if (config.sendTyping && ci.typing) {
 			timer = new Timer();
 			typing = new Typing();
 			timer.schedule(typing, 0, 5000);
@@ -173,7 +173,7 @@ public class CommandListener extends ListenerAdapter {
 		}
 		
 		// Cancel typing
-		if (config.shouldSendTyping() && ci.typing) {
+		if (config.sendTyping && ci.typing) {
 			timer.cancel();
 			if (typing.fv != null) {
 				typing.fv.cancel(true);
@@ -187,7 +187,7 @@ public class CommandListener extends ListenerAdapter {
 		if (result == null) {
 			if (exception != null) {exception.printStackTrace();}
 			String err = ":x: There was an unexpected exception: `" + exception.toString() + "`\n```";
-			if (config.isDebugMode()) {
+			if (config.debugMode) {
 				exception.printStackTrace();
 				for (StackTraceElement ste : exception.getStackTrace()) {
 					err += "\n" + ste.toString();

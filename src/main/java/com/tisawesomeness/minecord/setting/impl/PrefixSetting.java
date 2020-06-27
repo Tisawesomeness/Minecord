@@ -42,7 +42,7 @@ public class PrefixSetting extends ServerSetting<String> {
         return Optional.ofNullable(db.getPrefix(id));
     }
     public @NonNull String getDefault() {
-        return config.getPrefixDefault();
+        return config.prefixDefault;
     }
 
     protected boolean changeChannel(long id, @NonNull String setting) {

@@ -38,7 +38,7 @@ public class UseMenusSetting extends ServerSetting<Boolean> {
         return Optional.of(db.getUseMenu(id));
     }
     public @NonNull Boolean getDefault() {
-        return config.shouldUseMenusDefault();
+        return config.useMenusDefault;
     }
 
     protected boolean changeChannel(long id, @NonNull Boolean setting) {

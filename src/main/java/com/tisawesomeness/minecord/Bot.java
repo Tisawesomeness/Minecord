@@ -108,7 +108,7 @@ public class Bot {
 		menuExe.scheduleAtFixedRate(ReactMenu::purge, 10, 1, TimeUnit.MINUTES);
 		Registry.init();
 
-		CountDownLatch readyLatch = new CountDownLatch(config.getShardCount());
+		CountDownLatch readyLatch = new CountDownLatch(config.shardCount);
 		EventListener readyListener = new ReadyListener(readyLatch);
 		EventListener commandListener = new CommandListener(this, config);
 		EventListener reactListener = new ReactListener();
@@ -121,10 +121,10 @@ public class Bot {
 		try {
 			// Initialize JDA
 			shardManager = DefaultShardManagerBuilder.create(gateways)
-				.setToken(config.getClientToken())
+				.setToken(config.clientToken)
 				.setAutoReconnect(true)
 				.addEventListeners(readyListener)
-				.setShardsTotal(config.getShardCount())
+				.setShardsTotal(config.shardCount)
 				.setActivity(Activity.playing("Loading..."))
 				.setMemberCachePolicy(MemberCachePolicy.NONE)
 				.disableCache(disabledCacheFlags)
@@ -140,8 +140,8 @@ public class Bot {
 		}
 
 		// Start discordbots.org API
-		if (config.shouldSendServerCount() || config.shouldReceiveVotes()) {
-			RequestUtils.api = new DiscordBotListAPI.Builder().token(config.getOrgToken()).build();
+		if (config.sendServerCount || config.receiveVotes) {
+			RequestUtils.api = new DiscordBotListAPI.Builder().token(config.orgToken).build();
 		}
 
 		// Wait for database
@@ -164,7 +164,7 @@ public class Bot {
 
 		// Start web server
 		Future<VoteHandler> futureVH = null;
-		if (config.shouldReceiveVotes()) {
+		if (config.receiveVotes) {
 			futureVH = exe.submit(() -> new VoteHandler(this, config));
 		}
 		
@@ -208,7 +208,7 @@ public class Bot {
 
 		// Closing everything down
 		database.close();
-		if (config.shouldReceiveVotes()) {
+		if (config.receiveVotes) {
 			voteHandler.close();
 		}
 		config = new Config(args.getConfigPath(), args.getTokenOverride());
@@ -217,7 +217,7 @@ public class Bot {
 		ExecutorService exe = Executors.newSingleThreadExecutor();
 		Future<Database> futureDB = exe.submit(() -> new Database(config));
 		Future<VoteHandler> futureVH = null;
-		if (config.shouldReceiveVotes()) {
+		if (config.receiveVotes) {
 			futureVH = exe.submit(() -> new VoteHandler(this, config));
 		}
 
@@ -241,7 +241,7 @@ public class Bot {
 			menuExe.shutdownNow();
 			shardManager.shutdown();
 			database.close();
-			if (config.shouldReceiveVotes()) {
+			if (config.receiveVotes) {
 				voteHandler.close();
 			}
 		} catch (Exception ex) {
@@ -254,7 +254,7 @@ public class Bot {
 	 * Logs a message to the logging channel.
 	 */
 	public void log(String m) {
-		String logChannel = config.getLogChannel();
+		String logChannel = config.logChannel;
 		if (logChannel.equals("0")) {
 			return;
 		}
@@ -268,7 +268,7 @@ public class Bot {
 	 * Logs a message to the logging channel.
 	 */
 	public void log(Message m) {
-		String logChannel = config.getLogChannel();
+		String logChannel = config.logChannel;
 		if (logChannel.equals("0")) {
 			return;
 		}
@@ -282,7 +282,7 @@ public class Bot {
 	 * Logs a message to the logging channel.
 	 */
 	public void log(MessageEmbed m) {
-		String logChannel = config.getLogChannel();
+		String logChannel = config.logChannel;
 		if (logChannel.equals("0")) {
 			return;
 		}

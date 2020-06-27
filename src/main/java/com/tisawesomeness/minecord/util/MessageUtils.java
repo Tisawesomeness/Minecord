@@ -38,7 +38,7 @@ public class MessageUtils {
 		String content = m.getContentRaw();
 		if (m.getContentRaw().startsWith(prefix)) {
 			return content.replaceFirst(Pattern.quote(prefix), "").split(" ");
-		} else if (config.shouldRespondToMentions() && content.replaceFirst("@!", "@").startsWith(su.getAsMention())) {
+		} else if (config.respondToMentions && content.replaceFirst("@!", "@").startsWith(su.getAsMention())) {
 			String[] args = content.split(" ");
 			return Arrays.copyOfRange(args, 1, args.length);
 		}

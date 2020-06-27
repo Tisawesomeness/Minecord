@@ -30,7 +30,7 @@ public class Database {
 		this.config = config;
 		
 		// Build database source
-		String url = "jdbc:sqlite:" + config.getDbPath();
+		String url = "jdbc:sqlite:" + config.dbPath;
 		SQLiteDataSource ds = new SQLiteDataSource();
 		ds.setUrl(url);
 		source = ds;
@@ -57,8 +57,8 @@ public class Database {
 		);
 		
 		// Add owner to elevated
-		if (!config.getOwner().equals("0")) {
-			changeElevated(Long.parseLong(config.getOwner()), true);
+		if (!config.owner.equals("0")) {
+			changeElevated(Long.parseLong(config.owner), true);
 		}
 		
 		refresh();
@@ -140,7 +140,7 @@ public class Database {
 		}
 		
 		//Delete guild if it contains only default values
-		if (prefix.equals(config.getPrefixDefault())) {
+		if (prefix.equals(config.prefixDefault)) {
 			purgeGuilds(id);
 		}
 		
@@ -148,8 +148,8 @@ public class Database {
 	
 	public String getPrefix(long id) {
 		DbGuild guild = guilds.get(id);
-		String prefix = guild == null ? config.getPrefixDefault() : guild.prefix;
-		return prefix == null ? config.getPrefixDefault() : prefix;
+		String prefix = guild == null ? config.prefixDefault : guild.prefix;
+		return prefix == null ? config.prefixDefault : prefix;
 	}
 	
 	public void changeBannedGuild(long id, boolean banned) throws SQLException {
@@ -175,7 +175,7 @@ public class Database {
 		//Mirror change in local user list
 		DbGuild g = guilds.get(id);
 		if (g == null) {
-			guilds.put(id, new DbGuild(id, config.getPrefixDefault(), null, banned, false, null, null));
+			guilds.put(id, new DbGuild(id, config.prefixDefault, null, banned, false, null, null));
 		} else {
 			g.banned = banned;
 		}
@@ -208,7 +208,7 @@ public class Database {
 		//Mirror change in local guild list
 		DbGuild g = guilds.get(id);
 		if (g == null) {
-			guilds.put(id, new DbGuild(id, config.getPrefixDefault(), null, false, false, deleteCommands, null));
+			guilds.put(id, new DbGuild(id, config.prefixDefault, null, false, false, deleteCommands, null));
 		} else {
 			g.deleteCommands = deleteCommands;
 		}
@@ -219,11 +219,11 @@ public class Database {
 		DbGuild guild = guilds.get(id);
 		Boolean deleteCommands;
 		if (guild == null) {
-			deleteCommands = config.shouldDeleteCommandsDefault();
+			deleteCommands = config.deleteCommandsDefault;
 		} else {
 			deleteCommands = guild.deleteCommands == null ? null : guild.deleteCommands; // Blame java
 		}
-		return deleteCommands == null ? config.shouldDeleteCommandsDefault() : deleteCommands;
+		return deleteCommands == null ? config.deleteCommandsDefault : deleteCommands;
 	}
 	
 	public void changeUseMenu(long id, boolean useMenu) throws SQLException {
@@ -249,7 +249,7 @@ public class Database {
 		//Mirror change in local guild list
 		DbGuild g = guilds.get(id);
 		if (g == null) {
-			guilds.put(id, new DbGuild(id, config.getPrefixDefault(), null, false, false, null, !useMenu));
+			guilds.put(id, new DbGuild(id, config.prefixDefault, null, false, false, null, !useMenu));
 		} else {
 			g.noMenu = !useMenu;
 		}
@@ -260,11 +260,11 @@ public class Database {
 		DbGuild guild = guilds.get(id);
 		Boolean useMenu;
 		if (guild == null) {
-			useMenu = config.shouldUseMenusDefault();
+			useMenu = config.useMenusDefault;
 		} else {
 			useMenu = guild.noMenu == null ? null : !guild.noMenu; // Blame java
 		}
-		return useMenu == null ? config.shouldUseMenusDefault() : useMenu;
+		return useMenu == null ? config.useMenusDefault : useMenu;
 	}
 
 	private void purgeGuilds(long id) throws SQLException {

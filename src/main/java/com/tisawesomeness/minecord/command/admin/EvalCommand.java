@@ -143,11 +143,11 @@ public class EvalCommand extends Command {
 	 */
 	private String clean(String s, Config config) {
 		String[] blacklist = new String[]{
-			config.getClientToken(),
-			config.getPwToken(),
-			config.getOrgToken(),
-			config.getWebhookURL(),
-			config.getWebhookAuth()
+			config.clientToken,
+			config.pwToken,
+			config.orgToken,
+			config.webhookURL,
+			config.webhookAuth
 		};
 		for (String nono : blacklist) {
 			s = s.replace(nono, "[redacted]");

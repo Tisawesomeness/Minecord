@@ -16,7 +16,7 @@ public class DiscordUtils {
 	public static final String idRegex = "[0-9]{2,32}";
 	
 	public static void update(ShardManager sm, Config config) {
-		sm.setActivity(Activity.playing(parseAll(config.getGame(), config)));
+		sm.setActivity(Activity.playing(parseAll(config.game, config)));
 	}
 
 	/**
@@ -36,8 +36,8 @@ public class DiscordUtils {
 			.replace("{java_ver}", Bot.javaVersion)
 			.replace("{jda_ver}", Bot.jdaVersion)
 			.replace("{version}", Bot.version)
-			.replace("{invite}", config.getInvite())
-			.replace("{prefix}", config.getPrefixDefault());
+			.replace("{invite}", config.invite)
+			.replace("{prefix}", config.prefixDefault);
 	}
 
 	/**
