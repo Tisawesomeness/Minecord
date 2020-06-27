@@ -25,11 +25,6 @@
         "webhookAuth": "auth here"
     },
     "database": {
-        "type": "sqlite",
-        "host": "./minecord.db",
-        "port": "3306",
-        "name": "minecord",
-        "user": "minecord",
-        "pass": "password here"
+        "path": "./minecord.db"
     }
 }

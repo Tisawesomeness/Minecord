@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.database;
 
 import com.tisawesomeness.minecord.Config;
 
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import org.sqlite.SQLiteDataSource;
 
 import javax.sql.DataSource;
@@ -11,14 +10,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.concurrent.Future;
 
 public class Database {
 
 	private final Config config;
 	private final DataSource source;
-	private HashMap<Long, DbGuild> guilds = new HashMap<>();
-	private HashMap<Long, DbUser> users = new HashMap<>();
+	private final HashMap<Long, DbGuild> guilds = new HashMap<>();
+	private final HashMap<Long, DbUser> users = new HashMap<>();
 	
 	private Connection getConnect() throws SQLException {
 		return source.getConnection();
@@ -26,42 +24,19 @@ public class Database {
 
 	/**
 	 * Starts a new database connection.
-	 * @return A future database, use {@link Future#get()} to block until the database starts.
 	 * @throws SQLException when either the initial read or creating a missing table fails.
 	 */
 	public Database(Config config) throws SQLException {
 		this.config = config;
 		
-		//Build database source
-		String url = "jdbc:";
-		if (config.getType().equals("mysql")) {
-			url += "mysql://";
-			try {
-				Class.forName("com.mysql.jdbc.Driver").newInstance();
-			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
-				ex.printStackTrace();
-			}
-		} else {
-			url += "sqlite:";
-		}
-		url += config.getHost();
-		if (config.getType().equals("mysql")) {
-			MysqlDataSource ds = new MysqlDataSource();
-			ds.setUrl(url + ":" + config.getPort() + "/" + config.getDbName());
-			ds.setUser(config.getUser());
-			ds.setPassword(config.getPass());
-			ds.setUseSSL(false);
-			source = ds;
-		} else {
-			SQLiteDataSource ds = new SQLiteDataSource();
-			ds.setUrl(url);
-			source = ds;
-		}
-
-		//Connect to database
+		// Build database source
+		String url = "jdbc:sqlite:" + config.getDbPath();
+		SQLiteDataSource ds = new SQLiteDataSource();
+		ds.setUrl(url);
+		source = ds;
 		Connection connect = getConnect();
 		
-		//Create tables if they do not exist
+		// Create tables if they do not exist
 		connect.createStatement().executeUpdate(
 			"CREATE TABLE IF NOT EXISTS guild (" +
 			"  id BIGINT(18) NOT NULL," +
@@ -83,7 +58,7 @@ public class Database {
 		
 		// Add owner to elevated
 		if (!config.getOwner().equals("0")) {
-			changeElevated(Long.valueOf(config.getOwner()), true);
+			changeElevated(Long.parseLong(config.getOwner()), true);
 		}
 		
 		refresh();

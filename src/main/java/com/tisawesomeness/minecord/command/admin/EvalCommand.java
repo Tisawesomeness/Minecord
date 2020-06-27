@@ -147,9 +147,7 @@ public class EvalCommand extends Command {
 			config.getPwToken(),
 			config.getOrgToken(),
 			config.getWebhookURL(),
-			config.getWebhookAuth(),
-			config.getHost(),
-			config.getPass()
+			config.getWebhookAuth()
 		};
 		for (String nono : blacklist) {
 			s = s.replace(nono, "[redacted]");

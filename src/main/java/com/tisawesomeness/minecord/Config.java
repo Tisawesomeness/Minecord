@@ -47,12 +47,7 @@ public class Config {
 	@Getter private final int webhookPort;
 	@Getter private final String webhookAuth;
 
-	@Getter private final String type;
-	@Getter private final String host;
-	@Getter private final int port;
-	@Getter private final String dbName;
-	@Getter private final String user;
-	@Getter private final String pass;
+	@Getter private final String dbPath;
 
 	/**
 	 * Reads data from the config file.
@@ -68,9 +63,8 @@ public class Config {
 	 * Reads data from the config file.
 	 * @param config The config JSON.
 	 * @param tokenOverride The token used to override the config, or {@code null} for no override.
-	 * @throws IOException When the config file couldn't be found
 	 */
-	public Config(JSONObject config, @Nullable String tokenOverride) throws IOException {
+	public Config(JSONObject config, @Nullable String tokenOverride) {
 
 		clientToken = parseToken(config, tokenOverride);
 		shardCount = parseShards(config);
@@ -100,12 +94,7 @@ public class Config {
 		webhookAuth = botLists.getString("webhookAuth");
 
 		JSONObject database = config.getJSONObject("database");
-		type = database.getString("type");
-		host = database.getString("host");
-		port = database.getInt("port");
-		dbName = database.getString("name");
-		user = database.getString("user");
-		pass = database.getString("pass");
+		dbPath = database.getString("path");
 
 	}
 

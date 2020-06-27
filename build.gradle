@@ -28,10 +28,8 @@ dependencies {
     }
     // Top.gg bot site API wrapper
     implementation 'com.github.DiscordBotList:Java-Wrapper:v1.0'
-    // JSON library (TODO move to gson)
+    // JSON library
     implementation 'org.json:json:20160810'
-    // MYSQL driver (TODO move to sqlite)
-    implementation 'mysql:mysql-connector-java:5.1.39'
     // SQLite driver
     implementation 'org.xerial:sqlite-jdbc:3.21.0'
     // Used for MCServerPing
