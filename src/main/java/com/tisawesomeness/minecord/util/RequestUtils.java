@@ -210,13 +210,26 @@ public class RequestUtils {
 		}
 	}
 
-	public static JSONObject loadJSONResource(String name) {
+	/**
+	 * Loads a file from the resources folder.
+	 * @param name The filename.
+	 * @return A string with the contents of the file.
+	 */
+	public static String loadResource(String name) {
 		InputStream is = RequestUtils.class.getClassLoader().getResourceAsStream(name);
 		if (is == null) {
 			throw new IllegalArgumentException("The resource was not found!");
 		}
-		String json = new BufferedReader(new InputStreamReader(is)).lines().collect(Collectors.joining("\n"));
-		return new JSONObject(json);
+		return new BufferedReader(new InputStreamReader(is)).lines().collect(Collectors.joining("\n"));
+	}
+	/**
+	 * Loads a JSON file from the resources folder.
+	 * <br>The file must start with a JSON object, not a JSON array.
+	 * @param name The filename.
+	 * @return The contained JSON object.
+	 */
+	public static JSONObject loadJSONResource(String name) {
+		return new JSONObject(loadResource(name));
 	}
 	
 	// Converts a string to SHA1 (from http://www.sha1-online.com/sha1-java/)
