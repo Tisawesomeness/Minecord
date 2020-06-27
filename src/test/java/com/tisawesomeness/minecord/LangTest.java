@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class LangTest {
 
@@ -14,6 +15,11 @@ public class LangTest {
         assertEquals("USA", Lang.EN_US.get(key));
         assertEquals("Germany", Lang.DE_DE.get(key));
         assertEquals("Brazil", Lang.PT_BR.get(key));
+    }
+    @Test
+    @DisplayName("The default lang is not in development")
+    public void testDefaultLang() {
+        assertFalse(Lang.getDefault().isInDevelopment());
     }
 
 }

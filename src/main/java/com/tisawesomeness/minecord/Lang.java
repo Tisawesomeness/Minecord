@@ -36,6 +36,10 @@ public enum Lang {
      * Whether this lang has search strings allowing for easier item searching, such as "gapple" for "golden apple".
      */
     @Getter private final boolean itemSearchSupported;
+    /**
+     * Whether this lang is in development, and should be hidden to un-elevated users.
+     */
+    @Getter private final boolean inDevelopment;
 
     Lang(@NonNull Locale locale) {
         this.locale = locale;
@@ -45,10 +49,14 @@ public enum Lang {
             throw new IllegalArgumentException(
                     "\"lang.percentComplete\" in " + locale.getDisplayName() + "must be an integer between 0-100.");
         }
-        botStringsSupported = Boolean.parseBoolean(resource.getString("lang.botStringsSupported"));
-        commandAliasSupported = Boolean.parseBoolean(resource.getString("lang.commandAliasSupported"));
-        itemsSupported = Boolean.parseBoolean(resource.getString("lang.itemsSupported"));
-        itemSearchSupported = Boolean.parseBoolean(resource.getString("lang.itemSearchSupported"));
+        botStringsSupported = getBool("lang.botStringsSupported");
+        commandAliasSupported = getBool("lang.commandAliasSupported");
+        itemsSupported = getBool("lang.itemsSupported");
+        itemSearchSupported = getBool("lang.itemSearchSupported");
+        inDevelopment = getBool("lang.inDevelopment");
+    }
+    private boolean getBool(String key) {
+        return Boolean.parseBoolean(resource.getString(key));
     }
 
     /**
@@ -62,6 +70,7 @@ public enum Lang {
      * Gets the localization string for this lang.
      * <br>If not found, {@link #getDefault()} is used instead.
      * <br>Keys are in the format {@code category.optionalSubCategory.name}.
+     * <br>Lang config keys are in the {@code lang} category.
      * @param key The localization key. For example, {@code command.server.embedTitle}.
      * @return The localized string.
      * @throws java.util.MissingResourceException If the given key could not be found.
