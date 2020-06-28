@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.util;
 
 import com.tisawesomeness.minecord.Config;
 
+import lombok.Cleanup;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.sharding.ShardManager;
 import org.discordbots.api.client.DiscordBotListAPI;
@@ -17,7 +18,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
@@ -38,10 +38,8 @@ public class RequestUtils {
 
 	private static String get(URLConnection conn, String type) throws IOException {
 		InputStream response = conn.getInputStream();
-		Scanner scanner = new Scanner(response);
-		String responseBody = scanner.hasNext() ? scanner.useDelimiter("\\A").next() : "";
-		scanner.close();
-		return responseBody;
+		@Cleanup Scanner scanner = new Scanner(response);
+		return scanner.hasNext() ? scanner.useDelimiter("\\A").next() : "";
 	}
 
 	/**
@@ -122,11 +120,8 @@ public class RequestUtils {
 	public static String post(String url, String query, String auth) {
 		try {
 			URLConnection conn = open(url, auth, jsonType);
-
-			OutputStream output = conn.getOutputStream();
+			@Cleanup OutputStream output = conn.getOutputStream();
 			output.write(query.getBytes(charset));
-			output.close();
-
 			return get(conn, jsonType);
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -134,8 +129,7 @@ public class RequestUtils {
 		return null;
 	}
 
-	private static URLConnection open(String url, String auth, String contentType)
-			throws MalformedURLException, IOException {
+	private static URLConnection open(String url, String auth, String contentType) throws IOException {
 		URLConnection conn = new URL(url).openConnection();
 		conn.setDoOutput(true);
 		conn.setRequestProperty("Accept-Charset", charset);
@@ -203,7 +197,7 @@ public class RequestUtils {
 			 * Config.getOrgToken());
 			 */
 
-			List<Integer> serverCounts = new ArrayList<Integer>();
+			List<Integer> serverCounts = new ArrayList<>();
 			for (JDA jda : sm.getShards())
 				serverCounts.add(jda.getGuilds().size());
 			api.setStats(id, serverCounts);
@@ -220,7 +214,9 @@ public class RequestUtils {
 		if (is == null) {
 			throw new IllegalArgumentException("The resource was not found!");
 		}
-		return new BufferedReader(new InputStreamReader(is)).lines().collect(Collectors.joining("\n"));
+		@Cleanup InputStreamReader isr = new InputStreamReader(is);
+		@Cleanup BufferedReader br = new BufferedReader(isr);
+		return br.lines().collect(Collectors.joining("\n"));
 	}
 	/**
 	 * Loads a JSON file from the resources folder.
