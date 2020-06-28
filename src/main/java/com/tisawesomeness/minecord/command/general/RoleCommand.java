@@ -19,7 +19,7 @@ public class RoleCommand extends Command {
 		return new CommandInfo(
 			"role",
 			"Shows role info.",
-			"<role|id>",
+			"<role>",
 			new String[]{"roleinfo"},
 			0,
 			false,
@@ -30,6 +30,7 @@ public class RoleCommand extends Command {
 
     public String getHelp() {
         return "Shows the info of a role in the current guild.\n" +
+            "`<role>` can be a role name, a mention, or a valid ID.`\n" +
             "\n" +
             "Examples:\n" +
             "- `{&}role Moderator`\n" +
@@ -38,7 +39,8 @@ public class RoleCommand extends Command {
     }
 
     public String getAdminHelp() {
-        return "`{&}role <role|id>` - Shows the info of a role in the current guild.\n" +
+        return "`{&}role <role>` - Shows the info of a role in the current guild.\n" +
+            "`<role>` can be a role name, a mention, or a valid ID.`\n" +
             "`{&}role <role id> admin` - Shows the info of any role.\n" +
             "\n" +
             "Examples:\n" +
@@ -83,7 +85,7 @@ public class RoleCommand extends Command {
             .setTitle(role.getName().substring(0, Math.min(MessageEmbed.TITLE_MAX_LENGTH, role.getName().length())))
             .setColor(role.getColorRaw())
             .addField("ID", role.getId(), true)
-            .addField("Color", ColorUtils.getHexCode(role.getColorRaw()), true) // Mask gets RGB of color
+            .addField("Color", ColorUtils.getHexCode(role.getColorRaw()), true)
             .addField("Position", (role.getPosition() + 2) + "/" + roles.size(), true) // Position corrected so @everyone is pos 1
             .addField("Mentionable?", role.isMentionable() ? "Yes" : "No", true)
             .addField("Hoisted?", role.isHoisted() ? "Yes" : "No", true)

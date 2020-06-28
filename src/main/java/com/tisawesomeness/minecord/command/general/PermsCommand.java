@@ -31,7 +31,7 @@ public class PermsCommand extends Command {
         return "`{&}perms` - Test the bot's permissions for the current channel.\n" +
             "`{&}perms <channel>` - Test the bot's permissions for a channel in the same guild.\n" +
             "You must have permission to send messages in the channel being tested.\n" +
-            "`<channel>` can be a `#channel` mention or an 18-digit ID.\n" +
+            "`<channel>` can be a `#channel` mention or a valid channel ID.\n" +
             "\n" +
             "Examples:\n" +
             "- `{&}perms #bot-commands`\n" +
@@ -43,7 +43,7 @@ public class PermsCommand extends Command {
             "`{&}perms <channel>` - Test the bot's permissions for a channel in the same guild.\n" +
             "You must have permission to send messages in the channel being tested.\n" +
             "`{&}perms <id> admin` - Test the bot's permissions for any channel.\n" +
-            "`<channel>` can be a `#channel` mention or an 18-digit ID.\n" +
+            "`<channel>` can be a `#channel` mention or a valid channel ID.\n" +
             "\n" +
             "Examples:\n" +
             "- `{&}perms #bot-commands`\n" +
@@ -51,8 +51,10 @@ public class PermsCommand extends Command {
             "- `{&}perms 399734453712191498 admin`\n";
     }
 
-    // Error message cannot be "you cannot see that channel" since it reveals the channel exists when the user couldn't have known that otherwise
-    private static Result invalidChannel = new Result(Outcome.WARNING, ":warning: That channel does not exist in the current guild or is not visible to you.");
+    // Error message cannot be "you cannot see that channel"
+    // since it reveals the channel exists when the user couldn't have known that otherwise
+    private static final Result invalidChannel = new Result(Outcome.WARNING,
+            ":warning: That channel does not exist in the current guild or is not visible to you.");
 
     public Result run(CommandContext txt) {
         String[] args = txt.args;
@@ -85,7 +87,8 @@ public class PermsCommand extends Command {
             } else {
                 List<TextChannel> mentioned = e.getMessage().getMentionedChannels();
                 if (mentioned.size() == 0) {
-                    return new Result(Outcome.WARNING, ":warning: Not a valid channel format. Use a `#channel` mention or an 18-digit ID.");
+                    return new Result(Outcome.WARNING,
+                            ":warning: Not a valid channel format. Use a `#channel` mention or a valid ID.");
                 }
                 TextChannel tc = mentioned.get(0);
                 if (tc.getGuild().getIdLong() != e.getGuild().getIdLong()) {

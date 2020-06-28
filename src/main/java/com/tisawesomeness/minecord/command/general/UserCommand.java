@@ -25,7 +25,7 @@ public class UserCommand extends Command {
 		return new CommandInfo(
 			"user",
 			"Shows user info.",
-			"<user|id>",
+			"<user>",
 			new String[]{"whois", "userinfo"},
 			0,
 			false,
@@ -36,20 +36,24 @@ public class UserCommand extends Command {
 
     public String getHelp() {
         return "Shows the info of a user in the current guild.\n" +
+            "`<user>` can be `name#1234`, a mention, or a valid ID.`\n" +
             "\n" +
             "Examples:\n" +
             "- `{&}user @Tis_awesomeness`\n" +
+            "- `{&}user Tis_awesomeness#8617`\n" +
             "- `{&}user 211261249386708992`\n";
     }
 
     public String getAdminHelp() {
-        return "`{&}user <user|id>` - Shows the info of a user in the current guild.\n" +
+        return "`{&}user <user>` - Shows the info of a user in the current guild.\n" +
             "`{&}user <user id> admin` - Shows the info, ban status, and elevation of a user.\n" +
             "`{&}user <user id> admin mutual` - Includes mutual guilds.\n" +
             "__**Requesting mutual guilds with a large bot may freeze the shard!**__\n" +
+            "`<user>` can be `name#1234`, a mention, or a valid ID.`\n" +
             "\n" +
             "Examples:\n" +
             "- `{&}user @Tis_awesomeness`\n" +
+            "- `{&}user Tis_awesomeness#8617`\n" +
             "- `{&}user 211261249386708992`\n" +
             "- `{&}user 211261249386708992 admin`\n";
     }
@@ -124,7 +128,8 @@ public class UserCommand extends Command {
                 }
             } else {
                 if (!User.USER_TAG.matcher(args[0]).matches()) {
-                    return new Result(Outcome.WARNING, ":warning: Not a valid user format. Use `name#1234`, a mention, or an 18-digit ID.");
+                    return new Result(Outcome.WARNING,
+                            ":warning: Not a valid user format. Use `name#1234`, a mention, or a valid ID.");
                 }
                 mem = e.getGuild().getMemberByTag(args[0]);
                 if (mem == null) {

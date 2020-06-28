@@ -36,7 +36,7 @@ public class BanCommand extends Command {
 		return "`{&}ban <id>` - Check if a user or guild is banned.\n" +
 			"`{&}ban <user|guild> <id>` - Ban a user or guild.\n" +
 			"\n" +
-			"`<id>` must be an 18-digit id.\n" +
+			"`<id>` must be a valid user or guild id.\n" +
 			"The user or guild does not have to be seen by Minecord.\n" +
 			"Banned users and guilds will have all commands fail silently.\n";
 	}

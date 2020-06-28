@@ -21,7 +21,7 @@ public class RolesCommand extends Command {
 		return new CommandInfo(
 			"roles",
 			"List a user's roles.",
-			"<user|id>",
+			"<user>",
 			null,
 			0,
 			false,
@@ -32,9 +32,11 @@ public class RolesCommand extends Command {
 
     public String getHelp() {
         return "List the roles of a user in the current guild.\n" +
+            "`<user>` can be `name#1234`, a mention, or a valid ID.`\n" +
             "\n" +
             "Examples:\n" +
             "- `{&}roles @Tis_awesomeness`\n" +
+            "- `{&}roles Tis_awesomeness#8617`\n" +
             "- `{&}roles 211261249386708992`\n";
     }
 
@@ -65,7 +67,8 @@ public class RolesCommand extends Command {
                 }
             } else {
                 if (!User.USER_TAG.matcher(args[0]).matches()) {
-                    return new Result(Outcome.WARNING, ":warning: Not a valid user format. Use `name#1234`, a mention, or an 18-digit ID.");
+                    return new Result(Outcome.WARNING,
+                            ":warning: Not a valid user format. Use `name#1234`, a mention, or a valid ID.");
                 }
                 mem = e.getGuild().getMemberByTag(args[0]);
                 if (mem == null) {

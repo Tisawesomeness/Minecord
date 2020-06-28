@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 public class DiscordUtils {
 
-	public static final String idRegex = "[0-9]{2,32}";
+	public static final String idRegex = "[0-9]{9,20}";
 	
 	public static void update(ShardManager sm, Config config) {
 		sm.setActivity(Activity.playing(parseAll(config.game, config)));
@@ -21,9 +21,8 @@ public class DiscordUtils {
 
 	/**
 	 * Replaces constants in the input string with their values
-	 * This can be called during init, as long as Config is initialized
 	 * @param input A string with {constants}
-	 * @param config
+	 * @param config The config file to get the invite and default prefix from
 	 * @return The string with resolved constants, though variables such as {guilds} are unresolved
 	 */
 	public static String parseConstants(String input, Config config) {
@@ -63,12 +62,12 @@ public class DiscordUtils {
 	}
 	
 	public static User findUser(String search, ShardManager sm) {
-		Matcher ma = Pattern.compile("(<@!?)?([0-9]{18})>?").matcher(search);
+		Matcher ma = Pattern.compile("(<@!?)?([0-9]{9,20})>?").matcher(search);
 		return ma.matches() ? sm.getUserById(ma.group(2)) : null;
 	}
 	
 	public static TextChannel findChannel(String search, ShardManager sm) {
-		Matcher ma = Pattern.compile("(<#)?([0-9]{18})>?").matcher(search);
+		Matcher ma = Pattern.compile("(<#)?([0-9]{9,20})>?").matcher(search);
 		return ma.matches() ? sm.getTextChannelById(ma.group(2)) : null;
 	}
 

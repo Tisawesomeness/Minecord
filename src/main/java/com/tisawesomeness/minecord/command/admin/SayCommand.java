@@ -30,7 +30,7 @@ public class SayCommand extends Command {
 
 	public String getHelp() {
 		return "`{&}say <channel> <message>` - Make the bot send a message.\n" +
-			"`<channel>` is either a # channel name or an 18-digit ID.\n";
+				"`<channel>` can be a `#channel` mention or a valid channel ID.\n";
 	}
 	
 	public Result run(CommandContext txt) {
