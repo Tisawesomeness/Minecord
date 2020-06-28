@@ -77,7 +77,7 @@ public class Database {
 	private Optional<DbGuild> loadGuild(@NonNull Long key) throws SQLException {
 		@Cleanup Connection connect = getConnect();
 		@Cleanup PreparedStatement st = connect.prepareStatement(
-				"SELECT * FROM `guild` WHERE `id` = ?"
+				"SELECT * FROM `guild` WHERE `id` = ?;"
 		);
 		st.setLong(1, key);
 		ResultSet rs = st.executeQuery();
@@ -86,7 +86,7 @@ public class Database {
 	private Optional<DbUser> loadUser(@NonNull Long key) throws SQLException {
 		@Cleanup Connection connect = getConnect();
 		@Cleanup PreparedStatement st = connect.prepareStatement(
-				"SELECT * FROM `user` WHERE `id` = ?"
+				"SELECT * FROM `user` WHERE `id` = ?;"
 		);
 		st.setLong(1, key);
 		ResultSet rs = st.executeQuery();
@@ -149,80 +149,56 @@ public class Database {
 	public void changePrefix(long id, String prefix) throws SQLException {
 		@Cleanup Connection connect = getConnect();
 		@Cleanup PreparedStatement st = connect.prepareStatement(
-				"REPLACE INTO guild (id, prefix, lang, banned, noCooldown, deleteCommands, noMenu) VALUES(?, ?, " +
-						"COALESCE((SELECT lang FROM (SELECT * FROM guild) AS temp WHERE id=?), NULL), " +
-						"COALESCE((SELECT banned FROM (SELECT * FROM guild) AS temp WHERE id=?), 0), " +
-						"COALESCE((SELECT noCooldown FROM (SELECT * FROM guild) AS temp WHERE id=?), 0), " +
-						"COALESCE((SELECT deleteCommands FROM (SELECT * FROM guild) AS temp WHERE id=?), NULL), " +
-						"COALESCE((SELECT noMenu FROM (SELECT * FROM guild) AS temp WHERE id=?), NULL));"
+				"INSERT INTO `guild` (`id`, `prefix`)" +
+						"  VALUES(?, ?)" +
+						"  ON CONFLICT (`id`) DO" +
+						"  UPDATE SET `prefix` = ?;"
 		);
 		st.setLong(1, id);
 		st.setString(2, prefix);
-		st.setLong(3, id);
-		st.setLong(4, id);
-		st.setLong(5, id);
-		st.setLong(6, id);
-		st.setLong(7, id);
+		st.setString(3, prefix);
 		st.executeUpdate();
 		guilds.invalidate(id);
 	}
 	public void changeBannedGuild(long id, boolean banned) throws SQLException {
 		@Cleanup Connection connect = getConnect();
 		@Cleanup PreparedStatement st = connect.prepareStatement(
-			"REPLACE INTO guild (id, prefix, lang, banned, noCooldown, deleteCommands, noMenu) VALUES(?, " +
-			"COALESCE((SELECT prefix FROM (SELECT * FROM guild) AS temp WHERE id=?), NULL), " +
-			"COALESCE((SELECT lang FROM (SELECT * FROM guild) AS temp WHERE id=?), NULL), ?, " +
-			"COALESCE((SELECT noCooldown FROM (SELECT * FROM guild) AS temp WHERE id=?), 0), " +
-			"COALESCE((SELECT deleteCommands FROM (SELECT * FROM guild) AS temp WHERE id=?), 0), " +
-			"COALESCE((SELECT noMenu FROM (SELECT * FROM guild) AS temp WHERE id=?), 0));"
+				"INSERT INTO `guild` (`id`, `banned`)" +
+						"  VALUES(?, ?)" +
+						"  ON CONFLICT (`id`) DO" +
+						"  UPDATE SET `banned` = ?;"
 		);
 		st.setLong(1, id);
-		st.setLong(2, id);
-		st.setLong(3, id);
-		st.setBoolean(4, banned);
-		st.setLong(5, id);
-		st.setLong(6, id);
-		st.setLong(7, id);
+		st.setBoolean(2, banned);
+		st.setBoolean(3, banned);
 		st.executeUpdate();
 		guilds.invalidate(id);
 	}
 	public void changeDeleteCommands(long id, boolean deleteCommands) throws SQLException {
 		@Cleanup Connection connect = getConnect();
 		@Cleanup PreparedStatement st = connect.prepareStatement(
-			"REPLACE INTO guild (id, prefix, lang, banned, noCooldown, deleteCommands, noMenu) VALUES(?, " +
-			"COALESCE((SELECT prefix FROM (SELECT * FROM guild) AS temp WHERE id=?), NULL), " +
-			"COALESCE((SELECT lang FROM (SELECT * FROM guild) AS temp WHERE id=?), NULL), " +
-			"COALESCE((SELECT banned FROM (SELECT * FROM guild) AS temp WHERE id=?), 0), " +
-			"COALESCE((SELECT noCooldown FROM (SELECT * FROM guild) AS temp WHERE id=?), 0), ?, " +
-			"COALESCE((SELECT noMenu FROM (SELECT * FROM guild) AS temp WHERE id=?), NULL));"
+				"INSERT INTO `guild` (`id`, `deleteCommands`)" +
+						"  VALUES(?, ?)" +
+						"  ON CONFLICT (`id`) DO" +
+						"  UPDATE SET `deleteCommands` = ?;"
 		);
 		st.setLong(1, id);
-		st.setLong(2, id);
-		st.setLong(3, id);
-		st.setLong(4, id);
-		st.setLong(5, id);
-		st.setBoolean(6, deleteCommands);
-		st.setLong(7, id);
+		st.setBoolean(2, deleteCommands);
+		st.setBoolean(3, deleteCommands);
 		st.executeUpdate();
 		guilds.invalidate(id);
 	}
 	public void changeUseMenu(long id, boolean useMenu) throws SQLException {
 		@Cleanup Connection connect = getConnect();
 		@Cleanup PreparedStatement st = connect.prepareStatement(
-			"REPLACE INTO guild (id, prefix, lang, banned, noCooldown, deleteCommands, noMenu) VALUES(?, " +
-			"COALESCE((SELECT prefix FROM (SELECT * FROM guild) AS temp WHERE id=?), NULL), " +
-			"COALESCE((SELECT lang FROM (SELECT * FROM guild) AS temp WHERE id=?), NULL), " +
-			"COALESCE((SELECT banned FROM (SELECT * FROM guild) AS temp WHERE id=?), 0), " +
-			"COALESCE((SELECT noCooldown FROM (SELECT * FROM guild) AS temp WHERE id=?), 0), " +
-			"COALESCE((SELECT deleteCommands FROM (SELECT * FROM guild) AS temp WHERE id=?), NULL), ?);"
+				"INSERT INTO `guild` (`id`, `noMenu`)" +
+						"  VALUES(?, ?)" +
+						"  ON CONFLICT (`id`) DO" +
+						"  UPDATE SET `noMenu` = ?;"
 		);
 		st.setLong(1, id);
-		st.setLong(2, id);
-		st.setLong(3, id);
-		st.setLong(4, id);
-		st.setLong(5, id);
-		st.setLong(6, id);
-		st.setBoolean(7, !useMenu);
+		st.setBoolean(2, !useMenu);
+		st.setBoolean(3, !useMenu);
 		st.executeUpdate();
 		guilds.invalidate(id);
 	}
@@ -230,23 +206,27 @@ public class Database {
 	public void changeElevated(long id, boolean elevated) throws SQLException {
 		@Cleanup Connection connect = getConnect();
 		@Cleanup PreparedStatement st = connect.prepareStatement(
-			"REPLACE INTO user (id, elevated, banned) VALUES(?, ?, " +
-			"COALESCE((SELECT banned FROM (SELECT * FROM user) AS temp WHERE id=?), 0));"
+				"INSERT INTO `user` (`id`, `elevated`)" +
+						"  VALUES(?, ?)" +
+						"  ON CONFLICT (`id`) DO" +
+						"  UPDATE SET `elevated` = ?;"
 		);
 		st.setLong(1, id);
 		st.setBoolean(2, elevated);
-		st.setLong(3, id);
+		st.setBoolean(3, elevated);
 		st.executeUpdate();
 		users.invalidate(id);
 	}
 	public void changeBannedUser(long id, boolean banned) throws SQLException {
 		@Cleanup Connection connect = getConnect();
 		@Cleanup PreparedStatement st = connect.prepareStatement(
-			"REPLACE INTO user (id, elevated, banned) VALUES(?, " +
-			"COALESCE((SELECT banned FROM (SELECT * FROM user) AS temp WHERE id=?), 0), ?);"
+				"INSERT INTO `user` (`id`, `banned`)" +
+						"  VALUES(?, ?)" +
+						"  ON CONFLICT (`id`) DO" +
+						"  UPDATE SET `banned` = ?;"
 		);
 		st.setLong(1, id);
-		st.setLong(2, id);
+		st.setBoolean(2, banned);
 		st.setBoolean(3, banned);
 		st.executeUpdate();
 		users.invalidate(id);

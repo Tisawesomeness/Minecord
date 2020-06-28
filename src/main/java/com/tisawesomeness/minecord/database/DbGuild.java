@@ -41,7 +41,7 @@ public class DbGuild {
 	}
 	private static Optional<Boolean> getOptionalBoolean(@NonNull ResultSet rs, @NonNull String columnLabel) throws SQLException {
 		boolean b = rs.getBoolean(columnLabel);
-		return rs.wasNull() ? Optional.empty() : Optional.ofNullable(b);
+		return rs.wasNull() ? Optional.empty() : Optional.of(b);
 	}
 
 }
