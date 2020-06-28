@@ -2,8 +2,6 @@ package com.tisawesomeness.minecord.util;
 
 import com.tisawesomeness.minecord.Config;
 
-import com.google.common.hash.HashFunction;
-import com.google.common.hash.Hashing;
 import lombok.Cleanup;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.sharding.ShardManager;
@@ -216,9 +214,12 @@ public class RequestUtils {
 		if (is == null) {
 			throw new IllegalArgumentException("The resource was not found!");
 		}
-		@Cleanup InputStreamReader isr = new InputStreamReader(is);
-		@Cleanup BufferedReader br = new BufferedReader(isr);
-		return br.lines().collect(Collectors.joining("\n"));
+		try (InputStreamReader isr = new InputStreamReader(is);
+			 BufferedReader br = new BufferedReader(isr)) {
+			return br.lines().collect(Collectors.joining("\n"));
+		} catch (IOException ex) {
+			throw new AssertionError("An IOException when closing a resource stream should never happen.");
+		}
 	}
 	/**
 	 * Loads a JSON file from the resources folder.
