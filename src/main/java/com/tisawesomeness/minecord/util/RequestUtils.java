@@ -2,6 +2,8 @@ package com.tisawesomeness.minecord.util;
 
 import com.tisawesomeness.minecord.Config;
 
+import com.google.common.hash.HashFunction;
+import com.google.common.hash.Hashing;
 import lombok.Cleanup;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.sharding.ShardManager;
@@ -228,14 +230,14 @@ public class RequestUtils {
 		return new JSONObject(loadResource(name));
 	}
 	
-	// Converts a string to SHA1 (from http://www.sha1-online.com/sha1-java/)
+	// Converts a string to SHA1 (modified from http://www.sha1-online.com/sha1-java/)
 	public static String sha1(String str) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA1");
 			byte[] result = md.digest(str.getBytes());
-			StringBuffer sb = new StringBuffer();
-			for (int i = 0; i < result.length; i++) {
-				sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
+			StringBuilder sb = new StringBuilder();
+			for (byte b : result) {
+				sb.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
 			}
 			return sb.toString();
 		} catch (NoSuchAlgorithmException ex) {
