@@ -34,7 +34,7 @@ public class DeleteCommandsSetting extends ServerSetting<Boolean> {
         return Optional.empty();
     }
     public Optional<Boolean> getGuild(long id) {
-        return Optional.of(db.getDeleteCommands(id));
+        return db.getGuild(id).flatMap(g -> g.deleteCommands);
     }
     public @NonNull Boolean getDefault() {
         return config.deleteCommandsDefault;

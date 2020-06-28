@@ -6,7 +6,6 @@ import com.tisawesomeness.minecord.command.CommandContext;
 import net.dv8tion.jda.api.entities.Message;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.concurrent.ExecutionException;
 
 public class ReloadCommand extends Command {
@@ -37,7 +36,7 @@ public class ReloadCommand extends Command {
 		Message m = txt.e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
 		try {
 			txt.bot.reload();
-		} catch (SQLException | IOException | ExecutionException | InterruptedException ex) {
+		} catch (IOException | ExecutionException | InterruptedException ex) {
 			ex.printStackTrace();
 			try {
 				m.editMessage(":x: Could not reload! Shutting down...").complete();

@@ -28,9 +28,8 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import org.discordbots.api.client.DiscordBotListAPI;
 
 import javax.security.auth.login.LoginException;
-import java.awt.*;
+import java.awt.Color;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.EnumSet;
@@ -198,16 +197,14 @@ public class Bot {
 	 *     <li>The internal item and recipe resource files (open the JAR as archive and replace them to reload these).</li>
 	 * </ul>
 	 * The config is loaded before everything else, so options like login details can change.
-	 * @throws SQLException If the database couldn't close.
 	 * @throws IOException If a file wasn't found, or there was an error starting the vote server.
 	 * @throws ExecutionException If the database couldn't open, the initial read failed, or creating a missing table failed.
 	 * If there is an exception, shut down the bot with &shutdown or do a hard reset.
 	 */
-	public void reload() throws SQLException, IOException, ExecutionException, InterruptedException {
+	public void reload() throws IOException, ExecutionException, InterruptedException {
 		System.out.println("Reloading...");
 
 		// Closing everything down
-		database.close();
 		if (config.receiveVotes) {
 			voteHandler.close();
 		}
@@ -240,7 +237,6 @@ public class Bot {
 		try {
 			menuExe.shutdownNow();
 			shardManager.shutdown();
-			database.close();
 			if (config.receiveVotes) {
 				voteHandler.close();
 			}

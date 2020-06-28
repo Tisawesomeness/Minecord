@@ -39,7 +39,7 @@ public class PrefixSetting extends ServerSetting<String> {
 //        return Optional.empty();
 //    }
     public Optional<String> getGuild(long id) {
-        return Optional.ofNullable(db.getPrefix(id));
+        return db.getGuild(id).flatMap(g -> g.prefix);
     }
     public @NonNull String getDefault() {
         return config.prefixDefault;

@@ -35,7 +35,7 @@ public class UseMenusSetting extends ServerSetting<Boolean> {
         return Optional.empty();
     }
     public Optional<Boolean> getGuild(long id) {
-        return Optional.of(db.getUseMenu(id));
+        return db.getGuild(id).flatMap(g -> g.noMenu).map(b -> !b);
     }
     public @NonNull Boolean getDefault() {
         return config.useMenusDefault;

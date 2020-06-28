@@ -28,6 +28,8 @@ dependencies {
     }
     // Top.gg bot site API wrapper
     implementation 'com.github.DiscordBotList:Java-Wrapper:v1.0'
+    // All-purpose library
+    implementation 'com.google.guava:guava:29.0-jre'
     // JSON library
     implementation 'org.json:json:20160810'
     // SQLite driver

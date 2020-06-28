@@ -6,8 +6,6 @@ import com.tisawesomeness.minecord.setting.SettingRegistry;
 import com.tisawesomeness.minecord.setting.impl.DeleteCommandsSetting;
 import com.tisawesomeness.minecord.setting.impl.UseMenusSetting;
 
-import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.With;
@@ -55,19 +53,13 @@ public class CommandContext {
         this(args, e, config, bot, isElevated, prefix, settings.deleteCommands, settings.useMenus);
     }
 
-    // @Getter is private so the public alternative with correct grammar can be used instead, keeping laziness
-
     private final @NonNull DeleteCommandsSetting deleteCommandsSetting;
-    @Getter(value=AccessLevel.PRIVATE, lazy=true) private final boolean deleteCommands = calcDeleteCommands();
-    public boolean shouldDeleteCommands() { return isDeleteCommands(); }
-    private boolean calcDeleteCommands() {
+    public boolean shouldDeleteCommands() {
         return deleteCommandsSetting.getEffective(this);
     }
 
     private final @NonNull UseMenusSetting useMenusSetting;
-    @Getter(value=AccessLevel.PRIVATE, lazy=true) private final boolean useMenus = calcUseMenus();
-    public boolean shouldUseMenus() { return isUseMenus(); }
-    private boolean calcUseMenus() {
+    public boolean shouldUseMenus() {
         return useMenusSetting.getEffective(this);
     }
 
