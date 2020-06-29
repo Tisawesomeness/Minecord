@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Database {
 
+	private static final int VERSION = 1;
 	private final DataSource source;
 	private final LoadingCache<Long, Optional<DbGuild>> guilds;
 	private final LoadingCache<Long, Optional<DbUser>> users;
@@ -37,8 +38,7 @@ public class Database {
 	 * @throws SQLException when either the initial read or creating a missing table fails.
 	 */
 	public Database(Config config) throws SQLException {
-		
-		// Build database source
+
 		String url = "jdbc:sqlite:" + config.dbPath;
 		SQLiteDataSource ds = new SQLiteConnectionPoolDataSource();
 		ds.setUrl(url);
@@ -62,10 +62,13 @@ public class Database {
 			}
 		});
 
-		// Create tables if they do not exist
-		runScript("init.sql");
-		
-		// Add owner to elevated
+		// For now, only creating the database is needed
+		// In the future, every database change increments the version
+		// and this code will run the correct upgrade scripts
+		if (getVersion() != VERSION) {
+			runScript("init.sql");
+		}
+
 		if (!config.owner.equals("0")) {
 			changeElevated(Long.parseLong(config.owner), true);
 		}
@@ -74,22 +77,47 @@ public class Database {
 		
 	}
 
+	/**
+	 * Gets the current Minecord database version, used to determine which upgrade scripts to use.
+	 * @return A positive integer version, or 0 if the version is not tracked.
+	 */
+	private int getVersion() throws SQLException {
+		@Cleanup Connection connect = getConnect();
+		@Cleanup Statement st = connect.createStatement();
+		// Query returns 1 result if table exists, 0 results if table does not exist
+		@Cleanup ResultSet tableRS = st.executeQuery(
+				"SELECT name FROM sqlite_master WHERE type='table' AND name='minecord';"
+		);
+		// The first next() call returns false if there are 0 results
+		if (!tableRS.next()) {
+			return 0;
+		}
+		@Cleanup ResultSet versionRS = st.executeQuery(
+				"SELECT version FROM minecord;"
+		);
+		// Minecord table has only one row
+		versionRS.next();
+		return versionRS.getInt("version");
+	}
+
 	private Optional<DbGuild> loadGuild(@NonNull Long key) throws SQLException {
 		@Cleanup Connection connect = getConnect();
 		@Cleanup PreparedStatement st = connect.prepareStatement(
-				"SELECT * FROM `guild` WHERE `id` = ?;"
+				"SELECT * FROM guild WHERE id = ?;"
 		);
 		st.setLong(1, key);
-		ResultSet rs = st.executeQuery();
+		@Cleanup ResultSet rs = st.executeQuery();
+		// The first next() call returns true if results exist
 		return rs.next() ? Optional.of(DbGuild.from(rs)) : Optional.empty();
 	}
 	private Optional<DbUser> loadUser(@NonNull Long key) throws SQLException {
 		@Cleanup Connection connect = getConnect();
 		@Cleanup PreparedStatement st = connect.prepareStatement(
-				"SELECT * FROM `user` WHERE `id` = ?;"
+				"SELECT * FROM user WHERE id = ?;"
 		);
 		st.setLong(1, key);
-		ResultSet rs = st.executeQuery();
+		@Cleanup ResultSet rs = st.executeQuery();
+		// The first next() call returns true if results exist
 		return rs.next() ? Optional.of(DbUser.from(rs)) : Optional.empty();
 	}
 
@@ -149,10 +177,10 @@ public class Database {
 	public void changePrefix(long id, String prefix) throws SQLException {
 		@Cleanup Connection connect = getConnect();
 		@Cleanup PreparedStatement st = connect.prepareStatement(
-				"INSERT INTO `guild` (`id`, `prefix`)" +
+				"INSERT INTO guild (id, prefix)" +
 						"  VALUES(?, ?)" +
-						"  ON CONFLICT (`id`) DO" +
-						"  UPDATE SET `prefix` = ?;"
+						"  ON CONFLICT (id) DO" +
+						"  UPDATE SET prefix = ?;"
 		);
 		st.setLong(1, id);
 		st.setString(2, prefix);
@@ -163,10 +191,10 @@ public class Database {
 	public void changeBannedGuild(long id, boolean banned) throws SQLException {
 		@Cleanup Connection connect = getConnect();
 		@Cleanup PreparedStatement st = connect.prepareStatement(
-				"INSERT INTO `guild` (`id`, `banned`)" +
+				"INSERT INTO guild (id, banned)" +
 						"  VALUES(?, ?)" +
-						"  ON CONFLICT (`id`) DO" +
-						"  UPDATE SET `banned` = ?;"
+						"  ON CONFLICT (id) DO" +
+						"  UPDATE SET banned = ?;"
 		);
 		st.setLong(1, id);
 		st.setBoolean(2, banned);
@@ -177,10 +205,10 @@ public class Database {
 	public void changeDeleteCommands(long id, boolean deleteCommands) throws SQLException {
 		@Cleanup Connection connect = getConnect();
 		@Cleanup PreparedStatement st = connect.prepareStatement(
-				"INSERT INTO `guild` (`id`, `deleteCommands`)" +
+				"INSERT INTO guild (id, deleteCommands)" +
 						"  VALUES(?, ?)" +
-						"  ON CONFLICT (`id`) DO" +
-						"  UPDATE SET `deleteCommands` = ?;"
+						"  ON CONFLICT (id) DO" +
+						"  UPDATE SET deleteCommands = ?;"
 		);
 		st.setLong(1, id);
 		st.setBoolean(2, deleteCommands);
@@ -191,10 +219,10 @@ public class Database {
 	public void changeUseMenu(long id, boolean useMenu) throws SQLException {
 		@Cleanup Connection connect = getConnect();
 		@Cleanup PreparedStatement st = connect.prepareStatement(
-				"INSERT INTO `guild` (`id`, `noMenu`)" +
+				"INSERT INTO guild (id, noMenu)" +
 						"  VALUES(?, ?)" +
-						"  ON CONFLICT (`id`) DO" +
-						"  UPDATE SET `noMenu` = ?;"
+						"  ON CONFLICT (id) DO" +
+						"  UPDATE SET noMenu = ?;"
 		);
 		st.setLong(1, id);
 		st.setBoolean(2, !useMenu);
@@ -206,10 +234,10 @@ public class Database {
 	public void changeElevated(long id, boolean elevated) throws SQLException {
 		@Cleanup Connection connect = getConnect();
 		@Cleanup PreparedStatement st = connect.prepareStatement(
-				"INSERT INTO `user` (`id`, `elevated`)" +
+				"INSERT INTO user (id, elevated)" +
 						"  VALUES(?, ?)" +
-						"  ON CONFLICT (`id`) DO" +
-						"  UPDATE SET `elevated` = ?;"
+						"  ON CONFLICT (id) DO" +
+						"  UPDATE SET elevated = ?;"
 		);
 		st.setLong(1, id);
 		st.setBoolean(2, elevated);
@@ -220,10 +248,10 @@ public class Database {
 	public void changeBannedUser(long id, boolean banned) throws SQLException {
 		@Cleanup Connection connect = getConnect();
 		@Cleanup PreparedStatement st = connect.prepareStatement(
-				"INSERT INTO `user` (`id`, `banned`)" +
+				"INSERT INTO user (id, banned)" +
 						"  VALUES(?, ?)" +
-						"  ON CONFLICT (`id`) DO" +
-						"  UPDATE SET `banned` = ?;"
+						"  ON CONFLICT (id) DO" +
+						"  UPDATE SET banned = ?;"
 		);
 		st.setLong(1, id);
 		st.setBoolean(2, banned);
