@@ -31,9 +31,9 @@ public class ShutdownCommand extends Command {
 		try {
 			// This thread (not the new one created below) should be interrupted by the shutdown
 			Executors.newSingleThreadExecutor().submit(() -> txt.bot.shutdown(0)).get();
-		} catch (InterruptedException | ExecutionException ex) {
+		} catch (ExecutionException ex) {
 			ex.printStackTrace();
-		}
+		} catch (InterruptedException ignore) {}
 		throw new AssertionError("Bot failed to shut down.");
 	}
 	
