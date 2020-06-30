@@ -3,14 +3,19 @@ package com.tisawesomeness.minecord.command.misc;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.Module;
-import com.tisawesomeness.minecord.command.Registry;
+import com.tisawesomeness.minecord.command.CommandRegistry;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 public class HelpCommand extends Command {
+
+	private @NonNull CommandRegistry registry;
 	
 	public CommandInfo getInfo() {
 		return new CommandInfo(
@@ -69,7 +74,7 @@ public class HelpCommand extends Command {
 			eb.setAuthor("Minecord Help", null, url).setDescription(help);
 
 			// Hidden modules must be viewed directly
-			for (Module m : Registry.modules) {
+			for (Module m : registry.modules) {
 				if (m.isHidden()) {
 					continue;
 				}
@@ -85,7 +90,7 @@ public class HelpCommand extends Command {
 		}
 
 		// Module help
-		Module m = Registry.getModule(args[0]);
+		Module m = registry.getModule(args[0]);
 		if (m != null) {
 			if (m.isHidden() && !txt.isElevated) {
 				return new Result(Outcome.WARNING, ":warning: You do not have permission to view that module.");
@@ -111,7 +116,7 @@ public class HelpCommand extends Command {
 		}
 
 		// Command help
-		Command c = Registry.getCommand(args[0]);
+		Command c = registry.getCommand(args[0]);
 		if (c != null) {
 			// Elevation check
 			CommandInfo ci = c.getInfo();
@@ -142,7 +147,7 @@ public class HelpCommand extends Command {
 					help += String.format("\nCooldown: `%ss`", ci.cooldown / 1000.0);
 				}
 			}
-			String desc = String.format("%s\nModule: `%s`", help, Registry.findModuleName(ci.name));
+			String desc = String.format("%s\nModule: `%s`", help, registry.findModuleName(ci.name));
 			eb.setAuthor(prefix + ci.name + " Help").setDescription(desc);
 			return new Result(Outcome.SUCCESS, eb.build());
 		}

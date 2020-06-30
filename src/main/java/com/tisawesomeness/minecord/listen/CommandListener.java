@@ -7,7 +7,7 @@ import com.tisawesomeness.minecord.command.Command.CommandInfo;
 import com.tisawesomeness.minecord.command.Command.Outcome;
 import com.tisawesomeness.minecord.command.Command.Result;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Registry;
+import com.tisawesomeness.minecord.command.CommandRegistry;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
@@ -33,6 +33,7 @@ public class CommandListener extends ListenerAdapter {
 
 	private @NonNull Bot bot;
 	private @NonNull Config config;
+	private @NonNull CommandRegistry registry;
 	
 	@Override
 	public void onMessageReceived(MessageReceivedEvent e) {
@@ -103,7 +104,7 @@ public class CommandListener extends ListenerAdapter {
 		}
 		
 		// Get command info if the command has been registered
-		Command cmd = Registry.getCommand(name);
+		Command cmd = registry.getCommand(name);
 		if (cmd == null) return;
 		CommandInfo ci = cmd.getInfo();
 		

@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord;
 
-import com.tisawesomeness.minecord.command.Registry;
+import com.tisawesomeness.minecord.command.CommandRegistry;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.VoteHandler;
 import com.tisawesomeness.minecord.listen.CommandListener;
@@ -105,11 +105,10 @@ public class Bot {
 		}
 		menuExe = Executors.newSingleThreadScheduledExecutor();
 		menuExe.scheduleAtFixedRate(ReactMenu::purge, 10, 1, TimeUnit.MINUTES);
-		Registry.init();
 
 		CountDownLatch readyLatch = new CountDownLatch(config.shardCount);
 		EventListener readyListener = new ReadyListener(readyLatch);
-		EventListener commandListener = new CommandListener(this, config);
+		EventListener commandListener = new CommandListener(this, config, new CommandRegistry());
 		EventListener reactListener = new ReactListener();
 		EventListener guildCountListener = new GuildCountListener(this, config);
 		

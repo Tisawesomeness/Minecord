@@ -3,15 +3,20 @@ package com.tisawesomeness.minecord.command.admin;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.Module;
-import com.tisawesomeness.minecord.command.Registry;
+import com.tisawesomeness.minecord.command.CommandRegistry;
 import com.tisawesomeness.minecord.util.DateUtils;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 public class UsageCommand extends Command {
+
+	private @NonNull CommandRegistry registry;
 	
 	public CommandInfo getInfo() {
 		return new CommandInfo(
@@ -32,7 +37,7 @@ public class UsageCommand extends Command {
 		// Build usage message
 		EmbedBuilder eb = new EmbedBuilder()
 			.setTitle("Command usage for " + DateUtils.getUptime(txt.bot.getBirth()));
-		for (Module m : Registry.modules) {
+		for (Module m : registry.modules) {
 			String field = Arrays.asList(m.getCommands()).stream()
 				.filter(c -> !c.getInfo().name.equals("") && !c.getInfo().description.equals("Look up a color code."))
 				.map(c -> String.format("`%s%s` **-** %d", prefix, c.getInfo().name, c.uses))
