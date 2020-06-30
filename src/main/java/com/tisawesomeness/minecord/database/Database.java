@@ -6,6 +6,7 @@ import com.tisawesomeness.minecord.util.RequestUtils;
 import com.google.common.base.Splitter;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
+import com.google.common.cache.CacheStats;
 import com.google.common.cache.LoadingCache;
 import lombok.Cleanup;
 import lombok.NonNull;
@@ -98,6 +99,13 @@ public class Database {
 		// Minecord table has only one row
 		versionRS.next();
 		return versionRS.getInt("version");
+	}
+
+	public CacheStats getGuildStats() {
+		return guilds.stats();
+	}
+	public CacheStats getUserStats() {
+		return users.stats();
 	}
 
 	private Optional<DbGuild> loadGuild(@NonNull Long key) throws SQLException {

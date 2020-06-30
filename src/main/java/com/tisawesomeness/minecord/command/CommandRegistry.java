@@ -6,6 +6,9 @@ import com.tisawesomeness.minecord.command.general.*;
 import com.tisawesomeness.minecord.command.misc.*;
 import com.tisawesomeness.minecord.command.player.*;
 import com.tisawesomeness.minecord.command.utility.*;
+import com.tisawesomeness.minecord.database.Database;
+
+import net.dv8tion.jda.api.sharding.ShardManager;
 
 import java.util.LinkedHashMap;
 
@@ -27,7 +30,7 @@ public class CommandRegistry {
 	/**
 	 * Adds every module to the registry and maps the possible aliases to the command to execute.
 	 */
-	public CommandRegistry() {
+	public CommandRegistry(ShardManager sm, Database db) {
 
 		Command colorCmd = new ColorCommand();
 		modules = new Module[]{
@@ -97,6 +100,7 @@ public class CommandRegistry {
 						new ReloadCommand(),
 						new ShutdownCommand(),
 						new EvalCommand(),
+						new DebugCommand(sm, db),
 						new TestCommand()
 				)
 		};

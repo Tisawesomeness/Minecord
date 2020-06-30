@@ -108,7 +108,6 @@ public class Bot {
 
 		CountDownLatch readyLatch = new CountDownLatch(config.shardCount);
 		EventListener readyListener = new ReadyListener(readyLatch);
-		EventListener commandListener = new CommandListener(this, config, new CommandRegistry());
 		EventListener reactListener = new ReactListener();
 		EventListener guildCountListener = new GuildCountListener(this, config);
 		
@@ -153,7 +152,9 @@ public class Bot {
 					"It should not be possible to interrupt the main thread before the bot can accept commands.");
 		}
 
-		// Create settings
+		// These depend on database
+		CommandRegistry registry = new CommandRegistry(shardManager, database);
+		EventListener commandListener = new CommandListener(this, config, registry);
 		settings = new SettingRegistry(config, database);
 
 		// Bot has started, start accepting messages

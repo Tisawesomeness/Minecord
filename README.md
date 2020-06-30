@@ -61,6 +61,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&reload` - Reloads the bot. In dev mode, this hot reloads all code. Otherwise, this reloads the config, item/recipe files, and restarts the database and vote server.
 - `&shutdown` - Shuts down the bot.
 - `&eval` - Evaluates javascript code with variables `jda`, `config`, `event`, `guild`, `channel`, and `user`.
+- `&debug [option]` - Prints out debug info. Omit `[option]` to list available debug options.
 - `&test` - Test command. This may change depending on what features are being developed.
 
 ### Config
