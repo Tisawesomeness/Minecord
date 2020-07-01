@@ -36,7 +36,7 @@ public class UsageCommand extends Command {
 
 		// Build usage message
 		EmbedBuilder eb = new EmbedBuilder()
-			.setTitle("Command usage for " + DateUtils.getUptime(txt.bot.getBirth()));
+			.setTitle("Command usage for " + DateUtils.getDurationString(txt.bot.getBirth()));
 		for (Module m : registry.modules) {
 			String field = Arrays.asList(m.getCommands()).stream()
 				.filter(c -> !c.getInfo().name.equals("") && !c.getInfo().description.equals("Look up a color code."))

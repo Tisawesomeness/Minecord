@@ -58,7 +58,7 @@ public class InfoCommand extends Command {
 		}
 		eb.addField("Guilds", guilds + "", true);
 		
-		eb.addField("Uptime", DateUtils.getUptime(txt.bot.getBirth()), true);
+		eb.addField("Uptime", DateUtils.getDurationString(txt.bot.getBirth()), true);
 		eb.addField("Ping", sm.getAverageGatewayPing() + "ms", true);
 		if (txt.config.showMemory || elevated) {
 			eb.addField("Memory", getMemoryString(), true);

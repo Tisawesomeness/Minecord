@@ -1,5 +1,7 @@
 package com.tisawesomeness.minecord.util;
 
+import com.google.common.base.Preconditions;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -197,35 +199,49 @@ public class DateUtils {
 	public static String getString(long timestamp) {
 		return new SimpleDateFormat("MM/dd/yy hh:mm:ss a").format(new Date(timestamp));
 	}
-	
-	public static String getUptime(long birth) {
-		long uptimeRaw = System.currentTimeMillis() - birth;
-		uptimeRaw = Math.floorDiv(uptimeRaw, 1000);
-		String uptime = "";
-		
-		if (uptimeRaw >= 86400) {
-			long days = Math.floorDiv(uptimeRaw, 86400);
-			uptime = days + "d";
-			uptimeRaw = uptimeRaw - days * 86400;
+
+	/**
+	 * Gets the number of days, hours, minutes, and seconds since a specific timestamp.
+	 * @param startTime The start timestamp in miliseconds. Must be less than {@link System#currentTimeMillis()}.
+	 * @return A string in the format "?d?h?m?s".
+	 */
+	public static String getDurationString(long startTime) {
+		return getDurationString(startTime, System.currentTimeMillis());
+	}
+	/**
+	 * Gets the number of days, hours, minutes, and seconds since a specific timestamp.
+	 * @param startTime The start timestamp in miliseconds.
+	 * @param endTime The end timestamp in miliseconds. Must be greater than {@code startTime}.
+	 * @return A string in the format "?d?h?m?s".
+	 */
+	public static String getDurationString(long startTime, long endTime) {
+		Preconditions.checkArgument(startTime < endTime);
+		long duration = (endTime - startTime) / 1000;
+		if (duration == 0) {
+			return "0s";
 		}
-		if (uptimeRaw >= 3600) {
-			long hours = Math.floorDiv(uptimeRaw, 3600);
-			uptime = uptime + hours + "h";
-			uptimeRaw = uptimeRaw - hours * 3600;
+		String durationString = "";
+
+		if (duration >= 86400) {
+			long days = duration / 86400;
+			duration -= days * 86400;
+			durationString += days + "d";
 		}
-		if (uptimeRaw >= 60) {
-			long minutes = Math.floorDiv(uptimeRaw, 60);
-			uptime = uptime + minutes + "m";
-			uptimeRaw = uptimeRaw - minutes * 60;
+		if (duration >= 3600) {
+			long hours = duration / 3600;
+			duration -= hours * 3600;
+			durationString += hours + "h";
 		}
-		if (uptimeRaw > 0) {
-			uptime = uptime + uptimeRaw + "s";
+		// Does not account for leap second, precision not needed
+		if (duration >= 60) {
+			long minutes = duration / 60;
+			duration -= minutes * 60;
+			durationString += minutes + "m";
 		}
-		if ("".equals(uptime)) {
-			uptime = "0s";
+		if (duration > 0) {
+			durationString += duration + "s";
 		}
-		
-		return uptime;
+		return durationString;
 	}
 
 	/**
