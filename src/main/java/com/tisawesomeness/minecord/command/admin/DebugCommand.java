@@ -12,6 +12,7 @@ import com.tisawesomeness.minecord.debug.UserCacheDebugOption;
 
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.sharding.ShardManager;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import java.util.Arrays;
 import java.util.List;
@@ -49,20 +50,32 @@ public class DebugCommand extends Command {
 
         if (txt.args.length == 0) {
             String possibleOptions = debugOptions.stream()
-                    .map(d -> String.format("`%s`", d.getName()))
+                    .map(d -> MarkdownUtil.monospace(d.getName()))
                     .collect(Collectors.joining(", "));
             return new Result(Outcome.SUCCESS, "Possible options: " + possibleOptions);
+        }
+
+        if (txt.args[0].equalsIgnoreCase("all")) {
+            for (DebugOption d : debugOptions) {
+                String debugInfo = d.debug();
+                printToConsole(debugInfo, txt.e.getAuthor());
+                txt.e.getChannel().sendMessage(debugInfo).queue();
+            }
+            return new Result(Outcome.SUCCESS);
         }
 
         for (DebugOption d : debugOptions) {
             if (d.getName().equalsIgnoreCase(txt.args[0])) {
                 String debugInfo = d.debug();
-                User author = txt.e.getAuthor();
-                String requestedBy = String.format("Requested By %s (%s)\n", author.getAsTag(), author.getId());
-                System.out.println("\n" + requestedBy + debugInfo + "\n"); // Useful to have in console
+                printToConsole(debugInfo, txt.e.getAuthor());
                 return new Result(Outcome.SUCCESS, debugInfo);
             }
         }
         return new Result(Outcome.WARNING, ":warning: Not a valid debug option.");
+    }
+
+    private static void printToConsole(String debugInfo, User author) {
+        String requestedBy = String.format("Requested By %s (%s)\n", author.getAsTag(), author.getId());
+        System.out.println("\n" + requestedBy + debugInfo + "\n");
     }
 }
