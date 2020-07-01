@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.command.admin;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.debug.ChannelCacheDebugOption;
 import com.tisawesomeness.minecord.debug.DebugOption;
 import com.tisawesomeness.minecord.debug.GuildCacheDebugOption;
 import com.tisawesomeness.minecord.debug.JDADebugOption;
@@ -36,6 +37,7 @@ public class DebugCommand extends Command {
                 new JDADebugOption(sm),
                 new ThreadDebugOption(),
                 new GuildCacheDebugOption(db),
+                new ChannelCacheDebugOption(db),
                 new UserCacheDebugOption(db)
         );
     }

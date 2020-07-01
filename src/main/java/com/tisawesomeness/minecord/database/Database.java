@@ -28,6 +28,7 @@ public class Database {
 	private static final int VERSION = 1;
 	private final DataSource source;
 	private final LoadingCache<Long, Optional<DbGuild>> guilds;
+	private final LoadingCache<Long, Optional<DbChannel>> channels;
 	private final LoadingCache<Long, Optional<DbUser>> users;
 
 	private Connection getConnect() throws SQLException {
@@ -54,6 +55,12 @@ public class Database {
 			@Override
 			public Optional<DbGuild> load(@NonNull Long key) throws SQLException {
 				return loadGuild(key);
+			}
+		});
+		channels = builder.build(new CacheLoader<Long, Optional<DbChannel>>() {
+			@Override
+			public Optional<DbChannel> load(@NonNull Long key) throws SQLException {
+				return loadChannel(key);
 			}
 		});
 		users = builder.build(new CacheLoader<Long, Optional<DbUser>>() {
@@ -104,6 +111,9 @@ public class Database {
 	public CacheStats getGuildStats() {
 		return guilds.stats();
 	}
+	public CacheStats getChannelStats() {
+		return channels.stats();
+	}
 	public CacheStats getUserStats() {
 		return users.stats();
 	}
@@ -117,6 +127,16 @@ public class Database {
 		@Cleanup ResultSet rs = st.executeQuery();
 		// The first next() call returns true if results exist
 		return rs.next() ? Optional.of(DbGuild.from(rs)) : Optional.empty();
+	}
+	private Optional<DbChannel> loadChannel(@NonNull Long key) throws SQLException {
+		@Cleanup Connection connect = getConnect();
+		@Cleanup PreparedStatement st = connect.prepareStatement(
+				"SELECT * FROM channel WHERE id = ?;"
+		);
+		st.setLong(1, key);
+		@Cleanup ResultSet rs = st.executeQuery();
+		// The first next() call returns true if results exist
+		return rs.next() ? Optional.of(DbChannel.from(rs)) : Optional.empty();
 	}
 	private Optional<DbUser> loadUser(@NonNull Long key) throws SQLException {
 		@Cleanup Connection connect = getConnect();
