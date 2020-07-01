@@ -10,7 +10,6 @@ CREATE TABLE IF NOT EXISTS guild (
     lang TEXT(5),
     banned TINYINT(1) NOT NULL DEFAULT 0,
     noCooldown TINYINT(1) NOT NULL DEFAULT 0,
-    deleteCommands TINYINT(1),
     noMenu TINYINT(1)
 );
 CREATE TABLE IF NOT EXISTS user (

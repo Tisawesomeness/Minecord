@@ -210,20 +210,6 @@ public class Database {
 		st.executeUpdate();
 		guilds.invalidate(id);
 	}
-	public void changeDeleteCommands(long id, boolean deleteCommands) throws SQLException {
-		@Cleanup Connection connect = getConnect();
-		@Cleanup PreparedStatement st = connect.prepareStatement(
-				"INSERT INTO guild (id, deleteCommands)" +
-						"  VALUES(?, ?)" +
-						"  ON CONFLICT (id) DO" +
-						"  UPDATE SET deleteCommands = ?;"
-		);
-		st.setLong(1, id);
-		st.setBoolean(2, deleteCommands);
-		st.setBoolean(3, deleteCommands);
-		st.executeUpdate();
-		guilds.invalidate(id);
-	}
 	public void changeUseMenu(long id, boolean useMenu) throws SQLException {
 		@Cleanup Connection connect = getConnect();
 		@Cleanup PreparedStatement st = connect.prepareStatement(

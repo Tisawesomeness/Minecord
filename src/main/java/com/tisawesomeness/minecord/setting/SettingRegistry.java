@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.setting;
 
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.setting.impl.DeleteCommandsSetting;
 import com.tisawesomeness.minecord.setting.impl.PrefixSetting;
 import com.tisawesomeness.minecord.setting.impl.UseMenusSetting;
 
@@ -17,7 +16,6 @@ import java.util.stream.Collectors;
 
 public class SettingRegistry implements Iterable<Setting<?>> {
     public final @NonNull PrefixSetting prefix;
-    public final @NonNull DeleteCommandsSetting deleteCommands;
     public final @NonNull UseMenusSetting useMenus;
     private final List<Setting<?>> settingsList;
     public final List<ChannelSetting<?>> channelSettings;
@@ -31,9 +29,8 @@ public class SettingRegistry implements Iterable<Setting<?>> {
      */
     public SettingRegistry(@NonNull Config config, @NonNull Database db) {
         prefix = new PrefixSetting(config, db);
-        deleteCommands = new DeleteCommandsSetting(config, db);
         useMenus = new UseMenusSetting(config, db);
-        settingsList = Arrays.asList(prefix, deleteCommands, useMenus);
+        settingsList = Arrays.asList(prefix, useMenus);
 
         channelSettings = Collections.unmodifiableList(settingsList.stream()
                 .filter(s -> s instanceof ChannelSetting<?>)

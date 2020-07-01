@@ -15,7 +15,6 @@ public class DbGuild {
 	public Optional<String> lang;
 	public boolean banned;
 	public boolean noCooldown;
-	public Optional<Boolean> deleteCommands;
 	public Optional<Boolean> noMenu;
 
 	/**
@@ -31,7 +30,6 @@ public class DbGuild {
 				getOptionalString(rs, "lang"),
 				rs.getBoolean("banned"),
 				rs.getBoolean("noCooldown"),
-				getOptionalBoolean(rs, "deleteCommands"),
 				getOptionalBoolean(rs, "noMenu")
 		);
 	}

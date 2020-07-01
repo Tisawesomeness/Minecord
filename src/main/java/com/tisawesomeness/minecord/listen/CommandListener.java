@@ -45,7 +45,6 @@ public class CommandListener extends ListenerAdapter {
 
 		// Get the settings needed before command execution
 		String prefix = bot.getSettings().prefix.getEffective(e);
-		boolean deleteCommands = bot.getSettings().deleteCommands.getEffective(e);
 		boolean canEmbed = true;
 
 		if (e.isFromType(ChannelType.TEXT)) {
@@ -107,11 +106,6 @@ public class CommandListener extends ListenerAdapter {
 		Command cmd = registry.getCommand(name);
 		if (cmd == null) return;
 		CommandInfo ci = cmd.getInfo();
-		
-		// Delete message if enabled in the config and the bot has permissions
-		if (deleteCommands) {
-			m.delete().queue();
-		}
 		
 		MessageChannel c = e.getChannel();
 

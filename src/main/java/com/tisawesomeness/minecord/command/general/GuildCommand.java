@@ -103,9 +103,8 @@ public class GuildCommand extends Command {
 
     private static String getSettingsStr(long gid, CommandContext txt) {
         SettingRegistry settings = txt.bot.getSettings();
-        return String.format("prefix: `%s`%ndeleteCommands: `%s`%nuseMenus: `%s`",
+        return String.format("prefix: `%s`%nuseMenus: `%s`",
                 displaySetting(gid, settings.prefix),
-                displaySetting(gid, settings.deleteCommands),
                 displaySetting(gid, settings.useMenus));
     }
     private static String displaySetting(long gid, ServerSetting<?> setting) {

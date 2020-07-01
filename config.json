@@ -9,7 +9,6 @@
         "game": "@Minecord help | {guilds} guilds",
         "debugMode": false,
         "respondToMentions": true,
-        "deleteCommands": false,
         "useMenus": true,
         "sendTyping": false,
         "showMemory": false,

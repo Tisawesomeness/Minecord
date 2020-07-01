@@ -3,7 +3,6 @@ package com.tisawesomeness.minecord.command;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.setting.SettingRegistry;
-import com.tisawesomeness.minecord.setting.impl.DeleteCommandsSetting;
 import com.tisawesomeness.minecord.setting.impl.UseMenusSetting;
 
 import lombok.NonNull;
@@ -50,12 +49,7 @@ public class CommandContext {
     public CommandContext(@NonNull String[] args, @NonNull MessageReceivedEvent e, @NonNull Bot bot,
                           @NonNull Config config, boolean isElevated, @NonNull String prefix,
                           @NonNull SettingRegistry settings) {
-        this(args, e, config, bot, isElevated, prefix, settings.deleteCommands, settings.useMenus);
-    }
-
-    private final @NonNull DeleteCommandsSetting deleteCommandsSetting;
-    public boolean shouldDeleteCommands() {
-        return deleteCommandsSetting.getEffective(this);
+        this(args, e, config, bot, isElevated, prefix, settings.useMenus);
     }
 
     private final @NonNull UseMenusSetting useMenusSetting;

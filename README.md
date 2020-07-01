@@ -77,7 +77,6 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Dev Mode:* Turning this on will let you reload code using `&reload` on the fly. When hosting the bot, it's best to keep this off in order to decrease memory usage.
 - *Debug Mode:* Prints additional info to console.
 - *Respond To Mentions:* This option decides if the bot will respond to being mentioned at the beginning of a message, so you can use `@Minecord#1216 help` to execute `&help`.
-- *Delete Commands:* If true, the commands sent by players (like `&help`) will be deleted to clean up chat. Requires permission to manage messages.
 - *Use Menus:* If true, the bot will use a reaction menu for `&recipe` and `&ingredient` if possible.
 - *Send Typing:* If true, the bot will send typing packets.
 - *Show Memory:* Whether or not to show the memory in `&info`.

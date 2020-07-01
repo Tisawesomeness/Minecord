@@ -17,7 +17,6 @@ public class Config {
 	public final String owner;
 
 	public final String prefixDefault;
-	public final boolean deleteCommandsDefault;
 	public final boolean useMenusDefault;
 
 	public final String logChannel;
@@ -62,7 +61,6 @@ public class Config {
 
 		JSONObject settings = config.getJSONObject("settings");
 		prefixDefault = settings.getString("prefix");
-		deleteCommandsDefault = settings.getBoolean("deleteCommands");
 		useMenusDefault = settings.getBoolean("useMenus");
 
 		logChannel = settings.getString("logChannel");
