@@ -1,17 +1,23 @@
 package com.tisawesomeness.minecord.database;
 
+import com.tisawesomeness.minecord.util.ResultSetUtils;
+
 import lombok.NonNull;
 import lombok.Value;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 @Value
 public class DbUser {
-	
-	public long id;
-	public boolean elevated;
-	public boolean banned;
+
+	long id;
+	boolean banned;
+	boolean elevated;
+
+	Optional<String> prefix;
+	Optional<String> lang;
 
 	/**
 	 * Constructs a new database guild object from a SQL SELECT query
@@ -22,8 +28,10 @@ public class DbUser {
 	public static DbUser from(@NonNull ResultSet rs) throws SQLException {
 		return new DbUser(
 				rs.getLong("id"),
+				rs.getBoolean("banned"),
 				rs.getBoolean("elevated"),
-				rs.getBoolean("banned")
+				ResultSetUtils.getOptionalString(rs, "prefix"),
+				ResultSetUtils.getOptionalString(rs, "lang")
 		);
 	}
 

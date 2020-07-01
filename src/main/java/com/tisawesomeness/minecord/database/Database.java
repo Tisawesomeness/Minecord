@@ -130,11 +130,11 @@ public class Database {
 	}
 
 	public boolean isElevated(long id) {
-		return getUser(id).map(u -> u.elevated).orElse(false);
+		return getUser(id).map(DbUser::isElevated).orElse(false);
 	}
 	public boolean isBanned(long id) {
-		return getUser(id).map(u -> u.banned).orElse(
-				getGuild(id).map(g -> g.banned).orElse(false)
+		return getUser(id).map(DbUser::isBanned).orElse(
+				getGuild(id).map(DbGuild::isBanned).orElse(false)
 		);
 	}
 

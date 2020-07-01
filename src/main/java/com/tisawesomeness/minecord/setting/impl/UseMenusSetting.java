@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.setting.impl;
 
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.database.DbGuild;
 import com.tisawesomeness.minecord.setting.ResolveResult;
 import com.tisawesomeness.minecord.setting.ServerSetting;
 import com.tisawesomeness.minecord.util.BooleanUtils;
@@ -35,7 +36,7 @@ public class UseMenusSetting extends ServerSetting<Boolean> {
         return Optional.empty();
     }
     public Optional<Boolean> getGuild(long id) {
-        return db.getGuild(id).flatMap(g -> g.noMenu).map(b -> !b);
+        return db.getGuild(id).flatMap(DbGuild::getUseMenu);
     }
     public @NonNull Boolean getDefault() {
         return config.useMenusDefault;

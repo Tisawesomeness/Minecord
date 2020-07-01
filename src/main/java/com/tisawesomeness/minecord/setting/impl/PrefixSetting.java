@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.setting.impl;
 
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.database.DbGuild;
 import com.tisawesomeness.minecord.setting.ResolveResult;
 import com.tisawesomeness.minecord.setting.ServerSetting;
 
@@ -39,7 +40,7 @@ public class PrefixSetting extends ServerSetting<String> {
 //        return Optional.empty();
 //    }
     public Optional<String> getGuild(long id) {
-        return db.getGuild(id).flatMap(g -> g.prefix);
+        return db.getGuild(id).flatMap(DbGuild::getPrefix);
     }
     public @NonNull String getDefault() {
         return config.prefixDefault;

@@ -1,5 +1,7 @@
 package com.tisawesomeness.minecord.database;
 
+import com.tisawesomeness.minecord.util.ResultSetUtils;
+
 import lombok.NonNull;
 import lombok.Value;
 
@@ -10,12 +12,12 @@ import java.util.Optional;
 @Value
 public class DbGuild {
 
-	public long id;
-	public Optional<String> prefix;
-	public Optional<String> lang;
-	public boolean banned;
-	public boolean noCooldown;
-	public Optional<Boolean> noMenu;
+	long id;
+	boolean banned;
+
+	Optional<String> prefix;
+	Optional<String> lang;
+	Optional<Boolean> useMenu;
 
 	/**
 	 * Constructs a new database guild object from a SQL SELECT query
@@ -26,20 +28,11 @@ public class DbGuild {
 	public static DbGuild from(@NonNull ResultSet rs) throws SQLException {
 		return new DbGuild(
 				rs.getLong("id"),
-				getOptionalString(rs, "prefix"),
-				getOptionalString(rs, "lang"),
 				rs.getBoolean("banned"),
-				rs.getBoolean("noCooldown"),
-				getOptionalBoolean(rs, "noMenu")
+				ResultSetUtils.getOptionalString(rs, "prefix"),
+				ResultSetUtils.getOptionalString(rs, "lang"),
+				ResultSetUtils.getOptionalBoolean(rs, "use_menu")
 		);
-	}
-
-	private static Optional<String> getOptionalString(@NonNull ResultSet rs, @NonNull String columnLabel) throws SQLException {
-		return Optional.ofNullable(rs.getString(columnLabel));
-	}
-	private static Optional<Boolean> getOptionalBoolean(@NonNull ResultSet rs, @NonNull String columnLabel) throws SQLException {
-		boolean b = rs.getBoolean(columnLabel);
-		return rs.wasNull() ? Optional.empty() : Optional.of(b);
 	}
 
 }
