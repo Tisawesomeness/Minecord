@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.setting;
 
 import lombok.NonNull;
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import javax.annotation.Nullable;
@@ -16,14 +15,6 @@ public abstract class ServerSetting<T> extends ChannelSetting<T> {
      */
     public abstract Optional<T> getGuild(long id);
     /**
-     * Gets the value of this setting for the guild.
-     * @param g The Discord guild.
-     * @return The value of the setting, or null if unset.
-     */
-    public Optional<T> get(@NonNull Guild g) {
-        return getGuild(g.getIdLong());
-    }
-    /**
      * <p>Gets the value of this setting used in the current context.</p>
      * This will get the current channel if it is set, otherwise the current guild is used. Unset for DMs.
      * @param e The event that triggered the executing command.
@@ -32,11 +23,11 @@ public abstract class ServerSetting<T> extends ChannelSetting<T> {
     @Override
     public Optional<T> get(@NonNull MessageReceivedEvent e) {
         if (e.isFromGuild()) {
-            Optional<T> setting = get(e.getTextChannel());
+            Optional<T> setting = getChannel(e.getTextChannel().getIdLong());
             if (setting.isPresent()) {
                 return setting;
             }
-            return get(e.getGuild());
+            return getGuild(e.getGuild().getIdLong());
         }
         return Optional.empty();
     }
@@ -48,14 +39,6 @@ public abstract class ServerSetting<T> extends ChannelSetting<T> {
      */
     public @NonNull T getEffectiveGuild(long id) {
         return getGuild(id).orElse(getDefault());
-    }
-    /**
-     * Gets the effective value of this setting for the user.
-     * @param g The Discord guild.
-     * @return The value of the setting, or the default if unset.
-     */
-    public @NonNull T getEffective(@NonNull Guild g) {
-        return getEffectiveGuild(g.getIdLong());
     }
 
     /**
@@ -98,15 +81,6 @@ public abstract class ServerSetting<T> extends ChannelSetting<T> {
         return setGuildInternal(id, from, toResult).getMsg(getDisplayName(),
                 from.orElse(getDefault()).toString(), toResult.value.orElse(getDefault()).toString());
     }
-    /**
-     * Changes this setting for the guild.
-     * @param g The Discord guild.
-     * @param input The user-provided input to change the setting to. Resets if {@code null}.
-     * @return The string describing the result of the set operation.
-     */
-    public @NonNull String set(@NonNull Guild g, @Nullable String input) {
-        return setGuild(g.getIdLong(), input);
-    }
 
     /**
      * <p>Resets the setting for the guild, leaving it unset. {@link #getGuild(long id)} will return {@link #getDefault()}.</p>
@@ -132,14 +106,6 @@ public abstract class ServerSetting<T> extends ChannelSetting<T> {
         Optional<T> from = getGuild(id);
         return resetGuildInternal(id, from).getMsg(getDisplayName(),
                 from.orElse(getDefault()).toString(), "");
-    }
-    /**
-     * Resets this setting for the guild. This "unsets" the setting and does NOT change it to the default.
-     * @param g The Discord guild.
-     * @return The string describing the result of the set operation.
-     */
-    public @NonNull String reset(@NonNull Guild g) {
-        return resetGuild(g.getIdLong());
     }
 
 }

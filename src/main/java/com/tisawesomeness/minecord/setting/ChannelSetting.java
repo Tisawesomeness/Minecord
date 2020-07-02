@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.setting;
 
 import lombok.NonNull;
-import net.dv8tion.jda.api.entities.GuildChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import javax.annotation.Nullable;
@@ -16,21 +15,13 @@ public abstract class ChannelSetting<T> extends Setting<T> {
      */
     public abstract Optional<T> getChannel(long id);
     /**
-     * Gets the value of this setting for the text channel.
-     * @param c The Discord text channel.
-     * @return The value of the setting, or null if unset.
-     */
-    public Optional<T> get(@NonNull GuildChannel c) {
-        return getChannel(c.getIdLong());
-    }
-    /**
      * <p>Gets the value of this setting used in the current context.</p>
      * This will get the setting for the current channel, or unset for DMs.
      * @param e The event that triggered the executing command.
      * @return The value of the setting, or null if unset.
      */
     public Optional<T> get(@NonNull MessageReceivedEvent e) {
-        return e.isFromGuild() ? get(e.getTextChannel()) : Optional.empty();
+        return e.isFromGuild() ? getChannel(e.getTextChannel().getIdLong()) : Optional.empty();
     }
 
     /**
@@ -40,14 +31,6 @@ public abstract class ChannelSetting<T> extends Setting<T> {
      */
     public @NonNull T getEffectiveChannel(long id) {
         return getChannel(id).orElse(getDefault());
-    }
-    /**
-     * Gets the effective value of this setting for the user.
-     * @param c The Discord text channel.
-     * @return The value of the setting, or the default if unset.
-     */
-    public @NonNull T getEffective(@NonNull GuildChannel c) {
-        return getEffectiveChannel(c.getIdLong());
     }
 
     /**
@@ -90,15 +73,6 @@ public abstract class ChannelSetting<T> extends Setting<T> {
         return setChannelInternal(id, from, toResult).getMsg(getDisplayName(),
                 from.orElse(getDefault()).toString(), toResult.value.orElse(getDefault()).toString());
     }
-    /**
-     * Changes this setting for the text channel.
-     * @param c The Discord text channel.
-     * @param input The user-provided input to change the setting to. Resets if {@code null}.
-     * @return The string describing the result of the set operation.
-     */
-    public @NonNull String set(@NonNull GuildChannel c, @Nullable String input) {
-        return setChannel(c.getIdLong(), input);
-    }
 
     /**
      * <p>Resets the setting for the text channel, leaving it unset. {@link #getChannel(long id)} will return {@link #getDefault()}.</p>
@@ -124,14 +98,6 @@ public abstract class ChannelSetting<T> extends Setting<T> {
         Optional<T> from = getChannel(id);
         return resetChannelInternal(id, from).getMsg(getDisplayName(),
                 from.orElse(getDefault()).toString(), "");
-    }
-    /**
-     * Resets this setting for the text channel. This "unsets" the setting and does NOT change it to the default.
-     * @param c The Discord text channel.
-     * @return The string describing the result of the set operation.
-     */
-    public @NonNull String reset(@NonNull GuildChannel c) {
-        return resetChannel(c.getIdLong());
     }
 
 }

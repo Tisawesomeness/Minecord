@@ -18,14 +18,6 @@ public abstract class GlobalSetting<T> extends ServerSetting<T> {
      */
     public abstract Optional<T> getUser(long id);
     /**
-     * Gets the value of this setting for the user.
-     * @param u The Discord user.
-     * @return The value of the setting, or null if unset.
-     */
-    public Optional<T> get(@NonNull User u) {
-        return getUser(u.getIdLong());
-    }
-    /**
      * <p>Gets the value of this setting used in the current context.</p>
      * This will get the user setting if used in a DM, otherwise it acts like {@link ServerSetting#get(CommandContext txt)}
      * @param e The event that triggered the executing command.
@@ -33,7 +25,7 @@ public abstract class GlobalSetting<T> extends ServerSetting<T> {
      */
     @Override
     public Optional<T> get(@NonNull MessageReceivedEvent e) {
-        return e.isFromGuild() ? super.get(e) : get(e.getAuthor());
+        return e.isFromGuild() ? super.get(e) : getUser(e.getAuthor().getIdLong());
     }
 
     /**
@@ -93,15 +85,6 @@ public abstract class GlobalSetting<T> extends ServerSetting<T> {
         return setUserInternal(id, from, toResult).getMsg(getDisplayName(),
                 from.orElse(getDefault()).toString(), toResult.value.orElse(getDefault()).toString());
     }
-    /**
-     * Changes this setting for the user.
-     * @param u The Discord user.
-     * @param input The user-provided input to change the setting to. Resets if {@code null}.
-     * @return The string describing the result of the set operation.
-     */
-    public @NonNull String set(@NonNull User u, @Nullable String input) {
-        return setUser(u.getIdLong(), input);
-    }
 
     /**
      * <p>Resets the setting for the user, leaving it unset. {@link #getUser(long id)} will return {@link #getDefault()}.</p>
@@ -127,14 +110,6 @@ public abstract class GlobalSetting<T> extends ServerSetting<T> {
         Optional<T> from = getUser(id);
         return resetUserInternal(id, from).getMsg(getDisplayName(),
                 from.orElse(getDefault()).toString(), "");
-    }
-    /**
-     * Resets this setting for the user. This "unsets" the setting and does NOT change it to the default.
-     * @param u The Discord user.
-     * @return The string describing the result of the set operation.
-     */
-    public @NonNull String reset(@NonNull User u) {
-        return resetUser(u.getIdLong());
     }
 
 }

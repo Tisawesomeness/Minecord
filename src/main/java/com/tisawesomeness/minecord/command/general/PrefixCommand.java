@@ -64,7 +64,7 @@ public class PrefixCommand extends Command {
 				return new Result(Outcome.SUCCESS, "Nice try.");
 			}
 			// Set new prefix
-			return new Result(Outcome.SUCCESS, prefixSetting.set(e.getGuild(), args[0]));
+			return new Result(Outcome.SUCCESS, prefixSetting.setGuild(e.getGuild().getIdLong(), args[0]));
 			
 		}
 	}
