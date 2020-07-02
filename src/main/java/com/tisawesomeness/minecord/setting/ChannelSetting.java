@@ -57,16 +57,21 @@ public abstract class ChannelSetting<T> extends Setting<T> {
      * @return Whether the setting could be changed.
      */
     protected abstract boolean changeChannel(long id, @NonNull T setting);
-    private @NonNull SetResult setChannelInternal(long id, String input, Optional<T> from, ResolveResult<T> toResult) {
+    private @NonNull SetResult setChannelInternal(long id, Optional<T> from, ResolveResult<T> toResult) {
         Optional<T> toOpt = toResult.value;
         if (!toOpt.isPresent()) {
             return toResult.toStatus();
         }
         T to = toOpt.get();
-        if (!from.isPresent() && to.equals(getDefault())) {
+
+        if (from.isPresent()) {
+            if (to.equals(getDefault())) {
+                return changeChannel(id, to) ? SetStatus.SET_FROM_TO_DEFAULT : SetStatus.INTERNAL_FAILURE;
+            } else if (to.equals(from.get())) {
+                return SetStatus.SET_NO_CHANGE;
+            }
+        } else if (to.equals(getDefault())) {
             return changeChannel(id, to) ? SetStatus.SET_TO_DEFAULT : SetStatus.INTERNAL_FAILURE;
-        } else if (from.isPresent() && to.equals(from.get())) {
-            return SetStatus.SET_NO_CHANGE;
         }
         return changeChannel(id, to) ? SetStatus.SET : SetStatus.INTERNAL_FAILURE;
     }
@@ -82,7 +87,7 @@ public abstract class ChannelSetting<T> extends Setting<T> {
         }
         Optional<T> from = getChannel(id);
         ResolveResult<T> toResult = resolve(input);
-        return setChannelInternal(id, input, from, toResult).getMsg(getDisplayName(),
+        return setChannelInternal(id, from, toResult).getMsg(getDisplayName(),
                 from.orElse(getDefault()).toString(), toResult.value.orElse(getDefault()).toString());
     }
     /**

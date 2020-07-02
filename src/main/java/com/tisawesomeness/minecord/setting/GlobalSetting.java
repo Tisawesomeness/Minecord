@@ -60,16 +60,21 @@ public abstract class GlobalSetting<T> extends ServerSetting<T> {
      * @return Whether the setting could be changed.
      */
     protected abstract boolean changeUser(long id, @NonNull T setting);
-    private @NonNull SetResult setUserInternal(long id, String input, Optional<T> from, ResolveResult<T> toResult) {
+    private @NonNull SetResult setUserInternal(long id, Optional<T> from, ResolveResult<T> toResult) {
         Optional<T> toOpt = toResult.value;
         if (!toOpt.isPresent()) {
             return toResult.toStatus();
         }
         T to = toOpt.get();
-        if (!from.isPresent() && to.equals(getDefault())) {
+
+        if (from.isPresent()) {
+            if (to.equals(getDefault())) {
+                return changeUser(id, to) ? SetStatus.SET_FROM_TO_DEFAULT : SetStatus.INTERNAL_FAILURE;
+            } else if (to.equals(from.get())) {
+                return SetStatus.SET_NO_CHANGE;
+            }
+        } else if (to.equals(getDefault())) {
             return changeUser(id, to) ? SetStatus.SET_TO_DEFAULT : SetStatus.INTERNAL_FAILURE;
-        } else if (from.isPresent() && to.equals(from.get())) {
-            return SetStatus.SET_NO_CHANGE;
         }
         return changeUser(id, to) ? SetStatus.SET : SetStatus.INTERNAL_FAILURE;
     }
@@ -85,7 +90,7 @@ public abstract class GlobalSetting<T> extends ServerSetting<T> {
         }
         Optional<T> from = getUser(id);
         ResolveResult<T> toResult = resolve(input);
-        return setUserInternal(id, input, from, toResult).getMsg(getDisplayName(),
+        return setUserInternal(id, from, toResult).getMsg(getDisplayName(),
                 from.orElse(getDefault()).toString(), toResult.value.orElse(getDefault()).toString());
     }
     /**

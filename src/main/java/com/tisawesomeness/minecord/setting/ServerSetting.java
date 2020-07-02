@@ -65,16 +65,21 @@ public abstract class ServerSetting<T> extends ChannelSetting<T> {
      * @return Whether the setting could be changed.
      */
     protected abstract boolean changeGuild(long id, @NonNull T setting);
-    private @NonNull SetResult setGuildInternal(long id, String input, Optional<T> from, ResolveResult<T> toResult) {
+    private @NonNull SetResult setGuildInternal(long id, Optional<T> from, ResolveResult<T> toResult) {
         Optional<T> toOpt = toResult.value;
         if (!toOpt.isPresent()) {
             return toResult.toStatus();
         }
         T to = toOpt.get();
-        if (!from.isPresent() && to.equals(getDefault())) {
+
+        if (from.isPresent()) {
+            if (to.equals(getDefault())) {
+                return changeGuild(id, to) ? SetStatus.SET_FROM_TO_DEFAULT : SetStatus.INTERNAL_FAILURE;
+            } else if (to.equals(from.get())) {
+                return SetStatus.SET_NO_CHANGE;
+            }
+        } else if (to.equals(getDefault())) {
             return changeGuild(id, to) ? SetStatus.SET_TO_DEFAULT : SetStatus.INTERNAL_FAILURE;
-        } else if (from.isPresent() && to.equals(from.get())) {
-            return SetStatus.SET_NO_CHANGE;
         }
         return changeGuild(id, to) ? SetStatus.SET : SetStatus.INTERNAL_FAILURE;
     }
@@ -90,7 +95,7 @@ public abstract class ServerSetting<T> extends ChannelSetting<T> {
         }
         Optional<T> from = getGuild(id);
         ResolveResult<T> toResult = resolve(input);
-        return setGuildInternal(id, input, from, toResult).getMsg(getDisplayName(),
+        return setGuildInternal(id, from, toResult).getMsg(getDisplayName(),
                 from.orElse(getDefault()).toString(), toResult.value.orElse(getDefault()).toString());
     }
     /**
