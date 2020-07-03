@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 
 import org.sqlite.SQLiteDataSource;
 
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import com.mysql.cj.jdbc.MysqlDataSource;
 import com.tisawesomeness.minecord.Config;
 
 public class Database {
