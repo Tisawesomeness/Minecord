@@ -33,7 +33,9 @@ public class ShutdownCommand extends Command {
 			Executors.newSingleThreadExecutor().submit(() -> txt.bot.shutdown(0)).get();
 		} catch (ExecutionException ex) {
 			ex.printStackTrace();
-		} catch (InterruptedException ignore) {}
+		} catch (InterruptedException ignore) {
+			return new Result(Outcome.SUCCESS);
+		}
 		throw new AssertionError("Bot failed to shut down.");
 	}
 	
