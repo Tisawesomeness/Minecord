@@ -60,8 +60,12 @@ public class Database {
 		// For now, only creating the database is needed
 		// In the future, every database change increments the version
 		// and this code will run the correct upgrade scripts
-		if (getVersion() != VERSION) {
+		int version = getVersion();
+		if (version == 0) {
 			runScript("init.sql");
+		} else if (version > VERSION) {
+			String err = String.format("The database version is %s but the bot expects %s or lower!", version, VERSION);
+			throw new RuntimeException(err);
 		}
 
 		if (!config.owner.equals("0")) {
