@@ -108,7 +108,7 @@ public class ProfileCommand extends Command {
 				String m = ":x: The API responded with an error:\n" + player;
 				return new Result(Outcome.ERROR, m, 3);
             }
-        }
+		}
 
         // Get profile info
         JSONArray payload = new JSONArray();
@@ -116,8 +116,12 @@ public class ProfileCommand extends Command {
         String request = RequestUtils.post("https://api.mojang.com/profiles/minecraft", payload.toString());
 		if (request == null) {
 			return new Result(Outcome.ERROR, ":x: The Mojang API could not be reached.");
-        }
-        JSONObject profile = new JSONArray(request).getJSONObject(0);
+		}
+		JSONArray profileArr = new JSONArray(request);
+		if (profileArr.length() == 0) {
+			return new Result(Outcome.WARNING, ":warning: That username does not exist.");
+		}
+        JSONObject profile = profileArr.getJSONObject(0);
         String uuid = profile.getString("id");
         boolean legacy = profile.optBoolean("legacy");
         boolean demo = profile.optBoolean("demo");
