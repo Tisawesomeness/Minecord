@@ -52,6 +52,11 @@ public class RoleCommand extends Command {
 
     public Result run(String[] args, MessageReceivedEvent e) throws Exception {
 
+        // Check for argument length
+        if (args.length == 0) {
+            return new Result(Outcome.WARNING, ":warning: You must specify a role!");
+        }
+
         // Find role
         Role role = null;
         List<Role> roles = e.getGuild().getRoles();
