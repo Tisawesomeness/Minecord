@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.database;
 
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.util.RequestUtils;
+import com.tisawesomeness.minecord.util.function.ThrowingFunction;
 
 import com.google.common.base.Splitter;
 import com.google.common.cache.CacheBuilder;
@@ -10,6 +11,7 @@ import com.google.common.cache.CacheStats;
 import com.google.common.cache.LoadingCache;
 import lombok.Cleanup;
 import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 import org.sqlite.SQLiteDataSource;
 import org.sqlite.javax.SQLiteConnectionPoolDataSource;
 
@@ -51,24 +53,9 @@ public class Database {
 		if (config.debugMode) {
 			builder.recordStats();
 		}
-		guilds = builder.build(new CacheLoader<Long, Optional<DbGuild>>() {
-			@Override
-			public Optional<DbGuild> load(@NonNull Long key) throws SQLException {
-				return loadGuild(key);
-			}
-		});
-		channels = builder.build(new CacheLoader<Long, Optional<DbChannel>>() {
-			@Override
-			public Optional<DbChannel> load(@NonNull Long key) throws SQLException {
-				return loadChannel(key);
-			}
-		});
-		users = builder.build(new CacheLoader<Long, Optional<DbUser>>() {
-			@Override
-			public Optional<DbUser> load(@NonNull Long key) throws SQLException {
-				return loadUser(key);
-			}
-		});
+		guilds = build(builder, this::loadGuild);
+		channels = build(builder, this::loadChannel);
+		users = build(builder, this::loadUser);
 
 		// For now, only creating the database is needed
 		// In the future, every database change increments the version
@@ -83,6 +70,24 @@ public class Database {
 
 		System.out.println("Database connected.");
 		
+	}
+
+	/**
+	 * Helper function to build caches without repetitive code.
+	 * @param builder The cache builder to build from, which stays unmodified.
+	 * @param loadFunction A reference to a defined function with {@code T} as the input and {@code U} as the output.
+	 *                     <b>Lambdas do not work as the input type is parameterized.</b>
+	 * @param <T> The type of the cache key.
+	 * @param <R> The type of the cache value.
+	 * @return A Guava cache with the specified loading function.
+	 */
+	private static <T, R> LoadingCache<T, R> build(CacheBuilder<Object, Object> builder, ThrowingFunction<T, R> loadFunction) {
+		return builder.build(new CacheLoader<T, R>() {
+			@Override
+			public R load(@NotNull T key) {
+				return loadFunction.apply(key);
+			}
+		});
 	}
 
 	/**
