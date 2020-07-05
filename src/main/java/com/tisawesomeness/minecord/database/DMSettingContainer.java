@@ -10,9 +10,9 @@ public interface DMSettingContainer {
     boolean isBanned();
 
     Optional<String> getPrefix();
-    SettingContainer withPrefix(Optional<String> prefix);
+    DMSettingContainer withPrefix(Optional<String> prefix);
     Optional<Lang> getLang();
-    SettingContainer withLang(Optional<Lang> lang);
+    DMSettingContainer withLang(Optional<Lang> lang);
 
     void update() throws SQLException;
 }

@@ -2,10 +2,12 @@ package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.database.DbUser;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import net.dv8tion.jda.api.entities.User;
+
+import java.sql.SQLException;
 
 public class DemoteCommand extends Command {
 	
@@ -25,7 +27,7 @@ public class DemoteCommand extends Command {
 		);
 	}
 	
-	public Result run(CommandContext txt) throws Exception {
+	public Result run(CommandContext txt) {
 
 		if (txt.args.length == 0) {
 			return new Result(Outcome.WARNING, ":warning: You must specify a user!");
@@ -37,8 +39,8 @@ public class DemoteCommand extends Command {
 		long id = user.getIdLong();
 
 		//Don't demote a normal user
-		Database db = txt.bot.getDatabase();
-		if (!db.isElevated(id)) {
+		DbUser dbUser = txt.bot.getDatabase().getCache().getUser(id);
+		if (!dbUser.isElevated()) {
 			return new Result(Outcome.WARNING, ":warning: User is not elevated!");
 		}
 		
@@ -48,7 +50,12 @@ public class DemoteCommand extends Command {
 		}
 		
 		//Demote user
-		db.changeElevated(id, false);
+		try {
+			dbUser.withElevated(false).update();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return new Result(Outcome.ERROR, ":x: There was an internal error.");
+		}
 		return new Result(Outcome.SUCCESS, ":arrow_down: Demoted " + user.getAsTag());
 		
 	}

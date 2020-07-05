@@ -2,8 +2,9 @@ package com.tisawesomeness.minecord.command.general;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.setting.ServerSetting;
-import com.tisawesomeness.minecord.setting.SettingRegistry;
+import com.tisawesomeness.minecord.database.DatabaseCache;
+import com.tisawesomeness.minecord.database.DbGuild;
+import com.tisawesomeness.minecord.setting.Setting;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
@@ -12,7 +13,10 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Guild.BoostTier;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
 import net.dv8tion.jda.api.utils.TimeUtil;
+
+import java.util.stream.Collectors;
 
 public class GuildCommand extends Command {
 
@@ -39,6 +43,7 @@ public class GuildCommand extends Command {
     
     public Result run(CommandContext txt) {
         String[] args = txt.args;
+        DatabaseCache cache = txt.bot.getDatabase().getCache();
 
         // If the author used the admin keyword and is an elevated user
         boolean elevated = false;
@@ -51,11 +56,12 @@ public class GuildCommand extends Command {
             g = txt.bot.getShardManager().getGuildById(args[0]);
             if (g == null) {
                 long gid = Long.valueOf(args[0]);
-                if (txt.bot.getDatabase().isBanned(gid)) {
+                DbGuild dbGuild = cache.getGuild(gid);
+                if (cache.getGuild(gid).isBanned()) {
                     return new Result(Outcome.SUCCESS,
-                            "__**GUILD BANNED FROM MINECORD**__\n" + getSettingsStr(gid, txt));
+                            "__**GUILD BANNED FROM MINECORD**__\n" + getSettingsStr(dbGuild, txt));
                 }
-                return new Result(Outcome.SUCCESS, getSettingsStr(gid, txt));
+                return new Result(Outcome.SUCCESS, getSettingsStr(dbGuild, txt));
             }
         } else {
             if (!txt.e.isFromGuild()) {
@@ -64,6 +70,7 @@ public class GuildCommand extends Command {
             g = txt.e.getGuild();
         }
         User owner = g.retrieveOwner().complete().getUser();
+		DbGuild dbGuild = cache.getGuild(g.getIdLong());
 
         // Generate guild info
         int textChannels = g.getTextChannels().size();
@@ -93,22 +100,21 @@ public class GuildCommand extends Command {
             eb.addField("Description", MarkdownSanitizer.escape(g.getDescription()), false);
         }
         if (elevated) {
-            eb.addField("Settings", getSettingsStr(g.getIdLong(), txt), false);
-            if (txt.bot.getDatabase().isBanned(g.getIdLong())) {
+            eb.addField("Settings", getSettingsStr(dbGuild, txt), false);
+            if (dbGuild.isBanned()) {
                 eb.setDescription("__**GUILD BANNED FROM MINECORD**__");
             }
         }
         return new Result(Outcome.SUCCESS, txt.brand(eb).build());
     }
 
-    private static String getSettingsStr(long gid, CommandContext txt) {
-        SettingRegistry settings = txt.bot.getSettings();
-        return String.format("prefix: `%s`%nuseMenus: `%s`",
-                displaySetting(gid, settings.prefix),
-                displaySetting(gid, settings.useMenus));
+    private static String getSettingsStr(DbGuild guild, CommandContext txt) {
+        return txt.bot.getSettings().settingsList.stream()
+                .map(s -> s.getDisplayName() + ": " + displaySetting(guild, s))
+                .collect(Collectors.joining("\n"));
     }
-    private static String displaySetting(long gid, ServerSetting<?> setting) {
-        return setting.getGuild(gid).map(Object::toString).orElse("`unset`");
+    private static String displaySetting(DbGuild guild, Setting<?> setting) {
+        return MarkdownUtil.monospace(setting.get(guild).map(Object::toString).orElse("unset"));
     }
     
 }

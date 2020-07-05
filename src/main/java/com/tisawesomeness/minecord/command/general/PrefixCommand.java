@@ -2,10 +2,14 @@ package com.tisawesomeness.minecord.command.general;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.database.DbGuild;
 import com.tisawesomeness.minecord.setting.impl.PrefixSetting;
+import com.tisawesomeness.minecord.util.type.Validation;
 
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import java.sql.SQLException;
 
 public class PrefixCommand extends Command {
 	
@@ -64,7 +68,17 @@ public class PrefixCommand extends Command {
 				return new Result(Outcome.SUCCESS, "Nice try.");
 			}
 			// Set new prefix
-			return new Result(Outcome.SUCCESS, prefixSetting.setGuild(e.getGuild().getIdLong(), args[0]));
+			DbGuild guild = txt.bot.getDatabase().getCache().getGuild(e.getGuild().getIdLong());
+			try {
+				Validation<String> attempt = txt.bot.getSettings().prefix.tryToSet(guild, args[0]);
+				if (attempt.isValid()) {
+					return new Result(Outcome.SUCCESS, attempt.getValue());
+				}
+				return new Result(Outcome.WARNING, ":warning: " + attempt.getErrorMessage());
+			} catch (SQLException ex) {
+				ex.printStackTrace(); // Not printing exception to the user just to be safe
+				return new Result(Outcome.ERROR, ":x: There was an internal error.");
+			}
 			
 		}
 	}

@@ -9,6 +9,8 @@ import com.tisawesomeness.minecord.command.Command.Result;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.CommandRegistry;
 import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.database.DatabaseCache;
+import com.tisawesomeness.minecord.database.DbUser;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import lombok.NonNull;
@@ -42,16 +44,17 @@ public class CommandListener extends ListenerAdapter {
 			return;
 		}
 		Database db = bot.getDatabase();
+		DatabaseCache cache = db.getCache();
 
 		// Get the settings needed before command execution
-		String prefix = bot.getSettings().prefix.getEffective(e);
+		String prefix = bot.getSettings().prefix.getEffective(e, cache);
 		boolean canEmbed = true;
 
 		if (e.isFromType(ChannelType.TEXT)) {
 			Member sm = e.getGuild().getSelfMember();
 			// No permissions or guild banned? Don't send message
 			if (!sm.hasPermission(e.getTextChannel(), Permission.MESSAGE_WRITE) ||
-					db.isBanned(e.getGuild().getIdLong())) {
+					cache.getGuild(e.getGuild().getIdLong()).isBanned()) {
 				return;
 			}
 			TextChannel tc = e.getTextChannel();
@@ -62,7 +65,8 @@ public class CommandListener extends ListenerAdapter {
 		
 		// Check if message can be acted upon
 		User a = m.getAuthor();
-		if (a.isBot() || db.isBanned(a.getIdLong())) {
+		DbUser dbUser = cache.getUser(a.getIdLong());
+		if (a.isBot() || dbUser.isBanned()) {
 			return;
 		}
 		
@@ -110,7 +114,7 @@ public class CommandListener extends ListenerAdapter {
 		MessageChannel c = e.getChannel();
 
 		// Check for elevation
-		boolean isElevated = db.isElevated(a.getIdLong());
+		boolean isElevated = dbUser.isElevated();
 		if (ci.elevated && !isElevated) {
 			c.sendMessage(":warning: Insufficient permissions!").queue();
 			return;

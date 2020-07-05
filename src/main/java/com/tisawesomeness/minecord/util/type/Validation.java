@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.function.Function;
 
 // Inspiration from Vavr's Either and Validation types
 @RequiredArgsConstructor
@@ -21,6 +22,10 @@ public final class Validation<T> {
         return new Validation<>(Optional.empty(), Optional.of(errorMessage));
     }
 
+    public static <T> Validation<T> propogateError(Validation<?> other) {
+        return Validation.invalid(other.getErrorMessage());
+    }
+
     public boolean isValid() {
         return value.isPresent();
     }
@@ -31,14 +36,24 @@ public final class Validation<T> {
         return errorMessage.orElseThrow(() -> new NoSuchElementException("No validation error message present"));
     }
 
+    public <U> Validation<U> map(Function<T, U> mapper) {
+        if (isValid()) {
+            return Validation.valid(mapper.apply(getValue()));
+        }
+        return propogateError(this);
+    }
+    public Validation<T> mapError(Function<String, String> mapper) {
+        if (!isValid()) {
+            return Validation.invalid(mapper.apply(getErrorMessage()));
+        }
+        return this;
+    }
+
     @Override
     public String toString() {
         if (isValid()) {
-            return value.map(o -> String.format("Valid{%s}", o)).orElseThrow(this::assertionError);
+            return map(o -> String.format("Valid{%s}", o)).getValue();
         }
-        return errorMessage.map(s -> String.format("Invalid{%s}", s)).orElseThrow(this::assertionError);
-    }
-    private AssertionError assertionError() {
-        return new AssertionError("Both value and error cannot be empty");
+        return mapError(s -> String.format("Invalid{%s}", s)).getErrorMessage();
     }
 }

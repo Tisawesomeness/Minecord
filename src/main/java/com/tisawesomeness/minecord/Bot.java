@@ -155,7 +155,7 @@ public class Bot {
 		// These depend on database
 		CommandRegistry registry = new CommandRegistry(shardManager, database);
 		EventListener commandListener = new CommandListener(this, config, registry);
-		settings = new SettingRegistry(config, database);
+		settings = new SettingRegistry(config);
 
 		// Bot has started, start accepting messages
 		shardManager.addEventListener(commandListener, reactListener, guildCountListener);

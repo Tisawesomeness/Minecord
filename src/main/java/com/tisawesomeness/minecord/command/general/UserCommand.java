@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.command.general;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.database.DbUser;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
@@ -71,20 +72,22 @@ public class UserCommand extends Command {
             }
             User u = sm.retrieveUserById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
             if (u == null) {
-                long gid = Long.valueOf(args[0]);
-                String elevatedStr = String.format("Elevated: `%s`", db.isElevated(gid));
-                if (db.isBanned(gid)) {
+                long uid = Long.valueOf(args[0]);
+                DbUser dbUser = db.getCache().getUser(uid);
+                String elevatedStr = String.format("Elevated: `%s`", dbUser.isElevated());
+                if (dbUser.isBanned()) {
                     return new Result(Outcome.SUCCESS, "__**USER BANNED FROM MINECORD**__\n" + elevatedStr);
                 }
                 return new Result(Outcome.SUCCESS, elevatedStr);
             }
 
+            DbUser dbUser = db.getCache().getUser(u.getIdLong());
             EmbedBuilder eb = new EmbedBuilder()
                 .setTitle(MarkdownSanitizer.escape(u.getAsTag()))
                 .addField("ID", u.getId(), true)
                 .addField("Bot?", u.isBot() ? "Yes" : "No", true)
-                .addField("Elevated?", db.isElevated(u.getIdLong()) ? "Yes" : "No", true);
-            if (db.isBanned(u.getIdLong())) {
+                .addField("Elevated?", dbUser.isElevated() ? "Yes" : "No", true);
+            if (dbUser.isBanned()) {
                 eb.setDescription("__**USER BANNED FROM MINECORD**__");
             }
             // Since user caching is disabled, retrieveMember() is required
