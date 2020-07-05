@@ -4,18 +4,22 @@ import lombok.Getter;
 import lombok.NonNull;
 
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
  * An enum of all the registered bot languages.
  */
 public enum Lang {
-    EN_US(new Locale("en", "US")),
-    DE_DE(new Locale("de", "DE")),
-    PT_BR(new Locale("pt", "BR"));
+    EN_US("en_US", new Locale("en", "US")),
+    DE_DE("de_DE", new Locale("de", "DE")),
+    PT_BR("pt_BR", new Locale("pt", "BR"));
 
     private final ResourceBundle resource;
+
+    @Getter private final @NonNull String code;
     @Getter private final @NonNull Locale locale;
+
     /**
      * An estimate of how complete the language is.
      */
@@ -41,8 +45,10 @@ public enum Lang {
      */
     @Getter private final boolean inDevelopment;
 
-    Lang(@NonNull Locale locale) {
+    Lang(@NonNull String code, @NonNull Locale locale) {
+        this.code = code;
         this.locale = locale;
+
         resource = ResourceBundle.getBundle("lang", locale);
         percentComplete = Integer.parseInt(resource.getString("lang.percentComplete"));
         if (percentComplete < 0 || percentComplete > 100) {
@@ -64,6 +70,21 @@ public enum Lang {
      */
     public static Lang getDefault() {
         return EN_US;
+    }
+
+    /**
+     * Gets the lang associated with a language code
+     * @param code The case-insensitive language code, formatted like {@code aa_BB} where
+     *             {@code aa} is the language and {@code bb} is the country
+     * @return The lang if found, otherwise empty
+     */
+    public static Optional<Lang> from(String code) {
+        for (Lang lang : Lang.values()) {
+            if (lang.getCode().equalsIgnoreCase(code)) {
+                return Optional.of(lang);
+            }
+        }
+        return Optional.empty();
     }
 
     /**

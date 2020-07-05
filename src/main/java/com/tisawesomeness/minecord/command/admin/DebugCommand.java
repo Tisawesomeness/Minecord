@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.command.admin;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.debug.ChannelCacheDebugOption;
 import com.tisawesomeness.minecord.debug.DebugOption;
 import com.tisawesomeness.minecord.debug.GuildCacheDebugOption;
@@ -34,12 +35,13 @@ public class DebugCommand extends Command {
 
     private final List<DebugOption> debugOptions;
     public DebugCommand(ShardManager sm, Database db) {
+        DatabaseCache dbCache = db.getCache();
         debugOptions = Arrays.asList(
                 new JDADebugOption(sm),
                 new ThreadDebugOption(),
-                new GuildCacheDebugOption(db),
-                new ChannelCacheDebugOption(db),
-                new UserCacheDebugOption(db)
+                new GuildCacheDebugOption(dbCache),
+                new ChannelCacheDebugOption(dbCache),
+                new UserCacheDebugOption(dbCache)
         );
     }
 

@@ -1,10 +1,9 @@
 package com.tisawesomeness.minecord.setting.impl;
 
 import com.tisawesomeness.minecord.Config;
-import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.database.DbGuild;
-import com.tisawesomeness.minecord.setting.ResolveResult;
-import com.tisawesomeness.minecord.setting.ServerSetting;
+import com.tisawesomeness.minecord.database.DMSettingContainer;
+import com.tisawesomeness.minecord.setting.DMSetting;
+import com.tisawesomeness.minecord.util.type.Validation;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -12,13 +11,13 @@ import lombok.RequiredArgsConstructor;
 import java.sql.SQLException;
 import java.util.Optional;
 
-// TODO add DM support
 @RequiredArgsConstructor
-public class PrefixSetting extends ServerSetting<String> {
-//public class PrefixSetting extends GlobalSetting<String> {
+public class PrefixSetting extends DMSetting<String> {
 
+    private static final String desc = "The prefix used before every command.\n" +
+            "`@%s command` will work regardless of prefix.\n" +
+            "Possible values: Any text between 1-8 characters.";
     private final @NonNull Config config;
-    private final @NonNull Database db;
 
     public @NonNull String getDisplayName() {
         return "Prefix";
@@ -26,57 +25,28 @@ public class PrefixSetting extends ServerSetting<String> {
     public boolean isAlias(@NonNull String input) {
         return input.equalsIgnoreCase("prefix");
     }
-    private static final String desc = "The prefix used before every command.\n" +
-            "`@%s command` will work regardless of prefix.\n" +
-            "Possible values: Any text between 1-8 characters.";
-    public String getDescription(@NonNull String prefix, @NonNull String tag) {
+    public @NonNull String getDescription(@NonNull String prefix, @NonNull String tag) {
         return String.format(desc, tag);
     }
 
-    public Optional<String> getChannel(long id) {
-        return Optional.empty();
-    }
-//    public Optional<String> getUser(long id) {
-//        return Optional.empty();
-//    }
-    public Optional<String> getGuild(long id) {
-        return db.getGuild(id).flatMap(DbGuild::getPrefix);
-    }
-    public @NonNull String getDefault() {
+    public String getDefault() {
         return config.prefixDefault;
     }
 
-    protected boolean changeChannel(long id, @NonNull String setting) {
-        return false; // Not possible right now
-    }
-//    protected boolean changeUser(long id, @NonNull String setting) {
-//        return false; // Not possible right now
-//    }
-    protected boolean changeGuild(long id, @NonNull String setting) {
-        try {
-            db.changePrefix(id, setting);
-            return true;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return false;
-    }
-
-    protected boolean clearChannel(long id) {
-        return false; // Not possible right now
-    }
-//    protected boolean clearUser(long id) {
-//        return false; // Not possible right now
-//    }
-    protected boolean clearGuild(long id) {
-        return false; // Not possible right now
-    }
-
-    public ResolveResult<String> resolve(String input) {
+    public Validation<String> resolve(@NonNull String input) {
         if (input.length() > 8) {
-            return new ResolveResult<>(Optional.empty(), "The prefix is too long!");
+            return Validation.invalid("The prefix is too long!");
         }
-        return new ResolveResult<>(Optional.of(input), null);
+        return Validation.valid(input);
     }
 
+    public Optional<String> get(@NonNull DMSettingContainer obj) {
+        return obj.getPrefix();
+    }
+    public void set(@NonNull DMSettingContainer obj, @NonNull String setting) throws SQLException {
+        obj.withPrefix(Optional.of(setting)).update();
+    }
+    public void reset(@NonNull DMSettingContainer obj) throws SQLException {
+        obj.withPrefix(Optional.empty()).update();
+    }
 }

@@ -1,68 +1,53 @@
 package com.tisawesomeness.minecord.setting.impl;
 
 import com.tisawesomeness.minecord.Config;
-import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.database.DbGuild;
-import com.tisawesomeness.minecord.setting.ResolveResult;
-import com.tisawesomeness.minecord.setting.ServerSetting;
+import com.tisawesomeness.minecord.database.SettingContainer;
+import com.tisawesomeness.minecord.setting.Setting;
 import com.tisawesomeness.minecord.util.BooleanUtils;
+import com.tisawesomeness.minecord.util.type.Validation;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.sql.SQLException;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @RequiredArgsConstructor
-public class UseMenusSetting extends ServerSetting<Boolean> {
+public class UseMenusSetting extends Setting<Boolean> {
 
+    private final static Pattern aliasPattern = Pattern.compile("use[_ ]?menus?", Pattern.CASE_INSENSITIVE);
+    private static final String desc = "If enabled, the bot will use a reaction menu for `%srecipe` and `%singredient` if possible.\n" +
+            "Requires Manage Message and Add Reaction permissions.\n" +
+            "Possible values: `enabled`, `disabled`";
     private final @NonNull Config config;
-    private final @NonNull Database db;
 
     public @NonNull String getDisplayName() {
         return "Use Menus";
     }
     public boolean isAlias(@NonNull String input) {
-        return input.equalsIgnoreCase("use menus");
+        return aliasPattern.matcher(input).matches();
     }
-    private static final String desc = "If enabled, the bot will use a reaction menu for `%srecipe` and `%singredient` if possible.\n" +
-            "Requires Manage Message and Add Reaction permissions.\n" +
-            "Possible values: `enabled`, `disabled`";
-    public @NonNull String getDescription(String prefix, String tag) {
+    public @NonNull String getDescription(@NonNull String prefix, @NonNull String tag) {
         return String.format(desc, prefix, prefix);
     }
 
-    public Optional<Boolean> getChannel(long id) {
-        return Optional.empty();
-    }
-    public Optional<Boolean> getGuild(long id) {
-        return db.getGuild(id).flatMap(DbGuild::getUseMenu);
-    }
-    public @NonNull Boolean getDefault() {
+    public Boolean getDefault() {
         return config.useMenusDefault;
     }
 
-    protected boolean changeChannel(long id, @NonNull Boolean setting) {
-        return false; // Not possible right now
-    }
-    protected boolean changeGuild(long id, @NonNull Boolean setting) {
-        try {
-            db.changeUseMenu(id, setting);
-            return true;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return false;
-    }
-    protected boolean clearChannel(long id) {
-        return false; // Not possible right now
-    }
-    protected boolean clearGuild(long id) {
-        return false; // Not possible right now
+    public Validation<Boolean> resolve(@NonNull String input) {
+        return BooleanUtils.resolve(input);
     }
 
-    public ResolveResult<Boolean> resolve(@NonNull String input) {
-        return BooleanUtils.resolve(input);
+    public Optional<Boolean> get(@NonNull SettingContainer obj) {
+        return Optional.empty();
+    }
+    public void set(@NonNull SettingContainer obj, @NonNull Boolean setting) throws SQLException {
+        obj.withUseMenu(Optional.of(setting)).update();
+    }
+    public void reset(@NonNull SettingContainer obj) throws SQLException {
+        obj.withUseMenu(Optional.empty()).update();
     }
 
 }

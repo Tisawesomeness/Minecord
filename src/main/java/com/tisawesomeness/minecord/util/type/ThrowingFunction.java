@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.util.function;
+package com.tisawesomeness.minecord.util.type;
 
 import lombok.SneakyThrows;
 
