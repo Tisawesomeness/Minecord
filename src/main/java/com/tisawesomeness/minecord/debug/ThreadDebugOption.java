@@ -1,18 +1,22 @@
 package com.tisawesomeness.minecord.debug;
 
-import com.tisawesomeness.minecord.util.MessageUtils;
-
 import lombok.NonNull;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Debugs all current threads in the JVM
+ */
 public class ThreadDebugOption implements DebugOption {
     public @NonNull String getName() {
         return "threads";
     }
     public @NonNull String debug() {
+        // Although getting all stack traces is expensive
+        // this is called from an admin-only command
+        // so performance is not necessary
         Set<Thread> threads = Thread.getAllStackTraces().keySet();
         return threads.stream()
                 .map(ThreadDebugOption::getThreadInfo)

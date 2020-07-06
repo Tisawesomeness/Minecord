@@ -3,7 +3,7 @@ package com.tisawesomeness.minecord.debug;
 import lombok.NonNull;
 
 /**
- * Provides debug information to the &debug command.
+ * Provides debug information to the {@code &debug} command.
  */
 public interface DebugOption {
     /**

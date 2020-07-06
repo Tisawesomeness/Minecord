@@ -13,6 +13,9 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
+/**
+ * Whether or not the {@code &recipe} and {@code &ingredient} should use a {@link com.tisawesomeness.minecord.ReactMenu}.
+ */
 @RequiredArgsConstructor
 public class UseMenusSetting extends Setting<Boolean> {
 

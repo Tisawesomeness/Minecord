@@ -11,6 +11,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Keeps a list of loaded settings.
+ */
 public class SettingRegistry {
     public final @NonNull PrefixSetting prefix;
     public final @NonNull UseMenusSetting useMenus;
@@ -29,8 +32,8 @@ public class SettingRegistry {
     }
 
     /**
-     * <p>Gets the setting that should be returned for {@code &setting input ...}</p>
-     * Uses {@link ISetting#isAlias(String name)} to check if the input matches.
+     * Gets the setting that should be returned for {@code &setting input ...}.
+     * <br>Uses {@link ISetting#isAlias(String name)} to check if the input matches.
      * @param name The name or alias of the setting.
      * @return The setting if found, else empty.
      */
@@ -44,8 +47,9 @@ public class SettingRegistry {
     }
 
     /**
-     * <p>Gets the setting that should be returned for {@code &setting input ...}</p>
-     * Uses {@link ISetting#isAlias(String name)} to check if the input matches.
+     * Gets the setting that should be returned for {@code &setting input ...}.
+     * <br>Only searches for settings that can be changed in DMs.
+     * <br>Uses {@link ISetting#isAlias(String name)} to check if the input matches.
      * @param name The name or alias of the setting.
      * @return The setting if found, else empty.
      */

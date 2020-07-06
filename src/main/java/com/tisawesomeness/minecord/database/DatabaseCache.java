@@ -14,6 +14,9 @@ import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Handles cached values from the database in order to minimize creating expensive database connections
+ */
 public class DatabaseCache {
 
     private final Database db;
@@ -22,6 +25,11 @@ public class DatabaseCache {
     private final LoadingCache<Long, Optional<DbChannel>> channels;
     private final LoadingCache<Long, Optional<DbUser>> users;
 
+    /**
+     * Sets up the cache to mirror database tables.
+     * @param db The database used to load values from
+     * @param config If debugMode is true, cache stats are recorded (at the cost of performance)
+     */
     public DatabaseCache(Database db, Config config) {
         this.db = db;
         CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder()
@@ -42,7 +50,8 @@ public class DatabaseCache {
      * @param <R> The type of the cache value.
      * @return A Guava cache with the specified loading function.
      */
-    private static <T, R> LoadingCache<T, R> build(CacheBuilder<Object, Object> builder, ThrowingFunction<T, R> loadFunction) {
+    private static <T, R> LoadingCache<T, R> build(
+            CacheBuilder<Object, Object> builder, ThrowingFunction<? super T, ? extends R> loadFunction) {
         return builder.build(new CacheLoader<T, R>() {
             @Override
             // @NotNull used to satisfy warning
@@ -54,9 +63,8 @@ public class DatabaseCache {
 
     /**
      * Either gets a guild from the cache or queries the database for it.
-     * <br>The guild is cleared from the cache once it is altered.
-     * @param id The guild id.
-     * @return The guild if present, or an empty Optional if not present in the database or an exception occured.
+     * @param id The guild id
+     * @return The guild if present, or an empty Optional if not present in the database or an exception occured
      */
     public DbGuild getGuild(long id) {
         try {
@@ -70,10 +78,10 @@ public class DatabaseCache {
         return new DbGuild(db, id);
     }
     /**
-     * Either gets a guild from the cache or queries the database for it.
-     * <br>The guild is cleared from the cache once it is altered.
-     * @param id The guild id.
-     * @return The guild if present, or an empty Optional if not present in the database or an exception occured.
+     * Either gets a channel from the cache or queries the database for it.
+     * @param id The channel id
+     * @param guildId The guild id, which is necessary for "get all channels in guild" queries
+     * @return The channel if present, or an empty Optional if not present in the database or an exception occured
      */
     public DbChannel getChannel(long id, long guildId) {
         try {
@@ -88,9 +96,8 @@ public class DatabaseCache {
     }
     /**
      * Either gets a user from the cache or queries the database for it.
-     * <br>The user is cleared from the cache once it is altered.
-     * @param id The user id.
-     * @return The user if present, or an empty Optional if not present in the database or an exception occured.
+     * @param id The user id
+     * @return The user if present, or an empty Optional if not present in the database or an exception occured
      */
     public DbUser getUser(long id) {
         try {
@@ -104,12 +111,27 @@ public class DatabaseCache {
         return new DbUser(db, id);
     }
 
+    /**
+     * Marks a guild as no longer valid, meaning the next {@link #getGuild(long)} operation
+     * will grab an updated value from the database.
+     * @param id The guild id
+     */
     public void invalidateGuild(long id) {
         guilds.invalidate(id);
     }
+    /**
+     * Marks a channel as no longer valid, meaning the next {@link #getChannel(long, long)} operation
+     * will grab an updated value from the database.
+     * @param id The channel id
+     */
     public void invalidateChannel(long id) {
         channels.invalidate(id);
     }
+    /**
+     * Marks a user as no longer valid, meaning the next {@link #getUser(long)} operation
+     * will grab an updated value from the database.
+     * @param id The user id
+     */
     public void invalidateUser(long id) {
         users.invalidate(id);
     }

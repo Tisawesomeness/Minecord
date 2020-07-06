@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.database;
 
 import com.tisawesomeness.minecord.Lang;
-import com.tisawesomeness.minecord.util.ResultSetUtils;
+import com.tisawesomeness.minecord.util.StatementUtils;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -16,6 +16,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+/**
+ * Mirrors the {@code guild} database table.
+ * <br>Created or modified guilds can be sent to the database with {@link #update()}.
+ */
 @Value
 @With
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -36,10 +40,22 @@ public class DbGuild implements SettingContainer {
 	Optional<Lang> lang;
 	Optional<Boolean> useMenu;
 
+	/**
+	 * Creates a new guild object that is not banned, and all settings are unset.
+	 * @param db The database this guild object is mirroring
+	 * @param id The guild id
+	 */
 	public DbGuild(Database db, long id) {
 		this(db, false, id, false, Optional.empty(), Optional.empty(), Optional.empty());
 	}
 
+	/**
+	 * Loads a guild from the database for use in a {@link com.google.common.cache.LoadingCache}.
+	 * @param db The database to pull from
+	 * @param key The guild id
+	 * @return The guild, or empty if it is not in the database
+	 * @throws SQLException If a database error occurs
+	 */
 	public static Optional<DbGuild> load(@NonNull Database db, @NonNull Long key) throws SQLException {
 		@Cleanup Connection connect = db.getConnect();
 		@Cleanup PreparedStatement st = connect.prepareStatement(SQL_SELECT);
@@ -52,20 +68,24 @@ public class DbGuild implements SettingContainer {
 		return Optional.of(new DbGuild(db, true,
 				rs.getLong("id"),
 				rs.getBoolean("banned"),
-				ResultSetUtils.getOptionalString(rs, "prefix"),
-				ResultSetUtils.getOptionalString(rs, "lang").flatMap(Lang::from),
-				ResultSetUtils.getOptionalBoolean(rs, "use_menu")
+				StatementUtils.getOptionalString(rs, "prefix"),
+				StatementUtils.getOptionalString(rs, "lang").flatMap(Lang::from),
+				StatementUtils.getOptionalBoolean(rs, "use_menu")
 		));
 	}
 
+	/**
+	 * Updates or inserts this guild into the database.
+	 * @throws SQLException If a database error occurs
+	 */
 	public void update() throws SQLException {
 		@Cleanup Connection connect = db.getConnect();
 		String sql = inDB ? SQL_UPDATE : SQL_INSERT;
 		@Cleanup PreparedStatement st = connect.prepareStatement(sql);
 		st.setBoolean(1, banned);
-		ResultSetUtils.setOptionalString(st, 2, prefix);
-		ResultSetUtils.setOptionalString(st, 3, lang.map(Lang::getCode));
-		ResultSetUtils.setOptionalBoolean(st, 4, useMenu);
+		StatementUtils.setOptionalString(st, 2, prefix);
+		StatementUtils.setOptionalString(st, 3, lang.map(Lang::getCode));
+		StatementUtils.setOptionalBoolean(st, 4, useMenu);
 		st.setLong(5, id);
 		st.executeUpdate();
 		db.getCache().invalidateGuild(id);

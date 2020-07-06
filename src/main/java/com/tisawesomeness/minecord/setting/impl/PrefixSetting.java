@@ -11,6 +11,12 @@ import lombok.RequiredArgsConstructor;
 import java.sql.SQLException;
 import java.util.Optional;
 
+/**
+ * The prefix of the bot.
+ * <br>Messages are only accepted and parsed into commands if they start with the prefix.
+ * <br>In documentation, {@code &} is used for the prefix,
+ * and {@code {&}} is used as a placeholder for the prefix.
+ */
 @RequiredArgsConstructor
 public class PrefixSetting extends DMSetting<String> {
 
@@ -23,7 +29,7 @@ public class PrefixSetting extends DMSetting<String> {
         return "Prefix";
     }
     public boolean isAlias(@NonNull String input) {
-        return input.equalsIgnoreCase("prefix");
+        return "prefix".equalsIgnoreCase(input);
     }
     public @NonNull String getDescription(@NonNull String prefix, @NonNull String tag) {
         return String.format(desc, tag);

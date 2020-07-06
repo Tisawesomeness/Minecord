@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.database;
 
 import com.tisawesomeness.minecord.Lang;
-import com.tisawesomeness.minecord.util.ResultSetUtils;
+import com.tisawesomeness.minecord.util.StatementUtils;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -16,6 +16,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+/**
+ * Mirrors the {@code user} database table.
+ * <br>Created or modified guilds can be sent to the database with {@link #update()}.
+ */
 @Value
 @With
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -36,10 +40,22 @@ public class DbUser implements DMSettingContainer {
 	Optional<String> prefix;
 	Optional<Lang> lang;
 
+	/**
+	 * Creates a new user object that is not banned, and all settings are unset.
+	 * @param db The database this user object is mirroring
+	 * @param id The user id
+	 */
 	public DbUser(Database db, long id) {
 		this(db, false, id, false, false, Optional.empty(), Optional.empty());
 	}
 
+	/**
+	 * Loads a user from the database for use in a {@link com.google.common.cache.LoadingCache}.
+	 * @param db The database to pull from
+	 * @param key The user id
+	 * @return The user, or empty if it is not in the database
+	 * @throws SQLException If a database error occurs
+	 */
 	public static Optional<DbUser> load(@NonNull Database db, @NonNull Long key) throws SQLException {
 		@Cleanup Connection connect = db.getConnect();
 		@Cleanup PreparedStatement st = connect.prepareStatement(SQL_SELECT);
@@ -53,19 +69,23 @@ public class DbUser implements DMSettingContainer {
 				rs.getLong("id"),
 				rs.getBoolean("banned"),
 				rs.getBoolean("elevated"),
-				ResultSetUtils.getOptionalString(rs, "prefix"),
-				ResultSetUtils.getOptionalString(rs, "lang").flatMap(Lang::from)
+				StatementUtils.getOptionalString(rs, "prefix"),
+				StatementUtils.getOptionalString(rs, "lang").flatMap(Lang::from)
 		));
 	}
 
-	public void update() throws SQLException {
+	/**
+	 * Updates or inserts this user into the database.
+	 * @throws SQLException If a database error occurs
+	 */
+    public void update() throws SQLException {
 		@Cleanup Connection connect = db.getConnect();
 		String sql = inDB ? SQL_UPDATE : SQL_INSERT;
 		@Cleanup PreparedStatement st = connect.prepareStatement(sql);
 		st.setBoolean(1, banned);
 		st.setBoolean(2, elevated);
-		ResultSetUtils.setOptionalString(st, 3, prefix);
-		ResultSetUtils.setOptionalString(st, 4, lang.map(Lang::getCode));
+		StatementUtils.setOptionalString(st, 3, prefix);
+		StatementUtils.setOptionalString(st, 4, lang.map(Lang::getCode));
 		st.setLong(5, id);
 		st.executeUpdate();
 		db.getCache().invalidateUser(id);

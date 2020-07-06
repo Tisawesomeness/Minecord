@@ -13,6 +13,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
+/**
+ * Debugs JDA shard gateway and rest ping times.
+ */
 @RequiredArgsConstructor
 public class JDADebugOption implements DebugOption {
 
@@ -22,14 +25,14 @@ public class JDADebugOption implements DebugOption {
     }
 
     public @NonNull String debug() {
-        List<JDA> shards = shardManager.getShards();
+        List<JDA> shards = shardManager.getShards(); // Not guarenteed to be sorted by shard id
         // Submitting all ping requests all at once
         // Instead of waiting for one to finish to submit the nextp
         List<CompletableFuture<Long>> shardPings = shards.stream()
                 .map(jda -> jda.getRestPing().submit())
                 .collect(Collectors.toList());
 
-        HashMap<Integer, String> shardStrings = new HashMap<>();
+        Map<Integer, String> shardStrings = new HashMap<>();
         for (int i = 0; i < shardPings.size(); i++) {
             shardStrings.put(i, getShardLine(shardPings.get(i), shards.get(i)));
         }

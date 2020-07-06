@@ -15,6 +15,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * The access point for the Minecord database backend.
+ */
 public class Database {
 
 	private static final int VERSION = 1;
@@ -24,7 +27,8 @@ public class Database {
 
 	/**
 	 * Sets up the database connection pool and creates the caches.
-	 * @throws SQLException when either the initial read or creating a missing table fails.
+	 * @param config The config file that provides the path to the database and sets up the cache
+	 * @throws SQLException when either the initial read or creating a missing table fails
 	 */
 	public Database(Config config) throws SQLException {
 
@@ -54,6 +58,12 @@ public class Database {
 		
 	}
 
+	/**
+	 * Asks the connection pool for a connection.
+	 * <br>The connection should be closed after the calling method is done with it.
+	 * @return A connection to this database
+	 * @throws SQLException If a database access error occurs
+	 */
 	protected Connection getConnect() throws SQLException {
 		return source.getConnection();
 	}
