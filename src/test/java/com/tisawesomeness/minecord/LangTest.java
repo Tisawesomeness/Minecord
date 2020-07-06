@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Optional;
@@ -36,7 +37,8 @@ public class LangTest {
         }
     }
     @ParameterizedTest
-    @ValueSource(strings = {"nonsense", "en", "EN", "us", "US", "", " ", "_", "lang"})
+    @EmptySource
+    @ValueSource(strings = {"nonsense", "en", "EN", "us", "US", " ", "_", "lang"})
     @DisplayName("Trying to get a lang from nonsense fails")
     public void testFromNonsense(String candidate) {
         assertEquals(Optional.empty(), Lang.from(candidate));
