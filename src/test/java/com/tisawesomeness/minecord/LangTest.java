@@ -2,9 +2,14 @@ package com.tisawesomeness.minecord;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LangTest {
 
@@ -20,6 +25,21 @@ public class LangTest {
     @DisplayName("The default lang is not in development")
     public void testDefaultLang() {
         assertFalse(Lang.getDefault().isInDevelopment());
+    }
+    @Test
+    @DisplayName("Putting the lang's code in Lang.from() returns the same lang")
+    public void testFromCode() {
+        for (Lang lang : Lang.values()) {
+            Optional<Lang> langFromCode = Lang.from(lang.getCode());
+            assertTrue(langFromCode.isPresent());
+            assertEquals(lang, langFromCode.get());
+        }
+    }
+    @ParameterizedTest
+    @ValueSource(strings = {"nonsense", "en", "EN", "us", "US", "", " ", "_", "lang"})
+    @DisplayName("Trying to get a lang from nonsense fails")
+    public void testFromNonsense(String candidate) {
+        assertEquals(Optional.empty(), Lang.from(candidate));
     }
 
 }

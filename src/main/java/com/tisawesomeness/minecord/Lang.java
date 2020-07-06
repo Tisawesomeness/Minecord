@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord;
 import lombok.Getter;
 import lombok.NonNull;
 
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -78,13 +79,10 @@ public enum Lang {
      *             {@code aa} is the language and {@code bb} is the country
      * @return The lang if found, otherwise empty
      */
-    public static Optional<Lang> from(String code) {
-        for (Lang lang : Lang.values()) {
-            if (lang.getCode().equalsIgnoreCase(code)) {
-                return Optional.of(lang);
-            }
-        }
-        return Optional.empty();
+    public static Optional<Lang> from(@NonNull String code) {
+        return Arrays.stream(values())
+                .filter(l -> l.code.equalsIgnoreCase(code))
+                .findFirst();
     }
 
     /**
