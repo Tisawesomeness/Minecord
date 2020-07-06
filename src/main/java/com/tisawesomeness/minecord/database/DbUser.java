@@ -68,7 +68,7 @@ public class DbUser implements DMSettingContainer {
 		ResultSetUtils.setOptionalString(st, 4, lang.map(Lang::getCode));
 		st.setLong(5, id);
 		st.executeUpdate();
-		db.getCache().invalidateGuild(id);
+		db.getCache().invalidateUser(id);
 	}
 
 }

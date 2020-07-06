@@ -71,7 +71,7 @@ public class DbChannel implements SettingContainer {
         ResultSetUtils.setOptionalBoolean(st, 5, useMenu);
         st.setLong(6, id);
         st.executeUpdate();
-        db.getCache().invalidateGuild(id);
+        db.getCache().invalidateChannel(id);
     }
 
 }
