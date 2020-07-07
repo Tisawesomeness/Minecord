@@ -38,13 +38,7 @@ public class ReloadCommand extends Command {
 			txt.bot.reload();
 		} catch (IOException | ExecutionException | InterruptedException ex) {
 			ex.printStackTrace();
-			try {
-				m.editMessage(":x: Could not reload! Shutting down...").complete();
-			} catch (Exception ex2) {
-				ex2.printStackTrace(); // Bot must shut down regardless of exceptions
-			}
-			txt.bot.shutdown(1);
-			throw new AssertionError("Bot failed to shut down.");
+			return new Result(Outcome.ERROR, ":x: Could not reload!");
 		}
 		m.editMessage(":white_check_mark: Reloaded!").queue();
 		

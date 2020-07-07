@@ -26,6 +26,7 @@ import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
+import okhttp3.OkHttpClient;
 import org.discordbots.api.client.DiscordBotListAPI;
 
 import javax.security.auth.login.LoginException;
@@ -252,21 +253,22 @@ public class Bot {
 	}
 
 	/**
-	 * Shuts down the bot and exits the JVM.
-	 * @param exit The program exit code, non-zero for failure.
+	 * Gracefully shuts down the bot.Z
+	 * <br>Use this method instead of {@link System#exit(int)} except for emergencies.
 	 */
-	public void shutdown(int exit) {
+	public void shutdown() {
 		System.out.println("Shutting down...");
-		try {
-			menuExe.shutdownNow();
-			shardManager.shutdown();
-			if (config.receiveVotes) {
-				voteHandler.close();
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace(); // Since this is an E-stop, must exit regardless of exceptions
+		menuExe.shutdown();
+		shardManager.shutdown();
+		if (config.receiveVotes) {
+			voteHandler.close();
 		}
-		System.exit(exit);
+		for (JDA jda : shardManager.getShards()) {
+			OkHttpClient client = jda.getHttpClient();
+			client.connectionPool().evictAll();
+			client.dispatcher().executorService().shutdown();
+			jda.shutdown();
+		}
 	}
 
 	/**
