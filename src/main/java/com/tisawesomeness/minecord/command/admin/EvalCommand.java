@@ -6,6 +6,7 @@ import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
@@ -13,12 +14,14 @@ import net.dv8tion.jda.api.utils.MarkdownUtil;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -94,9 +97,9 @@ public class EvalCommand extends Command {
 		// Build embed
 		EmbedBuilder eb = new EmbedBuilder();
 		String in = clean(code, txt.config);
-		if (in.length() > 2048 - 10) {
+		if (in.length() > MessageEmbed.TEXT_MAX_LENGTH - 10) {
 			eb.addField("Input", "Input too long!", false);
-		} else if (in.length() > 1024 - 10) {
+		} else if (in.length() > MessageEmbed.VALUE_MAX_LENGTH - 10) {
 			eb.setDescription(MarkdownUtil.codeblock("js", in));
 		} else {
 			eb.addField("Input", MarkdownUtil.codeblock("js", in), false);
@@ -113,20 +116,17 @@ public class EvalCommand extends Command {
 
 		// Check for length
 		String out = clean(output.toString(), txt.config);
-		if (out.length() > 1024 - 10) {
+		if (out.length() > MessageEmbed.VALUE_MAX_LENGTH - 10) {
 			// Send up to 10 2000-char messages
-			ArrayList<String> lines = MessageUtils.splitLinesByLength(out, 2000 - 10);
+			ArrayList<String> lines = MessageUtils.splitLinesByLength(out, MessageEmbed.TEXT_MAX_LENGTH - 10);
 			int i = 0;
 			while (i < 10 && i < lines.size()) {
 				e.getChannel().sendMessage(MarkdownUtil.codeblock("js", lines.get(i))).queue();
 				i++;
 			}
 			// Let user know if the code went over 10 messages
-			if (i == 10) {
-				eb.addField("Output", "Too long! Output truncated.", false);
-			} else {
-				eb.addField("Output", "See above.", false);
-			}
+			String outputMsg = i == 10 ? "Too long! Output truncated." : "See above.";
+			eb.addField("Output", outputMsg, false);
 		} else {
 			eb.addField("Output", MarkdownUtil.codeblock("js", out), false);
 		}
@@ -141,8 +141,8 @@ public class EvalCommand extends Command {
 	 * @param s The input string
 	 * @return A cleaned string with blacklisted strings replaced with [redacted]
 	 */
-	private String clean(String s, Config config) {
-		String[] blacklist = new String[]{
+	private static String clean(String s, Config config) {
+		String[] blacklist = {
 			config.clientToken,
 			config.pwToken,
 			config.orgToken,
@@ -162,15 +162,15 @@ public class EvalCommand extends Command {
 		Class<?> clazz = o.getClass();
 		String fields = "NONE";
 		if (clazz.getFields().length > 0) {
-			fields = Arrays.asList(clazz.getFields()).stream()
-				.sorted((f1, f2) -> f1.getName().compareTo(f2.getName())) // Sort by field name
+			fields = Arrays.stream(clazz.getFields())
+				.sorted(Comparator.comparing(Field::getName)) // Sort by field name
 				.map(f -> f.getType().getSimpleName() + " : " + f.getName())
 				.collect(Collectors.joining("\n"));
 		}
 		String methods = "NONE";
 		if (clazz.getMethods().length > 0) {
-			methods = Arrays.asList(clazz.getMethods()).stream()
-				.sorted((m1, m2) -> m1.getName().compareTo(m2.getName())) // Sort by method name
+			methods = Arrays.stream(clazz.getMethods())
+				.sorted(Comparator.comparing(Method::getName)) // Sort by method name
 				.map(EvalCommand::getSignature)
 				.collect(Collectors.joining("\n"));
 		}
@@ -183,7 +183,7 @@ public class EvalCommand extends Command {
 	 * @return The signature as a string
 	 */
 	private static String getSignature(Method m) {
-		String params = Arrays.asList(m.getParameters()).stream()
+		String params = Arrays.stream(m.getParameters())
 			.map(p -> cleanType(p.getType()))
 			.collect(Collectors.joining(", ")); // Comma-separated args like in "add(int x, int y)"
 		String staticc = Modifier.isStatic(m.getModifiers()) ? "static " : ""; // Only static is included for brevity
@@ -191,7 +191,7 @@ public class EvalCommand extends Command {
 	}
 	/**
 	 * Generates a clean string for a type, transforming "java.lang.String" into "String".
-	 * Takes generics into account and parses them in the "List<String>" format.
+	 * Takes generics into account and parses them into the diamond operator format.
 	 * @param t The type reflection object
 	 * @return The type name as a string
 	 */
@@ -199,11 +199,11 @@ public class EvalCommand extends Command {
 		String typeName = t.getTypeName();
 		if (typeName.contains("<")) {
 			String[] split = typeName.split("<");
-			String type = split[0].substring(split[0].lastIndexOf(".") + 1); // Thanks -1 on failure for making this super clean
-			String generic = split[1].substring(split[1].lastIndexOf(".") + 1, split[1].length() - 1);
+			String type = split[0].substring(split[0].lastIndexOf('.') + 1); // Thanks -1 on failure for making this super clean
+			String generic = split[1].substring(split[1].lastIndexOf('.') + 1, split[1].length() - 1);
 			return type + "<" + generic + ">";
 		}
-		return typeName.substring(typeName.lastIndexOf(".") + 1);
+		return typeName.substring(typeName.lastIndexOf('.') + 1);
 	}
 
 }
