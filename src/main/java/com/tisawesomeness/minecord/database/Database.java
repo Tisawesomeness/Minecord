@@ -50,7 +50,7 @@ public class Database {
 			throw new RuntimeException(err);
 		}
 
-		if (!config.owner.equals("0")) {
+		if (!"0".equals(config.owner)) {
 			cache.getUser(Long.parseLong(config.owner)).withElevated(true).update();
 		}
 
@@ -76,14 +76,14 @@ public class Database {
 		@Cleanup Connection connect = getConnect();
 		@Cleanup Statement st = connect.createStatement();
 		// Query returns 1 result if table exists, 0 results if table does not exist
-		@Cleanup ResultSet tableRS = st.executeQuery(
+		ResultSet tableRS = st.executeQuery(
 				"SELECT name FROM sqlite_master WHERE type='table' AND name='minecord';"
 		);
 		// The first next() call returns false if there are 0 results
 		if (!tableRS.next()) {
 			return 0;
 		}
-		@Cleanup ResultSet versionRS = st.executeQuery(
+		ResultSet versionRS = st.executeQuery(
 				"SELECT version FROM minecord;"
 		);
 		// Minecord table has only one row
