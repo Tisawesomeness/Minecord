@@ -42,6 +42,9 @@ public class UseMenusSetting extends Setting<Boolean> {
     public Validation<Boolean> resolve(@NonNull String input) {
         return BooleanUtils.resolve(input);
     }
+    public String display(Boolean setting) {
+        return setting ? "enabled" : "disabled";
+    }
 
     public Optional<Boolean> get(@NonNull SettingContainer obj) {
         return obj.getUseMenu();

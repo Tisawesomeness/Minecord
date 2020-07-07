@@ -91,7 +91,7 @@ public class SettingsCommand extends Command {
             String tag = e.getJDA().getSelfUser().getAsTag();
             for (Setting<?> setting : settings.settingsList) {
                 String field = setting.getDescription(sourcePrefix, tag) +
-                        String.format("\nCurrent: **`%s`**", setting.getEffective(guild));
+                        String.format("\nCurrent: **`%s`**", setting.getDisplay(guild));
                 eb.addField(setting.getDisplayName(), field, false);
             }
             return new Result(Outcome.SUCCESS, txt.brand(eb).build());

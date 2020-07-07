@@ -96,6 +96,40 @@ public abstract class Setting<T> implements ISetting<T> {
     }
 
     /**
+     * Transforms a setting value into a user-friendly string.
+     * @param setting The setting value from {@link Setting#get(SettingContainer)}
+     * @return The string used in {@code &settings} messages
+     */
+    public @NonNull String display(T setting) {
+        return setting.toString();
+    }
+    /**
+     * Gets the current user-readable value of this setting.
+     * @param obj The guild or channel to lookup
+     * @return The value of the setting converted to a string
+     */
+    public @NonNull String getDisplay(@NonNull SettingContainer obj) {
+        return get(obj).map(this::display).orElse("unset");
+    }
+    /**
+     * Gets the current user-readable value of this setting in the current context.
+     * @param e The event that triggered the executing command
+     * @param cache The database cache to pull from
+     * @return The value of the setting converted to a string
+     */
+    public @NonNull String getDisplay(@NonNull MessageReceivedEvent e, DatabaseCache cache) {
+        return get(e, cache).map(this::display).orElse("unset");
+    }
+    /**
+     * Gets the current user-readable value of this setting in the current context.
+     * @param txt The context of the executing command
+     * @return The value of the setting converted to a string
+     */
+    public @NonNull String getDisplay(@NonNull CommandContext txt) {
+        return get(txt).map(this::display).orElse("unset");
+    }
+
+    /**
      * Attempts to change this setting for the given object based on user input.
      * <br>Use {@link Validation#isValid()} to determine if the attempt was successful.
      * @param obj The guild or channel to try to set
@@ -112,8 +146,8 @@ public abstract class Setting<T> implements ISetting<T> {
         T to = toValidation.getValue();
 
         String name = getDisplayName();
-        String fromStr = from.orElse(getDefault()).toString();
-        String toStr = to.toString();
+        String fromStr = display(from.orElse(getDefault()));
+        String toStr = display(to);
         return tryToSetInternal(obj, from, to).toValidation(name, fromStr, toStr);
     }
     private @NonNull SetStatus tryToSetInternal(SettingContainer obj, Optional<T> from, T to) throws SQLException {
