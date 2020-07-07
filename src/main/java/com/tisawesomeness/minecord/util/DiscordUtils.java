@@ -32,7 +32,6 @@ public class DiscordUtils {
 			.replace("{help_server}", Bot.helpServer)
 			.replace("{website}", Bot.website)
 			.replace("{github}", Bot.github)
-			.replace("{java_ver}", Bot.javaVersion)
 			.replace("{jda_ver}", Bot.jdaVersion)
 			.replace("{version}", Bot.version)
 			.replace("{invite}", config.invite)

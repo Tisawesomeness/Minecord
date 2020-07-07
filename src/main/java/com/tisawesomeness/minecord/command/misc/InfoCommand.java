@@ -14,6 +14,8 @@ import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 
 public class InfoCommand extends Command {
+
+	private static final String JAVA_VERSION = System.getProperty("java.version");
 	
 	public CommandInfo getInfo() {
 		return new CommandInfo(
@@ -39,7 +41,7 @@ public class InfoCommand extends Command {
 		
 		// If the author used the admin keyword and is an elevated user
 		boolean elevated = false;
-		if (txt.args.length > 0 && txt.args[0].equals("admin") && txt.isElevated) {
+		if (txt.args.length > 0 && "admin".equals(txt.args[0]) && txt.isElevated) {
 			elevated = true;
 		}
 		
@@ -49,14 +51,14 @@ public class InfoCommand extends Command {
 		eb.addField("Author", Bot.author, true);
 		eb.addField("Version", Bot.version, true);
 		
-		String guilds = sm.getGuilds().size() + "";
+		String guilds = String.valueOf(sm.getGuilds().size());
 		int shardTotal = txt.bot.getShardManager().getShardsTotal();
 		if (shardTotal > 1) {
 			String shards = txt.e.getJDA().getShardInfo().getShardId() + 1 + "/" + shardTotal;
 			eb.addField("Shard", shards, true);
 			guilds += " {" + txt.e.getJDA().getGuilds().size() + "}";
 		}
-		eb.addField("Guilds", guilds + "", true);
+		eb.addField("Guilds", guilds, true);
 		
 		eb.addField("Uptime", DateUtils.getDurationString(txt.bot.getBirth()), true);
 		eb.addField("Ping", sm.getAverageGatewayPing() + "ms", true);
@@ -64,7 +66,7 @@ public class InfoCommand extends Command {
 			eb.addField("Memory", getMemoryString(), true);
 			eb.addField("Boot Time", DateUtils.getBootTime(txt.bot.getBootTime()), true);
 		}
-		eb.addField("Java Version", MarkdownUtil.monospace(Bot.javaVersion), true);
+		eb.addField("Java Version", MarkdownUtil.monospace(JAVA_VERSION), true);
 		eb.addField("JDA Version", MarkdownUtil.monospace(Bot.jdaVersion), true);
 
 		String links = MarkdownUtil.maskedLink("INVITE", txt.config.invite) + " | " +
