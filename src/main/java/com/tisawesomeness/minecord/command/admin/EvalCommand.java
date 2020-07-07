@@ -118,7 +118,7 @@ public class EvalCommand extends Command {
 		String out = clean(output.toString(), txt.config);
 		if (out.length() > MessageEmbed.VALUE_MAX_LENGTH - 10) {
 			// Send up to 10 2000-char messages
-			ArrayList<String> lines = MessageUtils.splitLinesByLength(out, MessageEmbed.TEXT_MAX_LENGTH - 10);
+			ArrayList<String> lines = MessageUtils.splitLinesByLength(out, MessageEmbed.URL_MAX_LENGTH - 10);
 			int i = 0;
 			while (i < 10 && i < lines.size()) {
 				e.getChannel().sendMessage(MarkdownUtil.codeblock("js", lines.get(i))).queue();
