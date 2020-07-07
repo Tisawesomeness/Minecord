@@ -44,7 +44,7 @@ public class UseMenusSetting extends Setting<Boolean> {
     }
 
     public Optional<Boolean> get(@NonNull SettingContainer obj) {
-        return Optional.empty();
+        return obj.getUseMenu();
     }
     public void set(@NonNull SettingContainer obj, @NonNull Boolean setting) throws SQLException {
         obj.withUseMenu(Optional.of(setting)).update();

@@ -4,6 +4,7 @@ import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.DbGuild;
 import com.tisawesomeness.minecord.setting.Setting;
+import com.tisawesomeness.minecord.setting.SettingRegistry;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.type.Validation;
 
@@ -22,7 +23,7 @@ public class SettingsCommand extends Command {
             "settings",
             "Change the bot's settings, including prefix.",
             "[setting] [value]",
-            new String[]{"config"},
+            new String[]{"config", "conf"},
             0,
             false,
             false,
@@ -37,7 +38,6 @@ public class SettingsCommand extends Command {
             "Examples:\n" +
             "- `{&}settings prefix mc!`\n" +
             "- {@}` settings prefix &`\n" +
-            "- `{&}settings deleteCommands disabled`\n" +
             "- `{&}settings useMenus enabled`\n";
     }
 
@@ -50,7 +50,6 @@ public class SettingsCommand extends Command {
             "Examples:\n" +
             "- `{&}settings prefix mc!`\n" +
             "- {@}` settings prefix &`\n" +
-            "- `{&}settings deleteCommands disabled`\n" +
             "- `{&}settings useMenus enabled`\n" +
             "- `{&}settings 347765748577468416 admin`\n" +
             "- `{&}settings 347765748577468416 admin prefix mc!`\n";
@@ -81,6 +80,7 @@ public class SettingsCommand extends Command {
             gid = e.getGuild().getIdLong();
         }
 		DbGuild guild = txt.bot.getDatabase().getCache().getGuild(gid);
+        SettingRegistry settings = txt.bot.getSettings();
 
         // Build embed with list of settings
         if (args.length == 0) {
@@ -89,7 +89,7 @@ public class SettingsCommand extends Command {
                     .setTitle("Minecord Settings")
                     .setDescription(desc);
             String tag = e.getJDA().getSelfUser().getAsTag();
-            for (Setting<?> setting : txt.bot.getSettings().settingsList) {
+            for (Setting<?> setting : settings.settingsList) {
                 String field = setting.getDescription(sourcePrefix, tag) +
                         String.format("\nCurrent: **`%s`**", setting.getEffective(guild));
                 eb.addField(setting.getDisplayName(), field, false);
@@ -104,25 +104,39 @@ public class SettingsCommand extends Command {
                 return new Result(Outcome.WARNING, ":warning: You must have manage server permissions!");
             }
 
-            Optional<Setting<?>> settingOpt = txt.bot.getSettings().getSetting(args[0]);
-            if (settingOpt.isPresent()) {
-                Setting<?> setting = settingOpt.get();
-                try {
-                    Validation<String> attempt = setting.tryToSet(guild, args[1]);
-                    if (attempt.isValid()) {
-                        return new Result(Outcome.SUCCESS, attempt.getValue());
+            // Adds arguments to a string until that string matches a setting
+            // This is so user input with multiple words (like "use menus") can be detected
+            StringBuilder settingName = new StringBuilder();
+            for (int i = 0; i < args.length; i++) {
+                settingName.append(args[i]);
+                Optional<Setting<?>> settingOpt = settings.getSetting(settingName.toString());
+                if (settingOpt.isPresent()) {
+                    Setting<?> setting = settingOpt.get();
+
+                    if (i == args.length - 1) {
+                        return new Result(Outcome.WARNING, ":warning: You must specify a setting value.");
                     }
-                    return new Result(Outcome.WARNING, ":warning: " + attempt.getErrorMessage());
-                } catch (SQLException ex) {
-                    ex.printStackTrace(); // Not printing exception to the user just to be safe
+
+                    String settingValue = String.join("\n", Arrays.copyOfRange(args, i + 1, args.length));
+                    try {
+                        Validation<String> attempt = setting.tryToSet(guild, settingValue);
+                        if (attempt.isValid()) {
+                            return new Result(Outcome.SUCCESS, attempt.getValue());
+                        }
+                        return new Result(Outcome.WARNING, ":warning: " + attempt.getErrorMessage());
+                    } catch (SQLException ex) {
+                        ex.printStackTrace(); // Not printing exception to the user just to be safe
+                    }
                     return new Result(Outcome.ERROR, ":x: There was an internal error.");
+
                 }
+                settingName.append(" ");
             }
             return new Result(Outcome.WARNING, ":warning: That setting does not exist.");
 
         }
-        
-        return new Result(Outcome.WARNING, ":warning: You must specify a value!");
+
+        return new Result(Outcome.WARNING, ":warning: You must specify a setting value.");
 
     }
 
