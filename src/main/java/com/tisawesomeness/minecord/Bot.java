@@ -15,6 +15,7 @@ import com.tisawesomeness.minecord.util.RequestUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -31,6 +32,7 @@ import javax.security.auth.login.LoginException;
 import java.awt.Color;
 import java.io.IOException;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
@@ -70,6 +72,7 @@ public class Bot {
 	private ScheduledExecutorService menuExe;
 
 	private Config config;
+	private DiscordBotListAPI api;
 	@Getter private ArgsHandler args;
 	@Getter private ShardManager shardManager;
 	@Getter private Database database;
@@ -137,8 +140,8 @@ public class Bot {
 		}
 
 		// Start discordbots.org API
-		if (config.sendServerCount || config.receiveVotes) {
-			RequestUtils.api = new DiscordBotListAPI.Builder().token(config.orgToken).build();
+		if (config.sendServerCount) {
+			api = new DiscordBotListAPI.Builder().token(config.orgToken).build();
 		}
 
 		// Wait for database
@@ -172,7 +175,7 @@ public class Bot {
 		System.out.println("Boot Time: " + DateUtils.getBootTime(bootTime));
 		log(":white_check_mark: **Bot started!**");
 		DiscordUtils.update(shardManager, config);
-		RequestUtils.sendGuilds(shardManager, config);
+		sendGuilds(shardManager, config);
 
 		// Make sure vote handler finishes
 		if (futureVH != null) {
@@ -289,5 +292,32 @@ public class Bot {
 		EmbedBuilder eb = new EmbedBuilder(m).setTimestamp(OffsetDateTime.now());
 		c.sendMessage(eb.build()).queue();
 	}
+
+    /**
+     * Sends the guild count
+     * @param sm The ShardManager used to determine the guild count
+     */
+    public void sendGuilds(ShardManager sm, Config config) {
+        if (config.sendServerCount) {
+            int servers = sm.getGuilds().size();
+            String id = sm.getShardById(0).getSelfUser().getId();
+
+            String url = "https://bots.discord.pw/api/bots/" + id + "/stats";
+            String query = "{\"server_count\": " + servers + "}";
+            RequestUtils.post(url, query, config.pwToken);
+
+            /*
+             * url = "https://discordbots.org/api/bots/" + id + "/stats"; query =
+             * "{\"server_count\": " + servers + "}"; post(url, query,
+             * Config.getOrgToken());
+             */
+
+            List<Integer> serverCounts = new ArrayList<>();
+            for (JDA jda : sm.getShards()) {
+                serverCounts.add(jda.getGuilds().size());
+            }
+            api.setStats(id, serverCounts);
+        }
+    }
 
 }

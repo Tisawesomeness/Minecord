@@ -1,11 +1,6 @@
 package com.tisawesomeness.minecord.util;
 
-import com.tisawesomeness.minecord.Config;
-
 import lombok.Cleanup;
-import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.sharding.ShardManager;
-import org.discordbots.api.client.DiscordBotListAPI;
 import org.json.JSONObject;
 
 import javax.imageio.ImageIO;
@@ -23,8 +18,6 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -34,7 +27,6 @@ public class RequestUtils {
 	private static final String jsonType = "application/json";
 	private static final String plainType = "text/plain";
 	private static final String browserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
-	public static DiscordBotListAPI api = null;
 
 	private static String get(URLConnection conn, String type) throws IOException {
 		InputStream response = conn.getInputStream();
@@ -176,32 +168,6 @@ public class RequestUtils {
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
 		ImageIO.write(image, "png", os);
 		return new ByteArrayInputStream(os.toByteArray());
-	}
-
-	/**
-	 * Sends the guild count
-	 * @param sm The ShardManager used to determine the guild count
-	 */
-	public static void sendGuilds(ShardManager sm, Config config) {
-		if (config.sendServerCount) {
-			int servers = sm.getGuilds().size();
-			String id = sm.getShardById(0).getSelfUser().getId();
-
-			String url = "https://bots.discord.pw/api/bots/" + id + "/stats";
-			String query = "{\"server_count\": " + servers + "}";
-			post(url, query, config.pwToken);
-
-			/*
-			 * url = "https://discordbots.org/api/bots/" + id + "/stats"; query =
-			 * "{\"server_count\": " + servers + "}"; post(url, query,
-			 * Config.getOrgToken());
-			 */
-
-			List<Integer> serverCounts = new ArrayList<>();
-			for (JDA jda : sm.getShards())
-				serverCounts.add(jda.getGuilds().size());
-			api.setStats(id, serverCounts);
-		}
 	}
 
 	/**

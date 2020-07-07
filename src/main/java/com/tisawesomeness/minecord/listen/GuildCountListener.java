@@ -3,7 +3,6 @@ package com.tisawesomeness.minecord.listen;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.util.DiscordUtils;
-import com.tisawesomeness.minecord.util.RequestUtils;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -59,7 +58,7 @@ public class GuildCountListener extends ListenerAdapter {
     private void updateGuilds(EmbedBuilder eb, Guild guild, ShardManager sm) {
         eb.setThumbnail(guild.getIconUrl());
         bot.log(eb.build());
-        RequestUtils.sendGuilds(sm, config);
+        bot.sendGuilds(sm, config);
         DiscordUtils.update(sm, config); // Update guild, channel, and user count
     }
 
