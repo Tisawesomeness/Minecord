@@ -8,6 +8,7 @@ import com.tisawesomeness.minecord.debug.ChannelCacheDebugOption;
 import com.tisawesomeness.minecord.debug.DebugOption;
 import com.tisawesomeness.minecord.debug.GuildCacheDebugOption;
 import com.tisawesomeness.minecord.debug.JDADebugOption;
+import com.tisawesomeness.minecord.debug.RegionDebugOption;
 import com.tisawesomeness.minecord.debug.ThreadDebugOption;
 import com.tisawesomeness.minecord.debug.UserCacheDebugOption;
 
@@ -39,6 +40,7 @@ public class DebugCommand extends Command {
         debugOptions = Arrays.asList(
                 new JDADebugOption(sm),
                 new ThreadDebugOption(),
+                new RegionDebugOption(sm),
                 new GuildCacheDebugOption(dbCache),
                 new ChannelCacheDebugOption(dbCache),
                 new UserCacheDebugOption(dbCache)
@@ -57,7 +59,7 @@ public class DebugCommand extends Command {
             return new Result(Outcome.SUCCESS, "Possible options: " + possibleOptions);
         }
 
-        if (txt.args[0].equalsIgnoreCase("all")) {
+        if ("all".equalsIgnoreCase(txt.args[0])) {
             for (DebugOption d : debugOptions) {
                 String debugInfo = d.debug();
                 printToConsole(debugInfo, txt.e.getAuthor());
