@@ -73,6 +73,9 @@ public class Bot {
 
 	private Config config;
 	private DiscordBotListAPI api;
+	private CommandRegistry registry;
+	private EventListener commandListener;
+	private EventListener guildCountListener;
 	@Getter private ArgsHandler args;
 	@Getter private ShardManager shardManager;
 	@Getter private Database database;
@@ -112,7 +115,7 @@ public class Bot {
 		CountDownLatch readyLatch = new CountDownLatch(config.shardCount);
 		EventListener readyListener = new ReadyListener(readyLatch);
 		EventListener reactListener = new ReactListener();
-		EventListener guildCountListener = new GuildCountListener(this, config);
+		guildCountListener = new GuildCountListener(this, config);
 		
 		// Connect to database
 		ExecutorService exe = Executors.newSingleThreadExecutor();
@@ -142,7 +145,9 @@ public class Bot {
 		// Start discordbots.org API
 		if (config.sendServerCount) {
 			api = new DiscordBotListAPI.Builder().token(config.orgToken).build();
-		}
+		} else {
+		    api = null;
+        }
 
 		// Wait for database
 		try {
@@ -156,8 +161,8 @@ public class Bot {
 		}
 
 		// These depend on database
-		CommandRegistry registry = new CommandRegistry(shardManager, database);
-		EventListener commandListener = new CommandListener(this, config, registry);
+		registry = new CommandRegistry(shardManager, database);
+		commandListener = new CommandListener(this, config, registry);
 		settings = new SettingRegistry(config);
 
 		// Bot has started, start accepting messages
@@ -211,6 +216,7 @@ public class Bot {
 		if (config.receiveVotes) {
 			voteHandler.close();
 		}
+		shardManager.removeEventListener(commandListener, guildCountListener);
 		config = new Config(args.getConfigPath(), args.getTokenOverride());
 
 		// Database and vote handler need separate threads
@@ -221,9 +227,23 @@ public class Bot {
 			futureVH = exe.submit(() -> new VoteHandler(this, config));
 		}
 
+		// These can be started before the database
+        announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
+        settings = new SettingRegistry(config);
+        guildCountListener = new GuildCountListener(this ,config);
+
+		// Login to API with new token
+        if (config.sendServerCount) {
+            api = new DiscordBotListAPI.Builder().token(config.orgToken).build();
+        } else {
+            api = null;
+        }
+
 		// Start everything up again
-		announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
 		database = futureDB.get();
+        registry = new CommandRegistry(shardManager, database);
+        commandListener = new CommandListener(this, config, registry);
+        shardManager.addEventListener(commandListener, guildCountListener);
 		if (futureVH != null) {
 			voteHandler = futureVH.get();
 		}
