@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.debug;
 import lombok.NonNull;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
+import java.util.Comparator;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,6 +20,7 @@ public class ThreadDebugOption implements DebugOption {
         // so performance is not necessary
         Set<Thread> threads = Thread.getAllStackTraces().keySet();
         return threads.stream()
+                .sorted(Comparator.comparing(Thread::getState).thenComparing(Thread::getId))
                 .map(ThreadDebugOption::getThreadInfo)
                 .collect(Collectors.joining("\n"));
     }
