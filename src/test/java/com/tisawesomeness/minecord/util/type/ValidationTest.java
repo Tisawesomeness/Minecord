@@ -127,7 +127,7 @@ public class ValidationTest {
         assertEquals(mapper.apply(errorMessage), mappedValidation.getErrorMessage());
     }
 
-    static Stream<Arguments> objectArrayProvider() {
+    private static Stream<Arguments> objectArrayProvider() {
         Object o = new Object();
         return Stream.of(
                 Arguments.of((Object) new Object[0]),

@@ -23,7 +23,7 @@ repositories {
 
 dependencies {
     // JDA with no audio
-    compile ('net.dv8tion:JDA:4.1.1_151') {
+    compile ('net.dv8tion:JDA:4.2.0_168') {
         exclude module: 'opus-java'
     }
     // Top.gg bot site API wrapper
