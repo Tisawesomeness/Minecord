@@ -107,13 +107,15 @@ public final class Validation<T> {
      * Combines multiple validations, reducing them using {@link #combine(Validation)}.
      * <br>Values on the right take priority.
      * @param first The first validation which all others are combined onto.
-     * @param rest If not specified, {@code first} is returned.
+     * @param second Used to prevent ambiguity with the non-static combine method.
+     * @param rest If not specified, {@code first.combine(second)} is returned.
      * @param <U> The type of both validations
      * @return A single Validation, which is valid iff both input validations are valid.
      */
     @SafeVarargs // Does not store anything in array, and rest array is not visible
-    public static <U> Validation<U> combine(Validation<U> first, Validation<U>... rest) {
-        Validation<U> v = first;
+    public static <U> Validation<U> combine(
+            Validation<U> first, Validation<U> second, Validation<U>... rest) {
+        Validation<U> v = first.combine(second);
         for (Validation<U> r : rest) {
             v = v.combine(r);
         }
