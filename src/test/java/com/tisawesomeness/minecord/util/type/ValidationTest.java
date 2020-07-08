@@ -8,6 +8,8 @@ import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -61,7 +63,9 @@ public class ValidationTest {
     public void testInvalid(String candidate) {
         Validation<Object> v = Validation.invalid(candidate);
         assertFalse(v.isValid());
-        assertEquals(candidate, v.getErrorMessage());
+        List<String> errors = v.getErrors();
+        assertEquals(1, errors.size());
+        assertEquals(candidate, errors.get(0));
     }
 
     @Test
@@ -71,10 +75,11 @@ public class ValidationTest {
         assertThrows(NoSuchElementException.class, v::getValue);
     }
     @Test
-    @DisplayName("getErrorMessage() throws NoSuchElementException if valid")
+    @DisplayName("getErrorMessage() is empty if valid")
     public void testGetErrorMessage() {
         Validation<Object> v = Validation.valid(new Object());
-        assertThrows(NoSuchElementException.class, v::getErrorMessage);
+        List<String> errors = v.getErrors();
+        assertEquals(0, errors.size());
     }
 
     @Test
@@ -83,7 +88,96 @@ public class ValidationTest {
         String errorMessage = "An error message";
         Validation<?> v = Validation.invalid(errorMessage);
         assertFalse(v.isValid());
-        assertEquals(errorMessage, v.getErrorMessage());
+        List<String> errors = v.getErrors();
+        assertEquals(1, errors.size());
+        assertEquals(errorMessage, errors.get(0));
+    }
+
+    @Test
+    @DisplayName("v1.combine(v2) with both valid keeps value")
+    public void testCombineBothValid() {
+        Object o = new Object();
+        Validation<Object> v1 = Validation.valid(o);
+        assertTrue(v1.isValid());
+        Validation<Object> v2 = Validation.valid(o);
+        assertTrue(v2.isValid());
+        Validation<Object> vCombined = v1.combine(v2);
+        assertTrue(vCombined.isValid());
+        assertEquals(o, vCombined.getValue());
+    }
+    @Test
+    @DisplayName("v1.combine(v2) with both valid, but different, keeps right value")
+    public void testCombineBothValidRightPreference() {
+        Object o1 = new Object();
+        Validation<Object> v1 = Validation.valid(o1);
+        assertTrue(v1.isValid());
+        Object o2 = new Object();
+        Validation<Object> v2 = Validation.valid(o2);
+        assertTrue(v2.isValid());
+        Validation<Object> vCombined = v1.combine(v2);
+        assertTrue(vCombined.isValid());
+        assertEquals(o2, vCombined.getValue());
+    }
+    @Test
+    @DisplayName("v1.combine(v2) with left valid returns right error")
+    public void testCombineLeftValid() {
+        Object o = new Object();
+        Validation<Object> v1 = Validation.valid(o);
+        assertTrue(v1.isValid());
+        String errorMessage = "An error message";
+        Validation<Object> v2 = Validation.invalid(errorMessage);
+        assertFalse(v2.isValid());
+        Validation<Object> vCombined = v1.combine(v2);
+        assertFalse(vCombined.isValid());
+        List<String> errors = vCombined.getErrors();
+        assertEquals(1, errors.size());
+        assertEquals(errorMessage, errors.get(0));
+    }
+    @Test
+    @DisplayName("v1.combine(v2) with right valid returns left error")
+    public void testCombineRightValid() {
+        String errorMessage = "An error message";
+        Validation<Object> v1 = Validation.invalid(errorMessage);
+        assertFalse(v1.isValid());
+        Object o = new Object();
+        Validation<Object> v2 = Validation.valid(o);
+        assertTrue(v2.isValid());
+        Validation<Object> vCombined = v1.combine(v2);
+        assertFalse(vCombined.isValid());
+        List<String> errors = vCombined.getErrors();
+        assertEquals(1, errors.size());
+        assertEquals(errorMessage, errors.get(0));
+    }
+    @Test
+    @DisplayName("v1.combine(v2) with both invalid combines error messages")
+    public void testCombineBothInvalid() {
+        String errorMessage1 = "First error message";
+        Validation<Object> v1 = Validation.invalid(errorMessage1);
+        assertFalse(v1.isValid());
+        String errorMessage2 = "Second error message";
+        Validation<Object> v2 = Validation.invalid(errorMessage2);
+        assertFalse(v2.isValid());
+        Validation<Object> vCombined = v1.combine(v2);
+        assertFalse(vCombined.isValid());
+        List<String> errors = vCombined.getErrors();
+        assertEquals(Arrays.asList(errorMessage1, errorMessage2), errors);
+    }
+    @Test
+    @DisplayName("Combining with varargs combines all error message")
+    public void testCombineVarargs() {
+        String errorMessage1 = "First error message";
+        Validation<Object> v1 = Validation.invalid(errorMessage1);
+        assertFalse(v1.isValid());
+        String errorMessage2 = "First error message";
+        Validation<Object> v2 = Validation.invalid(errorMessage2);
+        assertFalse(v2.isValid());
+        String errorMessage3 = "First error message";
+        Validation<Object> v3 = Validation.invalid(errorMessage3);
+        assertFalse(v3.isValid());
+        Validation<Object> vCombined = Validation.combine(v1, v2, v3);
+        assertFalse(vCombined.isValid());
+        List<String> errors = vCombined.getErrors();
+        assertEquals(Arrays.asList(errorMessage1, errorMessage2, errorMessage3), errors);
     }
 
     @Test
@@ -104,27 +198,9 @@ public class ValidationTest {
         Validation<Integer> validation = Validation.invalid(errorMessage);
         Validation<Integer> mappedValidation = validation.map(mapper);
         assertFalse(mappedValidation.isValid());
-        assertEquals(errorMessage, mappedValidation.getErrorMessage());
-    }
-    @Test
-    @DisplayName("Calling mapError() on a valid validation keeps the value")
-    public void testMapErrorValid() {
-        Function<String, String> mapper = String::toLowerCase;
-        int i = 2;
-        Validation<Integer> validation = Validation.valid(i);
-        Validation<Integer> mappedValidation = validation.mapError(mapper);
-        assertTrue(mappedValidation.isValid());
-        assertEquals(i, mappedValidation.getValue());
-    }
-    @Test
-    @DisplayName("Calling mapError() on an ivalid validation applies the mapper")
-    public void testMapErrorInvalid() {
-        Function<String, String> mapper = String::toLowerCase;
-        String errorMessage = "An error message";
-        Validation<Integer> validation = Validation.invalid(errorMessage);
-        Validation<Integer> mappedValidation = validation.mapError(mapper);
-        assertFalse(mappedValidation.isValid());
-        assertEquals(mapper.apply(errorMessage), mappedValidation.getErrorMessage());
+        List<String> errors = mappedValidation.getErrors();
+        assertEquals(1, errors.size());
+        assertEquals(errorMessage, errors.get(0));
     }
 
     private static Stream<Arguments> objectArrayProvider() {

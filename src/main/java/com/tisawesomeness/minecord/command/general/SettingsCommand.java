@@ -123,7 +123,8 @@ public class SettingsCommand extends Command {
                         if (attempt.isValid()) {
                             return new Result(Outcome.SUCCESS, attempt.getValue());
                         }
-                        return new Result(Outcome.WARNING, ":warning: " + attempt.getErrorMessage());
+                        String errorMsg = String.join(", ", attempt.getErrors());
+                        return new Result(Outcome.WARNING, ":warning: " + errorMsg);
                     } catch (SQLException ex) {
                         ex.printStackTrace(); // Not printing exception to the user just to be safe
                     }
