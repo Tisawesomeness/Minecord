@@ -117,13 +117,13 @@ public class SettingsCommand extends Command {
                         return new Result(Outcome.WARNING, ":warning: You must specify a setting value.");
                     }
 
-                    String settingValue = String.join("\n", Arrays.copyOfRange(args, i + 1, args.length));
+                    String settingValue = String.join(" ", Arrays.copyOfRange(args, i + 1, args.length));
                     try {
                         Validation<String> attempt = setting.tryToSet(guild, settingValue);
                         if (attempt.isValid()) {
                             return new Result(Outcome.SUCCESS, attempt.getValue());
                         }
-                        String errorMsg = String.join(", ", attempt.getErrors());
+                        String errorMsg = String.join("\n", attempt.getErrors());
                         return new Result(Outcome.WARNING, ":warning: " + errorMsg);
                     } catch (SQLException ex) {
                         ex.printStackTrace(); // Not printing exception to the user just to be safe

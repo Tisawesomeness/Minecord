@@ -14,6 +14,8 @@ import java.util.regex.Pattern;
 public class DiscordUtils {
 
 	public static final String idRegex = "[0-9]{9,20}";
+
+	public static final Pattern ANY_MENTION = Pattern.compile("<(@(!?|&)|#|:(.{2,32}):)\\d{17,20}>");
 	
 	public static void update(ShardManager sm, Config config) {
 		sm.setActivity(Activity.playing(parseAll(config.game, config)));

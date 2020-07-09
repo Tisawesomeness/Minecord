@@ -70,11 +70,11 @@ public class PrefixCommand extends Command {
 			// Set new prefix
 			DbGuild guild = txt.bot.getDatabase().getCache().getGuild(e.getGuild().getIdLong());
 			try {
-				Validation<String> attempt = txt.bot.getSettings().prefix.tryToSet(guild, args[0]);
+				Validation<String> attempt = prefixSetting.tryToSet(guild, String.join(" ", args));
 				if (attempt.isValid()) {
 					return new Result(Outcome.SUCCESS, attempt.getValue());
 				}
-				String errorMsg = String.join(", ", attempt.getErrors());
+				String errorMsg = String.join("\n", attempt.getErrors());
 				return new Result(Outcome.WARNING, ":warning: " + errorMsg);
 			} catch (SQLException ex) {
 				ex.printStackTrace(); // Not printing exception to the user just to be safe
