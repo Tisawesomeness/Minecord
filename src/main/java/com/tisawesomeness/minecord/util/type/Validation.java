@@ -4,11 +4,11 @@ import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.function.Function;
 
 // Inspiration from Vavr's Validation type
@@ -22,7 +22,7 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 @EqualsAndHashCode
 public final class Validation<T> {
-    private final Optional<T> value;
+    private final @Nullable T value;
     private final List<String> errors; // Must be immutable
 
     /**
@@ -32,7 +32,7 @@ public final class Validation<T> {
      * @return A valid Validation with no error message
      */
     public static <T> Validation<T> valid(@NonNull T value) {
-        return new Validation<>(Optional.of(value), Collections.emptyList());
+        return new Validation<>(value, Collections.emptyList());
     }
     /**
      * Creates an invalid Validation.
@@ -41,7 +41,7 @@ public final class Validation<T> {
      * @return An invalid Validation with no value
      */
     public static <T> Validation<T> invalid(@NonNull String errorMessage) {
-        return new Validation<>(Optional.empty(), Collections.singletonList(errorMessage));
+        return new Validation<>(null, Collections.singletonList(errorMessage));
     }
 
     /**
@@ -55,7 +55,7 @@ public final class Validation<T> {
         if (v.isValid()) {
             throw new IllegalStateException("propogateError() cannot be used on a valid Validation.");
         }
-        return new Validation<>(Optional.empty(), v.errors);
+        return new Validation<>(null, v.errors);
     }
 
     /**
@@ -65,7 +65,7 @@ public final class Validation<T> {
      * @return Whether this validation is valid
      */
     public boolean isValid() {
-        return value.isPresent();
+        return value != null;
     }
 
     /**
@@ -74,7 +74,10 @@ public final class Validation<T> {
      * @throws NoSuchElementException If this validation is not valid
      */
     public @NonNull T getValue() {
-        return value.orElseThrow(() -> new NoSuchElementException("No value present"));
+        if (value == null) {
+            throw new NoSuchElementException("No value present");
+        }
+        return value;
     }
     /**
      * Gets a list of error messages for this validation.
@@ -101,7 +104,7 @@ public final class Validation<T> {
         }
         List<String> list = new ArrayList<>(errors);
         list.addAll(other.errors);
-        return new Validation<>(Optional.empty(), Collections.unmodifiableList(list));
+        return new Validation<>(null, Collections.unmodifiableList(list));
     }
     /**
      * Combines multiple validations, reducing them using {@link #combine(Validation)}.
