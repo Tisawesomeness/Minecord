@@ -6,6 +6,7 @@ import com.tisawesomeness.minecord.util.RequestUtils;
 import com.google.common.base.Splitter;
 import lombok.Cleanup;
 import lombok.Getter;
+import org.sqlite.SQLiteConfig;
 import org.sqlite.SQLiteDataSource;
 import org.sqlite.javax.SQLiteConnectionPoolDataSource;
 
@@ -35,6 +36,7 @@ public class Database {
 		String url = "jdbc:sqlite:" + config.dbPath;
 		SQLiteDataSource ds = new SQLiteConnectionPoolDataSource();
 		ds.setUrl(url);
+		ds.setEncoding("UTF-8");
 		source = ds;
 
 		cache = new DatabaseCache(this, config);
