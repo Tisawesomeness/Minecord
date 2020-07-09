@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.database;
 
 import com.tisawesomeness.minecord.Config;
-import com.tisawesomeness.minecord.util.type.ThrowingFunction;
+import com.tisawesomeness.minecord.util.type.SQLFunction;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -51,7 +51,7 @@ public class DatabaseCache {
      * @return A Guava cache with the specified loading function.
      */
     private static <T, R> LoadingCache<T, R> build(
-            CacheBuilder<Object, Object> builder, ThrowingFunction<? super T, ? extends R> loadFunction) {
+            CacheBuilder<Object, Object> builder, SQLFunction<? super T, ? extends R> loadFunction) {
         return builder.build(new CacheLoader<T, R>() {
             @Override
             // @NotNull used to satisfy warning
