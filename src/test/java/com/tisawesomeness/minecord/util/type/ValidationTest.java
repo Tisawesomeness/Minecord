@@ -168,10 +168,10 @@ public class ValidationTest {
         String errorMessage1 = "First error message";
         Validation<Object> v1 = Validation.invalid(errorMessage1);
         assertFalse(v1.isValid());
-        String errorMessage2 = "First error message";
+        String errorMessage2 = "Second error message";
         Validation<Object> v2 = Validation.invalid(errorMessage2);
         assertFalse(v2.isValid());
-        String errorMessage3 = "First error message";
+        String errorMessage3 = "Third error message";
         Validation<Object> v3 = Validation.invalid(errorMessage3);
         assertFalse(v3.isValid());
         Validation<Object> vCombined = Validation.combine(v1, v2, v3);
