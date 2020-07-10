@@ -10,7 +10,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -69,10 +68,10 @@ public class ValidationTest {
     }
 
     @Test
-    @DisplayName("getValue() throws NoSuchElementException if not valid")
+    @DisplayName("getValue() throws IllegalStateException if not valid")
     public void testGetValue() {
         Validation<?> v = Validation.invalid("An error message");
-        assertThrows(NoSuchElementException.class, v::getValue);
+        assertThrows(IllegalStateException.class, v::getValue);
     }
     @Test
     @DisplayName("getErrorMessage() is empty if valid")
@@ -87,10 +86,15 @@ public class ValidationTest {
     public void testPropogateError() {
         String errorMessage = "An error message";
         Validation<?> v = Validation.invalid(errorMessage);
-        assertFalse(v.isValid());
         List<String> errors = v.getErrors();
         assertEquals(1, errors.size());
         assertEquals(errorMessage, errors.get(0));
+    }
+    @Test
+    @DisplayName("propogateError() throws for a valid Validation")
+    public void testPropogateErrorValid() {
+        Validation<Object> v = Validation.valid(new Object());
+        assertThrows(IllegalStateException.class, () -> Validation.propogateError(v));
     }
 
     @Test
@@ -98,9 +102,7 @@ public class ValidationTest {
     public void testCombineBothValid() {
         Object o = new Object();
         Validation<Object> v1 = Validation.valid(o);
-        assertTrue(v1.isValid());
         Validation<Object> v2 = Validation.valid(o);
-        assertTrue(v2.isValid());
         Validation<Object> vCombined = v1.combine(v2);
         assertTrue(vCombined.isValid());
         assertEquals(o, vCombined.getValue());
@@ -110,10 +112,8 @@ public class ValidationTest {
     public void testCombineBothValidRightPreference() {
         Object o1 = new Object();
         Validation<Object> v1 = Validation.valid(o1);
-        assertTrue(v1.isValid());
         Object o2 = new Object();
         Validation<Object> v2 = Validation.valid(o2);
-        assertTrue(v2.isValid());
         Validation<Object> vCombined = v1.combine(v2);
         assertTrue(vCombined.isValid());
         assertEquals(o2, vCombined.getValue());
@@ -123,10 +123,8 @@ public class ValidationTest {
     public void testCombineLeftValid() {
         Object o = new Object();
         Validation<Object> v1 = Validation.valid(o);
-        assertTrue(v1.isValid());
         String errorMessage = "An error message";
         Validation<Object> v2 = Validation.invalid(errorMessage);
-        assertFalse(v2.isValid());
         Validation<Object> vCombined = v1.combine(v2);
         assertFalse(vCombined.isValid());
         List<String> errors = vCombined.getErrors();
@@ -138,10 +136,8 @@ public class ValidationTest {
     public void testCombineRightValid() {
         String errorMessage = "An error message";
         Validation<Object> v1 = Validation.invalid(errorMessage);
-        assertFalse(v1.isValid());
         Object o = new Object();
         Validation<Object> v2 = Validation.valid(o);
-        assertTrue(v2.isValid());
         Validation<Object> vCombined = v1.combine(v2);
         assertFalse(vCombined.isValid());
         List<String> errors = vCombined.getErrors();
@@ -153,10 +149,8 @@ public class ValidationTest {
     public void testCombineBothInvalid() {
         String errorMessage1 = "First error message";
         Validation<Object> v1 = Validation.invalid(errorMessage1);
-        assertFalse(v1.isValid());
         String errorMessage2 = "Second error message";
         Validation<Object> v2 = Validation.invalid(errorMessage2);
-        assertFalse(v2.isValid());
         Validation<Object> vCombined = v1.combine(v2);
         assertFalse(vCombined.isValid());
         List<String> errors = vCombined.getErrors();
@@ -167,13 +161,10 @@ public class ValidationTest {
     public void testCombineVarargs() {
         String errorMessage1 = "First error message";
         Validation<Object> v1 = Validation.invalid(errorMessage1);
-        assertFalse(v1.isValid());
         String errorMessage2 = "Second error message";
         Validation<Object> v2 = Validation.invalid(errorMessage2);
-        assertFalse(v2.isValid());
         String errorMessage3 = "Third error message";
         Validation<Object> v3 = Validation.invalid(errorMessage3);
-        assertFalse(v3.isValid());
         Validation<Object> vCombined = Validation.combine(v1, v2, v3);
         assertFalse(vCombined.isValid());
         List<String> errors = vCombined.getErrors();

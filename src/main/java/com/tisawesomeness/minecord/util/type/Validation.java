@@ -8,7 +8,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.function.Function;
 
 // Inspiration from Vavr's Validation type
@@ -70,12 +69,12 @@ public final class Validation<T> {
 
     /**
      * Gets the value of this validation.
-     * @return The non-null value if {@link #isValid()} is true
-     * @throws NoSuchElementException If this validation is not valid
+     * @return The value if {@link #isValid()} is {@code true}
+     * @throws IllegalStateException If this validation is not valid
      */
     public @NonNull T getValue() {
         if (value == null) {
-            throw new NoSuchElementException("No value present");
+            throw new IllegalStateException("No value present");
         }
         return value;
     }
