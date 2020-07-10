@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.setting;
 
+import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.DMSettingContainer;
-import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.database.SettingContainer;
 
 import lombok.NonNull;
@@ -68,6 +68,14 @@ public abstract class DMSetting<T> extends Setting<T> {
         return get(obj).orElse(getDefault());
     }
     /**
+     * Gets the current user-readable value of this setting.
+     * @param obj The guild, channel, or user to lookup
+     * @return The value of the setting converted to a string
+     */
+    public @NonNull String getDisplay(@NonNull DMSettingContainer obj) {
+        return get(obj).map(this::display).orElse("unset");
+    }
+    /**
      * Changes the value of this setting.
      * @param obj The guild, channel, or user to change
      * @throws SQLException If the setting couldn't be changed due to an error
@@ -84,14 +92,17 @@ public abstract class DMSetting<T> extends Setting<T> {
     /**
      * Gets the value of this setting used in the provided context.
      * <br>If the message was sent in a DM, the setting value for the user is used.
-     * <br>Otherwise, {@link Setting#get(MessageReceivedEvent, DatabaseCache)} is used.
-     * @param e The event that triggered the executing command
-     * @param cache The database cache to pull from
+     * <br>Otherwise, {@link Setting#get(CommandContext)} is used.
+     * @param txt The context of the executing command
      * @return The value of the setting, or empty if unset
      */
     @Override
-    public Optional<T> get(@NonNull MessageReceivedEvent e, DatabaseCache cache) {
-        return e.isFromGuild() ? super.get(e, cache) : get(cache.getUser(e.getAuthor().getIdLong()));
+    public Optional<T> get(@NonNull CommandContext txt) {
+        MessageReceivedEvent e = txt.e;
+        if (e.isFromGuild()) {
+            return super.get(txt);
+        }
+        return get(txt.bot.getDatabase().getCache().getUser(e.getAuthor().getIdLong()));
     }
 
 }

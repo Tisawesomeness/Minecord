@@ -47,10 +47,11 @@ public class CommandListener extends ListenerAdapter {
 		DatabaseCache cache = db.getCache();
 
 		// Get the settings needed before command execution
-		String prefix = bot.getSettings().prefix.getEffective(e, cache);
+		String prefix;
 		boolean canEmbed = true;
 
 		if (e.isFromType(ChannelType.TEXT)) {
+			prefix = bot.getSettings().prefix.getEffective(cache, e.getTextChannel());
 			Member sm = e.getGuild().getSelfMember();
 			// No permissions or guild banned? Don't send message
 			if (!sm.hasPermission(e.getTextChannel(), Permission.MESSAGE_WRITE) ||
@@ -59,7 +60,9 @@ public class CommandListener extends ListenerAdapter {
 			}
 			TextChannel tc = e.getTextChannel();
 			canEmbed = sm.hasPermission(tc, Permission.MESSAGE_EMBED_LINKS);
-		} else if (!e.isFromType(ChannelType.PRIVATE)) {
+		} else if (e.isFromType(ChannelType.PRIVATE)) {
+			prefix = bot.getSettings().prefix.getEffective(cache.getUser(e.getAuthor().getIdLong()));
+		} else {
 			return;
 		}
 		
