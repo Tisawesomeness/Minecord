@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.database.DbGuild;
 import com.tisawesomeness.minecord.database.DbUser;
 import com.tisawesomeness.minecord.util.DiscordUtils;
@@ -51,7 +50,6 @@ public class BanCommand extends Command {
 		//Check for proper argument length
 		if (args.length < 1) return new Result(Outcome.WARNING, ":warning: Not enough arguments.");
 
-		DatabaseCache cache = txt.bot.getDatabase().getCache();
 		ShardManager sm = txt.bot.getShardManager();
 		
 		//User part of command
@@ -65,7 +63,7 @@ public class BanCommand extends Command {
 				return new Result(Outcome.WARNING, ":warning: You can't ban the owner!");
 			}
 			long uid = Long.valueOf(args[1]);
-			DbUser dbUser = cache.getUser(uid);
+			DbUser dbUser = txt.getUser(uid);
 			//Ban or unban user
 			boolean banned = dbUser.isBanned();
 			try {
@@ -96,7 +94,7 @@ public class BanCommand extends Command {
 				}
 			}
 			long gid = Long.valueOf(args[1]);
-			DbGuild dbGuild = cache.getGuild(gid);
+			DbGuild dbGuild = txt.getGuild(gid);
 			//Ban or unban guild
 			boolean banned = dbGuild.isBanned();
 			try {
@@ -116,7 +114,7 @@ public class BanCommand extends Command {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
             long id = Long.valueOf(args[0]);
-            boolean banned = cache.getGuild(id).isBanned() || cache.getUser(id).isBanned();
+            boolean banned = txt.getGuild(id).isBanned() || txt.getUser(id).isBanned();
 			String msg = args[0] + (banned ? " is banned!" : " is not banned.");
 			return new Result(Outcome.SUCCESS, msg);
 		}

@@ -2,6 +2,11 @@ package com.tisawesomeness.minecord.command;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
+import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.database.DatabaseCache;
+import com.tisawesomeness.minecord.database.DbChannel;
+import com.tisawesomeness.minecord.database.DbGuild;
+import com.tisawesomeness.minecord.database.DbUser;
 import com.tisawesomeness.minecord.setting.SettingRegistry;
 import com.tisawesomeness.minecord.setting.impl.UseMenusSetting;
 
@@ -9,8 +14,11 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.With;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.GuildChannel;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import javax.annotation.Nullable;
@@ -52,6 +60,63 @@ public class CommandContext {
         this(args, e, config, bot, isElevated, prefix, settings.useMenus);
     }
 
+    /**
+     * Shortcut for {@link #bot}.{@link Bot#getDatabase() getDatabase()}.{@link Database#getCache() getCache()}
+     * @return The guild, channel, and user cache associated with this bot
+     */
+    public DatabaseCache getCache() {
+        return bot.getDatabase().getCache();
+    }
+    /**
+     * Gets a guild from the backend
+     * @param gid The guild id
+     * @return Either the cached guild or one with default settings
+     */
+    public DbGuild getGuild(long gid) {
+        return getCache().getGuild(gid);
+    }
+    /**
+     * Gets a guild from the backend
+     * @param g The JDA guild object
+     * @return Either the cached guild or one with default settings
+     */
+    public DbGuild getGuild(Guild g) {
+        return getGuild(g.getIdLong());
+    }
+    /**
+     * Gets a channel from the backend
+     * @param cid The channel id
+     * @param gid The guild id
+     * @return Either the cached channel or one with default settings
+     */
+    public DbChannel getChannel(long cid, long gid) {
+        return getCache().getChannel(cid, gid);
+    }
+    /**
+     * Gets a channel from the backend
+     * @param c The JDA channel object
+     * @return Either the cached channel or one with default settings
+     */
+    public DbChannel getChannel(GuildChannel c) {
+        return getChannel(c.getIdLong(), c.getGuild().getIdLong());
+    }
+    /**
+     * Gets a user from the backend
+     * @param uid The user id
+     * @return Either the cached user or one with default settings
+     */
+    public DbUser getUser(long uid) {
+        return getCache().getUser(uid);
+    }
+    /**
+     * Gets a user from the backend
+     * @param u The JDA user object
+     * @return Either the cached user or one with default settings
+     */
+    public DbUser getUser(User u) {
+        return getUser(u.getIdLong());
+    }
+
     private final @NonNull UseMenusSetting useMenusSetting;
     public boolean shouldUseMenus() {
         return useMenusSetting.getEffective(this);
@@ -83,7 +148,7 @@ public class CommandContext {
      * @param body The main body or description of the message.
      * @return The EmbedBuilder with the added info and bot branding.
      */
-    public EmbedBuilder embedMessage(@Nullable String title, @Nullable String body) {
+    public EmbedBuilder embedMessage(@Nullable String title, @Nullable CharSequence body) {
         return brand(new EmbedBuilder()
                 .setTitle(title)
                 .setDescription(body));
@@ -97,7 +162,7 @@ public class CommandContext {
      * @param body The main body or description of the message.
      * @return The EmbedBuilder with the added info and bot branding.
      */
-    public EmbedBuilder embedURL(@Nullable String title, @Nullable String url, @Nullable String body) {
+    public EmbedBuilder embedURL(@Nullable String title, @Nullable String url, @Nullable CharSequence body) {
         return brand(new EmbedBuilder()
                 .setTitle(title, url)
                 .setDescription(body));

@@ -68,7 +68,7 @@ public class PrefixCommand extends Command {
 				return new Result(Outcome.SUCCESS, "Nice try.");
 			}
 			// Set new prefix
-			DbGuild guild = txt.bot.getDatabase().getCache().getGuild(e.getGuild().getIdLong());
+			DbGuild guild = txt.getGuild(e.getGuild());
 			try {
 				Validation<String> attempt = prefixSetting.tryToSet(guild, String.join(" ", args));
 				if (attempt.isValid()) {

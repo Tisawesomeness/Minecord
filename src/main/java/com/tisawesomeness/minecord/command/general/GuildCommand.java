@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.command.general;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.database.DbGuild;
 import com.tisawesomeness.minecord.setting.Setting;
 import com.tisawesomeness.minecord.util.DateUtils;
@@ -43,7 +42,6 @@ public class GuildCommand extends Command {
     
     public Result run(CommandContext txt) {
         String[] args = txt.args;
-        DatabaseCache cache = txt.bot.getDatabase().getCache();
 
         // If the author used the admin keyword and is an elevated user
         boolean elevated = false;
@@ -56,8 +54,8 @@ public class GuildCommand extends Command {
             g = txt.bot.getShardManager().getGuildById(args[0]);
             if (g == null) {
                 long gid = Long.valueOf(args[0]);
-                DbGuild dbGuild = cache.getGuild(gid);
-                if (cache.getGuild(gid).isBanned()) {
+                DbGuild dbGuild = txt.getGuild(gid);
+                if (dbGuild.isBanned()) {
                     return new Result(Outcome.SUCCESS,
                             "__**GUILD BANNED FROM MINECORD**__\n" + getSettingsStr(dbGuild, txt));
                 }
@@ -70,7 +68,7 @@ public class GuildCommand extends Command {
             g = txt.e.getGuild();
         }
         User owner = g.retrieveOwner().complete().getUser();
-		DbGuild dbGuild = cache.getGuild(g.getIdLong());
+		DbGuild dbGuild = txt.getGuild(g);
 
         // Generate guild info
         int textChannels = g.getTextChannels().size();

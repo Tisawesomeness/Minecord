@@ -37,7 +37,7 @@ public class PromoteCommand extends Command {
 		if (user == null) return new Result(Outcome.ERROR, ":x: Not a valid user!");
 		
 		//Don't elevate a normal user
-		DbUser dbUser = txt.bot.getDatabase().getCache().getUser(user.getIdLong());
+		DbUser dbUser = txt.getUser(user);
 		if (dbUser.isElevated()) {
 			return new Result(Outcome.WARNING, ":warning: User is already elevated!");
 		}

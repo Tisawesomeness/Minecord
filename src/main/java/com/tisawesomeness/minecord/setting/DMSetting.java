@@ -102,7 +102,7 @@ public abstract class DMSetting<T> extends Setting<T> {
         if (e.isFromGuild()) {
             return super.get(txt);
         }
-        return get(txt.bot.getDatabase().getCache().getUser(e.getAuthor().getIdLong()));
+        return get(txt.getUser(e.getAuthor()));
     }
 
 }

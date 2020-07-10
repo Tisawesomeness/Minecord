@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.command.general;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.DbUser;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
@@ -63,7 +62,6 @@ public class UserCommand extends Command {
         String[] args = txt.args;
         MessageReceivedEvent e = txt.e;
         ShardManager sm = txt.bot.getShardManager();
-        Database db = txt.bot.getDatabase();
 
         //If the author used the admin keyword and is an elevated user
 		if (args.length > 1 && args[1].equals("admin") && txt.isElevated) {
@@ -73,7 +71,7 @@ public class UserCommand extends Command {
             User u = sm.retrieveUserById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
             if (u == null) {
                 long uid = Long.valueOf(args[0]);
-                DbUser dbUser = db.getCache().getUser(uid);
+                DbUser dbUser =txt.getUser(uid);
                 String elevatedStr = String.format("Elevated: `%s`", dbUser.isElevated());
                 if (dbUser.isBanned()) {
                     return new Result(Outcome.SUCCESS, "__**USER BANNED FROM MINECORD**__\n" + elevatedStr);
@@ -81,7 +79,7 @@ public class UserCommand extends Command {
                 return new Result(Outcome.SUCCESS, elevatedStr);
             }
 
-            DbUser dbUser = db.getCache().getUser(u.getIdLong());
+            DbUser dbUser = txt.getUser(u);
             EmbedBuilder eb = new EmbedBuilder()
                 .setTitle(MarkdownSanitizer.escape(u.getAsTag()))
                 .addField("ID", u.getId(), true)

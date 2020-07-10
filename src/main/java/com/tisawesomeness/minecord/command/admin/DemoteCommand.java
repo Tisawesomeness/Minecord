@@ -39,7 +39,7 @@ public class DemoteCommand extends Command {
 		long id = user.getIdLong();
 
 		//Don't demote a normal user
-		DbUser dbUser = txt.bot.getDatabase().getCache().getUser(id);
+		DbUser dbUser = txt.getUser(id);
 		if (!dbUser.isElevated()) {
 			return new Result(Outcome.WARNING, ":warning: User is not elevated!");
 		}

@@ -66,7 +66,7 @@ public abstract class Setting<T> implements ISetting<T> {
     public Optional<T> get(@NonNull CommandContext txt) {
         MessageReceivedEvent e = txt.e;
         if (e.isFromGuild()) {
-            return get(txt.bot.getDatabase().getCache(), e.getTextChannel().getIdLong(), e.getGuild().getIdLong());
+            return get(txt.getCache(), e.getTextChannel().getIdLong(), e.getGuild().getIdLong());
         }
         return Optional.empty();
     }
