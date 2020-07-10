@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 public class PrefixSetting extends DMSetting<String> {
 
     private static final int MAX_LENGTH = 8;
-    private static final Pattern DISCORD_CONFLICT_PATTERN = Pattern.compile("[@#*()`_\\[\\]:]");
+    private static final Pattern DISCORD_CONFLICT_PATTERN = Pattern.compile("[@#*()`_\\[\\]\\\\:]");
     private static final Pattern STRIKETHROUGH_CONFLICT_PATTERN = Pattern.compile("~($|~)");
     private static final Pattern SPOILER_CONFLICT_PATTERN = Pattern.compile("\\|($|\\|)");
     private static final String DISCORD_CONFLICT_ERROR =
@@ -32,6 +32,8 @@ public class PrefixSetting extends DMSetting<String> {
             "The prefix cannot have two `~` in a row or at the end since it conflicts with strikethrough formatting.";
     private static final String SPOILER_CONFLICT_ERROR =
             "The prefix cannot have two `|` in a row or at the end since it conflicts with spoiler formatting.";
+    private static final String ENDS_WITH_LETTER_ERROR =
+            "The prefix cannot end with a letter, since the recipe command would be `abcrecipe` with prefix `abc`.";
 
     private static final String desc = "The prefix used before every command.\n" +
             "`@%s command` will work regardless of prefix.\n" +
@@ -55,17 +57,19 @@ public class PrefixSetting extends DMSetting<String> {
 
     /**
      * Imposes some sanity checks on the prefix and make sure it doesn't cause Discord formatting issues.
-     * <br>A prefix is valid if:
+     * <br>A prefix is valid if it:
      * <ul>
-     *     <li>The prefix is not too long</li>
+     *     <li>Does not contain user, channel, or role mentions</li>
+     *     <li>Does not contain emojis</li>
+     *     <li>Is not too long</li>
+     *     <li>Does not end with a letter (to prevent {@code abcrecipe} for prefix {@code abc})</li>
      *     <li>Only contains keyboard-reachable characters (letters, digits, symbols),
      *         or chars {@code 0x21} to {@code 0x7E}</li>
-     *     <li>Does not contain the formatting characters {@code @#*()`_[]:}</li>
+     *     <li>Does not contain the formatting characters {@code @#*()`_[]\:}</li>
      *     <li>Does not have {@code ~} or {@code |} twice in a row or at the end of the prefix,
      *         to prevent conflicts with strikethrough and spoiler formatting</li>
      * </ul>
-     * Legal symbols: {@code !$%^&-=+\;',./{}"<>?}.
-     * @param input The string input extracted from a Discord message
+     * Legal symbols: {@code !$%^&-=+;',./{}"<>?}.
      */
     public Validation<String> resolve(@NonNull String input) {
         // The mention "@a" is 18 characters long when sent to discord
@@ -75,6 +79,7 @@ public class PrefixSetting extends DMSetting<String> {
         }
         return Validation.combine(
                 validateLength(input),
+                validateEndNotLetter(input),
                 validateLegalChars(input),
                 validatePattern(input, DISCORD_CONFLICT_PATTERN, DISCORD_CONFLICT_ERROR),
                 validatePattern(input, STRIKETHROUGH_CONFLICT_PATTERN, STRIKETHROUGH_CONFLICT_ERROR),
@@ -97,6 +102,13 @@ public class PrefixSetting extends DMSetting<String> {
     private static Validation<String> validatePattern(String input, Pattern pattern, String error) {
         if (pattern.matcher(input).find()) {
             return Validation.invalid(error);
+        }
+        return Validation.valid(input);
+    }
+    private static Validation<String> validateEndNotLetter(String input) {
+        char lastChar = input.charAt(input.length() - 1);
+        if (Character.isLetter(lastChar)) {
+            return Validation.invalid(ENDS_WITH_LETTER_ERROR);
         }
         return Validation.valid(input);
     }

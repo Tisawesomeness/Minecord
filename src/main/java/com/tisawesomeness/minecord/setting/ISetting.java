@@ -31,7 +31,7 @@ public interface ISetting<T> {
 
     /**
      * Parses a setting from user input.
-     * @param input The string input extracted from a Discord message.
+     * @param input The non-empty string input extracted from a Discord message.
      * @return The setting's value or a message describing why the input is invalid.
      */
     Validation<T> resolve(@NonNull String input);
