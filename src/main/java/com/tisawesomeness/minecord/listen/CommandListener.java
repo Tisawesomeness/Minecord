@@ -51,7 +51,8 @@ public class CommandListener extends ListenerAdapter {
 		boolean canEmbed = true;
 
 		if (e.isFromType(ChannelType.TEXT)) {
-			prefix = bot.getSettings().prefix.getEffective(cache, e.getTextChannel());
+			prefix = bot.getSettings().prefix.getEffective(cache,
+					e.getTextChannel().getIdLong(), e.getGuild().getIdLong());
 			Member sm = e.getGuild().getSelfMember();
 			// No permissions or guild banned? Don't send message
 			if (!sm.hasPermission(e.getTextChannel(), Permission.MESSAGE_WRITE) ||

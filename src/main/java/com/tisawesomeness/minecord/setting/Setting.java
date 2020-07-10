@@ -6,7 +6,6 @@ import com.tisawesomeness.minecord.database.SettingContainer;
 import com.tisawesomeness.minecord.util.type.Validation;
 
 import lombok.NonNull;
-import net.dv8tion.jda.api.entities.GuildChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.sql.SQLException;
@@ -48,16 +47,16 @@ public abstract class Setting<T> implements ISetting<T> {
      * Gets the value of this setting for a channel.
      * <br>If there is no setting value for a channel, the guild value is used instead.
      * @param cache The database cache to pull from
-     * @param channel The guild this channel is from will be used if this channel is unset
+     * @param channelId The channel ID
+     * @param guildId The guild ID
      * @return The value of the setting, or empty if unset
      */
-    public Optional<T> get(DatabaseCache cache, GuildChannel channel) {
-        long gid = channel.getGuild().getIdLong();
-        Optional<T> setting = get(cache.getChannel(channel.getIdLong(), gid));
+    public Optional<T> get(DatabaseCache cache, long channelId, long guildId) {
+        Optional<T> setting = get(cache.getChannel(channelId, guildId));
         if (setting.isPresent()) {
             return setting;
         }
-        return get(cache.getGuild(gid));
+        return get(cache.getGuild(guildId));
     }
     /**
      * Gets the value of this setting used in the provided context.
@@ -67,7 +66,7 @@ public abstract class Setting<T> implements ISetting<T> {
     public Optional<T> get(@NonNull CommandContext txt) {
         MessageReceivedEvent e = txt.e;
         if (e.isFromGuild()) {
-            return get(txt.bot.getDatabase().getCache(), txt.e.getTextChannel());
+            return get(txt.bot.getDatabase().getCache(), e.getTextChannel().getIdLong(), e.getGuild().getIdLong());
         }
         return Optional.empty();
     }
@@ -83,11 +82,12 @@ public abstract class Setting<T> implements ISetting<T> {
     /**
      * Gets the current value of this setting for a channel.
      * @param cache The database cache to pull from
-     * @param channel The guild this channel is from will be used if this channel is unset
+     * @param channelId The channel ID
+     * @param guildId The guild ID
      * @return The value of the setting, or the default if unset
      */
-    public @NonNull T getEffective(DatabaseCache cache, GuildChannel channel) {
-        return get(cache, channel).orElse(getDefault());
+    public @NonNull T getEffective(DatabaseCache cache, long channelId, long guildId) {
+        return get(cache, channelId, guildId).orElse(getDefault());
     }
     /**
      * Gets the value of this setting used in the provided context.
@@ -117,11 +117,12 @@ public abstract class Setting<T> implements ISetting<T> {
     /**
      * Gets the current user-readable value of this setting for a channel.
      * @param cache The database cache to pull from
-     * @param channel The guild this channel is from will be used if this channel is unset
+     * @param channelId The channel ID
+     * @param guildId The guild ID
      * @return The value of the setting converted to a string
      */
-    public @NonNull String getDisplay(DatabaseCache cache, GuildChannel channel) {
-        return get(cache, channel).map(this::display).orElse("unset");
+    public @NonNull String getDisplay(DatabaseCache cache, long channelId, long guildId) {
+        return get(cache, channelId, guildId).map(this::display).orElse("unset");
     }
     /**
      * Gets the current user-readable value of this setting in the current context.
