@@ -3,17 +3,13 @@ package com.tisawesomeness.minecord.util.type;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.EmptySource;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -22,39 +18,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ValidationTest {
 
     @Test
-    @DisplayName("Validation factory method does not alter object value")
+    @DisplayName("Validation factory method does not alter value")
     public void testValidObject() {
         Object o = new Object();
         Validation<Object> v = Validation.valid(o);
         assertTrue(v.isValid());
         assertEquals(o, v.getValue());
     }
-    @ParameterizedTest
-    @ValueSource(ints = {Integer.MIN_VALUE, -2, -1, 0, 1, 2, Integer.MAX_VALUE})
-    @DisplayName("Validation factory method does not alter primitive value")
-    public void testValidPrimitive(int candidate) {
-        Validation<Integer> v = Validation.valid(candidate);
-        assertTrue(v.isValid());
-        assertEquals(candidate, v.getValue());
-    }
-    @ParameterizedTest
-    @MethodSource("objectArrayProvider")
-    @DisplayName("Validation factory method does not alter array value")
-    public void testValidArray(Object[] candidate) {
-        Validation<Object[]> v = Validation.valid(candidate);
-        assertTrue(v.isValid());
-        assertArrayEquals(candidate, v.getValue());
-    }
-    @ParameterizedTest
-    @EmptySource
-    @ValueSource(strings = "test")
-    @DisplayName("Validation factory method does not alter string value")
-    public void testValidPrimitive(String candidate) {
-        Validation<String> v = Validation.valid(candidate);
-        assertTrue(v.isValid());
-        assertEquals(candidate, v.getValue());
-    }
-
     @ParameterizedTest
     @EmptySource
     @ValueSource(strings = "test")
@@ -192,15 +162,6 @@ public class ValidationTest {
         List<String> errors = mappedValidation.getErrors();
         assertEquals(1, errors.size());
         assertEquals(errorMessage, errors.get(0));
-    }
-
-    private static Stream<Arguments> objectArrayProvider() {
-        Object o = new Object();
-        return Stream.of(
-                Arguments.of((Object) new Object[0]),
-                Arguments.of((Object) new Object[]{o}),
-                Arguments.of((Object) new Object[]{o, o})
-        );
     }
 
 }
