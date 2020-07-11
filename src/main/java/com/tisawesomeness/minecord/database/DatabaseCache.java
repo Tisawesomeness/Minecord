@@ -63,8 +63,9 @@ public class DatabaseCache {
 
     /**
      * Either gets a guild from the cache or queries the database for it.
+     * <br>If the guild id is known, use {@link #getChannel(long, long)}.
      * @param id The guild id
-     * @return The guild if present, or an empty Optional if not present in the database or an exception occured
+     * @return The guild if present, or a new default guild
      */
     public DbGuild getGuild(long id) {
         try {
@@ -79,9 +80,23 @@ public class DatabaseCache {
     }
     /**
      * Either gets a channel from the cache or queries the database for it.
+     * If the guild
+     * @param id The channel id
+     * @return The channel if present, or an empty Optional if not present in the database or an exception occured
+     */
+    public Optional<DbChannel> getChannel(long id) {
+        try {
+            return channels.get(id);
+        } catch (ExecutionException ex) {
+            ex.printStackTrace();
+        }
+        return Optional.empty();
+    }
+    /**
+     * Either gets a channel from the cache or queries the database for it.
      * @param id The channel id
      * @param guildId The guild id, which is necessary for "get all channels in guild" queries
-     * @return The channel if present, or an empty Optional if not present in the database or an exception occured
+     * @return The channel if present, or a new default channel
      */
     public DbChannel getChannel(long id, long guildId) {
         try {
@@ -97,7 +112,7 @@ public class DatabaseCache {
     /**
      * Either gets a user from the cache or queries the database for it.
      * @param id The user id
-     * @return The user if present, or an empty Optional if not present in the database or an exception occured
+     * @return The user if present, or a new default user
      */
     public DbUser getUser(long id) {
         try {

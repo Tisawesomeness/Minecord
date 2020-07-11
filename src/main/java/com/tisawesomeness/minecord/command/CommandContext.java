@@ -22,6 +22,7 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 /**
  * Stores the information available to every command
@@ -82,6 +83,15 @@ public class CommandContext {
      */
     public DbGuild getGuild(Guild g) {
         return getGuild(g.getIdLong());
+    }
+    /**
+     * Gets a channel from the backend
+     * <br>If the guild id is known, use {@link #getChannel(long, long)}.
+     * @param cid The channel id
+     * @return Either the cached channel, or empty since the guild ID must be known to create a new channel
+     */
+    public Optional<DbChannel> getChannel(long cid) {
+        return getCache().getChannel(cid);
     }
     /**
      * Gets a channel from the backend
