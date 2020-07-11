@@ -23,7 +23,7 @@ import java.util.Optional;
 @Value
 @With
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class DbChannel implements SettingContainer {
+public class DbChannel implements SettingContainer, Bannable {
 
     private static final String SQL_SELECT = "SELECT * FROM channel WHERE id = ?;";
     private static final String SQL_UPDATE =

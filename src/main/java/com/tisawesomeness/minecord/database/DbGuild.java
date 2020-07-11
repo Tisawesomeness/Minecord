@@ -23,7 +23,7 @@ import java.util.Optional;
 @Value
 @With
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class DbGuild implements SettingContainer {
+public class DbGuild implements SettingContainer, Bannable {
 
 	private static final String SQL_SELECT = "SELECT * FROM guild WHERE id = ?;";
 	private static final String SQL_UPDATE =

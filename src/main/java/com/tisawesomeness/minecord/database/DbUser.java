@@ -23,7 +23,7 @@ import java.util.Optional;
 @Value
 @With
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class DbUser implements DMSettingContainer {
+public class DbUser implements DMSettingContainer, Bannable {
 
 	private static final String SQL_SELECT = "SELECT * FROM user WHERE id = ?;";
 	private static final String SQL_UPDATE =
