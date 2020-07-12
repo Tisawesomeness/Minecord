@@ -117,7 +117,7 @@ public class UserCommand extends Command {
             mem = mentioned.get(0);
         } else {
             if (args[0].matches(DiscordUtils.idRegex)) {
-                mem = e.getGuild().retrieveMemberById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
+                mem = e.getGuild().retrieveMemberById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_MEMBER::test, x -> null).complete();
                 if (mem == null) {
                     return new Result(Outcome.WARNING, ":warning: That user does not exist.");
                 }
