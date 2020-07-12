@@ -121,13 +121,16 @@ public class ServerCommand extends Command {
 		if (reply.getFavicon() == null) {
 			eb.setDescription(m);
 		} else {
-			try {
-				byte[] data = Base64.getDecoder().decode(reply.getFavicon().replace("\n", "").split(",")[1]);
-				e.getChannel().sendFile(data, "favicon.png").embed(eb.setDescription(m).setThumbnail("attachment://favicon.png").build()).queue();
-				return new Result(Outcome.SUCCESS);
-			} catch (IllegalArgumentException ex) {
-				ex.printStackTrace();
-				eb.setDescription(m + "\n:x: Server returned an invalid icon.");
+			String favicon = reply.getFavicon().replace("\n", "");
+			if (favicon.contains(",")) {
+				try {
+					byte[] data = Base64.getDecoder().decode(favicon.split(",")[1]);
+					e.getChannel().sendFile(data, "favicon.png").embed(eb.setDescription(m).setThumbnail("attachment://favicon.png").build()).queue();
+					return new Result(Outcome.SUCCESS);
+				} catch (IllegalArgumentException ex) {
+					ex.printStackTrace();
+					eb.setDescription(m + "\n:x: Server returned an invalid icon.");
+				}
 			}
 		}
 		return new Result(Outcome.SUCCESS, eb.build());
