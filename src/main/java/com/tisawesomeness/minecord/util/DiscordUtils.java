@@ -11,7 +11,7 @@ import net.dv8tion.jda.api.sharding.ShardManager;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DiscordUtils {
+public final class DiscordUtils {
 
 	public static final String idRegex = "[0-9]{9,20}";
 

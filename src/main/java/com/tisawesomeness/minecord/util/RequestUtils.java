@@ -21,7 +21,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class RequestUtils {
+public final class RequestUtils {
 
 	private static final String charset = StandardCharsets.UTF_8.name();
 	private static final String jsonType = "application/json";

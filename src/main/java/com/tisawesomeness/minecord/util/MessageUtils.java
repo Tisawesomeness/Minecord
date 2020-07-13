@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class MessageUtils {
+public final class MessageUtils {
 	
 	/**
 	 * Parses boolean arguments.

@@ -6,7 +6,7 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class ColorUtils {
+public final class ColorUtils {
 
     private static final JSONObject colors = RequestUtils.loadJSONResource("colors.json");
 

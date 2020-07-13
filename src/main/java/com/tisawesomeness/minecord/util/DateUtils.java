@@ -14,7 +14,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-public class DateUtils {
+public final class DateUtils {
 	
 	private static final String timestampRegex = "^[0-9]{4,}$";
 	private static final String dateRegex = "^(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])$";

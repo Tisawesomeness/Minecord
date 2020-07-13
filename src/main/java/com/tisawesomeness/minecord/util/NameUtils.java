@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class NameUtils {
+public final class NameUtils {
 
 	// Mojang capes don't want to work, so here's a list of every single UUID with a Mojang cape
 	public static final Set<String> mojangUUIDs = new HashSet<String>(Arrays.asList(
