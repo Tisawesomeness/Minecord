@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS guild (
 CREATE TABLE IF NOT EXISTS channel (
     id       BIGINT(20) PRIMARY KEY NOT NULL,
     guild_id BIGINT(20) NOT NULL UNIQUE,
+    banned   TINYINT(1) NOT NULL DEFAULT 0,
     prefix   TEXT(8),
     lang     TEXT(5),
     use_menu TINYINT(1)
