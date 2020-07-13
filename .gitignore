@@ -2,5 +2,6 @@
 .idea
 /build
 /out
-minecord.db
 lombok.config
+
+/minecord

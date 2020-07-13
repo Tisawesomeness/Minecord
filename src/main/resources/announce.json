@@ -1,0 +1,14 @@
+[
+  {
+    "text": "Minecord {version} | Made with \u2764 by {author}",
+    "weight": 16
+  },
+  {
+    "text": "Join the help server at {help_server}",
+    "weight": 3
+  },
+  {
+    "text": "Invite me to your server! {invite}",
+    "weight": 1
+  }
+]
