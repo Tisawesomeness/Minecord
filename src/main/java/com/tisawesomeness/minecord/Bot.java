@@ -278,8 +278,8 @@ public class Bot {
 	 * Logs a message to the logging channel.
 	 */
 	public void log(String m) {
-		String logChannel = config.logChannel;
-		if (logChannel.equals("0")) {
+		long logChannel = config.logChannel;
+		if (logChannel == 0) {
 			return;
 		}
 		TextChannel c = shardManager.getTextChannelById(logChannel);
@@ -292,8 +292,8 @@ public class Bot {
 	 * Logs a message to the logging channel.
 	 */
 	public void log(Message m) {
-		String logChannel = config.logChannel;
-		if (logChannel.equals("0")) {
+		long logChannel = config.logChannel;
+		if (logChannel == 0) {
 			return;
 		}
 		TextChannel c = shardManager.getTextChannelById(logChannel);
@@ -306,8 +306,8 @@ public class Bot {
 	 * Logs a message to the logging channel.
 	 */
 	public void log(MessageEmbed m) {
-		String logChannel = config.logChannel;
-		if (logChannel.equals("0")) {
+		long logChannel = config.logChannel;
+		if (logChannel == 0) {
 			return;
 		}
 		TextChannel c = shardManager.getTextChannelById(logChannel);

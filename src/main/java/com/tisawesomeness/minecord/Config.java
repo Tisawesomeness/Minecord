@@ -1,11 +1,15 @@
 package com.tisawesomeness.minecord;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Loads the config options from config.json.
@@ -14,12 +18,12 @@ public class Config {
 
 	public final String clientToken;
 	public final int shardCount;
-	public final String owner;
+	public final List<Long> owners;
 
 	public final String prefixDefault;
 	public final boolean useMenusDefault;
 
-	public final String logChannel;
+	public final long logChannel;
 	public final String invite;
 	public final String game;
 	public final boolean useAnnouncements;
@@ -58,13 +62,13 @@ public class Config {
 
 		clientToken = parseToken(config, tokenOverride);
 		shardCount = parseShards(config);
-		owner = config.getString("owner");
+		owners = parseOwners(config);
 
 		JSONObject settings = config.getJSONObject("settings");
 		prefixDefault = settings.getString("prefix");
 		useMenusDefault = settings.getBoolean("useMenus");
 
-		logChannel = settings.getString("logChannel");
+		logChannel = settings.getLong("logChannel");
 		invite = settings.getString("invite");
 		game = settings.getString("game");
 		useAnnouncements = settings.getBoolean("useAnnouncements");
@@ -97,6 +101,24 @@ public class Config {
 
 	private static int parseShards(JSONObject config) {
 		return Math.max(1, config.getInt("shardCount"));
+	}
+
+	private static List<Long> parseOwners(JSONObject config) {
+		JSONArray arr = config.getJSONArray("owners");
+		List<Long> list = new ArrayList<>();
+		for (int i = 0; i < arr.length(); i++) {
+			list.add(arr.getLong(i));
+		}
+		return Collections.unmodifiableList(list);
+	}
+
+	public boolean isOwner(long id) {
+		return owners.contains(id);
+	}
+	public boolean isOwner(String id) {
+		return owners.stream()
+				.map(Object::toString)
+				.anyMatch(s -> s.equals(id));
 	}
 
 }

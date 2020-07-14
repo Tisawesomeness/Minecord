@@ -1,9 +1,11 @@
 {
   "clientToken": "your token here",
   "shardCount": 1,
-  "owner": "0",
+  "owners": [
+    211261249386708992
+  ],
   "settings": {
-    "logChannel": "0",
+    "logChannel": 0,
     "invite": "https://minecord.github.io/invite",
     "prefix": "&",
     "game": "@Minecord help | {guilds} guilds",

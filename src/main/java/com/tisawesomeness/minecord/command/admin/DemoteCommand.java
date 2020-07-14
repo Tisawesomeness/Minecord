@@ -45,7 +45,7 @@ public class DemoteCommand extends Command {
 		}
 		
 		//Can't demote the owner
-		if (id == Long.valueOf(txt.config.owner)) {
+		if (txt.config.isOwner(id)) {
 			return new Result(Outcome.WARNING, ":warning: You can't demote the owner!");
 		}
 		

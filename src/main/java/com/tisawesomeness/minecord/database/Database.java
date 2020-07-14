@@ -6,7 +6,6 @@ import com.tisawesomeness.minecord.util.RequestUtils;
 import com.google.common.base.Splitter;
 import lombok.Cleanup;
 import lombok.Getter;
-import org.sqlite.SQLiteConfig;
 import org.sqlite.SQLiteDataSource;
 import org.sqlite.javax.SQLiteConnectionPoolDataSource;
 
@@ -52,8 +51,8 @@ public class Database {
 			throw new RuntimeException(err);
 		}
 
-		if (!"0".equals(config.owner)) {
-			cache.getUser(Long.parseLong(config.owner)).withElevated(true).update();
+		for (long owner : config.owners) {
+			cache.getUser(owner).withElevated(true).update();
 		}
 
 		System.out.println("Database connected.");
