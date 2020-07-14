@@ -43,6 +43,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -70,6 +71,8 @@ public class Bot {
 			CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOTE, CacheFlag.VOICE_STATE);
 
 	private ScheduledExecutorService menuExe;
+	private ScheduledExecutorService updateExe;
+	private ScheduledFuture<?> updateFuture;
 
 	private Config config;
 	private DiscordBotListAPI api;
@@ -181,8 +184,10 @@ public class Bot {
 		bootTime = System.currentTimeMillis() - birth;
 		System.out.println("Boot Time: " + DateUtils.getBootTime(bootTime));
 		log(":white_check_mark: **Bot started!**");
-		DiscordUtils.update(shardManager, config);
-		sendGuilds(shardManager, config);
+		if (config.updateTime > 0) {
+			updateExe = Executors.newSingleThreadScheduledExecutor();
+			scheduleUpdate();
+		}
 
 		// Make sure vote handler finishes
 		if (futureVH != null) {
@@ -196,6 +201,13 @@ public class Bot {
 		}
 		exe.shutdown();
 		
+	}
+
+	private void scheduleUpdate() {
+		updateFuture = updateExe.scheduleAtFixedRate(() -> {
+			DiscordUtils.update(shardManager, config);
+			sendGuilds(shardManager, config);
+		}, 0, config.updateTime, TimeUnit.SECONDS);
 	}
 
 	/**
@@ -218,6 +230,9 @@ public class Bot {
 		if (config.receiveVotes) {
 			voteHandler.close();
 		}
+		if (config.updateTime > 0) {
+			updateFuture.cancel(false);
+		}
 		shardManager.removeEventListener(commandListener, guildCountListener);
 		config = new Config(args.getConfigPath(), args.getTokenOverride());
 
@@ -235,6 +250,12 @@ public class Bot {
         }
         settings = new SettingRegistry(config);
         guildCountListener = new GuildCountListener(this ,config);
+        if (updateExe == null) {
+        	updateExe = Executors.newSingleThreadScheduledExecutor();
+		}
+		if (config.updateTime > 0) {
+			scheduleUpdate();
+		}
 
 		// Login to API with new token
         if (config.sendServerCount) {
@@ -262,6 +283,7 @@ public class Bot {
 	public void shutdown() {
 		System.out.println("Shutting down...");
 		menuExe.shutdown();
+		updateExe.shutdown();
 		shardManager.shutdown();
 		if (config.receiveVotes) {
 			voteHandler.close();

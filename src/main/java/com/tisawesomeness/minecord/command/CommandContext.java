@@ -199,7 +199,7 @@ public class CommandContext {
      */
     public EmbedBuilder addFooter(EmbedBuilder eb) {
         if (config.useAnnouncements) {
-            return eb.setFooter(bot.getAnnounceRegistry().roll());
+            return eb.setFooter(bot.getAnnounceRegistry().roll(bot.getShardManager()));
         }
         User author = e.getAuthor();
         String requestedBy = "Requested by " + author.getAsTag();

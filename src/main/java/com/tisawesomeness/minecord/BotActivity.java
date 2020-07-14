@@ -1,0 +1,50 @@
+package com.tisawesomeness.minecord;
+
+import com.tisawesomeness.minecord.util.DiscordUtils;
+
+import lombok.NonNull;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.sharding.ShardManager;
+import org.json.JSONObject;
+
+import javax.annotation.Nullable;
+
+/**
+ * An extension of {@link Activity} that can have bot variables and constants.
+ */
+class BotActivity {
+    private final @NonNull Activity.ActivityType type;
+    private final @NonNull String content;
+    private final @Nullable String url;
+
+    /**
+     * Creates a new activity from the JSON input with parsed constants.
+     * @param obj A JSONObject with {@code type} and {@code content} fields.
+     * @param config The config file used to get constants.
+     */
+    public BotActivity(JSONObject obj, Config config) {
+        String typeStr = obj.getString("type");
+        if ("playing".equalsIgnoreCase(typeStr)) {
+            type = Activity.ActivityType.DEFAULT;
+            url = null;
+        } else if ("streaming".equalsIgnoreCase(typeStr)) {
+            type = Activity.ActivityType.STREAMING;
+            url = obj.getString("url");
+        } else if ("listening".equalsIgnoreCase(typeStr)) {
+            type = Activity.ActivityType.LISTENING;
+            url = null;
+        } else {
+            throw new IllegalArgumentException("Invalid activity type: " + typeStr);
+        }
+        content = DiscordUtils.parseConstants(obj.getString("content"), config);
+    }
+
+    /**
+     * Converts this activity to a JDA activity, parsing all variables.
+     * @param sm The ShardManager to pull variables from
+     * @return The Activity ready to be used by JDA
+     */
+    public Activity toActivity(ShardManager sm) {
+        return Activity.of(type, DiscordUtils.parseVariables(content, sm), url);
+    }
+}

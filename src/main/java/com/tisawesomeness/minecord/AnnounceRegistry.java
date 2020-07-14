@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord;
 
 import lombok.NonNull;
+import net.dv8tion.jda.api.sharding.ShardManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -45,16 +46,17 @@ public class AnnounceRegistry {
 
     /**
      * Randomly selects an announcement based on their weights and parses their {variables}
+     * @param sm The ShardManager to pull variables from
      * @return The selected announcement string
      */
-    public @NonNull String roll() {
+    public @NonNull String roll(ShardManager sm) {
         int rand = random.nextInt(totalWeight);
         int i = -1;
         while (rand >= 0) {
             i++;
             rand -= announcements.get(i).weight;
         }
-        return announcements.get(i).parse();
+        return announcements.get(i).parse(sm);
     }
 
 }

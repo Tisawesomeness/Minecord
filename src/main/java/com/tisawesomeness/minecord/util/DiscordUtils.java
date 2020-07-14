@@ -3,7 +3,6 @@ package com.tisawesomeness.minecord.util;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 
-import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.sharding.ShardManager;
@@ -18,7 +17,7 @@ public final class DiscordUtils {
 	public static final Pattern ANY_MENTION = Pattern.compile("<(@(!?|&)|#|:(.{2,32}):)\\d{17,20}>");
 	
 	public static void update(ShardManager sm, Config config) {
-		sm.setActivity(Activity.playing(parseAll(config.game, config)));
+		sm.setActivity(config.cycleActivity(sm));
 	}
 
 	/**
@@ -42,24 +41,11 @@ public final class DiscordUtils {
 
 	/**
 	 * Replaces variables in the input string with their values
-	 * This must be called after init
 	 * @param input A string with {variables}
 	 * @return The string with resolved variables, though constants such as {version} are unresolved
 	 */
-	public static String parseVariables(String input) {
-		// TODO currently not used, temporarily disabled
-//		return input.replace("{guilds}", String.valueOf(Bot.shardManager.getGuilds().size()));
-		return input;
-	}
-
-	/**
-	 * Replaces variables and constants in the input string with their values
-	 * This must be called after init
-	 * @param input A string with {variables}
-	 * @return The string with resolved variables
-	 */
-	public static String parseAll(String input, Config config) {
-		return parseVariables(parseConstants(input, config));
+	public static String parseVariables(String input, ShardManager sm) {
+		return input.replace("{guilds}", String.valueOf(sm.getGuildCache().size()));
 	}
 	
 	public static User findUser(String search, ShardManager sm) {

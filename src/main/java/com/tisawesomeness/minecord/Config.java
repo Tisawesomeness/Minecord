@@ -1,5 +1,7 @@
 package com.tisawesomeness.minecord;
 
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.sharding.ShardManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -25,7 +27,8 @@ public class Config {
 
 	public final long logChannel;
 	public final String invite;
-	public final String game;
+	public final int updateTime;
+	public final List<BotActivity> activities;
 	public final boolean useAnnouncements;
 	public final boolean debugMode;
 	public final boolean respondToMentions;
@@ -42,6 +45,11 @@ public class Config {
 	public final String webhookAuth;
 
 	public final String dbPath;
+
+	/**
+	 * Keeps track of the current activity
+	 */
+	private int activityPointer;
 
 	/**
 	 * Reads data from the config file.
@@ -70,7 +78,7 @@ public class Config {
 
 		logChannel = settings.getLong("logChannel");
 		invite = settings.getString("invite");
-		game = settings.getString("game");
+		updateTime = settings.getInt("updateTime");
 		useAnnouncements = settings.getBoolean("useAnnouncements");
 		debugMode = settings.getBoolean("debugMode");
 		respondToMentions = settings.getBoolean("respondToMentions");
@@ -89,6 +97,9 @@ public class Config {
 
 		JSONObject database = config.getJSONObject("database");
 		dbPath = database.getString("path");
+
+		// Processed last since it depends on some config variables
+		activities = parseActivities(settings.getJSONArray("activities"));
 
 	}
 
@@ -112,13 +123,44 @@ public class Config {
 		return Collections.unmodifiableList(list);
 	}
 
+	private List<BotActivity> parseActivities(JSONArray activities) {
+		List<BotActivity> list = new ArrayList<>();
+		for (int i = 0; i < activities.length(); i++) {
+			list.add(new BotActivity(activities.getJSONObject(i), this));
+		}
+		return Collections.unmodifiableList(list);
+	}
+
+	/**
+	 * Determines if the given ID is listed in the config as an owner.
+	 * <br>The config is not guarenteed to have any owners.
+	 * @param id The 17-20 digit ID, though invalid IDs return false
+	 */
 	public boolean isOwner(long id) {
 		return owners.contains(id);
 	}
+
+	/**
+	 * Determines if the given ID is listed in the config as an owner.
+	 * <br>The config is not guarenteed to have any owners.
+	 * @param id The 17-20 digit string ID (this method is safe for any input)
+	 */
 	public boolean isOwner(String id) {
 		return owners.stream()
 				.map(Object::toString)
 				.anyMatch(s -> s.equals(id));
+	}
+
+	/**
+	 * Every time this method is called, the current activity advances to the next one,
+	 * or goes to the start if at the end of the list.
+	 * @param sm The ShardManager to pull variables from
+	 * @return The current activity
+	 */
+	public Activity cycleActivity(ShardManager sm) {
+		BotActivity botActivity = activities.get(activityPointer);
+		activityPointer = (activityPointer + 1) % activities.size();
+		return botActivity.toActivity(sm);
 	}
 
 }

@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -29,16 +28,18 @@ public class GuildCountListener extends ListenerAdapter {
         Member owner = guild.getOwner();
         List<Member> members = guild.getMembers();
         long size = members.stream()
-                .map(m -> m.getUser())
+                .map(Member::getUser)
                 .filter(u -> !u.isBot() && !u.isFake())
                 .count();
         EmbedBuilder eb = new EmbedBuilder()
-                .setAuthor("Joined guild!", null, owner.getUser().getAvatarUrl())
                 .addField("Name", guild.getName(), true)
-                .addField("Guild ID", guild.getId(), true)
-                .addField("Owner", owner.getEffectiveName(), true)
-                .addField("Owner ID", owner.getUser().getId(), true)
-                .addField("Users", String.valueOf(members.size()), true)
+                .addField("Guild ID", guild.getId(), true);
+        if (owner != null) {
+            eb.setAuthor("Joined guild!", null, owner.getUser().getAvatarUrl())
+                    .addField("Owner", owner.getEffectiveName(), true)
+                    .addField("Owner ID", owner.getUser().getId(), true);
+        }
+        eb.addField("Users", String.valueOf(members.size()), true)
                 .addField("Humans", String.valueOf(size), true)
                 .addField("Bots", String.valueOf(members.size() - size), true)
                 .addField("Channels", String.valueOf(guild.getTextChannels().size()), true);
@@ -48,18 +49,22 @@ public class GuildCountListener extends ListenerAdapter {
     @Override
     public void onGuildLeave(GuildLeaveEvent e) {
         Guild guild = e.getGuild();
-        User owner = guild.getOwner().getUser();
+        Member owner = guild.getOwner();
         EmbedBuilder eb = new EmbedBuilder()
-                .setAuthor(owner.getAsTag(), null, owner.getAvatarUrl())
                 .setDescription(String.format("Left guild %s (`%s`)", guild.getName(), guild.getId()));
+        if (owner != null) {
+            eb.setAuthor(owner.getUser().getAsTag(), null, owner.getUser().getAvatarUrl());
+        }
         updateGuilds(eb, guild, e.getJDA().getShardManager());
     }
 
     private void updateGuilds(EmbedBuilder eb, Guild guild, ShardManager sm) {
         eb.setThumbnail(guild.getIconUrl());
         bot.log(eb.build());
-        bot.sendGuilds(sm, config);
-        DiscordUtils.update(sm, config); // Update guild, channel, and user count
+        if (config.updateTime == -1) {
+            DiscordUtils.update(sm, config);
+            bot.sendGuilds(sm, config);
+        }
     }
 
 }

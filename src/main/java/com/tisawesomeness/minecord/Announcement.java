@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import lombok.NonNull;
+import net.dv8tion.jda.api.sharding.ShardManager;
 
 public class Announcement {
 
@@ -34,10 +35,11 @@ public class Announcement {
 
     /**
      * Parses the variables of this announcement.
+     * @param sm The ShardManager to pull variables from
      * @return The parsed announcement text.
      */
-    public String parse() {
-        return DiscordUtils.parseVariables(text);
+    public String parse(ShardManager sm) {
+        return DiscordUtils.parseVariables(text, sm);
     }
 
 }
