@@ -7,6 +7,7 @@
     "invite": "https://minecord.github.io/invite",
     "prefix": "&",
     "game": "@Minecord help | {guilds} guilds",
+    "useAnnouncements": false,
     "debugMode": false,
     "respondToMentions": true,
     "useMenus": true,

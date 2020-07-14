@@ -38,6 +38,9 @@ public class AnnounceRegistry {
                 throw new IllegalStateException("The total weight was so high it caused an integer overflow.");
             }
         }
+        if (totalWeight == 0) {
+            throw new IllegalStateException("The total weight cannot be 0.");
+        }
     }
 
     /**

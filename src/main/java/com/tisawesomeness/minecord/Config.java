@@ -22,6 +22,7 @@ public class Config {
 	public final String logChannel;
 	public final String invite;
 	public final String game;
+	public final boolean useAnnouncements;
 	public final boolean debugMode;
 	public final boolean respondToMentions;
 	public final boolean sendTyping;
@@ -66,6 +67,7 @@ public class Config {
 		logChannel = settings.getString("logChannel");
 		invite = settings.getString("invite");
 		game = settings.getString("game");
+		useAnnouncements = settings.getBoolean("useAnnouncements");
 		debugMode = settings.getBoolean("debugMode");
 		respondToMentions = settings.getBoolean("respondToMentions");
 		sendTyping = settings.getBoolean("sendTyping");

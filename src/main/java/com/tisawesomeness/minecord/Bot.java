@@ -104,7 +104,9 @@ public class Bot {
 		// Pre-init
 		try {
 			config = new Config(args.getConfigPath(), args.getTokenOverride());
-			announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
+			if (config.useAnnouncements) {
+                announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
+            }
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			return;
@@ -228,7 +230,9 @@ public class Bot {
 		}
 
 		// These can be started before the database
-        announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
+        if (config.useAnnouncements) {
+            announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
+        }
         settings = new SettingRegistry(config);
         guildCountListener = new GuildCountListener(this ,config);
 

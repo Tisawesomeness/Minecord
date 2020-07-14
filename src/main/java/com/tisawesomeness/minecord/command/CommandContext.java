@@ -22,6 +22,7 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import javax.annotation.Nullable;
+import java.time.Instant;
 import java.util.Optional;
 
 /**
@@ -197,7 +198,13 @@ public class CommandContext {
      * @return The same builder with added footer.
      */
     public EmbedBuilder addFooter(EmbedBuilder eb) {
-        return eb.setFooter(bot.getAnnounceRegistry().roll());
+        if (config.useAnnouncements) {
+            return eb.setFooter(bot.getAnnounceRegistry().roll());
+        }
+        User author = e.getAuthor();
+        String requestedBy = "Requested by " + author.getAsTag();
+        return eb.setFooter(requestedBy, author.getEffectiveAvatarUrl())
+                .setTimestamp(Instant.now());
         // TODO temporarily disabled (change to static image)
 //		if (Config.getOwner().equals("0")) {
 //			return eb.setFooter(announcement);
