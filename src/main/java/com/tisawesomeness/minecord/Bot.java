@@ -7,10 +7,11 @@ import com.tisawesomeness.minecord.listen.CommandListener;
 import com.tisawesomeness.minecord.listen.GuildCountListener;
 import com.tisawesomeness.minecord.listen.ReactListener;
 import com.tisawesomeness.minecord.listen.ReadyListener;
+import com.tisawesomeness.minecord.service.MenuService;
+import com.tisawesomeness.minecord.service.Service;
+import com.tisawesomeness.minecord.service.UpdateService;
 import com.tisawesomeness.minecord.setting.SettingRegistry;
 import com.tisawesomeness.minecord.util.DateUtils;
-import com.tisawesomeness.minecord.util.DiscordUtils;
-import com.tisawesomeness.minecord.util.RequestUtils;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,13 +28,11 @@ import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import okhttp3.OkHttpClient;
-import org.discordbots.api.client.DiscordBotListAPI;
 
 import javax.security.auth.login.LoginException;
 import java.awt.Color;
 import java.io.IOException;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
@@ -42,9 +41,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 
 /**
  * <p>The entry point and central point for Minecord.</p>
@@ -70,12 +66,10 @@ public class Bot {
 	private static final EnumSet<CacheFlag> disabledCacheFlags = EnumSet.of(
 			CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOTE, CacheFlag.VOICE_STATE);
 
-	private ScheduledExecutorService menuExe;
-	private ScheduledExecutorService updateExe;
-	private ScheduledFuture<?> updateFuture;
+	private UpdateService updateService;
+	private Service menuService;
 
 	private Config config;
-	private DiscordBotListAPI api;
 	private CommandRegistry registry;
 	private EventListener commandListener;
 	private EventListener guildCountListener;
@@ -114,13 +108,10 @@ public class Bot {
 			ex.printStackTrace();
 			return;
 		}
-		menuExe = Executors.newSingleThreadScheduledExecutor();
-		menuExe.scheduleAtFixedRate(ReactMenu::purge, 10, 1, TimeUnit.MINUTES);
 
 		CountDownLatch readyLatch = new CountDownLatch(config.shardCount);
 		EventListener readyListener = new ReadyListener(readyLatch);
 		EventListener reactListener = new ReactListener();
-		guildCountListener = new GuildCountListener(this, config);
 		
 		// Connect to database
 		ExecutorService exe = Executors.newSingleThreadExecutor();
@@ -147,12 +138,9 @@ public class Bot {
 			return;
 		}
 
-		// Start discordbots.org API
-		if (config.sendServerCount) {
-			api = new DiscordBotListAPI.Builder().token(config.orgToken).build();
-		} else {
-		    api = null;
-        }
+		// These depend on ShardManager
+		updateService = new UpdateService(shardManager, config);
+		guildCountListener = new GuildCountListener(this, config, updateService);
 
 		// Wait for database
 		try {
@@ -184,10 +172,9 @@ public class Bot {
 		bootTime = System.currentTimeMillis() - birth;
 		System.out.println("Boot Time: " + DateUtils.getBootTime(bootTime));
 		log(":white_check_mark: **Bot started!**");
-		if (config.updateTime > 0) {
-			updateExe = Executors.newSingleThreadScheduledExecutor();
-			scheduleUpdate();
-		}
+		updateService.start();
+		menuService = new MenuService();
+		menuService.start();
 
 		// Make sure vote handler finishes
 		if (futureVH != null) {
@@ -200,14 +187,8 @@ public class Bot {
 			}
 		}
 		exe.shutdown();
+		System.out.println("Post-init finished.");
 		
-	}
-
-	private void scheduleUpdate() {
-		updateFuture = updateExe.scheduleAtFixedRate(() -> {
-			DiscordUtils.update(shardManager, config);
-			sendGuilds(shardManager, config);
-		}, 0, config.updateTime, TimeUnit.SECONDS);
 	}
 
 	/**
@@ -230,9 +211,8 @@ public class Bot {
 		if (config.receiveVotes) {
 			voteHandler.close();
 		}
-		if (config.updateTime > 0) {
-			updateFuture.cancel(false);
-		}
+		updateService.shutdown();
+		menuService.shutdown();
 		shardManager.removeEventListener(commandListener, guildCountListener);
 		config = new Config(args.getConfigPath(), args.getTokenOverride());
 
@@ -249,20 +229,11 @@ public class Bot {
             announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
         }
         settings = new SettingRegistry(config);
-        guildCountListener = new GuildCountListener(this ,config);
-        if (updateExe == null) {
-        	updateExe = Executors.newSingleThreadScheduledExecutor();
-		}
-		if (config.updateTime > 0) {
-			scheduleUpdate();
-		}
-
-		// Login to API with new token
-        if (config.sendServerCount) {
-            api = new DiscordBotListAPI.Builder().token(config.orgToken).build();
-        } else {
-            api = null;
-        }
+		updateService = new UpdateService(shardManager, config);
+		updateService.start();
+        guildCountListener = new GuildCountListener(this ,config, updateService);
+        menuService = new MenuService();
+        menuService.start();
 
 		// Start everything up again
 		database = futureDB.get();
@@ -277,13 +248,13 @@ public class Bot {
 	}
 
 	/**
-	 * Gracefully shuts down the bot.Z
+	 * Gracefully shuts down the bot.
 	 * <br>Use this method instead of {@link System#exit(int)} except for emergencies.
 	 */
 	public void shutdown() {
 		System.out.println("Shutting down...");
-		menuExe.shutdown();
-		updateExe.shutdown();
+		updateService.shutdown();
+		menuService.shutdown();
 		shardManager.shutdown();
 		if (config.receiveVotes) {
 			voteHandler.close();
@@ -299,7 +270,7 @@ public class Bot {
 	/**
 	 * Logs a message to the logging channel.
 	 */
-	public void log(String m) {
+	public void log(CharSequence m) {
 		long logChannel = config.logChannel;
 		if (logChannel == 0) {
 			return;
@@ -339,32 +310,5 @@ public class Bot {
 		EmbedBuilder eb = new EmbedBuilder(m).setTimestamp(OffsetDateTime.now());
 		c.sendMessage(eb.build()).queue();
 	}
-
-    /**
-     * Sends the guild count
-     * @param sm The ShardManager used to determine the guild count
-     */
-    public void sendGuilds(ShardManager sm, Config config) {
-        if (config.sendServerCount) {
-            int servers = sm.getGuilds().size();
-            String id = sm.getShardById(0).getSelfUser().getId();
-
-            String url = "https://bots.discord.pw/api/bots/" + id + "/stats";
-            String query = "{\"server_count\": " + servers + "}";
-            RequestUtils.post(url, query, config.pwToken);
-
-            /*
-             * url = "https://discordbots.org/api/bots/" + id + "/stats"; query =
-             * "{\"server_count\": " + servers + "}"; post(url, query,
-             * Config.getOrgToken());
-             */
-
-            List<Integer> serverCounts = new ArrayList<>();
-            for (JDA jda : sm.getShards()) {
-                serverCounts.add(jda.getGuilds().size());
-            }
-            api.setStats(id, serverCounts);
-        }
-    }
 
 }

@@ -2,7 +2,7 @@ package com.tisawesomeness.minecord.listen;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
-import com.tisawesomeness.minecord.util.DiscordUtils;
+import com.tisawesomeness.minecord.service.UpdateService;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,6 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.sharding.ShardManager;
 
 import java.util.List;
 
@@ -21,6 +20,7 @@ public class GuildCountListener extends ListenerAdapter {
 
     private final @NonNull Bot bot;
     private final @NonNull Config config;
+    private final @NonNull UpdateService updateService;
 
     @Override
     public void onGuildJoin(GuildJoinEvent e) {
@@ -43,7 +43,7 @@ public class GuildCountListener extends ListenerAdapter {
                 .addField("Humans", String.valueOf(size), true)
                 .addField("Bots", String.valueOf(members.size() - size), true)
                 .addField("Channels", String.valueOf(guild.getTextChannels().size()), true);
-        updateGuilds(eb, guild, e.getJDA().getShardManager());
+        updateGuilds(eb, guild);
     }
 
     @Override
@@ -55,15 +55,14 @@ public class GuildCountListener extends ListenerAdapter {
         if (owner != null) {
             eb.setAuthor(owner.getUser().getAsTag(), null, owner.getUser().getAvatarUrl());
         }
-        updateGuilds(eb, guild, e.getJDA().getShardManager());
+        updateGuilds(eb, guild);
     }
 
-    private void updateGuilds(EmbedBuilder eb, Guild guild, ShardManager sm) {
+    private void updateGuilds(EmbedBuilder eb, Guild guild) {
         eb.setThumbnail(guild.getIconUrl());
         bot.log(eb.build());
         if (config.updateTime == -1) {
-            DiscordUtils.update(sm, config);
-            bot.sendGuilds(sm, config);
+            updateService.run();
         }
     }
 

@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.util;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.sharding.ShardManager;
@@ -16,7 +17,7 @@ public final class DiscordUtils {
 
 	public static final Pattern ANY_MENTION = Pattern.compile("<(@(!?|&)|#|:(.{2,32}):)\\d{17,20}>");
 	
-	public static void update(ShardManager sm, Config config) {
+	public static void update(@NonNull ShardManager sm, @NonNull Config config) {
 		sm.setActivity(config.cycleActivity(sm));
 	}
 

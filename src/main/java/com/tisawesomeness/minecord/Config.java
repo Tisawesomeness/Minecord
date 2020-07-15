@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.sharding.ShardManager;
 import org.json.JSONArray;
@@ -145,7 +146,10 @@ public class Config {
 	 * <br>The config is not guarenteed to have any owners.
 	 * @param id The 17-20 digit string ID (this method is safe for any input)
 	 */
-	public boolean isOwner(String id) {
+	public boolean isOwner(@Nullable String id) {
+		if (id == null) {
+			return false;
+		}
 		return owners.stream()
 				.map(Object::toString)
 				.anyMatch(s -> s.equals(id));
@@ -157,7 +161,7 @@ public class Config {
 	 * @param sm The ShardManager to pull variables from
 	 * @return The current activity
 	 */
-	public Activity cycleActivity(ShardManager sm) {
+	public Activity cycleActivity(@NonNull ShardManager sm) {
 		BotActivity botActivity = activities.get(activityPointer);
 		activityPointer = (activityPointer + 1) % activities.size();
 		return botActivity.toActivity(sm);
