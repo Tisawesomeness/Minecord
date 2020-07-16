@@ -18,7 +18,6 @@ public class SettingRegistry {
     public final @NonNull PrefixSetting prefix;
     public final @NonNull UseMenusSetting useMenus;
     public final List<Setting<?>> settingsList;
-    public final List<DMSetting<?>> dmSettingsList;
 
     /**
      * Initializes all the settings and makes them searchable from this registry.
@@ -27,8 +26,7 @@ public class SettingRegistry {
     public SettingRegistry(@NonNull Config config) {
         prefix = new PrefixSetting(config);
         useMenus = new UseMenusSetting(config);
-        settingsList = Arrays.asList(prefix, useMenus);
-        dmSettingsList = Collections.singletonList(prefix);
+        settingsList = Collections.unmodifiableList(Arrays.asList(prefix, useMenus));
     }
 
     /**
@@ -38,27 +36,8 @@ public class SettingRegistry {
      * @return The setting if found, else empty.
      */
     public Optional<Setting<?>> getSetting(@NonNull String name) {
-        for (Setting<?> setting : settingsList) {
-            if (setting.isAlias(name)) {
-                return Optional.of(setting);
-            }
-        }
-        return Optional.empty();
-    }
-
-    /**
-     * Gets the setting that should be returned for {@code &setting input ...}.
-     * <br>Only searches for settings that can be changed in DMs.
-     * <br>Uses {@link ISetting#isAlias(String name)} to check if the input matches.
-     * @param name The name or alias of the setting.
-     * @return The setting if found, else empty.
-     */
-    public Optional<DMSetting<?>> getDMSetting(@NonNull String name) {
-        for (DMSetting<?> setting : dmSettingsList) {
-            if (setting.isAlias(name)) {
-                return Optional.of(setting);
-            }
-        }
-        return Optional.empty();
+        return settingsList.stream()
+                .filter(s -> s.isAlias(name))
+                .findFirst();
     }
 }

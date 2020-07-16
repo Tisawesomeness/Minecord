@@ -24,5 +24,6 @@ CREATE TABLE IF NOT EXISTS user (
     banned   TINYINT(1) NOT NULL DEFAULT 0,
     elevated TINYINT(1) NOT NULL DEFAULT 0,
     prefix   TEXT(8),
-    lang     TEXT(5)
+    lang     TEXT(5),
+    use_menu TINYINT(1)
 );

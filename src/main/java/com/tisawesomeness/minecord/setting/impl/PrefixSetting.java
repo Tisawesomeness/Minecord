@@ -1,8 +1,8 @@
 package com.tisawesomeness.minecord.setting.impl;
 
 import com.tisawesomeness.minecord.Config;
-import com.tisawesomeness.minecord.database.DMSettingContainer;
-import com.tisawesomeness.minecord.setting.DMSetting;
+import com.tisawesomeness.minecord.database.SettingContainer;
+import com.tisawesomeness.minecord.setting.Setting;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.type.Validation;
 
@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
  * and {@code {&}} is used as a placeholder for the prefix.
  */
 @RequiredArgsConstructor
-public class PrefixSetting extends DMSetting<String> {
+public class PrefixSetting extends Setting<String> {
 
     private static final int MAX_LENGTH = 8;
     private static final Pattern DISCORD_CONFLICT_PATTERN = Pattern.compile("[@#*()`_\\[\\]\\\\:]");
@@ -116,13 +116,13 @@ public class PrefixSetting extends DMSetting<String> {
         return Validation.valid(input);
     }
 
-    public Optional<String> get(@NonNull DMSettingContainer obj) {
+    public Optional<String> get(@NonNull SettingContainer obj) {
         return obj.getPrefix();
     }
-    public void set(@NonNull DMSettingContainer obj, @NonNull String setting) throws SQLException {
+    public void set(@NonNull SettingContainer obj, @NonNull String setting) throws SQLException {
         obj.withPrefix(Optional.of(setting)).update();
     }
-    public void reset(@NonNull DMSettingContainer obj) throws SQLException {
+    public void reset(@NonNull SettingContainer obj) throws SQLException {
         obj.withPrefix(Optional.empty()).update();
     }
 }

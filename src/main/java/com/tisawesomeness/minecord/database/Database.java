@@ -48,7 +48,7 @@ public class Database {
 			runScript("init.sql");
 		} else if (version > VERSION) {
 			String err = String.format("The database version is %s but the bot expects %s or lower!", version, VERSION);
-			throw new RuntimeException(err);
+			throw new IllegalStateException(err);
 		}
 
 		for (long owner : config.owners) {

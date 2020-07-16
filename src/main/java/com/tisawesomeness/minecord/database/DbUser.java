@@ -23,13 +23,13 @@ import java.util.Optional;
 @Value
 @With
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class DbUser implements DMSettingContainer, Bannable {
+public class DbUser implements SettingContainer, Bannable {
 
 	private static final String SQL_SELECT = "SELECT * FROM user WHERE id = ?;";
 	private static final String SQL_UPDATE =
-			"UPDATE user SET banned = ?, elevated = ?, prefix = ?, lang = ? WHERE id = ?;";
+			"UPDATE user SET banned = ?, elevated = ?, prefix = ?, lang = ?, use_menu = ? WHERE id = ?;";
 	private static final String SQL_INSERT =
-			"INSERT INTO user (banned, elevated, prefix, lang, id) VALUES (?, ?, ?, ?, ?);";
+			"INSERT INTO user (banned, elevated, prefix, lang, use_menu, id) VALUES (?, ?, ?, ?, ?, ?);";
 
 	Database db;
 	boolean inDB;
@@ -39,6 +39,7 @@ public class DbUser implements DMSettingContainer, Bannable {
 	boolean elevated;
 	Optional<String> prefix;
 	Optional<Lang> lang;
+	Optional<Boolean> useMenu;
 
 	/**
 	 * Creates a new user object that is not banned, and all settings are unset.
@@ -46,7 +47,7 @@ public class DbUser implements DMSettingContainer, Bannable {
 	 * @param id The user id
 	 */
 	public DbUser(Database db, long id) {
-		this(db, false, id, false, false, Optional.empty(), Optional.empty());
+		this(db, false, id, false, false, Optional.empty(), Optional.empty(), Optional.empty());
 	}
 
 	/**
@@ -70,7 +71,8 @@ public class DbUser implements DMSettingContainer, Bannable {
 				rs.getBoolean("banned"),
 				rs.getBoolean("elevated"),
 				StatementUtils.getOptionalString(rs, "prefix"),
-				StatementUtils.getOptionalString(rs, "lang").flatMap(Lang::from)
+				StatementUtils.getOptionalString(rs, "lang").flatMap(Lang::from),
+				StatementUtils.getOptionalBoolean(rs, "use_menu")
 		));
 	}
 
@@ -86,7 +88,8 @@ public class DbUser implements DMSettingContainer, Bannable {
 		st.setBoolean(2, elevated);
 		StatementUtils.setOptionalString(st, 3, prefix);
 		StatementUtils.setOptionalString(st, 4, lang.map(Lang::getCode));
-		st.setLong(5, id);
+		StatementUtils.setOptionalBoolean(st, 5, useMenu);
+		st.setLong(6, id);
 		st.executeUpdate();
 		db.getCache().invalidateUser(id);
 	}
