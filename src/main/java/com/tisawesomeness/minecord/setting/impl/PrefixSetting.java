@@ -77,6 +77,9 @@ public class PrefixSetting extends DMSetting<String> {
         if (DiscordUtils.ANY_MENTION.matcher(input).find()) {
             return Validation.invalid("The prefix cannot contain user/channel/role mentions or emojis.");
         }
+        if ("unset".equalsIgnoreCase(input)) {
+            return Validation.invalid("The prefix cannot be literally `unset`.");
+        }
         return Validation.combine(
                 validateLength(input),
                 validateEndNotLetter(input),

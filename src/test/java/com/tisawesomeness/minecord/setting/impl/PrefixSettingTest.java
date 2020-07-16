@@ -42,7 +42,7 @@ public class PrefixSettingTest {
 
     @ParameterizedTest
     @ValueSource(strings = {
-            "abc", "Abc", "ABC", "az", "Az", "aZ", "AZ", "mc", // ends with letter
+            "abc", "Abc", "ABC", "az", "Az", "aZ", "AZ", "mc", "unset", // ends with letter
             " ", "  ", "   ", "\t", "\t\t", " \t ", "\t \t", // whitespace
             "\n", "\n\n", "\r", "\r\r", "\n\r", "\r\n", // newlines
             "\uD83D\uDE48", "\uD83D\uDE49", "\uD83D\uDE4A", // see no bugs, hear no bugs, write no bugs
