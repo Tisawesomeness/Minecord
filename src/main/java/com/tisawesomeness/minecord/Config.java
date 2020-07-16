@@ -1,8 +1,5 @@
 package com.tisawesomeness.minecord;
 
-import lombok.NonNull;
-import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.sharding.ShardManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -158,13 +155,12 @@ public class Config {
 	/**
 	 * Every time this method is called, the current activity advances to the next one,
 	 * or goes to the start if at the end of the list.
-	 * @param sm The ShardManager to pull variables from
 	 * @return The current activity
 	 */
-	public Activity cycleActivity(@NonNull ShardManager sm) {
+	public BotActivity cycleActivity() {
 		BotActivity botActivity = activities.get(activityPointer);
 		activityPointer = (activityPointer + 1) % activities.size();
-		return botActivity.toActivity(sm);
+		return botActivity;
 	}
 
 }

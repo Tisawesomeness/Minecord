@@ -18,7 +18,7 @@ public final class DiscordUtils {
 	public static final Pattern ANY_MENTION = Pattern.compile("<(@(!?|&)|#|:(.{2,32}):)\\d{17,20}>");
 	
 	public static void update(@NonNull ShardManager sm, @NonNull Config config) {
-		sm.setActivity(config.cycleActivity(sm));
+		config.cycleActivity().setPresence(sm);
 	}
 
 	/**

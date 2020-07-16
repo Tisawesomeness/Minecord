@@ -11,6 +11,7 @@
         "updateTime": 60,
         "activities": [
             {
+                "status": "online",
                 "type": "playing",
                 "content": "@Minecord help | {guilds} guilds"
             }
