@@ -4,9 +4,9 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.DatabaseCache;
-import com.tisawesomeness.minecord.database.DbChannel;
-import com.tisawesomeness.minecord.database.DbGuild;
-import com.tisawesomeness.minecord.database.DbUser;
+import com.tisawesomeness.minecord.database.dao.DbChannel;
+import com.tisawesomeness.minecord.database.dao.DbGuild;
+import com.tisawesomeness.minecord.database.dao.DbUser;
 import com.tisawesomeness.minecord.setting.SettingRegistry;
 import com.tisawesomeness.minecord.setting.impl.UseMenusSetting;
 

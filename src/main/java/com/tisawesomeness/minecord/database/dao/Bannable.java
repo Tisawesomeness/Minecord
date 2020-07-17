@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.database;
+package com.tisawesomeness.minecord.database.dao;
 
 /**
  * Represents something that can be banned from using the bot.

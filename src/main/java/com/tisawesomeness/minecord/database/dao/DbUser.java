@@ -1,6 +1,8 @@
-package com.tisawesomeness.minecord.database;
+package com.tisawesomeness.minecord.database.dao;
 
 import com.tisawesomeness.minecord.Lang;
+import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.database.SettingContainer;
 import com.tisawesomeness.minecord.util.StatementUtils;
 
 import lombok.AccessLevel;

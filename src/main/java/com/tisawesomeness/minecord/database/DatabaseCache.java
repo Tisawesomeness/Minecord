@@ -1,6 +1,9 @@
 package com.tisawesomeness.minecord.database;
 
 import com.tisawesomeness.minecord.Config;
+import com.tisawesomeness.minecord.database.dao.DbChannel;
+import com.tisawesomeness.minecord.database.dao.DbGuild;
+import com.tisawesomeness.minecord.database.dao.DbUser;
 import com.tisawesomeness.minecord.util.type.SQLFunction;
 
 import com.google.common.cache.CacheBuilder;

@@ -2,7 +2,7 @@ package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.database.DbUser;
+import com.tisawesomeness.minecord.database.dao.DbUser;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import net.dv8tion.jda.api.entities.User;

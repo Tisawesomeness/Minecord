@@ -10,7 +10,7 @@ import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.CommandRegistry;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.DatabaseCache;
-import com.tisawesomeness.minecord.database.DbUser;
+import com.tisawesomeness.minecord.database.dao.DbUser;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import lombok.NonNull;

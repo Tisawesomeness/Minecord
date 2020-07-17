@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.database;
+package com.tisawesomeness.minecord.database.dao;
 
 import java.sql.SQLException;
 
