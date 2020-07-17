@@ -22,10 +22,14 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class EvalCommand extends Command {
+
+	private final Map<String, Object> storage = new HashMap<>();
 
 	public CommandInfo getInfo() {
 		return new CommandInfo(
@@ -40,16 +44,17 @@ public class EvalCommand extends Command {
 		);
 	}
 
-	String docsLink = "https://docs.oracle.com/javase/8/docs/technotes/guides/scripting/prog_guide/javascript.html#CIHFFHED";
+	String docsLink = "https://docs.oracle.com/javase/8/docs/technotes/guides/scripting/prog_guide/javascript.html";
 	public String getHelp() {
 		return "Evaluates some js code using the Rhino engine.\n" +
-			"Variables: `txt`, `bot`, `jda`, `sm`, `config`, `db`, `event`, `user`, `channel`\n" +
-			"Not available in DMs: `member`, `guild`\n" +
-			"Use `help(obj)` to list an object's fields and methods.\n" +
-			"\n" +
-			"See [the docs](" + docsLink + ") for information on accessing Java from scripts.\n" +
-			"Sensitive info such as the bot token are cleaned from the input and output. " +
-			"In case this fails, __**never request the bot token and never print all values of the jda or config.**__\n";
+				"Variables: `txt`, `bot`, `jda`, `sm`, `config`, `dbCache`, `event`, `user`, `channel`\n" +
+				"Not available in DMs: `member`, `guild`\n" +
+				"Use `help(obj)` to list an object's fields and methods.\n" +
+				"Use `storage.put(stringKey, obj)` and `storage.get(stringKey)` to store variables for later.\n" +
+				"\n" +
+				"See [the docs](" + docsLink + ") for information on accessing Java from scripts.\n" +
+				"Sensitive info such as the bot token are cleaned from the input and output. " +
+				"In case this fails, __**never request the bot token and never print all values of the jda or config.**__\n";
 	}
 
 	public Result run(CommandContext txt) {
@@ -68,7 +73,7 @@ public class EvalCommand extends Command {
 		engine.put("jda", e.getJDA());
 		engine.put("sm", e.getJDA().getShardManager());
 		engine.put("config", txt.config);
-		engine.put("db", txt.bot.getDatabase());
+		engine.put("dbCache", txt.bot.getDatabase().getCache());
 		engine.put("event", e);
 		engine.put("user", e.getAuthor());
 		engine.put("channel", e.getChannel());
@@ -76,6 +81,7 @@ public class EvalCommand extends Command {
 			engine.put("guild", e.getGuild());
 			engine.put("member", e.getMember());
 		}
+		engine.put("storage", storage);
 		Function<Object, String> help = EvalCommand::help;
 		engine.put("help", help);
 		
