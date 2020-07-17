@@ -73,7 +73,7 @@ public class EvalCommand extends Command {
 		engine.put("jda", e.getJDA());
 		engine.put("sm", e.getJDA().getShardManager());
 		engine.put("config", txt.config);
-		engine.put("dbCache", txt.bot.getDatabase().getCache());
+		engine.put("dbCache", txt.bot.getDatabaseCache());
 		engine.put("event", e);
 		engine.put("user", e.getAuthor());
 		engine.put("channel", e.getChannel());

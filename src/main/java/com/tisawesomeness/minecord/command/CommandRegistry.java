@@ -1,12 +1,51 @@
 package com.tisawesomeness.minecord.command;
 
 import com.tisawesomeness.minecord.command.Command.CommandInfo;
-import com.tisawesomeness.minecord.command.admin.*;
-import com.tisawesomeness.minecord.command.general.*;
-import com.tisawesomeness.minecord.command.misc.*;
-import com.tisawesomeness.minecord.command.player.*;
-import com.tisawesomeness.minecord.command.utility.*;
-import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.command.admin.BanCommand;
+import com.tisawesomeness.minecord.command.admin.DebugCommand;
+import com.tisawesomeness.minecord.command.admin.DemoteCommand;
+import com.tisawesomeness.minecord.command.admin.EvalCommand;
+import com.tisawesomeness.minecord.command.admin.MsgCommand;
+import com.tisawesomeness.minecord.command.admin.NameCommand;
+import com.tisawesomeness.minecord.command.admin.PromoteCommand;
+import com.tisawesomeness.minecord.command.admin.ReloadCommand;
+import com.tisawesomeness.minecord.command.admin.SayCommand;
+import com.tisawesomeness.minecord.command.admin.ShutdownCommand;
+import com.tisawesomeness.minecord.command.admin.TestCommand;
+import com.tisawesomeness.minecord.command.admin.UsageCommand;
+import com.tisawesomeness.minecord.command.general.GuildCommand;
+import com.tisawesomeness.minecord.command.general.PermsCommand;
+import com.tisawesomeness.minecord.command.general.PrefixCommand;
+import com.tisawesomeness.minecord.command.general.PurgeCommand;
+import com.tisawesomeness.minecord.command.general.RoleCommand;
+import com.tisawesomeness.minecord.command.general.RolesCommand;
+import com.tisawesomeness.minecord.command.general.SettingsCommand;
+import com.tisawesomeness.minecord.command.general.UserCommand;
+import com.tisawesomeness.minecord.command.misc.CreditsCommand;
+import com.tisawesomeness.minecord.command.misc.HelpCommand;
+import com.tisawesomeness.minecord.command.misc.InfoCommand;
+import com.tisawesomeness.minecord.command.misc.InviteCommand;
+import com.tisawesomeness.minecord.command.misc.PingCommand;
+import com.tisawesomeness.minecord.command.misc.VoteCommand;
+import com.tisawesomeness.minecord.command.player.AvatarCommand;
+import com.tisawesomeness.minecord.command.player.BodyCommand;
+import com.tisawesomeness.minecord.command.player.CapeCommand;
+import com.tisawesomeness.minecord.command.player.HeadCommand;
+import com.tisawesomeness.minecord.command.player.HistoryCommand;
+import com.tisawesomeness.minecord.command.player.ProfileCommand;
+import com.tisawesomeness.minecord.command.player.SkinCommand;
+import com.tisawesomeness.minecord.command.player.UuidCommand;
+import com.tisawesomeness.minecord.command.utility.CodesCommand;
+import com.tisawesomeness.minecord.command.utility.ColorCommand;
+import com.tisawesomeness.minecord.command.utility.ColorShortcut;
+import com.tisawesomeness.minecord.command.utility.IngredientCommand;
+import com.tisawesomeness.minecord.command.utility.ItemCommand;
+import com.tisawesomeness.minecord.command.utility.RecipeCommand;
+import com.tisawesomeness.minecord.command.utility.SalesCommand;
+import com.tisawesomeness.minecord.command.utility.ServerCommand;
+import com.tisawesomeness.minecord.command.utility.Sha1Command;
+import com.tisawesomeness.minecord.command.utility.StatusCommand;
+import com.tisawesomeness.minecord.database.DatabaseCache;
 
 import net.dv8tion.jda.api.sharding.ShardManager;
 
@@ -30,7 +69,7 @@ public class CommandRegistry {
 	/**
 	 * Adds every module to the registry and maps the possible aliases to the command to execute.
 	 */
-	public CommandRegistry(ShardManager sm, Database db) {
+	public CommandRegistry(ShardManager sm, DatabaseCache dbCache) {
 
 		Command colorCmd = new ColorCommand();
 		modules = new Module[]{
@@ -100,7 +139,7 @@ public class CommandRegistry {
 						new ReloadCommand(),
 						new ShutdownCommand(),
 						new EvalCommand(),
-						new DebugCommand(sm, db),
+						new DebugCommand(sm, dbCache),
 						new TestCommand()
 				)
 		};

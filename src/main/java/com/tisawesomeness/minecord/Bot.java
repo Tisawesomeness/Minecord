@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord;
 
 import com.tisawesomeness.minecord.command.CommandRegistry;
 import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.database.VoteHandler;
 import com.tisawesomeness.minecord.listen.CommandListener;
 import com.tisawesomeness.minecord.listen.GuildCountListener;
@@ -30,7 +31,7 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import okhttp3.OkHttpClient;
 
 import javax.security.auth.login.LoginException;
-import java.awt.Color;
+import java.awt.*;
 import java.io.IOException;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
@@ -73,9 +74,9 @@ public class Bot {
 	private CommandRegistry registry;
 	private EventListener commandListener;
 	private EventListener guildCountListener;
+	private Database database;
 	@Getter private ArgsHandler args;
 	@Getter private ShardManager shardManager;
-	@Getter private Database database;
 	@Getter private SettingRegistry settings;
 	@Getter private AnnounceRegistry announceRegistry;
 	@Getter private VoteHandler voteHandler;
@@ -154,7 +155,7 @@ public class Bot {
 		}
 
 		// These depend on database
-		registry = new CommandRegistry(shardManager, database);
+		registry = new CommandRegistry(shardManager, database.getCache());
 		commandListener = new CommandListener(this, config, registry);
 		settings = new SettingRegistry(config);
 
@@ -237,7 +238,7 @@ public class Bot {
 
 		// Start everything up again
 		database = futureDB.get();
-        registry = new CommandRegistry(shardManager, database);
+        registry = new CommandRegistry(shardManager, database.getCache());
         commandListener = new CommandListener(this, config, registry);
         shardManager.addEventListener(commandListener, guildCountListener);
 		if (futureVH != null) {
@@ -265,6 +266,10 @@ public class Bot {
 			client.dispatcher().executorService().shutdown();
 			jda.shutdown();
 		}
+	}
+
+	public DatabaseCache getDatabaseCache() {
+		return database.getCache();
 	}
 
 	/**

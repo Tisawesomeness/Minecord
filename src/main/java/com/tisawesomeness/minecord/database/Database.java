@@ -65,7 +65,7 @@ public class Database {
 	 * @return A connection to this database
 	 * @throws SQLException If a database access error occurs
 	 */
-	protected Connection getConnect() throws SQLException {
+	public Connection getConnect() throws SQLException {
 		return source.getConnection();
 	}
 

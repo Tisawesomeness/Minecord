@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.command;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
-import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.database.dao.DbChannel;
 import com.tisawesomeness.minecord.database.dao.DbGuild;
@@ -63,11 +62,11 @@ public class CommandContext {
     }
 
     /**
-     * Shortcut for {@link #bot}.{@link Bot#getDatabase() getDatabase()}.{@link Database#getCache() getCache()}
+     * Shortcut for {@link #bot}.{@link Bot#getDatabaseCache() getDatabase()}
      * @return The guild, channel, and user cache associated with this bot
      */
     public DatabaseCache getCache() {
-        return bot.getDatabase().getCache();
+        return bot.getDatabaseCache();
     }
     /**
      * Gets a guild from the backend

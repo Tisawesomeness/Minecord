@@ -306,7 +306,7 @@ public class SettingsCommand extends Command {
 
         for (Setting<?> setting : txt.bot.getSettings().settingsList) {
             String field = setting.getDescription(txt.prefix, tag) +
-                    String.format("\nCurrent: **`%s`**", setting.getDisplay(txt.bot.getDatabase().getCache(), cid, gid));
+                    String.format("\nCurrent: **`%s`**", setting.getDisplay(txt.getCache(), cid, gid));
             eb.addField(setting.getDisplayName(), field, false);
         }
         return new Result(Outcome.SUCCESS, txt.brand(eb).build());

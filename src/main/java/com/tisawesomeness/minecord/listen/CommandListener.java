@@ -8,7 +8,6 @@ import com.tisawesomeness.minecord.command.Command.Outcome;
 import com.tisawesomeness.minecord.command.Command.Result;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.CommandRegistry;
-import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.database.dao.DbUser;
 import com.tisawesomeness.minecord.util.MessageUtils;
@@ -43,8 +42,7 @@ public class CommandListener extends ListenerAdapter {
 		if (m == null) {
 			return;
 		}
-		Database db = bot.getDatabase();
-		DatabaseCache cache = db.getCache();
+		DatabaseCache cache = bot.getDatabaseCache();
 
 		// Get the settings needed before command execution
 		String prefix;
