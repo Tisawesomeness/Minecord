@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.With;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.GuildChannel;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
@@ -23,6 +22,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import javax.annotation.Nullable;
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -104,12 +104,12 @@ public class CommandContext {
         return getCache().getChannel(cid, gid);
     }
     /**
-     * Gets a channel from the backend
-     * @param c The JDA channel object
-     * @return Either the cached channel or one with default settings
+     * Gets all channels in the database that have the specified guild id.
+     * @param gid The guild id
+     * @return A possibly-empty list of channels
      */
-    public DbChannel getChannel(GuildChannel c) {
-        return getChannel(c.getIdLong(), c.getGuild().getIdLong());
+    public List<DbChannel> getChannelsInGuild(long gid) {
+        return getCache().getChannelsInGuild(gid);
     }
     /**
      * Gets a user from the backend

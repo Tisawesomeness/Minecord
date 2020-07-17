@@ -66,14 +66,25 @@ public class DbChannel implements SettingContainer, Bannable {
         if (!rs.next()) {
             return Optional.empty();
         }
-        return Optional.of(new DbChannel(db, true,
+        return Optional.of(from(db, rs));
+    }
+
+    /**
+     * Creates a new channel object from a SQL query result.
+     * @param db The database reference needed to create the channel object
+     * @param rs The SQL query result, must be pointing to a valid row
+     * @return A new channel object
+     * @throws SQLException If the ResultSet is closed or a column doesn't exist
+     */
+    public static DbChannel from(Database db, ResultSet rs) throws SQLException {
+        return new DbChannel(db, true,
                 rs.getLong("id"),
                 rs.getLong("guild_id"),
                 rs.getBoolean("banned"),
                 StatementUtils.getOptionalString(rs, "prefix"),
                 StatementUtils.getOptionalString(rs, "lang").flatMap(Lang::from),
                 StatementUtils.getOptionalBoolean(rs, "use_menu")
-        ));
+        );
     }
 
     /**

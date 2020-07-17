@@ -12,14 +12,17 @@ import com.tisawesomeness.minecord.util.type.Either;
 import com.tisawesomeness.minecord.util.type.Validation;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.GuildChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
 
+import javax.annotation.Nullable;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class SettingsCommand extends Command {
 
@@ -121,8 +124,7 @@ public class SettingsCommand extends Command {
             String msg = String.format(":warning: `%ssettings list` cannot be used in DMs.", txt.prefix);
             return new Result(Outcome.WARNING, msg);
         }
-        String msg = String.format("listing settings for guild %s...", gid);
-        return new Result(Outcome.SUCCESS, msg); // TODO (requires getting cid from gid in db)
+        return listSettings(txt, gid);
     }
 
     private static Result parseAdminFallthrough(CommandContext txt, String contextArg) {
@@ -255,6 +257,37 @@ public class SettingsCommand extends Command {
     }
 
     // ===================== Setting Display =====================
+
+    private static Result listSettings(CommandContext txt, long gid) {
+        EmbedBuilder eb = new EmbedBuilder().setTitle("Minecord Settings");
+
+        String guildField = txt.bot.getSettings().settingsList.stream()
+                .map(s -> String.format("%s: `%s`", s.getDisplayName(), s.getDisplay(txt.getGuild(gid))))
+                .collect(Collectors.joining("\n"));
+        eb.addField("Guild", guildField, false);
+
+        List<DbChannel> channels = txt.getChannelsInGuild(gid);
+        if (!channels.isEmpty()) {
+            Guild g = txt.bot.getShardManager().getGuildById(gid);
+            for (DbChannel channel : channels) {
+                String field = txt.bot.getSettings().settingsList.stream()
+                        .map(s -> String.format("%s: `%s`", s.getDisplayName(), s.getDisplay(channel)))
+                        .collect(Collectors.joining("\n"));
+                eb.addField(getTitle(channel.getId(), g), field, false);
+            }
+        }
+        return new Result(Outcome.SUCCESS, txt.brand(eb).build());
+    }
+    private static String getTitle(long cid, @Nullable Guild g) {
+        if (g == null) {
+            return String.valueOf(cid);
+        }
+        TextChannel c = g.getTextChannelById(cid);
+        if (c == null) {
+            return String.valueOf(cid);
+        }
+        return "#" + c.getName();
+    }
 
     private static Result displayCurrentSettings(CommandContext txt) {
         EmbedBuilder eb = new EmbedBuilder().setTitle("Minecord Settings");

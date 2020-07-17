@@ -7,9 +7,17 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.CacheStats;
 import com.google.common.cache.LoadingCache;
+import lombok.Cleanup;
 import lombok.NonNull;
 import org.jetbrains.annotations.NotNull;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -78,6 +86,7 @@ public class DatabaseCache {
         }
         return new DbGuild(db, id);
     }
+
     /**
      * Either gets a channel from the cache or queries the database for it.
      * If the guild
@@ -109,6 +118,28 @@ public class DatabaseCache {
         }
         return new DbChannel(db, id, guildId);
     }
+    /**
+     * Gets all channels in the database that have the specified guild id.
+     * @param id The guild id
+     * @return A possibly-empty list of channels
+     */
+    public List<DbChannel> getChannelsInGuild(long id) {
+        try {
+            @Cleanup Connection connect = db.getConnect();
+            @Cleanup PreparedStatement st = connect.prepareStatement("SELECT * FROM channel WHERE guild_id = ?;");
+            st.setLong(1, id);
+            ResultSet rs = st.executeQuery();
+            List<DbChannel> channels = new ArrayList<>();
+            while (rs.next()) {
+                channels.add(DbChannel.from(db, rs));
+            }
+            return Collections.unmodifiableList(channels);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return Collections.emptyList();
+    }
+
     /**
      * Either gets a user from the cache or queries the database for it.
      * @param id The user id
