@@ -268,6 +268,10 @@ public class Bot {
 		}
 	}
 
+	/**
+	 * The access point for stored guilds, channels, and users.
+	 * @return The database cache
+	 */
 	public DatabaseCache getDatabaseCache() {
 		return database.getCache();
 	}
