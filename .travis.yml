@@ -4,6 +4,8 @@ jdk:
   - openjdk8
 dist: trusty
 os: linux
+before_install:
+  - set +e
 after_success:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
   - chmod +x send.sh

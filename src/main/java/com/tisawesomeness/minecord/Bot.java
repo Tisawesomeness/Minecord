@@ -274,6 +274,7 @@ public class Bot {
 	 */
 	public DatabaseCache getDatabaseCache() {
 		return database.getCache();
+		return; // failing on purpose
 	}
 
 	/**
