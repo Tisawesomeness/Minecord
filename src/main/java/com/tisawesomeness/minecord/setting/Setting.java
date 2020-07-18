@@ -2,7 +2,7 @@ package com.tisawesomeness.minecord.setting;
 
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.DatabaseCache;
-import com.tisawesomeness.minecord.database.SettingContainer;
+import com.tisawesomeness.minecord.database.dao.SettingContainer;
 import com.tisawesomeness.minecord.util.type.Validation;
 
 import lombok.NonNull;

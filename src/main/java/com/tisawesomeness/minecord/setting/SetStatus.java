@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.setting;
 
-import com.tisawesomeness.minecord.database.SettingContainer;
+import com.tisawesomeness.minecord.database.dao.SettingContainer;
 import com.tisawesomeness.minecord.util.type.Validation;
 
 import lombok.NonNull;
