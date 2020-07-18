@@ -16,10 +16,10 @@ import javax.annotation.Nullable;
  */
 @ToString
 public class BotPresence {
-    private final @NonNull Activity.ActivityType type;
+    private final @NonNull OnlineStatus status;
+    private final @Nullable Activity.ActivityType type;
     private final @NonNull String content;
     private final @Nullable String url;
-    private final @NonNull OnlineStatus status;
 
     /**
      * Creates a new presence from the JSON input with parsed constants.
@@ -27,23 +27,26 @@ public class BotPresence {
      * @param config The config file used to get constants.
      */
     public BotPresence(@NonNull JSONObject obj, @NonNull Config config) {
-        String typeStr = obj.getString("type");
-        if ("playing".equalsIgnoreCase(typeStr)) {
-            type = Activity.ActivityType.DEFAULT;
-            url = null;
-        } else if ("streaming".equalsIgnoreCase(typeStr)) {
-            type = Activity.ActivityType.STREAMING;
-            url = obj.optString("url");
-        } else if ("listening".equalsIgnoreCase(typeStr)) {
-            type = Activity.ActivityType.LISTENING;
-            url = null;
-        } else {
-            throw new IllegalArgumentException("Invalid activity type: " + typeStr);
-        }
+        status = parseStatus(obj.optString("status"));
+        type = parseType(obj.getString("type"));
         content = DiscordUtils.parseConstants(obj.getString("content"), config);
+        url = obj.optString("url");
+    }
 
-        OnlineStatus parsedStatus = OnlineStatus.fromKey(obj.optString("status"));
-        status = parsedStatus == OnlineStatus.UNKNOWN ? OnlineStatus.ONLINE : parsedStatus;
+    private static @Nullable Activity.ActivityType parseType(String str) {
+        if ("playing".equalsIgnoreCase(str)) {
+            return Activity.ActivityType.DEFAULT;
+        } else if ("streaming".equalsIgnoreCase(str)) {
+            return Activity.ActivityType.STREAMING;
+        } else if ("listening".equalsIgnoreCase(str)) {
+            return Activity.ActivityType.LISTENING;
+        }
+        return null;
+    }
+
+    private static OnlineStatus parseStatus(String str) {
+        OnlineStatus status = OnlineStatus.fromKey(str);
+        return status == OnlineStatus.UNKNOWN ? OnlineStatus.ONLINE : status;
     }
 
     /**
@@ -51,6 +54,10 @@ public class BotPresence {
      * @param sm The ShardManager to pull variables from
      */
     public void setPresence(@NonNull ShardManager sm) {
+        if (type == null) {
+            sm.setPresence(status, null);
+            return;
+        }
         Activity jdaActivity = Activity.of(type, DiscordUtils.parseVariables(content, sm), url);
         sm.setPresence(status, jdaActivity);
     }
