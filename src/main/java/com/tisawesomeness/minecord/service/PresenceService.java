@@ -1,18 +1,32 @@
 package com.tisawesomeness.minecord.service;
 
 import com.tisawesomeness.minecord.Config;
+import com.tisawesomeness.minecord.PresenceSwitcher;
 
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-@RequiredArgsConstructor
+/**
+ * Periodically changes the bot presence (game played) defined in config.
+ */
 public class PresenceService extends Service {
     private final @NonNull ShardManager sm;
     private final @NonNull Config config;
+    private final @NonNull PresenceSwitcher switcher;
+
+    /**
+     * Initializes this service and the presence switcher.
+     * @param sm The ShardManager used to switch presences
+     * @param config The config containing all presences
+     */
+    public PresenceService(ShardManager sm, Config config) {
+        this.sm = sm;
+        this.config = config;
+        switcher = new PresenceSwitcher(config);
+    }
 
     @Override
     public boolean shouldRun() {
@@ -24,7 +38,6 @@ public class PresenceService extends Service {
     }
 
     public void run() {
-        config.cyclePresence().setPresence(sm);
+        switcher.switchPresence().setPresence(sm);
     }
-
 }

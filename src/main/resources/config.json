@@ -4,18 +4,21 @@
     "owners": [
         211261249386708992
     ],
-    "settings": {
-        "logChannel": 0,
-        "invite": "https://minecord.github.io/invite",
-        "prefix": "&",
+    "presence": {
         "presenceChangeInterval": 60,
+        "presenceBehavior": "cycle",
         "presences": [
             {
                 "status": "online",
                 "type": "playing",
                 "content": "@Minecord help | {guilds} guilds"
             }
-        ],
+        ]
+    },
+    "settings": {
+        "logChannel": 0,
+        "invite": "https://minecord.github.io/invite",
+        "prefix": "&",
         "useAnnouncements": false,
         "debugMode": false,
         "respondToMentions": true,

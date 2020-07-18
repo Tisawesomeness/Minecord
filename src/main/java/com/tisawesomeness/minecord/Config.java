@@ -20,13 +20,14 @@ public class Config {
 	public final int shardCount;
 	public final List<Long> owners;
 
+	public final int presenceChangeInterval;
+	public final PresenceBehavior presenceBehavior;
+	public final List<BotPresence> presences;
+
 	public final String prefixDefault;
 	public final boolean useMenusDefault;
-
 	public final long logChannel;
 	public final String invite;
-	public final int presenceChangeInterval;
-	public final List<BotPresence> presences;
 	public final boolean useAnnouncements;
 	public final boolean debugMode;
 	public final boolean respondToMentions;
@@ -44,11 +45,6 @@ public class Config {
 	public final String webhookAuth;
 
 	public final String dbPath;
-
-	/**
-	 * Keeps track of the current activity
-	 */
-	private int activityPointer;
 
 	/**
 	 * Reads data from the config file.
@@ -71,13 +67,15 @@ public class Config {
 		shardCount = parseShards(config);
 		owners = parseOwners(config);
 
+		JSONObject presence = config.getJSONObject("presence");
+		presenceChangeInterval = presence.getInt("presenceChangeInterval");
+		presenceBehavior = PresenceBehavior.fromKey(presence.getString("presenceBehavior"));
+
 		JSONObject settings = config.getJSONObject("settings");
 		prefixDefault = settings.getString("prefix");
 		useMenusDefault = settings.getBoolean("useMenus");
-
 		logChannel = settings.getLong("logChannel");
 		invite = settings.getString("invite");
-		presenceChangeInterval = settings.getInt("presenceChangeInterval");
 		useAnnouncements = settings.getBoolean("useAnnouncements");
 		debugMode = settings.getBoolean("debugMode");
 		respondToMentions = settings.getBoolean("respondToMentions");
@@ -99,7 +97,7 @@ public class Config {
 		dbPath = database.getString("path");
 
 		// Processed last since it depends on some config variables
-		presences = parseActivities(settings.getJSONArray("presences"));
+		presences = parsePresences(presence.getJSONArray("presences"));
 
 	}
 
@@ -123,7 +121,7 @@ public class Config {
 		return Collections.unmodifiableList(list);
 	}
 
-	private List<BotPresence> parseActivities(JSONArray activities) {
+	private List<BotPresence> parsePresences(JSONArray activities) {
 		List<BotPresence> list = new ArrayList<>();
 		for (int i = 0; i < activities.length(); i++) {
 			list.add(new BotPresence(activities.getJSONObject(i), this));
@@ -152,17 +150,6 @@ public class Config {
 		return owners.stream()
 				.map(Object::toString)
 				.anyMatch(s -> s.equals(id));
-	}
-
-	/**
-	 * Every time this method is called, the current presence advances to the next one,
-	 * or goes to the start if at the end of the list.
-	 * @return The current presence
-	 */
-	public BotPresence cyclePresence() {
-		BotPresence botPresence = presences.get(activityPointer);
-		activityPointer = (activityPointer + 1) % presences.size();
-		return botPresence;
 	}
 
 }
