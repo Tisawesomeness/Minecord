@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.setting.impl;
 
-import com.tisawesomeness.minecord.Config;
+import com.tisawesomeness.minecord.config.Config;
 import com.tisawesomeness.minecord.database.dao.SettingContainer;
 import com.tisawesomeness.minecord.setting.Setting;
 import com.tisawesomeness.minecord.util.DiscordUtils;

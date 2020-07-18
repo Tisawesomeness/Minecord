@@ -1,9 +1,8 @@
 package com.tisawesomeness.minecord.util;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.Config;
+import com.tisawesomeness.minecord.config.Config;
 
-import lombok.NonNull;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.sharding.ShardManager;

@@ -1,6 +1,8 @@
 package com.tisawesomeness.minecord;
 
 import com.tisawesomeness.minecord.command.CommandRegistry;
+import com.tisawesomeness.minecord.config.AnnounceRegistry;
+import com.tisawesomeness.minecord.config.Config;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.database.VoteHandler;
@@ -32,7 +34,7 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import okhttp3.OkHttpClient;
 
 import javax.security.auth.login.LoginException;
-import java.awt.*;
+import java.awt.Color;
 import java.io.IOException;
 import java.time.OffsetDateTime;
 import java.util.Arrays;

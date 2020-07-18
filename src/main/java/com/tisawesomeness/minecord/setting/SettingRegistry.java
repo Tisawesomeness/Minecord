@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.setting;
 
-import com.tisawesomeness.minecord.Config;
+import com.tisawesomeness.minecord.config.Config;
 import com.tisawesomeness.minecord.setting.impl.PrefixSetting;
 import com.tisawesomeness.minecord.setting.impl.UseMenusSetting;
 

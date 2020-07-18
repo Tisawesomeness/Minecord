@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import com.tisawesomeness.minecord.Config;
+import com.tisawesomeness.minecord.config.Config;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.MessageUtils;

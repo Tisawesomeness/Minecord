@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.setting.impl;
 
-import com.tisawesomeness.minecord.Config;
+import com.tisawesomeness.minecord.config.Config;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import org.junit.jupiter.api.BeforeAll;

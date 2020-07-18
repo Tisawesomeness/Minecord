@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.util;
 
-import com.tisawesomeness.minecord.Config;
+import com.tisawesomeness.minecord.config.Config;
 
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.SelfUser;

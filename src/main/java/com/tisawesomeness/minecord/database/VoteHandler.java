@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.database;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.Config;
+import com.tisawesomeness.minecord.config.Config;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;

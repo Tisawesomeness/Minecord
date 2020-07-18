@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord;
+package com.tisawesomeness.minecord.config;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.sharding.ShardManager;

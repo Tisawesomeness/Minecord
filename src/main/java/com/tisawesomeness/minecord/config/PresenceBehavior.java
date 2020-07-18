@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord;
+package com.tisawesomeness.minecord.config;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

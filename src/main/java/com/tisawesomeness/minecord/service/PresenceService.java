@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.service;
 
-import com.tisawesomeness.minecord.Config;
-import com.tisawesomeness.minecord.PresenceSwitcher;
+import com.tisawesomeness.minecord.config.Config;
+import com.tisawesomeness.minecord.config.PresenceSwitcher;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.sharding.ShardManager;

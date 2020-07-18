@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.Config;
+import com.tisawesomeness.minecord.config.Config;
 import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.database.dao.DbChannel;
 import com.tisawesomeness.minecord.database.dao.DbGuild;

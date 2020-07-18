@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.listen;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.Config;
+import com.tisawesomeness.minecord.config.Config;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.Command.CommandInfo;
 import com.tisawesomeness.minecord.command.Command.Outcome;
