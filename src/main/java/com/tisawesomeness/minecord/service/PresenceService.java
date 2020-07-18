@@ -34,13 +34,16 @@ public class PresenceService extends Service {
     }
 
     public void schedule(ScheduledExecutorService exe) {
-        if (config.presences.size() == 1 && !config.presences.get(0).hasPresence()) {
+        if (config.presences.size() == 1 && !config.presences.get(0).hasContent()) {
             exe.submit(this::run);
         } else {
             exe.scheduleAtFixedRate(this::run, 0, config.presenceChangeInterval, TimeUnit.SECONDS);
         }
     }
 
+    /**
+     * Call to manually run this service once.
+     */
     public void run() {
         switcher.switchPresence().setPresence(sm);
     }

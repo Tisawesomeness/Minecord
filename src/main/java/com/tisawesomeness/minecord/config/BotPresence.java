@@ -13,7 +13,7 @@ import org.json.JSONObject;
 import javax.annotation.Nullable;
 
 /**
- * An extension of {@link Activity} that can have bot variables and constants.
+ * An extension of {@link Activity} that can have a status and bot variables andconstants.
  */
 @ToString
 @RequiredArgsConstructor
@@ -25,8 +25,8 @@ public class BotPresence {
 
     /**
      * Creates a new presence from the JSON input with parsed constants.
-     * @param obj A JSONObject with {@code type} and {@code content} fields.
-     * @param config The config file used to get constants.
+     * @param obj A JSONObject with {@code type} and {@code content} fields
+     * @param config The config file used to get constants
      */
     public BotPresence(@NonNull JSONObject obj, @NonNull Config config) {
         status = parseStatus(obj.optString("status"));
@@ -41,10 +41,6 @@ public class BotPresence {
             content = DiscordUtils.parseConstants(parsedContent, config);
         }
         url = obj.optString("url");
-    }
-
-    public static BotPresence defaultPresence() {
-        return new BotPresence(OnlineStatus.ONLINE, null, null, null);
     }
 
     private static @Nullable Activity.ActivityType parseType(String str) {
@@ -63,7 +59,19 @@ public class BotPresence {
         return status == OnlineStatus.UNKNOWN ? OnlineStatus.ONLINE : status;
     }
 
-    public boolean hasPresence() {
+    /**
+     * Creates a presences that is online, but does not show any other info.
+     * @return The default presence
+     */
+    public static BotPresence defaultPresence() {
+        return new BotPresence(OnlineStatus.ONLINE, null, null, null);
+    }
+
+    /**
+     * Determines if this presence has displayed content.
+     * @return False if only the status is displayed
+     */
+    public boolean hasContent() {
         return type != null;
     }
 

@@ -14,11 +14,19 @@ import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Sends the current guild count to bot lists.
+ */
 public class BotListService extends Service {
     private final @NonNull ShardManager sm;
     private final @NonNull Config config;
     private final @Nullable DiscordBotListAPI api;
 
+    /**
+     * Starts up the service, and the top.gg API if necessary.
+     * @param sm The ShardManager to pull guild counts from
+     * @param config The config that decides if and how often this service should run
+     */
     public BotListService(@NonNull ShardManager sm, @NonNull Config config) {
         this.sm = sm;
         this.config = config;
@@ -38,6 +46,9 @@ public class BotListService extends Service {
         exe.scheduleAtFixedRate(this::run, 0, config.sendGuildsInterval, TimeUnit.SECONDS);
     }
 
+    /**
+     * Call to manually run this service once.
+     */
     public void run() {
         int servers = sm.getGuilds().size();
         String id = sm.getShardById(0).getSelfUser().getId();

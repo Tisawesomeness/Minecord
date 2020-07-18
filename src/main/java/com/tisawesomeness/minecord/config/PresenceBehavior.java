@@ -6,6 +6,9 @@ import lombok.RequiredArgsConstructor;
 import java.util.Arrays;
 import java.util.function.Function;
 
+/**
+ * Decides how the {@link PresenceSwitcher} switches between presences.
+ */
 @RequiredArgsConstructor
 public enum PresenceBehavior {
     /**
