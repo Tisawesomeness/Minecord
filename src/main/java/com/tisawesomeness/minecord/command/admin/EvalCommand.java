@@ -1,11 +1,12 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import com.tisawesomeness.minecord.config.Config;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.config.Config;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -19,10 +20,10 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -123,8 +124,8 @@ public class EvalCommand extends Command {
 		// Check for length
 		String out = clean(output.toString(), txt.config);
 		if (out.length() > MessageEmbed.VALUE_MAX_LENGTH - 10) {
-			// Send up to 10 2000-char messages
-			ArrayList<String> lines = MessageUtils.splitLinesByLength(out, MessageEmbed.URL_MAX_LENGTH - 10);
+      // Send up to 10 2000-char messages
+      List<String> lines = MessageUtils.splitLinesByLength(out, Message.MAX_CONTENT_LENGTH - 10);
 			int i = 0;
 			while (i < 10 && i < lines.size()) {
 				e.getChannel().sendMessage(MarkdownUtil.codeblock("js", lines.get(i))).queue();

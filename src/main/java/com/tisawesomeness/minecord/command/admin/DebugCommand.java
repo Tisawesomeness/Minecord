@@ -10,7 +10,9 @@ import com.tisawesomeness.minecord.debug.JDADebugOption;
 import com.tisawesomeness.minecord.debug.RegionDebugOption;
 import com.tisawesomeness.minecord.debug.ThreadDebugOption;
 import com.tisawesomeness.minecord.debug.UserCacheDebugOption;
+import com.tisawesomeness.minecord.util.MessageUtils;
 
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
@@ -59,21 +61,28 @@ public class DebugCommand extends Command {
 
         if ("all".equalsIgnoreCase(txt.args[0])) {
             for (DebugOption d : debugOptions) {
-                String debugInfo = d.debug();
-                printToConsole(debugInfo, txt.e.getAuthor());
-                txt.e.getChannel().sendMessage(debugInfo).queue();
+                sendDebugInfo(txt, d);
             }
             return new Result(Outcome.SUCCESS);
         }
 
         for (DebugOption d : debugOptions) {
             if (d.getName().equalsIgnoreCase(txt.args[0])) {
-                String debugInfo = d.debug();
-                printToConsole(debugInfo, txt.e.getAuthor());
-                return new Result(Outcome.SUCCESS, debugInfo);
+                sendDebugInfo(txt, d);
+                return new Result(Outcome.SUCCESS);
             }
         }
         return new Result(Outcome.WARNING, ":warning: Not a valid debug option.");
+    }
+
+    private static void sendDebugInfo(CommandContext txt, DebugOption d) {
+        String debugInfo = d.debug();
+        printToConsole(debugInfo, txt.e.getAuthor());
+        List<String> messages = MessageUtils.splitLinesByLength(debugInfo, Message.MAX_CONTENT_LENGTH);
+        for (String message : messages) {
+            txt.e.getChannel().sendMessage(message).queue();
+        }
+        txt.e.getChannel().sendMessage(debugInfo).queue();
     }
 
     private static void printToConsole(String debugInfo, User author) {
