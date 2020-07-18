@@ -26,6 +26,7 @@
     },
     "botLists": {
         "sendServerCount": false,
+        "sendGuildsInterval": 60,
         "pwToken": "your token here",
         "orgToken": "your token here",
         "receiveVotes": false,

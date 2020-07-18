@@ -16,10 +16,6 @@ public final class DiscordUtils {
 	public static final String idRegex = "[0-9]{9,20}";
 
 	public static final Pattern ANY_MENTION = Pattern.compile("<(@(!?|&)|#|:(.{2,32}):)\\d{17,20}>");
-	
-	public static void update(@NonNull ShardManager sm, @NonNull Config config) {
-		config.cyclePresence().setPresence(sm);
-	}
 
 	/**
 	 * Replaces constants in the input string with their values

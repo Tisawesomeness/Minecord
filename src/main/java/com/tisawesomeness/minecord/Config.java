@@ -35,6 +35,7 @@ public class Config {
 	public final boolean elevatedSkipCooldown;
 
 	public final boolean sendServerCount;
+	public final int sendGuildsInterval;
 	public final String pwToken;
 	public final String orgToken;
 	public final boolean receiveVotes;
@@ -86,6 +87,7 @@ public class Config {
 
 		JSONObject botLists = config.getJSONObject("botLists");
 		sendServerCount = botLists.getBoolean("sendServerCount");
+		sendGuildsInterval = botLists.getInt("sendGuildsInterval");
 		pwToken = botLists.getString("pwToken");
 		orgToken = botLists.getString("orgToken");
 		receiveVotes = botLists.getBoolean("receiveVotes");

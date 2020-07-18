@@ -2,7 +2,8 @@ package com.tisawesomeness.minecord.listen;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
-import com.tisawesomeness.minecord.service.UpdateService;
+import com.tisawesomeness.minecord.service.BotListService;
+import com.tisawesomeness.minecord.service.PresenceService;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,8 @@ public class GuildCountListener extends ListenerAdapter {
 
     private final @NonNull Bot bot;
     private final @NonNull Config config;
-    private final @NonNull UpdateService updateService;
+    private final @NonNull PresenceService presenceService;
+    private final @NonNull BotListService botListService;
 
     @Override
     public void onGuildJoin(GuildJoinEvent e) {
@@ -62,7 +64,10 @@ public class GuildCountListener extends ListenerAdapter {
         eb.setThumbnail(guild.getIconUrl());
         bot.log(eb.build());
         if (config.presenceChangeInterval == -1) {
-            updateService.run();
+            presenceService.run();
+        }
+        if (config.sendGuildsInterval == -1) {
+            botListService.run();
         }
     }
 

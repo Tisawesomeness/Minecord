@@ -8,9 +8,10 @@ import com.tisawesomeness.minecord.listen.CommandListener;
 import com.tisawesomeness.minecord.listen.GuildCountListener;
 import com.tisawesomeness.minecord.listen.ReactListener;
 import com.tisawesomeness.minecord.listen.ReadyListener;
+import com.tisawesomeness.minecord.service.BotListService;
 import com.tisawesomeness.minecord.service.MenuService;
 import com.tisawesomeness.minecord.service.Service;
-import com.tisawesomeness.minecord.service.UpdateService;
+import com.tisawesomeness.minecord.service.PresenceService;
 import com.tisawesomeness.minecord.setting.SettingRegistry;
 import com.tisawesomeness.minecord.util.DateUtils;
 
@@ -67,7 +68,8 @@ public class Bot {
 	private static final EnumSet<CacheFlag> disabledCacheFlags = EnumSet.of(
 			CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOTE, CacheFlag.VOICE_STATE);
 
-	private UpdateService updateService;
+	private PresenceService presenceService;
+	private BotListService botListService;
 	private Service menuService;
 
 	private Config config;
@@ -140,8 +142,9 @@ public class Bot {
 		}
 
 		// These depend on ShardManager
-		updateService = new UpdateService(shardManager, config);
-		guildCountListener = new GuildCountListener(this, config, updateService);
+		presenceService = new PresenceService(shardManager, config);
+		botListService = new BotListService(shardManager, config);
+		guildCountListener = new GuildCountListener(this, config, presenceService, botListService);
 
 		// Wait for database
 		try {
@@ -173,7 +176,8 @@ public class Bot {
 		bootTime = System.currentTimeMillis() - birth;
 		System.out.println("Boot Time: " + DateUtils.getBootTime(bootTime));
 		log(":white_check_mark: **Bot started!**");
-		updateService.start();
+		presenceService.start();
+		botListService.start();
 		menuService = new MenuService();
 		menuService.start();
 
@@ -212,7 +216,7 @@ public class Bot {
 		if (config.receiveVotes) {
 			voteHandler.close();
 		}
-		updateService.shutdown();
+		presenceService.shutdown();
 		menuService.shutdown();
 		shardManager.removeEventListener(commandListener, guildCountListener);
 		config = new Config(args.getConfigPath(), args.getTokenOverride());
@@ -230,9 +234,11 @@ public class Bot {
             announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
         }
         settings = new SettingRegistry(config);
-		updateService = new UpdateService(shardManager, config);
-		updateService.start();
-        guildCountListener = new GuildCountListener(this ,config, updateService);
+		presenceService = new PresenceService(shardManager, config);
+		presenceService.start();
+		botListService = new BotListService(shardManager, config);
+		botListService.start();
+        guildCountListener = new GuildCountListener(this ,config, presenceService, botListService);
         menuService = new MenuService();
         menuService.start();
 
@@ -254,7 +260,7 @@ public class Bot {
 	 */
 	public void shutdown() {
 		System.out.println("Shutting down...");
-		updateService.shutdown();
+		presenceService.shutdown();
 		menuService.shutdown();
 		shardManager.shutdown();
 		if (config.receiveVotes) {

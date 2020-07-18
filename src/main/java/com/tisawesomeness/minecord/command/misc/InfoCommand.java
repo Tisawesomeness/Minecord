@@ -37,7 +37,6 @@ public class InfoCommand extends Command {
 
 	public Result run(CommandContext txt) {
 		ShardManager sm = txt.bot.getShardManager();
-		DiscordUtils.update(sm, txt.config);
 		
 		// If the author used the admin keyword and is an elevated user
 		boolean elevated = false;
