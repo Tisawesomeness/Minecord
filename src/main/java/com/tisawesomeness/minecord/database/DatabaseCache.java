@@ -12,7 +12,6 @@ import com.google.common.cache.CacheStats;
 import com.google.common.cache.LoadingCache;
 import lombok.Cleanup;
 import lombok.NonNull;
-import org.jetbrains.annotations.NotNull;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -55,18 +54,17 @@ public class DatabaseCache {
 
     /**
      * Helper function to build caches without repetitive code.
-     * @param builder The cache builder to build from, which stays unmodified.
-     * @param loadFunction A reference to a defined function with {@code T} as the input and {@code U} as the output.
-     * @param <T> The type of the cache key.
-     * @param <R> The type of the cache value.
-     * @return A Guava cache with the specified loading function.
+     * @param builder The cache builder to build from, which stays unmodified
+     * @param loadFunction A reference to a defined function with {@code T} as the input and {@code U} as the output
+     * @param <T> The type of the cache key
+     * @param <R> The type of the cache value
+     * @return A Guava cache with the specified loading function
      */
     private static <T, R> LoadingCache<T, R> build(
             CacheBuilder<Object, Object> builder, SQLFunction<? super T, ? extends R> loadFunction) {
         return builder.build(new CacheLoader<T, R>() {
             @Override
-            // @NotNull used to satisfy warning
-            public @NonNull R load(@NotNull T key) {
+            public @NonNull R load(T key) {
                 return loadFunction.apply(key);
             }
         });
@@ -132,11 +130,14 @@ public class DatabaseCache {
             @Cleanup PreparedStatement st = connect.prepareStatement("SELECT * FROM channel WHERE guild_id = ?;");
             st.setLong(1, id);
             ResultSet rs = st.executeQuery();
-            List<DbChannel> channels = new ArrayList<>();
+            List<DbChannel> channelList = new ArrayList<>();
             while (rs.next()) {
-                channels.add(DbChannel.from(db, rs));
+                // Placing channels directly in cache to speed up later requests
+                DbChannel channel = DbChannel.from(db, rs);
+                channels.put(channel.getId(), Optional.of(channel));
+                channelList.add(channel);
             }
-            return Collections.unmodifiableList(channels);
+            return Collections.unmodifiableList(channelList);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
