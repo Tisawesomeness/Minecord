@@ -25,8 +25,8 @@ public class Config {
 
 	public final long logChannel;
 	public final String invite;
-	public final int updateTime;
-	public final List<BotActivity> activities;
+	public final int presenceChangeInterval;
+	public final List<BotPresence> presences;
 	public final boolean useAnnouncements;
 	public final boolean debugMode;
 	public final boolean respondToMentions;
@@ -76,7 +76,7 @@ public class Config {
 
 		logChannel = settings.getLong("logChannel");
 		invite = settings.getString("invite");
-		updateTime = settings.getInt("updateTime");
+		presenceChangeInterval = settings.getInt("presenceChangeInterval");
 		useAnnouncements = settings.getBoolean("useAnnouncements");
 		debugMode = settings.getBoolean("debugMode");
 		respondToMentions = settings.getBoolean("respondToMentions");
@@ -97,7 +97,7 @@ public class Config {
 		dbPath = database.getString("path");
 
 		// Processed last since it depends on some config variables
-		activities = parseActivities(settings.getJSONArray("activities"));
+		presences = parseActivities(settings.getJSONArray("presences"));
 
 	}
 
@@ -121,10 +121,10 @@ public class Config {
 		return Collections.unmodifiableList(list);
 	}
 
-	private List<BotActivity> parseActivities(JSONArray activities) {
-		List<BotActivity> list = new ArrayList<>();
+	private List<BotPresence> parseActivities(JSONArray activities) {
+		List<BotPresence> list = new ArrayList<>();
 		for (int i = 0; i < activities.length(); i++) {
-			list.add(new BotActivity(activities.getJSONObject(i), this));
+			list.add(new BotPresence(activities.getJSONObject(i), this));
 		}
 		return Collections.unmodifiableList(list);
 	}
@@ -153,14 +153,14 @@ public class Config {
 	}
 
 	/**
-	 * Every time this method is called, the current activity advances to the next one,
+	 * Every time this method is called, the current presence advances to the next one,
 	 * or goes to the start if at the end of the list.
-	 * @return The current activity
+	 * @return The current presence
 	 */
-	public BotActivity cycleActivity() {
-		BotActivity botActivity = activities.get(activityPointer);
-		activityPointer = (activityPointer + 1) % activities.size();
-		return botActivity;
+	public BotPresence cyclePresence() {
+		BotPresence botPresence = presences.get(activityPointer);
+		activityPointer = (activityPointer + 1) % presences.size();
+		return botPresence;
 	}
 
 }

@@ -61,7 +61,7 @@ public class GuildCountListener extends ListenerAdapter {
     private void updateGuilds(EmbedBuilder eb, Guild guild) {
         eb.setThumbnail(guild.getIconUrl());
         bot.log(eb.build());
-        if (config.updateTime == -1) {
+        if (config.presenceChangeInterval == -1) {
             updateService.run();
         }
     }

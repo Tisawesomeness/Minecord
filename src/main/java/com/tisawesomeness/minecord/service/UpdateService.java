@@ -32,11 +32,11 @@ public class UpdateService extends Service {
 
     @Override
     public boolean shouldRun() {
-        return config.updateTime > 0;
+        return config.presenceChangeInterval > 0;
     }
 
     public void schedule(ScheduledExecutorService exe) {
-        exe.scheduleAtFixedRate(this::run, 0, config.updateTime, TimeUnit.SECONDS);
+        exe.scheduleAtFixedRate(this::run, 0, config.presenceChangeInterval, TimeUnit.SECONDS);
     }
 
     public void run() {

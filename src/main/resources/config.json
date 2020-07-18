@@ -8,8 +8,8 @@
         "logChannel": 0,
         "invite": "https://minecord.github.io/invite",
         "prefix": "&",
-        "updateTime": 60,
-        "activities": [
+        "presenceChangeInterval": 60,
+        "presences": [
             {
                 "status": "online",
                 "type": "playing",
