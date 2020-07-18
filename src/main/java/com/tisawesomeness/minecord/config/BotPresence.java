@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.config;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -15,10 +16,11 @@ import javax.annotation.Nullable;
  * An extension of {@link Activity} that can have bot variables and constants.
  */
 @ToString
+@RequiredArgsConstructor
 public class BotPresence {
     private final @NonNull OnlineStatus status;
     private final @Nullable Activity.ActivityType type;
-    private final @NonNull String content;
+    private final @Nullable String content;
     private final @Nullable String url;
 
     /**
@@ -29,8 +31,20 @@ public class BotPresence {
     public BotPresence(@NonNull JSONObject obj, @NonNull Config config) {
         status = parseStatus(obj.optString("status"));
         type = parseType(obj.getString("type"));
-        content = DiscordUtils.parseConstants(obj.getString("content"), config);
+        if (type == null) {
+            content = null;
+        } else {
+            String parsedContent = obj.optString("content");
+            if (parsedContent == null) {
+                throw new IllegalArgumentException("A " + type + " presence must have a content field");
+            }
+            content = DiscordUtils.parseConstants(parsedContent, config);
+        }
         url = obj.optString("url");
+    }
+
+    public static BotPresence defaultPresence() {
+        return new BotPresence(OnlineStatus.ONLINE, null, null, null);
     }
 
     private static @Nullable Activity.ActivityType parseType(String str) {
@@ -47,6 +61,10 @@ public class BotPresence {
     private static OnlineStatus parseStatus(String str) {
         OnlineStatus status = OnlineStatus.fromKey(str);
         return status == OnlineStatus.UNKNOWN ? OnlineStatus.ONLINE : status;
+    }
+
+    public boolean hasPresence() {
+        return type != null;
     }
 
     /**

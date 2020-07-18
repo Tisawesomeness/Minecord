@@ -107,8 +107,8 @@ public class Bot {
 		try {
 			config = new Config(args.getConfigPath(), args.getTokenOverride());
 			if (config.useAnnouncements) {
-                announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
-            }
+				announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
+			}
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			return;
@@ -117,7 +117,7 @@ public class Bot {
 		CountDownLatch readyLatch = new CountDownLatch(config.shardCount);
 		EventListener readyListener = new ReadyListener(readyLatch);
 		EventListener reactListener = new ReactListener();
-		
+
 		// Connect to database
 		ExecutorService exe = Executors.newSingleThreadExecutor();
 		Future<Database> futureDB = exe.submit(() -> new Database(config));
@@ -125,14 +125,14 @@ public class Bot {
 		try {
 			// Initialize JDA
 			shardManager = DefaultShardManagerBuilder.create(gateways)
-				.setToken(config.clientToken)
-				.setAutoReconnect(true)
-				.addEventListeners(readyListener)
-				.setShardsTotal(config.shardCount)
-				.setActivity(Activity.playing("Loading..."))
-				.setMemberCachePolicy(MemberCachePolicy.NONE)
-				.disableCache(disabledCacheFlags)
-				.build();
+					.setToken(config.clientToken)
+					.setAutoReconnect(true)
+					.addEventListeners(readyListener)
+					.setShardsTotal(config.shardCount)
+					.setActivity(Activity.playing("Loading..."))
+					.setMemberCachePolicy(MemberCachePolicy.NONE)
+					.disableCache(disabledCacheFlags)
+					.build();
 
 			// Wait for shards to ready
 			readyLatch.await();
@@ -173,7 +173,7 @@ public class Bot {
 		if (config.receiveVotes) {
 			futureVH = exe.submit(() -> new VoteHandler(this, config));
 		}
-		
+
 		// Post-init
 		bootTime = System.currentTimeMillis() - birth;
 		System.out.println("Boot Time: " + DateUtils.getBootTime(bootTime));
@@ -195,7 +195,7 @@ public class Bot {
 		}
 		exe.shutdown();
 		System.out.println("Post-init finished.");
-		
+
 	}
 
 	/**
@@ -232,23 +232,23 @@ public class Bot {
 		}
 
 		// These can be started before the database
-        if (config.useAnnouncements) {
-            announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
-        }
-        settings = new SettingRegistry(config);
+		if (config.useAnnouncements) {
+			announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
+		}
+		settings = new SettingRegistry(config);
 		presenceService = new PresenceService(shardManager, config);
 		presenceService.start();
 		botListService = new BotListService(shardManager, config);
 		botListService.start();
-        guildCountListener = new GuildCountListener(this ,config, presenceService, botListService);
-        menuService = new MenuService();
-        menuService.start();
+		guildCountListener = new GuildCountListener(this ,config, presenceService, botListService);
+		menuService = new MenuService();
+		menuService.start();
 
 		// Start everything up again
 		database = futureDB.get();
-        registry = new CommandRegistry(shardManager, database.getCache());
-        commandListener = new CommandListener(this, config, registry);
-        shardManager.addEventListener(commandListener, guildCountListener);
+		registry = new CommandRegistry(shardManager, database.getCache());
+		commandListener = new CommandListener(this, config, registry);
+		shardManager.addEventListener(commandListener, guildCountListener);
 		if (futureVH != null) {
 			voteHandler = futureVH.get();
 		}

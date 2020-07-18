@@ -34,7 +34,11 @@ public class PresenceService extends Service {
     }
 
     public void schedule(ScheduledExecutorService exe) {
-        exe.scheduleAtFixedRate(this::run, 0, config.presenceChangeInterval, TimeUnit.SECONDS);
+        if (config.presences.size() == 1 && !config.presences.get(0).hasPresence()) {
+            exe.submit(this::run);
+        } else {
+            exe.scheduleAtFixedRate(this::run, 0, config.presenceChangeInterval, TimeUnit.SECONDS);
+        }
     }
 
     public void run() {

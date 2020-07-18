@@ -122,6 +122,9 @@ public class Config {
 	}
 
 	private List<BotPresence> parsePresences(JSONArray activities) {
+		if (activities.length() == 0) {
+			return Collections.singletonList(BotPresence.defaultPresence());
+		}
 		List<BotPresence> list = new ArrayList<>();
 		for (int i = 0; i < activities.length(); i++) {
 			list.add(new BotPresence(activities.getJSONObject(i), this));
