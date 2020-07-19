@@ -8,16 +8,18 @@ import lombok.NonNull;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * Keeps a list of loaded settings.
  */
-public class SettingRegistry {
+public class SettingRegistry implements Iterable<Setting<?>> {
     public final @NonNull PrefixSetting prefix;
     public final @NonNull UseMenusSetting useMenus;
-    public final List<Setting<?>> settingsList;
+    private final List<Setting<?>> settingsList;
 
     /**
      * Initializes all the settings and makes them searchable from this registry.
@@ -36,8 +38,24 @@ public class SettingRegistry {
      * @return The setting if found, else empty.
      */
     public Optional<Setting<?>> getSetting(@NonNull String name) {
-        return settingsList.stream()
+        return stream()
                 .filter(s -> s.isAlias(name))
                 .findFirst();
+    }
+
+    /**
+     * Enables the registry to be used in for each loops.
+     * @return An iterator over all settings
+     */
+    public Iterator<Setting<?>> iterator() {
+        return settingsList.iterator();
+    }
+
+    /**
+     * Creates a stream for all registered settings.
+     * @return A stream over all settings
+     */
+    public Stream<Setting<?>> stream() {
+        return settingsList.stream();
     }
 }

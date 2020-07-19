@@ -181,6 +181,9 @@ public class SettingsCommand extends Command {
         }
 
         if (currentArg + 1 >= txt.args.length) {
+            if (admin) {
+                return new Result(Outcome.WARNING, ":warning: You must specify a channel id.");
+            }
             return displaySettings(txt, txt.getChannel(txt.e.getTextChannel().getIdLong(), txt.e.getGuild().getIdLong()));
         }
 
@@ -261,7 +264,7 @@ public class SettingsCommand extends Command {
     private static Result listSettings(CommandContext txt, long gid) {
         EmbedBuilder eb = new EmbedBuilder().setTitle("Minecord Settings");
 
-        String guildField = txt.bot.getSettings().settingsList.stream()
+        String guildField = txt.bot.getSettings().stream()
                 .map(s -> String.format("%s: `%s`", s.getDisplayName(), s.getDisplay(txt.getGuild(gid))))
                 .collect(Collectors.joining("\n"));
         eb.addField("Guild", guildField, false);
@@ -270,7 +273,7 @@ public class SettingsCommand extends Command {
         if (!channels.isEmpty()) {
             Guild g = txt.bot.getShardManager().getGuildById(gid);
             for (DbChannel channel : channels) {
-                String field = txt.bot.getSettings().settingsList.stream()
+                String field = txt.bot.getSettings().stream()
                         .map(s -> String.format("%s: `%s`", s.getDisplayName(), s.getDisplay(channel)))
                         .collect(Collectors.joining("\n"));
                 eb.addField(getTitle(channel.getId(), g), field, false);
@@ -293,7 +296,7 @@ public class SettingsCommand extends Command {
         EmbedBuilder eb = new EmbedBuilder().setTitle("Minecord Settings");
         String tag = txt.e.getJDA().getSelfUser().getAsTag();
 
-        for (Setting<?> setting : txt.bot.getSettings().settingsList) {
+        for (Setting<?> setting : txt.bot.getSettings()) {
             String field = setting.getDescription(txt.prefix, tag) +
                     String.format("\nCurrent: **`%s`**", setting.getDisplay(txt));
             eb.addField(setting.getDisplayName(), field, false);
@@ -304,7 +307,7 @@ public class SettingsCommand extends Command {
         EmbedBuilder eb = new EmbedBuilder().setTitle("Minecord Settings");
         String tag = txt.e.getJDA().getSelfUser().getAsTag();
 
-        for (Setting<?> setting : txt.bot.getSettings().settingsList) {
+        for (Setting<?> setting : txt.bot.getSettings()) {
             String field = setting.getDescription(txt.prefix, tag) +
                     String.format("\nCurrent: **`%s`**", setting.getDisplay(txt.getCache(), cid, gid));
             eb.addField(setting.getDisplayName(), field, false);
@@ -315,7 +318,7 @@ public class SettingsCommand extends Command {
         EmbedBuilder eb = new EmbedBuilder().setTitle("Minecord Settings");
         String tag = txt.e.getJDA().getSelfUser().getAsTag();
 
-        for (Setting<?> setting : txt.bot.getSettings().settingsList) {
+        for (Setting<?> setting : txt.bot.getSettings()) {
             String field = setting.getDescription(txt.prefix, tag) +
                     String.format("\nCurrent: **`%s`**", setting.getDisplay(obj));
             eb.addField(setting.getDisplayName(), field, false);
