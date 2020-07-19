@@ -48,7 +48,7 @@ public class GuildCommand extends Command {
         Guild g;
 		if (args.length > 1 && args[1].equals("admin") && txt.isElevated) {
             elevated = true;
-            if (!args[0].matches(DiscordUtils.idRegex)) {
+            if (!DiscordUtils.isDiscordId(args[0])) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
             g = txt.bot.getShardManager().getGuildById(args[0]);
@@ -107,7 +107,7 @@ public class GuildCommand extends Command {
     }
 
     private static String getSettingsStr(DbGuild guild, CommandContext txt) {
-        return txt.bot.getSettings().settingsList.stream()
+        return txt.bot.getSettings().stream()
                 .map(s -> s.getDisplayName() + ": " + displaySetting(guild, s))
                 .collect(Collectors.joining("\n"));
     }

@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 
 public final class DiscordUtils {
 
-	public static final String idRegex = "[0-9]{9,20}";
+	private final static Pattern DISCORD_ID = Pattern.compile("\\d{17,20}");
 
 	public static final Pattern ANY_MENTION = Pattern.compile("<(@(!?|&)|#|:(.{2,32}):)\\d{17,20}>");
 
@@ -52,6 +52,17 @@ public final class DiscordUtils {
 	public static TextChannel findChannel(String search, ShardManager sm) {
 		Matcher ma = Pattern.compile("(<#)?([0-9]{9,20})>?").matcher(search);
 		return ma.matches() ? sm.getTextChannelById(ma.group(2)) : null;
+	}
+
+	/**
+	 * Checks if the given string is in the correct ID format.
+	 * <br>This does not necessarily mean the ID correspond to a real Discord snowflake.
+	 * <br>If true, {@link Long#parseLong(String id)} will not fail.
+	 * @param id The string id
+	 * @return True if the string only contains 17-20 digits
+	 */
+	public static boolean isDiscordId(CharSequence id) {
+		return DISCORD_ID.matcher(id).matches();
 	}
 
 }

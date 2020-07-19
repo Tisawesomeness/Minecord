@@ -65,7 +65,7 @@ public class UserCommand extends Command {
 
         //If the author used the admin keyword and is an elevated user
 		if (args.length > 1 && args[1].equals("admin") && txt.isElevated) {
-            if (!args[0].matches(DiscordUtils.idRegex)) {
+            if (!DiscordUtils.isDiscordId(args[0])) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
             User u = sm.retrieveUserById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
@@ -122,7 +122,7 @@ public class UserCommand extends Command {
         if (mentioned.size() > 0) {
             mem = mentioned.get(0);
         } else {
-            if (args[0].matches(DiscordUtils.idRegex)) {
+            if (DiscordUtils.isDiscordId(args[0])) {
                 mem = e.getGuild().retrieveMemberById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
                 if (mem == null) {
                     return new Result(Outcome.WARNING, ":warning: That user does not exist.");
