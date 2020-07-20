@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,15 +24,22 @@ public class RegionDebugOption implements DebugOption {
     }
 
     public @NonNull String debug() {
-        List<Region> regions = shardManager.getGuilds().stream()
+        List<Guild> guilds = shardManager.getGuilds();
+        int total = guilds.size();
+        List<Region> regions = guilds.stream()
                 .map(Guild::getRegion)
                 .collect(Collectors.toList());
         Multiset<Region> regionCounts = EnumMultiset.create(regions);
         return Arrays.stream(Region.values())
                 .filter(regionCounts::contains)
-                .sorted()
-                .map(r -> MarkdownUtil.bold(r.getName()) + " : " + regionCounts.count(r))
+                .sorted(Comparator.comparingInt(regionCounts::count))
+                .map(r -> printCount(regionCounts, r, total))
                 .collect(Collectors.joining("\n"));
+    }
+
+    private static @NonNull String printCount(Multiset<Region> regionCounts, Region r, int total) {
+        int count = regionCounts.count(r);
+        return String.format("%s | `%s` | `%.2f%%`", MarkdownUtil.bold(r.getName()), count, 100.0 * count / total);
     }
 
 }
