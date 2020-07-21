@@ -17,8 +17,10 @@ import com.tisawesomeness.minecord.command.general.GuildCommand;
 import com.tisawesomeness.minecord.command.general.PermsCommand;
 import com.tisawesomeness.minecord.command.general.PrefixCommand;
 import com.tisawesomeness.minecord.command.general.PurgeCommand;
+import com.tisawesomeness.minecord.command.general.ResetCommand;
 import com.tisawesomeness.minecord.command.general.RoleCommand;
 import com.tisawesomeness.minecord.command.general.RolesCommand;
+import com.tisawesomeness.minecord.command.general.SetCommand;
 import com.tisawesomeness.minecord.command.general.SettingsCommand;
 import com.tisawesomeness.minecord.command.general.UserCommand;
 import com.tisawesomeness.minecord.command.misc.CreditsCommand;
@@ -81,7 +83,9 @@ public class CommandRegistry {
 						new PurgeCommand(),
 						new PermsCommand(),
 						new PrefixCommand(),
-						new SettingsCommand()
+						new SettingsCommand(),
+						new SetCommand(),
+						new ResetCommand()
 				),
 				new Module("Utility",
 						new StatusCommand(),

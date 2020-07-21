@@ -169,5 +169,27 @@ public abstract class Setting<T> implements ISetting<T> {
         set(obj, to);
         return SetStatus.SET;
     }
+    /**
+     * Attempts to reset this setting for the given object.
+     * <br>Use {@link Validation#isValid()} to determine if the attempt was successful.
+     * @param obj The guild or channel to try to reset
+     * @return Either a success message, or an error message
+     * @throws SQLException If a database error occurs
+     */
+    public @NonNull Validation<String> tryToReset(SettingContainer obj) throws SQLException {
+        Optional<T> from = get(obj);
+        String name = getDisplayName();
+        String fromStr = display(from.orElse(getDefault()));
+        return tryToResetInternal(obj, from).toValidation(name, fromStr, "");
+    }
+    private @NonNull SetStatus tryToResetInternal(SettingContainer obj, Optional<T> from) throws SQLException {
+        if (!from.isPresent()) {
+            return SetStatus.RESET_NO_CHANGE;
+        } else if (from.get().equals(getDefault())) {
+            return SetStatus.RESET_FROM_DEFAULT;
+        }
+        reset(obj);
+        return SetStatus.RESET;
+    }
 
 }
