@@ -13,16 +13,16 @@ import com.tisawesomeness.minecord.command.admin.SayCommand;
 import com.tisawesomeness.minecord.command.admin.ShutdownCommand;
 import com.tisawesomeness.minecord.command.admin.TestCommand;
 import com.tisawesomeness.minecord.command.admin.UsageCommand;
-import com.tisawesomeness.minecord.command.general.GuildCommand;
-import com.tisawesomeness.minecord.command.general.PermsCommand;
-import com.tisawesomeness.minecord.command.general.PrefixCommand;
-import com.tisawesomeness.minecord.command.general.PurgeCommand;
-import com.tisawesomeness.minecord.command.general.ResetCommand;
-import com.tisawesomeness.minecord.command.general.RoleCommand;
-import com.tisawesomeness.minecord.command.general.RolesCommand;
-import com.tisawesomeness.minecord.command.general.SetCommand;
-import com.tisawesomeness.minecord.command.general.SettingsCommand;
-import com.tisawesomeness.minecord.command.general.UserCommand;
+import com.tisawesomeness.minecord.command.discord.GuildCommand;
+import com.tisawesomeness.minecord.command.discord.PermsCommand;
+import com.tisawesomeness.minecord.command.config.PrefixCommand;
+import com.tisawesomeness.minecord.command.discord.PurgeCommand;
+import com.tisawesomeness.minecord.command.config.ResetCommand;
+import com.tisawesomeness.minecord.command.discord.RoleCommand;
+import com.tisawesomeness.minecord.command.discord.RolesCommand;
+import com.tisawesomeness.minecord.command.config.SetCommand;
+import com.tisawesomeness.minecord.command.config.SettingsCommand;
+import com.tisawesomeness.minecord.command.discord.UserCommand;
 import com.tisawesomeness.minecord.command.misc.CreditsCommand;
 import com.tisawesomeness.minecord.command.misc.HelpCommand;
 import com.tisawesomeness.minecord.command.misc.InfoCommand;
@@ -75,17 +75,15 @@ public class CommandRegistry {
 
 		Command colorCmd = new ColorCommand();
 		modules = new Module[]{
-				new Module("General",
-						new GuildCommand(),
-						new RoleCommand(),
-						new RolesCommand(),
-						new UserCommand(),
-						new PurgeCommand(),
-						new PermsCommand(),
-						new PrefixCommand(),
-						new SettingsCommand(),
-						new SetCommand(),
-						new ResetCommand()
+				new Module("Player",
+						new UuidCommand(),
+						new HistoryCommand(),
+						new AvatarCommand(),
+						new HeadCommand(),
+						new BodyCommand(),
+						new SkinCommand(),
+						new CapeCommand(),
+						new ProfileCommand()
 				),
 				new Module("Utility",
 						new StatusCommand(),
@@ -114,15 +112,19 @@ public class CommandRegistry {
 						new RecipeCommand(),
 						new IngredientCommand()
 				),
-				new Module("Player",
-						new UuidCommand(),
-						new HistoryCommand(),
-						new AvatarCommand(),
-						new HeadCommand(),
-						new BodyCommand(),
-						new SkinCommand(),
-						new CapeCommand(),
-						new ProfileCommand()
+				new Module("Discord",
+						new GuildCommand(),
+						new RoleCommand(),
+						new RolesCommand(),
+						new UserCommand(),
+						new PurgeCommand()
+				),
+				new Module("Config",
+						new PrefixCommand(),
+						new SettingsCommand(),
+						new SetCommand(),
+						new ResetCommand(),
+						new PermsCommand()
 				),
 				new Module("Misc",
 						new HelpCommand(this),
