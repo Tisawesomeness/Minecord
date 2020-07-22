@@ -8,9 +8,12 @@ import com.tisawesomeness.minecord.util.type.Either;
 
 import lombok.Getter;
 import lombok.NonNull;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -68,7 +71,17 @@ public class ChannelContext extends SettingContext {
         }
         TextChannel c = maybeChannel.getRight();
         currentArg++;
-
+        return displayOrParseChannelIfUserHasPermission(c);
+    }
+    private Command.Result displayOrParseChannelIfUserHasPermission(TextChannel c) {
+        Member m = Objects.requireNonNull(txt.e.getMember());
+        if (m.hasPermission(c, Permission.VIEW_CHANNEL, Permission.MESSAGE_READ)) {
+            return new Command.Result(Command.Outcome.WARNING,
+                    "That channel does not exist in the current guild or is not visible to you.");
+        } else if (m.hasPermission(c, Permission.MESSAGE_WRITE)) {
+            return new Command.Result(Command.Outcome.WARNING,
+                    ":warning: You do not have permission to write in that channel.");
+        }
         DbChannel channel = txt.getChannel(c.getIdLong(), txt.e.getGuild().getIdLong());
         return displayOrParse("Channel settings for #" + c.getName(), channel);
     }

@@ -22,6 +22,7 @@ public class ResetCommand extends Command {
     public String getHelp() {
         return "Changes one of the bot's settings to the default.\n" +
                 "See `{&}settings` for a list of settings and their possible values.\n" +
+                "**Requires Manage Server permissions.**\n" +
                 "\n" +
                 "`<context>` can be:\n" +
                 "- `server` - Settings changed for the server are used everywhere in that server...\n" +

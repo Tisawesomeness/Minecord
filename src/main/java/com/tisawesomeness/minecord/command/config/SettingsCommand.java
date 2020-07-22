@@ -23,7 +23,7 @@ public class SettingsCommand extends Command {
     public String getHelp() {
         return "Show all the bot's settings and their current values.\n" +
                 "`{&}settings` - Shows what settings the bot is using for the current channel.\n" +
-                "`{&}settings list` - Lists all server settings and any channel overrides.\n" +
+                "`{&}settings list` - Lists all server settings and any channel overrides.  **Requires Manage Server permissions.**\n" +
                 "`{&}settings <context>` - View settings for the current server, the specified channel, or in DMs.\n" +
                 "\n" +
                 "`<context>` can be:\n" +
