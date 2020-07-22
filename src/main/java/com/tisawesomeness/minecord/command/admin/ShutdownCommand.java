@@ -26,17 +26,17 @@ public class ShutdownCommand extends Command {
 				"Use `{&}shutdown now` to immediately exit.\n";
 	}
 	
-	public Result run(CommandContext txt) {
+	public Result run(CommandContext ctx) {
 
-		if (txt.args.length > 0 && "now".equals(txt.args[0])) {
+		if (ctx.args.length > 0 && "now".equals(ctx.args[0])) {
 			System.exit(0);
 			throw new AssertionError("System.exit() call failed.");
 		}
 
-		txt.log(":x: **Bot shut down by " + txt.e.getAuthor().getName() + "**");
-		txt.e.getChannel().sendMessage(":wave: Goodbye!").complete();
+		ctx.log(":x: **Bot shut down by " + ctx.e.getAuthor().getName() + "**");
+		ctx.e.getChannel().sendMessage(":wave: Goodbye!").complete();
 		ExecutorService exe = Executors.newSingleThreadExecutor();
-		exe.submit(txt.bot::shutdown);
+		exe.submit(ctx.bot::shutdown);
 		exe.shutdown();
 		return new Result(Outcome.SUCCESS); // Graceful shutdown, just wait...
 

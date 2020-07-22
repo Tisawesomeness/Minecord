@@ -26,18 +26,18 @@ public class PromoteCommand extends Command {
 		);
 	}
 	
-	public Result run(CommandContext txt) {
+	public Result run(CommandContext ctx) {
 
-		if (txt.args.length == 0) {
+		if (ctx.args.length == 0) {
 			return new Result(Outcome.WARNING, ":warning: You must specify a user!");
 		}
 
 		//Extract user
-		User user = DiscordUtils.findUser(txt.args[0], txt.bot.getShardManager());
+		User user = DiscordUtils.findUser(ctx.args[0], ctx.bot.getShardManager());
 		if (user == null) return new Result(Outcome.ERROR, ":x: Not a valid user!");
 		
 		//Don't elevate a normal user
-		DbUser dbUser = txt.getUser(user);
+		DbUser dbUser = ctx.getUser(user);
 		if (dbUser.isElevated()) {
 			return new Result(Outcome.WARNING, ":warning: User is already elevated!");
 		}

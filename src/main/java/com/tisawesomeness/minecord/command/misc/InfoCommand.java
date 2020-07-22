@@ -35,12 +35,12 @@ public class InfoCommand extends Command {
 			"`{&}info admin` - Include memory usage and boot time.\n";
 	}
 
-	public Result run(CommandContext txt) {
-		ShardManager sm = txt.bot.getShardManager();
+	public Result run(CommandContext ctx) {
+		ShardManager sm = ctx.bot.getShardManager();
 		
 		// If the author used the admin keyword and is an elevated user
 		boolean elevated = false;
-		if (txt.args.length > 0 && "admin".equals(txt.args[0]) && txt.isElevated) {
+		if (ctx.args.length > 0 && "admin".equals(ctx.args[0]) && ctx.isElevated) {
 			elevated = true;
 		}
 		
@@ -51,30 +51,30 @@ public class InfoCommand extends Command {
 		eb.addField("Version", Bot.version, true);
 		
 		String guilds = String.valueOf(sm.getGuilds().size());
-		int shardTotal = txt.bot.getShardManager().getShardsTotal();
+		int shardTotal = ctx.bot.getShardManager().getShardsTotal();
 		if (shardTotal > 1) {
-			String shards = txt.e.getJDA().getShardInfo().getShardId() + 1 + "/" + shardTotal;
+			String shards = ctx.e.getJDA().getShardInfo().getShardId() + 1 + "/" + shardTotal;
 			eb.addField("Shard", shards, true);
-			guilds += " {" + txt.e.getJDA().getGuilds().size() + "}";
+			guilds += " {" + ctx.e.getJDA().getGuilds().size() + "}";
 		}
 		eb.addField("Guilds", guilds, true);
 		
-		eb.addField("Uptime", DateUtils.getDurationString(txt.bot.getBirth()), true);
+		eb.addField("Uptime", DateUtils.getDurationString(ctx.bot.getBirth()), true);
 		eb.addField("Ping", sm.getAverageGatewayPing() + "ms", true);
-		if (txt.config.showMemory || elevated) {
+		if (ctx.config.showMemory || elevated) {
 			eb.addField("Memory", getMemoryString(), true);
-			eb.addField("Boot Time", DateUtils.getBootTime(txt.bot.getBootTime()), true);
+			eb.addField("Boot Time", DateUtils.getBootTime(ctx.bot.getBootTime()), true);
 		}
 		eb.addField("Java Version", MarkdownUtil.monospace(JAVA_VERSION), true);
 		eb.addField("JDA Version", MarkdownUtil.monospace(Bot.jdaVersion), true);
 
-		String links = MarkdownUtil.maskedLink("INVITE", txt.config.invite) + " | " +
+		String links = MarkdownUtil.maskedLink("INVITE", ctx.config.invite) + " | " +
 			MarkdownUtil.maskedLink("SUPPORT", Bot.helpServer) + " | " +
 			MarkdownUtil.maskedLink("WEBSITE", Bot.website) + " | " +
 			MarkdownUtil.maskedLink("GITHUB", Bot.github);
 		eb.addField("Links", "**" + links + "**", false);
 		
-		eb = txt.brand(eb);
+		eb = ctx.brand(eb);
 		return new Result(Outcome.SUCCESS, eb.build());
 	}
 

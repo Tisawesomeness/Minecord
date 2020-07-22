@@ -57,12 +57,12 @@ public class HelpCommand extends Command {
 			"- `{&}help settings admin`\n";
 	}
 	
-	public Result run(CommandContext txt) {
-		String[] args = txt.args;
-		String prefix = txt.prefix;
+	public Result run(CommandContext ctx) {
+		String[] args = ctx.args;
+		String prefix = ctx.prefix;
 
-		EmbedBuilder eb = txt.brand(new EmbedBuilder());
-		String url = txt.e.getJDA().getSelfUser().getEffectiveAvatarUrl();
+		EmbedBuilder eb = ctx.brand(new EmbedBuilder());
+		String url = ctx.e.getJDA().getSelfUser().getEffectiveAvatarUrl();
 
 		// General help
 		if (args.length == 0) {
@@ -92,7 +92,7 @@ public class HelpCommand extends Command {
 		// Module help
 		Module m = registry.getModule(args[0]);
 		if (m != null) {
-			if (m.isHidden() && !txt.isElevated) {
+			if (m.isHidden() && !ctx.isElevated) {
 				return new Result(Outcome.WARNING, ":warning: You do not have permission to view that module.");
 			}
 			String mUsage = Arrays.asList(m.getCommands()).stream()
@@ -120,7 +120,7 @@ public class HelpCommand extends Command {
 		if (c != null) {
 			// Elevation check
 			CommandInfo ci = c.getInfo();
-			if (ci.elevated && !txt.isElevated) {
+			if (ci.elevated && !ctx.isElevated) {
 				return new Result(Outcome.WARNING, ":warning: You do not have permission to view that command.");
 			}
 			// Admin check
@@ -131,7 +131,7 @@ public class HelpCommand extends Command {
 				help = c.getHelp();
 			}
 			// {@} and {&} substitution
-			help = help.replace("{@}", txt.e.getJDA().getSelfUser().getAsMention()).replace("{&}", prefix);
+			help = help.replace("{@}", ctx.e.getJDA().getSelfUser().getAsMention()).replace("{&}", prefix);
 			// Alias list formatted with prefix in code blocks
 			if (ci.aliases.length > 0) {
 				String aliases = Arrays.asList(ci.aliases).stream()

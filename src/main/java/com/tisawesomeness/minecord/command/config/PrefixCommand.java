@@ -34,11 +34,11 @@ public class PrefixCommand extends Command {
 		return "Use `{&}set admin <context> prefix <value>` instead.";
 	}
 	
-	public Result run(CommandContext txt) {
-		if (txt.args.length == 0) {
-			return new Result(Outcome.SUCCESS, String.format("The current prefix is `%s`", txt.prefix));
+	public Result run(CommandContext ctx) {
+		if (ctx.args.length == 0) {
+			return new Result(Outcome.SUCCESS, String.format("The current prefix is `%s`", ctx.prefix));
 		}
-		return new SmartSetParser(txt, txt.bot.getSettings().prefix).parse();
+		return new SmartSetParser(ctx, ctx.bot.getSettings().prefix).parse();
 	}
 
 }

@@ -40,13 +40,13 @@ public class ColorCommand extends Command {
             "Use `{&}0` through `{&}f` as shortcuts.";
     }
 
-    public Result run(CommandContext txt) {
+    public Result run(CommandContext ctx) {
 
-        if (txt.args.length == 0) {
+        if (ctx.args.length == 0) {
             return new Result(Outcome.WARNING, ":warning: You must specify a color.");
         }
 
-        Color c = ColorUtils.parseColor(String.join(" ", txt.args), "en_US");
+        Color c = ColorUtils.parseColor(String.join(" ", ctx.args), "en_US");
         if (c == null) {
             return new Result(Outcome.WARNING, ":warning: Not a valid color!");
         }
@@ -69,7 +69,7 @@ public class ColorCommand extends Command {
                 .addField("Background Color", ColorUtils.getBackgroundHex(colorID), true);
         }
 
-        return new Result(Outcome.SUCCESS, txt.addFooter(eb).build());
+        return new Result(Outcome.SUCCESS, ctx.addFooter(eb).build());
     }
 
 }

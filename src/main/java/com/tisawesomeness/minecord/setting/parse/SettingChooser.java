@@ -16,13 +16,13 @@ import java.util.StringJoiner;
  * Parses the name of a setting from user input
  */
 public class SettingChooser extends SettingCommandHandler {
-    @Getter private final @NonNull CommandContext txt;
+    @Getter private final @NonNull CommandContext ctx;
     @Getter private final @NonNull SettingCommandType type;
     @Getter private final @NonNull SettingContainer obj;
     @Getter private int currentArg;
 
     public SettingChooser(SettingContext prev, SettingContainer obj) {
-        txt = prev.getTxt();
+        ctx = prev.getCtx();
         type = prev.getType();
         this.obj = obj;
         currentArg = prev.getCurrentArg();
@@ -34,8 +34,8 @@ public class SettingChooser extends SettingCommandHandler {
      * @return The result of the command
      */
     public Command.Result parse() {
-        String[] args = txt.args;
-        SettingRegistry settings = txt.bot.getSettings();
+        String[] args = ctx.args;
+        SettingRegistry settings = ctx.bot.getSettings();
 
         StringJoiner settingName = new StringJoiner(" ");
         while (currentArg < args.length) {
@@ -50,7 +50,7 @@ public class SettingChooser extends SettingCommandHandler {
     }
 
     private Command.Result changeSettingIfSpaceForValueExists(Setting<?> setting) {
-        if (type == SettingCommandType.SET && currentArg == txt.args.length) {
+        if (type == SettingCommandType.SET && currentArg == ctx.args.length) {
             return new Command.Result(Command.Outcome.WARNING, ":warning: You must specify a setting value.");
         }
         return new SettingChanger(this, setting).parse();

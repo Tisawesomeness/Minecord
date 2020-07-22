@@ -60,13 +60,13 @@ public abstract class Setting<T> implements ISetting<T> {
     }
     /**
      * Gets the value of this setting used in the provided context.
-     * @param txt The context of the executing command
+     * @param ctx The context of the executing command
      * @return The value of the setting, or empty if unset
      */
-    public Optional<T> get(@NonNull CommandContext txt) {
-        MessageReceivedEvent e = txt.e;
+    public Optional<T> get(@NonNull CommandContext ctx) {
+        MessageReceivedEvent e = ctx.e;
         if (e.isFromGuild()) {
-            return get(txt.getCache(), e.getTextChannel().getIdLong(), e.getGuild().getIdLong());
+            return get(ctx.getCache(), e.getTextChannel().getIdLong(), e.getGuild().getIdLong());
         }
         return Optional.empty();
     }
@@ -91,11 +91,11 @@ public abstract class Setting<T> implements ISetting<T> {
     }
     /**
      * Gets the value of this setting used in the provided context.
-     * @param txt The context of the executing command
+     * @param ctx The context of the executing command
      * @return The value of the setting, or the default if unset
      */
-    public @NonNull T getEffective(@NonNull CommandContext txt) {
-        return get(txt).orElse(getDefault());
+    public @NonNull T getEffective(@NonNull CommandContext ctx) {
+        return get(ctx).orElse(getDefault());
     }
 
     /**
@@ -126,11 +126,11 @@ public abstract class Setting<T> implements ISetting<T> {
     }
     /**
      * Gets the current user-readable value of this setting in the current context.
-     * @param txt The context of the executing command
+     * @param ctx The context of the executing command
      * @return The value of the setting converted to a string
      */
-    public @NonNull String getDisplay(@NonNull CommandContext txt) {
-        return get(txt).map(this::display).orElse("unset");
+    public @NonNull String getDisplay(@NonNull CommandContext ctx) {
+        return get(ctx).map(this::display).orElse("unset");
     }
 
     /**

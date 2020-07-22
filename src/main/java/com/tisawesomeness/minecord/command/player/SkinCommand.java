@@ -39,23 +39,23 @@ public class SkinCommand extends Command {
 			"`{&}skin 069a79f4-44e9-4726-a5be-fca90e38aaf5 3/26`\n";
 	}
 	
-	public Result run(CommandContext txt) {
+	public Result run(CommandContext ctx) {
 		
 		//No arguments message
-		if (txt.args.length == 0) {
+		if (ctx.args.length == 0) {
 			return new Result(Outcome.WARNING, ":warning: You must specify a player.", 5);
 		}
 
-		String player = txt.args[0];
+		String player = ctx.args[0];
 		String param = player;
 		if (!player.matches(NameUtils.uuidRegex)) {
 			String uuid = null;
 			
 			//Parse date argument
-			if (txt.args.length > 1) {
-				long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(txt.args, 1, txt.args.length));
+			if (ctx.args.length > 1) {
+				long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(ctx.args, 1, ctx.args.length));
 				if (timestamp == -1) {
-					return new Result(Outcome.WARNING, MessageUtils.dateErrorString(txt.prefix, "skin"));
+					return new Result(Outcome.WARNING, MessageUtils.dateErrorString(ctx.prefix, "skin"));
 				}
 				
 			//Get the UUID

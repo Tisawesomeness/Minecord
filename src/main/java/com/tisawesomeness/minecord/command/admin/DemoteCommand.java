@@ -27,25 +27,25 @@ public class DemoteCommand extends Command {
 		);
 	}
 	
-	public Result run(CommandContext txt) {
+	public Result run(CommandContext ctx) {
 
-		if (txt.args.length == 0) {
+		if (ctx.args.length == 0) {
 			return new Result(Outcome.WARNING, ":warning: You must specify a user!");
 		}
 
 		//Extract user
-		User user = DiscordUtils.findUser(txt.args[0], txt.bot.getShardManager());
+		User user = DiscordUtils.findUser(ctx.args[0], ctx.bot.getShardManager());
 		if (user == null) return new Result(Outcome.ERROR, ":x: Not a valid user!");
 		long id = user.getIdLong();
 
 		//Don't demote a normal user
-		DbUser dbUser = txt.getUser(id);
+		DbUser dbUser = ctx.getUser(id);
 		if (!dbUser.isElevated()) {
 			return new Result(Outcome.WARNING, ":warning: User is not elevated!");
 		}
 		
 		//Can't demote the owner
-		if (txt.config.isOwner(id)) {
+		if (ctx.config.isOwner(id)) {
 			return new Result(Outcome.WARNING, ":warning: You can't demote the owner!");
 		}
 		

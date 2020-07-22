@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 public class SmartSetParser {
-    @Getter private final @NonNull CommandContext txt;
+    @Getter private final @NonNull CommandContext ctx;
     @Getter private final @NonNull Setting<?> setting;
 
     /**
@@ -24,23 +24,23 @@ public class SmartSetParser {
      * @return The result of the command
      */
     public Command.Result parse() {
-        if (!txt.e.isFromGuild()) {
-            DbUser user = txt.getUser(txt.e.getAuthor());
+        if (!ctx.e.isFromGuild()) {
+            DbUser user = ctx.getUser(ctx.e.getAuthor());
             return new SettingChanger(this, user).parse();
-        } else if (!SettingCommandHandler.userHasManageServerPermissions(txt.e)) {
+        } else if (!SettingCommandHandler.userHasManageServerPermissions(ctx.e)) {
             return new Command.Result(Command.Outcome.WARNING, ":warning: You must have Manage Server permissions.");
         }
         return changeIfNoChannelOverrides();
     }
     private Command.Result changeIfNoChannelOverrides() {
-        DbChannel channel = txt.getChannel(txt.e.getTextChannel());
+        DbChannel channel = ctx.getChannel(ctx.e.getTextChannel());
         if (setting.get(channel).isPresent()) {
             String name = setting.getDisplayName().toLowerCase();
             String msg = String.format("The %s setting has a channel override in this channel.\n" +
                     "Use `%sset channel #%s %s <value>` to change it.",
-                    name, txt.prefix, txt.e.getChannel().getName(), name);
+                    name, ctx.prefix, ctx.e.getChannel().getName(), name);
             return new Command.Result(Command.Outcome.SUCCESS, msg);
         }
-        return new SettingChanger(this, txt.getGuild(txt.e.getGuild())).parse();
+        return new SettingChanger(this, ctx.getGuild(ctx.e.getGuild())).parse();
     }
 }

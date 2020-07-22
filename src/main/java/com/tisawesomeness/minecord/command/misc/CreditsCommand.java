@@ -39,7 +39,7 @@ public class CreditsCommand extends Command {
             MarkdownUtil.maskedLink("LabyMod", "https://www.labymod.net") + ", " +
             MarkdownUtil.maskedLink("MinecraftCapes", "https://www.minecraftcapes.co.uk");
 
-    public Result run(CommandContext txt) {
+    public Result run(CommandContext ctx) {
         EmbedBuilder eb = new EmbedBuilder()
             .setTitle("Minecord Credits")
             .setColor(Bot.color)

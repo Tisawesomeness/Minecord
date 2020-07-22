@@ -50,7 +50,7 @@ public class ResetCommand extends Command {
                 "- `{&}reset admin user 211261249386708992 use menus`\n";
     }
 
-    public Command.Result run(CommandContext txt) {
-        return new SettingCommandParser(txt, SettingCommandType.RESET).parse();
+    public Command.Result run(CommandContext ctx) {
+        return new SettingCommandParser(ctx, SettingCommandType.RESET).parse();
     }
 }

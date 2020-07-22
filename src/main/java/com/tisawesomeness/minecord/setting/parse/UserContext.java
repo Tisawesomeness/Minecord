@@ -12,13 +12,13 @@ import lombok.NonNull;
  * Parses the user context, setting values that are used in DMs.
  */
 public class UserContext extends SettingContext {
-    @Getter private final @NonNull CommandContext txt;
+    @Getter private final @NonNull CommandContext ctx;
     @Getter private final @NonNull SettingCommandType type;
     private final boolean isAdmin;
     @Getter private int currentArg;
 
     public UserContext(SettingContextParser prev) {
-        txt = prev.getTxt();
+        ctx = prev.getCtx();
         type = prev.getType();
         isAdmin = prev.isAdmin();
         currentArg = prev.getCurrentArg();
@@ -32,16 +32,16 @@ public class UserContext extends SettingContext {
      */
     public Command.Result parse() {
         if (isAdmin) {
-            if (currentArg >= txt.args.length) {
+            if (currentArg >= ctx.args.length) {
                 return new Command.Result(Command.Outcome.WARNING, ":warning: You must specify a user id.");
             }
             return parseUserId();
         }
-        return displayOrParseUser(txt.e.getAuthor().getIdLong());
+        return displayOrParseUser(ctx.e.getAuthor().getIdLong());
     }
 
     private Command.Result parseUserId() {
-        String userArg = txt.args[currentArg];
+        String userArg = ctx.args[currentArg];
         if (!DiscordUtils.isDiscordId(userArg)) {
             return new Command.Result(Command.Outcome.WARNING, ":warning: Not a valid user id.");
         }
@@ -50,7 +50,7 @@ public class UserContext extends SettingContext {
     }
 
     private Command.Result displayOrParseUser(long uid) {
-        DbUser user = txt.getUser(uid);
+        DbUser user = ctx.getUser(uid);
         String title = isAdmin ? "DM Settings for " + uid : "DM Settings";
         return displayOrParse(title, user);
     }

@@ -12,13 +12,13 @@ import lombok.NonNull;
  * Parses the guild context, the setting values that are used when there is no channel override.
  */
 public class GuildContext extends SettingContext {
-    @Getter private final @NonNull CommandContext txt;
+    @Getter private final @NonNull CommandContext ctx;
     @Getter private final @NonNull SettingCommandType type;
     private final boolean isAdmin;
     @Getter private int currentArg;
 
     public GuildContext(SettingContextParser prev) {
-        txt = prev.getTxt();
+        ctx = prev.getCtx();
         type = prev.getType();
         isAdmin = prev.isAdmin();
         currentArg = prev.getCurrentArg();
@@ -34,16 +34,16 @@ public class GuildContext extends SettingContext {
         if (isAdmin) {
             return parseGuildId();
         }
-        if (txt.e.isFromGuild()) {
-            return displayOrParseGuildId(txt.e.getGuild().getIdLong());
+        if (ctx.e.isFromGuild()) {
+            return displayOrParseGuildId(ctx.e.getGuild().getIdLong());
         }
         return new Command.Result(Command.Outcome.WARNING,
-                String.format(":warning: `%ssettings guild` cannot be used in DMs.", txt.prefix));
+                String.format(":warning: `%ssettings guild` cannot be used in DMs.", ctx.prefix));
     }
 
     private Command.Result parseGuildId() {
-        if (currentArg < txt.args.length) {
-            String guildArg = txt.args[currentArg];
+        if (currentArg < ctx.args.length) {
+            String guildArg = ctx.args[currentArg];
             if (!DiscordUtils.isDiscordId(guildArg)) {
                 return new Command.Result(Command.Outcome.WARNING, ":warning: Not a valid guild id.");
             }
@@ -54,7 +54,7 @@ public class GuildContext extends SettingContext {
     }
 
     private Command.Result displayOrParseGuildId(long gid) {
-        DbGuild guild = txt.getGuild(gid);
+        DbGuild guild = ctx.getGuild(gid);
         String title = isAdmin ? "Guild Settings for " + gid : "Guild Settings";
         return displayOrParse(title, guild);
     }

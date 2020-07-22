@@ -33,30 +33,30 @@ public class SayCommand extends Command {
 				"`<channel>` can be a `#channel` mention or a valid channel ID.\n";
 	}
 	
-	public Result run(CommandContext txt) {
+	public Result run(CommandContext ctx) {
 		
 		//Check for proper argument length
-		if (txt.args.length < 2) {
+		if (ctx.args.length < 2) {
 			return new Result(Outcome.WARNING, ":warning: Please specify a message.");
 		}
 		
 		//Extract channel
-		TextChannel channel = DiscordUtils.findChannel(txt.args[0], txt.bot.getShardManager());
+		TextChannel channel = DiscordUtils.findChannel(ctx.args[0], ctx.bot.getShardManager());
 		if (channel == null) return new Result(Outcome.ERROR, ":x: Not a valid channel!");
 		
 		//Send the message
-		String msg = String.join(" ", Arrays.copyOfRange(txt.args, 1, txt.args.length));
+		String msg = String.join(" ", Arrays.copyOfRange(ctx.args, 1, ctx.args.length));
 		channel.sendMessage(msg).queue();
 		
 		//Log it
 		EmbedBuilder eb = new EmbedBuilder();
 		Guild guild = channel.getGuild();
-		User a = txt.e.getAuthor();
+		User a = ctx.e.getAuthor();
 		eb.setAuthor(a.getAsTag() + " (`" + a.getId() + "`)", null, a.getAvatarUrl());
 		eb.setDescription("**Sent a msg to `" + channel.getName() + "` (`" + channel.getId() + "`)**\non `" +
 			guild.getName() + "` (" + guild.getId() + "):\n" + msg);
 		eb.setThumbnail(guild.getIconUrl());
-		txt.log(eb.build());
+		ctx.log(eb.build());
 		
 		return new Result(Outcome.SUCCESS);
 	}

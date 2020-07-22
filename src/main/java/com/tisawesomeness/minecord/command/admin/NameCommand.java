@@ -33,8 +33,8 @@ public class NameCommand extends Command {
 			"`{&}name <guild id> <name>` - Sets the bot's nickname for the guild. Requires *Change Nickname* permissions.\n";
 	}
 	
-	public Result run(CommandContext txt) {
-		String[] args = txt.args;
+	public Result run(CommandContext ctx) {
+		String[] args = ctx.args;
 		
 		//Check for proper argument length
 		if (args.length < 1) {
@@ -42,7 +42,7 @@ public class NameCommand extends Command {
 		}
 		
 		//Get guild
-		Guild guild = txt.bot.getShardManager().getGuildById(args[0]);
+		Guild guild = ctx.bot.getShardManager().getGuildById(args[0]);
 		if (guild == null) return new Result(Outcome.ERROR, ":x: Not a valid guild!");
 		
 		//Check for permissions
@@ -55,13 +55,13 @@ public class NameCommand extends Command {
 		if (args.length > 1) {
 			name = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
 		} else {
-			name = txt.e.getJDA().getSelfUser().getName();
+			name = ctx.e.getJDA().getSelfUser().getName();
 		}
 		guild.modifyNickname(guild.getSelfMember(), name).queue();
 		
 		//Log it
 		EmbedBuilder eb = new EmbedBuilder();
-		User a = txt.e.getAuthor();
+		User a = ctx.e.getAuthor();
 		eb.setAuthor(a.getAsTag() + " (`" + a.getId() + "`)",
 			null, a.getAvatarUrl());
 		String desc = args.length == 1 ? "**Reset" : "**Changed";
@@ -69,7 +69,7 @@ public class NameCommand extends Command {
 		if (args.length == 1) desc += "\n" + name;
 		eb.setDescription(desc);
 		eb.setThumbnail(guild.getIconUrl());
-		txt.log(eb.build());
+		ctx.log(eb.build());
 		
 		return new Result(Outcome.SUCCESS);
 	}

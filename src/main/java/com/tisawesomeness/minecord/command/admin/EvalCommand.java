@@ -48,7 +48,7 @@ public class EvalCommand extends Command {
 	String docsLink = "https://docs.oracle.com/javase/8/docs/technotes/guides/scripting/prog_guide/javascript.html";
 	public String getHelp() {
 		return "Evaluates some js code using the Rhino engine.\n" +
-				"Variables: `txt`, `bot`, `jda`, `sm`, `config`, `dbCache`, `event`, `user`, `channel`\n" +
+				"Variables: `ctx`, `bot`, `jda`, `sm`, `config`, `dbCache`, `event`, `user`, `channel`\n" +
 				"Not available in DMs: `member`, `guild`\n" +
 				"Use `help(obj)` to list an object's fields and methods.\n" +
 				"Use `storage.put(stringKey, obj)` and `storage.get(stringKey)` to store variables for later.\n" +
@@ -58,23 +58,23 @@ public class EvalCommand extends Command {
 				"In case this fails, __**never request the bot token and never print all values of the jda or config.**__\n";
 	}
 
-	public Result run(CommandContext txt) {
-		MessageReceivedEvent e = txt.e;
+	public Result run(CommandContext ctx) {
+		MessageReceivedEvent e = ctx.e;
 		
 		// Parse args
-		if (txt.args.length == 0) {
+		if (ctx.args.length == 0) {
 			return new Result(Outcome.WARNING, "Missing code argument.");
 		}
 		
 		// Javascript engine with JDA, event and config variables.
 		ScriptEngineManager factory = new ScriptEngineManager();
 		ScriptEngine engine = factory.getEngineByName("JavaScript");
-		engine.put("txt", txt);
-		engine.put("bot", txt.bot);
+		engine.put("ctx", ctx);
+		engine.put("bot", ctx.bot);
 		engine.put("jda", e.getJDA());
 		engine.put("sm", e.getJDA().getShardManager());
-		engine.put("config", txt.config);
-		engine.put("dbCache", txt.bot.getDatabaseCache());
+		engine.put("config", ctx.config);
+		engine.put("dbCache", ctx.bot.getDatabaseCache());
 		engine.put("event", e);
 		engine.put("user", e.getAuthor());
 		engine.put("channel", e.getChannel());
@@ -87,7 +87,7 @@ public class EvalCommand extends Command {
 		engine.put("help", help);
 		
 		// Extract code from message
-		String code = String.join(" ", txt.args);
+		String code = String.join(" ", ctx.args);
 		
 		// Evaluate code, and catch errors
 		Object output = null;
@@ -95,7 +95,7 @@ public class EvalCommand extends Command {
 		try {
 			output = engine.eval(code);
 		} catch (ScriptException ex) {
-			exMsg = ex.getMessage() == null ? "Null Script Exception" : clean(ex.getMessage(), txt.config);
+			exMsg = ex.getMessage() == null ? "Null Script Exception" : clean(ex.getMessage(), ctx.config);
 		}
 		if (output == null) {
 			output = "null";
@@ -103,7 +103,7 @@ public class EvalCommand extends Command {
 		
 		// Build embed
 		EmbedBuilder eb = new EmbedBuilder();
-		String in = clean(code, txt.config);
+		String in = clean(code, ctx.config);
 		if (in.length() > MessageEmbed.TEXT_MAX_LENGTH - 10) {
 			eb.addField("Input", "Input too long!", false);
 		} else if (in.length() > MessageEmbed.VALUE_MAX_LENGTH - 10) {
@@ -122,7 +122,7 @@ public class EvalCommand extends Command {
 		}
 
 		// Check for length
-		String out = clean(output.toString(), txt.config);
+		String out = clean(output.toString(), ctx.config);
 		if (out.length() > MessageEmbed.VALUE_MAX_LENGTH - 10) {
       // Send up to 10 2000-char messages
       List<String> lines = MessageUtils.splitLinesByLength(out, Message.MAX_CONTENT_LENGTH - 10);

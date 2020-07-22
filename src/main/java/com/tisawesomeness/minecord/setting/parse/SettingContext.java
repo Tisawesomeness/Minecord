@@ -21,13 +21,13 @@ public abstract class SettingContext extends SettingCommandHandler {
      * @return The result of the command
      */
     protected Command.Result displayOrParse(String title, SettingContainer obj) {
-        CommandContext txt = getTxt();
+        CommandContext ctx = getCtx();
         SettingCommandType type = getType();
         int currentArg = getCurrentArg();
         if (type == SettingCommandType.QUERY) {
             return displaySettings(title, s -> s.getDisplay(obj));
         }
-        if (currentArg < txt.args.length) {
+        if (currentArg < ctx.args.length) {
             return new SettingChooser(this, obj).parse();
         }
         return new Command.Result(Command.Outcome.WARNING, ":warning: You must specify a setting.");

@@ -58,20 +58,20 @@ public class UserCommand extends Command {
             "- `{&}user 211261249386708992 admin`\n";
     }
     
-    public Result run(CommandContext txt) {
-        String[] args = txt.args;
-        MessageReceivedEvent e = txt.e;
-        ShardManager sm = txt.bot.getShardManager();
+    public Result run(CommandContext ctx) {
+        String[] args = ctx.args;
+        MessageReceivedEvent e = ctx.e;
+        ShardManager sm = ctx.bot.getShardManager();
 
         //If the author used the admin keyword and is an elevated user
-		if (args.length > 1 && args[1].equals("admin") && txt.isElevated) {
+		if (args.length > 1 && args[1].equals("admin") && ctx.isElevated) {
             if (!DiscordUtils.isDiscordId(args[0])) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
             User u = sm.retrieveUserById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
             if (u == null) {
                 long uid = Long.valueOf(args[0]);
-                DbUser dbUser =txt.getUser(uid);
+                DbUser dbUser = ctx.getUser(uid);
                 String elevatedStr = String.format("Elevated: `%s`", dbUser.isElevated());
                 if (dbUser.isBanned()) {
                     return new Result(Outcome.SUCCESS, "__**USER BANNED FROM MINECORD**__\n" + elevatedStr);
@@ -79,7 +79,7 @@ public class UserCommand extends Command {
                 return new Result(Outcome.SUCCESS, elevatedStr);
             }
 
-            DbUser dbUser = txt.getUser(u);
+            DbUser dbUser = ctx.getUser(u);
             EmbedBuilder eb = new EmbedBuilder()
                 .setTitle(MarkdownSanitizer.escape(u.getAsTag()))
                 .addField("ID", u.getId(), true)
@@ -103,7 +103,7 @@ public class UserCommand extends Command {
                     .collect(Collectors.joining("\n"));
                 eb.addField("Mutual Guilds", mutualGuilds, false);
             }
-            return new Result(Outcome.SUCCESS, txt.brand(eb).build());
+            return new Result(Outcome.SUCCESS, ctx.brand(eb).build());
         }
         
         // Guild-only command
@@ -166,7 +166,7 @@ public class UserCommand extends Command {
             eb.addField("Boosted", DateUtils.getDateAgo(mem.getTimeBoosted()), false);
         }
         eb.addField("Roles", roles, false);
-        return new Result(Outcome.SUCCESS, txt.addFooter(eb).build());
+        return new Result(Outcome.SUCCESS, ctx.addFooter(eb).build());
     }
     
 }

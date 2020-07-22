@@ -160,9 +160,9 @@ public abstract class ReactMenu {
      * Checks if the bot is able to make a react menu in the specified channel
      * @return True if the guild has menus enabled and the bot has manage message and add reaction permissions
      */
-    public static MenuStatus getMenuStatus(CommandContext txt) {
-        MessageReceivedEvent e = txt.e;
-        if (!txt.shouldUseMenus()) {
+    public static MenuStatus getMenuStatus(CommandContext ctx) {
+        MessageReceivedEvent e = ctx.e;
+        if (!ctx.shouldUseMenus()) {
             return MenuStatus.DISABLED;
         }
         if (!e.isFromGuild()) {

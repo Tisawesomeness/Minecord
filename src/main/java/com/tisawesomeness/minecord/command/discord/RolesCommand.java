@@ -40,9 +40,9 @@ public class RolesCommand extends Command {
             "- `{&}roles 211261249386708992`\n";
     }
 
-    public Result run(CommandContext txt) {
-        String[] args = txt.args;
-        MessageReceivedEvent e = txt.e;
+    public Result run(CommandContext ctx) {
+        String[] args = ctx.args;
+        MessageReceivedEvent e = ctx.e;
         
         // Guild-only command
         if (!e.isFromGuild()) {
@@ -106,7 +106,7 @@ public class RolesCommand extends Command {
 			eb.setDescription(String.join("\n", lines));
 		}
         
-        return new Result(Outcome.SUCCESS, txt.addFooter(eb).build());
+        return new Result(Outcome.SUCCESS, ctx.addFooter(eb).build());
     }
 
 }

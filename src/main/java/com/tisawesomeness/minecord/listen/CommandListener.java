@@ -162,13 +162,13 @@ public class CommandListener extends ListenerAdapter {
 		}
 		
 		// Run command
-		CommandContext txt = new CommandContext(args, e, bot, config, isElevated, prefix, bot.getSettings());
+		CommandContext ctx = new CommandContext(args, e, bot, config, isElevated, prefix, bot.getSettings());
 		Result result = null;
 		Exception exception = null;
 		cmd.cooldowns.put(a, System.currentTimeMillis());
 		cmd.uses++;
 		try {
-			result = cmd.run(txt);
+			result = cmd.run(ctx);
 		} catch (Exception ex) {
 			exception = ex;
 		}
@@ -200,7 +200,7 @@ public class CommandListener extends ListenerAdapter {
 				}
 			}
 			err += "```";
-			txt.log(err);
+			ctx.log(err);
 			c.sendMessage(err).queue();
 		// If message is empty
 		} if (result.message == null) {

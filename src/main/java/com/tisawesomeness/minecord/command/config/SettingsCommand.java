@@ -59,8 +59,8 @@ public class SettingsCommand extends Command {
                 "- `{&}settings admin user 211261249386708992`\n";
     }
 
-    public Result run(CommandContext txt) {
-        return new SettingCommandParser(txt, SettingCommandType.QUERY).parse();
+    public Result run(CommandContext ctx) {
+        return new SettingCommandParser(ctx, SettingCommandType.QUERY).parse();
     }
 
 }

@@ -18,7 +18,7 @@ public class TestCommand extends Command {
 		);
 	}
 	
-	public Result run(CommandContext txt) {
+	public Result run(CommandContext ctx) {
 		return new Result(Outcome.SUCCESS, "Test");
 	}
 	

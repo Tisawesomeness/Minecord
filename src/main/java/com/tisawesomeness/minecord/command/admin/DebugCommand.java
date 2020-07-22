@@ -47,42 +47,42 @@ public class DebugCommand extends Command {
         );
     }
 
-    public Result run(CommandContext txt) {
-        if (!txt.config.debugMode) {
+    public Result run(CommandContext ctx) {
+        if (!ctx.config.debugMode) {
             return new Result(Outcome.WARNING, "The bot is not in debug mode.");
         }
 
-        if (txt.args.length == 0) {
+        if (ctx.args.length == 0) {
             String possibleOptions = debugOptions.stream()
                     .map(d -> MarkdownUtil.monospace(d.getName()))
                     .collect(Collectors.joining(", "));
             return new Result(Outcome.SUCCESS, "Possible options: " + possibleOptions);
         }
 
-        if ("all".equalsIgnoreCase(txt.args[0])) {
+        if ("all".equalsIgnoreCase(ctx.args[0])) {
             for (DebugOption d : debugOptions) {
-                sendDebugInfo(txt, d);
+                sendDebugInfo(ctx, d);
             }
             return new Result(Outcome.SUCCESS);
         }
 
         for (DebugOption d : debugOptions) {
-            if (d.getName().equalsIgnoreCase(txt.args[0])) {
-                sendDebugInfo(txt, d);
+            if (d.getName().equalsIgnoreCase(ctx.args[0])) {
+                sendDebugInfo(ctx, d);
                 return new Result(Outcome.SUCCESS);
             }
         }
         return new Result(Outcome.WARNING, ":warning: Not a valid debug option.");
     }
 
-    private static void sendDebugInfo(CommandContext txt, DebugOption d) {
+    private static void sendDebugInfo(CommandContext ctx, DebugOption d) {
         String debugInfo = d.debug();
-        printToConsole(debugInfo, txt.e.getAuthor());
+        printToConsole(debugInfo, ctx.e.getAuthor());
         List<String> messages = MessageUtils.splitLinesByLength(debugInfo, Message.MAX_CONTENT_LENGTH);
         for (String message : messages) {
-            txt.e.getChannel().sendMessage(message).queue();
+            ctx.e.getChannel().sendMessage(message).queue();
         }
-        txt.e.getChannel().sendMessage(debugInfo).queue();
+        ctx.e.getChannel().sendMessage(debugInfo).queue();
     }
 
     private static void printToConsole(String debugInfo, User author) {

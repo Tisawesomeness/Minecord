@@ -20,13 +20,13 @@ import java.util.Optional;
  * Parses the user context, setting values with the highest priority.
  */
 public class ChannelContext extends SettingContext {
-    @Getter private final @NonNull CommandContext txt;
+    @Getter private final @NonNull CommandContext ctx;
     @Getter private final @NonNull SettingCommandType type;
     private final boolean isAdmin;
     @Getter private int currentArg;
 
     public ChannelContext(SettingContextParser prev) {
-        txt = prev.getTxt();
+        ctx = prev.getCtx();
         type = prev.getType();
         isAdmin = prev.isAdmin();
         currentArg = prev.getCurrentArg();
@@ -45,11 +45,11 @@ public class ChannelContext extends SettingContext {
     }
 
     private Command.Result parseNotAdmin() {
-        if (!txt.e.isFromGuild()) {
+        if (!ctx.e.isFromGuild()) {
             return new Command.Result(Command.Outcome.WARNING,
-                    String.format(":warning: `%ssettings channel` cannot be used in DMs.", txt.prefix));
+                    String.format(":warning: `%ssettings channel` cannot be used in DMs.", ctx.prefix));
         }
-        if (currentArg >= txt.args.length) {
+        if (currentArg >= ctx.args.length) {
             return displayCurrentChannelSettingsIfQuery();
         }
         return displayOrParseChannel();
@@ -58,13 +58,13 @@ public class ChannelContext extends SettingContext {
         if (type != SettingCommandType.QUERY) {
             return new Command.Result(Command.Outcome.WARNING, ":warning: You must specify a channel.");
         }
-        TextChannel c = txt.e.getTextChannel();
+        TextChannel c = ctx.e.getTextChannel();
         String title = "Channel settings for #" + c.getName();
-        DbChannel channel = txt.getChannel(c);
+        DbChannel channel = ctx.getChannel(c);
         return displaySettings(title, s -> s.getDisplay(channel));
     }
     private Command.Result displayOrParseChannel() {
-        String channelArg = txt.args[currentArg];
+        String channelArg = ctx.args[currentArg];
         Either<String, TextChannel> maybeChannel = getChannel(channelArg);
         if (!maybeChannel.isRight()) {
             return eitherToWarning(maybeChannel);
@@ -74,7 +74,7 @@ public class ChannelContext extends SettingContext {
         return displayOrParseChannelIfUserHasPermission(c);
     }
     private Command.Result displayOrParseChannelIfUserHasPermission(TextChannel c) {
-        Member m = Objects.requireNonNull(txt.e.getMember());
+        Member m = Objects.requireNonNull(ctx.e.getMember());
         if (!m.hasPermission(c, Permission.VIEW_CHANNEL, Permission.MESSAGE_READ)) {
             System.out.println(m.getPermissions());
             return new Command.Result(Command.Outcome.WARNING,
@@ -83,26 +83,26 @@ public class ChannelContext extends SettingContext {
             return new Command.Result(Command.Outcome.WARNING,
                     ":warning: You do not have permission to write in that channel.");
         }
-        DbChannel channel = txt.getChannel(c);
+        DbChannel channel = ctx.getChannel(c);
         return displayOrParse("Channel settings for #" + c.getName(), channel);
     }
 
     private Either<String, TextChannel> getChannel(String input) {
-        long gid = txt.e.getGuild().getIdLong();
+        long gid = ctx.e.getGuild().getIdLong();
         if (DiscordUtils.isDiscordId(input)) {
             return getChannelFromIdIfInGuild(input, gid);
         }
         return getChannelFromMentions(gid);
     }
     private Either<String, TextChannel> getChannelFromIdIfInGuild(String input, long gid) {
-        TextChannel c = txt.bot.getShardManager().getTextChannelById(input);
+        TextChannel c = ctx.bot.getShardManager().getTextChannelById(input);
         if (c == null || c.getGuild().getIdLong() != gid) {
             return Either.left("That channel does not exist in the current guild or is not visible to you.");
         }
         return Either.right(c);
     }
     private Either<String, TextChannel> getChannelFromMentions(long gid) {
-        List<TextChannel> mentioned = txt.e.getMessage().getMentionedChannels();
+        List<TextChannel> mentioned = ctx.e.getMessage().getMentionedChannels();
         if (mentioned.isEmpty()) {
             return Either.left(
                     "Not a valid channel format. Use a `#channel` mention or a valid ID.");
@@ -116,13 +116,13 @@ public class ChannelContext extends SettingContext {
     }
 
     private Command.Result parseAdmin() {
-        if (currentArg >= txt.args.length) {
+        if (currentArg >= ctx.args.length) {
             return new Command.Result(Command.Outcome.WARNING, ":warning: You must specify a channel id.");
         }
         return displayOrParseChannelId();
     }
     private Command.Result displayOrParseChannelId() {
-        String channelArg = txt.args[currentArg];
+        String channelArg = ctx.args[currentArg];
         Either<String, Long> maybeCid = getChannelId(channelArg);
         if (!maybeCid.isRight()) {
             return eitherToWarning(maybeCid);
@@ -133,7 +133,7 @@ public class ChannelContext extends SettingContext {
         return displayOrParseIfChannelIdInDatabase(cid);
     }
     private Command.Result displayOrParseIfChannelIdInDatabase(long cid) {
-        Optional<DbChannel> channelOpt = txt.getChannel(cid);
+        Optional<DbChannel> channelOpt = ctx.getChannel(cid);
         if (!channelOpt.isPresent()) {
             return new Command.Result(Command.Outcome.WARNING, ":warning: That channel is not in the database.");
         }
@@ -148,7 +148,7 @@ public class ChannelContext extends SettingContext {
         return getChannelIdFromMentions();
     }
     private Either<String, Long> getChannelIdFromMentions() {
-        List<TextChannel> mentioned = txt.e.getMessage().getMentionedChannels();
+        List<TextChannel> mentioned = ctx.e.getMessage().getMentionedChannels();
         if (!mentioned.isEmpty()) {
             return Either.right(mentioned.get(0).getIdLong());
         }

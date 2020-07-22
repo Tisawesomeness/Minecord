@@ -20,13 +20,13 @@ public class SettingContextParser extends SettingCommandHandler {
     private final static List<String> USER_WORDS = Arrays.asList("user", "dm", "dms");
     private final static List<String> GUILD_WORDS = Arrays.asList("guild", "server");
 
-    @Getter private final @NonNull CommandContext txt;
+    @Getter private final @NonNull CommandContext ctx;
     @Getter private final @NonNull SettingCommandType type;
     @Getter private final boolean isAdmin;
     @Getter private int currentArg;
 
     public SettingContextParser(SettingCommandParser prev, boolean isAdmin) {
-        txt = prev.getTxt();
+        ctx = prev.getCtx();
         type = prev.getType();
         this.isAdmin = isAdmin;
         currentArg = prev.getCurrentArg();
@@ -39,13 +39,13 @@ public class SettingContextParser extends SettingCommandHandler {
      * @return The result of this command
      */
     public Command.Result parse() {
-        String contextArg = txt.args[currentArg];
+        String contextArg = ctx.args[currentArg];
         currentArg++;
         if (type == SettingCommandType.QUERY) {
             if ("list".equalsIgnoreCase(contextArg)) {
                 return new ListSubcommand(this).parse();
             }
-        } else if (!isAdmin && !SettingCommandHandler.userHasManageServerPermissions(txt.e)) {
+        } else if (!isAdmin && !SettingCommandHandler.userHasManageServerPermissions(ctx.e)) {
             return new Command.Result(Command.Outcome.WARNING, ":warning: You must have Manage Server permissions.");
         }
         Optional<SettingContext> settingContextOpt = getContext(contextArg);
@@ -76,7 +76,7 @@ public class SettingContextParser extends SettingCommandHandler {
     }
 
     private Command.Result parseChannelAndDisplay() {
-        String contextArg = txt.args[currentArg];
+        String contextArg = ctx.args[currentArg];
         if (DiscordUtils.isDiscordId(contextArg)) {
             return displayChannelIdSettings(contextArg);
         }
@@ -84,19 +84,19 @@ public class SettingContextParser extends SettingCommandHandler {
     }
     private Command.Result displayChannelIdSettings(String contextArg) {
         long cid = Long.parseLong(contextArg);
-        Optional<DbChannel> dbChannelOpt = txt.getChannel(cid);
+        Optional<DbChannel> dbChannelOpt = ctx.getChannel(cid);
         if (dbChannelOpt.isPresent()) {
             DbChannel dbChannel = dbChannelOpt.get();
             return displayCurrentSettings(cid, dbChannel.getGuildId());
         }
-        TextChannel c = txt.bot.getShardManager().getTextChannelById(cid);
+        TextChannel c = ctx.bot.getShardManager().getTextChannelById(cid);
         if (c != null) {
             return displayCurrentSettings(c);
         }
         return new Command.Result(Command.Outcome.WARNING, ":warning: That channel is not visible to the bot.");
     }
     private Command.Result displayChannelMentionSettings() {
-        List<TextChannel> mentioned = txt.e.getMessage().getMentionedChannels();
+        List<TextChannel> mentioned = ctx.e.getMessage().getMentionedChannels();
         if (!mentioned.isEmpty()) {
             TextChannel c = mentioned.get(0);
             return displayCurrentSettings(c);
@@ -110,6 +110,6 @@ public class SettingContextParser extends SettingCommandHandler {
     }
     private Command.Result displayCurrentSettings(long cid, long gid) {
         String title = "Currently Active Settings for Channel " + cid;
-        return displaySettings(title, s -> s.getDisplay(txt.getCache(), cid, gid));
+        return displaySettings(title, s -> s.getDisplay(ctx.getCache(), cid, gid));
     }
 }

@@ -31,12 +31,12 @@ public class UsageCommand extends Command {
 		);
 	}
 
-	public Result run(CommandContext txt) {
-		String prefix = txt.prefix;
+	public Result run(CommandContext ctx) {
+		String prefix = ctx.prefix;
 
 		// Build usage message
 		EmbedBuilder eb = new EmbedBuilder()
-			.setTitle("Command usage for " + DateUtils.getDurationString(txt.bot.getBirth()));
+			.setTitle("Command usage for " + DateUtils.getDurationString(ctx.bot.getBirth()));
 		for (Module m : registry.modules) {
 			String field = Arrays.asList(m.getCommands()).stream()
 				.filter(c -> !c.getInfo().name.equals("") && !c.getInfo().description.equals("Look up a color code."))
@@ -45,7 +45,7 @@ public class UsageCommand extends Command {
 			eb.addField(String.format("**%s**", m.getName()), field, true);
 		}
 
-		return new Result(Outcome.SUCCESS, txt.brand(eb).build());
+		return new Result(Outcome.SUCCESS, ctx.brand(eb).build());
 	}
 	
 }

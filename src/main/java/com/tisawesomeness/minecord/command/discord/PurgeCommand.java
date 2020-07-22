@@ -41,9 +41,9 @@ public class PurgeCommand extends Command {
 			"If deleting more than 50 messages, the bot must have *Manage Messages* permissions.\n";
 	}
 	
-	public Result run(CommandContext txt) {
-		String[] args = txt.args;
-		MessageReceivedEvent e = txt.e;
+	public Result run(CommandContext ctx) {
+		String[] args = ctx.args;
+		MessageReceivedEvent e = ctx.e;
 
 		// Guild-only command
 		if (!e.isFromGuild()) {
@@ -51,7 +51,7 @@ public class PurgeCommand extends Command {
 		}
 		
 		//Check if user is elevated or has the manage messages permission
-		if (!txt.isElevated && !e.getMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE)) {
+		if (!ctx.isElevated && !e.getMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE)) {
 			return new Result(Outcome.WARNING, ":warning: You must have permission to manage messages in this channel!");
 		}
 		

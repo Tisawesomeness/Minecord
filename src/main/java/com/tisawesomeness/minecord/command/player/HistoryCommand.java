@@ -42,25 +42,25 @@ public class HistoryCommand extends Command {
 			"`{&}history 069a79f4-44e9-4726-a5be-fca90e38aaf5 3/26`\n";
 	}
 	
-	public Result run(CommandContext txt) {
+	public Result run(CommandContext ctx) {
 		
 		// No arguments message
-		if (txt.args.length == 0) {
+		if (ctx.args.length == 0) {
 			String m = ":warning: Incorrect arguments." +
-				"\n" + txt.prefix + "history <username|uuid> [date] " +
+				"\n" + ctx.prefix + "history <username|uuid> [date] " +
 				"\n" + DateUtils.dateHelp;
 			return new Result(Outcome.WARNING, m, 5);
 		}
 
-		String player = txt.args[0];
+		String player = ctx.args[0];
 		if (!player.matches(NameUtils.uuidRegex)) {
 			String uuid = null;
 			
 			// Parse date argument
-			if (txt.args.length > 1) {
-				long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(txt.args, 1, txt.args.length));
+			if (ctx.args.length > 1) {
+				long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(ctx.args, 1, ctx.args.length));
 				if (timestamp == -1) {
-					return new Result(Outcome.WARNING, MessageUtils.dateErrorString(txt.prefix, "history"));
+					return new Result(Outcome.WARNING, MessageUtils.dateErrorString(ctx.prefix, "history"));
 				}
 				
 			// Get the UUID
@@ -144,7 +144,7 @@ public class HistoryCommand extends Command {
 			eb.setDescription(String.join("\n", lines));
 		}
 		
-		return new Result(Outcome.SUCCESS, txt.brand(eb).build());
+		return new Result(Outcome.SUCCESS, ctx.brand(eb).build());
 	}
 	
 }

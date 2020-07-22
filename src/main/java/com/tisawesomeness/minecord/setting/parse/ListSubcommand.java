@@ -23,12 +23,12 @@ import java.util.stream.Collectors;
  * The class that handles {@code &settings list}, listing all settings in a guild and the channel overrides.
  */
 public class ListSubcommand {
-    private final @NonNull CommandContext txt;
+    private final @NonNull CommandContext ctx;
     private final boolean isAdmin;
     private final int currentArg;
 
     public ListSubcommand(SettingContextParser prev) {
-        txt = prev.getTxt();
+        ctx = prev.getCtx();
         isAdmin = prev.isAdmin();
         currentArg = prev.getCurrentArg();
     }
@@ -40,27 +40,27 @@ public class ListSubcommand {
     public Command.Result parse() {
         if (isAdmin) {
             return parseAdminList();
-        } else if (!txt.e.isFromGuild()) {
-            String msg = String.format(":warning: `%ssettings list` cannot be used in DMs.", txt.prefix);
+        } else if (!ctx.e.isFromGuild()) {
+            String msg = String.format(":warning: `%ssettings list` cannot be used in DMs.", ctx.prefix);
             return new Command.Result(Command.Outcome.WARNING, msg);
-        } else if (!Objects.requireNonNull(txt.e.getMember()).hasPermission(Permission.MANAGE_SERVER)) {
+        } else if (!Objects.requireNonNull(ctx.e.getMember()).hasPermission(Permission.MANAGE_SERVER)) {
             return new Command.Result(Command.Outcome.WARNING, ":warning: You do not have Manage Server permissions.");
         }
-        return listSettings("All Channel Overrides", txt.e.getGuild().getIdLong());
+        return listSettings("All Channel Overrides", ctx.e.getGuild().getIdLong());
     }
     private Command.Result parseAdminList() {
-        if (currentArg < txt.args.length) {
+        if (currentArg < ctx.args.length) {
             return parseGuildAndList();
-        } else if (!txt.e.isFromGuild()) {
+        } else if (!ctx.e.isFromGuild()) {
             String msg = String.format(
-                    ":warning: `%ssettings admin list` with no guild id cannot be used in DMs.", txt.prefix);
+                    ":warning: `%ssettings admin list` with no guild id cannot be used in DMs.", ctx.prefix);
             return new Command.Result(Command.Outcome.WARNING, msg);
         }
-        return listSettings("All Channel Overrides", txt.e.getGuild().getIdLong());
+        return listSettings("All Channel Overrides", ctx.e.getGuild().getIdLong());
     }
 
     private Command.Result parseGuildAndList() {
-        String guildArg = txt.args[currentArg];
+        String guildArg = ctx.args[currentArg];
         if (!DiscordUtils.isDiscordId(guildArg)) {
             return new Command.Result(Command.Outcome.WARNING, ":warning: Not a valid guild id.");
         }
@@ -69,23 +69,23 @@ public class ListSubcommand {
 
     private Command.Result listSettings(String title, long gid) {
         EmbedBuilder eb = new EmbedBuilder().setTitle(title);
-        String guildField = buildField(s -> s.getDisplay(txt.getGuild(gid)));
+        String guildField = buildField(s -> s.getDisplay(ctx.getGuild(gid)));
         eb.addField("Guild", guildField, false);
 
-        List<DbChannel> channels = txt.getChannelsInGuild(gid);
+        List<DbChannel> channels = ctx.getChannelsInGuild(gid);
         if (!channels.isEmpty()) {
-            Guild g = txt.bot.getShardManager().getGuildById(gid);
+            Guild g = ctx.bot.getShardManager().getGuildById(gid);
             for (DbChannel channel : channels) {
                 String fieldTitle = getChannelNameIfGuildExists(channel.getId(), g);
                 String field = buildField(s -> s.getDisplay(channel));
                 eb.addField(fieldTitle, field, false);
             }
         }
-        return new Command.Result(Command.Outcome.SUCCESS, txt.brand(eb).build());
+        return new Command.Result(Command.Outcome.SUCCESS, ctx.brand(eb).build());
     }
 
     private String buildField(Function<? super Setting<?>, String> displayFunction) {
-        return txt.bot.getSettings().stream()
+        return ctx.bot.getSettings().stream()
                 .map(s -> inlineSetting(s, displayFunction))
                 .collect(Collectors.joining("\n"));
     }

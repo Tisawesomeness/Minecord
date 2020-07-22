@@ -41,13 +41,13 @@ public class HeadCommand extends Command {
 			"`{&}head 069a79f4-44e9-4726-a5be-fca90e38aaf5 overlay`\n";
 	}
 	
-	public Result run(CommandContext txt) {
+	public Result run(CommandContext ctx) {
 		
 		//No arguments message
-		if (txt.args.length == 0) {
+		if (ctx.args.length == 0) {
 			return new Result(Outcome.WARNING, ":warning: You must specify a player.", 5);
 		}
-		String[] args = txt.args;
+		String[] args = ctx.args;
 		
 		//Check for overlay argument
 		boolean overlay = false;
@@ -68,7 +68,7 @@ public class HeadCommand extends Command {
 			if (args.length > 1) {
 				long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
 				if (timestamp == -1) {
-					return new Result(Outcome.WARNING, MessageUtils.dateErrorString(txt.prefix, "head"));
+					return new Result(Outcome.WARNING, MessageUtils.dateErrorString(ctx.prefix, "head"));
 				}
 				
 			//Get the UUID

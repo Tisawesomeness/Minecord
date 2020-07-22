@@ -45,18 +45,18 @@ public class ProfileCommand extends Command {
 			"`{&}profile 069a79f4-44e9-4726-a5be-fca90e38aaf5 3/26`\n";
 	}
 
-    public Result run(CommandContext txt) {
+    public Result run(CommandContext ctx) {
 		
 		// No arguments message
-		if (txt.args.length == 0) {
+		if (ctx.args.length == 0) {
 			String m = ":warning: Incorrect arguments." +
-				"\n" + txt.prefix + "profile <username|uuid> [date] " +
+				"\n" + ctx.prefix + "profile <username|uuid> [date] " +
 				"\n" + DateUtils.dateHelp;
 			return new Result(Outcome.WARNING, m, 5);
         }
 
 		// UUID --> Username
-		String player = txt.args[0];
+		String player = ctx.args[0];
 		if (player.matches(NameUtils.uuidRegex)) {
 			player = NameUtils.getName(player);
 
@@ -71,11 +71,11 @@ public class ProfileCommand extends Command {
             }
         
         // Username + Date --> UUID --> Username
-		} else if (txt.args.length > 1) {
+		} else if (ctx.args.length > 1) {
 			// Parse date argument
-            long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(txt.args, 1, txt.args.length));
+            long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(ctx.args, 1, ctx.args.length));
             if (timestamp == -1) {
-                return new Result(Outcome.WARNING, MessageUtils.dateErrorString(txt.prefix, "skin"));
+                return new Result(Outcome.WARNING, MessageUtils.dateErrorString(ctx.prefix, "skin"));
             }
 
             // Get the UUID

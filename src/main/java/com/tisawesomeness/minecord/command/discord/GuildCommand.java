@@ -40,35 +40,35 @@ public class GuildCommand extends Command {
             "- `{&}guild 347765748577468416 admin`\n";
     }
     
-    public Result run(CommandContext txt) {
-        String[] args = txt.args;
+    public Result run(CommandContext ctx) {
+        String[] args = ctx.args;
 
         // If the author used the admin keyword and is an elevated user
         boolean elevated = false;
         Guild g;
-		if (args.length > 1 && args[1].equals("admin") && txt.isElevated) {
+		if (args.length > 1 && args[1].equals("admin") && ctx.isElevated) {
             elevated = true;
             if (!DiscordUtils.isDiscordId(args[0])) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
-            g = txt.bot.getShardManager().getGuildById(args[0]);
+            g = ctx.bot.getShardManager().getGuildById(args[0]);
             if (g == null) {
                 long gid = Long.valueOf(args[0]);
-                DbGuild dbGuild = txt.getGuild(gid);
+                DbGuild dbGuild = ctx.getGuild(gid);
                 if (dbGuild.isBanned()) {
                     return new Result(Outcome.SUCCESS,
-                            "__**GUILD BANNED FROM MINECORD**__\n" + getSettingsStr(dbGuild, txt));
+                            "__**GUILD BANNED FROM MINECORD**__\n" + getSettingsStr(dbGuild, ctx));
                 }
-                return new Result(Outcome.SUCCESS, getSettingsStr(dbGuild, txt));
+                return new Result(Outcome.SUCCESS, getSettingsStr(dbGuild, ctx));
             }
         } else {
-            if (!txt.e.isFromGuild()) {
+            if (!ctx.e.isFromGuild()) {
                 return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
             }
-            g = txt.e.getGuild();
+            g = ctx.e.getGuild();
         }
         User owner = g.retrieveOwner().complete().getUser();
-		DbGuild dbGuild = txt.getGuild(g);
+		DbGuild dbGuild = ctx.getGuild(g);
 
         // Generate guild info
         int textChannels = g.getTextChannels().size();
@@ -98,16 +98,16 @@ public class GuildCommand extends Command {
             eb.addField("Description", MarkdownSanitizer.escape(g.getDescription()), false);
         }
         if (elevated) {
-            eb.addField("Settings", getSettingsStr(dbGuild, txt), false);
+            eb.addField("Settings", getSettingsStr(dbGuild, ctx), false);
             if (dbGuild.isBanned()) {
                 eb.setDescription("__**GUILD BANNED FROM MINECORD**__");
             }
         }
-        return new Result(Outcome.SUCCESS, txt.brand(eb).build());
+        return new Result(Outcome.SUCCESS, ctx.brand(eb).build());
     }
 
-    private static String getSettingsStr(DbGuild guild, CommandContext txt) {
-        return txt.bot.getSettings().stream()
+    private static String getSettingsStr(DbGuild guild, CommandContext ctx) {
+        return ctx.bot.getSettings().stream()
                 .map(s -> s.getDisplayName() + ": " + displaySetting(guild, s))
                 .collect(Collectors.joining("\n"));
     }

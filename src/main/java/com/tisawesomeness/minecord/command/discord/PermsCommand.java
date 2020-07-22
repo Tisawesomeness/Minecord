@@ -56,17 +56,17 @@ public class PermsCommand extends Command {
     private static final Result invalidChannel = new Result(Outcome.WARNING,
             ":warning: That channel does not exist in the current guild or is not visible to you.");
 
-    public Result run(CommandContext txt) {
-        String[] args = txt.args;
-        MessageReceivedEvent e = txt.e;
+    public Result run(CommandContext ctx) {
+        String[] args = ctx.args;
+        MessageReceivedEvent e = ctx.e;
 
         TextChannel c;
         // Check any channel id if admin
-		if (args.length > 1 && args[1].equals("admin") && txt.isElevated) {
+		if (args.length > 1 && args[1].equals("admin") && ctx.isElevated) {
             if (!DiscordUtils.isDiscordId(args[0])) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
-            c = txt.bot.getShardManager().getTextChannelById(args[0]);
+            c = ctx.bot.getShardManager().getTextChannelById(args[0]);
             if (c == null) {
                 return new Result(Outcome.WARNING, ":warning: That channel does not exist.");
             }

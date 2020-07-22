@@ -31,11 +31,11 @@ public class ReloadCommand extends Command {
 				"If there is an exception, shut down the bot with {&}shutdown or do a hard reset.";
 	}
 
-	public Result run(CommandContext txt) {
+	public Result run(CommandContext ctx) {
 
-		Message m = txt.e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
+		Message m = ctx.e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
 		try {
-			txt.bot.reload();
+			ctx.bot.reload();
 		} catch (IOException | ExecutionException | InterruptedException ex) {
 			ex.printStackTrace();
 			return new Result(Outcome.ERROR, ":x: Could not reload!");

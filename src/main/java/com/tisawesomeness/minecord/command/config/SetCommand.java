@@ -51,7 +51,7 @@ public class SetCommand extends Command {
                 "- `{&}set admin user 211261249386708992 use menus disabled`\n";
     }
 
-    public Result run(CommandContext txt) {
-        return new SettingCommandParser(txt, SettingCommandType.SET).parse();
+    public Result run(CommandContext ctx) {
+        return new SettingCommandParser(ctx, SettingCommandType.SET).parse();
     }
 }

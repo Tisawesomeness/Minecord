@@ -11,12 +11,12 @@ import lombok.NonNull;
  * <br>This determines whether to parse the context argument next.
  */
 public class SettingCommandParser extends SettingCommandHandler {
-    @Getter private final @NonNull CommandContext txt;
+    @Getter private final @NonNull CommandContext ctx;
     @Getter private final @NonNull SettingCommandType type;
     @Getter private int currentArg;
 
-    public SettingCommandParser(CommandContext txt, SettingCommandType type) {
-        this.txt = txt;
+    public SettingCommandParser(CommandContext ctx, SettingCommandType type) {
+        this.ctx = ctx;
         this.type = type;
     }
 
@@ -26,9 +26,9 @@ public class SettingCommandParser extends SettingCommandHandler {
      * @return The result of this command
      */
     public Command.Result parse() {
-        if (txt.args.length == 0) {
+        if (ctx.args.length == 0) {
             if (type == SettingCommandType.QUERY) {
-                return displaySettings("Currently Active Settings", s -> s.getDisplay(txt));
+                return displaySettings("Currently Active Settings", s -> s.getDisplay(ctx));
             }
             return new Command.Result(Command.Outcome.WARNING, ":warning: You must specify a context.");
         }
@@ -36,7 +36,7 @@ public class SettingCommandParser extends SettingCommandHandler {
     }
 
     private Command.Result parseAdminArg() {
-        String[] args = txt.args;
+        String[] args = ctx.args;
         if ("admin".equalsIgnoreCase(args[0])) {
             return parseAdminContextIfAble(args);
         }
@@ -44,12 +44,12 @@ public class SettingCommandParser extends SettingCommandHandler {
     }
 
     private Command.Result parseAdminContextIfAble(String[] args) {
-        if (!txt.isElevated) {
+        if (!ctx.isElevated) {
             return new Command.Result(Command.Outcome.WARNING,
                     ":warning: You do not have permission to use elevated commands.");
         }
         if (args.length == 1) {
-            String msg = String.format(":warning: Incorrect arguments. See `%shelp settings admin`.", txt.prefix);
+            String msg = String.format(":warning: Incorrect arguments. See `%shelp settings admin`.", ctx.prefix);
             return new Command.Result(Command.Outcome.WARNING, msg);
         }
         currentArg++;

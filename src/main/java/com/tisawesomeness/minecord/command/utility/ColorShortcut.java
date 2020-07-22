@@ -29,8 +29,8 @@ public class ColorShortcut extends Command {
         return colorCmd.getHelp();
     }
 
-    public Result run(CommandContext txt) throws Exception {
-        return colorCmd.run(txt.withArgs(new String[]{colorCode}));
+    public Result run(CommandContext ctx) throws Exception {
+        return colorCmd.run(ctx.withArgs(new String[]{colorCode}));
     }
 
 }

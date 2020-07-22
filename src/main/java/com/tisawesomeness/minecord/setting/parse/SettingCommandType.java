@@ -1,13 +1,19 @@
 package com.tisawesomeness.minecord.setting.parse;
 
-import com.tisawesomeness.minecord.command.CommandContext;
-
+/**
+ * Represents the type of setting command and what it does to the setting when executed.
+ */
 public enum SettingCommandType {
+    /**
+     * {@code &settings} lists or displays settings
+     */
     QUERY(),
+    /**
+     * {@code &set} changes settings
+     */
     SET(),
+    /**
+     * {@code &reset} resets settings (not set to default)
+     */
     RESET();
-
-    public SettingCommandParser getParser(CommandContext txt) {
-        return new SettingCommandParser(txt, this);
-    }
 }

@@ -44,13 +44,13 @@ public class BanCommand extends Command {
 			"Banned users and guilds will have all commands fail silently.\n";
 	}
 
-	public Result run(CommandContext txt) {
-		String[] args = txt.args;
+	public Result run(CommandContext ctx) {
+		String[] args = ctx.args;
 		
 		//Check for proper argument length
 		if (args.length < 1) return new Result(Outcome.WARNING, ":warning: Not enough arguments.");
 
-		ShardManager sm = txt.bot.getShardManager();
+		ShardManager sm = ctx.bot.getShardManager();
 		
 		//User part of command
 		if ("user".equals(args[0])) {
@@ -59,11 +59,11 @@ public class BanCommand extends Command {
             if (!DiscordUtils.isDiscordId(args[1])) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
-			if (txt.config.isOwner(args[1])) {
+			if (ctx.config.isOwner(args[1])) {
 				return new Result(Outcome.WARNING, ":warning: You can't ban the owner!");
 			}
 			long uid = Long.valueOf(args[1]);
-			DbUser dbUser = txt.getUser(uid);
+			DbUser dbUser = ctx.getUser(uid);
 			//Ban or unban user
 			boolean banned = dbUser.isBanned();
 			try {
@@ -86,7 +86,7 @@ public class BanCommand extends Command {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
 			Guild guild = sm.getGuildById(args[1]);
-            long logChannelID = txt.config.logChannel;
+            long logChannelID = ctx.config.logChannel;
 			if (guild != null && logChannelID != 0) {
 				TextChannel logChannel = sm.getTextChannelById(logChannelID);
 				if (logChannel != null && guild.getId().equals(logChannel.getGuild().getId())) {
@@ -94,7 +94,7 @@ public class BanCommand extends Command {
 				}
 			}
 			long gid = Long.valueOf(args[1]);
-			DbGuild dbGuild = txt.getGuild(gid);
+			DbGuild dbGuild = ctx.getGuild(gid);
 			//Ban or unban guild
 			boolean banned = dbGuild.isBanned();
 			try {
@@ -114,7 +114,7 @@ public class BanCommand extends Command {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
             long id = Long.valueOf(args[0]);
-            boolean banned = txt.getGuild(id).isBanned() || txt.getUser(id).isBanned();
+            boolean banned = ctx.getGuild(id).isBanned() || ctx.getUser(id).isBanned();
 			String msg = args[0] + (banned ? " is banned!" : " is not banned.");
 			return new Result(Outcome.SUCCESS, msg);
 		}

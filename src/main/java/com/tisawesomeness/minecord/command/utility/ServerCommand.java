@@ -51,15 +51,15 @@ public class ServerCommand extends Command {
 			"- `{&}server mc.example.com:25566`\n";
 	}
 	
-	public Result run(CommandContext txt) {
+	public Result run(CommandContext ctx) {
 		
 		// Parse arguments
-		if (txt.args.length == 0) {
+		if (ctx.args.length == 0) {
 			String m = ":warning: You must specify a server." +
-				"\n" + txt.prefix + "server <address>[:port]";
+				"\n" + ctx.prefix + "server <address>[:port]";
 			return new Result(Outcome.WARNING, m, 2);
 		}
-		String arg = txt.args[0];
+		String arg = ctx.args[0];
 		boolean ip = true;
 		if (!arg.matches(ipAddressRegex)) {
 			ip = false;
@@ -111,13 +111,13 @@ public class ServerCommand extends Command {
 		}
 
 		// Upload favicon as byte array
-		EmbedBuilder eb = txt.brand(new EmbedBuilder().setTitle("Server Status"));
+		EmbedBuilder eb = ctx.brand(new EmbedBuilder().setTitle("Server Status"));
 		if (reply.getFavicon() == null) {
 			eb.setDescription(m);
 		} else {
 			try {
 				byte[] data = Base64.getDecoder().decode(reply.getFavicon().replace("\n", "").split(",")[1]);
-				txt.e.getChannel().sendFile(data, "favicon.png").embed(eb.setDescription(m).setThumbnail("attachment://favicon.png").build()).queue();
+				ctx.e.getChannel().sendFile(data, "favicon.png").embed(eb.setDescription(m).setThumbnail("attachment://favicon.png").build()).queue();
 				return new Result(Outcome.SUCCESS);
 			} catch (IllegalArgumentException ex) {
 				ex.printStackTrace();

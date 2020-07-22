@@ -22,10 +22,10 @@ public class PingCommand extends Command {
 		return "Pings the bot.\nUse {&}server to ping a server.\n";
 	}
     
-    public Result run(CommandContext txt) {
+    public Result run(CommandContext ctx) {
         return new Result(Outcome.SUCCESS, String.format(
             ":ping_pong: **Pong!** `%s ms`\nUse `%sserver` to ping a server.",
-				txt.bot.getShardManager().getAverageGatewayPing(), txt.prefix
+				ctx.bot.getShardManager().getAverageGatewayPing(), ctx.prefix
         ));
     }
 

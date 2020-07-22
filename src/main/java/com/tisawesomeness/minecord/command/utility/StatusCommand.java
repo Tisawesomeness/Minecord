@@ -26,7 +26,7 @@ public class StatusCommand extends Command {
 		);
 	}
 	
-	public Result run(CommandContext txt) {
+	public Result run(CommandContext ctx) {
 		
 		//Request information from Mojang
 		String request = RequestUtils.get("https://status.mojang.com/check");
@@ -71,7 +71,7 @@ public class StatusCommand extends Command {
 		m += "\nSome statuses in the Mojang API are broken, so they are not shown.\n" +
 		"Vote, watch, and comment on [this bug](https://bugs.mojang.com/browse/WEB-2303) if you want it fixed!";
 		
-		EmbedBuilder eb = txt.embedMessage("Minecraft Status", m).setColor(color);
+		EmbedBuilder eb = ctx.embedMessage("Minecraft Status", m).setColor(color);
 		
 		return new Result(Outcome.SUCCESS, eb.build());
 	}

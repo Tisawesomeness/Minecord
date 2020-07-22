@@ -35,8 +35,8 @@ public class IngredientCommand extends Command {
 			Item.help + "\n";
 	}
 
-	public Result run(CommandContext txt)  {
-		String[] args = txt.args;
+	public Result run(CommandContext ctx)  {
+		String[] args = ctx.args;
 
 		// Parse page number
 		int page = 0;
@@ -64,9 +64,9 @@ public class IngredientCommand extends Command {
 		}
 
 		// Create menu
-		MenuStatus status = ReactMenu.getMenuStatus(txt);
+		MenuStatus status = ReactMenu.getMenuStatus(ctx);
 		if (status.isValid()) {
-			new Recipe.RecipeMenu(recipes, page, "en_US").post(txt.e.getChannel(), txt.e.getAuthor());
+			new Recipe.RecipeMenu(recipes, page, "en_US").post(ctx.e.getChannel(), ctx.e.getAuthor());
 			return new Result(Outcome.SUCCESS);
 		}
 		EmbedBuilder eb = Recipe.displayImg(recipes.get(page), "en_US");

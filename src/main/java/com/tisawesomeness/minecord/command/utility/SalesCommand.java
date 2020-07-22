@@ -25,7 +25,7 @@ public class SalesCommand extends Command {
 		);
 	}
 	
-	public Result run(CommandContext txt) {
+	public Result run(CommandContext ctx) {
 		
 		//Send a request to Mojang
 		String payload = "{\"metricKeys\":[\"item_sold_minecraft\",\"prepaid_card_redeemed_minecraft\"]}";
@@ -45,7 +45,7 @@ public class SalesCommand extends Command {
 			"\n" + "**Last 24 Hours:** " + format(last24h) +
 			"\n" + "**Sales Per Hour:** " + format(velocity);
 		
-		return new Result(Outcome.SUCCESS, txt.embedMessage("Minecraft Sales", m).build());
+		return new Result(Outcome.SUCCESS, ctx.embedMessage("Minecraft Sales", m).build());
 	}
 	
 	private String format(double num) {

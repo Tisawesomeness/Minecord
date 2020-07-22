@@ -36,21 +36,21 @@ public class UuidCommand extends Command {
 			"`{&}uuid 069a79f4-44e9-4726-a5be-fca90e38aaf5 3/26`\n";
 	}
 	
-	public Result run(CommandContext txt) {
+	public Result run(CommandContext ctx) {
 		
 		// No arguments message
-		if (txt.args.length == 0) {
+		if (ctx.args.length == 0) {
 			return new Result(Outcome.WARNING, ":warning: You must specify a player.", 5);
 		}
 		
-		String username = txt.args[0];
+		String username = ctx.args[0];
 		String uuid = null;
 		
 		// Parse date argument
-		if (txt.args.length > 1) {
-			long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(txt.args, 1, txt.args.length));
+		if (ctx.args.length > 1) {
+			long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(ctx.args, 1, ctx.args.length));
 			if (timestamp == -1) {
-				return new Result(Outcome.WARNING, MessageUtils.dateErrorString(txt.prefix, "uuid"));
+				return new Result(Outcome.WARNING, MessageUtils.dateErrorString(ctx.prefix, "uuid"));
 			}
 			
 		// Get the UUID
@@ -83,7 +83,7 @@ public class UuidCommand extends Command {
 		
 		String m = String.format("Short: `%s`\nLong: `%s`", uuid, NameUtils.formatUUID(uuid));
 		
-		return new Result(Outcome.SUCCESS, txt.embedURL(title, url, m).build());
+		return new Result(Outcome.SUCCESS, ctx.embedURL(title, url, m).build());
 	}
 	
 }

@@ -11,8 +11,8 @@ public interface ICommand {
 	CommandInfo getInfo();
 
 	/**
-	 * Defines the help text shown by &help <command>.
-	 * Use {&} to substitute the current prefix, or {\@} to substitute the bot mention.
+	 * Defines the help text shown by {@code &help <command>}.
+	 * Use {@code {&}} to substitute the current prefix, or {@code {\@}} to substitute the bot mention.
 	 * @return Never-null help string
 	 */
 	default String getHelp() {
@@ -25,9 +25,9 @@ public interface ICommand {
 	
 	/**
 	 * This method is called when the command is run.
-	 * @param txt The message-specific context.
+	 * @param ctx The message-specific context.
 	 * @return The Result of the command.
 	 */
-	Result run(CommandContext txt) throws Exception;
+	Result run(CommandContext ctx) throws Exception;
 
 }

@@ -28,14 +28,14 @@ public class ItemCommand extends Command {
 			Item.help + "\n";
 	}
 
-	public Result run(CommandContext txt) {
+	public Result run(CommandContext ctx) {
 		// Check for argument length
-		if (txt.args.length == 0) {
+		if (ctx.args.length == 0) {
 			return new Result(Outcome.WARNING, ":warning: You must specify an item!");
 		}
 		
 		// Search through the item database
-		String item = Item.search(String.join(" ", txt.args), "en_US");
+		String item = Item.search(String.join(" ", ctx.args), "en_US");
 		
 		// If nothing is found
 		if (item == null) {
@@ -45,7 +45,7 @@ public class ItemCommand extends Command {
 		}
 		
 		// Build message
-		EmbedBuilder eb = Item.display(item, "en_US", txt.prefix);
+		EmbedBuilder eb = Item.display(item, "en_US", ctx.prefix);
 		eb.setFooter("See an error? Please report them at https://goo.gl/KWCxis", null);
 		// eb = MessageUtils.addFooter(eb);
 		

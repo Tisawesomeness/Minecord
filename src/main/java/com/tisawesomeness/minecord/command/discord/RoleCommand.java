@@ -50,17 +50,17 @@ public class RoleCommand extends Command {
             "- `{&}role 347797250266628108 admin`\n";
     }
 
-    public Result run(CommandContext txt) {
-        String[] args = txt.args;
-        MessageReceivedEvent e = txt.e;
+    public Result run(CommandContext ctx) {
+        String[] args = ctx.args;
+        MessageReceivedEvent e = ctx.e;
 
         // Find role
         Role role = null;
         List<Role> roles = e.getGuild().getRoles();
         List<Role> mentioned = e.getMessage().getMentionedRoles();
         // Search for any role if admin
-		if (args.length > 1 && args[1].equals("admin") && txt.isElevated) {
-            role = txt.bot.getShardManager().getRoleById(args[0]);
+		if (args.length > 1 && args[1].equals("admin") && ctx.isElevated) {
+            role = ctx.bot.getShardManager().getRoleById(args[0]);
         // Mentioned roles
         } else if (mentioned.size() > 0) {
             role = mentioned.get(0);
@@ -92,7 +92,7 @@ public class RoleCommand extends Command {
             .addField("Managed?", role.isManaged() ? "Yes" : "No", true)
             .addField("Role Created", DateUtils.getDateAgo(role.getTimeCreated()), false);
 
-        return new Result(Outcome.SUCCESS, txt.addFooter(eb).build());
+        return new Result(Outcome.SUCCESS, ctx.addFooter(eb).build());
     }
 
 }

@@ -16,21 +16,21 @@ import java.util.StringJoiner;
  * <br>If this is called from a set command, a value is required.
  */
 public class SettingChanger {
-    private final @NonNull CommandContext txt;
+    private final @NonNull CommandContext ctx;
     private final @NonNull SettingCommandType type;
     private final @NonNull SettingContainer obj;
     private final @NonNull Setting<?> setting;
     private int currentArg;
 
     public SettingChanger(SettingChooser prev, Setting<?> setting) {
-        txt = prev.getTxt();
+        ctx = prev.getCtx();
         type = prev.getType();
         obj = prev.getObj();
         this.setting = setting;
         currentArg = prev.getCurrentArg();
     }
     public SettingChanger(SmartSetParser prev, SettingContainer obj) {
-        txt = prev.getTxt();
+        ctx = prev.getCtx();
         type = SettingCommandType.SET;
         this.obj = obj;
         setting = prev.getSetting();
@@ -50,7 +50,7 @@ public class SettingChanger {
     }
 
     private String getSettingValue() {
-        String[] args = txt.args;
+        String[] args = ctx.args;
         StringJoiner sj = new StringJoiner(" ");
         while (currentArg < args.length) {
             sj.add(args[currentArg]);

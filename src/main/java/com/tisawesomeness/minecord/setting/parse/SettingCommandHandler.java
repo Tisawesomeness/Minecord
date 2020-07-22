@@ -22,7 +22,7 @@ public abstract class SettingCommandHandler {
      * Gets the context of the executing command.
      * @return The context
      */
-    public abstract @NonNull CommandContext getTxt();
+    public abstract @NonNull CommandContext getCtx();
 
     /**
      * Parses this handler's arguments.
@@ -39,18 +39,18 @@ public abstract class SettingCommandHandler {
      * @return A result with a fully formatted, branded embed
      */
     protected Command.Result displaySettings(String title, Function<? super Setting<?>, String> displayFunction) {
-        CommandContext txt = getTxt();
+        CommandContext ctx = getCtx();
         EmbedBuilder eb = new EmbedBuilder().setTitle(title);
-        String tag = txt.e.getJDA().getSelfUser().getAsTag();
+        String tag = ctx.e.getJDA().getSelfUser().getAsTag();
 
-        for (Setting<?> setting : txt.bot.getSettings()) {
-            String description = setting.getDescription(txt.prefix, tag);
+        for (Setting<?> setting : ctx.bot.getSettings()) {
+            String description = setting.getDescription(ctx.prefix, tag);
             String display = displayFunction.apply(setting);
             String formattedDisplay = MarkdownUtil.bold(MarkdownUtil.monospace(display));
             String field = description + "\nCurrent: " + formattedDisplay;
             eb.addField(setting.getDisplayName(), field, false);
         }
-        return new Command.Result(Command.Outcome.SUCCESS, txt.brand(eb).build());
+        return new Command.Result(Command.Outcome.SUCCESS, ctx.brand(eb).build());
     }
 
     /**

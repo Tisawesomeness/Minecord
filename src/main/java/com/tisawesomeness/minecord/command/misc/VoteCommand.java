@@ -20,9 +20,9 @@ public class VoteCommand extends Command {
 		);
     }
 
-    public Result run(CommandContext txt) {
+    public Result run(CommandContext ctx) {
         String m = "Top.gg: " + MarkdownUtil.maskedLink("VOTE", "https://top.gg/bot/292279711034245130/vote");
-        return new Result(Outcome.SUCCESS, txt.embedMessage("Vote for Minecord!", m).build());
+        return new Result(Outcome.SUCCESS, ctx.embedMessage("Vote for Minecord!", m).build());
     }
 
 }

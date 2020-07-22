@@ -29,8 +29,8 @@ public class MsgCommand extends Command {
 		);
 	}
 	
-	public Result run(CommandContext txt) {
-		String[] args = txt.args;
+	public Result run(CommandContext ctx) {
+		String[] args = ctx.args;
 		
 		//Check for proper argument length
 		if (args.length < 2) {
@@ -38,7 +38,7 @@ public class MsgCommand extends Command {
 		}
 		
 		//Extract user
-		User user = DiscordUtils.findUser(args[0], txt.bot.getShardManager());
+		User user = DiscordUtils.findUser(args[0], ctx.bot.getShardManager());
 		if (user == null) return new Result(Outcome.ERROR, ":x: Not a valid user!");
 		
 		//Send the message
@@ -53,11 +53,11 @@ public class MsgCommand extends Command {
 		}
 		
 		EmbedBuilder eb = new EmbedBuilder();
-		User a = txt.e.getAuthor();
+		User a = ctx.e.getAuthor();
 		eb.setAuthor(a.getAsTag() + " (`" + a.getId() + "`)", null, a.getAvatarUrl());
 		eb.setDescription("**Sent a DM to " + user.getAsTag() + " (`" + user.getId() + "`):**\n" + msg);
 		eb.setThumbnail(user.getAvatarUrl());
-		txt.log(eb.build());
+		ctx.log(eb.build());
 		
 		return new Result(Outcome.SUCCESS);
 	}
