@@ -10,8 +10,8 @@ public class SettingsCommand extends Command {
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "settings",
-                "Change the bot's settings, including prefix.",
-                "[setting] [value]",
+                "Show all the bot's settings and their current values.",
+                "[context/list]",
                 new String[]{"config", "conf"},
                 0,
                 false,
@@ -20,29 +20,43 @@ public class SettingsCommand extends Command {
         );
     }
 
-    // TODO change help to reflect new syntax
     public String getHelp() {
-        return "`{&}settings` - Show all current settings and their possible values.\n" +
-                "`{&}settings <setting> <value>` - Sets <setting> to <value>. The user must have **Manage Server** permissions.\n" +
+        return "Show all the bot's settings and their current values.\n" +
+                "`{&}settings` - Shows what settings the bot is using for the current channel.\n" +
+                "`{&}settings list` - Lists all server settings and any channel overrides.\n" +
+                "`{&}settings <context>` - View settings for the current server, the specified channel, or in DMs.\n" +
+                "\n" +
+                "`<context>` can be:\n" +
+                "- `server` - Settings changed for the server are used everywhere in that server...\n" +
+                "- `channel [channel]` - ...unless you create a channel override.\n" +
+                "- `dm` - Settings can also be changed in DMs.\n" +
                 "\n" +
                 "Examples:\n" +
-                "- `{&}settings prefix mc!`\n" +
-                "- {@}` settings prefix &`\n" +
-                "- `{&}settings useMenus enabled`\n";
+                "- `{&}settings server`\n" +
+                "- `{&}settings channel`\n" +
+                "- `{&}settings channel #general`\n" +
+                "- `{&}settings dm`\n";
     }
 
     public String getAdminHelp() {
-        return "`{&}settings` - Show all current settings and their possible values.\n" +
-                "`{&}settings <setting> <value>` - Sets <setting> to <value>. The user must have **Manage Server** permissions.\n" +
-                "`{&}settings <guild id> admin` - View settings for another guild.\n" +
-                "`{&}settings <guild id> admin <setting> <value>` - Changes settings in another guild.\n" +
+        return "See `{&}help settings` for regular help.\n" +
+                "`{&}settings admin <channel id>` - Shows what settings the bot is using for the current channel.\n" +
+                "`{&}settings admin list [guild id]` - Lists all server settings for the specified guild (default current) and any channel overrides.\n" +
+                "`{&}settings admin <context>` - View settings for the a guild, channel, or user (DMs).\n" +
+                "\n" +
+                "`<context>` can be:\n" +
+                "- `guild <guild id>`\n" +
+                "- `channel <channel>`\n" +
+                "- `user <user id>`\n" +
                 "\n" +
                 "Examples:\n" +
-                "- `{&}settings prefix mc!`\n" +
-                "- {@}` settings prefix &`\n" +
-                "- `{&}settings useMenus enabled`\n" +
-                "- `{&}settings 347765748577468416 admin`\n" +
-                "- `{&}settings 347765748577468416 admin prefix mc!`\n";
+                "- `{&}settings admin list 347765748577468416`\n" +
+                "- `{&}settings admin 347909541264097281`\n" +
+                "- `{&}settings admin #general`\n" +
+                "- `{&}settings admin server 347765748577468416`\n" +
+                "- `{&}settings admin channel 347909541264097281`\n" +
+                "- `{&}settings admin channel #general`\n" +
+                "- `{&}settings admin user 211261249386708992`\n";
     }
 
     public Result run(CommandContext txt) {

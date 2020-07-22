@@ -19,6 +19,37 @@ public class SetCommand extends Command {
         );
     }
 
+    public String getHelp() {
+        return "Changes one of the bot's settings.\n" +
+                "See `{&}settings` for a list of settings and their possible values.\n" +
+                "\n" +
+                "`<context>` can be:\n" +
+                "- `server` - Settings changed for the server are used everywhere in that server...\n" +
+                "- `channel <channel>` - ...unless you create a channel override.\n" +
+                "- `dm` - Settings can also be changed in DMs.\n" +
+                "\n" +
+                "Examples:\n" +
+                "- `{&}set server prefix mc!` - Change the server prefix to `mc!`.\n" +
+                "- `{&}set channel #general prefix &` - Change the server prefix to `&` only in #general.\n" +
+                "- `{&}set server use menus enabled` - Enable menus for the server.\n" +
+                "- `{&}set dm use menus disabled` - Disable menus in DMs.\n";
+    }
+
+    public String getAdminHelp() {
+        return "See `{&}help set` for regular help.\n" +
+                "\n" +
+                "`<context>` can be:\n" +
+                "- `guild <guild id>`\n" +
+                "- `channel <channel>`\n" +
+                "- `user <user id>`\n" +
+                "\n" +
+                "Examples:\n" +
+                "- `{&}set admin server 347765748577468416 prefix mc!`\n" +
+                "- `{&}set admin channel 347909541264097281 prefix &`\n" +
+                "- `{&}set admin channel #general use menus enabled`\n" +
+                "- `{&}set admin user 211261249386708992 use menus disabled`\n";
+    }
+
     public Result run(CommandContext txt) {
         return new SettingCommandParser(txt, SettingCommandType.SET).parse();
     }
