@@ -49,7 +49,7 @@ public class HistoryCommand extends Command {
 			String m = ":warning: Incorrect arguments." +
 				"\n" + ctx.prefix + "history <username|uuid> [date] " +
 				"\n" + DateUtils.dateHelp;
-			return new Result(Outcome.WARNING, m, 5);
+			return new Result(Outcome.WARNING, m);
 		}
 
 		String player = ctx.args[0];
@@ -74,10 +74,10 @@ public class HistoryCommand extends Command {
 				String m = ":x: The Mojang API could not be reached." +
 					"\n" + "Are you sure that username exists?" +
 					"\n" + "Usernames are case-sensitive.";
-				return new Result(Outcome.WARNING, m, 2);
+				return new Result(Outcome.WARNING, m);
 			} else if (!uuid.matches(NameUtils.uuidRegex)) {
 				String m = ":x: The API responded with an error:\n" + uuid;
-				return new Result(Outcome.ERROR, m, 3);
+				return new Result(Outcome.ERROR, m);
 			}
 			
 			player = uuid;

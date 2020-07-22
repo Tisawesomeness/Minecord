@@ -90,7 +90,6 @@ public abstract class Command implements ICommand {
 	public static class Result {
 		public Outcome outcome;
 		public Message message;
-		public double notifyMultiplier = 1;
 		
 		/**
 		 * Represents the result of a command.
@@ -129,53 +128,6 @@ public abstract class Command implements ICommand {
 		public Result(Outcome outcome, MessageEmbed message) {
 			this.outcome = outcome;
 			this.message = new MessageBuilder().setEmbed(message).build();
-		}
-		
-		/**
-		 * Represents the result of a command.
-		 * @param outcome Represents the outcome of the command, either SUCCESS, WARNING, or ERROR.
-		 * @param notifyMultiplier The value to multiply the notification time by.
-		 */
-		public Result(Outcome outcome, double notifyMultiplier) {
-			this.outcome = outcome;
-			this.message = null;
-			this.notifyMultiplier = notifyMultiplier;
-		}
-		
-		/**
-		 * Represents the result of a command.
-		 * @param outcome Represents the outcome of the command, either SUCCESS, WARNING, or ERROR.
-		 * @param message The message to send.
-		 * @param notifyMultiplier The value to multiply the notification time by.
-		 */
-		public Result(Outcome outcome, String message, double notifyMultiplier) {
-			this.outcome = outcome;
-			this.message = new MessageBuilder().append(message).build();
-			this.notifyMultiplier = notifyMultiplier;
-		}
-		
-		/**
-		 * Represents the result of a command.
-		 * @param outcome Represents the outcome of the command, either SUCCESS, WARNING, or ERROR.
-		 * @param message The message to send.
-		 * @param notifyMultiplier The value to multiply the notification time by.
-		 */
-		public Result(Outcome outcome, Message message, double notifyMultiplier) {
-			this.outcome = outcome;
-			this.message = message;
-			this.notifyMultiplier = notifyMultiplier;
-		}
-		
-		/**
-		 * Represents the result of a command.
-		 * @param outcome Represents the outcome of the command, either SUCCESS, WARNING, or ERROR.
-		 * @param message The message to send.
-		 * @param notifyMultiplier The value to multiply the notification time by.
-		 */
-		public Result(Outcome outcome, MessageEmbed message, double notifyMultiplier) {
-			this.outcome = outcome;
-			this.message = new MessageBuilder().setEmbed(message).build();
-			this.notifyMultiplier = notifyMultiplier;
 		}
 	}
 	

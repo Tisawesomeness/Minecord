@@ -52,7 +52,7 @@ public class ProfileCommand extends Command {
 			String m = ":warning: Incorrect arguments." +
 				"\n" + ctx.prefix + "profile <username|uuid> [date] " +
 				"\n" + DateUtils.dateHelp;
-			return new Result(Outcome.WARNING, m, 5);
+			return new Result(Outcome.WARNING, m);
         }
 
 		// UUID --> Username
@@ -64,10 +64,10 @@ public class ProfileCommand extends Command {
 			if (player == null) {
 				String m = ":x: The Mojang API could not be reached." +
 					"\n" + "Are you sure that UUID exists?";
-				return new Result(Outcome.WARNING, m, 1.5);
+				return new Result(Outcome.WARNING, m);
 			} else if (!player.matches(NameUtils.playerRegex)) {
 				String m = ":x: The API responded with an error:\n" + player;
-				return new Result(Outcome.ERROR, m, 3);
+				return new Result(Outcome.ERROR, m);
             }
         
         // Username + Date --> UUID --> Username
@@ -86,10 +86,10 @@ public class ProfileCommand extends Command {
                 String m = ":x: The Mojang API could not be reached." +
                         "\n" +"Are you sure that username exists?" +
                         "\n" + "Usernames are case-sensitive.";
-                return new Result(Outcome.WARNING, m, 2);
+                return new Result(Outcome.WARNING, m);
             } else if (!uuid.matches(NameUtils.uuidRegex)) {
                 String m = ":x: The API responded with an error:\n" + uuid;
-                return new Result(Outcome.ERROR, m, 3);
+                return new Result(Outcome.ERROR, m);
             }
 
             uuid = uuid.replace("-", "").toLowerCase();
@@ -100,10 +100,10 @@ public class ProfileCommand extends Command {
 				String m = ":x: The Mojang API could not be reached." +
                         "\n" +"Are you sure that username exists?" +
                         "\n" + "Usernames are case-sensitive.";
-				return new Result(Outcome.WARNING, m, 1.5);
+				return new Result(Outcome.WARNING, m);
 			} else if (!player.matches(NameUtils.playerRegex)) {
 				String m = ":x: The API responded with an error:\n" + player;
-				return new Result(Outcome.ERROR, m, 3);
+				return new Result(Outcome.ERROR, m);
             }
         }
 

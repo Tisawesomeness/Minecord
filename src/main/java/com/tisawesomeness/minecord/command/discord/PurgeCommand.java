@@ -70,7 +70,7 @@ public class PurgeCommand extends Command {
 			} else {
 				if (num <= 0 || num > 50) {
 					return new Result(Outcome.ERROR,
-						":x: The number must be between 1-50, I don't have permission to manage messages!", 1.5);
+						":x: The number must be between 1-50, I don't have permission to manage messages!");
 				}
 			}
 			

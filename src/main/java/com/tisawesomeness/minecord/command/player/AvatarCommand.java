@@ -45,7 +45,7 @@ public class AvatarCommand extends Command {
 		
 		//No arguments message
 		if (ctx.args.length == 0) {
-			return new Result(Outcome.WARNING, ":warning: You must specify a player.", 5);
+			return new Result(Outcome.WARNING, ":warning: You must specify a player.");
 		}
 		String[] args = ctx.args;
 		
@@ -82,10 +82,10 @@ public class AvatarCommand extends Command {
 				String m = ":x: The Mojang API could not be reached." +
 					"\n" + "Are you sure that username exists?" +
 					"\n" + "Usernames are case-sensitive.";
-				return new Result(Outcome.WARNING, m, 2);
+				return new Result(Outcome.WARNING, m);
 			} else if (!uuid.matches(NameUtils.uuidRegex)) {
 				String m = ":x: The API responded with an error:\n" + uuid;
-				return new Result(Outcome.ERROR, m, 3);
+				return new Result(Outcome.ERROR, m);
 			}
 			
 			param = uuid;

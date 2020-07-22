@@ -57,7 +57,7 @@ public class ServerCommand extends Command {
 		if (ctx.args.length == 0) {
 			String m = ":warning: You must specify a server." +
 				"\n" + ctx.prefix + "server <address>[:port]";
-			return new Result(Outcome.WARNING, m, 2);
+			return new Result(Outcome.WARNING, m);
 		}
 		String arg = ctx.args[0];
 		boolean ip = true;
