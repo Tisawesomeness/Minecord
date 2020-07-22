@@ -60,7 +60,7 @@ public class ChannelContext extends SettingContext {
         }
         TextChannel c = txt.e.getTextChannel();
         String title = "Channel settings for #" + c.getName();
-        DbChannel channel = txt.getChannel(c.getIdLong(), txt.e.getGuild().getIdLong());
+        DbChannel channel = txt.getChannel(c);
         return displaySettings(title, s -> s.getDisplay(channel));
     }
     private Command.Result displayOrParseChannel() {
@@ -75,14 +75,15 @@ public class ChannelContext extends SettingContext {
     }
     private Command.Result displayOrParseChannelIfUserHasPermission(TextChannel c) {
         Member m = Objects.requireNonNull(txt.e.getMember());
-        if (m.hasPermission(c, Permission.VIEW_CHANNEL, Permission.MESSAGE_READ)) {
+        if (!m.hasPermission(c, Permission.VIEW_CHANNEL, Permission.MESSAGE_READ)) {
+            System.out.println(m.getPermissions());
             return new Command.Result(Command.Outcome.WARNING,
                     "That channel does not exist in the current guild or is not visible to you.");
-        } else if (m.hasPermission(c, Permission.MESSAGE_WRITE)) {
+        } else if (!m.hasPermission(c, Permission.MESSAGE_WRITE)) {
             return new Command.Result(Command.Outcome.WARNING,
                     ":warning: You do not have permission to write in that channel.");
         }
-        DbChannel channel = txt.getChannel(c.getIdLong(), txt.e.getGuild().getIdLong());
+        DbChannel channel = txt.getChannel(c);
         return displayOrParse("Channel settings for #" + c.getName(), channel);
     }
 

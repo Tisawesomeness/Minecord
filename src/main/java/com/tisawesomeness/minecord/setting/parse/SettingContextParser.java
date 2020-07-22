@@ -7,13 +7,10 @@ import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import lombok.Getter;
 import lombok.NonNull;
-import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -48,7 +45,7 @@ public class SettingContextParser extends SettingCommandHandler {
             if ("list".equalsIgnoreCase(contextArg)) {
                 return new ListSubcommand(this).parse();
             }
-        } else if (!isAdmin && !userHasManageServerPermissions()) {
+        } else if (!isAdmin && !SettingCommandHandler.userHasManageServerPermissions(txt.e)) {
             return new Command.Result(Command.Outcome.WARNING, ":warning: You must have Manage Server permissions.");
         }
         Optional<SettingContext> settingContextOpt = getContext(contextArg);
@@ -114,10 +111,5 @@ public class SettingContextParser extends SettingCommandHandler {
     private Command.Result displayCurrentSettings(long cid, long gid) {
         String title = "Currently Active Settings for Channel " + cid;
         return displaySettings(title, s -> s.getDisplay(txt.getCache(), cid, gid));
-    }
-
-    private boolean userHasManageServerPermissions() {
-        MessageReceivedEvent e = txt.e;
-        return !e.isFromGuild() || Objects.requireNonNull(e.getMember()).hasPermission(Permission.MANAGE_SERVER);
     }
 }

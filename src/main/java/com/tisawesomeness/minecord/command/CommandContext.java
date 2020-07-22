@@ -16,6 +16,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -68,6 +69,7 @@ public class CommandContext {
     public DatabaseCache getCache() {
         return bot.getDatabaseCache();
     }
+
     /**
      * Gets a guild from the backend
      * @param gid The guild id
@@ -84,6 +86,7 @@ public class CommandContext {
     public DbGuild getGuild(Guild g) {
         return getGuild(g.getIdLong());
     }
+
     /**
      * Gets a channel from the backend
      * <br>If the guild id is known, use {@link #getChannel(long, long)}.
@@ -103,6 +106,14 @@ public class CommandContext {
         return getCache().getChannel(cid, gid);
     }
     /**
+     * Gets a channel from the backend
+     * @param c The channel
+     * @return Either the cached channel or one with default settings
+     */
+    public DbChannel getChannel(TextChannel c) {
+        return getChannel(c.getIdLong(), c.getGuild().getIdLong());
+    }
+    /**
      * Gets all channels in the database that have the specified guild id.
      * @param gid The guild id
      * @return A possibly-empty list of channels
@@ -110,6 +121,7 @@ public class CommandContext {
     public List<DbChannel> getChannelsInGuild(long gid) {
         return getCache().getChannelsInGuild(gid);
     }
+
     /**
      * Gets a user from the backend
      * @param uid The user id

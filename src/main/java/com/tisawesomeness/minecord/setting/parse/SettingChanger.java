@@ -29,6 +29,13 @@ public class SettingChanger {
         this.setting = setting;
         currentArg = prev.getCurrentArg();
     }
+    public SettingChanger(SmartSetParser prev, SettingContainer obj) {
+        txt = prev.getTxt();
+        type = SettingCommandType.SET;
+        this.obj = obj;
+        setting = prev.getSetting();
+        currentArg = 0;
+    }
 
     /**
      * Resets the setting if from a reset command.
