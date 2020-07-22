@@ -96,7 +96,7 @@ public class SettingContextParser extends SettingCommandHandler {
         if (c != null) {
             return displayCurrentSettings(c);
         }
-        return new Command.Result(Command.Outcome.WARNING, ":warning: That channel does not exist.");
+        return new Command.Result(Command.Outcome.WARNING, ":warning: That channel is not visible to the bot.");
     }
     private Command.Result displayChannelMentionSettings() {
         List<TextChannel> mentioned = txt.e.getMessage().getMentionedChannels();
