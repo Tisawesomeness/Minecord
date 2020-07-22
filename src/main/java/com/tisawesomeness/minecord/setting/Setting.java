@@ -186,6 +186,7 @@ public abstract class Setting<T> implements ISetting<T> {
         if (!from.isPresent()) {
             return SetStatus.RESET_NO_CHANGE;
         } else if (from.get().equals(getDefault())) {
+            reset(obj);
             return SetStatus.RESET_FROM_DEFAULT;
         }
         reset(obj);
