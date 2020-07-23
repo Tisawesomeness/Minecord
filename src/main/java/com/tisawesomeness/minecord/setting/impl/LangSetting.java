@@ -1,0 +1,51 @@
+package com.tisawesomeness.minecord.setting.impl;
+
+import com.tisawesomeness.minecord.Lang;
+import com.tisawesomeness.minecord.config.Config;
+import com.tisawesomeness.minecord.database.dao.SettingContainer;
+import com.tisawesomeness.minecord.setting.Setting;
+import com.tisawesomeness.minecord.util.type.Validation;
+
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
+import java.sql.SQLException;
+import java.util.Optional;
+import java.util.regex.Pattern;
+
+@RequiredArgsConstructor
+public class LangSetting extends Setting<Lang> {
+
+    private static final Pattern ALIAS_PATTERN = Pattern.compile("lang(uage)?", Pattern.CASE_INSENSITIVE);
+    private static final String DESC = "Sets the language used for commands and bot responses.\n" +
+            "Possible values: `en_US`, ...";
+    private final @NonNull Config config;
+
+    public @NonNull String getDisplayName() {
+        return "Language";
+    }
+    public boolean isAlias(@NonNull String input) {
+        return ALIAS_PATTERN.matcher(input).matches();
+    }
+    public @NonNull String getDescription(@NonNull String prefix, @NonNull String tag) {
+        return DESC;
+    }
+
+    public @NonNull Lang getDefault() {
+        return config.langDefault;
+    }
+
+    public Validation<Lang> resolve(@NonNull String input) {
+        return Validation.fromOptional(Lang.from(input), "That is not a valid language.");
+    }
+
+    public Optional<Lang> get(@NonNull SettingContainer obj) {
+        return obj.getLang();
+    }
+    public void set(@NonNull SettingContainer obj, @NonNull Lang setting) throws SQLException {
+        obj.withLang(Optional.of(setting)).update();
+    }
+    public void reset(@NonNull SettingContainer obj) throws SQLException {
+        obj.withLang(Optional.empty()).update();
+    }
+}

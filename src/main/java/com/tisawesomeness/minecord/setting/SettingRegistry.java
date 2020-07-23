@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.setting;
 
 import com.tisawesomeness.minecord.config.Config;
+import com.tisawesomeness.minecord.setting.impl.LangSetting;
 import com.tisawesomeness.minecord.setting.impl.PrefixSetting;
 import com.tisawesomeness.minecord.setting.impl.UseMenusSetting;
 
@@ -18,6 +19,7 @@ import java.util.stream.Stream;
  */
 public class SettingRegistry implements Iterable<Setting<?>> {
     public final @NonNull PrefixSetting prefix;
+    public final @NonNull LangSetting lang;
     public final @NonNull UseMenusSetting useMenus;
     private final List<Setting<?>> settingsList;
 
@@ -27,8 +29,9 @@ public class SettingRegistry implements Iterable<Setting<?>> {
      */
     public SettingRegistry(@NonNull Config config) {
         prefix = new PrefixSetting(config);
+        lang = new LangSetting(config);
         useMenus = new UseMenusSetting(config);
-        settingsList = Collections.unmodifiableList(Arrays.asList(prefix, useMenus));
+        settingsList = Collections.unmodifiableList(Arrays.asList(prefix, lang, useMenus));
     }
 
     /**
@@ -47,7 +50,7 @@ public class SettingRegistry implements Iterable<Setting<?>> {
      * Enables the registry to be used in for each loops.
      * @return An iterator over all settings
      */
-    public Iterator<Setting<?>> iterator() {
+    public @NonNull Iterator<Setting<?>> iterator() {
         return settingsList.iterator();
     }
 

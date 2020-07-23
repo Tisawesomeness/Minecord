@@ -1,5 +1,7 @@
 package com.tisawesomeness.minecord.config;
 
+import com.tisawesomeness.minecord.Lang;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -25,6 +27,7 @@ public class Config {
 	public final List<BotPresence> presences;
 
 	public final String prefixDefault;
+	public final Lang langDefault;
 	public final boolean useMenusDefault;
 	public final long logChannel;
 	public final String invite;
@@ -73,6 +76,7 @@ public class Config {
 
 		JSONObject settings = config.getJSONObject("settings");
 		prefixDefault = settings.getString("prefix");
+		langDefault = Lang.from(settings.getString("lang")).orElseThrow(IllegalArgumentException::new);
 		useMenusDefault = settings.getBoolean("useMenus");
 		logChannel = settings.getLong("logChannel");
 		invite = settings.getString("invite");

@@ -19,10 +19,11 @@
         "logChannel": 0,
         "invite": "https://minecord.github.io/invite",
         "prefix": "&",
+        "lang": "en_US",
+        "useMenus": true,
         "useAnnouncements": false,
         "debugMode": false,
         "respondToMentions": true,
-        "useMenus": true,
         "sendTyping": false,
         "showMemory": false,
         "elevatedSkipCooldown": true

@@ -35,7 +35,7 @@ public class PrefixSetting extends Setting<String> {
     private static final String ENDS_WITH_LETTER_ERROR =
             "The prefix cannot end with a letter, since the recipe command would be `abcrecipe` with prefix `abc`.";
 
-    private static final String desc = "The prefix used before every command.\n" +
+    private static final String DESC = "The prefix used before every command.\n" +
             "`@%s command` will work regardless of prefix.\n" +
             "Possible values: Any text between 1-8 characters that does not contain Discord formatting.";
 
@@ -48,7 +48,7 @@ public class PrefixSetting extends Setting<String> {
         return "prefix".equalsIgnoreCase(input);
     }
     public @NonNull String getDescription(@NonNull String prefix, @NonNull String tag) {
-        return String.format(desc, tag);
+        return String.format(DESC, tag);
     }
 
     public String getDefault() {

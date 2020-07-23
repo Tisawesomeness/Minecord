@@ -19,8 +19,8 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 public class UseMenusSetting extends Setting<Boolean> {
 
-    private final static Pattern aliasPattern = Pattern.compile("use[_ ]?menus?", Pattern.CASE_INSENSITIVE);
-    private static final String desc = "If enabled, the bot will use a reaction menu for `%srecipe` and `%singredient` if possible.\n" +
+    private static final Pattern ALIAS_PATTERN = Pattern.compile("use[_ ]?menus?", Pattern.CASE_INSENSITIVE);
+    private static final String DESC = "If enabled, the bot will use a reaction menu for `%srecipe` and `%singredient` if possible.\n" +
             "Requires Manage Message and Add Reaction permissions.\n" +
             "Possible values: `enabled`, `disabled`";
     private final @NonNull Config config;
@@ -29,20 +29,20 @@ public class UseMenusSetting extends Setting<Boolean> {
         return "Use Menus";
     }
     public boolean isAlias(@NonNull String input) {
-        return aliasPattern.matcher(input).matches();
+        return ALIAS_PATTERN.matcher(input).matches();
     }
     public @NonNull String getDescription(@NonNull String prefix, @NonNull String tag) {
-        return String.format(desc, prefix, prefix);
+        return String.format(DESC, prefix, prefix);
     }
 
-    public Boolean getDefault() {
+    public @NonNull Boolean getDefault() {
         return config.useMenusDefault;
     }
 
     public Validation<Boolean> resolve(@NonNull String input) {
         return BooleanUtils.resolve(input);
     }
-    public String display(Boolean setting) {
+    public @NonNull String display(Boolean setting) {
         return setting ? "enabled" : "disabled";
     }
 
