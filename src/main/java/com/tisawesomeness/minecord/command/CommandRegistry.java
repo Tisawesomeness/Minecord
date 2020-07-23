@@ -59,11 +59,13 @@ import java.util.LinkedHashMap;
 public class CommandRegistry {
 	
 	private static final String adminHelp = "**These commands require elevation to use.**\n\n" +
-	"`{&}info admin` - Displays bot info, including used memory and boot time.\n" +
-	"`{&}settings <guild id> admin [setting] [value]` - Change the bot's settings for another guild.\n" +
-	"`{&}perms <channel id> admin` - Test the bot's permissions in any channel.\n" +
-	"`{&}user <user id> admin [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include \"mutual\" to show mutual guilds.\n" +
-	"`{&}guild <guild id> admin` - Show info and ban status for another guild.\n";
+			"`{&}info admin` - Displays bot info, including used memory and boot time.\n" +
+			"`{&}settings admin <context/list [guild id]/channel id>` - View the bot's setting for another guild, channel, or user.\n" +
+			"`{&}set admin <context> <setting> <value>` - Change the bot's setting for another guild, channel, or user.\n" +
+			"`{&}reset admin <context> <setting>` - Reset the bot's setting for another guild, channel, or user.\n" +
+			"`{&}perms <channel id> admin` - Test the bot's permissions in any channel.\n" +
+			"`{&}user <user id> admin [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include \"mutual\" to show mutual guilds.\n" +
+			"`{&}guild <guild id> admin` - Show info and ban status for another guild.\n";
 
 	private final LinkedHashMap<String, Command> commandMap;
 	public final Module[] modules;
