@@ -21,4 +21,12 @@ public final class BooleanUtils {
         return Validation.invalid("Not a valid value!");
     }
 
+    /**
+     * Gets an emote associated with true or false. There is no space at the end.
+     * @param bool The boolean
+     * @return The emote
+     */
+    public static String getEmote(boolean bool) {
+        return bool ? ":white_check_mark:" : ":x:";
+    }
 }

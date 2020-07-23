@@ -13,6 +13,7 @@ import com.tisawesomeness.minecord.command.admin.SayCommand;
 import com.tisawesomeness.minecord.command.admin.ShutdownCommand;
 import com.tisawesomeness.minecord.command.admin.TestCommand;
 import com.tisawesomeness.minecord.command.admin.UsageCommand;
+import com.tisawesomeness.minecord.command.config.LangCommand;
 import com.tisawesomeness.minecord.command.discord.GuildCommand;
 import com.tisawesomeness.minecord.command.discord.PermsCommand;
 import com.tisawesomeness.minecord.command.config.PrefixCommand;
@@ -126,7 +127,8 @@ public class CommandRegistry {
 						new SettingsCommand(),
 						new SetCommand(),
 						new ResetCommand(),
-						new PermsCommand()
+						new PermsCommand(),
+						new LangCommand()
 				),
 				new Module("Misc",
 						new HelpCommand(this),

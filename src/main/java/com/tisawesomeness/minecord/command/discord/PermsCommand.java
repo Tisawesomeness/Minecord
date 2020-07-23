@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.command.discord;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.util.BooleanUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import net.dv8tion.jda.api.Permission;
@@ -115,23 +116,16 @@ public class PermsCommand extends Command {
         ));
         String name = c.getName() == null ? "channel" : c.getName();
         String m = String.format("**Bot Permissions for %s:**", name) +
-            "\nView channels: " + getBoolEmote(perms.contains(Permission.VIEW_CHANNEL)) +
-            "\nRead messages: " + getBoolEmote(perms.contains(Permission.MESSAGE_READ)) +
-            "\nRead message history: " + getBoolEmote(perms.contains(Permission.MESSAGE_HISTORY)) +
-            "\nWrite messages: " + getBoolEmote(perms.contains(Permission.MESSAGE_WRITE)) +
-            "\nEmbed links: " + getBoolEmote(perms.contains(Permission.MESSAGE_EMBED_LINKS)) +
-            "\nAdd reactions: " + getBoolEmote(perms.contains(Permission.MESSAGE_ADD_REACTION)) +
-            "\nManage messages: " + getBoolEmote(perms.contains(Permission.MESSAGE_MANAGE)) +
-            "\nCan use reaction menus: " + getBoolEmote(menuPerms);
+            "\nView channels: " + BooleanUtils.getEmote(perms.contains(Permission.VIEW_CHANNEL)) +
+            "\nRead messages: " + BooleanUtils.getEmote(perms.contains(Permission.MESSAGE_READ)) +
+            "\nRead message history: " + BooleanUtils.getEmote(perms.contains(Permission.MESSAGE_HISTORY)) +
+            "\nWrite messages: " + BooleanUtils.getEmote(perms.contains(Permission.MESSAGE_WRITE)) +
+            "\nEmbed links: " + BooleanUtils.getEmote(perms.contains(Permission.MESSAGE_EMBED_LINKS)) +
+            "\nAdd reactions: " + BooleanUtils.getEmote(perms.contains(Permission.MESSAGE_ADD_REACTION)) +
+            "\nManage messages: " + BooleanUtils.getEmote(perms.contains(Permission.MESSAGE_MANAGE)) +
+            "\nCan use reaction menus: " + BooleanUtils.getEmote(menuPerms);
         
         return new Result(Outcome.SUCCESS, m);
     }
 
-    /**
-     * Gets the emote text associated with true or false.
-     */
-    private static String getBoolEmote(boolean bool) {
-        return bool ? ":white_check_mark:" : ":x:";
-    }
-    
 }
