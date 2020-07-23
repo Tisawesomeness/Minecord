@@ -31,7 +31,11 @@ public class LangCommand extends Command {
     public String getHelp() {
         return "`{&}lang` - List all available languages.\n`" +
                 "`{&}lang info <lang>` - Show the info of a language.\n" +
-                "`{&}lang <lang>` - Change the current ";
+                "`{&}lang <lang>` - Change the current language.";
+    }
+
+    public String getAdminHelp() {
+        return "Use `{&}set admin <context> lang <value>` instead.";
     }
 
     public Result run(CommandContext ctx) {
