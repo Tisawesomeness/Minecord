@@ -45,6 +45,10 @@ public enum Lang {
      * Whether this lang is in development, and should be hidden to un-elevated users.
      */
     @Getter private final boolean inDevelopment;
+    /**
+     * The flag emote ({@code :flag_xx:}) for the country
+     */
+    @Getter private final String flagEmote;
 
     Lang(@NonNull String code, @NonNull Locale locale) {
         this.code = code;
@@ -61,6 +65,7 @@ public enum Lang {
         itemsSupported = getBool("lang.itemsSupported");
         itemSearchSupported = getBool("lang.itemSearchSupported");
         inDevelopment = getBool("lang.inDevelopment");
+        flagEmote = get("lang.flagEmote");
     }
     private boolean getBool(String key) {
         return Boolean.parseBoolean(resource.getString(key));
