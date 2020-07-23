@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 // Inspiration from Vavr's Validation type
@@ -41,6 +42,19 @@ public final class Validation<T> {
      */
     public static <T> Validation<T> invalid(@NonNull String errorMessage) {
         return new Validation<>(null, Collections.singletonList(errorMessage));
+    }
+
+    /**
+     * Creates a new Validation from the provided optional.
+     * <br>If the optional contains a value, a valid Validation is created with that value.
+     * <br>Otherwise, an invalid Validation is created with the provided error message.
+     * @param opt The Optional used to create a valid Validation
+     * @param errorMessage The error message used to create an invalid Validation
+     * @param <T> The type of the Optional and the new Validation
+     * @return A Validation where {@link #isValid()} returns the same as {@link Optional#isPresent() opt.isPresent()}.
+     */
+    public static <T> Validation<T> fromOptional(Optional<T> opt, @NonNull String errorMessage) {
+        return opt.map(Validation::valid).orElse(invalid(errorMessage));
     }
 
     /**

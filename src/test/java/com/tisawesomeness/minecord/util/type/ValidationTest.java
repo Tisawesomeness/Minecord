@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -35,6 +36,25 @@ public class ValidationTest {
         List<String> errors = v.getErrors();
         assertEquals(1, errors.size());
         assertEquals(candidate, errors.get(0));
+    }
+
+    @Test
+    @DisplayName("Validation from non-empty Optional returns that value")
+    public void testFromOptionalValid() {
+        Object o = new Object();
+        Optional<Object> opt = Optional.of(o);
+        Validation<Object> v = Validation.fromOptional(opt, "An error message");
+        assertTrue(v.isValid());
+        assertEquals(o, v.getValue());
+    }
+    @Test
+    @DisplayName("Validation from empty Optional returns the error message")
+    public void testFromOptionalInvalid() {
+        String err = "An error message";
+        Optional<Object> opt = Optional.empty();
+        Validation<Object> v = Validation.fromOptional(opt, err);
+        assertFalse(v.isValid());
+        assertEquals(err, v.getErrors().get(0));
     }
 
     @Test
