@@ -17,8 +17,6 @@ import java.util.regex.Pattern;
 public class LangSetting extends Setting<Lang> {
 
     private static final Pattern ALIAS_PATTERN = Pattern.compile("lang(uage)?", Pattern.CASE_INSENSITIVE);
-    private static final String DESC = "Sets the language used for commands and bot responses.\n" +
-            "Possible values: `en_US`, ...";
     private final @NonNull Config config;
 
     public @NonNull String getDisplayName() {
@@ -28,7 +26,8 @@ public class LangSetting extends Setting<Lang> {
         return ALIAS_PATTERN.matcher(input).matches();
     }
     public @NonNull String getDescription(@NonNull String prefix, @NonNull String tag) {
-        return DESC;
+        return String.format("Sets the language used for commands and bot responses.\n" +
+                "See `%slang` for possible values.`", prefix);
     }
 
     public @NonNull Lang getDefault() {
@@ -37,6 +36,9 @@ public class LangSetting extends Setting<Lang> {
 
     public Validation<Lang> resolve(@NonNull String input) {
         return Validation.fromOptional(Lang.from(input), "That is not a valid language.");
+    }
+    public @NonNull String display(Lang setting) {
+        return setting.getCode();
     }
 
     public Optional<Lang> get(@NonNull SettingContainer obj) {

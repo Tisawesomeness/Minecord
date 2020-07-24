@@ -8,7 +8,6 @@ import com.tisawesomeness.minecord.util.BooleanUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 
-import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Collectors;

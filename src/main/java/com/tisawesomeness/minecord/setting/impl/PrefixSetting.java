@@ -51,7 +51,7 @@ public class PrefixSetting extends Setting<String> {
         return String.format(DESC, tag);
     }
 
-    public String getDefault() {
+    public @NonNull String getDefault() {
         return config.prefixDefault;
     }
 
