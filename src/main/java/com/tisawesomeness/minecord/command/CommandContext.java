@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command;
 
 import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.config.Config;
 import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.database.dao.DbChannel;
@@ -21,8 +22,10 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import javax.annotation.Nullable;
+import java.text.MessageFormat;
 import java.time.Instant;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -33,8 +36,7 @@ public class CommandContext {
     /**
      * The arguments given to the command, split by spaces. May be length 0.
      */
-    @With
-    public final @NonNull String[] args;
+    @With public final @NonNull String[] args;
     /**
      * The event that triggered the command.
      */
@@ -51,15 +53,29 @@ public class CommandContext {
      * Whether the user executing the command is elevated.
      */
     public final boolean isElevated;
+    // These settings are used often and calculated beforehand, so simply passing their values makes sense
     /**
-     * The current prefix. Either guild-specific or the config default for DMs.
+     * The current prefix.
      */
     public final @NonNull String prefix;
+    /**
+     * The current language. Use {@link #i18n(String)} as a shortcut for {@link Lang#get(String) lang.get(String)}.
+     */
+    public final @NonNull Lang lang;
+    // These settings are only used occasionally, it's best to pass the setting and evaluate when needed
+    private final @NonNull UseMenusSetting useMenusSetting;
 
     public CommandContext(@NonNull String[] args, @NonNull MessageReceivedEvent e, @NonNull Bot bot,
-                          @NonNull Config config, boolean isElevated, @NonNull String prefix,
+                          @NonNull Config config, boolean isElevated, @NonNull String prefix, @NonNull Lang lang,
                           @NonNull SettingRegistry settings) {
-        this(args, e, config, bot, isElevated, prefix, settings.useMenus);
+        this.args = args;
+        this.e = e;
+        this.config = config;
+        this.bot = bot;
+        this.isElevated = isElevated;
+        this.prefix = prefix;
+        this.lang = lang;
+        useMenusSetting = settings.useMenus;
     }
 
     /**
@@ -139,9 +155,32 @@ public class CommandContext {
         return getUser(u.getIdLong());
     }
 
-    private final @NonNull UseMenusSetting useMenusSetting;
     public boolean shouldUseMenus() {
         return useMenusSetting.getEffective(this);
+    }
+
+    /**
+     * Gets a locallized string for the current lang.
+     * @param key The <b>case-sensitive</b> localization key
+     * @return The localized string
+     * @throws java.util.MissingResourceException If the given key could not be found.
+     * @see MessageFormat
+     * @see Locale
+     */
+    public @NonNull String i18n(String key) {
+        return lang.get(key);
+    }
+    /**
+     * Gets a locallized, formatted string for the current lang.
+     * @param key The <b>case-sensitive</b> localization key
+     * @param args An ordered list of arguments to place into the string
+     * @return The localized string
+     * @throws java.util.MissingResourceException If the given key could not be found.
+     * @see MessageFormat
+     * @see Locale
+     */
+    public @NonNull String i18nf(String key, Object... args) {
+        return lang.getf(key, args);
     }
 
     /**

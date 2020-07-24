@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord;
 import lombok.Getter;
 import lombok.NonNull;
 
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Optional;
@@ -93,14 +94,26 @@ public enum Lang {
     /**
      * Gets the localization string for this lang.
      * <br>If not found, {@link #getDefault()} is used instead.
-     * <br>Keys are in the format {@code category.optionalSubCategory.name}.
+     * <br>Keys are in the format {@code category.optionalSubCategory.name}, where categories often follow package names.
      * <br>Lang config keys are in the {@code lang} category.
-     * @param key The localization key. For example, {@code command.server.embedTitle}.
-     * @return The localized string.
+     * @param key The <b>case-sensitive</b> localization key. For example, {@code command.server.embedTitle}.
+     * @return The localized string
      * @throws java.util.MissingResourceException If the given key could not be found.
      */
-    public String get(@NonNull String key) {
+    public @NonNull String get(@NonNull String key) {
         return resource.getString(key);
+    }
+    /**
+     * Gets a formatted, localized string for this lang.
+     * @param key The <b>case-sensitive</b> localization key used in {@link #get(String)}
+     * @param args An ordered list of arguments to place into the string
+     * @return The localized string
+     * @throws java.util.MissingResourceException If the given key could not be found.
+     * @see MessageFormat
+     * @see Locale
+     */
+    public @NonNull String getf(@NonNull String key, Object... args) {
+        return new MessageFormat(get(key), locale).format(args);
     }
 
 }

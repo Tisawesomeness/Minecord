@@ -1,15 +1,17 @@
 package com.tisawesomeness.minecord.listen;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.config.Config;
+import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.Command.CommandInfo;
 import com.tisawesomeness.minecord.command.Command.Outcome;
 import com.tisawesomeness.minecord.command.Command.Result;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.CommandRegistry;
+import com.tisawesomeness.minecord.config.Config;
 import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.database.dao.DbUser;
+import com.tisawesomeness.minecord.setting.SettingRegistry;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import lombok.NonNull;
@@ -46,21 +48,27 @@ public class CommandListener extends ListenerAdapter {
 
 		// Get the settings needed before command execution
 		String prefix;
+		Lang lang;
 		boolean canEmbed = true;
 
+		SettingRegistry settings = bot.getSettings();
 		if (e.isFromType(ChannelType.TEXT)) {
-			prefix = bot.getSettings().prefix.getEffective(cache,
-					e.getTextChannel().getIdLong(), e.getGuild().getIdLong());
+			long cid = e.getTextChannel().getIdLong();
+			long gid = e.getGuild().getIdLong();
+			prefix = settings.prefix.getEffective(cache, cid, gid);
+			lang = settings.lang.getEffective(cache, cid, gid);
 			Member sm = e.getGuild().getSelfMember();
 			// No permissions or guild banned? Don't send message
 			if (!sm.hasPermission(e.getTextChannel(), Permission.MESSAGE_WRITE) ||
-					cache.getGuild(e.getGuild().getIdLong()).isBanned()) {
+					cache.getGuild(gid).isBanned()) {
 				return;
 			}
 			TextChannel tc = e.getTextChannel();
 			canEmbed = sm.hasPermission(tc, Permission.MESSAGE_EMBED_LINKS);
 		} else if (e.isFromType(ChannelType.PRIVATE)) {
-			prefix = bot.getSettings().prefix.getEffective(cache.getUser(e.getAuthor().getIdLong()));
+			DbUser dbUser = cache.getUser(e.getAuthor().getIdLong());
+			prefix = settings.prefix.getEffective(dbUser);
+			lang = settings.lang.getEffective(dbUser);
 		} else {
 			return;
 		}
@@ -162,7 +170,7 @@ public class CommandListener extends ListenerAdapter {
 		}
 		
 		// Run command
-		CommandContext ctx = new CommandContext(args, e, bot, config, isElevated, prefix, bot.getSettings());
+		CommandContext ctx = new CommandContext(args, e, bot, config, isElevated, prefix, lang, bot.getSettings());
 		Result result = null;
 		Exception exception = null;
 		cmd.cooldowns.put(a, System.currentTimeMillis());
