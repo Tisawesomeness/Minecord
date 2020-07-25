@@ -22,15 +22,15 @@ public class CreditsCommand extends Command {
 		);
     }
 
-    private String devs = MarkdownUtil.maskedLink("Tis_awesomeness#8617", "https://github.com/Tisawesomeness") + " - Main Dev\n" +
+    private final String DEVS = MarkdownUtil.maskedLink("Tis_awesomeness#8617", "https://github.com/Tisawesomeness") + " - Main Dev\n" +
         MarkdownUtil.maskedLink("jbs#6969", "https://github.com/lordjbs") + " - Developer\n" +
         MarkdownUtil.maskedLink("samueldcs#4675", "https://github.com/samueldcs") + " - Made the Website\n" +
         MarkdownUtil.maskedLink("DJ Electro#1677", "https://github.com/Electromaster232") + " - Helped with Git once";
     
-    private String contrib = MarkdownUtil.maskedLink("Contribute on GitHub", Bot.github) + "\n" +
+    private final String CONTRIB = MarkdownUtil.maskedLink("Contribute on GitHub", Bot.github) + "\n" +
         MarkdownUtil.maskedLink("Suggest features here", Bot.helpServer);
     
-    private String apis = "Discord API Wrapper - " + MarkdownUtil.maskedLink("JDA", "https://github.com/DV8FromTheWorld/JDA") + "\n" +
+    private final String APIS = "Discord API Wrapper - " + MarkdownUtil.maskedLink("JDA", "https://github.com/DV8FromTheWorld/JDA") + "\n" +
         "MC Account Info - " + MarkdownUtil.maskedLink("Mojang API", "https://wiki.vg/Mojang_API") + "\n" +
         "Skin Renders - " + MarkdownUtil.maskedLink("Crafatar", "https://crafatar.com") + "\n" +
         "Server Pinging - " + MarkdownUtil.maskedLink("MCServerPing", "https://github.com/lucaazalim/minecraft-server-ping") + "\n" +
@@ -44,9 +44,9 @@ public class CreditsCommand extends Command {
             .setTitle("Minecord Credits")
             .setColor(Bot.color)
             .setDescription("Thanks to all these great people who helped to make the bot possible. :heart:")
-            .addField("Developers", devs, true)
-            .addField("Contribute", contrib, true)
-            .addField("APIs Used", apis, false)
+            .addField("Developers", DEVS, true)
+            .addField("Contribute", CONTRIB, true)
+            .addField("APIs Used", APIS, false)
             .setFooter("Website: " + Bot.website);
         return new Result(Outcome.SUCCESS, eb.build());
     }
