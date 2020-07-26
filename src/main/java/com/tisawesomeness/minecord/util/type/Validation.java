@@ -1,47 +1,47 @@
 package com.tisawesomeness.minecord.util.type;
 
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
 // Inspiration from Vavr's Validation type
 // Unlike Vavr, error is always String, lombok is used, and combining directly returns another Validation
-// Class is immutable
 /**
  * Contains either a valid value of any type, or one or more error message strings.
  * <br>Which option is returned is controlled by {@link #isValid()}.
- * @param <T> The type of the value returned when this validation is valid
+ * <br>This class is immutable and therefore thread-safe.
+ * @param <T> The type of the value returned when this Validation is valid
+ * @see Verification
  */
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode
 public final class Validation<T> {
     private final @Nullable T value;
-    private final List<String> errors; // Must be immutable
+    private final Verification verification;
 
     /**
      * Creates a valid Validation.
      * @param value The success value
-     * @param <T> The type of the validation value
+     * @param <T> The type of the Validation value
      * @return A valid Validation with no error message
      */
     public static <T> Validation<T> valid(@NonNull T value) {
-        return new Validation<>(value, Collections.emptyList());
+        return new Validation<>(value, Verification.valid());
     }
     /**
      * Creates an invalid Validation.
      * @param errorMessage The error message
-     * @param <T> The type of the validation value, not the type of the error message
+     * @param <T> The type of the Validation value, not the type of the error message
      * @return An invalid Validation with no value
      */
     public static <T> Validation<T> invalid(@NonNull String errorMessage) {
-        return new Validation<>(null, Collections.singletonList(errorMessage));
+        return new Validation<>(null, Verification.invalid(errorMessage));
     }
 
     /**
@@ -62,29 +62,29 @@ public final class Validation<T> {
      * @param v The original invalid Validation
      * @param <T> The type of the new Validation
      * @return A new Validation with a different type
-     * @throws IllegalStateException If this validation is valid
+     * @throws IllegalStateException If this Validation is valid
      */
     public static <T> Validation<T> propogateError(Validation<?> v) {
         if (v.isValid()) {
             throw new IllegalStateException("propogateError() cannot be used on a valid Validation.");
         }
-        return new Validation<>(null, v.errors);
+        return new Validation<>(null, v.verification);
     }
 
     /**
-     * Tests if this validation is valid.
+     * Tests if this Validation is valid.
      * <br>If true, {@link #getValue()} returns a value.
      * <br>If false, {@link #getErrors()} is non-empty.
-     * @return Whether this validation is valid
+     * @return Whether this Validation is valid
      */
     public boolean isValid() {
-        return value != null;
+        return verification.isValid();
     }
 
     /**
-     * Gets the value of this validation.
+     * Gets the value of this Validation.
      * @return The value if {@link #isValid()} is {@code true}
-     * @throws IllegalStateException If this validation is not valid
+     * @throws IllegalStateException If this Validation is not valid
      */
     public @NonNull T getValue() {
         if (value == null) {
@@ -93,20 +93,20 @@ public final class Validation<T> {
         return value;
     }
     /**
-     * Gets a list of error messages for this validation.
+     * Gets a list of error messages for this Validation.
      * @return An immutable list of string error messages
      */
     public List<String> getErrors() {
-        return errors;
+        return verification.getErrors();
     }
 
     /**
      * Combines this Validation with another.
      * <br>If either is invalid, then the error messages are combined.
      * <br>If both are valid, then the value in {@code other} is used.
-     * @param other The other validation to combine with
-     * @param <U> The type of both validations
-     * @return A single Validation, which is valid iff both input validations are valid.
+     * @param other The other Validation to combine with
+     * @param <U> The type of both Validations
+     * @return A single Validation, which is valid only if both input Validations are valid.
      */
     public <U> Validation<U> combine(Validation<U> other) {
         if (isValid()) {
@@ -115,22 +115,19 @@ public final class Validation<T> {
         if (other.isValid()) {
             return propogateError(this);
         }
-        List<String> list = new ArrayList<>(errors);
-        list.addAll(other.errors);
-        return new Validation<>(null, Collections.unmodifiableList(list));
+        return new Validation<>(null, verification.combine(other.verification));
     }
     /**
-     * Combines multiple validations, reducing them using {@link #combine(Validation)}.
+     * Combines multiple Validations, reducing them using {@link #combine(Validation)}.
      * <br>Values on the right take priority.
-     * @param first The first validation which all others are combined onto.
+     * @param first The first Validation which all others are combined onto.
      * @param second Used to prevent ambiguity with the non-static combine method.
      * @param rest If not specified, {@code first.combine(second)} is returned.
-     * @param <U> The type of both validations
-     * @return A single Validation, which is valid iff both input validations are valid.
+     * @param <U> The type of both Validations
+     * @return A single Validation, which is valid only if both input Validations are valid.
      */
     @SafeVarargs // Does not store anything in array, and rest array is not visible
-    public static <U> Validation<U> combine(
-            Validation<U> first, Validation<U> second, Validation<U>... rest) {
+    public static <U> Validation<U> combine(Validation<U> first, Validation<U> second, Validation<U>... rest) {
         Validation<U> v = first.combine(second);
         for (Validation<U> r : rest) {
             v = v.combine(r);
@@ -139,11 +136,11 @@ public final class Validation<T> {
     }
 
     /**
-     * If this validation is valid, apply the mapper to the value.
-     * Otherwise, returns a validation with the same error message.
+     * If this Validation is valid, apply the mapper to the value.
+     * Otherwise, returns a Validation with the same error message.
      * @param mapper A function mapping the old value to the new value
      * @param <U> The type of the returned Validation
-     * @return A validation with the mapped value if present
+     * @return A Validation with the mapped value if present
      */
     public <U> Validation<U> map(@NonNull Function<? super T, ? extends U> mapper) {
         if (isValid()) {
@@ -153,7 +150,7 @@ public final class Validation<T> {
     }
 
     /**
-     * Displays either the value or all error messages of this validation, depending on the result of {@link #isValid()}.
+     * Displays either the value or all error messages of this Validation, depending on the result of {@link #isValid()}.
      * <br>Uses {@link #getValue()}.{@link Object#toString() toString()} if valid.
      */
     @Override
@@ -161,6 +158,6 @@ public final class Validation<T> {
         if (isValid()) {
             return map(o -> String.format("Valid{%s}", o)).getValue();
         }
-        return String.format("Invalid{%s}", errors);
+        return String.format("Invalid{%s}", getErrors());
     }
 }
