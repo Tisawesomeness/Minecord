@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -55,6 +56,22 @@ public class ValidationTest {
         Validation<Object> v = Validation.fromOptional(opt, err);
         assertFalse(v.isValid());
         assertEquals(err, v.getErrors().get(0));
+    }
+
+    @Test
+    @DisplayName("Validation from valid Verification throws IllegalArgumentException")
+    public void testFromInvalidVerificationValid() {
+        Verification v = Verification.valid();
+        assertThrows(IllegalArgumentException.class, () -> Validation.fromInvalidVerification(v));
+    }
+    @Test
+    @DisplayName("Validation from invalid Verification keeps error message")
+    public void testFromInvalidVerificationInvalid() {
+        String err = "An error message";
+        Verification ve = Verification.invalid(err);
+        Validation<?> va = Validation.fromInvalidVerification(ve);
+        assertFalse(va.isValid());
+        assertEquals(Collections.singletonList(err), va.getErrors());
     }
 
     @Test

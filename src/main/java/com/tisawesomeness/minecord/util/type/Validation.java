@@ -57,6 +57,18 @@ public final class Validation<T> {
     public static <T> Validation<T> fromOptional(Optional<T> opt, @NonNull String errorMessage) {
         return opt.map(Validation::valid).orElse(invalid(errorMessage));
     }
+    /**
+     * Creates a new Validation from an invalid Verification.
+     * @param v The verification
+     * @param <T> The type of the new Validation
+     * @return An invalid Validation with the same error messages as the Verification
+     */
+    public static <T> Validation<T> fromInvalidVerification(Verification v) {
+        if (v.isValid()) {
+            throw new IllegalArgumentException("The incoming Verification must be invalid.");
+        }
+        return new Validation<>(null, v);
+    }
 
     /**
      * Creates an invalid Validation, changing the type of the original.
