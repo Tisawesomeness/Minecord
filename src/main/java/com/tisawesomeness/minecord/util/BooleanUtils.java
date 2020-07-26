@@ -11,6 +11,11 @@ public final class BooleanUtils {
 
     private static final List<String> truthy = Arrays.asList("enabled", "yes", "y", "true", "t", "on", "1");
     private static final List<String> falsy = Arrays.asList("disabled", "no", "n", "false", "f", "off", "0");
+    /**
+     * Determines if the string input is truthy, falsy, or invalid. Ignores case.
+     * @param input A user-provided string such as "true" or "enabled"
+     * @return A Validation that is valid only if the input is truthy or falsy
+     */
     public static Validation<Boolean> resolve(@NonNull String input) {
         if (truthy.contains(input.toLowerCase())) {
             return Validation.valid(true);
