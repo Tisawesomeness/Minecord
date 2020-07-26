@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -73,16 +74,11 @@ public final class Verification {
     /**
      * Combines multiple Verifications, reducing them using {@link #combine(Verification)}.
      * @param first The first Verification which all others are combined onto.
-     * @param second Used to prevent ambiguity with the non-static combine method.
-     * @param rest If not specified, {@code first.combine(second)} is returned.
+     * @param rest If not specified, {@code first} is returned.
      * @return A single Verification, which is valid only if both input Verifications are valid.
      */
-    public static Verification combine(Verification first, Verification second, Verification... rest) {
-        Verification v = first.combine(second);
-        for (Verification r : rest) {
-            v = v.combine(r);
-        }
-        return v;
+    public static Verification combineAll(Verification first, Verification... rest) {
+        return Arrays.stream(rest).reduce(first, Verification::combine);
     }
 
     @Override

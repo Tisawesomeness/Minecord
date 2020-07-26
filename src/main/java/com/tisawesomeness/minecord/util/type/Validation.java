@@ -6,6 +6,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -121,18 +122,13 @@ public final class Validation<T> {
      * Combines multiple Validations, reducing them using {@link #combine(Validation)}.
      * <br>Values on the right take priority.
      * @param first The first Validation which all others are combined onto.
-     * @param second Used to prevent ambiguity with the non-static combine method.
-     * @param rest If not specified, {@code first.combine(second)} is returned.
+     * @param rest If not specified, {@code first} is returned.
      * @param <U> The type of both Validations
      * @return A single Validation, which is valid only if both input Validations are valid.
      */
     @SafeVarargs // Does not store anything in array, and rest array is not visible
-    public static <U> Validation<U> combine(Validation<U> first, Validation<U> second, Validation<U>... rest) {
-        Validation<U> v = first.combine(second);
-        for (Validation<U> r : rest) {
-            v = v.combine(r);
-        }
-        return v;
+    public static <U> Validation<U> combineAll(Validation<U> first, Validation<U>... rest) {
+        return Arrays.stream(rest).reduce(first, Validation::combine);
     }
 
     /**

@@ -148,14 +148,14 @@ public class ValidationTest {
     }
     @Test
     @DisplayName("Combining with varargs combines all error message")
-    public void testCombineVarargs() {
+    public void testCombineAll() {
         String errorMessage1 = "First error message";
         Validation<Object> v1 = Validation.invalid(errorMessage1);
         String errorMessage2 = "Second error message";
         Validation<Object> v2 = Validation.invalid(errorMessage2);
         String errorMessage3 = "Third error message";
         Validation<Object> v3 = Validation.invalid(errorMessage3);
-        Validation<Object> vCombined = Validation.combine(v1, v2, v3);
+        Validation<Object> vCombined = Validation.combineAll(v1, v2, v3);
         assertFalse(vCombined.isValid());
         List<String> errors = vCombined.getErrors();
         assertEquals(Arrays.asList(errorMessage1, errorMessage2, errorMessage3), errors);

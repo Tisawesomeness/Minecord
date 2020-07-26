@@ -80,7 +80,7 @@ public class PrefixSetting extends Setting<String> {
         if ("unset".equalsIgnoreCase(input)) {
             return Validation.invalid("The prefix cannot be literally `unset`.");
         }
-        return Validation.combine(
+        return Validation.combineAll(
                 validateLength(input),
                 validateEndNotLetter(input),
                 validateLegalChars(input),

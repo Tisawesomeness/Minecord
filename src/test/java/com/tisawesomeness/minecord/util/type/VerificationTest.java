@@ -82,7 +82,7 @@ public class VerificationTest {
         Verification v2 = Verification.invalid(errorMessage2);
         String errorMessage3 = "Third error message";
         Verification v3 = Verification.invalid(errorMessage3);
-        Verification vCombined = Verification.combine(v1, v2, v3);
+        Verification vCombined = Verification.combineAll(v1, v2, v3);
         assertFalse(vCombined.isValid());
         List<String> errors = vCombined.getErrors();
         assertEquals(Arrays.asList(errorMessage1, errorMessage2, errorMessage3), errors);
