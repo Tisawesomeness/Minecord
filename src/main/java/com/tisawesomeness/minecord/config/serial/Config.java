@@ -25,7 +25,7 @@ public class Config {
     int shardCount;
     @JsonProperty("owners")
     List<Long> owners;
-    @JsonProperty("logChannel")
+    @JsonProperty("logChannelId")
     long logChannelId;
     @JsonProperty("inviteLink")
     String inviteLink;
