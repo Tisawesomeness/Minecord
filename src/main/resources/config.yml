@@ -1,0 +1,35 @@
+token: "your token here"
+shardCount: 1
+owners:
+- 211261249386709000
+logChannel: 0
+invite: "https://minecord.github.io/invite"
+presence:
+  changeInterval: 60
+  behavior: RANDOM
+  presences:
+  - status: ONLINE
+    type: PLAYING
+    content: "@Minecord help | {guilds} guilds"
+settings:
+  prefixDefault: ">&"
+  langDefault: en_US
+  useMenusDefault: true
+flags:
+  debugMode: true
+  useAnnouncements: false
+  respondToMentions: true
+  sendTyping: false
+  showMemory: false
+  elevatedSkipCooldown: true
+botLists:
+  sendServerCount: false
+  sendGuildsInterval: 60
+  pwToken: "your token here"
+  orgToken: "your token here"
+  receiveVotes: false
+  webhookUrl: "your URL here"
+  webhookPort: 8000
+  webhookAuth: "your auth here"
+database:
+  path: "./minecord/minecord.db"

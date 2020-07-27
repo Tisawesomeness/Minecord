@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.database;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.config.Config;
+import com.tisawesomeness.minecord.config.serial.BotListConfig;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -19,10 +19,10 @@ public class VoteHandler {
 	
 	private HttpServer server;
 
-	public VoteHandler(Bot bot, Config config) throws IOException {
+	public VoteHandler(Bot bot, BotListConfig config) throws IOException {
 
-		server = HttpServer.create(new InetSocketAddress(config.webhookPort), 0);
-		server.createContext("/" + config.webhookURL, new HttpHandler() {
+		server = HttpServer.create(new InetSocketAddress(config.getWebhookPort()), 0);
+		server.createContext("/" + config.getWebhookUrl(), new HttpHandler() {
 			
 			private static final String response = "OK";
 			
@@ -31,8 +31,9 @@ public class VoteHandler {
 				
 				//Check if request is a POST request and the authorization is correct
 				if ("POST".equals(t.getRequestMethod())
-						&& t.getRequestHeaders().getOrDefault("Authorization", Arrays.asList("N/A"))
-						.get(0).equals(config.webhookAuth)) {
+						&& (config.getWebhookAuth() == null
+						|| t.getRequestHeaders().getOrDefault("Authorization", Arrays.asList("N/A"))
+						.get(0).equals(config.getWebhookAuth()))) {
 					
 					//Get post body
 					Scanner scanner = new Scanner(t.getRequestBody());

@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.util;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.config.Config;
+import com.tisawesomeness.minecord.config.serial.Config;
 
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
@@ -31,8 +31,8 @@ public final class DiscordUtils {
 			.replace("{github}", Bot.github)
 			.replace("{jda_ver}", Bot.jdaVersion)
 			.replace("{version}", Bot.version)
-			.replace("{invite}", config.invite)
-			.replace("{prefix}", config.prefixDefault);
+			.replace("{invite}", config.getInvite())
+			.replace("{prefix}", config.getSettings().getPrefixDefault());
 	}
 
 	/**

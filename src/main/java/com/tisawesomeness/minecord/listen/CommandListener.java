@@ -8,7 +8,8 @@ import com.tisawesomeness.minecord.command.Command.Outcome;
 import com.tisawesomeness.minecord.command.Command.Result;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.CommandRegistry;
-import com.tisawesomeness.minecord.config.Config;
+import com.tisawesomeness.minecord.config.serial.Config;
+import com.tisawesomeness.minecord.config.serial.FlagsConfig;
 import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.database.dao.DbUser;
 import com.tisawesomeness.minecord.setting.SettingRegistry;
@@ -21,6 +22,7 @@ import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.SelfUser;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -84,7 +86,9 @@ public class CommandListener extends ListenerAdapter {
 		String[] args = null;
 		
 		// If the message is a valid command
-		String[] content = MessageUtils.getContent(m, prefix, e.getJDA().getSelfUser(), config);
+		SelfUser su = e.getJDA().getSelfUser();
+		FlagsConfig fc = config.getFlags();
+		String[] content = MessageUtils.getContent(m, prefix, su, fc.isRespondToMentions());
 		if (content != null) {
 			
 			// Extract name and argument list
@@ -131,7 +135,7 @@ public class CommandListener extends ListenerAdapter {
 		}
 		
 		// Check for cooldowns, skipping if user is elevated
-		if (!(config.elevatedSkipCooldown && isElevated)
+		if (!(fc.isElevatedSkipCooldown() && isElevated)
 				&& cmd.cooldowns.containsKey(a) && ci.cooldown > 0) {
 			long last = cmd.cooldowns.get(a);
 			if (System.currentTimeMillis() - ci.cooldown < last) {
@@ -163,7 +167,7 @@ public class CommandListener extends ListenerAdapter {
 		// Instantiate timer
 		Timer timer = null;
 		Typing typing = null;
-		if (config.sendTyping && ci.typing) {
+		if (fc.isSendTyping() && ci.typing) {
 			timer = new Timer();
 			typing = new Typing();
 			timer.schedule(typing, 0, 5000);
@@ -182,7 +186,7 @@ public class CommandListener extends ListenerAdapter {
 		}
 		
 		// Cancel typing
-		if (config.sendTyping && ci.typing) {
+		if (fc.isSendTyping() && ci.typing) {
 			timer.cancel();
 			if (typing.fv != null) {
 				typing.fv.cancel(true);
@@ -196,7 +200,7 @@ public class CommandListener extends ListenerAdapter {
 		if (result == null) {
 			if (exception != null) {exception.printStackTrace();}
 			String err = ":x: There was an unexpected exception: `" + exception.toString() + "`\n```";
-			if (config.debugMode) {
+			if (fc.isDebugMode()) {
 				exception.printStackTrace();
 				for (StackTraceElement ste : exception.getStackTrace()) {
 					err += "\n" + ste.toString();

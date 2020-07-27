@@ -4,7 +4,6 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DateUtils;
-import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
@@ -61,14 +60,14 @@ public class InfoCommand extends Command {
 		
 		eb.addField("Uptime", DateUtils.getDurationString(ctx.bot.getBirth()), true);
 		eb.addField("Ping", sm.getAverageGatewayPing() + "ms", true);
-		if (ctx.config.showMemory || elevated) {
+		if (ctx.config.getFlags().isShowMemory() || elevated) {
 			eb.addField("Memory", getMemoryString(), true);
 			eb.addField("Boot Time", DateUtils.getBootTime(ctx.bot.getBootTime()), true);
 		}
 		eb.addField("Java Version", MarkdownUtil.monospace(JAVA_VERSION), true);
 		eb.addField("JDA Version", MarkdownUtil.monospace(Bot.jdaVersion), true);
 
-		String links = MarkdownUtil.maskedLink("INVITE", ctx.config.invite) + " | " +
+		String links = MarkdownUtil.maskedLink("INVITE", ctx.config.getInvite()) + " | " +
 			MarkdownUtil.maskedLink("SUPPORT", Bot.helpServer) + " | " +
 			MarkdownUtil.maskedLink("WEBSITE", Bot.website) + " | " +
 			MarkdownUtil.maskedLink("GITHUB", Bot.github);

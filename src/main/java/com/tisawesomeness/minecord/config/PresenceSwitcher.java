@@ -1,5 +1,8 @@
 package com.tisawesomeness.minecord.config;
 
+import com.tisawesomeness.minecord.config.serial.PresenceConfig;
+import com.tisawesomeness.minecord.config.serial.PresenceConfigEntry;
+
 import lombok.NonNull;
 
 import java.util.List;
@@ -11,7 +14,7 @@ import java.util.Random;
 public class PresenceSwitcher {
 
     private static final Random random = new Random();
-    private final List<BotPresence> presences;
+    private final List<PresenceConfigEntry> presences;
     private final @NonNull PresenceBehavior behavior;
     private int currentPresence;
 
@@ -19,28 +22,28 @@ public class PresenceSwitcher {
      * Creates a new switcher.
      * @param config The config with the defined behavior
      */
-    public PresenceSwitcher(Config config) {
-        presences = config.presences;
-        behavior = config.presenceBehavior;
+    public PresenceSwitcher(PresenceConfig config) {
+        presences = config.getPresences();
+        behavior = config.getBehavior();
     }
 
     /**
      * Switches the current presence.
      * @return The new presence
      */
-    public @NonNull BotPresence switchPresence() {
+    public @NonNull PresenceConfigEntry switchPresence() {
         return behavior.switchPresence(this);
     }
 
-    public @NonNull BotPresence cycle() {
+    public @NonNull PresenceConfigEntry cycle() {
         currentPresence = (currentPresence + 1) % presences.size();
         return current();
     }
-    public @NonNull BotPresence random() {
+    public @NonNull PresenceConfigEntry random() {
         currentPresence = random.nextInt(presences.size());
         return current();
     }
-    public @NonNull BotPresence randomUnique() {
+    public @NonNull PresenceConfigEntry randomUnique() {
         if (presences.size() == 1) {
             return current();
         }
@@ -52,7 +55,7 @@ public class PresenceSwitcher {
         return current();
     }
 
-    private @NonNull BotPresence current() {
+    private @NonNull PresenceConfigEntry current() {
         return presences.get(currentPresence);
     }
 

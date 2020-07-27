@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.setting.impl;
 
-import com.tisawesomeness.minecord.config.Config;
+import com.tisawesomeness.minecord.config.serial.SettingsConfig;
 import com.tisawesomeness.minecord.database.dao.SettingContainer;
 import com.tisawesomeness.minecord.setting.Setting;
 import com.tisawesomeness.minecord.util.DiscordUtils;
@@ -39,7 +39,7 @@ public class PrefixSetting extends Setting<String> {
             "`@%s command` will work regardless of prefix.\n" +
             "Possible values: Any text between 1-8 characters that does not contain Discord formatting.";
 
-    private final @NonNull Config config;
+    private final @NonNull SettingsConfig config;
 
     public @NonNull String getDisplayName() {
         return "Prefix";
@@ -52,7 +52,7 @@ public class PrefixSetting extends Setting<String> {
     }
 
     public @NonNull String getDefault() {
-        return config.prefixDefault;
+        return config.getPrefixDefault();
     }
 
     /**

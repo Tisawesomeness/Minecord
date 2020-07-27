@@ -2,7 +2,8 @@ package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.config.Config;
+import com.tisawesomeness.minecord.config.serial.BotListConfig;
+import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -149,15 +150,18 @@ public class EvalCommand extends Command {
 	 * @return A cleaned string with blacklisted strings replaced with [redacted]
 	 */
 	private static String clean(String s, Config config) {
+		BotListConfig blc = config.getBotLists();
 		String[] blacklist = {
-			config.clientToken,
-			config.pwToken,
-			config.orgToken,
-			config.webhookURL,
-			config.webhookAuth
+			config.getToken(),
+			blc.getPwToken(),
+			blc.getOrgToken(),
+			blc.getWebhookUrl(),
+			blc.getWebhookAuth()
 		};
 		for (String nono : blacklist) {
-			s = s.replace(nono, "[redacted]");
+			if (nono != null) {
+				s = s.replace(nono, "[redacted]");
+			}
 		}
 		return s.replace("@everyone", "[everyone]").replace("@here", "[here]");
 	}

@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.listen;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.config.Config;
+import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.service.BotListService;
 import com.tisawesomeness.minecord.service.PresenceService;
 
@@ -63,10 +63,10 @@ public class GuildCountListener extends ListenerAdapter {
     private void updateGuilds(EmbedBuilder eb, Guild guild) {
         eb.setThumbnail(guild.getIconUrl());
         bot.log(eb.build());
-        if (config.presenceChangeInterval == -1) {
+        if (config.getPresence().getChangeInterval() == -1) {
             presenceService.run();
         }
-        if (config.sendGuildsInterval == -1) {
+        if (config.getBotLists().getSendGuildsInterval() == -1) {
             botListService.run();
         }
     }

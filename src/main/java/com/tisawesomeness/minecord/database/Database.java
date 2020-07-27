@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.database;
 
-import com.tisawesomeness.minecord.config.Config;
+import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import com.google.common.base.Splitter;
@@ -32,7 +32,7 @@ public class Database {
 	 */
 	public Database(Config config) throws SQLException {
 
-		String url = "jdbc:sqlite:" + config.dbPath;
+		String url = "jdbc:sqlite:" + config.getDatabase().getPath();
 		SQLiteDataSource ds = new SQLiteConnectionPoolDataSource();
 		ds.setUrl(url);
 		ds.setEncoding("UTF-8");
@@ -49,10 +49,6 @@ public class Database {
 		} else if (version > VERSION) {
 			String err = String.format("The database version is %s but the bot expects %s or lower!", version, VERSION);
 			throw new IllegalStateException(err);
-		}
-
-		for (long owner : config.owners) {
-			cache.getUser(owner).withElevated(true).update();
 		}
 
 		System.out.println("Database connected.");

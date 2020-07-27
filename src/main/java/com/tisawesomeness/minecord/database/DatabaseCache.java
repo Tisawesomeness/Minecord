@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.database;
 
-import com.tisawesomeness.minecord.config.Config;
+import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.database.dao.DbChannel;
 import com.tisawesomeness.minecord.database.dao.DbGuild;
 import com.tisawesomeness.minecord.database.dao.DbUser;
@@ -44,7 +44,7 @@ public class DatabaseCache {
         this.db = db;
         CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder()
                 .expireAfterAccess(10, TimeUnit.MINUTES);
-        if (config.debugMode) {
+        if (config.getFlags().isDebugMode()) {
             builder.recordStats();
         }
         guilds = build(builder, key -> DbGuild.load(db, key));
@@ -64,7 +64,7 @@ public class DatabaseCache {
             CacheBuilder<Object, Object> builder, SQLFunction<? super T, ? extends R> loadFunction) {
         return builder.build(new CacheLoader<T, R>() {
             @Override
-            public @NonNull R load(T key) {
+            public @NonNull R load(@NonNull T key) {
                 return loadFunction.apply(key);
             }
         });

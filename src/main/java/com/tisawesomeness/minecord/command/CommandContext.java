@@ -2,7 +2,7 @@ package com.tisawesomeness.minecord.command;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Lang;
-import com.tisawesomeness.minecord.config.Config;
+import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.database.dao.DbChannel;
 import com.tisawesomeness.minecord.database.dao.DbGuild;
@@ -248,7 +248,7 @@ public class CommandContext {
      * @return The same builder with added footer.
      */
     public EmbedBuilder addFooter(EmbedBuilder eb) {
-        if (config.useAnnouncements) {
+        if (config.getFlags().isUseAnnouncements()) {
             return eb.setFooter(bot.getAnnounceRegistry().roll(bot.getShardManager()));
         }
         User author = e.getAuthor();

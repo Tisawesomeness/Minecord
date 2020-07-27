@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.service;
 
-import com.tisawesomeness.minecord.config.Config;
+import com.tisawesomeness.minecord.config.serial.BotListConfig;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import lombok.NonNull;
@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class BotListService extends Service {
     private final @NonNull ShardManager sm;
-    private final @NonNull Config config;
+    private final @NonNull BotListConfig config;
     private final @Nullable DiscordBotListAPI api;
 
     /**
@@ -27,11 +27,11 @@ public class BotListService extends Service {
      * @param sm The ShardManager to pull guild counts from
      * @param config The config that decides if and how often this service should run
      */
-    public BotListService(@NonNull ShardManager sm, @NonNull Config config) {
+    public BotListService(@NonNull ShardManager sm, @NonNull BotListConfig config) {
         this.sm = sm;
         this.config = config;
-        if (config.sendServerCount) {
-            api = new DiscordBotListAPI.Builder().token(config.orgToken).build();
+        if (config.isSendServerCount() && config.getOrgToken() != null) {
+            api = new DiscordBotListAPI.Builder().token(config.getOrgToken()).build();
         } else {
             api = null;
         }
@@ -39,11 +39,11 @@ public class BotListService extends Service {
 
     @Override
     public boolean shouldRun() {
-        return config.sendServerCount && config.sendGuildsInterval > 0;
+        return config.isSendServerCount();
     }
 
     public void schedule(ScheduledExecutorService exe) {
-        exe.scheduleAtFixedRate(this::run, 0, config.sendGuildsInterval, TimeUnit.SECONDS);
+        exe.scheduleAtFixedRate(this::run, 0, config.getSendGuildsInterval(), TimeUnit.SECONDS);
     }
 
     /**
@@ -53,9 +53,11 @@ public class BotListService extends Service {
         int servers = sm.getGuilds().size();
         String id = sm.getShardById(0).getSelfUser().getId();
 
-        String url = "https://bots.discord.pw/api/bots/" + id + "/stats";
-        String query = "{\"server_count\": " + servers + "}";
-        RequestUtils.post(url, query, config.pwToken);
+        if (config.getPwToken() != null) {
+            String url = "https://bots.discord.pw/api/bots/" + id + "/stats";
+            String query = "{\"server_count\": " + servers + "}";
+            RequestUtils.post(url, query, config.getPwToken());
+        }
 
         /*
          * url = "https://discordbots.org/api/bots/" + id + "/stats"; query =

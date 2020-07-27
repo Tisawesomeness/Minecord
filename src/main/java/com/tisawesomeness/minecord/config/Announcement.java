@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.config;
 
+import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import lombok.NonNull;

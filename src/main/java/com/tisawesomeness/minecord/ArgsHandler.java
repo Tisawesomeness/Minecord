@@ -70,7 +70,7 @@ public class ArgsHandler implements Callable<Integer>, Serializable {
 
         // config, however, is necessary
         if (configPath == null) {
-            configPath = path.resolve("config.json");
+            configPath = path.resolve("config.yml");
         }
         if (!configPath.toFile().exists()) {
             return createConfig(configPath);
@@ -83,8 +83,8 @@ public class ArgsHandler implements Callable<Integer>, Serializable {
 
     private static int createConfig(Path configPath) {
         try {
-            Files.write(configPath, RequestUtils.loadResource("config.json").getBytes());
-            System.out.println("The config file was created! Put your bot token in config.json to run the bot.");
+            Files.write(configPath, RequestUtils.loadResource("config.yml").getBytes());
+            System.out.println("The config file was created! Put your bot token in config.yml to run the bot.");
         } catch (IOException ex) {
             ex.printStackTrace();
             return 2;

@@ -1,5 +1,7 @@
 package com.tisawesomeness.minecord.config;
 
+import com.tisawesomeness.minecord.config.serial.PresenceConfigEntry;
+
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
@@ -24,14 +26,14 @@ public enum PresenceBehavior {
      */
     RANDOM_UNIQUE(PresenceSwitcher::randomUnique);
 
-    private final @NonNull Function<PresenceSwitcher, BotPresence> switchFunction;
+    private final @NonNull Function<PresenceSwitcher, PresenceConfigEntry> switchFunction;
 
     /**
      * Switches the current presence of the switcher
      * @param switcher The switcher to be modified
      * @return The new presence
      */
-    public @NonNull BotPresence switchPresence(PresenceSwitcher switcher) {
+    public @NonNull PresenceConfigEntry switchPresence(PresenceSwitcher switcher) {
         return switchFunction.apply(switcher);
     }
 

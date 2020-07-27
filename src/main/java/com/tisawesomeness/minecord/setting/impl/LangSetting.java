@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.setting.impl;
 
 import com.tisawesomeness.minecord.Lang;
-import com.tisawesomeness.minecord.config.Config;
+import com.tisawesomeness.minecord.config.serial.SettingsConfig;
 import com.tisawesomeness.minecord.database.dao.SettingContainer;
 import com.tisawesomeness.minecord.setting.Setting;
 import com.tisawesomeness.minecord.util.type.Validation;
@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 public class LangSetting extends Setting<Lang> {
 
     private static final Pattern ALIAS_PATTERN = Pattern.compile("lang(uage)?", Pattern.CASE_INSENSITIVE);
-    private final @NonNull Config config;
+    private final @NonNull SettingsConfig config;
 
     public @NonNull String getDisplayName() {
         return "Language";
@@ -27,11 +27,11 @@ public class LangSetting extends Setting<Lang> {
     }
     public @NonNull String getDescription(@NonNull String prefix, @NonNull String tag) {
         return String.format("Sets the language used for commands and bot responses.\n" +
-                "See `%slang` for possible values.`", prefix);
+                "See `%slang` for possible values.", prefix);
     }
 
     public @NonNull Lang getDefault() {
-        return config.langDefault;
+        return config.getLangDefault();
     }
 
     public Validation<Lang> resolve(@NonNull String input) {

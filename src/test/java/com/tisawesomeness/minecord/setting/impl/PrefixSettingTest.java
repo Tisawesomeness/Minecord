@@ -1,8 +1,9 @@
 package com.tisawesomeness.minecord.setting.impl;
 
-import com.tisawesomeness.minecord.config.Config;
-import com.tisawesomeness.minecord.util.RequestUtils;
+import com.tisawesomeness.minecord.config.ConfigReader;
+import com.tisawesomeness.minecord.config.serial.Config;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -19,9 +20,9 @@ public class PrefixSettingTest {
     private static PrefixSetting prefix;
 
     @BeforeAll
-    private static void initConfig() {
-        Config config = new Config(RequestUtils.loadJSONResource("config.json"), null);
-        prefix = new PrefixSetting(config);
+    private static void initConfig() throws JsonProcessingException {
+        Config config = ConfigReader.readFromResources();
+        prefix = new PrefixSetting(config.getSettings());
     }
 
     @ParameterizedTest

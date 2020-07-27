@@ -2,7 +2,9 @@ package com.tisawesomeness.minecord;
 
 import com.tisawesomeness.minecord.command.CommandRegistry;
 import com.tisawesomeness.minecord.config.AnnounceRegistry;
-import com.tisawesomeness.minecord.config.Config;
+import com.tisawesomeness.minecord.config.ConfigReader;
+import com.tisawesomeness.minecord.config.serial.BotListConfig;
+import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.database.VoteHandler;
@@ -12,8 +14,8 @@ import com.tisawesomeness.minecord.listen.ReactListener;
 import com.tisawesomeness.minecord.listen.ReadyListener;
 import com.tisawesomeness.minecord.service.BotListService;
 import com.tisawesomeness.minecord.service.MenuService;
-import com.tisawesomeness.minecord.service.Service;
 import com.tisawesomeness.minecord.service.PresenceService;
+import com.tisawesomeness.minecord.service.Service;
 import com.tisawesomeness.minecord.setting.SettingRegistry;
 import com.tisawesomeness.minecord.util.DateUtils;
 
@@ -34,8 +36,9 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import okhttp3.OkHttpClient;
 
 import javax.security.auth.login.LoginException;
-import java.awt.Color;
+import java.awt.*;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.EnumSet;
@@ -104,9 +107,9 @@ public class Bot {
 		this.args = args;
 
 		// Pre-init
+		config = ConfigReader.read(args.getConfigPath());
 		try {
-			config = new Config(args.getConfigPath(), args.getTokenOverride());
-			if (config.useAnnouncements) {
+			if (config.getFlags().isUseAnnouncements()) {
 				announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
 			}
 		} catch (IOException ex) {
@@ -114,7 +117,10 @@ public class Bot {
 			return;
 		}
 
-		CountDownLatch readyLatch = new CountDownLatch(config.shardCount);
+		String tokenOverride = args.getTokenOverride();
+		String token = tokenOverride == null ? config.getToken() : tokenOverride;
+
+		CountDownLatch readyLatch = new CountDownLatch(config.getShardCount());
 		EventListener readyListener = new ReadyListener(readyLatch);
 		EventListener reactListener = new ReactListener();
 
@@ -125,10 +131,10 @@ public class Bot {
 		try {
 			// Initialize JDA
 			shardManager = DefaultShardManagerBuilder.create(gateways)
-					.setToken(config.clientToken)
+					.setToken(token)
 					.setAutoReconnect(true)
 					.addEventListeners(readyListener)
-					.setShardsTotal(config.shardCount)
+					.setShardsTotal(config.getShardCount())
 					.setActivity(Activity.playing("Loading..."))
 					.setMemberCachePolicy(MemberCachePolicy.NONE)
 					.disableCache(disabledCacheFlags)
@@ -144,8 +150,8 @@ public class Bot {
 		}
 
 		// These depend on ShardManager
-		presenceService = new PresenceService(shardManager, config);
-		botListService = new BotListService(shardManager, config);
+		presenceService = new PresenceService(shardManager, config.getPresence());
+		botListService = new BotListService(shardManager, config.getBotLists());
 		guildCountListener = new GuildCountListener(this, config, presenceService, botListService);
 
 		// Wait for database
@@ -158,11 +164,19 @@ public class Bot {
 			throw new AssertionError(
 					"It should not be possible to interrupt the main thread before the bot can accept commands.");
 		}
+		try {
+			for (long owner : config.getOwners()) {
+				database.getCache().getUser(owner).withElevated(true).update();
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return;
+		}
 
 		// These depend on database
 		registry = new CommandRegistry(shardManager, database.getCache());
 		commandListener = new CommandListener(this, config, registry);
-		settings = new SettingRegistry(config);
+		settings = new SettingRegistry(config.getSettings());
 
 		// Bot has started, start accepting messages
 		shardManager.addEventListener(commandListener, reactListener, guildCountListener);
@@ -170,8 +184,8 @@ public class Bot {
 
 		// Start web server
 		Future<VoteHandler> futureVH = null;
-		if (config.receiveVotes) {
-			futureVH = exe.submit(() -> new VoteHandler(this, config));
+		if (config.getBotLists().isReceiveVotes()) {
+			futureVH = exe.submit(() -> new VoteHandler(this, config.getBotLists()));
 		}
 
 		// Post-init
@@ -215,30 +229,31 @@ public class Bot {
 		System.out.println("Reloading...");
 
 		// Closing everything down
-		if (config.receiveVotes) {
+		if (config.getBotLists().isReceiveVotes()) {
 			voteHandler.close();
 		}
 		presenceService.shutdown();
 		menuService.shutdown();
 		shardManager.removeEventListener(commandListener, guildCountListener);
-		config = new Config(args.getConfigPath(), args.getTokenOverride());
+		config = ConfigReader.read(args.getConfigPath());
 
 		// Database and vote handler need separate threads
 		ExecutorService exe = Executors.newSingleThreadExecutor();
 		Future<Database> futureDB = exe.submit(() -> new Database(config));
 		Future<VoteHandler> futureVH = null;
-		if (config.receiveVotes) {
-			futureVH = exe.submit(() -> new VoteHandler(this, config));
+		BotListConfig blc = config.getBotLists();
+		if (blc.isReceiveVotes()) {
+			futureVH = exe.submit(() -> new VoteHandler(this, blc));
 		}
 
 		// These can be started before the database
-		if (config.useAnnouncements) {
+		if (config.getFlags().isUseAnnouncements()) {
 			announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
 		}
-		settings = new SettingRegistry(config);
-		presenceService = new PresenceService(shardManager, config);
+		settings = new SettingRegistry(config.getSettings());
+		presenceService = new PresenceService(shardManager, config.getPresence());
 		presenceService.start();
-		botListService = new BotListService(shardManager, config);
+		botListService = new BotListService(shardManager, blc);
 		botListService.start();
 		guildCountListener = new GuildCountListener(this ,config, presenceService, botListService);
 		menuService = new MenuService();
@@ -265,7 +280,7 @@ public class Bot {
 		presenceService.shutdown();
 		menuService.shutdown();
 		shardManager.shutdown();
-		if (config.receiveVotes) {
+		if (config.getBotLists().isReceiveVotes()) {
 			voteHandler.close();
 		}
 		for (JDA jda : shardManager.getShards()) {
@@ -288,7 +303,7 @@ public class Bot {
 	 * Logs a message to the logging channel.
 	 */
 	public void log(CharSequence m) {
-		long logChannel = config.logChannel;
+		long logChannel = config.getLogChannel();
 		if (logChannel == 0) {
 			return;
 		}
@@ -302,7 +317,7 @@ public class Bot {
 	 * Logs a message to the logging channel.
 	 */
 	public void log(Message m) {
-		long logChannel = config.logChannel;
+		long logChannel = config.getLogChannel();
 		if (logChannel == 0) {
 			return;
 		}
@@ -316,7 +331,7 @@ public class Bot {
 	 * Logs a message to the logging channel.
 	 */
 	public void log(MessageEmbed m) {
-		long logChannel = config.logChannel;
+		long logChannel = config.getLogChannel();
 		if (logChannel == 0) {
 			return;
 		}

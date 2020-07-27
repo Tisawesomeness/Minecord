@@ -1,5 +1,7 @@
 package com.tisawesomeness.minecord.config;
 
+import com.tisawesomeness.minecord.config.serial.Config;
+
 import lombok.NonNull;
 import net.dv8tion.jda.api.sharding.ShardManager;
 import org.json.JSONArray;

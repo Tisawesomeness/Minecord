@@ -32,6 +32,9 @@ dependencies {
     implementation 'com.google.guava:guava:29.0-jre'
     // JSON library
     implementation 'org.json:json:20160810'
+    // YAML library
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.10.1'
+    compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.1'
     // SQLite driver
     implementation 'org.xerial:sqlite-jdbc:3.30.1'
     // Used for MCServerPing

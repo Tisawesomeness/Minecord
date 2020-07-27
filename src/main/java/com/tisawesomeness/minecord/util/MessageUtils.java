@@ -1,7 +1,5 @@
 package com.tisawesomeness.minecord.util;
 
-import com.tisawesomeness.minecord.config.Config;
-
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.SelfUser;
 
@@ -34,11 +32,11 @@ public final class MessageUtils {
 	/**
 	 * Gets the command-useful content of a message, keeping the name and arguments and purging the prefix and mention.
 	 */
-	public static String[] getContent(Message m, String prefix, SelfUser su, Config config) {
+	public static String[] getContent(Message m, String prefix, SelfUser su, boolean respondToMentions) {
 		String content = m.getContentRaw();
 		if (m.getContentRaw().startsWith(prefix)) {
 			return content.replaceFirst(Pattern.quote(prefix), "").split(" ");
-		} else if (config.respondToMentions && content.replaceFirst("@!", "@").startsWith(su.getAsMention())) {
+		} else if (respondToMentions && content.replaceFirst("@!", "@").startsWith(su.getAsMention())) {
 			String[] args = content.split(" ");
 			return Arrays.copyOfRange(args, 1, args.length);
 		}

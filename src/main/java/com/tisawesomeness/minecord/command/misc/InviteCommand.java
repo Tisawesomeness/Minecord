@@ -23,7 +23,7 @@ public class InviteCommand extends Command {
 	
 	public Result run(CommandContext ctx) {
 		EmbedBuilder eb = new EmbedBuilder();
-		eb.addField("Invite me!", ctx.config.invite, false);
+		eb.addField("Invite me!", ctx.config.getInvite(), false);
 		eb.addField("Help server", Bot.helpServer, false);
 		eb.addField("Website", Bot.website, true);
 		eb = ctx.brand(eb);

@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.setting;
 
-import com.tisawesomeness.minecord.config.Config;
+import com.tisawesomeness.minecord.config.serial.SettingsConfig;
 import com.tisawesomeness.minecord.setting.impl.LangSetting;
 import com.tisawesomeness.minecord.setting.impl.PrefixSetting;
 import com.tisawesomeness.minecord.setting.impl.UseMenusSetting;
@@ -27,7 +27,7 @@ public class SettingRegistry implements Iterable<Setting<?>> {
      * Initializes all the settings and makes them searchable from this registry.
      * @param config The loaded config file with the setting defaults.
      */
-    public SettingRegistry(@NonNull Config config) {
+    public SettingRegistry(@NonNull SettingsConfig config) {
         prefix = new PrefixSetting(config);
         lang = new LangSetting(config);
         useMenus = new UseMenusSetting(config);

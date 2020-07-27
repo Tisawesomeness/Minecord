@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.setting.impl;
 
-import com.tisawesomeness.minecord.config.Config;
+import com.tisawesomeness.minecord.config.serial.SettingsConfig;
 import com.tisawesomeness.minecord.database.dao.SettingContainer;
 import com.tisawesomeness.minecord.setting.Setting;
 import com.tisawesomeness.minecord.util.BooleanUtils;
@@ -23,7 +23,7 @@ public class UseMenusSetting extends Setting<Boolean> {
     private static final String DESC = "If enabled, the bot will use a reaction menu for `%srecipe` and `%singredient` if possible.\n" +
             "Requires Manage Message and Add Reaction permissions.\n" +
             "Possible values: `enabled`, `disabled`";
-    private final @NonNull Config config;
+    private final @NonNull SettingsConfig config;
 
     public @NonNull String getDisplayName() {
         return "Use Menus";
@@ -36,7 +36,7 @@ public class UseMenusSetting extends Setting<Boolean> {
     }
 
     public @NonNull Boolean getDefault() {
-        return config.useMenusDefault;
+        return config.isUseMenusDefault();
     }
 
     public Validation<Boolean> resolve(@NonNull String input) {
