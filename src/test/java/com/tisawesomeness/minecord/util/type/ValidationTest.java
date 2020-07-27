@@ -7,7 +7,6 @@ import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -71,7 +70,7 @@ public class ValidationTest {
         Verification ve = Verification.invalid(err);
         Validation<?> va = Validation.fromInvalidVerification(ve);
         assertFalse(va.isValid());
-        assertEquals(Collections.singletonList(err), va.getErrors());
+        assertEquals(ve.getErrors(), va.getErrors());
     }
 
     @Test

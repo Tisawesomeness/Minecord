@@ -30,6 +30,25 @@ public class VerificationTest {
     }
 
     @Test
+    @DisplayName("Valid Verification converts to valid Validation")
+    public void testToValidationValid() {
+        Verification ve = Verification.valid();
+        Object o = new Object();
+        Validation<Object> va = ve.toValidation(o);
+        assertTrue(va.isValid());
+        assertEquals(o, va.getValue());
+    }
+    @Test
+    @DisplayName("Invalid Verification converts to invalid Validation")
+    public void testToValidationInvalid() {
+        String errorMessage = "An error message";
+        Verification ve = Verification.invalid(errorMessage);
+        Validation<Object> va = ve.toValidation(new Object());
+        assertFalse(va.isValid());
+        assertEquals(ve.getErrors(), va.getErrors());
+    }
+
+    @Test
     @DisplayName("v1.combine(v2) with both valid is valid")
     public void testCombineBothValid() {
         Verification v1 = Verification.valid();

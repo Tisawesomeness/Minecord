@@ -18,14 +18,15 @@ import java.util.List;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode
 public final class Verification {
+    private final static Verification VALID = new Verification(Collections.emptyList());
     private final List<String> errors; // Must be immutable
 
     /**
-     * Creates a valid Verification.
+     * Returns the valid Verification.
      * @return A Verification with no error messages
      */
     public static Verification valid() {
-        return new Verification(Collections.emptyList());
+        return VALID;
     }
     /**
      * Creates an invalid Verification.
@@ -50,6 +51,19 @@ public final class Verification {
      */
     public List<String> getErrors() {
         return errors;
+    }
+
+    /**
+     * Creates a Validation from this Verification
+     * @param value The value given to the Validation if this Verification is valid
+     * @param <T> The type of the new Validation
+     * @return A Validation that is valid only if this Verification is valid
+     */
+    public <T> Validation<T> toValidation(T value) {
+        if (isValid()) {
+            return Validation.valid(value);
+        }
+        return Validation.fromInvalidVerification(this);
     }
 
     /**
@@ -83,6 +97,6 @@ public final class Verification {
 
     @Override
     public String toString() {
-        return String.format("Verification{%s}", errors);
+        return "Verification" + errors;
     }
 }
