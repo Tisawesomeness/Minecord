@@ -60,14 +60,14 @@ public class InfoCommand extends Command {
 		
 		eb.addField("Uptime", DateUtils.getDurationString(ctx.bot.getBirth()), true);
 		eb.addField("Ping", sm.getAverageGatewayPing() + "ms", true);
-		if (ctx.config.getFlags().isShowMemory() || elevated) {
+		if (ctx.config.getFlagConfig().isShowExtraInfo() || elevated) {
 			eb.addField("Memory", getMemoryString(), true);
 			eb.addField("Boot Time", DateUtils.getBootTime(ctx.bot.getBootTime()), true);
 		}
 		eb.addField("Java Version", MarkdownUtil.monospace(JAVA_VERSION), true);
 		eb.addField("JDA Version", MarkdownUtil.monospace(Bot.jdaVersion), true);
 
-		String links = MarkdownUtil.maskedLink("INVITE", ctx.config.getInvite()) + " | " +
+		String links = MarkdownUtil.maskedLink("INVITE", ctx.config.getInviteLink()) + " | " +
 			MarkdownUtil.maskedLink("SUPPORT", Bot.helpServer) + " | " +
 			MarkdownUtil.maskedLink("WEBSITE", Bot.website) + " | " +
 			MarkdownUtil.maskedLink("GITHUB", Bot.github);

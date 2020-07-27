@@ -109,7 +109,7 @@ public class Bot {
 		// Pre-init
 		config = ConfigReader.read(args.getConfigPath());
 		try {
-			if (config.getFlags().isUseAnnouncements()) {
+			if (config.getFlagConfig().isUseAnnouncements()) {
 				announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
 			}
 		} catch (IOException ex) {
@@ -150,8 +150,8 @@ public class Bot {
 		}
 
 		// These depend on ShardManager
-		presenceService = new PresenceService(shardManager, config.getPresence());
-		botListService = new BotListService(shardManager, config.getBotLists());
+		presenceService = new PresenceService(shardManager, config.getPresenceConfig());
+		botListService = new BotListService(shardManager, config.getBotListConfig());
 		guildCountListener = new GuildCountListener(this, config, presenceService, botListService);
 
 		// Wait for database
@@ -176,7 +176,7 @@ public class Bot {
 		// These depend on database
 		registry = new CommandRegistry(shardManager, database.getCache());
 		commandListener = new CommandListener(this, config, registry);
-		settings = new SettingRegistry(config.getSettings());
+		settings = new SettingRegistry(config.getSettingsConfig());
 
 		// Bot has started, start accepting messages
 		shardManager.addEventListener(commandListener, reactListener, guildCountListener);
@@ -184,8 +184,8 @@ public class Bot {
 
 		// Start web server
 		Future<VoteHandler> futureVH = null;
-		if (config.getBotLists().isReceiveVotes()) {
-			futureVH = exe.submit(() -> new VoteHandler(this, config.getBotLists()));
+		if (config.getBotListConfig().isReceiveVotes()) {
+			futureVH = exe.submit(() -> new VoteHandler(this, config.getBotListConfig()));
 		}
 
 		// Post-init
@@ -229,7 +229,7 @@ public class Bot {
 		System.out.println("Reloading...");
 
 		// Closing everything down
-		if (config.getBotLists().isReceiveVotes()) {
+		if (config.getBotListConfig().isReceiveVotes()) {
 			voteHandler.close();
 		}
 		presenceService.shutdown();
@@ -241,17 +241,17 @@ public class Bot {
 		ExecutorService exe = Executors.newSingleThreadExecutor();
 		Future<Database> futureDB = exe.submit(() -> new Database(config));
 		Future<VoteHandler> futureVH = null;
-		BotListConfig blc = config.getBotLists();
+		BotListConfig blc = config.getBotListConfig();
 		if (blc.isReceiveVotes()) {
 			futureVH = exe.submit(() -> new VoteHandler(this, blc));
 		}
 
 		// These can be started before the database
-		if (config.getFlags().isUseAnnouncements()) {
+		if (config.getFlagConfig().isUseAnnouncements()) {
 			announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
 		}
-		settings = new SettingRegistry(config.getSettings());
-		presenceService = new PresenceService(shardManager, config.getPresence());
+		settings = new SettingRegistry(config.getSettingsConfig());
+		presenceService = new PresenceService(shardManager, config.getPresenceConfig());
 		presenceService.start();
 		botListService = new BotListService(shardManager, blc);
 		botListService.start();
@@ -280,7 +280,7 @@ public class Bot {
 		presenceService.shutdown();
 		menuService.shutdown();
 		shardManager.shutdown();
-		if (config.getBotLists().isReceiveVotes()) {
+		if (config.getBotListConfig().isReceiveVotes()) {
 			voteHandler.close();
 		}
 		for (JDA jda : shardManager.getShards()) {
@@ -303,7 +303,7 @@ public class Bot {
 	 * Logs a message to the logging channel.
 	 */
 	public void log(CharSequence m) {
-		long logChannel = config.getLogChannel();
+		long logChannel = config.getLogChannelId();
 		if (logChannel == 0) {
 			return;
 		}
@@ -317,7 +317,7 @@ public class Bot {
 	 * Logs a message to the logging channel.
 	 */
 	public void log(Message m) {
-		long logChannel = config.getLogChannel();
+		long logChannel = config.getLogChannelId();
 		if (logChannel == 0) {
 			return;
 		}
@@ -331,7 +331,7 @@ public class Bot {
 	 * Logs a message to the logging channel.
 	 */
 	public void log(MessageEmbed m) {
-		long logChannel = config.getLogChannel();
+		long logChannel = config.getLogChannelId();
 		if (logChannel == 0) {
 			return;
 		}

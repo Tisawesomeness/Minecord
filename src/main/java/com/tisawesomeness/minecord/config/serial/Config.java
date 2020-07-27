@@ -8,6 +8,15 @@ import lombok.Value;
 import javax.annotation.Nullable;
 import java.util.List;
 
+/**
+ * Contains all the values that changes how the bot function, mirroring {@code config.yml}.
+ * <br>This class assumes it is being parsed with nulls failing by default, which can be set with:
+ * <pre>{@code
+ *     ObjectMapper mapper = ...;
+ *     mapper.setDefaultSetterInfo(JsonSetter.Value.forValueNulls(Nulls.FAIL))
+ * }</pre>
+ * Optional fields are annotated with {@code @JsonSetter(nulls = Nulls.SET)}.
+ */
 @Value
 public class Config {
     @JsonProperty("token")
@@ -17,25 +26,31 @@ public class Config {
     @JsonProperty("owners")
     List<Long> owners;
     @JsonProperty("logChannel")
-    long logChannel;
-    @JsonProperty("invite")
-    String invite;
+    long logChannelId;
+    @JsonProperty("inviteLink")
+    String inviteLink;
     @JsonProperty("presence")
-    PresenceConfig presence;
+    PresenceConfig presenceConfig;
     @JsonProperty("settings")
-    SettingsConfig settings;
+    SettingsConfig settingsConfig;
     @JsonProperty("flags")
-    FlagsConfig flags;
+    FlagConfig flagConfig;
     @JsonProperty("botLists")
-    BotListConfig botLists;
+    BotListConfig botListConfig;
     @JsonProperty("database")
-    DatabaseConfig database;
+    DatabaseConfig databaseConfig;
 
+    /**
+     * Checks if this config is valid.
+     * <br>Missing or misformatted fields are handled by the YAML parser, while this method handles everything else.
+     * <br><b>Do not run the bot with an invalid config!</b>
+     * @return A valid Verification only if this config is valid
+     */
     public Verification verify() {
         return Verification.combineAll(
                 verifyShards(),
-                presence.verify(),
-                botLists.verify()
+                presenceConfig.verify(),
+                botListConfig.verify()
         );
     }
     private Verification verifyShards() {
@@ -45,9 +60,19 @@ public class Config {
         return Verification.valid();
     }
 
+    /**
+     * Determines if the given ID is listed in the config as an owner.
+     * <br>The config is not guarenteed to have any owners.
+     * @param id The 17-20 digit ID, though invalid IDs return false
+     */
     public boolean isOwner(long id) {
         return owners.contains(id);
     }
+    /**
+     * Determines if the given ID is listed in the config as an owner.
+     * <br>The config is not guarenteed to have any owners.
+     * @param id The 17-20 digit string ID (this method is safe for any input)
+     */
     public boolean isOwner(@Nullable String id) {
         if (id == null) {
             return false;

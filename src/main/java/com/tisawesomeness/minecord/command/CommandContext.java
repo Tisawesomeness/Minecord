@@ -248,7 +248,7 @@ public class CommandContext {
      * @return The same builder with added footer.
      */
     public EmbedBuilder addFooter(EmbedBuilder eb) {
-        if (config.getFlags().isUseAnnouncements()) {
+        if (config.getFlagConfig().isUseAnnouncements()) {
             return eb.setFooter(bot.getAnnounceRegistry().roll(bot.getShardManager()));
         }
         User author = e.getAuthor();

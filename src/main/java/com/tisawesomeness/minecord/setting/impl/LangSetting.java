@@ -31,7 +31,7 @@ public class LangSetting extends Setting<Lang> {
     }
 
     public @NonNull Lang getDefault() {
-        return config.getLangDefault();
+        return config.getDefaultLang();
     }
 
     public Validation<Lang> resolve(@NonNull String input) {

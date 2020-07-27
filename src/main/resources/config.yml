@@ -2,8 +2,8 @@ token: "your token here"
 shardCount: 1
 owners:
 - 211261249386709000
-logChannel: 0
-invite: "https://minecord.github.io/invite"
+logChannelId: 0
+inviteLink: "https://minecord.github.io/invite"
 presence:
   changeInterval: 60
   behavior: RANDOM
@@ -12,15 +12,15 @@ presence:
     type: PLAYING
     content: "@Minecord help | {guilds} guilds"
 settings:
-  prefixDefault: ">&"
-  langDefault: en_US
-  useMenusDefault: true
+  defaultPrefix: ">&"
+  defaultLang: en_US
+  defaultUseMenus: true
 flags:
   debugMode: true
   useAnnouncements: false
   respondToMentions: true
   sendTyping: false
-  showMemory: false
+  showExtraInfo: false
   elevatedSkipCooldown: true
 botLists:
   sendServerCount: false

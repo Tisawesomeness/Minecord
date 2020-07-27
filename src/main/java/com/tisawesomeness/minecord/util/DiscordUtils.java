@@ -31,8 +31,8 @@ public final class DiscordUtils {
 			.replace("{github}", Bot.github)
 			.replace("{jda_ver}", Bot.jdaVersion)
 			.replace("{version}", Bot.version)
-			.replace("{invite}", config.getInvite())
-			.replace("{prefix}", config.getSettings().getPrefixDefault());
+			.replace("{invite}", config.getInviteLink())
+			.replace("{prefix}", config.getSettingsConfig().getDefaultPrefix());
 	}
 
 	/**

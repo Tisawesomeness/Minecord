@@ -150,7 +150,7 @@ public class EvalCommand extends Command {
 	 * @return A cleaned string with blacklisted strings replaced with [redacted]
 	 */
 	private static String clean(String s, Config config) {
-		BotListConfig blc = config.getBotLists();
+		BotListConfig blc = config.getBotListConfig();
 		String[] blacklist = {
 			config.getToken(),
 			blc.getPwToken(),

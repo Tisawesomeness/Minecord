@@ -9,7 +9,7 @@ import com.tisawesomeness.minecord.command.Command.Result;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.CommandRegistry;
 import com.tisawesomeness.minecord.config.serial.Config;
-import com.tisawesomeness.minecord.config.serial.FlagsConfig;
+import com.tisawesomeness.minecord.config.serial.FlagConfig;
 import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.database.dao.DbUser;
 import com.tisawesomeness.minecord.setting.SettingRegistry;
@@ -87,7 +87,7 @@ public class CommandListener extends ListenerAdapter {
 		
 		// If the message is a valid command
 		SelfUser su = e.getJDA().getSelfUser();
-		FlagsConfig fc = config.getFlags();
+		FlagConfig fc = config.getFlagConfig();
 		String[] content = MessageUtils.getContent(m, prefix, su, fc.isRespondToMentions());
 		if (content != null) {
 			

@@ -3,8 +3,11 @@ package com.tisawesomeness.minecord.config.serial;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Value;
 
+/**
+ * Contains many boolean fields (flags) that turn bot features on/off.
+ */
 @Value
-public class FlagsConfig {
+public class FlagConfig {
     @JsonProperty("debugMode")
     boolean debugMode;
     @JsonProperty("useAnnouncements")
@@ -13,8 +16,8 @@ public class FlagsConfig {
     boolean respondToMentions;
     @JsonProperty("sendTyping")
     boolean sendTyping;
-    @JsonProperty("showMemory")
-    boolean showMemory;
+    @JsonProperty("showExtraInfo")
+    boolean showExtraInfo;
     @JsonProperty("elevatedSkipCooldown")
     boolean elevatedSkipCooldown;
 }

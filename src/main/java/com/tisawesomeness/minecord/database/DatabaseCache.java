@@ -44,7 +44,7 @@ public class DatabaseCache {
         this.db = db;
         CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder()
                 .expireAfterAccess(10, TimeUnit.MINUTES);
-        if (config.getFlags().isDebugMode()) {
+        if (config.getFlagConfig().isDebugMode()) {
             builder.recordStats();
         }
         guilds = build(builder, key -> DbGuild.load(db, key));

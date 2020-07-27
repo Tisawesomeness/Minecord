@@ -52,7 +52,7 @@ public class PrefixSetting extends Setting<String> {
     }
 
     public @NonNull String getDefault() {
-        return config.getPrefixDefault();
+        return config.getDefaultPrefix();
     }
 
     /**

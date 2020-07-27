@@ -32,7 +32,7 @@ public class Database {
 	 */
 	public Database(Config config) throws SQLException {
 
-		String url = "jdbc:sqlite:" + config.getDatabase().getPath();
+		String url = "jdbc:sqlite:" + config.getDatabaseConfig().getPath();
 		SQLiteDataSource ds = new SQLiteConnectionPoolDataSource();
 		ds.setUrl(url);
 		ds.setEncoding("UTF-8");

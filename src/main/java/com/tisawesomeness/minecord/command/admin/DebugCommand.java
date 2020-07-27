@@ -48,7 +48,7 @@ public class DebugCommand extends Command {
     }
 
     public Result run(CommandContext ctx) {
-        if (!ctx.config.getFlags().isDebugMode()) {
+        if (!ctx.config.getFlagConfig().isDebugMode()) {
             return new Result(Outcome.WARNING, "The bot is not in debug mode.");
         }
 

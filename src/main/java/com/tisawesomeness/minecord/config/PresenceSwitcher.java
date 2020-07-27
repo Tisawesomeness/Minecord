@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.config;
 
 import com.tisawesomeness.minecord.config.serial.PresenceConfig;
-import com.tisawesomeness.minecord.config.serial.PresenceConfigEntry;
+import com.tisawesomeness.minecord.config.serial.Presence;
 
 import lombok.NonNull;
 
@@ -14,7 +14,7 @@ import java.util.Random;
 public class PresenceSwitcher {
 
     private static final Random random = new Random();
-    private final List<PresenceConfigEntry> presences;
+    private final List<Presence> presences;
     private final @NonNull PresenceBehavior behavior;
     private int currentPresence;
 
@@ -31,19 +31,19 @@ public class PresenceSwitcher {
      * Switches the current presence.
      * @return The new presence
      */
-    public @NonNull PresenceConfigEntry switchPresence() {
+    public @NonNull Presence switchPresence() {
         return behavior.switchPresence(this);
     }
 
-    public @NonNull PresenceConfigEntry cycle() {
+    public @NonNull Presence cycle() {
         currentPresence = (currentPresence + 1) % presences.size();
         return current();
     }
-    public @NonNull PresenceConfigEntry random() {
+    public @NonNull Presence random() {
         currentPresence = random.nextInt(presences.size());
         return current();
     }
-    public @NonNull PresenceConfigEntry randomUnique() {
+    public @NonNull Presence randomUnique() {
         if (presences.size() == 1) {
             return current();
         }
@@ -55,7 +55,7 @@ public class PresenceSwitcher {
         return current();
     }
 
-    private @NonNull PresenceConfigEntry current() {
+    private @NonNull Presence current() {
         return presences.get(currentPresence);
     }
 

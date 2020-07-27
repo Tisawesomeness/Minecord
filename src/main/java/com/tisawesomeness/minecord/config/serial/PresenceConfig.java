@@ -9,18 +9,27 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import lombok.Value;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
+/**
+ * Holds all the presences and determines how and how often to switch between them.
+ */
 @Value
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PresenceConfig {
     @JsonProperty("changeInterval") @JsonSetter(nulls = Nulls.SET)
     int changeInterval;
     @JsonProperty("behavior") @JsonSetter(nulls = Nulls.SET)
-    PresenceBehavior behavior;
+    @Nullable PresenceBehavior behavior;
     @JsonProperty("presences")
-    List<PresenceConfigEntry> presences;
+    List<Presence> presences;
 
+    /**
+     * Checks if there are either no presences (no verification needed)
+     * or the change interval and behavior meet requirements.
+     * @return The Verification
+     */
     public Verification verify() {
         if (presences.isEmpty()) {
             return Verification.valid();
@@ -38,7 +47,7 @@ public class PresenceConfig {
         }
         return Verification.valid();
     }
-    // Assumes presences is empty
+    // Assumes presences is not empty
     private Verification verifyBehavior() {
         if (behavior == null) {
             return Verification.invalid("You must provide the presence behavior.");
@@ -47,7 +56,7 @@ public class PresenceConfig {
     }
     private Verification verifyPresences() {
         return presences.stream()
-                .map(PresenceConfigEntry::verify)
+                .map(Presence::verify)
                 .reduce(Verification::combine)
                 .orElse(Verification.valid());
     }

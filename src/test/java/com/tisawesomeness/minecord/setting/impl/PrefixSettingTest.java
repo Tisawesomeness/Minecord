@@ -22,7 +22,7 @@ public class PrefixSettingTest {
     @BeforeAll
     private static void initConfig() throws JsonProcessingException {
         Config config = ConfigReader.readFromResources();
-        prefix = new PrefixSetting(config.getSettings());
+        prefix = new PrefixSetting(config.getSettingsConfig());
     }
 
     @ParameterizedTest

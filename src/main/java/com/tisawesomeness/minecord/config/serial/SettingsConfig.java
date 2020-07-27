@@ -5,12 +5,15 @@ import com.tisawesomeness.minecord.Lang;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Value;
 
+/**
+ * Contains all default settings.
+ */
 @Value
 public class SettingsConfig {
-    @JsonProperty("prefixDefault")
-    String prefixDefault;
-    @JsonProperty("langDefault")
-    Lang langDefault;
-    @JsonProperty("useMenusDefault")
-    boolean useMenusDefault;
+    @JsonProperty("defaultPrefix")
+    String defaultPrefix;
+    @JsonProperty("defaultLang")
+    Lang defaultLang;
+    @JsonProperty("defaultUseMenus")
+    boolean defaultUseMenus;
 }

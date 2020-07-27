@@ -86,7 +86,7 @@ public class BanCommand extends Command {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
 			Guild guild = sm.getGuildById(args[1]);
-            long logChannelID = ctx.config.getLogChannel();
+            long logChannelID = ctx.config.getLogChannelId();
 			if (guild != null && logChannelID != 0) {
 				TextChannel logChannel = sm.getTextChannelById(logChannelID);
 				if (logChannel != null && guild.getId().equals(logChannel.getGuild().getId())) {

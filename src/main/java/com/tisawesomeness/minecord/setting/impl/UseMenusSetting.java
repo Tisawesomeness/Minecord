@@ -36,7 +36,7 @@ public class UseMenusSetting extends Setting<Boolean> {
     }
 
     public @NonNull Boolean getDefault() {
-        return config.isUseMenusDefault();
+        return config.isDefaultUseMenus();
     }
 
     public Validation<Boolean> resolve(@NonNull String input) {
