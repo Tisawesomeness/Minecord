@@ -14,8 +14,7 @@ public class ShutdownCommand extends Command {
 			"Shuts down the bot.",
 			"[now?]",
 			new String[]{"exit"},
-			0,
-			true,
+                true,
 			true,
 			false
 		);

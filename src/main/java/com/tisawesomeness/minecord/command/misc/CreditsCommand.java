@@ -15,8 +15,7 @@ public class CreditsCommand extends Command {
 			"See who made the bot possible.",
 			null,
 			new String[]{"thanks", "thx"},
-			0,
-			false,
+                false,
 			false,
 			false
 		);

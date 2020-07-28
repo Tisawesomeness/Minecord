@@ -24,8 +24,7 @@ public class UsageCommand extends Command {
 			"Shows how often commands are used.",
 			null,
 			null,
-			0,
-			true,
+				true,
 			true,
 			false
 		);

@@ -12,7 +12,6 @@ public class SetCommand extends Command {
                 "Change the bot's settings, including prefix.",
                 "<context> <setting> <value>",
                 null,
-                0,
                 false,
                 false,
                 false

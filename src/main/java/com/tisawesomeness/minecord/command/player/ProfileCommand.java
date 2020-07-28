@@ -24,8 +24,7 @@ public class ProfileCommand extends Command {
 			"Get info on a Minecraft account.",
 			"<username|uuid> [date]",
 			new String[]{"p", "player"},
-			2000,
-			false,
+                false,
 			false,
 			true
 		);

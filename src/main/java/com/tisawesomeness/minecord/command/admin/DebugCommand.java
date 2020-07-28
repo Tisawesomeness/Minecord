@@ -28,8 +28,7 @@ public class DebugCommand extends Command {
             "Prints out debug info.",
             "[option]",
             new String[]{"dump"},
-            0,
-            true,
+                true,
             true,
             false
         );

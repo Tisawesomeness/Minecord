@@ -22,8 +22,7 @@ public class BodyCommand extends Command {
 			new String[]{
 				"nude",
 				"nudes"},
-			2000,
-			false,
+                false,
 			false,
 			true
 		);

@@ -20,8 +20,7 @@ public class HeadCommand extends Command {
 			"Gets the head of a player.",
 			"<username|uuid> [date] [overlay?]",
 			null,
-			2000,
-			false,
+                false,
 			false,
 			true
 		);

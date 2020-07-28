@@ -20,8 +20,7 @@ public class DemoteCommand extends Command {
 				"delevate",
 				"normie",
 				"badboi"},
-			5000,
-			true,
+                true,
 			true,
 			true
 		);

@@ -22,8 +22,7 @@ public class RecipeCommand extends Command {
 			new String[]{
 				"r",
 				"craft"},
-			2500,
-			false,
+                false,
 			false,
 			true
 		);

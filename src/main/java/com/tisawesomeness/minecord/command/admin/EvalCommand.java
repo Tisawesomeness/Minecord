@@ -39,8 +39,7 @@ public class EvalCommand extends Command {
 			"Evaluates some js code.",
 			"<js code>",
 			new String[]{},
-			0,
-			true,
+                true,
 			true,
 			false
 		);

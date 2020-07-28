@@ -20,8 +20,7 @@ public class IngredientCommand extends Command {
 			"Looks up the recipes containing an ingredient.",
 			"<item name|id>",
 			new String[]{"ingredients"},
-			2500,
-			false,
+                false,
 			false,
 			true
 		);

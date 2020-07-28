@@ -23,8 +23,7 @@ public class CapeCommand extends Command {
 			"Gets the cape of a player.",
 			"<username|uuid> [date]",
 			null,
-			2000,
-			false,
+                false,
 			false,
 			true
 		);

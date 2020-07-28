@@ -18,8 +18,7 @@ public class SalesCommand extends Command {
 			new String[]{
 				"sale",
 				"sales"},
-			2000,
-			false,
+                false,
 			false,
 			true
 		);

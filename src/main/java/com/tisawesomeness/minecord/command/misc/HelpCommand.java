@@ -28,8 +28,7 @@ public class HelpCommand extends Command {
 				"module",
 				"modules",
 				"categories"},
-			0,
-			false,
+				false,
 			false,
 			true
 		);
@@ -140,11 +139,12 @@ public class HelpCommand extends Command {
 				help += "\nAliases: " + aliases;
 			}
 			// If the cooldown is exactly N seconds, treat as int
-			if (ci.cooldown > 0) {
-				if (ci.cooldown % 1000 == 0) {
-					help += String.format("\nCooldown: `%ss`", ci.cooldown / 1000);
+			int cooldown = ci.getCooldown(ctx.config.getCommandConfig());
+			if (cooldown > 0) {
+				if (cooldown % 1000 == 0) {
+					help += String.format("\nCooldown: `%ss`", cooldown / 1000);
 				} else {
-					help += String.format("\nCooldown: `%ss`", ci.cooldown / 1000.0);
+					help += String.format("\nCooldown: `%ss`", cooldown / 1000.0);
 				}
 			}
 			String desc = String.format("%s\nModule: `%s`", help, registry.findModuleName(ci.name));

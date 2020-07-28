@@ -21,8 +21,7 @@ public class SayCommand extends Command {
 			new String[]{
 				"talk",
 				"announce"},
-			0,
-			true,
+                true,
 			true,
 			false
 		);

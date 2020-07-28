@@ -27,8 +27,7 @@ public class UserCommand extends Command {
 			"Shows user info.",
 			"<user>",
 			new String[]{"whois", "userinfo"},
-			0,
-			false,
+                false,
 			false,
 			false
 		);

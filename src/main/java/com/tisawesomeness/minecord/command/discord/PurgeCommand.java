@@ -27,8 +27,7 @@ public class PurgeCommand extends Command {
 				"delet",
 				"prune",
 				"destroy"},
-			5000,
-			false,
+                false,
 			false,
 			true
 		);

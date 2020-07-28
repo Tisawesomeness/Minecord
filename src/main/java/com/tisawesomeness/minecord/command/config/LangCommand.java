@@ -21,7 +21,6 @@ public class LangCommand extends Command {
                 "Display all languages or change the current one.",
                 "[info?] [lang]",
                 new String[]{"langs", "language", "languages", "i18n"},
-                0,
                 false,
                 false,
                 false

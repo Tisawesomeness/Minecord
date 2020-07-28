@@ -14,8 +14,7 @@ public class InviteCommand extends Command {
 			"Invite the bot!",
 			null,
 			null,
-			2000,
-			false,
+				false,
 			false,
 			true
 		);

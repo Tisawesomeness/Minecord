@@ -19,8 +19,7 @@ public class SkinCommand extends Command {
 			"Gets the skin of a player.",
 			"<username|uuid> [date]",
 			null,
-			2000,
-			false,
+                false,
 			false,
 			true
 		);

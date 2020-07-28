@@ -25,8 +25,7 @@ public class GuildCommand extends Command {
 			"Shows guild info.",
 			null,
 			new String[]{"guildinfo"},
-			0,
-			false,
+                false,
 			false,
 			false
 		);

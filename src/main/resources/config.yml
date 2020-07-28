@@ -33,3 +33,58 @@ botLists:
   webhookAuth: "your auth here"
 database:
   path: "./minecord/minecord.db"
+commands:
+  defaultCooldown: 0
+  overrides:
+    avatar:
+      cooldown: 5000
+    body:
+      cooldown: 5000
+    cape:
+      cooldown: 5000
+    head:
+      cooldown: 5000
+    history:
+      cooldown: 5000
+    profile:
+      cooldown: 5000
+    skin:
+      cooldown: 5000
+    uuid:
+      cooldown: 5000
+    codes:
+      cooldown: 1000
+    color:
+      cooldown: 1000
+    status:
+      cooldown: 3000
+    sales:
+      cooldown: 3000
+    item:
+      cooldown: 5000
+    recipe:
+      cooldown: 5000
+    ingredient:
+      cooldown: 5000
+    sha1:
+      cooldown: 500
+    guild:
+      cooldown: 1500
+    role:
+      cooldown: 1500
+    roles:
+      cooldown: 1500
+    user:
+      cooldown: 1500
+    purge:
+      cooldown: 5000
+    settings:
+      cooldown: 3000
+    set:
+      cooldown: 3000
+    reset:
+      cooldown: 3000
+    prefix:
+      cooldown: 3000
+    lang:
+      cooldown: 3000

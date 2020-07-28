@@ -12,7 +12,6 @@ public class ResetCommand extends Command {
                 "Reset the bot's settings.",
                 "<context> <setting>",
                 null,
-                0,
                 false,
                 false,
                 false

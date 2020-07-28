@@ -28,8 +28,7 @@ public class BanCommand extends Command {
 				"strike",
 				"smite"
 			},
-			0,
-			true,
+				true,
 			true,
 			false
 		);

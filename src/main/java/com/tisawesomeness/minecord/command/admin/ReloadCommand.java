@@ -19,8 +19,7 @@ public class ReloadCommand extends Command {
 				"restart",
 				"reboot",
 				"refresh"},
-			0,
-			true,
+                true,
 			true,
 			false
 		);

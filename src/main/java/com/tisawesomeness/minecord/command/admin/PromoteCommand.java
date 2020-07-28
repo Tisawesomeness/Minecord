@@ -19,8 +19,7 @@ public class PromoteCommand extends Command {
 			new String[]{
 				"elevate",
 				"rankup"},
-			5000,
-			true,
+                true,
 			true,
 			true
 		);

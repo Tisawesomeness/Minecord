@@ -16,8 +16,7 @@ public class ColorCommand extends Command {
 			"Look up a color.",
 			"<color>",
 			new String[]{"colour", "colorcode", "colourcode"},
-			1000,
-			false,
+                false,
 			false,
 			true
 		);

@@ -14,8 +14,7 @@ public class ItemCommand extends Command {
 			"Looks up an item.",
 			"<item name|id>",
 			new String[]{"i"},
-			2500,
-			false,
+                false,
 			false,
 			true
 		);

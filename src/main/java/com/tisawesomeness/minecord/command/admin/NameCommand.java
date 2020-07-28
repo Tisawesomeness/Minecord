@@ -21,8 +21,7 @@ public class NameCommand extends Command {
 				"nick",
 				"nickname"
 			},
-			0,
-			true,
+                true,
 			true,
 			false
 		);

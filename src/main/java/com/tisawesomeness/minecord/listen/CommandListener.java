@@ -135,12 +135,13 @@ public class CommandListener extends ListenerAdapter {
 		}
 		
 		// Check for cooldowns, skipping if user is elevated
+		int cooldown = ci.getCooldown(config.getCommandConfig());
 		if (!(fc.isElevatedSkipCooldown() && isElevated)
-				&& cmd.cooldowns.containsKey(a) && ci.cooldown > 0) {
+				&& cmd.cooldowns.containsKey(a) && cooldown > 0) {
 			long last = cmd.cooldowns.get(a);
-			if (System.currentTimeMillis() - ci.cooldown < last) {
+			if (System.currentTimeMillis() - cooldown < last) {
 				// Format warning message
-				long time = (long) ci.cooldown + last - System.currentTimeMillis();
+				long time = (long) cooldown + last - System.currentTimeMillis();
 				String seconds = String.valueOf(time);
 				while (seconds.length() < 4) {
 					seconds = "0" + seconds;

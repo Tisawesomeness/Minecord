@@ -21,8 +21,7 @@ public class RoleCommand extends Command {
 			"Shows role info.",
 			"<role>",
 			new String[]{"roleinfo"},
-			0,
-			false,
+                false,
 			false,
 			false
 		);

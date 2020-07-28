@@ -23,8 +23,7 @@ public class RolesCommand extends Command {
 			"List a user's roles.",
 			"<user>",
 			null,
-			0,
-			false,
+                false,
 			false,
 			false
 		);

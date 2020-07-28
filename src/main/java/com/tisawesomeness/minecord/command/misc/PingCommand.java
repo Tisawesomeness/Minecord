@@ -11,8 +11,7 @@ public class PingCommand extends Command {
 			"Pings the bot.",
 			null,
 			null,
-			0,
-			true,
+                true,
 			false,
 			false
 		);

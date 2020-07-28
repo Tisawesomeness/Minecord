@@ -19,8 +19,7 @@ public class StatusCommand extends Command {
 			"Checks the status of Mojang servers.",
 			null,
 			null,
-			2000,
-			false,
+                false,
 			false,
 			true
 		);

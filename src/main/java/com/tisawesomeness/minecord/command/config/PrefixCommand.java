@@ -14,8 +14,7 @@ public class PrefixCommand extends Command {
 			new String[]{
 				"resetprefix",
 				"changeprefix"},
-			5000,
-			true,
+                true,
 			false,
 			true
 		);

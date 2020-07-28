@@ -18,8 +18,7 @@ public class ColorShortcut extends Command {
 			"Look up a color code.",
 			null,
 			null,
-			1000,
-			true,
+                true,
 			false,
 			true
 		);

@@ -35,8 +35,7 @@ public class ServerCommand extends Command {
 			"Fetches the stats of a server.",
 			"<address>[:port]",
 			new String[]{"s"},
-			2000,
-			false,
+                false,
 			false,
 			true
 		);

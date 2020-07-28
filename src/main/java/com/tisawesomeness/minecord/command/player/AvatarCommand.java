@@ -20,8 +20,7 @@ public class AvatarCommand extends Command {
 			"Gets the avatar of a player.",
 			"<username|uuid> [date] [overlay?]",
 			null,
-			2000,
-			false,
+                false,
 			false,
 			true
 		);

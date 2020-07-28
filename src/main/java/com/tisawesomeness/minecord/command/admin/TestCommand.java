@@ -11,8 +11,7 @@ public class TestCommand extends Command {
 			"Test command.",
 			null,
 			null,
-			5000,
-			true,
+                true,
 			true,
 			true
 		);

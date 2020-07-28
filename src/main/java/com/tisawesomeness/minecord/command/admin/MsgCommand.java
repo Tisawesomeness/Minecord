@@ -22,8 +22,7 @@ public class MsgCommand extends Command {
 				"dm",
 				"tell",
 				"pm"},
-			0,
-			true,
+                true,
 			true,
 			false
 		);

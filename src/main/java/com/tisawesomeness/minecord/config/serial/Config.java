@@ -39,6 +39,8 @@ public class Config {
     BotListConfig botListConfig;
     @JsonProperty("database")
     DatabaseConfig databaseConfig;
+    @JsonProperty("commands")
+    CommandConfig commandConfig;
 
     /**
      * Checks if this config is valid.

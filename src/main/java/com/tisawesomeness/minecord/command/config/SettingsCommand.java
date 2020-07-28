@@ -13,7 +13,6 @@ public class SettingsCommand extends Command {
                 "Show all the bot's settings and their current values.",
                 "[context/list]",
                 new String[]{"config", "conf"},
-                0,
                 false,
                 false,
                 false

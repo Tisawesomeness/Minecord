@@ -12,8 +12,7 @@ public class Sha1Command extends Command {
 			"Computes the sha1 hash of some text.",
 			"<text>",
 			new String[]{"sha", "hash"},
-			500,
-			false,
+                false,
 			false,
 			true
 		);

@@ -16,8 +16,7 @@ public class CodesCommand extends Command {
 			new String[]{
 				"code",
 				"chat"},
-			1000,
-			false,
+                false,
 			false,
 			true
 		);
