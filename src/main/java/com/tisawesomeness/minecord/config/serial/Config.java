@@ -50,6 +50,7 @@ public class Config {
         return Verification.combineAll(
                 verifyShards(),
                 presenceConfig.verify(),
+                settingsConfig.verify(),
                 botListConfig.verify()
         );
     }

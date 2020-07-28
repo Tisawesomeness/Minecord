@@ -5,6 +5,7 @@ import com.tisawesomeness.minecord.database.dao.SettingContainer;
 import com.tisawesomeness.minecord.setting.Setting;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.type.Validation;
+import com.tisawesomeness.minecord.util.type.Verification;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -72,48 +73,51 @@ public class PrefixSetting extends Setting<String> {
      * Legal symbols: {@code !$%^&-=+;',./{}"<>?}.
      */
     public Validation<String> resolve(@NonNull String input) {
+        return verify(input).toValidation(input);
+    }
+    public static Verification verify(String input) {
         // The mention "@a" is 18 characters long when sent to discord
         // Telling the user the prefix is too long, or other errors, would be confusing
         if (DiscordUtils.ANY_MENTION.matcher(input).find()) {
-            return Validation.invalid("The prefix cannot contain user/channel/role mentions or emojis.");
+            return Verification.invalid("The prefix cannot contain user/channel/role mentions or emojis.");
         }
         if ("unset".equalsIgnoreCase(input)) {
-            return Validation.invalid("The prefix cannot be literally `unset`.");
+            return Verification.invalid("The prefix cannot be literally `unset`.");
         }
-        return Validation.combineAll(
-                validateLength(input),
-                validateEndNotLetter(input),
-                validateLegalChars(input),
-                validatePattern(input, DISCORD_CONFLICT_PATTERN, DISCORD_CONFLICT_ERROR),
-                validatePattern(input, STRIKETHROUGH_CONFLICT_PATTERN, STRIKETHROUGH_CONFLICT_ERROR),
-                validatePattern(input, SPOILER_CONFLICT_PATTERN, SPOILER_CONFLICT_ERROR));
+        return Verification.combineAll(
+                verifyLength(input),
+                verifyEndNotLetter(input),
+                verifyLegalChars(input),
+                verifyPattern(input, DISCORD_CONFLICT_PATTERN, DISCORD_CONFLICT_ERROR),
+                verifyPattern(input, STRIKETHROUGH_CONFLICT_PATTERN, STRIKETHROUGH_CONFLICT_ERROR),
+                verifyPattern(input, SPOILER_CONFLICT_PATTERN, SPOILER_CONFLICT_ERROR));
     }
-    private static Validation<String> validateLength(String input) {
+    private static Verification verifyLength(String input) {
         if (input.length() > MAX_LENGTH) {
-            return Validation.invalid(String.format("The prefix must be %s or fewer characters.", MAX_LENGTH));
+            return Verification.invalid(String.format("The prefix must be %s or fewer characters.", MAX_LENGTH));
         }
-        return Validation.valid(input);
+        return Verification.valid();
     }
-    private static Validation<String> validateLegalChars(String input) {
-        for (char c : input.toCharArray()) {
-            if (c < '!' || '~' < c) {
-                return Validation.invalid("The prefix can only contain letters, numbers, and keyboard symbols.");
-            }
-        }
-        return Validation.valid(input);
-    }
-    private static Validation<String> validatePattern(String input, Pattern pattern, String error) {
-        if (pattern.matcher(input).find()) {
-            return Validation.invalid(error);
-        }
-        return Validation.valid(input);
-    }
-    private static Validation<String> validateEndNotLetter(String input) {
+    private static Verification verifyEndNotLetter(String input) {
         char lastChar = input.charAt(input.length() - 1);
         if (Character.isLetter(lastChar)) {
-            return Validation.invalid(ENDS_WITH_LETTER_ERROR);
+            return Verification.invalid(ENDS_WITH_LETTER_ERROR);
         }
-        return Validation.valid(input);
+        return Verification.valid();
+    }
+    private static Verification verifyLegalChars(String input) {
+        for (char c : input.toCharArray()) {
+            if (c < '!' || '~' < c) {
+                return Verification.invalid("The prefix can only contain letters, numbers, and keyboard symbols.");
+            }
+        }
+        return Verification.valid();
+    }
+    private static Verification verifyPattern(String input, Pattern pattern, String error) {
+        if (pattern.matcher(input).find()) {
+            return Verification.invalid(error);
+        }
+        return Verification.valid();
     }
 
     public Optional<String> get(@NonNull SettingContainer obj) {

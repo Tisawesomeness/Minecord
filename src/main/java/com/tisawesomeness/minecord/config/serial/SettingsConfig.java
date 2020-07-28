@@ -1,6 +1,8 @@
 package com.tisawesomeness.minecord.config.serial;
 
 import com.tisawesomeness.minecord.Lang;
+import com.tisawesomeness.minecord.setting.impl.PrefixSetting;
+import com.tisawesomeness.minecord.util.type.Verification;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Value;
@@ -16,4 +18,8 @@ public class SettingsConfig {
     Lang defaultLang;
     @JsonProperty("defaultUseMenus")
     boolean defaultUseMenus;
+
+    public Verification verify() {
+        return PrefixSetting.verify(defaultPrefix);
+    }
 }
