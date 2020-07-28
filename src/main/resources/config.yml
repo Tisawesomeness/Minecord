@@ -1,27 +1,95 @@
+####################################################
+#       Welcome to the Minecord config file!       #
+####################################################
+
+
+# Hope you enjoy self-hosting.
+# To start the bot, all you need to edit is the token,
+# but of course you can also configure everything else.
+#
+# To get user/channel/guild IDs:
+# - Go to User Settings in Discord
+# - Click "Appearance"
+# - Turn on Developer Mode
+# - You can now right click to get IDs
+#
+# For help, check out these resources:
+# GitHub: https://github.com/Tisawesomeness/Minecord
+# Support Server: https://minecord.github.io/support
+#
+# Pull requests are welcome!
+# If you make changes, we would love for you to contribute them
+# to the main bot so everyone else can enjoy them too.
+#
+# Remember that Minecord uses the GNU GPL-3 license,
+# so if you make changes on a public self-hosted bot, you must make it open source.
+# https://github.com/Tisawesomeness/Minecord/blob/refactor/LICENSE
+#
+# Keeping the above in mind, run wild!
+# Let's make Minecord the ultimate Minecraft assistant.
+
+
+# Create a Discord application in the link below and put the token here
+# https://discord.com/developers/applications
+# ---> KEEP THIS TOKEN SECRET! <---
+# If your token leaks, other people can control the bot!
 token: "your token here"
+
+# The number of shards (separate connections) to Discord
+# Just 1 should be enough for self-hosters
 shardCount: 1
+# A list of user IDs that will be recognized as owners
+# Owners are elevated on startup, can't be demoted, and can't be banned
+# Only put people here you absolutely trust
 owners:
-- 211261249386709000
+- 211261249386709000 # Tis_awesomeness#8617
+# Bot log messages will be sent to this channel
 logChannelId: 0
+# The bot invite link displayed in &invite and elsewhere
 inviteLink: "https://minecord.github.io/invite"
+
 presence:
+  # How often bot presences switch in seconds, set to -1 to update on guild join/leave
   changeInterval: 60
+  # Determines how to switch presences, which can be:
+  # - CYCLE: go through each presence in order
+  # - RANDOM: randomly pick a presence with duplicates
+  # - RANDOM_UNIQUE: randomly pick a presence without duplicates
   behavior: RANDOM
+  # A list of presences to change between
+  # All require a status, which is ONLINE, IDLE, DO_NOT_DISTURB, or INVISIBLE
+  # Type is optional, which can be PLAYING, STREAMING, or LISTENING
+  # If type is defined, content is the text that displays ("playing <content>")
   presences:
   - status: ONLINE
     type: PLAYING
     content: "@Minecord help | {guilds} guilds"
+    url: "https://example.com/url-that-only-displays-when-type-is-STREAMING.php"
+
 settings:
+  # The prefix for every command, default is "&" on the main bot
   defaultPrefix: ">&"
+  # The default lang used for user commands, admin commands and console messages are not translated
+  # Current languages: en_US, de_DE, pt_BR
   defaultLang: en_US
+  # Whether &recipe and &ingredient create a reaction menu
   defaultUseMenus: true
+
 flags:
+  # Collects extra debug information and enables &debug, but makes the bot slower
   debugMode: true
+  # If true, announcements from announce.json will be put in the footer of all embeds
   useAnnouncements: false
+  # Highly recommended to be true, whether the bot responds to "@Minecord command"
   respondToMentions: true
+  # Currently bugged, sorry (best to leave this disabled)
   sendTyping: false
+  # Whether &info shows memory usage and boot time (&info admin will always show these)
   showExtraInfo: false
+  # Whether elevated users skip command cooldowns
   elevatedSkipCooldown: true
+
+# Do not post a self-hosted version of Minecord to a bot list
 botLists:
   sendServerCount: false
   sendGuildsInterval: 60
@@ -31,10 +99,15 @@ botLists:
   webhookUrl: "your URL here"
   webhookPort: 8000
   webhookAuth: "your auth here"
+
 database:
+  # The path to the SQLite database file
   path: "./minecord/minecord.db"
+
 commands:
+  # The default cooldown, in miliseconds, users must wait before using the same command agian
   defaultCooldown: 0
+  # Cooldowns for individual commands can be overridden here
   overrides:
     avatar:
       cooldown: 5000
