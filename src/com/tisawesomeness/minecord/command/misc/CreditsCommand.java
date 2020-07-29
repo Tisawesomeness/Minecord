@@ -25,7 +25,7 @@ public class CreditsCommand extends Command {
     private String devs = MarkdownUtil.maskedLink("Tis_awesomeness#8617", "https://github.com/Tisawesomeness") + " - Main Dev\n" +
         MarkdownUtil.maskedLink("jbs#6969", "https://github.com/lordjbs") + " - Developer\n" +
         MarkdownUtil.maskedLink("samueldcs#4675", "https://github.com/samueldcs") + " - Made the Website\n" +
-        MarkdownUtil.maskedLink("DJ Electro#1677", "https://github.com/Electromaster232") + " - Helped with Git once";
+        MarkdownUtil.maskedLink("DJ Electro#1677", "https://github.com/Electromaster232") + " - Supplied Hosting";
     
     private String contrib = MarkdownUtil.maskedLink("Contribute on GitHub", Bot.github) + "\n" +
         MarkdownUtil.maskedLink("Suggest features here", Bot.helpServer);
@@ -38,6 +38,8 @@ public class CreditsCommand extends Command {
             MarkdownUtil.maskedLink("Optifine", "https://optifine.net") + ", " +
             MarkdownUtil.maskedLink("LabyMod", "https://www.labymod.net") + ", " +
             MarkdownUtil.maskedLink("MinecraftCapes", "https://www.minecraftcapes.co.uk");
+    
+    private String host = "The public bot is proudly hosted by " + MarkdownUtil.maskedLink("Endless Hosting", "https://theendlessweb.com/")+ ".\n";
 
     public Result run(String[] args, MessageReceivedEvent e) throws Exception {
         EmbedBuilder eb = new EmbedBuilder()
@@ -47,6 +49,7 @@ public class CreditsCommand extends Command {
             .addField("Developers", devs, true)
             .addField("Contribute", contrib, true)
             .addField("APIs Used", apis, false)
+            .addField("Hosting", host, false)
             .setFooter("Website: " + Bot.website);
         return new Result(Outcome.SUCCESS, eb.build());
     }
