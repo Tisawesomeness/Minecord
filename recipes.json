@@ -2370,6 +2370,27 @@
       }
     }
   },
+  "brewing_stand_from_blackstone": {
+    "result": {
+      "item": "minecraft:brewing_stand"
+    },
+    "pattern": [
+      " B ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "B": {
+        "item": "minecraft:blaze_rod"
+      },
+      "#": {
+        "item": "minecraft:blackstone"
+      }
+    },
+    "properties": {
+      "version": "1.16.2"
+    }
+  },
   "brick": {
     "result": "minecraft:brick",
     "ingredient": {

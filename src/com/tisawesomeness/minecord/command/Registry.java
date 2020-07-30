@@ -55,6 +55,7 @@ public class Registry {
 			new ColorShortcut(colorCmd, "e"),
 			new ColorShortcut(colorCmd, "f"),
 			new ServerCommand(),
+			new ShadowCommand(),
 			new Sha1Command(),
 			new ItemCommand(),
 			new RecipeCommand(),

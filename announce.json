@@ -4,11 +4,15 @@
         "weight": 16
     },
     {
+        "text": "Proudly hosted by Endless Hosting.",
+        "weight": 5
+    },
+    {
         "text": "Join the help server at {help_server}",
-        "weight": 3
+        "weight": 2
     },
     {
         "text": "Invite me to your server! {invite}",
-        "weight": 1
+        "weight": 2
     }
 ]
