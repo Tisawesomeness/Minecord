@@ -19,10 +19,14 @@ import java.nio.file.Path;
 
 public class ConfigReader {
     private static final YAMLFactory factory = new YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER);
-    private static final ObjectMapper mapper = JsonMapper.builder(factory)
-            .defaultSetterInfo(JsonSetter.Value.forValueNulls(Nulls.FAIL))
-            .enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS)
-            .build();
+    private static final ObjectMapper mapper = buildMapper();
+
+    public static ObjectMapper buildMapper() {
+        return JsonMapper.builder(factory)
+                .defaultSetterInfo(JsonSetter.Value.forValueNulls(Nulls.FAIL))
+                .enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS)
+                .build();
+    }
 
     public static Config read(Path path) {
         Config config;
