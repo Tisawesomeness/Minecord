@@ -67,6 +67,10 @@ public class CommandContext {
      * The current language. Use {@link #i18n(String)} as a shortcut for {@link Lang#i18n(String) lang.get(String)}.
      */
     public final @NonNull Lang lang;
+    /**
+     * The current locale, used in formatters.
+     */
+    public final @NonNull Locale locale;
     // These settings are only used occasionally, it's best to pass the setting and evaluate when needed
     private final @NonNull UseMenusSetting useMenusSetting;
 
@@ -81,6 +85,7 @@ public class CommandContext {
         this.isElevated = isElevated;
         this.prefix = prefix;
         this.lang = lang;
+        locale = lang.getLocale();
         useMenusSetting = settings.useMenus;
     }
 

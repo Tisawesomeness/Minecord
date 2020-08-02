@@ -51,7 +51,8 @@ public class ServerCommand extends AbstractUtilityCommand {
 		if (!arg.matches(ipAddressRegex)) {
 			ip = false;
 			if (!arg.matches(serverAddressRegex)) {
-				return new Result(Outcome.WARNING, ":warning: That is not a valid server address.");
+				String warn = ctx.i18nf("invalidAddress", Outcome.WARNING.getEmote());
+				return new Result(Outcome.WARNING, warn);
 			}
 		}
 		
@@ -75,43 +76,52 @@ public class ServerCommand extends AbstractUtilityCommand {
 			MCPingOptions options = MCPingOptions.builder().hostname(hostname).port(port).build();
 			reply = MCPing.getPing(options);
 		} catch (IOException ignore) {
-			return new Result(Outcome.WARNING, ":warning: The server is down or unreachable.\nDid you spell it correctly?");
+			String warn = ctx.i18nf("unreachable", Outcome.WARNING.getEmote());
+			return new Result(Outcome.WARNING, warn);
 		}
+		MCPingResponse.Players players = reply.getPlayers();
 
 		String address = port == 25565 ? hostname : hostname + ":" + port;
 		String version = reply.getVersion().getName().replaceAll(chatCodeRegex, "");
-		String playerInfo = reply.getPlayers().getOnline() + "/" + reply.getPlayers().getMax();
+		String playerInfo = ctx.i18nf("playerCount", players.getOnline(), players.getMax());
 		String motd = MarkdownSanitizer.escape(reply.getDescription().getStrippedText());
-		List<Player> sample = reply.getPlayers().getSample();
-		
-		// Build and format message
-		String m = isBlocked(arg, ip) ? "**BLOCKED BY MOJANG**\n" : "";
-		m = "**Address:** " + address +
-			"\n" + "**Version:** " + version +
-			"\n" + "**Players:** " + playerInfo +
-			"\n" + "**MOTD:** " + motd;
-		if (sample != null && sample.size() > 0) {
+		List<Player> sample = players.getSample();
+
+		EmbedBuilder eb = ctx.brand(new EmbedBuilder())
+				.setTitle(ctx.i18nf("title", address))
+				.addField(ctx.i18n("version"), version, true)
+				.addField(ctx.i18n("players"), playerInfo, true)
+				.addField(ctx.i18n("motd"), motd, false);
+
+		if (sample != null && !sample.isEmpty()) {
 			String sampleStr = sample.stream()
-				.map(p -> MCPingUtil.stripColors(p.getName()))
-				.collect(Collectors.joining("\n"));
-			m += "\n\n" + sampleStr;
+					.map(p -> MCPingUtil.stripColors(p.getName()))
+					.collect(Collectors.joining("\n"));
+			eb.addField(ctx.i18n("sample"), sampleStr, false);
 		}
 
-		// Upload favicon as byte array
-		EmbedBuilder eb = ctx.brand(new EmbedBuilder().setTitle("Server Status"));
-		if (reply.getFavicon() == null) {
-			eb.setDescription(m);
-		} else {
+		StringBuilder sb = eb.getDescriptionBuilder();
+		if (isBlocked(arg, ip)) {
+			sb.append(ctx.i18n("blocked"));
+		}
+
+		if (reply.getFavicon() != null) {
 			try {
-				byte[] data = Base64.getDecoder().decode(reply.getFavicon().replace("\n", "").split(",")[1]);
-				ctx.e.getChannel().sendFile(data, "favicon.png").embed(eb.setDescription(m).setThumbnail("attachment://favicon.png").build()).queue();
+				String b64String = reply.getFavicon().replace("\n", "").split(",")[1];
+				byte[] data = Base64.getDecoder().decode(b64String);
+				eb.setThumbnail("attachment://favicon.png");
+				ctx.e.getChannel().sendFile(data, "favicon.png").embed(eb.build()).queue();
 				return new Result(Outcome.SUCCESS);
 			} catch (IllegalArgumentException ex) {
 				ex.printStackTrace();
-				eb.setDescription(m + "\n:x: Server returned an invalid icon.");
+				if (sb.length() > 0) {
+					sb.append("\n");
+				}
+				sb.append(ctx.i18n("invalidIcon"));
 			}
 		}
 		return new Result(Outcome.SUCCESS, eb.build());
+
 	}
 	
 	// Checks if a server is blocked by Mojang
@@ -119,7 +129,6 @@ public class ServerCommand extends AbstractUtilityCommand {
 		server = server.toLowerCase();
 		if (blockedServers.contains(RequestUtils.sha1(server))) return true;
 		if (ip) {
-			System.out.println("> " + server);
 			int i = server.lastIndexOf('.');
 			while (i >= 0) {
 				if (blockedServers.contains(RequestUtils.sha1(server.substring(0, i + 1) + ".*"))) return true;
