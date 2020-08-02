@@ -74,7 +74,6 @@ public class LangCommand extends AbstractConfigCommand {
                 .setTitle("Language Info for " + l.getLocale().getDisplayName() + " " + l.getFlagEmote());
         eb.getDescriptionBuilder()
                 .append("Language Code: `").append(l.getCode()).append("`\n")
-                .append("% Complete: `").append(l.getPercentComplete()).append("%`\n")
                 .append("Supports Messages?: ").append(emote(l.isBotStringsSupported())).append("\n")
                 .append("Has Command Aliases?: ").append(emote(l.isCommandAliasSupported())).append("\n")
                 .append("Supports Minecraft Items?: ").append(emote(l.isItemsSupported())).append("\n")

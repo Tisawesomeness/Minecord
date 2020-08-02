@@ -15,14 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class LangTest {
 
     @Test
-    @DisplayName("Lang resources load properly")
-    public void testLang() {
-        String key = "lang.countryName";
-        assertEquals("USA", Lang.EN_US.i18n(key));
-        assertEquals("Germany", Lang.DE_DE.i18n(key));
-        assertEquals("Brazil", Lang.PT_BR.i18n(key));
-    }
-    @Test
     @DisplayName("The default lang is not in development")
     public void testDefaultLang() {
         assertFalse(Lang.getDefault().isInDevelopment());

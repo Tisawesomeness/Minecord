@@ -26,10 +26,6 @@ public enum Lang {
     @Getter private final @NonNull Locale locale;
 
     /**
-     * An estimate of how complete the language is.
-     */
-    @Getter private final int percentComplete;
-    /**
      * Whether this lang changes the text used in the output of commands.
      */
     @Getter private final boolean botStringsSupported;
@@ -59,11 +55,6 @@ public enum Lang {
         this.locale = locale;
 
         resource = ResourceBundle.getBundle("lang", locale);
-        percentComplete = Integer.parseInt(resource.getString("lang.percentComplete"));
-        if (percentComplete < 0 || percentComplete > 100) {
-            throw new IllegalArgumentException(
-                    "\"lang.percentComplete\" in " + locale.getDisplayName() + "must be an integer between 0-100.");
-        }
         botStringsSupported = getBool("lang.botStringsSupported");
         commandAliasSupported = getBool("lang.commandAliasSupported");
         itemsSupported = getBool("lang.itemsSupported");
