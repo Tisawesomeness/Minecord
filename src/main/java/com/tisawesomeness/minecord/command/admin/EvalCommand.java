@@ -49,7 +49,7 @@ public class EvalCommand extends AbstractAdminCommand {
 		
 		// Parse args
 		if (ctx.args.length == 0) {
-			return new Result(Outcome.WARNING, "Missing code argument.");
+			return ctx.showHelp();
 		}
 		
 		// Javascript engine with JDA, event and config variables.

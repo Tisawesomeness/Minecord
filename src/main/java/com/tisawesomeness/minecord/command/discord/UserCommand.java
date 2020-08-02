@@ -87,7 +87,7 @@ public class UserCommand extends AbstractDiscordCommand {
 
         // Check for argument length
         if (args.length == 0) {
-            return new Result(Outcome.WARNING, ":warning: You must specify a user!");
+            return ctx.showHelp();
         }
         
         // Find user

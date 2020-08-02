@@ -29,7 +29,7 @@ public class MsgCommand extends AbstractAdminCommand {
 		
 		//Check for proper argument length
 		if (args.length < 2) {
-			return new Result(Outcome.WARNING, ":warning: Please specify a message.");
+			return ctx.showHelp();
 		}
 		
 		//Extract user

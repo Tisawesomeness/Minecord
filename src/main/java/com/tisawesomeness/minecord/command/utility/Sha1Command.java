@@ -20,7 +20,7 @@ public class Sha1Command extends AbstractUtilityCommand {
 
     public Result run(CommandContext ctx) {
         if (ctx.args.length == 0) {
-            return new Result(Outcome.WARNING, ":warning: You must specify some text to hash.");
+            return ctx.showHelp();
         }
         return new Result(Outcome.SUCCESS, RequestUtils.sha1(String.join(" ", ctx.args)));
     }

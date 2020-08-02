@@ -177,7 +177,8 @@ public class CommandListener extends ListenerAdapter {
 		}
 		
 		// Run command
-		CommandContext ctx = new CommandContext(args, e, bot, config, isElevated, prefix, lang, bot.getSettings());
+		CommandContext ctx = new CommandContext(
+				args, e, config, bot, cmd, isElevated, prefix, lang, bot.getSettings());
 		Result result = null;
 		Exception exception = null;
 		cmd.cooldowns.put(a, System.currentTimeMillis());

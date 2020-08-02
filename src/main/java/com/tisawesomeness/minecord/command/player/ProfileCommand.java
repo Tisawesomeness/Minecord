@@ -33,10 +33,7 @@ public class ProfileCommand extends AbstractPlayerCommand {
 		
 		// No arguments message
 		if (ctx.args.length == 0) {
-			String m = ":warning: Incorrect arguments." +
-				"\n" + ctx.prefix + "profile <username|uuid> [date] " +
-				"\n" + DateUtils.dateHelp;
-			return new Result(Outcome.WARNING, m);
+			return ctx.showHelp();
         }
 
 		// UUID --> Username

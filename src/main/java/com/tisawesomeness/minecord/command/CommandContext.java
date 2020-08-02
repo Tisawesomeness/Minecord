@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.command;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Lang;
+import com.tisawesomeness.minecord.command.misc.HelpCommand;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.database.dao.DbChannel;
@@ -50,6 +51,10 @@ public class CommandContext {
      */
     public final @NonNull Bot bot;
     /**
+     * The original command that created this context
+     */
+    public final @NonNull Command cmd;
+    /**
      * Whether the user executing the command is elevated.
      */
     public final boolean isElevated;
@@ -65,13 +70,14 @@ public class CommandContext {
     // These settings are only used occasionally, it's best to pass the setting and evaluate when needed
     private final @NonNull UseMenusSetting useMenusSetting;
 
-    public CommandContext(@NonNull String[] args, @NonNull MessageReceivedEvent e, @NonNull Bot bot,
-                          @NonNull Config config, boolean isElevated, @NonNull String prefix, @NonNull Lang lang,
-                          @NonNull SettingRegistry settings) {
+    public CommandContext(@NonNull String[] args, @NonNull MessageReceivedEvent e, @NonNull Config config,
+                          @NonNull Bot bot, @NonNull Command cmd, boolean isElevated,
+                          @NonNull String prefix, @NonNull Lang lang, @NonNull SettingRegistry settings) {
         this.args = args;
         this.e = e;
         this.config = config;
         this.bot = bot;
+        this.cmd = cmd;
         this.isElevated = isElevated;
         this.prefix = prefix;
         this.lang = lang;
@@ -270,6 +276,14 @@ public class CommandContext {
      */
     public EmbedBuilder brand(EmbedBuilder eb) {
         return addFooter(eb).setColor(Bot.color);
+    }
+
+    /**
+     * Creates an embed with the current command's help.
+     * @return Success
+     */
+    public Command.Result showHelp() {
+        return HelpCommand.showHelp(this, cmd);
     }
 
 }

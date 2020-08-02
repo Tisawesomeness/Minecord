@@ -28,7 +28,7 @@ public class NameCommand extends AbstractAdminCommand {
 		
 		//Check for proper argument length
 		if (args.length < 1) {
-			return new Result(Outcome.WARNING, ":warning: Please specify a guild.");
+			return ctx.showHelp();
 		}
 		
 		//Get guild

@@ -24,7 +24,7 @@ public class ColorCommand extends AbstractUtilityCommand {
     public Result run(CommandContext ctx) {
 
         if (ctx.args.length == 0) {
-            return new Result(Outcome.WARNING, ":warning: You must specify a color.");
+            return ctx.showHelp();
         }
 
         Color c = ColorUtils.parseColor(String.join(" ", ctx.args), "en_US");

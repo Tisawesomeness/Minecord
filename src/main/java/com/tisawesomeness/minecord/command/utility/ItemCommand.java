@@ -22,7 +22,7 @@ public class ItemCommand extends AbstractUtilityCommand {
 	public Result run(CommandContext ctx) {
 		// Check for argument length
 		if (ctx.args.length == 0) {
-			return new Result(Outcome.WARNING, ":warning: You must specify an item!");
+			return ctx.showHelp();
 		}
 		
 		// Search through the item database

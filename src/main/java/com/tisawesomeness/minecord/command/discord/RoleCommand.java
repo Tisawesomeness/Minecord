@@ -30,6 +30,10 @@ public class RoleCommand extends AbstractDiscordCommand {
         String[] args = ctx.args;
         MessageReceivedEvent e = ctx.e;
 
+        if (args.length == 0) {
+            return ctx.showHelp();
+        }
+
         // Find role
         Role role = null;
         List<Role> roles = e.getGuild().getRoles();

@@ -32,7 +32,7 @@ public class CapeCommand extends AbstractPlayerCommand {
 
 		// No arguments message
 		if (ctx.args.length == 0) {
-			return new Result(Outcome.WARNING, ":warning: You must specify a player.");
+			return ctx.showHelp();
 		}
 
 		// Get playername

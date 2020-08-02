@@ -98,36 +98,48 @@ public class HelpCommand extends AbstractMiscCommand {
 				return new Result(Outcome.WARNING, ":warning: You do not have permission to view that command.");
 			}
 			// Admin check
-			String help;
 			String tag = ctx.e.getJDA().getSelfUser().getAsMention();
-			if (args.length > 1 && args[1].equals("admin")) {
-				help = c.getAdminHelp(lang, prefix, tag);
-			} else {
-				help = c.getHelp(lang, prefix, tag);
+			if (args.length > 1 && "admin".equals(args[1])) {
+				return showHelpInternal(ctx, c, c.getAdminHelp(lang, prefix, tag));
 			}
-			help += "\n";
-			// Alias list formatted with prefix in code blocks
-			if (!c.getAliases(lang).isEmpty()) {
-				String aliases = c.getAliases(lang).stream()
-					.map(s -> String.format("`%s%s`", prefix, s))
-					.collect(Collectors.joining(", "));
-				help += "\nAliases: " + aliases;
-			}
-			// If the cooldown is exactly N seconds, treat as int
-			int cooldown = c.getCooldown(ctx.config.getCommandConfig());
-			if (cooldown > 0) {
-				if (cooldown % 1000 == 0) {
-					help += String.format("\nCooldown: `%ss`", cooldown / 1000);
-				} else {
-					help += String.format("\nCooldown: `%ss`", cooldown / 1000.0);
-				}
-			}
-			String desc = String.format("%s\nModule: `%s`", help, c.getModule().getDisplayName(lang));
-			eb.setAuthor(prefix + c.getDisplayName(lang) + " Help").setDescription(desc);
-			return new Result(Outcome.SUCCESS, eb.build());
+			return showHelp(ctx, c);
 		}
 		
 		return new Result(Outcome.WARNING, ":warning: That command or module does not exist.");
+	}
+
+	public static Result showHelp(CommandContext ctx, Command c) {
+		String tag = ctx.e.getJDA().getSelfUser().getAsMention();
+		return showHelpInternal(ctx, c, c.getHelp(ctx.lang, ctx.prefix, tag));
+	}
+
+	private static Result showHelpInternal(CommandContext ctx, Command c, String help) {
+		EmbedBuilder eb = ctx.brand(new EmbedBuilder());
+		String prefix = ctx.prefix;
+		Lang lang = ctx.lang;
+
+		help += "\n";
+		// Alias list formatted with prefix in code blocks
+		if (!c.getAliases(lang).isEmpty()) {
+			String aliases = c.getAliases(lang).stream()
+					.map(s -> String.format("`%s%s`", prefix, s))
+					.collect(Collectors.joining(", "));
+			help += "\nAliases: " + aliases;
+		}
+		// If the cooldown is exactly N seconds, treat as int
+		int cooldown = c.getCooldown(ctx.config.getCommandConfig());
+		if (cooldown > 0) {
+			help += getCooldownString(cooldown);
+		}
+		String desc = String.format("%s\nModule: `%s`", help, c.getModule().getDisplayName(lang));
+		eb.setAuthor(prefix + c.getDisplayName(lang) + " Help").setDescription(desc);
+		return new Result(Outcome.SUCCESS, eb.build());
+	}
+	private static String getCooldownString(int cooldown) {
+		if (cooldown % 1000 == 0) {
+			return String.format("\nCooldown: `%ss`", cooldown / 1000);
+		}
+		return String.format("\nCooldown: `%ss`", cooldown / 1000.0);
 	}
 
 }

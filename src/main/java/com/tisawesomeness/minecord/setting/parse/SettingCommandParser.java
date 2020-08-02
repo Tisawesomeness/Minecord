@@ -30,7 +30,7 @@ public class SettingCommandParser extends SettingCommandHandler {
             if (type == SettingCommandType.QUERY) {
                 return displaySettings("Currently Active Settings", s -> s.getDisplay(ctx));
             }
-            return new Command.Result(Command.Outcome.WARNING, ":warning: You must specify a context.");
+            return ctx.showHelp();
         }
         return parseAdminArg();
     }

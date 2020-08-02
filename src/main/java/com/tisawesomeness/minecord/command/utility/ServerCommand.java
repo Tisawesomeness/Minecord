@@ -44,9 +44,7 @@ public class ServerCommand extends AbstractUtilityCommand {
 		
 		// Parse arguments
 		if (ctx.args.length == 0) {
-			String m = ":warning: You must specify a server." +
-				"\n" + ctx.prefix + "server <address>[:port]";
-			return new Result(Outcome.WARNING, m);
+			return ctx.showHelp();
 		}
 		String arg = ctx.args[0];
 		boolean ip = true;

@@ -27,6 +27,11 @@ public class IngredientCommand extends AbstractUtilityCommand {
 	public Result run(CommandContext ctx)  {
 		String[] args = ctx.args;
 
+		// Check for argument length
+		if (args.length == 0) {
+			return ctx.showHelp();
+		}
+
 		// Parse page number
 		int page = 0;
 		if (args.length > 1) {
@@ -34,11 +39,6 @@ public class IngredientCommand extends AbstractUtilityCommand {
 				page = Integer.valueOf(args[args.length - 1]) - 1;
 				args = Arrays.copyOf(args, args.length - 1);
 			}
-		}
-
-		//Check for argument length
-		if (args.length == 0) {
-			return new Result(Outcome.WARNING, ":warning: You must specify an item!");
 		}
 
 		// Search through the recipe database

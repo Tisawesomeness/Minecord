@@ -60,7 +60,7 @@ public class PurgeCommand extends AbstractDiscordCommand {
 			}
 			
 		} else {
-			return new Result(Outcome.WARNING, ":warning: Please specify a number!");
+			return ctx.showHelp();
 		}
 		
 		//Repeat until either the amount of messages are found or 100 non-bot messages in a row

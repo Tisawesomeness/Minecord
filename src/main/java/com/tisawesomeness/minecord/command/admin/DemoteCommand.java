@@ -25,7 +25,7 @@ public class DemoteCommand extends AbstractAdminCommand {
 	public Result run(CommandContext ctx) {
 
 		if (ctx.args.length == 0) {
-			return new Result(Outcome.WARNING, ":warning: You must specify a user!");
+			return ctx.showHelp();
 		}
 
 		//Extract user
