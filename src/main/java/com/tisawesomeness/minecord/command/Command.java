@@ -92,13 +92,19 @@ public abstract class Command implements ICommand {
 		return help.orElseGet(() -> getHelp(lang, prefix, tag));
 	}
 
-	private Optional<String> i18nOpt(Lang lang, @NonNull String key) {
+	public @NonNull String i18n(Lang lang, @NonNull String key) {
+		return lang.i18n(formatKey(key));
+	}
+	public @NonNull String i18nf(Lang lang, @NonNull String key, Object... args) {
+		return lang.i18nf(formatKey(key), args);
+	}
+	public Optional<String> i18nOpt(Lang lang, @NonNull String key) {
 		return lang.i18nOpt(formatKey(key));
 	}
-	private Optional<String> i18nfOpt(Lang lang, @NonNull String key, Object... args) {
+	public Optional<String> i18nfOpt(Lang lang, @NonNull String key, Object... args) {
 		return lang.i18nfOpt(formatKey(key), args);
 	}
-	private List<String> i18nList(Lang lang, @NonNull String key) {
+	public List<String> i18nList(Lang lang, @NonNull String key) {
 		return lang.i18nList(formatKey(key));
 	}
 	private String formatKey(String key) {

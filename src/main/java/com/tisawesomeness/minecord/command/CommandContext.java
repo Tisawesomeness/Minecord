@@ -174,7 +174,7 @@ public class CommandContext {
      * @see Locale
      */
     public @NonNull String i18n(String key) {
-        return lang.i18n(key);
+        return cmd.i18n(lang, key);
     }
     /**
      * Gets a locallized, formatted string for the current lang.
@@ -186,7 +186,7 @@ public class CommandContext {
      * @see Locale
      */
     public @NonNull String i18nf(String key, Object... args) {
-        return lang.i18nf(key, args);
+        return cmd.i18nf(lang, key, args);
     }
 
     /**
