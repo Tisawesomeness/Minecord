@@ -60,6 +60,7 @@ public class EvalCommand extends AbstractAdminCommand {
 		engine.put("jda", e.getJDA());
 		engine.put("sm", e.getJDA().getShardManager());
 		engine.put("config", ctx.config);
+		engine.put("lang", ctx.lang);
 		engine.put("dbCache", ctx.bot.getDatabaseCache());
 		engine.put("event", e);
 		engine.put("user", e.getAuthor());
