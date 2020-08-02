@@ -1,44 +1,125 @@
 package com.tisawesomeness.minecord.command;
 
+import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.config.serial.CommandConfig;
 import com.tisawesomeness.minecord.config.serial.CommandOverride;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Represents a command.
  */
 public abstract class Command implements ICommand {
-	
+
 	public int uses = 0;
-	public HashMap<User, Long> cooldowns = new HashMap<User, Long>();
-	
+	public HashMap<User, Long> cooldowns = new HashMap<>();
+
+	/**
+	 * Gets the module this command belongs to for organization purposes.
+	 * @return A non-null Module
+	 */
+	public abstract Module getModule();
+	/**
+	 * Gets the ID of this command, used internally.
+	 * <br>Typing this ID as the command name will always work, no matter the language.
+	 * @return A <b>unique</b> string that contains only lowercase letters and numbers, and starts with a letter
+	 */
+	public abstract @NonNull String getId();
+
+	/**
+	 * Gets the display name of this command, or how it should be displayed to the user. Defaults to the id.
+	 * @param lang The language used
+	 * @return A string that contains only lowercase letters and numbers, and starts with a letter
+	 */
+	public @NonNull String getDisplayName(Lang lang) {
+		return i18nOpt(lang, "name").orElse(getId());
+	}
+	/**
+	 * Gets a description of what this command does.
+	 * @param lang The language used
+	 * @return A single-line string
+	 */
+	public @NonNull String getDescription(Lang lang) {
+		return i18nOpt(lang, "description").orElse("A command.");
+	}
+	/**
+	 * Gets a list of the command's arguments. Uses this format:
+	 * <ul>
+	 *     <li>{@code word} (literal)</li>
+	 *     <li>{@code <required>}</li>
+	 *     <li>{@code [optional]}</li>
+	 *     <li>{@code [boolean?]} (default false)</li>
+	 *     <li>{@code one|two} (one or two)</li>
+	 * </ul>
+	 * @param lang The language used
+	 * @return The usage, or empty if not defined
+	 */
+	public Optional<String> getUsage(Lang lang) {
+		return i18nOpt(lang, "usage");
+	}
+	/**
+	 * Gets a list of aliases for this command.
+	 * @param lang The language used
+	 * @return A possibly-empty list
+	 */
+	public List<String> getAliases(Lang lang) {
+		return i18nList(lang, "aliases");
+	}
+
+	/**
+	 * Defines the help text shown by {@code &help <command>}.
+	 * Use {@code {&}} to substitute the current prefix, or {@code {\@}} to substitute the bot mention.
+	 * @return Never-null help string
+	 */
+	public @NonNull String getHelp(Lang lang) {
+		return i18nOpt(lang, "help").orElse(getDescription(lang));
+	}
+	/**
+	 * Defines the help text shown by {@code &help <command> admin}.
+	 * Use {@code {&}} to substitute the current prefix, or {@code {\@}} to substitute the bot mention.
+	 * @return Never-null help string
+	 */
+	public @NonNull String getAdminHelp(Lang lang) {
+		Optional<String> help = i18nOpt(lang, "adminHelp");
+		return help.orElse(getHelp(lang));
+	}
+
+	private Optional<String> i18nOpt(Lang lang, @NonNull String key) {
+		return lang.getOpt(formatKey(key));
+	}
+	private List<String> i18nList(Lang lang, @NonNull String key) {
+		return lang.getList(formatKey(key));
+	}
+	private String formatKey(String key) {
+		return String.format("command.%s.%s.%s", getModule().getName().toLowerCase(), getId(), key);
+	}
+
+
+	/**
+	 * Gets the cooldown of this command
+	 * @param config The command config to pull cooldowns from
+	 * @return A positive cooldown in miliseconds, or 0 or less for no cooldown
+	 */
+	public int getCooldown(CommandConfig config) {
+		CommandOverride co = config.getOverrides().get(getId());
+		if (co == null) {
+			return config.getDefaultCooldown();
+		}
+		return co.getCooldown();
+	}
+
 	/**
 	 * Represents all of the data needed to register a command.
 	 */
 	public static class CommandInfo {
-		
-		/**
-		 * The name needed to call the command, shown on the help menu.
-		 */
-		public final String name;
-		/**
-		 * The description that appears in the help menu.
-		 */
-		public final String description;
-		/**
-		 * The command usage, such as "\<player\> [time]"
-		 */
-		public final String usage;
-		/**
-		 * A list of aliases that will also call this command.
-		 */
-		public final String[] aliases;
 		/**
 		 * Whether or not to hide the command from the help menu.
 		 */
@@ -54,42 +135,14 @@ public abstract class Command implements ICommand {
 		
 		/**
 		 * Represents all of the data needed to register a command.
-		 * @param name The name needed to call the command, shown on the help menu.
-		 * @param description The description shown on the help menu.
-		 * @param usage The command usage, such as "&lt;player&gt; [time]"
-		 * @param aliases A list of aliases that will also call this command.
 		 * @param hidden Whether or not to hide the command from the help menu.
 		 * @param elevated Whether or not the user must be an elevated user to execute this command.
 		 * @param typing Whether or not the bot will send a typing message.
 		 */
-		public CommandInfo(String name, String description, String usage, String[] aliases,
-				boolean hidden, boolean elevated, boolean typing) {
-			
-			if (name == null) {
-				throw new IllegalArgumentException("Name cannot be null.");
-			} else {
-				this.name = name;
-			}
-			this.description = description == null ? "A command." : description;
-			this.usage = usage;
-			this.aliases = aliases == null ? new String[0] : aliases;
+		public CommandInfo(boolean hidden, boolean elevated, boolean typing) {
 			this.hidden = hidden;
 			this.elevated = elevated;
 			this.typing = typing;
-			
-		}
-
-		/**
-		 * Gets the cooldown of this command
-		 * @param config The command config to pull cooldowns from
-		 * @return A positive cooldown in miliseconds, or 0 or less for no cooldown
-		 */
-		public int getCooldown(CommandConfig config) {
-			CommandOverride co = config.getOverrides().get(name);
-			if (co == null) {
-				return config.getDefaultCooldown();
-			}
-			return co.getCooldown();
 		}
 		
 	}

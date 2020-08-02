@@ -1,11 +1,11 @@
 package com.tisawesomeness.minecord.command.config;
 
 import com.tisawesomeness.minecord.Lang;
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.setting.parse.SmartSetParser;
 import com.tisawesomeness.minecord.util.BooleanUtils;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.util.Arrays;
@@ -13,28 +13,17 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class LangCommand extends Command {
+public class LangCommand extends AbstractConfigCommand {
 
+    public @NonNull String getId() {
+        return "lang";
+    }
     public CommandInfo getInfo() {
         return new CommandInfo(
-                "lang",
-                "Display all languages or change the current one.",
-                "[info?] [lang]",
-                new String[]{"langs", "language", "languages", "i18n"},
                 false,
                 false,
                 false
         );
-    }
-
-    public String getHelp() {
-        return "`{&}lang` - List all available languages.\n`" +
-                "`{&}lang info <lang>` - Show the info of a language.\n" +
-                "`{&}lang <lang>` - Change the current language.";
-    }
-
-    public String getAdminHelp() {
-        return "Use `{&}set admin <context> lang <value>` instead.";
     }
 
     public Result run(CommandContext ctx) {

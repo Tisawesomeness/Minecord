@@ -1,13 +1,13 @@
 package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -15,32 +15,17 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class CapeCommand extends Command {
+public class CapeCommand extends AbstractPlayerCommand {
 
+	public @NonNull String getId() {
+		return "cape";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"cape",
-			"Gets the cape of a player.",
-			"<username|uuid> [date]",
-			null,
                 false,
-			false,
-			true
+				false,
+				true
 		);
-	}
-
-	public String getHelp() {
-		return "`{&}cape <player> [date]` - Gets an image of the player's cape.\n" +
-			"Includes Minecraft, Optifine, LabyMod and MinecraftCapes.co.uk capes.\n" +
-			"\n" +
-			"- `<player>` can be a username or a UUID.\n" +
-			"- " + DateUtils.dateHelp + "\n" +
-			"\n" +
-			"Examples:\n" +
-			"`{&}cape jeb_`\n" +
-			"`{&}cape Notch 3/2/06 2:47:32`\n" +
-			"`{&}cape 853c80ef3c3749fdaa49938b674adae6`\n" +
-			"`{&}cape 069a79f4-44e9-4726-a5be-fca90e38aaf5 3/26`\n";
 	}
 
 	public Result run(CommandContext ctx) {

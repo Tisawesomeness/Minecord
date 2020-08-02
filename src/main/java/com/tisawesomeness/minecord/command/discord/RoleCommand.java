@@ -1,11 +1,11 @@
 package com.tisawesomeness.minecord.command.discord;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.Role;
@@ -13,40 +13,17 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.List;
 
-public class RoleCommand extends Command {
+public class RoleCommand extends AbstractDiscordCommand {
 
+    public @NonNull String getId() {
+        return "role";
+    }
     public CommandInfo getInfo() {
 		return new CommandInfo(
-			"role",
-			"Shows role info.",
-			"<role>",
-			new String[]{"roleinfo"},
                 false,
-			false,
-			false
+                false,
+                false
 		);
-    }
-
-    public String getHelp() {
-        return "Shows the info of a role in the current guild.\n" +
-            "`<role>` can be a role name, a mention, or a valid ID.`\n" +
-            "\n" +
-            "Examples:\n" +
-            "- `{&}role Moderator`\n" +
-            "- `{&}role @Bot`\n" +
-            "- `{&}role 347797250266628108`\n";
-    }
-
-    public String getAdminHelp() {
-        return "`{&}role <role>` - Shows the info of a role in the current guild.\n" +
-            "`<role>` can be a role name, a mention, or a valid ID.`\n" +
-            "`{&}role <role id> admin` - Shows the info of any role.\n" +
-            "\n" +
-            "Examples:\n" +
-            "- `{&}role Moderator`\n" +
-            "- `{&}role @Bot`\n" +
-            "- `{&}role 347797250266628108`\n" +
-            "- `{&}role 347797250266628108 admin`\n";
     }
 
     public Result run(CommandContext ctx) {

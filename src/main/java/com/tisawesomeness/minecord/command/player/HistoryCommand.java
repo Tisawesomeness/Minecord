@@ -1,12 +1,12 @@
 package com.tisawesomeness.minecord.command.player;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,31 +14,17 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class HistoryCommand extends Command {
-	
+public class HistoryCommand extends AbstractPlayerCommand {
+
+	public @NonNull String getId() {
+		return "history";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"history",
-			"Gets the name history of a player.",
-			"<username|uuid> [date]",
-			new String[]{"h"},
                 false,
-			false,
-			true
+				false,
+				true
 		);
-	}
-
-	public String getHelp() {
-		return "`{&}history <player> [date]` - Gets a player's name history.\n" +
-			"\n" +
-			"- `<player>` can be a username or a UUID.\n" +
-			"- " + DateUtils.dateHelp + "\n" +
-			"\n" +
-			"Examples:\n" +
-			"`{&}history Tis_awesomeness`\n" +
-			"`{&}history Notch 3/2/06 2:47:32`\n" +
-			"`{&}history f6489b797a9f49e2980e265a05dbc3af`\n" +
-			"`{&}history 069a79f4-44e9-4726-a5be-fca90e38aaf5 3/26`\n";
 	}
 	
 	public Result run(CommandContext ctx) {

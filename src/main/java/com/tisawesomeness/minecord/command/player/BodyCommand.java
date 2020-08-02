@@ -1,45 +1,28 @@
 package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class BodyCommand extends Command {
-	
+public class BodyCommand extends AbstractPlayerCommand {
+
+	public @NonNull String getId() {
+		return "body";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"body",
-			"Gets the body of a player.",
-			"<username|uuid> [date] [overlay?]",
-			new String[]{
-				"nude",
-				"nudes"},
                 false,
-			false,
-			true
+				false,
+				true
 		);
-	}
-
-	public String getHelp() {
-		return "`{&}body <player> [date] [overlay?]` - Gets an image of the player's body.\n" +
-			"\n" +
-			"- `<player>` can be a username or a UUID.\n" +
-			"- `[overlay?]` whether to include the second skin layer.\n" +
-			"- " + DateUtils.dateHelp + "\n" +
-			"\n" +
-			"Examples:\n" +
-			"`{&}body Tis_awesomeness`\n" +
-			"`{&}body Notch 3/2/06 2:47:32`\n" +
-			"`{&}body f6489b797a9f49e2980e265a05dbc3af`\n" +
-			"`{&}body 069a79f4-44e9-4726-a5be-fca90e38aaf5 overlay`\n";
 	}
 	
 	public Result run(CommandContext ctx) {

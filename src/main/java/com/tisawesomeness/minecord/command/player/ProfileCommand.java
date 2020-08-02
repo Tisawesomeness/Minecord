@@ -1,13 +1,13 @@
 package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 import org.json.JSONArray;
@@ -16,32 +16,17 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ProfileCommand extends Command {
-	
+public class ProfileCommand extends AbstractPlayerCommand {
+
+	public @NonNull String getId() {
+		return "profile";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"profile",
-			"Get info on a Minecraft account.",
-			"<username|uuid> [date]",
-			new String[]{"p", "player"},
                 false,
-			false,
-			true
+				false,
+				true
 		);
-	}
-
-	public String getHelp() {
-        return "`{&}profile <player> [date]` - Get info on a Minecraft account.\n" +
-            "Includes username, UUIDs, name history, skin, cape, and avatar.\n" +
-			"\n" +
-			"- `<player>` can be a username or a UUID.\n" +
-			"- " + DateUtils.dateHelp + "\n" +
-			"\n" +
-			"Examples:\n" +
-			"`{&}profile Tis_awesomeness`\n" +
-			"`{&}profile Notch 3/2/06 2:47:32`\n" +
-			"`{&}profile f6489b797a9f49e2980e265a05dbc3af`\n" +
-			"`{&}profile 069a79f4-44e9-4726-a5be-fca90e38aaf5 3/26`\n";
 	}
 
     public Result run(CommandContext ctx) {

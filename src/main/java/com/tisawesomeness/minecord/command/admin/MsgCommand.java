@@ -1,9 +1,9 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.entities.User;
@@ -11,20 +11,16 @@ import net.dv8tion.jda.api.entities.User;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
-public class MsgCommand extends Command {
-	
+public class MsgCommand extends AbstractAdminCommand {
+
+	public @NonNull String getId() {
+		return "msg";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"msg",
-			"Open the DMs.",
-			"<mention|id> <message>",
-			new String[]{
-				"dm",
-				"tell",
-				"pm"},
                 true,
-			true,
-			false
+				true,
+				false
 		);
 	}
 	

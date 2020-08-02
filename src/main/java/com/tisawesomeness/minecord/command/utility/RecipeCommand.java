@@ -2,38 +2,26 @@ package com.tisawesomeness.minecord.command.utility;
 
 import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.ReactMenu.MenuStatus;
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.item.Item;
 import com.tisawesomeness.minecord.item.Recipe;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class RecipeCommand extends Command {
+public class RecipeCommand extends AbstractUtilityCommand {
 
+	public @NonNull String getId() {
+		return "recipe";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"recipe",
-			"Look up recipes.",
-			"<item name|id>",
-			new String[]{
-				"r",
-				"craft"},
                 false,
-			false,
-			true
+				false,
+				true
 		);
-	}
-
-	public String getHelp() {
-		return "Shows the recipes for an item.\n" +
-			"Items and recipes are from Java Edition 1.7 to 1.15.\n" +
-			"All recipe types are searchable, including brewing.\n" +
-			"\n" +
-			Item.help + "\n";
 	}
 
 	public Result run(CommandContext ctx) {

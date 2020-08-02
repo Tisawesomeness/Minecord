@@ -2,36 +2,26 @@ package com.tisawesomeness.minecord.command.utility;
 
 import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.ReactMenu.MenuStatus;
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.item.Item;
 import com.tisawesomeness.minecord.item.Recipe;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class IngredientCommand extends Command {
-	
+public class IngredientCommand extends AbstractUtilityCommand {
+
+	public @NonNull String getId() {
+		return "ingredient";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"ingredient",
-			"Looks up the recipes containing an ingredient.",
-			"<item name|id>",
-			new String[]{"ingredients"},
                 false,
-			false,
-			true
+				false,
+				true
 		);
-	}
-
-	public String getHelp() {
-		return "Searches for the recipes containing an ingredient.\n" +
-			"Items and recipes are from Java Edition 1.7 to 1.15.\n" +
-			"All recipe types are searchable, including brewing.\n" +
-			"\n" +
-			Item.help + "\n";
 	}
 
 	public Result run(CommandContext ctx)  {

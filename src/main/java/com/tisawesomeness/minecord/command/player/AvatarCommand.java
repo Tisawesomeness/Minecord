@@ -1,43 +1,28 @@
 package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class AvatarCommand extends Command {
-	
+public class AvatarCommand extends AbstractPlayerCommand {
+
+	public @NonNull String getId() {
+		return "avatar";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"avatar",
-			"Gets the avatar of a player.",
-			"<username|uuid> [date] [overlay?]",
-			null,
                 false,
-			false,
-			true
+				false,
+				true
 		);
-	}
-
-	public String getHelp() {
-		return "`{&}avatar <player> [date] [overlay?]` - Gets an image of the player's avatar.\n" +
-			"\n" +
-			"- `<player>` can be a username or a UUID.\n" +
-			"- `[overlay?]` whether to include the second skin layer.\n" +
-			"- " + DateUtils.dateHelp + "\n" +
-			"\n" +
-			"Examples:\n" +
-			"`{&}avatar Tis_awesomeness`\n" +
-			"`{&}avatar Notch 3/2/06 2:47:32`\n" +
-			"`{&}avatar f6489b797a9f49e2980e265a05dbc3af`\n" +
-			"`{&}avatar 069a79f4-44e9-4726-a5be-fca90e38aaf5 overlay`\n";
 	}
 	
 	public Result run(CommandContext ctx) {

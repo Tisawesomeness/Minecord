@@ -1,9 +1,9 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -11,25 +11,17 @@ import net.dv8tion.jda.api.entities.User;
 
 import java.util.Arrays;
 
-public class SayCommand extends Command {
-	
+public class SayCommand extends AbstractAdminCommand {
+
+	public @NonNull String getId() {
+		return "say";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"say",
-			"Send a message.",
-			"<channel> <message>",
-			new String[]{
-				"talk",
-				"announce"},
                 true,
-			true,
-			false
+				true,
+				false
 		);
-	}
-
-	public String getHelp() {
-		return "`{&}say <channel> <message>` - Make the bot send a message.\n" +
-				"`<channel>` can be a `#channel` mention or a valid channel ID.\n";
 	}
 	
 	public Result run(CommandContext ctx) {

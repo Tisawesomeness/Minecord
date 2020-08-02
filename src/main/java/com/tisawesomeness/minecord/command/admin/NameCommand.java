@@ -1,8 +1,8 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
@@ -10,26 +10,17 @@ import net.dv8tion.jda.api.entities.User;
 
 import java.util.Arrays;
 
-public class NameCommand extends Command {
-	
+public class NameCommand extends AbstractAdminCommand {
+
+	public @NonNull String getId() {
+		return "name";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"name",
-			"Changes the bot's nickname per-guild, enter nothing to reset.",
-			"<guild id> <name>",
-			new String[]{
-				"nick",
-				"nickname"
-			},
                 true,
-			true,
-			false
+				true,
+				false
 		);
-	}
-
-	public String getHelp() {
-		return "`{&}name <guild id>` - Resets the bot's nickname for the guild.\n" +
-			"`{&}name <guild id> <name>` - Sets the bot's nickname for the guild. Requires *Change Nickname* permissions.\n";
 	}
 	
 	public Result run(CommandContext ctx) {

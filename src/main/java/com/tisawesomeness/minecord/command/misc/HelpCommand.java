@@ -1,64 +1,38 @@
 package com.tisawesomeness.minecord.command.misc;
 
+import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Module;
 import com.tisawesomeness.minecord.command.CommandRegistry;
+import com.tisawesomeness.minecord.command.Module;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
 
-import java.util.Arrays;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public class HelpCommand extends Command {
+public class HelpCommand extends AbstractMiscCommand {
 
 	private @NonNull CommandRegistry registry;
-	
+
+	public @NonNull String getId() {
+		return "help";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"help",
-			"Displays help for the bot, a command, or a module.",
-			"[command|module]",
-			new String[]{
-				"cmds",
-				"commands",
-				"module",
-				"modules",
-				"categories"},
+                false,
 				false,
-			false,
-			true
+				true
 		);
-	}
-
-	public String getHelp() {
-		return "`{&}help` - Display help for the bot.\n" +
-			"`{&}help <module>` - Display help for a module.\n" +
-			"`{&}help <command>` - Display help for a command.\n" +
-			"\n" +
-			"Examples:\n" +
-			"- `{&}help utility`\n" +
-			"- `{&}help server`\n";
-	}
-
-	public String getAdminHelp() {
-		return "`{&}help` - Display help for the bot.\n" +
-			"`{&}help <module>` - Display help for a module.\n" +
-			"`{&}help <command>` - Display help for a command.\n" +
-			"`{&}help <command> admin` - Include admin-only command usage.\n" +
-			"\n" +
-			"Examples:\n" +
-			"- `{&}help utility`\n" +
-			"- `{&}help server`\n" +
-			"- `{&}help settings admin`\n";
 	}
 	
 	public Result run(CommandContext ctx) {
 		String[] args = ctx.args;
 		String prefix = ctx.prefix;
+		Lang lang = ctx.lang;
 
 		EmbedBuilder eb = ctx.brand(new EmbedBuilder());
 		String url = ctx.e.getJDA().getSelfUser().getEffectiveAvatarUrl();
@@ -73,15 +47,14 @@ public class HelpCommand extends Command {
 			eb.setAuthor("Minecord Help", null, url).setDescription(help);
 
 			// Hidden modules must be viewed directly
-			for (Module m : registry.modules) {
+			for (Module m : Module.values()) {
 				if (m.isHidden()) {
 					continue;
 				}
 				// Build that module's list of user-facing commands
-				String mHelp = Arrays.asList(m.getCommands()).stream()
-					.map(c -> c.getInfo())
-					.filter(ci -> !ci.hidden)
-					.map(ci -> String.format("`%s%s`", prefix, ci.name))
+				String mHelp = registry.getCommandsInModule(m).stream()
+					.filter(c -> !c.getInfo().hidden)
+					.map(c -> String.format("`%s%s`", prefix, c.getDisplayName(lang)))
 					.collect(Collectors.joining(", "));
 				eb.addField(m.getName(), mHelp, false);
 			}
@@ -89,34 +62,36 @@ public class HelpCommand extends Command {
 		}
 
 		// Module help
-		Module m = registry.getModule(args[0]);
-		if (m != null) {
+		Optional<Module> moduleOpt = Module.from(args[0]);
+		if (moduleOpt.isPresent()) {
+			Module m = moduleOpt.get();
 			if (m.isHidden() && !ctx.isElevated) {
 				return new Result(Outcome.WARNING, ":warning: You do not have permission to view that module.");
 			}
-			String mUsage = Arrays.asList(m.getCommands()).stream()
-				.map(c -> c.getInfo())
-				.filter(ci -> !ci.hidden || m.isHidden()) // All admin commands are hidden
-				.map(ci -> {
+			String mUsage = registry.getCommandsInModule(m).stream()
+				.filter(c -> !c.getInfo().hidden || m.isHidden()) // All admin commands are hidden
+				.map(c -> {
 					// Formatting changes based on whether the command has arguments
-					if (ci.usage == null) {
-						return String.format("`%s%s` - %s", prefix, ci.name, ci.description);
+					Optional<String> usageOpt = c.getUsage(lang);
+					if (!usageOpt.isPresent()) {
+						return String.format("`%s%s` - %s", prefix, c.getDisplayName(lang), c.getDescription(lang));
 					}
-					return String.format("`%s%s %s` - %s", prefix, ci.name, ci.usage, ci.description);
+					return String.format("`%s%s %s` - %s", prefix, c.getDisplayName(lang), usageOpt.get(), c.getDescription(lang));
 				})
 				.collect(Collectors.joining("\n"));
 			// Add module-specific help if it exists
-			String mHelp = m.getHelp(prefix);
-			if (mHelp != null) {
-				mUsage = mHelp + "\n" + mUsage;
+			Optional<String> mHelp = m.getHelp(prefix);
+			if (mHelp.isPresent()) {
+				mUsage = mHelp.get() + "\n" + mUsage;
 			}
 			eb.setAuthor(m.getName() + " Module Help", null, url).setDescription(mUsage);
 			return new Result(Outcome.SUCCESS, eb.build());
 		}
 
 		// Command help
-		Command c = registry.getCommand(args[0]);
-		if (c != null) {
+		Optional<Command> cmdOpt = registry.getCommand(args[0], lang);
+		if (cmdOpt.isPresent()) {
+			Command c = cmdOpt.get();
 			// Elevation check
 			CommandInfo ci = c.getInfo();
 			if (ci.elevated && !ctx.isElevated) {
@@ -125,21 +100,22 @@ public class HelpCommand extends Command {
 			// Admin check
 			String help;
 			if (args.length > 1 && args[1].equals("admin")) {
-				help = c.getAdminHelp();
+				help = c.getAdminHelp(lang);
 			} else {
-				help = c.getHelp();
+				help = c.getHelp(lang);
 			}
+			help += "\n";
 			// {@} and {&} substitution
 			help = help.replace("{@}", ctx.e.getJDA().getSelfUser().getAsMention()).replace("{&}", prefix);
 			// Alias list formatted with prefix in code blocks
-			if (ci.aliases.length > 0) {
-				String aliases = Arrays.asList(ci.aliases).stream()
+			if (!c.getAliases(lang).isEmpty()) {
+				String aliases = c.getAliases(lang).stream()
 					.map(s -> String.format("`%s%s`", prefix, s))
 					.collect(Collectors.joining(", "));
 				help += "\nAliases: " + aliases;
 			}
 			// If the cooldown is exactly N seconds, treat as int
-			int cooldown = ci.getCooldown(ctx.config.getCommandConfig());
+			int cooldown = c.getCooldown(ctx.config.getCommandConfig());
 			if (cooldown > 0) {
 				if (cooldown % 1000 == 0) {
 					help += String.format("\nCooldown: `%ss`", cooldown / 1000);
@@ -147,8 +123,8 @@ public class HelpCommand extends Command {
 					help += String.format("\nCooldown: `%ss`", cooldown / 1000.0);
 				}
 			}
-			String desc = String.format("%s\nModule: `%s`", help, registry.findModuleName(ci.name));
-			eb.setAuthor(prefix + ci.name + " Help").setDescription(desc);
+			String desc = String.format("%s\nModule: `%s`", help, c.getModule().getName());
+			eb.setAuthor(prefix + c.getDisplayName(lang) + " Help").setDescription(desc);
 			return new Result(Outcome.SUCCESS, eb.build());
 		}
 		

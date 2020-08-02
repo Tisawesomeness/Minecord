@@ -1,38 +1,25 @@
 package com.tisawesomeness.minecord.command.player;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
 
+import lombok.NonNull;
+
 import java.util.Arrays;
 
-public class UuidCommand extends Command {
-	
+public class UuidCommand extends AbstractPlayerCommand {
+
+	public @NonNull String getId() {
+		return "uuid";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"uuid",
-			"Gets the UUID of a player.",
-			"<username> [date]",
-			new String[]{"u"},
-                false,
-			false,
-			true
+				false,
+				false,
+				true
 		);
-	}
-
-	public String getHelp() {
-		return "`{&}uuid <player> [date]` - Gets a player's short and long UUID.\n" +
-			"\n" +
-			"- `<player>` can be a username or a UUID.\n" +
-			"- " + DateUtils.dateHelp + "\n" +
-			"\n" +
-			"Examples:\n" +
-			"`{&}uuid Tis_awesomeness`\n" +
-			"`{&}uuid Notch 3/2/06 2:47:32`\n" +
-			"`{&}uuid f6489b797a9f49e2980e265a05dbc3af`\n" +
-			"`{&}uuid 069a79f4-44e9-4726-a5be-fca90e38aaf5 3/26`\n";
 	}
 	
 	public Result run(CommandContext ctx) {

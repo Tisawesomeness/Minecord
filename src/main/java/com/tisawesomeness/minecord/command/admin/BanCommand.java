@@ -1,11 +1,11 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.dao.DbGuild;
 import com.tisawesomeness.minecord.database.dao.DbUser;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
@@ -14,33 +14,17 @@ import net.dv8tion.jda.api.sharding.ShardManager;
 
 import java.sql.SQLException;
 
-public class BanCommand extends Command {
+public class BanCommand extends AbstractAdminCommand {
 
+	public @NonNull String getId() {
+		return "ban";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"ban",
-			"Bans/unbans a user/guild from the bot. Omit user/guild to check for a ban.",
-			"[user|guild] <id>",
-			new String[]{
-				"bean",
-				"banne",
-				"pingb1nzy",
-				"strike",
-				"smite"
-			},
+                true,
 				true,
-			true,
-			false
+				false
 		);
-	}
-
-	public String getHelp() {
-		return "`{&}ban <id>` - Check if a user or guild is banned.\n" +
-			"`{&}ban <user|guild> <id>` - Ban a user or guild.\n" +
-			"\n" +
-			"`<id>` must be a valid user or guild id.\n" +
-			"The user or guild does not have to be seen by Minecord.\n" +
-			"Banned users and guilds will have all commands fail silently.\n";
 	}
 
 	public Result run(CommandContext ctx) {
@@ -119,5 +103,4 @@ public class BanCommand extends Command {
 		}
 		
 	}
-
 }

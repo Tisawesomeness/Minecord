@@ -1,12 +1,12 @@
 package com.tisawesomeness.minecord.command.discord;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.dao.DbGuild;
 import com.tisawesomeness.minecord.setting.Setting;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Guild.BoostTier;
@@ -17,26 +17,17 @@ import net.dv8tion.jda.api.utils.TimeUtil;
 
 import java.util.stream.Collectors;
 
-public class GuildCommand extends Command {
+public class GuildCommand extends AbstractDiscordCommand {
 
+    public @NonNull String getId() {
+        return "guild";
+    }
     public CommandInfo getInfo() {
 		return new CommandInfo(
-			"guild",
-			"Shows guild info.",
-			null,
-			new String[]{"guildinfo"},
                 false,
-			false,
-			false
+                false,
+                false
 		);
-    }
-
-    public String getAdminHelp() {
-        return "`{&}guild` - Shows current guild info.\n" +
-            "`{&}guild <guild id> admin` - Shows the info of another guild.\n" +
-            "\n" +
-            "Examples:\n" +
-            "- `{&}guild 347765748577468416 admin`\n";
     }
     
     public Result run(CommandContext ctx) {

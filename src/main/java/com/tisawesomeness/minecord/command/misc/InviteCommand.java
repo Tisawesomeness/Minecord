@@ -1,22 +1,21 @@
 package com.tisawesomeness.minecord.command.misc;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 
-public class InviteCommand extends Command {
-	
+public class InviteCommand extends AbstractMiscCommand {
+
+	public @NonNull String getId() {
+		return "invite";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"invite",
-			"Invite the bot!",
-			null,
-			null,
+                false,
 				false,
-			false,
-			true
+				true
 		);
 	}
 	

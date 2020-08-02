@@ -1,21 +1,20 @@
 package com.tisawesomeness.minecord.command.misc;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
-public class VoteCommand extends Command {
+public class VoteCommand extends AbstractMiscCommand {
 
+    public @NonNull String getId() {
+        return "vote";
+    }
     public CommandInfo getInfo() {
 		return new CommandInfo(
-			"vote",
-			"Vote for the bot!",
-			null,
-			new String[]{"v", "upvote", "updoot", "rep"},
                 false,
-			false,
-			false
+                false,
+                false
 		);
     }
 

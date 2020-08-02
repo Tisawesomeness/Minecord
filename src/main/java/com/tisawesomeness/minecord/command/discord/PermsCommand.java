@@ -1,10 +1,10 @@
 package com.tisawesomeness.minecord.command.discord;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.BooleanUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -13,42 +13,17 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
-public class PermsCommand extends Command {
+public class PermsCommand extends AbstractDiscordCommand {
 
+    public @NonNull String getId() {
+        return "perms";
+    }
     public CommandInfo getInfo() {
 		return new CommandInfo(
-			"perms",
-			"Test the bot's permissions in a channel.",
-			"[channel]",
-			new String[]{"permissions"},
                 false,
-			false,
-			false
+                false,
+                false
 		);
-    }
-
-    public String getHelp() {
-        return "`{&}perms` - Test the bot's permissions for the current channel.\n" +
-            "`{&}perms <channel>` - Test the bot's permissions for a channel in the same guild.\n" +
-            "You must have permission to send messages in the channel being tested.\n" +
-            "`<channel>` can be a `#channel` mention or a valid channel ID.\n" +
-            "\n" +
-            "Examples:\n" +
-            "- `{&}perms #bot-commands`\n" +
-            "- `{&}perms 347909541264097281`\n";
-    }
-
-    public String getAdminHelp() {
-        return "`{&}perms` - Test the bot's permissions for the current channel.\n" +
-            "`{&}perms <channel>` - Test the bot's permissions for a channel in the same guild.\n" +
-            "You must have permission to send messages in the channel being tested.\n" +
-            "`{&}perms <id> admin` - Test the bot's permissions for any channel.\n" +
-            "`<channel>` can be a `#channel` mention or a valid channel ID.\n" +
-            "\n" +
-            "Examples:\n" +
-            "- `{&}perms #bot-commands`\n" +
-            "- `{&}perms 347909541264097281`\n" +
-            "- `{&}perms 399734453712191498 admin`\n";
     }
 
     // Error message cannot be "you cannot see that channel"

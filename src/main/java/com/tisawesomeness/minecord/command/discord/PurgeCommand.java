@@ -1,8 +1,8 @@
 package com.tisawesomeness.minecord.command.discord;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageHistory;
@@ -13,31 +13,17 @@ import net.dv8tion.jda.api.exceptions.RateLimitedException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PurgeCommand extends Command {
-	
+public class PurgeCommand extends AbstractDiscordCommand {
+
+	public @NonNull String getId() {
+		return "purge";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"purge",
-			"Cleans the bot messages.",
-			"<number>",
-			new String[]{
-				"clear",
-				"clean",
-				"delete",
-				"delet",
-				"prune",
-				"destroy"},
                 false,
-			false,
-			true
+				false,
+				true
 		);
-	}
-
-	public String getHelp() {
-		return "`{&}purge <number>` - Cleans messages in the current channel **sent by the bot**.\n" +
-			"The user must have *Manage Messages* permissions.\n" +
-			"The number of messages must be between 1-1000.\n" +
-			"If deleting more than 50 messages, the bot must have *Manage Messages* permissions.\n";
 	}
 	
 	public Result run(CommandContext ctx) {

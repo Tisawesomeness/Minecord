@@ -1,33 +1,24 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.entities.Message;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
-public class ReloadCommand extends Command {
-	
+public class ReloadCommand extends AbstractAdminCommand {
+
+	public @NonNull String getId() {
+		return "reload";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"reload",
-			"Reloads the bot.",
-			null,
-			new String[]{
-				"restart",
-				"reboot",
-				"refresh"},
                 true,
-			true,
-			false
+				true,
+				false
 		);
-	}
-
-	public String getHelp() {
-		return "Reloads the config, announcement, and item/recipe files, and restarts the database and vote server.\n" +
-				"If there is an exception, shut down the bot with {&}shutdown or do a hard reset.";
 	}
 
 	public Result run(CommandContext ctx) {

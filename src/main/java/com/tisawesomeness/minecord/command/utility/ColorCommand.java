@@ -1,42 +1,24 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.ColorUtils;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.awt.*;
 
-public class ColorCommand extends Command {
+public class ColorCommand extends AbstractUtilityCommand {
 
+    public @NonNull String getId() {
+        return "color";
+    }
     public CommandInfo getInfo() {
 		return new CommandInfo(
-			"color",
-			"Look up a color.",
-			"<color>",
-			new String[]{"colour", "colorcode", "colourcode"},
                 false,
-			false,
-			true
+                false,
+                true
 		);
-    }
-
-    public String getHelp() {
-        return "`{&}color <color>` - Look up a color.\n" +
-            "`{&}color random` - Get a random Minecraft color.\n" +
-            "`{&}color very random` - Get any random color.\n" +
-            "Shows extra info if the color is one of the 16 Minecraft color codes.\n" +
-            "\n" +
-            "`<color>` can be:\n" +
-            "- A color name: `red`, `dark blue`\n" +
-            "- A color code: `&b`, `\u00A7b`, `b`\n" +
-            "- A hex code: `#55ffff`, `0x55ffff`\n" +
-            "- RGB format: `85 85 255`, `rgb(85,85,255)`\n" +
-            "- Other formats: `hsv(120,100,50)`, `hsl(120 100 25)`, `cmyk(100%,0%,100%,50%)`\n" +
-            "- An RGB int: `5635925`, `i8`\n" +
-            "\n" +
-            "Use `{&}0` through `{&}f` as shortcuts.";
     }
 
     public Result run(CommandContext ctx) {

@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.command;
 
-import com.tisawesomeness.minecord.command.Command.CommandInfo;
+import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.command.admin.BanCommand;
 import com.tisawesomeness.minecord.command.admin.DebugCommand;
 import com.tisawesomeness.minecord.command.admin.DemoteCommand;
@@ -14,15 +14,15 @@ import com.tisawesomeness.minecord.command.admin.ShutdownCommand;
 import com.tisawesomeness.minecord.command.admin.TestCommand;
 import com.tisawesomeness.minecord.command.admin.UsageCommand;
 import com.tisawesomeness.minecord.command.config.LangCommand;
-import com.tisawesomeness.minecord.command.discord.GuildCommand;
-import com.tisawesomeness.minecord.command.discord.PermsCommand;
 import com.tisawesomeness.minecord.command.config.PrefixCommand;
-import com.tisawesomeness.minecord.command.discord.PurgeCommand;
 import com.tisawesomeness.minecord.command.config.ResetCommand;
-import com.tisawesomeness.minecord.command.discord.RoleCommand;
-import com.tisawesomeness.minecord.command.discord.RolesCommand;
 import com.tisawesomeness.minecord.command.config.SetCommand;
 import com.tisawesomeness.minecord.command.config.SettingsCommand;
+import com.tisawesomeness.minecord.command.discord.GuildCommand;
+import com.tisawesomeness.minecord.command.discord.PermsCommand;
+import com.tisawesomeness.minecord.command.discord.PurgeCommand;
+import com.tisawesomeness.minecord.command.discord.RoleCommand;
+import com.tisawesomeness.minecord.command.discord.RolesCommand;
 import com.tisawesomeness.minecord.command.discord.UserCommand;
 import com.tisawesomeness.minecord.command.misc.CreditsCommand;
 import com.tisawesomeness.minecord.command.misc.HelpCommand;
@@ -50,161 +50,148 @@ import com.tisawesomeness.minecord.command.utility.Sha1Command;
 import com.tisawesomeness.minecord.command.utility.StatusCommand;
 import com.tisawesomeness.minecord.database.DatabaseCache;
 
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.ImmutableTable;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.MultimapBuilder;
+import com.google.common.collect.Table;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
-import java.util.LinkedHashMap;
+import java.util.Collection;
+import java.util.Optional;
 
 /**
  * The list of all commands the bot knows.
  */
 public class CommandRegistry {
-	
-	private static final String adminHelp = "**These commands require elevation to use.**\n\n" +
-			"`{&}info admin` - Displays bot info, including used memory and boot time.\n" +
-			"`{&}settings admin <context/list [guild id]/channel id>` - View the bot's setting for another guild, channel, or user.\n" +
-			"`{&}set admin <context> <setting> <value>` - Change the bot's setting for another guild, channel, or user.\n" +
-			"`{&}reset admin <context> <setting>` - Reset the bot's setting for another guild, channel, or user.\n" +
-			"`{&}perms <channel id> admin` - Test the bot's permissions in any channel.\n" +
-			"`{&}user <user id> admin [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include \"mutual\" to show mutual guilds.\n" +
-			"`{&}guild <guild id> admin` - Show info and ban status for another guild.\n";
 
-	private final LinkedHashMap<String, Command> commandMap;
-	public final Module[] modules;
-	
+	private final Multimap<Module, Command> moduleToCommandsMap;
+	private final Table<Lang, String, Command> commandTable;
+
 	/**
 	 * Adds every module to the registry and maps the possible aliases to the command to execute.
 	 */
 	public CommandRegistry(ShardManager sm, DatabaseCache dbCache) {
 
 		Command colorCmd = new ColorCommand();
-		modules = new Module[]{
-				new Module("Player",
-						new UuidCommand(),
-						new HistoryCommand(),
-						new AvatarCommand(),
-						new HeadCommand(),
-						new BodyCommand(),
-						new SkinCommand(),
-						new CapeCommand(),
-						new ProfileCommand()
-				),
-				new Module("Utility",
-						new StatusCommand(),
-						new SalesCommand(),
-						new CodesCommand(),
-						colorCmd,
-						new ColorShortcut(colorCmd, "0"),
-						new ColorShortcut(colorCmd, "1"),
-						new ColorShortcut(colorCmd, "2"),
-						new ColorShortcut(colorCmd, "3"),
-						new ColorShortcut(colorCmd, "4"),
-						new ColorShortcut(colorCmd, "5"),
-						new ColorShortcut(colorCmd, "6"),
-						new ColorShortcut(colorCmd, "7"),
-						new ColorShortcut(colorCmd, "8"),
-						new ColorShortcut(colorCmd, "9"),
-						new ColorShortcut(colorCmd, "a"),
-						new ColorShortcut(colorCmd, "b"),
-						new ColorShortcut(colorCmd, "c"),
-						new ColorShortcut(colorCmd, "d"),
-						new ColorShortcut(colorCmd, "e"),
-						new ColorShortcut(colorCmd, "f"),
-						new ServerCommand(),
-						new Sha1Command(),
-						new ItemCommand(),
-						new RecipeCommand(),
-						new IngredientCommand()
-				),
-				new Module("Discord",
-						new GuildCommand(),
-						new RoleCommand(),
-						new RolesCommand(),
-						new UserCommand(),
-						new PurgeCommand()
-				),
-				new Module("Config",
-						new PrefixCommand(),
-						new SettingsCommand(),
-						new SetCommand(),
-						new ResetCommand(),
-						new PermsCommand(),
-						new LangCommand()
-				),
-				new Module("Misc",
-						new HelpCommand(this),
-						new InfoCommand(),
-						new PingCommand(),
-						new InviteCommand(),
-						new VoteCommand(),
-						new CreditsCommand()
-				),
-				new Module("Admin", true, adminHelp,
-						new SayCommand(),
-						new MsgCommand(),
-						new NameCommand(),
-						new UsageCommand(this),
-						new PromoteCommand(),
-						new DemoteCommand(),
-						new BanCommand(),
-						new ReloadCommand(),
-						new ShutdownCommand(),
-						new EvalCommand(),
-						new DebugCommand(sm, dbCache),
-						new TestCommand()
-				)
+		Command[] commands = {
+
+				new ProfileCommand(),
+				new HistoryCommand(),
+				new UuidCommand(),
+				new AvatarCommand(),
+				new HeadCommand(),
+				new BodyCommand(),
+				new SkinCommand(),
+				new CapeCommand(),
+
+				new StatusCommand(),
+				new SalesCommand(),
+				new ServerCommand(),
+				new CodesCommand(),
+				colorCmd,
+				new ColorShortcut(colorCmd, "0"),
+				new ColorShortcut(colorCmd, "1"),
+				new ColorShortcut(colorCmd, "2"),
+				new ColorShortcut(colorCmd, "3"),
+				new ColorShortcut(colorCmd, "4"),
+				new ColorShortcut(colorCmd, "5"),
+				new ColorShortcut(colorCmd, "6"),
+				new ColorShortcut(colorCmd, "7"),
+				new ColorShortcut(colorCmd, "8"),
+				new ColorShortcut(colorCmd, "9"),
+				new ColorShortcut(colorCmd, "a"),
+				new ColorShortcut(colorCmd, "b"),
+				new ColorShortcut(colorCmd, "c"),
+				new ColorShortcut(colorCmd, "d"),
+				new ColorShortcut(colorCmd, "e"),
+				new ColorShortcut(colorCmd, "f"),
+				new Sha1Command(),
+				new ItemCommand(),
+				new RecipeCommand(),
+				new IngredientCommand(),
+
+				new GuildCommand(),
+				new RoleCommand(),
+				new RolesCommand(),
+				new UserCommand(),
+				new PurgeCommand(),
+
+				new SettingsCommand(),
+				new SetCommand(),
+				new ResetCommand(),
+				new PermsCommand(),
+				new PrefixCommand(),
+				new LangCommand(),
+
+				new HelpCommand(this),
+				new InfoCommand(),
+				new PingCommand(),
+				new InviteCommand(),
+				new VoteCommand(),
+				new CreditsCommand(),
+
+				new SayCommand(),
+				new MsgCommand(),
+				new NameCommand(),
+				new UsageCommand(this),
+				new PromoteCommand(),
+				new DemoteCommand(),
+				new BanCommand(),
+				new ReloadCommand(),
+				new ShutdownCommand(),
+				new EvalCommand(),
+				new DebugCommand(sm, dbCache),
+				new TestCommand()
+
 		};
 
-		commandMap = new LinkedHashMap<>();
-		mapCommands();
-
+		moduleToCommandsMap = buildModuleToCommandsMap(commands);
+		commandTable = buildCommandTable();
 	}
-	private void mapCommands() {
-		for (Module m : modules) {
-			for (Command c : m.getCommands()) {
-				CommandInfo ci = c.getInfo();
-				commandMap.put(ci.name, c);
-				for (String alias : ci.aliases) {
-					commandMap.put(alias, c);
-				}
+
+	private static Multimap<Module, Command> buildModuleToCommandsMap(Command[] commands) {
+		Multimap<Module, Command> mm = MultimapBuilder.enumKeys(Module.class).arrayListValues().build();
+		for (Command c : commands) {
+			mm.put(c.getModule(), c);
+		}
+		return ImmutableMultimap.copyOf(mm);
+	}
+	private Table<Lang, String, Command> buildCommandTable() {
+		Table<Lang, String, Command> table = HashBasedTable.create();
+		for (Module m : Module.values()) {
+			for (Command c : getCommandsInModule(m)) {
+				registerNameAndAliases(table, c);
+			}
+		}
+		return ImmutableTable.copyOf(table);
+	}
+	private static void registerNameAndAliases(Table<? super Lang, ? super String, ? super Command> table, Command c) {
+		for (Lang lang : Lang.values()) {
+			table.put(lang, c.getId(), c);
+			table.put(lang, c.getDisplayName(lang), c);
+			for (String alias : c.getAliases(lang)) {
+				table.put(lang, alias, c);
 			}
 		}
 	}
 
 	/**
-	 * Gets a module, given its name
-	 * @param name Case-insensitive name of the desired module
-	 * @return The module, or null if not found.
-	 */
-	public Module getModule(String name) {
-		for (Module m : modules) {
-			if (m.getName().equalsIgnoreCase(name)) {
-				return m;
-			}
-		}
-		return null;
-	}
-	/**
-	 * Gets a command, given its name or alias.
+	 * Gets a command, given its id, name, or alias.
 	 * @param name The part of the command after "&" and before a space. For example, "&server hypixel.net" becomes "server".
-	 * @return The command which should be executed, or null if there is no command associated with the input.
+	 * @return The command which should be executed, or empty if there is no command associated with the input.
 	 */
-	public Command getCommand(String name) {
-		return commandMap.get(name);
+	public Optional<Command> getCommand(String name, Lang lang) {
+		return Optional.ofNullable(commandTable.get(lang, name));
 	}
 	/**
-	 * Gets the module a command belongs to
-	 * @param cmdName Case-sensitive name of the command
-	 * @return The module, or null if not found. This should never return null unless the command name is incorrect or a command was registered without a module.
+	 * Gets all registered commands that are in the given module.
+	 * @param module The module
+	 * @return A possibly-empty list of commands
 	 */
-	public String findModuleName(String cmdName) {
-		for (Module m : modules) {
-			for (Command c : m.getCommands()) {
-				if (c.getInfo().name.equals(cmdName)) {
-					return m.getName();
-				}
-			}
-		}
-		return null;
+	public Collection<Command> getCommandsInModule(Module module) {
+		return moduleToCommandsMap.get(module);
 	}
 
 }

@@ -29,6 +29,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Future;
@@ -102,9 +103,9 @@ public class CommandListener extends ListenerAdapter {
 //
 //			// Send the message to the logging channel
 //			EmbedBuilder eb = new EmbedBuilder();
-//			eb.setAuthor(a.getName() + " (" + a.getId() + ")", null, a.getEffectiveAvatarUrl());
-//			eb.setDescription("**`" + e.getGuild().getName() + "`** (" +
-//				e.getGuild().getId() + ") in channel `" + e.getChannel().getName() +
+//			eb.setAuthor(a.getId() + " (" + a.getId() + ")", null, a.getEffectiveAvatarUrl());
+//			eb.setDescription("**`" + e.getGuild().getId() + "`** (" +
+//				e.getGuild().getId() + ") in channel `" + e.getChannel().getId() +
 //				"` (" + e.getChannel().getId() + ")\n" + m.getContentDisplay());
 //			MessageUtils.log(eb.build());
 //			return;
@@ -121,8 +122,9 @@ public class CommandListener extends ListenerAdapter {
 		}
 		
 		// Get command info if the command has been registered
-		Command cmd = registry.getCommand(name);
-		if (cmd == null) return;
+		Optional<Command> cmdOpt = registry.getCommand(name, lang);
+        if (!cmdOpt.isPresent()) return;
+        Command cmd = cmdOpt.get();
 		CommandInfo ci = cmd.getInfo();
 		
 		MessageChannel c = e.getChannel();
@@ -135,7 +137,7 @@ public class CommandListener extends ListenerAdapter {
 		}
 		
 		// Check for cooldowns, skipping if user is elevated
-		int cooldown = ci.getCooldown(config.getCommandConfig());
+		int cooldown = cmd.getCooldown(config.getCommandConfig());
 		if (!(fc.isElevatedSkipCooldown() && isElevated)
 				&& cmd.cooldowns.containsKey(a) && cooldown > 0) {
 			long last = cmd.cooldowns.get(a);
@@ -218,7 +220,7 @@ public class CommandListener extends ListenerAdapter {
 		// If message is empty
 		} if (result.message == null) {
 			if (result.outcome != null && result.outcome != Outcome.SUCCESS) {
-				System.out.println("Command \"" + ci.name + "\" returned an empty " +
+				System.out.println("Command \"" + cmd.getId() + "\" returned an empty " +
 					result.outcome.toString().toLowerCase());
 			}
 		} else {
@@ -234,7 +236,7 @@ public class CommandListener extends ListenerAdapter {
 			} else {
 				// Catch errors
 				if (result.outcome == Outcome.ERROR) {
-					System.out.println("Command \"" + ci.name + "\" returned an error: " +
+					System.out.println("Command \"" + cmd.getId() + "\" returned an error: " +
 						result.message.getContentRaw());
 				}
 				c.sendMessage(result.message).queue();

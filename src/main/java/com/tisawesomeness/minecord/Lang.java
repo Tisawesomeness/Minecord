@@ -1,10 +1,13 @@
 package com.tisawesomeness.minecord;
 
+import com.google.common.base.Splitter;
 import lombok.Getter;
 import lombok.NonNull;
 
 import java.text.MessageFormat;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -104,6 +107,19 @@ public enum Lang {
         return resource.getString(key);
     }
     /**
+     * Gets a localized string for this lang if the key exists.
+     * @param key The <b>case-sensitive</b> localization key used in {@link #get(String)}
+     * @return The localized string, or empty if not found
+     * @see MessageFormat
+     * @see Locale
+     */
+    public Optional<String> getOpt(@NonNull String key) {
+        if (resource.keySet().contains(key)) {
+            return Optional.of(get(key));
+        }
+        return Optional.empty();
+    }
+    /**
      * Gets a formatted, localized string for this lang.
      * @param key The <b>case-sensitive</b> localization key used in {@link #get(String)}
      * @param args An ordered list of arguments to place into the string
@@ -114,6 +130,19 @@ public enum Lang {
      */
     public @NonNull String getf(@NonNull String key, Object... args) {
         return new MessageFormat(get(key), locale).format(args);
+    }
+    /**
+     * Takes a localized string and splits it by comma.
+     * @param key The <b>case-sensitive</b> localization key used in {@link #get(String)}
+     * @return A possibly-empty, immutable list of strings
+     * @see MessageFormat
+     * @see Locale
+     */
+    public List<String> getList(@NonNull String key) {
+        if (!resource.keySet().contains(key)) {
+            return Collections.emptyList();
+        }
+        return Splitter.on(',').omitEmptyStrings().splitToList(get(key));
     }
 
 }

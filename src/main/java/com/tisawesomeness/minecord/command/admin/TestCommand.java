@@ -1,19 +1,19 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 
-public class TestCommand extends Command {
-	
+import lombok.NonNull;
+
+public class TestCommand extends AbstractAdminCommand {
+
+	public @NonNull String getId() {
+		return "test";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"test",
-			"Test command.",
-			null,
-			null,
                 true,
-			true,
-			true
+				true,
+				true
 		);
 	}
 	

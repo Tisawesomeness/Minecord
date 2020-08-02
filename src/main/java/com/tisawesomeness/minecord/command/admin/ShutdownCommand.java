@@ -1,28 +1,23 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
+
+import lombok.NonNull;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ShutdownCommand extends Command {
-	
+public class ShutdownCommand extends AbstractAdminCommand {
+
+	public @NonNull String getId() {
+		return "shutdown";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"shutdown",
-			"Shuts down the bot.",
-			"[now?]",
-			new String[]{"exit"},
                 true,
-			true,
-			false
+				true,
+				false
 		);
-	}
-
-	public String getHelp() {
-		return "Shuts down the bot. Note that the bot may reboot if it is run by a restart script.\n" +
-				"Use `{&}shutdown now` to immediately exit.\n";
 	}
 	
 	public Result run(CommandContext ctx) {

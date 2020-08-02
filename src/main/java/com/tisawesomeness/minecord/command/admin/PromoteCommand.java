@@ -1,27 +1,24 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.dao.DbUser;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.entities.User;
 
 import java.sql.SQLException;
 
-public class PromoteCommand extends Command {
-	
+public class PromoteCommand extends AbstractAdminCommand {
+
+	public @NonNull String getId() {
+		return "promote";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"promote",
-			"Elevate a user.",
-			"<user>",
-			new String[]{
-				"elevate",
-				"rankup"},
                 true,
-			true,
-			true
+				true,
+				true
 		);
 	}
 	

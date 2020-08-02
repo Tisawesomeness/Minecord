@@ -1,10 +1,10 @@
 package com.tisawesomeness.minecord.command.misc;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DateUtils;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
@@ -12,25 +12,19 @@ import net.dv8tion.jda.api.utils.MarkdownUtil;
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 
-public class InfoCommand extends Command {
+public class InfoCommand extends AbstractMiscCommand {
 
 	private static final String JAVA_VERSION = System.getProperty("java.version");
-	
+
+	public @NonNull String getId() {
+		return "info";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"info",
-			"Shows the bot info.",
-			null,
-			new String[]{"about", "stats"},
                 false,
-			false,
-			true
+				false,
+				true
 		);
-	}
-
-	public String getAdminHelp() {
-		return "`{&}info` - Shows the bot info.\n" +
-			"`{&}info admin` - Include memory usage and boot time.\n";
 	}
 
 	public Result run(CommandContext ctx) {

@@ -1,11 +1,11 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.config.serial.BotListConfig;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -29,33 +29,19 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class EvalCommand extends Command {
+public class EvalCommand extends AbstractAdminCommand {
 
 	private final Map<String, Object> storage = new HashMap<>();
 
+	public @NonNull String getId() {
+		return "eval";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"eval",
-			"Evaluates some js code.",
-			"<js code>",
-			new String[]{},
                 true,
-			true,
-			false
+				true,
+				false
 		);
-	}
-
-	String docsLink = "https://docs.oracle.com/javase/8/docs/technotes/guides/scripting/prog_guide/javascript.html";
-	public String getHelp() {
-		return "Evaluates some js code using the Rhino engine.\n" +
-				"Variables: `ctx`, `bot`, `jda`, `sm`, `config`, `dbCache`, `event`, `user`, `channel`\n" +
-				"Not available in DMs: `member`, `guild`\n" +
-				"Use `help(obj)` to list an object's fields and methods.\n" +
-				"Use `storage.put(stringKey, obj)` and `storage.get(stringKey)` to store variables for later.\n" +
-				"\n" +
-				"See [the docs](" + docsLink + ") for information on accessing Java from scripts.\n" +
-				"Sensitive info such as the bot token are cleaned from the input and output. " +
-				"In case this fails, __**never request the bot token and never print all values of the jda or config.**__\n";
 	}
 
 	public Result run(CommandContext ctx) {

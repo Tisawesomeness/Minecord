@@ -1,30 +1,22 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.item.Item;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 
-public class ItemCommand extends Command {
-	
+public class ItemCommand extends AbstractUtilityCommand {
+
+	public @NonNull String getId() {
+		return "item";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"item",
-			"Looks up an item.",
-			"<item name|id>",
-			new String[]{"i"},
                 false,
-			false,
-			true
+				false,
+				true
 		);
-	}
-
-	public String getHelp() {
-		return "Searches for a Minecraft item.\n" +
-			"Items are from Java Edition 1.7 to 1.15.\n" +
-			"\n" +
-			Item.help + "\n";
 	}
 
 	public Result run(CommandContext ctx) {

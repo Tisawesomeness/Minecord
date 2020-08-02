@@ -1,28 +1,24 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.dao.DbUser;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.entities.User;
 
 import java.sql.SQLException;
 
-public class DemoteCommand extends Command {
-	
+public class DemoteCommand extends AbstractAdminCommand {
+
+	public @NonNull String getId() {
+		return "demote";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"demote",
-			"De-elevate a user.",
-			"<user>",
-			new String[]{
-				"delevate",
-				"normie",
-				"badboi"},
                 true,
-			true,
-			true
+				true,
+				true
 		);
 	}
 	

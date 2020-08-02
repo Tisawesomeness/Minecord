@@ -1,24 +1,21 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.ColorUtils;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 
-public class CodesCommand extends Command {
-	
+public class CodesCommand extends AbstractUtilityCommand {
+
+	public @NonNull String getId() {
+		return "codes";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"codes",
-			"Get info on chat codes.",
-			null,
-			new String[]{
-				"code",
-				"chat"},
                 false,
-			false,
-			true
+				false,
+				true
 		);
 	}
 	

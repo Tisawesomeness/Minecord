@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.debug.ChannelCacheDebugOption;
@@ -12,6 +11,7 @@ import com.tisawesomeness.minecord.debug.ThreadDebugOption;
 import com.tisawesomeness.minecord.debug.UserCacheDebugOption;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.sharding.ShardManager;
@@ -21,16 +21,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DebugCommand extends Command {
+public class DebugCommand extends AbstractAdminCommand {
+
+    public @NonNull String getId() {
+        return "debug";
+    }
     public CommandInfo getInfo() {
         return new CommandInfo(
-            "debug",
-            "Prints out debug info.",
-            "[option]",
-            new String[]{"dump"},
                 true,
-            true,
-            false
+                true,
+                false
         );
     }
 

@@ -1,23 +1,22 @@
 package com.tisawesomeness.minecord.command.misc;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
-public class CreditsCommand extends Command {
+public class CreditsCommand extends AbstractMiscCommand {
 
+    public @NonNull String getId() {
+        return "credits";
+    }
     public CommandInfo getInfo() {
 		return new CommandInfo(
-			"credits",
-			"See who made the bot possible.",
-			null,
-			new String[]{"thanks", "thx"},
                 false,
-			false,
-			false
+                false,
+                false
 		);
     }
 

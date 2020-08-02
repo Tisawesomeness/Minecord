@@ -1,26 +1,23 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
+import lombok.NonNull;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 
-public class SalesCommand extends Command {
-	
+public class SalesCommand extends AbstractUtilityCommand {
+
+	public @NonNull String getId() {
+		return "sales";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"sales",
-			"Looks up the sale statistics.",
-			null,
-			new String[]{
-				"sale",
-				"sales"},
                 false,
-			false,
-			true
+				false,
+				true
 		);
 	}
 	

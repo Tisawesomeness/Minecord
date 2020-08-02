@@ -5,10 +5,10 @@ import br.com.azalim.mcserverping.MCPingOptions;
 import br.com.azalim.mcserverping.MCPingResponse;
 import br.com.azalim.mcserverping.MCPingResponse.Player;
 import br.com.azalim.mcserverping.MCPingUtil;
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class ServerCommand extends Command {
+public class ServerCommand extends AbstractUtilityCommand {
 	
 	private final String serverAddressRegex = "([a-z0-9][a-z0-9\\-]*\\.)+[a-z0-9][a-z0-9\\-]*(:[0-9]{1,6})?";
 	private final String ipAddressRegex = "((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])";
@@ -28,26 +28,16 @@ public class ServerCommand extends Command {
 	
 	private static Set<String> blockedServers = new HashSet<String>();
 	private static long timestamp = 0;
-	
+
+	public @NonNull String getId() {
+		return "server";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"server",
-			"Fetches the stats of a server.",
-			"<address>[:port]",
-			new String[]{"s"},
                 false,
-			false,
-			true
+				false,
+				true
 		);
-	}
-
-	public String getHelp() {
-		return "`{&}server <address>[:port}` - Fetches the stats of a server.\n" +
-			"\n" +
-			"Examples:\n" +
-			"- `{&}server hypixel.net`\n" +
-			"- `{&}server 1.2.3.4`\n" +
-			"- `{&}server mc.example.com:25566`\n";
 	}
 	
 	public Result run(CommandContext ctx) {

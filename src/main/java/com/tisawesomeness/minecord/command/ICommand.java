@@ -9,19 +9,6 @@ public interface ICommand {
 	 * @return The command info.
 	 */
 	CommandInfo getInfo();
-
-	/**
-	 * Defines the help text shown by {@code &help <command>}.
-	 * Use {@code {&}} to substitute the current prefix, or {@code {\@}} to substitute the bot mention.
-	 * @return Never-null help string
-	 */
-	default String getHelp() {
-		return getInfo().description + "\n";
-	}
-
-	default String getAdminHelp() {
-		return getHelp();
-	}
 	
 	/**
 	 * This method is called when the command is run.

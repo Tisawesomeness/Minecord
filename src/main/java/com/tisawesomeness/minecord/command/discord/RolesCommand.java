@@ -1,10 +1,10 @@
 package com.tisawesomeness.minecord.command.discord;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
@@ -15,28 +15,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RolesCommand extends Command {
+public class RolesCommand extends AbstractDiscordCommand {
 
+    public @NonNull String getId() {
+        return "roles";
+    }
     public CommandInfo getInfo() {
 		return new CommandInfo(
-			"roles",
-			"List a user's roles.",
-			"<user>",
-			null,
                 false,
-			false,
-			false
+                false,
+                false
 		);
-    }
-
-    public String getHelp() {
-        return "List the roles of a user in the current guild.\n" +
-            "`<user>` can be `name#1234`, a mention, or a valid ID.`\n" +
-            "\n" +
-            "Examples:\n" +
-            "- `{&}roles @Tis_awesomeness`\n" +
-            "- `{&}roles Tis_awesomeness#8617`\n" +
-            "- `{&}roles 211261249386708992`\n";
     }
 
     public Result run(CommandContext ctx) {

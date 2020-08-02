@@ -1,27 +1,26 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 
-public class StatusCommand extends Command {
-	
+public class StatusCommand extends AbstractUtilityCommand {
+
+	public @NonNull String getId() {
+		return "status";
+	}
 	public CommandInfo getInfo() {
 		return new CommandInfo(
-			"status",
-			"Checks the status of Mojang servers.",
-			null,
-			null,
                 false,
-			false,
-			true
+				false,
+				true
 		);
 	}
 	

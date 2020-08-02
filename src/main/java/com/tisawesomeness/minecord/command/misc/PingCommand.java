@@ -1,24 +1,20 @@
 package com.tisawesomeness.minecord.command.misc;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 
-public class PingCommand extends Command {
+import lombok.NonNull;
 
+public class PingCommand extends AbstractMiscCommand {
+
+	public @NonNull String getId() {
+		return "ping";
+	}
     public CommandInfo getInfo() {
 		return new CommandInfo(
-			"ping",
-			"Pings the bot.",
-			null,
-			null,
                 true,
-			false,
-			false
+				false,
+				false
 		);
-	}
-	
-	public String getHelp() {
-		return "Pings the bot.\nUse {&}server to ping a server.\n";
 	}
     
     public Result run(CommandContext ctx) {

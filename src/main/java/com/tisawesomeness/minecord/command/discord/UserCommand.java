@@ -1,11 +1,11 @@
 package com.tisawesomeness.minecord.command.discord;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.dao.DbUser;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
@@ -19,42 +19,17 @@ import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UserCommand extends Command {
+public class UserCommand extends AbstractDiscordCommand {
 
+    public @NonNull String getId() {
+        return "user";
+    }
     public CommandInfo getInfo() {
 		return new CommandInfo(
-			"user",
-			"Shows user info.",
-			"<user>",
-			new String[]{"whois", "userinfo"},
                 false,
-			false,
-			false
+                false,
+                false
 		);
-    }
-
-    public String getHelp() {
-        return "Shows the info of a user in the current guild.\n" +
-            "`<user>` can be `name#1234`, a mention, or a valid ID.`\n" +
-            "\n" +
-            "Examples:\n" +
-            "- `{&}user @Tis_awesomeness`\n" +
-            "- `{&}user Tis_awesomeness#8617`\n" +
-            "- `{&}user 211261249386708992`\n";
-    }
-
-    public String getAdminHelp() {
-        return "`{&}user <user>` - Shows the info of a user in the current guild.\n" +
-            "`{&}user <user id> admin` - Shows the info, ban status, and elevation of a user.\n" +
-            "`{&}user <user id> admin mutual` - Includes mutual guilds.\n" +
-            "__**Requesting mutual guilds with a large bot may freeze the shard!**__\n" +
-            "`<user>` can be `name#1234`, a mention, or a valid ID.`\n" +
-            "\n" +
-            "Examples:\n" +
-            "- `{&}user @Tis_awesomeness`\n" +
-            "- `{&}user Tis_awesomeness#8617`\n" +
-            "- `{&}user 211261249386708992`\n" +
-            "- `{&}user 211261249386708992 admin`\n";
     }
     
     public Result run(CommandContext ctx) {

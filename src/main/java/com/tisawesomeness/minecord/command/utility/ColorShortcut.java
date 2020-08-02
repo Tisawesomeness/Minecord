@@ -1,9 +1,16 @@
 package com.tisawesomeness.minecord.command.utility;
 
+import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 
-public class ColorShortcut extends Command {
+import lombok.NonNull;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+public class ColorShortcut extends AbstractUtilityCommand {
 
     private Command colorCmd;
     private String colorCode;
@@ -12,20 +19,36 @@ public class ColorShortcut extends Command {
         this.colorCode = colorCode;
     }
 
+    public @NonNull String getId() {
+        return colorCode;
+    }
+    @Override
+    public @NonNull String getDisplayName(Lang lang) {
+        return colorCode;
+    }
+    @Override
+    public @NonNull String getDescription(Lang lang) {
+        return colorCmd.getDescription(lang);
+    }
+    @Override
+    public Optional<String> getUsage(Lang lang) {
+        return Optional.empty();
+    }
+    @Override
+    public List<String> getAliases(Lang lang) {
+        return Collections.emptyList();
+    }
+
     public CommandInfo getInfo() {
 		return new CommandInfo(
-			colorCode,
-			"Look up a color code.",
-			null,
-			null,
                 true,
-			false,
-			true
+                false,
+                true
 		);
     }
 
-    public String getHelp() {
-        return colorCmd.getHelp();
+    public @NonNull String getHelp(Lang lang) {
+        return colorCmd.getHelp(lang);
     }
 
     public Result run(CommandContext ctx) throws Exception {
