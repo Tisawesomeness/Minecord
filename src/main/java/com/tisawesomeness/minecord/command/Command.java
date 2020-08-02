@@ -4,7 +4,9 @@ import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.config.serial.CommandConfig;
 import com.tisawesomeness.minecord.config.serial.CommandOverride;
 
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -197,17 +199,15 @@ public abstract class Command implements ICommand {
 	
 	/**
 	 * Represents the end result of a command.
-	 * SUCCESS - Message is sent permanently.
-	 * WARNING - Message is sent temporarily.
-	 * ERROR - Message is sent temporarily and logged to console.
 	 */
+	@RequiredArgsConstructor
 	public enum Outcome {
-		SUCCESS("Success"), WARNING("Warning"), ERROR("Error");
+		SUCCESS("Success", ":white_check_mark:"),
+		WARNING("Warning", ":warning:"),
+		ERROR("Error", ":x:");
 
-		private String s;
-		private Outcome(String s) {
-			this.s = s;
-		}
+		private final String s;
+		@Getter private final String emote;
 		public String toString() {
 			return s;
 		}
