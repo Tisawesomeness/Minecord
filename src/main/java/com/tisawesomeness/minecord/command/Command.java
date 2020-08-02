@@ -76,7 +76,6 @@ public abstract class Command implements ICommand {
 
 	/**
 	 * Defines the help text shown by {@code &help <command>}.
-	 * Use {@code {&}} to substitute the current prefix, or {@code {\@}} to substitute the bot mention.
 	 * @return Never-null help string
 	 */
 	public @NonNull String getHelp(Lang lang, String prefix, String tag) {
@@ -84,7 +83,6 @@ public abstract class Command implements ICommand {
 	}
 	/**
 	 * Defines the help text shown by {@code &help <command> admin}.
-	 * Use {@code {&}} to substitute the current prefix, or {@code {\@}} to substitute the bot mention.
 	 * @return Never-null help string
 	 */
 	public @NonNull String getAdminHelp(Lang lang, String prefix, String tag) {
@@ -102,7 +100,7 @@ public abstract class Command implements ICommand {
 		return lang.i18nList(formatKey(key));
 	}
 	private String formatKey(String key) {
-		return String.format("command.%s.%s.%s", getModule().getName().toLowerCase(), getId(), key);
+		return String.format("command.%s.%s.%s", getModule().getId(), getId(), key);
 	}
 
 

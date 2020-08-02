@@ -1,44 +1,49 @@
 package com.tisawesomeness.minecord.command;
 
+import com.tisawesomeness.minecord.Lang;
+
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Optional;
 
 @RequiredArgsConstructor
 public enum Module {
-    PLAYER("Player"),
-    UTILITY("Utility"),
-    DISCORD("Discord"),
-    CONFIG("Config"),
-    MISC("Misc"),
-    ADMIN("Admin", true, "**These commands require elevation to use.**\n\n" +
-            "`{&}info admin` - Displays bot info, including used memory and boot time.\n" +
-            "`{&}settings admin <context/list [guild id]/channel id>` - View the bot's setting for another guild, channel, or user.\n" +
-            "`{&}set admin <context> <setting> <value>` - Change the bot's setting for another guild, channel, or user.\n" +
-            "`{&}reset admin <context> <setting>` - Reset the bot's setting for another guild, channel, or user.\n" +
-            "`{&}perms <channel id> admin` - Test the bot's permissions in any channel.\n" +
-            "`{&}user <user id> admin [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include \"mutual\" to show mutual guilds.\n" +
-            "`{&}guild <guild id> admin` - Show info and ban status for another guild.\n");
+    PLAYER(),
+    UTILITY(),
+    DISCORD(),
+    CONFIG(),
+    MISC(),
+    ADMIN(true);
 
-    @Getter private final @NonNull String name;
     @Getter private final boolean hidden;
-    private final @Nullable String moduleHelp;
-
-    Module(@NonNull String name) {
-        this(name, false, null);
+    Module() {
+        hidden = false;
     }
 
     /**
+     * Gets the ID of this module for localization purposes
+     * @return The lowercase enum name
+     */
+    public @NonNull String getId() {
+        return name().toLowerCase();
+    }
+    /**
+     * Gets the display name for this module
+     * @param lang The lang to use
+     * @return The localized display name
+     */
+    public @NonNull String getDisplayName(Lang lang) {
+        return lang.i18n(formatKey("name"));
+    }
+    /**
      * Defines the help text shown by {@code &help <module>}.
-     * Use {@code {&}} to substitute the current prefix.
      * @return The help string, or empty if not defined
      */
-    public Optional<String> getHelp(@NonNull CharSequence prefix) {
-        return Optional.ofNullable(moduleHelp).map(s -> s.replace("{&}", prefix));
+    public Optional<String> getHelp(Lang lang, @NonNull String prefix) {
+        return lang.i18nfOpt(formatKey("help"), prefix);
     }
 
     /**
@@ -46,9 +51,13 @@ public enum Module {
      * @param name The case-insensitive name
      * @return The module, or empty if not found
      */
-    public static Optional<Module> from(@NonNull String name) {
+    public static Optional<Module> from(@NonNull String name, Lang lang) {
         return Arrays.stream(values())
-                .filter(m -> m.name.equalsIgnoreCase(name))
+                .filter(m -> m.getDisplayName(lang).equalsIgnoreCase(name))
                 .findFirst();
+    }
+
+    private String formatKey(String key) {
+        return String.format("module.%s.%s", getId(), key);
     }
 }

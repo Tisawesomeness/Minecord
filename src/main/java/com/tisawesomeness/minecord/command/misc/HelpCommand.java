@@ -56,13 +56,13 @@ public class HelpCommand extends AbstractMiscCommand {
 					.filter(c -> !c.getInfo().hidden)
 					.map(c -> String.format("`%s%s`", prefix, c.getDisplayName(lang)))
 					.collect(Collectors.joining(", "));
-				eb.addField(m.getName(), mHelp, false);
+				eb.addField(m.getDisplayName(lang), mHelp, false);
 			}
 			return new Result(Outcome.SUCCESS, eb.build());
 		}
 
 		// Module help
-		Optional<Module> moduleOpt = Module.from(args[0]);
+		Optional<Module> moduleOpt = Module.from(args[0], lang);
 		if (moduleOpt.isPresent()) {
 			Module m = moduleOpt.get();
 			if (m.isHidden() && !ctx.isElevated) {
@@ -80,11 +80,11 @@ public class HelpCommand extends AbstractMiscCommand {
 				})
 				.collect(Collectors.joining("\n"));
 			// Add module-specific help if it exists
-			Optional<String> mHelp = m.getHelp(prefix);
+			Optional<String> mHelp = m.getHelp(lang, prefix);
 			if (mHelp.isPresent()) {
-				mUsage = mHelp.get() + "\n" + mUsage;
+				mUsage = mHelp.get() + "\n\n" + mUsage;
 			}
-			eb.setAuthor(m.getName() + " Module Help", null, url).setDescription(mUsage);
+			eb.setAuthor(m.getDisplayName(lang) + " Module Help", null, url).setDescription(mUsage);
 			return new Result(Outcome.SUCCESS, eb.build());
 		}
 
@@ -122,7 +122,7 @@ public class HelpCommand extends AbstractMiscCommand {
 					help += String.format("\nCooldown: `%ss`", cooldown / 1000.0);
 				}
 			}
-			String desc = String.format("%s\nModule: `%s`", help, c.getModule().getName());
+			String desc = String.format("%s\nModule: `%s`", help, c.getModule().getDisplayName(lang));
 			eb.setAuthor(prefix + c.getDisplayName(lang) + " Help").setDescription(desc);
 			return new Result(Outcome.SUCCESS, eb.build());
 		}

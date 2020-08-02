@@ -39,7 +39,7 @@ public class UsageCommand extends AbstractAdminCommand {
 					.filter(c -> c.getDisplayName(lang).isEmpty())
 					.map(c -> String.format("`%s%s` **-** %d", prefix, c.getDisplayName(lang), c.uses))
 					.collect(Collectors.joining("\n"));
-			eb.addField(String.format("**%s**", m.getName()), field, true);
+			eb.addField(String.format("**%s**", m.getDisplayName(lang)), field, true);
 		}
 
 		return new Result(Outcome.SUCCESS, ctx.brand(eb).build());
