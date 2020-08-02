@@ -79,24 +79,27 @@ public abstract class Command implements ICommand {
 	 * Use {@code {&}} to substitute the current prefix, or {@code {\@}} to substitute the bot mention.
 	 * @return Never-null help string
 	 */
-	public @NonNull String getHelp(Lang lang) {
-		return i18nOpt(lang, "help").orElse(getDescription(lang));
+	public @NonNull String getHelp(Lang lang, String prefix, String tag) {
+		return i18nfOpt(lang, "help", prefix, tag).orElseGet(() -> getDescription(lang));
 	}
 	/**
 	 * Defines the help text shown by {@code &help <command> admin}.
 	 * Use {@code {&}} to substitute the current prefix, or {@code {\@}} to substitute the bot mention.
 	 * @return Never-null help string
 	 */
-	public @NonNull String getAdminHelp(Lang lang) {
-		Optional<String> help = i18nOpt(lang, "adminHelp");
-		return help.orElse(getHelp(lang));
+	public @NonNull String getAdminHelp(Lang lang, String prefix, String tag) {
+		Optional<String> help = i18nfOpt(lang, "adminHelp", prefix, tag);
+		return help.orElseGet(() -> getHelp(lang, prefix, tag));
 	}
 
 	private Optional<String> i18nOpt(Lang lang, @NonNull String key) {
-		return lang.getOpt(formatKey(key));
+		return lang.i18nOpt(formatKey(key));
+	}
+	private Optional<String> i18nfOpt(Lang lang, @NonNull String key, Object... args) {
+		return lang.i18nfOpt(formatKey(key), args);
 	}
 	private List<String> i18nList(Lang lang, @NonNull String key) {
-		return lang.getList(formatKey(key));
+		return lang.i18nList(formatKey(key));
 	}
 	private String formatKey(String key) {
 		return String.format("command.%s.%s.%s", getModule().getName().toLowerCase(), getId(), key);

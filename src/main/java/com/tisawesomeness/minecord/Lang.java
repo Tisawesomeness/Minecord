@@ -69,7 +69,7 @@ public enum Lang {
         itemsSupported = getBool("lang.itemsSupported");
         itemSearchSupported = getBool("lang.itemSearchSupported");
         inDevelopment = getBool("lang.inDevelopment");
-        flagEmote = get("lang.flagEmote");
+        flagEmote = i18n("lang.flagEmote");
     }
     private boolean getBool(String key) {
         return Boolean.parseBoolean(resource.getString(key));
@@ -103,46 +103,60 @@ public enum Lang {
      * @return The localized string
      * @throws java.util.MissingResourceException If the given key could not be found.
      */
-    public @NonNull String get(@NonNull String key) {
+    public @NonNull String i18n(@NonNull String key) {
         return resource.getString(key);
     }
     /**
      * Gets a localized string for this lang if the key exists.
-     * @param key The <b>case-sensitive</b> localization key used in {@link #get(String)}
+     * @param key The <b>case-sensitive</b> localization key used in {@link #i18n(String)}
      * @return The localized string, or empty if not found
      * @see MessageFormat
      * @see Locale
      */
-    public Optional<String> getOpt(@NonNull String key) {
+    public Optional<String> i18nOpt(@NonNull String key) {
         if (resource.keySet().contains(key)) {
-            return Optional.of(get(key));
+            return Optional.of(i18n(key));
         }
         return Optional.empty();
     }
     /**
      * Gets a formatted, localized string for this lang.
-     * @param key The <b>case-sensitive</b> localization key used in {@link #get(String)}
+     * @param key The <b>case-sensitive</b> localization key used in {@link #i18n(String)}
      * @param args An ordered list of arguments to place into the string
      * @return The localized string
      * @throws java.util.MissingResourceException If the given key could not be found.
      * @see MessageFormat
      * @see Locale
      */
-    public @NonNull String getf(@NonNull String key, Object... args) {
-        return new MessageFormat(get(key), locale).format(args);
+    public @NonNull String i18nf(@NonNull String key, Object... args) {
+        return new MessageFormat(i18n(key), locale).format(args);
+    }
+    /**
+     * Gets a formatted, localized string for this lang if the key exists.
+     * @param key The <b>case-sensitive</b> localization key used in {@link #i18n(String)}
+     * @param args An ordered list of arguments to place into the string
+     * @return The localized string, or empty if not found
+     * @see MessageFormat
+     * @see Locale
+     */
+    public Optional<String> i18nfOpt(@NonNull String key, Object... args) {
+        if (resource.keySet().contains(key)) {
+            return Optional.of(i18nf(key, args));
+        }
+        return Optional.empty();
     }
     /**
      * Takes a localized string and splits it by comma.
-     * @param key The <b>case-sensitive</b> localization key used in {@link #get(String)}
+     * @param key The <b>case-sensitive</b> localization key used in {@link #i18n(String)}
      * @return A possibly-empty, immutable list of strings
      * @see MessageFormat
      * @see Locale
      */
-    public List<String> getList(@NonNull String key) {
+    public List<String> i18nList(@NonNull String key) {
         if (!resource.keySet().contains(key)) {
             return Collections.emptyList();
         }
-        return Splitter.on(',').omitEmptyStrings().splitToList(get(key));
+        return Splitter.on(',').omitEmptyStrings().splitToList(i18n(key));
     }
 
 }

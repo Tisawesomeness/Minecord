@@ -99,14 +99,13 @@ public class HelpCommand extends AbstractMiscCommand {
 			}
 			// Admin check
 			String help;
+			String tag = ctx.e.getJDA().getSelfUser().getAsMention();
 			if (args.length > 1 && args[1].equals("admin")) {
-				help = c.getAdminHelp(lang);
+				help = c.getAdminHelp(lang, prefix, tag);
 			} else {
-				help = c.getHelp(lang);
+				help = c.getHelp(lang, prefix, tag);
 			}
 			help += "\n";
-			// {@} and {&} substitution
-			help = help.replace("{@}", ctx.e.getJDA().getSelfUser().getAsMention()).replace("{&}", prefix);
 			// Alias list formatted with prefix in code blocks
 			if (!c.getAliases(lang).isEmpty()) {
 				String aliases = c.getAliases(lang).stream()

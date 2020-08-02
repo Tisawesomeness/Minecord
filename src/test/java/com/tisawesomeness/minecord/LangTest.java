@@ -18,9 +18,9 @@ public class LangTest {
     @DisplayName("Lang resources load properly")
     public void testLang() {
         String key = "lang.countryName";
-        assertEquals("USA", Lang.EN_US.get(key));
-        assertEquals("Germany", Lang.DE_DE.get(key));
-        assertEquals("Brazil", Lang.PT_BR.get(key));
+        assertEquals("USA", Lang.EN_US.i18n(key));
+        assertEquals("Germany", Lang.DE_DE.i18n(key));
+        assertEquals("Brazil", Lang.PT_BR.i18n(key));
     }
     @Test
     @DisplayName("The default lang is not in development")

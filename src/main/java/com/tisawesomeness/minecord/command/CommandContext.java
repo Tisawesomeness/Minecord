@@ -59,7 +59,7 @@ public class CommandContext {
      */
     public final @NonNull String prefix;
     /**
-     * The current language. Use {@link #i18n(String)} as a shortcut for {@link Lang#get(String) lang.get(String)}.
+     * The current language. Use {@link #i18n(String)} as a shortcut for {@link Lang#i18n(String) lang.get(String)}.
      */
     public final @NonNull Lang lang;
     // These settings are only used occasionally, it's best to pass the setting and evaluate when needed
@@ -168,7 +168,7 @@ public class CommandContext {
      * @see Locale
      */
     public @NonNull String i18n(String key) {
-        return lang.get(key);
+        return lang.i18n(key);
     }
     /**
      * Gets a locallized, formatted string for the current lang.
@@ -180,7 +180,7 @@ public class CommandContext {
      * @see Locale
      */
     public @NonNull String i18nf(String key, Object... args) {
-        return lang.getf(key, args);
+        return lang.i18nf(key, args);
     }
 
     /**

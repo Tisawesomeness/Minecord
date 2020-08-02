@@ -47,8 +47,8 @@ public class ColorShortcut extends AbstractUtilityCommand {
 		);
     }
 
-    public @NonNull String getHelp(Lang lang) {
-        return colorCmd.getHelp(lang);
+    public @NonNull String getHelp(Lang lang, String prefix, String tag) {
+        return colorCmd.getHelp(lang, prefix, tag);
     }
 
     public Result run(CommandContext ctx) throws Exception {
