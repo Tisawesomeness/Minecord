@@ -30,7 +30,7 @@ public class CommandRegistryTest {
         cr = new CommandRegistry(sm, dc);
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "{index} ==> Scanning for conflicts in {0} lang")
     @EnumSource(Lang.class)
     @DisplayName("Every command's id, display name, and aliases do not conflict with other commands.")
     public void testNameAliasConflicts(Lang lang) {

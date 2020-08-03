@@ -24,7 +24,7 @@ public class PrefixSettingTest {
         prefix = new PrefixSetting(config.getSettingsConfig());
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "{index} ==> Prefix ''{0}'' is accepted")
     @ValueSource(strings = {
             "&", // used in bot documentation
             ">&", "mc!", // common alternatives
@@ -40,7 +40,7 @@ public class PrefixSettingTest {
         assertThat(prefix.resolve(candidate).isValid()).isTrue();
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "{index} ==> Prefix ''{0}'' is rejected")
     @ValueSource(strings = {
             "abc", "Abc", "ABC", "az", "Az", "aZ", "AZ", "mc", "unset", // ends with letter
             " ", "  ", "   ", "\t", "\t\t", " \t ", "\t \t", // whitespace

@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Tag("ArgsHandler")
 public class ArgsHandlerTest {
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "{index} ==> Accepting token with flag ''{0}''")
     @ValueSource(strings = {"-t", "--token"})
     @DisplayName("Custom tokens supplied through command-line args are accepted")
     public void testToken(String candidate) {
@@ -24,7 +24,7 @@ public class ArgsHandlerTest {
         assertThat(handler.getTokenOverride().equals(token)).isTrue();
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "{index} ==> Accepting path with flag ''{0}''")
     @ValueSource(strings = {"-p", "--path"})
     @DisplayName("Paths to files supplied through command-line args are rejected")
     public void testFilePath(String candidate) {
@@ -35,7 +35,7 @@ public class ArgsHandlerTest {
         assertThat(exitCode).isNotEqualTo(0);
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "{index} ==> Rejecting path with flag ''{0}''")
     @ValueSource(strings = {"-p", "--path"})
     @DisplayName("Paths to nonsense supplied through command-line args are rejected")
     public void testNonsensePath(String candidate) {

@@ -25,7 +25,7 @@ public class LangTest {
             assertThat(langFromCode).contains(lang);
         }
     }
-    @ParameterizedTest
+    @ParameterizedTest(name = "{index} ==> Registering lang from nonsense ''{0}''")
     @EmptySource
     @ValueSource(strings = {"nonsense", "en", "EN", "us", "US", " ", "_", "lang"})
     @DisplayName("Trying to get a lang from nonsense fails")
