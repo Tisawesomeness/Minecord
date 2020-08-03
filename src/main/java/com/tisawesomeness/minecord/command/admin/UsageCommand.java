@@ -4,6 +4,7 @@ import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.CommandRegistry;
+import com.tisawesomeness.minecord.command.IShortcutCommand;
 import com.tisawesomeness.minecord.command.Module;
 import com.tisawesomeness.minecord.util.DateUtils;
 
@@ -42,7 +43,7 @@ public class UsageCommand extends AbstractAdminCommand {
 				continue;
 			}
 			String field = cmds.stream()
-					.filter(c -> !c.getDisplayName(lang).isEmpty())
+					.filter(c -> !(c instanceof IShortcutCommand))
 					.map(c -> String.format("`%s%s` **-** %d", prefix, c.getDisplayName(lang), c.uses))
 					.collect(Collectors.joining("\n"));
 			eb.addField(String.format("**%s**", m.getDisplayName(lang)), field, true);

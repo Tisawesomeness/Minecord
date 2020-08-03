@@ -13,7 +13,6 @@ import com.tisawesomeness.minecord.setting.impl.UseMenusSetting;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.With;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
@@ -37,7 +36,7 @@ public class CommandContext {
     /**
      * The arguments given to the command, split by spaces. May be length 0.
      */
-    @With public final @NonNull String[] args;
+    public final @NonNull String[] args;
     /**
      * The event that triggered the command.
      */

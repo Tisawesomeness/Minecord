@@ -52,6 +52,15 @@ public final class ColorUtils {
         new Color(63, 63, 21),
         new Color(63, 63, 63)
     );
+
+    /**
+     * Gets a Minecraft color
+     * @param index The index of the Minecraft color from 0-15
+     * @return One of the 16 colors
+     */
+    public static Color getColor(int index) {
+        return mcColors.get(index);
+    }
     
     /**
      * Searches for a Minecraft color in colors.json

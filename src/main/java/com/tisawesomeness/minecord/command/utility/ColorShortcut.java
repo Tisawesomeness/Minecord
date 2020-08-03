@@ -3,20 +3,26 @@ package com.tisawesomeness.minecord.command.utility;
 import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.IShortcutCommand;
+import com.tisawesomeness.minecord.util.ColorUtils;
 
 import lombok.NonNull;
+import net.dv8tion.jda.api.EmbedBuilder;
 
+import java.awt.Color;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class ColorShortcut extends AbstractUtilityCommand {
+public class ColorShortcut extends AbstractUtilityCommand implements IShortcutCommand {
 
-    private Command colorCmd;
-    private String colorCode;
-    public ColorShortcut(Command colorCmd, String colorCode) {
+    private final Command colorCmd;
+    private final String colorCode;
+    private final Color color;
+    public ColorShortcut(Command colorCmd, int index) {
         this.colorCmd = colorCmd;
-        this.colorCode = colorCode;
+        colorCode = String.format("%01x", index);
+        color = ColorUtils.getColor(index);
     }
 
     public @NonNull String getId() {
@@ -51,8 +57,9 @@ public class ColorShortcut extends AbstractUtilityCommand {
         return colorCmd.getHelp(lang, prefix, tag);
     }
 
-    public Result run(CommandContext ctx) throws Exception {
-        return colorCmd.run(ctx.withArgs(new String[]{colorCode}));
+    public Result run(CommandContext ctx) {
+        EmbedBuilder eb = ColorCommand.buildColorInfo(color);
+        return new Result(Outcome.SUCCESS, ctx.addFooter(eb).build());
     }
 
 }
