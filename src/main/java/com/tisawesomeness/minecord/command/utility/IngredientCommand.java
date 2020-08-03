@@ -42,7 +42,7 @@ public class IngredientCommand extends AbstractUtilityCommand {
 		}
 
 		// Search through the recipe database
-		ArrayList<String> recipes = Recipe.searchIngredient(String.join(" ", args), "en_US");
+		ArrayList<String> recipes = Recipe.searchIngredient(ctx.joinArgs(), "en_US");
 		if (recipes == null) {
 			return new Result(Outcome.WARNING,
 				":warning: That item does not exist! " +

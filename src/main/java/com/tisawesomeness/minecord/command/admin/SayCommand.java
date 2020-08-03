@@ -9,8 +9,6 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
-import java.util.Arrays;
-
 public class SayCommand extends AbstractAdminCommand {
 
 	public @NonNull String getId() {
@@ -36,7 +34,7 @@ public class SayCommand extends AbstractAdminCommand {
 		if (channel == null) return new Result(Outcome.ERROR, ":x: Not a valid channel!");
 		
 		//Send the message
-		String msg = String.join(" ", Arrays.copyOfRange(ctx.args, 1, ctx.args.length));
+		String msg = ctx.joinArgsSlice(1);
 		channel.sendMessage(msg).queue();
 		
 		//Log it

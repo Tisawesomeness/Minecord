@@ -8,8 +8,6 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;
 
-import java.util.Arrays;
-
 public class NameCommand extends AbstractAdminCommand {
 
 	public @NonNull String getId() {
@@ -43,7 +41,7 @@ public class NameCommand extends AbstractAdminCommand {
 		//Set the nickname
 		String name;
 		if (args.length > 1) {
-			name = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+			name = ctx.joinArgsSlice(1);
 		} else {
 			name = ctx.e.getJDA().getSelfUser().getName();
 		}

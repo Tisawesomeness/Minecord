@@ -49,7 +49,7 @@ public class RoleCommand extends AbstractDiscordCommand {
             role = e.getGuild().getRoleById(args[0]);
         // Search by name
         } else {
-            String query = String.join(" ", args);
+            String query = ctx.joinArgs();
             for (Role r : roles) {
                 if (r.getName().equalsIgnoreCase(query)) {
                     role = r;

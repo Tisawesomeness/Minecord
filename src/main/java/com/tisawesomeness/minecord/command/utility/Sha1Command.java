@@ -22,7 +22,7 @@ public class Sha1Command extends AbstractUtilityCommand {
         if (ctx.args.length == 0) {
             return ctx.showHelp();
         }
-        return new Result(Outcome.SUCCESS, RequestUtils.sha1(String.join(" ", ctx.args)));
+        return new Result(Outcome.SUCCESS, RequestUtils.sha1(ctx.joinArgs()));
     }
 
 }

@@ -74,7 +74,7 @@ public class EvalCommand extends AbstractAdminCommand {
 		engine.put("help", help);
 		
 		// Extract code from message
-		String code = String.join(" ", ctx.args);
+		String code = ctx.joinArgs();
 		
 		// Evaluate code, and catch errors
 		Object output = null;

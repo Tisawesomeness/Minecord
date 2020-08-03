@@ -25,7 +25,7 @@ public class ColorCommand extends AbstractUtilityCommand {
         if (ctx.args.length == 0) {
             return ctx.showHelp();
         }
-        Color c = ColorUtils.parseColor(String.join(" ", ctx.args), "en_US");
+        Color c = ColorUtils.parseColor(ctx.joinArgs(), "en_US");
         if (c == null) {
             return new Result(Outcome.WARNING, ":warning: Not a valid color!");
         }

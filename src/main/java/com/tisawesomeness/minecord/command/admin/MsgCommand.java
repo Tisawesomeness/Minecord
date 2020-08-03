@@ -8,7 +8,6 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.entities.User;
 
-import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 public class MsgCommand extends AbstractAdminCommand {
@@ -40,7 +39,7 @@ public class MsgCommand extends AbstractAdminCommand {
 		String msg = null;
 		try {
 			PrivateChannel channel = user.openPrivateChannel().submit().get();
-			msg = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+			msg = ctx.joinArgsSlice(1);
 			channel.sendMessage(msg).queue();
 		} catch (InterruptedException | ExecutionException ex) {
 			ex.printStackTrace();

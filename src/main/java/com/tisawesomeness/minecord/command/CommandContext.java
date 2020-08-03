@@ -24,9 +24,11 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import javax.annotation.Nullable;
 import java.text.MessageFormat;
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Stores the information available to every command
@@ -86,6 +88,36 @@ public class CommandContext {
         this.lang = lang;
         locale = lang.getLocale();
         useMenusSetting = settings.useMenus;
+    }
+
+    /**
+     * Equivalent to {@code String.join(" ", ctx.args)}
+     * @return All arguments as a single string
+     */
+    public String joinArgs() {
+        return String.join(" ", args);
+    }
+    /**
+     * Creates a string with arguments from {@code beginIndex} to the end of the array.
+     * @param beginIndex The positive starting index
+     * @return A string with joined arguments, or empty if {@code beginIndex >= ctx.args.length}.
+     */
+    public String joinArgsSlice(int beginIndex) {
+        return Arrays.stream(args)
+                .skip(beginIndex)
+                .collect(Collectors.joining(" "));
+    }
+    /**
+     * Creates a string with arguments from {@code beginIndex} to {@code endIndex - 1}.
+     * @param beginIndex The positive starting index
+     * @param endIndex The ending index, must be greater than or equal to {@code beginIndex}, may be out of bounds
+     * @return A string with joined arguments, or empty if {@code beginIndex >= ctx.args.length}.
+     */
+    public String joinArgsSlice(int beginIndex, int endIndex) {
+        return Arrays.stream(args)
+                .skip(beginIndex)
+                .limit(endIndex - beginIndex)
+                .collect(Collectors.joining(" "));
     }
 
     /**

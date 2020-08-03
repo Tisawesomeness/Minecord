@@ -26,7 +26,7 @@ public class ItemCommand extends AbstractUtilityCommand {
 		}
 		
 		// Search through the item database
-		String item = Item.search(String.join(" ", ctx.args), "en_US");
+		String item = Item.search(ctx.joinArgs(), "en_US");
 		
 		// If nothing is found
 		if (item == null) {
