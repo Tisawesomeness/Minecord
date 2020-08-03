@@ -8,24 +8,21 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class LangTest {
 
     @Test
     @DisplayName("The default lang is not in development")
     public void testDefaultLang() {
-        assertFalse(Lang.getDefault().isInDevelopment());
+        assertThat(Lang.getDefault().isInDevelopment()).isFalse();
     }
     @Test
     @DisplayName("Putting the lang's code in Lang.from() returns the same lang")
     public void testFromCode() {
         for (Lang lang : Lang.values()) {
             Optional<Lang> langFromCode = Lang.from(lang.getCode());
-            assertTrue(langFromCode.isPresent());
-            assertEquals(lang, langFromCode.get());
+            assertThat(langFromCode).contains(lang);
         }
     }
     @ParameterizedTest
@@ -33,7 +30,7 @@ public class LangTest {
     @ValueSource(strings = {"nonsense", "en", "EN", "us", "US", " ", "_", "lang"})
     @DisplayName("Trying to get a lang from nonsense fails")
     public void testFromNonsense(String candidate) {
-        assertEquals(Optional.empty(), Lang.from(candidate));
+        assertThat(Lang.from(candidate)).isNotPresent();
     }
 
 }

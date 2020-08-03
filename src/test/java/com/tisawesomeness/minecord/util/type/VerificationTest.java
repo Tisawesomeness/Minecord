@@ -3,12 +3,7 @@ package com.tisawesomeness.minecord.util.type;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class VerificationTest {
 
@@ -16,17 +11,15 @@ public class VerificationTest {
     @DisplayName("Valid factory method returns valid Verification")
     public void testValid() {
         Verification v = Verification.valid();
-        assertTrue(v.isValid());
+        assertThat(v.isValid()).isTrue();
     }
     @Test
     @DisplayName("Invalid factory method returns invalid Verification, keeping error")
     public void testInvalid() {
         String errorMessage = "An error message";
         Verification v = Verification.invalid(errorMessage);
-        assertFalse(v.isValid());
-        List<String> errors = v.getErrors();
-        assertEquals(1, errors.size());
-        assertEquals(errorMessage, errors.get(0));
+        assertThat(v.isValid()).isFalse();
+        assertThat(v.getErrors()).containsExactly(errorMessage);
     }
 
     @Test
@@ -35,8 +28,8 @@ public class VerificationTest {
         Verification ve = Verification.valid();
         Object o = new Object();
         Validation<Object> va = ve.toValidation(o);
-        assertTrue(va.isValid());
-        assertEquals(o, va.getValue());
+        assertThat(va.isValid()).isTrue();
+        assertThat(va.getValue()).isEqualTo(o);
     }
     @Test
     @DisplayName("Invalid Verification converts to invalid Validation")
@@ -44,8 +37,8 @@ public class VerificationTest {
         String errorMessage = "An error message";
         Verification ve = Verification.invalid(errorMessage);
         Validation<Object> va = ve.toValidation(new Object());
-        assertFalse(va.isValid());
-        assertEquals(ve.getErrors(), va.getErrors());
+        assertThat(va.isValid()).isFalse();
+        assertThat(va.getErrors()).isEqualTo(ve.getErrors());
     }
 
     @Test
@@ -54,7 +47,7 @@ public class VerificationTest {
         Verification v1 = Verification.valid();
         Verification v2 = Verification.valid();
         Verification vCombined = v1.combine(v2);
-        assertTrue(vCombined.isValid());
+        assertThat(vCombined.isValid()).isTrue();
     }
     @Test
     @DisplayName("v1.combine(v2) with left valid returns right error")
@@ -63,10 +56,8 @@ public class VerificationTest {
         String errorMessage = "An error message";
         Verification v2 = Verification.invalid(errorMessage);
         Verification vCombined = v1.combine(v2);
-        assertFalse(vCombined.isValid());
-        List<String> errors = vCombined.getErrors();
-        assertEquals(1, errors.size());
-        assertEquals(errorMessage, errors.get(0));
+        assertThat(vCombined.isValid()).isFalse();
+        assertThat(vCombined.getErrors()).containsExactly(errorMessage);
     }
     @Test
     @DisplayName("v1.combine(v2) with right valid returns left error")
@@ -75,10 +66,8 @@ public class VerificationTest {
         Verification v1 = Verification.invalid(errorMessage);
         Verification v2 = Verification.valid();
         Verification vCombined = v1.combine(v2);
-        assertFalse(vCombined.isValid());
-        List<String> errors = vCombined.getErrors();
-        assertEquals(1, errors.size());
-        assertEquals(errorMessage, errors.get(0));
+        assertThat(vCombined.isValid()).isFalse();
+        assertThat(vCombined.getErrors()).containsExactly(errorMessage);
     }
     @Test
     @DisplayName("v1.combine(v2) with both invalid combines error messages")
@@ -88,9 +77,8 @@ public class VerificationTest {
         String errorMessage2 = "Second error message";
         Verification v2 = Verification.invalid(errorMessage2);
         Verification vCombined = v1.combine(v2);
-        assertFalse(vCombined.isValid());
-        List<String> errors = vCombined.getErrors();
-        assertEquals(Arrays.asList(errorMessage1, errorMessage2), errors);
+        assertThat(vCombined.isValid()).isFalse();
+        assertThat(vCombined.getErrors()).containsExactly(errorMessage1, errorMessage2);
     }
     @Test
     @DisplayName("Combining with varargs combines all error message")
@@ -102,9 +90,8 @@ public class VerificationTest {
         String errorMessage3 = "Third error message";
         Verification v3 = Verification.invalid(errorMessage3);
         Verification vCombined = Verification.combineAll(v1, v2, v3);
-        assertFalse(vCombined.isValid());
-        List<String> errors = vCombined.getErrors();
-        assertEquals(Arrays.asList(errorMessage1, errorMessage2, errorMessage3), errors);
+        assertThat(vCombined.isValid()).isFalse();
+        assertThat(vCombined.getErrors()).containsExactly(errorMessage1, errorMessage2, errorMessage3);
     }
 
 }

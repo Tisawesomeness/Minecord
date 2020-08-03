@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ConfigTest {
 
@@ -22,7 +22,7 @@ public class ConfigTest {
     @Test
     @DisplayName("Default config initializes properly")
     public void testConfig() {
-        assertNotNull(config);
+        assertThat(config).isNotNull();
     }
 
 }

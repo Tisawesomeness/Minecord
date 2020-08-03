@@ -5,10 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class EitherTest {
 
@@ -17,29 +15,29 @@ public class EitherTest {
     public void testLeft() {
         Object o = new Object();
         Either<Object, Object> either = Either.left(o);
-        assertFalse(either.isRight());
-        assertEquals(o, either.getLeft());
+        assertThat(either.isRight()).isFalse();
+        assertThat(either.getLeft()).isEqualTo(o);
     }
     @Test
     @DisplayName("Right factory method does not alter value")
     public void testRight() {
         Object o = new Object();
         Either<Object, Object> either = Either.right(o);
-        assertTrue(either.isRight());
-        assertEquals(o, either.getRight());
+        assertThat(either.isRight()).isTrue();
+        assertThat(either.getRight()).isEqualTo(o);
     }
 
     @Test
     @DisplayName("getLeft() throws IllegalStateException if Either is a Right")
     public void testGetLeft() {
         Either<Object, Object> either = Either.right(new Object());
-        assertThrows(IllegalStateException.class, either::getLeft);
+        assertThatExceptionOfType(IllegalStateException.class).isThrownBy(either::getLeft);
     }
     @Test
     @DisplayName("getRight() throws IllegalStateException if Either is a Left")
     public void testGetRight() {
         Either<Object, Object> either = Either.left(new Object());
-        assertThrows(IllegalStateException.class, either::getRight);
+        assertThatExceptionOfType(IllegalStateException.class).isThrownBy(either::getRight);
     }
 
     @Test
@@ -49,8 +47,8 @@ public class EitherTest {
         int i = 2;
         Either<Integer, Integer> either = Either.left(i);
         Either<Integer, Integer> mappedEither = either.mapLeft(mapper);
-        assertFalse(mappedEither.isRight());
-        assertEquals(mapper.apply(i), mappedEither.getLeft());
+        assertThat(mappedEither.isRight()).isFalse();
+        assertThat(mappedEither.getLeft()).isEqualTo(mapper.apply(i));
     }
     @Test
     @DisplayName("Calling mapLeft() on a Right keeps the value")
@@ -59,8 +57,8 @@ public class EitherTest {
         int i = 2;
         Either<Integer, Integer> either = Either.right(i);
         Either<Integer, Integer> mappedEither = either.mapLeft(mapper);
-        assertTrue(mappedEither.isRight());
-        assertEquals(i, mappedEither.getRight());
+        assertThat(mappedEither.isRight()).isTrue();
+        assertThat(mappedEither.getRight()).isEqualTo(i);
     }
     @Test
     @DisplayName("Calling mapRight() on a Right applies the mapper")
@@ -69,8 +67,8 @@ public class EitherTest {
         int i = 2;
         Either<Integer, Integer> either = Either.right(i);
         Either<Integer, Integer> mappedEither = either.mapRight(mapper);
-        assertTrue(mappedEither.isRight());
-        assertEquals(mapper.apply(i), mappedEither.getRight());
+        assertThat(mappedEither.isRight()).isTrue();
+        assertThat(mappedEither.getRight()).isEqualTo(mapper.apply(i));
     }
     @Test
     @DisplayName("Calling mapRight() on a Left keeps the value")
@@ -79,8 +77,8 @@ public class EitherTest {
         int i = 2;
         Either<Integer, Integer> either = Either.left(i);
         Either<Integer, Integer> mappedEither = either.mapRight(mapper);
-        assertFalse(mappedEither.isRight());
-        assertEquals(i, mappedEither.getLeft());
+        assertThat(mappedEither.isRight()).isFalse();
+        assertThat(mappedEither.getLeft()).isEqualTo(i);
     }
 
     @Test
@@ -90,7 +88,7 @@ public class EitherTest {
         Function<String, Integer> wrongMapper = i -> -1;
         String s = "A string";
         Either<String, String> either = Either.left(s);
-        assertEquals(s.length(), either.fold(mapper, wrongMapper));
+        assertThat(either.fold(mapper, wrongMapper)).isEqualTo(s.length());
     }
     @Test
     @DisplayName("Folding a Right applies the right mapper")
@@ -99,7 +97,7 @@ public class EitherTest {
         Function<String, Integer> wrongMapper = i -> -1;
         String s = "A string";
         Either<String, String> either = Either.right(s);
-        assertEquals(s.length(), either.fold(wrongMapper, mapper));
+        assertThat(either.fold(wrongMapper, mapper)).isEqualTo(s.length());
     }
 
 }

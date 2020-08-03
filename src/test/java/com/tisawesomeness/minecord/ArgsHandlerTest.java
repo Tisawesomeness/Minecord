@@ -6,9 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import picocli.CommandLine;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Tag("ArgsHandler")
 public class ArgsHandlerTest {
@@ -21,9 +19,9 @@ public class ArgsHandlerTest {
         String[] args = getArgs(candidate, token);
         ArgsHandler handler = new ArgsHandler();
         int exitCode = new CommandLine(handler).execute(args);
-        assertEquals(0, exitCode);
-        // Not using assertEquals to make sure tokens NEVER get printed
-        assertTrue(handler.getTokenOverride().equals(token));
+        assertThat(exitCode).isEqualTo(0);
+        // Not using isEqualTo to make sure tokens NEVER get printed
+        assertThat(handler.getTokenOverride().equals(token)).isTrue();
     }
 
     @ParameterizedTest
@@ -34,7 +32,7 @@ public class ArgsHandlerTest {
         String[] args = getArgs(candidate, path);
         ArgsHandler handler = new ArgsHandler();
         int exitCode = new CommandLine(handler).execute(args);
-        assertNotEquals(0, exitCode);
+        assertThat(exitCode).isNotEqualTo(0);
     }
 
     @ParameterizedTest
@@ -45,10 +43,10 @@ public class ArgsHandlerTest {
         String[] args = getArgs(candidate, path);
         ArgsHandler handler = new ArgsHandler();
         int exitCode = new CommandLine(handler).execute(args);
-        assertNotEquals(0, exitCode);
+        assertThat(exitCode).isNotEqualTo(0);
     }
 
-    private String[] getArgs(String candidate, String value) {
+    private static String[] getArgs(String candidate, String value) {
         return (candidate + " " + value).split(" ");
     }
 

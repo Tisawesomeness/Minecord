@@ -14,10 +14,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CommandRegistryTest {
 
@@ -42,7 +41,7 @@ public class CommandRegistryTest {
                 temp.add(c.getId());
                 temp.add(c.getDisplayName(lang));
                 temp.addAll(c.getAliases(lang));
-                assertTrue(Collections.disjoint(temp, inputs));
+                assertThat(inputs).doesNotContainAnyElementsOf(temp);
                 inputs.addAll(temp);
             }
         }

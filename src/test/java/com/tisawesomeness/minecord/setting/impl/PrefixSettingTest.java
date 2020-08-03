@@ -12,8 +12,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class PrefixSettingTest {
 
@@ -38,7 +37,7 @@ public class PrefixSettingTest {
     @MethodSource("symbolProvider")
     @DisplayName("Valid prefixes are accepted")
     public void testResolveValid(String candidate) {
-        assertTrue(prefix.resolve(candidate).isValid());
+        assertThat(prefix.resolve(candidate).isValid()).isTrue();
     }
 
     @ParameterizedTest
@@ -70,7 +69,7 @@ public class PrefixSettingTest {
     @MethodSource("invalidSymbolProvider")
     @DisplayName("Invalid prefixes are rejected")
     public void testResolveInvalid(String candidate) {
-        assertFalse(prefix.resolve(candidate).isValid());
+        assertThat(prefix.resolve(candidate).isValid()).isFalse();
     }
 
     private static Stream<String> symbolProvider() {

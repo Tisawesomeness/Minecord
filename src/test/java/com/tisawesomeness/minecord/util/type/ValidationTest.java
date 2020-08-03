@@ -6,15 +6,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class ValidationTest {
 
@@ -23,8 +19,8 @@ public class ValidationTest {
     public void testValidObject() {
         Object o = new Object();
         Validation<Object> v = Validation.valid(o);
-        assertTrue(v.isValid());
-        assertEquals(o, v.getValue());
+        assertThat(v.isValid()).isTrue();
+        assertThat(v.getValue()).isEqualTo(o);
     }
     @ParameterizedTest
     @EmptySource
@@ -32,10 +28,8 @@ public class ValidationTest {
     @DisplayName("Validation factory method does not alter error message")
     public void testInvalid(String candidate) {
         Validation<Object> v = Validation.invalid(candidate);
-        assertFalse(v.isValid());
-        List<String> errors = v.getErrors();
-        assertEquals(1, errors.size());
-        assertEquals(candidate, errors.get(0));
+        assertThat(v.isValid()).isFalse();
+        assertThat(v.getErrors()).containsExactly(candidate);
     }
 
     @Test
@@ -44,8 +38,8 @@ public class ValidationTest {
         Object o = new Object();
         Optional<Object> opt = Optional.of(o);
         Validation<Object> v = Validation.fromOptional(opt, "An error message");
-        assertTrue(v.isValid());
-        assertEquals(o, v.getValue());
+        assertThat(v.isValid()).isTrue();
+        assertThat(v.getValue()).isEqualTo(o);
     }
     @Test
     @DisplayName("Validation from empty Optional returns the error message")
@@ -53,15 +47,15 @@ public class ValidationTest {
         String err = "An error message";
         Optional<Object> opt = Optional.empty();
         Validation<Object> v = Validation.fromOptional(opt, err);
-        assertFalse(v.isValid());
-        assertEquals(err, v.getErrors().get(0));
+        assertThat(v.isValid()).isFalse();
+        assertThat(v.getErrors()).containsExactly(err);
     }
 
     @Test
     @DisplayName("Validation from valid Verification throws IllegalArgumentException")
     public void testFromInvalidVerificationValid() {
         Verification v = Verification.valid();
-        assertThrows(IllegalArgumentException.class, () -> Validation.fromInvalidVerification(v));
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> Validation.fromInvalidVerification(v));
     }
     @Test
     @DisplayName("Validation from invalid Verification keeps error message")
@@ -69,22 +63,21 @@ public class ValidationTest {
         String err = "An error message";
         Verification ve = Verification.invalid(err);
         Validation<?> va = Validation.fromInvalidVerification(ve);
-        assertFalse(va.isValid());
-        assertEquals(ve.getErrors(), va.getErrors());
+        assertThat(va.isValid()).isFalse();
+        assertThat(va.getErrors()).isEqualTo(ve.getErrors());
     }
 
     @Test
     @DisplayName("getValue() throws IllegalStateException if not valid")
     public void testGetValue() {
         Validation<?> v = Validation.invalid("An error message");
-        assertThrows(IllegalStateException.class, v::getValue);
+        assertThatExceptionOfType(IllegalStateException.class).isThrownBy(v::getValue);
     }
     @Test
     @DisplayName("getErrorMessage() is empty if valid")
     public void testGetErrorMessage() {
         Validation<Object> v = Validation.valid(new Object());
-        List<String> errors = v.getErrors();
-        assertEquals(0, errors.size());
+        assertThat(v.getErrors()).isEmpty();
     }
 
     @Test
@@ -92,15 +85,13 @@ public class ValidationTest {
     public void testPropogateError() {
         String errorMessage = "An error message";
         Validation<?> v = Validation.invalid(errorMessage);
-        List<String> errors = v.getErrors();
-        assertEquals(1, errors.size());
-        assertEquals(errorMessage, errors.get(0));
+        assertThat(v.getErrors()).containsExactly(errorMessage);
     }
     @Test
     @DisplayName("propogateError() throws for a valid Validation")
     public void testPropogateErrorValid() {
         Validation<Object> v = Validation.valid(new Object());
-        assertThrows(IllegalStateException.class, () -> Validation.propogateError(v));
+        assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> Validation.propogateError(v));
     }
 
     @Test
@@ -110,8 +101,8 @@ public class ValidationTest {
         Validation<Object> v1 = Validation.valid(o);
         Validation<Object> v2 = Validation.valid(o);
         Validation<Object> vCombined = v1.combine(v2);
-        assertTrue(vCombined.isValid());
-        assertEquals(o, vCombined.getValue());
+        assertThat(vCombined.isValid()).isTrue();
+        assertThat(vCombined.getValue()).isEqualTo(o);
     }
     @Test
     @DisplayName("v1.combine(v2) with both valid, but different, keeps right value")
@@ -121,8 +112,8 @@ public class ValidationTest {
         Object o2 = new Object();
         Validation<Object> v2 = Validation.valid(o2);
         Validation<Object> vCombined = v1.combine(v2);
-        assertTrue(vCombined.isValid());
-        assertEquals(o2, vCombined.getValue());
+        assertThat(vCombined.isValid()).isTrue();
+        assertThat(vCombined.getValue()).isEqualTo(o2);
     }
     @Test
     @DisplayName("v1.combine(v2) with left valid returns right error")
@@ -132,10 +123,8 @@ public class ValidationTest {
         String errorMessage = "An error message";
         Validation<Object> v2 = Validation.invalid(errorMessage);
         Validation<Object> vCombined = v1.combine(v2);
-        assertFalse(vCombined.isValid());
-        List<String> errors = vCombined.getErrors();
-        assertEquals(1, errors.size());
-        assertEquals(errorMessage, errors.get(0));
+        assertThat(vCombined.isValid()).isFalse();
+        assertThat(vCombined.getErrors()).containsExactly(errorMessage);
     }
     @Test
     @DisplayName("v1.combine(v2) with right valid returns left error")
@@ -145,10 +134,8 @@ public class ValidationTest {
         Object o = new Object();
         Validation<Object> v2 = Validation.valid(o);
         Validation<Object> vCombined = v1.combine(v2);
-        assertFalse(vCombined.isValid());
-        List<String> errors = vCombined.getErrors();
-        assertEquals(1, errors.size());
-        assertEquals(errorMessage, errors.get(0));
+        assertThat(vCombined.isValid()).isFalse();
+        assertThat(vCombined.getErrors()).containsExactly(errorMessage);
     }
     @Test
     @DisplayName("v1.combine(v2) with both invalid combines error messages")
@@ -158,9 +145,8 @@ public class ValidationTest {
         String errorMessage2 = "Second error message";
         Validation<Object> v2 = Validation.invalid(errorMessage2);
         Validation<Object> vCombined = v1.combine(v2);
-        assertFalse(vCombined.isValid());
-        List<String> errors = vCombined.getErrors();
-        assertEquals(Arrays.asList(errorMessage1, errorMessage2), errors);
+        assertThat(vCombined.isValid()).isFalse();
+        assertThat(vCombined.getErrors()).containsExactly(errorMessage1, errorMessage2);
     }
     @Test
     @DisplayName("Combining with varargs combines all error message")
@@ -172,9 +158,8 @@ public class ValidationTest {
         String errorMessage3 = "Third error message";
         Validation<Object> v3 = Validation.invalid(errorMessage3);
         Validation<Object> vCombined = Validation.combineAll(v1, v2, v3);
-        assertFalse(vCombined.isValid());
-        List<String> errors = vCombined.getErrors();
-        assertEquals(Arrays.asList(errorMessage1, errorMessage2, errorMessage3), errors);
+        assertThat(vCombined.isValid()).isFalse();
+        assertThat(vCombined.getErrors()).containsExactly(errorMessage1, errorMessage2, errorMessage3);
     }
 
     @Test
@@ -184,8 +169,8 @@ public class ValidationTest {
         int i = 2;
         Validation<Integer> validation = Validation.valid(i);
         Validation<Integer> mappedValidation = validation.map(mapper);
-        assertTrue(mappedValidation.isValid());
-        assertEquals(mapper.apply(i), mappedValidation.getValue());
+        assertThat(mappedValidation.isValid()).isTrue();
+        assertThat(mappedValidation.getValue()).isEqualTo(mapper.apply(i));
     }
     @Test
     @DisplayName("Calling map() on an invalid validation keeps the error message")
@@ -194,10 +179,8 @@ public class ValidationTest {
         String errorMessage = "An error message";
         Validation<Integer> validation = Validation.invalid(errorMessage);
         Validation<Integer> mappedValidation = validation.map(mapper);
-        assertFalse(mappedValidation.isValid());
-        List<String> errors = mappedValidation.getErrors();
-        assertEquals(1, errors.size());
-        assertEquals(errorMessage, errors.get(0));
+        assertThat(mappedValidation.isValid()).isFalse();
+        assertThat(mappedValidation.getErrors()).containsExactly(errorMessage);
     }
 
 }
