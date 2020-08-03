@@ -16,7 +16,8 @@ public enum Module {
     DISCORD(),
     CONFIG(),
     MISC(),
-    ADMIN(true);
+    ADMIN(true),
+    CUSTOM;
 
     @Getter private final boolean hidden;
     Module() {

@@ -10,6 +10,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
 
+import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -52,7 +53,11 @@ public class HelpCommand extends AbstractMiscCommand {
 					continue;
 				}
 				// Build that module's list of user-facing commands
-				String mHelp = registry.getCommandsInModule(m).stream()
+				Collection<Command> cmds = registry.getCommandsInModule(m);
+				if (cmds.isEmpty()) {
+					continue;
+				}
+				String mHelp = cmds.stream()
 					.filter(c -> !c.getInfo().hidden)
 					.map(c -> String.format("`%s%s`", prefix, c.getDisplayName(lang)))
 					.collect(Collectors.joining(", "));

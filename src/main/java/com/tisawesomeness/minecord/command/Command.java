@@ -28,7 +28,9 @@ public abstract class Command implements ICommand {
 	 * Gets the module this command belongs to for organization purposes.
 	 * @return A non-null Module
 	 */
-	public abstract Module getModule();
+	public Module getModule() {
+		return Module.CUSTOM;
+	}
 	/**
 	 * Gets the ID of this command, used internally.
 	 * <br>Typing this ID as the command name will always work, no matter the language.
