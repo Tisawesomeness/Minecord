@@ -59,6 +59,7 @@ import com.google.common.collect.Table;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Optional;
 
 /**
@@ -169,10 +170,12 @@ public class CommandRegistry {
 	}
 	private static void registerNameAndAliases(Table<? super Lang, ? super String, ? super Command> table, Command c) {
 		for (Lang lang : Lang.values()) {
-			table.put(lang, c.getId(), c);
-			table.put(lang, c.getDisplayName(lang), c);
-			for (String alias : c.getAliases(lang)) {
-				table.put(lang, alias, c);
+			Collection<String> possibleInputs = new HashSet<>();
+			possibleInputs.add(c.getId());
+			possibleInputs.add(c.getDisplayName(lang));
+			possibleInputs.addAll(c.getAliases(lang));
+			for (String input : possibleInputs) {
+				table.put(lang, input, c);
 			}
 		}
 	}
