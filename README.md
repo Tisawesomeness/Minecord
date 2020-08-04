@@ -93,7 +93,8 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Database Path:* The file path for the sqlite database.
 
 ### Self Hosting
-- See the instructions on the [master](https://github.com/Tisawesomeness/Minecord/tree/master) branch.
+- If you only want to use commands, simply [invite the public bot](https://discordapp.com/oauth2/authorize?client_id=292279711034245130&scope=bot&permissions=93248).
+- If you want to customize it for your server, add new features, or just hack on it, see the instructions on the [master](https://github.com/Tisawesomeness/Minecord/tree/master) branch.
 
 #### Default Config
 ```json
