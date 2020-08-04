@@ -131,11 +131,11 @@ public class EvalCommand extends AbstractAdminCommand {
 	private static String clean(String s, Config config) {
 		BotListConfig blc = config.getBotListConfig();
 		String[] blacklist = {
-			config.getToken(),
-			blc.getPwToken(),
-			blc.getOrgToken(),
-			blc.getWebhookUrl(),
-			blc.getWebhookAuth()
+				config.getToken(),
+				blc.getPwToken(),
+				blc.getOrgToken(),
+				blc.getWebhookUrl(),
+				blc.getWebhookAuth()
 		};
 		for (String nono : blacklist) {
 			if (nono != null) {
@@ -153,16 +153,17 @@ public class EvalCommand extends AbstractAdminCommand {
 		String fields = "NONE";
 		if (clazz.getFields().length > 0) {
 			fields = Arrays.stream(clazz.getFields())
-				.sorted(Comparator.comparing(Field::getName)) // Sort by field name
-				.map(f -> f.getType().getSimpleName() + " : " + f.getName())
-				.collect(Collectors.joining("\n"));
+					.sorted(Comparator.comparing(Field::getName))
+					.map(f -> f.getType().getSimpleName() + " : " + f.getName())
+					.collect(Collectors.joining("\n"));
 		}
 		String methods = "NONE";
 		if (clazz.getMethods().length > 0) {
 			methods = Arrays.stream(clazz.getMethods())
-				.sorted(Comparator.comparing(Method::getName)) // Sort by method name
-				.map(EvalCommand::getSignature)
-				.collect(Collectors.joining("\n"));
+					.filter(m -> o.getClass().equals(Object.class) || !m.getDeclaringClass().equals(Object.class))
+					.sorted(Comparator.comparing(Method::getName))
+					.map(EvalCommand::getSignature)
+					.collect(Collectors.joining("\n"));
 		}
 		return String.format("%s\n\nFields:\n%s\n\nMethods:\n%s", clazz.getName(), fields, methods);
 	}
@@ -174,8 +175,8 @@ public class EvalCommand extends AbstractAdminCommand {
 	 */
 	private static String getSignature(Method m) {
 		String params = Arrays.stream(m.getParameters())
-			.map(p -> cleanType(p.getType()))
-			.collect(Collectors.joining(", ")); // Comma-separated args like in "add(int x, int y)"
+				.map(p -> cleanType(p.getType()))
+				.collect(Collectors.joining(", ")); // Comma-separated args like in "add(int x, int y)"
 		String staticc = Modifier.isStatic(m.getModifiers()) ? "static " : ""; // Only static is included for brevity
 		return String.format("%s%s %s(%s)", staticc, cleanType(m.getGenericReturnType()), m.getName(), params);
 	}
