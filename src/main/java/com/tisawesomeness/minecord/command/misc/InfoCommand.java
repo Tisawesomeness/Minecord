@@ -19,15 +19,8 @@ public class InfoCommand extends AbstractMiscCommand {
 	public @NonNull String getId() {
 		return "info";
 	}
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-                false,
-				false,
-				true
-		);
-	}
 
-	public Result run(CommandContext ctx) {
+    public Result run(CommandContext ctx) {
 		ShardManager sm = ctx.bot.getShardManager();
 		
 		// If the author used the admin keyword and is an elevated user

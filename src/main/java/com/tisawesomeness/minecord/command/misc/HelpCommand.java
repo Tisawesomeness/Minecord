@@ -4,6 +4,8 @@ import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.CommandRegistry;
+import com.tisawesomeness.minecord.command.IElevatedCommand;
+import com.tisawesomeness.minecord.command.IHiddenCommand;
 import com.tisawesomeness.minecord.command.Module;
 
 import lombok.NonNull;
@@ -22,14 +24,7 @@ public class HelpCommand extends AbstractMiscCommand {
 	public @NonNull String getId() {
 		return "help";
 	}
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-                false,
-				false,
-				true
-		);
-	}
-	
+
 	public Result run(CommandContext ctx) {
 		String[] args = ctx.args;
 		String prefix = ctx.prefix;
@@ -58,7 +53,7 @@ public class HelpCommand extends AbstractMiscCommand {
 					continue;
 				}
 				String mHelp = cmds.stream()
-					.filter(c -> !c.getInfo().hidden)
+					.filter(c -> !(c instanceof IHiddenCommand))
 					.map(c -> String.format("`%s%s`", prefix, c.getDisplayName(lang)))
 					.collect(Collectors.joining(", "));
 				eb.addField(m.getDisplayName(lang), mHelp, false);
@@ -74,7 +69,7 @@ public class HelpCommand extends AbstractMiscCommand {
 				return new Result(Outcome.WARNING, ":warning: You do not have permission to view that module.");
 			}
 			String mUsage = registry.getCommandsInModule(m).stream()
-				.filter(c -> !c.getInfo().hidden || m.isHidden()) // All admin commands are hidden
+				.filter(c -> !(c instanceof IHiddenCommand) || m.isHidden()) // All admin commands are hidden
 				.map(c -> {
 					// Formatting changes based on whether the command has arguments
 					Optional<String> usageOpt = c.getUsage(lang);
@@ -98,8 +93,7 @@ public class HelpCommand extends AbstractMiscCommand {
 		if (cmdOpt.isPresent()) {
 			Command c = cmdOpt.get();
 			// Elevation check
-			CommandInfo ci = c.getInfo();
-			if (ci.elevated && !ctx.isElevated) {
+			if (c instanceof IElevatedCommand && !ctx.isElevated) {
 				return new Result(Outcome.WARNING, ":warning: You do not have permission to view that command.");
 			}
 			// Admin check

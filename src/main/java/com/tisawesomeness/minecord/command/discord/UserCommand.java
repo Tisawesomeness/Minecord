@@ -24,14 +24,7 @@ public class UserCommand extends AbstractDiscordCommand {
     public @NonNull String getId() {
         return "user";
     }
-    public CommandInfo getInfo() {
-		return new CommandInfo(
-                false,
-                false,
-                false
-		);
-    }
-    
+
     public Result run(CommandContext ctx) {
         String[] args = ctx.args;
         MessageReceivedEvent e = ctx.e;

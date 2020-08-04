@@ -14,15 +14,8 @@ public class PromoteCommand extends AbstractAdminCommand {
 	public @NonNull String getId() {
 		return "promote";
 	}
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-                true,
-				true,
-				true
-		);
-	}
-	
-	public Result run(CommandContext ctx) {
+
+    public Result run(CommandContext ctx) {
 
 		if (ctx.args.length == 0) {
 			return ctx.showHelp();

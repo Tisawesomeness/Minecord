@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.command.utility;
 import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.IHiddenCommand;
 import com.tisawesomeness.minecord.command.IShortcutCommand;
 import com.tisawesomeness.minecord.util.ColorUtils;
 
@@ -14,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class ColorShortcut extends AbstractUtilityCommand implements IShortcutCommand {
+public class ColorShortcut extends AbstractUtilityCommand implements IShortcutCommand, IHiddenCommand {
 
     private final Command colorCmd;
     private final String colorCode;
@@ -43,14 +44,6 @@ public class ColorShortcut extends AbstractUtilityCommand implements IShortcutCo
     @Override
     public List<String> getAliases(Lang lang) {
         return Collections.emptyList();
-    }
-
-    public CommandInfo getInfo() {
-		return new CommandInfo(
-                true,
-                false,
-                true
-		);
     }
 
     public @NonNull String getHelp(Lang lang, String prefix, String tag) {

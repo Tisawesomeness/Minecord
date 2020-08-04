@@ -13,14 +13,7 @@ public class NameCommand extends AbstractAdminCommand {
 	public @NonNull String getId() {
 		return "name";
 	}
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-                true,
-				true,
-				false
-		);
-	}
-	
+
 	public Result run(CommandContext ctx) {
 		String[] args = ctx.args;
 		

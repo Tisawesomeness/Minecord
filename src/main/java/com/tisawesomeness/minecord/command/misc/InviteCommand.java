@@ -11,15 +11,8 @@ public class InviteCommand extends AbstractMiscCommand {
 	public @NonNull String getId() {
 		return "invite";
 	}
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-                false,
-				false,
-				true
-		);
-	}
-	
-	public Result run(CommandContext ctx) {
+
+    public Result run(CommandContext ctx) {
 		EmbedBuilder eb = new EmbedBuilder();
 		eb.addField("Invite me!", ctx.config.getInviteLink(), false);
 		eb.addField("Help server", Bot.helpServer, false);

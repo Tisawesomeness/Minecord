@@ -18,13 +18,6 @@ public class LangCommand extends AbstractConfigCommand {
     public @NonNull String getId() {
         return "lang";
     }
-    public CommandInfo getInfo() {
-        return new CommandInfo(
-                false,
-                false,
-                false
-        );
-    }
 
     public Result run(CommandContext ctx) {
         String[] args = ctx.args;

@@ -10,13 +10,6 @@ public class VoteCommand extends AbstractMiscCommand {
     public @NonNull String getId() {
         return "vote";
     }
-    public CommandInfo getInfo() {
-		return new CommandInfo(
-                false,
-                false,
-                false
-		);
-    }
 
     public Result run(CommandContext ctx) {
         String m = "Top.gg: " + MarkdownUtil.maskedLink("VOTE", "https://top.gg/bot/292279711034245130/vote");

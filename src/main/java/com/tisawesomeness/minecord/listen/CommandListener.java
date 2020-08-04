@@ -3,11 +3,11 @@ package com.tisawesomeness.minecord.listen;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.command.Command.CommandInfo;
 import com.tisawesomeness.minecord.command.Command.Outcome;
 import com.tisawesomeness.minecord.command.Command.Result;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.CommandRegistry;
+import com.tisawesomeness.minecord.command.IElevatedCommand;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.config.serial.FlagConfig;
 import com.tisawesomeness.minecord.database.DatabaseCache;
@@ -125,13 +125,12 @@ public class CommandListener extends ListenerAdapter {
 		Optional<Command> cmdOpt = registry.getCommand(name, lang);
         if (!cmdOpt.isPresent()) return;
         Command cmd = cmdOpt.get();
-		CommandInfo ci = cmd.getInfo();
 		
 		MessageChannel c = e.getChannel();
 
 		// Check for elevation
 		boolean isElevated = dbUser.isElevated();
-		if (ci.elevated && !isElevated) {
+		if (c instanceof IElevatedCommand && !isElevated) {
 			c.sendMessage(":warning: Insufficient permissions!").queue();
 			return;
 		}
@@ -170,7 +169,7 @@ public class CommandListener extends ListenerAdapter {
 		// Instantiate timer
 		Timer timer = null;
 		Typing typing = null;
-		if (fc.isSendTyping() && ci.typing) {
+		if (fc.isSendTyping()) {
 			timer = new Timer();
 			typing = new Typing();
 			timer.schedule(typing, 0, 5000);
@@ -190,7 +189,7 @@ public class CommandListener extends ListenerAdapter {
 		}
 		
 		// Cancel typing
-		if (fc.isSendTyping() && ci.typing) {
+		if (fc.isSendTyping()) {
 			timer.cancel();
 			if (typing.fv != null) {
 				typing.fv.cancel(true);

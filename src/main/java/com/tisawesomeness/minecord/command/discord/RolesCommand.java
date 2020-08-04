@@ -20,13 +20,6 @@ public class RolesCommand extends AbstractDiscordCommand {
     public @NonNull String getId() {
         return "roles";
     }
-    public CommandInfo getInfo() {
-		return new CommandInfo(
-                false,
-                false,
-                false
-		);
-    }
 
     public Result run(CommandContext ctx) {
         String[] args = ctx.args;

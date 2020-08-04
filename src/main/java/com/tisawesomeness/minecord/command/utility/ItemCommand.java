@@ -11,13 +11,6 @@ public class ItemCommand extends AbstractUtilityCommand {
 	public @NonNull String getId() {
 		return "item";
 	}
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-                false,
-				false,
-				true
-		);
-	}
 
 	public Result run(CommandContext ctx) {
 		// Check for argument length

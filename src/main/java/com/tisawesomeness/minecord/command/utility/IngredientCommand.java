@@ -16,13 +16,6 @@ public class IngredientCommand extends AbstractUtilityCommand {
 	public @NonNull String getId() {
 		return "ingredient";
 	}
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-                false,
-				false,
-				true
-		);
-	}
 
 	public Result run(CommandContext ctx)  {
 		String[] args = ctx.args;

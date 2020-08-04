@@ -13,13 +13,6 @@ public class ColorCommand extends AbstractUtilityCommand {
     public @NonNull String getId() {
         return "color";
     }
-    public CommandInfo getInfo() {
-		return new CommandInfo(
-                false,
-                false,
-                true
-		);
-    }
 
     public Result run(CommandContext ctx) {
         if (ctx.args.length == 0) {

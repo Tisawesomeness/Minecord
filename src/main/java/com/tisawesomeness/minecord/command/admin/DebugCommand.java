@@ -26,13 +26,6 @@ public class DebugCommand extends AbstractAdminCommand {
     public @NonNull String getId() {
         return "debug";
     }
-    public CommandInfo getInfo() {
-        return new CommandInfo(
-                true,
-                true,
-                false
-        );
-    }
 
     private final List<DebugOption> debugOptions;
     public DebugCommand(ShardManager sm, DatabaseCache dbCache) {

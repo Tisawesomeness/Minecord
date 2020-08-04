@@ -18,13 +18,6 @@ public class PermsCommand extends AbstractDiscordCommand {
     public @NonNull String getId() {
         return "perms";
     }
-    public CommandInfo getInfo() {
-		return new CommandInfo(
-                false,
-                false,
-                false
-		);
-    }
 
     // Error message cannot be "you cannot see that channel"
     // since it reveals the channel exists when the user couldn't have known that otherwise

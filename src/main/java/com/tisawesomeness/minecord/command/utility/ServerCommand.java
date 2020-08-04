@@ -32,15 +32,8 @@ public class ServerCommand extends AbstractUtilityCommand {
 	public @NonNull String getId() {
 		return "server";
 	}
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-                false,
-				false,
-				true
-		);
-	}
-	
-	public Result run(CommandContext ctx) {
+
+    public Result run(CommandContext ctx) {
 		
 		// Parse arguments
 		if (ctx.args.length == 0) {

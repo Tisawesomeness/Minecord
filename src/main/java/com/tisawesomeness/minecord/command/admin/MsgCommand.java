@@ -15,14 +15,7 @@ public class MsgCommand extends AbstractAdminCommand {
 	public @NonNull String getId() {
 		return "msg";
 	}
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-                true,
-				true,
-				false
-		);
-	}
-	
+
 	public Result run(CommandContext ctx) {
 		String[] args = ctx.args;
 		

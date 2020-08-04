@@ -16,15 +16,8 @@ public class SkinCommand extends AbstractPlayerCommand {
 	public @NonNull String getId() {
 		return "skin";
 	}
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-                false,
-				false,
-				true
-		);
-	}
-	
-	public Result run(CommandContext ctx) {
+
+    public Result run(CommandContext ctx) {
 		
 		//No arguments message
 		if (ctx.args.length == 0) {

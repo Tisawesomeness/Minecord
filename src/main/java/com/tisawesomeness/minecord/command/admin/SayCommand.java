@@ -14,14 +14,7 @@ public class SayCommand extends AbstractAdminCommand {
 	public @NonNull String getId() {
 		return "say";
 	}
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-                true,
-				true,
-				false
-		);
-	}
-	
+
 	public Result run(CommandContext ctx) {
 		
 		//Check for proper argument length

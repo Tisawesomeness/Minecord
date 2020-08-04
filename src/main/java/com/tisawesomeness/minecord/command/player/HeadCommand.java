@@ -17,15 +17,8 @@ public class HeadCommand extends AbstractPlayerCommand {
 	public @NonNull String getId() {
 		return "head";
 	}
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-                false,
-				false,
-				true
-		);
-	}
-	
-	public Result run(CommandContext ctx) {
+
+    public Result run(CommandContext ctx) {
 		
 		//No arguments message
 		if (ctx.args.length == 0) {

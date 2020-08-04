@@ -21,13 +21,6 @@ public class ProfileCommand extends AbstractPlayerCommand {
 	public @NonNull String getId() {
 		return "profile";
 	}
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-                false,
-				false,
-				true
-		);
-	}
 
     public Result run(CommandContext ctx) {
 		

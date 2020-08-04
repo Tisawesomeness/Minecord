@@ -12,13 +12,6 @@ public class ResetCommand extends AbstractConfigCommand {
     public @NonNull String getId() {
         return "reset";
     }
-    public CommandInfo getInfo() {
-        return new CommandInfo(
-                false,
-                false,
-                false
-        );
-    }
 
     public Command.Result run(CommandContext ctx) {
         return new SettingCommandParser(ctx, SettingCommandType.RESET).parse();

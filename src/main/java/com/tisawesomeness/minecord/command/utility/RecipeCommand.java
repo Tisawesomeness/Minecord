@@ -16,13 +16,6 @@ public class RecipeCommand extends AbstractUtilityCommand {
 	public @NonNull String getId() {
 		return "recipe";
 	}
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-                false,
-				false,
-				true
-		);
-	}
 
 	public Result run(CommandContext ctx) {
 		String[] args = ctx.args;

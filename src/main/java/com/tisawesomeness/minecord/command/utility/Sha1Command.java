@@ -10,13 +10,6 @@ public class Sha1Command extends AbstractUtilityCommand {
     public @NonNull String getId() {
         return "sha1";
     }
-    public CommandInfo getInfo() {
-		return new CommandInfo(
-                false,
-                false,
-                true
-		);
-    }
 
     public Result run(CommandContext ctx) {
         if (ctx.args.length == 0) {

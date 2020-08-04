@@ -12,15 +12,8 @@ public class ShutdownCommand extends AbstractAdminCommand {
 	public @NonNull String getId() {
 		return "shutdown";
 	}
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-                true,
-				true,
-				false
-		);
-	}
-	
-	public Result run(CommandContext ctx) {
+
+    public Result run(CommandContext ctx) {
 
 		if (ctx.args.length > 0 && "now".equals(ctx.args[0])) {
 			System.exit(0);

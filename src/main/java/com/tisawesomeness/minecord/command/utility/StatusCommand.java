@@ -16,15 +16,8 @@ public class StatusCommand extends AbstractUtilityCommand {
 	public @NonNull String getId() {
 		return "status";
 	}
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-                false,
-				false,
-				true
-		);
-	}
-	
-	public Result run(CommandContext ctx) {
+
+    public Result run(CommandContext ctx) {
 		
 		//Request information from Mojang
 		String request = RequestUtils.get("https://status.mojang.com/check");

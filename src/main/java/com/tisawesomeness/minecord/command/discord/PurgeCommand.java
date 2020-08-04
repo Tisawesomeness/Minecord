@@ -18,15 +18,8 @@ public class PurgeCommand extends AbstractDiscordCommand {
 	public @NonNull String getId() {
 		return "purge";
 	}
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-                false,
-				false,
-				true
-		);
-	}
-	
-	public Result run(CommandContext ctx) {
+
+    public Result run(CommandContext ctx) {
 		String[] args = ctx.args;
 		MessageReceivedEvent e = ctx.e;
 

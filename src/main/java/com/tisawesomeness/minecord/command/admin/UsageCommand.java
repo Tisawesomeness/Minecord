@@ -23,15 +23,8 @@ public class UsageCommand extends AbstractAdminCommand {
 	public @NonNull String getId() {
 		return "usage";
 	}
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-				true,
-				true,
-				false
-		);
-	}
 
-	public Result run(CommandContext ctx) {
+    public Result run(CommandContext ctx) {
 		String prefix = ctx.prefix;
 		Lang lang = ctx.lang;
 

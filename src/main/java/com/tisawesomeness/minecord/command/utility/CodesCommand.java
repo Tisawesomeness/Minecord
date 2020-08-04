@@ -11,14 +11,7 @@ public class CodesCommand extends AbstractUtilityCommand {
 	public @NonNull String getId() {
 		return "codes";
 	}
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-                false,
-				false,
-				true
-		);
-	}
-	
+
 	private String img = "https://minecraft.gamepedia.com/media/minecraft.gamepedia.com/7/7e/Minecraft_Formatting.gif";
 	
 	public Result run(CommandContext ctx) {

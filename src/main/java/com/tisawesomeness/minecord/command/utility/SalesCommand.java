@@ -13,15 +13,8 @@ public class SalesCommand extends AbstractUtilityCommand {
 	public @NonNull String getId() {
 		return "sales";
 	}
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-                false,
-				false,
-				true
-		);
-	}
-	
-	public Result run(CommandContext ctx) {
+
+    public Result run(CommandContext ctx) {
 		
 		//Send a request to Mojang
 		String payload = "{\"metricKeys\":[\"item_sold_minecraft\",\"prepaid_card_redeemed_minecraft\"]}";

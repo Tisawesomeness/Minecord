@@ -14,15 +14,8 @@ public class DemoteCommand extends AbstractAdminCommand {
 	public @NonNull String getId() {
 		return "demote";
 	}
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-                true,
-				true,
-				true
-		);
-	}
-	
-	public Result run(CommandContext ctx) {
+
+    public Result run(CommandContext ctx) {
 
 		if (ctx.args.length == 0) {
 			return ctx.showHelp();

@@ -13,15 +13,8 @@ public class ReloadCommand extends AbstractAdminCommand {
 	public @NonNull String getId() {
 		return "reload";
 	}
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-                true,
-				true,
-				false
-		);
-	}
 
-	public Result run(CommandContext ctx) {
+    public Result run(CommandContext ctx) {
 
 		Message m = ctx.e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
 		try {

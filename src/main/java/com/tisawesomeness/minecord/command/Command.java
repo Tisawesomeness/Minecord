@@ -128,37 +128,6 @@ public abstract class Command implements ICommand {
 	}
 
 	/**
-	 * Represents all of the data needed to register a command.
-	 */
-	public static class CommandInfo {
-		/**
-		 * Whether or not to hide the command from the help menu.
-		 */
-		public final boolean hidden;
-		/**
-		 * Whether or not the user must be an elevated user to execute this command.
-		 */
-		public final boolean elevated;
-		/**
-		 * Whether or not the bot will send a typing message.
-		 */
-		public final boolean typing;
-		
-		/**
-		 * Represents all of the data needed to register a command.
-		 * @param hidden Whether or not to hide the command from the help menu.
-		 * @param elevated Whether or not the user must be an elevated user to execute this command.
-		 * @param typing Whether or not the bot will send a typing message.
-		 */
-		public CommandInfo(boolean hidden, boolean elevated, boolean typing) {
-			this.hidden = hidden;
-			this.elevated = elevated;
-			this.typing = typing;
-		}
-		
-	}
-	
-	/**
 	 * Represents the result of a command.
 	 */
 	public static class Result {

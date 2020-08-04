@@ -36,13 +36,6 @@ public class EvalCommand extends AbstractAdminCommand {
 	public @NonNull String getId() {
 		return "eval";
 	}
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-                true,
-				true,
-				false
-		);
-	}
 
 	public Result run(CommandContext ctx) {
 		MessageReceivedEvent e = ctx.e;

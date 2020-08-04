@@ -12,13 +12,6 @@ public class CreditsCommand extends AbstractMiscCommand {
     public @NonNull String getId() {
         return "credits";
     }
-    public CommandInfo getInfo() {
-		return new CommandInfo(
-                false,
-                false,
-                false
-		);
-    }
 
     private final String DEVS = MarkdownUtil.maskedLink("Tis_awesomeness#8617", "https://github.com/Tisawesomeness") + " - Main Dev\n" +
         MarkdownUtil.maskedLink("jbs#6969", "https://github.com/lordjbs") + " - Developer\n" +

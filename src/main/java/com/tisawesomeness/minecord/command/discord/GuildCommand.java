@@ -22,14 +22,7 @@ public class GuildCommand extends AbstractDiscordCommand {
     public @NonNull String getId() {
         return "guild";
     }
-    public CommandInfo getInfo() {
-		return new CommandInfo(
-                false,
-                false,
-                false
-		);
-    }
-    
+
     public Result run(CommandContext ctx) {
         String[] args = ctx.args;
 

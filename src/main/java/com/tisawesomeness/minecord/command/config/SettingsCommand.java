@@ -11,13 +11,6 @@ public class SettingsCommand extends AbstractConfigCommand {
     public @NonNull String getId() {
         return "settings";
     }
-    public CommandInfo getInfo() {
-        return new CommandInfo(
-                false,
-                false,
-                false
-        );
-    }
 
     public Result run(CommandContext ctx) {
         return new SettingCommandParser(ctx, SettingCommandType.QUERY).parse();
