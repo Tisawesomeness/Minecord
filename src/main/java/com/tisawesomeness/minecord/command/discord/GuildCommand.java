@@ -23,8 +23,7 @@ public class GuildCommand extends AbstractDiscordCommand {
         return "guild";
     }
 
-    public Result run(CommandContext ctx) {
-        String[] args = ctx.args;
+    public Result run(String[] args, CommandContext ctx) {
 
         // If the author used the admin keyword and is an elevated user
         boolean elevated = false;
@@ -87,6 +86,7 @@ public class GuildCommand extends AbstractDiscordCommand {
             }
         }
         return new Result(Outcome.SUCCESS, ctx.brand(eb).build());
+
     }
 
     private static String getSettingsStr(DbGuild guild, CommandContext ctx) {

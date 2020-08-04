@@ -19,8 +19,7 @@ public class PurgeCommand extends AbstractDiscordCommand {
         return "purge";
     }
 
-    public Result run(CommandContext ctx) {
-        String[] args = ctx.args;
+    public Result run(String[] args, CommandContext ctx) {
         MessageReceivedEvent e = ctx.e;
 
         // Guild-only command

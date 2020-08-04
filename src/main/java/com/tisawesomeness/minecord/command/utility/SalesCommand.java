@@ -14,7 +14,7 @@ public class SalesCommand extends AbstractUtilityCommand {
         return "sales";
     }
 
-    public Result run(CommandContext ctx) {
+    public Result run(String[] args, CommandContext ctx) {
 
         //Send a request to Mojang
         String payload = "{\"metricKeys\":[\"item_sold_minecraft\",\"prepaid_card_redeemed_minecraft\"]}";

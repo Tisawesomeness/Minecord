@@ -15,15 +15,15 @@ public class SayCommand extends AbstractAdminCommand {
         return "say";
     }
 
-    public Result run(CommandContext ctx) {
+    public Result run(String[] args, CommandContext ctx) {
 
         //Check for proper argument length
-        if (ctx.args.length < 2) {
+        if (args.length < 2) {
             return ctx.showHelp();
         }
 
         //Extract channel
-        TextChannel channel = DiscordUtils.findChannel(ctx.args[0], ctx.bot.getShardManager());
+        TextChannel channel = DiscordUtils.findChannel(args[0], ctx.bot.getShardManager());
         if (channel == null) return new Result(Outcome.ERROR, ":x: Not a valid channel!");
 
         //Send the message

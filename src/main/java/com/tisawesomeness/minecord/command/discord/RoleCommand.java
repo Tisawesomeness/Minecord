@@ -19,8 +19,7 @@ public class RoleCommand extends AbstractDiscordCommand {
         return "role";
     }
 
-    public Result run(CommandContext ctx) {
-        String[] args = ctx.args;
+    public Result run(String[] args, CommandContext ctx) {
         MessageReceivedEvent e = ctx.e;
 
         if (args.length == 0) {

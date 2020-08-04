@@ -20,12 +20,12 @@ public class InfoCommand extends AbstractMiscCommand {
         return "info";
     }
 
-    public Result run(CommandContext ctx) {
+    public Result run(String[] args, CommandContext ctx) {
         ShardManager sm = ctx.bot.getShardManager();
 
         // If the author used the admin keyword and is an elevated user
         boolean elevated = false;
-        if (ctx.args.length > 0 && "admin".equals(ctx.args[0]) && ctx.isElevated) {
+        if (args.length > 0 && "admin".equals(args[0]) && ctx.isElevated) {
             elevated = true;
         }
 

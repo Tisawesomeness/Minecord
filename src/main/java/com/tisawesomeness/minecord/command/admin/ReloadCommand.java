@@ -14,7 +14,7 @@ public class ReloadCommand extends AbstractAdminCommand {
         return "reload";
     }
 
-    public Result run(CommandContext ctx) {
+    public Result run(String[] args, CommandContext ctx) {
 
         Message m = ctx.e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
         try {

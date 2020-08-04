@@ -12,7 +12,7 @@ public class SetCommand extends AbstractConfigCommand {
         return "set";
     }
 
-    public Result run(CommandContext ctx) {
+    public Result run(String[] args, CommandContext ctx) {
         return new SettingCommandParser(ctx, SettingCommandType.SET).parse();
     }
 }

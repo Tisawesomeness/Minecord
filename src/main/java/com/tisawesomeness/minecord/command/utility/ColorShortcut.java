@@ -50,7 +50,7 @@ public class ColorShortcut extends AbstractUtilityCommand implements IShortcutCo
         return colorCmd.getHelp(lang, prefix, tag);
     }
 
-    public Result run(CommandContext ctx) {
+    public Result run(String[] args, CommandContext ctx) {
         EmbedBuilder eb = ColorCommand.buildColorInfo(color);
         return new Result(Outcome.SUCCESS, ctx.addFooter(eb).build());
     }

@@ -13,9 +13,9 @@ public class ShutdownCommand extends AbstractAdminCommand {
         return "shutdown";
     }
 
-    public Result run(CommandContext ctx) {
+    public Result run(String[] args, CommandContext ctx) {
 
-        if (ctx.args.length > 0 && "now".equals(ctx.args[0])) {
+        if (args.length > 0 && "now".equals(args[0])) {
             System.exit(0);
             throw new AssertionError("System.exit() call failed.");
         }

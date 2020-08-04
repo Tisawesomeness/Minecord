@@ -14,7 +14,7 @@ public class CodesCommand extends AbstractUtilityCommand {
 
     private String img = "https://minecraft.gamepedia.com/media/minecraft.gamepedia.com/7/7e/Minecraft_Formatting.gif";
 
-    public Result run(CommandContext ctx) {
+    public Result run(String[] args, CommandContext ctx) {
 
         String desc = String.format("Symbol copy-paste: `\u00A7`, `\\u00A7`\nUse `%scolor` to get info on a color.", ctx.prefix);
         EmbedBuilder eb = new EmbedBuilder()

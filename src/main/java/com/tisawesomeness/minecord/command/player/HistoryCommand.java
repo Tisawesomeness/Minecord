@@ -20,20 +20,20 @@ public class HistoryCommand extends AbstractPlayerCommand {
         return "history";
     }
 
-    public Result run(CommandContext ctx) {
+    public Result run(String[] args, CommandContext ctx) {
 
         // No arguments message
-        if (ctx.args.length == 0) {
+        if (args.length == 0) {
             return ctx.showHelp();
         }
 
-        String player = ctx.args[0];
+        String player = args[0];
         if (!player.matches(NameUtils.uuidRegex)) {
             String uuid = null;
 
             // Parse date argument
-            if (ctx.args.length > 1) {
-                long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(ctx.args, 1, ctx.args.length));
+            if (args.length > 1) {
+                long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
                 if (timestamp == -1) {
                     return new Result(Outcome.WARNING, MessageUtils.dateErrorString(ctx.prefix, "history"));
                 }

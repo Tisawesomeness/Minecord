@@ -33,13 +33,13 @@ public class ServerCommand extends AbstractUtilityCommand {
         return "server";
     }
 
-    public Result run(CommandContext ctx) {
+    public Result run(String[] args, CommandContext ctx) {
 
         // Parse arguments
-        if (ctx.args.length == 0) {
+        if (args.length == 0) {
             return ctx.showHelp();
         }
-        String arg = ctx.args[0];
+        String arg = args[0];
         boolean ip = true;
         if (!arg.matches(ipAddressRegex)) {
             ip = false;

@@ -10,7 +10,7 @@ public class TestCommand extends AbstractAdminCommand {
         return "test";
     }
 
-    public Result run(CommandContext ctx) {
+    public Result run(String[] args, CommandContext ctx) {
         return new Result(Outcome.SUCCESS, "Test");
     }
 

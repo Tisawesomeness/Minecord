@@ -14,8 +14,8 @@ public class ColorCommand extends AbstractUtilityCommand {
         return "color";
     }
 
-    public Result run(CommandContext ctx) {
-        if (ctx.args.length == 0) {
+    public Result run(String[] args, CommandContext ctx) {
+        if (args.length == 0) {
             return ctx.showHelp();
         }
         Color c = ColorUtils.parseColor(ctx.joinArgs(), "en_US");

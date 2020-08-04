@@ -17,7 +17,7 @@ public class StatusCommand extends AbstractUtilityCommand {
         return "status";
     }
 
-    public Result run(CommandContext ctx) {
+    public Result run(String[] args, CommandContext ctx) {
 
         //Request information from Mojang
         String request = RequestUtils.get("https://status.mojang.com/check");

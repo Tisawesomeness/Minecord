@@ -24,7 +24,7 @@ public class UsageCommand extends AbstractAdminCommand {
         return "usage";
     }
 
-    public Result run(CommandContext ctx) {
+    public Result run(String[] args, CommandContext ctx) {
         String prefix = ctx.prefix;
         Lang lang = ctx.lang;
 

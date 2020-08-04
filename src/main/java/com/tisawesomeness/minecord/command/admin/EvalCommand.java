@@ -38,11 +38,11 @@ public class EvalCommand extends AbstractAdminCommand {
         return "eval";
     }
 
-    public Result run(CommandContext ctx) {
+    public Result run(String[] args, CommandContext ctx) {
         MessageReceivedEvent e = ctx.e;
 
         // Parse args
-        if (ctx.args.length == 0) {
+        if (args.length == 0) {
             return ctx.showHelp();
         }
 

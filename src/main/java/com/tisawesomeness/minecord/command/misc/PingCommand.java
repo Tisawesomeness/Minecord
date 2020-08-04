@@ -11,7 +11,7 @@ public class PingCommand extends AbstractMiscCommand implements IHiddenCommand {
         return "ping";
     }
 
-    public Result run(CommandContext ctx) {
+    public Result run(String[] args, CommandContext ctx) {
         return new Result(Outcome.SUCCESS, String.format(
             ":ping_pong: **Pong!** `%s ms`\nUse `%sserver` to ping a server.",
                 ctx.bot.getShardManager().getAverageGatewayPing(), ctx.prefix

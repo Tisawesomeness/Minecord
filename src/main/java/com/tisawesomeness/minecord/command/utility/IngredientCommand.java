@@ -17,9 +17,7 @@ public class IngredientCommand extends AbstractUtilityCommand {
         return "ingredient";
     }
 
-    public Result run(CommandContext ctx)  {
-        String[] args = ctx.args;
-
+    public Result run(String[] args, CommandContext ctx)  {
         // Check for argument length
         if (args.length == 0) {
             return ctx.showHelp();

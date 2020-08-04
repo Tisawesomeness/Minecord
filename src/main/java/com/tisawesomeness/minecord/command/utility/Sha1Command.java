@@ -11,8 +11,8 @@ public class Sha1Command extends AbstractUtilityCommand {
         return "sha1";
     }
 
-    public Result run(CommandContext ctx) {
-        if (ctx.args.length == 0) {
+    public Result run(String[] args, CommandContext ctx) {
+        if (args.length == 0) {
             return ctx.showHelp();
         }
         return new Result(Outcome.SUCCESS, RequestUtils.sha1(ctx.joinArgs()));

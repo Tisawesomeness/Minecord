@@ -25,8 +25,7 @@ public class UserCommand extends AbstractDiscordCommand {
         return "user";
     }
 
-    public Result run(CommandContext ctx) {
-        String[] args = ctx.args;
+    public Result run(String[] args, CommandContext ctx) {
         MessageReceivedEvent e = ctx.e;
         ShardManager sm = ctx.bot.getShardManager();
 

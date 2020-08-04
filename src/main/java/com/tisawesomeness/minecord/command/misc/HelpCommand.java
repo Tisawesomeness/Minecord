@@ -25,8 +25,7 @@ public class HelpCommand extends AbstractMiscCommand {
         return "help";
     }
 
-    public Result run(CommandContext ctx) {
-        String[] args = ctx.args;
+    public Result run(String[] args, CommandContext ctx) {
         String prefix = ctx.prefix;
         Lang lang = ctx.lang;
 

@@ -12,7 +12,7 @@ public class InviteCommand extends AbstractMiscCommand {
         return "invite";
     }
 
-    public Result run(CommandContext ctx) {
+    public Result run(String[] args, CommandContext ctx) {
         EmbedBuilder eb = new EmbedBuilder();
         eb.addField("Invite me!", ctx.config.getInviteLink(), false);
         eb.addField("Help server", Bot.helpServer, false);

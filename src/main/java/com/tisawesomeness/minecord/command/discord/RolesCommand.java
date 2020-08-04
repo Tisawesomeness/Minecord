@@ -21,8 +21,7 @@ public class RolesCommand extends AbstractDiscordCommand {
         return "roles";
     }
 
-    public Result run(CommandContext ctx) {
-        String[] args = ctx.args;
+    public Result run(String[] args, CommandContext ctx) {
         MessageReceivedEvent e = ctx.e;
         
         // Guild-only command

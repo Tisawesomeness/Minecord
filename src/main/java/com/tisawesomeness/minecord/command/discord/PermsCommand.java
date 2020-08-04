@@ -24,8 +24,7 @@ public class PermsCommand extends AbstractDiscordCommand {
     private static final Result invalidChannel = new Result(Outcome.WARNING,
             ":warning: That channel does not exist in the current guild or is not visible to you.");
 
-    public Result run(CommandContext ctx) {
-        String[] args = ctx.args;
+    public Result run(String[] args, CommandContext ctx) {
         MessageReceivedEvent e = ctx.e;
 
         TextChannel c;

@@ -18,13 +18,12 @@ public class HeadCommand extends AbstractPlayerCommand {
         return "head";
     }
 
-    public Result run(CommandContext ctx) {
+    public Result run(String[] args, CommandContext ctx) {
 
         //No arguments message
-        if (ctx.args.length == 0) {
+        if (args.length == 0) {
             return ctx.showHelp();
         }
-        String[] args = ctx.args;
 
         //Check for overlay argument
         boolean overlay = false;

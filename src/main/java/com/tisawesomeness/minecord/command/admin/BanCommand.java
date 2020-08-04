@@ -20,8 +20,7 @@ public class BanCommand extends AbstractAdminCommand {
         return "ban";
     }
 
-    public Result run(CommandContext ctx) {
-        String[] args = ctx.args;
+    public Result run(String[] args, CommandContext ctx) {
 
         //Check for proper argument length
         if (args.length < 1) return new Result(Outcome.WARNING, ":warning: Not enough arguments.");

@@ -15,14 +15,14 @@ public class PromoteCommand extends AbstractAdminCommand {
         return "promote";
     }
 
-    public Result run(CommandContext ctx) {
+    public Result run(String[] args, CommandContext ctx) {
 
-        if (ctx.args.length == 0) {
+        if (args.length == 0) {
             return ctx.showHelp();
         }
 
         //Extract user
-        User user = DiscordUtils.findUser(ctx.args[0], ctx.bot.getShardManager());
+        User user = DiscordUtils.findUser(args[0], ctx.bot.getShardManager());
         if (user == null) return new Result(Outcome.ERROR, ":x: Not a valid user!");
 
         //Don't elevate a normal user

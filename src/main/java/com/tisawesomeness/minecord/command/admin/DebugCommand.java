@@ -39,19 +39,19 @@ public class DebugCommand extends AbstractAdminCommand {
         );
     }
 
-    public Result run(CommandContext ctx) {
+    public Result run(String[] args, CommandContext ctx) {
         if (!ctx.config.getFlagConfig().isDebugMode()) {
             return new Result(Outcome.WARNING, "The bot is not in debug mode.");
         }
 
-        if (ctx.args.length == 0) {
+        if (args.length == 0) {
             String possibleOptions = debugOptions.stream()
                     .map(d -> MarkdownUtil.monospace(d.getName()))
                     .collect(Collectors.joining(", "));
             return new Result(Outcome.SUCCESS, "Possible options: " + possibleOptions);
         }
 
-        if ("all".equalsIgnoreCase(ctx.args[0])) {
+        if ("all".equalsIgnoreCase(args[0])) {
             for (DebugOption d : debugOptions) {
                 sendDebugInfo(ctx, d);
             }
@@ -59,7 +59,7 @@ public class DebugCommand extends AbstractAdminCommand {
         }
 
         for (DebugOption d : debugOptions) {
-            if (d.getName().equalsIgnoreCase(ctx.args[0])) {
+            if (d.getName().equalsIgnoreCase(args[0])) {
                 sendDebugInfo(ctx, d);
                 return new Result(Outcome.SUCCESS);
             }

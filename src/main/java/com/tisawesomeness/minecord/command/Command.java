@@ -19,7 +19,7 @@ import java.util.Optional;
 /**
  * Represents a command.
  */
-public abstract class Command implements ICommand {
+public abstract class Command {
 
     public int uses = 0;
     public HashMap<User, Long> cooldowns = new HashMap<>();
@@ -37,6 +37,14 @@ public abstract class Command implements ICommand {
      * @return A <b>unique</b> string that contains only lowercase letters and numbers, and starts with a letter
      */
     public abstract @NonNull String getId();
+
+    /**
+     * This method is called when the command is run.
+     * @param args An array of command arguments separated by spaces
+     * @param ctx The message-specific context
+     * @return The Result of the command
+     */
+    public abstract Result run(String[] args, CommandContext ctx);
 
     /**
      * Gets the display name of this command, or how it should be displayed to the user. Defaults to the id.

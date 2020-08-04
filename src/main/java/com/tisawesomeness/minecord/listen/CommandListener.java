@@ -183,7 +183,7 @@ public class CommandListener extends ListenerAdapter {
         cmd.cooldowns.put(a, System.currentTimeMillis());
         cmd.uses++;
         try {
-            result = cmd.run(ctx);
+            result = cmd.run(args, ctx);
         } catch (Exception ex) {
             exception = ex;
         }

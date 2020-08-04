@@ -19,8 +19,7 @@ public class LangCommand extends AbstractConfigCommand {
         return "lang";
     }
 
-    public Result run(CommandContext ctx) {
-        String[] args = ctx.args;
+    public Result run(String[] args, CommandContext ctx) {
         if (args.length == 0) {
             return listLanguages(ctx, "Languages", false);
         } else if ("all".equalsIgnoreCase(args[0])) {

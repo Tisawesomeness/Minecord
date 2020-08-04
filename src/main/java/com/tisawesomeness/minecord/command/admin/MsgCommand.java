@@ -16,9 +16,7 @@ public class MsgCommand extends AbstractAdminCommand {
         return "msg";
     }
 
-    public Result run(CommandContext ctx) {
-        String[] args = ctx.args;
-
+    public Result run(String[] args, CommandContext ctx) {
         //Check for proper argument length
         if (args.length < 2) {
             return ctx.showHelp();

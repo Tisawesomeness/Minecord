@@ -15,14 +15,14 @@ public class DemoteCommand extends AbstractAdminCommand {
         return "demote";
     }
 
-    public Result run(CommandContext ctx) {
+    public Result run(String[] args, CommandContext ctx) {
 
-        if (ctx.args.length == 0) {
+        if (args.length == 0) {
             return ctx.showHelp();
         }
 
         //Extract user
-        User user = DiscordUtils.findUser(ctx.args[0], ctx.bot.getShardManager());
+        User user = DiscordUtils.findUser(args[0], ctx.bot.getShardManager());
         if (user == null) return new Result(Outcome.ERROR, ":x: Not a valid user!");
         long id = user.getIdLong();
 

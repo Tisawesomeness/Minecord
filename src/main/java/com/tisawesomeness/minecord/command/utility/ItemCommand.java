@@ -12,9 +12,9 @@ public class ItemCommand extends AbstractUtilityCommand {
         return "item";
     }
 
-    public Result run(CommandContext ctx) {
+    public Result run(String[] args, CommandContext ctx) {
         // Check for argument length
-        if (ctx.args.length == 0) {
+        if (args.length == 0) {
             return ctx.showHelp();
         }
 

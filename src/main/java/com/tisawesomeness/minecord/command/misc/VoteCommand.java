@@ -11,7 +11,7 @@ public class VoteCommand extends AbstractMiscCommand {
         return "vote";
     }
 
-    public Result run(CommandContext ctx) {
+    public Result run(String[] args, CommandContext ctx) {
         String m = "Top.gg: " + MarkdownUtil.maskedLink("VOTE", "https://top.gg/bot/292279711034245130/vote");
         return new Result(Outcome.SUCCESS, ctx.embedMessage("Vote for Minecord!", m).build());
     }

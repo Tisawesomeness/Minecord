@@ -13,7 +13,7 @@ public class ResetCommand extends AbstractConfigCommand {
         return "reset";
     }
 
-    public Command.Result run(CommandContext ctx) {
+    public Command.Result run(String[] args, CommandContext ctx) {
         return new SettingCommandParser(ctx, SettingCommandType.RESET).parse();
     }
 }
