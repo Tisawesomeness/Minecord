@@ -8,17 +8,17 @@ import net.dv8tion.jda.api.EmbedBuilder;
 
 public class InviteCommand extends AbstractMiscCommand {
 
-	public @NonNull String getId() {
-		return "invite";
-	}
+    public @NonNull String getId() {
+        return "invite";
+    }
 
     public Result run(CommandContext ctx) {
-		EmbedBuilder eb = new EmbedBuilder();
-		eb.addField("Invite me!", ctx.config.getInviteLink(), false);
-		eb.addField("Help server", Bot.helpServer, false);
-		eb.addField("Website", Bot.website, true);
-		eb = ctx.brand(eb);
-		return new Result(Outcome.SUCCESS, eb.build());
-	}
-	
+        EmbedBuilder eb = new EmbedBuilder();
+        eb.addField("Invite me!", ctx.config.getInviteLink(), false);
+        eb.addField("Help server", Bot.helpServer, false);
+        eb.addField("Website", Bot.website, true);
+        eb = ctx.brand(eb);
+        return new Result(Outcome.SUCCESS, eb.build());
+    }
+
 }

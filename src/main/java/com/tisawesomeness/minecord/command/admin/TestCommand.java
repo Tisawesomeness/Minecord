@@ -6,12 +6,12 @@ import lombok.NonNull;
 
 public class TestCommand extends AbstractAdminCommand {
 
-	public @NonNull String getId() {
-		return "test";
-	}
+    public @NonNull String getId() {
+        return "test";
+    }
 
-	public Result run(CommandContext ctx) {
-		return new Result(Outcome.SUCCESS, "Test");
-	}
-	
+    public Result run(CommandContext ctx) {
+        return new Result(Outcome.SUCCESS, "Test");
+    }
+
 }

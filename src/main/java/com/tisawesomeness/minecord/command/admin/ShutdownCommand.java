@@ -9,24 +9,24 @@ import java.util.concurrent.Executors;
 
 public class ShutdownCommand extends AbstractAdminCommand {
 
-	public @NonNull String getId() {
-		return "shutdown";
-	}
+    public @NonNull String getId() {
+        return "shutdown";
+    }
 
     public Result run(CommandContext ctx) {
 
-		if (ctx.args.length > 0 && "now".equals(ctx.args[0])) {
-			System.exit(0);
-			throw new AssertionError("System.exit() call failed.");
-		}
+        if (ctx.args.length > 0 && "now".equals(ctx.args[0])) {
+            System.exit(0);
+            throw new AssertionError("System.exit() call failed.");
+        }
 
-		ctx.log(":x: **Bot shut down by " + ctx.e.getAuthor().getName() + "**");
-		ctx.e.getChannel().sendMessage(":wave: Goodbye!").complete();
-		ExecutorService exe = Executors.newSingleThreadExecutor();
-		exe.submit(ctx.bot::shutdown);
-		exe.shutdown();
-		return new Result(Outcome.SUCCESS); // Graceful shutdown, just wait...
+        ctx.log(":x: **Bot shut down by " + ctx.e.getAuthor().getName() + "**");
+        ctx.e.getChannel().sendMessage(":wave: Goodbye!").complete();
+        ExecutorService exe = Executors.newSingleThreadExecutor();
+        exe.submit(ctx.bot::shutdown);
+        exe.shutdown();
+        return new Result(Outcome.SUCCESS); // Graceful shutdown, just wait...
 
-	}
-	
+    }
+
 }

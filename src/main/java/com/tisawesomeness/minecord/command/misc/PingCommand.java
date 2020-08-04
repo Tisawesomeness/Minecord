@@ -7,14 +7,14 @@ import lombok.NonNull;
 
 public class PingCommand extends AbstractMiscCommand implements IHiddenCommand {
 
-	public @NonNull String getId() {
-		return "ping";
-	}
+    public @NonNull String getId() {
+        return "ping";
+    }
 
-	public Result run(CommandContext ctx) {
+    public Result run(CommandContext ctx) {
         return new Result(Outcome.SUCCESS, String.format(
             ":ping_pong: **Pong!** `%s ms`\nUse `%sserver` to ping a server.",
-				ctx.bot.getShardManager().getAverageGatewayPing(), ctx.prefix
+                ctx.bot.getShardManager().getAverageGatewayPing(), ctx.prefix
         ));
     }
 

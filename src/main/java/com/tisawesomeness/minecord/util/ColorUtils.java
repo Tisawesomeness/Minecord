@@ -72,11 +72,11 @@ public final class ColorUtils {
         int colorID = colors.getJSONObject(lang).optInt(color.toLowerCase().replace(" ", "_").replace("-", "_"), -1);
         return colorID == -1 ? null : mcColors.get(colorID);
     }
-	
-	/**
+
+    /**
      * Picks a random Minecraft color
      */
-	public static Color randomColor() {
+    public static Color randomColor() {
         return mcColors.get((int) (Math.random()*16));
     }
     /**
@@ -123,7 +123,7 @@ public final class ColorUtils {
      * @param c The color
      * @return A string in hsv(h,s%,v%) format, where 0 <= h < 360 and 0% <= s,v <= 100%
      */
-	public static String getHSV(Color c) {
+    public static String getHSV(Color c) {
         float[] hsv = Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(), null);
         return String.format("`hsv(%d,%d%%,%d%%)`", (int) (360*hsv[0]), Math.round(100*hsv[1]), Math.round(100*hsv[2]));
     }

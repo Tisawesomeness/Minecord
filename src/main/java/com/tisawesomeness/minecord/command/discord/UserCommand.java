@@ -31,7 +31,7 @@ public class UserCommand extends AbstractDiscordCommand {
         ShardManager sm = ctx.bot.getShardManager();
 
         //If the author used the admin keyword and is an elevated user
-		if (args.length > 1 && args[1].equals("admin") && ctx.isElevated) {
+        if (args.length > 1 && args[1].equals("admin") && ctx.isElevated) {
             if (!DiscordUtils.isDiscordId(args[0])) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }

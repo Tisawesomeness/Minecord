@@ -11,36 +11,36 @@ import net.dv8tion.jda.api.entities.User;
 
 public class SayCommand extends AbstractAdminCommand {
 
-	public @NonNull String getId() {
-		return "say";
-	}
+    public @NonNull String getId() {
+        return "say";
+    }
 
-	public Result run(CommandContext ctx) {
-		
-		//Check for proper argument length
-		if (ctx.args.length < 2) {
-			return ctx.showHelp();
-		}
-		
-		//Extract channel
-		TextChannel channel = DiscordUtils.findChannel(ctx.args[0], ctx.bot.getShardManager());
-		if (channel == null) return new Result(Outcome.ERROR, ":x: Not a valid channel!");
-		
-		//Send the message
-		String msg = ctx.joinArgsSlice(1);
-		channel.sendMessage(msg).queue();
-		
-		//Log it
-		EmbedBuilder eb = new EmbedBuilder();
-		Guild guild = channel.getGuild();
-		User a = ctx.e.getAuthor();
-		eb.setAuthor(a.getAsTag() + " (`" + a.getId() + "`)", null, a.getAvatarUrl());
-		eb.setDescription("**Sent a msg to `" + channel.getName() + "` (`" + channel.getId() + "`)**\non `" +
-			guild.getName() + "` (" + guild.getId() + "):\n" + msg);
-		eb.setThumbnail(guild.getIconUrl());
-		ctx.log(eb.build());
-		
-		return new Result(Outcome.SUCCESS);
-	}
-	
+    public Result run(CommandContext ctx) {
+
+        //Check for proper argument length
+        if (ctx.args.length < 2) {
+            return ctx.showHelp();
+        }
+
+        //Extract channel
+        TextChannel channel = DiscordUtils.findChannel(ctx.args[0], ctx.bot.getShardManager());
+        if (channel == null) return new Result(Outcome.ERROR, ":x: Not a valid channel!");
+
+        //Send the message
+        String msg = ctx.joinArgsSlice(1);
+        channel.sendMessage(msg).queue();
+
+        //Log it
+        EmbedBuilder eb = new EmbedBuilder();
+        Guild guild = channel.getGuild();
+        User a = ctx.e.getAuthor();
+        eb.setAuthor(a.getAsTag() + " (`" + a.getId() + "`)", null, a.getAvatarUrl());
+        eb.setDescription("**Sent a msg to `" + channel.getName() + "` (`" + channel.getId() + "`)**\non `" +
+            guild.getName() + "` (" + guild.getId() + "):\n" + msg);
+        eb.setThumbnail(guild.getIconUrl());
+        ctx.log(eb.build());
+
+        return new Result(Outcome.SUCCESS);
+    }
+
 }

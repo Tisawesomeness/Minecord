@@ -77,15 +77,15 @@ public class RolesCommand extends AbstractDiscordCommand {
             lines.add("...");
         }
 
-		// If over 2048, use fields, otherwise use description
-		if (chars > 2048) {
-			// Split into fields, avoiding 1024 field char limit
-			for (String field : MessageUtils.splitLinesByLength(lines, 1024)) {
-				eb.addField("Roles", field, true);
-			}
-		} else {
-			eb.setDescription(String.join("\n", lines));
-		}
+        // If over 2048, use fields, otherwise use description
+        if (chars > 2048) {
+            // Split into fields, avoiding 1024 field char limit
+            for (String field : MessageUtils.splitLinesByLength(lines, 1024)) {
+                eb.addField("Roles", field, true);
+            }
+        } else {
+            eb.setDescription(String.join("\n", lines));
+        }
         
         return new Result(Outcome.SUCCESS, ctx.addFooter(eb).build());
     }

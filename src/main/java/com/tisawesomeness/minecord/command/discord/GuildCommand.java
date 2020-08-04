@@ -29,7 +29,7 @@ public class GuildCommand extends AbstractDiscordCommand {
         // If the author used the admin keyword and is an elevated user
         boolean elevated = false;
         Guild g;
-		if (args.length > 1 && args[1].equals("admin") && ctx.isElevated) {
+        if (args.length > 1 && args[1].equals("admin") && ctx.isElevated) {
             elevated = true;
             if (!DiscordUtils.isDiscordId(args[0])) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
@@ -51,7 +51,7 @@ public class GuildCommand extends AbstractDiscordCommand {
             g = ctx.e.getGuild();
         }
         User owner = g.retrieveOwner().complete().getUser();
-		DbGuild dbGuild = ctx.getGuild(g);
+        DbGuild dbGuild = ctx.getGuild(g);
 
         // Generate guild info
         int textChannels = g.getTextChannels().size();

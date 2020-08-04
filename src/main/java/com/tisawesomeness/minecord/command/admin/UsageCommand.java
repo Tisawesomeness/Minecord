@@ -18,31 +18,31 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UsageCommand extends AbstractAdminCommand {
 
-	private @NonNull CommandRegistry registry;
+    private @NonNull CommandRegistry registry;
 
-	public @NonNull String getId() {
-		return "usage";
-	}
+    public @NonNull String getId() {
+        return "usage";
+    }
 
     public Result run(CommandContext ctx) {
-		String prefix = ctx.prefix;
-		Lang lang = ctx.lang;
+        String prefix = ctx.prefix;
+        Lang lang = ctx.lang;
 
-		EmbedBuilder eb = new EmbedBuilder()
-				.setTitle("Command usage for " + DateUtils.getDurationString(ctx.bot.getBirth()));
-		for (Module m : Module.values()) {
-			Collection<Command> cmds = registry.getCommandsInModule(m);
-			if (cmds.isEmpty()) {
-				continue;
-			}
-			String field = cmds.stream()
-					.filter(c -> !(c instanceof IShortcutCommand))
-					.map(c -> String.format("`%s%s` **-** %d", prefix, c.getDisplayName(lang), c.uses))
-					.collect(Collectors.joining("\n"));
-			eb.addField(String.format("**%s**", m.getDisplayName(lang)), field, true);
-		}
+        EmbedBuilder eb = new EmbedBuilder()
+                .setTitle("Command usage for " + DateUtils.getDurationString(ctx.bot.getBirth()));
+        for (Module m : Module.values()) {
+            Collection<Command> cmds = registry.getCommandsInModule(m);
+            if (cmds.isEmpty()) {
+                continue;
+            }
+            String field = cmds.stream()
+                    .filter(c -> !(c instanceof IShortcutCommand))
+                    .map(c -> String.format("`%s%s` **-** %d", prefix, c.getDisplayName(lang), c.uses))
+                    .collect(Collectors.joining("\n"));
+            eb.addField(String.format("**%s**", m.getDisplayName(lang)), field, true);
+        }
 
-		return new Result(Outcome.SUCCESS, ctx.brand(eb).build());
-	}
-	
+        return new Result(Outcome.SUCCESS, ctx.brand(eb).build());
+    }
+
 }

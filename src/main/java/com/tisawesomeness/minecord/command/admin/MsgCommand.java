@@ -12,41 +12,41 @@ import java.util.concurrent.ExecutionException;
 
 public class MsgCommand extends AbstractAdminCommand {
 
-	public @NonNull String getId() {
-		return "msg";
-	}
+    public @NonNull String getId() {
+        return "msg";
+    }
 
-	public Result run(CommandContext ctx) {
-		String[] args = ctx.args;
-		
-		//Check for proper argument length
-		if (args.length < 2) {
-			return ctx.showHelp();
-		}
-		
-		//Extract user
-		User user = DiscordUtils.findUser(args[0], ctx.bot.getShardManager());
-		if (user == null) return new Result(Outcome.ERROR, ":x: Not a valid user!");
-		
-		//Send the message
-		String msg = null;
-		try {
-			PrivateChannel channel = user.openPrivateChannel().submit().get();
-			msg = ctx.joinArgsSlice(1);
-			channel.sendMessage(msg).queue();
-		} catch (InterruptedException | ExecutionException ex) {
-			ex.printStackTrace();
-			return new Result(Outcome.ERROR, ":x: An exception occured.");
-		}
-		
-		EmbedBuilder eb = new EmbedBuilder();
-		User a = ctx.e.getAuthor();
-		eb.setAuthor(a.getAsTag() + " (`" + a.getId() + "`)", null, a.getAvatarUrl());
-		eb.setDescription("**Sent a DM to " + user.getAsTag() + " (`" + user.getId() + "`):**\n" + msg);
-		eb.setThumbnail(user.getAvatarUrl());
-		ctx.log(eb.build());
-		
-		return new Result(Outcome.SUCCESS);
-	}
-	
+    public Result run(CommandContext ctx) {
+        String[] args = ctx.args;
+
+        //Check for proper argument length
+        if (args.length < 2) {
+            return ctx.showHelp();
+        }
+
+        //Extract user
+        User user = DiscordUtils.findUser(args[0], ctx.bot.getShardManager());
+        if (user == null) return new Result(Outcome.ERROR, ":x: Not a valid user!");
+
+        //Send the message
+        String msg = null;
+        try {
+            PrivateChannel channel = user.openPrivateChannel().submit().get();
+            msg = ctx.joinArgsSlice(1);
+            channel.sendMessage(msg).queue();
+        } catch (InterruptedException | ExecutionException ex) {
+            ex.printStackTrace();
+            return new Result(Outcome.ERROR, ":x: An exception occured.");
+        }
+
+        EmbedBuilder eb = new EmbedBuilder();
+        User a = ctx.e.getAuthor();
+        eb.setAuthor(a.getAsTag() + " (`" + a.getId() + "`)", null, a.getAvatarUrl());
+        eb.setDescription("**Sent a DM to " + user.getAsTag() + " (`" + user.getId() + "`):**\n" + msg);
+        eb.setThumbnail(user.getAvatarUrl());
+        ctx.log(eb.build());
+
+        return new Result(Outcome.SUCCESS);
+    }
+
 }

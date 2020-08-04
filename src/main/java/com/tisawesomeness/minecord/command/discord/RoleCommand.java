@@ -32,7 +32,7 @@ public class RoleCommand extends AbstractDiscordCommand {
         List<Role> roles = e.getGuild().getRoles();
         List<Role> mentioned = e.getMessage().getMentionedRoles();
         // Search for any role if admin
-		if (args.length > 1 && args[1].equals("admin") && ctx.isElevated) {
+        if (args.length > 1 && args[1].equals("admin") && ctx.isElevated) {
             role = ctx.bot.getShardManager().getRoleById(args[0]);
         // Mentioned roles
         } else if (mentioned.size() > 0) {

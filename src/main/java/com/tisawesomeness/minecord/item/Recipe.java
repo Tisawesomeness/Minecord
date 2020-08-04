@@ -343,13 +343,13 @@ public class Recipe {
          * @param page The page to start on
          * @param lang The language code
          */
-		public RecipeMenu(List<String> recipeList, int page, String lang) {
-			super(page, lang);
-			this.recipeList = recipeList;
+        public RecipeMenu(List<String> recipeList, int page, String lang) {
+            super(page, lang);
+            this.recipeList = recipeList;
         }
         
-		public EmbedBuilder getContent(int page) {
-			String recipe = recipeList.get(page);
+        public EmbedBuilder getContent(int page) {
+            String recipe = recipeList.get(page);
             EmbedBuilder eb = displayImg(recipe, "en_US");
             double xp = getXP(recipe);
             if (xp > 0) {
@@ -372,10 +372,10 @@ public class Recipe {
                 desc += "\n" + notes;
             }
             eb.setDescription(desc);
-			return eb;
+            return eb;
         }
         
-		public LinkedHashMap<String, Runnable> createButtons(int page) {
+        public LinkedHashMap<String, Runnable> createButtons(int page) {
             String recipe = recipeList.get(page);
             JSONObject recipeObj = recipes.getJSONObject(recipe);
             LinkedHashMap<String, Runnable> buttons = new LinkedHashMap<String, Runnable>();
@@ -593,10 +593,10 @@ public class Recipe {
             return buttons;
         }
 
-		public int getLength() {
-			return recipeList.size();
-		}
-		
-	}
+        public int getLength() {
+            return recipeList.size();
+        }
+
+    }
 
 }

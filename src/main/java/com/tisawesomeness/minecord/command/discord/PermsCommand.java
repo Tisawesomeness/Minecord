@@ -30,7 +30,7 @@ public class PermsCommand extends AbstractDiscordCommand {
 
         TextChannel c;
         // Check any channel id if admin
-		if (args.length > 1 && args[1].equals("admin") && ctx.isElevated) {
+        if (args.length > 1 && args[1].equals("admin") && ctx.isElevated) {
             if (!DiscordUtils.isDiscordId(args[0])) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }

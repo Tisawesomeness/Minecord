@@ -298,11 +298,11 @@ public class CommandContext {
         return eb.setFooter(requestedBy, author.getEffectiveAvatarUrl())
                 .setTimestamp(Instant.now());
         // TODO temporarily disabled (change to static image)
-//		if (Config.getOwner().equals("0")) {
-//			return eb.setFooter(announcement);
-//		}
-//		User owner = Bot.shardManager.retrieveUserById(Config.getOwner()).complete();
-//		return eb.setFooter(announcement, owner.getAvatarUrl());
+//        if (Config.getOwner().equals("0")) {
+//            return eb.setFooter(announcement);
+//        }
+//        User owner = Bot.shardManager.retrieveUserById(Config.getOwner()).complete();
+//        return eb.setFooter(announcement, owner.getAvatarUrl());
     }
 
     /**

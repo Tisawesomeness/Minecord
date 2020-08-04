@@ -11,35 +11,35 @@ import java.sql.SQLException;
 
 public class PromoteCommand extends AbstractAdminCommand {
 
-	public @NonNull String getId() {
-		return "promote";
-	}
+    public @NonNull String getId() {
+        return "promote";
+    }
 
     public Result run(CommandContext ctx) {
 
-		if (ctx.args.length == 0) {
-			return ctx.showHelp();
-		}
+        if (ctx.args.length == 0) {
+            return ctx.showHelp();
+        }
 
-		//Extract user
-		User user = DiscordUtils.findUser(ctx.args[0], ctx.bot.getShardManager());
-		if (user == null) return new Result(Outcome.ERROR, ":x: Not a valid user!");
-		
-		//Don't elevate a normal user
-		DbUser dbUser = ctx.getUser(user);
-		if (dbUser.isElevated()) {
-			return new Result(Outcome.WARNING, ":warning: User is already elevated!");
-		}
-		
-		//Elevate user
-		try {
-			dbUser.withElevated(true).update();
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-			return new Result(Outcome.ERROR, ":x: There was an internal error.");
-		}
-		return new Result(Outcome.SUCCESS, ":arrow_up: Elevated " + user.getAsTag());
-		
-	}
+        //Extract user
+        User user = DiscordUtils.findUser(ctx.args[0], ctx.bot.getShardManager());
+        if (user == null) return new Result(Outcome.ERROR, ":x: Not a valid user!");
+
+        //Don't elevate a normal user
+        DbUser dbUser = ctx.getUser(user);
+        if (dbUser.isElevated()) {
+            return new Result(Outcome.WARNING, ":warning: User is already elevated!");
+        }
+
+        //Elevate user
+        try {
+            dbUser.withElevated(true).update();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return new Result(Outcome.ERROR, ":x: There was an internal error.");
+        }
+        return new Result(Outcome.SUCCESS, ":arrow_up: Elevated " + user.getAsTag());
+
+    }
 
 }
