@@ -21,6 +21,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -145,6 +146,10 @@ public class EvalCommand extends AbstractAdminCommand {
 		return s.replace("@everyone", "[everyone]").replace("@here", "[here]");
 	}
 
+	private static class Test {
+		public final ArrayList<String> list = new ArrayList<>();
+	}
+
 	/**
 	 * Generates a list of fields and methods for an object
 	 */
@@ -154,7 +159,7 @@ public class EvalCommand extends AbstractAdminCommand {
 		if (clazz.getFields().length > 0) {
 			fields = Arrays.stream(clazz.getFields())
 					.sorted(Comparator.comparing(Field::getName))
-					.map(f -> f.getType().getSimpleName() + " : " + f.getName())
+					.map(EvalCommand::getDeclaration)
 					.collect(Collectors.joining("\n"));
 		}
 		String methods = "NONE";
@@ -166,6 +171,10 @@ public class EvalCommand extends AbstractAdminCommand {
 					.collect(Collectors.joining("\n"));
 		}
 		return String.format("%s\n\nFields:\n%s\n\nMethods:\n%s", clazz.getName(), fields, methods);
+	}
+	private static String getDeclaration(Field f) {
+		String finall = Modifier.isFinal(f.getModifiers()) ? "final " : "";
+		return finall + cleanType(f.getGenericType()) + " " + f.getName();
 	}
 	/**
 	 * Generates a shortened signature for a method.
