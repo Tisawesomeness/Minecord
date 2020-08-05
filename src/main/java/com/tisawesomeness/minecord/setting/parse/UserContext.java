@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.setting.parse;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.dao.DbUser;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
@@ -30,26 +30,26 @@ public class UserContext extends SettingContext {
      * and is either displayed ({@code &settings}) or changed ({@code &set}/{@code &reset}).
      * @return The result of the command
      */
-    public Command.Result parse() {
+    public Result parse() {
         if (isAdmin) {
             if (currentArg >= ctx.args.length) {
-                return new Command.Result(Command.Outcome.WARNING, ":warning: You must specify a user id.");
+                return ctx.warn("You must specify a user id.");
             }
             return parseUserId();
         }
         return displayOrParseUser(ctx.e.getAuthor().getIdLong());
     }
 
-    private Command.Result parseUserId() {
+    private Result parseUserId() {
         String userArg = ctx.args[currentArg];
         if (!DiscordUtils.isDiscordId(userArg)) {
-            return new Command.Result(Command.Outcome.WARNING, ":warning: Not a valid user id.");
+            return ctx.warn("Not a valid user id.");
         }
         currentArg++;
         return displayOrParseUser(Long.parseLong(userArg));
     }
 
-    private Command.Result displayOrParseUser(long uid) {
+    private Result displayOrParseUser(long uid) {
         DbUser user = ctx.getUser(uid);
         String title = isAdmin ? "DM Settings for " + uid : "DM Settings";
         return displayOrParse(title, user);

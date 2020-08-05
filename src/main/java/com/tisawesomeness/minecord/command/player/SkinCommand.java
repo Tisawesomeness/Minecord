@@ -2,8 +2,8 @@ package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.DateUtils;
-import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
 
 import lombok.NonNull;
@@ -33,7 +33,7 @@ public class SkinCommand extends AbstractPlayerCommand {
             if (args.length > 1) {
                 long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
                 if (timestamp == -1) {
-                    return new Result(Outcome.WARNING, MessageUtils.dateErrorString(ctx.prefix, "skin"));
+                    return ctx.showHelp();
                 }
 
             //Get the UUID
@@ -44,13 +44,12 @@ public class SkinCommand extends AbstractPlayerCommand {
 
             //Check for errors
             if (uuid == null) {
-                String m = ":x: The Mojang API could not be reached." +
+                String m = "The Mojang API could not be reached." +
                     "\n" + "Are you sure that username exists?" +
                     "\n" + "Usernames are case-sensitive.";
-                return new Result(Outcome.WARNING, m);
+                return ctx.err(m);
             } else if (!uuid.matches(NameUtils.uuidRegex)) {
-                String m = ":x: The API responded with an error:\n" + uuid;
-                return new Result(Outcome.ERROR, m);
+                return ctx.err("The API responded with an error:\n" + uuid);
             }
 
             param = uuid;
@@ -58,7 +57,7 @@ public class SkinCommand extends AbstractPlayerCommand {
 
         //Fetch skin
         String url = "https://crafatar.com/skins/" + param.replaceAll("-", "");
-        return new Result(Outcome.SUCCESS, new EmbedBuilder().setImage(url).setColor(Bot.color).build());
+        return ctx.replyRaw(new EmbedBuilder().setImage(url).setColor(Bot.color));
     }
 
 }

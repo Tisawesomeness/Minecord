@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.dao.DbUser;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
@@ -23,12 +24,14 @@ public class PromoteCommand extends AbstractAdminCommand {
 
         //Extract user
         User user = DiscordUtils.findUser(args[0], ctx.bot.getShardManager());
-        if (user == null) return new Result(Outcome.ERROR, ":x: Not a valid user!");
+        if (user == null) {
+            return ctx.warn("Not a valid user!");
+        }
 
         //Don't elevate a normal user
         DbUser dbUser = ctx.getUser(user);
         if (dbUser.isElevated()) {
-            return new Result(Outcome.WARNING, ":warning: User is already elevated!");
+            return ctx.warn("User is already elevated!");
         }
 
         //Elevate user
@@ -36,9 +39,9 @@ public class PromoteCommand extends AbstractAdminCommand {
             dbUser.withElevated(true).update();
         } catch (SQLException ex) {
             ex.printStackTrace();
-            return new Result(Outcome.ERROR, ":x: There was an internal error.");
+            return ctx.err("There was an internal error.");
         }
-        return new Result(Outcome.SUCCESS, ":arrow_up: Elevated " + user.getAsTag());
+        return ctx.reply(":arrow_up: Elevated " + user.getAsTag());
 
     }
 

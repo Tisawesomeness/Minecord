@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.setting.parse;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.dao.DbGuild;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
@@ -30,30 +30,29 @@ public class GuildContext extends SettingContext {
      * and is either displayed ({@code &settings}) or changed ({@code &set}/{@code &reset}).
      * @return The result of the command
      */
-    public Command.Result parse() {
+    public Result parse() {
         if (isAdmin) {
             return parseGuildId();
         }
         if (ctx.e.isFromGuild()) {
             return displayOrParseGuildId(ctx.e.getGuild().getIdLong());
         }
-        return new Command.Result(Command.Outcome.WARNING,
-                String.format(":warning: `%ssettings guild` cannot be used in DMs.", ctx.prefix));
+        return ctx.warn(String.format("`%ssettings guild` cannot be used in DMs.", ctx.prefix));
     }
 
-    private Command.Result parseGuildId() {
+    private Result parseGuildId() {
         if (currentArg < ctx.args.length) {
             String guildArg = ctx.args[currentArg];
             if (!DiscordUtils.isDiscordId(guildArg)) {
-                return new Command.Result(Command.Outcome.WARNING, ":warning: Not a valid guild id.");
+                return ctx.warn("Not a valid guild id.");
             }
             currentArg++;
             return displayOrParseGuildId(Long.parseLong(guildArg));
         }
-        return new Command.Result(Command.Outcome.WARNING, ":warning: You must specify a guild id.");
+        return ctx.warn("You must specify a guild id.");
     }
 
-    private Command.Result displayOrParseGuildId(long gid) {
+    private Result displayOrParseGuildId(long gid) {
         DbGuild guild = ctx.getGuild(gid);
         String title = isAdmin ? "Guild Settings for " + gid : "Guild Settings";
         return displayOrParse(title, guild);

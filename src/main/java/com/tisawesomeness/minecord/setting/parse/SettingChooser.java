@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.setting.parse;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.dao.SettingContainer;
 import com.tisawesomeness.minecord.setting.Setting;
 import com.tisawesomeness.minecord.setting.SettingRegistry;
@@ -33,7 +33,7 @@ public class SettingChooser extends SettingCommandHandler {
      * <br>If found, the {@link SettingChanger} changes that setting.
      * @return The result of the command
      */
-    public Command.Result parse() {
+    public Result parse() {
         String[] args = ctx.args;
         SettingRegistry settings = ctx.bot.getSettings();
 
@@ -46,12 +46,12 @@ public class SettingChooser extends SettingCommandHandler {
                 return changeSettingIfSpaceForValueExists(settingOpt.get());
             }
         }
-        return new Command.Result(Command.Outcome.WARNING, ":warning: That setting does not exist.");
+        return ctx.warn("That setting does not exist.");
     }
 
-    private Command.Result changeSettingIfSpaceForValueExists(Setting<?> setting) {
+    private Result changeSettingIfSpaceForValueExists(Setting<?> setting) {
         if (type == SettingCommandType.SET && currentArg == ctx.args.length) {
-            return new Command.Result(Command.Outcome.WARNING, ":warning: You must specify a setting value.");
+            return ctx.warn("You must specify a setting value.");
         }
         return new SettingChanger(this, setting).parse();
     }

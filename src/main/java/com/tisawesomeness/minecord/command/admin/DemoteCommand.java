@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.dao.DbUser;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
@@ -23,18 +24,20 @@ public class DemoteCommand extends AbstractAdminCommand {
 
         //Extract user
         User user = DiscordUtils.findUser(args[0], ctx.bot.getShardManager());
-        if (user == null) return new Result(Outcome.ERROR, ":x: Not a valid user!");
+        if (user == null) {
+            return ctx.warn("Not a valid user!");
+        }
         long id = user.getIdLong();
 
         //Don't demote a normal user
         DbUser dbUser = ctx.getUser(id);
         if (!dbUser.isElevated()) {
-            return new Result(Outcome.WARNING, ":warning: User is not elevated!");
+            return ctx.warn("User is not elevated!");
         }
 
         //Can't demote the owner
         if (ctx.config.isOwner(id)) {
-            return new Result(Outcome.WARNING, ":warning: You can't demote the owner!");
+            return ctx.warn("You can't demote the owner!");
         }
 
         //Demote user
@@ -42,9 +45,9 @@ public class DemoteCommand extends AbstractAdminCommand {
             dbUser.withElevated(false).update();
         } catch (SQLException ex) {
             ex.printStackTrace();
-            return new Result(Outcome.ERROR, ":x: There was an internal error.");
+            return ctx.warn("There was an internal error.");
         }
-        return new Result(Outcome.SUCCESS, ":arrow_down: Demoted " + user.getAsTag());
+        return ctx.reply(":arrow_down: Demoted " + user.getAsTag());
 
     }
 

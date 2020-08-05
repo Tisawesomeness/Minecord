@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.command.misc;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.DateUtils;
 
 import lombok.NonNull;
@@ -59,8 +60,7 @@ public class InfoCommand extends AbstractMiscCommand {
             MarkdownUtil.maskedLink("GITHUB", Bot.github);
         eb.addField("Links", "**" + links + "**", false);
 
-        eb = ctx.brand(eb);
-        return new Result(Outcome.SUCCESS, eb.build());
+        return ctx.reply(eb);
     }
 
     // Calculate memory

@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.entities.Message;
@@ -21,11 +22,11 @@ public class ReloadCommand extends AbstractAdminCommand {
             ctx.bot.reload();
         } catch (IOException | ExecutionException | InterruptedException ex) {
             ex.printStackTrace();
-            return new Result(Outcome.ERROR, ":x: Could not reload!");
+            return ctx.err("Could not reload!");
         }
         m.editMessage(":white_check_mark: Reloaded!").queue();
 
-        return new Result(Outcome.SUCCESS);
+        return Result.SUCCESS;
 
     }
 

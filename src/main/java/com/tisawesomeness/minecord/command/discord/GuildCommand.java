@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.discord;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.dao.DbGuild;
 import com.tisawesomeness.minecord.setting.Setting;
 import com.tisawesomeness.minecord.util.DateUtils;
@@ -31,21 +32,21 @@ public class GuildCommand extends AbstractDiscordCommand {
         if (args.length > 1 && args[1].equals("admin") && ctx.isElevated) {
             elevated = true;
             if (!DiscordUtils.isDiscordId(args[0])) {
-                return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
+                return ctx.warn("Not a valid ID!");
             }
             g = ctx.bot.getShardManager().getGuildById(args[0]);
             if (g == null) {
                 long gid = Long.valueOf(args[0]);
                 DbGuild dbGuild = ctx.getGuild(gid);
+                String settingsStr = getSettingsStr(dbGuild, ctx);
                 if (dbGuild.isBanned()) {
-                    return new Result(Outcome.SUCCESS,
-                            "__**GUILD BANNED FROM MINECORD**__\n" + getSettingsStr(dbGuild, ctx));
+                    return ctx.reply("__**GUILD BANNED FROM MINECORD**__\n" + settingsStr);
                 }
-                return new Result(Outcome.SUCCESS, getSettingsStr(dbGuild, ctx));
+                return ctx.reply(settingsStr);
             }
         } else {
             if (!ctx.e.isFromGuild()) {
-                return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
+                return ctx.warn("This command is not available in DMs.");
             }
             g = ctx.e.getGuild();
         }
@@ -85,7 +86,7 @@ public class GuildCommand extends AbstractDiscordCommand {
                 eb.setDescription("__**GUILD BANNED FROM MINECORD**__");
             }
         }
-        return new Result(Outcome.SUCCESS, ctx.brand(eb).build());
+        return ctx.reply(eb);
 
     }
 

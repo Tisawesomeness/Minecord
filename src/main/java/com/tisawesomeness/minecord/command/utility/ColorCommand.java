@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.utility;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.ColorUtils;
 
 import lombok.NonNull;
@@ -20,10 +21,9 @@ public class ColorCommand extends AbstractUtilityCommand {
         }
         Color c = ColorUtils.parseColor(ctx.joinArgs(), "en_US");
         if (c == null) {
-            return new Result(Outcome.WARNING, ":warning: Not a valid color!");
+            return ctx.warn("Not a valid color!");
         }
-        EmbedBuilder eb = buildColorInfo(c);
-        return new Result(Outcome.SUCCESS, ctx.addFooter(eb).build());
+        return ctx.replyRaw(ctx.addFooter(buildColorInfo(c)));
     }
 
     public static EmbedBuilder buildColorInfo(Color c) {

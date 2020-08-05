@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.setting.parse;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.dao.DbChannel;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
@@ -38,7 +38,7 @@ public class SettingContextParser extends SettingCommandHandler {
      * <br>If found, parsing is chained to the context.
      * @return The result of this command
      */
-    public Command.Result parse() {
+    public Result parse() {
         String contextArg = ctx.args[currentArg];
         currentArg++;
         if (type == SettingCommandType.QUERY) {
@@ -46,7 +46,7 @@ public class SettingContextParser extends SettingCommandHandler {
                 return new ListSubcommand(this).parse();
             }
         } else if (!isAdmin && !SettingCommandHandler.userHasManageServerPermissions(ctx.e)) {
-            return new Command.Result(Command.Outcome.WARNING, ":warning: You must have Manage Server permissions.");
+            return ctx.warn("You must have Manage Server permissions.");
         }
         Optional<SettingContext> settingContextOpt = getContext(contextArg);
         if (settingContextOpt.isPresent()) {
@@ -68,21 +68,21 @@ public class SettingContextParser extends SettingCommandHandler {
         return Optional.empty();
     }
 
-    private Command.Result parseFallthrough() {
+    private Result parseFallthrough() {
         if (isAdmin && type == SettingCommandType.QUERY) {
             return parseChannelAndDisplay();
         }
-        return new Command.Result(Command.Outcome.WARNING, ":warning: Incorrect context.");
+        return ctx.warn("Incorrect context.");
     }
 
-    private Command.Result parseChannelAndDisplay() {
+    private Result parseChannelAndDisplay() {
         String contextArg = ctx.args[currentArg];
         if (DiscordUtils.isDiscordId(contextArg)) {
             return displayChannelIdSettings(contextArg);
         }
         return displayChannelMentionSettings();
     }
-    private Command.Result displayChannelIdSettings(String contextArg) {
+    private Result displayChannelIdSettings(String contextArg) {
         long cid = Long.parseLong(contextArg);
         Optional<DbChannel> dbChannelOpt = ctx.getChannel(cid);
         if (dbChannelOpt.isPresent()) {
@@ -93,22 +93,21 @@ public class SettingContextParser extends SettingCommandHandler {
         if (c != null) {
             return displayCurrentSettings(c);
         }
-        return new Command.Result(Command.Outcome.WARNING, ":warning: That channel is not visible to the bot.");
+        return ctx.warn("That channel is not visible to the bot.");
     }
-    private Command.Result displayChannelMentionSettings() {
+    private Result displayChannelMentionSettings() {
         List<TextChannel> mentioned = ctx.e.getMessage().getMentionedChannels();
         if (!mentioned.isEmpty()) {
             TextChannel c = mentioned.get(0);
             return displayCurrentSettings(c);
         }
-        return new Command.Result(Command.Outcome.WARNING,
-                ":warning: Not a valid channel format. Use a `#channel` mention or a valid ID.");
+        return ctx.warn("Not a valid channel format. Use a `#channel` mention or a valid ID.");
     }
 
-    private Command.Result displayCurrentSettings(TextChannel c) {
+    private Result displayCurrentSettings(TextChannel c) {
         return displayCurrentSettings(c.getIdLong(), c.getGuild().getIdLong());
     }
-    private Command.Result displayCurrentSettings(long cid, long gid) {
+    private Result displayCurrentSettings(long cid, long gid) {
         String title = "Currently Active Settings for Channel " + cid;
         return displaySettings(title, s -> s.getDisplay(ctx.getCache(), cid, gid));
     }

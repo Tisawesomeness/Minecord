@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.command.config;
 
 import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.setting.parse.SmartSetParser;
 import com.tisawesomeness.minecord.util.BooleanUtils;
 
@@ -26,19 +27,19 @@ public class LangCommand extends AbstractConfigCommand {
             return listLanguages(ctx, "All Languages", true);
         } else if ("info".equalsIgnoreCase(args[0])) {
             if (args.length == 1) {
-                return new Result(Outcome.WARNING, ":warning: You must specify a language.");
+                return ctx.warn("You must specify a language.");
             }
             Optional<Lang> langOpt = Lang.from(args[1]);
             if (langOpt.isPresent()) {
                 return displayLanguageInfo(ctx, langOpt.get());
             }
-            return new Result(Outcome.WARNING, ":warning: That language is not valid.");
+            return ctx.warn("That language is not valid.");
         }
         Optional<Lang> langOpt = Lang.from(args[0]);
         if (langOpt.isPresent()) {
             return new SmartSetParser(ctx, ctx.bot.getSettings().lang).parse();
         }
-        return new Result(Outcome.WARNING, ":warning: That language is not valid.");
+        return ctx.warn("That language is not valid.");
     }
 
     private static Result listLanguages(CommandContext ctx, String title, boolean includeDevelopment) {
@@ -55,7 +56,7 @@ public class LangCommand extends AbstractConfigCommand {
         EmbedBuilder eb = new EmbedBuilder()
                 .setTitle(title)
                 .setDescription(langHelp + "\n\n" + langStr);
-        return new Result(Outcome.SUCCESS, ctx.brand(eb).build());
+        return ctx.reply(eb);
     }
     private static String getLangDescriptionString(Lang l) {
         return String.format("**`%s`** %s - %s", l.getCode(), l.getFlagEmote(), l.getLocale().getDisplayName());
@@ -71,7 +72,7 @@ public class LangCommand extends AbstractConfigCommand {
                 .append("Supports Minecraft Items?: ").append(emote(l.isItemsSupported())).append("\n")
                 .append("Supports Enhanced Item Search?: ").append(emote(l.isItemSearchSupported())).append("\n")
                 .append("In Development?: ").append(emote(l.isInDevelopment()));
-        return new Result(Outcome.SUCCESS, ctx.brand(eb).build());
+        return ctx.reply(eb);
     }
     // exists purely to save space
     private static String emote(boolean b) {

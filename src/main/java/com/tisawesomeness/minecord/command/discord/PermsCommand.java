@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.discord;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.BooleanUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
@@ -21,8 +22,8 @@ public class PermsCommand extends AbstractDiscordCommand {
 
     // Error message cannot be "you cannot see that channel"
     // since it reveals the channel exists when the user couldn't have known that otherwise
-    private static final Result invalidChannel = new Result(Outcome.WARNING,
-            ":warning: That channel does not exist in the current guild or is not visible to you.");
+    private static final String invalidChannel =
+            "That channel does not exist in the current guild or is not visible to you.";
 
     public Result run(String[] args, CommandContext ctx) {
         MessageReceivedEvent e = ctx.e;
@@ -31,44 +32,43 @@ public class PermsCommand extends AbstractDiscordCommand {
         // Check any channel id if admin
         if (args.length > 1 && args[1].equals("admin") && ctx.isElevated) {
             if (!DiscordUtils.isDiscordId(args[0])) {
-                return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
+                return ctx.warn("Not a valid ID!");
             }
             c = ctx.bot.getShardManager().getTextChannelById(args[0]);
             if (c == null) {
-                return new Result(Outcome.WARNING, ":warning: That channel does not exist.");
+                return ctx.warn("That channel does not exist.");
             }
         
         // No admin = guild only
         } else if (!e.isFromGuild()) {
-            return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
+            return ctx.warn("This command is not available in DMs.");
         
         } else if (args.length > 0) {
             // Find by id
             if (DiscordUtils.isDiscordId(args[0])) {
                 TextChannel tc = e.getGuild().getTextChannelById(args[0]);
                 if (tc == null || tc.getGuild().getIdLong() != e.getGuild().getIdLong()) {
-                    return invalidChannel;
+                    return ctx.warn(invalidChannel);
                 }
                 c = tc;
             // Find by mention
             } else {
                 List<TextChannel> mentioned = e.getMessage().getMentionedChannels();
                 if (mentioned.size() == 0) {
-                    return new Result(Outcome.WARNING,
-                            ":warning: Not a valid channel format. Use a `#channel` mention or a valid ID.");
+                    return ctx.warn("Not a valid channel format. Use a `#channel` mention or a valid ID.");
                 }
                 TextChannel tc = mentioned.get(0);
                 if (tc.getGuild().getIdLong() != e.getGuild().getIdLong()) {
-                    return invalidChannel;
+                    return ctx.warn(invalidChannel);
                 }
                 c = tc;
             }
 
             // Check for user permissions (prevent using this command to get unseen channel info)
             if (!e.getMember().hasPermission(c, Permission.VIEW_CHANNEL, Permission.MESSAGE_READ)) {
-                return invalidChannel;
+                return ctx.warn(invalidChannel);
             } else if (!e.getMember().hasPermission(c, Permission.MESSAGE_WRITE)) {
-                return new Result(Outcome.WARNING, ":warning: You do not have permission to write in that channel.");
+                return ctx.warn("You do not have permission to write in that channel.");
             }
         
         // Get current channel if no args, user clearly has permission to send messages
@@ -91,7 +91,7 @@ public class PermsCommand extends AbstractDiscordCommand {
             "\nManage messages: " + BooleanUtils.getEmote(perms.contains(Permission.MESSAGE_MANAGE)) +
             "\nCan use reaction menus: " + BooleanUtils.getEmote(menuPerms);
         
-        return new Result(Outcome.SUCCESS, m);
+        return ctx.reply(m);
     }
 
 }

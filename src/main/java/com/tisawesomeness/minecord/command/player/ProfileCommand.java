@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command.player;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
@@ -36,12 +36,11 @@ public class ProfileCommand extends AbstractPlayerCommand {
 
             // Check for errors
             if (player == null) {
-                String m = ":x: The Mojang API could not be reached." +
+                String m = "The Mojang API could not be reached." +
                     "\n" + "Are you sure that UUID exists?";
-                return new Result(Outcome.WARNING, m);
+                return ctx.err(m);
             } else if (!player.matches(NameUtils.playerRegex)) {
-                String m = ":x: The API responded with an error:\n" + player;
-                return new Result(Outcome.ERROR, m);
+                return ctx.err("The API responded with an error:\n" + player);
             }
         
         // Username + Date --> UUID --> Username
@@ -49,7 +48,7 @@ public class ProfileCommand extends AbstractPlayerCommand {
             // Parse date argument
             long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
             if (timestamp == -1) {
-                return new Result(Outcome.WARNING, MessageUtils.dateErrorString(ctx.prefix, "skin"));
+                return ctx.showHelp();
             }
 
             // Get the UUID
@@ -60,10 +59,9 @@ public class ProfileCommand extends AbstractPlayerCommand {
                 String m = ":x: The Mojang API could not be reached." +
                         "\n" +"Are you sure that username exists?" +
                         "\n" + "Usernames are case-sensitive.";
-                return new Result(Outcome.WARNING, m);
+                return ctx.err(m);
             } else if (!uuid.matches(NameUtils.uuidRegex)) {
-                String m = ":x: The API responded with an error:\n" + uuid;
-                return new Result(Outcome.ERROR, m);
+                return ctx.err("The API responded with an error:\n" + uuid);
             }
 
             uuid = uuid.replace("-", "").toLowerCase();
@@ -74,10 +72,9 @@ public class ProfileCommand extends AbstractPlayerCommand {
                 String m = ":x: The Mojang API could not be reached." +
                         "\n" +"Are you sure that username exists?" +
                         "\n" + "Usernames are case-sensitive.";
-                return new Result(Outcome.WARNING, m);
+                return ctx.err(m);
             } else if (!player.matches(NameUtils.playerRegex)) {
-                String m = ":x: The API responded with an error:\n" + player;
-                return new Result(Outcome.ERROR, m);
+                return ctx.err("The API responded with an error:\n" + player);
             }
         }
 
@@ -86,7 +83,7 @@ public class ProfileCommand extends AbstractPlayerCommand {
         payload.put(player);
         String request = RequestUtils.post("https://api.mojang.com/profiles/minecraft", payload.toString());
         if (request == null) {
-            return new Result(Outcome.ERROR, ":x: The Mojang API could not be reached.");
+            return ctx.err("The Mojang API could not be reached.");
         }
         JSONObject profile = new JSONArray(request).getJSONObject(0);
         String uuid = profile.getString("id");
@@ -118,7 +115,7 @@ public class ProfileCommand extends AbstractPlayerCommand {
         String historyUrl = "https://api.mojang.com/user/profiles/" + uuid + "/names";
         request = RequestUtils.get(historyUrl);
         if (request == null) {
-            return new Result(Outcome.ERROR, ":x: The Mojang API could not be reached.");
+            return ctx.err("The Mojang API could not be reached.");
         }
 
         // Loop over each name change
@@ -142,7 +139,6 @@ public class ProfileCommand extends AbstractPlayerCommand {
 
         EmbedBuilder eb = new EmbedBuilder()
             .setAuthor("Profile for " + player, nameUrl, avatarUrl)
-            .setColor(Bot.color)
             .setThumbnail(bodyUrl)
             .setDescription(String.format("Short UUID: `%s`\nLong UUID: `%s`", uuid, NameUtils.formatUUID(uuid)))
             .addField("Skin", MarkdownUtil.maskedLink("Open Image", skinUrl), true)
@@ -164,8 +160,8 @@ public class ProfileCommand extends AbstractPlayerCommand {
         for (String field : MessageUtils.splitLinesByLength(lines, 1024)) {
             eb.addField("Name History", field, false);
         }
-        
-        return new Result(Outcome.SUCCESS, eb.build());
+
+        return ctx.reply(eb);
     }
 
     private static String boolToString(boolean bool) {

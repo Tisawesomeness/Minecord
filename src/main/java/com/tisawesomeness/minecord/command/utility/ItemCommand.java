@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.utility;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.item.Item;
 
 import lombok.NonNull;
@@ -23,9 +24,7 @@ public class ItemCommand extends AbstractUtilityCommand {
 
         // If nothing is found
         if (item == null) {
-            return new Result(Outcome.WARNING,
-                ":warning: That item does not exist! " +
-                "\n" + "Did you spell it correctly?");
+            return ctx.warn("That item does not exist!\nDid you spell it correctly?");
         }
 
         // Build message
@@ -33,7 +32,7 @@ public class ItemCommand extends AbstractUtilityCommand {
         eb.setFooter("See an error? Please report them at https://goo.gl/KWCxis", null);
         // eb = MessageUtils.addFooter(eb);
 
-        return new Result(Outcome.SUCCESS, eb.build());
+        return ctx.replyRaw(eb);
     }
 
 }

@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.setting.parse;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.dao.SettingContainer;
 
 import lombok.NonNull;
@@ -20,7 +20,7 @@ public abstract class SettingContext extends SettingCommandHandler {
      * @param obj The context object, which is either a guild, channel, or user
      * @return The result of the command
      */
-    protected Command.Result displayOrParse(String title, SettingContainer obj) {
+    protected Result displayOrParse(String title, SettingContainer obj) {
         CommandContext ctx = getCtx();
         SettingCommandType type = getType();
         int currentArg = getCurrentArg();
@@ -30,6 +30,6 @@ public abstract class SettingContext extends SettingCommandHandler {
         if (currentArg < ctx.args.length) {
             return new SettingChooser(this, obj).parse();
         }
-        return new Command.Result(Command.Outcome.WARNING, ":warning: You must specify a setting.");
+        return ctx.warn("You must specify a setting.");
     }
 }

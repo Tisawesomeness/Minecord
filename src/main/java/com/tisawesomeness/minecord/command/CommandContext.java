@@ -21,7 +21,6 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-import javax.annotation.Nullable;
 import java.text.MessageFormat;
 import java.time.Instant;
 import java.util.Arrays;
@@ -245,46 +244,6 @@ public class CommandContext {
     }
 
     /**
-     * Formats a message with URL to look more fancy using an embed.
-     * Pass {@code null} in any argument to remove that part of the message.
-     * @param title The title or header of the message.
-     * @param body The main body or description of the message.
-     * @return The EmbedBuilder with the added info and bot branding.
-     */
-    public EmbedBuilder embedMessage(@Nullable String title, @Nullable CharSequence body) {
-        return brand(new EmbedBuilder()
-                .setTitle(title)
-                .setDescription(body));
-    }
-
-    /**
-     * Formats a message with URL to look more fancy using an embed.
-     * Pass {@code null} in any argument to remove that part of the message.
-     * @param title The title or header of the message.
-     * @param url A URL that the title goes to when clicked.
-     * @param body The main body or description of the message.
-     * @return The EmbedBuilder with the added info and bot branding.
-     */
-    public EmbedBuilder embedURL(@Nullable String title, @Nullable String url, @Nullable CharSequence body) {
-        return brand(new EmbedBuilder()
-                .setTitle(title, url)
-                .setDescription(body));
-    }
-
-    /**
-     * Formats an image to look more fancy using an embed.
-     * Pass {@code null} in any argument to remove that part of the message.
-     * @param title The title or header.
-     * @param url The URL of the image.
-     * @return The EmbedBuilder with the added info and bot branding.
-     */
-    public EmbedBuilder embedImage(@Nullable String title, @Nullable String url) {
-        return brand(new EmbedBuilder()
-                .setTitle(title)
-                .setImage(url));
-    }
-
-    /**
      * Adds the footer with the rolled announcement to an embed.
      * @param eb The given EmbedBuilder.
      * @return The same builder with added footer.
@@ -306,20 +265,73 @@ public class CommandContext {
     }
 
     /**
-     * Adds the bot color and a random announcement to an embed.
-     * @param eb The given EmbedBuilder.
-     * @return The same builder with added branding.
+     * Replies to the sender of this command.
+     * @param text The text to send. Must be shorter than {@link Message#MAX_CONTENT_LENGTH}.
+     * @return Success
      */
-    public EmbedBuilder brand(EmbedBuilder eb) {
-        return addFooter(eb).setColor(Bot.color);
+    public Result reply(CharSequence text) {
+        e.getTextChannel().sendMessage(text).queue();
+        return Result.SUCCESS;
+    }
+    /**
+     * Replies to the sender of this command with an embed.
+     * <br>The embed is sent with no modifications.
+     * @param eb The embed builder to be built and sent. Must satisfy all ebmed length limits.
+     * @return Success
+     */
+    public Result replyRaw(EmbedBuilder eb) {
+        e.getTextChannel().sendMessage(eb.build()).queue();
+        return Result.SUCCESS;
+    }
+    /**
+     * Replies to the sender of this command with an embed.
+     * <br>The bot color and a random announcement (if enabled) are added.
+     * @param eb The embed builder to be built and sent. Must satisfy all ebmed length limits.
+     * @return Success
+     */
+    public Result reply(EmbedBuilder eb) {
+        return replyRaw(brand(eb));
+    }
+
+    /**
+     * Warns the sender of this command.
+     * <br>The warning emote is added to the message.
+     * @param text The warning message
+     * @return Warning
+     */
+    public Result warn(CharSequence text) {
+        return sendWithEmote(text, Result.WARNING);
+    }
+    /**
+     * Displays an error to the sender of this command.
+     * <br>The error emote is added to the message.
+     * @param text The error message
+     * @return Error
+     */
+    public Result err(CharSequence text) {
+        return sendWithEmote(text, Result.ERROR);
+    }
+
+    private Result sendWithEmote(CharSequence text, Result result) {
+        String msg = result.addEmote(text, lang);
+        e.getTextChannel().sendMessage(msg).queue();
+        return result;
     }
 
     /**
      * Creates an embed with the current command's help.
      * @return Success
      */
-    public Command.Result showHelp() {
-        return HelpCommand.showHelp(this, cmd);
+    public Result showHelp() {
+        return reply(HelpCommand.showHelp(this, cmd));
+    }
+    /**
+     * Adds the bot color and a random announcement to an embed.
+     * @param eb The given EmbedBuilder.
+     * @return The same builder with added branding.
+     */
+    public EmbedBuilder brand(EmbedBuilder eb) {
+        return addFooter(eb).setColor(Bot.color);
     }
 
 }

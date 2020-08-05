@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.discord;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
@@ -50,7 +51,7 @@ public class RoleCommand extends AbstractDiscordCommand {
             }
         }
         if (role == null) {
-            return new Result(Outcome.WARNING, ":warning: That role does not exist.");
+            return ctx.warn("That role does not exist.");
         }
 
         EmbedBuilder eb = new EmbedBuilder()
@@ -64,7 +65,7 @@ public class RoleCommand extends AbstractDiscordCommand {
             .addField("Managed?", role.isManaged() ? "Yes" : "No", true)
             .addField("Role Created", DateUtils.getDateAgo(role.getTimeCreated()), false);
 
-        return new Result(Outcome.SUCCESS, ctx.addFooter(eb).build());
+        return ctx.replyRaw(ctx.addFooter(eb));
     }
 
 }

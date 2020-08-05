@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
@@ -35,7 +36,7 @@ public class HistoryCommand extends AbstractPlayerCommand {
             if (args.length > 1) {
                 long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
                 if (timestamp == -1) {
-                    return new Result(Outcome.WARNING, MessageUtils.dateErrorString(ctx.prefix, "history"));
+                    return ctx.showHelp();
                 }
 
             // Get the UUID
@@ -46,13 +47,12 @@ public class HistoryCommand extends AbstractPlayerCommand {
 
             // Check for errors
             if (uuid == null) {
-                String m = ":x: The Mojang API could not be reached." +
+                String m = "The Mojang API could not be reached." +
                     "\n" + "Are you sure that username exists?" +
                     "\n" + "Usernames are case-sensitive.";
-                return new Result(Outcome.WARNING, m);
+                return ctx.err(m);
             } else if (!uuid.matches(NameUtils.uuidRegex)) {
-                String m = ":x: The API responded with an error:\n" + uuid;
-                return new Result(Outcome.ERROR, m);
+                return ctx.err("The API responded with an error:\n" + uuid);
             }
 
             player = uuid;
@@ -62,7 +62,7 @@ public class HistoryCommand extends AbstractPlayerCommand {
         String url = "https://api.mojang.com/user/profiles/" + player.replaceAll("-", "") + "/names";
         String request = RequestUtils.get(url);
         if (request == null) {
-            return new Result(Outcome.ERROR, ":x: The Mojang API could not be reached.");
+            return ctx.err("The Mojang API could not be reached.");
         }
 
         // Loop over each name change
@@ -119,7 +119,7 @@ public class HistoryCommand extends AbstractPlayerCommand {
             eb.setDescription(String.join("\n", lines));
         }
 
-        return new Result(Outcome.SUCCESS, ctx.brand(eb).build());
+        return ctx.reply(eb);
     }
 
 }

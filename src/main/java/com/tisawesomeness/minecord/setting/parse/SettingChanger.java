@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.setting.parse;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.dao.SettingContainer;
 import com.tisawesomeness.minecord.setting.Setting;
 import com.tisawesomeness.minecord.util.type.Validation;
@@ -42,7 +42,7 @@ public class SettingChanger {
      * <br>Parses the value and changes the setting if from a set command.
      * @return The result of the command
      */
-    public Command.Result parse() {
+    public Result parse() {
         if (type == SettingCommandType.RESET) {
             return resetSetting();
         }
@@ -59,30 +59,30 @@ public class SettingChanger {
         return sj.toString();
     }
 
-    private Command.Result changeSetting(String settingValue) {
+    private Result changeSetting(String settingValue) {
         try {
             Validation<String> attempt = setting.tryToSet(obj, settingValue);
-            return convertAttemptToResult(attempt);
+            return convertAttemptToResult(ctx, attempt);
         } catch (SQLException ex) {
             ex.printStackTrace(); // Not printing exception to the user just to be safe
         }
-        return new Command.Result(Command.Outcome.ERROR, ":x: There was an internal error.");
+        return ctx.err("There was an internal error.");
     }
-    private Command.Result resetSetting() {
+    private Result resetSetting() {
         try {
             Validation<String> attempt = setting.tryToReset(obj);
-            return convertAttemptToResult(attempt);
+            return convertAttemptToResult(ctx, attempt);
         } catch (SQLException ex) {
             ex.printStackTrace(); // Not printing exception to the user just to be safe
         }
-        return new Command.Result(Command.Outcome.ERROR, ":x: There was an internal error.");
+        return ctx.err("There was an internal error.");
     }
 
-    private static Command.Result convertAttemptToResult(Validation<String> attempt) {
+    private static Result convertAttemptToResult(CommandContext ctx, Validation<String> attempt) {
         if (attempt.isValid()) {
-            return new Command.Result(Command.Outcome.SUCCESS, attempt.getValue());
+            return ctx.reply(attempt.getValue());
         }
         String errorMsg = String.join("\n", attempt.getErrors());
-        return new Command.Result(Command.Outcome.WARNING, ":warning: " + errorMsg);
+        return ctx.warn(errorMsg);
     }
 }

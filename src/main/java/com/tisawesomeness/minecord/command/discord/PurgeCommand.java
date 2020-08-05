@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.discord;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.Permission;
@@ -24,12 +25,12 @@ public class PurgeCommand extends AbstractDiscordCommand {
 
         // Guild-only command
         if (!e.isFromGuild()) {
-            return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
+            return ctx.warn("This command is not available in DMs.");
         }
 
         //Check if user is elevated or has the manage messages permission
         if (!ctx.isElevated && !e.getMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE)) {
-            return new Result(Outcome.WARNING, ":warning: You must have permission to manage messages in this channel!");
+            return ctx.warn("You must have permission to manage messages in this channel!");
         }
 
         //Parse args
@@ -42,12 +43,11 @@ public class PurgeCommand extends AbstractDiscordCommand {
             perms = e.getGuild().getSelfMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE);
             if (perms) {
                 if (num <= 0 || num > 1000) {
-                    return new Result(Outcome.ERROR, ":x: The number must be between 1-1000.");
+                    return ctx.warn("The number must be between 1-1000.");
                 }
             } else {
                 if (num <= 0 || num > 50) {
-                    return new Result(Outcome.ERROR,
-                        ":x: The number must be between 1-50, I don't have permission to manage messages!");
+                    return ctx.err("The number must be between 1-50, I don't have permission to manage messages!");
                 }
             }
 
@@ -78,7 +78,9 @@ public class PurgeCommand extends AbstractDiscordCommand {
                 }
 
                 mine.addAll(temp);
-                if (exit) {break;}
+                if (exit) {
+                    break;
+                }
 
                 //If no messages were found, log it
                 if (temp.size() > 0) {
@@ -92,7 +94,7 @@ public class PurgeCommand extends AbstractDiscordCommand {
             }
             if (empty >= 4) {
                 if (mine.size() == 0) {
-                    return new Result(Outcome.ERROR, "Could not find any bot messages within the last 100 messages.");
+                    return ctx.err("Could not find any bot messages within the last 100 messages.");
                 }
                 break;
             }
@@ -102,18 +104,15 @@ public class PurgeCommand extends AbstractDiscordCommand {
         TextChannel c = e.getTextChannel();
         if (mine.size() == 1) {
             mine.get(0).delete().queue();
-            c.sendMessage("1 message purged.").queue();
+            return ctx.reply("1 message purged.");
         } else if (!perms) {
             for (Message m : mine) {
                 m.delete().queue();
             }
-            c.sendMessage(mine.size() + " messages purged.").queue();
         } else {
             e.getTextChannel().deleteMessages(mine).queue();
-            c.sendMessage(mine.size() + " messages purged.").queue();
         }
-
-        return new Result(Outcome.SUCCESS);
+        return ctx.reply(mine.size() + " messages purged.");
     }
 
 }

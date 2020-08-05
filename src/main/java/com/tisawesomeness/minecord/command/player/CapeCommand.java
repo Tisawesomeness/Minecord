@@ -2,8 +2,8 @@ package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.DateUtils;
-import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
@@ -36,19 +36,18 @@ public class CapeCommand extends AbstractPlayerCommand {
 
             // Check for errors
             if (player == null) {
-                String m = ":x: The Mojang API could not be reached." +
+                String m = "The Mojang API could not be reached." +
                     "\n" + "Are you sure that UUID exists?";
-                return new Result(Outcome.WARNING, m);
+                return ctx.err(m);
             } else if (!player.matches(NameUtils.playerRegex)) {
-                String m = ":x: The API responded with an error:\n" + player;
-                return new Result(Outcome.ERROR, m);
+                return ctx.err("The API responded with an error:\n" + player);
             }
         } else {
             // Parse date argument
             if (args.length > 1) {
                 long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
                 if (timestamp == -1) {
-                    return new Result(Outcome.WARNING, MessageUtils.dateErrorString(ctx.prefix, "skin"));
+                    return ctx.showHelp();
                 }
 
                 // Get the UUID
@@ -59,13 +58,12 @@ public class CapeCommand extends AbstractPlayerCommand {
 
             // Check for errors
             if (uuid == null) {
-                String m = ":x: The Mojang API could not be reached." +
+                String m = "The Mojang API could not be reached." +
                         "\n" +"Are you sure that username exists?" +
                         "\n" + "Usernames are case-sensitive.";
-                return new Result(Outcome.WARNING, m);
+                return ctx.err(m);
             } else if (!uuid.matches(NameUtils.uuidRegex)) {
-                String m = ":x: The API responded with an error:\n" + uuid;
-                return new Result(Outcome.ERROR, m);
+                return ctx.err("The API responded with an error:\n" + uuid);
             }
 
             uuid = uuid.replace("-", "").toLowerCase();
@@ -110,8 +108,10 @@ public class CapeCommand extends AbstractPlayerCommand {
             hasCape = true;
         }
 
-        if (!hasCape) return new Result(Outcome.WARNING, ":warning: " + player + " does not have a cape!");
-        return new Result(Outcome.SUCCESS);
+        if (!hasCape) {
+            return ctx.warn(player + " does not have a cape!");
+        }
+        return Result.SUCCESS;
     }
 
     private static void sendImage(MessageChannel c, String title, String url) {

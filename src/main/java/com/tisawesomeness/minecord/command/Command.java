@@ -4,12 +4,7 @@ import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.config.serial.CommandConfig;
 import com.tisawesomeness.minecord.config.serial.CommandOverride;
 
-import lombok.Getter;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import net.dv8tion.jda.api.MessageBuilder;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
 
 import java.util.HashMap;
@@ -133,69 +128,6 @@ public abstract class Command {
             return config.getDefaultCooldown();
         }
         return co.getCooldown();
-    }
-
-    /**
-     * Represents the result of a command.
-     */
-    public static class Result {
-        public Outcome outcome;
-        public Message message;
-
-        /**
-         * Represents the result of a command.
-         * @param outcome Represents the outcome of the command, either SUCCESS, WARNING, or ERROR.
-         */
-        public Result(Outcome outcome) {
-            this.outcome = outcome;
-            this.message = null;
-        }
-
-        /**
-         * Represents the result of a command.
-         * @param outcome Represents the outcome of the command, either SUCCESS, WARNING, or ERROR.
-         * @param message The message to send.
-         */
-        public Result(Outcome outcome, String message) {
-            this.outcome = outcome;
-            this.message = new MessageBuilder().append(message).build();
-        }
-
-        /**
-         * Represents the result of a command.
-         * @param outcome Represents the outcome of the command, either SUCCESS, WARNING, or ERROR.
-         * @param message The message to send.
-         */
-        public Result(Outcome outcome, Message message) {
-            this.outcome = outcome;
-            this.message = message;
-        }
-
-        /**
-         * Represents the result of a command.
-         * @param outcome Represents the outcome of the command, either SUCCESS, WARNING, or ERROR.
-         * @param message The message to send.
-         */
-        public Result(Outcome outcome, MessageEmbed message) {
-            this.outcome = outcome;
-            this.message = new MessageBuilder().setEmbed(message).build();
-        }
-    }
-
-    /**
-     * Represents the end result of a command.
-     */
-    @RequiredArgsConstructor
-    public enum Outcome {
-        SUCCESS("Success", ":white_check_mark:"),
-        WARNING("Warning", ":warning:"),
-        ERROR("Error", ":x:");
-
-        private final String s;
-        @Getter private final String emote;
-        public String toString() {
-            return s;
-        }
     }
 
 }

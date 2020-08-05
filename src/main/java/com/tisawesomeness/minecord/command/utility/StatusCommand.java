@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.utility;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import lombok.NonNull;
@@ -22,7 +23,7 @@ public class StatusCommand extends AbstractUtilityCommand {
         //Request information from Mojang
         String request = RequestUtils.get("https://status.mojang.com/check");
         if (request == null) {
-            return new Result(Outcome.ERROR, ":x: The Mojang API could not be reached.");
+            return ctx.err("The Mojang API could not be reached.");
         }
 
         Color color = Color.GREEN;
@@ -62,9 +63,11 @@ public class StatusCommand extends AbstractUtilityCommand {
         m += "\nSome statuses in the Mojang API are broken, so they are not shown.\n" +
         "Vote, watch, and comment on [this bug](https://bugs.mojang.com/browse/WEB-2303) if you want it fixed!";
 
-        EmbedBuilder eb = ctx.embedMessage("Minecraft Status", m).setColor(color);
-
-        return new Result(Outcome.SUCCESS, eb.build());
+        EmbedBuilder eb = new EmbedBuilder()
+                .setTitle("Minecraft Status")
+                .setDescription(m)
+                .setColor(color);
+        return ctx.replyRaw(ctx.addFooter(eb));
     }
 
 }

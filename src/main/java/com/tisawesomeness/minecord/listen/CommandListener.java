@@ -3,11 +3,10 @@ package com.tisawesomeness.minecord.listen;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.command.Command.Outcome;
-import com.tisawesomeness.minecord.command.Command.Result;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.CommandRegistry;
 import com.tisawesomeness.minecord.command.IElevatedCommand;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.config.serial.FlagConfig;
 import com.tisawesomeness.minecord.database.DatabaseCache;
@@ -30,9 +29,6 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.Arrays;
 import java.util.Optional;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.Future;
 
 @RequiredArgsConstructor
 public class CommandListener extends ListenerAdapter {
@@ -155,26 +151,6 @@ public class CommandListener extends ListenerAdapter {
             }
         }
 
-        // Class to send typing notification every 5 seconds
-        class Typing extends TimerTask {
-            private Future<Void> fv = null;
-            @Override
-            public void run() {
-                synchronized (this) {
-                    fv = c.sendTyping().submit();
-                }
-            }
-        }
-
-        // Instantiate timer
-        Timer timer = null;
-        Typing typing = null;
-        if (fc.isSendTyping()) {
-            timer = new Timer();
-            typing = new Typing();
-            timer.schedule(typing, 0, 5000);
-        }
-
         // Run command
         CommandContext ctx = new CommandContext(
                 args, e, config, bot, cmd, isElevated, prefix, lang, bot.getSettings());
@@ -186,17 +162,6 @@ public class CommandListener extends ListenerAdapter {
             result = cmd.run(args, ctx);
         } catch (Exception ex) {
             exception = ex;
-        }
-
-        // Cancel typing
-        if (fc.isSendTyping()) {
-            timer.cancel();
-            if (typing.fv != null) {
-                typing.fv.cancel(true);
-                synchronized (this) {
-                    notifyAll();
-                }
-            }
         }
 
         // Catch exceptions
@@ -217,30 +182,6 @@ public class CommandListener extends ListenerAdapter {
             err += "```";
             ctx.log(err);
             c.sendMessage(err).queue();
-        // If message is empty
-        } if (result.message == null) {
-            if (result.outcome != null && result.outcome != Outcome.SUCCESS) {
-                System.out.println("Command \"" + cmd.getId() + "\" returned an empty " +
-                    result.outcome.toString().toLowerCase());
-            }
-        } else {
-            // Wait for "typing..." to send, then print message
-            //TODO: Find out if typing after sent message is client-specific
-            if (result.outcome == Outcome.SUCCESS) {
-                while (typing != null && typing.fv != null && !typing.fv.isDone()) {
-                    synchronized (this) {
-                        try {wait();} catch (InterruptedException ex) {}
-                    }
-                }
-                e.getChannel().sendMessage(result.message).queue();
-            } else {
-                // Catch errors
-                if (result.outcome == Outcome.ERROR) {
-                    System.out.println("Command \"" + cmd.getId() + "\" returned an error: " +
-                        result.message.getContentRaw());
-                }
-                c.sendMessage(result.message).queue();
-            }
         }
     }
 

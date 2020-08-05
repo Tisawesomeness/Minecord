@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.command.utility;
 import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.ReactMenu.MenuStatus;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.item.Recipe;
 
 import lombok.NonNull;
@@ -17,7 +18,9 @@ public class IngredientCommand extends AbstractUtilityCommand {
         return "ingredient";
     }
 
-    public Result run(String[] args, CommandContext ctx)  {
+    public Result run(String[] argsOrig, CommandContext ctx)  {
+        String[] args = Arrays.copyOf(argsOrig, argsOrig.length);
+
         // Check for argument length
         if (args.length == 0) {
             return ctx.showHelp();
@@ -33,25 +36,23 @@ public class IngredientCommand extends AbstractUtilityCommand {
         }
 
         // Search through the recipe database
-        ArrayList<String> recipes = Recipe.searchIngredient(ctx.joinArgs(), "en_US");
+        ArrayList<String> recipes = Recipe.searchIngredient(String.join(" ", args), "en_US");
         if (recipes == null) {
-            return new Result(Outcome.WARNING,
-                ":warning: That item does not exist! " +
-                "\n" + "Did you spell it correctly?");
+            return ctx.warn("That item does not exist! Did you spell it correctly?");
         }
         if (recipes.size() == 0) {
-            return new Result(Outcome.WARNING, ":warning: That item is not an ingredient for any recipes!");
+            return ctx.warn("That item is not an ingredient for any recipes!");
         }
 
         // Create menu
         MenuStatus status = ReactMenu.getMenuStatus(ctx);
         if (status.isValid()) {
             new Recipe.RecipeMenu(recipes, page, "en_US").post(ctx.e.getChannel(), ctx.e.getAuthor());
-            return new Result(Outcome.SUCCESS);
+            return Result.SUCCESS;
         }
         EmbedBuilder eb = Recipe.displayImg(recipes.get(page), "en_US");
         eb.setFooter(String.format("Page %s/%s%s", page + 1, recipes.size(), status.getReason()), null);
-        return new Result(Outcome.SUCCESS, eb.build());
+        return ctx.replyRaw(eb);
     }
 
 }

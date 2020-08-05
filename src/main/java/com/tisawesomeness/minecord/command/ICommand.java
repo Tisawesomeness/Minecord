@@ -1,7 +1,5 @@
 package com.tisawesomeness.minecord.command;
 
-import com.tisawesomeness.minecord.command.Command.Result;
-
 public interface ICommand {
 
     /**

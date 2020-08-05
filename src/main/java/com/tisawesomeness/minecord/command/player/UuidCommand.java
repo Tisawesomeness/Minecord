@@ -1,11 +1,12 @@
 package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.DateUtils;
-import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
 
 import lombok.NonNull;
+import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.util.Arrays;
 
@@ -29,7 +30,7 @@ public class UuidCommand extends AbstractPlayerCommand {
         if (args.length > 1) {
             long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
             if (timestamp == -1) {
-                return new Result(Outcome.WARNING, MessageUtils.dateErrorString(ctx.prefix, "uuid"));
+                return ctx.showHelp();
             }
 
         // Get the UUID
@@ -40,13 +41,12 @@ public class UuidCommand extends AbstractPlayerCommand {
 
         // Check for errors
         if (uuid == null) {
-            String m = ":x: The Mojang API could not be reached." +
+            String m = "The Mojang API could not be reached." +
                 "\n" + "Are you sure that username exists?" +
                 "\n" + "Usernames are case-sensitive.";
-            return new Result(Outcome.WARNING, m);
+            return ctx.err(m);
         } else if (!uuid.matches(NameUtils.uuidRegex)) {
-            String m = ":x: The API responded with an error:\n" + uuid;
-            return new Result(Outcome.ERROR, m);
+            return ctx.err("The API responded with an error:\n" + uuid);
         }
 
         // Get NameMC url
@@ -62,7 +62,10 @@ public class UuidCommand extends AbstractPlayerCommand {
 
         String m = String.format("Short: `%s`\nLong: `%s`", uuid, NameUtils.formatUUID(uuid));
 
-        return new Result(Outcome.SUCCESS, ctx.embedURL(title, url, m).build());
+        EmbedBuilder eb = new EmbedBuilder()
+                .setTitle(title, url)
+                .setDescription(m);
+        return ctx.reply(eb);
     }
 
 }

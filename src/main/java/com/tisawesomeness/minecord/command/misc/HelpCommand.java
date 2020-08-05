@@ -7,6 +7,7 @@ import com.tisawesomeness.minecord.command.CommandRegistry;
 import com.tisawesomeness.minecord.command.IElevatedCommand;
 import com.tisawesomeness.minecord.command.IHiddenCommand;
 import com.tisawesomeness.minecord.command.Module;
+import com.tisawesomeness.minecord.command.Result;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,7 @@ public class HelpCommand extends AbstractMiscCommand {
         String prefix = ctx.prefix;
         Lang lang = ctx.lang;
 
-        EmbedBuilder eb = ctx.brand(new EmbedBuilder());
+        EmbedBuilder eb = new EmbedBuilder();
         String url = ctx.e.getJDA().getSelfUser().getEffectiveAvatarUrl();
 
         // General help
@@ -57,7 +58,7 @@ public class HelpCommand extends AbstractMiscCommand {
                     .collect(Collectors.joining(", "));
                 eb.addField(m.getDisplayName(lang), mHelp, false);
             }
-            return new Result(Outcome.SUCCESS, eb.build());
+            return ctx.reply(eb);
         }
 
         // Module help
@@ -65,7 +66,7 @@ public class HelpCommand extends AbstractMiscCommand {
         if (moduleOpt.isPresent()) {
             Module m = moduleOpt.get();
             if (m.isHidden() && !ctx.isElevated) {
-                return new Result(Outcome.WARNING, ":warning: You do not have permission to view that module.");
+                return ctx.warn("You do not have permission to view that module.");
             }
             String mUsage = registry.getCommandsInModule(m).stream()
                 .filter(c -> !(c instanceof IHiddenCommand) || m.isHidden()) // All admin commands are hidden
@@ -84,7 +85,7 @@ public class HelpCommand extends AbstractMiscCommand {
                 mUsage = mHelp.get() + "\n\n" + mUsage;
             }
             eb.setAuthor(m.getDisplayName(lang) + " Module Help", null, url).setDescription(mUsage);
-            return new Result(Outcome.SUCCESS, eb.build());
+            return ctx.reply(eb);
         }
 
         // Command help
@@ -93,26 +94,25 @@ public class HelpCommand extends AbstractMiscCommand {
             Command c = cmdOpt.get();
             // Elevation check
             if (c instanceof IElevatedCommand && !ctx.isElevated) {
-                return new Result(Outcome.WARNING, ":warning: You do not have permission to view that command.");
+                return ctx.warn("You do not have permission to view that command.");
             }
             // Admin check
             String tag = ctx.e.getJDA().getSelfUser().getAsMention();
             if (args.length > 1 && "admin".equals(args[1])) {
-                return showHelpInternal(ctx, c, c.getAdminHelp(lang, prefix, tag));
+                return ctx.reply(showHelpInternal(ctx, c, c.getAdminHelp(lang, prefix, tag)));
             }
-            return showHelp(ctx, c);
+            return ctx.reply(showHelp(ctx, c));
         }
 
-        return new Result(Outcome.WARNING, ":warning: That command or module does not exist.");
+        return ctx.warn("That command or module does not exist.");
     }
 
-    public static Result showHelp(CommandContext ctx, Command c) {
+    public static EmbedBuilder showHelp(CommandContext ctx, Command c) {
         String tag = ctx.e.getJDA().getSelfUser().getAsMention();
         return showHelpInternal(ctx, c, c.getHelp(ctx.lang, ctx.prefix, tag));
     }
 
-    private static Result showHelpInternal(CommandContext ctx, Command c, String help) {
-        EmbedBuilder eb = ctx.brand(new EmbedBuilder());
+    private static EmbedBuilder showHelpInternal(CommandContext ctx, Command c, String help) {
         String prefix = ctx.prefix;
         Lang lang = ctx.lang;
 
@@ -130,8 +130,9 @@ public class HelpCommand extends AbstractMiscCommand {
             help += getCooldownString(cooldown);
         }
         String desc = String.format("%s\nModule: `%s`", help, c.getModule().getDisplayName(lang));
-        eb.setAuthor(prefix + c.getDisplayName(lang) + " Help").setDescription(desc);
-        return new Result(Outcome.SUCCESS, eb.build());
+        return new EmbedBuilder()
+                .setAuthor(prefix + c.getDisplayName(lang) + " Help")
+                .setDescription(desc);
     }
     private static String getCooldownString(int cooldown) {
         if (cooldown % 1000 == 0) {

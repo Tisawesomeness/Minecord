@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command.config;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.setting.parse.SettingCommandParser;
 import com.tisawesomeness.minecord.setting.parse.SettingCommandType;
 
@@ -13,7 +13,7 @@ public class ResetCommand extends AbstractConfigCommand {
         return "reset";
     }
 
-    public Command.Result run(String[] args, CommandContext ctx) {
+    public Result run(String[] args, CommandContext ctx) {
         return new SettingCommandParser(ctx, SettingCommandType.RESET).parse();
     }
 }

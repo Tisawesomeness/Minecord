@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.utility;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.ColorUtils;
 
 import lombok.NonNull;
@@ -18,11 +19,11 @@ public class CodesCommand extends AbstractUtilityCommand {
 
         String desc = String.format("Symbol copy-paste: `\u00A7`, `\\u00A7`\nUse `%scolor` to get info on a color.", ctx.prefix);
         EmbedBuilder eb = new EmbedBuilder()
-            .setTitle("Minecraft Chat Codes")
-            .setColor(ColorUtils.randomColor())
-            .setDescription(desc)
-            .setImage(img);
-        return new Result(Outcome.SUCCESS, ctx.addFooter(eb).build());
+                .setTitle("Minecraft Chat Codes")
+                .setColor(ColorUtils.randomColor())
+                .setDescription(desc)
+                .setImage(img);
+        return ctx.replyRaw(ctx.addFooter(eb));
 
     }
 

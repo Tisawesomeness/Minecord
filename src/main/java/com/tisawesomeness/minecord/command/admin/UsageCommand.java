@@ -6,6 +6,7 @@ import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.CommandRegistry;
 import com.tisawesomeness.minecord.command.IShortcutCommand;
 import com.tisawesomeness.minecord.command.Module;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.DateUtils;
 
 import lombok.NonNull;
@@ -42,7 +43,7 @@ public class UsageCommand extends AbstractAdminCommand {
             eb.addField(String.format("**%s**", m.getDisplayName(lang)), field, true);
         }
 
-        return new Result(Outcome.SUCCESS, ctx.brand(eb).build());
+        return ctx.reply(eb);
     }
 
 }

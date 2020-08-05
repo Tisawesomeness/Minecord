@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.config.serial.BotListConfig;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.util.MessageUtils;
@@ -99,7 +100,8 @@ public class EvalCommand extends AbstractAdminCommand {
         // Exception check
         if (exMsg != null) {
             eb.addField("Output", MarkdownUtil.monospace(exMsg), false);
-            return new Result(Outcome.WARNING, eb.build());
+            ctx.replyRaw(eb);
+            return Result.WARNING;
         }
 
         // Check for length
@@ -119,7 +121,7 @@ public class EvalCommand extends AbstractAdminCommand {
             eb.addField("Output", MarkdownUtil.codeblock("js", out), false);
         }
 
-        return new Result(Outcome.SUCCESS, eb.build());
+        return ctx.replyRaw(eb);
 
     }
 

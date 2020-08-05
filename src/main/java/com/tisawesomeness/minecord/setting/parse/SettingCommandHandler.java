@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.setting.parse;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.setting.Setting;
 
 import lombok.NonNull;
@@ -29,7 +29,7 @@ public abstract class SettingCommandHandler {
      * <br>When done, may also call {@code parse()} in other handlers for more processing.
      * @return A command result that is shown to the user, which may be an error message
      */
-    public abstract Command.Result parse();
+    public abstract Result parse();
 
     /**
      * Loops over all settings and displays their names, descriptions, and values in an embed.
@@ -38,7 +38,7 @@ public abstract class SettingCommandHandler {
      *                        This should call one of the {@code getDisplay()} functions with predefined arguments.
      * @return A result with a fully formatted, branded embed
      */
-    protected Command.Result displaySettings(String title, Function<? super Setting<?>, String> displayFunction) {
+    protected Result displaySettings(String title, Function<? super Setting<?>, String> displayFunction) {
         CommandContext ctx = getCtx();
         EmbedBuilder eb = new EmbedBuilder().setTitle(title);
         String tag = ctx.e.getJDA().getSelfUser().getAsTag();
@@ -50,7 +50,7 @@ public abstract class SettingCommandHandler {
             String field = description + "\nCurrent: " + formattedDisplay;
             eb.addField(setting.getDisplayName(), field, false);
         }
-        return new Command.Result(Command.Outcome.SUCCESS, ctx.brand(eb).build());
+        return ctx.reply(eb);
     }
 
     /**

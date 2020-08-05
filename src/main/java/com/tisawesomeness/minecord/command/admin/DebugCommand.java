@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.debug.ChannelCacheDebugOption;
 import com.tisawesomeness.minecord.debug.DebugOption;
@@ -41,30 +42,30 @@ public class DebugCommand extends AbstractAdminCommand {
 
     public Result run(String[] args, CommandContext ctx) {
         if (!ctx.config.getFlagConfig().isDebugMode()) {
-            return new Result(Outcome.WARNING, "The bot is not in debug mode.");
+            return ctx.warn("The bot is not in debug mode.");
         }
 
         if (args.length == 0) {
             String possibleOptions = debugOptions.stream()
                     .map(d -> MarkdownUtil.monospace(d.getName()))
                     .collect(Collectors.joining(", "));
-            return new Result(Outcome.SUCCESS, "Possible options: " + possibleOptions);
+            return ctx.reply("Possible options: " + possibleOptions);
         }
 
         if ("all".equalsIgnoreCase(args[0])) {
             for (DebugOption d : debugOptions) {
                 sendDebugInfo(ctx, d);
             }
-            return new Result(Outcome.SUCCESS);
+            return Result.SUCCESS;
         }
 
         for (DebugOption d : debugOptions) {
             if (d.getName().equalsIgnoreCase(args[0])) {
                 sendDebugInfo(ctx, d);
-                return new Result(Outcome.SUCCESS);
+                return Result.SUCCESS;
             }
         }
-        return new Result(Outcome.WARNING, ":warning: Not a valid debug option.");
+        return ctx.warn("Not a valid debug option.");
     }
 
     private static void sendDebugInfo(CommandContext ctx, DebugOption d) {

@@ -6,10 +6,12 @@ import br.com.azalim.mcserverping.MCPingResponse;
 import br.com.azalim.mcserverping.MCPingResponse.Player;
 import br.com.azalim.mcserverping.MCPingUtil;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 
 import java.io.IOException;
@@ -44,8 +46,7 @@ public class ServerCommand extends AbstractUtilityCommand {
         if (!arg.matches(ipAddressRegex)) {
             ip = false;
             if (!arg.matches(serverAddressRegex)) {
-                String warn = ctx.i18nf("invalidAddress", Outcome.WARNING.getEmote());
-                return new Result(Outcome.WARNING, warn);
+                return ctx.warn(ctx.i18n("invalidAddress"));
             }
         }
 
@@ -69,8 +70,7 @@ public class ServerCommand extends AbstractUtilityCommand {
             MCPingOptions options = MCPingOptions.builder().hostname(hostname).port(port).build();
             reply = MCPing.getPing(options);
         } catch (IOException ignore) {
-            String warn = ctx.i18nf("unreachable", Outcome.WARNING.getEmote());
-            return new Result(Outcome.WARNING, warn);
+            return ctx.warn(ctx.i18n("unreachable"));
         }
         MCPingResponse.Players players = reply.getPlayers();
 
@@ -80,7 +80,7 @@ public class ServerCommand extends AbstractUtilityCommand {
         String motd = MarkdownSanitizer.escape(reply.getDescription().getStrippedText());
         List<Player> sample = players.getSample();
 
-        EmbedBuilder eb = ctx.brand(new EmbedBuilder())
+        EmbedBuilder eb = new EmbedBuilder()
                 .setTitle(ctx.i18nf("title", address))
                 .addField(ctx.i18n("version"), version, true)
                 .addField(ctx.i18n("players"), playerInfo, true)
@@ -102,9 +102,9 @@ public class ServerCommand extends AbstractUtilityCommand {
             try {
                 String b64String = reply.getFavicon().replace("\n", "").split(",")[1];
                 byte[] data = Base64.getDecoder().decode(b64String);
-                eb.setThumbnail("attachment://favicon.png");
-                ctx.e.getChannel().sendFile(data, "favicon.png").embed(eb.build()).queue();
-                return new Result(Outcome.SUCCESS);
+                MessageEmbed me = ctx.brand(eb).setThumbnail("attachment://favicon.png").build();
+                ctx.e.getChannel().sendFile(data, "favicon.png").embed(me).queue();
+                return Result.SUCCESS;
             } catch (IllegalArgumentException ex) {
                 ex.printStackTrace();
                 if (sb.length() > 0) {
@@ -113,7 +113,7 @@ public class ServerCommand extends AbstractUtilityCommand {
                 sb.append(ctx.i18n("invalidIcon"));
             }
         }
-        return new Result(Outcome.SUCCESS, eb.build());
+        return ctx.reply(eb);
 
     }
 

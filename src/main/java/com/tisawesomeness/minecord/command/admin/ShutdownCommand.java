@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 
 import lombok.NonNull;
 
@@ -25,7 +26,7 @@ public class ShutdownCommand extends AbstractAdminCommand {
         ExecutorService exe = Executors.newSingleThreadExecutor();
         exe.submit(ctx.bot::shutdown);
         exe.shutdown();
-        return new Result(Outcome.SUCCESS); // Graceful shutdown, just wait...
+        return Result.SUCCESS; // Graceful shutdown, just wait...
 
     }
 

@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.utility;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import lombok.NonNull;
@@ -15,7 +16,7 @@ public class Sha1Command extends AbstractUtilityCommand {
         if (args.length == 0) {
             return ctx.showHelp();
         }
-        return new Result(Outcome.SUCCESS, RequestUtils.sha1(ctx.joinArgs()));
+        return ctx.reply(RequestUtils.sha1(ctx.joinArgs()));
     }
 
 }

@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.discord;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
@@ -26,7 +27,7 @@ public class RolesCommand extends AbstractDiscordCommand {
         
         // Guild-only command
         if (!e.isFromGuild()) {
-            return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
+            return ctx.warn("This command is not available in DMs.");
         }
 
         // Check for argument length
@@ -43,16 +44,15 @@ public class RolesCommand extends AbstractDiscordCommand {
             if (DiscordUtils.isDiscordId(args[0])) {
                 mem = e.getGuild().retrieveMemberById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
                 if (mem == null) {
-                    return new Result(Outcome.WARNING, ":warning: That user does not exist.");
+                    return ctx.warn("That user does not exist.");
                 }
             } else {
                 if (!User.USER_TAG.matcher(args[0]).matches()) {
-                    return new Result(Outcome.WARNING,
-                            ":warning: Not a valid user format. Use `name#1234`, a mention, or a valid ID.");
+                    return ctx.warn("Not a valid user format. Use `name#1234`, a mention, or a valid ID.");
                 }
                 mem = e.getGuild().getMemberByTag(args[0]);
                 if (mem == null) {
-                    return new Result(Outcome.WARNING, ":warning: That user does not exist.");
+                    return ctx.warn("That user does not exist.");
                 }
             }
         }
@@ -85,8 +85,8 @@ public class RolesCommand extends AbstractDiscordCommand {
         } else {
             eb.setDescription(String.join("\n", lines));
         }
-        
-        return new Result(Outcome.SUCCESS, ctx.addFooter(eb).build());
+
+        return ctx.replyRaw(ctx.addFooter(eb));
     }
 
 }

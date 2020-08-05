@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.setting.parse;
 
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.dao.DbChannel;
 import com.tisawesomeness.minecord.setting.Setting;
 import com.tisawesomeness.minecord.util.DiscordUtils;
@@ -37,37 +37,35 @@ public class ListSubcommand {
      * Lists settings for the specified guild if admin, otherwise the current guild if not in DMs.
      * @return The result of the command
      */
-    public Command.Result parse() {
+    public Result parse() {
         if (isAdmin) {
             return parseAdminList();
         } else if (!ctx.e.isFromGuild()) {
-            String msg = String.format(":warning: `%ssettings list` cannot be used in DMs.", ctx.prefix);
-            return new Command.Result(Command.Outcome.WARNING, msg);
+            return ctx.warn(String.format("`%ssettings list` cannot be used in DMs.", ctx.prefix));
         } else if (!Objects.requireNonNull(ctx.e.getMember()).hasPermission(Permission.MANAGE_SERVER)) {
-            return new Command.Result(Command.Outcome.WARNING, ":warning: You do not have Manage Server permissions.");
+            return ctx.warn("You do not have Manage Server permissions.");
         }
         return listSettings("All Channel Overrides", ctx.e.getGuild().getIdLong());
     }
-    private Command.Result parseAdminList() {
+    private Result parseAdminList() {
         if (currentArg < ctx.args.length) {
             return parseGuildAndList();
         } else if (!ctx.e.isFromGuild()) {
-            String msg = String.format(
-                    ":warning: `%ssettings admin list` with no guild id cannot be used in DMs.", ctx.prefix);
-            return new Command.Result(Command.Outcome.WARNING, msg);
+            return ctx.warn(String.format(
+                    "`%ssettings admin list` with no guild id cannot be used in DMs.", ctx.prefix));
         }
         return listSettings("All Channel Overrides", ctx.e.getGuild().getIdLong());
     }
 
-    private Command.Result parseGuildAndList() {
+    private Result parseGuildAndList() {
         String guildArg = ctx.args[currentArg];
         if (!DiscordUtils.isDiscordId(guildArg)) {
-            return new Command.Result(Command.Outcome.WARNING, ":warning: Not a valid guild id.");
+            return ctx.warn("Not a valid guild id.");
         }
         return listSettings("All Channel Overrides for Guild " + guildArg, Long.parseLong(guildArg));
     }
 
-    private Command.Result listSettings(String title, long gid) {
+    private Result listSettings(String title, long gid) {
         EmbedBuilder eb = new EmbedBuilder().setTitle(title);
         String guildField = buildField(s -> s.getDisplay(ctx.getGuild(gid)));
         eb.addField("Guild", guildField, false);
@@ -81,7 +79,7 @@ public class ListSubcommand {
                 eb.addField(fieldTitle, field, false);
             }
         }
-        return new Command.Result(Command.Outcome.SUCCESS, ctx.brand(eb).build());
+        return ctx.reply(eb);
     }
 
     private String buildField(Function<? super Setting<?>, String> displayFunction) {

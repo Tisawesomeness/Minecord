@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.command.utility;
 import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.ReactMenu.MenuStatus;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.item.Recipe;
 
 import lombok.NonNull;
@@ -17,7 +18,9 @@ public class RecipeCommand extends AbstractUtilityCommand {
         return "recipe";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public Result run(String[] argsOrig, CommandContext ctx) {
+        String[] args = Arrays.copyOf(argsOrig, argsOrig.length);
+
         // Check for argument length
         if (args.length == 0) {
             return ctx.showHelp();
@@ -33,27 +36,26 @@ public class RecipeCommand extends AbstractUtilityCommand {
         }
 
         // Search through the recipe database
-        ArrayList<String> recipes = Recipe.searchOutput(ctx.joinArgs(), "en_US");
+        ArrayList<String> recipes = Recipe.searchOutput(String.join(" ", args), "en_US");
         if (recipes == null) {
-            return new Result(Outcome.WARNING,
-                    ":warning: That item does not exist! " + "\n" + "Did you spell it correctly?");
+            return ctx.warn("That item does not exist!\nDid you spell it correctly?");
         }
         if (recipes.size() == 0) {
-            return new Result(Outcome.WARNING, ":warning: That item does not have a recipe!");
+            return ctx.warn("That item does not have a recipe!");
         }
         if (page >= recipes.size()) {
-            return new Result(Outcome.WARNING, ":warning: That page does not exist!");
+            return ctx.warn("That page does not exist!");
         }
 
         // Create menu
         MenuStatus status = ReactMenu.getMenuStatus(ctx);
         if (status.isValid()) {
             new Recipe.RecipeMenu(recipes, page, "en_US").post(ctx.e.getChannel(), ctx.e.getAuthor());
-            return new Result(Outcome.SUCCESS);
+            return Result.SUCCESS;
         }
         EmbedBuilder eb = Recipe.displayImg(recipes.get(page), "en_US");
         eb.setFooter(String.format("Page %s/%s%s", page + 1, recipes.size(), status.getReason()), null);
-        return new Result(Outcome.SUCCESS, eb.build());
+        return ctx.replyRaw(eb);
 
     }
 
