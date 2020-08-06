@@ -116,9 +116,8 @@ public abstract class Command {
         return String.format("command.%s.%s.%s", getModule().getId(), getId(), key);
     }
 
-
     /**
-     * Gets the cooldown of this command
+     * Gets the cooldown of this command.
      * @param config The command config to pull cooldowns from
      * @return A positive cooldown in miliseconds, or 0 or less for no cooldown
      */
@@ -127,7 +126,24 @@ public abstract class Command {
         if (co == null) {
             return config.getDefaultCooldown();
         }
-        return co.getCooldown();
+        Integer cooldown = co.getCooldown();
+        if (cooldown == null) {
+            return config.getDefaultCooldown();
+        }
+        return cooldown;
+    }
+    /**
+     * Determines if this command is enabled.
+     * <br>If disabled, the command will not give a response or show in {@code &help}.
+     * @param config The command config
+     * @return False only if an override is set in the config
+     */
+    public boolean isEnabled(CommandConfig config) {
+        CommandOverride co = config.getOverrides().get(getId());
+        if (co == null) {
+            return true;
+        }
+        return !co.isDisabled();
     }
 
 }

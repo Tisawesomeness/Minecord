@@ -174,7 +174,7 @@ public class Bot {
         }
 
         // These depend on database
-        registry = new CommandRegistry(shardManager, database.getCache());
+        registry = new CommandRegistry(shardManager, database.getCache(), config.getCommandConfig());
         commandListener = new CommandListener(this, config, registry);
         settings = new SettingRegistry(config.getSettingsConfig());
 
@@ -261,7 +261,7 @@ public class Bot {
 
         // Start everything up again
         database = futureDB.get();
-        registry = new CommandRegistry(shardManager, database.getCache());
+        registry = new CommandRegistry(shardManager, database.getCache(), config.getCommandConfig());
         commandListener = new CommandListener(this, config, registry);
         shardManager.addEventListener(commandListener, guildCountListener);
         if (futureVH != null) {

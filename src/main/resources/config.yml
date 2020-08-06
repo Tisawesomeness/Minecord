@@ -107,10 +107,14 @@ database:
 commands:
   # The default cooldown, in miliseconds, users must wait before using the same command agian
   defaultCooldown: 0
-  # Cooldowns for individual commands can be overridden here
+  # Overrides for individual commands are defined here
   overrides:
     avatar:
+      # The cooldown in miliseconds
       cooldown: 5000
+      # Whether the command is disabled (default enabled)
+      # Disabled commands are not registerd and will not give a response or show in &help
+      disabled: false
     body:
       cooldown: 5000
     cape:

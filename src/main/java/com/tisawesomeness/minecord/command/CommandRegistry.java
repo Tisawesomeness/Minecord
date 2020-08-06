@@ -48,6 +48,7 @@ import com.tisawesomeness.minecord.command.utility.SalesCommand;
 import com.tisawesomeness.minecord.command.utility.ServerCommand;
 import com.tisawesomeness.minecord.command.utility.Sha1Command;
 import com.tisawesomeness.minecord.command.utility.StatusCommand;
+import com.tisawesomeness.minecord.config.serial.CommandConfig;
 import com.tisawesomeness.minecord.database.DatabaseCache;
 
 import com.google.common.collect.HashBasedTable;
@@ -73,7 +74,7 @@ public class CommandRegistry {
     /**
      * Adds every module to the registry and maps the possible aliases to the command to execute.
      */
-    public CommandRegistry(ShardManager sm, DatabaseCache dbCache) {
+    public CommandRegistry(ShardManager sm, DatabaseCache dbCache, CommandConfig cc) {
 
         Command colorCmd = new ColorCommand();
         Command[] commands = {
@@ -148,22 +149,26 @@ public class CommandRegistry {
 
         };
 
-        moduleToCommandsMap = buildModuleToCommandsMap(commands);
-        commandTable = buildCommandTable();
+        moduleToCommandsMap = buildModuleToCommandsMap(commands, cc);
+        commandTable = buildCommandTable(cc);
     }
 
-    private static Multimap<Module, Command> buildModuleToCommandsMap(Command[] commands) {
+    private static Multimap<Module, Command> buildModuleToCommandsMap(Command[] commands, CommandConfig cc) {
         Multimap<Module, Command> mm = MultimapBuilder.enumKeys(Module.class).arrayListValues().build();
         for (Command c : commands) {
-            mm.put(c.getModule(), c);
+            if (c.isEnabled(cc)) {
+                mm.put(c.getModule(), c);
+            }
         }
         return ImmutableMultimap.copyOf(mm);
     }
-    private Table<Lang, String, Command> buildCommandTable() {
+    private Table<Lang, String, Command> buildCommandTable(CommandConfig cc) {
         Table<Lang, String, Command> table = HashBasedTable.create();
         for (Module m : Module.values()) {
             for (Command c : getCommandsInModule(m)) {
-                registerNameAndAliases(table, c);
+                if (c.isEnabled(cc)) {
+                    registerNameAndAliases(table, c);
+                }
             }
         }
         return ImmutableTable.copyOf(table);

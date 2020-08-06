@@ -1,13 +1,21 @@
 package com.tisawesomeness.minecord.config.serial;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import lombok.Value;
+
+import javax.annotation.Nullable;
 
 /**
  * Overrides a command cooldown
  */
 @Value
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CommandOverride {
-    @JsonProperty("cooldown")
-    int cooldown;
+    @JsonProperty("cooldown") @JsonSetter(nulls = Nulls.SET)
+    @Nullable Integer cooldown; // Using wrapper class since default 0 would override the default cooldown
+    @JsonProperty("disabled") @JsonSetter(nulls = Nulls.SET)
+    boolean disabled;
 }
