@@ -35,10 +35,21 @@ public abstract class Command {
     public Module getModule() {
         return Module.CUSTOM;
     }
-    public EnumSet<Permission> getRequiredUserPermissions() {
+
+    /**
+     * Gets all required user permissions.
+     * <br>It is assumed that the user has send/receive message permissions, since they were able to run the command.
+     * @return A possibly-empty set of permissions
+     */
+    public EnumSet<Permission> getUserPermissions() {
         return EnumSet.noneOf(Permission.class);
     }
-    public EnumSet<Permission> getRequiredBotPermissions() {
+    /**
+     * Gets all required bot permissions.
+     * <br>Read/send messages and embed links permissions are checked beforehand.
+     * @return A possibly-empty set of permissions
+     */
+    public EnumSet<Permission> getBotPermissions() {
         return EnumSet.noneOf(Permission.class);
     }
 

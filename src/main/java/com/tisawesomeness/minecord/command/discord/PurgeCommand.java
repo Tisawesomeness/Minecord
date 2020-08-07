@@ -22,11 +22,11 @@ public class PurgeCommand extends AbstractDiscordCommand {
     }
 
     @Override
-    public EnumSet<Permission> getRequiredUserPermissions() {
+    public EnumSet<Permission> getUserPermissions() {
         return EnumSet.of(Permission.MESSAGE_MANAGE);
     }
     @Override
-    public EnumSet<Permission> getRequiredBotPermissions() {
+    public EnumSet<Permission> getBotPermissions() {
         return EnumSet.of(Permission.MESSAGE_HISTORY);
     }
 

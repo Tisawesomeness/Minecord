@@ -137,7 +137,7 @@ public class CommandListener extends ListenerAdapter {
         if (e.isFromGuild()) {
             TextChannel tc = e.getTextChannel();
             if (!isElevated) {
-                EnumSet<Permission> rup = cmd.getRequiredUserPermissions();
+                EnumSet<Permission> rup = cmd.getUserPermissions();
                 Member mem = Objects.requireNonNull(e.getMember());
                 if (!mem.hasPermission(tc, rup)) {
                     rup.removeAll(mem.getPermissions(tc));
@@ -149,7 +149,7 @@ public class CommandListener extends ListenerAdapter {
                     return;
                 }
             }
-            EnumSet<Permission> rbp = cmd.getRequiredBotPermissions();
+            EnumSet<Permission> rbp = cmd.getBotPermissions();
             Member sm = e.getGuild().getSelfMember();
             if (!sm.hasPermission(tc, rbp)) {
                 rbp.removeAll(sm.getPermissions(tc));

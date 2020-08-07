@@ -118,8 +118,8 @@ public class HelpCommand extends AbstractMiscCommand {
         Lang lang = ctx.lang;
         help += "\n";
 
-        help += getAddedPermsHelp(c.getRequiredUserPermissions(), "Required User Perms")
-                + getAddedPermsHelp(c.getRequiredBotPermissions(), "Required Bot Perms");
+        help += getAddedPermsHelp(c.getUserPermissions(), "Required User Perms")
+                + getAddedPermsHelp(c.getBotPermissions(), "Required Bot Perms");
 
         // Alias list formatted with prefix in code blocks
         if (!c.getAliases(lang).isEmpty()) {

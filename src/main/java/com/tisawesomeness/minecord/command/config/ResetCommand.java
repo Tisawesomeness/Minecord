@@ -17,7 +17,7 @@ public class ResetCommand extends AbstractConfigCommand {
     }
 
     @Override
-    public EnumSet<Permission> getRequiredUserPermissions() {
+    public EnumSet<Permission> getUserPermissions() {
         return EnumSet.of(Permission.MANAGE_SERVER);
     }
 
