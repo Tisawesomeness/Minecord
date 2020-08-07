@@ -27,7 +27,7 @@ public class CommandRegistryTest {
         ShardManager sm = new DefaultShardManager("dummy token");
         Config config = ConfigReader.readFromResources();
         DatabaseCache dc = new DatabaseCache(null, config);
-        cr = new CommandRegistry(sm, dc);
+        cr = new CommandRegistry(sm, dc, config.getCommandConfig());
     }
 
     @ParameterizedTest(name = "{index} ==> Scanning for conflicts in {0} lang")
