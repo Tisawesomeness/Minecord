@@ -41,9 +41,6 @@ public abstract class Command {
     public EnumSet<Permission> getRequiredBotPermissions() {
         return EnumSet.noneOf(Permission.class);
     }
-    public EnumSet<Permission> getOptionalBotPermissions() {
-        return EnumSet.noneOf(Permission.class);
-    }
 
     /**
      * This method is called when the command is run.

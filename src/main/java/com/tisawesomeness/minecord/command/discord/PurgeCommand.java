@@ -29,10 +29,6 @@ public class PurgeCommand extends AbstractDiscordCommand {
     public EnumSet<Permission> getRequiredBotPermissions() {
         return EnumSet.of(Permission.MESSAGE_HISTORY);
     }
-    @Override
-    public EnumSet<Permission> getOptionalBotPermissions() {
-        return EnumSet.of(Permission.MESSAGE_MANAGE);
-    }
 
     public Result run(String[] args, CommandContext ctx) {
         MessageReceivedEvent e = ctx.e;

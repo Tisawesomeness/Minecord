@@ -15,17 +15,11 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.EnumSet;
 
 public class CapeCommand extends AbstractPlayerCommand {
 
     public @NonNull String getId() {
         return "cape";
-    }
-
-    @Override
-    public EnumSet<Permission> getOptionalBotPermissions() {
-        return EnumSet.of(Permission.MESSAGE_ATTACH_FILES);
     }
 
     public Result run(String[] args, CommandContext ctx) {
