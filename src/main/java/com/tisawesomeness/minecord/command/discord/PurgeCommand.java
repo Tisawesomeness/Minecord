@@ -12,12 +12,26 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.RateLimitedException;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 public class PurgeCommand extends AbstractDiscordCommand {
 
     public @NonNull String getId() {
         return "purge";
+    }
+
+    @Override
+    public EnumSet<Permission> getRequiredUserPermissions() {
+        return EnumSet.of(Permission.MESSAGE_MANAGE);
+    }
+    @Override
+    public EnumSet<Permission> getRequiredBotPermissions() {
+        return EnumSet.of(Permission.MESSAGE_HISTORY);
+    }
+    @Override
+    public EnumSet<Permission> getOptionalBotPermissions() {
+        return EnumSet.of(Permission.MESSAGE_MANAGE);
     }
 
     public Result run(String[] args, CommandContext ctx) {

@@ -28,7 +28,10 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class CommandListener extends ListenerAdapter {
@@ -127,8 +130,36 @@ public class CommandListener extends ListenerAdapter {
         // Check for elevation
         boolean isElevated = dbUser.isElevated();
         if (c instanceof IElevatedCommand && !isElevated) {
-            c.sendMessage(":warning: Insufficient permissions!").queue();
+            c.sendMessage(":warning: You must be elevated to use that command!").queue();
             return;
+        }
+
+        if (e.isFromGuild()) {
+            TextChannel tc = e.getTextChannel();
+            if (!isElevated) {
+                EnumSet<Permission> rup = cmd.getRequiredUserPermissions();
+                Member mem = Objects.requireNonNull(e.getMember());
+                if (!mem.hasPermission(tc, rup)) {
+                    rup.removeAll(mem.getPermissions(tc));
+                    String missingPermissions = rup.stream()
+                            .map(Permission::getName)
+                            .collect(Collectors.joining(", "));
+                    String errMsg = String.format(":warning: You are missing the %s permissions.", missingPermissions);
+                    c.sendMessage(errMsg).queue();
+                    return;
+                }
+            }
+            EnumSet<Permission> rbp = cmd.getRequiredBotPermissions();
+            Member sm = e.getGuild().getSelfMember();
+            if (!sm.hasPermission(tc, rbp)) {
+                rbp.removeAll(sm.getPermissions(tc));
+                String missingPermissions = rbp.stream()
+                        .map(Permission::getName)
+                        .collect(Collectors.joining(", "));
+                String errMsg = String.format(":warning: I am missing the %s permissions.", missingPermissions);
+                c.sendMessage(errMsg).queue();
+                return;
+            }
         }
 
         // Check for cooldowns, skipping if user is elevated

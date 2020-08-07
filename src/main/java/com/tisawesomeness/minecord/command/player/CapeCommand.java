@@ -9,16 +9,23 @@ import com.tisawesomeness.minecord.util.RequestUtils;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.EnumSet;
 
 public class CapeCommand extends AbstractPlayerCommand {
 
     public @NonNull String getId() {
         return "cape";
+    }
+
+    @Override
+    public EnumSet<Permission> getOptionalBotPermissions() {
+        return EnumSet.of(Permission.MESSAGE_ATTACH_FILES);
     }
 
     public Result run(String[] args, CommandContext ctx) {
@@ -70,41 +77,50 @@ public class CapeCommand extends AbstractPlayerCommand {
         }
 
         // Minecraft capes
-        MessageChannel c = ctx.e.getChannel();
         boolean hasCape = false;
         if (NameUtils.mojangUUIDs.contains(uuid)) {
             // Mojang cape
-            sendImage(c, "Minecraft Cape", "https://minecord.github.io/capes/mojang.png");
+            sendImage(ctx, "Minecraft Cape", "https://minecord.github.io/capes/mojang.png");
             hasCape = true;
         } else {
             // Other minecraft capes
             String url = "https://crafatar.com/capes/" + uuid;
             if (RequestUtils.checkURL(url)) {
-                sendImage(c, "Minecraft Cape", url);
+                sendImage(ctx, "Minecraft Cape", url);
                 hasCape = true;
             }
         }
         // Optifine cape
         String url = String.format("http://s.optifine.net/capes/%s.png", player);
         if (RequestUtils.checkURL(url)) {
-            sendImage(c, "Optifine Cape", url);
+            sendImage(ctx, "Optifine Cape", url);
             hasCape = true;
         }
         // LabyMod cape (doesn't show in embed, download required)
         url = String.format("http://capes.labymod.net/capes/%s", NameUtils.formatUUID(uuid));
         if (RequestUtils.checkURL(url)) {
-            MessageEmbed emb = new EmbedBuilder().setTitle("LabyMod Cape").setColor(Bot.color).setImage("attachment://cape.png").build();
-            try {
-                c.sendFile(RequestUtils.downloadImage(url), "cape.png").embed(emb).queue();
-                hasCape = true;
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            if (canSendFiles(ctx)) {
+                MessageEmbed emb = new EmbedBuilder()
+                        .setTitle("LabyMod Cape")
+                        .setColor(Bot.color)
+                        .setImage("attachment://cape.png")
+                        .build();
+                try {
+                    ctx.e.getChannel().sendFile(RequestUtils.downloadImage(url), "cape.png").embed(emb).queue();
+                    hasCape = true;
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    ctx.err("There was an error downloading the LabyMod cape.");
+                }
+            } else {
+                ctx.warn("The player has a LabyMod cape, but it couldn't be downloaded" +
+                        " since the bot doesn't have the Attach Files permission.");
             }
         }
         // MinecraftCapes.co.uk
         url = String.format("https://www.minecraftcapes.co.uk/gallery/grab-player-capes/%s", player);
         if (RequestUtils.checkURL(url, true)) {
-            sendImage(c, "MinecraftCapes.co.uk Cape", url);
+            sendImage(ctx, "MinecraftCapes.co.uk Cape", url);
             hasCape = true;
         }
 
@@ -114,8 +130,16 @@ public class CapeCommand extends AbstractPlayerCommand {
         return Result.SUCCESS;
     }
 
-    private static void sendImage(MessageChannel c, String title, String url) {
-        c.sendMessage(new EmbedBuilder().setTitle(title).setColor(Bot.color).setImage(url).build()).queue();
+    private static void sendImage(CommandContext ctx, String title, String url) {
+        ctx.reply(new EmbedBuilder().setTitle(title).setColor(Bot.color).setImage(url));
+    }
+
+    private static boolean canSendFiles(CommandContext ctx) {
+        MessageReceivedEvent e = ctx.e;
+        if (!e.isFromGuild()) {
+            return true;
+        }
+        return e.getGuild().getSelfMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_ATTACH_FILES);
     }
 
 }

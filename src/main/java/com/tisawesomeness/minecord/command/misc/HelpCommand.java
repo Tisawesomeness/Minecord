@@ -12,6 +12,7 @@ import com.tisawesomeness.minecord.command.Result;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -115,8 +116,12 @@ public class HelpCommand extends AbstractMiscCommand {
     private static EmbedBuilder showHelpInternal(CommandContext ctx, Command c, String help) {
         String prefix = ctx.prefix;
         Lang lang = ctx.lang;
-
         help += "\n";
+
+        help += getAddedPermsHelp(c.getRequiredUserPermissions(), "Required User Perms")
+                + getAddedPermsHelp(c.getRequiredBotPermissions(), "Required Bot Perms")
+                + getAddedPermsHelp(c.getOptionalBotPermissions(), "Optional Bot Perms");
+
         // Alias list formatted with prefix in code blocks
         if (!c.getAliases(lang).isEmpty()) {
             String aliases = c.getAliases(lang).stream()
@@ -133,6 +138,15 @@ public class HelpCommand extends AbstractMiscCommand {
         return new EmbedBuilder()
                 .setAuthor(prefix + c.getDisplayName(lang) + " Help")
                 .setDescription(desc);
+    }
+    private static String getAddedPermsHelp(Collection<Permission> permissions, String permissionDescriptor) {
+        if (permissions.isEmpty()) {
+            return "";
+        }
+        String permissionsString = permissions.stream()
+                .map(Permission::getName)
+                .collect(Collectors.joining(", "));
+        return String.format("\n%s: %s", permissionDescriptor, permissionsString);
     }
     private static String getCooldownString(int cooldown) {
         if (cooldown % 1000 == 0) {

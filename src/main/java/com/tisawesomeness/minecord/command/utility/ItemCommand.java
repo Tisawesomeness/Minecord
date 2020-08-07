@@ -6,11 +6,19 @@ import com.tisawesomeness.minecord.item.Item;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
+
+import java.util.EnumSet;
 
 public class ItemCommand extends AbstractUtilityCommand {
 
     public @NonNull String getId() {
         return "item";
+    }
+
+    @Override
+    public EnumSet<Permission> getOptionalBotPermissions() {
+        return EnumSet.of(Permission.MESSAGE_ADD_REACTION, Permission.MESSAGE_MANAGE);
     }
 
     public Result run(String[] args, CommandContext ctx) {

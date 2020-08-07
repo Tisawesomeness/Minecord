@@ -8,14 +8,21 @@ import com.tisawesomeness.minecord.item.Recipe;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumSet;
 
 public class RecipeCommand extends AbstractUtilityCommand {
 
     public @NonNull String getId() {
         return "recipe";
+    }
+
+    @Override
+    public EnumSet<Permission> getOptionalBotPermissions() {
+        return EnumSet.of(Permission.MESSAGE_ADD_REACTION, Permission.MESSAGE_MANAGE);
     }
 
     public Result run(String[] argsOrig, CommandContext ctx) {

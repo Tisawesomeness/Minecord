@@ -5,8 +5,10 @@ import com.tisawesomeness.minecord.config.serial.CommandConfig;
 import com.tisawesomeness.minecord.config.serial.CommandOverride;
 
 import lombok.NonNull;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.User;
 
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -20,18 +22,28 @@ public abstract class Command {
     public HashMap<User, Long> cooldowns = new HashMap<>();
 
     /**
+     * Gets the ID of this command, used internally.
+     * <br>Typing this ID as the command name will always work, no matter the language.
+     * @return A <b>unique</b> string that contains only lowercase letters and numbers, and starts with a letter
+     */
+    public abstract @NonNull String getId();
+
+    /**
      * Gets the module this command belongs to for organization purposes.
      * @return A non-null Module
      */
     public Module getModule() {
         return Module.CUSTOM;
     }
-    /**
-     * Gets the ID of this command, used internally.
-     * <br>Typing this ID as the command name will always work, no matter the language.
-     * @return A <b>unique</b> string that contains only lowercase letters and numbers, and starts with a letter
-     */
-    public abstract @NonNull String getId();
+    public EnumSet<Permission> getRequiredUserPermissions() {
+        return EnumSet.noneOf(Permission.class);
+    }
+    public EnumSet<Permission> getRequiredBotPermissions() {
+        return EnumSet.noneOf(Permission.class);
+    }
+    public EnumSet<Permission> getOptionalBotPermissions() {
+        return EnumSet.noneOf(Permission.class);
+    }
 
     /**
      * This method is called when the command is run.
