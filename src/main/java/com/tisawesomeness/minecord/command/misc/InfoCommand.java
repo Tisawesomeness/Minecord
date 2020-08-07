@@ -16,6 +16,10 @@ import java.text.StringCharacterIterator;
 public class InfoCommand extends AbstractMiscCommand {
 
     private static final String JAVA_VERSION = System.getProperty("java.version");
+    private static final String JAVA_VENDOR = System.getProperty("java.vendor");
+    private static final String OS_ARCH = System.getProperty("os.arch");
+    private static final String OS_NAME = System.getProperty("os.name");
+    private static final String OS_VERSION = System.getProperty("os.version");
 
     public @NonNull String getId() {
         return "info";
@@ -34,7 +38,7 @@ public class InfoCommand extends AbstractMiscCommand {
         EmbedBuilder eb = new EmbedBuilder();
 
         eb.addField("Author", Bot.author, true);
-        eb.addField("Version", Bot.version, true);
+        eb.addField("Version", MarkdownUtil.monospace(Bot.version), true);
 
         String guilds = String.valueOf(sm.getGuilds().size());
         int shardTotal = ctx.bot.getShardManager().getShardsTotal();
@@ -50,6 +54,10 @@ public class InfoCommand extends AbstractMiscCommand {
         if (ctx.config.getFlagConfig().isShowExtraInfo() || elevated) {
             eb.addField("Memory", getMemoryString(), true);
             eb.addField("Boot Time", DateUtils.getBootTime(ctx.bot.getBootTime()), true);
+            eb.addField("OS", OS_NAME, true);
+            eb.addField("OS Arch", OS_ARCH, true);
+            eb.addField("OS Version", MarkdownUtil.monospace(OS_VERSION), true);
+            eb.addField("Java Vendor", JAVA_VENDOR, true);
         }
         eb.addField("Java Version", MarkdownUtil.monospace(JAVA_VERSION), true);
         eb.addField("JDA Version", MarkdownUtil.monospace(Bot.jdaVersion), true);
