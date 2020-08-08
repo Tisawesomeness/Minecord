@@ -107,6 +107,12 @@ public class HelpCommand extends AbstractMiscCommand {
         return ctx.warn("That command or module does not exist.");
     }
 
+    /**
+     * Creates the help menu for a command.
+     * @param ctx The incoming context, used to get prefix and language
+     * @param c The command
+     * @return An unbranded embed builder with the title and description set
+     */
     public static EmbedBuilder showHelp(CommandContext ctx, Command c) {
         return showHelp(ctx, c, false);
     }
@@ -118,7 +124,7 @@ public class HelpCommand extends AbstractMiscCommand {
         String help = isAdmin ? c.getAdminHelp(lang, prefix, tag) : c.getHelp(lang, prefix, tag);
         Optional<String> examplesOpt = isAdmin ? c.getAdminExamples(lang, prefix, tag) : c.getExamples(lang, prefix, tag);
         if (examplesOpt.isPresent()) {
-            help += "\n\nExamples:\n" + examplesOpt.get();
+            help += "\n\n**Examples**:\n" + examplesOpt.get();
         }
         return showHelpInternal(ctx, c, help);
     }
@@ -128,24 +134,24 @@ public class HelpCommand extends AbstractMiscCommand {
         Lang lang = ctx.lang;
         help += "\n";
 
-        help += getAddedPermsHelp(c.getUserPermissions(), "Required User Perms")
-                + getAddedPermsHelp(c.getBotPermissions(), "Required Bot Perms");
+        help += getAddedPermsHelp(c.getUserPermissions(), "**Required User Perms**")
+                + getAddedPermsHelp(c.getBotPermissions(), "**Required Bot Perms**");
 
         // Alias list formatted with prefix in code blocks
         if (!c.getAliases(lang).isEmpty()) {
             String aliases = c.getAliases(lang).stream()
                     .map(s -> String.format("`%s%s`", prefix, s))
                     .collect(Collectors.joining(", "));
-            help += "\nAliases: " + aliases;
+            help += "\n**Aliases**: " + aliases;
         }
         // If the cooldown is exactly N seconds, treat as int
         int cooldown = c.getCooldown(ctx.config.getCommandConfig());
         if (cooldown > 0) {
             help += getCooldownString(cooldown);
         }
-        String desc = String.format("%s\nModule: `%s`", help, c.getModule().getDisplayName(lang));
+        String desc = String.format("%s\n**Module**: `%s`", help, c.getModule().getDisplayName(lang));
         return new EmbedBuilder()
-                .setAuthor(prefix + c.getDisplayName(lang) + " Help")
+                .setTitle(prefix + c.getDisplayName(lang) + " Help")
                 .setDescription(desc);
     }
     private static String getAddedPermsHelp(Collection<Permission> permissions, String permissionDescriptor) {
@@ -159,9 +165,9 @@ public class HelpCommand extends AbstractMiscCommand {
     }
     private static String getCooldownString(int cooldown) {
         if (cooldown % 1000 == 0) {
-            return String.format("\nCooldown: `%ss`", cooldown / 1000);
+            return String.format("\n**Cooldown**: `%ss`", cooldown / 1000);
         }
-        return String.format("\nCooldown: `%ss`", cooldown / 1000.0);
+        return String.format("\n**Cooldown**: `%ss`", cooldown / 1000.0);
     }
 
 }
