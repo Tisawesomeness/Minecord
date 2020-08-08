@@ -98,9 +98,8 @@ public class HelpCommand extends AbstractMiscCommand {
                 return ctx.warn("You do not have permission to view that command.");
             }
             // Admin check
-            String tag = ctx.e.getJDA().getSelfUser().getAsMention();
             if (args.length > 1 && "admin".equals(args[1])) {
-                return ctx.reply(showHelpInternal(ctx, c, c.getAdminHelp(lang, prefix, tag)));
+                return ctx.reply(showHelp(ctx, c, true));
             }
             return ctx.reply(showHelp(ctx, c));
         }
@@ -109,8 +108,19 @@ public class HelpCommand extends AbstractMiscCommand {
     }
 
     public static EmbedBuilder showHelp(CommandContext ctx, Command c) {
+        return showHelp(ctx, c, false);
+    }
+    private static EmbedBuilder showHelp(CommandContext ctx, Command c, boolean isAdmin) {
+        Lang lang = ctx.lang;
+        String prefix = ctx.prefix;
         String tag = ctx.e.getJDA().getSelfUser().getAsMention();
-        return showHelpInternal(ctx, c, c.getHelp(ctx.lang, ctx.prefix, tag));
+
+        String help = isAdmin ? c.getAdminHelp(lang, prefix, tag) : c.getHelp(lang, prefix, tag);
+        Optional<String> examplesOpt = isAdmin ? c.getAdminExamples(lang, prefix, tag) : c.getExamples(lang, prefix, tag);
+        if (examplesOpt.isPresent()) {
+            help += "\n\nExamples:\n" + examplesOpt.get();
+        }
+        return showHelpInternal(ctx, c, help);
     }
 
     private static EmbedBuilder showHelpInternal(CommandContext ctx, Command c, String help) {

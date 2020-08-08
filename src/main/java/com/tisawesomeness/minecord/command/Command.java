@@ -116,6 +116,24 @@ public abstract class Command {
         Optional<String> help = i18nfOpt(lang, "adminHelp", prefix, tag);
         return help.orElseGet(() -> getHelp(lang, prefix, tag));
     }
+    /**
+     * Gets a string containing a list of command examples.
+     * @return The examples text, or empty if not present
+     */
+    public @NonNull Optional<String> getExamples(Lang lang, String prefix, String tag) {
+        return i18nfOpt(lang, "examples", prefix, tag);
+    }
+    /**
+     * Gets a string containing a list of admin command examples.
+     * @return The examples text, or empty if not present
+     */
+    public @NonNull Optional<String> getAdminExamples(Lang lang, String prefix, String tag) {
+        Optional<String> examples = i18nfOpt(lang, "adminExamples", prefix, tag);
+        if (examples.isPresent()) {
+            return examples;
+        }
+        return getExamples(lang, prefix, tag);
+    }
 
     public @NonNull String i18n(Lang lang, @NonNull String key) {
         return lang.i18n(formatKey(key));
