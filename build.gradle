@@ -56,6 +56,16 @@ group = 'com.tisawesomeness'
 version = '1.0.0-ALPHA'
 sourceCompatibility = '1.8'
 
+import org.apache.tools.ant.filters.ReplaceTokens
+
+processResources {
+    filesMatching("**/build.properties") {
+        filter ReplaceTokens, tokens: [
+                "version": project.version
+        ]
+    }
+}
+
 test {
     useJUnitPlatform()
 }

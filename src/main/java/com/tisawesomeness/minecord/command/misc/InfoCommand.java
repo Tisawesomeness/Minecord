@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.misc;
 
 import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.BuildInfo;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.DateUtils;
@@ -38,7 +39,7 @@ public class InfoCommand extends AbstractMiscCommand {
         EmbedBuilder eb = new EmbedBuilder();
 
         eb.addField("Author", Bot.author, true);
-        eb.addField("Version", MarkdownUtil.monospace(Bot.version), true);
+        eb.addField("Version", MarkdownUtil.monospace(BuildInfo.getInstance().version), true);
 
         String guilds = String.valueOf(sm.getGuilds().size());
         int shardTotal = ctx.bot.getShardManager().getShardsTotal();

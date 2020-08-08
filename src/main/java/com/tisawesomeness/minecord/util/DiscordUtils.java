@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.util;
 
 import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.BuildInfo;
 import com.tisawesomeness.minecord.config.serial.Config;
 
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -23,14 +24,14 @@ public final class DiscordUtils {
      * @return The string with resolved constants, though variables such as {guilds} are unresolved
      */
     public static String parseConstants(String input, Config config) {
-        return input
+    return input
             .replace("{author}", Bot.author)
             .replace("{author_tag}", Bot.authorTag)
             .replace("{help_server}", Bot.helpServer)
             .replace("{website}", Bot.website)
             .replace("{github}", Bot.github)
             .replace("{jda_ver}", Bot.jdaVersion)
-            .replace("{version}", Bot.version)
+            .replace("{version}", BuildInfo.getInstance().version)
             .replace("{invite}", config.getInviteLink())
             .replace("{prefix}", config.getSettingsConfig().getDefaultPrefix());
     }
