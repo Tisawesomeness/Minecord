@@ -4,9 +4,9 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.CommandExecutor;
 import com.tisawesomeness.minecord.command.CommandRegistry;
 import com.tisawesomeness.minecord.command.IElevatedCommand;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.config.serial.FlagConfig;
 import com.tisawesomeness.minecord.database.DatabaseCache;
@@ -36,16 +36,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CommandListener extends ListenerAdapter {
 
-    private @NonNull Bot bot;
-    private @NonNull Config config;
-    private @NonNull CommandRegistry registry;
+    private final @NonNull Bot bot;
+    private final @NonNull Config config;
+    private final @NonNull CommandRegistry registry;
+    private final CommandExecutor commandExecutor = new CommandExecutor();
 
     @Override
     public void onMessageReceived(MessageReceivedEvent e) {
         Message m = e.getMessage();
-        if (m == null) {
-            return;
-        }
         DatabaseCache cache = bot.getDatabaseCache();
 
         // Get the settings needed before command execution
@@ -183,37 +181,10 @@ public class CommandListener extends ListenerAdapter {
         }
 
         // Run command
-        CommandContext ctx = new CommandContext(
-                args, e, config, bot, cmd, isElevated, prefix, lang, bot.getSettings());
-        Result result = null;
-        Exception exception = null;
+        CommandContext ctx = new CommandContext(args, e, config, bot, cmd, isElevated, prefix, lang);
+        commandExecutor.run(cmd, ctx);
         cmd.cooldowns.put(a, System.currentTimeMillis());
         cmd.uses++;
-        try {
-            result = cmd.run(args, ctx);
-        } catch (Exception ex) {
-            exception = ex;
-        }
-
-        // Catch exceptions
-        if (result == null) {
-            if (exception != null) {exception.printStackTrace();}
-            String err = ":x: There was an unexpected exception: `" + exception.toString() + "`\n```";
-            if (fc.isDebugMode()) {
-                exception.printStackTrace();
-                for (StackTraceElement ste : exception.getStackTrace()) {
-                    err += "\n" + ste.toString();
-                    String className = ste.getClassName();
-                    if (className.contains("net.dv8tion") || className.contains("com.neovisionaries")) {
-                        err += "...";
-                        break;
-                    }
-                }
-            }
-            err += "```";
-            ctx.log(err);
-            c.sendMessage(err).queue();
-        }
     }
 
 }

@@ -8,7 +8,6 @@ import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.database.dao.DbChannel;
 import com.tisawesomeness.minecord.database.dao.DbGuild;
 import com.tisawesomeness.minecord.database.dao.DbUser;
-import com.tisawesomeness.minecord.setting.SettingRegistry;
 import com.tisawesomeness.minecord.setting.impl.UseMenusSetting;
 
 import lombok.NonNull;
@@ -76,7 +75,7 @@ public class CommandContext {
 
     public CommandContext(@NonNull String[] args, @NonNull MessageReceivedEvent e, @NonNull Config config,
                           @NonNull Bot bot, @NonNull Command cmd, boolean isElevated,
-                          @NonNull String prefix, @NonNull Lang lang, @NonNull SettingRegistry settings) {
+                          @NonNull String prefix, @NonNull Lang lang) {
         this.args = args;
         this.e = e;
         this.config = config;
@@ -86,7 +85,7 @@ public class CommandContext {
         this.prefix = prefix;
         this.lang = lang;
         locale = lang.getLocale();
-        useMenusSetting = settings.useMenus;
+        useMenusSetting = bot.getSettings().useMenus;
     }
 
     /**
