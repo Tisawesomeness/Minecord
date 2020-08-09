@@ -1,10 +1,10 @@
 package com.tisawesomeness.minecord.debug;
 
-import com.google.common.cache.CacheStats;
+import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import lombok.NonNull;
 
 /**
- * Debugs a Guava {@link com.google.common.cache.LoadingCache}.
+ * Debugs a Caffeine {@link com.github.benmanes.caffeine.cache.Cache}.
  */
 public abstract class CacheDebugOption implements DebugOption {
 
@@ -14,7 +14,7 @@ public abstract class CacheDebugOption implements DebugOption {
         CacheStats stats = getCacheStats();
         return String.format("**%s Stats**\n", getName()) +
                 String.format("Hits: `%s/%s %.2f%%`\n", stats.hitCount(), stats.requestCount(), 100*stats.hitRate()) +
-                String.format("Load Exceptions: `%s/%s %.2f%%`\n", stats.loadExceptionCount(), stats.loadCount(), 100*stats.loadExceptionRate()) +
+                String.format("Load Exceptions: `%s/%s %.2f%%`\n", stats.loadFailureCount(), stats.loadCount(), 100*stats.loadFailureRate()) +
                 String.format("Eviction Count: `%s`\n", stats.evictionCount()) +
                 String.format("Average Load Penalty: `%.3fms`\n", stats.averageLoadPenalty() / MILLION) +
                 String.format("Total Load Time: `%sms`", stats.totalLoadTime() / MILLION);

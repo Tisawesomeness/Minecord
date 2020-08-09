@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 /**
  * Mirrors a database table.
- * <br>This should be an immutable object in order to work well with Guava caches.
+ * <br>This should be an immutable object in order to work well with Caffeine caches.
  */
 public interface DbObject {
     /**

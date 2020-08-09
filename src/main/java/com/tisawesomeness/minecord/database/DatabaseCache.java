@@ -6,10 +6,9 @@ import com.tisawesomeness.minecord.database.dao.DbGuild;
 import com.tisawesomeness.minecord.database.dao.DbUser;
 import com.tisawesomeness.minecord.util.type.SQLFunction;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.CacheStats;
-import com.google.common.cache.LoadingCache;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
+import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import lombok.Cleanup;
 import lombok.NonNull;
 
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -31,9 +29,9 @@ public class DatabaseCache {
 
     private final Database db;
 
-    private final LoadingCache<Long, Optional<DbGuild>> guilds;
-    private final LoadingCache<Long, Optional<DbChannel>> channels;
-    private final LoadingCache<Long, Optional<DbUser>> users;
+    private final LoadingCache<Long, DbGuild> guilds;
+    private final LoadingCache<Long, DbChannel> channels;
+    private final LoadingCache<Long, DbUser> users;
 
     /**
      * Sets up the cache to mirror database tables.
@@ -42,7 +40,7 @@ public class DatabaseCache {
      */
     public DatabaseCache(Database db, Config config) {
         this.db = db;
-        CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder()
+        Caffeine<Object, Object> builder = Caffeine.newBuilder()
                 .expireAfterAccess(10, TimeUnit.MINUTES);
         if (config.getFlagConfig().isDebugMode()) {
             builder.recordStats();
@@ -52,22 +50,10 @@ public class DatabaseCache {
         users = build(builder, key -> DbUser.load(db, key));
     }
 
-    /**
-     * Helper function to build caches without repetitive code.
-     * @param builder The cache builder to build from, which stays unmodified
-     * @param loadFunction A reference to a defined function with {@code T} as the input and {@code U} as the output
-     * @param <T> The type of the cache key
-     * @param <R> The type of the cache value
-     * @return A Guava cache with the specified loading function
-     */
+    // Shortens code by matching loadFunction type to cache type, getting rid of the explicit CacheLoader declaration
     private static <T, R> LoadingCache<T, R> build(
-            CacheBuilder<Object, Object> builder, SQLFunction<? super T, ? extends R> loadFunction) {
-        return builder.build(new CacheLoader<T, R>() {
-            @Override
-            public @NonNull R load(@NonNull T key) {
-                return loadFunction.apply(key);
-            }
-        });
+            Caffeine<Object, Object> builder, SQLFunction<? super T, ? extends R> loadFunction) {
+        return builder.build(loadFunction::apply);
     }
 
     /**
@@ -76,16 +62,12 @@ public class DatabaseCache {
      * @param id The guild id
      * @return The guild if present, or a new default guild
      */
-    public DbGuild getGuild(long id) {
-        try {
-            Optional<DbGuild> guildOpt = guilds.get(id);
-            if (guildOpt.isPresent()) {
-                return guildOpt.get();
-            }
-        } catch (ExecutionException ex) {
-            ex.printStackTrace();
+    public @NonNull DbGuild getGuild(long id) {
+        DbGuild guild = guilds.get(id);
+        if (guild == null) {
+            return new DbGuild(db, id);
         }
-        return new DbGuild(db, id);
+        return guild;
     }
 
     /**
@@ -95,12 +77,7 @@ public class DatabaseCache {
      * @return The channel if present, or an empty Optional if not present in the database or an exception occured
      */
     public Optional<DbChannel> getChannel(long id) {
-        try {
-            return channels.get(id);
-        } catch (ExecutionException ex) {
-            ex.printStackTrace();
-        }
-        return Optional.empty();
+        return Optional.ofNullable(channels.get(id));
     }
     /**
      * Either gets a channel from the cache or queries the database for it.
@@ -108,16 +85,12 @@ public class DatabaseCache {
      * @param guildId The guild id, which is necessary for "get all channels in guild" queries
      * @return The channel if present, or a new default channel
      */
-    public DbChannel getChannel(long id, long guildId) {
-        try {
-            Optional<DbChannel> channelOpt = channels.get(id);
-            if (channelOpt.isPresent()) {
-                return channelOpt.get();
-            }
-        } catch (ExecutionException ex) {
-            ex.printStackTrace();
+    public @NonNull DbChannel getChannel(long id, long guildId) {
+        DbChannel channel = channels.get(id);
+        if (channel == null) {
+            return new DbChannel(db, id, guildId);
         }
-        return new DbChannel(db, id, guildId);
+        return channel;
     }
     /**
      * Gets all channels in the database that have the specified guild id.
@@ -134,7 +107,7 @@ public class DatabaseCache {
             while (rs.next()) {
                 // Placing channels directly in cache to speed up later requests
                 DbChannel channel = DbChannel.from(db, rs);
-                channels.put(channel.getId(), Optional.of(channel));
+                channels.put(channel.getId(), channel);
                 channelList.add(channel);
             }
             return Collections.unmodifiableList(channelList);
@@ -150,15 +123,11 @@ public class DatabaseCache {
      * @return The user if present, or a new default user
      */
     public DbUser getUser(long id) {
-        try {
-            Optional<DbUser> userOpt = users.get(id);
-            if (userOpt.isPresent()) {
-                return userOpt.get();
-            }
-        } catch (ExecutionException ex) {
-            ex.printStackTrace();
+        DbUser user = users.get(id);
+        if (user == null) {
+            return new DbUser(db, id);
         }
-        return new DbUser(db, id);
+        return user;
     }
 
     /**

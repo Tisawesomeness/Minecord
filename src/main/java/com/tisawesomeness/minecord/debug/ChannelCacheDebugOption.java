@@ -2,7 +2,7 @@ package com.tisawesomeness.minecord.debug;
 
 import com.tisawesomeness.minecord.database.DatabaseCache;
 
-import com.google.common.cache.CacheStats;
+import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 

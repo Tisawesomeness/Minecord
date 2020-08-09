@@ -11,6 +11,7 @@ import lombok.NonNull;
 import lombok.Value;
 import lombok.With;
 
+import javax.annotation.Nullable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -58,16 +59,16 @@ public class DbChannel implements SettingContainer, Bannable {
      * @return The channel, or empty if it is not in the database
      * @throws SQLException If a database error occurs
      */
-    public static Optional<DbChannel> load(@NonNull Database db, @NonNull Long key) throws SQLException {
+    public static @Nullable DbChannel load(@NonNull Database db, @NonNull Long key) throws SQLException {
         @Cleanup Connection connect = db.getConnect();
         @Cleanup PreparedStatement st = connect.prepareStatement(SQL_SELECT);
         st.setLong(1, key);
         ResultSet rs = st.executeQuery();
         // The first next() call returns true if results exist
         if (!rs.next()) {
-            return Optional.empty();
+            return null;
         }
-        return Optional.of(from(db, rs));
+        return from(db, rs);
     }
 
     /**
