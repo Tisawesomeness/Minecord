@@ -57,16 +57,18 @@ import com.google.common.collect.ImmutableTable;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder;
 import com.google.common.collect.Table;
+import lombok.NonNull;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Optional;
 
 /**
  * The list of all commands the bot knows.
  */
-public class CommandRegistry {
+public class CommandRegistry implements Iterable<Command> {
 
     private final Multimap<Module, Command> moduleToCommandsMap;
     private final Table<Lang, String, Command> commandTable;
@@ -164,11 +166,9 @@ public class CommandRegistry {
     }
     private Table<Lang, String, Command> buildCommandTable(CommandConfig cc) {
         Table<Lang, String, Command> table = HashBasedTable.create();
-        for (Module m : Module.values()) {
-            for (Command c : getCommandsInModule(m)) {
-                if (c.isEnabled(cc)) {
-                    registerNameAndAliases(table, c);
-                }
+        for (Command c : this) {
+            if (c.isEnabled(cc)) {
+                registerNameAndAliases(table, c);
             }
         }
         return ImmutableTable.copyOf(table);
@@ -202,4 +202,7 @@ public class CommandRegistry {
         return moduleToCommandsMap.get(module);
     }
 
+    public @NonNull Iterator<Command> iterator() {
+        return moduleToCommandsMap.values().iterator();
+    }
 }

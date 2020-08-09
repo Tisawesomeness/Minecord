@@ -35,15 +35,13 @@ public class CommandRegistryTest {
     @DisplayName("Every command's id, display name, and aliases do not conflict with other commands.")
     public void testNameAliasConflicts(Lang lang) {
         Collection<String> inputs = new HashSet<>();
-        for (Module m : Module.values()) {
-            for (Command c : cr.getCommandsInModule(m)) {
-                Collection<String> temp = new HashSet<>();
-                temp.add(c.getId());
-                temp.add(c.getDisplayName(lang));
-                temp.addAll(c.getAliases(lang));
-                assertThat(inputs).doesNotContainAnyElementsOf(temp);
-                inputs.addAll(temp);
-            }
+        for (Command c : cr) {
+            Collection<String> temp = new HashSet<>();
+            temp.add(c.getId());
+            temp.add(c.getDisplayName(lang));
+            temp.addAll(c.getAliases(lang));
+            assertThat(inputs).doesNotContainAnyElementsOf(temp);
+            inputs.addAll(temp);
         }
     }
 
