@@ -14,7 +14,8 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Represents a command.
+ * Represents a command. Documentation refers to commands as the ID prefixed by {@code &}.
+ * @see <a href="https://github.com/Tisawesomeness/Minecord/wiki/Adding-a-New-Command">The wiki</a> for instructions on how to add your own commands.
  */
 public abstract class Command {
 
@@ -24,8 +25,9 @@ public abstract class Command {
     /**
      * Gets the ID of this command, used internally.
      * <br>Typing this ID as the command name will always work, no matter the language.
-     * <br><b>Must be constant!</b>
-     * @return A <b>unique</b> string that contains only lowercase letters and numbers, and starts with a letter
+     * <br><b>Must be constant and unique for every {@link CommandRegistry}!</b>
+     * <br>If you are creating only one instance of this command, {@code return "id"} is enough.
+     * @return A string that should contains only lowercase letters and numbers, and start with a letter
      */
     public abstract @NonNull String getId();
 
@@ -136,19 +138,19 @@ public abstract class Command {
         return getExamples(lang, prefix, tag);
     }
 
-    public @NonNull String i18n(Lang lang, @NonNull String key) {
+    public final @NonNull String i18n(Lang lang, @NonNull String key) {
         return lang.i18n(formatKey(key));
     }
-    public @NonNull String i18nf(Lang lang, @NonNull String key, Object... args) {
+    public final @NonNull String i18nf(Lang lang, @NonNull String key, Object... args) {
         return lang.i18nf(formatKey(key), args);
     }
-    public Optional<String> i18nOpt(Lang lang, @NonNull String key) {
+    public final Optional<String> i18nOpt(Lang lang, @NonNull String key) {
         return lang.i18nOpt(formatKey(key));
     }
-    public Optional<String> i18nfOpt(Lang lang, @NonNull String key, Object... args) {
+    public final Optional<String> i18nfOpt(Lang lang, @NonNull String key, Object... args) {
         return lang.i18nfOpt(formatKey(key), args);
     }
-    public List<String> i18nList(Lang lang, @NonNull String key) {
+    public final List<String> i18nList(Lang lang, @NonNull String key) {
         return lang.i18nList(formatKey(key));
     }
     private String formatKey(String key) {
@@ -160,7 +162,7 @@ public abstract class Command {
      * @param config The command config to pull cooldowns from
      * @return A positive cooldown in miliseconds, or 0 or less for no cooldown
      */
-    public int getCooldown(CommandConfig config) {
+    public final int getCooldown(CommandConfig config) {
         CommandOverride co = config.getOverrides().get(getId());
         if (co == null) {
             return config.getDefaultCooldown();
@@ -177,7 +179,7 @@ public abstract class Command {
      * @param config The command config
      * @return False only if an override is set in the config
      */
-    public boolean isEnabled(CommandConfig config) {
+    public final boolean isEnabled(CommandConfig config) {
         CommandOverride co = config.getOverrides().get(getId());
         if (co == null) {
             return true;
@@ -186,7 +188,7 @@ public abstract class Command {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(Object obj) {
         if (obj instanceof Command) {
             Command other = (Command) obj;
             return getId().equals(other.getId());
@@ -194,8 +196,13 @@ public abstract class Command {
         return false;
     }
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return getId().hashCode();
+    }
+
+    @Override
+    public final String toString() {
+        return "&" + getId();
     }
 
 }

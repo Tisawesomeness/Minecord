@@ -5,7 +5,7 @@ import com.tisawesomeness.minecord.command.Module;
 
 public abstract class AbstractPlayerCommand extends Command {
     @Override
-    public Module getModule() {
+    public final Module getModule() {
         return Module.PLAYER;
     }
 }

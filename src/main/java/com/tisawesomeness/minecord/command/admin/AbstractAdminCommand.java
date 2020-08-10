@@ -6,7 +6,7 @@ import com.tisawesomeness.minecord.command.Module;
 
 public abstract class AbstractAdminCommand extends Command implements IElevatedCommand {
     @Override
-    public Module getModule() {
+    public final Module getModule() {
         return Module.ADMIN;
     }
 }
