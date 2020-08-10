@@ -30,6 +30,7 @@ public class ProfileCommand extends AbstractPlayerCommand {
         }
 
         // UUID --> Username
+        ctx.triggerCooldown();
         String player = args[0];
         if (player.matches(NameUtils.uuidRegex)) {
             player = NameUtils.getName(player);

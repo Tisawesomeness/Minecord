@@ -18,6 +18,7 @@ public class ItemCommand extends AbstractUtilityCommand {
         if (args.length == 0) {
             return ctx.showHelp();
         }
+        ctx.triggerCooldown();
 
         // Search through the item database
         String item = Item.search(ctx.joinArgs(), "en_US");

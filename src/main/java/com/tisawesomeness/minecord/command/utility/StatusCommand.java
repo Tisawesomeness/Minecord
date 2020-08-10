@@ -19,6 +19,7 @@ public class StatusCommand extends AbstractUtilityCommand {
     }
 
     public Result run(String[] args, CommandContext ctx) {
+        ctx.triggerCooldown();
 
         //Request information from Mojang
         String request = RequestUtils.get("https://status.mojang.com/check");

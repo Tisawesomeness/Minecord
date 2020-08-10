@@ -28,6 +28,7 @@ public class HistoryCommand extends AbstractPlayerCommand {
             return ctx.showHelp();
         }
 
+        ctx.triggerCooldown();
         String player = args[0];
         if (!player.matches(NameUtils.uuidRegex)) {
             String uuid = null;

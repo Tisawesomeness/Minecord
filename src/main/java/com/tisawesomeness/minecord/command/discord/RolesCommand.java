@@ -56,7 +56,8 @@ public class RolesCommand extends AbstractDiscordCommand {
                 }
             }
         }
-    
+
+        ctx.triggerCooldown();
         EmbedBuilder eb = new EmbedBuilder()
             .setTitle("Roles for " + mem.getUser().getAsTag())
             .setColor(mem.getColor());

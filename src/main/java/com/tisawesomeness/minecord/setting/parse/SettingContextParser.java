@@ -87,10 +87,12 @@ public class SettingContextParser extends SettingCommandHandler {
         Optional<DbChannel> dbChannelOpt = ctx.getChannel(cid);
         if (dbChannelOpt.isPresent()) {
             DbChannel dbChannel = dbChannelOpt.get();
+            ctx.triggerCooldown();
             return displayCurrentSettings(cid, dbChannel.getGuildId());
         }
         TextChannel c = ctx.bot.getShardManager().getTextChannelById(cid);
         if (c != null) {
+            ctx.triggerCooldown();
             return displayCurrentSettings(c);
         }
         return ctx.warn("That channel is not visible to the bot.");
@@ -99,6 +101,7 @@ public class SettingContextParser extends SettingCommandHandler {
         List<TextChannel> mentioned = ctx.e.getMessage().getMentionedChannels();
         if (!mentioned.isEmpty()) {
             TextChannel c = mentioned.get(0);
+            ctx.triggerCooldown();
             return displayCurrentSettings(c);
         }
         return ctx.warn("Not a valid channel format. Use a `#channel` mention or a valid ID.");

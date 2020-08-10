@@ -25,6 +25,7 @@ public abstract class SettingContext extends SettingCommandHandler {
         SettingCommandType type = getType();
         int currentArg = getCurrentArg();
         if (type == SettingCommandType.QUERY) {
+            ctx.triggerCooldown();
             return displaySettings(title, s -> s.getDisplay(obj));
         }
         if (currentArg < ctx.args.length) {

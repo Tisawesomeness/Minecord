@@ -53,6 +53,7 @@ public class CommandContext {
      * The original command that created this context
      */
     public final @NonNull Command cmd;
+    private final @NonNull CommandExecutor executor;
     /**
      * Whether the user executing the command is elevated.
      */
@@ -74,13 +75,14 @@ public class CommandContext {
     private final @NonNull UseMenusSetting useMenusSetting;
 
     public CommandContext(@NonNull String[] args, @NonNull MessageReceivedEvent e, @NonNull Config config,
-                          @NonNull Bot bot, @NonNull Command cmd, boolean isElevated,
+                          @NonNull Bot bot, @NonNull Command cmd, @NonNull CommandExecutor executor, boolean isElevated,
                           @NonNull String prefix, @NonNull Lang lang) {
         this.args = args;
         this.e = e;
         this.config = config;
         this.bot = bot;
         this.cmd = cmd;
+        this.executor = executor;
         this.isElevated = isElevated;
         this.prefix = prefix;
         this.lang = lang;
@@ -331,6 +333,15 @@ public class CommandContext {
      */
     public EmbedBuilder brand(EmbedBuilder eb) {
         return addFooter(eb).setColor(Bot.color);
+    }
+
+    /**
+     * Starts the cooldown timer for this command, unless the user is elevated and skipping cooldowns is enabled.
+     */
+    public void triggerCooldown() {
+        if (executor.shouldSkipCooldown(this)) {
+            executor.startCooldown(cmd, e.getAuthor().getIdLong());
+        }
     }
 
 }

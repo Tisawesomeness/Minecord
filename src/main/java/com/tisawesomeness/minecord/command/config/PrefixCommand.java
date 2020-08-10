@@ -15,6 +15,7 @@ public class PrefixCommand extends AbstractConfigCommand implements IHiddenComma
 
     public Result run(String[] args, CommandContext ctx) {
         if (args.length == 0) {
+            ctx.triggerCooldown();
             return ctx.reply(String.format("The current prefix is `%s`", ctx.prefix));
         }
         return new SmartSetParser(ctx, ctx.bot.getSettings().prefix).parse();

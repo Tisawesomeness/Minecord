@@ -22,8 +22,10 @@ public class LangCommand extends AbstractConfigCommand {
 
     public Result run(String[] args, CommandContext ctx) {
         if (args.length == 0) {
+            ctx.triggerCooldown();
             return listLanguages(ctx, "Languages", false);
         } else if ("all".equalsIgnoreCase(args[0])) {
+            ctx.triggerCooldown();
             return listLanguages(ctx, "All Languages", true);
         } else if ("info".equalsIgnoreCase(args[0])) {
             if (args.length == 1) {
@@ -31,6 +33,7 @@ public class LangCommand extends AbstractConfigCommand {
             }
             Optional<Lang> langOpt = Lang.from(args[1]);
             if (langOpt.isPresent()) {
+                ctx.triggerCooldown();
                 return displayLanguageInfo(ctx, langOpt.get());
             }
             return ctx.warn("That language is not valid.");

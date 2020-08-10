@@ -49,23 +49,19 @@ public class CommandExecutor {
      * @param ctx The context of the command
      */
     public void run(Command c, CommandContext ctx) {
-        long uid = ctx.e.getAuthor().getIdLong();
-        if (!skipCooldown(ctx)) {
+        if (!shouldSkipCooldown(ctx)) {
             long cooldown = c.getCooldown(cc);
             if (cooldown > 0) {
+                long uid = ctx.e.getAuthor().getIdLong();
                 long lastExecutedTime = cooldownMap.get(c).get(uid, ignore -> 0L); // Guarenteed non-null
                 long msLeft = cooldown + lastExecutedTime - System.currentTimeMillis();
                 if (msLeft > 0) {
-                    ctx.warn(String.format("Wait %.3f more seconds.", (double) msLeft/1000));
+                    ctx.warn(String.format("Wait `%.3f` more seconds.", (double) msLeft/1000));
                     return;
                 }
             }
         }
-        addCooldown(c, uid);
         runCommand(c, ctx);
-    }
-    private boolean skipCooldown(CommandContext ctx) {
-        return fc.isElevatedSkipCooldown() && ctx.isElevated;
     }
 
     private static Result runCommand(Command c, CommandContext ctx) {
@@ -83,10 +79,10 @@ public class CommandExecutor {
         String errorMessage = Result.EXCEPTION.addEmote(unexpected, Lang.getDefault());
         if (ctx.config.getFlagConfig().isDebugMode()) {
             errorMessage += buildStackTrace(ex);
-        }
-        // Not guarenteed to escape properly, but since users should never see exceptions, it's not necessary
-        if (errorMessage.length() >= Message.MAX_CONTENT_LENGTH) {
-            errorMessage = errorMessage.substring(0, Message.MAX_CONTENT_LENGTH - 3) + "```";
+            // Not guarenteed to escape properly, but since users should never see exceptions, it's not necessary
+            if (errorMessage.length() >= Message.MAX_CONTENT_LENGTH) {
+                errorMessage = errorMessage.substring(0, Message.MAX_CONTENT_LENGTH - 3) + "```";
+            }
         }
         ctx.log(errorMessage);
     }
@@ -108,7 +104,20 @@ public class CommandExecutor {
         return MarkdownUtil.codeblock(sb.toString());
     }
 
-    private void addCooldown(Command c, long uid) {
+    /**
+     * Starts the cooldown for the given command and user
+     * @param c The command
+     * @param uid The Discord user ID of the author of the command
+     */
+    public void startCooldown(Command c, long uid) {
         cooldownMap.get(c).put(uid, System.currentTimeMillis());
+    }
+    /**
+     * Determines if the author of a command has permission to skip cooldowns
+     * @param ctx The context of the command
+     * @return True if cooldowns should not be processed
+     */
+    public boolean shouldSkipCooldown(CommandContext ctx) {
+        return fc.isElevatedSkipCooldown() && ctx.isElevated;
     }
 }

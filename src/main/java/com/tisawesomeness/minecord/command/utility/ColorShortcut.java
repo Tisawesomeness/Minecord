@@ -52,6 +52,7 @@ public class ColorShortcut extends AbstractUtilityCommand implements IShortcutCo
     }
 
     public Result run(String[] args, CommandContext ctx) {
+        ctx.triggerCooldown();
         EmbedBuilder eb = ColorCommand.buildColorInfo(color);
         return ctx.replyRaw(ctx.addFooter(eb));
     }

@@ -60,6 +60,7 @@ public class ChannelContext extends SettingContext {
         TextChannel c = ctx.e.getTextChannel();
         String title = "Channel settings for #" + c.getName();
         DbChannel channel = ctx.getChannel(c);
+        ctx.triggerCooldown();
         return displaySettings(title, s -> s.getDisplay(channel));
     }
     private Result displayOrParseChannel() {
@@ -75,7 +76,6 @@ public class ChannelContext extends SettingContext {
     private Result displayOrParseChannelIfUserHasPermission(TextChannel c) {
         Member m = Objects.requireNonNull(ctx.e.getMember());
         if (!m.hasPermission(c, Permission.VIEW_CHANNEL, Permission.MESSAGE_READ)) {
-            System.out.println(m.getPermissions());
             return ctx.warn("That channel does not exist in the current guild or is not visible to you.");
         } else if (!m.hasPermission(c, Permission.MESSAGE_WRITE)) {
             return ctx.warn("You do not have permission to write in that channel.");

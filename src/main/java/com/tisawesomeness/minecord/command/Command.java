@@ -6,10 +6,8 @@ import com.tisawesomeness.minecord.config.serial.CommandOverride;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.User;
 
 import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +18,6 @@ import java.util.Optional;
 public abstract class Command {
 
     public int uses = 0;
-    public HashMap<User, Long> cooldowns = new HashMap<>();
 
     /**
      * Gets the ID of this command, used internally.

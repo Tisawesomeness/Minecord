@@ -50,6 +50,8 @@ public class GuildCommand extends AbstractDiscordCommand {
             }
             g = ctx.e.getGuild();
         }
+
+        ctx.triggerCooldown();
         User owner = g.retrieveOwner().complete().getUser();
         DbGuild dbGuild = ctx.getGuild(g);
 

@@ -105,6 +105,7 @@ public class UserCommand extends AbstractDiscordCommand {
             }
         }
         User u = mem.getUser();
+        ctx.triggerCooldown();
 
         // Build role string
         String roles = "";

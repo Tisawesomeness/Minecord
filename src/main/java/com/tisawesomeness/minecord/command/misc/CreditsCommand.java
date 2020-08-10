@@ -32,6 +32,7 @@ public class CreditsCommand extends AbstractMiscCommand {
             MarkdownUtil.maskedLink("MinecraftCapes", "https://www.minecraftcapes.co.uk");
 
     public Result run(String[] args, CommandContext ctx) {
+        ctx.triggerCooldown();
         EmbedBuilder eb = new EmbedBuilder()
             .setTitle("Minecord Credits")
             .setColor(Bot.color)

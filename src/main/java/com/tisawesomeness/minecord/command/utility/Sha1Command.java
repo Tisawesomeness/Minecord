@@ -16,6 +16,7 @@ public class Sha1Command extends AbstractUtilityCommand {
         if (args.length == 0) {
             return ctx.showHelp();
         }
+        ctx.triggerCooldown();
         return ctx.reply(RequestUtils.sha1(ctx.joinArgs()));
     }
 

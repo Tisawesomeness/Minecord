@@ -49,6 +49,7 @@ public class ServerCommand extends AbstractUtilityCommand {
                 return ctx.warn(ctx.i18n("invalidAddress"));
             }
         }
+        ctx.triggerCooldown();
 
         // Query Mojang for blocked servers, cached by the hour
         if (System.currentTimeMillis() - 3600000 > timestamp) {

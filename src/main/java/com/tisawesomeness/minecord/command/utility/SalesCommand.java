@@ -17,6 +17,7 @@ public class SalesCommand extends AbstractUtilityCommand {
     }
 
     public Result run(String[] args, CommandContext ctx) {
+        ctx.triggerCooldown();
 
         //Send a request to Mojang
         String payload = "{\"metricKeys\":[\"item_sold_minecraft\",\"prepaid_card_redeemed_minecraft\"]}";

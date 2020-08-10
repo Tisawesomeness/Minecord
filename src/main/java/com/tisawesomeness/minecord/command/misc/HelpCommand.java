@@ -36,6 +36,7 @@ public class HelpCommand extends AbstractMiscCommand {
 
         // General help
         if (args.length == 0) {
+            ctx.triggerCooldown();
             // Help menu only contains names of commands, tell user how to get more help
             String help = String.format(
                 "Use `%shelp <command>` to get more information about a command.\n" +
@@ -65,6 +66,7 @@ public class HelpCommand extends AbstractMiscCommand {
         // Module help
         Optional<Module> moduleOpt = Module.from(args[0], lang);
         if (moduleOpt.isPresent()) {
+            ctx.triggerCooldown();
             Module m = moduleOpt.get();
             if (m.isHidden() && !ctx.isElevated) {
                 return ctx.warn("You do not have permission to view that module.");
@@ -92,6 +94,7 @@ public class HelpCommand extends AbstractMiscCommand {
         // Command help
         Optional<Command> cmdOpt = registry.getCommand(args[0], lang);
         if (cmdOpt.isPresent()) {
+            ctx.triggerCooldown();
             Command c = cmdOpt.get();
             // Elevation check
             if (c instanceof IElevatedCommand && !ctx.isElevated) {

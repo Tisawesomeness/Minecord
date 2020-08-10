@@ -17,6 +17,7 @@ public class CodesCommand extends AbstractUtilityCommand {
 
     public Result run(String[] args, CommandContext ctx) {
 
+        ctx.triggerCooldown();
         String desc = String.format("Symbol copy-paste: `\u00A7`, `\\u00A7`\nUse `%scolor` to get info on a color.", ctx.prefix);
         EmbedBuilder eb = new EmbedBuilder()
                 .setTitle("Minecraft Chat Codes")

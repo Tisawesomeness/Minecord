@@ -45,6 +45,7 @@ public class ListSubcommand {
         } else if (!Objects.requireNonNull(ctx.e.getMember()).hasPermission(Permission.MANAGE_SERVER)) {
             return ctx.warn("You do not have Manage Server permissions.");
         }
+        ctx.triggerCooldown();
         return listSettings("All Channel Overrides", ctx.e.getGuild().getIdLong());
     }
     private Result parseAdminList() {

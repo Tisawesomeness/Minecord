@@ -25,6 +25,7 @@ public class RecipeCommand extends AbstractUtilityCommand {
         if (args.length == 0) {
             return ctx.showHelp();
         }
+        ctx.triggerCooldown();
 
         // Parse page number
         int page = 0;

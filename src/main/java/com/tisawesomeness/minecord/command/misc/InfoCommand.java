@@ -27,6 +27,7 @@ public class InfoCommand extends AbstractMiscCommand {
     }
 
     public Result run(String[] args, CommandContext ctx) {
+        ctx.triggerCooldown();
         ShardManager sm = ctx.bot.getShardManager();
 
         // If the author used the admin keyword and is an elevated user

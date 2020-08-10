@@ -36,6 +36,7 @@ public class AvatarCommand extends AbstractPlayerCommand {
             args = argsList.toArray(new String[argsList.size()]);
         }
 
+        ctx.triggerCooldown();
         String player = args[0];
         String param = player;
         if (!player.matches(NameUtils.uuidRegex)) {

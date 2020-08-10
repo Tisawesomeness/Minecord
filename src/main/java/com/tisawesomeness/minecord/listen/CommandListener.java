@@ -165,30 +165,9 @@ public class CommandListener extends ListenerAdapter {
             }
         }
 
-        // Check for cooldowns, skipping if user is elevated
-        int cooldown = cmd.getCooldown(config.getCommandConfig());
-        if (!(fc.isElevatedSkipCooldown() && isElevated)
-                && cmd.cooldowns.containsKey(a) && cooldown > 0) {
-            long last = cmd.cooldowns.get(a);
-            if (System.currentTimeMillis() - cooldown < last) {
-                // Format warning message
-                long time = (long) cooldown + last - System.currentTimeMillis();
-                String seconds = String.valueOf(time);
-                while (seconds.length() < 4) {
-                    seconds = "0" + seconds;
-                }
-                seconds = new StringBuilder(seconds).insert(seconds.length() - 3, ".").toString();
-                c.sendMessage(":warning: Wait " + seconds + " more seconds.").queue();
-                return;
-            } else {
-                cmd.cooldowns.remove(a);
-            }
-        }
-
         // Run command
-        CommandContext ctx = new CommandContext(args, e, config, bot, cmd, isElevated, prefix, lang);
+        CommandContext ctx = new CommandContext(args, e, config, bot, cmd, commandExecutor, isElevated, prefix, lang);
         commandExecutor.run(cmd, ctx);
-        cmd.cooldowns.put(a, System.currentTimeMillis());
         cmd.uses++;
     }
 

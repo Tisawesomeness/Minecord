@@ -24,6 +24,7 @@ public class SkinCommand extends AbstractPlayerCommand {
             return ctx.showHelp();
         }
 
+        ctx.triggerCooldown();
         String player = args[0];
         String param = player;
         if (!player.matches(NameUtils.uuidRegex)) {

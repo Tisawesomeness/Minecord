@@ -13,6 +13,7 @@ public class PingCommand extends AbstractMiscCommand implements IHiddenCommand {
     }
 
     public Result run(String[] args, CommandContext ctx) {
+        ctx.triggerCooldown();
         return ctx.reply(String.format(
                 ":ping_pong: **Pong!** `%s ms`\nUse `%sserver` to ping a server.",
                 ctx.bot.getShardManager().getAverageGatewayPing(), ctx.prefix

@@ -66,6 +66,7 @@ public class PurgeCommand extends AbstractDiscordCommand {
         }
 
         //Repeat until either the amount of messages are found or 100 non-bot messages in a row
+        ctx.triggerCooldown();
         MessageHistory mh = new MessageHistory(e.getTextChannel());
         int empty = 0;
         ArrayList<Message> mine = new ArrayList<>();

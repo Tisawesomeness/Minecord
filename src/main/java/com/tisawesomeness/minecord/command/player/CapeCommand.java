@@ -30,6 +30,7 @@ public class CapeCommand extends AbstractPlayerCommand {
         }
 
         // Get playername
+        ctx.triggerCooldown();
         String player = args[0];
         String uuid = player;
         if (player.matches(NameUtils.uuidRegex)) {

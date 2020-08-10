@@ -54,6 +54,7 @@ public class RoleCommand extends AbstractDiscordCommand {
             return ctx.warn("That role does not exist.");
         }
 
+        ctx.triggerCooldown();
         EmbedBuilder eb = new EmbedBuilder()
             .setTitle(role.getName().substring(0, Math.min(MessageEmbed.TITLE_MAX_LENGTH, role.getName().length())))
             .setColor(role.getColorRaw())

@@ -28,6 +28,7 @@ public class SettingCommandParser extends SettingCommandHandler {
     public Result parse() {
         if (ctx.args.length == 0) {
             if (type == SettingCommandType.QUERY) {
+                ctx.triggerCooldown();
                 return displaySettings("Currently Active Settings", s -> s.getDisplay(ctx));
             }
             return ctx.showHelp();

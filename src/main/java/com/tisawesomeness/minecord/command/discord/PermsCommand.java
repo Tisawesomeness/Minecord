@@ -76,6 +76,7 @@ public class PermsCommand extends AbstractDiscordCommand {
             c = e.getTextChannel();
         }
 
+        ctx.triggerCooldown();
         EnumSet<Permission> perms = c.getGuild().getSelfMember().getPermissions(c);
         boolean menuPerms = perms.containsAll(Arrays.asList(
             Permission.MESSAGE_EMBED_LINKS, Permission.MESSAGE_ADD_REACTION, Permission.MESSAGE_MANAGE

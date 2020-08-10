@@ -43,6 +43,7 @@ public class SettingChanger {
      * @return The result of the command
      */
     public Result parse() {
+        ctx.triggerCooldown();
         if (type == SettingCommandType.RESET) {
             return resetSetting();
         }

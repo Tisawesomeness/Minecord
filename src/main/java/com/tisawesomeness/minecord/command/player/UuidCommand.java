@@ -23,6 +23,7 @@ public class UuidCommand extends AbstractPlayerCommand {
             return ctx.showHelp();
         }
 
+        ctx.triggerCooldown();
         String username = args[0];
         String uuid = null;
 
