@@ -137,6 +137,8 @@ commands:
       cooldown: 3000
     sales:
       cooldown: 3000
+    server:
+      cooldown: 3000
     item:
       cooldown: 5000
     recipe:
