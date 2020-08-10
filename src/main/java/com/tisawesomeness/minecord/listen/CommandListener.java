@@ -15,7 +15,6 @@ import com.tisawesomeness.minecord.setting.SettingRegistry;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Member;
@@ -33,13 +32,19 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
 public class CommandListener extends ListenerAdapter {
 
     private final @NonNull Bot bot;
     private final @NonNull Config config;
     private final @NonNull CommandRegistry registry;
-    private final CommandExecutor commandExecutor = new CommandExecutor();
+    private final @NonNull CommandExecutor commandExecutor;
+
+    public CommandListener(@NonNull Bot bot, @NonNull Config config, @NonNull CommandRegistry registry) {
+        this.bot = bot;
+        this.config = config;
+        this.registry = registry;
+        commandExecutor = new CommandExecutor(registry, config);
+    }
 
     @Override
     public void onMessageReceived(MessageReceivedEvent e) {

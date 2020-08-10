@@ -202,6 +202,10 @@ public class CommandRegistry implements Iterable<Command> {
         return moduleToCommandsMap.get(module);
     }
 
+    /**
+     * Used to loop over all commands in this registry.
+     * @return An iterator over all commands in all modules
+     */
     public @NonNull Iterator<Command> iterator() {
         return moduleToCommandsMap.values().iterator();
     }

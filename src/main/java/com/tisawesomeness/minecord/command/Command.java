@@ -24,6 +24,7 @@ public abstract class Command {
     /**
      * Gets the ID of this command, used internally.
      * <br>Typing this ID as the command name will always work, no matter the language.
+     * <br><b>Must be constant!</b>
      * @return A <b>unique</b> string that contains only lowercase letters and numbers, and starts with a letter
      */
     public abstract @NonNull String getId();
@@ -182,6 +183,19 @@ public abstract class Command {
             return true;
         }
         return !co.isDisabled();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Command) {
+            Command other = (Command) obj;
+            return getId().equals(other.getId());
+        }
+        return false;
+    }
+    @Override
+    public int hashCode() {
+        return getId().hashCode();
     }
 
 }
