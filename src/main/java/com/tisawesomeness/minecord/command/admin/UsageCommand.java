@@ -9,6 +9,7 @@ import com.tisawesomeness.minecord.command.Module;
 import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.DateUtils;
 
+import com.google.common.collect.EnumMultiset;
 import com.google.common.collect.Multiset;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -57,6 +58,8 @@ public class UsageCommand extends AbstractAdminCommand {
             String field = buildUsageString(cmds, c -> formatCommand(c, ctx));
             eb.addField(String.format("**%s**", m.getDisplayName(lang)), field, true);
         }
+        Multiset<Result> totalResults = accumulateResults(registry, ctx);
+        eb.setDescription(formatResults(totalResults));
         return ctx.reply(eb);
     }
     private Result getModuleUsage(CommandContext ctx, EmbedBuilder eb, Module m) {
@@ -64,18 +67,14 @@ public class UsageCommand extends AbstractAdminCommand {
         if (cmds.isEmpty()) {
             return ctx.warn("That module has no commands!");
         }
-        String desc = buildUsageString(cmds, c -> formatCommandDetailed(c, ctx));
-        eb.setDescription(desc);
+        Multiset<Result> totalResults = accumulateResults(cmds, ctx);
+        String usage = buildUsageString(cmds, c -> formatCommandDetailed(c, ctx));
+        eb.setDescription(formatResults(totalResults) + "\n\n" + usage);
         return ctx.reply(eb);
     }
     private static Result getCommandUsage(CommandContext ctx, EmbedBuilder eb, Command c) {
         Multiset<Result> results = ctx.getResultsFor(c);
-        String header = String.format("**__Total: %d__**", results.size());
-        String resultLines = results.entrySet().stream()
-                .sorted(Comparator.comparing(Multiset.Entry::getElement))
-                .map(en -> formatResult(en, results.size()))
-                .collect(Collectors.joining("\n"));
-        eb.setDescription(header + "\n" + resultLines);
+        eb.setDescription(formatResults(results));
         return ctx.reply(eb);
     }
 
@@ -106,10 +105,26 @@ public class UsageCommand extends AbstractAdminCommand {
     private static String formatLine(Command c, CommandContext ctx, String line) {
         return String.format("`%s%s` **-** %s", ctx.prefix, c.getDisplayName(ctx.lang), line);
     }
+    private static String formatResults(Multiset<Result> results) {
+        String header = String.format("**__Total: %d__**", results.size());
+        String resultLines = results.entrySet().stream()
+                .sorted(Comparator.comparing(Multiset.Entry::getElement))
+                .map(en -> formatResult(en, results.size()))
+                .collect(Collectors.joining("\n"));
+        return header + "\n" + resultLines;
+    }
     private static String formatResult(Multiset.Entry<Result> en, int total) {
         Result result = en.getElement();
         int c = en.getCount();
         return String.format("**%s** %s `%d` | `%.2f%%`", result, result.getEmote(), c, 100.0 * c / total);
+    }
+
+    private static Multiset<Result> accumulateResults(Iterable<? extends Command> cmds, CommandContext ctx) {
+        Multiset<Result> totalResults = EnumMultiset.create(Result.class);
+        for (Command c : cmds) {
+            totalResults.addAll(ctx.getResultsFor(c));
+        }
+        return totalResults;
     }
 
 }
