@@ -41,18 +41,13 @@ public class UsageCommand extends AbstractAdminCommand {
         if (moduleOpt.isPresent()) {
             return getModuleUsage(ctx, eb, moduleOpt.get());
         }
-        return ctx.warn("That module does not exist.");
+        Optional<Command> cmdOpt = registry.getCommand(args[0], lang);
+        if (cmdOpt.isPresent()) {
+            return getCommandUsage(ctx, eb, cmdOpt.get());
+        }
+        return ctx.warn("That command or module does not exist.");
     }
 
-    private Result getModuleUsage(CommandContext ctx, EmbedBuilder eb, Module m) {
-        Collection<Command> cmds = registry.getCommandsInModule(m);
-        if (cmds.isEmpty()) {
-            return ctx.warn("That module has no commands!");
-        }
-        String desc = buildUsageString(cmds, c -> formatCommandDetailed(c, ctx));
-        eb.setDescription(desc);
-        return ctx.reply(eb);
-    }
     private Result processGlobalUsage(CommandContext ctx, Lang lang, EmbedBuilder eb) {
         for (Module m : Module.values()) {
             Collection<Command> cmds = registry.getCommandsInModule(m);
@@ -62,6 +57,25 @@ public class UsageCommand extends AbstractAdminCommand {
             String field = buildUsageString(cmds, c -> formatCommand(c, ctx));
             eb.addField(String.format("**%s**", m.getDisplayName(lang)), field, true);
         }
+        return ctx.reply(eb);
+    }
+    private Result getModuleUsage(CommandContext ctx, EmbedBuilder eb, Module m) {
+        Collection<Command> cmds = registry.getCommandsInModule(m);
+        if (cmds.isEmpty()) {
+            return ctx.warn("That module has no commands!");
+        }
+        String desc = buildUsageString(cmds, c -> formatCommandDetailed(c, ctx));
+        eb.setDescription(desc);
+        return ctx.reply(eb);
+    }
+    private static Result getCommandUsage(CommandContext ctx, EmbedBuilder eb, Command c) {
+        Multiset<Result> results = ctx.getResultsFor(c);
+        String header = String.format("**__Total: %d__**", results.size());
+        String resultLines = results.entrySet().stream()
+                .sorted(Comparator.comparing(Multiset.Entry::getElement))
+                .map(en -> formatResult(en, results.size()))
+                .collect(Collectors.joining("\n"));
+        eb.setDescription(header + "\n" + resultLines);
         return ctx.reply(eb);
     }
 
@@ -91,6 +105,11 @@ public class UsageCommand extends AbstractAdminCommand {
     }
     private static String formatLine(Command c, CommandContext ctx, String line) {
         return String.format("`%s%s` **-** %s", ctx.prefix, c.getDisplayName(ctx.lang), line);
+    }
+    private static String formatResult(Multiset.Entry<Result> en, int total) {
+        Result result = en.getElement();
+        int c = en.getCount();
+        return String.format("**%s** %s `%d` | `%.2f%%`", result, result.getEmote(), c, 100.0 * c / total);
     }
 
 }

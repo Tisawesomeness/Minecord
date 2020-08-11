@@ -11,11 +11,12 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 public enum Result {
-    SUCCESS(":white_check_mark:"),
-    WARNING(":warning:"),
-    ERROR(":x:"),
-    EXCEPTION(":boom:");
+    SUCCESS("Success", ":white_check_mark:"),
+    WARNING("Warning", ":warning:"),
+    ERROR("Error", ":x:"),
+    EXCEPTION("Exception", ":boom:");
 
+    @Getter private final @NonNull String name;
     @Getter private final @NonNull String emote;
 
     /**
@@ -32,5 +33,10 @@ public enum Result {
     }
     private @NonNull String getId() {
         return name().toLowerCase();
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
