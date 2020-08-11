@@ -160,16 +160,57 @@ public abstract class Command {
      * @return A positive cooldown in miliseconds, or 0 or less for no cooldown
      */
     public final int getCooldown(CommandConfig config) {
+        int commandCooldown = getExplicitCooldown(config);
+        if (commandCooldown > 0) {
+            return commandCooldown;
+        }
+        int poolCooldown = getCooldownFromPool(config);
+        if (poolCooldown > 0) {
+            return poolCooldown;
+        }
+        return config.getDefaultCooldown();
+    }
+    /**
+     * Gets the cooldown ID of this command.
+     * <br>Multiple commands may share the same cooldown ID, and therefore the same cooldowns.
+     * @param config The command config to pull cooldown pools from
+     * @return The name of the cooldown pool this command is a part of, or this command's ID
+     */
+    public final @NonNull String getCooldownId(CommandConfig config) {
+        return getCooldownPool(config).orElse(getId());
+    }
+
+    private int getExplicitCooldown(CommandConfig config) {
         CommandOverride co = config.getOverrides().get(getId());
         if (co == null) {
-            return config.getDefaultCooldown();
+            return 0;
         }
         Integer cooldown = co.getCooldown();
         if (cooldown == null) {
-            return config.getDefaultCooldown();
+            return 0;
         }
         return cooldown;
     }
+    private int getCooldownFromPool(CommandConfig config) {
+        Optional<String> poolOpt = getCooldownPool(config);
+        if (poolOpt.isPresent()) {
+            String pool = poolOpt.get();
+            return config.getCooldownPools().get(pool);
+        }
+        return 0;
+    }
+    public Optional<String> getCooldownPool(CommandConfig config) {
+        CommandOverride co = config.getOverrides().get(getId());
+        if (co == null) {
+            return Optional.empty();
+        }
+        String pool = co.getCooldownPool();
+        if (pool == null) {
+            return Optional.empty();
+        }
+        return Optional.of(pool);
+    }
+
     /**
      * Determines if this command is enabled.
      * <br>If disabled, the command will not give a response or show in {@code &help}.

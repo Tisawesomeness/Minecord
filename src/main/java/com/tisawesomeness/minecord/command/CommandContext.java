@@ -339,7 +339,7 @@ public class CommandContext {
      * Starts the cooldown timer for this command, unless the user is elevated and skipping cooldowns is enabled.
      */
     public void triggerCooldown() {
-        if (executor.shouldSkipCooldown(this)) {
+        if (!executor.shouldSkipCooldown(this)) {
             executor.startCooldown(cmd, e.getAuthor().getIdLong());
         }
     }

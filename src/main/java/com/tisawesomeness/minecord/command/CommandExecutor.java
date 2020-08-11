@@ -7,21 +7,22 @@ import com.tisawesomeness.minecord.config.serial.FlagConfig;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import com.google.common.base.Functions;
 import lombok.NonNull;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * Runs commands and keep track of the output.
  */
 public class CommandExecutor {
 
-    private final Map<Command, Cache<Long, Long>> cooldownMap;
+    private final Map<String, Cache<Long, Long>> cooldownMap;
     private final CommandConfig cc;
     private final FlagConfig fc;
 
@@ -36,11 +37,13 @@ public class CommandExecutor {
         Caffeine<Object, Object> builder = Caffeine.newBuilder()
                 .expireAfterWrite(30L, TimeUnit.SECONDS)
                 .maximumSize(100L);
-        Map<Command, Cache<Long, Long>> temp = new HashMap<>();
-        for (Command c : cr) {
-            temp.put(c, builder.build());
-        }
-        cooldownMap = Collections.unmodifiableMap(temp);
+        cooldownMap = cr.stream()
+                .map(c -> c.getCooldownId(cc))
+                .distinct()
+                .collect(Collectors.toMap(
+                        Functions.identity(),
+                        s -> builder.build()
+                ));
     }
 
     /**
@@ -53,7 +56,7 @@ public class CommandExecutor {
             long cooldown = c.getCooldown(cc);
             if (cooldown > 0) {
                 long uid = ctx.e.getAuthor().getIdLong();
-                long lastExecutedTime = cooldownMap.get(c).get(uid, ignore -> 0L); // Guarenteed non-null
+                long lastExecutedTime = getLastExecutedTime(c, uid);
                 long msLeft = cooldown + lastExecutedTime - System.currentTimeMillis();
                 if (msLeft > 0) {
                     ctx.warn(String.format("Wait `%.3f` more seconds.", (double) msLeft/1000));
@@ -62,6 +65,10 @@ public class CommandExecutor {
             }
         }
         runCommand(c, ctx);
+    }
+    private long getLastExecutedTime(Command c, long uid) {
+        Long let = cooldownMap.get(c.getCooldownId(cc)).get(uid, ignore -> 0L);
+        return Objects.requireNonNull(let); // Null value never put into map
     }
 
     private static Result runCommand(Command c, CommandContext ctx) {
@@ -110,7 +117,7 @@ public class CommandExecutor {
      * @param uid The Discord user ID of the author of the command
      */
     public void startCooldown(Command c, long uid) {
-        cooldownMap.get(c).put(uid, System.currentTimeMillis());
+        cooldownMap.get(c.getCooldownId(cc)).put(uid, System.currentTimeMillis());
     }
     /**
      * Determines if the author of a command has permission to skip cooldowns

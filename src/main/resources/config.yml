@@ -68,7 +68,7 @@ presence:
 
 settings:
   # The prefix for every command, default is "&" on the main bot
-  defaultPrefix: ">&"
+  defaultPrefix: "&"
   # The default lang used for user commands, admin commands and console messages are not translated
   # Current languages: en_US, de_DE, pt_BR
   defaultLang: en_US
@@ -77,7 +77,7 @@ settings:
 
 flags:
   # Collects extra debug information and enables &debug, but makes the bot slower
-  debugMode: true
+  debugMode: false
   # If true, announcements from announce.json will be put in the footer of all embeds
   useAnnouncements: false
   # Highly recommended to be true, whether the bot responds to "@Minecord command"
@@ -110,24 +110,25 @@ commands:
   # Overrides for individual commands are defined here
   overrides:
     avatar:
-      # The cooldown in miliseconds
-      cooldown: 5000
+      # The name of the cooldown pool this command is a part of
+      cooldownPool: "playerImage"
       # Whether the command is disabled (default enabled)
       # Disabled commands are not registerd and will not give a response or show in &help
       disabled: false
     body:
-      cooldown: 5000
+      cooldownPool: "playerImage"
     cape:
-      cooldown: 5000
+      cooldownPool: "playerImage"
     head:
-      cooldown: 5000
+      cooldownPool: "playerImage"
     history:
-      cooldown: 5000
+      cooldownPool: "playerName"
     profile:
-      cooldown: 5000
+      cooldownPool: "playerName"
     skin:
-      cooldown: 5000
+      cooldownPool: "playerImage"
     uuid:
+      # Cooldowns can also be defined explicitly
       cooldown: 5000
     codes:
       cooldown: 1000
@@ -140,11 +141,11 @@ commands:
     server:
       cooldown: 3000
     item:
-      cooldown: 5000
+      cooldownPool: "itemLookup"
     recipe:
-      cooldown: 5000
+      cooldownPool: "itemLookup"
     ingredient:
-      cooldown: 5000
+      cooldownPool: "itemLookup"
     sha1:
       cooldown: 500
     guild:
@@ -158,12 +159,19 @@ commands:
     purge:
       cooldown: 5000
     settings:
-      cooldown: 3000
+      cooldownPool: "botConfig"
     set:
-      cooldown: 3000
+      cooldownPool: "botConfig"
     reset:
-      cooldown: 3000
+      cooldownPool: "botConfig"
     prefix:
-      cooldown: 3000
+      cooldownPool: "botConfig"
     lang:
-      cooldown: 3000
+      cooldownPool: "botConfig"
+  # All commands with the same cooldown pool share cooldowns.
+  # The number is the cooldown in miliseconds.
+  cooldownPools:
+    playerImage: 5000
+    playerName: 5000
+    itemLookup: 5000
+    botConfig: 3000

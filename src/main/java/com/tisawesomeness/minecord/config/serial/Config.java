@@ -53,7 +53,8 @@ public class Config {
                 verifyShards(),
                 presenceConfig.verify(),
                 settingsConfig.verify(),
-                botListConfig.verify()
+                botListConfig.verify(),
+                commandConfig.verify()
         );
     }
     private Verification verifyShards() {

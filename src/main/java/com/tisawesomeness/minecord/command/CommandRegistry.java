@@ -64,6 +64,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * The list of all commands the bot knows.
@@ -208,5 +209,12 @@ public class CommandRegistry implements Iterable<Command> {
      */
     public @NonNull Iterator<Command> iterator() {
         return moduleToCommandsMap.values().iterator();
+    }
+    /**
+     * Creates a stream for all commands in this registry.
+     * @return A stream over all commands in all modules
+     */
+    public Stream<Command> stream() {
+        return moduleToCommandsMap.values().stream();
     }
 }

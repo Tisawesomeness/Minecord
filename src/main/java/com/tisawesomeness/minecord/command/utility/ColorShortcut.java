@@ -6,6 +6,7 @@ import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.IHiddenCommand;
 import com.tisawesomeness.minecord.command.IShortcutCommand;
 import com.tisawesomeness.minecord.command.Result;
+import com.tisawesomeness.minecord.config.serial.CommandConfig;
 import com.tisawesomeness.minecord.util.ColorUtils;
 
 import lombok.NonNull;
@@ -45,6 +46,10 @@ public class ColorShortcut extends AbstractUtilityCommand implements IShortcutCo
     @Override
     public List<String> getAliases(Lang lang) {
         return Collections.emptyList();
+    }
+    @Override
+    public Optional<String> getCooldownPool(CommandConfig config) {
+        return colorCmd.getCooldownPool(config);
     }
 
     public @NonNull String getHelp(Lang lang, String prefix, String tag) {
