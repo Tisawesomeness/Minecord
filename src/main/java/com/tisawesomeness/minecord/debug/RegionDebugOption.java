@@ -9,7 +9,6 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,8 +29,7 @@ public class RegionDebugOption implements DebugOption {
                 .map(Guild::getRegion)
                 .collect(Collectors.toList());
         Multiset<Region> regionCounts = EnumMultiset.create(regions);
-        return Arrays.stream(Region.values())
-                .filter(regionCounts::contains)
+        return regionCounts.elementSet().stream()
                 .sorted(Comparator.comparingInt(regionCounts::count))
                 .map(r -> printCount(regionCounts, r, total))
                 .collect(Collectors.joining("\n"));
