@@ -75,7 +75,6 @@ public class DebugCommand extends AbstractAdminCommand {
         for (String message : messages) {
             ctx.e.getChannel().sendMessage(message).queue();
         }
-        ctx.e.getChannel().sendMessage(debugInfo).queue();
     }
 
     private static void printToConsole(String debugInfo, User author) {
