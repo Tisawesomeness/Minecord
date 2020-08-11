@@ -168,7 +168,6 @@ public class CommandListener extends ListenerAdapter {
         // Run command
         CommandContext ctx = new CommandContext(args, e, config, bot, cmd, commandExecutor, isElevated, prefix, lang);
         commandExecutor.run(cmd, ctx);
-        cmd.uses++;
     }
 
 }

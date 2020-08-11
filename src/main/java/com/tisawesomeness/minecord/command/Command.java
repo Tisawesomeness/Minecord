@@ -17,8 +17,6 @@ import java.util.Optional;
  */
 public abstract class Command {
 
-    public int uses = 0;
-
     /**
      * Gets the ID of this command, used internally.
      * <br>Typing this ID as the command name will always work, no matter the language.

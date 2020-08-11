@@ -10,6 +10,7 @@ import com.tisawesomeness.minecord.database.dao.DbGuild;
 import com.tisawesomeness.minecord.database.dao.DbUser;
 import com.tisawesomeness.minecord.setting.impl.UseMenusSetting;
 
+import com.google.common.collect.Multiset;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -342,6 +343,15 @@ public class CommandContext {
         if (!executor.shouldSkipCooldown(this)) {
             executor.startCooldown(cmd, e.getAuthor().getIdLong());
         }
+    }
+
+    /**
+     * Gets the number of times the command has returned each result
+     * @param c The command
+     * @return An immutable Multiset
+     */
+    public Multiset<Result> getResultsFor(Command c) {
+        return executor.getResults(c);
     }
 
 }

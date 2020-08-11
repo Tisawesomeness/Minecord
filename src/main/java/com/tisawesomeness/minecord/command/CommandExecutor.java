@@ -8,6 +8,9 @@ import com.tisawesomeness.minecord.config.serial.FlagConfig;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.google.common.base.Functions;
+import com.google.common.collect.EnumMultiset;
+import com.google.common.collect.ImmutableMultiset;
+import com.google.common.collect.Multiset;
 import lombok.NonNull;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
@@ -15,6 +18,7 @@ import net.dv8tion.jda.api.utils.MarkdownUtil;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -22,9 +26,10 @@ import java.util.stream.Collectors;
  */
 public class CommandExecutor {
 
-    private final Map<String, Cache<Long, Long>> cooldownMap;
     private final CommandConfig cc;
     private final FlagConfig fc;
+    private final Map<String, Cache<Long, Long>> cooldownMap;
+    private final Map<Command, Multiset<Result>> results;
 
     /**
      * Creates a new command executor, initializing a cache for each command.
@@ -43,6 +48,11 @@ public class CommandExecutor {
                 .collect(Collectors.toMap(
                         Functions.identity(),
                         s -> builder.build()
+                ));
+        results = cr.stream()
+                .collect(Collectors.toMap(
+                        Function.identity(),
+                        c -> EnumMultiset.create(Result.class)
                 ));
     }
 
@@ -64,7 +74,8 @@ public class CommandExecutor {
                 }
             }
         }
-        runCommand(c, ctx);
+        Result result = runCommand(c, ctx);
+        results.get(c).add(result);
     }
     private long getLastExecutedTime(Command c, long uid) {
         Long let = cooldownMap.get(c.getCooldownId(cc)).get(uid, ignore -> 0L);
@@ -91,6 +102,7 @@ public class CommandExecutor {
                 errorMessage = errorMessage.substring(0, Message.MAX_CONTENT_LENGTH - 3) + "```";
             }
         }
+        ctx.reply(errorMessage);
         ctx.log(errorMessage);
     }
 
@@ -126,5 +138,9 @@ public class CommandExecutor {
      */
     public boolean shouldSkipCooldown(CommandContext ctx) {
         return fc.isElevatedSkipCooldown() && ctx.isElevated;
+    }
+
+    public Multiset<Result> getResults(Command c) {
+        return ImmutableMultiset.copyOf(results.get(c));
     }
 }
