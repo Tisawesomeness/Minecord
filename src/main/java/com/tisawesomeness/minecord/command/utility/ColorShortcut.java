@@ -49,7 +49,12 @@ public class ColorShortcut extends AbstractUtilityCommand implements IShortcutCo
     }
     @Override
     public Optional<String> getCooldownPool(CommandConfig config) {
-        return colorCmd.getCooldownPool(config);
+        Optional<String> poolOpt = colorCmd.getCooldownPool(config);
+        if (poolOpt.isPresent()) {
+            return poolOpt;
+        }
+        // Prevent calling getId() in superclass, which redirects to getId() in this class
+        return Optional.of(colorCmd.getId());
     }
 
     public @NonNull String getHelp(Lang lang, String prefix, String tag) {

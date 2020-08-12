@@ -48,6 +48,7 @@ public class CommandExecutor {
             builder.recordStats();
         }
         cooldownMap = cr.stream()
+                .filter(c -> !(c instanceof IElevatedCommand))
                 .map(c -> c.getCooldownId(cc))
                 .distinct()
                 .collect(Collectors.toMap(
@@ -171,6 +172,17 @@ public class CommandExecutor {
      */
     public Optional<CacheStats> stats(String pool) {
         return Optional.ofNullable(cooldownMap.get(pool)).map(Cache::stats);
+    }
+
+    /**
+     * Builds a string showing each pool and it's estimated cache size
+     * @return A debug string
+     */
+    public String debugEstimatedSizes() {
+        return cooldownMap.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(en -> String.format("**%s**: `%d`", en.getKey(), en.getValue().estimatedSize()))
+                .collect(Collectors.joining("\n"));
     }
 
 }
