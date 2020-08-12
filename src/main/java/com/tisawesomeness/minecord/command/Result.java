@@ -7,7 +7,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Represents the result of a command.
+ * An enum of all possible outcomes when a user tries to execute a command.
  */
 @RequiredArgsConstructor
 public enum Result {
@@ -19,6 +19,10 @@ public enum Result {
      * Command redirected to help
      */
     HELP("Help", ":mag:"),
+    /**
+     * The command is on cooldown
+     */
+    COOLDOWN("Cooldown", ":ice_cube:"),
     /**
      * The user did something wrong
      */

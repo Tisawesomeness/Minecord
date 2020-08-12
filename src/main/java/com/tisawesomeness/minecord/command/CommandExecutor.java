@@ -68,6 +68,11 @@ public class CommandExecutor {
      * @param ctx The context of the command
      */
     public void run(Command c, CommandContext ctx) {
+        Result result = runCommand(c, ctx);
+        results.get(c).add(result);
+    }
+
+    private Result runCommand(Command c, CommandContext ctx) {
         if (!shouldSkipCooldown(ctx)) {
             long cooldown = c.getCooldown(cc);
             if (cooldown > 0) {
@@ -76,25 +81,24 @@ public class CommandExecutor {
                 long msLeft = cooldown + lastExecutedTime - System.currentTimeMillis();
                 if (msLeft > 0) {
                     ctx.warn(String.format("Wait `%.3f` more seconds.", (double) msLeft/1000));
-                    return;
+                    return Result.COOLDOWN;
                 }
             }
         }
-        Result result = runCommand(c, ctx);
-        results.get(c).add(result);
+        return tryToRun(c, ctx);
     }
-    private long getLastExecutedTime(Command c, long uid) {
-        Long let = cooldownMap.get(c.getCooldownId(cc)).get(uid, ignore -> 0L);
-        return Objects.requireNonNull(let); // Null value never put into map
-    }
-
-    private static Result runCommand(Command c, CommandContext ctx) {
+    private static Result tryToRun(Command c, CommandContext ctx) {
         try {
             return c.run(ctx.args, ctx);
         } catch (Exception ex) {
             handle(ex, ctx);
         }
         return Result.EXCEPTION;
+    }
+
+    private long getLastExecutedTime(Command c, long uid) {
+        Long let = cooldownMap.get(c.getCooldownId(cc)).get(uid, ignore -> 0L);
+        return Objects.requireNonNull(let); // Null value never put into map
     }
 
     private static void handle(Exception ex, CommandContext ctx) {
