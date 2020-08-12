@@ -49,7 +49,6 @@ import com.tisawesomeness.minecord.command.utility.ServerCommand;
 import com.tisawesomeness.minecord.command.utility.Sha1Command;
 import com.tisawesomeness.minecord.command.utility.StatusCommand;
 import com.tisawesomeness.minecord.config.serial.CommandConfig;
-import com.tisawesomeness.minecord.database.DatabaseCache;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.ImmutableMultimap;
@@ -58,7 +57,6 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder;
 import com.google.common.collect.Table;
 import lombok.NonNull;
-import net.dv8tion.jda.api.sharding.ShardManager;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -77,7 +75,7 @@ public class CommandRegistry implements Iterable<Command> {
     /**
      * Adds every module to the registry and maps the possible aliases to the command to execute.
      */
-    public CommandRegistry(ShardManager sm, DatabaseCache dbCache, CommandConfig cc) {
+    public CommandRegistry(CommandConfig cc) {
 
         Command colorCmd = new ColorCommand();
         Command[] commands = {
@@ -147,7 +145,7 @@ public class CommandRegistry implements Iterable<Command> {
                 new ReloadCommand(),
                 new ShutdownCommand(),
                 new EvalCommand(),
-                new DebugCommand(sm, dbCache),
+                new DebugCommand(),
                 new TestCommand()
 
         };

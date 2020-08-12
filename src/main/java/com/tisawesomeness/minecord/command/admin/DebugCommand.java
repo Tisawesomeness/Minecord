@@ -4,6 +4,7 @@ import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.debug.ChannelCacheDebugOption;
+import com.tisawesomeness.minecord.debug.CooldownCacheDebugOption;
 import com.tisawesomeness.minecord.debug.DebugOption;
 import com.tisawesomeness.minecord.debug.GuildCacheDebugOption;
 import com.tisawesomeness.minecord.debug.JDADebugOption;
@@ -28,22 +29,22 @@ public class DebugCommand extends AbstractAdminCommand {
         return "debug";
     }
 
-    private final List<DebugOption> debugOptions;
-    public DebugCommand(ShardManager sm, DatabaseCache dbCache) {
-        debugOptions = Arrays.asList(
+    public Result run(String[] args, CommandContext ctx) {
+        if (!ctx.config.getFlagConfig().isDebugMode()) {
+            return ctx.warn("The bot is not in debug mode.");
+        }
+
+        ShardManager sm = ctx.bot.getShardManager();
+        DatabaseCache dbCache = ctx.bot.getDatabaseCache();
+        List<DebugOption> debugOptions = Arrays.asList(
                 new JDADebugOption(sm),
                 new ThreadDebugOption(),
                 new RegionDebugOption(sm),
                 new GuildCacheDebugOption(dbCache),
                 new ChannelCacheDebugOption(dbCache),
-                new UserCacheDebugOption(dbCache)
+                new UserCacheDebugOption(dbCache),
+                new CooldownCacheDebugOption(ctx.executor)
         );
-    }
-
-    public Result run(String[] args, CommandContext ctx) {
-        if (!ctx.config.getFlagConfig().isDebugMode()) {
-            return ctx.warn("The bot is not in debug mode.");
-        }
 
         if (args.length == 0) {
             String possibleOptions = debugOptions.stream()

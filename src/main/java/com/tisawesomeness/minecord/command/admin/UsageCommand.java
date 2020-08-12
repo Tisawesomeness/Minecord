@@ -73,7 +73,7 @@ public class UsageCommand extends AbstractAdminCommand {
         return ctx.reply(eb);
     }
     private static Result getCommandUsage(CommandContext ctx, EmbedBuilder eb, Command c) {
-        Multiset<Result> results = ctx.getResultsFor(c);
+        Multiset<Result> results = ctx.executor.getResults(c);
         eb.setDescription(formatResults(results));
         return ctx.reply(eb);
     }
@@ -87,10 +87,10 @@ public class UsageCommand extends AbstractAdminCommand {
     }
 
     private static String formatCommand(Command c, CommandContext ctx) {
-        return formatLine(c, ctx, String.valueOf(ctx.getResultsFor(c).size()));
+        return formatLine(c, ctx, String.valueOf(ctx.executor.getResults(c).size()));
     }
     private static String formatCommandDetailed(Command c, CommandContext ctx) {
-        Multiset<Result> results = ctx.getResultsFor(c);
+        Multiset<Result> results = ctx.executor.getResults(c);
         return formatLine(c, ctx, getResultListString(results));
     }
     private static String getResultListString(Multiset<Result> results) {
@@ -122,7 +122,7 @@ public class UsageCommand extends AbstractAdminCommand {
     private static Multiset<Result> accumulateResults(Iterable<? extends Command> cmds, CommandContext ctx) {
         Multiset<Result> totalResults = EnumMultiset.create(Result.class);
         for (Command c : cmds) {
-            totalResults.addAll(ctx.getResultsFor(c));
+            totalResults.addAll(ctx.executor.getResults(c));
         }
         return totalResults;
     }

@@ -7,6 +7,7 @@ import com.tisawesomeness.minecord.config.serial.FlagConfig;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import com.google.common.base.Functions;
 import com.google.common.collect.EnumMultiset;
 import com.google.common.collect.ImmutableMultiset;
@@ -42,6 +43,9 @@ public class CommandExecutor {
         Caffeine<Object, Object> builder = Caffeine.newBuilder()
                 .expireAfterWrite(30L, TimeUnit.SECONDS)
                 .maximumSize(100L);
+        if (fc.isDebugMode()) {
+            builder.recordStats();
+        }
         cooldownMap = cr.stream()
                 .map(c -> c.getCooldownId(cc))
                 .distinct()
@@ -143,4 +147,12 @@ public class CommandExecutor {
     public Multiset<Result> getResults(Command c) {
         return ImmutableMultiset.copyOf(results.get(c));
     }
+
+    public CacheStats stats() {
+        return cooldownMap.values().stream()
+                .map(Cache::stats)
+                .reduce(CacheStats::plus)
+                .orElse(CacheStats.empty());
+    }
+
 }

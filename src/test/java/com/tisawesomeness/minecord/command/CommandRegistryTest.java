@@ -3,11 +3,8 @@ package com.tisawesomeness.minecord.command;
 import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.config.ConfigReader;
 import com.tisawesomeness.minecord.config.serial.Config;
-import com.tisawesomeness.minecord.database.DatabaseCache;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import net.dv8tion.jda.api.sharding.DefaultShardManager;
-import net.dv8tion.jda.api.sharding.ShardManager;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -24,10 +21,8 @@ public class CommandRegistryTest {
 
     @BeforeAll
     public static void initRegistry() throws JsonProcessingException {
-        ShardManager sm = new DefaultShardManager("dummy token");
         Config config = ConfigReader.readFromResources();
-        DatabaseCache dc = new DatabaseCache(null, config);
-        cr = new CommandRegistry(sm, dc, config.getCommandConfig());
+        cr = new CommandRegistry(config.getCommandConfig());
     }
 
     @ParameterizedTest(name = "{index} ==> Scanning for conflicts in {0} lang")
