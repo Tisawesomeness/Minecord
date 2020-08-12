@@ -97,10 +97,11 @@ public class UsageCommand extends AbstractAdminCommand {
         if (results.isEmpty()) {
             return "None";
         }
-        return results.entrySet().stream()
-                    .sorted(Comparator.comparing(Multiset.Entry::getElement))
-                    .map(en -> String.format("**%d** %s", en.getCount(), en.getElement().getEmote()))
-                    .collect(Collectors.joining(" | "));
+        String resultListString = results.entrySet().stream()
+                .sorted(Comparator.comparing(Multiset.Entry::getElement))
+                .map(en -> String.format("**%d** %s", en.getCount(), en.getElement().getEmote()))
+                .collect(Collectors.joining(" | "));
+        return String.format("%s | Total **%d**", resultListString, results.size());
     }
     private static String formatLine(Command c, CommandContext ctx, String line) {
         return String.format("`%s%s` **-** %s", ctx.prefix, c.getDisplayName(ctx.lang), line);
