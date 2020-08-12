@@ -24,7 +24,7 @@ public class JDADebugOption implements DebugOption {
         return "JDA";
     }
 
-    public @NonNull String debug() {
+    public @NonNull String debug(@NonNull String extra) {
         List<JDA> shards = shardManager.getShards(); // Not guarenteed to be sorted by shard id
         // Submitting all ping requests all at once
         // Instead of waiting for one to finish to submit the nextp

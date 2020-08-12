@@ -34,18 +34,7 @@ public class DebugCommand extends AbstractAdminCommand {
             return ctx.warn("The bot is not in debug mode.");
         }
 
-        ShardManager sm = ctx.bot.getShardManager();
-        DatabaseCache dbCache = ctx.bot.getDatabaseCache();
-        List<DebugOption> debugOptions = Arrays.asList(
-                new JDADebugOption(sm),
-                new ThreadDebugOption(),
-                new RegionDebugOption(sm),
-                new GuildCacheDebugOption(dbCache),
-                new ChannelCacheDebugOption(dbCache),
-                new UserCacheDebugOption(dbCache),
-                new CooldownCacheDebugOption(ctx.executor)
-        );
-
+        List<DebugOption> debugOptions = buildDebugOptionList(ctx);
         if (args.length == 0) {
             String possibleOptions = debugOptions.stream()
                     .map(d -> MarkdownUtil.monospace(d.getName()))
@@ -69,8 +58,24 @@ public class DebugCommand extends AbstractAdminCommand {
         return ctx.warn("Not a valid debug option.");
     }
 
+    private static List<DebugOption> buildDebugOptionList(CommandContext ctx) {
+        ShardManager sm = ctx.bot.getShardManager();
+        DatabaseCache dbCache = ctx.bot.getDatabaseCache();
+        return Arrays.asList(
+                new JDADebugOption(sm),
+                new ThreadDebugOption(),
+                new RegionDebugOption(sm),
+                new GuildCacheDebugOption(dbCache),
+                new ChannelCacheDebugOption(dbCache),
+                new UserCacheDebugOption(dbCache),
+                new CooldownCacheDebugOption(ctx.executor)
+        );
+    }
+
     private static void sendDebugInfo(CommandContext ctx, DebugOption d) {
-        String debugInfo = d.debug();
+        String[] args = ctx.args;
+        String extra = args.length > 1 ? args[1] : "";
+        String debugInfo = d.debug(extra);
         printToConsole(debugInfo, ctx.e.getAuthor());
         List<String> messages = MessageUtils.splitLinesByLength(debugInfo, Message.MAX_CONTENT_LENGTH);
         for (String message : messages) {

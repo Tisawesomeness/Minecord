@@ -18,6 +18,7 @@ import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -128,7 +129,7 @@ public class CommandExecutor {
     }
 
     /**
-     * Starts the cooldown for the given command and user
+     * Starts the cooldown for the given command and user.
      * @param c The command
      * @param uid The Discord user ID of the author of the command
      */
@@ -136,7 +137,7 @@ public class CommandExecutor {
         cooldownMap.get(c.getCooldownId(cc)).put(uid, System.currentTimeMillis());
     }
     /**
-     * Determines if the author of a command has permission to skip cooldowns
+     * Determines if the author of a command has permission to skip cooldowns.
      * @param ctx The context of the command
      * @return True if cooldowns should not be processed
      */
@@ -144,15 +145,32 @@ public class CommandExecutor {
         return fc.isElevatedSkipCooldown() && ctx.isElevated;
     }
 
+    /**
+     * Gets the count of all results for a command.
+     * @param c The command
+     * @return A Multiset where the size is equal to the number of command executions
+     */
     public Multiset<Result> getResults(Command c) {
         return ImmutableMultiset.copyOf(results.get(c));
     }
 
+    /**
+     * Gets the combined stats of all cooldown caches.
+     * @return A possibly-empty CacheStats
+     */
     public CacheStats stats() {
         return cooldownMap.values().stream()
                 .map(Cache::stats)
                 .reduce(CacheStats::plus)
                 .orElse(CacheStats.empty());
+    }
+    /**
+     * Gets the stats of a specific cooldown cache.
+     * @param pool The cache pool
+     * @return An empty optional if the pool does not exist, and the stats itself may be empty
+     */
+    public Optional<CacheStats> stats(String pool) {
+        return Optional.ofNullable(cooldownMap.get(pool)).map(Cache::stats);
     }
 
 }

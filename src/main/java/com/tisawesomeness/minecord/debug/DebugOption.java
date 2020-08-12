@@ -7,12 +7,13 @@ import lombok.NonNull;
  */
 public interface DebugOption {
     /**
-     * @return The name of this debug option, used for user input.
+     * @return The name of this debug option, used for user input
      */
     @NonNull String getName();
     /**
      * Gets useful debug information this object is responsible for.
-     * @return The debug information formatted as a multiline string.
+     * @param extra A possibly-empty string, used to select sub-options
+     * @return The debug information formatted as a multiline string
      */
-    @NonNull String debug();
+    @NonNull String debug(@NonNull String extra);
 }

@@ -14,7 +14,7 @@ public class ThreadDebugOption implements DebugOption {
     public @NonNull String getName() {
         return "threads";
     }
-    public @NonNull String debug() {
+    public @NonNull String debug(@NonNull String extra) {
         // Although getting all stack traces is expensive
         // this is called from an admin-only command
         // so performance is not necessary

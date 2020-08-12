@@ -22,7 +22,7 @@ public class RegionDebugOption implements DebugOption {
         return "region";
     }
 
-    public @NonNull String debug() {
+    public @NonNull String debug(@NonNull String extra) {
         List<Guild> guilds = shardManager.getGuilds();
         int total = guilds.size();
         List<Region> regions = guilds.stream()
