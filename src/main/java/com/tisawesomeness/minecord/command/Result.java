@@ -11,9 +11,25 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 public enum Result {
+    /**
+     * Command succeeded, no problems
+     */
     SUCCESS("Success", ":white_check_mark:"),
+    /**
+     * Command redirected to help
+     */
+    HELP("Help", ":mag:"),
+    /**
+     * The user did something wrong
+     */
     WARNING("Warning", ":warning:"),
+    /**
+     * An external service did something wrong out of our control
+     */
     ERROR("Error", ":x:"),
+    /**
+     * Command threw an exception, should never be seen
+     */
     EXCEPTION("Exception", ":boom:");
 
     @Getter private final @NonNull String name;
@@ -26,13 +42,7 @@ public enum Result {
      * @return The modified message
      */
     public @NonNull String addEmote(CharSequence msg, Lang lang) {
-        return lang.i18nf(formatKey("template"), msg, emote);
-    }
-    private @NonNull String formatKey(@NonNull String key) {
-        return String.format("command.result.%s.%s", getId(), key);
-    }
-    private @NonNull String getId() {
-        return name().toLowerCase();
+        return lang.i18nf("command.result.template", msg, emote);
     }
 
     @Override

@@ -324,10 +324,11 @@ public class CommandContext {
 
     /**
      * Creates an embed with the current command's help.
-     * @return Success
+     * @return The Help result
      */
     public Result showHelp() {
-        return reply(HelpCommand.showHelp(this, cmd));
+        reply(HelpCommand.showHelp(this, cmd));
+        return Result.HELP;
     }
     /**
      * Adds the bot color and a random announcement to an embed.
