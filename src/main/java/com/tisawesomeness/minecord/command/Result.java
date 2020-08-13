@@ -24,6 +24,18 @@ public enum Result {
      */
     COOLDOWN("Cooldown", ":ice_cube:"),
     /**
+     * User is not elevated but tried to do something that requires elevation
+     */
+    NOT_ELEVATED("Not Elevated", ":lock:"),
+    /**
+     * User does not have the necessary permissions
+     */
+    NO_USER_PERMISSIONS("No User Permissions", ":no_entry:"),
+    /**
+     * Bot does not have the necessary permissions
+     */
+    NO_BOT_PERMISSIONS("No Bot Permissions", ":no_entry_sign:"),
+    /**
      * The user did something wrong
      */
     WARNING("Warning", ":warning:"),

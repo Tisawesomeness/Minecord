@@ -6,7 +6,6 @@ import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.CommandExecutor;
 import com.tisawesomeness.minecord.command.CommandRegistry;
-import com.tisawesomeness.minecord.command.IElevatedCommand;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.config.serial.FlagConfig;
 import com.tisawesomeness.minecord.database.DatabaseCache;
@@ -19,7 +18,6 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.SelfUser;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
@@ -27,10 +25,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class CommandListener extends ListenerAdapter {
 
@@ -128,42 +123,8 @@ public class CommandListener extends ListenerAdapter {
         if (!cmdOpt.isPresent()) return;
         Command cmd = cmdOpt.get();
 
-        MessageChannel c = e.getChannel();
-
         // Check for elevation
         boolean isElevated = dbUser.isElevated();
-        if (c instanceof IElevatedCommand && !isElevated) {
-            c.sendMessage(":warning: You must be elevated to use that command!").queue();
-            return;
-        }
-
-        if (e.isFromGuild()) {
-            TextChannel tc = e.getTextChannel();
-            if (!isElevated) {
-                EnumSet<Permission> rup = cmd.getUserPermissions();
-                Member mem = Objects.requireNonNull(e.getMember());
-                if (!mem.hasPermission(tc, rup)) {
-                    rup.removeAll(mem.getPermissions(tc));
-                    String missingPermissions = rup.stream()
-                            .map(Permission::getName)
-                            .collect(Collectors.joining(", "));
-                    String errMsg = String.format(":warning: You are missing the %s permissions.", missingPermissions);
-                    c.sendMessage(errMsg).queue();
-                    return;
-                }
-            }
-            EnumSet<Permission> rbp = cmd.getBotPermissions();
-            Member sm = e.getGuild().getSelfMember();
-            if (!sm.hasPermission(tc, rbp)) {
-                rbp.removeAll(sm.getPermissions(tc));
-                String missingPermissions = rbp.stream()
-                        .map(Permission::getName)
-                        .collect(Collectors.joining(", "));
-                String errMsg = String.format(":warning: I am missing the %s permissions.", missingPermissions);
-                c.sendMessage(errMsg).queue();
-                return;
-            }
-        }
 
         // Run command
         CommandContext ctx = new CommandContext(args, e, config, bot, cmd, commandExecutor, isElevated, prefix, lang);

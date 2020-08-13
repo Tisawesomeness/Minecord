@@ -168,8 +168,7 @@ public abstract class ReactMenu {
         if (!e.isFromGuild()) {
             return MenuStatus.VALID;
         }
-        if (!e.getGuild().getSelfMember().hasPermission(e.getTextChannel(),
-                Permission.MESSAGE_ADD_REACTION)) {
+        if (!ctx.userHasPermission(Permission.MESSAGE_ADD_REACTION)) {
             return MenuStatus.NO_PERMISSION;
         }
         return MenuStatus.VALID;

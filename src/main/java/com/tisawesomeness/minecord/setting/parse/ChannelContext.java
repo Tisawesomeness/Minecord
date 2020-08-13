@@ -76,9 +76,10 @@ public class ChannelContext extends SettingContext {
     private Result displayOrParseChannelIfUserHasPermission(TextChannel c) {
         Member m = Objects.requireNonNull(ctx.e.getMember());
         if (!m.hasPermission(c, Permission.VIEW_CHANNEL, Permission.MESSAGE_READ)) {
-            return ctx.warn("That channel does not exist in the current guild or is not visible to you.");
+            ctx.warn("That channel does not exist in the current guild or is not visible to you.");
+            return Result.NO_USER_PERMISSIONS;
         } else if (!m.hasPermission(c, Permission.MESSAGE_WRITE)) {
-            return ctx.warn("You do not have permission to write in that channel.");
+            return ctx.noUserPermissions("You do not have permission to write in that channel.");
         }
         DbChannel channel = ctx.getChannel(c);
         return displayOrParse("Channel settings for #" + c.getName(), channel);

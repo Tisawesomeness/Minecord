@@ -7,7 +7,6 @@ import lombok.NonNull;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageHistory;
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.RateLimitedException;
 
@@ -16,6 +15,10 @@ import java.util.EnumSet;
 import java.util.List;
 
 public class PurgeCommand extends AbstractDiscordCommand {
+
+    public static final String ERR_W_MANAGE_MESSAGE = "The number must be between 1-1000.";
+    public static final String ERR_WO_MANAGE_MESSAGE =
+            "The number must be between 1-50, I don't have permission to manage messages!";
 
     public @NonNull String getId() {
         return "purge";
@@ -38,27 +41,19 @@ public class PurgeCommand extends AbstractDiscordCommand {
             return ctx.warn("This command is not available in DMs.");
         }
 
-        //Check if user is elevated or has the manage messages permission
-        if (!ctx.isElevated && !e.getMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE)) {
-            return ctx.warn("You must have permission to manage messages in this channel!");
-        }
-
         //Parse args
-        int num = 50;
-        boolean perms = false;
+        int num;
+        boolean perms;
         if (args.length > 0 && args[0].matches("^[0-9]+$")) {
             num = Integer.valueOf(args[0]);
 
             //Check for bot permissions
-            perms = e.getGuild().getSelfMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE);
-            if (perms) {
-                if (num <= 0 || num > 1000) {
-                    return ctx.warn("The number must be between 1-1000.");
-                }
-            } else {
-                if (num <= 0 || num > 50) {
-                    return ctx.err("The number must be between 1-50, I don't have permission to manage messages!");
-                }
+            perms = ctx.botHasPermission(Permission.MESSAGE_MANAGE);
+            String errMsg = perms ? ERR_W_MANAGE_MESSAGE : ERR_WO_MANAGE_MESSAGE;
+            if (!perms && 50 < num && num <= 1000) {
+                return ctx.noBotPermissions(errMsg);
+            } else if (num <= 0 || 1000 < num) {
+                return ctx.warn(errMsg);
             }
 
         } else {
@@ -112,7 +107,6 @@ public class PurgeCommand extends AbstractDiscordCommand {
         }
 
         //Delete messages
-        TextChannel c = e.getTextChannel();
         if (mine.size() == 1) {
             mine.get(0).delete().queue();
             return ctx.reply("1 message purged.");

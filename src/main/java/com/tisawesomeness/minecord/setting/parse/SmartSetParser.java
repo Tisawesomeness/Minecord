@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
  * <br>Will fail if there is a channel override (since that should be changed instead).
  */
 @RequiredArgsConstructor
-public class SmartSetParser {
+public class SmartSetParser extends SettingCommandHandler {
     @Getter private final @NonNull CommandContext ctx;
     @Getter private final @NonNull Setting<?> setting;
 
@@ -27,7 +27,7 @@ public class SmartSetParser {
         if (!ctx.e.isFromGuild()) {
             DbUser user = ctx.getUser(ctx.e.getAuthor());
             return new SettingChanger(this, user).parse();
-        } else if (!SettingCommandHandler.userHasManageServerPermissions(ctx.e)) {
+        } else if (!userHasManageServerPermissions()) {
             return ctx.warn("You must have Manage Server permissions.");
         }
         return changeIfNoChannelOverrides();

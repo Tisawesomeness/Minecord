@@ -11,7 +11,6 @@ import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -130,11 +129,10 @@ public class CapeCommand extends AbstractPlayerCommand {
     }
 
     private static boolean canSendFiles(CommandContext ctx) {
-        MessageReceivedEvent e = ctx.e;
-        if (!e.isFromGuild()) {
+        if (!ctx.e.isFromGuild()) {
             return true;
         }
-        return e.getGuild().getSelfMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_ATTACH_FILES);
+        return ctx.botHasPermission(Permission.MESSAGE_ATTACH_FILES);
     }
 
 }

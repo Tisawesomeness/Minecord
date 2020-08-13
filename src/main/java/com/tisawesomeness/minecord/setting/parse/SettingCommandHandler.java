@@ -7,10 +7,8 @@ import com.tisawesomeness.minecord.setting.Setting;
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
-import java.util.Objects;
 import java.util.function.Function;
 
 /**
@@ -56,10 +54,10 @@ public abstract class SettingCommandHandler {
     /**
      * Checks whether the user of a command has sufficient permission to use setting commands.
      * <br>This is true for DMs.
-     * @param e The event corresponding to the executing command
      * @return True if the author has {@code MANAGE_SERVER} permissions in the current channel
      */
-    public static boolean userHasManageServerPermissions(MessageReceivedEvent e) {
-        return !e.isFromGuild() || Objects.requireNonNull(e.getMember()).hasPermission(Permission.MANAGE_SERVER);
+    public boolean userHasManageServerPermissions() {
+        CommandContext ctx = getCtx();
+        return !ctx.e.isFromGuild() || ctx.userHasPermission(Permission.MANAGE_SERVER);
     }
 }

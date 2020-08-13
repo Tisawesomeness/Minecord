@@ -13,9 +13,15 @@ import com.google.common.collect.EnumMultiset;
 import com.google.common.collect.ImmutableMultiset;
 import com.google.common.collect.Multiset;
 import lombok.NonNull;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
+import java.util.Collection;
+import java.util.EnumSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -71,8 +77,58 @@ public class CommandExecutor {
         Result result = runCommand(c, ctx);
         results.get(c).add(result);
     }
-
     private Result runCommand(Command c, CommandContext ctx) {
+        return processElevation(c, ctx);
+    }
+
+    private Result processElevation(Command c, CommandContext ctx) {
+        if (c instanceof IElevatedCommand && !ctx.isElevated) {
+            return ctx.sendResult(Result.NOT_ELEVATED, "You must be elevated to use that command!");
+        }
+        return processPermissions(c, ctx);
+    }
+
+    private Result processPermissions(Command c, CommandContext ctx) {
+        if (ctx.e.isFromGuild()) {
+            return processUserPermissions(c, ctx);
+        }
+        return processCooldown(c, ctx);
+    }
+    private Result processUserPermissions(Command c, CommandContext ctx) {
+        if (!ctx.isElevated) {
+            MessageReceivedEvent e = ctx.e;
+            TextChannel tc = e.getTextChannel();
+            EnumSet<Permission> rup = c.getUserPermissions();
+            Member mem = Objects.requireNonNull(e.getMember());
+            if (!mem.hasPermission(tc, rup)) {
+                String missingPermissions = getMissingPermissionString(mem, tc, rup);
+                String errMsg = String.format(":warning: You are missing the %s permissions.", missingPermissions);
+                return ctx.noUserPermissions(errMsg);
+            }
+        }
+        return processBotPermissions(c, ctx);
+    }
+    private Result processBotPermissions(Command c, CommandContext ctx) {
+        MessageReceivedEvent e = ctx.e;
+        TextChannel tc = e.getTextChannel();
+        EnumSet<Permission> rbp = c.getBotPermissions();
+        Member sm = e.getGuild().getSelfMember();
+        if (!sm.hasPermission(tc, rbp)) {
+            String missingPermissions = getMissingPermissionString(sm, tc, rbp);
+            String errMsg = String.format(":warning: I am missing the %s permissions.", missingPermissions);
+            return ctx.noBotPermissions(errMsg);
+        }
+        return processCooldown(c, ctx);
+    }
+    // Mutates permissions EnumSet!
+    private static String getMissingPermissionString(Member m, TextChannel tc, Collection<Permission> permissions) {
+        permissions.removeAll(m.getPermissions(tc));
+        return permissions.stream()
+                .map(Permission::getName)
+                .collect(Collectors.joining(", "));
+    }
+
+    private Result processCooldown(Command c, CommandContext ctx) {
         if (!shouldSkipCooldown(ctx)) {
             long cooldown = c.getCooldown(cc);
             if (cooldown > 0) {
@@ -80,13 +136,18 @@ public class CommandExecutor {
                 long lastExecutedTime = getLastExecutedTime(c, uid);
                 long msLeft = cooldown + lastExecutedTime - System.currentTimeMillis();
                 if (msLeft > 0) {
-                    ctx.warn(String.format("Wait `%.3f` more seconds.", (double) msLeft/1000));
-                    return Result.COOLDOWN;
+                    String cooldownMsg = String.format("Wait `%.3f` more seconds.", (double) msLeft/1000);
+                    return ctx.sendResult(Result.COOLDOWN, cooldownMsg);
                 }
             }
         }
         return tryToRun(c, ctx);
     }
+    private long getLastExecutedTime(Command c, long uid) {
+        Long let = cooldownMap.get(c.getCooldownId(cc)).get(uid, ignore -> 0L);
+        return Objects.requireNonNull(let); // Null value never put into map
+    }
+
     private static Result tryToRun(Command c, CommandContext ctx) {
         try {
             return c.run(ctx.args, ctx);
@@ -95,12 +156,6 @@ public class CommandExecutor {
         }
         return Result.EXCEPTION;
     }
-
-    private long getLastExecutedTime(Command c, long uid) {
-        Long let = cooldownMap.get(c.getCooldownId(cc)).get(uid, ignore -> 0L);
-        return Objects.requireNonNull(let); // Null value never put into map
-    }
-
     private static void handle(Exception ex, CommandContext ctx) {
         ex.printStackTrace();
         String unexpected = "There was an unexpected exception: " + MarkdownUtil.monospace(ex.toString());
@@ -115,7 +170,6 @@ public class CommandExecutor {
         ctx.reply(errorMessage);
         ctx.log(errorMessage);
     }
-
     private static String buildStackTrace(Exception ex) {
         StringBuilder sb = new StringBuilder();
         for (StackTraceElement ste : ex.getStackTrace()) {

@@ -15,7 +15,6 @@ import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -42,8 +41,8 @@ public class ListSubcommand {
             return parseAdminList();
         } else if (!ctx.e.isFromGuild()) {
             return ctx.warn(String.format("`%ssettings list` cannot be used in DMs.", ctx.prefix));
-        } else if (!Objects.requireNonNull(ctx.e.getMember()).hasPermission(Permission.MANAGE_SERVER)) {
-            return ctx.warn("You do not have Manage Server permissions.");
+        } else if (!ctx.userHasPermission(Permission.MANAGE_SERVER)) {
+            return ctx.noUserPermissions("You do not have Manage Server permissions.");
         }
         ctx.triggerCooldown();
         return listSettings("All Channel Overrides", ctx.e.getGuild().getIdLong());

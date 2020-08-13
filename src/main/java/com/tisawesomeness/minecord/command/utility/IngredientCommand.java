@@ -47,6 +47,9 @@ public class IngredientCommand extends AbstractUtilityCommand {
 
         // Create menu
         MenuStatus status = ReactMenu.getMenuStatus(ctx);
+        if (status == MenuStatus.NO_PERMISSION) {
+            return ctx.noBotPermissions(MenuStatus.NO_PERMISSION.getReason());
+        }
         if (status.isValid()) {
             new Recipe.RecipeMenu(recipes, page, "en_US").post(ctx.e.getChannel(), ctx.e.getAuthor());
             return Result.SUCCESS;

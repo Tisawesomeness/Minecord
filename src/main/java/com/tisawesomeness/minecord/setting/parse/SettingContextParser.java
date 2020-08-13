@@ -45,7 +45,7 @@ public class SettingContextParser extends SettingCommandHandler {
             if ("list".equalsIgnoreCase(contextArg)) {
                 return new ListSubcommand(this).parse();
             }
-        } else if (!isAdmin && !SettingCommandHandler.userHasManageServerPermissions(ctx.e)) {
+        } else if (!isAdmin && !userHasManageServerPermissions()) {
             return ctx.warn("You must have Manage Server permissions.");
         }
         Optional<SettingContext> settingContextOpt = getContext(contextArg);

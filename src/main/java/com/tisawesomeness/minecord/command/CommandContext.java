@@ -13,6 +13,7 @@ import com.tisawesomeness.minecord.setting.impl.UseMenusSetting;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -25,6 +26,7 @@ import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -269,6 +271,32 @@ public class CommandContext {
     }
 
     /**
+     * Checks if the user has all permissions in the current channel.
+     * @param permissions A list of permissions
+     * @return True if the user is elevated or has all permissions in the list
+     * @throws IllegalStateException If the command was executed in DMs
+     */
+    public boolean userHasPermission(Permission... permissions) {
+        if (isElevated) {
+            return true;
+        }
+        if (!e.isFromGuild()) {
+            throw new IllegalStateException("Permisssions can only be checked in commands sent from guilds.");
+        }
+        return Objects.requireNonNull(e.getMember()).hasPermission(e.getTextChannel(), permissions);
+    }
+    /**
+     * Checks if the bot has all permissions in the current channel.
+     * <br><b>Do not assume the bot has every permission requested in the invite.</b>
+     * @param permissions A list of permissions
+     * @return True only if the bot has every permission in the list
+     * @throws IllegalStateException If the command was executed in DMs
+     */
+    public boolean botHasPermission(Permission... permissions) {
+        return e.getGuild().getSelfMember().hasPermission(e.getTextChannel(), permissions);
+    }
+
+    /**
      * Replies to the sender of this command.
      * @param text The text to send. Must be shorter than {@link Message#MAX_CONTENT_LENGTH}.
      * @return Success
@@ -298,13 +326,31 @@ public class CommandContext {
     }
 
     /**
+     * Tells the sender of this command that they do not have the correct permissions.
+     * <br>The no permissions emote is added to the message.
+     * @param text The warning message
+     * @return No user permissions result
+     */
+    public Result noUserPermissions(CharSequence text) {
+        return sendResult(Result.NO_USER_PERMISSIONS, text);
+    }
+    /**
+     * Tells the sender of this command that the bot does not have the correct permissions.
+     * <br>The no permissions emote is added to the message.
+     * @param text The warning message
+     * @return No bot permissions result
+     */
+    public Result noBotPermissions(CharSequence text) {
+        return sendResult(Result.NO_BOT_PERMISSIONS, text);
+    }
+    /**
      * Warns the sender of this command.
      * <br>The warning emote is added to the message.
      * @param text The warning message
      * @return Warning
      */
     public Result warn(CharSequence text) {
-        return sendWithEmote(text, Result.WARNING);
+        return sendResult(Result.WARNING, text);
     }
     /**
      * Displays an error to the sender of this command.
@@ -313,10 +359,16 @@ public class CommandContext {
      * @return Error
      */
     public Result err(CharSequence text) {
-        return sendWithEmote(text, Result.ERROR);
+        return sendResult(Result.ERROR, text);
     }
 
-    private Result sendWithEmote(CharSequence text, Result result) {
+    /**
+     * Sends a message to the current channel, adding the appropiate emote.
+     * @param result The result to get the emote from
+     * @param text The message to send
+     * @return The given result
+     */
+    public Result sendResult(Result result, CharSequence text) {
         String msg = result.addEmote(text, lang);
         e.getTextChannel().sendMessage(msg).queue();
         return result;

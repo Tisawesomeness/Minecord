@@ -66,9 +66,10 @@ public class PermsCommand extends AbstractDiscordCommand {
 
             // Check for user permissions (prevent using this command to get unseen channel info)
             if (!e.getMember().hasPermission(c, Permission.VIEW_CHANNEL, Permission.MESSAGE_READ)) {
-                return ctx.warn(invalidChannel);
+                ctx.warn(invalidChannel); // Lying about the result lol
+                return Result.NO_USER_PERMISSIONS;
             } else if (!e.getMember().hasPermission(c, Permission.MESSAGE_WRITE)) {
-                return ctx.warn("You do not have permission to write in that channel.");
+                return ctx.noUserPermissions("You do not have permission to write in that channel.");
             }
         
         // Get current channel if no args, user clearly has permission to send messages
