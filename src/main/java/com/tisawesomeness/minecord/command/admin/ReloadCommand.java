@@ -22,7 +22,7 @@ public class ReloadCommand extends AbstractAdminCommand {
             ctx.bot.reload();
         } catch (IOException | ExecutionException | InterruptedException ex) {
             ex.printStackTrace();
-            return ctx.err("Could not reload!");
+            return ctx.sendResult(Result.EXCEPTION, "Could not reload!"); // A failed reload is REALLY severe
         }
         m.editMessage(":white_check_mark: Reloaded!").queue();
 

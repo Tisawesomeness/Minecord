@@ -51,7 +51,7 @@ public class RoleCommand extends AbstractDiscordCommand {
             }
         }
         if (role == null) {
-            return ctx.warn("That role does not exist.");
+            return ctx.invalidArgs("That role does not exist.");
         }
 
         ctx.triggerCooldown();

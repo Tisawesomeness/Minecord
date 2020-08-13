@@ -28,7 +28,7 @@ public class SmartSetParser extends SettingCommandHandler {
             DbUser user = ctx.getUser(ctx.e.getAuthor());
             return new SettingChanger(this, user).parse();
         } else if (!userHasManageServerPermissions()) {
-            return ctx.warn("You must have Manage Server permissions.");
+            return ctx.noUserPermissions("You must have Manage Server permissions.");
         }
         return changeIfNoChannelOverrides();
     }

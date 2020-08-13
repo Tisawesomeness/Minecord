@@ -32,7 +32,7 @@ public class GuildCommand extends AbstractDiscordCommand {
         if (args.length > 1 && args[1].equals("admin") && ctx.isElevated) {
             elevated = true;
             if (!DiscordUtils.isDiscordId(args[0])) {
-                return ctx.warn("Not a valid ID!");
+                return ctx.invalidArgs("Not a valid ID!");
             }
             g = ctx.bot.getShardManager().getGuildById(args[0]);
             if (g == null) {

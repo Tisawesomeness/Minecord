@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import javax.annotation.Nullable;
+
 /**
  * An enum of all possible outcomes when a user tries to execute a command.
  */
@@ -36,6 +38,10 @@ public enum Result {
      */
     NO_BOT_PERMISSIONS("No Bot Permissions", ":no_entry_sign:"),
     /**
+     * The user hit a syntax error
+     */
+    INVALID_ARGS("Invalid Args", ":warning:", ":beginner:"),
+    /**
      * The user did something wrong
      */
     WARNING("Warning", ":warning:"),
@@ -54,6 +60,21 @@ public enum Result {
 
     @Getter private final @NonNull String name;
     @Getter private final @NonNull String emote;
+    private final @Nullable String internalEmote;
+
+    Result(@NonNull String name, @NonNull String emote) {
+        this.name = name;
+        this.emote = emote;
+        internalEmote = null;
+    }
+
+    /**
+     * Gets the emote used for documentation and usage purposes, not shown to the user
+     * @return The internal emote
+     */
+    public @NonNull String getInternalEmote() {
+        return internalEmote == null ? emote : internalEmote;
+    }
 
     /**
      * Adds the emote associated with this Result to a message.

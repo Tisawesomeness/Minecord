@@ -44,12 +44,12 @@ public class GuildContext extends SettingContext {
         if (currentArg < ctx.args.length) {
             String guildArg = ctx.args[currentArg];
             if (!DiscordUtils.isDiscordId(guildArg)) {
-                return ctx.warn("Not a valid guild id.");
+                return ctx.invalidArgs("Not a valid guild id.");
             }
             currentArg++;
             return displayOrParseGuildId(Long.parseLong(guildArg));
         }
-        return ctx.warn("You must specify a guild id.");
+        return ctx.invalidArgs("You must specify a guild id.");
     }
 
     private Result displayOrParseGuildId(long gid) {

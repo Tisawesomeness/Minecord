@@ -16,8 +16,8 @@ import java.util.List;
 
 public class PurgeCommand extends AbstractDiscordCommand {
 
-    public static final String ERR_W_MANAGE_MESSAGE = "The number must be between 1-1000.";
-    public static final String ERR_WO_MANAGE_MESSAGE =
+    private static final String ERR_W_MANAGE_MESSAGE = "The number must be between 1-1000.";
+    private static final String ERR_WO_MANAGE_MESSAGE =
             "The number must be between 1-50, I don't have permission to manage messages!";
 
     public @NonNull String getId() {
@@ -53,7 +53,7 @@ public class PurgeCommand extends AbstractDiscordCommand {
             if (!perms && 50 < num && num <= 1000) {
                 return ctx.noBotPermissions(errMsg);
             } else if (num <= 0 || 1000 < num) {
-                return ctx.warn(errMsg);
+                return ctx.invalidArgs(errMsg);
             }
 
         } else {

@@ -29,7 +29,7 @@ public class NameCommand extends AbstractAdminCommand {
 
         //Check for permissions
         if (!guild.getSelfMember().hasPermission(Permission.NICKNAME_CHANGE)) {
-            return ctx.err("No permissions!");
+            return ctx.noBotPermissions("The bot does not have permissions to change nickname in that guidl.");
         }
 
         //Set the nickname

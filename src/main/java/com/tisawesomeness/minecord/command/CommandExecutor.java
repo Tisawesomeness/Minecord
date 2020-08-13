@@ -83,7 +83,7 @@ public class CommandExecutor {
 
     private Result processElevation(Command c, CommandContext ctx) {
         if (c instanceof IElevatedCommand && !ctx.isElevated) {
-            return ctx.sendResult(Result.NOT_ELEVATED, "You must be elevated to use that command!");
+            return ctx.notElevated("You must be elevated to use that command!");
         }
         return processPermissions(c, ctx);
     }
@@ -115,7 +115,7 @@ public class CommandExecutor {
         Member sm = e.getGuild().getSelfMember();
         if (!sm.hasPermission(tc, rbp)) {
             String missingPermissions = getMissingPermissionString(sm, tc, rbp);
-            String errMsg = String.format(":warning: I am missing the %s permissions.", missingPermissions);
+            String errMsg = String.format("I am missing the %s permissions.", missingPermissions);
             return ctx.noBotPermissions(errMsg);
         }
         return processCooldown(c, ctx);

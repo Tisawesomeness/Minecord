@@ -25,7 +25,7 @@ public class ItemCommand extends AbstractUtilityCommand {
 
         // If nothing is found
         if (item == null) {
-            return ctx.warn("That item does not exist!\nDid you spell it correctly?");
+            return ctx.invalidArgs("That item does not exist!\nDid you spell it correctly?");
         }
 
         // Build message

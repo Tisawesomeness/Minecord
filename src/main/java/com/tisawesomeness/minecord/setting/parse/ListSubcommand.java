@@ -60,7 +60,7 @@ public class ListSubcommand {
     private Result parseGuildAndList() {
         String guildArg = ctx.args[currentArg];
         if (!DiscordUtils.isDiscordId(guildArg)) {
-            return ctx.warn("Not a valid guild id.");
+            return ctx.invalidArgs("Not a valid guild id.");
         }
         return listSettings("All Channel Overrides for Guild " + guildArg, Long.parseLong(guildArg));
     }

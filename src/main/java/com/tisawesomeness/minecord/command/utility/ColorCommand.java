@@ -22,7 +22,7 @@ public class ColorCommand extends AbstractUtilityCommand {
         ctx.triggerCooldown();
         Color c = ColorUtils.parseColor(ctx.joinArgs(), "en_US");
         if (c == null) {
-            return ctx.warn("Not a valid color!");
+            return ctx.invalidArgs("Not a valid color!");
         }
         return ctx.replyRaw(ctx.addFooter(buildColorInfo(c)));
     }

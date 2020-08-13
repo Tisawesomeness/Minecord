@@ -58,7 +58,7 @@ public class DebugCommand extends AbstractAdminCommand {
                 return Result.SUCCESS;
             }
         }
-        return ctx.warn("Not a valid debug option.");
+        return ctx.invalidArgs("Not a valid debug option.");
     }
 
     private static List<DebugOption> buildDebugOptionList(CommandContext ctx) {

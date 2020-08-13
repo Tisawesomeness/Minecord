@@ -34,10 +34,10 @@ public class BanCommand extends AbstractAdminCommand {
         if ("user".equals(args[0])) {
             //Get user from message
             if (args.length == 1) {
-                return ctx.warn("Please define a user.");
+                return ctx.invalidArgs("Please define a user.");
             }
             if (!DiscordUtils.isDiscordId(args[1])) {
-                return ctx.warn("Not a valid ID!");
+                return ctx.invalidArgs("Not a valid ID!");
             }
             if (ctx.config.isOwner(args[1])) {
                 return ctx.warn("You can't ban the owner!");
@@ -62,10 +62,10 @@ public class BanCommand extends AbstractAdminCommand {
         } else if ("guild".equals(args[0])) {
             //Get guild from message
             if (args.length == 1) {
-                return ctx.warn("Please define a guild.");
+                return ctx.invalidArgs("Please define a guild.");
             }
             if (!DiscordUtils.isDiscordId(args[1])) {
-                return ctx.warn("Not a valid ID!");
+                return ctx.invalidArgs("Not a valid ID!");
             }
             Guild guild = sm.getGuildById(args[1]);
             long logChannelID = ctx.config.getLogChannelId();
@@ -93,7 +93,7 @@ public class BanCommand extends AbstractAdminCommand {
         //Query part of command
         } else {
             if (!DiscordUtils.isDiscordId(args[0])) {
-                return ctx.warn("Not a valid ID!");
+                return ctx.invalidArgs("Not a valid ID!");
             }
             long id = Long.valueOf(args[0]);
             boolean banned = ctx.getGuild(id).isBanned() || ctx.getUser(id).isBanned();

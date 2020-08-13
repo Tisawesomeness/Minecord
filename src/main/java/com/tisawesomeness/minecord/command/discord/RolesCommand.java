@@ -48,7 +48,7 @@ public class RolesCommand extends AbstractDiscordCommand {
                 }
             } else {
                 if (!User.USER_TAG.matcher(args[0]).matches()) {
-                    return ctx.warn("Not a valid user format. Use `name#1234`, a mention, or a valid ID.");
+                    return ctx.invalidArgs("Not a valid user format. Use `name#1234`, a mention, or a valid ID.");
                 }
                 mem = e.getGuild().getMemberByTag(args[0]);
                 if (mem == null) {

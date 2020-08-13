@@ -326,6 +326,15 @@ public class CommandContext {
     }
 
     /**
+     * Tells the sender of this command that they need to be elevated.
+     * <br>The not elevated emote is added to the message.
+     * @param text The warning message
+     * @return Not elevated permissions result
+     */
+    public Result notElevated(CharSequence text) {
+        return sendResult(Result.NOT_ELEVATED, text);
+    }
+    /**
      * Tells the sender of this command that they do not have the correct permissions.
      * <br>The no permissions emote is added to the message.
      * @param text The warning message
@@ -342,6 +351,15 @@ public class CommandContext {
      */
     public Result noBotPermissions(CharSequence text) {
         return sendResult(Result.NO_BOT_PERMISSIONS, text);
+    }
+    /**
+     * Tells the sender of this command they used it wrong.
+     * <br>The warning emote is added to the message.
+     * @param text The warning message
+     * @return Invalid args result
+     */
+    public Result invalidArgs(CharSequence text) {
+        return sendResult(Result.INVALID_ARGS, text);
     }
     /**
      * Warns the sender of this command.

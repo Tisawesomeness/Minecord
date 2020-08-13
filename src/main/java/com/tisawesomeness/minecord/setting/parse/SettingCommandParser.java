@@ -46,10 +46,10 @@ public class SettingCommandParser extends SettingCommandHandler {
 
     private Result parseAdminContextIfAble(String[] args) {
         if (!ctx.isElevated) {
-            return ctx.warn("You do not have permission to use elevated commands.");
+            return ctx.notElevated("You do not have permission to use elevated commands.");
         }
         if (args.length == 1) {
-            return ctx.warn(String.format("Incorrect arguments. See `%shelp settings admin`.", ctx.prefix));
+            return ctx.invalidArgs(String.format("Incorrect arguments. See `%shelp settings admin`.", ctx.prefix));
         }
         currentArg++;
         return new SettingContextParser(this, true).parse();

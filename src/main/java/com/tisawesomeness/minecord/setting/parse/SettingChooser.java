@@ -46,12 +46,12 @@ public class SettingChooser extends SettingCommandHandler {
                 return changeSettingIfSpaceForValueExists(settingOpt.get());
             }
         }
-        return ctx.warn("That setting does not exist.");
+        return ctx.invalidArgs("That setting does not exist.");
     }
 
     private Result changeSettingIfSpaceForValueExists(Setting<?> setting) {
         if (type == SettingCommandType.SET && currentArg == ctx.args.length) {
-            return ctx.warn("You must specify a setting value.");
+            return ctx.invalidArgs("You must specify a setting value.");
         }
         return new SettingChanger(this, setting).parse();
     }

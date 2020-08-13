@@ -46,7 +46,7 @@ public class ServerCommand extends AbstractUtilityCommand {
         if (!arg.matches(ipAddressRegex)) {
             ip = false;
             if (!arg.matches(serverAddressRegex)) {
-                return ctx.warn(ctx.i18n("invalidAddress"));
+                return ctx.invalidArgs(ctx.i18n("invalidAddress"));
             }
         }
         ctx.triggerCooldown();

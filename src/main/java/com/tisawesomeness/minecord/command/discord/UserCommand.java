@@ -33,7 +33,7 @@ public class UserCommand extends AbstractDiscordCommand {
         //If the author used the admin keyword and is an elevated user
         if (args.length > 1 && args[1].equals("admin") && ctx.isElevated) {
             if (!DiscordUtils.isDiscordId(args[0])) {
-                return ctx.warn("Not a valid ID!");
+                return ctx.invalidArgs("Not a valid ID!");
             }
             User u = sm.retrieveUserById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
             if (u == null) {
@@ -96,7 +96,7 @@ public class UserCommand extends AbstractDiscordCommand {
                 }
             } else {
                 if (!User.USER_TAG.matcher(args[0]).matches()) {
-                    return ctx.warn("Not a valid user format. Use `name#1234`, a mention, or a valid ID.");
+                    return ctx.invalidArgs("Not a valid user format. Use `name#1234`, a mention, or a valid ID.");
                 }
                 mem = e.getGuild().getMemberByTag(args[0]);
                 if (mem == null) {

@@ -84,6 +84,7 @@ public class SettingChanger {
             return ctx.reply(attempt.getValue());
         }
         String errorMsg = String.join("\n", attempt.getErrors());
+        // TODO invalid setting value should return invalid args but returns warning, low priority since invis to user
         return ctx.warn(errorMsg);
     }
 }

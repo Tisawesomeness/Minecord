@@ -107,7 +107,7 @@ public class HelpCommand extends AbstractMiscCommand {
             return ctx.reply(showHelp(ctx, c));
         }
 
-        return ctx.warn("That command or module does not exist.");
+        return ctx.invalidArgs("That command or module does not exist.");
     }
 
     /**

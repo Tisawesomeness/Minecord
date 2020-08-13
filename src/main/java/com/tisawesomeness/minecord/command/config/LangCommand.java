@@ -29,20 +29,20 @@ public class LangCommand extends AbstractConfigCommand {
             return listLanguages(ctx, "All Languages", true);
         } else if ("info".equalsIgnoreCase(args[0])) {
             if (args.length == 1) {
-                return ctx.warn("You must specify a language.");
+                return ctx.invalidArgs("You must specify a language.");
             }
             Optional<Lang> langOpt = Lang.from(args[1]);
             if (langOpt.isPresent()) {
                 ctx.triggerCooldown();
                 return displayLanguageInfo(ctx, langOpt.get());
             }
-            return ctx.warn("That language is not valid.");
+            return ctx.invalidArgs("That language is not valid.");
         }
         Optional<Lang> langOpt = Lang.from(args[0]);
         if (langOpt.isPresent()) {
             return new SmartSetParser(ctx, ctx.bot.getSettings().lang).parse();
         }
-        return ctx.warn("That language is not valid.");
+        return ctx.invalidArgs("That language is not valid.");
     }
 
     private static Result listLanguages(CommandContext ctx, String title, boolean includeDevelopment) {

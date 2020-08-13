@@ -20,6 +20,9 @@ import java.util.Optional;
  * Parses the user context, setting values with the highest priority.
  */
 public class ChannelContext extends SettingContext {
+
+    private static final String INVALID_CHANNEL_ERROR = "Not a valid channel format. Use a `#channel` mention or a valid ID.";
+
     @Getter private final @NonNull CommandContext ctx;
     @Getter private final @NonNull SettingCommandType type;
     private final boolean isAdmin;
@@ -55,7 +58,7 @@ public class ChannelContext extends SettingContext {
     }
     private Result displayCurrentChannelSettingsIfQuery() {
         if (type != SettingCommandType.QUERY) {
-            return ctx.warn("You must specify a channel.");
+            return ctx.invalidArgs("You must specify a channel.");
         }
         TextChannel c = ctx.e.getTextChannel();
         String title = "Channel settings for #" + c.getName();
@@ -67,7 +70,11 @@ public class ChannelContext extends SettingContext {
         String channelArg = ctx.args[currentArg];
         Either<String, TextChannel> maybeChannel = getChannel(channelArg);
         if (!maybeChannel.isRight()) {
-            return ctx.warn(maybeChannel.getLeft());
+            String msg = maybeChannel.getLeft();
+            if (msg.equals(INVALID_CHANNEL_ERROR)) {
+                return ctx.invalidArgs(msg);
+            }
+            return ctx.warn(msg);
         }
         TextChannel c = maybeChannel.getRight();
         currentArg++;
@@ -102,8 +109,7 @@ public class ChannelContext extends SettingContext {
     private Either<String, TextChannel> getChannelFromMentions(long gid) {
         List<TextChannel> mentioned = ctx.e.getMessage().getMentionedChannels();
         if (mentioned.isEmpty()) {
-            return Either.left(
-                    "Not a valid channel format. Use a `#channel` mention or a valid ID.");
+            return Either.left(INVALID_CHANNEL_ERROR);
         }
         TextChannel c = mentioned.get(0);
         if (c.getGuild().getIdLong() != gid) {
@@ -115,7 +121,7 @@ public class ChannelContext extends SettingContext {
 
     private Result parseAdmin() {
         if (currentArg >= ctx.args.length) {
-            return ctx.warn("You must specify a channel id.");
+            return ctx.invalidArgs("You must specify a channel id.");
         }
         return displayOrParseChannelId();
     }
@@ -123,7 +129,7 @@ public class ChannelContext extends SettingContext {
         String channelArg = ctx.args[currentArg];
         Either<String, Long> maybeCid = getChannelId(channelArg);
         if (!maybeCid.isRight()) {
-            return ctx.warn(maybeCid.getLeft());
+            return ctx.invalidArgs(maybeCid.getLeft());
         }
         long cid = maybeCid.getRight();
         currentArg++;
@@ -150,6 +156,6 @@ public class ChannelContext extends SettingContext {
         if (!mentioned.isEmpty()) {
             return Either.right(mentioned.get(0).getIdLong());
         }
-        return Either.left("Not a valid channel format. Use a `#channel` mention or a valid ID.");
+        return Either.left(INVALID_CHANNEL_ERROR);
     }
 }

@@ -32,7 +32,7 @@ public class PermsCommand extends AbstractDiscordCommand {
         // Check any channel id if admin
         if (args.length > 1 && args[1].equals("admin") && ctx.isElevated) {
             if (!DiscordUtils.isDiscordId(args[0])) {
-                return ctx.warn("Not a valid ID!");
+                return ctx.invalidArgs("Not a valid ID!");
             }
             c = ctx.bot.getShardManager().getTextChannelById(args[0]);
             if (c == null) {
@@ -55,7 +55,7 @@ public class PermsCommand extends AbstractDiscordCommand {
             } else {
                 List<TextChannel> mentioned = e.getMessage().getMentionedChannels();
                 if (mentioned.size() == 0) {
-                    return ctx.warn("Not a valid channel format. Use a `#channel` mention or a valid ID.");
+                    return ctx.invalidArgs("Not a valid channel format. Use a `#channel` mention or a valid ID.");
                 }
                 TextChannel tc = mentioned.get(0);
                 if (tc.getGuild().getIdLong() != e.getGuild().getIdLong()) {

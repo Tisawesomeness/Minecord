@@ -46,7 +46,7 @@ public class UsageCommand extends AbstractAdminCommand {
         if (cmdOpt.isPresent()) {
             return getCommandUsage(ctx, eb, cmdOpt.get());
         }
-        return ctx.warn("That command or module does not exist.");
+        return ctx.invalidArgs("That command or module does not exist.");
     }
 
     private Result processGlobalUsage(CommandContext ctx, Lang lang, EmbedBuilder eb) {
@@ -99,7 +99,7 @@ public class UsageCommand extends AbstractAdminCommand {
         }
         String resultListString = results.entrySet().stream()
                 .sorted(Comparator.comparing(Multiset.Entry::getElement))
-                .map(en -> String.format("**%d** %s", en.getCount(), en.getElement().getEmote()))
+                .map(en -> String.format("**%d** %s", en.getCount(), en.getElement().getInternalEmote()))
                 .collect(Collectors.joining(" | "));
         return String.format("%s | Total **%d**", resultListString, results.size());
     }
@@ -117,7 +117,7 @@ public class UsageCommand extends AbstractAdminCommand {
     private static String formatResult(Multiset.Entry<Result> en, int total) {
         Result result = en.getElement();
         int c = en.getCount();
-        return String.format("**%s** %s `%d` | `%.2f%%`", result, result.getEmote(), c, 100.0 * c / total);
+        return String.format("**%s** %s `%d` | `%.2f%%`", result, result.getInternalEmote(), c, 100.0 * c / total);
     }
 
     private static Multiset<Result> accumulateResults(Iterable<? extends Command> cmds, CommandContext ctx) {

@@ -31,6 +31,6 @@ public abstract class SettingContext extends SettingCommandHandler {
         if (currentArg < ctx.args.length) {
             return new SettingChooser(this, obj).parse();
         }
-        return ctx.warn("You must specify a setting.");
+        return ctx.invalidArgs("You must specify a setting.");
     }
 }

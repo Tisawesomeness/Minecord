@@ -46,7 +46,7 @@ public class SettingContextParser extends SettingCommandHandler {
                 return new ListSubcommand(this).parse();
             }
         } else if (!isAdmin && !userHasManageServerPermissions()) {
-            return ctx.warn("You must have Manage Server permissions.");
+            return ctx.noUserPermissions("You must have Manage Server permissions.");
         }
         Optional<SettingContext> settingContextOpt = getContext(contextArg);
         if (settingContextOpt.isPresent()) {
@@ -72,7 +72,7 @@ public class SettingContextParser extends SettingCommandHandler {
         if (isAdmin && type == SettingCommandType.QUERY) {
             return parseChannelAndDisplay();
         }
-        return ctx.warn("Incorrect context.");
+        return ctx.invalidArgs("Incorrect context.");
     }
 
     private Result parseChannelAndDisplay() {
@@ -104,7 +104,7 @@ public class SettingContextParser extends SettingCommandHandler {
             ctx.triggerCooldown();
             return displayCurrentSettings(c);
         }
-        return ctx.warn("Not a valid channel format. Use a `#channel` mention or a valid ID.");
+        return ctx.invalidArgs("Not a valid channel format. Use a `#channel` mention or a valid ID.");
     }
 
     private Result displayCurrentSettings(TextChannel c) {
