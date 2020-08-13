@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.discord;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.IGuildOnlyCommand;
 import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RolesCommand extends AbstractDiscordCommand {
+public class RolesCommand extends AbstractDiscordCommand implements IGuildOnlyCommand {
 
     public @NonNull String getId() {
         return "roles";
@@ -24,11 +25,6 @@ public class RolesCommand extends AbstractDiscordCommand {
 
     public Result run(String[] args, CommandContext ctx) {
         MessageReceivedEvent e = ctx.e;
-        
-        // Guild-only command
-        if (!e.isFromGuild()) {
-            return ctx.warn("This command is not available in DMs.");
-        }
 
         // Check for argument length
         if (args.length == 0) {

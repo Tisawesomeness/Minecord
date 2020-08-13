@@ -302,7 +302,7 @@ public class CommandContext {
      * @return Success
      */
     public Result reply(CharSequence text) {
-        e.getTextChannel().sendMessage(text).queue();
+        e.getChannel().sendMessage(text).queue();
         return Result.SUCCESS;
     }
     /**
@@ -312,7 +312,7 @@ public class CommandContext {
      * @return Success
      */
     public Result replyRaw(EmbedBuilder eb) {
-        e.getTextChannel().sendMessage(eb.build()).queue();
+        e.getChannel().sendMessage(eb.build()).queue();
         return Result.SUCCESS;
     }
     /**
@@ -397,7 +397,7 @@ public class CommandContext {
      */
     public Result sendResult(Result result, CharSequence text) {
         String msg = result.addEmote(text, lang);
-        e.getTextChannel().sendMessage(msg).queue();
+        e.getChannel().sendMessage(msg).queue();
         return result;
     }
 

@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.discord;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.IGuildOnlyCommand;
 import com.tisawesomeness.minecord.command.Result;
 
 import lombok.NonNull;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-public class PurgeCommand extends AbstractDiscordCommand {
+public class PurgeCommand extends AbstractDiscordCommand implements IGuildOnlyCommand {
 
     private static final String ERR_W_MANAGE_MESSAGE = "The number must be between 1-1000.";
     private static final String ERR_WO_MANAGE_MESSAGE =

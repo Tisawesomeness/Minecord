@@ -78,9 +78,15 @@ public class CommandExecutor {
         results.get(c).add(result);
     }
     private Result runCommand(Command c, CommandContext ctx) {
-        return processElevation(c, ctx);
+        return processGuildOnly(c, ctx);
     }
 
+    private Result processGuildOnly(Command c, CommandContext ctx) {
+        if (c instanceof IGuildOnlyCommand && !ctx.e.isFromGuild()) {
+            return ctx.warn("This command is not available in DMs.");
+        }
+        return processElevation(c, ctx);
+    }
     private Result processElevation(Command c, CommandContext ctx) {
         if (c instanceof IElevatedCommand && !ctx.isElevated) {
             return ctx.notElevated("You must be elevated to use that command!");
