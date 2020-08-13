@@ -51,7 +51,7 @@ public class HistoryCommand extends AbstractPlayerCommand {
                 String m = "The Mojang API could not be reached." +
                     "\n" + "Are you sure that username exists?" +
                     "\n" + "Usernames are case-sensitive.";
-                return ctx.err(m);
+                return ctx.possibleErr(m);
             } else if (!uuid.matches(NameUtils.uuidRegex)) {
                 return ctx.err("The API responded with an error:\n" + uuid);
             }

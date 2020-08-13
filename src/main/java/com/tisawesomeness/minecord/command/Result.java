@@ -40,6 +40,10 @@ public enum Result {
      */
     WARNING("Warning", ":warning:"),
     /**
+     * Either a warning or an error, often when an external service could be either down or the request is incorrect
+     */
+    POSSIBLE_ERROR("Possible Error", ":bangbang:"),
+    /**
      * An external service did something wrong out of our control
      */
     ERROR("Error", ":x:"),

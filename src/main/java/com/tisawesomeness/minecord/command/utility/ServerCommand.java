@@ -71,7 +71,7 @@ public class ServerCommand extends AbstractUtilityCommand {
             MCPingOptions options = MCPingOptions.builder().hostname(hostname).port(port).build();
             reply = MCPing.getPing(options);
         } catch (IOException ignore) {
-            return ctx.warn(ctx.i18n("unreachable"));
+            return ctx.possibleErr(ctx.i18n("unreachable"));
         }
         MCPingResponse.Players players = reply.getPlayers();
 

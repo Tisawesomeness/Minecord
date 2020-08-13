@@ -353,6 +353,15 @@ public class CommandContext {
         return sendResult(Result.WARNING, text);
     }
     /**
+     * Warns the sender of this command, but keeps in mind the possibility it may actually be an error.
+     * <br>The warning emote is added to the message.
+     * @param text The warning message
+     * @return Possible Error
+     */
+    public Result possibleErr(CharSequence text) {
+        return sendResult(Result.POSSIBLE_ERROR, text);
+    }
+    /**
      * Displays an error to the sender of this command.
      * <br>The error emote is added to the message.
      * @param text The error message
