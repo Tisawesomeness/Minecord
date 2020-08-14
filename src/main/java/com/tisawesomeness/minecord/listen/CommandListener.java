@@ -80,37 +80,17 @@ public class CommandListener extends ListenerAdapter {
             return;
         }
 
-        String name = null;
-        String[] args = null;
-
         // If the message is a valid command
         SelfUser su = e.getJDA().getSelfUser();
         FlagConfig fc = config.getFlagConfig();
         String[] content = MessageUtils.getContent(m, prefix, su, fc.isRespondToMentions());
-        if (content != null) {
-
-            // Extract name and argument list
-            name = content[0];
-            if ("".equals(name)) return; //If there is a space after prefix, don't process any more
-            args = Arrays.copyOfRange(content, 1, content.length);
-
-        // TODO temporarily (probably permanently) disabled
-        // If the bot is mentioned and does not mention everyone
-//        } else if (m.isMentioned(e.getJDA().getSelfUser(), MentionType.USER) && e.isFromGuild()) {
-//
-//            // Send the message to the logging channel
-//            EmbedBuilder eb = new EmbedBuilder();
-//            eb.setAuthor(a.getId() + " (" + a.getId() + ")", null, a.getEffectiveAvatarUrl());
-//            eb.setDescription("**`" + e.getGuild().getId() + "`** (" +
-//                e.getGuild().getId() + ") in channel `" + e.getChannel().getId() +
-//                "` (" + e.getChannel().getId() + ")\n" + m.getContentDisplay());
-//            MessageUtils.log(eb.build());
-//            return;
-
-        // If none of the above are satisfied, get out
-        } else {
+        if (content == null) {
             return;
         }
+        // Extract name and argument list
+        String name = content[0];
+        if (name.isEmpty()) return; //If there is a space after prefix, don't process any more
+        String[] args = Arrays.copyOfRange(content, 1, content.length);
 
         // Embed links is required for 90% of commands, so send a message if the bot does not have it.
         if (!canEmbed) {
