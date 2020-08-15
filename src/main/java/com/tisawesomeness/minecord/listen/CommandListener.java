@@ -19,7 +19,6 @@ import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.SelfUser;
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -49,7 +48,6 @@ public class CommandListener extends ListenerAdapter {
         // Get the settings needed before command execution
         String prefix;
         Lang lang;
-        boolean canEmbed = true;
 
         SettingRegistry settings = bot.getSettings();
         if (e.isFromType(ChannelType.TEXT)) {
@@ -63,8 +61,6 @@ public class CommandListener extends ListenerAdapter {
                     cache.getGuild(gid).isBanned()) {
                 return;
             }
-            TextChannel tc = e.getTextChannel();
-            canEmbed = sm.hasPermission(tc, Permission.MESSAGE_EMBED_LINKS);
         } else if (e.isFromType(ChannelType.PRIVATE)) {
             DbUser dbUser = cache.getUser(e.getAuthor().getIdLong());
             prefix = settings.prefix.getEffective(dbUser);
@@ -91,12 +87,6 @@ public class CommandListener extends ListenerAdapter {
         String name = content[0];
         if (name.isEmpty()) return; //If there is a space after prefix, don't process any more
         String[] args = Arrays.copyOfRange(content, 1, content.length);
-
-        // Embed links is required for 90% of commands, so send a message if the bot does not have it.
-        if (!canEmbed) {
-            e.getChannel().sendMessage(":warning: I need Embed Links permissions to use commands!").queue();
-            return;
-        }
 
         // Get command info if the command has been registered
         Optional<Command> cmdOpt = registry.getCommand(name, lang);

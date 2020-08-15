@@ -96,9 +96,24 @@ public class CommandExecutor {
 
     private Result processPermissions(Command c, CommandContext ctx) {
         if (ctx.e.isFromGuild()) {
-            return processUserPermissions(c, ctx);
+            return processBotPermissions(c, ctx);
         }
         return processCooldown(c, ctx);
+    }
+    private Result processBotPermissions(Command c, CommandContext ctx) {
+        MessageReceivedEvent e = ctx.e;
+        TextChannel tc = e.getTextChannel();
+        EnumSet<Permission> rbp = c.getBotPermissions();
+        Member sm = e.getGuild().getSelfMember();
+        if (!sm.hasPermission(tc, Permission.MESSAGE_EMBED_LINKS)) {
+            return ctx.noBotPermissions("I need Embed Links permissions to use commands!");
+        }
+        if (!sm.hasPermission(tc, rbp)) {
+            String missingPermissions = getMissingPermissionString(sm, tc, rbp);
+            String errMsg = String.format("I am missing the %s permissions.", missingPermissions);
+            return ctx.noBotPermissions(errMsg);
+        }
+        return processUserPermissions(c, ctx);
     }
     private Result processUserPermissions(Command c, CommandContext ctx) {
         if (!ctx.isElevated) {
@@ -111,18 +126,6 @@ public class CommandExecutor {
                 String errMsg = String.format(":warning: You are missing the %s permissions.", missingPermissions);
                 return ctx.noUserPermissions(errMsg);
             }
-        }
-        return processBotPermissions(c, ctx);
-    }
-    private Result processBotPermissions(Command c, CommandContext ctx) {
-        MessageReceivedEvent e = ctx.e;
-        TextChannel tc = e.getTextChannel();
-        EnumSet<Permission> rbp = c.getBotPermissions();
-        Member sm = e.getGuild().getSelfMember();
-        if (!sm.hasPermission(tc, rbp)) {
-            String missingPermissions = getMissingPermissionString(sm, tc, rbp);
-            String errMsg = String.format("I am missing the %s permissions.", missingPermissions);
-            return ctx.noBotPermissions(errMsg);
         }
         return processCooldown(c, ctx);
     }
