@@ -171,7 +171,7 @@ public class CommandExecutor {
         String errorMessage = Result.EXCEPTION.addEmote(unexpected, Lang.getDefault());
         if (ctx.config.getFlagConfig().isDebugMode()) {
             errorMessage += buildStackTrace(ex);
-            // Not guarenteed to escape properly, but since users should never see exceptions, it's not necessary
+            // Not guaranteed to escape properly, but since users should never see exceptions, it's not necessary
             if (errorMessage.length() >= Message.MAX_CONTENT_LENGTH) {
                 errorMessage = errorMessage.substring(0, Message.MAX_CONTENT_LENGTH - 3) + "```";
             }
