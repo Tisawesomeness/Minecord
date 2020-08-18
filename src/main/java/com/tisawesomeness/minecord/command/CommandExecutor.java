@@ -123,7 +123,7 @@ public class CommandExecutor {
             Member mem = Objects.requireNonNull(e.getMember());
             if (!mem.hasPermission(tc, rup)) {
                 String missingPermissions = getMissingPermissionString(mem, tc, rup);
-                String errMsg = String.format(":warning: You are missing the %s permissions.", missingPermissions);
+                String errMsg = String.format("You are missing the %s permissions.", missingPermissions);
                 return ctx.noUserPermissions(errMsg);
             }
         }
