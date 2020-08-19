@@ -85,12 +85,16 @@ public class CommandListener extends ListenerAdapter {
         }
         // Extract name and argument list
         String name = content[0];
-        if (name.isEmpty()) return; //If there is a space after prefix, don't process any more
+        if (name.isEmpty()) {
+            return; //If there is a space after prefix, it's not a command
+        }
         String[] args = Arrays.copyOfRange(content, 1, content.length);
 
         // Get command info if the command has been registered
         Optional<Command> cmdOpt = registry.getCommand(name, lang);
-        if (!cmdOpt.isPresent()) return;
+        if (!cmdOpt.isPresent()) {
+            return;
+        }
         Command cmd = cmdOpt.get();
 
         // Check for elevation
