@@ -28,12 +28,13 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class EvalCommand extends AbstractAdminCommand {
 
-    private final Map<String, Object> storage = new HashMap<>();
+    private final Map<String, Object> storage = new ConcurrentHashMap<>();
 
     public @NonNull String getId() {
         return "eval";
