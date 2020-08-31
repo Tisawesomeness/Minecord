@@ -17,7 +17,11 @@ import java.util.concurrent.Callable;
  * Uses picocli to make Minecord a command-line application.
  * Note: @Command is picocli's annotation, it does not represent a discord command.
  */
-@Command(name = "minecord")
+@Command(
+        name = "minecord",
+        mixinStandardHelpOptions = true,
+        versionProvider = BuildInfo.VersionProvider.class
+)
 public class ArgsHandler implements Callable<Integer>, Serializable {
 
     @Option(names = {"-t", "--token"}, description = "The custom token to use.")
@@ -101,3 +105,4 @@ public class ArgsHandler implements Callable<Integer>, Serializable {
     }
 
 }
+
