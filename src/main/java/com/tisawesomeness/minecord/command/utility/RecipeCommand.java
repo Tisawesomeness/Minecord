@@ -35,6 +35,9 @@ public class RecipeCommand extends AbstractUtilityCommand {
                 args = Arrays.copyOf(args, args.length - 1);
             }
         }
+        if (page < 0) {
+            return ctx.invalidArgs("The page number must be positive.");
+        }
 
         // Search through the recipe database
         ArrayList<String> recipes = Recipe.searchOutput(String.join(" ", args), "en_US");

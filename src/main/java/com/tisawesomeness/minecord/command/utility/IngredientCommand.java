@@ -35,6 +35,9 @@ public class IngredientCommand extends AbstractUtilityCommand {
                 args = Arrays.copyOf(args, args.length - 1);
             }
         }
+        if (page < 0) {
+            return ctx.invalidArgs("The page number must be positive.");
+        }
 
         // Search through the recipe database
         ArrayList<String> recipes = Recipe.searchIngredient(String.join(" ", args), "en_US");
@@ -43,6 +46,9 @@ public class IngredientCommand extends AbstractUtilityCommand {
         }
         if (recipes.size() == 0) {
             return ctx.warn("That item is not an ingredient for any recipes!");
+        }
+        if (page >= recipes.size()) {
+            return ctx.warn("That page does not exist!");
         }
 
         // Create menu

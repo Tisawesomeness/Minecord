@@ -42,7 +42,7 @@ shardCount: 1
 # Owners are elevated on startup, can't be demoted, and can't be banned
 # Only put people here you absolutely trust
 owners:
-- 211261249386709000 # Tis_awesomeness#8617
+- 211261249386708992 # Tis_awesomeness#8617
 # Bot log messages will be sent to this channel
 logChannelId: 0
 # The bot invite link displayed in &invite and elsewhere
