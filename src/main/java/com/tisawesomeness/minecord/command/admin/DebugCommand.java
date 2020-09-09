@@ -8,6 +8,7 @@ import com.tisawesomeness.minecord.debug.ChannelCacheDebugOption;
 import com.tisawesomeness.minecord.debug.CooldownCacheDebugOption;
 import com.tisawesomeness.minecord.debug.DebugOption;
 import com.tisawesomeness.minecord.debug.GuildCacheDebugOption;
+import com.tisawesomeness.minecord.debug.ItemDebugOption;
 import com.tisawesomeness.minecord.debug.JDADebugOption;
 import com.tisawesomeness.minecord.debug.PoolsDebugOption;
 import com.tisawesomeness.minecord.debug.RegionDebugOption;
@@ -69,6 +70,7 @@ public class DebugCommand extends AbstractAdminCommand {
                 new JDADebugOption(sm),
                 new ThreadDebugOption(),
                 new RegionDebugOption(sm),
+                new ItemDebugOption(),
                 new PoolsDebugOption(executor),
                 new CooldownCacheDebugOption(executor),
                 new GuildCacheDebugOption(dbCache),

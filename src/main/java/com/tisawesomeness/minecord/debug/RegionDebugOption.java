@@ -37,7 +37,8 @@ public class RegionDebugOption implements DebugOption {
 
     private static @NonNull String printCount(Multiset<Region> regionCounts, Region r, int total) {
         int count = regionCounts.count(r);
-        return String.format("%s | `%s` | `%.2f%%`", MarkdownUtil.bold(r.getName()), count, 100.0 * count / total);
+        double rate = total == 0 ? 100.0 : 100.0 * count / total;
+        return String.format("%s | `%s` | `%.2f%%`", MarkdownUtil.bold(r.getName()), count, rate);
     }
 
 }

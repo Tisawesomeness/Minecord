@@ -31,7 +31,7 @@ public class Recipe {
      */
     public static EmbedBuilder displayImg(String recipe, String lang) {
         EmbedBuilder eb = new EmbedBuilder();
-        String item = Item.search(getResult(recipe), lang);
+        String item = Item.searchNoStats(getResult(recipe), lang);
         eb.setTitle(Item.getDisplayName(item, lang));
         try {
             eb.setImage(new URI("https", "minecord.github.io", String.format("/recipe/%s", getImage(recipe)), null).toASCIIString());
@@ -532,7 +532,7 @@ public class Recipe {
                 ingredientsSet.toArray(ingredients);
                 int i = startingIngredient;
                 while (i < ingredients.length && c < 9) {
-                    String ingredientItem = Item.search(ingredients[i], getLang());
+                    String ingredientItem = Item.searchNoStats(ingredients[i], getLang());
                     String toSearch = ingredientItem;
                     if (!ingredientItem.contains("potion") && !ingredientItem.contains("tipped_arrow")) {
                         toSearch = Item.getNamespacedID(ingredientItem);
@@ -576,7 +576,7 @@ public class Recipe {
                 String ingredient = getIngredients(recipeObj).toArray(new String[0])[0];
                 ArrayList<String> output = searchItemOutput(ingredient, getLang());
                 if (output != null) {
-                    desc += String.format("\n%s %s", Emote.N1.getText(), Item.getDisplayName(Item.search(ingredient, getLang()), getLang()));
+                    desc += String.format("\n%s %s", Emote.N1.getText(), Item.getDisplayName(Item.searchNoStats(ingredient, getLang()), getLang()));
                 }
                 buttons.put(Emote.N1.getCodepoint(), () -> {
                     if (output != null) {

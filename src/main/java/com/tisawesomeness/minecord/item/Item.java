@@ -11,6 +11,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Item {
 
@@ -33,6 +34,9 @@ public class Item {
         "- Display names: `Gold Ingot`\n" +
         "- Nicknames: `Notch Apple`\n" +
         "- Previous names: `White Hardened Clay`";
+
+    private static final AtomicInteger hits = new AtomicInteger();
+    private static final AtomicInteger misses = new AtomicInteger();
 
     /**
      * Creates an EmbedBuilder from an item
@@ -148,6 +152,22 @@ public class Item {
      * @return The name of the item or null otherwise
      */
     public static String search(String str, String lang) {
+        String item = searchNoStats(str, lang);
+        if (item == null) {
+            misses.incrementAndGet();
+        } else {
+            hits.incrementAndGet();
+        }
+        return item;
+    }
+
+    /**
+     * Searches the database for an item, skipping hit/miss tracking
+     * @param str The query
+     * @param lang The language code to search through, changing display, previous, block, and color names
+     * @return The name of the item or null otherwise
+     */
+    public static String searchNoStats(String str, String lang) {
         String toMatch = str.trim().replace("block.", "").replace("item.", "");
         if (toMatch.startsWith("minecraft")) {
             return searchIDs(toMatch);
@@ -457,6 +477,19 @@ public class Item {
     private static int getID(String item) {
         JSONObject properties = items.getJSONObject(item).optJSONObject("properties");
         return properties == null ? null : properties.optInt("id", -1);
+    }
+
+    /**
+     * @return The number of times an item search was successful
+     */
+    public static int getHits() {
+        return hits.get();
+    }
+    /**
+     * @return The number of times an item search failed
+     */
+    public static int getMisses() {
+        return misses.get();
     }
 
 }
