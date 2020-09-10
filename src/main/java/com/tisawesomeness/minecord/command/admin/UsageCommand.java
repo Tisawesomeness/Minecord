@@ -15,6 +15,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
 
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Optional;
@@ -36,7 +37,9 @@ public class UsageCommand extends AbstractAdminCommand {
                 .setTitle("Command usage for " + DateUtils.getDurationString(ctx.bot.getBirth()));
 
         if (args.length == 0) {
-            return processGlobalUsage(ctx, lang, eb);
+            return processGlobalUsage(ctx, eb);
+        } else if ("full".equalsIgnoreCase(args[0])) {
+            return processFullUsage(ctx, eb);
         }
         Optional<Module> moduleOpt = Module.from(args[0], lang);
         if (moduleOpt.isPresent()) {
@@ -49,19 +52,35 @@ public class UsageCommand extends AbstractAdminCommand {
         return ctx.invalidArgs("That command or module does not exist.");
     }
 
-    private Result processGlobalUsage(CommandContext ctx, Lang lang, EmbedBuilder eb) {
+    private Result processGlobalUsage(CommandContext ctx, EmbedBuilder eb) {
+        addFields(ctx, eb, c -> formatCommand(c, ctx));
+        Multiset<Result> totalResults = accumulateResults(registry, ctx);
+        eb.setDescription(formatResults(totalResults));
+        return ctx.reply(eb);
+    }
+    private Result processFullUsage(CommandContext ctx, EmbedBuilder eb) {
+        ctx.executor.pushUses(); // Make sure uses are up-to-date
+        try {
+            Multiset<String> commandUses = ctx.executor.getCommandStats().getCommandUses();
+            addFields(ctx, eb, c -> formatCommandFull(c, ctx, commandUses));
+            eb.setDescription(totalHeader(commandUses));
+            return ctx.reply(eb);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return ctx.err("There was an internal error.");
+    }
+    private void addFields(CommandContext ctx, EmbedBuilder eb, Function<Command, String> commandToLineMapper) {
         for (Module m : Module.values()) {
             Collection<Command> cmds = registry.getCommandsInModule(m);
             if (cmds.isEmpty()) {
                 continue;
             }
-            String field = buildUsageString(cmds, c -> formatCommand(c, ctx));
-            eb.addField(String.format("**%s**", m.getDisplayName(lang)), field, true);
+            String field = buildUsageString(cmds, commandToLineMapper);
+            eb.addField(String.format("**%s**", m.getDisplayName(ctx.lang)), field, true);
         }
-        Multiset<Result> totalResults = accumulateResults(registry, ctx);
-        eb.setDescription(formatResults(totalResults));
-        return ctx.reply(eb);
     }
+
     private Result getModuleUsage(CommandContext ctx, EmbedBuilder eb, Module m) {
         Collection<Command> cmds = registry.getCommandsInModule(m);
         if (cmds.isEmpty()) {
@@ -89,6 +108,9 @@ public class UsageCommand extends AbstractAdminCommand {
     private static String formatCommand(Command c, CommandContext ctx) {
         return formatLine(c, ctx, String.valueOf(ctx.executor.getResults(c).size()));
     }
+    private static String formatCommandFull(Command c, CommandContext ctx, Multiset<String> uses) {
+        return formatLine(c, ctx, String.valueOf(uses.count(c.getId())));
+    }
     private static String formatCommandDetailed(Command c, CommandContext ctx) {
         Multiset<Result> results = ctx.executor.getResults(c);
         return formatLine(c, ctx, getResultListString(results));
@@ -106,8 +128,11 @@ public class UsageCommand extends AbstractAdminCommand {
     private static String formatLine(Command c, CommandContext ctx, String line) {
         return String.format("`%s%s` **-** %s", ctx.prefix, c.getDisplayName(ctx.lang), line);
     }
+    private static String totalHeader(Multiset<?> results) {
+        return String.format("**__Total: %d__**", results.size());
+    }
     private static String formatResults(Multiset<Result> results) {
-        String header = String.format("**__Total: %d__**", results.size());
+        String header = totalHeader(results);
         String resultLines = results.entrySet().stream()
                 .sorted(Comparator.comparing(Multiset.Entry::getElement))
                 .map(en -> formatResult(en, results.size()))

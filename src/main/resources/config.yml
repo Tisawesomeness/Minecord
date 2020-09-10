@@ -107,6 +107,8 @@ database:
 commands:
   # The default cooldown, in miliseconds, users must wait before using the same command agian
   defaultCooldown: 0
+  # How often to send command uses to the database in seconds
+  pushUsesInterval: 60
   # Overrides for individual commands are defined here
   overrides:
     avatar:

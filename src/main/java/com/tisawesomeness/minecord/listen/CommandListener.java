@@ -9,10 +9,12 @@ import com.tisawesomeness.minecord.command.CommandRegistry;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.config.serial.FlagConfig;
 import com.tisawesomeness.minecord.database.DatabaseCache;
+import com.tisawesomeness.minecord.database.dao.CommandStats;
 import com.tisawesomeness.minecord.database.dao.DbUser;
 import com.tisawesomeness.minecord.setting.SettingRegistry;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
+import lombok.Getter;
 import lombok.NonNull;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.ChannelType;
@@ -31,13 +33,15 @@ public class CommandListener extends ListenerAdapter {
     private final @NonNull Bot bot;
     private final @NonNull Config config;
     private final @NonNull CommandRegistry registry;
-    private final @NonNull CommandExecutor commandExecutor;
+    @Getter private final @NonNull CommandExecutor commandExecutor;
 
-    public CommandListener(@NonNull Bot bot, @NonNull Config config, @NonNull CommandRegistry registry) {
+    public CommandListener(
+            @NonNull Bot bot, @NonNull Config config,
+            @NonNull CommandRegistry registry, @NonNull CommandStats commandStats) {
         this.bot = bot;
         this.config = config;
         this.registry = registry;
-        commandExecutor = new CommandExecutor(registry, config);
+        commandExecutor = new CommandExecutor(registry, commandStats, config);
     }
 
     @Override

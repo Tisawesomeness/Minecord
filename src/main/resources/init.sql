@@ -4,6 +4,12 @@ CREATE TABLE IF NOT EXISTS minecord (
 );
 INSERT INTO minecord (id, version)
     VALUES(0, 1);
+
+CREATE TABLE IF NOT EXISTS command (
+    id   TEXT(32) PRIMARY KEY NOT NULL,
+    uses INT(13) NOT NULL DEFAULT 0
+);
+
 CREATE TABLE IF NOT EXISTS guild (
     id       BIGINT(20) PRIMARY KEY NOT NULL,
     banned   TINYINT(1) NOT NULL DEFAULT 0,

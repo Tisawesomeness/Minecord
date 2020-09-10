@@ -15,13 +15,25 @@ import java.util.Objects;
 public class CommandConfig {
     @JsonProperty("defaultCooldown")
     int defaultCooldown;
+    @JsonProperty("pushUsesInterval")
+    int pushUsesInterval;
     @JsonProperty("overrides")
     Map<String, CommandOverride> overrides;
     @JsonProperty("cooldownPools")
     Map<String, Integer> cooldownPools;
 
     public Verification verify() {
-        return Verification.combineAll(verifyOverrides(), verifyPoolsExist());
+        return Verification.combineAll(
+                verifyPushUsesInterval(),
+                verifyOverrides(),
+                verifyPoolsExist()
+        );
+    }
+    private Verification verifyPushUsesInterval() {
+        if (pushUsesInterval > 0) {
+            return Verification.valid();
+        }
+        return Verification.invalid("pushUsesInterval must be positive.");
     }
     private Verification verifyOverrides() {
         return overrides.values().stream()

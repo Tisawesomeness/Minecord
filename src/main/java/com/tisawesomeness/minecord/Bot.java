@@ -13,6 +13,7 @@ import com.tisawesomeness.minecord.listen.GuildCountListener;
 import com.tisawesomeness.minecord.listen.ReactListener;
 import com.tisawesomeness.minecord.listen.ReadyListener;
 import com.tisawesomeness.minecord.service.BotListService;
+import com.tisawesomeness.minecord.service.CommandStatsService;
 import com.tisawesomeness.minecord.service.MenuService;
 import com.tisawesomeness.minecord.service.PresenceService;
 import com.tisawesomeness.minecord.service.Service;
@@ -75,10 +76,11 @@ public class Bot {
     private PresenceService presenceService;
     private BotListService botListService;
     private Service menuService;
+    private Service commandStatsService;
 
     private Config config;
     private CommandRegistry registry;
-    private EventListener commandListener;
+    private CommandListener commandListener;
     private EventListener guildCountListener;
     private Database database;
     @Getter private ArgsHandler args;
@@ -145,6 +147,7 @@ public class Bot {
 
         } catch (LoginException | InterruptedException ex) {
             ex.printStackTrace();
+            exe.shutdownNow();
             return;
         }
 
@@ -174,7 +177,8 @@ public class Bot {
 
         // These depend on database
         registry = new CommandRegistry(config.getCommandConfig());
-        commandListener = new CommandListener(this, config, registry);
+        commandListener = new CommandListener(this, config, registry, database.getCommandStats());
+        commandStatsService = new CommandStatsService(commandListener.getCommandExecutor(), config.getCommandConfig());
         settings = new SettingRegistry(config.getSettingsConfig());
 
         // Bot has started, start accepting messages
@@ -195,6 +199,7 @@ public class Bot {
         botListService.start();
         menuService = new MenuService();
         menuService.start();
+        commandStatsService.start();
 
         // Make sure vote handler finishes
         if (futureVH != null) {
@@ -233,6 +238,7 @@ public class Bot {
         }
         presenceService.shutdown();
         menuService.shutdown();
+        commandStatsService.shutdown();
         shardManager.removeEventListener(commandListener, guildCountListener);
         config = ConfigReader.read(args.getConfigPath());
 
@@ -261,7 +267,9 @@ public class Bot {
         // Start everything up again
         database = futureDB.get();
         registry = new CommandRegistry(config.getCommandConfig());
-        commandListener = new CommandListener(this, config, registry);
+        commandListener = new CommandListener(this, config, registry, database.getCommandStats());
+        commandStatsService = new CommandStatsService(commandListener.getCommandExecutor(), config.getCommandConfig());
+        commandStatsService.start();
         shardManager.addEventListener(commandListener, guildCountListener);
         if (futureVH != null) {
             voteHandler = futureVH.get();
@@ -278,6 +286,8 @@ public class Bot {
         System.out.println("Shutting down...");
         presenceService.shutdown();
         menuService.shutdown();
+        botListService.shutdown();
+        commandStatsService.shutdown();
         shardManager.shutdown();
         if (config.getBotListConfig().isReceiveVotes()) {
             voteHandler.close();

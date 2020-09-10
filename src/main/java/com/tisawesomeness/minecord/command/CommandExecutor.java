@@ -4,14 +4,17 @@ import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.config.serial.CommandConfig;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.config.serial.FlagConfig;
+import com.tisawesomeness.minecord.database.dao.CommandStats;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import com.google.common.base.Functions;
+import com.google.common.collect.ConcurrentHashMultiset;
 import com.google.common.collect.EnumMultiset;
-import com.google.common.collect.ImmutableMultiset;
 import com.google.common.collect.Multiset;
+import com.google.common.collect.Multisets;
+import lombok.Getter;
 import lombok.NonNull;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
@@ -20,6 +23,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.Map;
@@ -36,17 +40,20 @@ public class CommandExecutor {
 
     private final CommandConfig cc;
     private final FlagConfig fc;
+    @Getter private final CommandStats commandStats;
     private final Map<String, Cache<Long, Long>> cooldownMap;
     private final Map<Command, Multiset<Result>> results;
+    private final Multiset<String> unpushedUses = ConcurrentHashMultiset.create();
 
     /**
      * Creates a new command executor, initializing a cache for each command.
      * @param cr The registry containing all commands
      * @param config The configuration options
      */
-    public CommandExecutor(@NonNull CommandRegistry cr, @NonNull Config config) {
+    public CommandExecutor(@NonNull CommandRegistry cr, @NonNull CommandStats commandStats, @NonNull Config config) {
         cc = config.getCommandConfig();
         fc = config.getFlagConfig();
+        this.commandStats = commandStats;
         Caffeine<Object, Object> builder = Caffeine.newBuilder()
                 .expireAfterWrite(30L, TimeUnit.SECONDS)
                 .maximumSize(100L);
@@ -75,6 +82,7 @@ public class CommandExecutor {
      */
     public void run(Command c, CommandContext ctx) {
         Result result = runCommand(c, ctx);
+        unpushedUses.add(c.getId());
         results.get(c).add(result);
     }
     private Result runCommand(Command c, CommandContext ctx) {
@@ -219,7 +227,19 @@ public class CommandExecutor {
      * @return A Multiset where the size is equal to the number of command executions
      */
     public Multiset<Result> getResults(Command c) {
-        return ImmutableMultiset.copyOf(results.get(c));
+        return Multisets.unmodifiableMultiset(results.get(c));
+    }
+
+    /**
+     * Records all command uses since the last push to the database.
+     */
+    public void pushUses() {
+        try {
+            commandStats.pushCommandUses(unpushedUses);
+            unpushedUses.clear();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
