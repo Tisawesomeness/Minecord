@@ -18,7 +18,10 @@ public final class Main {
             System.exit(exitCode);
         }
         if (handle.isReady()) {
-            new Bot().setup(handle);
+            int botExitCode = new Bot().setup(handle);
+            if (botExitCode != 0) {
+                System.exit(botExitCode);
+            }
         }
     }
 

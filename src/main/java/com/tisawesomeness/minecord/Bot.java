@@ -101,8 +101,9 @@ public class Bot {
      * </ul>
      * <b>This method is blocking!</b>
      * @param args The parsed command-line arguments
+     * @return The error code to send on failure, or 0 on success
      */
-    public void setup(ArgsHandler args) {
+    public int setup(ArgsHandler args) {
         birth = System.currentTimeMillis();
         System.out.println("Bot starting...");
         this.args = args;
@@ -115,7 +116,7 @@ public class Bot {
             }
         } catch (IOException ex) {
             ex.printStackTrace();
-            return;
+            return 10;
         }
 
         String tokenOverride = args.getTokenOverride();
@@ -148,7 +149,7 @@ public class Bot {
         } catch (LoginException | InterruptedException ex) {
             ex.printStackTrace();
             exe.shutdownNow();
-            return;
+            return 11;
         }
 
         // These depend on ShardManager
@@ -161,7 +162,7 @@ public class Bot {
             database = futureDB.get();
         } catch (ExecutionException ex) {
             ex.printStackTrace();
-            return;
+            return 12;
         } catch (InterruptedException ex) {
             throw new AssertionError(
                     "It should not be possible to interrupt the main thread before the bot can accept commands.");
@@ -172,7 +173,7 @@ public class Bot {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            return;
+            return 13;
         }
 
         // These depend on database
@@ -209,10 +210,13 @@ public class Bot {
                 // It's possible to be interrupted if the shutdown command
                 // after the bot starts but before the vote handler starts
                 ex.printStackTrace();
+                return 14;
             }
         }
+
         exe.shutdown();
         System.out.println("Post-init finished.");
+        return 0;
 
     }
 
