@@ -14,7 +14,7 @@ public abstract class Service {
     /**
      * If {@link #shouldRun()} is true, starts this service and allocates the Executor.
      */
-    public void start() {
+    public final void start() {
         if (shouldRun()) {
             exe = Executors.newSingleThreadScheduledExecutor();
             schedule(exe);
@@ -25,7 +25,7 @@ public abstract class Service {
      * Shuts down this service.
      * <br>If {@link #shouldRun()} is true, this closes the Executor for this service.
      */
-    public void shutdown() {
+    public final void shutdown() {
         if (exe != null) {
             exe.shutdown(); // shut up exe
         }
