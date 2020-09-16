@@ -19,8 +19,8 @@ import java.util.List;
 
 public class Recipe {
 
-    private static final JSONObject recipes = RequestUtils.loadJSONResource("recipes.json");
-    private static final JSONObject tags = RequestUtils.loadJSONResource("tags.json");
+    private static final JSONObject recipes = RequestUtils.loadJSONResource("mc/recipes.json");
+    private static final JSONObject tags = RequestUtils.loadJSONResource("mc/tags.json");
 
     /**
      * Creates an EmbedBuilder from a recipe

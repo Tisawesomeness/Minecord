@@ -23,8 +23,8 @@ public class Item {
             "minecraft.shield.white", "minecraft.white_shulker_box", "minecraft.white_bed",
             "minecraft.white_glazed_terracotta", "minecraft.white_concrete", "minecraft.white_concrete_powder" };
 
-    private static final JSONObject items = RequestUtils.loadJSONResource("items.json");
-    private static final JSONObject data = RequestUtils.loadJSONResource("data.json");
+    private static final JSONObject items = RequestUtils.loadJSONResource("mc/items.json");
+    private static final JSONObject data = RequestUtils.loadJSONResource("mc/data.json");
 
     public static final String help = "Items can be:\n" +
         "- Namespaced IDs: `minecraft:iron_block`\n" +
