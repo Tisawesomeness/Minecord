@@ -50,6 +50,7 @@ public class CreditsCommand extends Command {
             .addField("Contribute", contrib, true)
             .addField("APIs Used", apis, false)
             .addField("Hosting", host, false)
+            .addField("Special Thanks", e.getAuthor().getAsMention() + " for using Minecord!", false)
             .setFooter("Website: " + Bot.website);
         return new Result(Outcome.SUCCESS, eb.build());
     }
