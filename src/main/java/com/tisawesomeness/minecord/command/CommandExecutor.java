@@ -90,26 +90,26 @@ public class CommandExecutor {
     }
 
     private Result processGuildOnly(Command c, CommandContext ctx) {
-        if (c instanceof IGuildOnlyCommand && !ctx.e.isFromGuild()) {
+        if (c instanceof IGuildOnlyCommand && !ctx.getE().isFromGuild()) {
             return ctx.warn("This command is not available in DMs.");
         }
         return processElevation(c, ctx);
     }
     private Result processElevation(Command c, CommandContext ctx) {
-        if (c instanceof IElevatedCommand && !ctx.isElevated) {
+        if (c instanceof IElevatedCommand && !ctx.isElevated()) {
             return ctx.notElevated("You must be elevated to use that command!");
         }
         return processPermissions(c, ctx);
     }
 
     private Result processPermissions(Command c, CommandContext ctx) {
-        if (ctx.e.isFromGuild()) {
+        if (ctx.getE().isFromGuild()) {
             return processBotPermissions(c, ctx);
         }
         return processCooldown(c, ctx);
     }
     private Result processBotPermissions(Command c, CommandContext ctx) {
-        MessageReceivedEvent e = ctx.e;
+        MessageReceivedEvent e = ctx.getE();
         TextChannel tc = e.getTextChannel();
         EnumSet<Permission> rbp = c.getBotPermissions();
         Member sm = e.getGuild().getSelfMember();
@@ -124,8 +124,8 @@ public class CommandExecutor {
         return processUserPermissions(c, ctx);
     }
     private Result processUserPermissions(Command c, CommandContext ctx) {
-        if (!ctx.isElevated) {
-            MessageReceivedEvent e = ctx.e;
+        if (!ctx.isElevated()) {
+            MessageReceivedEvent e = ctx.getE();
             TextChannel tc = e.getTextChannel();
             EnumSet<Permission> rup = c.getUserPermissions();
             Member mem = Objects.requireNonNull(e.getMember());
@@ -149,7 +149,7 @@ public class CommandExecutor {
         if (!shouldSkipCooldown(ctx)) {
             long cooldown = c.getCooldown(cc);
             if (cooldown > 0) {
-                long uid = ctx.e.getAuthor().getIdLong();
+                long uid = ctx.getE().getAuthor().getIdLong();
                 long lastExecutedTime = getLastExecutedTime(c, uid);
                 long msLeft = cooldown + lastExecutedTime - System.currentTimeMillis();
                 if (msLeft > 0) {
@@ -167,7 +167,7 @@ public class CommandExecutor {
 
     private static Result tryToRun(Command c, CommandContext ctx) {
         try {
-            return c.run(ctx.args, ctx);
+            return c.run(ctx.getArgs(), ctx);
         } catch (Exception ex) {
             handle(ex, ctx);
         }
@@ -177,7 +177,7 @@ public class CommandExecutor {
         ex.printStackTrace();
         String unexpected = "There was an unexpected exception: " + MarkdownUtil.monospace(ex.toString());
         String errorMessage = Result.EXCEPTION.addEmote(unexpected, Lang.getDefault());
-        if (ctx.config.getFlagConfig().isDebugMode()) {
+        if (ctx.getConfig().getFlagConfig().isDebugMode()) {
             errorMessage += buildStackTrace(ex);
             // Not guaranteed to escape properly, but since users should never see exceptions, it's not necessary
             if (errorMessage.length() >= Message.MAX_CONTENT_LENGTH) {
@@ -218,7 +218,7 @@ public class CommandExecutor {
      * @return True if cooldowns should not be processed
      */
     public boolean shouldSkipCooldown(CommandContext ctx) {
-        return fc.isElevatedSkipCooldown() && ctx.isElevated;
+        return fc.isElevatedSkipCooldown() && ctx.isElevated();
     }
 
     /**

@@ -24,8 +24,8 @@ public class SmartSetParser extends SettingCommandHandler {
      * @return The result of the command
      */
     public Result parse() {
-        if (!ctx.e.isFromGuild()) {
-            DbUser user = ctx.getUser(ctx.e.getAuthor());
+        if (!ctx.getE().isFromGuild()) {
+            DbUser user = ctx.getUser(ctx.getE().getAuthor());
             return new SettingChanger(this, user).parse();
         } else if (!userHasManageServerPermissions()) {
             return ctx.noUserPermissions("You must have Manage Server permissions.");
@@ -33,14 +33,14 @@ public class SmartSetParser extends SettingCommandHandler {
         return changeIfNoChannelOverrides();
     }
     private Result changeIfNoChannelOverrides() {
-        DbChannel channel = ctx.getChannel(ctx.e.getTextChannel());
+        DbChannel channel = ctx.getChannel(ctx.getE().getTextChannel());
         if (setting.get(channel).isPresent()) {
             String name = setting.getDisplayName().toLowerCase();
             String msg = String.format("The %s setting has a channel override in this channel.\n" +
                     "Use `%sset channel #%s %s <value>` to change it.",
-                    name, ctx.prefix, ctx.e.getChannel().getName(), name);
+                    name, ctx.getPrefix(), ctx.getE().getChannel().getName(), name);
             return ctx.reply(msg);
         }
-        return new SettingChanger(this, ctx.getGuild(ctx.e.getGuild())).parse();
+        return new SettingChanger(this, ctx.getGuild(ctx.getE().getGuild())).parse();
     }
 }

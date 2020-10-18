@@ -23,7 +23,7 @@ public class PromoteCommand extends AbstractAdminCommand {
         }
 
         //Extract user
-        User user = DiscordUtils.findUser(args[0], ctx.bot.getShardManager());
+        User user = DiscordUtils.findUser(args[0], ctx.getBot().getShardManager());
         if (user == null) {
             return ctx.warn("Not a valid user!");
         }

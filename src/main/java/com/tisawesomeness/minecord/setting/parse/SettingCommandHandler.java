@@ -39,10 +39,10 @@ public abstract class SettingCommandHandler {
     protected Result displaySettings(String title, Function<? super Setting<?>, String> displayFunction) {
         CommandContext ctx = getCtx();
         EmbedBuilder eb = new EmbedBuilder().setTitle(title);
-        String tag = ctx.e.getJDA().getSelfUser().getAsTag();
+        String tag = ctx.getE().getJDA().getSelfUser().getAsTag();
 
-        for (Setting<?> setting : ctx.bot.getSettings()) {
-            String description = setting.getDescription(ctx.prefix, tag);
+        for (Setting<?> setting : ctx.getBot().getSettings()) {
+            String description = setting.getDescription(ctx.getPrefix(), tag);
             String display = displayFunction.apply(setting);
             String formattedDisplay = MarkdownUtil.bold(MarkdownUtil.monospace(display));
             String field = description + "\nCurrent: " + formattedDisplay;
@@ -58,6 +58,6 @@ public abstract class SettingCommandHandler {
      */
     public boolean userHasManageServerPermissions() {
         CommandContext ctx = getCtx();
-        return !ctx.e.isFromGuild() || ctx.userHasPermission(Permission.MANAGE_SERVER);
+        return !ctx.getE().isFromGuild() || ctx.userHasPermission(Permission.MANAGE_SERVER);
     }
 }

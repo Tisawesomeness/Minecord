@@ -21,7 +21,7 @@ public class RoleCommand extends AbstractDiscordCommand {
     }
 
     public Result run(String[] args, CommandContext ctx) {
-        MessageReceivedEvent e = ctx.e;
+        MessageReceivedEvent e = ctx.getE();
 
         if (args.length == 0) {
             return ctx.showHelp();
@@ -32,8 +32,8 @@ public class RoleCommand extends AbstractDiscordCommand {
         List<Role> roles = e.getGuild().getRoles();
         List<Role> mentioned = e.getMessage().getMentionedRoles();
         // Search for any role if admin
-        if (args.length > 1 && args[1].equals("admin") && ctx.isElevated) {
-            role = ctx.bot.getShardManager().getRoleById(args[0]);
+        if (args.length > 1 && args[1].equals("admin") && ctx.isElevated()) {
+            role = ctx.getBot().getShardManager().getRoleById(args[0]);
         } else if (!e.isFromGuild()) {
             return ctx.warn("This command is not available in DMs.");
         // Mentioned roles

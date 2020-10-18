@@ -64,7 +64,7 @@ public abstract class Setting<T> implements ISetting<T> {
      * @return The value of the setting, or empty if unset
      */
     public Optional<T> get(@NonNull CommandContext ctx) {
-        MessageReceivedEvent e = ctx.e;
+        MessageReceivedEvent e = ctx.getE();
         if (e.isFromGuild()) {
             return get(ctx.getCache(), e.getTextChannel().getIdLong(), e.getGuild().getIdLong());
         }

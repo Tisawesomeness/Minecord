@@ -35,7 +35,7 @@ public class PurgeCommand extends AbstractDiscordCommand implements IGuildOnlyCo
     }
 
     public Result run(String[] args, CommandContext ctx) {
-        MessageReceivedEvent e = ctx.e;
+        MessageReceivedEvent e = ctx.getE();
 
         // Guild-only command
         if (!e.isFromGuild()) {

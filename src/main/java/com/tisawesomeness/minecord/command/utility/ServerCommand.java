@@ -104,7 +104,7 @@ public class ServerCommand extends AbstractUtilityCommand {
                 String b64String = reply.getFavicon().replace("\n", "").split(",")[1];
                 byte[] data = Base64.getDecoder().decode(b64String);
                 MessageEmbed me = ctx.brand(eb).setThumbnail("attachment://favicon.png").build();
-                ctx.e.getChannel().sendFile(data, "favicon.png").embed(me).queue();
+                ctx.getE().getChannel().sendFile(data, "favicon.png").embed(me).queue();
                 return Result.SUCCESS;
             } catch (IllegalArgumentException ex) {
                 ex.printStackTrace();

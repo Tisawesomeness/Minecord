@@ -26,7 +26,7 @@ public class SettingCommandParser extends SettingCommandHandler {
      * @return The result of this command
      */
     public Result parse() {
-        if (ctx.args.length == 0) {
+        if (ctx.getArgs().length == 0) {
             if (type == SettingCommandType.QUERY) {
                 ctx.triggerCooldown();
                 return displaySettings("Currently Active Settings", s -> s.getDisplay(ctx));
@@ -37,7 +37,7 @@ public class SettingCommandParser extends SettingCommandHandler {
     }
 
     private Result parseAdminArg() {
-        String[] args = ctx.args;
+        String[] args = ctx.getArgs();
         if ("admin".equalsIgnoreCase(args[0])) {
             return parseAdminContextIfAble(args);
         }
@@ -45,11 +45,11 @@ public class SettingCommandParser extends SettingCommandHandler {
     }
 
     private Result parseAdminContextIfAble(String[] args) {
-        if (!ctx.isElevated) {
+        if (!ctx.isElevated()) {
             return ctx.notElevated("You do not have permission to use elevated commands.");
         }
         if (args.length == 1) {
-            return ctx.invalidArgs(String.format("Incorrect arguments. See `%shelp settings admin`.", ctx.prefix));
+            return ctx.invalidArgs(String.format("Incorrect arguments. See `%shelp settings admin`.", ctx.getPrefix()));
         }
         currentArg++;
         return new SettingContextParser(this, true).parse();

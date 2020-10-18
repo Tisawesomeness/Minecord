@@ -4,6 +4,7 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.CommandContextImpl;
 import com.tisawesomeness.minecord.command.CommandExecutor;
 import com.tisawesomeness.minecord.command.CommandRegistry;
 import com.tisawesomeness.minecord.config.serial.Config;
@@ -105,7 +106,7 @@ public class CommandListener extends ListenerAdapter {
         boolean isElevated = dbUser.isElevated();
 
         // Run command
-        CommandContext ctx = new CommandContext(args, e, config, bot, cmd, commandExecutor, isElevated, prefix, lang);
+        CommandContext ctx = new CommandContextImpl(args, e, config, bot, cmd, commandExecutor, isElevated, prefix, lang);
         commandExecutor.run(cmd, ctx);
     }
 

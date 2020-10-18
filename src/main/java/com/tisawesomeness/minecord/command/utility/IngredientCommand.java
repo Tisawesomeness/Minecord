@@ -57,7 +57,7 @@ public class IngredientCommand extends AbstractUtilityCommand {
             return ctx.noBotPermissions(MenuStatus.NO_PERMISSION.getReason());
         }
         if (status.isValid()) {
-            new Recipe.RecipeMenu(recipes, page, "en_US").post(ctx.e.getChannel(), ctx.e.getAuthor());
+            new Recipe.RecipeMenu(recipes, page, "en_US").post(ctx.getE().getChannel(), ctx.getE().getAuthor());
             return Result.SUCCESS;
         }
         EmbedBuilder eb = Recipe.displayImg(recipes.get(page), "en_US");

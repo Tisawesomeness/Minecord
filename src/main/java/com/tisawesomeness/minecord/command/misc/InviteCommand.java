@@ -16,7 +16,7 @@ public class InviteCommand extends AbstractMiscCommand {
     public Result run(String[] args, CommandContext ctx) {
         ctx.triggerCooldown();
         EmbedBuilder eb = new EmbedBuilder()
-                .addField("Invite me!", ctx.config.getInviteLink(), false)
+                .addField("Invite me!", ctx.getConfig().getInviteLink(), false)
                 .addField("Help server", Bot.helpServer, false)
                 .addField("Website", Bot.website, true);
         return ctx.reply(eb);

@@ -29,7 +29,7 @@ public class ItemCommand extends AbstractUtilityCommand {
         }
 
         // Build message
-        EmbedBuilder eb = Item.display(item, "en_US", ctx.prefix);
+        EmbedBuilder eb = Item.display(item, "en_US", ctx.getPrefix());
         eb.setFooter("See an error? Please report them at https://goo.gl/KWCxis", null);
         // eb = MessageUtils.addFooter(eb);
 

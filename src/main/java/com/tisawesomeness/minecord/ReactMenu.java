@@ -161,7 +161,7 @@ public abstract class ReactMenu {
      * @return True if the guild has menus enabled and the bot has manage message and add reaction permissions
      */
     public static MenuStatus getMenuStatus(CommandContext ctx) {
-        MessageReceivedEvent e = ctx.e;
+        MessageReceivedEvent e = ctx.getE();
         if (!ctx.shouldUseMenus()) {
             return MenuStatus.DISABLED;
         }

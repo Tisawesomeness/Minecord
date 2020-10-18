@@ -28,11 +28,11 @@ public class HelpCommand extends AbstractMiscCommand {
     }
 
     public Result run(String[] args, CommandContext ctx) {
-        String prefix = ctx.prefix;
-        Lang lang = ctx.lang;
+        String prefix = ctx.getPrefix();
+        Lang lang = ctx.getLang();
 
         EmbedBuilder eb = new EmbedBuilder();
-        String url = ctx.e.getJDA().getSelfUser().getEffectiveAvatarUrl();
+        String url = ctx.getE().getJDA().getSelfUser().getEffectiveAvatarUrl();
 
         // General help
         if (args.length == 0) {
@@ -68,7 +68,7 @@ public class HelpCommand extends AbstractMiscCommand {
         if (moduleOpt.isPresent()) {
             ctx.triggerCooldown();
             Module m = moduleOpt.get();
-            if (m.isHidden() && !ctx.isElevated) {
+            if (m.isHidden() && !ctx.isElevated()) {
                 return ctx.warn("You do not have permission to view that module.");
             }
             String mUsage = registry.getCommandsInModule(m).stream()
@@ -97,7 +97,7 @@ public class HelpCommand extends AbstractMiscCommand {
             ctx.triggerCooldown();
             Command c = cmdOpt.get();
             // Elevation check
-            if (c instanceof IElevatedCommand && !ctx.isElevated) {
+            if (c instanceof IElevatedCommand && !ctx.isElevated()) {
                 return ctx.warn("You do not have permission to view that command.");
             }
             // Admin check
@@ -120,9 +120,9 @@ public class HelpCommand extends AbstractMiscCommand {
         return showHelp(ctx, c, false);
     }
     private static EmbedBuilder showHelp(CommandContext ctx, Command c, boolean isAdmin) {
-        Lang lang = ctx.lang;
-        String prefix = ctx.prefix;
-        String tag = ctx.e.getJDA().getSelfUser().getAsMention();
+        Lang lang = ctx.getLang();
+        String prefix = ctx.getPrefix();
+        String tag = ctx.getE().getJDA().getSelfUser().getAsMention();
 
         String help = isAdmin ? c.getAdminHelp(lang, prefix, tag) : c.getHelp(lang, prefix, tag);
         Optional<String> examplesOpt = isAdmin ? c.getAdminExamples(lang, prefix, tag) : c.getExamples(lang, prefix, tag);
@@ -133,8 +133,8 @@ public class HelpCommand extends AbstractMiscCommand {
     }
 
     private static EmbedBuilder showHelpInternal(CommandContext ctx, Command c, String help) {
-        String prefix = ctx.prefix;
-        Lang lang = ctx.lang;
+        String prefix = ctx.getPrefix();
+        Lang lang = ctx.getLang();
         help += "\n";
 
         help += getAddedPermsHelp(c.getUserPermissions(), "**Required User Perms**")
@@ -148,7 +148,7 @@ public class HelpCommand extends AbstractMiscCommand {
             help += "\n**Aliases**: " + aliases;
         }
         // If the cooldown is exactly N seconds, treat as int
-        int cooldown = c.getCooldown(ctx.config.getCommandConfig());
+        int cooldown = c.getCooldown(ctx.getConfig().getCommandConfig());
         if (cooldown > 0) {
             help += getCooldownString(cooldown);
         }

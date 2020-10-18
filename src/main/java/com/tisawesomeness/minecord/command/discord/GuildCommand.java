@@ -29,12 +29,12 @@ public class GuildCommand extends AbstractDiscordCommand {
         // If the author used the admin keyword and is an elevated user
         boolean elevated = false;
         Guild g;
-        if (args.length > 1 && args[1].equals("admin") && ctx.isElevated) {
+        if (args.length > 1 && args[1].equals("admin") && ctx.isElevated()) {
             elevated = true;
             if (!DiscordUtils.isDiscordId(args[0])) {
                 return ctx.invalidArgs("Not a valid ID!");
             }
-            g = ctx.bot.getShardManager().getGuildById(args[0]);
+            g = ctx.getBot().getShardManager().getGuildById(args[0]);
             if (g == null) {
                 long gid = Long.valueOf(args[0]);
                 DbGuild dbGuild = ctx.getGuild(gid);
@@ -45,10 +45,10 @@ public class GuildCommand extends AbstractDiscordCommand {
                 return ctx.reply(settingsStr);
             }
         } else {
-            if (!ctx.e.isFromGuild()) {
+            if (!ctx.getE().isFromGuild()) {
                 return ctx.warn("This command is not available in DMs.");
             }
-            g = ctx.e.getGuild();
+            g = ctx.getE().getGuild();
         }
 
         ctx.triggerCooldown();
@@ -93,7 +93,7 @@ public class GuildCommand extends AbstractDiscordCommand {
     }
 
     private static String getSettingsStr(DbGuild guild, CommandContext ctx) {
-        return ctx.bot.getSettings().stream()
+        return ctx.getBot().getSettings().stream()
                 .map(s -> s.getDisplayName() + ": " + displaySetting(guild, s))
                 .collect(Collectors.joining("\n"));
     }

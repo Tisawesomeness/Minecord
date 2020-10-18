@@ -28,7 +28,7 @@ public class BanCommand extends AbstractAdminCommand {
             return ctx.showHelp();
         }
 
-        ShardManager sm = ctx.bot.getShardManager();
+        ShardManager sm = ctx.getBot().getShardManager();
 
         //User part of command
         if ("user".equals(args[0])) {
@@ -39,7 +39,7 @@ public class BanCommand extends AbstractAdminCommand {
             if (!DiscordUtils.isDiscordId(args[1])) {
                 return ctx.invalidArgs("Not a valid ID!");
             }
-            if (ctx.config.isOwner(args[1])) {
+            if (ctx.getConfig().isOwner(args[1])) {
                 return ctx.warn("You can't ban the owner!");
             }
             long uid = Long.valueOf(args[1]);
@@ -68,7 +68,7 @@ public class BanCommand extends AbstractAdminCommand {
                 return ctx.invalidArgs("Not a valid ID!");
             }
             Guild guild = sm.getGuildById(args[1]);
-            long logChannelID = ctx.config.getLogChannelId();
+            long logChannelID = ctx.getConfig().getLogChannelId();
             if (guild != null && logChannelID != 0) {
                 TextChannel logChannel = sm.getTextChannelById(logChannelID);
                 if (logChannel != null && guild.getId().equals(logChannel.getGuild().getId())) {

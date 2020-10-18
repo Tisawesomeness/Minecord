@@ -34,8 +34,8 @@ public class SettingChooser extends SettingCommandHandler {
      * @return The result of the command
      */
     public Result parse() {
-        String[] args = ctx.args;
-        SettingRegistry settings = ctx.bot.getSettings();
+        String[] args = ctx.getArgs();
+        SettingRegistry settings = ctx.getBot().getSettings();
 
         StringJoiner settingName = new StringJoiner(" ");
         while (currentArg < args.length) {
@@ -50,7 +50,7 @@ public class SettingChooser extends SettingCommandHandler {
     }
 
     private Result changeSettingIfSpaceForValueExists(Setting<?> setting) {
-        if (type == SettingCommandType.SET && currentArg == ctx.args.length) {
+        if (type == SettingCommandType.SET && currentArg == ctx.getArgs().length) {
             return ctx.invalidArgs("You must specify a setting value.");
         }
         return new SettingChanger(this, setting).parse();

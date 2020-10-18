@@ -32,16 +32,16 @@ public class UserContext extends SettingContext {
      */
     public Result parse() {
         if (isAdmin) {
-            if (currentArg >= ctx.args.length) {
+            if (currentArg >= ctx.getArgs().length) {
                 return ctx.invalidArgs("You must specify a user id.");
             }
             return parseUserId();
         }
-        return displayOrParseUser(ctx.e.getAuthor().getIdLong());
+        return displayOrParseUser(ctx.getE().getAuthor().getIdLong());
     }
 
     private Result parseUserId() {
-        String userArg = ctx.args[currentArg];
+        String userArg = ctx.getArgs()[currentArg];
         if (!DiscordUtils.isDiscordId(userArg)) {
             return ctx.invalidArgs("Not a valid user id.");
         }

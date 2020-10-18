@@ -24,7 +24,7 @@ public class SayCommand extends AbstractAdminCommand {
         }
 
         //Extract channel
-        TextChannel channel = DiscordUtils.findChannel(args[0], ctx.bot.getShardManager());
+        TextChannel channel = DiscordUtils.findChannel(args[0], ctx.getBot().getShardManager());
         if (channel == null) {
             return ctx.warn("Not a valid channel!");
         }
@@ -36,7 +36,7 @@ public class SayCommand extends AbstractAdminCommand {
         //Log it
         EmbedBuilder eb = new EmbedBuilder();
         Guild guild = channel.getGuild();
-        User a = ctx.e.getAuthor();
+        User a = ctx.getE().getAuthor();
         eb.setAuthor(a.getAsTag() + " (`" + a.getId() + "`)", null, a.getAvatarUrl());
         eb.setDescription("**Sent a msg to `" + channel.getName() + "` (`" + channel.getId() + "`)**\non `" +
             guild.getName() + "` (" + guild.getId() + "):\n" + msg);

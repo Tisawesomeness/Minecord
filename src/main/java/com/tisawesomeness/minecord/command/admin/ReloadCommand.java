@@ -17,9 +17,9 @@ public class ReloadCommand extends AbstractAdminCommand {
 
     public Result run(String[] args, CommandContext ctx) {
 
-        Message m = ctx.e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
+        Message m = ctx.getE().getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
         try {
-            ctx.bot.reload();
+            ctx.getBot().reload();
         } catch (IOException | ExecutionException | InterruptedException ex) {
             ex.printStackTrace();
             return ctx.sendResult(Result.EXCEPTION, "Could not reload!"); // A failed reload is REALLY severe

@@ -34,7 +34,7 @@ public class DebugCommand extends AbstractAdminCommand {
     }
 
     public Result run(String[] args, CommandContext ctx) {
-        if (!ctx.config.getFlagConfig().isDebugMode()) {
+        if (!ctx.getConfig().getFlagConfig().isDebugMode()) {
             return ctx.warn("The bot is not in debug mode.");
         }
 
@@ -63,9 +63,9 @@ public class DebugCommand extends AbstractAdminCommand {
     }
 
     private static List<DebugOption> buildDebugOptionList(CommandContext ctx) {
-        ShardManager sm = ctx.bot.getShardManager();
-        DatabaseCache dbCache = ctx.bot.getDatabaseCache();
-        CommandExecutor executor = ctx.executor;
+        ShardManager sm = ctx.getBot().getShardManager();
+        DatabaseCache dbCache = ctx.getBot().getDatabaseCache();
+        CommandExecutor executor = ctx.getExecutor();
         return Arrays.asList(
                 new JDADebugOption(sm),
                 new ThreadDebugOption(),
@@ -80,13 +80,13 @@ public class DebugCommand extends AbstractAdminCommand {
     }
 
     private static void sendDebugInfo(CommandContext ctx, DebugOption d) {
-        String[] args = ctx.args;
+        String[] args = ctx.getArgs();
         String extra = args.length > 1 ? args[1] : "";
         String debugInfo = d.debug(extra);
-        printToConsole(debugInfo, ctx.e.getAuthor());
+        printToConsole(debugInfo, ctx.getE().getAuthor());
         List<String> messages = MessageUtils.splitLinesByLength(debugInfo, Message.MAX_CONTENT_LENGTH);
         for (String message : messages) {
-            ctx.e.getChannel().sendMessage(message).queue();
+            ctx.getE().getChannel().sendMessage(message).queue();
         }
     }
 

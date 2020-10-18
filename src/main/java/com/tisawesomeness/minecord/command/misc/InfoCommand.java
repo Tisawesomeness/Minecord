@@ -28,11 +28,11 @@ public class InfoCommand extends AbstractMiscCommand {
 
     public Result run(String[] args, CommandContext ctx) {
         ctx.triggerCooldown();
-        ShardManager sm = ctx.bot.getShardManager();
+        ShardManager sm = ctx.getBot().getShardManager();
 
         // If the author used the admin keyword and is an elevated user
         boolean elevated = false;
-        if (args.length > 0 && "admin".equals(args[0]) && ctx.isElevated) {
+        if (args.length > 0 && "admin".equals(args[0]) && ctx.isElevated()) {
             elevated = true;
         }
 
@@ -43,19 +43,19 @@ public class InfoCommand extends AbstractMiscCommand {
         eb.addField("Version", MarkdownUtil.monospace(BuildInfo.getInstance().version), true);
 
         String guilds = String.valueOf(sm.getGuilds().size());
-        int shardTotal = ctx.bot.getShardManager().getShardsTotal();
+        int shardTotal = ctx.getBot().getShardManager().getShardsTotal();
         if (shardTotal > 1) {
-            String shards = ctx.e.getJDA().getShardInfo().getShardId() + 1 + "/" + shardTotal;
+            String shards = ctx.getE().getJDA().getShardInfo().getShardId() + 1 + "/" + shardTotal;
             eb.addField("Shard", shards, true);
-            guilds += " {" + ctx.e.getJDA().getGuilds().size() + "}";
+            guilds += " {" + ctx.getE().getJDA().getGuilds().size() + "}";
         }
         eb.addField("Guilds", guilds, true);
 
-        eb.addField("Uptime", DateUtils.getDurationString(ctx.bot.getBirth()), true);
+        eb.addField("Uptime", DateUtils.getDurationString(ctx.getBot().getBirth()), true);
         eb.addField("Ping", sm.getAverageGatewayPing() + "ms", true);
-        if (ctx.config.getFlagConfig().isShowExtraInfo() || elevated) {
+        if (ctx.getConfig().getFlagConfig().isShowExtraInfo() || elevated) {
             eb.addField("Memory", getMemoryString(), true);
-            eb.addField("Boot Time", DateUtils.getBootTime(ctx.bot.getBootTime()), true);
+            eb.addField("Boot Time", DateUtils.getBootTime(ctx.getBot().getBootTime()), true);
             eb.addField("OS", OS_NAME, true);
             eb.addField("OS Arch", OS_ARCH, true);
             eb.addField("OS Version", MarkdownUtil.monospace(OS_VERSION), true);
@@ -64,7 +64,7 @@ public class InfoCommand extends AbstractMiscCommand {
         eb.addField("Java Version", MarkdownUtil.monospace(JAVA_VERSION), true);
         eb.addField("JDA Version", MarkdownUtil.monospace(Bot.jdaVersion), true);
 
-        String links = MarkdownUtil.maskedLink("INVITE", ctx.config.getInviteLink()) + " | " +
+        String links = MarkdownUtil.maskedLink("INVITE", ctx.getConfig().getInviteLink()) + " | " +
             MarkdownUtil.maskedLink("SUPPORT", Bot.helpServer) + " | " +
             MarkdownUtil.maskedLink("WEBSITE", Bot.website) + " | " +
             MarkdownUtil.maskedLink("GITHUB", Bot.github);

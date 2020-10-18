@@ -39,7 +39,7 @@ public class SettingContextParser extends SettingCommandHandler {
      * @return The result of this command
      */
     public Result parse() {
-        String contextArg = ctx.args[currentArg];
+        String contextArg = ctx.getArgs()[currentArg];
         currentArg++;
         if (type == SettingCommandType.QUERY) {
             if ("list".equalsIgnoreCase(contextArg)) {
@@ -76,7 +76,7 @@ public class SettingContextParser extends SettingCommandHandler {
     }
 
     private Result parseChannelAndDisplay() {
-        String contextArg = ctx.args[currentArg];
+        String contextArg = ctx.getArgs()[currentArg];
         if (DiscordUtils.isDiscordId(contextArg)) {
             return displayChannelIdSettings(contextArg);
         }
@@ -90,7 +90,7 @@ public class SettingContextParser extends SettingCommandHandler {
             ctx.triggerCooldown();
             return displayCurrentSettings(cid, dbChannel.getGuildId());
         }
-        TextChannel c = ctx.bot.getShardManager().getTextChannelById(cid);
+        TextChannel c = ctx.getBot().getShardManager().getTextChannelById(cid);
         if (c != null) {
             ctx.triggerCooldown();
             return displayCurrentSettings(c);
@@ -98,7 +98,7 @@ public class SettingContextParser extends SettingCommandHandler {
         return ctx.warn("That channel is not visible to the bot.");
     }
     private Result displayChannelMentionSettings() {
-        List<TextChannel> mentioned = ctx.e.getMessage().getMentionedChannels();
+        List<TextChannel> mentioned = ctx.getE().getMessage().getMentionedChannels();
         if (!mentioned.isEmpty()) {
             TextChannel c = mentioned.get(0);
             ctx.triggerCooldown();

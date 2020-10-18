@@ -100,7 +100,7 @@ public class CapeCommand extends AbstractPlayerCommand {
                         .setImage("attachment://cape.png")
                         .build();
                 try {
-                    ctx.e.getChannel().sendFile(RequestUtils.downloadImage(url), "cape.png").embed(emb).queue();
+                    ctx.getE().getChannel().sendFile(RequestUtils.downloadImage(url), "cape.png").embed(emb).queue();
                     hasCape = true;
                 } catch (IOException ex) {
                     ex.printStackTrace();
@@ -129,7 +129,7 @@ public class CapeCommand extends AbstractPlayerCommand {
     }
 
     private static boolean canSendFiles(CommandContext ctx) {
-        if (!ctx.e.isFromGuild()) {
+        if (!ctx.getE().isFromGuild()) {
             return true;
         }
         return ctx.botHasPermission(Permission.MESSAGE_ATTACH_FILES);

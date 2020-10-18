@@ -28,7 +28,7 @@ public abstract class SettingContext extends SettingCommandHandler {
             ctx.triggerCooldown();
             return displaySettings(title, s -> s.getDisplay(obj));
         }
-        if (currentArg < ctx.args.length) {
+        if (currentArg < ctx.getArgs().length) {
             return new SettingChooser(this, obj).parse();
         }
         return ctx.invalidArgs("You must specify a setting.");

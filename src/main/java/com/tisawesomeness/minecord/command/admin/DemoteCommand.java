@@ -23,7 +23,7 @@ public class DemoteCommand extends AbstractAdminCommand {
         }
 
         //Extract user
-        User user = DiscordUtils.findUser(args[0], ctx.bot.getShardManager());
+        User user = DiscordUtils.findUser(args[0], ctx.getBot().getShardManager());
         if (user == null) {
             return ctx.warn("Not a valid user!");
         }
@@ -36,7 +36,7 @@ public class DemoteCommand extends AbstractAdminCommand {
         }
 
         //Can't demote the owner
-        if (ctx.config.isOwner(id)) {
+        if (ctx.getConfig().isOwner(id)) {
             return ctx.warn("You can't demote the owner!");
         }
 

@@ -51,7 +51,7 @@ public class SettingChanger {
     }
 
     private String getSettingValue() {
-        String[] args = ctx.args;
+        String[] args = ctx.getArgs();
         StringJoiner sj = new StringJoiner(" ");
         while (currentArg < args.length) {
             sj.add(args[currentArg]);

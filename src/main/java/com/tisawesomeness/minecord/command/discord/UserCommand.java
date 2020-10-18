@@ -27,11 +27,11 @@ public class UserCommand extends AbstractDiscordCommand {
     }
 
     public Result run(String[] args, CommandContext ctx) {
-        MessageReceivedEvent e = ctx.e;
-        ShardManager sm = ctx.bot.getShardManager();
+        MessageReceivedEvent e = ctx.getE();
+        ShardManager sm = ctx.getBot().getShardManager();
 
         //If the author used the admin keyword and is an elevated user
-        if (args.length > 1 && args[1].equals("admin") && ctx.isElevated) {
+        if (args.length > 1 && args[1].equals("admin") && ctx.isElevated()) {
             if (!DiscordUtils.isDiscordId(args[0])) {
                 return ctx.invalidArgs("Not a valid ID!");
             }

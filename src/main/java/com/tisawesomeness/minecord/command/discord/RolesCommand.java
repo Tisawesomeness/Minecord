@@ -24,7 +24,7 @@ public class RolesCommand extends AbstractDiscordCommand implements IGuildOnlyCo
     }
 
     public Result run(String[] args, CommandContext ctx) {
-        MessageReceivedEvent e = ctx.e;
+        MessageReceivedEvent e = ctx.getE();
 
         // Check for argument length
         if (args.length == 0) {

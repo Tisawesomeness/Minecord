@@ -21,10 +21,10 @@ public class ShutdownCommand extends AbstractAdminCommand {
             throw new AssertionError("System.exit() call failed.");
         }
 
-        ctx.log(":x: **Bot shut down by " + ctx.e.getAuthor().getName() + "**");
-        ctx.e.getChannel().sendMessage(":wave: Goodbye!").complete();
+        ctx.log(":x: **Bot shut down by " + ctx.getE().getAuthor().getName() + "**");
+        ctx.getE().getChannel().sendMessage(":wave: Goodbye!").complete();
         ExecutorService exe = Executors.newSingleThreadExecutor();
-        exe.submit(ctx.bot::shutdown);
+        exe.submit(ctx.getBot()::shutdown);
         exe.shutdown();
         return Result.SUCCESS; // Graceful shutdown, just wait...
 

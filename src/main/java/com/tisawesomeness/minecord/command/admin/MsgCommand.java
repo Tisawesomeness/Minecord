@@ -24,7 +24,7 @@ public class MsgCommand extends AbstractAdminCommand {
         }
 
         //Extract user
-        User user = DiscordUtils.findUser(args[0], ctx.bot.getShardManager());
+        User user = DiscordUtils.findUser(args[0], ctx.getBot().getShardManager());
         if (user == null) {
             return ctx.warn("Not a valid user!");
         }
@@ -41,7 +41,7 @@ public class MsgCommand extends AbstractAdminCommand {
         }
 
         EmbedBuilder eb = new EmbedBuilder();
-        User a = ctx.e.getAuthor();
+        User a = ctx.getE().getAuthor();
         eb.setAuthor(a.getAsTag() + " (`" + a.getId() + "`)", null, a.getAvatarUrl());
         eb.setDescription("**Sent a DM to " + user.getAsTag() + " (`" + user.getId() + "`):**\n" + msg);
         eb.setThumbnail(user.getAvatarUrl());

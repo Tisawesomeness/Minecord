@@ -48,10 +48,10 @@ public class ChannelContext extends SettingContext {
     }
 
     private Result parseNotAdmin() {
-        if (!ctx.e.isFromGuild()) {
-            return ctx.warn(String.format("`%ssettings channel` cannot be used in DMs.", ctx.prefix));
+        if (!ctx.getE().isFromGuild()) {
+            return ctx.warn(String.format("`%ssettings channel` cannot be used in DMs.", ctx.getPrefix()));
         }
-        if (currentArg >= ctx.args.length) {
+        if (currentArg >= ctx.getArgs().length) {
             return displayCurrentChannelSettingsIfQuery();
         }
         return displayOrParseChannel();
@@ -60,14 +60,14 @@ public class ChannelContext extends SettingContext {
         if (type != SettingCommandType.QUERY) {
             return ctx.invalidArgs("You must specify a channel.");
         }
-        TextChannel c = ctx.e.getTextChannel();
+        TextChannel c = ctx.getE().getTextChannel();
         String title = "Channel settings for #" + c.getName();
         DbChannel channel = ctx.getChannel(c);
         ctx.triggerCooldown();
         return displaySettings(title, s -> s.getDisplay(channel));
     }
     private Result displayOrParseChannel() {
-        String channelArg = ctx.args[currentArg];
+        String channelArg = ctx.getArgs()[currentArg];
         Either<String, TextChannel> maybeChannel = getChannel(channelArg);
         if (!maybeChannel.isRight()) {
             String msg = maybeChannel.getLeft();
@@ -81,7 +81,7 @@ public class ChannelContext extends SettingContext {
         return displayOrParseChannelIfUserHasPermission(c);
     }
     private Result displayOrParseChannelIfUserHasPermission(TextChannel c) {
-        Member m = Objects.requireNonNull(ctx.e.getMember());
+        Member m = Objects.requireNonNull(ctx.getE().getMember());
         if (!m.hasPermission(c, Permission.VIEW_CHANNEL, Permission.MESSAGE_READ)) {
             ctx.warn("That channel does not exist in the current guild or is not visible to you.");
             return Result.NO_USER_PERMISSIONS;
@@ -93,21 +93,21 @@ public class ChannelContext extends SettingContext {
     }
 
     private Either<String, TextChannel> getChannel(String input) {
-        long gid = ctx.e.getGuild().getIdLong();
+        long gid = ctx.getE().getGuild().getIdLong();
         if (DiscordUtils.isDiscordId(input)) {
             return getChannelFromIdIfInGuild(input, gid);
         }
         return getChannelFromMentions(gid);
     }
     private Either<String, TextChannel> getChannelFromIdIfInGuild(String input, long gid) {
-        TextChannel c = ctx.bot.getShardManager().getTextChannelById(input);
+        TextChannel c = ctx.getBot().getShardManager().getTextChannelById(input);
         if (c == null || c.getGuild().getIdLong() != gid) {
             return Either.left("That channel does not exist in the current guild or is not visible to you.");
         }
         return Either.right(c);
     }
     private Either<String, TextChannel> getChannelFromMentions(long gid) {
-        List<TextChannel> mentioned = ctx.e.getMessage().getMentionedChannels();
+        List<TextChannel> mentioned = ctx.getE().getMessage().getMentionedChannels();
         if (mentioned.isEmpty()) {
             return Either.left(INVALID_CHANNEL_ERROR);
         }
@@ -120,13 +120,13 @@ public class ChannelContext extends SettingContext {
     }
 
     private Result parseAdmin() {
-        if (currentArg >= ctx.args.length) {
+        if (currentArg >= ctx.getArgs().length) {
             return ctx.invalidArgs("You must specify a channel id.");
         }
         return displayOrParseChannelId();
     }
     private Result displayOrParseChannelId() {
-        String channelArg = ctx.args[currentArg];
+        String channelArg = ctx.getArgs()[currentArg];
         Either<String, Long> maybeCid = getChannelId(channelArg);
         if (!maybeCid.isRight()) {
             return ctx.invalidArgs(maybeCid.getLeft());
@@ -152,7 +152,7 @@ public class ChannelContext extends SettingContext {
         return getChannelIdFromMentions();
     }
     private Either<String, Long> getChannelIdFromMentions() {
-        List<TextChannel> mentioned = ctx.e.getMessage().getMentionedChannels();
+        List<TextChannel> mentioned = ctx.getE().getMessage().getMentionedChannels();
         if (!mentioned.isEmpty()) {
             return Either.right(mentioned.get(0).getIdLong());
         }

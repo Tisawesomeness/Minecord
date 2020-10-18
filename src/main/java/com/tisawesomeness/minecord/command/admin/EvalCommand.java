@@ -25,7 +25,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -41,7 +40,7 @@ public class EvalCommand extends AbstractAdminCommand {
     }
 
     public Result run(String[] args, CommandContext ctx) {
-        MessageReceivedEvent e = ctx.e;
+        MessageReceivedEvent e = ctx.getE();
 
         // Parse args
         if (args.length == 0) {
@@ -52,12 +51,12 @@ public class EvalCommand extends AbstractAdminCommand {
         ScriptEngineManager factory = new ScriptEngineManager();
         ScriptEngine engine = factory.getEngineByName("JavaScript");
         engine.put("ctx", ctx);
-        engine.put("bot", ctx.bot);
+        engine.put("bot", ctx.getBot());
         engine.put("jda", e.getJDA());
         engine.put("sm", e.getJDA().getShardManager());
-        engine.put("config", ctx.config);
-        engine.put("lang", ctx.lang);
-        engine.put("dbCache", ctx.bot.getDatabaseCache());
+        engine.put("config", ctx.getConfig());
+        engine.put("lang", ctx.getLang());
+        engine.put("dbCache", ctx.getBot().getDatabaseCache());
         engine.put("event", e);
         engine.put("user", e.getAuthor());
         engine.put("channel", e.getChannel());
@@ -78,7 +77,7 @@ public class EvalCommand extends AbstractAdminCommand {
         try {
             output = engine.eval(code);
         } catch (ScriptException ex) {
-            exMsg = ex.getMessage() == null ? "Null Script Exception" : clean(ex.getMessage(), ctx.config);
+            exMsg = ex.getMessage() == null ? "Null Script Exception" : clean(ex.getMessage(), ctx.getConfig());
         }
         if (output == null) {
             output = "null";
@@ -86,7 +85,7 @@ public class EvalCommand extends AbstractAdminCommand {
 
         // Build embed
         EmbedBuilder eb = new EmbedBuilder();
-        String in = clean(code, ctx.config);
+        String in = clean(code, ctx.getConfig());
         if (in.length() > MessageEmbed.TEXT_MAX_LENGTH - 10) {
             eb.addField("Input", "Input too long!", false);
         } else if (in.length() > MessageEmbed.VALUE_MAX_LENGTH - 10) {
@@ -106,7 +105,7 @@ public class EvalCommand extends AbstractAdminCommand {
         }
 
         // Check for length
-        String out = clean(output.toString(), ctx.config);
+        String out = clean(output.toString(), ctx.getConfig());
         if (out.length() > MessageEmbed.VALUE_MAX_LENGTH - 10) {
       // Send up to 10 2000-char messages
       List<String> lines = MessageUtils.splitLinesByLength(out, Message.MAX_CONTENT_LENGTH - 10);

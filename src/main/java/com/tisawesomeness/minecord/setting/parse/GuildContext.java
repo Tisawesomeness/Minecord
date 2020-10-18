@@ -34,15 +34,15 @@ public class GuildContext extends SettingContext {
         if (isAdmin) {
             return parseGuildId();
         }
-        if (ctx.e.isFromGuild()) {
-            return displayOrParseGuildId(ctx.e.getGuild().getIdLong());
+        if (ctx.getE().isFromGuild()) {
+            return displayOrParseGuildId(ctx.getE().getGuild().getIdLong());
         }
-        return ctx.warn(String.format("`%ssettings guild` cannot be used in DMs.", ctx.prefix));
+        return ctx.warn(String.format("`%ssettings guild` cannot be used in DMs.", ctx.getPrefix()));
     }
 
     private Result parseGuildId() {
-        if (currentArg < ctx.args.length) {
-            String guildArg = ctx.args[currentArg];
+        if (currentArg < ctx.getArgs().length) {
+            String guildArg = ctx.getArgs()[currentArg];
             if (!DiscordUtils.isDiscordId(guildArg)) {
                 return ctx.invalidArgs("Not a valid guild id.");
             }

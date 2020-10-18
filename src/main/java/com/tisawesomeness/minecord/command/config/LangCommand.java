@@ -40,7 +40,7 @@ public class LangCommand extends AbstractConfigCommand {
         }
         Optional<Lang> langOpt = Lang.from(args[0]);
         if (langOpt.isPresent()) {
-            return new SmartSetParser(ctx, ctx.bot.getSettings().lang).parse();
+            return new SmartSetParser(ctx, ctx.getBot().getSettings().lang).parse();
         }
         return ctx.invalidArgs("That language is not valid.");
     }
@@ -55,7 +55,7 @@ public class LangCommand extends AbstractConfigCommand {
                 .collect(Collectors.joining("\n"));
         String langHelp = String.format("Use `%slang <code>` or `%sset` to change languages.\n" +
                 "Use `%slang info <code>` to view info for a language.",
-                ctx.prefix, ctx.prefix, ctx.prefix);
+                ctx.getPrefix(), ctx.getPrefix(), ctx.getPrefix());
         EmbedBuilder eb = new EmbedBuilder()
                 .setTitle(title)
                 .setDescription(langHelp + "\n\n" + langStr);

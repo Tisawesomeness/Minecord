@@ -39,26 +39,26 @@ public class ListSubcommand {
     public Result parse() {
         if (isAdmin) {
             return parseAdminList();
-        } else if (!ctx.e.isFromGuild()) {
-            return ctx.warn(String.format("`%ssettings list` cannot be used in DMs.", ctx.prefix));
+        } else if (!ctx.getE().isFromGuild()) {
+            return ctx.warn(String.format("`%ssettings list` cannot be used in DMs.", ctx.getPrefix()));
         } else if (!ctx.userHasPermission(Permission.MANAGE_SERVER)) {
             return ctx.noUserPermissions("You do not have Manage Server permissions.");
         }
         ctx.triggerCooldown();
-        return listSettings("All Channel Overrides", ctx.e.getGuild().getIdLong());
+        return listSettings("All Channel Overrides", ctx.getE().getGuild().getIdLong());
     }
     private Result parseAdminList() {
-        if (currentArg < ctx.args.length) {
+        if (currentArg < ctx.getArgs().length) {
             return parseGuildAndList();
-        } else if (!ctx.e.isFromGuild()) {
+        } else if (!ctx.getE().isFromGuild()) {
             return ctx.warn(String.format(
-                    "`%ssettings admin list` with no guild id cannot be used in DMs.", ctx.prefix));
+                    "`%ssettings admin list` with no guild id cannot be used in DMs.", ctx.getPrefix()));
         }
-        return listSettings("All Channel Overrides", ctx.e.getGuild().getIdLong());
+        return listSettings("All Channel Overrides", ctx.getE().getGuild().getIdLong());
     }
 
     private Result parseGuildAndList() {
-        String guildArg = ctx.args[currentArg];
+        String guildArg = ctx.getArgs()[currentArg];
         if (!DiscordUtils.isDiscordId(guildArg)) {
             return ctx.invalidArgs("Not a valid guild id.");
         }
@@ -72,7 +72,7 @@ public class ListSubcommand {
 
         List<DbChannel> channels = ctx.getChannelsInGuild(gid);
         if (!channels.isEmpty()) {
-            Guild g = ctx.bot.getShardManager().getGuildById(gid);
+            Guild g = ctx.getBot().getShardManager().getGuildById(gid);
             for (DbChannel channel : channels) {
                 String fieldTitle = getChannelNameIfGuildExists(channel.getId(), g);
                 String field = buildField(s -> s.getDisplay(channel));
@@ -83,7 +83,7 @@ public class ListSubcommand {
     }
 
     private String buildField(Function<? super Setting<?>, String> displayFunction) {
-        return ctx.bot.getSettings().stream()
+        return ctx.getBot().getSettings().stream()
                 .map(s -> inlineSetting(s, displayFunction))
                 .collect(Collectors.joining("\n"));
     }

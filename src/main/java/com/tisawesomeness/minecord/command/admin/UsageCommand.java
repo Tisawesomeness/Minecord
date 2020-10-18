@@ -32,9 +32,9 @@ public class UsageCommand extends AbstractAdminCommand {
     }
 
     public Result run(String[] args, CommandContext ctx) {
-        Lang lang = ctx.lang;
+        Lang lang = ctx.getLang();
         EmbedBuilder eb = new EmbedBuilder()
-                .setTitle("Command usage for " + DateUtils.getDurationString(ctx.bot.getBirth()));
+                .setTitle("Command usage for " + DateUtils.getDurationString(ctx.getBot().getBirth()));
 
         if (args.length == 0) {
             return processGlobalUsage(ctx, eb);
@@ -59,9 +59,9 @@ public class UsageCommand extends AbstractAdminCommand {
         return ctx.reply(eb);
     }
     private Result processFullUsage(CommandContext ctx, EmbedBuilder eb) {
-        ctx.executor.pushUses(); // Make sure uses are up-to-date
+        ctx.getExecutor().pushUses(); // Make sure uses are up-to-date
         try {
-            Multiset<String> commandUses = ctx.executor.getCommandStats().getCommandUses();
+            Multiset<String> commandUses = ctx.getExecutor().getCommandStats().getCommandUses();
             addFields(ctx, eb, c -> formatCommandFull(c, ctx, commandUses));
             eb.setDescription(totalHeader(commandUses));
             return ctx.reply(eb);
@@ -77,7 +77,7 @@ public class UsageCommand extends AbstractAdminCommand {
                 continue;
             }
             String field = buildUsageString(cmds, commandToLineMapper);
-            eb.addField(String.format("**%s**", m.getDisplayName(ctx.lang)), field, true);
+            eb.addField(String.format("**%s**", m.getDisplayName(ctx.getLang())), field, true);
         }
     }
 
@@ -92,7 +92,7 @@ public class UsageCommand extends AbstractAdminCommand {
         return ctx.reply(eb);
     }
     private static Result getCommandUsage(CommandContext ctx, EmbedBuilder eb, Command c) {
-        Multiset<Result> results = ctx.executor.getResults(c);
+        Multiset<Result> results = ctx.getExecutor().getResults(c);
         eb.setDescription(formatResults(results));
         return ctx.reply(eb);
     }
@@ -106,13 +106,13 @@ public class UsageCommand extends AbstractAdminCommand {
     }
 
     private static String formatCommand(Command c, CommandContext ctx) {
-        return formatLine(c, ctx, String.valueOf(ctx.executor.getResults(c).size()));
+        return formatLine(c, ctx, String.valueOf(ctx.getExecutor().getResults(c).size()));
     }
     private static String formatCommandFull(Command c, CommandContext ctx, Multiset<String> uses) {
         return formatLine(c, ctx, String.valueOf(uses.count(c.getId())));
     }
     private static String formatCommandDetailed(Command c, CommandContext ctx) {
-        Multiset<Result> results = ctx.executor.getResults(c);
+        Multiset<Result> results = ctx.getExecutor().getResults(c);
         return formatLine(c, ctx, getResultListString(results));
     }
     private static String getResultListString(Multiset<Result> results) {
@@ -126,7 +126,7 @@ public class UsageCommand extends AbstractAdminCommand {
         return String.format("%s | Total **%d**", resultListString, results.size());
     }
     private static String formatLine(Command c, CommandContext ctx, String line) {
-        return String.format("`%s%s` **-** %s", ctx.prefix, c.getDisplayName(ctx.lang), line);
+        return String.format("`%s%s` **-** %s", ctx.getPrefix(), c.getDisplayName(ctx.getLang()), line);
     }
     private static String totalHeader(Multiset<?> results) {
         return String.format("**__Total: %d__**", results.size());
@@ -148,7 +148,7 @@ public class UsageCommand extends AbstractAdminCommand {
     private static Multiset<Result> accumulateResults(Iterable<? extends Command> cmds, CommandContext ctx) {
         Multiset<Result> totalResults = EnumMultiset.create(Result.class);
         for (Command c : cmds) {
-            totalResults.addAll(ctx.executor.getResults(c));
+            totalResults.addAll(ctx.getExecutor().getResults(c));
         }
         return totalResults;
     }

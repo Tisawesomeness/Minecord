@@ -22,7 +22,7 @@ public class NameCommand extends AbstractAdminCommand {
         }
 
         //Get guild
-        Guild guild = ctx.bot.getShardManager().getGuildById(args[0]);
+        Guild guild = ctx.getBot().getShardManager().getGuildById(args[0]);
         if (guild == null) {
             return ctx.warn("Not a valid guild!");
         }
@@ -37,13 +37,13 @@ public class NameCommand extends AbstractAdminCommand {
         if (args.length > 1) {
             name = ctx.joinArgsSlice(1);
         } else {
-            name = ctx.e.getJDA().getSelfUser().getName();
+            name = ctx.getE().getJDA().getSelfUser().getName();
         }
         guild.modifyNickname(guild.getSelfMember(), name).queue();
 
         //Log it
         EmbedBuilder eb = new EmbedBuilder();
-        User a = ctx.e.getAuthor();
+        User a = ctx.getE().getAuthor();
         eb.setAuthor(a.getAsTag() + " (`" + a.getId() + "`)",
             null, a.getAvatarUrl());
         String desc = args.length == 1 ? "**Reset" : "**Changed";
