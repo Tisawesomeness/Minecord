@@ -24,7 +24,7 @@ public class SmartSetParser extends SettingCommandHandler {
      * @return The result of the command
      */
     public Result parse() {
-        if (!ctx.getE().isFromGuild()) {
+        if (!ctx.isFromGuild()) {
             DbUser user = ctx.getUser(ctx.getE().getAuthor());
             return new SettingChanger(this, user).parse();
         } else if (!userHasManageServerPermissions()) {

@@ -4,40 +4,26 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.command.misc.HelpCommand;
 import com.tisawesomeness.minecord.config.serial.Config;
-import com.tisawesomeness.minecord.database.DatabaseCache;
-import com.tisawesomeness.minecord.database.dao.DbChannel;
-import com.tisawesomeness.minecord.database.dao.DbGuild;
-import com.tisawesomeness.minecord.database.dao.DbUser;
-import com.tisawesomeness.minecord.setting.impl.UseMenusSetting;
 
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-import java.text.MessageFormat;
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
+import java.util.Collection;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Contains the information needed for a command to execute in a Discord channel.
  */
-@RequiredArgsConstructor
-public class CommandContextImpl implements CommandContext {
+public class DiscordContext implements CommandContext {
 
-    @Getter private final @NonNull String[] args;
+    @Getter private final String[] args;
     @Getter private final @NonNull MessageReceivedEvent e;
     @Getter private final @NonNull Config config;
     @Getter private final @NonNull Bot bot;
@@ -46,11 +32,9 @@ public class CommandContextImpl implements CommandContext {
     @Getter private final boolean isElevated;
     // These settings are used often and calculated beforehand, so simply passing their values makes sense
     @Getter private final @NonNull String prefix;
-    @Getter private final @NonNull Lang lang;
-    // These settings are only used occasionally, it's best to pass the setting and evaluate when needed
-    private final @NonNull UseMenusSetting useMenusSetting;
+    @Getter private final Lang lang;
 
-    public CommandContextImpl(@NonNull String[] args, @NonNull MessageReceivedEvent e, @NonNull Config config,
+    public DiscordContext(@NonNull String[] args, @NonNull MessageReceivedEvent e, @NonNull Config config,
                           @NonNull Bot bot, @NonNull Command cmd, @NonNull CommandExecutor executor,
                           boolean isElevated, @NonNull String prefix, @NonNull Lang lang) {
         this.args = args;
@@ -62,26 +46,22 @@ public class CommandContextImpl implements CommandContext {
         this.isElevated = isElevated;
         this.prefix = prefix;
         this.lang = lang;
-        useMenusSetting = bot.getSettings().useMenus;
     }
 
-    public Result reply(CharSequence text) {
+    public Result reply(@NonNull CharSequence text) {
         e.getChannel().sendMessage(text).queue();
         return Result.SUCCESS;
     }
-    public Result replyRaw(EmbedBuilder eb) {
+    public Result replyRaw(@NonNull EmbedBuilder eb) {
         e.getChannel().sendMessage(eb.build()).queue();
         return Result.SUCCESS;
-    }
-    public Result reply(EmbedBuilder eb) {
-        return replyRaw(brand(eb));
     }
     public Result showHelp() {
         reply(HelpCommand.showHelp(this, cmd));
         return Result.HELP;
     }
 
-    public Result sendResult(Result result, CharSequence text) {
+    public Result sendResult(Result result, @NonNull CharSequence text) {
         String msg = result.addEmote(text, lang);
         e.getChannel().sendMessage(msg).queue();
         return result;
@@ -93,7 +73,7 @@ public class CommandContextImpl implements CommandContext {
         }
     }
 
-    public EmbedBuilder addFooter(EmbedBuilder eb) {
+    public @NonNull EmbedBuilder addFooter(@NonNull EmbedBuilder eb) {
         if (config.getFlagConfig().isUseAnnouncements()) {
             return eb.setFooter(bot.getAnnounceRegistry().roll(bot.getShardManager()));
         }
@@ -108,34 +88,56 @@ public class CommandContextImpl implements CommandContext {
 //        User owner = Bot.shardManager.retrieveUserById(Config.getOwner()).complete();
 //        return eb.setFooter(announcement, owner.getAvatarUrl());
     }
-    public EmbedBuilder brand(EmbedBuilder eb) {
+    public @NonNull EmbedBuilder brand(@NonNull EmbedBuilder eb) {
         return addFooter(eb).setColor(Bot.color);
     }
 
     public boolean userHasPermission(Permission... permissions) {
-        if (isElevated()) {
+        if (isElevated) {
             return true;
         }
-        if (!e.isFromGuild()) {
+        if (!isFromGuild()) {
+            throw new IllegalStateException("Permisssions can only be checked in commands sent from guilds.");
+        }
+        return Objects.requireNonNull(e.getMember()).hasPermission(e.getTextChannel(), permissions);
+    }
+    public boolean userHasPermission(Collection<Permission> permissions) {
+        if (isElevated) {
+            return true;
+        }
+        if (!isFromGuild()) {
             throw new IllegalStateException("Permisssions can only be checked in commands sent from guilds.");
         }
         return Objects.requireNonNull(e.getMember()).hasPermission(e.getTextChannel(), permissions);
     }
     public boolean botHasPermission(Permission... permissions) {
+        if (!isFromGuild()) {
+            throw new IllegalStateException("Permisssions can only be checked in commands sent from guilds.");
+        }
+        return e.getGuild().getSelfMember().hasPermission(e.getTextChannel(), permissions);
+    }
+    public boolean botHasPermission(Collection<Permission> permissions) {
+        if (!isFromGuild()) {
+            throw new IllegalStateException("Permisssions can only be checked in commands sent from guilds.");
+        }
         return e.getGuild().getSelfMember().hasPermission(e.getTextChannel(), permissions);
     }
 
-    public boolean shouldUseMenus() {
-        return useMenusSetting.getEffective(this);
+    public boolean isFromGuild() {
+        return e.isFromGuild();
     }
 
-    public void log(String m) {
+    public boolean shouldUseMenus() {
+        return bot.getSettings().useMenus.getEffective(this);
+    }
+
+    public void log(@NonNull String m) {
         bot.log(m);
     }
-    public void log(Message m) {
+    public void log(@NonNull Message m) {
         bot.log(m);
     }
-    public void log(MessageEmbed m) {
+    public void log(@NonNull MessageEmbed m) {
         bot.log(m);
     }
 

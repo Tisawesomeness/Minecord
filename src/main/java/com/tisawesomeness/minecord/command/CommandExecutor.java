@@ -20,8 +20,8 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
+import org.jetbrains.annotations.TestOnly;
 
 import java.sql.SQLException;
 import java.util.Collection;
@@ -85,12 +85,19 @@ public class CommandExecutor {
         unpushedUses.add(c.getId());
         results.get(c).add(result);
     }
-    private Result runCommand(Command c, CommandContext ctx) {
+    /**
+     * Directly runs a command without keeping track of it.
+     * @param c The command
+     * @param ctx The context of the command
+     * @return The result of the command
+     */
+    @TestOnly
+    public Result runCommand(Command c, CommandContext ctx) {
         return processGuildOnly(c, ctx);
     }
 
     private Result processGuildOnly(Command c, CommandContext ctx) {
-        if (c instanceof IGuildOnlyCommand && !ctx.getE().isFromGuild()) {
+        if (c instanceof IGuildOnlyCommand && !ctx.isFromGuild()) {
             return ctx.warn("This command is not available in DMs.");
         }
         return processElevation(c, ctx);
@@ -103,20 +110,19 @@ public class CommandExecutor {
     }
 
     private Result processPermissions(Command c, CommandContext ctx) {
-        if (ctx.getE().isFromGuild()) {
+        if (ctx.isFromGuild()) {
             return processBotPermissions(c, ctx);
         }
         return processCooldown(c, ctx);
     }
     private Result processBotPermissions(Command c, CommandContext ctx) {
-        MessageReceivedEvent e = ctx.getE();
-        TextChannel tc = e.getTextChannel();
-        EnumSet<Permission> rbp = c.getBotPermissions();
-        Member sm = e.getGuild().getSelfMember();
-        if (!sm.hasPermission(tc, Permission.MESSAGE_EMBED_LINKS)) {
+        if (!ctx.botHasPermission(Permission.MESSAGE_EMBED_LINKS)) {
             return ctx.noBotPermissions("I need Embed Links permissions to use commands!");
         }
-        if (!sm.hasPermission(tc, rbp)) {
+        EnumSet<Permission> rbp = c.getBotPermissions();
+        if (!ctx.botHasPermission(rbp)) {
+            Member sm = ctx.getE().getGuild().getSelfMember();
+            TextChannel tc = ctx.getE().getTextChannel();
             String missingPermissions = getMissingPermissionString(sm, tc, rbp);
             String errMsg = String.format("I am missing the %s permissions.", missingPermissions);
             return ctx.noBotPermissions(errMsg);
@@ -125,11 +131,10 @@ public class CommandExecutor {
     }
     private Result processUserPermissions(Command c, CommandContext ctx) {
         if (!ctx.isElevated()) {
-            MessageReceivedEvent e = ctx.getE();
-            TextChannel tc = e.getTextChannel();
             EnumSet<Permission> rup = c.getUserPermissions();
-            Member mem = Objects.requireNonNull(e.getMember());
-            if (!mem.hasPermission(tc, rup)) {
+            if (!ctx.userHasPermission(rup)) {
+                Member mem = Objects.requireNonNull(ctx.getE().getMember());
+                TextChannel tc = ctx.getE().getTextChannel();
                 String missingPermissions = getMissingPermissionString(mem, tc, rup);
                 String errMsg = String.format("You are missing the %s permissions.", missingPermissions);
                 return ctx.noUserPermissions(errMsg);
@@ -137,7 +142,7 @@ public class CommandExecutor {
         }
         return processCooldown(c, ctx);
     }
-    // Mutates permissions EnumSet!
+    // Mutates permissions collection! Only use when done
     private static String getMissingPermissionString(Member m, TextChannel tc, Collection<Permission> permissions) {
         permissions.removeAll(m.getPermissions(tc));
         return permissions.stream()

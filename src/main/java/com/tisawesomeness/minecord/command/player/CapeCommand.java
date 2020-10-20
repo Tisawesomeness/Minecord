@@ -129,7 +129,7 @@ public class CapeCommand extends AbstractPlayerCommand {
     }
 
     private static boolean canSendFiles(CommandContext ctx) {
-        if (!ctx.getE().isFromGuild()) {
+        if (!ctx.isFromGuild()) {
             return true;
         }
         return ctx.botHasPermission(Permission.MESSAGE_ATTACH_FILES);

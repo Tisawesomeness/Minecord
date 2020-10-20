@@ -58,6 +58,6 @@ public abstract class SettingCommandHandler {
      */
     public boolean userHasManageServerPermissions() {
         CommandContext ctx = getCtx();
-        return !ctx.getE().isFromGuild() || ctx.userHasPermission(Permission.MANAGE_SERVER);
+        return !ctx.isFromGuild() || ctx.userHasPermission(Permission.MANAGE_SERVER);
     }
 }

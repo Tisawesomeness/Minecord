@@ -39,7 +39,7 @@ public class ListSubcommand {
     public Result parse() {
         if (isAdmin) {
             return parseAdminList();
-        } else if (!ctx.getE().isFromGuild()) {
+        } else if (!ctx.isFromGuild()) {
             return ctx.warn(String.format("`%ssettings list` cannot be used in DMs.", ctx.getPrefix()));
         } else if (!ctx.userHasPermission(Permission.MANAGE_SERVER)) {
             return ctx.noUserPermissions("You do not have Manage Server permissions.");
@@ -50,7 +50,7 @@ public class ListSubcommand {
     private Result parseAdminList() {
         if (currentArg < ctx.getArgs().length) {
             return parseGuildAndList();
-        } else if (!ctx.getE().isFromGuild()) {
+        } else if (!ctx.isFromGuild()) {
             return ctx.warn(String.format(
                     "`%ssettings admin list` with no guild id cannot be used in DMs.", ctx.getPrefix()));
         }

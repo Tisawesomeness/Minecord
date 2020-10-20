@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.database;
 
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.database.dao.CommandStats;
+import com.tisawesomeness.minecord.database.dao.CommandStatsImpl;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import com.google.common.base.Splitter;
@@ -41,7 +42,7 @@ public class Database {
         source = ds;
 
         cache = new DatabaseCache(this, config);
-        commandStats = new CommandStats(this);
+        commandStats = new CommandStatsImpl(this);
 
         // For now, only creating the database is needed
         // In the future, every database change increments the version

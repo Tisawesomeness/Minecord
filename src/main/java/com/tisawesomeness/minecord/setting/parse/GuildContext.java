@@ -34,7 +34,7 @@ public class GuildContext extends SettingContext {
         if (isAdmin) {
             return parseGuildId();
         }
-        if (ctx.getE().isFromGuild()) {
+        if (ctx.isFromGuild()) {
             return displayOrParseGuildId(ctx.getE().getGuild().getIdLong());
         }
         return ctx.warn(String.format("`%ssettings guild` cannot be used in DMs.", ctx.getPrefix()));

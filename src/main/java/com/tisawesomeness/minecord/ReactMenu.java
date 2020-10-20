@@ -1,13 +1,13 @@
 package com.tisawesomeness.minecord;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -161,11 +161,10 @@ public abstract class ReactMenu {
      * @return True if the guild has menus enabled and the bot has manage message and add reaction permissions
      */
     public static MenuStatus getMenuStatus(CommandContext ctx) {
-        MessageReceivedEvent e = ctx.getE();
         if (!ctx.shouldUseMenus()) {
             return MenuStatus.DISABLED;
         }
-        if (!e.isFromGuild()) {
+        if (!ctx.isFromGuild()) {
             return MenuStatus.VALID;
         }
         if (!ctx.userHasPermission(Permission.MESSAGE_ADD_REACTION)) {
