@@ -206,11 +206,14 @@ public class Bot {
         if (futureVH != null) {
             try {
                 voteHandler = futureVH.get();
-            } catch (ExecutionException | InterruptedException ex) {
-                // It's possible to be interrupted if the shutdown command
-                // after the bot starts but before the vote handler starts
+            } catch (ExecutionException ex) {
                 ex.printStackTrace();
                 return 14;
+            } catch (InterruptedException ex) {
+                // It's possible to be interrupted if the shutdown command executes
+                // after the bot starts but before the vote handler starts
+                ex.printStackTrace();
+                return 0;
             }
         }
 
