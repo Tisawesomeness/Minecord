@@ -233,21 +233,33 @@ public interface CommandContext {
     }
     /**
      * Creates a string with arguments from {@code beginIndex} to the end of the array.
-     * @param beginIndex The positive starting index
-     * @return A string with joined arguments, or empty if {@code beginIndex >= ctx.args.length}.
+     * @param beginIndex The nonnegative starting index
+     * @return A string with joined arguments, or empty if {@code beginIndex >= ctx.args.length}
+     * @throws IllegalArgumentException If {@code beginIndex < 0}
      */
     default @NonNull String joinArgsSlice(int beginIndex) {
+        if (beginIndex < 0) {
+            throw new IllegalArgumentException("beginIndex was " + beginIndex + " but must be nonnegative.");
+        }
         return Arrays.stream(getArgs())
                 .skip(beginIndex)
                 .collect(Collectors.joining(" "));
     }
     /**
      * Creates a string with arguments from {@code beginIndex} to {@code endIndex - 1}.
-     * @param beginIndex The positive starting index
+     * @param beginIndex The nonnegative starting index
      * @param endIndex The ending index, must be greater than or equal to {@code beginIndex}, may be out of bounds
-     * @return A string with joined arguments, or empty if {@code beginIndex >= ctx.args.length}.
+     * @return A string with joined arguments, or empty if {@code beginIndex >= ctx.args.length}
+     * @throws IllegalArgumentException If {@code beginIndex < 0} or {@code endIndex < beginIndex}
      */
     default @NonNull String joinArgsSlice(int beginIndex, int endIndex) {
+        if (beginIndex < 0) {
+            throw new IllegalArgumentException("beginIndex was " + beginIndex + " but must be nonnegative.");
+        }
+        if (endIndex < beginIndex) {
+            throw new IllegalArgumentException(
+                    String.format("endIndex (%d) must be >= beginIndex (%d)", endIndex, beginIndex));
+        }
         return Arrays.stream(getArgs())
                 .skip(beginIndex)
                 .limit(endIndex - beginIndex)
