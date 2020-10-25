@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command.runner;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Lang;
+import com.tisawesomeness.minecord.command.AbstractContext;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.CommandExecutor;
@@ -15,7 +15,6 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,15 +34,14 @@ import java.util.List;
  * @see #hasTriggeredCooldown()
  */
 @RequiredArgsConstructor
-public class TestContext implements CommandContext {
-
-    private static final String UNSUPPORTED = "This operation is not supported in a testing context!";
+public class TestContext extends AbstractContext {
 
     /**
      * The result of the command according to the {@link CommandExecutor}.
      */
     @Getter protected Result result;
 
+    // Overrides getters in AbstractContext
     @Getter private final String[] args;
     @Getter private final @NonNull Config config;
     @Getter private final @NonNull Command cmd;
@@ -82,38 +80,38 @@ public class TestContext implements CommandContext {
         return triggeredCooldown;
     }
 
-    public @NonNull MessageReceivedEvent getE() {
-        throw new UnsupportedOperationException(UNSUPPORTED);
-    }
-    public @NonNull Bot getBot() {
-        throw new UnsupportedOperationException(UNSUPPORTED);
-    }
-
+    @Override
     public Result reply(@NonNull CharSequence text) {
         replies.add(text);
         return Result.SUCCESS;
     }
+    @Override
     public Result replyRaw(@NonNull EmbedBuilder eb) {
         embedReplies.add(eb.build());
         return Result.SUCCESS;
     }
+    @Override
     public Result showHelp() {
         requestedHelp = true;
         return Result.HELP;
     }
 
+    @Override
     public Result sendResult(Result result, @NonNull CharSequence text) {
         replies.add(text);
         return result;
     }
 
+    @Override
     public void triggerCooldown() {
         triggeredCooldown = true;
     }
 
+    @Override
     public @NonNull EmbedBuilder addFooter(@NonNull EmbedBuilder eb) {
         return eb;
     }
+    @Override
     public @NonNull EmbedBuilder brand(@NonNull EmbedBuilder eb) {
         return eb;
     }
@@ -121,20 +119,25 @@ public class TestContext implements CommandContext {
     public boolean userHasPermission(Permission... permissions) {
         return true;
     }
+    @Override
     public boolean userHasPermission(Collection<Permission> permissions) {
         return true;
     }
+    @Override
     public boolean botHasPermission(Permission... permissions) {
         return true;
     }
+    @Override
     public boolean botHasPermission(Collection<Permission> permissions) {
         return true;
     }
 
+    @Override
     public boolean isFromGuild() {
         return true;
     }
 
+    @Override
     public boolean shouldUseMenus() {
         return false;
     }
@@ -142,11 +145,18 @@ public class TestContext implements CommandContext {
     public void log(@NonNull String m) {
         System.out.println(m);
     }
+    @Override
     public void log(@NonNull Message m) {
         System.out.println(m.getContentRaw());
     }
+    @Override
     public void log(@NonNull MessageEmbed m) {
         System.out.println(m.toData());
+    }
+
+    @Override
+    protected void unsupported() {
+        throw new UnsupportedOperationException("This operation is not supported in a testing context!");
     }
 
 }
