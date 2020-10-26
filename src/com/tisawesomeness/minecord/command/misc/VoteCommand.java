@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.misc;
 
 import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
@@ -24,7 +25,8 @@ public class VoteCommand extends Command {
 
     public Result run(String[] args, MessageReceivedEvent e) throws Exception {
         String m = "Top.gg: " + MarkdownUtil.maskedLink("VOTE", "https://top.gg/bot/292279711034245130/vote");
-        return new Result(Outcome.SUCCESS, MessageUtils.embedMessage("Vote for Minecord!", null, m, Bot.color));
+        String title = Config.isIsSelfHosted() ? "Vote for the main bot!" : "Vote for Minecord!";
+        return new Result(Outcome.SUCCESS, MessageUtils.embedMessage(title, null, m, Bot.color));
     }
 
 }

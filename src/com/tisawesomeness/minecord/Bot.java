@@ -37,6 +37,7 @@ public class Bot {
 	private static final String mainClass = "com.tisawesomeness.minecord.Main";
 	public static final String author = "Tis_awesomeness";
 	public static final String authorTag = "@Tis_awesomeness#8617";
+	public static final String invite = "https://minecord.github.io/invite";
 	public static final String helpServer = "https://minecord.github.io/support";
 	public static final String website = "https://minecord.github.io";
 	public static final String github = "https://github.com/Tisawesomeness/Minecord";

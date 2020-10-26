@@ -25,11 +25,11 @@ public class DiscordUtils {
 	 */
 	public static String parseConstants(String input) {
 		return input
-			.replace("{author}", Bot.author)
-			.replace("{author_tag}", Bot.authorTag)
-			.replace("{help_server}", Bot.helpServer)
-			.replace("{website}", Bot.website)
-			.replace("{github}", Bot.github)
+			.replace("{author}", Config.getAuthor())
+			.replace("{author_tag}", Config.getAuthorTag())
+			.replace("{help_server}", Config.getHelpServer())
+			.replace("{website}", Config.getWebsite())
+			.replace("{github}", Config.getGithub())
 			.replace("{java_ver}", Bot.javaVersion)
 			.replace("{jda_ver}", Bot.jdaVersion)
 			.replace("{version}", Bot.getVersion())
