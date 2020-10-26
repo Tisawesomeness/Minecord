@@ -15,7 +15,13 @@ public class Config {
 	private static String owner;
 	
 	private static String logChannel;
+	private static boolean isSelfHosted;
+	private static String author;
+	private static String authorTag;
 	private static String invite;
+	private static String helpServer;
+	private static String website;
+	private static String github;
 	private static String prefix;
 	private static String game;
 	private static boolean devMode;
@@ -84,7 +90,22 @@ public class Config {
 			
 			JSONObject settings = config.getJSONObject("settings");
 			logChannel = settings.getString("logChannel");
-			invite = settings.getString("invite");
+			isSelfHosted = settings.getBoolean("isSelfHosted");
+			if (isSelfHosted) {
+				author = settings.getString("author");
+				authorTag = settings.getString("authorTag");
+				invite = settings.getString("invite");
+				helpServer = settings.getString("helpServer");
+				website = settings.getString("website");
+				github = settings.getString("github");
+			} else {
+				author = Bot.author;
+				authorTag = Bot.authorTag;
+				invite = Bot.invite;
+				helpServer = Bot.helpServer;
+				website = Bot.website;
+				github = Bot.github;
+			}
 			prefix = settings.getString("prefix");
 			game = settings.getString("game");
 			devMode = settings.getBoolean("devMode");
@@ -97,7 +118,11 @@ public class Config {
 			elevatedSkipCooldown = settings.getBoolean("elevatedSkipCooldown");
 			
 			JSONObject botLists = config.getJSONObject("botLists");
-			sendServerCount = botLists.getBoolean("sendServerCount");
+			if (isSelfHosted) {
+				sendServerCount = false;
+			} else {
+				sendServerCount = botLists.getBoolean("sendServerCount");
+			}
 			pwToken = botLists.getString("pwToken");
 			orgToken = botLists.getString("orgToken");
 			receiveVotes = botLists.getBoolean("receiveVotes");
@@ -124,7 +149,13 @@ public class Config {
 	public static String getOwner() {return owner;}
 
 	public static String getLogChannel() {return logChannel;}
+	public static boolean isIsSelfHosted() {return isSelfHosted;}
+	public static String getAuthor() {return author;}
+	public static String getAuthorTag() {return authorTag;}
 	public static String getInvite() {return invite;}
+	public static String getHelpServer() {return helpServer;}
+	public static String getWebsite() {return website;}
+	public static String getGithub() {return github;}
 	public static String getPrefix() {return prefix;}
 	public static String getGame() {return game;}
 	public static boolean getDevMode() {return devMode;}

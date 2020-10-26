@@ -7,6 +7,7 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 public class InviteCommand extends Command {
 	
@@ -25,9 +26,9 @@ public class InviteCommand extends Command {
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		EmbedBuilder eb = new EmbedBuilder();
-		eb.addField("Invite me!", Config.getInvite(), false);
-		eb.addField("Help server", Bot.helpServer, false);
-		eb.addField("Website", Bot.website, true);
+		eb.addField("Invite me!", MarkdownUtil.maskedLink(Config.getInvite(), Config.getInvite()), false);
+		eb.addField("Help server", MarkdownUtil.maskedLink(Config.getHelpServer(), Config.getHelpServer()), false);
+		eb.addField("Website", MarkdownUtil.maskedLink(Config.getWebsite(), Config.getWebsite()), true);
 		eb.setColor(Bot.color);
 		eb = MessageUtils.addFooter(eb);
 		return new Result(Outcome.SUCCESS, eb.build());

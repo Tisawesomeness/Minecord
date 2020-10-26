@@ -4,7 +4,13 @@
     "owner": "0",
     "settings": {
         "logChannel": "0",
+        "isSelfHosted": true,
+        "author": "Tis_awesomeness",
+        "authorTag": "@Tis_awesomeness#8617",
         "invite": "https://minecord.github.io/invite",
+        "helpServer": "https://minecord.github.io/support",
+        "website": "https://minecord.github.io",
+        "github": "https://github.com/Tisawesomeness/Minecord",
         "prefix": "&",
         "game": "@Minecord help | {guilds} guilds",
         "devMode": false,

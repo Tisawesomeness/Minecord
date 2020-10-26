@@ -49,6 +49,9 @@ public class InfoCommand extends Command {
 		
 		eb.setColor(Bot.color);
 		eb.addField("Author", Bot.author, true);
+		if (Config.isIsSelfHosted()) {
+			eb.addField("Self-Hoster", Config.getAuthor(), true);
+		}
 		eb.addField("Version", Bot.getVersion(), true);
 		
 		String guilds = Bot.shardManager.getGuilds().size() + "";
@@ -69,9 +72,9 @@ public class InfoCommand extends Command {
 		eb.addField("JDA Version", MarkdownUtil.monospace(Bot.jdaVersion), true);
 
 		String links = MarkdownUtil.maskedLink("INVITE", Config.getInvite()) + " | " +
-			MarkdownUtil.maskedLink("SUPPORT", Bot.helpServer) + " | " +
-			MarkdownUtil.maskedLink("WEBSITE", Bot.website) + " | " +
-			MarkdownUtil.maskedLink("GITHUB", Bot.github);
+			MarkdownUtil.maskedLink("SUPPORT", Config.getHelpServer()) + " | " +
+			MarkdownUtil.maskedLink("WEBSITE", Config.getWebsite()) + " | " +
+			MarkdownUtil.maskedLink("GITHUB", Config.getGithub());
 		eb.addField("Links", "**" + links + "**", false);
 		
 		eb = MessageUtils.addFooter(eb);

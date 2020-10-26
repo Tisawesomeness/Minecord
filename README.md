@@ -1,4 +1,4 @@
-# Minecord [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3de0f658514246f598b40fb1bdf55af9)](https://www.codacy.com/app/Tis_awesomeness/Minecord?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Tisawesomeness/Minecord&amp;utm_campaign=Badge_Grade) [![Discord Bots](https://discordbots.org/api/widget/status/292279711034245130.png)](https://discordbots.org/bot/292279711034245130) [![Discord Bots](https://discordbots.org/api/widget/servers/292279711034245130.png)](https://discordbots.org/bot/292279711034245130) [![Discord Bots](https://discordbots.org/api/widget/upvotes/292279711034245130.png)](https://discordbots.org/bot/292279711034245130)
+# Minecord [![Discord Bots](https://discordbots.org/api/widget/status/292279711034245130.png)](https://discordbots.org/bot/292279711034245130) [![Discord Bots](https://discordbots.org/api/widget/servers/292279711034245130.png)](https://discordbots.org/bot/292279711034245130) [![Discord Bots](https://discordbots.org/api/widget/upvotes/292279711034245130.png)](https://discordbots.org/bot/292279711034245130)
 A robust Discord bot using the JDA library for various Minecraft functions.
 
 - **Official Bot Invite: https://discordapp.com/oauth2/authorize?client_id=292279711034245130&scope=bot&permissions=93248**
@@ -70,7 +70,13 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Owner:* The user ID of the bot owner. The bot will work when owner is 0, but it is *highly encouraged* to set this value.
 
 - *Log Channel:* The bot will send any logging messages to this channel. Set to 0 to disable.
+- *Is Self Hosted:* Leave as `true` if you are self-hosting the bot.
+- *Author:* The name of the person hosting the bot.
+- *Author Tag:* The Discord tag of the person hosting the bot.
 - *Invite:* The invite link to use in `&invite`.
+- *Help Server:* The help server link to use in `&invite`.
+- *Website:* The website to display in `&info`.
+- *Github:* A link to the source code currently running on the bot.
 - *Prefix:* The prefix of the bot. Use something else instead of `&` if you want to host your own bot alongside the main one.
 - *Game:* This is the game that the bot is playing, shown under the username. `{prefix}` and `{guilds}` are available variables.
 - *Dev Mode:* Turning this on will let you reload code using `&reload` on the fly. When hosting the bot, it's best to keep this off in order to decrease memory usage.
@@ -113,7 +119,13 @@ A robust Discord bot using the JDA library for various Minecraft functions.
     "owner": "0",
     "settings": {
         "logChannel": "0",
-        "invite": "https://discordapp.com/oauth2/authorize?client_id=292279711034245130&scope=bot&permissions=93248",
+        "isSelfHosted": true,
+        "author": "Tis_awesomeness",
+        "authorTag": "@Tis_awesomeness#8617",
+        "invite": "https://minecord.github.io/invite",
+        "helpServer": "https://minecord.github.io/support",
+        "website": "https://minecord.github.io",
+        "github": "https://github.com/Tisawesomeness/Minecord",
         "prefix": "&",
         "game": "@Minecord help | {guilds} guilds",
         "devMode": false,
