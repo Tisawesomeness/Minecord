@@ -49,7 +49,7 @@ public class EvalCommand extends AbstractAdminCommand {
 
         // Javascript engine with JDA, event and config variables.
         ScriptEngineManager factory = new ScriptEngineManager();
-        ScriptEngine engine = factory.getEngineByName("JavaScript");
+        ScriptEngine engine = factory.getEngineByName("jshell");
         engine.put("ctx", ctx);
         engine.put("bot", ctx.getBot());
         engine.put("jda", e.getJDA());

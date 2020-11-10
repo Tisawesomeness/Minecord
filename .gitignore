@@ -2,5 +2,6 @@
 .idea
 /build
 /out
-
+.DS_Store
 /minecord
+.project
