@@ -150,4 +150,9 @@ public enum Lang {
         return Splitter.on(',').omitEmptyStrings().splitToList(i18n(key));
     }
 
+    @Override
+    public String toString() {
+        return code;
+    }
+
 }

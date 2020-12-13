@@ -17,6 +17,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.StringJoiner;
 
 /**
  * Contains the information needed for a command to execute in a Discord channel.
@@ -139,6 +140,20 @@ public class DiscordContext implements CommandContext {
     }
     public void log(@NonNull MessageEmbed m) {
         bot.log(m);
+    }
+
+    @Override
+    public String toString() {
+        String argsStr = getArgs().length == 0 ? "" : " " + joinArgs();
+        String cmdStr = String.format("'%s%s'", cmd, argsStr);
+        return new StringJoiner("\n  ", DiscordContext.class.getSimpleName() + "{", "\n}")
+                .add(cmdStr)
+                .add("e=#" + e.getResponseNumber())
+                .add("elevated=" + isElevated)
+                .add("config=" + config.hashCode()) // Listing all fields of config would take too long
+                .add("prefix=`" + prefix + "`")
+                .add("lang=" + lang)
+                .toString();
     }
 
 }

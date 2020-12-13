@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
+import lombok.ToString;
 import lombok.Value;
 
 import javax.annotation.Nullable;
@@ -22,17 +23,17 @@ public class BotListConfig {
     boolean sendServerCount;
     @JsonProperty("sendGuildsInterval") @JsonSetter(nulls = Nulls.SET)
     int sendGuildsInterval;
-    @JsonProperty("pwToken") @JsonSetter(nulls = Nulls.SET)
+    @JsonProperty("pwToken") @JsonSetter(nulls = Nulls.SET) @ToString.Exclude
     @Nullable String pwToken;
-    @JsonProperty("orgToken") @JsonSetter(nulls = Nulls.SET)
+    @JsonProperty("orgToken") @JsonSetter(nulls = Nulls.SET) @ToString.Exclude
     @Nullable String orgToken;
     @JsonProperty("receiveVotes")
     boolean receiveVotes;
-    @JsonProperty("webhookUrl") @JsonSetter(nulls = Nulls.SET)
+    @JsonProperty("webhookUrl") @JsonSetter(nulls = Nulls.SET) @ToString.Exclude
     @Nullable String webhookUrl;
-    @JsonProperty("webhookPort") @JsonSetter(nulls = Nulls.SET)
+    @JsonProperty("webhookPort") @JsonSetter(nulls = Nulls.SET) @ToString.Exclude
     int webhookPort;
-    @JsonProperty("webhookAuth") @JsonSetter(nulls = Nulls.SET)
+    @JsonProperty("webhookAuth") @JsonSetter(nulls = Nulls.SET) @ToString.Exclude
     @Nullable String webhookAuth;
 
     /**

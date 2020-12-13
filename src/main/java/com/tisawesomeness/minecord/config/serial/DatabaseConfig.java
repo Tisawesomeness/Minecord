@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.config.serial;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.ToString;
 import lombok.Value;
 
 /**
@@ -8,6 +9,6 @@ import lombok.Value;
  */
 @Value
 public class DatabaseConfig {
-    @JsonProperty("path")
+    @JsonProperty("path") @ToString.Exclude
     String path;
 }

@@ -8,6 +8,7 @@ import com.tisawesomeness.minecord.command.CommandExecutor;
 import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.config.serial.Config;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +17,13 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 /**
  * Provides the test environment to commands and keeps track of replies.
@@ -34,12 +38,13 @@ import java.util.List;
  * @see #hasTriggeredCooldown()
  */
 @RequiredArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 public class TestContext extends AbstractContext {
 
     /**
-     * The result of the command according to the {@link CommandExecutor}.
+     * The result of the command according to the {@link CommandExecutor}, null if not ran yet
      */
-    @Getter protected Result result;
+    @Getter protected @Nullable Result result;
 
     // Overrides getters in AbstractContext
     @Getter private final String[] args;
@@ -142,6 +147,7 @@ public class TestContext extends AbstractContext {
         return false;
     }
 
+    @Override
     public void log(@NonNull String m) {
         System.out.println(m);
     }
@@ -157,6 +163,28 @@ public class TestContext extends AbstractContext {
     @Override
     protected void unsupported() {
         throw new UnsupportedOperationException("This operation is not supported in a testing context!");
+    }
+
+    @Override
+    public String toString() {
+        String argsStr = getArgs().length == 0 ? "" : " " + joinArgs();
+        String cmdStr = String.format("'%s%s'", cmd, argsStr);
+        String embedRepliesStr = embedReplies.stream()
+                .map(MessageEmbed::toData)
+                .map(Object::toString)
+                .collect(Collectors.joining(" "));
+        return new StringJoiner("\n  ", TestContext.class.getSimpleName() + "{", "\n}")
+                .add(cmdStr)
+                .add("elevated=" + isElevated)
+                .add("config=" + config.hashCode()) // Listing all fields of config would take too long
+                .add("prefix=`" + prefix + "`")
+                .add("lang=" + lang)
+                .add("result=" + result)
+                .add("replies=" + replies)
+                .add("embedReplies=" + embedRepliesStr)
+                .add("help=" + requestedHelp)
+                .add("cooldown=" + triggeredCooldown)
+                .toString();
     }
 
 }

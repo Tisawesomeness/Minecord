@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.config.serial;
 import com.tisawesomeness.minecord.util.type.Verification;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.ToString;
 import lombok.Value;
 
 import javax.annotation.Nullable;
@@ -19,7 +20,7 @@ import java.util.List;
  */
 @Value
 public class Config {
-    @JsonProperty("token")
+    @JsonProperty("token") @ToString.Exclude
     String token;
     @JsonProperty("shardCount")
     int shardCount;

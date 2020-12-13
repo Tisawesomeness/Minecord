@@ -7,7 +7,10 @@ import com.tisawesomeness.minecord.command.CommandRegistry;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.database.dao.CommandStats;
 
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
+
+import java.util.StringJoiner;
 
 /**
  * Creates a test environment used to test command input and output.
@@ -36,6 +39,7 @@ import lombok.NonNull;
  * since unit tests should give the same output no matter the environment.
  * <br>If a command requires an external resource, consider mocking that resource.
  */
+@EqualsAndHashCode
 public class TestCommandRunner {
 
     /**
@@ -60,6 +64,7 @@ public class TestCommandRunner {
      */
     public Lang lang;
 
+    @EqualsAndHashCode.Exclude
     private final CommandExecutor exe;
 
     /**
@@ -120,4 +125,14 @@ public class TestCommandRunner {
         return ctx;
     }
 
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", TestCommandRunner.class.getSimpleName() + "[", "]")
+                .add("config=" + config.hashCode())
+                .add("cmd=" + cmd)
+                .add("elevated=" + isElevated)
+                .add("prefix='" + prefix + "'")
+                .add("lang=" + lang)
+                .toString();
+    }
 }
