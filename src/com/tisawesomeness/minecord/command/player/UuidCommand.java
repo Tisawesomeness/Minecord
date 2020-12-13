@@ -18,7 +18,7 @@ public class UuidCommand extends Command {
 		return new CommandInfo(
 			"uuid",
 			"Gets the UUID of a player.",
-			"<username> [date]",
+			"<username>",
 			new String[]{"u"},
 			2000,
 			false,
@@ -28,16 +28,14 @@ public class UuidCommand extends Command {
 	}
 
 	public String getHelp() {
-		return "`{&}uuid <player> [date]` - Gets a player's short and long UUID.\n" +
-			"\n" +
+		return "`{&}uuid <player>` - Gets a player's short and long UUID.\n" +
 			"- `<player>` can be a username or a UUID.\n" +
-			"- " + DateUtils.dateHelp + "\n" +
 			"\n" +
 			"Examples:\n" +
 			"`{&}uuid Tis_awesomeness`\n" +
-			"`{&}uuid Notch 3/2/06 2:47:32`\n" +
+			"`{&}uuid jeb_`\n" +
 			"`{&}uuid f6489b797a9f49e2980e265a05dbc3af`\n" +
-			"`{&}uuid 069a79f4-44e9-4726-a5be-fca90e38aaf5 3/26`\n";
+			"`{&}uuid 069a79f4-44e9-4726-a5be-fca90e38aaf5`\n";
 	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
@@ -49,20 +47,7 @@ public class UuidCommand extends Command {
 		}
 		
 		String username = args[0];
-		String uuid = null;
-		
-		// Parse date argument
-		if (args.length > 1) {
-			long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
-			if (timestamp == -1) {
-				return new Result(Outcome.WARNING, MessageUtils.dateErrorString(prefix, "uuid"));
-			}
-			
-		// Get the UUID
-			uuid = NameUtils.getUUID(username, timestamp);
-		} else {
-			uuid = NameUtils.getUUID(username);
-		}
+		String uuid = NameUtils.getUUID(username);
 		
 		// Check for errors
 		if (uuid == null) {

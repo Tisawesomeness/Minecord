@@ -41,6 +41,12 @@ public class StatusCommand extends Command {
 		ArrayList<String> responses = new ArrayList<String>();
 		JSONArray status = new JSONArray(request);
 		for (int i = 0; i < status.length(); i++) {
+
+			//session server response is broken
+			if (i == 4) {
+				responses.add("[Status broken](https://bugs.mojang.com/browse/WEB-2303)");
+				continue;
+			}
 			
 			//Fetch the response
 			JSONObject json = status.getJSONObject(i);
@@ -61,17 +67,15 @@ public class StatusCommand extends Command {
 			responses.add(output);
 		}
 		
-		//Build message (some status messages seem to not be working)
-		String m = /*"**Minecraft:** " + responses.get(0) +
-			"\n" +*/ "**Accounts:** " + responses.get(2) +
+		//Build message (session server status seems to be broken)
+		String m = "**Minecraft:** " + responses.get(0) +
+			"\n" + "**Accounts:** " + responses.get(2) +
 			"\n" + "**Textures:** " + responses.get(6) +
 			"\n" + "**Session:** " + responses.get(1) +
-			"\n" + /*"**Session Server:** " + responses.get(4) +
-			"\n" + */"**Auth Server:** " + responses.get(3) +
-			"\n" + /*"**Mojang:** " + responses.get(7) +
-			"\n" +*/ "**Mojang API:** " + responses.get(5);
-		m += "\nSome statuses in the Mojang API are broken, so they are not shown.\n" +
-		"Vote, watch, and comment on [this bug](https://bugs.mojang.com/browse/WEB-2303) if you want it fixed!";
+			"\n" + "**Session Server:** " + responses.get(4) +
+			"\n" + "**Auth Server:** " + responses.get(3) +
+			"\n" + "**Mojang:** " + responses.get(7) +
+			"\n" + "**Mojang API:** " + responses.get(5);
 		
 		MessageEmbed me = MessageUtils.embedMessage("Minecraft Status", null, m, color);
 		

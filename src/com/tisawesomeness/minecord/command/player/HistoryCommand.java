@@ -22,7 +22,7 @@ public class HistoryCommand extends Command {
 		return new CommandInfo(
 			"history",
 			"Gets the name history of a player.",
-			"<username|uuid> [date]",
+			"<username|uuid>",
 			new String[]{"h"},
 			2000,
 			false,
@@ -32,16 +32,14 @@ public class HistoryCommand extends Command {
 	}
 
 	public String getHelp() {
-		return "`{&}history <player> [date]` - Gets a player's name history.\n" +
-			"\n" +
+		return "`{&}history <player>` - Gets a player's name history.\n" +
 			"- `<player>` can be a username or a UUID.\n" +
-			"- " + DateUtils.dateHelp + "\n" +
 			"\n" +
 			"Examples:\n" +
 			"`{&}history Tis_awesomeness`\n" +
-			"`{&}history Notch 3/2/06 2:47:32`\n" +
+			"`{&}history jeb_`\n" +
 			"`{&}history f6489b797a9f49e2980e265a05dbc3af`\n" +
-			"`{&}history 069a79f4-44e9-4726-a5be-fca90e38aaf5 3/26`\n";
+			"`{&}history 069a79f4-44e9-4726-a5be-fca90e38aaf5`\n";
 	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
@@ -57,20 +55,7 @@ public class HistoryCommand extends Command {
 
 		String player = args[0];	
 		if (!player.matches(NameUtils.uuidRegex)) {
-			String uuid = null;
-			
-			// Parse date argument
-			if (args.length > 1) {
-				long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
-				if (timestamp == -1) {
-					return new Result(Outcome.WARNING, MessageUtils.dateErrorString(prefix, "history"));
-				}
-				
-			// Get the UUID
-				uuid = NameUtils.getUUID(player, timestamp);
-			} else {
-				uuid = NameUtils.getUUID(player);
-			}
+			String uuid = NameUtils.getUUID(player);
 			
 			// Check for errors
 			if (uuid == null) {
