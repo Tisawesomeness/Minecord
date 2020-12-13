@@ -20831,7 +20831,7 @@
     }
   },
   "weakness_potion": {
-    "result": "minecraft.potion.effect.harming",
+    "result": "minecraft.potion.effect.weakness",
     "reagent": {
       "item": "minecraft:fermented_spider_eye"
     },
