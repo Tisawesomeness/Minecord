@@ -21,7 +21,7 @@ public class CapeCommand extends Command {
 		return new CommandInfo(
 			"cape",
 			"Gets the cape of a player.",
-			"<username|uuid> [date]",
+			"<username|uuid>",
 			null,
 			2000,
 			false,
@@ -31,17 +31,14 @@ public class CapeCommand extends Command {
 	}
 
 	public String getHelp() {
-		return "`{&}cape <player> [date]` - Gets an image of the player's cape.\n" +
+		return "`{&}cape <player>` - Gets an image of the player's cape.\n" +
 			"Includes Minecraft, Optifine, LabyMod and MinecraftCapes.co.uk capes.\n" +
-			"\n" +
 			"- `<player>` can be a username or a UUID.\n" +
-			"- " + DateUtils.dateHelp + "\n" +
 			"\n" +
 			"Examples:\n" +
 			"`{&}cape jeb_`\n" +
-			"`{&}cape Notch 3/2/06 2:47:32`\n" +
 			"`{&}cape 853c80ef3c3749fdaa49938b674adae6`\n" +
-			"`{&}cape 069a79f4-44e9-4726-a5be-fca90e38aaf5 3/26`\n";
+			"`{&}cape 069a79f4-44e9-4726-a5be-fca90e38aaf5`\n";
 	}
 
 	public Result run(String[] args, MessageReceivedEvent e) {
@@ -69,17 +66,7 @@ public class CapeCommand extends Command {
 			}
 		} else {
 			// Parse date argument
-			if (args.length > 1) {
-				long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
-				if (timestamp == -1) {
-					return new Result(Outcome.WARNING, MessageUtils.dateErrorString(prefix, "skin"));
-				}
-
-				// Get the UUID
-				uuid = NameUtils.getUUID(player, timestamp);
-			} else {
-				uuid = NameUtils.getUUID(player);
-			}
+			uuid = NameUtils.getUUID(player);
 
 			// Check for errors
 			if (uuid == null) {

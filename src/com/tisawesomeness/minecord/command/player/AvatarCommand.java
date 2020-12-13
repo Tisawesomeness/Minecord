@@ -19,7 +19,7 @@ public class AvatarCommand extends Command {
 		return new CommandInfo(
 			"avatar",
 			"Gets the avatar of a player.",
-			"<username|uuid> [date] [overlay?]",
+			"<username|uuid> [overlay?]",
 			null,
 			2000,
 			false,
@@ -29,15 +29,13 @@ public class AvatarCommand extends Command {
 	}
 
 	public String getHelp() {
-		return "`{&}avatar <player> [date] [overlay?]` - Gets an image of the player's avatar.\n" +
-			"\n" +
+		return "`{&}avatar <player> [overlay?]` - Gets an image of the player's avatar.\n" +
 			"- `<player>` can be a username or a UUID.\n" +
 			"- `[overlay?]` whether to include the second skin layer.\n" +
-			"- " + DateUtils.dateHelp + "\n" +
 			"\n" +
 			"Examples:\n" +
 			"`{&}avatar Tis_awesomeness`\n" +
-			"`{&}avatar Notch 3/2/06 2:47:32`\n" +
+			"`{&}avatar jeb_`\n" +
 			"`{&}avatar f6489b797a9f49e2980e265a05dbc3af`\n" +
 			"`{&}avatar 069a79f4-44e9-4726-a5be-fca90e38aaf5 overlay`\n";
 	}
@@ -62,20 +60,7 @@ public class AvatarCommand extends Command {
 		String player = args[0];
 		String param = player;
 		if (!player.matches(NameUtils.uuidRegex)) {
-			String uuid = null;
-			
-			//Parse date argument
-			if (args.length > 1) {
-				long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
-				if (timestamp == -1) {
-					return new Result(Outcome.WARNING, MessageUtils.dateErrorString(prefix, "avatar"));
-				}
-				
-			//Get the UUID
-				uuid = NameUtils.getUUID(player, timestamp);
-			} else {
-				uuid = NameUtils.getUUID(player);
-			}
+			String uuid = NameUtils.getUUID(player);
 			
 			//Check for errors
 			if (uuid == null) {

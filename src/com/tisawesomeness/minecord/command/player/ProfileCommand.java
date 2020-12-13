@@ -23,7 +23,7 @@ public class ProfileCommand extends Command {
 		return new CommandInfo(
 			"profile",
 			"Get info on a Minecraft account.",
-			"<username|uuid> [date]",
+			"<username|uuid>",
 			new String[]{"p", "player"},
 			2000,
 			false,
@@ -33,17 +33,15 @@ public class ProfileCommand extends Command {
 	}
 
 	public String getHelp() {
-        return "`{&}profile <player> [date]` - Get info on a Minecraft account.\n" +
+        return "`{&}profile <player>` - Get info on a Minecraft account.\n" +
             "Includes username, UUIDs, name history, skin, cape, and avatar.\n" +
-			"\n" +
 			"- `<player>` can be a username or a UUID.\n" +
-			"- " + DateUtils.dateHelp + "\n" +
 			"\n" +
 			"Examples:\n" +
 			"`{&}profile Tis_awesomeness`\n" +
-			"`{&}profile Notch 3/2/06 2:47:32`\n" +
+			"`{&}profile jeb_`\n" +
 			"`{&}profile f6489b797a9f49e2980e265a05dbc3af`\n" +
-			"`{&}profile 069a79f4-44e9-4726-a5be-fca90e38aaf5 3/26`\n";
+			"`{&}profile 069a79f4-44e9-4726-a5be-fca90e38aaf5`\n";
 	}
 
     @Override
@@ -71,43 +69,7 @@ public class ProfileCommand extends Command {
 			} else if (!player.matches(NameUtils.playerRegex)) {
 				String m = ":x: The API responded with an error:\n" + player;
 				return new Result(Outcome.ERROR, m, 3);
-            }
-        
-        // Username + Date --> UUID --> Username
-		} else if (args.length > 1) {
-			// Parse date argument
-            long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
-            if (timestamp == -1) {
-                return new Result(Outcome.WARNING, MessageUtils.dateErrorString(prefix, "skin"));
-            }
-
-            // Get the UUID
-            String uuid = NameUtils.getUUID(player, timestamp);
-
-            // Check for errors
-            if (uuid == null) {
-                String m = ":x: The Mojang API could not be reached." +
-                        "\n" +"Are you sure that username exists?" +
-                        "\n" + "Usernames are case-sensitive.";
-                return new Result(Outcome.WARNING, m, 2);
-            } else if (!uuid.matches(NameUtils.uuidRegex)) {
-                String m = ":x: The API responded with an error:\n" + uuid;
-                return new Result(Outcome.ERROR, m, 3);
-            }
-
-            uuid = uuid.replace("-", "").toLowerCase();
-			player = NameUtils.getName(uuid);
-
-			// Check for errors
-			if (player == null) {
-				String m = ":x: The Mojang API could not be reached." +
-                        "\n" +"Are you sure that username exists?" +
-                        "\n" + "Usernames are case-sensitive.";
-				return new Result(Outcome.WARNING, m, 1.5);
-			} else if (!player.matches(NameUtils.playerRegex)) {
-				String m = ":x: The API responded with an error:\n" + player;
-				return new Result(Outcome.ERROR, m, 3);
-            }
+			}
 		}
 
         // Get profile info
