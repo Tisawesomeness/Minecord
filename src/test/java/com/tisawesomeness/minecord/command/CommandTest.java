@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command;
 
 import com.tisawesomeness.minecord.command.runner.TestCommandRunner;
-import com.tisawesomeness.minecord.command.runner.TestContext;
 import com.tisawesomeness.minecord.config.ConfigReader;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -10,7 +9,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.tisawesomeness.minecord.command.runner.TestContextAssert.assertThat;
 
 public class CommandTest {
 
@@ -25,9 +24,10 @@ public class CommandTest {
     @Test
     @DisplayName("Command replies send text unmodified and return SUCCESS")
     public void testCommandReply() {
-        TestContext ctx = runner.run();
-        assertThat(ctx.getReplies()).containsExactly(REPLY);
-        assertThat(ctx.getResult()).isEqualTo(Result.SUCCESS);
+        System.out.println(runner);
+        assertThat(runner.run())
+                .repliesAre(REPLY)
+                .resultIs(Result.SUCCESS);
     }
 
     private static class SimpleReplyCommand extends Command {

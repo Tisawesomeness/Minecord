@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static com.tisawesomeness.minecord.command.runner.TestContextAssert.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 
@@ -34,7 +35,7 @@ public class CommandExecutorTest {
         assertThat(runner.isElevated).isFalse();
         // Uncomment to trip the elevation warning
 //        runner.isElevated = true;
-        assertThat(runner.run().getResult()).isEqualTo(Result.NOT_ELEVATED);
+        assertThat(runner.run()).resultIs(Result.NOT_ELEVATED);
     }
 
     private static class FailOnRunAdminCommand extends AbstractAdminCommand {
