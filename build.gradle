@@ -58,7 +58,7 @@ dependencies {
 
 group = 'com.tisawesomeness'
 version = '1.0.0-ALPHA'
-sourceCompatibility = '1.8'
+sourceCompatibility = '1.11'
 
 import org.apache.tools.ant.filters.ReplaceTokens
 
@@ -83,5 +83,5 @@ jar {
 }
 
 shadowJar {
-    //minimize()
+//    minimize()
 }
