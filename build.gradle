@@ -1,8 +1,8 @@
 plugins {
     id 'java'
-    id 'maven-publish'
-    id "io.freefair.lombok" version "5.1.0"
-    id 'com.github.johnrengelman.shadow' version '5.2.0'
+    id 'java-library'
+    id "io.freefair.lombok" version "5.3.0"
+    id 'com.github.johnrengelman.shadow' version '6.0.0'
 }
 
 repositories {
@@ -16,44 +16,41 @@ repositories {
     maven {
         url = uri('https://oss.sonatype.org/content/repositories/snapshots')
     }
-    maven {
-        url = uri('http://repo.maven.apache.org/maven2')
-    }
 }
 
 dependencies {
     // JDA with no audio
-    compile ('net.dv8tion:JDA:4.2.0_168') {
+    implementation ('net.dv8tion:JDA:4.2.0_168') {
         exclude module: 'opus-java'
     }
     // Top.gg bot site API wrapper
     implementation 'com.github.DiscordBotList:Java-Wrapper:v1.0'
     // All-purpose library
     implementation 'com.google.guava:guava:29.0-jre'
-    // Cachhing
-    compile 'com.github.ben-manes.caffeine:caffeine:2.8.5'
+    // Caching
+    implementation 'com.github.ben-manes.caffeine:caffeine:2.8.5'
     // JSON library
     implementation 'org.json:json:20160810'
     // YAML library
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.10.1'
-    compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.1'
+    api 'com.fasterxml.jackson.core:jackson-databind:2.12.0'
+    api 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.12.0'
     // SQLite driver
     implementation 'org.xerial:sqlite-jdbc:3.30.1'
     // Used for MCServerPing
     implementation 'dnsjava:dnsjava:2.1.8'
     implementation 'net.md-5:bungeecord-chat:1.12-SNAPSHOT'
     // Command-line arguments
-    compile 'info.picocli:picocli:4.3.2'
+    implementation 'info.picocli:picocli:4.3.2'
     annotationProcessor 'info.picocli:picocli-codegen:4.3.2'
     // Jshell for eval
-    compile 'ch.obermuhlner:jshell-scriptengine:1.1.0'
+    api 'ch.obermuhlner:jshell-scriptengine:1.1.0'
     // Testing
     testImplementation 'org.junit.jupiter:junit-jupiter:5.6.2'
     testImplementation "org.assertj:assertj-core:3.16.1"
     // Logging
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.8.2'
-    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.8.2'
+    api 'org.apache.logging.log4j:log4j-core:2.8.2'
+    api 'org.slf4j:slf4j-api:1.7.25'
+    api 'org.apache.logging.log4j:log4j-slf4j-impl:2.8.2'
 }
 
 group = 'com.tisawesomeness'
@@ -83,5 +80,5 @@ jar {
 }
 
 shadowJar {
-//    minimize()
+    minimize()
 }
