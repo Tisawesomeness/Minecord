@@ -21,7 +21,7 @@
 # If you make changes, we would love for you to contribute them
 # to the main bot so everyone else can enjoy them too.
 #
-# Remember that Minecord uses the GNU GPL-3 license,
+# Remember that Minecord uses the GNU AGPL-3 license,
 # so if you make changes on a public self-hosted bot, you must make it open source.
 # https://github.com/Tisawesomeness/Minecord/blob/refactor/LICENSE
 #
@@ -170,6 +170,8 @@ commands:
       cooldownPool: "botConfig"
     lang:
       cooldownPool: "botConfig"
+    eval:
+      disabled: true
   # All commands with the same cooldown pool share cooldowns.
   # The number is the cooldown in miliseconds.
   cooldownPools:
