@@ -21,6 +21,7 @@ public class InfoCommand extends AbstractMiscCommand {
     private static final String OS_ARCH = System.getProperty("os.arch");
     private static final String OS_NAME = System.getProperty("os.name");
     private static final String OS_VERSION = System.getProperty("os.version");
+    private static final BuildInfo buildInfo = BuildInfo.getInstance();
 
     public @NonNull String getId() {
         return "info";
@@ -40,7 +41,7 @@ public class InfoCommand extends AbstractMiscCommand {
         EmbedBuilder eb = new EmbedBuilder();
 
         eb.addField("Author", Bot.author, true);
-        eb.addField("Version", MarkdownUtil.monospace(BuildInfo.getInstance().version), true);
+        eb.addField("Version", MarkdownUtil.monospace(buildInfo.version), true);
 
         String guilds = String.valueOf(sm.getGuilds().size());
         int shardTotal = ctx.getBot().getShardManager().getShardsTotal();
@@ -62,7 +63,7 @@ public class InfoCommand extends AbstractMiscCommand {
             eb.addField("Java Vendor", JAVA_VENDOR, true);
         }
         eb.addField("Java Version", MarkdownUtil.monospace(JAVA_VERSION), true);
-        eb.addField("JDA Version", MarkdownUtil.monospace(Bot.jdaVersion), true);
+        eb.addField("JDA Version", MarkdownUtil.monospace(buildInfo.jdaVersion), true);
 
         String links = MarkdownUtil.maskedLink("INVITE", ctx.getConfig().getInviteLink()) + " | " +
             MarkdownUtil.maskedLink("SUPPORT", Bot.helpServer) + " | " +

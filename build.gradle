@@ -18,9 +18,11 @@ repositories {
     }
 }
 
+String jdaVersion = '4.2.0_168'
+
 dependencies {
     // JDA with no audio
-    implementation ('net.dv8tion:JDA:4.2.0_168') {
+    implementation ("net.dv8tion:JDA:$jdaVersion") {
         exclude module: 'opus-java'
     }
     // Top.gg bot site API wrapper
@@ -62,7 +64,8 @@ import org.apache.tools.ant.filters.ReplaceTokens
 processResources {
     filesMatching("**/build.properties") {
         filter ReplaceTokens, tokens: [
-                "version": project.version
+                "version": project.version,
+                "jdaVersion": jdaVersion
         ]
     }
 }

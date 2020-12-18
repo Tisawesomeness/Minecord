@@ -16,10 +16,12 @@ public final class BuildInfo {
      * The semantic version of the bot, in {@code major.minor.patch-EXTRA} format.
      */
     public final String version;
+    public final String jdaVersion;
 
     private BuildInfo() {
         Properties prop = RequestUtils.loadPropertiesResource("build.properties");
         version = prop.getProperty("version");
+        jdaVersion = prop.getProperty("jdaVersion");
     }
 
     /**

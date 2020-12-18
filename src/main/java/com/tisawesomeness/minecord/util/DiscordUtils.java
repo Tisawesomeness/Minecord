@@ -13,9 +13,10 @@ import java.util.regex.Pattern;
 
 public final class DiscordUtils {
 
-    private final static Pattern DISCORD_ID = Pattern.compile("\\d{17,20}");
-
     public static final Pattern ANY_MENTION = Pattern.compile("<(@(!?|&)|#|:(.{2,32}):)\\d{17,20}>");
+
+    private final static Pattern DISCORD_ID = Pattern.compile("\\d{17,20}");
+    private static final BuildInfo buildInfo = BuildInfo.getInstance();
 
     /**
      * Replaces constants in the input string with their values
@@ -30,8 +31,8 @@ public final class DiscordUtils {
             .replace("{help_server}", Bot.helpServer)
             .replace("{website}", Bot.website)
             .replace("{github}", Bot.github)
-            .replace("{jda_ver}", Bot.jdaVersion)
-            .replace("{version}", BuildInfo.getInstance().version)
+            .replace("{jda_ver}", buildInfo.jdaVersion)
+            .replace("{version}", buildInfo.version)
             .replace("{invite}", config.getInviteLink())
             .replace("{prefix}", config.getSettingsConfig().getDefaultPrefix());
     }
