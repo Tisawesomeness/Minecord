@@ -14,13 +14,13 @@ public final class Main {
     public static void main(String[] args) {
         ArgsHandler handle = new ArgsHandler();
         int exitCode = new CommandLine(handle).execute(args);
-        if (exitCode != 0) {
+        if (exitCode != ExitCode.SUCCESS.asInt()) {
             System.exit(exitCode);
         }
         if (handle.isReady()) {
-            int botExitCode = new Bot().setup(handle);
-            if (botExitCode != 0) {
-                System.exit(botExitCode);
+            ExitCode botExitCode = new Bot().setup(handle);
+            if (botExitCode != ExitCode.SUCCESS) {
+                System.exit(botExitCode.asInt());
             }
         }
     }
