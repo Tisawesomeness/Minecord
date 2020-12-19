@@ -63,7 +63,6 @@ public class Bot {
     public static final String helpServer = "https://minecord.github.io/support";
     public static final String website = "https://minecord.github.io";
     public static final String github = "https://github.com/Tisawesomeness/Minecord";
-    public static final String jdaVersion = "4.2.0_168";
     public static final Color color = Color.GREEN;
 
     // Only use what's necessary
