@@ -17,8 +17,8 @@ import java.util.Optional;
  * Parses the context arg, picks a subcommand, or ends the chain if the context is invalid.
  */
 public class SettingContextParser extends SettingCommandHandler {
-    private final static List<String> USER_WORDS = Arrays.asList("user", "dm", "dms");
-    private final static List<String> GUILD_WORDS = Arrays.asList("guild", "server");
+    private final static List<String> USER_WORDS = List.of("user", "dm", "dms");
+    private final static List<String> GUILD_WORDS = List.of("guild", "server");
 
     @Getter private final @NonNull CommandContext ctx;
     @Getter private final @NonNull SettingCommandType type;

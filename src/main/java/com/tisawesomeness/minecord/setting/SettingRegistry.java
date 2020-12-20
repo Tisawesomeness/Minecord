@@ -31,7 +31,7 @@ public class SettingRegistry implements Iterable<Setting<?>> {
         prefix = new PrefixSetting(config);
         lang = new LangSetting(config);
         useMenus = new UseMenusSetting(config);
-        settingsList = Collections.unmodifiableList(Arrays.asList(prefix, lang, useMenus));
+        settingsList = List.of(prefix, lang, useMenus);
     }
 
     /**

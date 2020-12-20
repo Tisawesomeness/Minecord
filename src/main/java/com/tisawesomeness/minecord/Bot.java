@@ -70,7 +70,7 @@ public class Bot {
     public static final Color color = Color.GREEN;
 
     // Only use what's necessary
-    private static final List<GatewayIntent> gateways = Arrays.asList(
+    private static final List<GatewayIntent> gateways = List.of(
             GatewayIntent.DIRECT_MESSAGES, GatewayIntent.DIRECT_MESSAGE_REACTIONS,
             GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS);
     private static final EnumSet<CacheFlag> disabledCacheFlags = EnumSet.of(

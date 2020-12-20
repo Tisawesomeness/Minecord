@@ -66,7 +66,7 @@ public class DebugCommand extends AbstractAdminCommand {
         ShardManager sm = ctx.getBot().getShardManager();
         DatabaseCache dbCache = ctx.getBot().getDatabaseCache();
         CommandExecutor executor = ctx.getExecutor();
-        return Arrays.asList(
+        return List.of(
                 new JDADebugOption(sm),
                 new ThreadDebugOption(),
                 new RegionDebugOption(sm),
