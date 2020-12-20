@@ -54,7 +54,7 @@ public enum Lang {
         this.code = code;
         this.locale = locale;
 
-        resource = ResourceBundle.getBundle("lang", locale);
+        resource = ResourceBundle.getBundle("lang/lang", locale);
         botStringsSupported = getBool("lang.botStringsSupported");
         commandAliasSupported = getBool("lang.commandAliasSupported");
         itemsSupported = getBool("lang.itemsSupported");
