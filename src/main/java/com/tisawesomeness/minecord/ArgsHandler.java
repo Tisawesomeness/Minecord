@@ -47,6 +47,10 @@ public class ArgsHandler implements Callable<Integer>, Serializable {
      */
     @Override
     public Integer call() {
+        return handle().asInt();
+    }
+
+    private ExitCode handle() {
 
         // Path is null if not specified by user
         if (path == null) {
@@ -56,12 +60,12 @@ public class ArgsHandler implements Callable<Integer>, Serializable {
                     Files.createDirectory(path);
                 } catch (IOException ex) {
                     ex.printStackTrace();
-                    return 2;
+                    return ExitCode.CONFIG_IOE;
                 }
             }
         } else if (!path.toFile().isDirectory()) {
             System.err.println("Path must be a directory!");
-            return 1;
+            return ExitCode.INVALID_PATH;
         }
 
         // ensure announce exists, but it's not necessary
@@ -81,19 +85,19 @@ public class ArgsHandler implements Callable<Integer>, Serializable {
         }
 
         ready = true;
-        return 0;
+        return ExitCode.SUCCESS;
 
     }
 
-    private static int createConfig(Path configPath) {
+    private static ExitCode createConfig(Path configPath) {
         try {
             Files.write(configPath, RequestUtils.loadResource("config.yml").getBytes());
             System.out.println("The config file was created! Put your bot token in config.yml to run the bot.");
         } catch (IOException ex) {
             ex.printStackTrace();
-            return 2;
+            return ExitCode.CONFIG_IOE;
         }
-        return 0;
+        return ExitCode.SUCCESS;
     }
 
     private static void createAnnounce(Path announcePath) {

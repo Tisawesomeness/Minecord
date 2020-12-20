@@ -18,8 +18,11 @@ import com.tisawesomeness.minecord.service.MenuService;
 import com.tisawesomeness.minecord.service.PresenceService;
 import com.tisawesomeness.minecord.service.Service;
 import com.tisawesomeness.minecord.setting.SettingRegistry;
+import com.tisawesomeness.minecord.util.concurrent.ACExecutorService;
 import com.tisawesomeness.minecord.util.DateUtils;
+import com.tisawesomeness.minecord.util.concurrent.ShutdownBehavior;
 
+import lombok.Cleanup;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -44,6 +47,7 @@ import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.concurrent.CompletionException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -102,7 +106,7 @@ public class Bot {
      * @param args The parsed command-line arguments
      * @return The error code to send on failure, or 0 on success
      */
-    public int setup(ArgsHandler args) {
+    public ExitCode setup(ArgsHandler args) {
         birth = System.currentTimeMillis();
         System.out.println("Bot starting...");
         this.args = args;
@@ -115,7 +119,7 @@ public class Bot {
             }
         } catch (IOException ex) {
             ex.printStackTrace();
-            return 10;
+            return ExitCode.ANNOUNCE_IOE;
         }
 
         String tokenOverride = args.getTokenOverride();
@@ -126,7 +130,8 @@ public class Bot {
         EventListener reactListener = new ReactListener();
 
         // Connect to database
-        ExecutorService exe = Executors.newSingleThreadExecutor();
+        @Cleanup ACExecutorService exe = new ACExecutorService(
+                Executors.newSingleThreadExecutor(), ShutdownBehavior.FORCE);
         Future<Database> futureDB = exe.submit(() -> new Database(config));
 
         try {
@@ -145,10 +150,10 @@ public class Bot {
             readyLatch.await();
             System.out.println("All shards ready!");
 
-        } catch (LoginException | InterruptedException ex) {
+        } catch (CompletionException | LoginException | InterruptedException ex) {
+            System.err.println("There was an error logging in, check if your token is correct.");
             ex.printStackTrace();
-            exe.shutdownNow();
-            return 11;
+            return ExitCode.LOGIN_ERROR;
         }
 
         // These depend on ShardManager
@@ -161,7 +166,7 @@ public class Bot {
             database = futureDB.get();
         } catch (ExecutionException ex) {
             ex.printStackTrace();
-            return 12;
+            return ExitCode.DATABASE_ERROR;
         } catch (InterruptedException ex) {
             throw new AssertionError(
                     "It should not be possible to interrupt the main thread before the bot can accept commands.");
@@ -172,7 +177,7 @@ public class Bot {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            return 13;
+            return ExitCode.FAILED_TO_SET_OWNER;
         }
 
         // These depend on database
@@ -207,18 +212,17 @@ public class Bot {
                 voteHandler = futureVH.get();
             } catch (ExecutionException ex) {
                 ex.printStackTrace();
-                return 14;
+                return ExitCode.VOTE_HANDLER_ERROR;
             } catch (InterruptedException ex) {
                 // It's possible to be interrupted if the shutdown command executes
                 // after the bot starts but before the vote handler starts
                 ex.printStackTrace();
-                return 0;
+                return ExitCode.SUCCESS;
             }
         }
 
-        exe.shutdown();
         System.out.println("Post-init finished.");
-        return 0;
+        return ExitCode.SUCCESS;
 
     }
 

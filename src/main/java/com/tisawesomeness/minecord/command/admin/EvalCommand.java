@@ -4,7 +4,7 @@ import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.config.serial.BotListConfig;
 import com.tisawesomeness.minecord.config.serial.Config;
-import com.tisawesomeness.minecord.util.EvalUtil;
+import com.tisawesomeness.minecord.util.EvalUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import lombok.NonNull;
@@ -28,7 +28,7 @@ public class EvalCommand extends AbstractAdminCommand {
     private static final int CODEBLOCK_LENGTH = 12;
 
     private final Map<String, Object> storage = new ConcurrentHashMap<>();
-    private final EvalUtil h = new EvalUtil(); // ScriptEngine needs a reference to an object
+    private final EvalUtils h = new EvalUtils(); // ScriptEngine needs a reference to an object
 
     public @NonNull String getId() {
         return "eval";

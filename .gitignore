@@ -1,7 +1,9 @@
 .gradle
-.idea
 /build
+
+.idea
+.project
 /out
 .DS_Store
+
 /minecord
-.project

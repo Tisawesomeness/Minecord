@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 /**
  * Utility class to for eval help
  */
-public final class EvalUtil {
+public final class EvalUtils {
 
     /**
      * Generates the help message for an object
@@ -27,7 +27,7 @@ public final class EvalUtil {
         if (clazz.getFields().length > 0) {
             fields = Arrays.stream(clazz.getFields())
                     .sorted(Comparator.comparing(Field::getName))
-                    .map(EvalUtil::getDeclaration)
+                    .map(EvalUtils::getDeclaration)
                     .collect(Collectors.joining("\n"));
         }
         String methods = "NONE";
@@ -35,7 +35,7 @@ public final class EvalUtil {
             methods = Arrays.stream(clazz.getMethods())
                     .filter(m -> o.getClass().equals(Object.class) || !m.getDeclaringClass().equals(Object.class))
                     .sorted(Comparator.comparing(Method::getName))
-                    .map(EvalUtil::getSignature)
+                    .map(EvalUtils::getSignature)
                     .collect(Collectors.joining("\n"));
         }
         return String.format("%s\n\nFields:\n%s\n\nMethods:\n%s", clazz.getName(), fields, methods);
