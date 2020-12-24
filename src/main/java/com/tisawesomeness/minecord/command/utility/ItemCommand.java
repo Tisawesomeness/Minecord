@@ -2,7 +2,7 @@ package com.tisawesomeness.minecord.command.utility;
 
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.Result;
-import com.tisawesomeness.minecord.item.Item;
+import com.tisawesomeness.minecord.mc.item.Item;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;

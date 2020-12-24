@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.util;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.EmptySource;
@@ -45,6 +46,7 @@ public class UUIDUtilsTest {
             "7535348FD7F44A63A738FBE75E0BAEDD",
             "BE483D833CBF48208DE668EE1887A327"
     })
+    @DisplayName("Short strings are correctly mapped to a UUID")
     public void testFromStringShort(String candidate) {
         assertThat(UUIDUtils.fromString(candidate))
                 .isPresent()
@@ -64,6 +66,7 @@ public class UUIDUtilsTest {
             "8FF3E250-78CC-4609-87EC-B601AF05FB64",
             "5D351014-AAF9-409D-A608-6F996D0BCF34"
     })
+    @DisplayName("Long strings are correctly mapped to a UUID")
     public void testFromStringLong(String candidate) {
         assertThat(UUIDUtils.fromString(candidate))
                 .isPresent()
@@ -81,6 +84,7 @@ public class UUIDUtilsTest {
             "ca3f2ec22de44c9168117dca326db097" // Not correct variant
     })
     @EmptySource
+    @DisplayName("Using fromString() on an invalid UUID string returns empty")
     public void testFromStringInvalid(String candidate) {
         assertThat(UUIDUtils.fromString(candidate)).isEmpty();
     }
@@ -96,6 +100,7 @@ public class UUIDUtilsTest {
             "A1F04240-A7F8-48E9-903B-2A21AEA93E73",
             "F65882AC-26E1-42ED-9631-EEFAF81544D3"
     })
+    @DisplayName("fromGuarenteedShortString() correctly maps short strings to UUIDs")
     public void testFromGuarenteedShortStringValid(String candidate) {
         UUID uuid = UUIDUtils.fromGuarenteedShortString(candidate.replace("-", ""));
         assertThat(UUIDUtils.toLongString(uuid)).isEqualToIgnoringCase(candidate);
@@ -105,6 +110,7 @@ public class UUIDUtilsTest {
             "{index} ==> String {0} is an invalid UUID and fromGuarenteedShortString throws IllegalArgumentException")
     @MethodSource("invalidUUIDProvider")
     @EmptySource
+    @DisplayName("fromGuarenteedShortString() throws IllegalArgumentException if the input string is not a valid UUID")
     public void testFromGuarenteedShortStringInvalid(String candidate) {
         assertThatThrownBy(() -> UUIDUtils.fromGuarenteedShortString(candidate))
                 .isInstanceOf(IllegalArgumentException.class);
@@ -121,6 +127,7 @@ public class UUIDUtilsTest {
             "3048B123-F912-4320-923D-F2E1D3989DDD, 3048B123F9124320923DF2E1D3989DDD",
             "B7B97BC2-336C-4BD9-A035-35AF2C0344E0, B7B97BC2336C4BD9A03535AF2C0344E0"
     })
+    @DisplayName("toShortString() returns the UUID with dashes stripped")
     public void testToShortString(UUID candidate, CharSequence expected) {
         assertThat(UUIDUtils.toShortString(candidate)).isEqualToIgnoringCase(expected);
     }
@@ -136,6 +143,7 @@ public class UUIDUtilsTest {
             "703037A0-9EFB-4DFB-9A65-C617C00C33FE",
             "D40DF87B-106E-4661-8F73-4D5E02953791"
     })
+    @DisplayName("Converting to and from UUID does not modify the UUID")
     public void testToLongString(String candidate) {
         assertThat(UUIDUtils.toLongString(UUID.fromString(candidate))).isEqualToIgnoringCase(candidate);
     }

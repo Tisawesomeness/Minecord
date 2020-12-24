@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.debug;
 
-import com.tisawesomeness.minecord.item.Item;
+import com.tisawesomeness.minecord.mc.item.Item;
 
 import lombok.NonNull;
 
