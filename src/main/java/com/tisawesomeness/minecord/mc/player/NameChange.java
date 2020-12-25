@@ -29,19 +29,23 @@ public class NameChange implements Comparable<NameChange> {
     @NonNull Username username;
     @Nullable Instant time;
 
-    /**
-     * Creates a name change with the given username and timestamp.
-     * @param username The username the player was <b>changed to</b>
-     * @param time The time the username was changed, or null if original
-     */
-    public NameChange(@NonNull Username username, @Nullable Instant time) {
+    private NameChange(@NonNull Username username, @Nullable Instant time) {
         this.username = username;
         this.time = time;
     }
 
+    /**
+     * Creates a name change with the given username and timestamp.
+     * @param username The username the player was <b>changed to</b>
+     * @param timestamp The timestamp the username was changed
+     */
     public static @NonNull NameChange withTimestamp(@NonNull Username username, long timestamp) {
         return new NameChange(username, Instant.ofEpochMilli(timestamp));
     }
+    /**
+     * Creates a name change with the original username.
+     * @param username The username the player had <b>when the account was created</b>
+     */
     public static @NonNull NameChange original(@NonNull Username username) {
         return new NameChange(username, null);
     }

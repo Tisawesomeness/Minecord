@@ -19,6 +19,10 @@ public class Profile {
      * Whether the player is a demo account
      */
     boolean demo;
+    /**
+     * The skin type of the skin URL (only valid if the skin url exists)
+     */
+    SkinType skinType;
     @Nullable URL skinUrl;
     @Nullable URL capeUrl;
 

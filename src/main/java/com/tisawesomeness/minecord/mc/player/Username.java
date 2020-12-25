@@ -78,6 +78,12 @@ public class Username implements CharSequence, Comparable<Username> {
         return name.subSequence(i, i1);
     }
 
+    /**
+     * Compares this username to another alphabetically
+     * @param other The other username
+     * @return -1, 0, or 1 if this username is less than, equal to,
+     * or greater than the username change respectively
+     */
     public int compareTo(@NonNull Username other) {
         return name.compareTo(other.name);
     }
