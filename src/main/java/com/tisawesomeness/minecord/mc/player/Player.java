@@ -55,14 +55,6 @@ public class Player implements Comparable<Player> {
      * @return The default skin type according to the UUID
      */
     public SkinType getDefaultSkinType() {
-        return getDefaultSkinTypeFor(uuid);
-    }
-    /**
-     * Computes the default skin type for a UUID according to {@link UUID#hashCode()}.
-     * @param uuid The uuid of the player to compute the skin type for
-     * @return The skin type
-     */
-    public static SkinType getDefaultSkinTypeFor(UUID uuid) {
         return uuid.hashCode() % 2 == 0 ? SkinType.STEVE : SkinType.ALEX;
     }
 
