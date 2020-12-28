@@ -37,7 +37,7 @@ public class DiscordContext implements CommandContext {
 
     public DiscordContext(@NonNull String[] args, @NonNull MessageReceivedEvent e, @NonNull Config config,
                           @NonNull Bot bot, @NonNull Command cmd, @NonNull CommandExecutor executor,
-                          boolean isElevated, @NonNull String prefix, @NonNull Lang lang) {
+                          boolean isElevated, @NonNull String prefix, Lang lang) {
         this.args = args;
         this.e = e;
         this.config = config;

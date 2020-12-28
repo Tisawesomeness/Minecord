@@ -7,6 +7,7 @@ import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.database.dao.DbChannel;
 import com.tisawesomeness.minecord.database.dao.DbGuild;
 import com.tisawesomeness.minecord.database.dao.DbUser;
+import com.tisawesomeness.minecord.mc.MCLibrary;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -310,6 +311,14 @@ public interface CommandContext {
      * Logs a message to the logging channel.
      */
     void log(@NonNull MessageEmbed m);
+
+    /**
+     * Shortcut for {@link #getBot}.{@link Bot#getMCLibrary() getMCLibrary()}
+     * @return The Minecraft library object
+     */
+    default @NonNull MCLibrary getMCLibrary() {
+        return getBot().getMCLibrary();
+    }
 
     /**
      * Shortcut for {@link #getBot}.{@link Bot#getDatabaseCache() getDatabase()}

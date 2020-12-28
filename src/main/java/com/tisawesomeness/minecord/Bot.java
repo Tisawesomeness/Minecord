@@ -12,14 +12,12 @@ import com.tisawesomeness.minecord.listen.CommandListener;
 import com.tisawesomeness.minecord.listen.GuildCountListener;
 import com.tisawesomeness.minecord.listen.ReactListener;
 import com.tisawesomeness.minecord.listen.ReadyListener;
-import com.tisawesomeness.minecord.service.BotListService;
-import com.tisawesomeness.minecord.service.CommandStatsService;
-import com.tisawesomeness.minecord.service.MenuService;
-import com.tisawesomeness.minecord.service.PresenceService;
-import com.tisawesomeness.minecord.service.Service;
+import com.tisawesomeness.minecord.mc.MCLibrary;
+import com.tisawesomeness.minecord.network.APIClient;
+import com.tisawesomeness.minecord.service.*;
 import com.tisawesomeness.minecord.setting.SettingRegistry;
-import com.tisawesomeness.minecord.util.concurrent.ACExecutorService;
 import com.tisawesomeness.minecord.util.DateUtils;
+import com.tisawesomeness.minecord.util.concurrent.ACExecutorService;
 import com.tisawesomeness.minecord.util.concurrent.ShutdownBehavior;
 
 import lombok.Cleanup;
@@ -44,15 +42,9 @@ import java.awt.Color;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.OffsetDateTime;
-import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.concurrent.CompletionException;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 /**
  * <p>The entry point and central point for Minecord.</p>
@@ -86,6 +78,7 @@ public class Bot {
     private CommandListener commandListener;
     private EventListener guildCountListener;
     private Database database;
+    private MCLibrary mcLibrary;
     @Getter private ArgsHandler args;
     @Getter private ShardManager shardManager;
     @Getter private SettingRegistry settings;
@@ -122,6 +115,9 @@ public class Bot {
             return ExitCode.ANNOUNCE_IOE;
         }
 
+        APIClient client = new APIClient();
+        mcLibrary = new MCLibrary(client, config);
+
         String tokenOverride = args.getTokenOverride();
         String token = tokenOverride == null ? config.getToken() : tokenOverride;
 
@@ -144,6 +140,7 @@ public class Bot {
                     .setActivity(Activity.playing("Loading..."))
                     .setMemberCachePolicy(MemberCachePolicy.NONE)
                     .disableCache(disabledCacheFlags)
+                    .setHttpClientBuilder(client.getHttpClientBuilder())
                     .build();
 
             // Wait for shards to ready
@@ -316,6 +313,13 @@ public class Bot {
      */
     public DatabaseCache getDatabaseCache() {
         return database.getCache();
+    }
+
+    /**
+     * @return The Minecraft library object
+     */
+    public MCLibrary getMCLibrary() {
+        return mcLibrary;
     }
 
     /**

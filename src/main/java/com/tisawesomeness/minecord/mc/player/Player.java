@@ -55,6 +55,12 @@ public class Player implements Comparable<Player> {
      * @return The default skin type according to the UUID
      */
     public SkinType getDefaultSkinType() {
+        return getDefaultSkinTypeFor(uuid);
+    }
+    /**
+     * @return The default skin type according to the UUID
+     */
+    public static SkinType getDefaultSkinTypeFor(UUID uuid) {
         return uuid.hashCode() % 2 == 0 ? SkinType.STEVE : SkinType.ALEX;
     }
 
@@ -76,6 +82,12 @@ public class Player implements Comparable<Player> {
      * @return A link to the player's Crafatr avatar image
      */
     public @NonNull URL getAvatarUrl() {
+        return getAvatarUrlFor(uuid);
+    }
+    /**
+     * @return A link to the player's Crafatr avatar image
+     */
+    public static @NonNull URL getAvatarUrlFor(UUID uuid) {
         return URLUtils.createUrl("https://crafatar.com/avatars/" + uuid);
     }
     /**
@@ -89,9 +101,24 @@ public class Player implements Comparable<Player> {
      * @return A link to the player's NameMC profile
      */
     public @NonNull URL getNameMCUrl() {
+        return getNameMCUrlFor(username);
+    }
+    /**
+     * @param username The username of the player
+     * @return A link to the player's NameMC profile
+     */
+    public static @NonNull URL getNameMCUrlFor(@NonNull Username username) {
         String encodedName = URLEncoder.encode(username.toString(), StandardCharsets.UTF_8);
         return URLUtils.createUrl("https://namemc.com/profile/" + encodedName);
     }
+    /**
+     * @param uuid The UUID of the player
+     * @return A link to the player's NameMC profile
+     */
+    public static @NonNull URL getNameMCUrlFor(@NonNull UUID uuid) {
+        return URLUtils.createUrl("https://namemc.com/profile/" + uuid);
+    }
+
     /**
      * @return A link to the player's MCSkinHistory profile
      */
