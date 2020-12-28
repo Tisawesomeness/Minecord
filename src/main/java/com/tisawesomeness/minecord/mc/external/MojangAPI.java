@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.mc;
+package com.tisawesomeness.minecord.mc.external;
 
 import com.tisawesomeness.minecord.mc.player.NameChange;
 import com.tisawesomeness.minecord.mc.player.Profile;

@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.debug;
+package com.tisawesomeness.minecord.debug.cache;
 
 import com.tisawesomeness.minecord.command.CommandExecutor;
 
@@ -14,7 +14,7 @@ public class CooldownCacheDebugOption extends CacheDebugOption {
     public @NonNull String getName() {
         return "cooldownCache";
     }
-    public @NonNull Optional<CacheStats> getCacheStats(@NonNull String extra) {
+    public Optional<CacheStats> getCacheStats(@NonNull String extra) {
         if (extra.isEmpty()) {
             return Optional.of(executor.stats());
         }

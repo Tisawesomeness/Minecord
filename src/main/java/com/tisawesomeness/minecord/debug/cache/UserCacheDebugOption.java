@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.debug;
+package com.tisawesomeness.minecord.debug.cache;
 
 import com.tisawesomeness.minecord.database.DatabaseCache;
 
@@ -9,12 +9,12 @@ import lombok.RequiredArgsConstructor;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class ChannelCacheDebugOption extends CacheDebugOption {
+public class UserCacheDebugOption extends CacheDebugOption {
     private final @NonNull DatabaseCache cache;
-    public @NonNull Optional<CacheStats> getCacheStats(@NonNull String extra) {
-        return Optional.of(cache.getChannelStats());
+    public Optional<CacheStats> getCacheStats(@NonNull String extra) {
+        return Optional.of(cache.getUserStats());
     }
     public @NonNull String getName() {
-        return "channelCache";
+        return "userCache";
     }
 }

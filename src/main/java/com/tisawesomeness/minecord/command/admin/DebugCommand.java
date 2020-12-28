@@ -4,16 +4,14 @@ import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.CommandExecutor;
 import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.DatabaseCache;
-import com.tisawesomeness.minecord.debug.ChannelCacheDebugOption;
-import com.tisawesomeness.minecord.debug.CooldownCacheDebugOption;
+import com.tisawesomeness.minecord.debug.cache.*;
 import com.tisawesomeness.minecord.debug.DebugOption;
-import com.tisawesomeness.minecord.debug.GuildCacheDebugOption;
 import com.tisawesomeness.minecord.debug.ItemDebugOption;
 import com.tisawesomeness.minecord.debug.JDADebugOption;
 import com.tisawesomeness.minecord.debug.PoolsDebugOption;
 import com.tisawesomeness.minecord.debug.RegionDebugOption;
 import com.tisawesomeness.minecord.debug.ThreadDebugOption;
-import com.tisawesomeness.minecord.debug.UserCacheDebugOption;
+import com.tisawesomeness.minecord.mc.player.PlayerProvider;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import lombok.NonNull;
@@ -23,7 +21,6 @@ import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,6 +63,7 @@ public class DebugCommand extends AbstractAdminCommand {
         ShardManager sm = ctx.getBot().getShardManager();
         DatabaseCache dbCache = ctx.getBot().getDatabaseCache();
         CommandExecutor executor = ctx.getExecutor();
+        PlayerProvider playerProvider = ctx.getMCLibrary().getPlayerProvider();
         return List.of(
                 new JDADebugOption(sm),
                 new ThreadDebugOption(),
@@ -75,7 +73,9 @@ public class DebugCommand extends AbstractAdminCommand {
                 new CooldownCacheDebugOption(executor),
                 new GuildCacheDebugOption(dbCache),
                 new ChannelCacheDebugOption(dbCache),
-                new UserCacheDebugOption(dbCache)
+                new UserCacheDebugOption(dbCache),
+                new UuidCacheDebugOption(playerProvider),
+                new PlayerCacheDebugOption(playerProvider)
         );
     }
 

@@ -1,4 +1,6 @@
-package com.tisawesomeness.minecord.debug;
+package com.tisawesomeness.minecord.debug.cache;
+
+import com.tisawesomeness.minecord.debug.DebugOption;
 
 import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import lombok.NonNull;
@@ -14,7 +16,7 @@ public abstract class CacheDebugOption implements DebugOption {
 
     public @NonNull String debug(@NonNull String extra) {
         Optional<CacheStats> statsOpt = getCacheStats(extra);
-        if (!statsOpt.isPresent()) {
+        if (statsOpt.isEmpty()) {
             return "N/A";
         }
         CacheStats stats = statsOpt.get();
@@ -28,5 +30,5 @@ public abstract class CacheDebugOption implements DebugOption {
     /**
      * @return The cache stats to be used in {@link #debug(String)}.
      */
-    public abstract @NonNull Optional<CacheStats> getCacheStats(@NonNull String extra);
+    public abstract Optional<CacheStats> getCacheStats(@NonNull String extra);
 }

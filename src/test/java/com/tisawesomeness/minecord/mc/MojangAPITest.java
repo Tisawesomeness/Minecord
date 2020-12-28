@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.mc;
 
+import com.tisawesomeness.minecord.mc.external.MojangAPI;
 import com.tisawesomeness.minecord.mc.player.NameChange;
 import com.tisawesomeness.minecord.mc.player.Profile;
 import com.tisawesomeness.minecord.mc.player.SkinType;

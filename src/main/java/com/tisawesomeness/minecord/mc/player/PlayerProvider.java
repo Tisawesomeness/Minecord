@@ -1,12 +1,13 @@
 package com.tisawesomeness.minecord.mc.player;
 
 import com.tisawesomeness.minecord.config.serial.FlagConfig;
-import com.tisawesomeness.minecord.mc.MojangAPI;
-import com.tisawesomeness.minecord.mc.MojangAPIImpl;
+import com.tisawesomeness.minecord.mc.external.MojangAPI;
+import com.tisawesomeness.minecord.mc.external.MojangAPIImpl;
 import com.tisawesomeness.minecord.network.APIClient;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
+import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -110,6 +111,13 @@ public class PlayerProvider {
         if (cause instanceof IOException) {
             throw (IOException) cause;
         }
+    }
+
+    public CacheStats getUuidCacheStats() {
+        return uuidCache.stats();
+    }
+    public CacheStats getPlayerCacheStats() {
+        return playerCache.stats();
     }
 
 }
