@@ -28,9 +28,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class MojangAPITest {
 
-    private static final Username TESTING_USERNAME = Username.from("Tis_awesomeness").orElseThrow();
-    private static final Username ORIGINAL_USERNAME = Username.from("tis_awesomeness").orElseThrow();
-    private static final Username FAKE_USERNAME = Username.from("DoesNotExist").orElseThrow();
+    private static final Username TESTING_USERNAME = Username.fromAny("Tis_awesomeness");
+    private static final Username ORIGINAL_USERNAME = Username.fromAny("tis_awesomeness");
+    private static final Username FAKE_USERNAME = Username.fromAny("DoesNotExist");
     private static final UUID TESTING_UUID = UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3af");
     private static final UUID FAKE_UUID = UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3ae");
     private static final long TESTING_TIMESTAMP = 1438695830000L;

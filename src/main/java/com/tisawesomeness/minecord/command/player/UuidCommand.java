@@ -27,14 +27,18 @@ public class UuidCommand extends AbstractPlayerCommand {
         if (args.length == 0) {
             return ctx.showHelp();
         }
-        ctx.triggerCooldown();
 
-        Optional<Username> usernameOpt = Username.from(ctx.joinArgs());
+        String inputName = ctx.joinArgs();
+        if (inputName.length() > Username.MAX_LENGTH) {
+            return ctx.warn(ctx.i18n("tooLong"));
+        }
+        Optional<Username> usernameOpt = Username.from(inputName);
         if (usernameOpt.isEmpty()) {
             return ctx.warn(ctx.i18n("unsupportedSpecialCharacters"));
         }
         Username username = usernameOpt.get();
 
+        ctx.triggerCooldown();
         Optional<UUID> uuidOpt;
         try {
             uuidOpt = ctx.getMCLibrary().getPlayerProvider().getUUID(username);

@@ -71,7 +71,7 @@ public class UsernameTest {
     @MethodSource("validNameProvider")
     @DisplayName("isValid() is true for valid usernames")
     public void testValidNames(String candidate) {
-        Username name = Username.from(candidate).orElseThrow();
+        Username name = Username.fromAny(candidate);
         assertThat(name.isValid()).isTrue();
     }
 
@@ -79,8 +79,29 @@ public class UsernameTest {
     @MethodSource("invalidNameProvider")
     @DisplayName("isValid() is false for invalid usernames")
     public void testInvalidNames(String candidate) {
-        Username name = Username.from(candidate).orElseThrow();
+        Username name = Username.fromAny(candidate);
         assertThat(name.isValid()).isFalse();
+    }
+
+    @Test
+    @DisplayName("Ascii only names are supported")
+    public void testSupportedName() {
+        Username name = Username.fromAny("ascii-only");
+        assertThat(name.isSupportedByMojangAPI()).isTrue();
+    }
+
+    @Test
+    @DisplayName("Non-ascii names are unsupported")
+    public void testUnsupportedName() {
+        Username name = Username.fromAny("ooθoo");
+        assertThat(name.isSupportedByMojangAPI()).isFalse();
+    }
+
+    @Test
+    @DisplayName("Empty names are unsupported")
+    public void testEmptyName() {
+        Username name = Username.fromAny("");
+        assertThat(name.isSupportedByMojangAPI()).isFalse();
     }
 
     private static Stream<String> validNameProvider() {

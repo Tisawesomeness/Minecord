@@ -5,7 +5,6 @@ import com.tisawesomeness.minecord.mc.player.Profile;
 import com.tisawesomeness.minecord.mc.player.SkinType;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.UUIDUtils;
-import com.tisawesomeness.minecord.util.network.URLUtils;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +30,7 @@ public abstract class MojangAPI {
 
     /**
      * Requests the UUID currently associated with a username.
-     * @param username The input username
+     * @param username A supported username
      * @return The raw JSON response, or empty if the username doesn't <b>currently</b> exist
      * @throws IOException If an I/O error occurs
      */
@@ -41,8 +40,12 @@ public abstract class MojangAPI {
      * @param username The player's username
      * @return The UUID the username belongs to, or empty if the username doesn't <b>currently</b> exist
      * @throws IOException If an I/O error occurs
+     * @throws IllegalArgumentException If the username is not supported by the Mojang API
      */
     public Optional<UUID> getUUID(@NonNull Username username) throws IOException {
+        if (!username.isSupportedByMojangAPI()) {
+            throw new IllegalArgumentException(username + " is not supported by the Mojang API.");
+        }
         Optional<String> responseOpt = requestUUID(username);
         if (responseOpt.isEmpty()) {
             return Optional.empty();
@@ -74,7 +77,7 @@ public abstract class MojangAPI {
         List<NameChange> nameHistoryList = new ArrayList<>();
         for (int i = 0; i < json.length(); i++) {
             JSONObject nameChange = json.getJSONObject(i);
-            Username username = Username.from(nameChange.getString("name")).orElseThrow();
+            Username username = Username.fromAny(nameChange.getString("name"));
             if (nameChange.has("changedToAt")) {
                 long timestamp = nameChange.getLong("changedToAt");
                 nameHistoryList.add(NameChange.withTimestamp(username, timestamp));

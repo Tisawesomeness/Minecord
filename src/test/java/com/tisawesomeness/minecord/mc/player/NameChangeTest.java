@@ -13,8 +13,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class NameChangeTest {
 
-    private static final Username TESTING_USERNAME = Username.from("Tis_awesomeness").orElseThrow();
-    private static final Username ORIGINAL_USERNAME = Username.from("tis_awesomeness").orElseThrow();
+    private static final Username TESTING_USERNAME = Username.fromAny("Tis_awesomeness");
+    private static final Username ORIGINAL_USERNAME = Username.fromAny("tis_awesomeness");
     private static final long TESTING_TIMESTAMP = 1438695830000L;
 
     @Test
@@ -60,9 +60,9 @@ public class NameChangeTest {
     @Test
     @DisplayName("Sorting a list of name changes orders names alphabetically")
     public void testComparisonName() {
-        Username nameA = Username.from("a").orElseThrow();
-        Username nameB = Username.from("b").orElseThrow();
-        Username nameC = Username.from("c").orElseThrow();
+        Username nameA = Username.fromAny("a");
+        Username nameB = Username.fromAny("b");
+        Username nameC = Username.fromAny("c");
         NameChange first = NameChange.withTimestamp(nameA, TESTING_TIMESTAMP);
         NameChange second = NameChange.withTimestamp(nameB, TESTING_TIMESTAMP);
         NameChange third = NameChange.withTimestamp(nameC, TESTING_TIMESTAMP);

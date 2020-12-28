@@ -10,22 +10,18 @@ import java.util.regex.Pattern;
 /**
  * Represents a Minecraft Java username.
  * <p>
- *     Normally, usernames can only be 3-16 characters and contain only ASCII letters, numbers, and underscores,
- *     but due to glitches or other methods, "invalid" accounts exist. The Mojang API only works on ASCII usernames
- *     (although non-ASCII usernames exist), so this class is limited to ASCII usernames and imposes an additional
- *     sanity check of 1 to {@link #MAX_LENGTH} characters.
- * </p>
- * <p>
  *     <b>Beware: usernames are NOT guarenteed to contain only letters, numbers, and underscores!</b> They may have
- *     spaces or special characters (such as {@code /}).
+ *     spaces or special characters (such as {@code /}). Normally, usernames can only be 3-16 characters and contain
+ *     only ASCII letters, numbers, and underscores, but due to glitches or other methods, "invalid" accounts exist.
+ *     This can be checked with {@link #isValid()}.
  * </p>
  * <p>
  *     Note that names with swear words are often filtered out or involuntarily changed by Mojang, leading to blocked
- *     but valid names.
+ *     but valid names. Some names are blocked from being registered and will not show up on the API if nobody has
+ *     the name, even if someone tries to change their name to it.
  * </p>
  * Convert a string to a username using {@link #from(String)} (which validates length and characters) and convert a
  * username back to a string by simply calling {@link #toString()}.
- * @see #isValid()
  */
 @EqualsAndHashCode
 public class Username implements CharSequence, Comparable<Username> {
@@ -41,18 +37,24 @@ public class Username implements CharSequence, Comparable<Username> {
     }
 
     /**
-     * Creates a username from a string.
+     * Creates a username from a string, but only if it is supported for Mojang API input.
      * @param name Any input string
-     * @return A username if the input string has only 1-{@link #MAX_LENGTH} ASCII characters, empty otherwise
+     * @return A username if supported, empty otherwise
      */
     public static Optional<Username> from(@NonNull String name) {
-        if (name.isEmpty() || name.length() > MAX_LENGTH || !isAscii(name)) {
-            return Optional.empty();
+        Username username = new Username(name);
+        if (username.isSupportedByMojangAPI()) {
+            return Optional.of(username);
         }
-        return Optional.of(new Username(name));
+        return Optional.empty();
     }
-    private static boolean isAscii(@NonNull CharSequence str) {
-        return CharMatcher.ascii().matchesAllOf(str);
+    /**
+     * Creates a username from any string. There are no guarantees that the name will work with external APIs.
+     * @param name Any input string
+     * @return The created username
+     */
+    public static Username fromAny(@NonNull String name) {
+        return new Username(name);
     }
 
     /**
@@ -62,6 +64,17 @@ public class Username implements CharSequence, Comparable<Username> {
      */
     public boolean isValid() {
         return VALID_USERNAME_PATTERN.matcher(name).matches();
+    }
+
+    /**
+     * Checks if a username can be sent to the Mojang API.
+     * @return True only if the username contains only 1-{@link #MAX_LENGTH} ASCII characters, empty otherwise
+     */
+    public boolean isSupportedByMojangAPI() {
+        return !name.isEmpty() && name.length() <= MAX_LENGTH && isAscii(name);
+    }
+    private static boolean isAscii(@NonNull CharSequence str) {
+        return CharMatcher.ascii().matchesAllOf(str);
     }
 
     public boolean contains(@NonNull CharSequence s) {
