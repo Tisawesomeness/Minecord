@@ -79,6 +79,7 @@ public class Bot {
     private EventListener guildCountListener;
     private Database database;
     private MCLibrary mcLibrary;
+    @Getter private APIClient apiClient;
     @Getter private ArgsHandler args;
     @Getter private ShardManager shardManager;
     @Getter private SettingRegistry settings;
@@ -115,8 +116,8 @@ public class Bot {
             return ExitCode.ANNOUNCE_IOE;
         }
 
-        APIClient client = new APIClient();
-        mcLibrary = new MCLibrary(client, config);
+        apiClient = new APIClient();
+        mcLibrary = new MCLibrary(apiClient, config);
 
         String tokenOverride = args.getTokenOverride();
         String token = tokenOverride == null ? config.getToken() : tokenOverride;
@@ -140,7 +141,7 @@ public class Bot {
                     .setActivity(Activity.playing("Loading..."))
                     .setMemberCachePolicy(MemberCachePolicy.NONE)
                     .disableCache(disabledCacheFlags)
-                    .setHttpClientBuilder(client.getHttpClientBuilder())
+                    .setHttpClientBuilder(apiClient.getHttpClientBuilder())
                     .build();
 
             // Wait for shards to ready

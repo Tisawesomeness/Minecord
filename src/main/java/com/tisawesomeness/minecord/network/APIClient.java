@@ -23,15 +23,17 @@ public class APIClient {
      * The builder used to construct a {@link OkHttpClient} instance
      */
     @Getter private final OkHttpClient.Builder httpClientBuilder;
+    private final Dispatcher dispatcher;
+    private final ConnectionPool connectionPool;
 
     /**
      * Creates a new API client with the default settings.
      */
     public APIClient() {
         // client is set to JDA defaults
-        Dispatcher dispatcher = new Dispatcher();
+        dispatcher = new Dispatcher();
         dispatcher.setMaxRequestsPerHost(MAX_REQUESTS_PER_HOST);
-        ConnectionPool connectionPool = new ConnectionPool(5, 10, TimeUnit.SECONDS);
+        connectionPool = new ConnectionPool(5, 10, TimeUnit.SECONDS);
         httpClientBuilder = new OkHttpClient.Builder()
                 .connectionPool(connectionPool)
                 .dispatcher(dispatcher);
@@ -50,6 +52,19 @@ public class APIClient {
                 .build();
         OkHttpClient client = httpClientBuilder.build();
         return Objects.requireNonNull(client.newCall(request).execute());
+    }
+
+    public int getQueuedCallsCount() {
+        return dispatcher.queuedCallsCount();
+    }
+    public int getRunningCallsCount() {
+        return dispatcher.runningCallsCount();
+    }
+    public int getIdleConnectionCount() {
+        return connectionPool.idleConnectionCount();
+    }
+    public int getConnectionCount() {
+        return connectionPool.connectionCount();
     }
 
 }

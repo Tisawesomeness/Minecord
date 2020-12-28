@@ -4,13 +4,8 @@ import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.CommandExecutor;
 import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.DatabaseCache;
+import com.tisawesomeness.minecord.debug.*;
 import com.tisawesomeness.minecord.debug.cache.*;
-import com.tisawesomeness.minecord.debug.DebugOption;
-import com.tisawesomeness.minecord.debug.ItemDebugOption;
-import com.tisawesomeness.minecord.debug.JDADebugOption;
-import com.tisawesomeness.minecord.debug.PoolsDebugOption;
-import com.tisawesomeness.minecord.debug.RegionDebugOption;
-import com.tisawesomeness.minecord.debug.ThreadDebugOption;
 import com.tisawesomeness.minecord.mc.player.PlayerProvider;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
@@ -70,6 +65,7 @@ public class DebugCommand extends AbstractAdminCommand {
                 new RegionDebugOption(sm),
                 new ItemDebugOption(),
                 new PoolsDebugOption(executor),
+                new ClientDebugOption(ctx.getBot().getApiClient()),
                 new CooldownCacheDebugOption(executor),
                 new GuildCacheDebugOption(dbCache),
                 new ChannelCacheDebugOption(dbCache),
