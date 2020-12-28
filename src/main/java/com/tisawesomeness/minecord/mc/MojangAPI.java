@@ -8,6 +8,7 @@ import com.tisawesomeness.minecord.util.UUIDUtils;
 import com.tisawesomeness.minecord.util.network.URLUtils;
 
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -25,6 +26,7 @@ import java.util.UUID;
 /**
  * A wrapper for the Mojang API.
  */
+@Slf4j
 public abstract class MojangAPI {
 
     /**
@@ -120,13 +122,17 @@ public abstract class MojangAPI {
                 skinUrl = new URL(httpToHttps(link));
                 skinType = getSkinType(skinObj);
             } catch (MalformedURLException ex) {
-                ex.printStackTrace();
+                log.error("Mojang returned an invalid skin URL: " + link, ex);
             }
         }
         URL capeUrl = null;
         if (textures.has("CAPE")) {
             String link = textures.getJSONObject("CAPE").getString("url");
-            capeUrl = URLUtils.createUrl(httpToHttps(link));
+            try {
+                capeUrl = new URL(httpToHttps(link));
+            } catch (MalformedURLException ex) {
+                log.error("Mojang returned an invalid cape URL: " + link, ex);
+            }
         }
         return Optional.of(new Profile(legacy, demo, skinType, skinUrl, capeUrl));
     }

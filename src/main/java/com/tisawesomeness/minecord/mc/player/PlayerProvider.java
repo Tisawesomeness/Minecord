@@ -7,6 +7,7 @@ import com.tisawesomeness.minecord.network.APIClient;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Requests and caches player data from the Mojang API
  */
+@Slf4j
 public class PlayerProvider {
 
     private final LoadingCache<Username, Optional<UUID>> uuidCache;
@@ -52,7 +54,7 @@ public class PlayerProvider {
         Username username = nameHistory.get(0).getUsername();
         Optional<Profile> profileOpt = api.getProfile(uuid);
         if (profileOpt.isEmpty()) {
-            // unlikely that the name change will succeed but the profile will not, but checking anyways
+            log.warn("Mojang API name history succeeded but profile failed. Check for a format change.");
             return Optional.empty();
         }
         Profile profile = profileOpt.get();
