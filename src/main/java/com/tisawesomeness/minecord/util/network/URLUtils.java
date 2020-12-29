@@ -1,5 +1,7 @@
 package com.tisawesomeness.minecord.util.network;
 
+import lombok.NonNull;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -22,6 +24,18 @@ public final class URLUtils {
         } catch (MalformedURLException ex) {
             throw new AssertionError(ex);
         }
+    }
+
+    /**
+     * Changes a string URL from HTTP to HTTPS if it begins with "http:"
+     * @param link A URL as a string (though any string will work)
+     * @return The string changed to HTTPS, or the same string unmodified
+     */
+    public static @NonNull String httpToHttps(@NonNull String link) {
+        if (link.startsWith("http:")) {
+            return "https" + link.substring(4);
+        }
+        return link;
     }
 
 }

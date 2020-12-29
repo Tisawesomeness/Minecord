@@ -1,6 +1,5 @@
-package com.tisawesomeness.minecord.mc;
+package com.tisawesomeness.minecord.mc.external;
 
-import com.tisawesomeness.minecord.mc.external.MojangAPI;
 import com.tisawesomeness.minecord.mc.player.NameChange;
 import com.tisawesomeness.minecord.mc.player.Profile;
 import com.tisawesomeness.minecord.mc.player.SkinType;
@@ -25,12 +24,14 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class MojangAPITest {
 
     private static final Username TESTING_USERNAME = Username.fromAny("Tis_awesomeness");
     private static final Username ORIGINAL_USERNAME = Username.fromAny("tis_awesomeness");
     private static final Username FAKE_USERNAME = Username.fromAny("DoesNotExist");
+    private static final Username NON_ASCII_USERNAME = Username.fromAny("ooθoo");
     private static final UUID TESTING_UUID = UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3af");
     private static final UUID FAKE_UUID = UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3ae");
     private static final long TESTING_TIMESTAMP = 1438695830000L;
@@ -51,6 +52,13 @@ public class MojangAPITest {
     public void testNonExistentUsername() throws IOException {
         MojangAPI api = new MockMojangAPI();
         assertThat(api.getUUID(FAKE_USERNAME)).isEmpty();
+    }
+
+    @Test
+    @DisplayName("Invalid usernames are rejected and throw IllegalArgumentException")
+    public void testInvalidUsername() {
+        MojangAPI api = new MockMojangAPI();
+        assertThatThrownBy(() -> api.getUUID(NON_ASCII_USERNAME)).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test

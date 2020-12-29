@@ -5,6 +5,7 @@ import com.tisawesomeness.minecord.mc.player.Profile;
 import com.tisawesomeness.minecord.mc.player.SkinType;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.UUIDUtils;
+import com.tisawesomeness.minecord.util.network.URLUtils;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -15,15 +16,10 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 /**
- * A wrapper for the Mojang API.
+ * A wrapper for the Mojang API. See <a href="https://wiki.vg/Mojang_API">the docs</a>
  */
 @Slf4j
 public abstract class MojangAPI {
@@ -122,7 +118,7 @@ public abstract class MojangAPI {
             JSONObject skinObj = textures.getJSONObject("SKIN");
             String link = skinObj.getString("url");
             try {
-                skinUrl = new URL(httpToHttps(link));
+                skinUrl = new URL(URLUtils.httpToHttps(link));
                 skinType = getSkinType(skinObj);
             } catch (MalformedURLException ex) {
                 log.error("Mojang returned an invalid skin URL: " + link, ex);
@@ -132,19 +128,12 @@ public abstract class MojangAPI {
         if (textures.has("CAPE")) {
             String link = textures.getJSONObject("CAPE").getString("url");
             try {
-                capeUrl = new URL(httpToHttps(link));
+                capeUrl = new URL(URLUtils.httpToHttps(link));
             } catch (MalformedURLException ex) {
                 log.error("Mojang returned an invalid cape URL: " + link, ex);
             }
         }
         return Optional.of(new Profile(legacy, demo, skinType, skinUrl, capeUrl));
-    }
-
-    private static String httpToHttps(@NonNull String link) {
-        if (link.startsWith("http:")) {
-            return "https" + link.substring(4);
-        }
-        return link;
     }
 
     private static SkinType getSkinType(@NonNull JSONObject skinObj) {

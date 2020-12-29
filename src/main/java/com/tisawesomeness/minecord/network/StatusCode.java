@@ -11,7 +11,8 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public enum StatusCode {
     OK(200),
-    NO_CONTENT(204);
+    NO_CONTENT(204),
+    NOT_FOUND(404);
 
     /**
      * The 1xx to 5xx status code

@@ -34,7 +34,7 @@ public class Player implements Comparable<Player> {
      */
     @NonNull Username username;
     /**
-     * A non-empty list of name changes, sorted from earliest to latest, including the original name
+     * A non-empty list of name changes, sorted from latest to earliest, including the original name
      */
     List<NameChange> nameHistory;
     /**
