@@ -1,6 +1,8 @@
 package com.tisawesomeness.minecord.mc.player;
 
 import com.tisawesomeness.minecord.config.serial.FlagConfig;
+import com.tisawesomeness.minecord.mc.external.ElectroidAPI;
+import com.tisawesomeness.minecord.mc.external.ElectroidAPIImpl;
 import com.tisawesomeness.minecord.mc.external.MojangAPI;
 import com.tisawesomeness.minecord.mc.external.MojangAPIImpl;
 import com.tisawesomeness.minecord.network.APIClient;
@@ -25,7 +27,9 @@ public class PlayerProvider {
 
     private final LoadingCache<Username, Optional<UUID>> uuidCache;
     private final LoadingCache<UUID, Optional<Player>> playerCache;
-    private final MojangAPI api;
+    private final MojangAPI mojangAPI;
+    private final ElectroidAPI electroidAPI;
+    private final boolean useElectroidAPI;
 
     /**
      * Creates a new PlayerProvider
@@ -33,7 +37,10 @@ public class PlayerProvider {
      * @param flagConfig The flag config determines whether to record cache stats
      */
     public PlayerProvider(APIClient client, FlagConfig flagConfig) {
-        api = new MojangAPIImpl(client);
+        mojangAPI = new MojangAPIImpl(client);
+        electroidAPI = new ElectroidAPIImpl(client);
+        useElectroidAPI = flagConfig.isUseElectroidAPI();
+
         Caffeine<Object, Object> builder = Caffeine.newBuilder()
                 .expireAfterWrite(1, TimeUnit.MINUTES);
         if (flagConfig.isDebugMode()) {
@@ -44,16 +51,45 @@ public class PlayerProvider {
     }
 
     private Optional<UUID> loadUUID(Username username) throws IOException {
-        return api.getUUID(username);
+        try {
+            return mojangAPI.getUUID(username);
+        } catch (IOException ex) {
+            if (useElectroidAPI && username.isValid()) {
+                log.warn("Getting UUID from Mojang API failed with IOE, trying Electroid API: ", ex);
+                return tryUUIDFromElectroid(username);
+            }
+            log.error("Getting UUID from Mojang API failed with IOE, backup not available: ", ex);
+            throw ex;
+        }
+    }
+    private Optional<UUID> tryUUIDFromElectroid(Username username) throws IOException {
+        Optional<Player> playerOpt = electroidAPI.getPlayer(username);
+        if (playerOpt.isEmpty()) {
+            return Optional.empty();
+        }
+        Player player = playerOpt.get();
+        UUID uuid = player.getUuid();
+        playerCache.asMap().putIfAbsent(uuid, playerOpt); // since we have the player object, why not cache it?
+        return Optional.of(uuid);
     }
 
     private Optional<Player> loadPlayer(UUID uuid) throws IOException {
-        List<NameChange> nameHistory = api.getNameHistory(uuid);
+        if (useElectroidAPI) {
+            try {
+                return electroidAPI.getPlayer(uuid);
+            } catch (IOException ex) {
+                log.warn("Getting player from Electroid API failed with IOE, trying Mojang API: ", ex);
+            }
+        }
+        return tryPlayerFromMojang(uuid);
+    }
+    private Optional<Player> tryPlayerFromMojang(UUID uuid) throws IOException {
+        List<NameChange> nameHistory = mojangAPI.getNameHistory(uuid);
         if (nameHistory.isEmpty()) {
             return Optional.empty();
         }
         Username username = nameHistory.get(0).getUsername();
-        Optional<Profile> profileOpt = api.getProfile(uuid);
+        Optional<Profile> profileOpt = mojangAPI.getProfile(uuid);
         if (profileOpt.isEmpty()) {
             log.warn("Mojang API name history succeeded but profile failed. Check for a format change.");
             return Optional.empty();
