@@ -47,14 +47,18 @@ public class UuidCommandTest {
     @DisplayName("Uuid command with too long username warns the user")
     public void testTooLong() {
         String args = "A".repeat(Username.MAX_LENGTH + 1);
-        assertThat(runner.run(args)).resultIs(Result.WARNING);
+        assertThat(runner.run(args))
+                .hasNotTriggeredCooldown()
+                .resultIs(Result.WARNING);
     }
 
     @Test
     @DisplayName("Uuid command with non-ascii username warns the user")
     public void testNonAsciiUsername() {
         String args = "ooθoo";
-        assertThat(runner.run(args)).resultIs(Result.WARNING);
+        assertThat(runner.run(args))
+                .hasNotTriggeredCooldown()
+                .resultIs(Result.WARNING);
     }
 
     @Test
@@ -70,7 +74,9 @@ public class UuidCommandTest {
     @DisplayName("Uuid command responds with success, even though the username doesn't exist")
     public void testNonExistentUsername() {
         String args = "DoesNotExist";
-        assertThat(runner.run(args)).resultIs(Result.SUCCESS);
+        assertThat(runner.run(args))
+                .hasTriggeredCooldown()
+                .resultIs(Result.SUCCESS);
     }
 
     @Test

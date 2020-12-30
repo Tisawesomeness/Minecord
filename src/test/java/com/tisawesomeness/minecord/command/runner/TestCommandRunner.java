@@ -56,7 +56,7 @@ public class TestCommandRunner {
     /**
      * Whether the executor is an elevated user. Defaults to {@code false}.
      */
-    public boolean isElevated = false;
+    public boolean isElevated;
     /**
      * The prefix used in command responses. Defaults to the config default.
      */
@@ -142,4 +142,5 @@ public class TestCommandRunner {
                 .add("library=" + library)
                 .toString();
     }
+    
 }
