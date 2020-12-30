@@ -6,6 +6,7 @@ import com.tisawesomeness.minecord.config.serial.BotListConfig;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.entities.User;
 import org.json.JSONObject;
 
@@ -15,6 +16,7 @@ import java.net.InetSocketAddress;
 import java.util.Arrays;
 import java.util.Scanner;
 
+@Slf4j
 public class VoteHandler {
 
     private HttpServer server;
@@ -64,7 +66,7 @@ public class VoteHandler {
         });
 
         server.start();
-        System.out.println("Web server started.");
+        log.info("Vote handler started.");
     }
 
     public void close() {

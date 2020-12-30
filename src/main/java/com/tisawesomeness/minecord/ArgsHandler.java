@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
@@ -22,6 +23,7 @@ import java.util.concurrent.Callable;
         mixinStandardHelpOptions = true,
         versionProvider = BuildInfo.VersionProvider.class
 )
+@Slf4j
 public class ArgsHandler implements Callable<Integer>, Serializable {
 
     @Option(names = {"-t", "--token"}, description = "The custom token to use.")
@@ -56,15 +58,16 @@ public class ArgsHandler implements Callable<Integer>, Serializable {
         if (path == null) {
             path = Paths.get("./minecord");
             if (!path.toFile().exists()) {
+                log.debug("No path argument was provided and default folder does not exist, creating...");
                 try {
                     Files.createDirectory(path);
                 } catch (IOException ex) {
-                    ex.printStackTrace();
-                    return ExitCode.CONFIG_IOE;
+                    log.error("FATAL: There was an error creating the minecord folder", ex);
+                    return ExitCode.COULD_NOT_CREATE_FOLDER;
                 }
             }
         } else if (!path.toFile().isDirectory()) {
-            System.err.println("Path must be a directory!");
+            log.error("FATAL: The path argument must be a directory!");
             return ExitCode.INVALID_PATH;
         }
 
@@ -73,6 +76,7 @@ public class ArgsHandler implements Callable<Integer>, Serializable {
             announcePath = path.resolve("announce.json");
         }
         if (!announcePath.toFile().exists()) {
+            log.debug("Announce file does not exist, creating...");
             createAnnounce(announcePath);
         }
 
@@ -85,26 +89,28 @@ public class ArgsHandler implements Callable<Integer>, Serializable {
         }
 
         ready = true;
+        log.info("Found valid config file");
         return ExitCode.SUCCESS;
 
     }
 
     private static ExitCode createConfig(Path configPath) {
+        log.debug("Creating config...");
         try {
-            Files.write(configPath, RequestUtils.loadResource("config.yml").getBytes());
-            System.out.println("The config file was created! Put your bot token in config.yml to run the bot.");
+            Files.writeString(configPath, RequestUtils.loadResource("config.yml"));
+            log.info("The config file was created! Put your bot token in config.yml to run the bot.");
         } catch (IOException ex) {
-            ex.printStackTrace();
-            return ExitCode.CONFIG_IOE;
+            log.error("FATAL: There was an error creating the config", ex);
+            return ExitCode.COULD_NOT_CREATE_CONFIG;
         }
         return ExitCode.SUCCESS;
     }
 
     private static void createAnnounce(Path announcePath) {
         try {
-            Files.write(announcePath, RequestUtils.loadResource("announce.json").getBytes());
+            Files.writeString(announcePath, RequestUtils.loadResource("announce.json"));
         } catch (IOException ex) {
-            ex.printStackTrace();
+            log.warn("Could not load announce file, continuing anyway...", ex);
         }
     }
 

@@ -56,10 +56,10 @@ public class DualPlayerProvider implements PlayerProvider {
             return mojangAPI.getUUID(username);
         } catch (IOException ex) {
             if (useElectroidAPI && username.isValid()) {
-                log.warn("Getting UUID from Mojang API failed with IOE, trying Electroid API: ", ex);
+                log.warn("Getting UUID from Mojang API failed with IOE, trying Electroid API", ex);
                 return tryUUIDFromElectroid(username);
             }
-            log.error("Getting UUID from Mojang API failed with IOE, backup not available: ", ex);
+            log.error("Getting UUID from Mojang API failed with IOE, backup not available", ex);
             throw ex;
         }
     }
@@ -79,7 +79,7 @@ public class DualPlayerProvider implements PlayerProvider {
             try {
                 return electroidAPI.getPlayer(uuid);
             } catch (IOException ex) {
-                log.warn("Getting player from Electroid API failed with IOE, trying Mojang API: ", ex);
+                log.warn("Getting player from Electroid API failed with IOE, trying Mojang API", ex);
             }
         }
         return tryPlayerFromMojang(uuid);

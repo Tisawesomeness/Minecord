@@ -8,6 +8,7 @@ import com.tisawesomeness.minecord.util.RequestUtils;
 import com.google.common.base.Splitter;
 import lombok.Cleanup;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.sqlite.SQLiteDataSource;
 import org.sqlite.javax.SQLiteConnectionPoolDataSource;
 
@@ -20,6 +21,7 @@ import java.sql.Statement;
 /**
  * The access point for the Minecord database backend.
  */
+@Slf4j
 public class Database {
 
     private static final int VERSION = 1;
@@ -34,6 +36,7 @@ public class Database {
      * @throws SQLException when either the initial read or creating a missing table fails
      */
     public Database(Config config) throws SQLException {
+        log.info("Connecting to database...");
 
         String url = "jdbc:sqlite:" + config.getDatabaseConfig().getPath();
         SQLiteDataSource ds = new SQLiteConnectionPoolDataSource();
@@ -55,8 +58,7 @@ public class Database {
             throw new IllegalStateException(err);
         }
 
-        System.out.println("Database connected.");
-
+        log.info("Database connected.");
     }
 
     /**

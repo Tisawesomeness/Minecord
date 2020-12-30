@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord;
 import com.tisawesomeness.minecord.command.CommandRegistry;
 import com.tisawesomeness.minecord.config.AnnounceRegistry;
 import com.tisawesomeness.minecord.config.ConfigReader;
+import com.tisawesomeness.minecord.config.InvalidConfigException;
 import com.tisawesomeness.minecord.config.serial.BotListConfig;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.database.Database;
@@ -24,6 +25,7 @@ import com.tisawesomeness.minecord.util.concurrent.ShutdownBehavior;
 import lombok.Cleanup;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Activity;
@@ -51,6 +53,7 @@ import java.util.concurrent.*;
  * <p>The entry point and central point for Minecord.</p>
  * To start the bot, call {@link #setup(ArgsHandler args)}.
  */
+@Slf4j
 @NoArgsConstructor
 public class Bot {
 
@@ -103,18 +106,27 @@ public class Bot {
      */
     public ExitCode setup(ArgsHandler args) {
         birth = System.currentTimeMillis();
-        System.out.println("Bot starting...");
+        log.info("Bot starting...");
         this.args = args;
 
         // Pre-init
-        config = ConfigReader.read(args.getConfigPath());
         try {
-            if (config.getFlagConfig().isUseAnnouncements()) {
-                announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
-            }
+            config = ConfigReader.read(args.getConfigPath());
         } catch (IOException ex) {
-            ex.printStackTrace();
-            return ExitCode.ANNOUNCE_IOE;
+            log.error("FATAL: There was an error reading the config", ex);
+            return ExitCode.CONFIG_IOE;
+        } catch (InvalidConfigException ex) {
+            log.error("FATAL: The config was invalid", ex);
+            return ExitCode.INVALID_CONFIG;
+        }
+        if (config.getFlagConfig().isUseAnnouncements()) {
+            log.debug("Config enabled announcements, reading...");
+            try {
+                announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
+            } catch (IOException ex) {
+                log.error("FATAL: There was an error reading the announcements", ex);
+                return ExitCode.ANNOUNCE_IOE;
+            }
         }
 
         apiClient = new APIClient();
@@ -134,6 +146,7 @@ public class Bot {
 
         try {
             // Initialize JDA
+            log.info("Logging in...");
             shardManager = DefaultShardManagerBuilder.create(gateways)
                     .setToken(token)
                     .setAutoReconnect(true)
@@ -147,11 +160,10 @@ public class Bot {
 
             // Wait for shards to ready
             readyLatch.await();
-            System.out.println("All shards ready!");
+            log.info("All shards ready!");
 
         } catch (CompletionException | LoginException | InterruptedException ex) {
-            System.err.println("There was an error logging in, check if your token is correct.");
-            ex.printStackTrace();
+            log.error("FATAL: There was an error logging in, check if your token is correct.", ex);
             return ExitCode.LOGIN_ERROR;
         }
 
@@ -164,19 +176,19 @@ public class Bot {
         try {
             database = futureDB.get();
         } catch (ExecutionException ex) {
-            ex.printStackTrace();
+            log.error("FATAL: There was an error connecting to the database", ex);
             return ExitCode.DATABASE_ERROR;
         } catch (InterruptedException ex) {
-            throw new AssertionError(
-                    "It should not be possible to interrupt the main thread before the bot can accept commands.");
+            throw new AssertionError("It should not be possible to interrupt the main thread" +
+                    " before the bot can accept commands.");
         }
-        try {
-            for (long owner : config.getOwners()) {
+        for (long owner : config.getOwners()) {
+            try {
                 database.getCache().getUser(owner).withElevated(true).update();
+            } catch (SQLException ex) {
+                log.error("FATAL: Owner " + owner + " could not be elevated", ex);
+                return ExitCode.FAILED_TO_SET_OWNER;
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return ExitCode.FAILED_TO_SET_OWNER;
         }
 
         // These depend on database
@@ -187,17 +199,18 @@ public class Bot {
 
         // Bot has started, start accepting messages
         shardManager.addEventListener(commandListener, reactListener, guildCountListener);
-        System.out.println("Bot ready!");
+        log.info("Bot ready!");
 
         // Start web server
         Future<VoteHandler> futureVH = null;
         if (config.getBotListConfig().isReceiveVotes()) {
+            log.debug("Config enabled vote handler, starting...");
             futureVH = exe.submit(() -> new VoteHandler(this, config.getBotListConfig()));
         }
 
         // Post-init
         bootTime = System.currentTimeMillis() - birth;
-        System.out.println("Boot Time: " + DateUtils.getBootTime(bootTime));
+        log.info("Boot Time: " + DateUtils.getBootTime(bootTime));
         log(":white_check_mark: **Bot started!**");
         presenceService.start();
         botListService.start();
@@ -210,17 +223,17 @@ public class Bot {
             try {
                 voteHandler = futureVH.get();
             } catch (ExecutionException ex) {
-                ex.printStackTrace();
+                log.error("FATAL: There was an error starting the vote handler", ex);
                 return ExitCode.VOTE_HANDLER_ERROR;
-            } catch (InterruptedException ex) {
+            } catch (InterruptedException ignore) {
                 // It's possible to be interrupted if the shutdown command executes
                 // after the bot starts but before the vote handler starts
-                ex.printStackTrace();
+                log.warn("Vote handler startup was interrupted. Did you use the shutdown command?");
                 return ExitCode.SUCCESS;
             }
         }
 
-        System.out.println("Post-init finished.");
+        log.info("Post-init finished.");
         return ExitCode.SUCCESS;
 
     }
@@ -239,7 +252,7 @@ public class Bot {
      * If there is an exception, shut down the bot with &shutdown or do a hard reset.
      */
     public void reload() throws IOException, ExecutionException, InterruptedException {
-        System.out.println("Reloading...");
+        log.info("Reloading...");
 
         // Closing everything down
         if (config.getBotListConfig().isReceiveVotes()) {
@@ -292,7 +305,7 @@ public class Bot {
      * <br>Use this method instead of {@link System#exit(int)} except for emergencies.
      */
     public void shutdown() {
-        System.out.println("Shutting down...");
+        log.info("Shutting down...");
         presenceService.shutdown();
         menuService.shutdown();
         botListService.shutdown();

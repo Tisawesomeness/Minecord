@@ -32,7 +32,6 @@ public class ElectroidAPIImpl extends ElectroidAPI {
     protected Optional<String> requestPlayer(@NonNull Username username) throws IOException {
         String encodedName = URLEncoder.encode(username.toString(), StandardCharsets.UTF_8);
         URL url = URLUtils.createUrl(BASE + encodedName);
-        System.out.println(url);
         @Cleanup Response response = client.get(url);
         return processResponse(response);
     }

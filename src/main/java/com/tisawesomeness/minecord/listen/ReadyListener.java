@@ -1,11 +1,13 @@
 package com.tisawesomeness.minecord.listen;
 
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.concurrent.CountDownLatch;
 
+@Slf4j
 public class ReadyListener extends ListenerAdapter {
 
     private final @NonNull CountDownLatch readyLatch;
@@ -17,10 +19,10 @@ public class ReadyListener extends ListenerAdapter {
     }
 
     @Override
-    public void onReady(ReadyEvent e) {
+    public void onReady(@NonNull ReadyEvent e) {
         readyLatch.countDown();
         int readyShards = shardCount - (int) readyLatch.getCount();
-        System.out.printf("%d/%d shards ready%n", readyShards, shardCount);
+        log.info(String.format("%d/%d shards ready", readyShards, shardCount));
     }
 
 }
