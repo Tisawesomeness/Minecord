@@ -4,6 +4,7 @@ import com.tisawesomeness.minecord.command.Result;
 
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import org.assertj.core.api.AbstractAssert;
+import org.assertj.core.api.CharSequenceAssert;
 import org.assertj.core.internal.Iterables;
 
 import java.util.Objects;
@@ -29,6 +30,75 @@ public class TestContextAssert extends AbstractAssert<TestContextAssert, TestCon
      */
     public static TestContextAssert assertThat(TestContext actual) {
         return new TestContextAssert(actual);
+    }
+
+
+    /**
+     * Verifies that the actual TestContext's replies contains the given CharSequence elements.
+     * @param replies the given elements that should be contained in actual TestContext's replies.
+     * @return this assertion object.
+     * @throws AssertionError if the actual TestContext's replies does not contain all given CharSequence elements.
+     */
+    public TestContextAssert repliesContains(CharSequence... replies) {
+        isNotNull();
+        if (replies == null) failWithMessage("Expecting replies parameter not to be null.");
+        Iterables.instance().assertContains(info, actual.getReplies(), replies);
+        return this;
+    }
+
+    /**
+     * Verifies that the actual TestContext's replies contains <b>exactly<b> the given CharSequence elements and nothing else in order.
+     * @param replies the given elements that should be contained in actual TestContext's replies.
+     * @return this assertion object.
+     * @throws AssertionError if the actual TestContext's replies does not contain all given CharSequence elements.
+     */
+    public TestContextAssert repliesAre(CharSequence... replies) {
+        isNotNull();
+        if (replies == null) failWithMessage("Expecting replies parameter not to be null.");
+        Iterables.instance().assertContainsExactly(info, actual.getReplies(), replies);
+        return this;
+    }
+
+    /**
+     * Verifies that the actual TestContext's replies does not contain the given CharSequence elements.
+     *
+     * @param replies the given elements that should not be in actual TestContext's replies.
+     * @return this assertion object.
+     * @throws AssertionError if the actual TestContext's replies contains any given CharSequence elements.
+     */
+    public TestContextAssert repliesDoesNotContain(CharSequence... replies) {
+        isNotNull();
+        if (replies == null) failWithMessage("Expecting replies parameter not to be null.");
+        Iterables.instance().assertDoesNotContain(info, actual.getReplies(), replies);
+        return this;
+    }
+
+    /**
+     * Verifies that the actual TestContext has no replies.
+     * @return this assertion object.
+     * @throws AssertionError if the actual TestContext's replies is not empty.
+     */
+    public TestContextAssert repliesIsEmpty() {
+        isNotNull();
+        String assertjErrorMessage = "\nExpecting :\n  <%s>\nnot to have replies but had :\n  <%s>";
+        if (actual.getReplies().iterator().hasNext()) {
+            failWithMessage(assertjErrorMessage, actual, actual.getReplies());
+        }
+        return this;
+    }
+
+    /**
+     * Verifies that the actual TestContext has one or more replies.
+     * @return this assertion object.
+     * @throws AssertionError if the actual TestContext's replies is empty.
+     */
+    public TestContextAssert repliesIsNotEmpty() {
+        isNotNull();
+        String assertjErrorMessage = "\nExpecting :\n  <%s>\nnot have replies but was empty";
+        if (!actual.getReplies().iterator().hasNext()) {
+            failWithMessage(assertjErrorMessage, actual, actual.getReplies());
+        }
+        return this;
     }
 
 
@@ -87,57 +157,16 @@ public class TestContextAssert extends AbstractAssert<TestContextAssert, TestCon
         return this;
     }
 
-
     /**
-     * Verifies that the actual TestContext's replies contains the given CharSequence elements.
-     * @param replies the given elements that should be contained in actual TestContext's replies.
+     * Verifies that the actual TestContext has one or more embedReplies.
      * @return this assertion object.
-     * @throws AssertionError if the actual TestContext's replies does not contain all given CharSequence elements.
+     * @throws AssertionError if the actual TestContext's embedReplies is empty.
      */
-    public TestContextAssert repliesContains(CharSequence... replies) {
+    public TestContextAssert embedRepliesIsNotEmpty() {
         isNotNull();
-        if (replies == null) failWithMessage("Expecting replies parameter not to be null.");
-        Iterables.instance().assertContains(info, actual.getReplies(), replies);
-        return this;
-    }
-
-    /**
-     * Verifies that the actual TestContext's replies contains <b>exactly<b> the given CharSequence elements and nothing else in order.
-     * @param replies the given elements that should be contained in actual TestContext's replies.
-     * @return this assertion object.
-     * @throws AssertionError if the actual TestContext's replies does not contain all given CharSequence elements.
-     */
-    public TestContextAssert repliesAre(CharSequence... replies) {
-        isNotNull();
-        if (replies == null) failWithMessage("Expecting replies parameter not to be null.");
-        Iterables.instance().assertContainsExactly(info, actual.getReplies(), replies);
-        return this;
-    }
-
-    /**
-     * Verifies that the actual TestContext's replies does not contain the given CharSequence elements.
-     *
-     * @param replies the given elements that should not be in actual TestContext's replies.
-     * @return this assertion object.
-     * @throws AssertionError if the actual TestContext's replies contains any given CharSequence elements.
-     */
-    public TestContextAssert repliesDoesNotContain(CharSequence... replies) {
-        isNotNull();
-        if (replies == null) failWithMessage("Expecting replies parameter not to be null.");
-        Iterables.instance().assertDoesNotContain(info, actual.getReplies(), replies);
-        return this;
-    }
-
-    /**
-     * Verifies that the actual TestContext has no replies.
-     * @return this assertion object.
-     * @throws AssertionError if the actual TestContext's replies is not empty.
-     */
-    public TestContextAssert repliesIsEmpty() {
-        isNotNull();
-        String assertjErrorMessage = "\nExpecting :\n  <%s>\nnot to have replies but had :\n  <%s>";
-        if (actual.getReplies().iterator().hasNext()) {
-            failWithMessage(assertjErrorMessage, actual, actual.getReplies());
+        String assertjErrorMessage = "\nExpecting :\n  <%s>\nto have embedReplies but embedReplies was empty";
+        if (!actual.getEmbedReplies().iterator().hasNext()) {
+            failWithMessage(assertjErrorMessage, actual, actual.getEmbedReplies());
         }
         return this;
     }
@@ -166,6 +195,21 @@ public class TestContextAssert extends AbstractAssert<TestContextAssert, TestCon
         if (actual.hasRequestedHelp()) {
             failWithMessage("\nExpecting that actual TestContext has not requested help but has.");
         }
+        return this;
+    }
+
+    /**
+     * Verifies that the actual TestContext has <b>only</b> requested help, without replying or triggering cooldown.
+     * @return this assertion object.
+     * @throws AssertionError - if the actual TestContext has not only requested help.
+     */
+    public TestContextAssert onlyShowsHelp() {
+        isNotNull();
+        hasRequestedHelp();
+        resultIs(Result.HELP);
+        hasNotTriggeredCooldown();
+        repliesIsEmpty();
+        embedRepliesIsEmpty();
         return this;
     }
 
@@ -209,6 +253,28 @@ public class TestContextAssert extends AbstractAssert<TestContextAssert, TestCon
             failWithMessage(assertjErrorMessage, actual, result, actualResult);
         }
         return this;
+    }
+
+    /**
+     * Extracts the actual TestContext's first reply and creates a CharSequenceAssert object.
+     * @return the char sequence assertion object.
+     */
+    public CharSequenceAssert asReply() {
+        isNotNull();
+        repliesIsNotEmpty();
+        CharSequence actualReply = actual.getReplies().get(0);
+        return new CharSequenceAssert(actualReply);
+    }
+
+    /**
+     * Extracts the actual TestContext's first embed reply and creates a MessageEmbedAssert object.
+     * @return the message embed assertion object.
+     */
+    public MessageEmbedAssert asEmbedReply() {
+        isNotNull();
+        embedRepliesIsNotEmpty();
+        MessageEmbed actualEmbedReply = actual.getEmbedReplies().get(0);
+        return new MessageEmbedAssert(actualEmbedReply);
     }
 
 }

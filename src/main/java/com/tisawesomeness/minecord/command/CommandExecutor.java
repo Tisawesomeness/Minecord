@@ -154,7 +154,7 @@ public class CommandExecutor {
         if (!shouldSkipCooldown(ctx)) {
             long cooldown = c.getCooldown(cc);
             if (cooldown > 0) {
-                long uid = ctx.getE().getAuthor().getIdLong();
+                long uid = ctx.getUserId();
                 long lastExecutedTime = getLastExecutedTime(c, uid);
                 long msLeft = cooldown + lastExecutedTime - System.currentTimeMillis();
                 if (msLeft > 0) {

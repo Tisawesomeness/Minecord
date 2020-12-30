@@ -313,6 +313,13 @@ public interface CommandContext {
     void log(@NonNull MessageEmbed m);
 
     /**
+     * @return The user ID
+     */
+    default long getUserId() {
+        return getE().getAuthor().getIdLong();
+    }
+
+    /**
      * Shortcut for {@link #getBot}.{@link Bot#getMCLibrary() getMCLibrary()}
      * @return The Minecraft library object
      */

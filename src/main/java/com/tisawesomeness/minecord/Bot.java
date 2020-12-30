@@ -13,6 +13,7 @@ import com.tisawesomeness.minecord.listen.GuildCountListener;
 import com.tisawesomeness.minecord.listen.ReactListener;
 import com.tisawesomeness.minecord.listen.ReadyListener;
 import com.tisawesomeness.minecord.mc.MCLibrary;
+import com.tisawesomeness.minecord.mc.StandardMCLibrary;
 import com.tisawesomeness.minecord.network.APIClient;
 import com.tisawesomeness.minecord.service.*;
 import com.tisawesomeness.minecord.setting.SettingRegistry;
@@ -117,7 +118,7 @@ public class Bot {
         }
 
         apiClient = new APIClient();
-        mcLibrary = new MCLibrary(apiClient, config);
+        mcLibrary = new StandardMCLibrary(apiClient, config);
 
         String tokenOverride = args.getTokenOverride();
         String token = tokenOverride == null ? config.getToken() : tokenOverride;

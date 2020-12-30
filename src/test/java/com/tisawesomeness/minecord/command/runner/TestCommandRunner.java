@@ -6,10 +6,12 @@ import com.tisawesomeness.minecord.command.CommandExecutor;
 import com.tisawesomeness.minecord.command.CommandRegistry;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.database.dao.CommandStats;
+import com.tisawesomeness.minecord.mc.MCLibrary;
 
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 
+import javax.annotation.Nullable;
 import java.util.StringJoiner;
 
 /**
@@ -50,7 +52,7 @@ public class TestCommandRunner {
     /**
      * The command to run.
      */
-    public @NonNull Command cmd;
+    public @Nullable Command cmd;
     /**
      * Whether the executor is an elevated user. Defaults to {@code false}.
      */
@@ -62,7 +64,11 @@ public class TestCommandRunner {
     /**
      * The language used in command responses. Defaults to the config default.
      */
-    public Lang lang;
+    public @Nullable Lang lang;
+    /**
+     * The MC library implementation.
+     */
+    public @Nullable MCLibrary library;
 
     @EqualsAndHashCode.Exclude
     private final CommandExecutor exe;
@@ -120,7 +126,7 @@ public class TestCommandRunner {
         if (cmd == null) {
             throw new IllegalStateException("You must set the command to run before calling run()!");
         }
-        TestContext ctx = new TestContext(args, config, cmd, exe, isElevated, prefix, lang);
+        TestContext ctx = new TestContext(args, config, cmd, exe, isElevated, prefix, lang, library);
         ctx.result = exe.runCommand(cmd, ctx);
         return ctx;
     }
@@ -133,6 +139,7 @@ public class TestCommandRunner {
                 .add("elevated=" + isElevated)
                 .add("prefix='" + prefix + "'")
                 .add("lang=" + lang)
+                .add("library=" + library)
                 .toString();
     }
 }

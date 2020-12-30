@@ -7,6 +7,7 @@ import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.CommandExecutor;
 import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.config.serial.Config;
+import com.tisawesomeness.minecord.mc.MCLibrary;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -54,6 +55,8 @@ public class TestContext extends AbstractContext {
     @Getter private final boolean isElevated;
     @Getter private final @NonNull String prefix;
     @Getter private final Lang lang;
+
+    private final @Nullable MCLibrary library;
 
     private final List<CharSequence> replies = new ArrayList<>();
     private final List<MessageEmbed> embedReplies = new ArrayList<>();
@@ -161,6 +164,20 @@ public class TestContext extends AbstractContext {
     }
 
     @Override
+    public long getUserId() {
+        return -1;
+    }
+
+    @Override
+    public @NonNull MCLibrary getMCLibrary() {
+        if (library != null) {
+            return library;
+        }
+        unsupported();
+        throw new AssertionError("Unreachable");
+    }
+
+    @Override
     protected void unsupported() {
         throw new UnsupportedOperationException("This operation is not supported in a testing context!");
     }
@@ -179,6 +196,7 @@ public class TestContext extends AbstractContext {
                 .add("config=" + config.hashCode()) // Listing all fields of config would take too long
                 .add("prefix=`" + prefix + "`")
                 .add("lang=" + lang)
+                .add("library=" + library)
                 .add("result=" + result)
                 .add("replies=" + replies)
                 .add("embedReplies=" + embedRepliesStr)
