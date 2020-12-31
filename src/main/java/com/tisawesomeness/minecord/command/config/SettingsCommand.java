@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command.config;
 
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.setting.parse.SettingCommandParser;
 import com.tisawesomeness.minecord.setting.parse.SettingCommandType;
 
@@ -13,8 +12,8 @@ public class SettingsCommand extends AbstractConfigCommand {
         return "settings";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
-        return new SettingCommandParser(ctx, SettingCommandType.QUERY).parse();
+    public void run(String[] args, CommandContext ctx) {
+        new SettingCommandParser(ctx, SettingCommandType.QUERY).parse();
     }
 
 }

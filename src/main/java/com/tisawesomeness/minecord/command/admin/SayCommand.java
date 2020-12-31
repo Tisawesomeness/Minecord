@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import lombok.NonNull;
@@ -16,17 +15,19 @@ public class SayCommand extends AbstractAdminCommand {
         return "say";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
 
         //Check for proper argument length
         if (args.length < 2) {
-            return ctx.showHelp();
+            ctx.showHelp();
+            return;
         }
 
         //Extract channel
         TextChannel channel = DiscordUtils.findChannel(args[0], ctx.getBot().getShardManager());
         if (channel == null) {
-            return ctx.warn("Not a valid channel!");
+            ctx.warn("Not a valid channel!");
+            return;
         }
 
         //Send the message
@@ -43,7 +44,7 @@ public class SayCommand extends AbstractAdminCommand {
         eb.setThumbnail(guild.getIconUrl());
         ctx.log(eb.build());
 
-        return ctx.reply("Message sent!");
+        ctx.reply("Message sent!");
     }
 
 }

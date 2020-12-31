@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command.discord;
 
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
@@ -20,11 +19,12 @@ public class RoleCommand extends AbstractDiscordCommand {
         return "role";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
         MessageReceivedEvent e = ctx.getE();
 
         if (args.length == 0) {
-            return ctx.showHelp();
+            ctx.showHelp();
+            return;
         }
 
         // Find role
@@ -35,7 +35,8 @@ public class RoleCommand extends AbstractDiscordCommand {
         if (args.length > 1 && args[1].equals("admin") && ctx.isElevated()) {
             role = ctx.getBot().getShardManager().getRoleById(args[0]);
         } else if (!e.isFromGuild()) {
-            return ctx.warn("This command is not available in DMs.");
+            ctx.warn("This command is not available in DMs.");
+            return;
         // Mentioned roles
         } else if (mentioned.size() > 0) {
             role = mentioned.get(0);
@@ -53,7 +54,8 @@ public class RoleCommand extends AbstractDiscordCommand {
             }
         }
         if (role == null) {
-            return ctx.invalidArgs("That role does not exist.");
+            ctx.invalidArgs("That role does not exist.");
+            return;
         }
 
         ctx.triggerCooldown();
@@ -68,7 +70,7 @@ public class RoleCommand extends AbstractDiscordCommand {
             .addField("Managed?", role.isManaged() ? "Yes" : "No", true)
             .addField("Role Created", DateUtils.getDateAgo(role.getTimeCreated()), false);
 
-        return ctx.replyRaw(ctx.addFooter(eb));
+        ctx.replyRaw(ctx.addFooter(eb));
     }
 
 }

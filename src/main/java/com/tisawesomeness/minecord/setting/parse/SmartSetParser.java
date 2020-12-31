@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.setting.parse;
 
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.dao.DbChannel;
 import com.tisawesomeness.minecord.database.dao.DbUser;
 import com.tisawesomeness.minecord.setting.Setting;
@@ -21,26 +20,28 @@ public class SmartSetParser extends SettingCommandHandler {
 
     /**
      * Tries to change the provided setting.
-     * @return The result of the command
      */
-    public Result parse() {
+    public void parse() {
         if (!ctx.isFromGuild()) {
             DbUser user = ctx.getUser(ctx.getE().getAuthor());
-            return new SettingChanger(this, user).parse();
+            new SettingChanger(this, user).parse();
+            return;
         } else if (!userHasManageServerPermissions()) {
-            return ctx.noUserPermissions("You must have Manage Server permissions.");
+            ctx.noUserPermissions("You must have Manage Server permissions.");
+            return;
         }
-        return changeIfNoChannelOverrides();
+        changeIfNoChannelOverrides();
     }
-    private Result changeIfNoChannelOverrides() {
+    private void changeIfNoChannelOverrides() {
         DbChannel channel = ctx.getChannel(ctx.getE().getTextChannel());
         if (setting.get(channel).isPresent()) {
             String name = setting.getDisplayName().toLowerCase();
             String msg = String.format("The %s setting has a channel override in this channel.\n" +
                     "Use `%sset channel #%s %s <value>` to change it.",
                     name, ctx.getPrefix(), ctx.getE().getChannel().getName(), name);
-            return ctx.reply(msg);
+            ctx.reply(msg);
+            return;
         }
-        return new SettingChanger(this, ctx.getGuild(ctx.getE().getGuild())).parse();
+        new SettingChanger(this, ctx.getGuild(ctx.getE().getGuild())).parse();
     }
 }

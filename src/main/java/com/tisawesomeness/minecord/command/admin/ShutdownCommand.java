@@ -14,7 +14,7 @@ public class ShutdownCommand extends AbstractAdminCommand {
         return "shutdown";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
 
         if (args.length > 0 && "now".equals(args[0])) {
             System.exit(0);
@@ -26,7 +26,7 @@ public class ShutdownCommand extends AbstractAdminCommand {
         ExecutorService exe = Executors.newSingleThreadExecutor();
         exe.submit(ctx.getBot()::shutdown);
         exe.shutdown();
-        return Result.SUCCESS; // Graceful shutdown, just wait...
+        ctx.commandResult(Result.SUCCESS); // Graceful shutdown, just wait...
 
     }
 

@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 
 import lombok.NonNull;
 
@@ -11,8 +10,8 @@ public class TestCommand extends AbstractAdminCommand {
         return "test";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
-        return ctx.reply("Test");
+    public void run(String[] args, CommandContext ctx) {
+        ctx.reply("Test");
     }
 
 }

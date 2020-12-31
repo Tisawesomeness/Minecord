@@ -25,51 +25,59 @@ public class PermsCommand extends AbstractDiscordCommand {
     private static final String invalidChannel =
             "That channel does not exist in the current guild or is not visible to you.";
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
         MessageReceivedEvent e = ctx.getE();
 
         TextChannel c;
         // Check any channel id if admin
         if (args.length > 1 && args[1].equals("admin") && ctx.isElevated()) {
             if (!DiscordUtils.isDiscordId(args[0])) {
-                return ctx.invalidArgs("Not a valid ID!");
+                ctx.invalidArgs("Not a valid ID!");
+                return;
             }
             c = ctx.getBot().getShardManager().getTextChannelById(args[0]);
             if (c == null) {
-                return ctx.warn("That channel does not exist.");
+                ctx.warn("That channel does not exist.");
+                return;
             }
         
         // No admin = guild only
         } else if (!e.isFromGuild()) {
-            return ctx.warn("This command is not available in DMs.");
+            ctx.warn("This command is not available in DMs.");
+            return;
         
         } else if (args.length > 0) {
             // Find by id
             if (DiscordUtils.isDiscordId(args[0])) {
                 TextChannel tc = e.getGuild().getTextChannelById(args[0]);
                 if (tc == null || tc.getGuild().getIdLong() != e.getGuild().getIdLong()) {
-                    return ctx.warn(invalidChannel);
+                    ctx.warn(invalidChannel);
+                    return;
                 }
                 c = tc;
             // Find by mention
             } else {
                 List<TextChannel> mentioned = e.getMessage().getMentionedChannels();
                 if (mentioned.size() == 0) {
-                    return ctx.invalidArgs("Not a valid channel format. Use a `#channel` mention or a valid ID.");
+                    ctx.invalidArgs("Not a valid channel format. Use a `#channel` mention or a valid ID.");
+                    return;
                 }
                 TextChannel tc = mentioned.get(0);
                 if (tc.getGuild().getIdLong() != e.getGuild().getIdLong()) {
-                    return ctx.warn(invalidChannel);
+                    ctx.warn(invalidChannel);
+                    return;
                 }
                 c = tc;
             }
 
             // Check for user permissions (prevent using this command to get unseen channel info)
             if (!e.getMember().hasPermission(c, Permission.VIEW_CHANNEL, Permission.MESSAGE_READ)) {
-                ctx.warn(invalidChannel); // Lying about the result lol
-                return Result.NO_USER_PERMISSIONS;
+                ctx.warn(invalidChannel);// Lying about the result lol
+                ctx.commandResult(Result.NO_USER_PERMISSIONS);
+                return;
             } else if (!e.getMember().hasPermission(c, Permission.MESSAGE_WRITE)) {
-                return ctx.noUserPermissions("You do not have permission to write in that channel.");
+                ctx.noUserPermissions("You do not have permission to write in that channel.");
+                return;
             }
         
         // Get current channel if no args, user clearly has permission to send messages
@@ -93,7 +101,7 @@ public class PermsCommand extends AbstractDiscordCommand {
             "\nManage messages: " + BooleanUtils.getEmote(perms.contains(Permission.MESSAGE_MANAGE)) +
             "\nCan use reaction menus: " + BooleanUtils.getEmote(menuPerms);
         
-        return ctx.reply(m);
+        ctx.reply(m);
     }
 
 }

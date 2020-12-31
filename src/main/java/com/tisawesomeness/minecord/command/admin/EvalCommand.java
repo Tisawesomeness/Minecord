@@ -34,12 +34,13 @@ public class EvalCommand extends AbstractAdminCommand {
         return "eval";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
         MessageReceivedEvent e = ctx.getE();
 
         // Parse args
         if (args.length == 0) {
-            return ctx.showHelp();
+            ctx.showHelp();
+            return;
         }
 
         // Javascript engine with JDA, event and config variables.
@@ -96,7 +97,8 @@ public class EvalCommand extends AbstractAdminCommand {
         if (exMsg != null) {
             eb.addField("Output", MarkdownUtil.monospace(exMsg), false);
             ctx.replyRaw(eb);
-            return Result.WARNING;
+            ctx.commandResult(Result.WARNING);
+            return;
         }
 
         // Check for length
@@ -116,7 +118,7 @@ public class EvalCommand extends AbstractAdminCommand {
             eb.addField("Output", MarkdownUtil.codeblock("java", out), false);
         }
 
-        return ctx.replyRaw(eb);
+        ctx.replyRaw(eb);
 
     }
 

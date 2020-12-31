@@ -22,7 +22,7 @@ import java.util.StringJoiner;
 /**
  * Contains the information needed for a command to execute in a Discord channel.
  */
-public class DiscordContext implements CommandContext {
+public class DiscordContext extends CommandContext {
 
     @Getter private final String[] args;
     @Getter private final @NonNull MessageReceivedEvent e;
@@ -49,23 +49,14 @@ public class DiscordContext implements CommandContext {
         this.lang = lang;
     }
 
-    public Result reply(@NonNull CharSequence text) {
+    protected void sendMessage(@NonNull CharSequence text) {
         e.getChannel().sendMessage(text).queue();
-        return Result.SUCCESS;
     }
-    public Result replyRaw(@NonNull EmbedBuilder eb) {
+    protected void sendMessageRaw(@NonNull EmbedBuilder eb) {
         e.getChannel().sendMessage(eb.build()).queue();
-        return Result.SUCCESS;
     }
-    public Result showHelp() {
-        reply(HelpCommand.showHelp(this, cmd));
-        return Result.HELP;
-    }
-
-    public Result sendResult(Result result, @NonNull CharSequence text) {
-        String msg = result.addEmote(text, lang);
-        e.getChannel().sendMessage(msg).queue();
-        return result;
+    public void requestHelp() {
+        sendMessageRaw(brand(HelpCommand.showHelp(this, cmd)));
     }
 
     public void triggerCooldown() {

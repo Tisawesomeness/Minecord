@@ -32,167 +32,192 @@ import java.util.stream.Collectors;
  * <br>Normally, this is a Discord {@link net.dv8tion.jda.api.entities.MessageChannel}, which may or may not be a DM.
  * <br>Commands can expect all methods to work in any non-testing environment.
  */
-public interface CommandContext {
+public abstract class CommandContext {
 
     /**
      * The arguments given to the command, split by spaces. May be length 0.
      */
-    String[] getArgs();
+    public abstract String[] getArgs();
     /**
      * The event that triggered the command.
      */
-    @NonNull MessageReceivedEvent getE();
+    public abstract @NonNull MessageReceivedEvent getE();
     /**
      * The loaded config.
      */
-    @NonNull Config getConfig();
+    public abstract @NonNull Config getConfig();
     /**
      * A link to the bot instance.
      */
-    @NonNull Bot getBot();
+    public abstract @NonNull Bot getBot();
     /**
      * The original command that created this context
      */
-    @NonNull Command getCmd();
+    public abstract @NonNull Command getCmd();
     /**
      * The executor in charge of running this command and tracking cooldowns
      */
-    @NonNull CommandExecutor getExecutor();
+    public abstract @NonNull CommandExecutor getExecutor();
     /**
      * Whether the user executing the command is elevated.
      */
-    boolean isElevated();
+    public abstract boolean isElevated();
     /**
      * The current prefix.
      */
-    @NonNull String getPrefix();
+    public abstract @NonNull String getPrefix();
     /**
      * The current language. Use {@link #i18n(String)} as a shortcut for {@link Lang#i18n(String) lang.get(String)}.
      */
-    Lang getLang();
+    public abstract Lang getLang();
+
+    /**
+     * Sends a message to the sender of this command. This does not keep track of results.
+     * @param text The text to send. Must satisfy all text length limits.
+     */
+    protected abstract void sendMessage(@NonNull CharSequence text);
+    /**
+     * Sends a message to the sender of this command with an embed. This does not keep track of results.
+     * <br>The embed is sent with no modifications.
+     * @param eb The embed builder to be built and sent. Must satisfy all ebmed length limits.
+     */
+    protected abstract void sendMessageRaw(@NonNull EmbedBuilder eb);
+    /**
+     * Sends the current command's help message to the sender of this command. This does not keep track of results.
+     */
+    protected abstract void requestHelp();
 
     /**
      * Replies to the sender of this command.
-     * @param text The text to send. Must be shorter than {@link Message#MAX_CONTENT_LENGTH}.
-     * @return Success
+     * @param text The text to send. Must satisfy all text length limits.
      */
-    Result reply(@NonNull CharSequence text);
+    public void reply(@NonNull CharSequence text) {
+        sendMessage(text);
+        commandResult(Result.SUCCESS);
+    }
     /**
      * Replies to the sender of this command with an embed.
      * <br>The embed is sent with no modifications.
      * @param eb The embed builder to be built and sent. Must satisfy all ebmed length limits.
-     * @return Success
      */
-    Result replyRaw(@NonNull EmbedBuilder eb);
+    public void replyRaw(@NonNull EmbedBuilder eb) {
+        sendMessageRaw(eb);
+        commandResult(Result.SUCCESS);
+    }
     /**
      * Replies to the sender of this command with an embed.
      * <br>The bot color and a random announcement (if enabled) are added.
      * @param eb The embed builder to be built and sent. Must satisfy all ebmed length limits.
-     * @return Success
      */
-    default Result reply(@NonNull EmbedBuilder eb) {
-        return replyRaw(brand(eb));
+    public void reply(@NonNull EmbedBuilder eb) {
+        replyRaw(brand(eb));
     }
     /**
-     * Creates an embed with the current command's help.
-     * @return The Help result
+     * Replies with the current command's help.
      */
-    Result showHelp();
+    public void showHelp() {
+        requestHelp();
+        commandResult(Result.HELP);
+    }
 
     /**
      * Tells the sender of this command they used it wrong.
      * <br>The warning emote is added to the message.
      * @param text The warning message
-     * @return Invalid args result
      */
-    default Result invalidArgs(@NonNull CharSequence text) {
-        return sendResult(Result.INVALID_ARGS, text);
+    public void invalidArgs(@NonNull CharSequence text) {
+        sendResult(Result.INVALID_ARGS, text);
     }
     /**
      * Warns the sender of this command.
      * <br>The warning emote is added to the message.
      * @param text The warning message
-     * @return Warning
      */
-    default Result warn(@NonNull CharSequence text) {
-        return sendResult(Result.WARNING, text);
+    public void warn(@NonNull CharSequence text) {
+        sendResult(Result.WARNING, text);
     }
     /**
      * Warns the sender of this command, but keeps in mind the possibility it may actually be an error.
      * <br>The warning emote is added to the message.
      * @param text The warning message
-     * @return Possible Error
      */
-    default Result possibleErr(@NonNull CharSequence text) {
-        return sendResult(Result.POSSIBLE_ERROR, text);
+    public void possibleErr(@NonNull CharSequence text) {
+        sendResult(Result.POSSIBLE_ERROR, text);
     }
     /**
      * Displays an error to the sender of this command.
      * <br>The error emote is added to the message.
      * @param text The error message
-     * @return Error
      */
-    default Result err(@NonNull CharSequence text) {
-        return sendResult(Result.ERROR, text);
+    public void err(@NonNull CharSequence text) {
+        sendResult(Result.ERROR, text);
     }
     /**
      * Tells the sender of this command that they need to be elevated.
      * <br>The not elevated emote is added to the message.
      * @param text The warning message
-     * @return Not elevated permissions result
      */
-    default Result notElevated(@NonNull CharSequence text) {
-        return sendResult(Result.NOT_ELEVATED, text);
+    public void notElevated(@NonNull CharSequence text) {
+        sendResult(Result.NOT_ELEVATED, text);
     }
     /**
      * Tells the sender of this command that they do not have the correct permissions.
      * <br>The no permissions emote is added to the message.
      * @param text The warning message
-     * @return No user permissions result
      */
-    default Result noUserPermissions(@NonNull CharSequence text) {
-        return sendResult(Result.NO_USER_PERMISSIONS, text);
+    public void noUserPermissions(@NonNull CharSequence text) {
+        sendResult(Result.NO_USER_PERMISSIONS, text);
     }
     /**
      * Tells the sender of this command that the bot does not have the correct permissions.
      * <br>The no permissions emote is added to the message.
      * @param text The warning message
-     * @return No bot permissions result
      */
-    default Result noBotPermissions(@NonNull CharSequence text) {
-        return sendResult(Result.NO_BOT_PERMISSIONS, text);
+    public void noBotPermissions(@NonNull CharSequence text) {
+        sendResult(Result.NO_BOT_PERMISSIONS, text);
     }
 
     /**
      * Sends a message to the current channel, adding the appropiate emote.
      * @param result The result to get the emote from
      * @param text The message to send
-     * @return The given result
      */
-    Result sendResult(Result result, @NonNull CharSequence text);
+    public void sendResult(Result result, @NonNull CharSequence text) {
+        sendMessage(result.addEmote(text, getLang()));
+        commandResult(result);
+    }
+
+    /**
+     * Reports the result of this command. This is done automatically in {@code reply()}, {@code warn()}, and other
+     * related methods, so this can be used to report the result if there is no reply or to override the result.
+     * @param result The result to report
+     */
+    public void commandResult(Result result) {
+        getExecutor().pushResult(getCmd(), result);
+    }
 
     /**
      * Starts the cooldown timer for this command, unless the user is elevated and skipping cooldowns is enabled.
      */
-    void triggerCooldown();
+    public abstract void triggerCooldown();
 
     /**
      * Adds the footer with the rolled announcement to an embed.
      * @param eb The given EmbedBuilder.
      * @return The same builder with added footer.
      */
-    @NonNull EmbedBuilder addFooter(@NonNull EmbedBuilder eb);
+    public abstract @NonNull EmbedBuilder addFooter(@NonNull EmbedBuilder eb);
     /**
      * Adds the bot color and a random announcement to an embed.
      * @param eb The given EmbedBuilder.
      * @return The same builder with added branding.
      */
-    @NonNull EmbedBuilder brand(@NonNull EmbedBuilder eb);
+    public abstract @NonNull EmbedBuilder brand(@NonNull EmbedBuilder eb);
 
     /**
      * @return True if the command was executed in a guild
      */
-    boolean isFromGuild();
+    public abstract boolean isFromGuild();
 
     /**
      * Checks if the user has all permissions in the current channel.
@@ -200,14 +225,14 @@ public interface CommandContext {
      * @return True if the user is elevated or has all permissions in the list
      * @throws IllegalStateException If the command was executed in DMs
      */
-    boolean userHasPermission(Permission... permissions);
+    public abstract boolean userHasPermission(Permission... permissions);
     /**
      * Checks if the user has all permissions in the current channel.
      * @param permissions A list of permissions
      * @return True if the user is elevated or has all permissions in the list
      * @throws IllegalStateException If the command was executed in DMs
      */
-    boolean userHasPermission(Collection<Permission> permissions);
+    public abstract boolean userHasPermission(Collection<Permission> permissions);
     /**
      * Checks if the bot has all permissions in the current channel.
      * <br><b>Do not assume the bot has every permission requested in the invite.</b>
@@ -215,7 +240,7 @@ public interface CommandContext {
      * @return True only if the bot has every permission in the list
      * @throws IllegalStateException If the command was executed in DMs
      */
-    boolean botHasPermission(Permission... permissions);
+    public abstract boolean botHasPermission(Permission... permissions);
     /**
      * Checks if the bot has all permissions in the current channel.
      * <br><b>Do not assume the bot has every permission requested in the invite.</b>
@@ -223,13 +248,13 @@ public interface CommandContext {
      * @return True only if the bot has every permission in the list
      * @throws IllegalStateException If the command was executed in DMs
      */
-    boolean botHasPermission(Collection<Permission> permissions);
+    public abstract boolean botHasPermission(Collection<Permission> permissions);
 
     /**
      * Equivalent to {@code String.join(" ", ctx.getArgs())}
      * @return All arguments as a single string
      */
-    default @NonNull String joinArgs() {
+    public @NonNull String joinArgs() {
         return String.join(" ", getArgs());
     }
     /**
@@ -238,7 +263,7 @@ public interface CommandContext {
      * @return A string with joined arguments, or empty if {@code beginIndex >= ctx.args.length}
      * @throws IllegalArgumentException If {@code beginIndex < 0}
      */
-    default @NonNull String joinArgsSlice(int beginIndex) {
+    public @NonNull String joinArgsSlice(int beginIndex) {
         if (beginIndex < 0) {
             throw new IllegalArgumentException("beginIndex was " + beginIndex + " but must be nonnegative.");
         }
@@ -253,7 +278,7 @@ public interface CommandContext {
      * @return A string with joined arguments, or empty if {@code beginIndex >= ctx.args.length}
      * @throws IllegalArgumentException If {@code beginIndex < 0} or {@code endIndex < beginIndex}
      */
-    default @NonNull String joinArgsSlice(int beginIndex, int endIndex) {
+    public @NonNull String joinArgsSlice(int beginIndex, int endIndex) {
         if (beginIndex < 0) {
             throw new IllegalArgumentException("beginIndex was " + beginIndex + " but must be nonnegative.");
         }
@@ -267,12 +292,15 @@ public interface CommandContext {
                 .collect(Collectors.joining(" "));
     }
 
-    boolean shouldUseMenus();
+    /**
+     * @return Whether menus are enabled
+     */
+    public abstract boolean shouldUseMenus();
 
     /**
      * The current locale, used in formatters.
      */
-    default @NonNull Locale getLocale() {
+    public @NonNull Locale getLocale() {
         return getLang().getLocale();
     }
     /**
@@ -283,7 +311,7 @@ public interface CommandContext {
      * @see MessageFormat
      * @see Locale
      */
-    default @NonNull String i18n(@NonNull String key) {
+    public @NonNull String i18n(@NonNull String key) {
         return getCmd().i18n(getLang(), key);
     }
     /**
@@ -295,27 +323,27 @@ public interface CommandContext {
      * @see MessageFormat
      * @see Locale
      */
-    default @NonNull String i18nf(@NonNull String key, Object... args) {
+    public @NonNull String i18nf(@NonNull String key, Object... args) {
         return getCmd().i18nf(getLang(), key, args);
     }
 
     /**
      * Logs a message to the logging channel.
      */
-    void log(@NonNull String m);
+    public abstract void log(@NonNull String m);
     /**
      * Logs a message to the logging channel.
      */
-    void log(@NonNull Message m);
+    public abstract void log(@NonNull Message m);
     /**
      * Logs a message to the logging channel.
      */
-    void log(@NonNull MessageEmbed m);
+    public abstract void log(@NonNull MessageEmbed m);
 
     /**
      * @return The user ID
      */
-    default long getUserId() {
+    public long getUserId() {
         return getE().getAuthor().getIdLong();
     }
 
@@ -323,7 +351,7 @@ public interface CommandContext {
      * Shortcut for {@link #getBot}.{@link Bot#getMCLibrary() getMCLibrary()}
      * @return The Minecraft library object
      */
-    default @NonNull MCLibrary getMCLibrary() {
+    public @NonNull MCLibrary getMCLibrary() {
         return getBot().getMCLibrary();
     }
 
@@ -331,7 +359,7 @@ public interface CommandContext {
      * Shortcut for {@link #getBot}.{@link Bot#getDatabaseCache() getDatabase()}
      * @return The guild, channel, and user cache associated with this bot
      */
-    default @NonNull DatabaseCache getCache() {
+    public @NonNull DatabaseCache getCache() {
         return getBot().getDatabaseCache();
     }
 
@@ -340,7 +368,7 @@ public interface CommandContext {
      * @param gid The guild id
      * @return Either the cached guild or one with default settings
      */
-    default @NonNull DbGuild getGuild(long gid) {
+    public @NonNull DbGuild getGuild(long gid) {
         return getCache().getGuild(gid);
     }
     /**
@@ -348,7 +376,7 @@ public interface CommandContext {
      * @param g The JDA guild object
      * @return Either the cached guild or one with default settings
      */
-    default @NonNull DbGuild getGuild(@NonNull Guild g) {
+    public @NonNull DbGuild getGuild(@NonNull Guild g) {
         return getGuild(g.getIdLong());
     }
 
@@ -358,7 +386,7 @@ public interface CommandContext {
      * @param cid The channel id
      * @return Either the cached channel, or empty since the guild ID must be known to create a new channel
      */
-    default Optional<DbChannel> getChannel(long cid) {
+    public Optional<DbChannel> getChannel(long cid) {
         return getCache().getChannel(cid);
     }
     /**
@@ -367,7 +395,7 @@ public interface CommandContext {
      * @param gid The guild id
      * @return Either the cached channel or one with default settings
      */
-    default @NonNull DbChannel getChannel(long cid, long gid) {
+    public @NonNull DbChannel getChannel(long cid, long gid) {
         return getCache().getChannel(cid, gid);
     }
     /**
@@ -375,7 +403,7 @@ public interface CommandContext {
      * @param c The channel
      * @return Either the cached channel or one with default settings
      */
-    default @NonNull DbChannel getChannel(@NonNull TextChannel c) {
+    public @NonNull DbChannel getChannel(@NonNull TextChannel c) {
         return getChannel(c.getIdLong(), c.getGuild().getIdLong());
     }
     /**
@@ -383,7 +411,7 @@ public interface CommandContext {
      * @param gid The guild id
      * @return A possibly-empty list of channels
      */
-    default List<DbChannel> getChannelsInGuild(long gid) {
+    public List<DbChannel> getChannelsInGuild(long gid) {
         return getCache().getChannelsInGuild(gid);
     }
 
@@ -392,7 +420,7 @@ public interface CommandContext {
      * @param uid The user id
      * @return Either the cached user or one with default settings
      */
-    default @NonNull DbUser getUser(long uid) {
+    public @NonNull DbUser getUser(long uid) {
         return getCache().getUser(uid);
     }
     /**
@@ -400,7 +428,7 @@ public interface CommandContext {
      * @param u The JDA user object
      * @return Either the cached user or one with default settings
      */
-    default @NonNull DbUser getUser(@NonNull User u) {
+    public @NonNull DbUser getUser(@NonNull User u) {
         return getUser(u.getIdLong());
     }
 

@@ -18,12 +18,13 @@ public class RecipeCommand extends AbstractUtilityCommand {
         return "recipe";
     }
 
-    public Result run(String[] argsOrig, CommandContext ctx) {
+    public void run(String[] argsOrig, CommandContext ctx) {
         String[] args = Arrays.copyOf(argsOrig, argsOrig.length);
 
         // Check for argument length
         if (args.length == 0) {
-            return ctx.showHelp();
+            ctx.showHelp();
+            return;
         }
         ctx.triggerCooldown();
 
@@ -36,33 +37,39 @@ public class RecipeCommand extends AbstractUtilityCommand {
             }
         }
         if (page < 0) {
-            return ctx.invalidArgs("The page number must be positive.");
+            ctx.invalidArgs("The page number must be positive.");
+            return;
         }
 
         // Search through the recipe database
         ArrayList<String> recipes = Recipe.searchOutput(String.join(" ", args), "en_US");
         if (recipes == null) {
-            return ctx.invalidArgs("That item does not exist!\nDid you spell it correctly?");
+            ctx.invalidArgs("That item does not exist!\nDid you spell it correctly?");
+            return;
         }
         if (recipes.size() == 0) {
-            return ctx.warn("That item does not have a recipe!");
+            ctx.warn("That item does not have a recipe!");
+            return;
         }
         if (page >= recipes.size()) {
-            return ctx.warn("That page does not exist!");
+            ctx.warn("That page does not exist!");
+            return;
         }
 
         // Create menu
         MenuStatus status = ReactMenu.getMenuStatus(ctx);
         if (status == MenuStatus.NO_PERMISSION) {
-            return ctx.noBotPermissions(MenuStatus.NO_PERMISSION.getReason());
+            ctx.noBotPermissions(MenuStatus.NO_PERMISSION.getReason());
+            return;
         }
         if (status.isValid()) {
             new Recipe.RecipeMenu(recipes, page, "en_US").post(ctx.getE().getChannel(), ctx.getE().getAuthor());
-            return Result.SUCCESS;
+            ctx.commandResult(Result.SUCCESS);
+            return;
         }
         EmbedBuilder eb = Recipe.displayImg(recipes.get(page), "en_US");
         eb.setFooter(String.format("Page %s/%s%s", page + 1, recipes.size(), status.getReason()), null);
-        return ctx.replyRaw(eb);
+        ctx.replyRaw(eb);
 
     }
 

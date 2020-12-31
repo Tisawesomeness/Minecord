@@ -34,8 +34,8 @@ public class CommandTest {
         public @NonNull String getId() {
             return "dummy";
         }
-        public Result run(String[] args, CommandContext ctx) {
-            return ctx.reply(REPLY);
+        public void run(String[] args, CommandContext ctx) {
+            ctx.reply(REPLY);
         }
     }
 }

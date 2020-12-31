@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.command.discord;
 
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.IGuildOnlyCommand;
-import com.tisawesomeness.minecord.command.Result;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.Permission;
@@ -34,7 +33,7 @@ public class PurgeCommand extends AbstractDiscordCommand implements IGuildOnlyCo
         return EnumSet.of(Permission.MESSAGE_HISTORY);
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
         MessageReceivedEvent e = ctx.getE();
 
         //Parse args
@@ -47,13 +46,16 @@ public class PurgeCommand extends AbstractDiscordCommand implements IGuildOnlyCo
             perms = ctx.botHasPermission(Permission.MESSAGE_MANAGE);
             String errMsg = perms ? ERR_W_MANAGE_MESSAGE : ERR_WO_MANAGE_MESSAGE;
             if (!perms && 50 < num && num <= 1000) {
-                return ctx.noBotPermissions(errMsg);
+                ctx.noBotPermissions(errMsg);
+                return;
             } else if (num <= 0 || 1000 < num) {
-                return ctx.invalidArgs(errMsg);
+                ctx.invalidArgs(errMsg);
+                return;
             }
 
         } else {
-            return ctx.showHelp();
+            ctx.showHelp();
+            return;
         }
 
         //Repeat until either the amount of messages are found or 100 non-bot messages in a row
@@ -96,7 +98,8 @@ public class PurgeCommand extends AbstractDiscordCommand implements IGuildOnlyCo
             }
             if (empty >= 4) {
                 if (mine.size() == 0) {
-                    return ctx.err("Could not find any bot messages within the last 100 messages.");
+                    ctx.err("Could not find any bot messages within the last 100 messages.");
+                    return;
                 }
                 break;
             }
@@ -105,7 +108,8 @@ public class PurgeCommand extends AbstractDiscordCommand implements IGuildOnlyCo
         //Delete messages
         if (mine.size() == 1) {
             mine.get(0).delete().queue();
-            return ctx.reply("1 message purged.");
+            ctx.reply("1 message purged.");
+            return;
         } else if (!perms) {
             for (Message m : mine) {
                 m.delete().queue();
@@ -113,7 +117,7 @@ public class PurgeCommand extends AbstractDiscordCommand implements IGuildOnlyCo
         } else {
             e.getTextChannel().deleteMessages(mine).queue();
         }
-        return ctx.reply(mine.size() + " messages purged.");
+        ctx.reply(mine.size() + " messages purged.");
     }
 
 }

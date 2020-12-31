@@ -5,7 +5,6 @@ import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.IHiddenCommand;
 import com.tisawesomeness.minecord.command.IShortcutCommand;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.config.serial.CommandConfig;
 import com.tisawesomeness.minecord.util.ColorUtils;
 
@@ -61,10 +60,10 @@ public class ColorShortcut extends AbstractUtilityCommand implements IShortcutCo
         return colorCmd.getHelp(lang, prefix, tag);
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
         ctx.triggerCooldown();
         EmbedBuilder eb = ColorCommand.buildColorInfo(color);
-        return ctx.replyRaw(ctx.addFooter(eb));
+        ctx.replyRaw(ctx.addFooter(eb));
     }
 
 }

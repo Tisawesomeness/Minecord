@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
@@ -19,11 +18,12 @@ public class BodyCommand extends AbstractPlayerCommand {
         return "body";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
 
         //No arguments message
         if (args.length == 0) {
-            return ctx.showHelp();
+            ctx.showHelp();
+            return;
         }
 
         //Check for overlay argument
@@ -46,7 +46,8 @@ public class BodyCommand extends AbstractPlayerCommand {
             if (args.length > 1) {
                 long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
                 if (timestamp == -1) {
-                    return ctx.showHelp();
+                    ctx.showHelp();
+                    return;
                 }
 
             //Get the UUID
@@ -60,9 +61,11 @@ public class BodyCommand extends AbstractPlayerCommand {
                 String m = "The Mojang API could not be reached." +
                     "\n" + "Are you sure that username exists?" +
                     "\n" + "Usernames are case-sensitive.";
-                return ctx.possibleErr(m);
+                ctx.possibleErr(m);
+                return;
             } else if (!uuid.matches(NameUtils.uuidRegex)) {
-                return ctx.err("The API responded with an error:\n" + uuid);
+                ctx.err("The API responded with an error:\n" + uuid);
+                return;
             }
 
             param = uuid;
@@ -71,7 +74,7 @@ public class BodyCommand extends AbstractPlayerCommand {
         //Fetch body
         String url = "https://crafatar.com/renders/body/" + param.replaceAll("-", "");
         if (overlay) url += "?overlay";
-        return ctx.replyRaw(new EmbedBuilder().setImage(url).setColor(Bot.color));
+        ctx.replyRaw(new EmbedBuilder().setImage(url).setColor(Bot.color));
     }
 
 }

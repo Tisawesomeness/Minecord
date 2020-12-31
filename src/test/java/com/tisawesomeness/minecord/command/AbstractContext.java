@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.command;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Lang;
+import com.tisawesomeness.minecord.command.misc.HelpCommand;
 import com.tisawesomeness.minecord.config.serial.Config;
 
 import lombok.NonNull;
@@ -16,7 +17,7 @@ import java.util.Collection;
 /**
  * Implements CommandContext by throwing {@link #unsupported()} in every non-default method
  */
-public abstract class AbstractContext implements CommandContext {
+public abstract class AbstractContext extends CommandContext {
 
     public String[] getArgs() {
         unsupported();
@@ -54,21 +55,14 @@ public abstract class AbstractContext implements CommandContext {
         unsupported();
         return null;
     }
-    public Result reply(@NonNull CharSequence text) {
+    protected void sendMessage(@NonNull CharSequence text) {
         unsupported();
-        return null;
     }
-    public Result replyRaw(@NonNull EmbedBuilder eb) {
+    protected void sendMessageRaw(@NonNull EmbedBuilder eb) {
         unsupported();
-        return null;
     }
-    public Result showHelp() {
+    public void requestHelp() {
         unsupported();
-        return null;
-    }
-    public Result sendResult(Result result, @NonNull CharSequence text) {
-        unsupported();
-        return null;
     }
     public void triggerCooldown() {
         unsupported();

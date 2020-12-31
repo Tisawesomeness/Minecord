@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.command.discord;
 
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.IGuildOnlyCommand;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
@@ -23,12 +22,13 @@ public class RolesCommand extends AbstractDiscordCommand implements IGuildOnlyCo
         return "roles";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
         MessageReceivedEvent e = ctx.getE();
 
         // Check for argument length
         if (args.length == 0) {
-            return ctx.showHelp();
+            ctx.showHelp();
+            return;
         }
         
         // Find user
@@ -40,15 +40,18 @@ public class RolesCommand extends AbstractDiscordCommand implements IGuildOnlyCo
             if (DiscordUtils.isDiscordId(args[0])) {
                 mem = e.getGuild().retrieveMemberById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
                 if (mem == null) {
-                    return ctx.warn("That user does not exist.");
+                    ctx.warn("That user does not exist.");
+                    return;
                 }
             } else {
                 if (!User.USER_TAG.matcher(args[0]).matches()) {
-                    return ctx.invalidArgs("Not a valid user format. Use `name#1234`, a mention, or a valid ID.");
+                    ctx.invalidArgs("Not a valid user format. Use `name#1234`, a mention, or a valid ID.");
+                    return;
                 }
                 mem = e.getGuild().getMemberByTag(args[0]);
                 if (mem == null) {
-                    return ctx.warn("That user does not exist.");
+                    ctx.warn("That user does not exist.");
+                    return;
                 }
             }
         }
@@ -83,7 +86,7 @@ public class RolesCommand extends AbstractDiscordCommand implements IGuildOnlyCo
             eb.setDescription(String.join("\n", lines));
         }
 
-        return ctx.replyRaw(ctx.addFooter(eb));
+        ctx.replyRaw(ctx.addFooter(eb));
     }
 
 }

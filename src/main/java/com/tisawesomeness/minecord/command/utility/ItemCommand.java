@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command.utility;
 
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.mc.item.Item;
 
 import lombok.NonNull;
@@ -13,10 +12,11 @@ public class ItemCommand extends AbstractUtilityCommand {
         return "item";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
         // Check for argument length
         if (args.length == 0) {
-            return ctx.showHelp();
+            ctx.showHelp();
+            return;
         }
         ctx.triggerCooldown();
 
@@ -25,7 +25,8 @@ public class ItemCommand extends AbstractUtilityCommand {
 
         // If nothing is found
         if (item == null) {
-            return ctx.invalidArgs("That item does not exist!\nDid you spell it correctly?");
+            ctx.invalidArgs("That item does not exist!\nDid you spell it correctly?");
+            return;
         }
 
         // Build message
@@ -33,7 +34,7 @@ public class ItemCommand extends AbstractUtilityCommand {
         eb.setFooter("See an error? Please report them at https://goo.gl/KWCxis", null);
         // eb = MessageUtils.addFooter(eb);
 
-        return ctx.replyRaw(eb);
+        ctx.replyRaw(eb);
     }
 
 }

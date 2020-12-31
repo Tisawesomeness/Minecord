@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.setting.parse;
 
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -23,35 +22,39 @@ public class SettingCommandParser extends SettingCommandHandler {
     /**
      * Displays effective settings for the current channel if there are no additional args.
      * <br>Otherwise, check for admin arg
-     * @return The result of this command
      */
-    public Result parse() {
+    public void parse() {
         if (ctx.getArgs().length == 0) {
             if (type == SettingCommandType.QUERY) {
                 ctx.triggerCooldown();
-                return displaySettings("Currently Active Settings", s -> s.getDisplay(ctx));
+                displaySettings("Currently Active Settings", s -> s.getDisplay(ctx));
+                return;
             }
-            return ctx.showHelp();
+            ctx.showHelp();
+            return;
         }
-        return parseAdminArg();
+        parseAdminArg();
     }
 
-    private Result parseAdminArg() {
+    private void parseAdminArg() {
         String[] args = ctx.getArgs();
         if ("admin".equalsIgnoreCase(args[0])) {
-            return parseAdminContextIfAble(args);
+            parseAdminContextIfAble(args);
+            return;
         }
-        return new SettingContextParser(this, false).parse();
+        new SettingContextParser(this, false).parse();
     }
 
-    private Result parseAdminContextIfAble(String[] args) {
+    private void parseAdminContextIfAble(String[] args) {
         if (!ctx.isElevated()) {
-            return ctx.notElevated("You do not have permission to use elevated commands.");
+            ctx.notElevated("You do not have permission to use elevated commands.");
+            return;
         }
         if (args.length == 1) {
-            return ctx.invalidArgs(String.format("Incorrect arguments. See `%shelp settings admin`.", ctx.getPrefix()));
+            ctx.invalidArgs(String.format("Incorrect arguments. See `%shelp settings admin`.", ctx.getPrefix()));
+            return;
         }
         currentArg++;
-        return new SettingContextParser(this, true).parse();
+        new SettingContextParser(this, true).parse();
     }
 }

@@ -35,18 +35,20 @@ public class ServerCommand extends AbstractUtilityCommand {
         return "server";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
 
         // Parse arguments
         if (args.length == 0) {
-            return ctx.showHelp();
+            ctx.showHelp();
+            return;
         }
         String arg = args[0];
         boolean ip = true;
         if (!arg.matches(ipAddressRegex)) {
             ip = false;
             if (!arg.matches(serverAddressRegex)) {
-                return ctx.invalidArgs(ctx.i18n("invalidAddress"));
+                ctx.invalidArgs(ctx.i18n("invalidAddress"));
+                return;
             }
         }
         ctx.triggerCooldown();
@@ -71,7 +73,8 @@ public class ServerCommand extends AbstractUtilityCommand {
             MCPingOptions options = MCPingOptions.builder().hostname(hostname).port(port).build();
             reply = MCPing.getPing(options);
         } catch (IOException ignore) {
-            return ctx.possibleErr(ctx.i18n("unreachable"));
+            ctx.possibleErr(ctx.i18n("unreachable"));
+            return;
         }
         MCPingResponse.Players players = reply.getPlayers();
 
@@ -105,7 +108,8 @@ public class ServerCommand extends AbstractUtilityCommand {
                 byte[] data = Base64.getDecoder().decode(b64String);
                 MessageEmbed me = ctx.brand(eb).setThumbnail("attachment://favicon.png").build();
                 ctx.getE().getChannel().sendFile(data, "favicon.png").embed(me).queue();
-                return Result.SUCCESS;
+                ctx.commandResult(Result.SUCCESS);
+                return;
             } catch (IllegalArgumentException ex) {
                 ex.printStackTrace();
                 if (sb.length() > 0) {
@@ -114,7 +118,7 @@ public class ServerCommand extends AbstractUtilityCommand {
                 sb.append(ctx.i18n("invalidIcon"));
             }
         }
-        return ctx.reply(eb);
+        ctx.reply(eb);
 
     }
 

@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.dao.DbGuild;
 import com.tisawesomeness.minecord.database.dao.DbUser;
 import com.tisawesomeness.minecord.util.DiscordUtils;
@@ -21,11 +20,12 @@ public class BanCommand extends AbstractAdminCommand {
         return "ban";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
 
         //Check for proper argument length
         if (args.length < 1) {
-            return ctx.showHelp();
+            ctx.showHelp();
+            return;
         }
 
         ShardManager sm = ctx.getBot().getShardManager();
@@ -34,13 +34,16 @@ public class BanCommand extends AbstractAdminCommand {
         if ("user".equals(args[0])) {
             //Get user from message
             if (args.length == 1) {
-                return ctx.invalidArgs("Please define a user.");
+                ctx.invalidArgs("Please define a user.");
+                return;
             }
             if (!DiscordUtils.isDiscordId(args[1])) {
-                return ctx.invalidArgs("Not a valid ID!");
+                ctx.invalidArgs("Not a valid ID!");
+                return;
             }
             if (ctx.getConfig().isOwner(args[1])) {
-                return ctx.warn("You can't ban the owner!");
+                ctx.warn("You can't ban the owner!");
+                return;
             }
             long uid = Long.valueOf(args[1]);
             DbUser dbUser = ctx.getUser(uid);
@@ -50,29 +53,33 @@ public class BanCommand extends AbstractAdminCommand {
                 dbUser.withBanned(!banned).update();
             } catch (SQLException ex) {
                 ex.printStackTrace();
-                return ctx.err("There was an internal error.");
+                ctx.err("There was an internal error.");
+                return;
             }
             //Format message
             User user = sm.retrieveUserById(args[1]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
             String msg = user == null ? args[1] : user.getAsTag();
             msg += banned ? " has been unbanned." : " was struck with the ban hammer!";
-            return ctx.reply(msg);
+            ctx.reply(msg);
 
         //Guild part of command
         } else if ("guild".equals(args[0])) {
             //Get guild from message
             if (args.length == 1) {
-                return ctx.invalidArgs("Please define a guild.");
+                ctx.invalidArgs("Please define a guild.");
+                return;
             }
             if (!DiscordUtils.isDiscordId(args[1])) {
-                return ctx.invalidArgs("Not a valid ID!");
+                ctx.invalidArgs("Not a valid ID!");
+                return;
             }
             Guild guild = sm.getGuildById(args[1]);
             long logChannelID = ctx.getConfig().getLogChannelId();
             if (guild != null && logChannelID != 0) {
                 TextChannel logChannel = sm.getTextChannelById(logChannelID);
                 if (logChannel != null && guild.getId().equals(logChannel.getGuild().getId())) {
-                    return ctx.warn("You can't ban the guild with the log channel!");
+                    ctx.warn("You can't ban the guild with the log channel!");
+                    return;
                 }
             }
             long gid = Long.valueOf(args[1]);
@@ -83,22 +90,24 @@ public class BanCommand extends AbstractAdminCommand {
                 dbGuild.withBanned(!banned).update();
             } catch (SQLException ex) {
                 ex.printStackTrace();
-                return ctx.err("There was an internal error.");
+                ctx.err("There was an internal error.");
+                return;
             }
             //Format message
             String msg = guild.getName() + " (`" + guild.getId() + "`) ";
             msg += banned ? "has been unbanned." : "was struck with the ban hammer!";
-            return ctx.reply(msg);
+            ctx.reply(msg);
 
         //Query part of command
         } else {
             if (!DiscordUtils.isDiscordId(args[0])) {
-                return ctx.invalidArgs("Not a valid ID!");
+                ctx.invalidArgs("Not a valid ID!");
+                return;
             }
             long id = Long.valueOf(args[0]);
             boolean banned = ctx.getGuild(id).isBanned() || ctx.getUser(id).isBanned();
             String msg = args[0] + (banned ? " is banned!" : " is not banned.");
-            return ctx.reply(msg);
+            ctx.reply(msg);
         }
 
     }

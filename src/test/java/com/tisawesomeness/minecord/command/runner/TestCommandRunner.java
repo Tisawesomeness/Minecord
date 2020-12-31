@@ -127,7 +127,7 @@ public class TestCommandRunner {
             throw new IllegalStateException("You must set the command to run before calling run()!");
         }
         TestContext ctx = new TestContext(args, config, cmd, exe, isElevated, prefix, lang, library);
-        ctx.result = exe.runCommand(cmd, ctx);
+        exe.runCommand(cmd, ctx);
         return ctx;
     }
 

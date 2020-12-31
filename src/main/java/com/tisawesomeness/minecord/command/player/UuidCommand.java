@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.UUIDUtils;
@@ -23,18 +22,21 @@ public class UuidCommand extends AbstractPlayerCommand {
         return "uuid";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
         if (args.length == 0) {
-            return ctx.showHelp();
+            ctx.showHelp();
+            return;
         }
 
         String inputName = ctx.joinArgs();
         if (inputName.length() > Username.MAX_LENGTH) {
-            return ctx.warn(ctx.i18n("tooLong"));
+            ctx.warn(ctx.i18n("tooLong"));
+            return;
         }
         Optional<Username> usernameOpt = Username.from(inputName);
         if (usernameOpt.isEmpty()) {
-            return ctx.warn(ctx.i18n("unsupportedSpecialCharacters"));
+            ctx.warn(ctx.i18n("unsupportedSpecialCharacters"));
+            return;
         }
         Username username = usernameOpt.get();
 
@@ -44,17 +46,19 @@ public class UuidCommand extends AbstractPlayerCommand {
             uuidOpt = ctx.getMCLibrary().getPlayerProvider().getUUID(username);
         } catch (IOException ex) {
             log.error("IOE getting UUID from username " + username, ex);
-            return ctx.err(ctx.i18n("mojangError"));
+            ctx.err(ctx.i18n("mojangError"));
+            return;
         }
         if (uuidOpt.isEmpty()) {
-            return ctx.reply(ctx.i18n("usernameDoesNotExist"));
+            ctx.reply(ctx.i18n("usernameDoesNotExist"));
+            return;
         }
         UUID uuid = uuidOpt.get();
 
-        return constructReply(ctx, username, uuid);
+        constructReply(ctx, username, uuid);
     }
 
-    private static Result constructReply(CommandContext ctx, Username username, UUID uuid) {
+    private static void constructReply(CommandContext ctx, Username username, UUID uuid) {
         Lang lang = ctx.getLang();
         String title = ctx.i18nf("title", username);
         String shortUuid = MarkdownUtil.bold(lang.i18n("mc.player.uuid.short")) + ": " +
@@ -70,7 +74,7 @@ public class UuidCommand extends AbstractPlayerCommand {
         EmbedBuilder eb = new EmbedBuilder()
                 .setAuthor(title, nameMCUrl, avatarUrl)
                 .setDescription(desc);
-        return ctx.reply(eb);
+        ctx.reply(eb);
     }
 
 }

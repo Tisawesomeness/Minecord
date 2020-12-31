@@ -7,7 +7,6 @@ import com.tisawesomeness.minecord.command.CommandRegistry;
 import com.tisawesomeness.minecord.command.IElevatedCommand;
 import com.tisawesomeness.minecord.command.IHiddenCommand;
 import com.tisawesomeness.minecord.command.Module;
-import com.tisawesomeness.minecord.command.Result;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +26,7 @@ public class HelpCommand extends AbstractMiscCommand {
         return "help";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
         String prefix = ctx.getPrefix();
         Lang lang = ctx.getLang();
 
@@ -60,7 +59,8 @@ public class HelpCommand extends AbstractMiscCommand {
                     .collect(Collectors.joining(", "));
                 eb.addField(m.getDisplayName(lang), mHelp, false);
             }
-            return ctx.reply(eb);
+            ctx.reply(eb);
+            return;
         }
 
         // Module help
@@ -69,7 +69,8 @@ public class HelpCommand extends AbstractMiscCommand {
             ctx.triggerCooldown();
             Module m = moduleOpt.get();
             if (m.isHidden() && !ctx.isElevated()) {
-                return ctx.warn("You do not have permission to view that module.");
+                ctx.warn("You do not have permission to view that module.");
+                return;
             }
             String mUsage = registry.getCommandsInModule(m).stream()
                 .filter(c -> !(c instanceof IHiddenCommand) || m.isHidden()) // All admin commands are hidden
@@ -88,7 +89,8 @@ public class HelpCommand extends AbstractMiscCommand {
                 mUsage = mHelp.get() + "\n\n" + mUsage;
             }
             eb.setAuthor(m.getDisplayName(lang) + " Module Help", null, url).setDescription(mUsage);
-            return ctx.reply(eb);
+            ctx.reply(eb);
+            return;
         }
 
         // Command help
@@ -98,16 +100,19 @@ public class HelpCommand extends AbstractMiscCommand {
             Command c = cmdOpt.get();
             // Elevation check
             if (c instanceof IElevatedCommand && !ctx.isElevated()) {
-                return ctx.warn("You do not have permission to view that command.");
+                ctx.warn("You do not have permission to view that command.");
+                return;
             }
             // Admin check
             if (args.length > 1 && "admin".equals(args[1])) {
-                return ctx.reply(showHelp(ctx, c, true));
+                ctx.reply(showHelp(ctx, c, true));
+                return;
             }
-            return ctx.reply(showHelp(ctx, c));
+            ctx.reply(showHelp(ctx, c));
+            return;
         }
 
-        return ctx.invalidArgs("That command or module does not exist.");
+        ctx.invalidArgs("That command or module does not exist.");
     }
 
     /**

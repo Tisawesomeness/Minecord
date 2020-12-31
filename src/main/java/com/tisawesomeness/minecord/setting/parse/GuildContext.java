@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.setting.parse;
 
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.dao.DbGuild;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
@@ -28,33 +27,36 @@ public class GuildContext extends SettingContext {
      * Reads the guild id if this is an admin command, or the current guild id if not in DMs.
      * <br>The guild id is then saved as the context,
      * and is either displayed ({@code &settings}) or changed ({@code &set}/{@code &reset}).
-     * @return The result of the command
      */
-    public Result parse() {
+    public void parse() {
         if (isAdmin) {
-            return parseGuildId();
+            parseGuildId();
+            return;
         }
         if (ctx.isFromGuild()) {
-            return displayOrParseGuildId(ctx.getE().getGuild().getIdLong());
+            displayOrParseGuildId(ctx.getE().getGuild().getIdLong());
+            return;
         }
-        return ctx.warn(String.format("`%ssettings guild` cannot be used in DMs.", ctx.getPrefix()));
+        ctx.warn(String.format("`%ssettings guild` cannot be used in DMs.", ctx.getPrefix()));
     }
 
-    private Result parseGuildId() {
+    private void parseGuildId() {
         if (currentArg < ctx.getArgs().length) {
             String guildArg = ctx.getArgs()[currentArg];
             if (!DiscordUtils.isDiscordId(guildArg)) {
-                return ctx.invalidArgs("Not a valid guild id.");
+                ctx.invalidArgs("Not a valid guild id.");
+                return;
             }
             currentArg++;
-            return displayOrParseGuildId(Long.parseLong(guildArg));
+            displayOrParseGuildId(Long.parseLong(guildArg));
+            return;
         }
-        return ctx.invalidArgs("You must specify a guild id.");
+        ctx.invalidArgs("You must specify a guild id.");
     }
 
-    private Result displayOrParseGuildId(long gid) {
+    private void displayOrParseGuildId(long gid) {
         DbGuild guild = ctx.getGuild(gid);
         String title = isAdmin ? "Guild Settings for " + gid : "Guild Settings";
-        return displayOrParse(title, guild);
+        displayOrParse(title, guild);
     }
 }

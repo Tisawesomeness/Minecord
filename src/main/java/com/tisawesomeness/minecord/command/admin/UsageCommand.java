@@ -1,12 +1,8 @@
 package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.Lang;
-import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.CommandRegistry;
-import com.tisawesomeness.minecord.command.IShortcutCommand;
+import com.tisawesomeness.minecord.command.*;
 import com.tisawesomeness.minecord.command.Module;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.DateUtils;
 
 import com.google.common.collect.EnumMultiset;
@@ -31,46 +27,52 @@ public class UsageCommand extends AbstractAdminCommand {
         return "usage";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
         Lang lang = ctx.getLang();
         EmbedBuilder eb = new EmbedBuilder()
                 .setTitle("Command usage for " + DateUtils.getDurationString(ctx.getBot().getBirth()));
 
         if (args.length == 0) {
-            return processGlobalUsage(ctx, eb);
+            processGlobalUsage(ctx, eb);
+            return;
         } else if ("full".equalsIgnoreCase(args[0])) {
-            return processFullUsage(ctx, eb);
+            processFullUsage(ctx, eb);
+            return;
         }
         Optional<Module> moduleOpt = Module.from(args[0], lang);
         if (moduleOpt.isPresent()) {
-            return getModuleUsage(ctx, eb, moduleOpt.get());
+            getModuleUsage(ctx, eb, moduleOpt.get());
+            return;
         }
         Optional<Command> cmdOpt = registry.getCommand(args[0], lang);
         if (cmdOpt.isPresent()) {
-            return getCommandUsage(ctx, eb, cmdOpt.get());
+            getCommandUsage(ctx, eb, cmdOpt.get());
+            return;
         }
-        return ctx.invalidArgs("That command or module does not exist.");
+        ctx.invalidArgs("That command or module does not exist.");
     }
 
-    private Result processGlobalUsage(CommandContext ctx, EmbedBuilder eb) {
+    private void processGlobalUsage(CommandContext ctx, EmbedBuilder eb) {
         addFields(ctx, eb, c -> formatCommand(c, ctx));
         Multiset<Result> totalResults = accumulateResults(registry, ctx);
-        eb.setDescription(formatResults(totalResults));
-        return ctx.reply(eb);
+        int uses = ctx.getExecutor().getTotalUses();
+        eb.setDescription(formatResults(totalResults, uses));
+        ctx.reply(eb);
     }
-    private Result processFullUsage(CommandContext ctx, EmbedBuilder eb) {
+    private void processFullUsage(CommandContext ctx, EmbedBuilder eb) {
         ctx.getExecutor().pushUses(); // Make sure uses are up-to-date
         try {
             Multiset<String> commandUses = ctx.getExecutor().getCommandStats().getCommandUses();
             addFields(ctx, eb, c -> formatCommandFull(c, ctx, commandUses));
-            eb.setDescription(totalHeader(commandUses));
-            return ctx.reply(eb);
+            eb.setDescription(usesHeader(commandUses.size()));
+            ctx.reply(eb);
+            return;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return ctx.err("There was an internal error.");
+        ctx.err("There was an internal error.");
     }
-    private void addFields(CommandContext ctx, EmbedBuilder eb, Function<Command, String> commandToLineMapper) {
+    private void addFields(CommandContext ctx, EmbedBuilder eb, Function<? super Command, String> commandToLineMapper) {
         for (Module m : Module.values()) {
             Collection<Command> cmds = registry.getCommandsInModule(m);
             if (cmds.isEmpty()) {
@@ -81,20 +83,23 @@ public class UsageCommand extends AbstractAdminCommand {
         }
     }
 
-    private Result getModuleUsage(CommandContext ctx, EmbedBuilder eb, Module m) {
+    private void getModuleUsage(CommandContext ctx, EmbedBuilder eb, Module m) {
         Collection<Command> cmds = registry.getCommandsInModule(m);
         if (cmds.isEmpty()) {
-            return ctx.warn("That module has no commands!");
+            ctx.warn("That module has no commands!");
+            return;
         }
         Multiset<Result> totalResults = accumulateResults(cmds, ctx);
         String usage = buildUsageString(cmds, c -> formatCommandDetailed(c, ctx));
-        eb.setDescription(formatResults(totalResults) + "\n\n" + usage);
-        return ctx.reply(eb);
+        int uses = ctx.getExecutor().getUses(m);
+        eb.setDescription(formatResults(totalResults, uses) + "\n\n" + usage);
+        ctx.reply(eb);
     }
-    private static Result getCommandUsage(CommandContext ctx, EmbedBuilder eb, Command c) {
+    private static void getCommandUsage(CommandContext ctx, EmbedBuilder eb, Command c) {
         Multiset<Result> results = ctx.getExecutor().getResults(c);
-        eb.setDescription(formatResults(results));
-        return ctx.reply(eb);
+        int uses = ctx.getExecutor().getUses(c);
+        eb.setDescription(formatResults(results, uses));
+        ctx.reply(eb);
     }
 
     private static String buildUsageString(Collection<? extends Command> cmds,
@@ -128,11 +133,14 @@ public class UsageCommand extends AbstractAdminCommand {
     private static String formatLine(Command c, CommandContext ctx, String line) {
         return String.format("`%s%s` **-** %s", ctx.getPrefix(), c.getDisplayName(ctx.getLang()), line);
     }
-    private static String totalHeader(Multiset<?> results) {
-        return String.format("**__Total: %d__**", results.size());
+    private static String totalHeader(Multiset<?> results, int uses) {
+        return String.format("**__Total: %d__ (%d uses)**", results.size(), uses);
     }
-    private static String formatResults(Multiset<Result> results) {
-        String header = totalHeader(results);
+    private static String usesHeader(int uses) {
+        return String.format("**__Total: %d uses__**", uses);
+    }
+    private static String formatResults(Multiset<Result> results, int uses) {
+        String header = totalHeader(results, uses);
         String resultLines = results.entrySet().stream()
                 .sorted(Comparator.comparing(Multiset.Entry::getElement))
                 .map(en -> formatResult(en, results.size()))

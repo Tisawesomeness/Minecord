@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command.discord;
 
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.dao.DbGuild;
 import com.tisawesomeness.minecord.setting.Setting;
 import com.tisawesomeness.minecord.util.DateUtils;
@@ -24,7 +23,7 @@ public class GuildCommand extends AbstractDiscordCommand {
         return "guild";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
 
         // If the author used the admin keyword and is an elevated user
         boolean elevated = false;
@@ -32,7 +31,8 @@ public class GuildCommand extends AbstractDiscordCommand {
         if (args.length > 1 && args[1].equals("admin") && ctx.isElevated()) {
             elevated = true;
             if (!DiscordUtils.isDiscordId(args[0])) {
-                return ctx.invalidArgs("Not a valid ID!");
+                ctx.invalidArgs("Not a valid ID!");
+                return;
             }
             g = ctx.getBot().getShardManager().getGuildById(args[0]);
             if (g == null) {
@@ -40,13 +40,16 @@ public class GuildCommand extends AbstractDiscordCommand {
                 DbGuild dbGuild = ctx.getGuild(gid);
                 String settingsStr = getSettingsStr(dbGuild, ctx);
                 if (dbGuild.isBanned()) {
-                    return ctx.reply("__**GUILD BANNED FROM MINECORD**__\n" + settingsStr);
+                    ctx.reply("__**GUILD BANNED FROM MINECORD**__\n" + settingsStr);
+                    return;
                 }
-                return ctx.reply(settingsStr);
+                ctx.reply(settingsStr);
+                return;
             }
         } else {
             if (!ctx.isFromGuild()) {
-                return ctx.warn("This command is not available in DMs.");
+                ctx.warn("This command is not available in DMs.");
+                return;
             }
             g = ctx.getE().getGuild();
         }
@@ -88,7 +91,7 @@ public class GuildCommand extends AbstractDiscordCommand {
                 eb.setDescription("__**GUILD BANNED FROM MINECORD**__");
             }
         }
-        return ctx.reply(eb);
+        ctx.reply(eb);
 
     }
 

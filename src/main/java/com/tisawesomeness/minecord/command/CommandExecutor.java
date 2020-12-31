@@ -24,11 +24,7 @@ import net.dv8tion.jda.api.utils.MarkdownUtil;
 import org.jetbrains.annotations.TestOnly;
 
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.EnumSet;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -43,6 +39,7 @@ public class CommandExecutor {
     @Getter private final CommandStats commandStats;
     private final Map<String, Cache<Long, Long>> cooldownMap;
     private final Map<Command, Multiset<Result>> results;
+    private final Multiset<Command> commandUses = ConcurrentHashMultiset.create();
     private final Multiset<String> unpushedUses = ConcurrentHashMultiset.create();
 
     /**
@@ -81,43 +78,47 @@ public class CommandExecutor {
      * @param ctx The context of the command
      */
     public void run(Command c, CommandContext ctx) {
-        Result result = runCommand(c, ctx);
+        runCommand(c, ctx);
+        commandUses.add(c);
         unpushedUses.add(c.getId());
-        results.get(c).add(result);
     }
     /**
      * Directly runs a command without keeping track of it.
      * @param c The command
      * @param ctx The context of the command
-     * @return The result of the command
      */
     @TestOnly
-    public Result runCommand(Command c, CommandContext ctx) {
-        return processGuildOnly(c, ctx);
+    public void runCommand(Command c, CommandContext ctx) {
+        processGuildOnly(c, ctx);
     }
 
-    private Result processGuildOnly(Command c, CommandContext ctx) {
+    private void processGuildOnly(Command c, CommandContext ctx) {
         if (c instanceof IGuildOnlyCommand && !ctx.isFromGuild()) {
-            return ctx.warn("This command is not available in DMs.");
+            ctx.warn("This command is not available in DMs.");
+            pushResult(c, Result.WARNING);
+            return;
         }
-        return processElevation(c, ctx);
+        processElevation(c, ctx);
     }
-    private Result processElevation(Command c, CommandContext ctx) {
+    private void processElevation(Command c, CommandContext ctx) {
         if (c instanceof IElevatedCommand && !ctx.isElevated()) {
-            return ctx.notElevated("You must be elevated to use that command!");
+            ctx.notElevated("You must be elevated to use that command!");
+            return;
         }
-        return processPermissions(c, ctx);
+        processPermissions(c, ctx);
     }
 
-    private Result processPermissions(Command c, CommandContext ctx) {
+    private void processPermissions(Command c, CommandContext ctx) {
         if (ctx.isFromGuild()) {
-            return processBotPermissions(c, ctx);
+            processBotPermissions(c, ctx);
+            return;
         }
-        return processCooldown(c, ctx);
+        processCooldown(c, ctx);
     }
-    private Result processBotPermissions(Command c, CommandContext ctx) {
+    private void processBotPermissions(Command c, CommandContext ctx) {
         if (!ctx.botHasPermission(Permission.MESSAGE_EMBED_LINKS)) {
-            return ctx.noBotPermissions("I need Embed Links permissions to use commands!");
+            ctx.noBotPermissions("I need Embed Links permissions to use commands!");
+            return;
         }
         EnumSet<Permission> rbp = c.getBotPermissions();
         if (!ctx.botHasPermission(rbp)) {
@@ -125,11 +126,12 @@ public class CommandExecutor {
             TextChannel tc = ctx.getE().getTextChannel();
             String missingPermissions = getMissingPermissionString(sm, tc, rbp);
             String errMsg = String.format("I am missing the %s permissions.", missingPermissions);
-            return ctx.noBotPermissions(errMsg);
+            ctx.noBotPermissions(errMsg);
+            return;
         }
-        return processUserPermissions(c, ctx);
+        processUserPermissions(c, ctx);
     }
-    private Result processUserPermissions(Command c, CommandContext ctx) {
+    private void processUserPermissions(Command c, CommandContext ctx) {
         if (!ctx.isElevated()) {
             EnumSet<Permission> rup = c.getUserPermissions();
             if (!ctx.userHasPermission(rup)) {
@@ -137,10 +139,11 @@ public class CommandExecutor {
                 TextChannel tc = ctx.getE().getTextChannel();
                 String missingPermissions = getMissingPermissionString(mem, tc, rup);
                 String errMsg = String.format("You are missing the %s permissions.", missingPermissions);
-                return ctx.noUserPermissions(errMsg);
+                ctx.noUserPermissions(errMsg);
+                return;
             }
         }
-        return processCooldown(c, ctx);
+        processCooldown(c, ctx);
     }
     // Mutates permissions collection! Only use when done
     private static String getMissingPermissionString(Member m, TextChannel tc, Collection<Permission> permissions) {
@@ -150,7 +153,7 @@ public class CommandExecutor {
                 .collect(Collectors.joining(", "));
     }
 
-    private Result processCooldown(Command c, CommandContext ctx) {
+    private void processCooldown(Command c, CommandContext ctx) {
         if (!shouldSkipCooldown(ctx)) {
             long cooldown = c.getCooldown(cc);
             if (cooldown > 0) {
@@ -159,24 +162,25 @@ public class CommandExecutor {
                 long msLeft = cooldown + lastExecutedTime - System.currentTimeMillis();
                 if (msLeft > 0) {
                     String cooldownMsg = String.format("Wait `%.3f` more seconds.", (double) msLeft/1000);
-                    return ctx.sendResult(Result.COOLDOWN, cooldownMsg);
+                    ctx.sendResult(Result.COOLDOWN, cooldownMsg);
+                    return;
                 }
             }
         }
-        return tryToRun(c, ctx);
+        tryToRun(c, ctx);
     }
     private long getLastExecutedTime(Command c, long uid) {
         Long let = cooldownMap.get(c.getCooldownId(cc)).get(uid, ignore -> 0L);
         return Objects.requireNonNull(let); // Null value never put into map
     }
 
-    private static Result tryToRun(Command c, CommandContext ctx) {
+    private void tryToRun(Command c, CommandContext ctx) {
         try {
-            return c.run(ctx.getArgs(), ctx);
+            c.run(ctx.getArgs(), ctx);
         } catch (Exception ex) {
             handle(ex, ctx);
+            pushResult(c, Result.EXCEPTION);
         }
-        return Result.EXCEPTION;
     }
     private static void handle(Exception ex, CommandContext ctx) {
         ex.printStackTrace();
@@ -189,7 +193,7 @@ public class CommandExecutor {
                 errorMessage = errorMessage.substring(0, Message.MAX_CONTENT_LENGTH - 3) + "```";
             }
         }
-        ctx.reply(errorMessage);
+        ctx.sendMessage(errorMessage);
         ctx.log(errorMessage);
     }
     private static String buildStackTrace(Exception ex) {
@@ -227,12 +231,51 @@ public class CommandExecutor {
     }
 
     /**
-     * Gets the count of all results for a command.
+     * Gets the number of times a command has been used.
      * @param c The command
-     * @return A Multiset where the size is equal to the number of command executions
+     * @return A non-negative integer
      */
-    public Multiset<Result> getResults(Command c) {
+    public int getUses(@NonNull Command c) {
+        return commandUses.count(c);
+    }
+    /**
+     * Gets the number of times any command in a module has been used.
+     * @param m The module
+     * @return A non-negative integer
+     */
+    public int getUses(@NonNull Module m) {
+        return commandUses.stream()
+                .filter(cm -> cm.getModule() == Module.DISCORD)
+                .mapToInt(this::getUses)
+                .sum();
+    }
+    /**
+     * Gets the number of times any command has been used.
+     * @return A nongative integer
+     */
+    public int getTotalUses() {
+        return commandUses.size();
+    }
+    /**
+     * Gets the count of all results for a command. This may be slightly inaccurate as a command that is still running
+     * but hasn't reported a result yet will be counted as a success.
+     * @param c The command
+     * @return A Multiset where the size is equal to the number of command results (NOT executions)
+     */
+    public Multiset<Result> getResults(@NonNull Command c) {
         return Multisets.unmodifiableMultiset(results.get(c));
+    }
+
+    /**
+     * Records the result of a command. A command may have multiple result if it replies multiple times.
+     * @param c The command
+     * @param result The result to record
+     */
+    public void pushResult(@NonNull Command c, Result result) {
+        Multiset<Result> resultsMultiset = results.get(c);
+        if (resultsMultiset != null) {
+            resultsMultiset.add(result);
+        }
     }
 
     /**

@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command.discord;
 
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.dao.DbUser;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
@@ -26,14 +25,15 @@ public class UserCommand extends AbstractDiscordCommand {
         return "user";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
         MessageReceivedEvent e = ctx.getE();
         ShardManager sm = ctx.getBot().getShardManager();
 
         //If the author used the admin keyword and is an elevated user
         if (args.length > 1 && args[1].equals("admin") && ctx.isElevated()) {
             if (!DiscordUtils.isDiscordId(args[0])) {
-                return ctx.invalidArgs("Not a valid ID!");
+                ctx.invalidArgs("Not a valid ID!");
+                return;
             }
             User u = sm.retrieveUserById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
             if (u == null) {
@@ -41,9 +41,11 @@ public class UserCommand extends AbstractDiscordCommand {
                 DbUser dbUser = ctx.getUser(uid);
                 String elevatedStr = String.format("Elevated: `%s`", dbUser.isElevated());
                 if (dbUser.isBanned()) {
-                    return ctx.reply("__**USER BANNED FROM MINECORD**__\n" + elevatedStr);
+                    ctx.reply("__**USER BANNED FROM MINECORD**__\n" + elevatedStr);
+                    return;
                 }
-                return ctx.reply(elevatedStr);
+                ctx.reply(elevatedStr);
+                return;
             }
 
             DbUser dbUser = ctx.getUser(u);
@@ -70,17 +72,20 @@ public class UserCommand extends AbstractDiscordCommand {
                     .collect(Collectors.joining("\n"));
                 eb.addField("Mutual Guilds", mutualGuilds, false);
             }
-            return ctx.reply(eb);
+            ctx.reply(eb);
+            return;
         }
         
         // Guild-only command
         if (!e.isFromGuild()) {
-            return ctx.warn("This command is not available in DMs.");
+            ctx.warn("This command is not available in DMs.");
+            return;
         }
 
         // Check for argument length
         if (args.length == 0) {
-            return ctx.showHelp();
+            ctx.showHelp();
+            return;
         }
         
         // Find user
@@ -92,15 +97,18 @@ public class UserCommand extends AbstractDiscordCommand {
             if (DiscordUtils.isDiscordId(args[0])) {
                 mem = e.getGuild().retrieveMemberById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
                 if (mem == null) {
-                    return ctx.warn("That user does not exist.");
+                    ctx.warn("That user does not exist.");
+                    return;
                 }
             } else {
                 if (!User.USER_TAG.matcher(args[0]).matches()) {
-                    return ctx.invalidArgs("Not a valid user format. Use `name#1234`, a mention, or a valid ID.");
+                    ctx.invalidArgs("Not a valid user format. Use `name#1234`, a mention, or a valid ID.");
+                    return;
                 }
                 mem = e.getGuild().getMemberByTag(args[0]);
                 if (mem == null) {
-                    return ctx.warn("That user does not exist.");
+                    ctx.warn("That user does not exist.");
+                    return;
                 }
             }
         }
@@ -133,7 +141,7 @@ public class UserCommand extends AbstractDiscordCommand {
             eb.addField("Boosted", DateUtils.getDateAgo(mem.getTimeBoosted()), false);
         }
         eb.addField("Roles", roles, false);
-        return ctx.replyRaw(ctx.addFooter(eb));
+        ctx.replyRaw(ctx.addFooter(eb));
     }
     
 }

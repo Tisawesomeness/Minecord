@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command.utility;
 
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import lombok.NonNull;
@@ -18,13 +17,14 @@ public class StatusCommand extends AbstractUtilityCommand {
         return "status";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
         ctx.triggerCooldown();
 
         //Request information from Mojang
         String request = RequestUtils.get("https://status.mojang.com/check");
         if (request == null) {
-            return ctx.err("The Mojang API could not be reached.");
+            ctx.err("The Mojang API could not be reached.");
+            return;
         }
 
         Color color = Color.GREEN;
@@ -68,7 +68,7 @@ public class StatusCommand extends AbstractUtilityCommand {
                 .setTitle("Minecraft Status")
                 .setDescription(m)
                 .setColor(color);
-        return ctx.replyRaw(ctx.addFooter(eb));
+        ctx.replyRaw(ctx.addFooter(eb));
     }
 
 }

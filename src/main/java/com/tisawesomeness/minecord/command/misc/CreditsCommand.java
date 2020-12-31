@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.command.misc;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -31,7 +30,7 @@ public class CreditsCommand extends AbstractMiscCommand {
             MarkdownUtil.maskedLink("LabyMod", "https://www.labymod.net") + ", " +
             MarkdownUtil.maskedLink("MinecraftCapes", "https://www.minecraftcapes.co.uk");
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
         ctx.triggerCooldown();
         EmbedBuilder eb = new EmbedBuilder()
             .setTitle("Minecord Credits")
@@ -41,7 +40,7 @@ public class CreditsCommand extends AbstractMiscCommand {
             .addField("Contribute", CONTRIB, true)
             .addField("APIs Used", APIS, false)
             .setFooter("Website: " + Bot.website);
-        return ctx.replyRaw(eb);
+        ctx.replyRaw(eb);
     }
 
 }

@@ -21,11 +21,12 @@ public class CapeCommand extends AbstractPlayerCommand {
         return "cape";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
 
         // No arguments message
         if (args.length == 0) {
-            return ctx.showHelp();
+            ctx.showHelp();
+            return;
         }
 
         // Get playername
@@ -39,16 +40,19 @@ public class CapeCommand extends AbstractPlayerCommand {
             if (player == null) {
                 String m = "The Mojang API could not be reached." +
                     "\n" + "Are you sure that UUID exists?";
-                return ctx.possibleErr(m);
+                ctx.possibleErr(m);
+                return;
             } else if (!player.matches(NameUtils.playerRegex)) {
-                return ctx.err("The API responded with an error:\n" + player);
+                ctx.err("The API responded with an error:\n" + player);
+                return;
             }
         } else {
             // Parse date argument
             if (args.length > 1) {
                 long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
                 if (timestamp == -1) {
-                    return ctx.showHelp();
+                    ctx.showHelp();
+                    return;
                 }
 
                 // Get the UUID
@@ -62,9 +66,11 @@ public class CapeCommand extends AbstractPlayerCommand {
                 String m = "The Mojang API could not be reached." +
                         "\n" +"Are you sure that username exists?" +
                         "\n" + "Usernames are case-sensitive.";
-                return ctx.possibleErr(m);
+                ctx.possibleErr(m);
+                return;
             } else if (!uuid.matches(NameUtils.uuidRegex)) {
-                return ctx.err("The API responded with an error:\n" + uuid);
+                ctx.err("The API responded with an error:\n" + uuid);
+                return;
             }
 
             uuid = uuid.replace("-", "").toLowerCase();
@@ -119,9 +125,8 @@ public class CapeCommand extends AbstractPlayerCommand {
         }
 
         if (!hasCape) {
-            return ctx.warn(player + " does not have a cape!");
+            ctx.warn(player + " does not have a cape!");
         }
-        return Result.SUCCESS;
     }
 
     private static void sendImage(CommandContext ctx, String title, String url) {

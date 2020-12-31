@@ -25,9 +25,10 @@ public class DebugCommand extends AbstractAdminCommand {
         return "debug";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
         if (!ctx.getConfig().getFlagConfig().isDebugMode()) {
-            return ctx.warn("The bot is not in debug mode.");
+            ctx.warn("The bot is not in debug mode.");
+            return;
         }
 
         List<DebugOption> debugOptions = buildDebugOptionList(ctx);
@@ -35,23 +36,26 @@ public class DebugCommand extends AbstractAdminCommand {
             String possibleOptions = debugOptions.stream()
                     .map(d -> MarkdownUtil.monospace(d.getName()))
                     .collect(Collectors.joining(", "));
-            return ctx.reply("Possible options: " + possibleOptions);
+            ctx.reply("Possible options: " + possibleOptions);
+            return;
         }
 
         if ("all".equalsIgnoreCase(args[0])) {
             for (DebugOption d : debugOptions) {
                 sendDebugInfo(ctx, d);
             }
-            return Result.SUCCESS;
+            ctx.commandResult(Result.SUCCESS);
+            return;
         }
 
         for (DebugOption d : debugOptions) {
             if (d.getName().equalsIgnoreCase(args[0])) {
                 sendDebugInfo(ctx, d);
-                return Result.SUCCESS;
+                ctx.commandResult(Result.SUCCESS);
+                return;
             }
         }
-        return ctx.invalidArgs("Not a valid debug option.");
+        ctx.invalidArgs("Not a valid debug option.");
     }
 
     private static List<DebugOption> buildDebugOptionList(CommandContext ctx) {

@@ -60,8 +60,8 @@ public class TestContext extends AbstractContext {
 
     private final List<CharSequence> replies = new ArrayList<>();
     private final List<MessageEmbed> embedReplies = new ArrayList<>();
-    private boolean requestedHelp = false;
-    private boolean triggeredCooldown = false;
+    private boolean requestedHelp;
+    private boolean triggeredCooldown;
 
     /**
      * @return An immutable list of <b>text</b> replies, in order of appearance
@@ -89,25 +89,38 @@ public class TestContext extends AbstractContext {
     }
 
     @Override
-    public Result reply(@NonNull CharSequence text) {
+    protected void sendMessage(@NonNull CharSequence text) {
         replies.add(text);
-        return Result.SUCCESS;
     }
     @Override
-    public Result replyRaw(@NonNull EmbedBuilder eb) {
+    protected void sendMessageRaw(@NonNull EmbedBuilder eb) {
         embedReplies.add(eb.build());
-        return Result.SUCCESS;
     }
     @Override
-    public Result showHelp() {
+    public void requestHelp() {
         requestedHelp = true;
-        return Result.HELP;
     }
 
     @Override
-    public Result sendResult(Result result, @NonNull CharSequence text) {
-        replies.add(text);
-        return result;
+    public void reply(@NonNull CharSequence text) {
+        sendMessage(text);
+        result = Result.SUCCESS;
+    }
+    @Override
+    public void replyRaw(@NonNull EmbedBuilder eb) {
+        sendMessageRaw(eb);
+        result = Result.SUCCESS;
+    }
+    @Override
+    public void showHelp() {
+        requestHelp();
+        result = Result.HELP;
+    }
+
+    @Override
+    public void sendResult(Result result, @NonNull CharSequence text) {
+        sendMessage(text);
+        this.result = result;
     }
 
     @Override
@@ -184,7 +197,7 @@ public class TestContext extends AbstractContext {
 
     @Override
     public String toString() {
-        String argsStr = getArgs().length == 0 ? "" : " " + joinArgs();
+        String argsStr = args.length == 0 ? "" : " " + joinArgs();
         String cmdStr = String.format("'%s%s'", cmd, argsStr);
         String embedRepliesStr = embedReplies.stream()
                 .map(MessageEmbed::toData)

@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.command.config;
 
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.IHiddenCommand;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.setting.parse.SmartSetParser;
 
 import lombok.NonNull;
@@ -13,12 +12,13 @@ public class PrefixCommand extends AbstractConfigCommand implements IHiddenComma
         return "prefix";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
         if (args.length == 0) {
             ctx.triggerCooldown();
-            return ctx.reply(String.format("The current prefix is `%s`", ctx.getPrefix()));
+            ctx.reply(String.format("The current prefix is `%s`", ctx.getPrefix()));
+            return;
         }
-        return new SmartSetParser(ctx, ctx.getBot().getSettings().prefix).parse();
+        new SmartSetParser(ctx, ctx.getBot().getSettings().prefix).parse();
     }
 
 }

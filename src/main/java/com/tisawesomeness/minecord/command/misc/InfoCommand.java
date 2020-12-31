@@ -3,7 +3,6 @@ package com.tisawesomeness.minecord.command.misc;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.BuildInfo;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.DateUtils;
 
 import lombok.NonNull;
@@ -27,7 +26,7 @@ public class InfoCommand extends AbstractMiscCommand {
         return "info";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
         ctx.triggerCooldown();
         ShardManager sm = ctx.getBot().getShardManager();
 
@@ -71,7 +70,7 @@ public class InfoCommand extends AbstractMiscCommand {
             MarkdownUtil.maskedLink("GITHUB", Bot.github);
         eb.addField("Links", "**" + links + "**", false);
 
-        return ctx.reply(eb);
+        ctx.reply(eb);
     }
 
     // Calculate memory

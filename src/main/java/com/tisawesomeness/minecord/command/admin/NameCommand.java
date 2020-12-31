@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -15,21 +14,24 @@ public class NameCommand extends AbstractAdminCommand {
         return "name";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
         //Check for proper argument length
         if (args.length < 1) {
-            return ctx.showHelp();
+            ctx.showHelp();
+            return;
         }
 
         //Get guild
         Guild guild = ctx.getBot().getShardManager().getGuildById(args[0]);
         if (guild == null) {
-            return ctx.warn("Not a valid guild!");
+            ctx.warn("Not a valid guild!");
+            return;
         }
 
         //Check for permissions
         if (!guild.getSelfMember().hasPermission(Permission.NICKNAME_CHANGE)) {
-            return ctx.noBotPermissions("The bot does not have permissions to change nickname in that guidl.");
+            ctx.noBotPermissions("The bot does not have permissions to change nickname in that guidl.");
+            return;
         }
 
         //Set the nickname
@@ -53,7 +55,7 @@ public class NameCommand extends AbstractAdminCommand {
         eb.setThumbnail(guild.getIconUrl());
         ctx.log(eb.build());
 
-        return ctx.reply("Name changed!");
+        ctx.reply("Name changed!");
     }
 
 }

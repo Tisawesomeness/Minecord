@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import lombok.NonNull;
@@ -17,16 +16,18 @@ public class MsgCommand extends AbstractAdminCommand {
         return "msg";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
         //Check for proper argument length
         if (args.length < 2) {
-            return ctx.showHelp();
+            ctx.showHelp();
+            return;
         }
 
         //Extract user
         User user = DiscordUtils.findUser(args[0], ctx.getBot().getShardManager());
         if (user == null) {
-            return ctx.warn("Not a valid user!");
+            ctx.warn("Not a valid user!");
+            return;
         }
 
         //Send the message
@@ -37,7 +38,8 @@ public class MsgCommand extends AbstractAdminCommand {
             channel.sendMessage(msg).queue();
         } catch (InterruptedException | ExecutionException ex) {
             ex.printStackTrace();
-            return ctx.warn("There was an internal error.");
+            ctx.warn("There was an internal error.");
+            return;
         }
 
         EmbedBuilder eb = new EmbedBuilder();
@@ -47,7 +49,7 @@ public class MsgCommand extends AbstractAdminCommand {
         eb.setThumbnail(user.getAvatarUrl());
         ctx.log(eb.build());
 
-        return ctx.reply("Message sent!");
+        ctx.reply("Message sent!");
     }
 
 }

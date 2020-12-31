@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.setting.parse;
 
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.dao.SettingContainer;
 
 import lombok.NonNull;
@@ -18,19 +17,20 @@ public abstract class SettingContext extends SettingCommandHandler {
      * <br>If this command sets or resets, then the {@link SettingChooser} takes over.
      * @param title The title of the embed with all displayed settings
      * @param obj The context object, which is either a guild, channel, or user
-     * @return The result of the command
      */
-    protected Result displayOrParse(String title, SettingContainer obj) {
+    protected void displayOrParse(String title, SettingContainer obj) {
         CommandContext ctx = getCtx();
         SettingCommandType type = getType();
         int currentArg = getCurrentArg();
         if (type == SettingCommandType.QUERY) {
             ctx.triggerCooldown();
-            return displaySettings(title, s -> s.getDisplay(obj));
+            displaySettings(title, s -> s.getDisplay(obj));
+            return;
         }
         if (currentArg < ctx.getArgs().length) {
-            return new SettingChooser(this, obj).parse();
+            new SettingChooser(this, obj).parse();
+            return;
         }
-        return ctx.invalidArgs("You must specify a setting.");
+        ctx.invalidArgs("You must specify a setting.");
     }
 }

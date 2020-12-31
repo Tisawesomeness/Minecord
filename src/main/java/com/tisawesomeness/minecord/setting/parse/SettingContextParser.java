@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.setting.parse;
 
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.dao.DbChannel;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
@@ -9,7 +8,6 @@ import lombok.Getter;
 import lombok.NonNull;
 import net.dv8tion.jda.api.entities.TextChannel;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,24 +34,26 @@ public class SettingContextParser extends SettingCommandHandler {
      * Parses the context arg of the setting command.
      * <br>May be guild/channel/user, but also {@code &settings list} and {@code &settings admin <channel id>}.
      * <br>If found, parsing is chained to the context.
-     * @return The result of this command
      */
-    public Result parse() {
+    public void parse() {
         String contextArg = ctx.getArgs()[currentArg];
         currentArg++;
         if (type == SettingCommandType.QUERY) {
             if ("list".equalsIgnoreCase(contextArg)) {
-                return new ListSubcommand(this).parse();
+                new ListSubcommand(this).parse();
+                return;
             }
         } else if (!isAdmin && !userHasManageServerPermissions()) {
-            return ctx.noUserPermissions("You must have Manage Server permissions.");
+            ctx.noUserPermissions("You must have Manage Server permissions.");
+            return;
         }
         Optional<SettingContext> settingContextOpt = getContext(contextArg);
         if (settingContextOpt.isPresent()) {
-            return settingContextOpt.get().parse();
+            settingContextOpt.get().parse();
+            return;
         }
         currentArg--;
-        return parseFallthrough();
+        parseFallthrough();
     }
     private Optional<SettingContext> getContext(String contextArg) {
         if (GUILD_WORDS.contains(contextArg.toLowerCase())) {
@@ -68,50 +68,55 @@ public class SettingContextParser extends SettingCommandHandler {
         return Optional.empty();
     }
 
-    private Result parseFallthrough() {
+    private void parseFallthrough() {
         if (isAdmin && type == SettingCommandType.QUERY) {
-            return parseChannelAndDisplay();
+            parseChannelAndDisplay();
+            return;
         }
-        return ctx.invalidArgs("Incorrect context.");
+        ctx.invalidArgs("Incorrect context.");
     }
 
-    private Result parseChannelAndDisplay() {
+    private void parseChannelAndDisplay() {
         String contextArg = ctx.getArgs()[currentArg];
         if (DiscordUtils.isDiscordId(contextArg)) {
-            return displayChannelIdSettings(contextArg);
+            displayChannelIdSettings(contextArg);
+            return;
         }
-        return displayChannelMentionSettings();
+        displayChannelMentionSettings();
     }
-    private Result displayChannelIdSettings(String contextArg) {
+    private void displayChannelIdSettings(String contextArg) {
         long cid = Long.parseLong(contextArg);
         Optional<DbChannel> dbChannelOpt = ctx.getChannel(cid);
         if (dbChannelOpt.isPresent()) {
             DbChannel dbChannel = dbChannelOpt.get();
             ctx.triggerCooldown();
-            return displayCurrentSettings(cid, dbChannel.getGuildId());
+            displayCurrentSettings(cid, dbChannel.getGuildId());
+            return;
         }
         TextChannel c = ctx.getBot().getShardManager().getTextChannelById(cid);
         if (c != null) {
             ctx.triggerCooldown();
-            return displayCurrentSettings(c);
+            displayCurrentSettings(c);
+            return;
         }
-        return ctx.warn("That channel is not visible to the bot.");
+        ctx.warn("That channel is not visible to the bot.");
     }
-    private Result displayChannelMentionSettings() {
+    private void displayChannelMentionSettings() {
         List<TextChannel> mentioned = ctx.getE().getMessage().getMentionedChannels();
         if (!mentioned.isEmpty()) {
             TextChannel c = mentioned.get(0);
             ctx.triggerCooldown();
-            return displayCurrentSettings(c);
+            displayCurrentSettings(c);
+            return;
         }
-        return ctx.invalidArgs("Not a valid channel format. Use a `#channel` mention or a valid ID.");
+        ctx.invalidArgs("Not a valid channel format. Use a `#channel` mention or a valid ID.");
     }
 
-    private Result displayCurrentSettings(TextChannel c) {
-        return displayCurrentSettings(c.getIdLong(), c.getGuild().getIdLong());
+    private void displayCurrentSettings(TextChannel c) {
+        displayCurrentSettings(c.getIdLong(), c.getGuild().getIdLong());
     }
-    private Result displayCurrentSettings(long cid, long gid) {
+    private void displayCurrentSettings(long cid, long gid) {
         String title = "Currently Active Settings for Channel " + cid;
-        return displaySettings(title, s -> s.getDisplay(ctx.getCache(), cid, gid));
+        displaySettings(title, s -> s.getDisplay(ctx.getCache(), cid, gid));
     }
 }

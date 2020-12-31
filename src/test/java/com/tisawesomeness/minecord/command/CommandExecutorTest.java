@@ -42,7 +42,7 @@ public class CommandExecutorTest {
         public @NonNull String getId() {
             return "dummy";
         }
-        public Result run(String[] args, CommandContext ctx) {
+        public void run(String[] args, CommandContext ctx) {
             fail(WARNING);
             throw new AssertionError("Unreachable");
         }

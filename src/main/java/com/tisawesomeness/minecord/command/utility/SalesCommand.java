@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command.utility;
 
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import lombok.NonNull;
@@ -16,14 +15,15 @@ public class SalesCommand extends AbstractUtilityCommand {
         return "sales";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
         ctx.triggerCooldown();
 
         //Send a request to Mojang
         String payload = "{\"metricKeys\":[\"item_sold_minecraft\",\"prepaid_card_redeemed_minecraft\"]}";
         String request = RequestUtils.post("https://api.mojang.com/orders/statistics", payload);
         if (request == null) {
-            return ctx.err("The Mojang API could not be reached.");
+            ctx.err("The Mojang API could not be reached.");
+            return;
         }
 
         //Extract JSON data
@@ -37,7 +37,7 @@ public class SalesCommand extends AbstractUtilityCommand {
             "\n" + "**Last 24 Hours:** " + format(last24h) +
             "\n" + "**Sales Per Hour:** " + format(velocity);
 
-        return ctx.reply(new EmbedBuilder().setTitle("Minecraft Sales").setDescription(m));
+        ctx.reply(new EmbedBuilder().setTitle("Minecraft Sales").setDescription(m));
     }
 
     private String format(double num) {

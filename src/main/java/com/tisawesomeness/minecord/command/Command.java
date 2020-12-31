@@ -55,9 +55,8 @@ public abstract class Command {
      * This method is called when the command is run.
      * @param args An array of command arguments separated by spaces
      * @param ctx The message-specific context
-     * @return The Result of the command
      */
-    public abstract Result run(String[] args, CommandContext ctx);
+    public abstract void run(String[] args, CommandContext ctx);
 
     /**
      * Gets the display name of this command, or how it should be displayed to the user. Defaults to the id.

@@ -15,18 +15,19 @@ public class ReloadCommand extends AbstractAdminCommand {
         return "reload";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
 
         Message m = ctx.getE().getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
         try {
             ctx.getBot().reload();
         } catch (IOException | ExecutionException | InterruptedException ex) {
             ex.printStackTrace();
-            return ctx.sendResult(Result.EXCEPTION, "Could not reload!"); // A failed reload is REALLY severe
+            ctx.sendResult(Result.EXCEPTION, "Could not reload!"); // A failed reload is REALLY severe
+            return;
         }
         m.editMessage(":white_check_mark: Reloaded!").queue();
 
-        return Result.SUCCESS;
+        ctx.commandResult(Result.SUCCESS);
 
     }
 

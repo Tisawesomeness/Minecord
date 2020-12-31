@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.setting.parse;
 
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.dao.SettingContainer;
 import com.tisawesomeness.minecord.setting.Setting;
 import com.tisawesomeness.minecord.util.type.Validation;
@@ -40,14 +39,14 @@ public class SettingChanger {
     /**
      * Resets the setting if from a reset command.
      * <br>Parses the value and changes the setting if from a set command.
-     * @return The result of the command
      */
-    public Result parse() {
+    public void parse() {
         ctx.triggerCooldown();
         if (type == SettingCommandType.RESET) {
-            return resetSetting();
+            resetSetting();
+            return;
         }
-        return changeSetting(getSettingValue());
+        changeSetting(getSettingValue());
     }
 
     private String getSettingValue() {
@@ -60,31 +59,34 @@ public class SettingChanger {
         return sj.toString();
     }
 
-    private Result changeSetting(String settingValue) {
+    private void changeSetting(String settingValue) {
         try {
             Validation<String> attempt = setting.tryToSet(obj, settingValue);
-            return convertAttemptToResult(ctx, attempt);
+            convertAttemptToResult(ctx, attempt);
+            return;
         } catch (SQLException ex) {
             ex.printStackTrace(); // Not printing exception to the user just to be safe
         }
-        return ctx.err("There was an internal error.");
+        ctx.err("There was an internal error.");
     }
-    private Result resetSetting() {
+    private void resetSetting() {
         try {
             Validation<String> attempt = setting.tryToReset(obj);
-            return convertAttemptToResult(ctx, attempt);
+            convertAttemptToResult(ctx, attempt);
+            return;
         } catch (SQLException ex) {
             ex.printStackTrace(); // Not printing exception to the user just to be safe
         }
-        return ctx.err("There was an internal error.");
+        ctx.err("There was an internal error.");
     }
 
-    private static Result convertAttemptToResult(CommandContext ctx, Validation<String> attempt) {
+    private static void convertAttemptToResult(CommandContext ctx, Validation<String> attempt) {
         if (attempt.isValid()) {
-            return ctx.reply(attempt.getValue());
+            ctx.reply(attempt.getValue());
+            return;
         }
         String errorMsg = String.join("\n", attempt.getErrors());
         // TODO invalid setting value should return invalid args but returns warning, low priority since invis to user
-        return ctx.warn(errorMsg);
+        ctx.warn(errorMsg);
     }
 }

@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.command.config;
 
 import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.setting.parse.SmartSetParser;
 import com.tisawesomeness.minecord.util.BooleanUtils;
 
@@ -20,32 +19,38 @@ public class LangCommand extends AbstractConfigCommand {
         return "lang";
     }
 
-    public Result run(String[] args, CommandContext ctx) {
+    public void run(String[] args, CommandContext ctx) {
         if (args.length == 0) {
             ctx.triggerCooldown();
-            return listLanguages(ctx, "Languages", false);
+            listLanguages(ctx, "Languages", false);
+            return;
         } else if ("all".equalsIgnoreCase(args[0])) {
             ctx.triggerCooldown();
-            return listLanguages(ctx, "All Languages", true);
+            listLanguages(ctx, "All Languages", true);
+            return;
         } else if ("info".equalsIgnoreCase(args[0])) {
             if (args.length == 1) {
-                return ctx.invalidArgs("You must specify a language.");
+                ctx.invalidArgs("You must specify a language.");
+                return;
             }
             Optional<Lang> langOpt = Lang.from(args[1]);
             if (langOpt.isPresent()) {
                 ctx.triggerCooldown();
-                return displayLanguageInfo(ctx, langOpt.get());
+                displayLanguageInfo(ctx, langOpt.get());
+                return;
             }
-            return ctx.invalidArgs("That language is not valid.");
+            ctx.invalidArgs("That language is not valid.");
+            return;
         }
         Optional<Lang> langOpt = Lang.from(args[0]);
         if (langOpt.isPresent()) {
-            return new SmartSetParser(ctx, ctx.getBot().getSettings().lang).parse();
+            new SmartSetParser(ctx, ctx.getBot().getSettings().lang).parse();
+            return;
         }
-        return ctx.invalidArgs("That language is not valid.");
+        ctx.invalidArgs("That language is not valid.");
     }
 
-    private static Result listLanguages(CommandContext ctx, String title, boolean includeDevelopment) {
+    private static void listLanguages(CommandContext ctx, String title, boolean includeDevelopment) {
         Stream<Lang> langStream = Arrays.stream(Lang.values());
         if (!includeDevelopment) {
             langStream = langStream.filter(l -> !l.isInDevelopment());
@@ -59,13 +64,13 @@ public class LangCommand extends AbstractConfigCommand {
         EmbedBuilder eb = new EmbedBuilder()
                 .setTitle(title)
                 .setDescription(langHelp + "\n\n" + langStr);
-        return ctx.reply(eb);
+        ctx.reply(eb);
     }
     private static String getLangDescriptionString(Lang l) {
         return String.format("**`%s`** %s - %s", l.getCode(), l.getFlagEmote(), l.getLocale().getDisplayName());
     }
 
-    private static Result displayLanguageInfo(CommandContext ctx, Lang l) {
+    private static void displayLanguageInfo(CommandContext ctx, Lang l) {
         EmbedBuilder eb = new EmbedBuilder()
                 .setTitle("Language Info for " + l.getLocale().getDisplayName() + " " + l.getFlagEmote());
         eb.getDescriptionBuilder()
@@ -75,7 +80,7 @@ public class LangCommand extends AbstractConfigCommand {
                 .append("Supports Minecraft Items?: ").append(emote(l.isItemsSupported())).append("\n")
                 .append("Supports Enhanced Item Search?: ").append(emote(l.isItemSearchSupported())).append("\n")
                 .append("In Development?: ").append(emote(l.isInDevelopment()));
-        return ctx.reply(eb);
+        ctx.reply(eb);
     }
     // exists purely to save space
     private static String emote(boolean b) {

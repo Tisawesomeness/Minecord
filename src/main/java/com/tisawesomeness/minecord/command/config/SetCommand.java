@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command.config;
 
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.setting.parse.SettingCommandParser;
 import com.tisawesomeness.minecord.setting.parse.SettingCommandType;
 
@@ -21,7 +20,7 @@ public class SetCommand extends AbstractConfigCommand {
         return EnumSet.of(Permission.MANAGE_SERVER);
     }
 
-    public Result run(String[] args, CommandContext ctx) {
-        return new SettingCommandParser(ctx, SettingCommandType.SET).parse();
+    public void run(String[] args, CommandContext ctx) {
+        new SettingCommandParser(ctx, SettingCommandType.SET).parse();
     }
 }

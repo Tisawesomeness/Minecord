@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.setting.parse;
 
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.dao.DbChannel;
 import com.tisawesomeness.minecord.setting.Setting;
 import com.tisawesomeness.minecord.util.DiscordUtils;
@@ -34,38 +33,43 @@ public class ListSubcommand {
 
     /**
      * Lists settings for the specified guild if admin, otherwise the current guild if not in DMs.
-     * @return The result of the command
      */
-    public Result parse() {
+    public void parse() {
         if (isAdmin) {
-            return parseAdminList();
+            parseAdminList();
+            return;
         } else if (!ctx.isFromGuild()) {
-            return ctx.warn(String.format("`%ssettings list` cannot be used in DMs.", ctx.getPrefix()));
+            ctx.warn(String.format("`%ssettings list` cannot be used in DMs.", ctx.getPrefix()));
+            return;
         } else if (!ctx.userHasPermission(Permission.MANAGE_SERVER)) {
-            return ctx.noUserPermissions("You do not have Manage Server permissions.");
+            ctx.noUserPermissions("You do not have Manage Server permissions.");
+            return;
         }
         ctx.triggerCooldown();
-        return listSettings("All Channel Overrides", ctx.getE().getGuild().getIdLong());
+        listSettings("All Channel Overrides", ctx.getE().getGuild().getIdLong());
     }
-    private Result parseAdminList() {
+    private void parseAdminList() {
         if (currentArg < ctx.getArgs().length) {
-            return parseGuildAndList();
+            parseGuildAndList();
+            return;
         } else if (!ctx.isFromGuild()) {
-            return ctx.warn(String.format(
+            ctx.warn(String.format(
                     "`%ssettings admin list` with no guild id cannot be used in DMs.", ctx.getPrefix()));
+            return;
         }
-        return listSettings("All Channel Overrides", ctx.getE().getGuild().getIdLong());
+        listSettings("All Channel Overrides", ctx.getE().getGuild().getIdLong());
     }
 
-    private Result parseGuildAndList() {
+    private void parseGuildAndList() {
         String guildArg = ctx.getArgs()[currentArg];
         if (!DiscordUtils.isDiscordId(guildArg)) {
-            return ctx.invalidArgs("Not a valid guild id.");
+            ctx.invalidArgs("Not a valid guild id.");
+            return;
         }
-        return listSettings("All Channel Overrides for Guild " + guildArg, Long.parseLong(guildArg));
+        listSettings("All Channel Overrides for Guild " + guildArg, Long.parseLong(guildArg));
     }
 
-    private Result listSettings(String title, long gid) {
+    private void listSettings(String title, long gid) {
         EmbedBuilder eb = new EmbedBuilder().setTitle(title);
         String guildField = buildField(s -> s.getDisplay(ctx.getGuild(gid)));
         eb.addField("Guild", guildField, false);
@@ -79,7 +83,7 @@ public class ListSubcommand {
                 eb.addField(fieldTitle, field, false);
             }
         }
-        return ctx.reply(eb);
+        ctx.reply(eb);
     }
 
     private String buildField(Function<? super Setting<?>, String> displayFunction) {
