@@ -1,8 +1,9 @@
 plugins {
     id 'java'
     id 'java-library'
-    id "io.freefair.lombok" version "5.3.0"
+    id 'io.freefair.lombok' version '5.3.0'
     id 'com.github.johnrengelman.shadow' version '6.0.0'
+    id 'org.unbroken-dome.test-sets' version '3.0.1'
 }
 
 repositories {
@@ -16,6 +17,10 @@ repositories {
     maven {
         url = uri('https://oss.sonatype.org/content/repositories/snapshots')
     }
+}
+
+testSets {
+    integrationTest
 }
 
 String jdaVersion = '4.2.0_168'
@@ -46,13 +51,13 @@ dependencies {
     annotationProcessor 'info.picocli:picocli-codegen:4.3.2'
     // Jshell for eval
     api 'ch.obermuhlner:jshell-scriptengine:1.1.0'
-    // Testing
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.6.2'
-    testImplementation "org.assertj:assertj-core:3.16.1"
     // Logging
     api 'org.apache.logging.log4j:log4j-core:2.8.2'
     api 'org.slf4j:slf4j-api:1.7.25'
     api 'org.apache.logging.log4j:log4j-slf4j-impl:2.8.2'
+    // Testing
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.6.2'
+    testImplementation 'org.assertj:assertj-core:3.16.1'
 }
 
 group = 'com.tisawesomeness'
@@ -71,6 +76,9 @@ processResources {
 }
 
 test {
+    useJUnitPlatform()
+}
+integrationTest {
     useJUnitPlatform()
 }
 
