@@ -94,9 +94,25 @@ public class TestContextAssert extends AbstractAssert<TestContextAssert, TestCon
      */
     public TestContextAssert repliesIsNotEmpty() {
         isNotNull();
-        String assertjErrorMessage = "\nExpecting :\n  <%s>\nnot have replies but was empty";
+        String assertjErrorMessage = "\nExpecting :\n  <%s>\nto have replies but was empty";
         if (!actual.getReplies().iterator().hasNext()) {
-            failWithMessage(assertjErrorMessage, actual, actual.getReplies());
+            failWithMessage(assertjErrorMessage, actual);
+        }
+        return this;
+    }
+
+    /**
+     * Verifies that the actual TestContext has a specific number of replies.
+     * @param size the expected size.
+     * @return this assertion object.
+     * @throws AssertionError if the actual TestContext's replies is not the expected size.
+     */
+    public TestContextAssert repliesHasSize(int size) {
+        isNotNull();
+        String assertjErrorMessage = "\nExpecting :\n  <%s>\nreplies to have size <%d> but had size :\n  <%d>";
+        int actualSize = actual.getReplies().size();
+        if (actualSize != size) {
+            failWithMessage(assertjErrorMessage, actual, size, actualSize);
         }
         return this;
     }
@@ -166,7 +182,23 @@ public class TestContextAssert extends AbstractAssert<TestContextAssert, TestCon
         isNotNull();
         String assertjErrorMessage = "\nExpecting :\n  <%s>\nto have embedReplies but embedReplies was empty";
         if (!actual.getEmbedReplies().iterator().hasNext()) {
-            failWithMessage(assertjErrorMessage, actual, actual.getEmbedReplies());
+            failWithMessage(assertjErrorMessage, actual);
+        }
+        return this;
+    }
+
+    /**
+     * Verifies that the actual TestContext has a specific number of embed replies.
+     * @param size the expected size.
+     * @return this assertion object.
+     * @throws AssertionError if the actual TestContext's embed replies is not the expected size.
+     */
+    public TestContextAssert embedRepliesHasSize(int size) {
+        isNotNull();
+        String assertjErrorMessage = "\nExpecting :\n  <%s>\nembed replies to have size <%d> but had size :\n  <%d>";
+        int actualSize = actual.getEmbedReplies().size();
+        if (actualSize != size) {
+            failWithMessage(assertjErrorMessage, actual, size, actualSize);
         }
         return this;
     }
@@ -255,26 +287,30 @@ public class TestContextAssert extends AbstractAssert<TestContextAssert, TestCon
         return this;
     }
 
+
     /**
-     * Extracts the actual TestContext's first reply and creates a CharSequenceAssert object.
+     * Extracts the actual TestContext's only reply and creates a CharSequenceAssert object.
      * @return the char sequence assertion object.
+     * @throws AssertionError - if the actual TestContext does not have only one reply.
      */
     public CharSequenceAssert asReply() {
         isNotNull();
-        repliesIsNotEmpty();
+        repliesHasSize(1);
         CharSequence actualReply = actual.getReplies().get(0);
         return new CharSequenceAssert(actualReply);
     }
 
     /**
-     * Extracts the actual TestContext's first embed reply and creates a MessageEmbedAssert object.
+     * Extracts the actual TestContext's only embed reply and creates a MessageEmbedAssert object.
      * @return the message embed assertion object.
+     * @throws AssertionError - if the actual TestContext does not have only one embed reply.
      */
     public MessageEmbedAssert asEmbedReply() {
         isNotNull();
-        embedRepliesIsNotEmpty();
+        embedRepliesHasSize(1);
         MessageEmbed actualEmbedReply = actual.getEmbedReplies().get(0);
         return new MessageEmbedAssert(actualEmbedReply);
     }
+
 
 }
