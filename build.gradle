@@ -23,7 +23,7 @@ testSets {
     integrationTest
 }
 
-String jdaVersion = '4.2.0_168'
+def jdaVersion = '4.2.0_168'
 
 dependencies {
     // JDA with no audio
@@ -35,7 +35,7 @@ dependencies {
     // All-purpose library
     implementation 'com.google.guava:guava:29.0-jre'
     // Caching
-    implementation 'com.github.ben-manes.caffeine:caffeine:2.8.5'
+    api 'com.github.ben-manes.caffeine:caffeine:2.8.5'
     // JSON library
     implementation 'org.json:json:20160810'
     // YAML library
@@ -52,9 +52,7 @@ dependencies {
     // Jshell for eval
     api 'ch.obermuhlner:jshell-scriptengine:1.1.0'
     // Logging
-    api 'org.apache.logging.log4j:log4j-core:2.8.2'
-    api 'org.slf4j:slf4j-api:1.7.25'
-    api 'org.apache.logging.log4j:log4j-slf4j-impl:2.8.2'
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
     // Testing
     testImplementation 'org.junit.jupiter:junit-jupiter:5.6.2'
     testImplementation 'org.assertj:assertj-core:3.16.1'
