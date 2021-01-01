@@ -94,8 +94,7 @@ public class CommandExecutor {
 
     private void processGuildOnly(Command c, CommandContext ctx) {
         if (c instanceof IGuildOnlyCommand && !ctx.isFromGuild()) {
-            ctx.warn("This command is not available in DMs.");
-            pushResult(c, Result.WARNING);
+            ctx.guildOnly("This command is not available in DMs.");
             return;
         }
         processElevation(c, ctx);

@@ -78,7 +78,7 @@ public class UserCommand extends AbstractDiscordCommand {
         
         // Guild-only command
         if (!e.isFromGuild()) {
-            ctx.warn("This command is not available in DMs.");
+            ctx.guildOnly("This command is not available in DMs.");
             return;
         }
 

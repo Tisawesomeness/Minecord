@@ -52,7 +52,7 @@ public class ChannelContext extends SettingContext {
 
     private void parseNotAdmin() {
         if (!ctx.isFromGuild()) {
-            ctx.warn(String.format("`%ssettings channel` cannot be used in DMs.", ctx.getPrefix()));
+            ctx.guildOnly(String.format("`%ssettings channel` cannot be used in DMs.", ctx.getPrefix()));
             return;
         }
         if (currentArg >= ctx.getArgs().length) {

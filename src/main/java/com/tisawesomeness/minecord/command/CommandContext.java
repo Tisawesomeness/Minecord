@@ -153,6 +153,14 @@ public abstract class CommandContext {
         sendResult(Result.ERROR, text);
     }
     /**
+     * Tells the sender of this command that they can only use the command in a guild.
+     * <br>The guild only emote is added to the message.
+     * @param text The warning message
+     */
+    public void guildOnly(@NonNull CharSequence text) {
+        sendResult(Result.GUILD_ONLY, text);
+    }
+    /**
      * Tells the sender of this command that they need to be elevated.
      * <br>The not elevated emote is added to the message.
      * @param text The warning message

@@ -26,17 +26,21 @@ public enum Result {
      */
     COOLDOWN("Cooldown", ":ice_cube:"),
     /**
+     * The command was used in DMs but can only be used in a guild
+     */
+    GUILD_ONLY("Guild Only", ":warning:", ":no_entry:"),
+    /**
      * User is not elevated but tried to do something that requires elevation
      */
     NOT_ELEVATED("Not Elevated", ":lock:"),
     /**
      * User does not have the necessary permissions
      */
-    NO_USER_PERMISSIONS("No User Permissions", ":no_entry:"),
+    NO_USER_PERMISSIONS("No User Permissions", ":no_pedestrians:"),
     /**
      * Bot does not have the necessary permissions
      */
-    NO_BOT_PERMISSIONS("No Bot Permissions", ":no_entry_sign:"),
+    NO_BOT_PERMISSIONS("No Bot Permissions", ":broken_heart:"),
     /**
      * The user hit a syntax error
      */

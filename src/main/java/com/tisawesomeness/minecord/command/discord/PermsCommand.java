@@ -43,7 +43,7 @@ public class PermsCommand extends AbstractDiscordCommand {
         
         // No admin = guild only
         } else if (!e.isFromGuild()) {
-            ctx.warn("This command is not available in DMs.");
+            ctx.guildOnly("This command is not available in DMs.");
             return;
         
         } else if (args.length > 0) {

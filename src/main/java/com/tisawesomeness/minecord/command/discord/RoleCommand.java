@@ -35,7 +35,7 @@ public class RoleCommand extends AbstractDiscordCommand {
         if (args.length > 1 && args[1].equals("admin") && ctx.isElevated()) {
             role = ctx.getBot().getShardManager().getRoleById(args[0]);
         } else if (!e.isFromGuild()) {
-            ctx.warn("This command is not available in DMs.");
+            ctx.guildOnly("This command is not available in DMs.");
             return;
         // Mentioned roles
         } else if (mentioned.size() > 0) {

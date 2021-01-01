@@ -37,7 +37,7 @@ public class GuildContext extends SettingContext {
             displayOrParseGuildId(ctx.getE().getGuild().getIdLong());
             return;
         }
-        ctx.warn(String.format("`%ssettings guild` cannot be used in DMs.", ctx.getPrefix()));
+        ctx.guildOnly(String.format("`%ssettings guild` cannot be used in DMs.", ctx.getPrefix()));
     }
 
     private void parseGuildId() {

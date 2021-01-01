@@ -48,7 +48,7 @@ public class GuildCommand extends AbstractDiscordCommand {
             }
         } else {
             if (!ctx.isFromGuild()) {
-                ctx.warn("This command is not available in DMs.");
+                ctx.guildOnly("This command is not available in DMs.");
                 return;
             }
             g = ctx.getE().getGuild();
