@@ -16,10 +16,7 @@ import com.google.common.collect.Multiset;
 import com.google.common.collect.Multisets;
 import lombok.Getter;
 import lombok.NonNull;
-import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 import org.jetbrains.annotations.TestOnly;
 
@@ -37,6 +34,7 @@ public class CommandExecutor {
     private final CommandConfig cc;
     private final FlagConfig fc;
     @Getter private final CommandStats commandStats;
+    private final CommandVerifier commandVerifier;
     private final Map<String, Cache<Long, Long>> cooldownMap;
     private final Map<Command, Multiset<Result>> results;
     private final Multiset<Command> commandUses = ConcurrentHashMultiset.create();
@@ -51,6 +49,7 @@ public class CommandExecutor {
         cc = config.getCommandConfig();
         fc = config.getFlagConfig();
         this.commandStats = commandStats;
+        commandVerifier = new CommandVerifier(this);
         Caffeine<Object, Object> builder = Caffeine.newBuilder()
                 .expireAfterWrite(30L, TimeUnit.SECONDS)
                 .maximumSize(100L);
@@ -89,88 +88,9 @@ public class CommandExecutor {
      */
     @TestOnly
     public void runCommand(Command c, CommandContext ctx) {
-        processGuildOnly(c, ctx);
-    }
-
-    private void processGuildOnly(Command c, CommandContext ctx) {
-        if (c instanceof IGuildOnlyCommand && !ctx.isFromGuild()) {
-            ctx.guildOnly("This command is not available in DMs.");
-            return;
+        if (commandVerifier.shouldRun(c, ctx)) {
+            tryToRun(c, ctx);
         }
-        processElevation(c, ctx);
-    }
-    private void processElevation(Command c, CommandContext ctx) {
-        if (c instanceof IElevatedCommand && !ctx.isElevated()) {
-            ctx.notElevated("You must be elevated to use that command!");
-            return;
-        }
-        processPermissions(c, ctx);
-    }
-
-    private void processPermissions(Command c, CommandContext ctx) {
-        if (ctx.isFromGuild()) {
-            processBotPermissions(c, ctx);
-            return;
-        }
-        processCooldown(c, ctx);
-    }
-    private void processBotPermissions(Command c, CommandContext ctx) {
-        if (!ctx.botHasPermission(Permission.MESSAGE_EMBED_LINKS)) {
-            ctx.noBotPermissions("I need Embed Links permissions to use commands!");
-            return;
-        }
-        EnumSet<Permission> rbp = c.getBotPermissions();
-        if (!ctx.botHasPermission(rbp)) {
-            Member sm = ctx.getE().getGuild().getSelfMember();
-            TextChannel tc = ctx.getE().getTextChannel();
-            String missingPermissions = getMissingPermissionString(sm, tc, rbp);
-            String errMsg = String.format("I am missing the %s permissions.", missingPermissions);
-            ctx.noBotPermissions(errMsg);
-            return;
-        }
-        processUserPermissions(c, ctx);
-    }
-    private void processUserPermissions(Command c, CommandContext ctx) {
-        if (!ctx.isElevated()) {
-            EnumSet<Permission> rup = c.getUserPermissions();
-            if (!ctx.userHasPermission(rup)) {
-                Member mem = Objects.requireNonNull(ctx.getE().getMember());
-                TextChannel tc = ctx.getE().getTextChannel();
-                String missingPermissions = getMissingPermissionString(mem, tc, rup);
-                String errMsg = String.format("You are missing the %s permissions.", missingPermissions);
-                ctx.noUserPermissions(errMsg);
-                return;
-            }
-        }
-        processCooldown(c, ctx);
-    }
-    // Mutates permissions collection! Only use when done
-    private static String getMissingPermissionString(Member m, TextChannel tc, Collection<Permission> permissions) {
-        permissions.removeAll(m.getPermissions(tc));
-        return permissions.stream()
-                .map(Permission::getName)
-                .collect(Collectors.joining(", "));
-    }
-
-    private void processCooldown(Command c, CommandContext ctx) {
-        if (!shouldSkipCooldown(ctx)) {
-            long cooldown = c.getCooldown(cc);
-            if (cooldown > 0) {
-                long uid = ctx.getUserId();
-                long lastExecutedTime = getLastExecutedTime(c, uid);
-                long msLeft = cooldown + lastExecutedTime - System.currentTimeMillis();
-                if (msLeft > 0) {
-                    String cooldownMsg = String.format("Wait `%.3f` more seconds.", (double) msLeft/1000);
-                    ctx.sendResult(Result.COOLDOWN, cooldownMsg);
-                    return;
-                }
-            }
-        }
-        tryToRun(c, ctx);
-    }
-    private long getLastExecutedTime(Command c, long uid) {
-        Long let = cooldownMap.get(c.getCooldownId(cc)).get(uid, ignore -> 0L);
-        return Objects.requireNonNull(let); // Null value never put into map
     }
 
     private void tryToRun(Command c, CommandContext ctx) {
@@ -212,6 +132,24 @@ public class CommandExecutor {
         return MarkdownUtil.codeblock(sb.toString());
     }
 
+    /**
+     * Gets the effective cooldown of a specific command for this executor.
+     * @param c The command
+     * @return The cooldown in miliseconds
+     */
+    public int getCooldown(Command c) {
+        return c.getCooldown(cc);
+    }
+    /**
+     * Gets the Unix timestamp of when the user last executed the command.
+     * @param c The command
+     * @param uid The user ID
+     * @return The last executed time, or 0 if the user is not in the cooldown cache
+     */
+    public long getLastExecutedTime(Command c, long uid) {
+        Long let = cooldownMap.get(c.getCooldownId(cc)).get(uid, ignore -> 0L);
+        return Objects.requireNonNull(let); // Null value never put into map
+    }
     /**
      * Starts the cooldown for the given command and user.
      * @param c The command
