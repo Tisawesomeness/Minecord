@@ -28,10 +28,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class MojangAPITest {
 
-    private static final Username TESTING_USERNAME = Username.fromAny("Tis_awesomeness");
-    private static final Username ORIGINAL_USERNAME = Username.fromAny("tis_awesomeness");
-    private static final Username FAKE_USERNAME = Username.fromAny("DoesNotExist");
-    private static final Username NON_ASCII_USERNAME = Username.fromAny("ooθoo");
+    private static final Username TESTING_USERNAME = new Username("Tis_awesomeness");
+    private static final Username ORIGINAL_USERNAME = new Username("tis_awesomeness");
+    private static final Username FAKE_USERNAME = new Username("DoesNotExist");
+    private static final Username NON_ASCII_USERNAME = new Username("ooθoo");
     private static final UUID TESTING_UUID = UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3af");
     private static final UUID FAKE_UUID = UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3ae");
     private static final long TESTING_TIMESTAMP = 1438695830000L;

@@ -37,11 +37,9 @@ public class UsernameTest {
 
     @ParameterizedTest(name = "{index} ==> String \"{0}\" is a supported username")
     @MethodSource({"validNameProvider", "invalidNameProvider"})
-    @DisplayName("Creating a username is possible from any 1-max length ASCII string, even if the name is invalid")
+    @DisplayName("Any ASCII username from 1 to max characters is supported")
     public void testFrom(String candidate) {
-        assertThat(Username.from(candidate))
-                .isPresent()
-                .get().hasToString(candidate);
+        assertThat(new Username(candidate).isSupportedByMojangAPI()).isTrue();
     }
 
     @ParameterizedTest(name = "{index} ==> String \"{0}\" is not a supported username")
@@ -51,27 +49,25 @@ public class UsernameTest {
             "kriſtjan144"
     })
     @EmptySource
-    @DisplayName("Creating a username from non-ascii and empty strings return empty")
+    @DisplayName("Usernames from non-ascii and empty strings are not supported by Mojang")
     public void testFromUnsupported(String candidate) {
-        assertThat(Username.from(candidate)).isEmpty();
+        assertThat(new Username(candidate).isSupportedByMojangAPI()).isFalse();
     }
 
     @Test
-    @DisplayName("Only usernames up to the max length can be created")
+    @DisplayName("Only usernames up to the max length are supported")
     public void testMaxLength() {
         String maxLengthName = "A".repeat(Username.MAX_LENGTH);
-        assertThat(Username.from(maxLengthName))
-                .isPresent()
-                .get().hasToString(maxLengthName);
+        assertThat(new Username(maxLengthName).isSupportedByMojangAPI()).isTrue();
         String overMaxLengthName = maxLengthName + "A";
-        assertThat(Username.from(overMaxLengthName)).isEmpty();
+        assertThat(new Username(overMaxLengthName).isSupportedByMojangAPI()).isFalse();
     }
 
     @ParameterizedTest(name = "{index} ==> \"{0}\" is a valid username")
     @MethodSource("validNameProvider")
     @DisplayName("isValid() is true for valid usernames")
     public void testValidNames(String candidate) {
-        Username name = Username.fromAny(candidate);
+        Username name = new Username(candidate);
         assertThat(name.isValid()).isTrue();
     }
 
@@ -79,29 +75,8 @@ public class UsernameTest {
     @MethodSource("invalidNameProvider")
     @DisplayName("isValid() is false for invalid usernames")
     public void testInvalidNames(String candidate) {
-        Username name = Username.fromAny(candidate);
+        Username name = new Username(candidate);
         assertThat(name.isValid()).isFalse();
-    }
-
-    @Test
-    @DisplayName("Ascii only names are supported")
-    public void testSupportedName() {
-        Username name = Username.fromAny("ascii-only");
-        assertThat(name.isSupportedByMojangAPI()).isTrue();
-    }
-
-    @Test
-    @DisplayName("Non-ascii names are unsupported")
-    public void testUnsupportedName() {
-        Username name = Username.fromAny("ooθoo");
-        assertThat(name.isSupportedByMojangAPI()).isFalse();
-    }
-
-    @Test
-    @DisplayName("Empty names are unsupported")
-    public void testEmptyName() {
-        Username name = Username.fromAny("");
-        assertThat(name.isSupportedByMojangAPI()).isFalse();
     }
 
     private static Stream<String> validNameProvider() {

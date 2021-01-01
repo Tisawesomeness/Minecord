@@ -70,7 +70,7 @@ public abstract class ElectroidAPI {
     private static @NonNull Player parseResponse(@NonNull String response) {
         JSONObject obj = new JSONObject(response);
         UUID uuid = UUID.fromString(obj.getString("uuid"));
-        Username username = Username.fromAny(obj.getString("username"));
+        Username username = new Username(obj.getString("username"));
         List<NameChange> history = parseNameHistory(obj.getJSONArray("username_history"));
         Profile profile = parseProfile(obj);
         return new Player(uuid, username, history, profile);
@@ -79,7 +79,7 @@ public abstract class ElectroidAPI {
         List<NameChange> nameHistoryList = new ArrayList<>();
         for (int i = 0; i < json.length(); i++) {
             JSONObject nameChange = json.getJSONObject(i);
-            Username username = Username.fromAny(nameChange.getString("username"));
+            Username username = new Username(nameChange.getString("username"));
             if (nameChange.has("changed_at") && !nameChange.isNull("changed_at")) {
                 Instant time = Instant.parse(nameChange.getString("changed_at"));
                 nameHistoryList.add(NameChange.withTime(username, time));

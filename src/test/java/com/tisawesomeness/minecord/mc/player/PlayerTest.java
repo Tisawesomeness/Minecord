@@ -24,14 +24,14 @@ public class PlayerTest {
     private static final UUID ALEX_UUID = UUID.fromString("853c80ef-3c37-49fd-aa49-938b674adae6");
 
     private static Player initPlayerWithDefaultSkin(UUID uuid) {
-        Username name = Username.fromAny("SamplePlayer");
+        Username name = new Username("SamplePlayer");
         List<NameChange> history = Collections.singletonList(NameChange.original(name));
         // skin type does not matter if both URLs are null
         Profile profile = new Profile(false, false, SkinType.STEVE, null, null);
         return new Player(uuid, name, history, profile);
     }
     private static Player initPlayerWithSkinType(UUID uuid, SkinType skinType) {
-        Username name = Username.fromAny("SamplePlayer");
+        Username name = new Username("SamplePlayer");
         List<NameChange> history = Collections.singletonList(NameChange.original(name));
         Profile profile = new Profile(false, false, skinType, SKIN_URL, null);
         return new Player(uuid, name, history, profile);

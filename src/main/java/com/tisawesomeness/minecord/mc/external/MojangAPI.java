@@ -73,7 +73,7 @@ public abstract class MojangAPI {
         List<NameChange> nameHistoryList = new ArrayList<>();
         for (int i = 0; i < json.length(); i++) {
             JSONObject nameChange = json.getJSONObject(i);
-            Username username = Username.fromAny(nameChange.getString("name"));
+            Username username = new Username(nameChange.getString("name"));
             if (nameChange.has("changedToAt")) {
                 long timestamp = nameChange.getLong("changedToAt");
                 nameHistoryList.add(NameChange.withTimestamp(username, timestamp));

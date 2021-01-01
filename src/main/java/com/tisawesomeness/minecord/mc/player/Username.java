@@ -13,15 +13,13 @@ import java.util.regex.Pattern;
  *     <b>Beware: usernames are NOT guarenteed to contain only letters, numbers, and underscores!</b> They may have
  *     spaces or special characters (such as {@code /}). Normally, usernames can only be 3-16 characters and contain
  *     only ASCII letters, numbers, and underscores, but due to glitches or other methods, "invalid" accounts exist.
- *     This can be checked with {@link #isValid()}.
+ *     This can be checked with {@link #isSupportedByMojangAPI()}.
  * </p>
  * <p>
  *     Note that names with swear words are often filtered out or involuntarily changed by Mojang, leading to blocked
  *     but valid names. Some names are blocked from being registered and will not show up on the API if nobody has
  *     the name, even if someone tries to change their name to it.
  * </p>
- * Convert a string to a username using {@link #from(String)} (which validates length and characters) and convert a
- * username back to a string by simply calling {@link #toString()}.
  */
 @EqualsAndHashCode
 public class Username implements CharSequence, Comparable<Username> {
@@ -32,29 +30,12 @@ public class Username implements CharSequence, Comparable<Username> {
     public static final int MAX_LENGTH = 256;
 
     private final @NonNull String name;
-    private Username(@NonNull String name) {
+    /**
+     * Creates a username from a string.
+     * @param name Any input string
+     */
+    public Username(@NonNull String name) {
         this.name = name;
-    }
-
-    /**
-     * Creates a username from a string, but only if it is supported for Mojang API input.
-     * @param name Any input string
-     * @return A username if supported, empty otherwise
-     */
-    public static Optional<Username> from(@NonNull String name) {
-        Username username = new Username(name);
-        if (username.isSupportedByMojangAPI()) {
-            return Optional.of(username);
-        }
-        return Optional.empty();
-    }
-    /**
-     * Creates a username from any string. There are no guarantees that the name will work with external APIs.
-     * @param name Any input string
-     * @return The created username
-     */
-    public static Username fromAny(@NonNull String name) {
-        return new Username(name);
     }
 
     /**

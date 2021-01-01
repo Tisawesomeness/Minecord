@@ -19,10 +19,10 @@ import static com.tisawesomeness.minecord.command.runner.TestContextAssert.asser
 
 public class UuidCommandTest {
 
-    private static final Username THROWING_USERNAME = Username.fromAny("throw");
-    private static final Username TESTING_USERNAME = Username.fromAny("Tis_awesomeness");
+    private static final Username THROWING_USERNAME = new Username("throw");
+    private static final Username TESTING_USERNAME = new Username("Tis_awesomeness");
     private static final UUID TESTING_UUID = UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3af");
-    private static final Username SPACES_USERNAME = Username.fromAny("Will Wall");
+    private static final Username SPACES_USERNAME = new Username("Will Wall");
     private static final UUID SPACES_UUID = UUID.fromString("661f3371-809f-4935-95ed-28351d9fe5d8");
     private static TestCommandRunner runner;
 

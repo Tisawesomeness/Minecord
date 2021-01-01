@@ -33,12 +33,11 @@ public class UuidCommand extends AbstractPlayerCommand {
             ctx.warn(ctx.i18n("tooLong"));
             return;
         }
-        Optional<Username> usernameOpt = Username.from(inputName);
-        if (usernameOpt.isEmpty()) {
+        Username username = new Username(inputName);
+        if (!username.isSupportedByMojangAPI()) {
             ctx.warn(ctx.i18n("unsupportedSpecialCharacters"));
             return;
         }
-        Username username = usernameOpt.get();
 
         ctx.triggerCooldown();
         Optional<UUID> uuidOpt;

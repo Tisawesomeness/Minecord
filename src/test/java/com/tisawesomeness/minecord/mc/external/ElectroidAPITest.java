@@ -20,10 +20,10 @@ public class ElectroidAPITest {
 
     private static final Player TESTING_PLAYER = new Player(
             UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3af"),
-            Username.fromAny("Tis_awesomeness"),
+            new Username("Tis_awesomeness"),
             List.of(
-                    NameChange.withTimestamp(Username.fromAny("Tis_awesomeness"), 1438695830000L),
-                    NameChange.original(Username.fromAny("tis_awesomeness"))
+                    NameChange.withTimestamp(new Username("Tis_awesomeness"), 1438695830000L),
+                    NameChange.original(new Username("tis_awesomeness"))
             ),
             new Profile(
                     false,
@@ -34,9 +34,9 @@ public class ElectroidAPITest {
                     null
             )
     );
-    private static final Username FAKE_USERNAME = Username.fromAny("DoesNotExist");
+    private static final Username FAKE_USERNAME = new Username("DoesNotExist");
     private static final UUID FAKE_UUID = UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3ae");
-    private static final Username INVALID_USERNAME = Username.fromAny("8");
+    private static final Username INVALID_USERNAME = new Username("8");
 
     @Test
     @DisplayName("Username input is parsed correctly")
