@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.config.serial;
 
 import com.tisawesomeness.minecord.util.type.Verification;
 
+import ch.qos.logback.classic.Level;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.ToString;
 import lombok.Value;
@@ -28,8 +29,11 @@ public class Config {
     List<Long> owners;
     @JsonProperty("logChannelId")
     long logChannelId;
+    @JsonProperty("logLevel")
+    Level logLevel;
     @JsonProperty("inviteLink")
     String inviteLink;
+
     @JsonProperty("presence")
     PresenceConfig presenceConfig;
     @JsonProperty("settings")

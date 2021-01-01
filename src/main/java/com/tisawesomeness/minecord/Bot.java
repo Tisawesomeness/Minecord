@@ -22,6 +22,8 @@ import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.concurrent.ACExecutorService;
 import com.tisawesomeness.minecord.util.concurrent.ShutdownBehavior;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
 import lombok.Cleanup;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,6 +41,7 @@ import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import okhttp3.OkHttpClient;
+import org.slf4j.LoggerFactory;
 
 import javax.security.auth.login.LoginException;
 import java.awt.Color;
@@ -119,6 +122,13 @@ public class Bot {
             log.error("FATAL: The config was invalid", ex);
             return ExitCode.INVALID_CONFIG;
         }
+
+        // only logs after this line can be changed :(
+        Logger logger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+        Level logLevel = config.getLogLevel();
+        log.info("Setting log level to " + logLevel);
+        logger.setLevel(logLevel);
+
         if (config.getFlagConfig().isUseAnnouncements()) {
             log.debug("Config enabled announcements, reading...");
             try {
