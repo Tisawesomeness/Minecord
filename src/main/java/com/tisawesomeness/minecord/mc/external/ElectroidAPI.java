@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.mc.external;
 
 import com.tisawesomeness.minecord.mc.player.*;
+import com.tisawesomeness.minecord.util.UUIDUtils;
 import com.tisawesomeness.minecord.util.network.URLUtils;
 
 import lombok.NonNull;
@@ -43,7 +44,7 @@ public abstract class ElectroidAPI {
         if (responseOpt.isEmpty()) {
             return Optional.empty();
         }
-        return Optional.of(parseResponse(responseOpt.get()));
+        return parseResponse(responseOpt.get());
     }
 
     /**
@@ -64,16 +65,23 @@ public abstract class ElectroidAPI {
         if (responseOpt.isEmpty()) {
             return Optional.empty();
         }
-        return Optional.of(parseResponse(responseOpt.get()));
+        return parseResponse(responseOpt.get());
     }
 
-    private static @NonNull Player parseResponse(@NonNull String response) {
+    private static @NonNull Optional<Player> parseResponse(@NonNull String response) {
         JSONObject obj = new JSONObject(response);
-        UUID uuid = UUID.fromString(obj.getString("uuid"));
+        String uuidStr = obj.getString("uuid");
+        Optional<UUID> uuidOpt = UUIDUtils.fromString(uuidStr);
+        if (uuidOpt.isEmpty()) {
+            log.warn("Mojang API returned invalid UUID: " + uuidStr);
+            return Optional.empty();
+        }
+        UUID uuid = uuidOpt.get();
+
         Username username = new Username(obj.getString("username"));
         List<NameChange> history = parseNameHistory(obj.getJSONArray("username_history"));
         Profile profile = parseProfile(obj);
-        return new Player(uuid, username, history, profile);
+        return Optional.of(new Player(uuid, username, history, profile));
     }
     private static List<NameChange> parseNameHistory(JSONArray json) {
         List<NameChange> nameHistoryList = new ArrayList<>();

@@ -47,7 +47,12 @@ public abstract class MojangAPI {
             return Optional.empty();
         }
         JSONObject json = new JSONObject(responseOpt.get());
-        return UUIDUtils.fromString(json.getString("id"));
+        String uuidStr = json.getString("id");
+        Optional<UUID> uuidOpt = UUIDUtils.fromString(uuidStr);
+        if (uuidOpt.isEmpty()) {
+            log.warn("Mojang API returned invalid UUID: " + uuidStr);
+        }
+        return uuidOpt;
     }
 
     /**
