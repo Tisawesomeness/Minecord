@@ -2,8 +2,8 @@ package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.command.runner.TestCommandRunner;
-import com.tisawesomeness.minecord.command.runner.mc.TestMCLibrary;
-import com.tisawesomeness.minecord.command.runner.mc.TestPlayerProvider;
+import com.tisawesomeness.minecord.mc.mock.TestMCLibrary;
+import com.tisawesomeness.minecord.mc.mock.TestPlayerProvider;
 import com.tisawesomeness.minecord.config.ConfigReader;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.UUIDUtils;
@@ -17,7 +17,7 @@ import java.util.UUID;
 
 import static com.tisawesomeness.minecord.command.runner.TestContextAssert.assertThat;
 
-public class UuidCommandTest {
+public class UuidCommandIT {
 
     private static final Username THROWING_USERNAME = new Username("throw");
     private static final Username TESTING_USERNAME = new Username("Tis_awesomeness");
@@ -34,7 +34,7 @@ public class UuidCommandTest {
         playerProvider.mapUuid(TESTING_USERNAME, TESTING_UUID);
         playerProvider.mapUuid(SPACES_USERNAME, SPACES_UUID);
         playerProvider.throwOnUsername(THROWING_USERNAME);
-        runner.library = library;
+        runner.mcLibrary = library;
     }
 
     @Test
@@ -48,6 +48,7 @@ public class UuidCommandTest {
     public void testTooLong() {
         String args = "A".repeat(Username.MAX_LENGTH + 1);
         assertThat(runner.run(args))
+                .awaitResult()
                 .hasNotTriggeredCooldown()
                 .resultIs(Result.WARNING);
     }
@@ -57,6 +58,7 @@ public class UuidCommandTest {
     public void testNonAsciiUsername() {
         String args = "ooθoo";
         assertThat(runner.run(args))
+                .awaitResult()
                 .hasNotTriggeredCooldown()
                 .resultIs(Result.WARNING);
     }
@@ -66,6 +68,7 @@ public class UuidCommandTest {
     public void testIOE() {
         String args = THROWING_USERNAME.toString();
         assertThat(runner.run(args))
+                .awaitResult()
                 .resultIs(Result.ERROR)
                 .embedRepliesIsEmpty();
     }
@@ -75,6 +78,7 @@ public class UuidCommandTest {
     public void testNonExistentUsername() {
         String args = "DoesNotExist";
         assertThat(runner.run(args))
+                .awaitResult()
                 .hasTriggeredCooldown()
                 .resultIs(Result.SUCCESS);
     }
@@ -84,6 +88,7 @@ public class UuidCommandTest {
     public void testUsername() {
         String args = TESTING_USERNAME.toString();
         assertThat(runner.run(args))
+                .awaitResult()
                 .resultIs(Result.SUCCESS)
                 .hasTriggeredCooldown()
                 .asEmbedReply()
@@ -96,6 +101,7 @@ public class UuidCommandTest {
     public void testUsernameWithSpaces() {
         String args = SPACES_USERNAME.toString();
         assertThat(runner.run(args))
+                .awaitResult()
                 .resultIs(Result.SUCCESS)
                 .hasTriggeredCooldown()
                 .asEmbedReply()

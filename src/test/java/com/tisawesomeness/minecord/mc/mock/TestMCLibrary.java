@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.command.runner.mc;
+package com.tisawesomeness.minecord.mc.mock;
 
 import com.tisawesomeness.minecord.mc.MCLibrary;
 

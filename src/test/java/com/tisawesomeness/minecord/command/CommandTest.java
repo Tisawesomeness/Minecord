@@ -24,7 +24,6 @@ public class CommandTest {
     @Test
     @DisplayName("Command replies send text unmodified and return SUCCESS")
     public void testCommandReply() {
-        System.out.println(runner);
         assertThat(runner.run())
                 .repliesAre(REPLY)
                 .resultIs(Result.SUCCESS);

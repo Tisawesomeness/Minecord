@@ -14,7 +14,7 @@ cache:
 
 install: skip
 script:
-  - ./gradlew check
+  - ./gradlew check integrationTest
 
 after_success:
   - wget https://raw.githubusercontent.com/Tisawesomeness/travis-ci-discord-webhook/master/send.sh

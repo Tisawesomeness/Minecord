@@ -1,5 +1,7 @@
 package com.tisawesomeness.minecord.command;
 
+import com.tisawesomeness.minecord.command.runner.AbstractContext;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.DisplayName;

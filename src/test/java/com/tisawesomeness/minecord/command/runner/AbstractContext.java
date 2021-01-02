@@ -1,8 +1,10 @@
-package com.tisawesomeness.minecord.command;
+package com.tisawesomeness.minecord.command.runner;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Lang;
-import com.tisawesomeness.minecord.command.misc.HelpCommand;
+import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.CommandExecutor;
 import com.tisawesomeness.minecord.config.serial.Config;
 
 import lombok.NonNull;
