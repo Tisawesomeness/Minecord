@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command;
 
 import com.tisawesomeness.minecord.command.admin.AbstractAdminCommand;
-import com.tisawesomeness.minecord.command.runner.TestCommandRunner;
+import com.tisawesomeness.minecord.testutil.runner.TestCommandRunner;
 import com.tisawesomeness.minecord.config.ConfigReader;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.tisawesomeness.minecord.command.runner.TestContextAssert.assertThat;
+import static com.tisawesomeness.minecord.testutil.runner.TestContextAssert.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 

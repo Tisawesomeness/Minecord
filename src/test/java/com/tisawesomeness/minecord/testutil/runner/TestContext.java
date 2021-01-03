@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.command.runner;
+package com.tisawesomeness.minecord.testutil.runner;
 
 import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.command.Command;
@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
  * <br>
  * <br>Note that the @link #getE()}, {@link #getBot()}, and all database cache methods are unsupported.
  * <br>See the docs in {@link TestCommandRunner} for changes from normal execution.
+ * @implSpec This class is thread-safe outside of the runner package.
  * @see #getResult()
  * @see #getReplies()
  * @see #getEmbedReplies()
@@ -54,7 +55,7 @@ public class TestContext extends AbstractContext {
     /**
      * The result of the command according to the latest reply, null if not ran yet
      */
-    @Getter protected @Nullable Result result;
+    @Getter private @Nullable Result result;
     private final List<CharSequence> replies = new ArrayList<>();
     private final List<MessageEmbed> embedReplies = new ArrayList<>();
     private boolean requestedHelp;
@@ -206,7 +207,7 @@ public class TestContext extends AbstractContext {
      * @return True if the condition became true before the timeout expired, false otherwise
      * @throws InterruptedException If the timeout is negative
      */
-    public synchronized boolean awaitCondition(@NonNull Predicate<View> condition, long timeout, @NonNull TimeUnit unit)
+    protected synchronized boolean awaitCondition(@NonNull Predicate<View> condition, long timeout, @NonNull TimeUnit unit)
             throws InterruptedException {
         if (timeout < 0) {
             throw new IllegalArgumentException("Timeout must be positive but was " + timeout);

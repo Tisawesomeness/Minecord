@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.command.runner;
+package com.tisawesomeness.minecord.testutil.runner;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Lang;

@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.command;
 
-import com.tisawesomeness.minecord.command.runner.AbstractContext;
+import com.tisawesomeness.minecord.testutil.runner.AbstractContext;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.command.Result;
-import com.tisawesomeness.minecord.command.runner.TestCommandRunner;
+import com.tisawesomeness.minecord.testutil.runner.TestCommandRunner;
 import com.tisawesomeness.minecord.mc.mock.TestMCLibrary;
 import com.tisawesomeness.minecord.mc.mock.TestPlayerProvider;
 import com.tisawesomeness.minecord.config.ConfigReader;
@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
-import static com.tisawesomeness.minecord.command.runner.TestContextAssert.assertThat;
+import static com.tisawesomeness.minecord.testutil.runner.TestContextAssert.assertThat;
 
 public class UuidCommandIT {
 
