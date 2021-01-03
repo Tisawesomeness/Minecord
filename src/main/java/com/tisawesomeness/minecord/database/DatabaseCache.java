@@ -4,7 +4,7 @@ import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.database.dao.DbChannel;
 import com.tisawesomeness.minecord.database.dao.DbGuild;
 import com.tisawesomeness.minecord.database.dao.DbUser;
-import com.tisawesomeness.minecord.util.type.SQLFunction;
+import com.tisawesomeness.minecord.util.type.ThrowingFunction;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
@@ -52,7 +52,7 @@ public class DatabaseCache {
 
     // Shortens code by matching loadFunction type to cache type, getting rid of the explicit CacheLoader declaration
     private static <T, R> LoadingCache<T, R> build(
-            Caffeine<Object, Object> builder, SQLFunction<? super T, ? extends R> loadFunction) {
+            Caffeine<Object, Object> builder, ThrowingFunction<? super T, ? extends R, SQLException> loadFunction) {
         return builder.build(loadFunction::apply);
     }
 
