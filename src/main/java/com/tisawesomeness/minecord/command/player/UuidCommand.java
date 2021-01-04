@@ -5,6 +5,7 @@ import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.UUIDUtils;
+import com.tisawesomeness.minecord.util.concurrent.FutureCallback;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ import net.dv8tion.jda.api.utils.MarkdownUtil;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public class UuidCommand extends AbstractPlayerCommand {
@@ -40,23 +42,33 @@ public class UuidCommand extends AbstractPlayerCommand {
         }
 
         ctx.triggerCooldown();
-        Optional<UUID> uuidOpt;
-        try {
-            uuidOpt = ctx.getMCLibrary().getPlayerProvider().getUUID(username);
-        } catch (IOException ex) {
+        fireUUIDRequest(ctx, username);
+    }
+    private static void fireUUIDRequest(CommandContext ctx, Username username) {
+        CompletableFuture<Optional<UUID>> futureUUID = ctx.getMCLibrary().getPlayerProvider().getUUID(username);
+        FutureCallback.builder(futureUUID)
+                .onFailure(ex -> handleIOE(ex, ctx, username))
+                .onSuccess(uuidOpt -> processUUID(uuidOpt, ctx, username))
+                .build();
+
+    }
+
+    private static void handleIOE(Throwable ex, CommandContext ctx, Username username) {
+        if (ex instanceof IOException) {
             log.error("IOE getting UUID from username " + username, ex);
             ctx.err(ctx.i18n("mojangError"));
             return;
         }
+        throw new RuntimeException(ex);
+    }
+
+    private static void processUUID(Optional<UUID> uuidOpt, CommandContext ctx, Username username) {
         if (uuidOpt.isEmpty()) {
             ctx.reply(ctx.i18n("usernameDoesNotExist"));
             return;
         }
-        UUID uuid = uuidOpt.get();
-
-        constructReply(ctx, username, uuid);
+        constructReply(ctx, username, uuidOpt.get());
     }
-
     private static void constructReply(CommandContext ctx, Username username, UUID uuid) {
         Lang lang = ctx.getLang();
         String title = ctx.i18nf("title", username);

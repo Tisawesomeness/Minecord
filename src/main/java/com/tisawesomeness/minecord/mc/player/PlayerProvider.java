@@ -5,6 +5,7 @@ import lombok.NonNull;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Requests player data from a UUID or username.
@@ -12,27 +13,27 @@ import java.util.UUID;
 public interface PlayerProvider {
 
     /**
-     * Requests the UUID currently associated with the given username
+     * Requests the UUID currently associated with the given username.
+     * <br>The future throws {@link IOException} If an I/O error occurs
      * @param username The input username
      * @return The associated UUID, or empty if the username doesn't currently exist
-     * @throws IOException If an I/O error occurs
      */
-    Optional<UUID> getUUID(@NonNull Username username) throws IOException;
+    CompletableFuture<Optional<UUID>> getUUID(@NonNull Username username);
 
     /**
-     * Requests the player with the given username
+     * Requests the player with the given username.
+     * <br>The future throws {@link IOException} If an I/O error occurs
      * @param username The input username
      * @return The player, or empty if the username doesn't currently exist
-     * @throws IOException If an I/O error occurs
      */
-    Optional<Player> getPlayer(@NonNull Username username) throws IOException;
+    CompletableFuture<Optional<Player>> getPlayer(@NonNull Username username);
 
     /**
-     * Requests the player with the given UUID
+     * Requests the player with the given UUID.
+     * <br>The future throws {@link IOException} If an I/O error occurs
      * @param uuid The input UUID
      * @return The player, or empty if the UUID doesn't currently exist
-     * @throws IOException If an I/O error occurs
      */
-    Optional<Player> getPlayer(@NonNull UUID uuid) throws IOException;
+    CompletableFuture<Optional<Player>> getPlayer(@NonNull UUID uuid);
 
 }

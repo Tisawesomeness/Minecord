@@ -7,8 +7,8 @@ import com.tisawesomeness.minecord.mc.external.MojangAPI;
 import com.tisawesomeness.minecord.mc.external.MojangAPIImpl;
 import com.tisawesomeness.minecord.network.APIClient;
 
+import com.github.benmanes.caffeine.cache.AsyncLoadingCache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import com.github.benmanes.caffeine.cache.LoadingCache;
 import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.CompletionException;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -26,8 +26,8 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class DualPlayerProvider implements PlayerProvider {
 
-    private final LoadingCache<Username, Optional<UUID>> uuidCache;
-    private final LoadingCache<UUID, Optional<Player>> playerCache;
+    private final AsyncLoadingCache<Username, Optional<UUID>> uuidCache;
+    private final AsyncLoadingCache<UUID, Optional<Player>> playerCache;
     private final MojangAPI mojangAPI;
     private final ElectroidAPI electroidAPI;
     private final boolean useElectroidAPI;
@@ -47,8 +47,8 @@ public class DualPlayerProvider implements PlayerProvider {
         if (flagConfig.isDebugMode()) {
             builder.recordStats();
         }
-        uuidCache = builder.build(this::loadUUID);
-        playerCache = builder.build(this::loadPlayer);
+        uuidCache = builder.buildAsync(this::loadUUID);
+        playerCache = builder.buildAsync(this::loadPlayer);
     }
 
     private Optional<UUID> loadUUID(Username username) throws IOException {
@@ -70,7 +70,8 @@ public class DualPlayerProvider implements PlayerProvider {
         }
         Player player = playerOpt.get();
         UUID uuid = player.getUuid();
-        playerCache.asMap().putIfAbsent(uuid, playerOpt); // since we have the player object, why not cache it?
+        // since we have the player object, why not cache it?
+        playerCache.asMap().putIfAbsent(uuid, CompletableFuture.completedFuture(playerOpt));
         return Optional.of(uuid);
     }
 
@@ -99,44 +100,29 @@ public class DualPlayerProvider implements PlayerProvider {
         return Optional.of(new Player(uuid, username, nameHistory, profile));
     }
 
-    public Optional<UUID> getUUID(@NonNull Username username) throws IOException {
-        try {
-            return uuidCache.get(username);
-        } catch (CompletionException ex) {
-            throwIfIOE(ex);
-            throw ex;
-        }
+    public CompletableFuture<Optional<UUID>> getUUID(@NonNull Username username) {
+        return uuidCache.get(username);
     }
 
-    public Optional<Player> getPlayer(@NonNull Username username) throws IOException {
-        Optional<UUID> uuidOpt = getUUID(username);
-        if (uuidOpt.isEmpty()) {
-            return Optional.empty();
-        }
-        return getPlayer(uuidOpt.get());
+    public CompletableFuture<Optional<Player>> getPlayer(@NonNull Username username) {
+        return getUUID(username).thenCompose(uuidOpt -> {
+            if (uuidOpt.isEmpty()) {
+                return CompletableFuture.completedFuture(Optional.empty());
+            }
+            return getPlayer(uuidOpt.get());
+        });
     }
 
-    public Optional<Player> getPlayer(@NonNull UUID uuid) throws IOException {
-        try {
-            return playerCache.get(uuid);
-        } catch (CompletionException ex) {
-            throwIfIOE(ex);
-            throw ex;
-        }
+    public CompletableFuture<Optional<Player>> getPlayer(@NonNull UUID uuid) {
+        return playerCache.get(uuid);
     }
 
-    private static void throwIfIOE(Throwable ex) throws IOException {
-        Throwable cause = ex.getCause();
-        if (cause instanceof IOException) {
-            throw (IOException) cause;
-        }
-    }
-
+    // apparently async caches can't record stats? :(
     public CacheStats getUuidCacheStats() {
-        return uuidCache.stats();
+        return null;
     }
     public CacheStats getPlayerCacheStats() {
-        return playerCache.stats();
+        return null;
     }
 
 }
