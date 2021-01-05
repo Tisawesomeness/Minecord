@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.mc.mock;
+package com.tisawesomeness.minecord.testutil.mc;
 
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.PlayerProvider;
