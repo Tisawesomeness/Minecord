@@ -16,6 +16,7 @@ import com.google.common.collect.Multiset;
 import com.google.common.collect.Multisets;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 import org.jetbrains.annotations.TestOnly;
@@ -29,6 +30,7 @@ import java.util.stream.Collectors;
 /**
  * Runs commands and keep track of the output.
  */
+@Slf4j
 public class CommandExecutor {
 
     private final CommandConfig cc;
@@ -102,7 +104,7 @@ public class CommandExecutor {
         }
     }
     private static void handle(Exception ex, CommandContext ctx) {
-        ex.printStackTrace();
+        log.error("Uncaught exception for command execution " + ctx, ex);
         String unexpected = "There was an unexpected exception: " + MarkdownUtil.monospace(ex.toString());
         String errorMessage = Result.EXCEPTION.addEmote(unexpected, Lang.getDefault());
         if (ctx.getConfig().getFlagConfig().isDebugMode()) {
