@@ -23,9 +23,8 @@ public enum SimpleMarkdownAction implements MarkdownAction {
     SPOILER(MarkdownUtil::spoiler, 0),
     // must be last
     // MASKED_LINK 1
-    MONOSPACE(MarkdownUtil::monospace, 2),
-    CODEBLOCK(MarkdownUtil::codeblock, 3);
-    // CODEBLOCK_WITH_LANGUAGE 3
+    MONOSPACE(MarkdownUtil::monospace, 2);
+    // CODEBLOCK 3
 
     private final UnaryOperator<String> markdownFn;
     @Getter private final int priority;

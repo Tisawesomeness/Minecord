@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.util.discord;
 
+import com.google.common.base.CharMatcher;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
 import lombok.NonNull;
@@ -158,7 +159,7 @@ public class LocalizedMarkdownBuilder {
      * @see DateFormat.Field
      */
     public LocalizedMarkdownBuilder codeblock(int index, Format.Field... fields) {
-        return apply(index, SimpleMarkdownAction.CODEBLOCK, fields);
+        return apply(index, new Codeblock(), fields);
     }
 
     /**
@@ -261,6 +262,9 @@ public class LocalizedMarkdownBuilder {
         Preconditions.checkArgument(index >= 0, "Index must be positive, was %d", index);
         Preconditions.checkArgument(index < args.length,
                 "Index must be less than %d, was %d", args.length, index);
+        if (fields.length == 0) {
+            table.get(index).add(new PotentialAction(null, action));
+        }
         for (Format.Field field : fields) {
             if (field instanceof NumberFormat.Field || field instanceof DateFormat.Field) {
                 table.get(index).add(new PotentialAction(field, action));
@@ -301,7 +305,7 @@ public class LocalizedMarkdownBuilder {
                 return sb.toString();
             }
 
-            Set<MarkdownAction> currentActions = getCurrentElements(iter);
+            Set<MarkdownAction> currentActions = getCurrentActions(iter);
             // runs that were active but now are not must be removed in LIFO order
             int numFinishedActions = activeActions.size() - currentActions.size();
             for (int i = 0; i < numFinishedActions; i++) {
@@ -336,7 +340,7 @@ public class LocalizedMarkdownBuilder {
         StringBuilder destination = markdownStack.isEmpty() ? sb : currentRuns.get(markdownStack.peek());
         destination.append(formatted);
     }
-    private Set<MarkdownAction> getCurrentElements(AttributedCharacterIterator iter) {
+    private Set<MarkdownAction> getCurrentActions(AttributedCharacterIterator iter) {
         Set<MarkdownAction> currentElements = markdownOrderedSet();
         Integer arg = (Integer) iter.getAttribute(MessageFormat.Field.ARGUMENT);
         if (arg == null) {

@@ -68,10 +68,16 @@ public class TestContext extends AbstractContext {
 
     @Override
     protected void sendMessage(@NonNull CharSequence text) {
+        if (text.length() > Message.MAX_CONTENT_LENGTH) {
+            throw new IllegalArgumentException(String.format("Message length %d is too long!", text.length()));
+        }
         replies.add(text);
     }
     @Override
     protected void sendMessageRaw(@NonNull EmbedBuilder eb) {
+        if (!eb.isValidLength()) {
+            throw new IllegalArgumentException(String.format("Embed length %d is too long!", eb.length()));
+        }
         embedReplies.add(eb.build());
     }
     @Override
