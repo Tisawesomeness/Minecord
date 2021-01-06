@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.util;
 
 import com.tisawesomeness.minecord.Lang;
+import com.tisawesomeness.minecord.util.discord.LocalizedMarkdownBuilder;
 import com.tisawesomeness.minecord.util.type.IntegralDuration;
 
 import lombok.NonNull;
@@ -11,6 +12,7 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.FormatStyle;
 import java.time.temporal.TemporalAccessor;
 import java.util.Locale;
+import java.util.Optional;
 
 public final class TimeUtils {
     private TimeUtils() {}
@@ -55,18 +57,31 @@ public final class TimeUtils {
      * @param lang The language
      * @return A localized, human-readable string
      */
-    public static String localizeIntegralDuration(@NonNull IntegralDuration duration, Lang lang) {
+    public static @NonNull String localizeIntegralDuration(@NonNull IntegralDuration duration, Lang lang) {
+        return getDurationKey(duration)
+                .map(key -> lang.i18nf(key, duration.getValue()))
+                .orElse(localizedNoDuration(lang));
+    }
+    public static @NonNull Optional<LocalizedMarkdownBuilder> localizeIntegralDurationBuilder(
+            @NonNull IntegralDuration duration, Lang lang) {
+        return getDurationKey(duration)
+                .map(key -> lang.i18nm(key, duration.getValue()));
+    }
+    public static @NonNull String localizedNoDuration(Lang lang) {
+        return lang.i18n("general.justNow");
+    }
+    private static Optional<String> getDurationKey(@NonNull IntegralDuration duration) {
         switch (duration.getUnit()) {
             case DAYS:
-                return lang.i18nf("general.daysAgo", duration.getValue());
+                return Optional.of("general.daysAgo");
             case HOURS:
-                return lang.i18nf("general.hoursAgo", duration.getValue());
+                return Optional.of("general.hoursAgo");
             case MINUTES:
-                return lang.i18nf("general.minutesAgo", duration.getValue());
+                return Optional.of("general.minutesAgo");
             case SECONDS:
-                return lang.i18nf("general.secondsAgo", duration.getValue());
+                return Optional.of("general.secondsAgo");
         }
-        return lang.i18n("general.justNow");
+        return Optional.empty();
     }
 
 }

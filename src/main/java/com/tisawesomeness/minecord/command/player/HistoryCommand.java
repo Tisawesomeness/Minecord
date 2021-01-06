@@ -7,6 +7,7 @@ import com.tisawesomeness.minecord.mc.player.PlayerProvider;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.*;
 import com.tisawesomeness.minecord.util.concurrent.FutureCallback;
+import com.tisawesomeness.minecord.util.discord.LocalizedMarkdownBuilder;
 import com.tisawesomeness.minecord.util.type.IntegralDuration;
 
 import com.google.common.base.Splitter;
@@ -17,6 +18,7 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -107,15 +109,23 @@ public class HistoryCommand extends AbstractPlayerCommand {
     }
     private static String getDateAgo(CommandContext ctx, Temporal now, NameChange nc) {
         Optional<Instant> timeOpt = nc.getTime();
-        if (timeOpt.isPresent()) {
-            Instant time = timeOpt.get();
-            String date = TimeUtils.formatDateTime(time, ctx.getLocale());
-            Duration duration = Duration.between(time, now);
-            IntegralDuration truncated = IntegralDuration.fromDuration(duration, ChronoUnit.SECONDS, ChronoUnit.DAYS);
-            String ago = TimeUtils.localizeIntegralDuration(truncated, ctx.getLang());
-            return String.format("%s (%s)", date, ago);
+        if (timeOpt.isEmpty()) {
+            return MarkdownUtil.bold(ctx.getLang().i18n("mc.player.history.original"));
         }
-        return MarkdownUtil.bold(ctx.getLang().i18n("mc.player.history.original"));
+        Instant time = timeOpt.get();
+
+        Duration duration = Duration.between(time, now);
+        IntegralDuration truncated = IntegralDuration.fromDuration(duration, ChronoUnit.SECONDS, ChronoUnit.DAYS);
+        Optional<LocalizedMarkdownBuilder> builderOpt = TimeUtils.localizeIntegralDurationBuilder(
+                truncated, ctx.getLang());
+        String ago = builderOpt
+                .map(localizedMarkdownBuilder -> localizedMarkdownBuilder
+                        .bold(0, NumberFormat.Field.INTEGER)
+                        .build())
+                .orElseGet(() -> TimeUtils.localizedNoDuration(ctx.getLang()));
+
+        String date = TimeUtils.formatDateTime(time, ctx.getLocale());
+        return String.format("%s (%s)", date, ago);
     }
 
     private static @NonNull MessageEmbed constructBaseEmbed(CommandContext ctx, Player player) {

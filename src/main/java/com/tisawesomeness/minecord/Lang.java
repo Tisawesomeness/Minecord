@@ -1,5 +1,7 @@
 package com.tisawesomeness.minecord;
 
+import com.tisawesomeness.minecord.util.discord.LocalizedMarkdownBuilder;
+
 import com.google.common.base.Splitter;
 import lombok.Getter;
 import lombok.NonNull;
@@ -123,6 +125,19 @@ public enum Lang {
         return new MessageFormat(i18n(key), locale).format(args);
     }
     /**
+     * Gets a builder for a formatted, localized markdown string for this lang.
+     * @param key The <b>case-sensitive</b> localization key used in {@link #i18n(String)}
+     * @param args An ordered list of arguments to place into the string
+     * @return A new localized markdown builder
+     * @throws java.util.MissingResourceException If the given key could not be found.
+     * @see LocalizedMarkdownBuilder
+     * @see MessageFormat
+     * @see Locale
+     */
+    public @NonNull LocalizedMarkdownBuilder i18nm(@NonNull String key, Object... args) {
+        return new LocalizedMarkdownBuilder(new MessageFormat(i18n(key), locale), args);
+    }
+    /**
      * Gets a formatted, localized string for this lang if the key exists.
      * @param key The <b>case-sensitive</b> localization key used in {@link #i18n(String)}
      * @param args An ordered list of arguments to place into the string
@@ -137,7 +152,7 @@ public enum Lang {
         return Optional.empty();
     }
     /**
-     * Takes a localized string and splits it by comma.
+     * Takes a localized string and splits it by comma, ignoring empty strings.
      * @param key The <b>case-sensitive</b> localization key used in {@link #i18n(String)}
      * @return A possibly-empty, immutable list of strings
      * @see MessageFormat
