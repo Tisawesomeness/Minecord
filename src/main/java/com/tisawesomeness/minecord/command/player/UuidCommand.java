@@ -32,12 +32,12 @@ public class UuidCommand extends AbstractPlayerCommand {
 
         String inputName = ctx.joinArgs();
         if (inputName.length() > Username.MAX_LENGTH) {
-            ctx.warn(ctx.i18n("tooLong"));
+            ctx.warn(ctx.getLang().i18n("mc.player.username.tooLong"));
             return;
         }
         Username username = new Username(inputName);
         if (!username.isSupportedByMojangAPI()) {
-            ctx.warn(ctx.i18n("unsupportedSpecialCharacters"));
+            ctx.warn(ctx.getLang().i18n("mc.player.username.unsupportedSpecialCharacters"));
             return;
         }
 
@@ -50,13 +50,12 @@ public class UuidCommand extends AbstractPlayerCommand {
                 .onFailure(ex -> handleIOE(ex, ctx, username))
                 .onSuccess(uuidOpt -> processUUID(uuidOpt, ctx, username))
                 .build();
-
     }
 
     private static void handleIOE(Throwable ex, CommandContext ctx, Username username) {
         if (ex instanceof IOException) {
             log.error("IOE getting UUID from username " + username, ex);
-            ctx.err(ctx.i18n("mojangError"));
+            ctx.err(ctx.getLang().i18n("mc.external.mojang.error"));
             return;
         }
         throw new RuntimeException(ex);
@@ -64,7 +63,7 @@ public class UuidCommand extends AbstractPlayerCommand {
 
     private static void processUUID(Optional<UUID> uuidOpt, CommandContext ctx, Username username) {
         if (uuidOpt.isEmpty()) {
-            ctx.reply(ctx.i18n("usernameDoesNotExist"));
+            ctx.reply(ctx.getLang().i18n("mc.player.username.doesNotExist"));
             return;
         }
         constructReply(ctx, username, uuidOpt.get());
