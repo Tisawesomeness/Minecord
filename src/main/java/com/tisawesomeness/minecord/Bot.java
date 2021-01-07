@@ -324,12 +324,11 @@ public class Bot {
         if (config.getBotListConfig().isReceiveVotes()) {
             voteHandler.close();
         }
+        apiClient.close();
         for (JDA jda : shardManager.getShards()) {
-            OkHttpClient client = jda.getHttpClient();
-            client.connectionPool().evictAll();
-            client.dispatcher().executorService().shutdown();
             jda.shutdown();
         }
+        log.debug("Shutdown queued");
     }
 
     /**

@@ -67,4 +67,9 @@ public class APIClient {
         return connectionPool.connectionCount();
     }
 
+    public void close() {
+        connectionPool.evictAll();
+        dispatcher.executorService().shutdown();
+    }
+
 }
