@@ -1,9 +1,9 @@
 package com.tisawesomeness.minecord.mc.external;
 
 import com.tisawesomeness.minecord.mc.player.*;
+import com.tisawesomeness.minecord.testutil.mc.MockElectroidAPI;
 import com.tisawesomeness.minecord.util.network.URLUtils;
 
-import lombok.NonNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.DisplayName;
@@ -127,26 +127,6 @@ public class ElectroidAPITest {
             obj.put("cape", capeObj);
         }
         return obj;
-    }
-
-    private static class MockElectroidAPI extends ElectroidAPI {
-
-        private final Map<Username, String> usernameMap = new HashMap<>();
-        public void mapUsername(@NonNull Username username, @NonNull String response) {
-            usernameMap.put(username, response);
-        }
-        protected Optional<String> requestPlayer(@NonNull Username username) {
-            return Optional.ofNullable(usernameMap.get(username));
-        }
-
-        private final Map<UUID, String> uuidMap = new HashMap<>();
-        public void mapUuid(@NonNull UUID uuid, @NonNull String response) {
-            uuidMap.put(uuid, response);
-        }
-        protected Optional<String> requestPlayer(@NonNull UUID uuid) {
-            return Optional.ofNullable(uuidMap.get(uuid));
-        }
-
     }
 
 }

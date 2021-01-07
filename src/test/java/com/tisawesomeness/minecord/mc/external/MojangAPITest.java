@@ -4,10 +4,10 @@ import com.tisawesomeness.minecord.mc.player.NameChange;
 import com.tisawesomeness.minecord.mc.player.Profile;
 import com.tisawesomeness.minecord.mc.player.SkinType;
 import com.tisawesomeness.minecord.mc.player.Username;
+import com.tisawesomeness.minecord.testutil.mc.MockMojangAPI;
 import com.tisawesomeness.minecord.util.UUIDUtils;
 import com.tisawesomeness.minecord.util.network.URLUtils;
 
-import lombok.NonNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.DisplayName;
@@ -17,9 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -159,34 +157,6 @@ public class MojangAPITest {
     public void testNonExistentProfile() throws IOException {
         MojangAPI api = new MockMojangAPI();
         assertThat(api.getProfile(FAKE_UUID)).isEmpty();
-    }
-
-    private static class MockMojangAPI extends MojangAPI {
-
-        private final Map<Username, String> uuidMap = new HashMap<>();
-        public void mapUUID(@NonNull Username username, @NonNull String response) {
-            uuidMap.put(username, response);
-        }
-        protected Optional<String> requestUUID(@NonNull Username username) {
-            return Optional.ofNullable(uuidMap.get(username));
-        }
-
-        private final Map<UUID, String> nameHistoryMap = new HashMap<>();
-        public void mapNameHistory(@NonNull UUID uuid, @NonNull String response) {
-            nameHistoryMap.put(uuid, response);
-        }
-        protected Optional<String> requestNameHistory(@NonNull UUID uuid) {
-            return Optional.ofNullable(nameHistoryMap.get(uuid));
-        }
-
-        private final Map<UUID, String> profileMap = new HashMap<>();
-        public void mapProfile(@NonNull UUID uuid, @NonNull String response) {
-            profileMap.put(uuid, response);
-        }
-        protected Optional<String> requestProfile(@NonNull UUID uuid) {
-            return Optional.ofNullable(profileMap.get(uuid));
-        }
-
     }
 
 }

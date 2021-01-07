@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.command.Result;
+import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.testutil.runner.TestCommandRunner;
 import com.tisawesomeness.minecord.testutil.mc.TestMCLibrary;
 import com.tisawesomeness.minecord.testutil.mc.TestPlayerProvider;
@@ -93,6 +94,7 @@ public class UuidCommandIT {
                 .hasTriggeredCooldown()
                 .asEmbedReply()
                 .headerContains(TESTING_USERNAME)
+                .headerLinksToAnyOf(Player.getNameMCUrlFor(TESTING_USERNAME), Player.getNameMCUrlFor(TESTING_UUID))
                 .descriptionContains(UUIDUtils.toShortString(TESTING_UUID), UUIDUtils.toLongString(TESTING_UUID));
     }
 
@@ -106,6 +108,7 @@ public class UuidCommandIT {
                 .hasTriggeredCooldown()
                 .asEmbedReply()
                 .headerContains(SPACES_USERNAME)
+                .headerLinksToAnyOf(Player.getNameMCUrlFor(SPACES_USERNAME), Player.getNameMCUrlFor(SPACES_UUID))
                 .descriptionContains(UUIDUtils.toShortString(SPACES_UUID), UUIDUtils.toLongString(SPACES_UUID));
     }
 
