@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
-import static com.tisawesomeness.minecord.testutil.runner.TestContextAssert.assertThat;
+import static com.tisawesomeness.minecord.testutil.runner.CommandAssertions.assertThat;
 
 public class UuidCommandIT {
 

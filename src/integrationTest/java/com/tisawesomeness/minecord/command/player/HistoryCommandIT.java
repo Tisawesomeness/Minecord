@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static com.tisawesomeness.minecord.testutil.runner.TestContextAssert.assertThat;
+import static com.tisawesomeness.minecord.testutil.runner.CommandAssertions.assertThat;
 
 public class HistoryCommandIT {
 
