@@ -6,6 +6,7 @@ import lombok.NonNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.StringJoiner;
 
 public final class StringUtils {
     private StringUtils() {}
@@ -53,7 +54,8 @@ public final class StringUtils {
         }
 
         List<String> partitions = new ArrayList<>();
-        StringBuilder currentPartition = new StringBuilder(startingStr);
+        StringJoiner currentPartition = new StringJoiner(joiner);
+        currentPartition.add(startingStr);
 
         for (int i = 1; i < strings.size(); i++) {
             String str = strings.get(i);
@@ -63,12 +65,9 @@ public final class StringUtils {
             int lengthIfLineAdded = currentPartition.length() + str.length() + joiner.length();
             if (lengthIfLineAdded > maxLength) {
                 partitions.add(currentPartition.toString());
-                currentPartition = new StringBuilder();
-                // prevents adding a joiner (usually newline) at the start of a string
-            } else {
-                currentPartition.append(joiner);
+                currentPartition = new StringJoiner(joiner);
             }
-            currentPartition.append(str);
+            currentPartition.add(str);
         }
 
         // the leftover partition wasn't added in the earlier loop, add manually
