@@ -4,7 +4,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 /**
- * An enum with every possible skin model type
+ * An enum with every possible skin model type.
  */
 @RequiredArgsConstructor
 public enum SkinType {
@@ -22,7 +22,7 @@ public enum SkinType {
      */
     private final @NonNull String key;
     public @NonNull String getTranslationKey() {
-        return "mc.player.skinType." + key;
+        return "mc.player.skin." + key;
     }
 
 }

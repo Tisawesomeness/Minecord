@@ -60,7 +60,7 @@ public abstract class AbstractContext extends CommandContext {
     protected void sendMessage(@NonNull CharSequence text) {
         unsupported();
     }
-    protected void sendMessageRaw(@NonNull EmbedBuilder eb) {
+    protected void sendMessage(@NonNull MessageEmbed emb) {
         unsupported();
     }
     public void requestHelp() {

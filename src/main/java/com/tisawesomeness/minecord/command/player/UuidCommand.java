@@ -75,7 +75,7 @@ public class UuidCommand extends AbstractPlayerCommand {
                 MarkdownUtil.monospace(UUIDUtils.toShortString(uuid));
         String longUuid = MarkdownUtil.bold(lang.i18n("mc.player.uuid.long")) + ": " +
                 MarkdownUtil.monospace(UUIDUtils.toLongString(uuid));
-        String skinType = MarkdownUtil.bold(ctx.i18n("defaultSkinModel")) + ": " +
+        String skinType = MarkdownUtil.bold(lang.i18n("mc.player.skin.default")) + ": " +
                 lang.i18n(Player.getDefaultSkinTypeFor(uuid).getTranslationKey());
         String desc = shortUuid + "\n" + longUuid + "\n" + skinType;
         String nameMCUrl = Player.getNameMCUrlFor(uuid).toString();

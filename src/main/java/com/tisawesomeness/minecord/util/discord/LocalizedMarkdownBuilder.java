@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.util.discord;
 
-import com.google.common.base.CharMatcher;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
 import lombok.NonNull;

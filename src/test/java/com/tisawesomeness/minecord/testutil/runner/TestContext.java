@@ -74,11 +74,11 @@ public class TestContext extends AbstractContext {
         replies.add(text);
     }
     @Override
-    protected void sendMessageRaw(@NonNull EmbedBuilder eb) {
-        if (!eb.isValidLength()) {
-            throw new IllegalArgumentException(String.format("Embed length %d is too long!", eb.length()));
+    protected void sendMessage(@NonNull MessageEmbed emb) {
+        if (!emb.isSendable()) {
+            throw new IllegalArgumentException(String.format("Embed length %d is too long!", emb.getLength()));
         }
-        embedReplies.add(eb.build());
+        embedReplies.add(emb);
     }
     @Override
     public void requestHelp() {
@@ -92,8 +92,8 @@ public class TestContext extends AbstractContext {
         onUpdate();
     }
     @Override
-    public void replyRaw(@NonNull EmbedBuilder eb) {
-        sendMessageRaw(eb);
+    public void reply(@NonNull MessageEmbed emb) {
+        sendMessage(emb);
         result = Result.SUCCESS;
         onUpdate();
     }

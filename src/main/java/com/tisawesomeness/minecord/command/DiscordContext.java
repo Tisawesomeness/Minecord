@@ -52,11 +52,11 @@ public class DiscordContext extends CommandContext {
     protected void sendMessage(@NonNull CharSequence text) {
         e.getChannel().sendMessage(text).queue();
     }
-    protected void sendMessageRaw(@NonNull EmbedBuilder eb) {
-        e.getChannel().sendMessage(eb.build()).queue();
+    protected void sendMessage(@NonNull MessageEmbed emb) {
+        e.getChannel().sendMessage(emb).queue();
     }
     public void requestHelp() {
-        sendMessageRaw(brand(HelpCommand.showHelp(this, cmd)));
+        sendMessage(brand(HelpCommand.showHelp(this, cmd)).build());
     }
 
     public void triggerCooldown() {

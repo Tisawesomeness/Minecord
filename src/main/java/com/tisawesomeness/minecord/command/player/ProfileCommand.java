@@ -1,181 +1,105 @@
 package com.tisawesomeness.minecord.command.player;
 
+import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.util.DateUtils;
-import com.tisawesomeness.minecord.util.MessageUtils;
-import com.tisawesomeness.minecord.util.NameUtils;
-import com.tisawesomeness.minecord.util.RequestUtils;
+import com.tisawesomeness.minecord.mc.player.Player;
+import com.tisawesomeness.minecord.util.*;
 
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.net.URL;
+import java.util.*;
 
-public class ProfileCommand extends AbstractPlayerCommand {
+@Slf4j
+public class ProfileCommand extends BasePlayerCommand {
 
     public @NonNull String getId() {
         return "profile";
     }
 
-    public void run(String[] args, CommandContext ctx) {
+    public void onSuccessfulPlayer(CommandContext ctx, Player player) {
+        Lang lang = ctx.getLang();
 
-        // No arguments message
-        if (args.length == 0) {
-            ctx.showHelp();
-            return;
-        }
+        String title = ctx.i18nf("title", player.getUsername());
+        String nameMCUrl = player.getNameMCUrl().toString();
+        String avatarUrl = player.getAvatarUrl().toString();
+        String bodyUrl = player.getBodyUrl().toString();
 
-        // UUID --> Username
-        ctx.triggerCooldown();
-        String player = args[0];
-        if (player.matches(NameUtils.uuidRegex)) {
-            player = NameUtils.getName(player);
-
-            // Check for errors
-            if (player == null) {
-                String m = "The Mojang API could not be reached." +
-                    "\n" + "Are you sure that UUID exists?";
-                ctx.possibleErr(m);
-                return;
-            } else if (!player.matches(NameUtils.playerRegex)) {
-                ctx.err("The API responded with an error:\n" + player);
-                return;
-            }
-        
-        // Username + Date --> UUID --> Username
-        } else if (args.length > 1) {
-            // Parse date argument
-            long timestamp = DateUtils.getTimestamp(Arrays.copyOfRange(args, 1, args.length));
-            if (timestamp == -1) {
-                ctx.showHelp();
-                return;
-            }
-
-            // Get the UUID
-            String uuid = NameUtils.getUUID(player, timestamp);
-
-            // Check for errors
-            if (uuid == null) {
-                String m = ":x: The Mojang API could not be reached." +
-                        "\n" +"Are you sure that username exists?" +
-                        "\n" + "Usernames are case-sensitive.";
-                ctx.possibleErr(m);
-                return;
-            } else if (!uuid.matches(NameUtils.uuidRegex)) {
-                ctx.err("The API responded with an error:\n" + uuid);
-                return;
-            }
-
-            uuid = uuid.replace("-", "").toLowerCase();
-            player = NameUtils.getName(uuid);
-
-            // Check for errors
-            if (player == null) {
-                String m = ":x: The Mojang API could not be reached." +
-                        "\n" +"Are you sure that username exists?" +
-                        "\n" + "Usernames are case-sensitive.";
-                ctx.possibleErr(m);
-                return;
-            } else if (!player.matches(NameUtils.playerRegex)) {
-                ctx.err("The API responded with an error:\n" + player);
-                return;
-            }
-        }
-
-        // Get profile info
-        JSONArray payload = new JSONArray();
-        payload.put(player);
-        String request = RequestUtils.post("https://api.mojang.com/profiles/minecraft", payload.toString());
-        if (request == null) {
-            ctx.err("The Mojang API could not be reached.");
-            return;
-        }
-        JSONObject profile = new JSONArray(request).getJSONObject(0);
-        String uuid = profile.getString("id");
-        boolean legacy = profile.optBoolean("legacy");
-        boolean demo = profile.optBoolean("demo");
-
-        // Image and NameMC URLs
-        String avatarUrl = "https://crafatar.com/avatars/" + uuid;
-        String bodyUrl = "https://crafatar.com/renders/body/" + uuid;
-        String skinUrl = "https://crafatar.com/skins/" + uuid;
-        String nameUrl = "https://namemc.com/profile/" + player;
-
-        // Get cape
-        String cape;
-        if (NameUtils.mojangUUIDs.contains(uuid)) {
-            // Mojang cape
-            cape = MarkdownUtil.maskedLink("Open Image", "https://minecord.github.io/capes/mojang.png");
-        } else {
-            // Other minecraft capes
-            String url = "https://crafatar.com/capes/" + uuid;
-            if (RequestUtils.checkURL(url)) {
-                cape = MarkdownUtil.maskedLink("Open Image", url);
-            } else {
-                cape = "No cape.";
-            }
-        }
-
-        // Fetch name history
-        String historyUrl = "https://api.mojang.com/user/profiles/" + uuid + "/names";
-        request = RequestUtils.get(historyUrl);
-        if (request == null) {
-            ctx.err("The Mojang API could not be reached.");
-            return;
-        }
-
-        // Loop over each name change
-        JSONArray names = new JSONArray(request);
-        ArrayList<String> lines = new ArrayList<String>();
-        for (int i = 0; i < names.length(); i++) {
-
-            // Get info
-            JSONObject change = names.getJSONObject(i);
-            String name = change.getString("name");
-            String date;
-            if (change.has("changedToAt")) {
-                date = DateUtils.getDateAgoShort(change.getLong("changedToAt"));
-            } else {
-                date = "Original";
-            }
-
-            // Add to lines in reverse
-            lines.add(0, String.format("**%d.** `%s` | %s", i + 1, name, date));
-        }
+        String desc = constructDescription(ctx, player);
+        String skinInfo = constructSkinInfo(ctx, player);
+        String capeInfo = player.getProfile().getCapeUrl()
+                .map(url -> boldMaskedLink(ctx.i18n("capeLink"), url))
+                .orElseGet(() -> ctx.i18n("noCape"));
+        String accountInfo = constructAccountInfo(ctx, player);
 
         EmbedBuilder eb = new EmbedBuilder()
-            .setAuthor("Profile for " + player, nameUrl, avatarUrl)
-            .setThumbnail(bodyUrl)
-            .setDescription(String.format("Short UUID: `%s`\nLong UUID: `%s`", uuid, NameUtils.formatUUID(uuid)))
-            .addField("Skin", MarkdownUtil.maskedLink("Open Image", skinUrl), true)
-            .addField("Cape", cape, true)
-            .addField("Account Info", String.format("Legacy: `%s`\nDemo: `%s`", boolToString(legacy), boolToString(demo)), true);
+                .setColor(Bot.color)
+                .setAuthor(title, nameMCUrl, avatarUrl);
+        MessageEmbed baseEmbed = eb.build();
+        eb.setThumbnail(bodyUrl)
+                .setDescription(desc)
+                .addField(lang.i18n("mc.player.skin.skin"), skinInfo, true)
+                .addField(lang.i18n("mc.player.cape.cape"), capeInfo, true)
+                .addField(ctx.i18n("account"), accountInfo, true);
 
-        // Truncate until 6000 char limit reached
-        int chars = MessageUtils.getTotalChars(lines);
-        boolean truncated = false;
-        while (chars > 6000 - 4 - eb.length()) {
-            truncated = true;
-            lines.remove(lines.size() - 1);
-            chars = MessageUtils.getTotalChars(lines);
-        }
-        if (truncated) {
-            lines.add("...");
-        }
-        // Split into fields, avoiding 1024 field char limit
-        for (String field : MessageUtils.splitLinesByLength(lines, 1024)) {
-            eb.addField("Name History", field, false);
-        }
+        String nameHistoryTitle = lang.i18n("mc.player.history.nameHistory");
+        List<String> parts = buildHistoryPartitions(ctx, player);
 
-        ctx.reply(eb);
+        MessageEmbed mainEmbed = DiscordUtils.addFieldsUntilFullNoCopy(eb, nameHistoryTitle, parts);
+        ctx.reply(mainEmbed);
+        List<MessageEmbed> additionalEmbeds = DiscordUtils.splitEmbeds(baseEmbed, nameHistoryTitle, parts, "\n");
+        for (MessageEmbed emb : additionalEmbeds) {
+            ctx.reply(emb);
+        }
     }
 
-    private static String boolToString(boolean bool) {
-        return bool ? "True" : "False";
+    private static @NonNull String constructDescription(CommandContext ctx, Player player) {
+        Lang lang = ctx.getLang();
+        String usernameLength = MarkdownUtil.bold(ctx.i18n("lettersInName")) + ": " +
+                MarkdownUtil.monospace(String.valueOf(player.getUsername().length()));
+        UUID uuid = player.getUuid();
+        String shortUuid = MarkdownUtil.bold(lang.i18n("mc.player.uuid.shortUuid")) + ": " +
+                MarkdownUtil.monospace(UUIDUtils.toShortString(uuid));
+        String longUuid = MarkdownUtil.bold(lang.i18n("mc.player.uuid.longUuid")) + ": " +
+                MarkdownUtil.monospace(UUIDUtils.toLongString(uuid));
+        String skinType = MarkdownUtil.bold(lang.i18n("mc.player.skin.model")) + ": " +
+                lang.i18n(player.getSkinType().getTranslationKey());
+        String defaultModel = MarkdownUtil.bold(lang.i18n("mc.player.skin.default")) + ": " +
+                lang.i18n(player.getDefaultSkinType().getTranslationKey());
+        return usernameLength + "\n" + shortUuid + "\n" + longUuid + "\n" + skinType + "\n" + defaultModel;
+    }
+    private static @NonNull String constructSkinInfo(CommandContext ctx, Player player) {
+        Lang lang = ctx.getLang();
+        String skinLink = boldMaskedLink(ctx.i18n("skinLink"), player.getSkinUrl());
+        String custom = MarkdownUtil.bold(lang.i18n("mc.player.skin.custom")) + ": " +
+                lang.localize(player.hasCustomSkin());
+        String skinHistoryLink = boldMaskedLink(ctx.i18n("skinHistoryLink"), player.getMCSkinHistoryUrl());
+        return skinLink + "\n" + custom + "\n" + skinHistoryLink;
+    }
+    private static @NonNull String constructAccountInfo(CommandContext ctx, Player player) {
+        Lang lang = ctx.getLang();
+        String legacy = MarkdownUtil.bold(ctx.i18n("legacy")) + ": " +
+                lang.localize(player.getProfile().isLegacy());
+        String demo = MarkdownUtil.bold(ctx.i18n("demo")) + ": " +
+                lang.localize(player.getProfile().isDemo());
+        String invalid = MarkdownUtil.bold(ctx.i18n("invalid")) + ": " +
+                lang.localize(!player.getUsername().isValid());
+        return legacy + "\n" + demo + "\n" + invalid;
+    }
+
+    private static String boldMaskedLink(String text, URL url) {
+        return MarkdownUtil.bold(MarkdownUtil.maskedLink(text, url.toString()));
+    }
+
+    private static List<String> buildHistoryPartitions(CommandContext ctx, Player player) {
+        List<String> nameHistoryLines = buildHistoryLines(ctx, TimeUtils.Format.DATE, player.getNameHistory());
+        List<String> partitions = StringUtils.partitionLinesByLength(nameHistoryLines, MessageEmbed.VALUE_MAX_LENGTH);
+        return new LinkedList<>(partitions);
     }
 
 }

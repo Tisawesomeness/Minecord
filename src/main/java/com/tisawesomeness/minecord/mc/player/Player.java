@@ -65,6 +65,16 @@ public class Player implements Comparable<Player> {
     }
 
     /**
+     * @return True if the player has a custom skin
+     */
+    public boolean hasCustomSkin() {
+        if (getDefaultSkinType() == SkinType.STEVE) {
+            return !getSkinUrl().sameFile(STEVE_SKIN_URL);
+        }
+        return !getSkinUrl().sameFile(ALEX_SKIN_URL);
+    }
+
+    /**
      * Gets the URL to the player's custom skin texture, or the default steve or alex texture if no custom skin is set.
      * @return The URL where Mojang hosts the skin texture
      */

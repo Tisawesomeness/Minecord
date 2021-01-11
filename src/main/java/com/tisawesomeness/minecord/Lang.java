@@ -165,6 +165,15 @@ public enum Lang {
         return Splitter.on(',').omitEmptyStrings().splitToList(i18n(key));
     }
 
+    /**
+     * Localizes a boolean value.
+     * @param bool The boolean
+     * @return "True" or "False" in this language
+     */
+    public @NonNull String localize(boolean bool) {
+        return bool ? i18n("general.true") : i18n("general.false");
+    }
+
     @Override
     public String toString() {
         return code;

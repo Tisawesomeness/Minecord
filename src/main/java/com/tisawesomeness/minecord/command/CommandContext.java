@@ -79,9 +79,9 @@ public abstract class CommandContext {
     /**
      * Sends a message to the sender of this command with an embed. This does not keep track of results.
      * <br>The embed is sent with no modifications.
-     * @param eb The embed builder to be built and sent. Must satisfy all ebmed length limits.
+     * @param emb The embed to be sent. Must satisfy all embed length limits.
      */
-    protected abstract void sendMessageRaw(@NonNull EmbedBuilder eb);
+    protected abstract void sendMessage(@NonNull MessageEmbed emb);
     /**
      * Sends the current command's help message to the sender of this command. This does not keep track of results.
      */
@@ -98,19 +98,27 @@ public abstract class CommandContext {
     /**
      * Replies to the sender of this command with an embed.
      * <br>The embed is sent with no modifications.
-     * @param eb The embed builder to be built and sent. Must satisfy all ebmed length limits.
+     * @param eb The embed builder to be built and sent. Must satisfy all embed length limits.
      */
     public void replyRaw(@NonNull EmbedBuilder eb) {
-        sendMessageRaw(eb);
-        commandResult(Result.SUCCESS);
+        reply(eb.build());
     }
     /**
      * Replies to the sender of this command with an embed.
      * <br>The bot color and a random announcement (if enabled) are added.
-     * @param eb The embed builder to be built and sent. Must satisfy all ebmed length limits.
+     * @param eb The embed builder to be built and sent. Must satisfy all embed length limits.
      */
     public void reply(@NonNull EmbedBuilder eb) {
         replyRaw(brand(eb));
+    }
+    /**
+     * Replies to the sender of this command with an embed.
+     * <br>The bot color and a random announcement (if enabled) are added.
+     * @param emb The embed to be sent. Must satisfy all embed length limits.
+     */
+    public void reply(@NonNull MessageEmbed emb) {
+        sendMessage(emb);
+        commandResult(Result.SUCCESS);
     }
     /**
      * Replies with the current command's help.
