@@ -99,47 +99,9 @@ public class CommandExecutor {
         try {
             c.run(ctx.getArgs(), ctx);
         } catch (Exception ex) {
-            handle(ex, ctx);
+            ctx.handleException(ex);
             pushResult(c, Result.EXCEPTION);
         }
-    }
-
-    /**
-     * Handles an uncaught exception thrown by a command by replying to the user.
-     * Users should <b>never</b> see this, even if an external API messed up.
-     * Treat all uncaught exceptions as programming failures.
-     * @param ex The exception that was thrown
-     * @param ctx The context of the command
-     */
-    public static void handle(Throwable ex, CommandContext ctx) {
-        log.error("Uncaught exception for command execution " + ctx, ex);
-        String unexpected = "There was an unexpected exception: " + MarkdownUtil.monospace(ex.toString());
-        String errorMessage = Result.EXCEPTION.addEmote(unexpected, Lang.getDefault());
-        if (ctx.getConfig().getFlagConfig().isDebugMode()) {
-            errorMessage += buildStackTrace(ex);
-            // Not guaranteed to escape properly, but since users should never see exceptions, it's not necessary
-            if (errorMessage.length() >= Message.MAX_CONTENT_LENGTH) {
-                errorMessage = errorMessage.substring(0, Message.MAX_CONTENT_LENGTH - 3) + "```";
-            }
-        }
-        ctx.sendMessage(errorMessage);
-        ctx.log(errorMessage);
-    }
-    private static String buildStackTrace(Throwable ex) {
-        StringBuilder sb = new StringBuilder();
-        for (StackTraceElement ste : ex.getStackTrace()) {
-            sb.append(ste);
-            String className = ste.getClassName();
-            if (className.contains("net.dv8tion") || className.contains("com.neovisionaries")) {
-                sb.append("...");
-                break;
-            }
-            sb.append("\n");
-        }
-        if (sb.charAt(sb.length() - 1) == '\n') {
-            sb.setLength(sb.length() - 1);
-        }
-        return MarkdownUtil.codeblock(sb.toString());
     }
 
     /**

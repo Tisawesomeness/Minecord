@@ -11,6 +11,7 @@ import com.tisawesomeness.minecord.mc.MCLibrary;
 import com.tisawesomeness.minecord.util.concurrent.FutureCallback;
 
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
@@ -19,6 +20,7 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import java.text.MessageFormat;
 import java.util.Arrays;
@@ -34,6 +36,7 @@ import java.util.stream.Collectors;
  * <br>Normally, this is a Discord {@link net.dv8tion.jda.api.entities.MessageChannel}, which may or may not be a DM.
  * <br>Commands can expect all methods to work in any non-testing environment.
  */
+@Slf4j
 public abstract class CommandContext {
 
     /**
@@ -359,14 +362,56 @@ public abstract class CommandContext {
     public abstract void log(@NonNull MessageEmbed m);
 
     /**
+     * Handles an uncaught exception thrown by a command by replying to the user.
+     * Users should <b>never</b> see this, even if an external API messed up.
+     * Treat all uncaught exceptions as programming failures.
+     * @param ex The exception that was thrown
+     */
+    public void handleException(Throwable ex) {
+        try {
+            log.error("Uncaught exception for command execution " + this, ex);
+            String unexpected = "There was an unexpected exception: " + MarkdownUtil.monospace(ex.toString());
+            String errorMessage = Result.EXCEPTION.addEmote(unexpected, Lang.getDefault());
+            if (getConfig().getFlagConfig().isDebugMode()) {
+                errorMessage += buildStackTrace(ex);
+                // Not guaranteed to escape properly, but since users should never see exceptions, it's not necessary
+                if (errorMessage.length() >= Message.MAX_CONTENT_LENGTH) {
+                    errorMessage = errorMessage.substring(0, Message.MAX_CONTENT_LENGTH - 3) + "```";
+                }
+            }
+            sendMessage(errorMessage);
+            log(errorMessage);
+        } catch (Exception ex2) {
+            log.error("Somehow, there was an exception processing an uncaught exception", ex2);
+        } finally {
+            commandResult(Result.EXCEPTION);
+        }
+    }
+    private static String buildStackTrace(Throwable ex) {
+        StringBuilder sb = new StringBuilder();
+        for (StackTraceElement ste : ex.getStackTrace()) {
+            sb.append(ste);
+            String className = ste.getClassName();
+            if (className.contains("net.dv8tion") || className.contains("com.neovisionaries")) {
+                sb.append("...");
+                break;
+            }
+            sb.append("\n");
+        }
+        if (sb.charAt(sb.length() - 1) == '\n') {
+            sb.setLength(sb.length() - 1);
+        }
+        return MarkdownUtil.codeblock(sb.toString());
+    }
+
+    /**
      * Creates a new callback builder that automatically replies if an uncaught exception is thrown.
      * @param future The future to add callbacks to
      * @param <T> The type of the future
      * @return A callback builder with a preset uncaught function
      */
     public <T> FutureCallback.Builder<T> newCallbackBuilder(CompletableFuture<T> future) {
-        return FutureCallback.builder(future)
-                .onUncaught(ex -> CommandExecutor.handle(ex, this));
+        return FutureCallback.builder(future).onUncaught(this::handleException);
     }
 
     /**

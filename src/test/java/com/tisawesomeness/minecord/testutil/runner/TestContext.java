@@ -13,6 +13,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import org.junit.jupiter.api.Assertions;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -161,6 +162,11 @@ public class TestContext extends AbstractContext {
     @Override
     public void log(@NonNull MessageEmbed m) {
         System.out.println(m.toData());
+    }
+
+    @Override
+    public void handleException(Throwable ex) {
+        Assertions.fail(ex);
     }
 
     @Override
