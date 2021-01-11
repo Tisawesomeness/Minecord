@@ -103,7 +103,15 @@ public class CommandExecutor {
             pushResult(c, Result.EXCEPTION);
         }
     }
-    private static void handle(Exception ex, CommandContext ctx) {
+
+    /**
+     * Handles an uncaught exception thrown by a command by replying to the user.
+     * Users should <b>never</b> see this, even if an external API messed up.
+     * Treat all uncaught exceptions as programming failures.
+     * @param ex The exception that was thrown
+     * @param ctx The context of the command
+     */
+    public static void handle(Throwable ex, CommandContext ctx) {
         log.error("Uncaught exception for command execution " + ctx, ex);
         String unexpected = "There was an unexpected exception: " + MarkdownUtil.monospace(ex.toString());
         String errorMessage = Result.EXCEPTION.addEmote(unexpected, Lang.getDefault());
@@ -117,7 +125,7 @@ public class CommandExecutor {
         ctx.sendMessage(errorMessage);
         ctx.log(errorMessage);
     }
-    private static String buildStackTrace(Exception ex) {
+    private static String buildStackTrace(Throwable ex) {
         StringBuilder sb = new StringBuilder();
         for (StackTraceElement ste : ex.getStackTrace()) {
             sb.append(ste);
@@ -184,7 +192,7 @@ public class CommandExecutor {
      */
     public int getUses(@NonNull Module m) {
         return commandUses.stream()
-                .filter(cm -> cm.getModule() == Module.DISCORD)
+                .filter(cm -> cm.getModule() == m)
                 .mapToInt(this::getUses)
                 .sum();
     }

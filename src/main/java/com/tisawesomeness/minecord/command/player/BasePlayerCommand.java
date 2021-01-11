@@ -52,7 +52,7 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
             UUID uuid = parsedUuidOpt.get();
 
             ctx.triggerCooldown();
-            FutureCallback.builder(provider.getPlayer(uuid))
+            ctx.newCallbackBuilder(provider.getPlayer(uuid))
                     .onFailure(ex -> handleIOE(ex, ctx, "IOE getting player from UUID " + uuid))
                     .onSuccess(playerOpt ->
                             processPlayer(playerOpt, ctx, "mc.player.uuid.doesNotExist"))
@@ -71,7 +71,7 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
         }
 
         ctx.triggerCooldown();
-        FutureCallback.builder(provider.getPlayer(username))
+        ctx.newCallbackBuilder(provider.getPlayer(username))
                 .onFailure(ex -> handleIOE(ex, ctx, "IOE getting player from username " + username))
                 .onSuccess(playerOpt ->
                         processPlayer(playerOpt, ctx, "mc.player.username.doesNotExist"))

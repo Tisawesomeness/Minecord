@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.util.concurrent;
 
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.Nullable;
 import java.util.concurrent.CompletableFuture;
@@ -9,6 +10,7 @@ import java.util.function.Consumer;
 /**
  * A utility class for adding callbacks when a {@link CompletableFuture} completes.
  */
+@Slf4j
 public final class FutureCallback {
     private FutureCallback() {}
 
@@ -32,6 +34,7 @@ public final class FutureCallback {
         private final @NonNull CompletableFuture<T> future;
         private @Nullable Consumer<? super T> successFn;
         private @Nullable Consumer<? super Throwable> errorFn;
+        private @Nullable Consumer<? super Throwable> uncaughtFn;
 
         private Builder(@NonNull CompletableFuture<T> future) {
             this.future = future;
@@ -55,6 +58,15 @@ public final class FutureCallback {
             this.errorFn = errorFn;
             return this;
         }
+        /**
+         * Sets the uncaught callback. Defaults to simply logging the exception.
+         * @param uncaughtFn The function to run when the success or error function throw an uncaught exception
+         * @return This builder
+         */
+        public Builder<T> onUncaught(@Nullable Consumer<? super Throwable> uncaughtFn) {
+            this.uncaughtFn = uncaughtFn;
+            return this;
+        }
 
         /**
          * Adds this builder's callbacks to the provided future.
@@ -66,10 +78,32 @@ public final class FutureCallback {
         private void onComplete(T val, Throwable err) {
             if (err == null) {
                 if (successFn != null) {
-                    successFn.accept(val);
+                    trySuccess(val);
                 }
             } else if (errorFn != null) {
+                tryError(err);
+            }
+        }
+        private void trySuccess(T val) {
+            try {
+                successFn.accept(val);
+            } catch (Throwable ex) {
+                if (uncaughtFn != null) {
+                    uncaughtFn.accept(ex);
+                } else {
+                    log.error("Uncaught exception in success callback", ex);
+                }
+            }
+        }
+        private void tryError(Throwable err) {
+            try {
                 errorFn.accept(err);
+            } catch (Throwable ex) {
+                if (uncaughtFn != null) {
+                    uncaughtFn.accept(ex);
+                } else {
+                    log.error("Uncaught exception in error callback", ex);
+                }
             }
         }
     }

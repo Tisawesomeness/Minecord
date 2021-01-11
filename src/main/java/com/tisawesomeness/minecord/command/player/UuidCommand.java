@@ -46,7 +46,7 @@ public class UuidCommand extends AbstractPlayerCommand {
     }
     private static void fireUUIDRequest(CommandContext ctx, Username username) {
         CompletableFuture<Optional<UUID>> futureUUID = ctx.getMCLibrary().getPlayerProvider().getUUID(username);
-        FutureCallback.builder(futureUUID)
+        ctx.newCallbackBuilder(futureUUID)
                 .onFailure(ex -> handleIOE(ex, ctx, username))
                 .onSuccess(uuidOpt -> processUUID(uuidOpt, ctx, username))
                 .build();

@@ -8,6 +8,7 @@ import com.tisawesomeness.minecord.database.dao.DbChannel;
 import com.tisawesomeness.minecord.database.dao.DbGuild;
 import com.tisawesomeness.minecord.database.dao.DbUser;
 import com.tisawesomeness.minecord.mc.MCLibrary;
+import com.tisawesomeness.minecord.util.concurrent.FutureCallback;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -25,6 +26,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
@@ -355,6 +357,17 @@ public abstract class CommandContext {
      * Logs a message to the logging channel.
      */
     public abstract void log(@NonNull MessageEmbed m);
+
+    /**
+     * Creates a new callback builder that automatically replies if an uncaught exception is thrown.
+     * @param future The future to add callbacks to
+     * @param <T> The type of the future
+     * @return A callback builder with a preset uncaught function
+     */
+    public <T> FutureCallback.Builder<T> newCallbackBuilder(CompletableFuture<T> future) {
+        return FutureCallback.builder(future)
+                .onUncaught(ex -> CommandExecutor.handle(ex, this));
+    }
 
     /**
      * @return The user ID
