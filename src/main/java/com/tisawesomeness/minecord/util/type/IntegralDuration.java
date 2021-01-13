@@ -1,5 +1,7 @@
 package com.tisawesomeness.minecord.util.type;
 
+import com.tisawesomeness.minecord.lang.Localizable;
+
 import com.google.common.base.Preconditions;
 import lombok.*;
 
@@ -10,10 +12,11 @@ import java.util.*;
 /**
  * A fixed length of time consisting of a whole number of specific time unit, such as "8 seconds" or "42 days".
  * Mixed time quantities such as "4 hours and 23 minutes" cannot be represented.
+ * <br>Localization treats this duration as "x days ago".
  */
 @EqualsAndHashCode
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public class IntegralDuration implements Comparable<IntegralDuration> {
+public class IntegralDuration implements Comparable<IntegralDuration>, Localizable {
     /**
      * Constant for a duration of zero.
      */
@@ -22,7 +25,7 @@ public class IntegralDuration implements Comparable<IntegralDuration> {
     /**
      * The unit used to convey the length of this duration.
      */
-    @Getter private final @NonNull ChronoUnit unit;
+    @Getter private final ChronoUnit unit;
     /**
      * The quantity of this duration's unit. May be zero or negative.
      */
@@ -34,7 +37,7 @@ public class IntegralDuration implements Comparable<IntegralDuration> {
      * @param value The quantity of time defined in terms of {@code unit}, may be zero or negative
      * @return The created IntegralDuration
      */
-    public static IntegralDuration fromUnit(@NonNull ChronoUnit unit, long value) {
+    public static IntegralDuration fromUnit(ChronoUnit unit, long value) {
         return new IntegralDuration(unit, value);
     }
     /**
@@ -73,6 +76,17 @@ public class IntegralDuration implements Comparable<IntegralDuration> {
         return value == 0;
     }
 
+    public IntegralDuration toUnit(ChronoUnit unit) {
+        if (isZero()) {
+            return ZERO;
+        }
+        long value = toDuration().dividedBy(unit.getDuration());
+        if (value == 0) {
+            return ZERO;
+        }
+        return fromUnit(unit, value);
+    }
+
     /**
      * @return This IntegralDuration as an equivalent Duration
      */
@@ -81,6 +95,33 @@ public class IntegralDuration implements Comparable<IntegralDuration> {
             return Duration.ZERO;
         }
         return unit.getDuration().multipliedBy(value);
+    }
+
+    public @NonNull String getTranslationKey() {
+        if (isZero()) {
+            return "general.justNow";
+        }
+        switch (unit) {
+            case DAYS:
+                return "general.daysAgo";
+            case HOURS:
+                return "general.hoursAgo";
+            case MINUTES:
+                return "general.minutesAgo";
+            case SECONDS:
+                return "general.secondsAgo";
+        }
+        if (unit.compareTo(ChronoUnit.DAYS) > 0) {
+            return "general.daysAgo";
+        }
+        return "general.justNow";
+    }
+
+    public Object[] getTranslationArgs() {
+        if (unit.compareTo(ChronoUnit.DAYS) > 0) {
+            return new Object[]{toDuration().dividedBy(unit.getDuration())};
+        }
+        return new Object[]{value};
     }
 
     /**
@@ -99,4 +140,5 @@ public class IntegralDuration implements Comparable<IntegralDuration> {
     public String toString() {
         return String.format("IntegralDuration(%d %s)", value, unit.toString().toLowerCase());
     }
+
 }

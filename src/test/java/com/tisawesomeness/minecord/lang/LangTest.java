@@ -1,4 +1,6 @@
-package com.tisawesomeness.minecord;
+package com.tisawesomeness.minecord.lang;
+
+import com.tisawesomeness.minecord.lang.Lang;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

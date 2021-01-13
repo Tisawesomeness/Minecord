@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.command;
 
-import com.tisawesomeness.minecord.Lang;
+import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.command.admin.BanCommand;
 import com.tisawesomeness.minecord.command.admin.DebugCommand;
 import com.tisawesomeness.minecord.command.admin.DemoteCommand;

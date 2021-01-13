@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.command;
 
-import com.tisawesomeness.minecord.Lang;
+import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.config.ConfigReader;
 import com.tisawesomeness.minecord.config.serial.Config;
 

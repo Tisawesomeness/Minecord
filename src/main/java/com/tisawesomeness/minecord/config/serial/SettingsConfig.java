@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.config.serial;
 
-import com.tisawesomeness.minecord.Lang;
+import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.setting.impl.PrefixSetting;
 import com.tisawesomeness.minecord.util.type.Verification;
 

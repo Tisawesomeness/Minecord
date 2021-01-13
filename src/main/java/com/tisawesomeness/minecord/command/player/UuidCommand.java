@@ -1,11 +1,10 @@
 package com.tisawesomeness.minecord.command.player;
 
-import com.tisawesomeness.minecord.Lang;
+import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.UUIDUtils;
-import com.tisawesomeness.minecord.util.concurrent.FutureCallback;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;

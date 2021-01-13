@@ -1,4 +1,9 @@
-package com.tisawesomeness.minecord.util.discord;
+package com.tisawesomeness.minecord.lang;
+
+import com.tisawesomeness.minecord.util.discord.Codeblock;
+import com.tisawesomeness.minecord.util.discord.MarkdownAction;
+import com.tisawesomeness.minecord.util.discord.MaskedLink;
+import com.tisawesomeness.minecord.util.discord.SimpleMarkdownAction;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
@@ -51,13 +56,14 @@ public class LocalizedMarkdownBuilder {
 
     /**
      * Bolds a specific part of the localized message.
-     * If no format fields are provided, the markdown will be applied to the argument given by the index no matter what.
-     * If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If no format fields are provided, the markdown will always be applied to the argument given by the index.
+     * <br>If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If the index is too high, nothing happens.
      * @param index The index of the argument provided to this builder in
      *              {@link LocalizedMarkdownBuilder#LocalizedMarkdownBuilder(MessageFormat, Object...)}
      * @param fields A possibly-empty list of fields to match, only NumberFormat and DateFormat fields are considered
      * @return This builder, useful for chaining
-     * @throws IllegalArgumentException If the index is not within the range of this builder's arguments
+     * @throws IllegalArgumentException If the index is negative
      * @see NumberFormat.Field
      * @see DateFormat.Field
      */
@@ -67,13 +73,14 @@ public class LocalizedMarkdownBuilder {
 
     /**
      * Italicizes a specific part of the localized message.
-     * If no format fields are provided, the markdown will be applied to the argument given by the index no matter what.
-     * If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If no format fields are provided, the markdown will always be applied to the argument given by the index.
+     * <br>If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If the index is too high, nothing happens.
      * @param index The index of the argument provided to this builder in
      *              {@link LocalizedMarkdownBuilder#LocalizedMarkdownBuilder(MessageFormat, Object...)}
      * @param fields A possibly-empty list of fields to match, only NumberFormat and DateFormat fields are considered
      * @return This builder, useful for chaining
-     * @throws IllegalArgumentException If the index is not within the range of this builder's arguments
+     * @throws IllegalArgumentException If the index is negative
      * @see NumberFormat.Field
      * @see DateFormat.Field
      */
@@ -83,13 +90,14 @@ public class LocalizedMarkdownBuilder {
 
     /**
      * Underlines a specific part of the localized message.
-     * If no format fields are provided, the markdown will be applied to the argument given by the index no matter what.
-     * If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If no format fields are provided, the markdown will always be applied to the argument given by the index.
+     * <br>If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If the index is too high, nothing happens.
      * @param index The index of the argument provided to this builder in
      *              {@link LocalizedMarkdownBuilder#LocalizedMarkdownBuilder(MessageFormat, Object...)}
      * @param fields A possibly-empty list of fields to match, only NumberFormat and DateFormat fields are considered
      * @return This builder, useful for chaining
-     * @throws IllegalArgumentException If the index is not within the range of this builder's arguments
+     * @throws IllegalArgumentException If the index is negative
      * @see NumberFormat.Field
      * @see DateFormat.Field
      */
@@ -99,13 +107,14 @@ public class LocalizedMarkdownBuilder {
 
     /**
      * Strikes through a specific part of the localized message.
-     * If no format fields are provided, the markdown will be applied to the argument given by the index no matter what.
-     * If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If no format fields are provided, the markdown will always be applied to the argument given by the index.
+     * <br>If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If the index is too high, nothing happens.
      * @param index The index of the argument provided to this builder in
      *              {@link LocalizedMarkdownBuilder#LocalizedMarkdownBuilder(MessageFormat, Object...)}
      * @param fields A possibly-empty list of fields to match, only NumberFormat and DateFormat fields are considered
      * @return This builder, useful for chaining
-     * @throws IllegalArgumentException If the index is not within the range of this builder's arguments
+     * @throws IllegalArgumentException If the index is negative
      * @see NumberFormat.Field
      * @see DateFormat.Field
      */
@@ -115,13 +124,14 @@ public class LocalizedMarkdownBuilder {
 
     /**
      * Spoilers a specific part of the localized message.
-     * If no format fields are provided, the markdown will be applied to the argument given by the index no matter what.
-     * If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If no format fields are provided, the markdown will always be applied to the argument given by the index.
+     * <br>If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If the index is too high, nothing happens.
      * @param index The index of the argument provided to this builder in
      *              {@link LocalizedMarkdownBuilder#LocalizedMarkdownBuilder(MessageFormat, Object...)}
      * @param fields A possibly-empty list of fields to match, only NumberFormat and DateFormat fields are considered
      * @return This builder, useful for chaining
-     * @throws IllegalArgumentException If the index is not within the range of this builder's arguments
+     * @throws IllegalArgumentException If the index is negative
      * @see NumberFormat.Field
      * @see DateFormat.Field
      */
@@ -131,13 +141,14 @@ public class LocalizedMarkdownBuilder {
 
     /**
      * Adds monospace to a specific part of the localized message.
-     * If no format fields are provided, the markdown will be applied to the argument given by the index no matter what.
-     * If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If no format fields are provided, the markdown will always be applied to the argument given by the index.
+     * <br>If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If the index is too high, nothing happens.
      * @param index The index of the argument provided to this builder in
      *              {@link LocalizedMarkdownBuilder#LocalizedMarkdownBuilder(MessageFormat, Object...)}
      * @param fields A possibly-empty list of fields to match, only NumberFormat and DateFormat fields are considered
      * @return This builder, useful for chaining
-     * @throws IllegalArgumentException If the index is not within the range of this builder's arguments
+     * @throws IllegalArgumentException If the index is negative
      * @see NumberFormat.Field
      * @see DateFormat.Field
      */
@@ -147,13 +158,14 @@ public class LocalizedMarkdownBuilder {
 
     /**
      * Adds a code block to a specific part of the localized message.
-     * If no format fields are provided, the markdown will be applied to the argument given by the index no matter what.
-     * If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If no format fields are provided, the markdown will always be applied to the argument given by the index.
+     * <br>If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If the index is too high, nothing happens.
      * @param index The index of the argument provided to this builder in
      *              {@link LocalizedMarkdownBuilder#LocalizedMarkdownBuilder(MessageFormat, Object...)}
      * @param fields A possibly-empty list of fields to match, only NumberFormat and DateFormat fields are considered
      * @return This builder, useful for chaining
-     * @throws IllegalArgumentException If the index is not within the range of this builder's arguments
+     * @throws IllegalArgumentException If the index is negative
      * @see NumberFormat.Field
      * @see DateFormat.Field
      */
@@ -163,14 +175,15 @@ public class LocalizedMarkdownBuilder {
 
     /**
      * Adds a code block to a specific part of the localized message.
-     * If no format fields are provided, the markdown will be applied to the argument given by the index no matter what.
-     * If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If no format fields are provided, the markdown will always be applied to the argument given by the index.
+     * <br>If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If the index is too high, nothing happens.
      * @param language The programming language of the code block, pass null for no language
      * @param index The index of the argument provided to this builder in
      *              {@link LocalizedMarkdownBuilder#LocalizedMarkdownBuilder(MessageFormat, Object...)}
      * @param fields A possibly-empty list of fields to match, only NumberFormat and DateFormat fields are considered
      * @return This builder, useful for chaining
-     * @throws IllegalArgumentException If the index is not within the range of this builder's arguments
+     * @throws IllegalArgumentException If the index is negative
      * @see NumberFormat.Field
      * @see DateFormat.Field
      */
@@ -180,13 +193,14 @@ public class LocalizedMarkdownBuilder {
 
     /**
      * Quotes a specific part of the localized message.
-     * If no format fields are provided, the markdown will be applied to the argument given by the index no matter what.
-     * If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If no format fields are provided, the markdown will always be applied to the argument given by the index.
+     * <br>If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If the index is too high, nothing happens.
      * @param index The index of the argument provided to this builder in
      *              {@link LocalizedMarkdownBuilder#LocalizedMarkdownBuilder(MessageFormat, Object...)}
      * @param fields A possibly-empty list of fields to match, only NumberFormat and DateFormat fields are considered
      * @return This builder, useful for chaining
-     * @throws IllegalArgumentException If the index is not within the range of this builder's arguments
+     * @throws IllegalArgumentException If the index is negative
      * @see NumberFormat.Field
      * @see DateFormat.Field
      */
@@ -196,13 +210,14 @@ public class LocalizedMarkdownBuilder {
 
     /**
      * Adds a quote block to a specific part of the localized message.
-     * If no format fields are provided, the markdown will be applied to the argument given by the index no matter what.
-     * If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If no format fields are provided, the markdown will always be applied to the argument given by the index.
+     * <br>If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If the index is too high, nothing happens.
      * @param index The index of the argument provided to this builder in
      *              {@link LocalizedMarkdownBuilder#LocalizedMarkdownBuilder(MessageFormat, Object...)}
      * @param fields A possibly-empty list of fields to match, only NumberFormat and DateFormat fields are considered
      * @return This builder, useful for chaining
-     * @throws IllegalArgumentException If the index is not within the range of this builder's arguments
+     * @throws IllegalArgumentException If the index is negative
      * @see NumberFormat.Field
      * @see DateFormat.Field
      */
@@ -212,14 +227,15 @@ public class LocalizedMarkdownBuilder {
 
     /**
      * Adds a masked link to a specific part of the localized message.
-     * If no format fields are provided, the markdown will be applied to the argument given by the index no matter what.
-     * If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If no format fields are provided, the markdown will always be applied to the argument given by the index.
+     * <br>If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If the index is too high, nothing happens.
      * @param url The URL of the link
      * @param index The index of the argument provided to this builder in
      *              {@link LocalizedMarkdownBuilder#LocalizedMarkdownBuilder(MessageFormat, Object...)}
      * @param fields A possibly-empty list of fields to match, only NumberFormat and DateFormat fields are considered
      * @return This builder, useful for chaining
-     * @throws IllegalArgumentException If the index is not within the range of this builder's arguments
+     * @throws IllegalArgumentException If the index is negative
      * @see NumberFormat.Field
      * @see DateFormat.Field
      */
@@ -229,14 +245,15 @@ public class LocalizedMarkdownBuilder {
 
     /**
      * Adds a masked link to a specific part of the localized message.
-     * If no format fields are provided, the markdown will be applied to the argument given by the index no matter what.
-     * If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If no format fields are provided, the markdown will always be applied to the argument given by the index.
+     * <br>If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If the index is too high, nothing happens.
      * @param url The URL of the link
      * @param index The index of the argument provided to this builder in
      *              {@link LocalizedMarkdownBuilder#LocalizedMarkdownBuilder(MessageFormat, Object...)}
      * @param fields A possibly-empty list of fields to match, only NumberFormat and DateFormat fields are considered
      * @return This builder, useful for chaining
-     * @throws IllegalArgumentException If the index is not within the range of this builder's arguments
+     * @throws IllegalArgumentException If the index is negative
      * @see NumberFormat.Field
      * @see DateFormat.Field
      */
@@ -246,21 +263,23 @@ public class LocalizedMarkdownBuilder {
 
     /**
      * Bolds a specific part of the localized message.
-     * If no format fields are provided, the markdown will be applied to the argument given by the index no matter what.
-     * If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If no format fields are provided, the markdown will always be applied to the argument given by the index.
+     * <br>If format fields are provided, markdown is applied to the part of the argument where any field matches.
+     * <br>If the index is too high, nothing happens.
      * @param index The index of the argument provided to this builder in
      *              {@link LocalizedMarkdownBuilder#LocalizedMarkdownBuilder(MessageFormat, Object...)}
      * @param action The markdown to apply
      * @param fields A possibly-empty list of fields to match, only NumberFormat and DateFormat fields are considered
      * @return This builder, useful for chaining
-     * @throws IllegalArgumentException If the index is not within the range of this builder's arguments
+     * @throws IllegalArgumentException If the index is negative
      * @see NumberFormat.Field
      * @see DateFormat.Field
      */
-    public LocalizedMarkdownBuilder apply(int index, MarkdownAction action, Format.Field... fields) {
+    public LocalizedMarkdownBuilder apply(int index, @NonNull MarkdownAction action, Format.Field... fields) {
         Preconditions.checkArgument(index >= 0, "Index must be positive, was %d", index);
-        Preconditions.checkArgument(index < args.length,
-                "Index must be less than %d, was %d", args.length, index);
+        if (index >= args.length) {
+            return this;
+        }
         if (fields.length == 0) {
             table.get(index).add(new PotentialAction(null, action));
         }
@@ -270,6 +289,13 @@ public class LocalizedMarkdownBuilder {
             }
         }
         return this;
+    }
+
+    /**
+     * @return The number of arguments used for this builder
+     */
+    public int getArgsLength() {
+        return args.length;
     }
 
     /**

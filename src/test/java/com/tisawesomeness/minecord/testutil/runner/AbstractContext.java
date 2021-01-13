@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.testutil.runner;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.Lang;
+import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.CommandExecutor;

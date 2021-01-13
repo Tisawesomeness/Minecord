@@ -1,6 +1,4 @@
-package com.tisawesomeness.minecord;
-
-import com.tisawesomeness.minecord.util.discord.LocalizedMarkdownBuilder;
+package com.tisawesomeness.minecord.lang;
 
 import com.google.common.base.Splitter;
 import lombok.Getter;
@@ -165,6 +163,22 @@ public enum Lang {
         return Splitter.on(',').omitEmptyStrings().splitToList(i18n(key));
     }
 
+    /**
+     * Localizes an object as a user-readable string.
+     * @param obj The localizable object
+     * @return The object's description in this language
+     */
+    public @NonNull String localize(@NonNull Localizable obj) {
+        return i18nf(obj.getTranslationKey(), obj.getTranslationArgs());
+    }
+    /**
+     * Localizes an object as a user-readable string.
+     * @param obj The localizable object
+     * @return A builder to add markdown to the object's description in this language
+     */
+    public @NonNull LocalizedMarkdownBuilder localizeMarkdown(@NonNull Localizable obj) {
+        return i18nm(obj.getTranslationKey(), obj.getTranslationArgs());
+    }
     /**
      * Localizes a boolean value.
      * @param bool The boolean

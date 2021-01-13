@@ -7,8 +7,6 @@ import com.tisawesomeness.minecord.mc.player.PlayerProvider;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.TimeUtils;
 import com.tisawesomeness.minecord.util.UUIDUtils;
-import com.tisawesomeness.minecord.util.concurrent.FutureCallback;
-import com.tisawesomeness.minecord.util.discord.LocalizedMarkdownBuilder;
 import com.tisawesomeness.minecord.util.type.IntegralDuration;
 
 import lombok.extern.slf4j.Slf4j;
@@ -122,13 +120,9 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
 
         Duration duration = Duration.between(time, now);
         IntegralDuration truncated = IntegralDuration.fromDuration(duration, ChronoUnit.SECONDS, ChronoUnit.DAYS);
-        Optional<LocalizedMarkdownBuilder> builderOpt = TimeUtils.localizeIntegralDurationBuilder(
-                truncated, ctx.getLang());
-        String ago = builderOpt
-                .map(localizedMarkdownBuilder -> localizedMarkdownBuilder
-                        .bold(0, NumberFormat.Field.INTEGER)
-                        .build())
-                .orElseGet(() -> TimeUtils.localizedNoDuration(ctx.getLang()));
+        String ago = ctx.getLang().localizeMarkdown(truncated)
+                .bold(0, NumberFormat.Field.INTEGER)
+                .build();
 
         String date = TimeUtils.format(time, ctx.getLocale(), format);
         return String.format("%s (%s)", date, ago);

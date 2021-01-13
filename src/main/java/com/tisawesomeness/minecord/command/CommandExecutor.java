@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.command;
 
-import com.tisawesomeness.minecord.Lang;
 import com.tisawesomeness.minecord.config.serial.CommandConfig;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.config.serial.FlagConfig;
@@ -17,8 +16,6 @@ import com.google.common.collect.Multisets;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.utils.MarkdownUtil;
 import org.jetbrains.annotations.TestOnly;
 
 import java.sql.SQLException;

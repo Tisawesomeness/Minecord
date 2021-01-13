@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.database.dao;
 
-import com.tisawesomeness.minecord.Lang;
+import com.tisawesomeness.minecord.lang.Lang;
 
 import java.util.Optional;
 

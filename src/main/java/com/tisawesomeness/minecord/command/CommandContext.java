@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.Lang;
+import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.database.dao.DbChannel;
@@ -325,7 +325,7 @@ public abstract class CommandContext {
         return getLang().getLocale();
     }
     /**
-     * Gets a locallized string for the current lang.
+     * Gets a localized string for the current lang.
      * @param key The <b>case-sensitive</b> localization key
      * @return The localized string
      * @throws java.util.MissingResourceException If the given key could not be found.
@@ -336,7 +336,7 @@ public abstract class CommandContext {
         return getCmd().i18n(getLang(), key);
     }
     /**
-     * Gets a locallized, formatted string for the current lang.
+     * Gets a localized, formatted string for the current lang.
      * @param key The <b>case-sensitive</b> localization key
      * @param args An ordered list of arguments to place into the string
      * @return The localized string

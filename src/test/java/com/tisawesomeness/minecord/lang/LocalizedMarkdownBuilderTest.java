@@ -1,4 +1,10 @@
-package com.tisawesomeness.minecord.util.discord;
+package com.tisawesomeness.minecord.lang;
+
+import com.tisawesomeness.minecord.lang.LocalizedMarkdownBuilder;
+import com.tisawesomeness.minecord.util.discord.Codeblock;
+import com.tisawesomeness.minecord.util.discord.MarkdownAction;
+import com.tisawesomeness.minecord.util.discord.MaskedLink;
+import com.tisawesomeness.minecord.util.discord.SimpleMarkdownAction;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
