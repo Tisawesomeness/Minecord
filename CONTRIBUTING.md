@@ -8,11 +8,15 @@ To get started, clone the repository with `git clone https://github.com/Tisaweso
 ([IntelliJ](https://www.jetbrains.com/idea/) is recommended, though any proper IDE will work).
 Make sure to install the [Lombok](https://projectlombok.org/) plugin to add support for its annotations.
 
+**Minecord is built on Java 11.** You may need to set the Java version in your IDE.
+
 Running can be done from your IDE. To build an executable JAR file, use `gradle shadowJar`.
 
-To contribute your changes, make a pull request to (usually) the `dev` branch. Note that all tests must pass before your changes can be accepted, use `gradle check` to run the tests.
+To contribute your changes, make a pull request to (usually) the `dev` branch. Note that all tests must pass before your changes can be accepted, use `gradle check` and `gradle integrationTest` to run the tests.
 
 ## Conventions
+
+Minecord is meant to be a beginner-friendly project. Follow conventions if you can, but don't worry too much if you are a beginner. We will guide you through any stylistic changes when you make a pull request.
 
 ### Formatting
 
@@ -37,13 +41,11 @@ Note that Minecord uses a few annotation conventions not common to other project
 - `@NonNull/@Nullables` is placed directly before the type, since they can be seen as modifying the nullability of the type.
 - Other annotations go on previous lines, grouped topically.
 
-`@Getter private final @NonNull Locale locale` is an example of proper annotation, which correctly communicates (and enforces) that `locale` is a read-only never-null constant.
-
-Do not use Lombok `var` or `val`.
+Annotating like this is not required, as long as annotations are clear.
 
 ### Variable Names
 
-Five short variable names are reserved for specific purposes:
+There are five short variable names reserved for specific purposes:
 
 - `e` event
 - `ex` exception
@@ -59,7 +61,7 @@ Public methods should usually have Javadocs, which must have all assumptions, pa
 
 ### Code Quality
 
-Do your best to follow SOLID principles and heed the advice of Effective Java (3rd edition) in the pursuit of clean, readable code. In general,
+You are encouraged to follow SOLID principles and the advice of Effective Java, though you shouldn't need to worry too much about it if you are a beginning programmer. In general,
 
 - Prefer a well-named method to a comment.
 - Prefer immutability to mutability.
@@ -68,4 +70,4 @@ Do your best to follow SOLID principles and heed the advice of Effective Java (3
 
 # Translation
 
-Instructions are in the `#translation` channel in the support server.
+Current instructions are in the `#translation` channel in the support server.
