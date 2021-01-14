@@ -10,6 +10,7 @@ import org.assertj.core.internal.Iterables;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 /**
@@ -449,6 +450,14 @@ public class TestContextAssert extends AbstractAssert<TestContextAssert, TestCon
         return new CharSequenceAssert(actualReply);
     }
 
+    public TestContextAssert repliesSatisfy(Consumer<? super CharSequence> assertion) {
+        isNotNull();
+        for (CharSequence actualReply : actual.getReplies()) {
+            assertion.accept(actualReply);
+        }
+        return this;
+    }
+
     /**
      * Extracts the actual TestContext's only embed reply and creates a MessageEmbedAssert object.
      * @return the message embed assertion object.
@@ -459,6 +468,14 @@ public class TestContextAssert extends AbstractAssert<TestContextAssert, TestCon
         embedRepliesHasSize(1);
         MessageEmbed actualEmbedReply = actual.getEmbedReplies().get(0);
         return new MessageEmbedAssert(actualEmbedReply);
+    }
+
+    public TestContextAssert embedRepliesSatisfy(Consumer<? super MessageEmbed> assertion) {
+        isNotNull();
+        for (MessageEmbed actualReply : actual.getEmbedReplies()) {
+            assertion.accept(actualReply);
+        }
+        return this;
     }
 
 
