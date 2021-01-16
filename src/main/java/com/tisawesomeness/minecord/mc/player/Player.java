@@ -68,10 +68,15 @@ public class Player implements Comparable<Player> {
      * @return True if the player has a custom skin
      */
     public boolean hasCustomSkin() {
-        if (getDefaultSkinType() == SkinType.STEVE) {
-            return !getSkinUrl().sameFile(STEVE_SKIN_URL);
+        Optional<URL> skinUrlOpt = profile.getSkinUrl();
+        if (skinUrlOpt.isEmpty()) {
+            return false;
         }
-        return !getSkinUrl().sameFile(ALEX_SKIN_URL);
+        URL skinUrl = skinUrlOpt.get();
+        if (getDefaultSkinType() == SkinType.STEVE) {
+            return !skinUrl.sameFile(STEVE_SKIN_URL);
+        }
+        return !skinUrl.sameFile(ALEX_SKIN_URL);
     }
 
     /**
