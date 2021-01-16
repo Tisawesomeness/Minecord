@@ -75,4 +75,38 @@ public final class UUIDUtils {
         return uuid.toString();
     }
 
+    /**
+     * Converts a UUID to pre-1.16 UUIDMost/UUIDLeast NBT.
+     * @param uuid The UUID
+     * @return UUIDMost,UUIDLeast
+     */
+    public static @NonNull String toMostLeastString(@NonNull UUID uuid) {
+        return String.format("UUIDMost:%d,UUIDLeast:%d", uuid.getMostSignificantBits(), uuid.getLeastSignificantBits());
+    }
+
+    /**
+     * Converts a UUID to an 1.16+ NBT int array string.
+     * @param uuid The UUID
+     * @return The NBT int array as a string
+     */
+    public static @NonNull String toIntArrayString(@NonNull UUID uuid) {
+        int[] arr = toIntArray(uuid);
+        return String.format("[I;%d,%d,%d,%d]", arr[0], arr[1], arr[2], arr[3]);
+    }
+    /**
+     * Converts a UUID to an array of four ints, most to least significant, used in 1.16+ NBT.
+     * @param uuid The UUID
+     * @return An array of four ints
+     */
+    public static int[] toIntArray(@NonNull UUID uuid) {
+        int[] arr = new int[4];
+        long msb = uuid.getMostSignificantBits();
+        arr[0] = (int) (msb >> 32);
+        arr[1] = (int) msb;
+        long lsb = uuid.getLeastSignificantBits();
+        arr[2] = (int) (lsb >> 32);
+        arr[3] = (int) lsb;
+        return arr;
+    }
+
 }

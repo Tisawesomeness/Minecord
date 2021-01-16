@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.util;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.EmptySource;
@@ -15,6 +16,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class UUIDUtilsTest {
+
+    private static final UUID TESTING_UUID = UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3af");
 
     private static final String[] invalidUuids = {
             " ", "   ", "\n", "\t", // Whitespace
@@ -146,6 +149,26 @@ public class UUIDUtilsTest {
     @DisplayName("Converting to and from UUID does not modify the UUID")
     public void testToLongString(String candidate) {
         assertThat(UUIDUtils.toLongString(UUID.fromString(candidate))).isEqualToIgnoringCase(candidate);
+    }
+
+    @Test
+    @DisplayName("Most/least NBT is generated correctly")
+    public void testMostLeast() {
+        assertThat(UUIDUtils.toMostLeastString(TESTING_UUID))
+                .isEqualTo("UUIDMost:-700138796005504542,UUIDLeast:-7490006962183355473");
+    }
+
+    @Test
+    @DisplayName("Int array is generated correctly")
+    public void testIntArray() {
+        assertThat(UUIDUtils.toIntArray(TESTING_UUID)).contains(-163013767,2057259490,-1743903142,98288559);
+    }
+
+    @Test
+    @DisplayName("Int array NBT is generated correctly")
+    public void testIntArrayString() {
+        assertThat(UUIDUtils.toIntArrayString(TESTING_UUID))
+                .isEqualTo("[I;-163013767,2057259490,-1743903142,98288559]");
     }
 
     private static Stream<String> invalidUUIDProvider() {
