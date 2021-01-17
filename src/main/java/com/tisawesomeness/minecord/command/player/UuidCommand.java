@@ -29,12 +29,20 @@ public class UuidCommand extends AbstractPlayerCommand {
             return;
         }
 
-        String inputName = ctx.joinArgs();
-        if (inputName.length() > Username.MAX_LENGTH) {
+        String input = ctx.joinArgs();
+        Optional<UUID> parsedUuidOpt = UUIDUtils.fromString(input);
+        if (parsedUuidOpt.isPresent()) {
+            UUID uuid = parsedUuidOpt.get();
+            ctx.triggerCooldown();
+            processLiteralUUID(uuid, ctx);
+            return;
+        }
+
+        if (input.length() > Username.MAX_LENGTH) {
             ctx.warn(ctx.getLang().i18n("mc.player.username.tooLong"));
             return;
         }
-        Username username = new Username(inputName);
+        Username username = new Username(input);
         if (!username.isSupportedByMojangAPI()) {
             ctx.warn(ctx.getLang().i18n("mc.player.username.unsupportedSpecialCharacters"));
             return;
@@ -60,23 +68,31 @@ public class UuidCommand extends AbstractPlayerCommand {
         throw new RuntimeException(ex);
     }
 
+    private static void processLiteralUUID(UUID uuid, CommandContext ctx) {
+        String title = ctx.i18nf("uuidTitle", uuid);
+        constructReply(ctx, uuid, title);
+    }
     private static void processUUID(Optional<UUID> uuidOpt, CommandContext ctx, Username username) {
         if (uuidOpt.isEmpty()) {
             ctx.reply(ctx.getLang().i18n("mc.player.username.doesNotExist"));
             return;
         }
-        constructReply(ctx, username, uuidOpt.get());
+        String title = ctx.i18nf("usernameTitle", username);
+        constructReply(ctx, uuidOpt.get(), title);
     }
-    private static void constructReply(CommandContext ctx, Username username, UUID uuid) {
+    private static void constructReply(CommandContext ctx, UUID uuid, String title) {
         Lang lang = ctx.getLang();
-        String title = ctx.i18nf("title", username);
         String shortUuid = MarkdownUtil.bold(lang.i18n("mc.player.uuid.short")) + ": " +
                 MarkdownUtil.monospace(UUIDUtils.toShortString(uuid));
         String longUuid = MarkdownUtil.bold(lang.i18n("mc.player.uuid.long")) + ": " +
                 MarkdownUtil.monospace(UUIDUtils.toLongString(uuid));
         String skinType = MarkdownUtil.bold(lang.i18n("mc.player.skin.default")) + ": " +
                 lang.i18n(Player.getDefaultSkinTypeFor(uuid).getTranslationKey());
-        String desc = shortUuid + "\n" + longUuid + "\n" + skinType;
+        String intArray = MarkdownUtil.bold(ctx.i18n("nbt")) + ": " +
+                MarkdownUtil.monospace(UUIDUtils.toIntArrayString(uuid));
+        String mostLeast = MarkdownUtil.bold(ctx.i18n("legacyNbt")) + ": " +
+                MarkdownUtil.monospace(UUIDUtils.toMostLeastString(uuid));
+        String desc = shortUuid + "\n" + longUuid + "\n" + skinType + "\n" + intArray + "\n" + mostLeast;
         String nameMCUrl = Player.getNameMCUrlFor(uuid).toString();
         String avatarUrl = Player.getAvatarUrlFor(uuid).toString();
 
