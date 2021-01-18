@@ -294,6 +294,7 @@ public class MessageEmbedAssert extends AbstractAssert<MessageEmbedAssert, Messa
         return this;
     }
 
+
     private String getJoinedFieldString() {
         return actual.getFields().stream()
                 .map(MessageEmbed.Field::getValue)
@@ -313,7 +314,6 @@ public class MessageEmbedAssert extends AbstractAssert<MessageEmbedAssert, Messa
             }
         }
     }
-
 
 
 }
