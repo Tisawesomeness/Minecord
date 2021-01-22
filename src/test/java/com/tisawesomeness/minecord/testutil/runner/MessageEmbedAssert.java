@@ -294,7 +294,6 @@ public class MessageEmbedAssert extends AbstractAssert<MessageEmbedAssert, Messa
         return this;
     }
 
-
     private String getJoinedFieldString() {
         return actual.getFields().stream()
                 .map(MessageEmbed.Field::getValue)
@@ -313,6 +312,116 @@ public class MessageEmbedAssert extends AbstractAssert<MessageEmbedAssert, Messa
                 failWithMessage("Input values should not contain null chars.");
             }
         }
+    }
+
+
+    /**
+     * Verifies that the header has a url.
+     * @return this assertion object
+     * @throws AssertionError If the actual MessageEmbed's header does not have a url
+     */
+    public MessageEmbedAssert imageHasUrl() {
+        isNotNull();
+        Assertions.assertThat(getImageUrl()).isNotNull();
+        return this;
+    }
+
+    /**
+     * Verifies that the image does not have a url.
+     * @return this assertion object
+     * @throws AssertionError If the actual MessageEmbed's image has a url
+     */
+    public MessageEmbedAssert imageDoesNotHaveUrl() {
+        isNotNull();
+        Assertions.assertThat(getImageUrl()).isNull();
+        return this;
+    }
+
+    /**
+     * Verifies that the image has the given url.
+     * @param url the given url
+     * @return this assertion object
+     * @throws AssertionError If the actual MessageEmbed's image does not have the given url
+     */
+    public MessageEmbedAssert imageLinksTo(String url) {
+        isNotNull();
+        Assertions.assertThat(getImageUrl()).isEqualTo(url);
+        return this;
+    }
+
+    /**
+     * Verifies that the image has the given url.
+     * @param url the given url
+     * @return this assertion object
+     * @throws AssertionError If the actual MessageEmbed's image does not have the given url
+     */
+    public MessageEmbedAssert imageLinksTo(URL url) {
+        isNotNull();
+        Assertions.assertThat(getImageUrl()).isEqualTo(url.toString());
+        return this;
+    }
+
+    /**
+     * Verifies that the image has one of the given urls.
+     * @param urls the given urls
+     * @return this assertion object
+     * @throws AssertionError If the actual MessageEmbed's image does not have one of the given urls
+     */
+    public MessageEmbedAssert imageLinksToAnyOf(String... urls) {
+        isNotNull();
+        Assertions.assertThat(getImageUrl()).isIn((Object[]) urls);
+        return this;
+    }
+
+    /**
+     * Verifies that the image has one of the given urls.
+     * @param urls the given urls
+     * @return this assertion object
+     * @throws AssertionError If the actual MessageEmbed's image does not have one of the given urls
+     */
+    public MessageEmbedAssert imageLinksToAnyOf(Iterable<? extends String> urls) {
+        isNotNull();
+        Assertions.assertThat(getImageUrl()).isIn(urls);
+        return this;
+    }
+
+    /**
+     * Verifies that the image has one of the given urls.
+     * @param urls the given urls
+     * @return this assertion object
+     * @throws AssertionError If the actual MessageEmbed's image does not have one of the given urls
+     */
+    public MessageEmbedAssert imageLinksToAnyOf(URL... urls) {
+        isNotNull();
+        List<String> urlStrings = Arrays.stream(urls)
+                .map(Object::toString)
+                .collect(Collectors.toList());
+        Assertions.assertThat(getImageUrl()).isIn(urlStrings);
+        return this;
+    }
+
+    /**
+     * Verifies that the image has one of the given urls.
+     * @param urls the given urls
+     * @return this assertion object
+     * @throws AssertionError If the actual MessageEmbed's image does not have one of the given urls
+     */
+    public MessageEmbedAssert imageLinksToAnyOfUrls(Iterable<? extends URL> urls) {
+        isNotNull();
+        Collection<String> urlStrings = new ArrayList<>();
+        for (URL url : urls) {
+            urlStrings.add(url.toString());
+        }
+        Assertions.assertThat(getImageUrl()).isIn(urlStrings);
+        return this;
+    }
+
+    private @Nullable String getImageUrl() {
+        MessageEmbed.ImageInfo imageInfo = actual.getImage();
+        if (imageInfo != null) {
+            return imageInfo.getUrl();
+        }
+        return null;
     }
 
 
