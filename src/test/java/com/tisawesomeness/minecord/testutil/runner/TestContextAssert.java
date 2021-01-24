@@ -282,6 +282,16 @@ public class TestContextAssert extends AbstractAssert<TestContextAssert, TestCon
     }
 
     /**
+     * Verifies that the actual TestContext's is for a successful command.
+     * @return this assertion object.
+     * @throws AssertionError - if the actual TestContext's result is not SUCCESS.
+     */
+    public TestContextAssert isSuccess() {
+        resultIs(Result.SUCCESS);
+        return this;
+    }
+
+    /**
      * Verifies that the actual TestContext has <b>only</b> requested help, without replying or triggering cooldown.
      * This will wait until the timeout expires to ensure that all replies are received.
      * @return this assertion object.

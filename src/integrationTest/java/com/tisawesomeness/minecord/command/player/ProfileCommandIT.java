@@ -119,7 +119,7 @@ public class ProfileCommandIT {
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasTriggeredCooldown()
-                .resultIs(Result.SUCCESS);
+                .isSuccess();
     }
 
     @Test
@@ -129,7 +129,7 @@ public class ProfileCommandIT {
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasTriggeredCooldown()
-                .resultIs(Result.SUCCESS);
+                .isSuccess();
     }
 
     @Test
@@ -139,7 +139,7 @@ public class ProfileCommandIT {
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasTriggeredCooldown()
-                .resultIs(Result.SUCCESS)
+                .isSuccess()
                 .asEmbedReply()
                 .headerContains(SHORT_HISTORY_NAME)
                 .headerLinksToAnyOf(Player.getNameMCUrlFor(SHORT_HISTORY_NAME), Player.getNameMCUrlFor(SHORT_HISTORY_UUID));
@@ -152,7 +152,7 @@ public class ProfileCommandIT {
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasTriggeredCooldown()
-                .resultIs(Result.SUCCESS)
+                .isSuccess()
                 .asEmbedReply()
                 .headerContains(LONG_HISTORY_NAME)
                 .headerLinksToAnyOf(Player.getNameMCUrlFor(LONG_HISTORY_NAME), Player.getNameMCUrlFor(LONG_HISTORY_UUID));

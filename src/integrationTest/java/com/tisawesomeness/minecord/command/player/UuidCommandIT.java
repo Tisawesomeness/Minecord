@@ -82,7 +82,7 @@ public class UuidCommandIT {
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasTriggeredCooldown()
-                .resultIs(Result.SUCCESS);
+                .isSuccess();
     }
 
     @Test
@@ -93,7 +93,7 @@ public class UuidCommandIT {
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasTriggeredCooldown()
-                .resultIs(Result.SUCCESS);
+                .isSuccess();
     }
 
     @Test
@@ -102,7 +102,7 @@ public class UuidCommandIT {
         String args = TESTING_USERNAME.toString();
         assertThat(runner.run(args))
                 .awaitResult()
-                .resultIs(Result.SUCCESS)
+                .isSuccess()
                 .hasTriggeredCooldown()
                 .asEmbedReply()
                 .headerContains(TESTING_USERNAME)
@@ -121,7 +121,7 @@ public class UuidCommandIT {
         String args = SPACES_USERNAME.toString();
         assertThat(runner.run(args))
                 .awaitResult()
-                .resultIs(Result.SUCCESS)
+                .isSuccess()
                 .hasTriggeredCooldown()
                 .asEmbedReply()
                 .headerContains(SPACES_USERNAME)
@@ -140,7 +140,7 @@ public class UuidCommandIT {
         String args = TESTING_UUID.toString();
         assertThat(runner.run(args))
                 .awaitResult()
-                .resultIs(Result.SUCCESS)
+                .isSuccess()
                 .hasTriggeredCooldown()
                 .asEmbedReply()
                 .headerContains(TESTING_UUID.toString())

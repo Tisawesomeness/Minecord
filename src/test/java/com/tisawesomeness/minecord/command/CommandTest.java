@@ -25,8 +25,8 @@ public class CommandTest {
     @DisplayName("Command replies send text unmodified and return SUCCESS")
     public void testCommandReply() {
         assertThat(runner.run())
-                .repliesAre(REPLY)
-                .resultIs(Result.SUCCESS);
+                .isSuccess()
+                .repliesAre(REPLY);
     }
 
     private static class SimpleReplyCommand extends Command {

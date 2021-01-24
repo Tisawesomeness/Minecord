@@ -111,7 +111,7 @@ public class SkinCommandIT {
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasTriggeredCooldown()
-                .resultIs(Result.SUCCESS);
+                .isSuccess();
     }
 
     @Test
@@ -121,7 +121,7 @@ public class SkinCommandIT {
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasTriggeredCooldown()
-                .resultIs(Result.SUCCESS)
+                .isSuccess()
                 .asEmbedReply()
                 .headerContains(STEVE_USERNAME)
                 .headerLinksTo(STEVE_PLAYER.getMCSkinHistoryUrl())
@@ -135,7 +135,7 @@ public class SkinCommandIT {
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasTriggeredCooldown()
-                .resultIs(Result.SUCCESS)
+                .isSuccess()
                 .asEmbedReply()
                 .headerContains(ALEX_USERNAME)
                 .headerLinksTo(ALEX_PLAYER.getMCSkinHistoryUrl())
@@ -149,7 +149,7 @@ public class SkinCommandIT {
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasTriggeredCooldown()
-                .resultIs(Result.SUCCESS)
+                .isSuccess()
                 .asEmbedReply()
                 .headerContains(CUSTOM_USERNAME)
                 .headerLinksTo(CUSTOM_PLAYER.getMCSkinHistoryUrl())
