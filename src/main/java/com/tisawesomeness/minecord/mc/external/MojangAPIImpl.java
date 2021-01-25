@@ -2,7 +2,7 @@ package com.tisawesomeness.minecord.mc.external;
 
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.network.APIClient;
-import com.tisawesomeness.minecord.network.StatusCode;
+import com.tisawesomeness.minecord.network.StatusCodes;
 import com.tisawesomeness.minecord.util.UUIDUtils;
 import com.tisawesomeness.minecord.util.network.URLUtils;
 
@@ -69,7 +69,7 @@ public class MojangAPIImpl extends MojangAPI {
 
     private static Optional<String> getContentIfPresent(@NonNull Response response) throws IOException {
         throwIfError(response);
-        if (response.code() == StatusCode.NO_CONTENT.getCode()) {
+        if (response.code() == StatusCodes.NO_CONTENT) {
             return Optional.empty();
         }
         String content = Objects.requireNonNull(response.body()).string();

@@ -2,7 +2,7 @@ package com.tisawesomeness.minecord.mc.external;
 
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.network.APIClient;
-import com.tisawesomeness.minecord.network.StatusCode;
+import com.tisawesomeness.minecord.network.StatusCodes;
 import com.tisawesomeness.minecord.util.network.URLUtils;
 
 import lombok.Cleanup;
@@ -43,7 +43,7 @@ public class ElectroidAPIImpl extends ElectroidAPI {
     }
 
     private static Optional<String> processResponse(@NonNull Response response) throws IOException {
-        if (response.code() == StatusCode.NOT_FOUND.getCode()) {
+        if (response.code() == StatusCodes.NOT_FOUND) {
             return Optional.empty();
         }
         String msg = Objects.requireNonNull(response.body()).string();
