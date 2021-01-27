@@ -2,15 +2,10 @@ package com.tisawesomeness.minecord.network;
 
 import lombok.Getter;
 import lombok.NonNull;
-import okhttp3.ConnectionPool;
-import okhttp3.Dispatcher;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -40,6 +35,20 @@ public class APIClient {
     }
 
     /**
+     * Performs a HEAD request.
+     * @param url The URL to send a HEAD request to
+     * @return The response of the request, which may be successful or unsuccessful
+     * @throws IOException If an I/O error occurs
+     */
+    public @NonNull Response head(@NonNull URL url) throws IOException {
+        Request request = new Request.Builder()
+                .url(url)
+                .head()
+                .build();
+        return dispatch(request);
+    }
+
+    /**
      * Performs a GET request.
      * @param url The URL to send a GET request to
      * @return The response of the request, which may be successful or unsuccessful
@@ -50,8 +59,22 @@ public class APIClient {
                 .url(url)
                 .header("Content-Type", "application/json")
                 .build();
+        return dispatch(request);
+    }
+
+    private @NonNull Response dispatch(@NonNull Request request) throws IOException {
         OkHttpClient client = httpClientBuilder.build();
-        return Objects.requireNonNull(client.newCall(request).execute());
+        return client.newCall(request).execute();
+    }
+
+    /**
+     * Checks if a URL exists and is responsive.
+     * @param url The URL to request
+     * @return Whether the URL is responsive
+     * @throws IOException If an I/O error occurs
+     */
+    public boolean exists(@NonNull URL url) throws IOException {
+        return head(url).code() == StatusCodes.OK;
     }
 
     public int getQueuedCallsCount() {
@@ -67,6 +90,9 @@ public class APIClient {
         return connectionPool.connectionCount();
     }
 
+    /**
+     * Closes this client and all current connections.
+     */
     public void close() {
         connectionPool.evictAll();
         dispatcher.executorService().shutdown();
