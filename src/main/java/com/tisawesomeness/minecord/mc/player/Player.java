@@ -113,6 +113,14 @@ public class Player implements Comparable<Player> {
     }
 
     /**
+     * @return A link to the player's Optifine cape image, may not actually exist
+     */
+    public @NonNull URL getOptifineCapeUrl() {
+        String encodedName = URLEncoder.encode(username.toString(), StandardCharsets.UTF_8);
+        return URLUtils.createUrl(String.format("http://s.optifine.net/capes/%s.png", encodedName));
+    }
+
+    /**
      * @return A link to the player's NameMC profile
      */
     public @NonNull URL getNameMCUrl() {
