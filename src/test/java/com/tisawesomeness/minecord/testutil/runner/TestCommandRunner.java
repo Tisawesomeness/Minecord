@@ -89,7 +89,7 @@ public class TestCommandRunner {
         prefix = config.getSettingsConfig().getDefaultPrefix();
         lang = config.getSettingsConfig().getDefaultLang();
 
-        CommandRegistry cr = new CommandRegistry(config.getCommandConfig());
+        CommandRegistry cr = new CommandRegistry();
         CommandStats commandStats = new DummyCommandStats();
         exe = new CommandExecutor(cr, commandStats, config);
     }

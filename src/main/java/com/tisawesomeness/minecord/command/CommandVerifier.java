@@ -25,7 +25,11 @@ public class CommandVerifier {
      * @return Whether the command should run
      */
     public boolean shouldRun(Command c, CommandContext ctx) {
-        return processGuildOnly(c, ctx);
+        if (c.isEnabled(ctx.getConfig().getCommandConfig())) {
+            return processGuildOnly(c, ctx);
+        }
+        ctx.warn(ctx.getLang().i18n("command.meta.disabled"));
+        return false;
     }
 
     private boolean processGuildOnly(Command c, CommandContext ctx) {

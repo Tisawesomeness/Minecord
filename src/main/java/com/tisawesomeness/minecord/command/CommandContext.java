@@ -204,7 +204,7 @@ public abstract class CommandContext {
      * @param text The message to send
      */
     public void sendResult(Result result, @NonNull CharSequence text) {
-        sendMessage(result.addEmote(text, getLang()));
+        sendMessage(result.addEmote(text));
         commandResult(result);
     }
 
@@ -371,7 +371,7 @@ public abstract class CommandContext {
         try {
             log.error("Uncaught exception for command execution " + this, ex);
             String unexpected = "There was an unexpected exception: " + MarkdownUtil.monospace(ex.toString());
-            String errorMessage = Result.EXCEPTION.addEmote(unexpected, Lang.getDefault());
+            String errorMessage = Result.EXCEPTION.addEmote(unexpected);
             if (getConfig().getFlagConfig().isDebugMode()) {
                 errorMessage += buildStackTrace(ex);
                 // Not guaranteed to escape properly, but since users should never see exceptions, it's not necessary

@@ -55,7 +55,7 @@ public class HelpCommand extends AbstractMiscCommand {
                 }
                 String mHelp = cmds.stream()
                     .filter(c -> !(c instanceof IHiddenCommand))
-                    .map(c -> String.format("`%s%s`", prefix, c.getDisplayName(lang)))
+                    .map(c -> formatCommand(ctx, prefix, lang, c))
                     .collect(Collectors.joining(", "));
                 eb.addField(m.getDisplayName(lang), mHelp, false);
             }
@@ -74,14 +74,7 @@ public class HelpCommand extends AbstractMiscCommand {
             }
             String mUsage = registry.getCommandsInModule(m).stream()
                 .filter(c -> !(c instanceof IHiddenCommand) || m.isHidden()) // All admin commands are hidden
-                .map(c -> {
-                    // Formatting changes based on whether the command has arguments
-                    Optional<String> usageOpt = c.getUsage(lang);
-                    if (!usageOpt.isPresent()) {
-                        return String.format("`%s%s` - %s", prefix, c.getDisplayName(lang), c.getDescription(lang));
-                    }
-                    return String.format("`%s%s %s` - %s", prefix, c.getDisplayName(lang), usageOpt.get(), c.getDescription(lang));
-                })
+                .map(c -> formatCommandFull(ctx, prefix, lang, c))
                 .collect(Collectors.joining("\n"));
             // Add module-specific help if it exists
             Optional<String> mHelp = m.getHelp(lang, prefix);
@@ -113,6 +106,28 @@ public class HelpCommand extends AbstractMiscCommand {
         }
 
         ctx.invalidArgs("That command or module does not exist.");
+    }
+
+    private static String formatCommand(CommandContext ctx, String prefix, Lang lang, Command c) {
+        if (c.isEnabled(ctx.getConfig().getCommandConfig())) {
+            return String.format("`%s%s`", prefix, c.getDisplayName(lang));
+        }
+        return String.format("~~`%s%s`~~", prefix, c.getDisplayName(lang));
+    }
+
+    private static String formatCommandFull(CommandContext ctx, String prefix, Lang lang, Command c) {
+        // Formatting changes based on whether the command has arguments
+        Optional<String> usageOpt = c.getUsage(lang);
+        if (usageOpt.isEmpty()) {
+            if (c.isEnabled(ctx.getConfig().getCommandConfig())) {
+                return String.format("`%s%s` - %s", prefix, c.getDisplayName(lang), c.getDescription(lang));
+            }
+            return String.format("~~`%s%s`~~ - %s", prefix, c.getDisplayName(lang), c.getDescription(lang));
+        }
+        if (c.isEnabled(ctx.getConfig().getCommandConfig())) {
+            return String.format("`%s%s %s` - %s", prefix, c.getDisplayName(lang), usageOpt.get(), c.getDescription(lang));
+        }
+        return String.format("~~`%s%s %s`~~ - %s", prefix, c.getDisplayName(lang), usageOpt.get(), c.getDescription(lang));
     }
 
     /**
@@ -157,9 +172,16 @@ public class HelpCommand extends AbstractMiscCommand {
         if (cooldown > 0) {
             help += getCooldownString(cooldown);
         }
+
+        String name;
+        if (c.isEnabled(ctx.getConfig().getCommandConfig())) {
+            name = prefix + c.getDisplayName(lang);
+        } else {
+            name = String.format("~~%s%s~~", prefix, c.getDisplayName(lang));
+        }
         String desc = String.format("%s\n**Module**: `%s`", help, c.getModule().getDisplayName(lang));
         return new EmbedBuilder()
-                .setTitle(prefix + c.getDisplayName(lang) + " Help")
+                .setTitle(name + " Help")
                 .setDescription(desc);
     }
     private static String getAddedPermsHelp(Collection<Permission> permissions, String permissionDescriptor) {

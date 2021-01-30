@@ -6,7 +6,6 @@ import com.tisawesomeness.minecord.command.discord.*;
 import com.tisawesomeness.minecord.command.misc.*;
 import com.tisawesomeness.minecord.command.player.*;
 import com.tisawesomeness.minecord.command.utility.*;
-import com.tisawesomeness.minecord.config.serial.CommandConfig;
 import com.tisawesomeness.minecord.lang.Lang;
 
 import com.google.common.collect.*;
@@ -29,11 +28,12 @@ public class CommandRegistry implements Iterable<Command> {
     /**
      * Adds every module to the registry and maps the possible aliases to the command to execute.
      */
-    public CommandRegistry(CommandConfig cc) {
+    public CommandRegistry() {
 
         Command colorCmd = new ColorCommand();
         Command[] commands = {
 
+                // Player
                 new ProfileCommand(),
                 new HistoryCommand(),
                 new UuidCommand(),
@@ -43,6 +43,7 @@ public class CommandRegistry implements Iterable<Command> {
                 new SkinCommand(),
                 new CapeCommand(),
 
+                // Utility
                 new StatusCommand(),
                 new SalesCommand(),
                 new ServerCommand(),
@@ -69,12 +70,14 @@ public class CommandRegistry implements Iterable<Command> {
                 new RecipeCommand(),
                 new IngredientCommand(),
 
+                // Discord
                 new GuildCommand(),
                 new RoleCommand(),
                 new RolesCommand(),
                 new UserCommand(),
                 new PurgeCommand(),
 
+                // Config
                 new SettingsCommand(),
                 new SetCommand(),
                 new ResetCommand(),
@@ -82,6 +85,7 @@ public class CommandRegistry implements Iterable<Command> {
                 new PrefixCommand(),
                 new LangCommand(),
 
+                // Misc
                 new HelpCommand(this),
                 new InfoCommand(),
                 new PingCommand(),
@@ -89,6 +93,7 @@ public class CommandRegistry implements Iterable<Command> {
                 new VoteCommand(),
                 new CreditsCommand(),
 
+                // Admin
                 new SayCommand(),
                 new MsgCommand(),
                 new NameCommand(),
@@ -104,25 +109,21 @@ public class CommandRegistry implements Iterable<Command> {
 
         };
 
-        moduleToCommandsMap = buildModuleToCommandsMap(commands, cc);
-        commandTable = buildCommandTable(cc);
+        moduleToCommandsMap = buildModuleToCommandsMap(commands);
+        commandTable = buildCommandTable();
     }
 
-    private static Multimap<Module, Command> buildModuleToCommandsMap(Command[] commands, CommandConfig cc) {
+    private static Multimap<Module, Command> buildModuleToCommandsMap(Command[] commands) {
         Multimap<Module, Command> mm = MultimapBuilder.enumKeys(Module.class).arrayListValues().build();
         for (Command c : commands) {
-            if (c.isEnabled(cc)) {
-                mm.put(c.getModule(), c);
-            }
+            mm.put(c.getModule(), c);
         }
         return ImmutableMultimap.copyOf(mm);
     }
-    private Table<Lang, String, Command> buildCommandTable(CommandConfig cc) {
+    private Table<Lang, String, Command> buildCommandTable() {
         Table<Lang, String, Command> table = HashBasedTable.create();
         for (Command c : this) {
-            if (c.isEnabled(cc)) {
-                registerNameAndAliases(table, c);
-            }
+            registerNameAndAliases(table, c);
         }
         return ImmutableTable.copyOf(table);
     }

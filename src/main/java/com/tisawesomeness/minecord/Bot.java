@@ -40,7 +40,6 @@ import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
-import okhttp3.OkHttpClient;
 import org.slf4j.LoggerFactory;
 
 import javax.security.auth.login.LoginException;
@@ -202,7 +201,7 @@ public class Bot {
         }
 
         // These depend on database
-        registry = new CommandRegistry(config.getCommandConfig());
+        registry = new CommandRegistry();
         commandListener = new CommandListener(this, config, registry, database.getCommandStats());
         commandStatsService = new CommandStatsService(commandListener.getCommandExecutor(), config.getCommandConfig());
         settings = new SettingRegistry(config.getSettingsConfig());
@@ -298,7 +297,7 @@ public class Bot {
 
         // Start everything up again
         database = futureDB.get();
-        registry = new CommandRegistry(config.getCommandConfig());
+        registry = new CommandRegistry();
         commandListener = new CommandListener(this, config, registry, database.getCommandStats());
         commandStatsService = new CommandStatsService(commandListener.getCommandExecutor(), config.getCommandConfig());
         commandStatsService.start();

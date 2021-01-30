@@ -17,13 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CommandRegistryTest {
 
-    private static CommandRegistry cr;
-
-    @BeforeAll
-    public static void initRegistry() throws JsonProcessingException {
-        Config config = ConfigReader.readFromResources();
-        cr = new CommandRegistry(config.getCommandConfig());
-    }
+    private static final CommandRegistry cr = new CommandRegistry();
 
     @ParameterizedTest(name = "{index} ==> Scanning for conflicts in {0} lang")
     @EnumSource(Lang.class)

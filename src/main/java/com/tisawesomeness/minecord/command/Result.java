@@ -1,7 +1,5 @@
 package com.tisawesomeness.minecord.command;
 
-import com.tisawesomeness.minecord.lang.Lang;
-
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -83,11 +81,10 @@ public enum Result {
     /**
      * Adds the emote associated with this Result to a message.
      * @param msg The message
-     * @param lang The language to pull the template from
      * @return The modified message
      */
-    public @NonNull String addEmote(CharSequence msg, Lang lang) {
-        return lang.i18nf("command.result.template", msg, emote);
+    public @NonNull String addEmote(CharSequence msg) {
+        return emote + " " + msg;
     }
 
     @Override
