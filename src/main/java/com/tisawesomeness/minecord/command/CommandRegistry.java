@@ -92,6 +92,7 @@ public class CommandRegistry implements Iterable<Command> {
                 new InviteCommand(),
                 new VoteCommand(),
                 new CreditsCommand(),
+                new ThankCommand(),
 
                 // Admin
                 new SayCommand(),
