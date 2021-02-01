@@ -35,6 +35,7 @@ public final class FutureCallback {
         private @Nullable Consumer<? super T> successFn;
         private @Nullable Consumer<? super Throwable> errorFn;
         private @Nullable Consumer<? super Throwable> uncaughtFn;
+        private @Nullable Runnable completeFn;
 
         private Builder(@NonNull CompletableFuture<T> future) {
             this.future = future;
@@ -67,6 +68,15 @@ public final class FutureCallback {
             this.uncaughtFn = uncaughtFn;
             return this;
         }
+        /**
+         * Sets the completion callback.
+         * @param completeFn The function to run when the success or error function throw an uncaught exception
+         * @return This builder
+         */
+        public Builder<T> onComplete(@Nullable Runnable completeFn) {
+            this.completeFn = completeFn;
+            return this;
+        }
 
         /**
          * Adds this builder's callbacks to the provided future.
@@ -76,12 +86,26 @@ public final class FutureCallback {
             return future.whenComplete(this::onComplete);
         }
         private void onComplete(T val, Throwable err) {
+            if (completeFn != null) {
+                tryComplete();
+            }
             if (err == null) {
                 if (successFn != null) {
                     trySuccess(val);
                 }
             } else if (errorFn != null) {
                 tryError(err);
+            }
+        }
+        private void tryComplete() {
+            try {
+                completeFn.run();
+            } catch (Throwable ex) {
+                if (uncaughtFn != null) {
+                    uncaughtFn.accept(ex);
+                } else {
+                    log.error("Uncaught exception in complete callback", ex);
+                }
             }
         }
         private void trySuccess(T val) {
@@ -106,6 +130,7 @@ public final class FutureCallback {
                 }
             }
         }
+
     }
 
 }
