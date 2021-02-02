@@ -1,12 +1,16 @@
 package com.tisawesomeness.minecord.command.player;
 
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.mc.player.Player;
+import com.tisawesomeness.minecord.util.ColorUtils;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
+
+import java.awt.Color;
 
 public class SkinCommand extends BasePlayerCommand {
 
@@ -20,11 +24,13 @@ public class SkinCommand extends BasePlayerCommand {
         String avatarUrl = player.getAvatarUrl().toString();
         String description = constructDescription(ctx, player);
 
-        EmbedBuilder eb = new EmbedBuilder()
+        Color color = player.isRainbow() ? ColorUtils.randomColor() : Bot.color;
+        EmbedBuilder eb = ctx.addFooter(new EmbedBuilder())
                 .setAuthor(title, skinHistoryUrl, avatarUrl)
+                .setColor(color)
                 .setDescription(description)
                 .setImage(player.getSkinUrl().toString());
-        ctx.reply(eb);
+        ctx.replyRaw(eb);
     }
     private static @NonNull String constructDescription(CommandContext ctx, Player player) {
         Lang lang = ctx.getLang();

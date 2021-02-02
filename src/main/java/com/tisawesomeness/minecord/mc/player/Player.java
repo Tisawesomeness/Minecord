@@ -19,10 +19,14 @@ import java.util.UUID;
  */
 @Value
 public class Player implements Comparable<Player> {
+
     public static final URL STEVE_SKIN_URL = URLUtils.createUrl("https://textures.minecraft.net/texture/" +
             "1a4af718455d4aab528e7a61f86fa25e6a369d1768dcb13f7df319a713eb810b");
     public static final URL ALEX_SKIN_URL = URLUtils.createUrl("https://textures.minecraft.net/texture/" +
             "3b60a1f6d562f52aaebbf1434f1de147933a3affe0e764fa49ea057536623cd3");
+    private static final Username DINNERBONE = new Username("Dinnerbone");
+    private static final Username GRUMM = new Username("Grumm");
+    private static final Username JEB = new Username("jeb_");
 
     /**
      * The unique ID of the player. When (extremely rarely) a player's UUID changes, the latest is used, and UUIDs
@@ -147,6 +151,19 @@ public class Player implements Comparable<Player> {
      */
     public @NonNull URL getMCSkinHistoryUrl() {
         return URLUtils.createUrl("https://mcskinhistory.com/player/" + uuid);
+    }
+
+    /**
+     * @return If the player is upside down as an easter egg
+     */
+    public boolean isUpsideDown() {
+        return username.equals(DINNERBONE) || username.equals(GRUMM);
+    }
+    /**
+     * @return If the player makes sheep rainbow colored as an easter egg
+     */
+    public boolean isRainbow() {
+        return username.equals(JEB);
     }
 
     /**

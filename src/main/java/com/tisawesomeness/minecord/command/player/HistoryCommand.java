@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command.player;
 
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.mc.player.*;
 import com.tisawesomeness.minecord.util.*;
@@ -9,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
+import java.awt.Color;
 import java.util.*;
 
 @Slf4j
@@ -36,8 +38,10 @@ public class HistoryCommand extends BasePlayerCommand {
         String title = ctx.i18nf("title", player.getUsername());
         String nameMCUrl = player.getNameMCUrl().toString();
         String avatarUrl = player.getAvatarUrl().toString();
-        return ctx.brand(new EmbedBuilder())
+        Color color = player.isRainbow() ? ColorUtils.randomColor() : Bot.color;
+        return ctx.addFooter(new EmbedBuilder())
                 .setAuthor(title, nameMCUrl, avatarUrl)
+                .setColor(color)
                 .build();
     }
 

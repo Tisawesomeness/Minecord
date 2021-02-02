@@ -12,6 +12,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
+import java.awt.Color;
 import java.net.URL;
 import java.util.*;
 
@@ -37,8 +38,9 @@ public class ProfileCommand extends BasePlayerCommand {
                 .orElseGet(() -> ctx.i18n("noCape"));
         String accountInfo = constructAccountInfo(ctx, player);
 
+        Color color = player.isRainbow() ? ColorUtils.randomColor() : Bot.color;
         EmbedBuilder eb = new EmbedBuilder()
-                .setColor(Bot.color)
+                .setColor(color)
                 .setAuthor(title, nameMCUrl, avatarUrl);
         MessageEmbed baseEmbed = eb.build();
         eb.setThumbnail(bodyUrl)
