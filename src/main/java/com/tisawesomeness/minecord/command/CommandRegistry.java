@@ -128,11 +128,17 @@ public class CommandRegistry implements Iterable<Command> {
         }
         return ImmutableTable.copyOf(table);
     }
-    private static void registerNameAndAliases(Table<? super Lang, ? super String, ? super Command> table, Command c) {
+    private static void registerNameAndAliases(Table<Lang, String, Command> table, Command c) {
         for (Lang lang : Lang.values()) {
             Collection<String> possibleInputs = new HashSet<>();
             possibleInputs.add(c.getId());
-            possibleInputs.add(c.getDisplayName(lang));
+            if (c instanceof IMultiNameCommand) {
+                for (Lang lang2 : Lang.values()) {
+                    possibleInputs.add(c.getDisplayName(lang2));
+                }
+            } else {
+                possibleInputs.add(c.getDisplayName(lang));
+            }
             possibleInputs.addAll(c.getAliases(lang));
             for (String input : possibleInputs) {
                 table.put(lang, input, c);
@@ -142,7 +148,8 @@ public class CommandRegistry implements Iterable<Command> {
 
     /**
      * Gets a command, given its id, name, or alias.
-     * @param name The part of the command after "&" and before a space. For example, "&server hypixel.net" becomes "server".
+     * @param name The part of the command after "&" and before a space.
+     *             For example, "&server hypixel.net" becomes "server".
      * @return The command which should be executed, or empty if there is no command associated with the input.
      */
     public Optional<Command> getCommand(String name, Lang lang) {

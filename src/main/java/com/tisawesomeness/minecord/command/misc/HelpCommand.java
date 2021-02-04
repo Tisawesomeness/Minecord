@@ -1,12 +1,8 @@
 package com.tisawesomeness.minecord.command.misc;
 
-import com.tisawesomeness.minecord.lang.Lang;
-import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.CommandRegistry;
-import com.tisawesomeness.minecord.command.IElevatedCommand;
-import com.tisawesomeness.minecord.command.IHiddenCommand;
+import com.tisawesomeness.minecord.command.*;
 import com.tisawesomeness.minecord.command.Module;
+import com.tisawesomeness.minecord.lang.Lang;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public class HelpCommand extends AbstractMiscCommand {
+public class HelpCommand extends AbstractMiscCommand implements IMultiNameCommand {
 
     private @NonNull CommandRegistry registry;
 
