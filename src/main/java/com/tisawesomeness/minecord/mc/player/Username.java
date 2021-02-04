@@ -62,6 +62,24 @@ public class Username implements CharSequence, Comparable<Username> {
         return name.contains(s);
     }
 
+    /**
+     * Escapes a username for use in commands by replacing " with \" and \ with \\.
+     * <br>This is needed just in case a username with a quote or backslash ever gets created.
+     * @param input The unescaped username as input
+     * @return The escaped username
+     */
+    public static @NonNull String escape(@NonNull CharSequence input) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < input.length(); i++) {
+            char ch = input.charAt(i);
+            if (ch == '"' || ch == '\\') {
+                sb.append('\\');
+            }
+            sb.append(ch);
+        }
+        return sb.toString();
+    }
+
     public int length() {
         return name.length();
     }

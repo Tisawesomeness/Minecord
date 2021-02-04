@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.mc.player;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -77,6 +78,20 @@ public class UsernameTest {
     public void testInvalidNames(String candidate) {
         Username name = new Username(candidate);
         assertThat(name.isValid()).isFalse();
+    }
+
+    @ParameterizedTest(name = "{index} ==> username `{0}` escapes to `{1}`")
+    @CsvSource({
+            "Tis_awesomeness, Tis_awesomeness",
+            "jeb_, jeb_",
+            "Will Wall, Will Wall",
+            "ab\"cd, ab\\\"cd",
+            "ab\\cd, ab\\\\cd",
+            "hmm\", hmm\\\"",
+            "hmm\\, hmm\\\\"
+    })
+    public void testEscape(CharSequence candidate, CharSequence expected) {
+        assertThat(Username.escape(candidate)).isEqualTo(expected);
     }
 
     private static Stream<String> validNameProvider() {
