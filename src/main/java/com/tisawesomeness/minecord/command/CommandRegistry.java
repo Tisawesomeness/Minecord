@@ -42,6 +42,7 @@ public class CommandRegistry implements Iterable<Command> {
                 new BodyCommand(),
                 new SkinCommand(),
                 new CapeCommand(),
+                new EscapeCommand(),
 
                 // Utility
                 new StatusCommand(),
