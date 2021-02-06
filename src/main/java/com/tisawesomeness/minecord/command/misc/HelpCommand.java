@@ -16,50 +16,21 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class HelpCommand extends AbstractMiscCommand implements IMultiNameCommand {
 
-    private @NonNull CommandRegistry registry;
+    private final @NonNull CommandRegistry registry;
 
     public @NonNull String getId() {
         return "help";
     }
 
     public void run(String[] args, CommandContext ctx) {
-        String prefix = ctx.getPrefix();
-        Lang lang = ctx.getLang();
-
-        EmbedBuilder eb = new EmbedBuilder();
-        String url = ctx.getE().getJDA().getSelfUser().getEffectiveAvatarUrl();
-
-        // General help
         if (args.length == 0) {
             ctx.triggerCooldown();
-            // Help menu only contains names of commands, tell user how to get more help
-            String help = String.format(
-                "Use `%shelp <command>` to get more information about a command.\n" +
-                "Use `%shelp <module>` to get help for that module.",
-                prefix, prefix);
-            eb.setAuthor("Minecord Help", null, url).setDescription(help);
-
-            // Hidden modules must be viewed directly
-            for (Module m : Module.values()) {
-                if (m.isHidden()) {
-                    continue;
-                }
-                // Build that module's list of user-facing commands
-                Collection<Command> cmds = registry.getCommandsInModule(m);
-                if (cmds.isEmpty()) {
-                    continue;
-                }
-                String mHelp = cmds.stream()
-                    .filter(c -> !(c instanceof IHiddenCommand))
-                    .map(c -> formatCommand(ctx, prefix, lang, c))
-                    .collect(Collectors.joining(", "));
-                eb.addField(m.getDisplayName(lang), mHelp, false);
-            }
-            ctx.reply(eb);
+            generalHelp(ctx);
             return;
         }
 
-        // Module help
+        // Check module first
+        Lang lang = ctx.getLang();
         Optional<Module> moduleOpt = Module.from(args[0], lang);
         if (moduleOpt.isPresent()) {
             ctx.triggerCooldown();
@@ -68,21 +39,11 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
                 ctx.warn("You do not have permission to view that module.");
                 return;
             }
-            String mUsage = registry.getCommandsInModule(m).stream()
-                .filter(c -> !(c instanceof IHiddenCommand) || m.isHidden()) // All admin commands are hidden
-                .map(c -> formatCommandFull(ctx, prefix, lang, c))
-                .collect(Collectors.joining("\n"));
-            // Add module-specific help if it exists
-            Optional<String> mHelp = m.getHelp(lang, prefix);
-            if (mHelp.isPresent()) {
-                mUsage = mHelp.get() + "\n\n" + mUsage;
-            }
-            eb.setAuthor(m.getDisplayName(lang) + " Module Help", null, url).setDescription(mUsage);
-            ctx.reply(eb);
+            moduleHelp(ctx, m);
             return;
         }
 
-        // Command help
+        // Check commands last
         Optional<Command> cmdOpt = registry.getCommand(args[0], lang);
         if (cmdOpt.isPresent()) {
             ctx.triggerCooldown();
@@ -104,6 +65,37 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
         ctx.invalidArgs("That command or module does not exist.");
     }
 
+    private void generalHelp(CommandContext ctx) {
+        Lang lang = ctx.getLang();
+        String prefix = ctx.getPrefix();
+
+        // Help menu only contains names of commands, tell user how to get more help
+        String help = String.format(
+            "Use `%shelp <command>` to get more information about a command.\n" +
+            "Use `%shelp <module>` to get help for that module.",
+            prefix, prefix);
+        EmbedBuilder eb = new EmbedBuilder()
+                .setAuthor("Minecord Help", null, getAvatarUrl(ctx))
+                .setDescription(help);
+
+        // Hidden modules must be viewed directly
+        for (Module m : Module.values()) {
+            if (m.isHidden()) {
+                continue;
+            }
+            // Build that module's list of user-facing commands
+            Collection<Command> cmds = registry.getCommandsInModule(m);
+            if (cmds.isEmpty()) {
+                continue;
+            }
+            String mHelp = cmds.stream()
+                .filter(c -> !(c instanceof IHiddenCommand))
+                .map(c -> formatCommand(ctx, prefix, lang, c))
+                .collect(Collectors.joining(", "));
+            eb.addField(m.getDisplayName(lang), mHelp, false);
+        }
+        ctx.reply(eb);
+    }
     private static String formatCommand(CommandContext ctx, String prefix, Lang lang, Command c) {
         if (c.isEnabled(ctx.getConfig().getCommandConfig())) {
             return String.format("`%s%s`", prefix, c.getDisplayName(lang));
@@ -111,6 +103,25 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
         return String.format("~~`%s%s`~~", prefix, c.getDisplayName(lang));
     }
 
+    private void moduleHelp(CommandContext ctx, Module m) {
+        Lang lang = ctx.getLang();
+        String prefix = ctx.getPrefix();
+
+        String mUsage = registry.getCommandsInModule(m).stream()
+                .filter(c -> !(c instanceof IHiddenCommand) || m.isHidden()) // All admin commands are hidden
+                .map(c -> formatCommandFull(ctx, prefix, lang, c))
+                .collect(Collectors.joining("\n"));
+        // Add module-specific help if it exists
+        Optional<String> mHelp = m.getHelp(lang, prefix);
+        if (mHelp.isPresent()) {
+            mUsage = mHelp.get() + "\n\n" + mUsage;
+        }
+        String title = m.getDisplayName(lang) + " Module Help";
+        EmbedBuilder eb = new EmbedBuilder()
+                .setAuthor(title, null, getAvatarUrl(ctx))
+                .setDescription(mUsage);
+        ctx.reply(eb);
+    }
     private static String formatCommandFull(CommandContext ctx, String prefix, Lang lang, Command c) {
         // Formatting changes based on whether the command has arguments
         Optional<String> usageOpt = c.getUsage(lang);
@@ -124,6 +135,10 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
             return String.format("`%s%s %s` - %s", prefix, c.getDisplayName(lang), usageOpt.get(), c.getDescription(lang));
         }
         return String.format("~~`%s%s %s`~~ - %s", prefix, c.getDisplayName(lang), usageOpt.get(), c.getDescription(lang));
+    }
+
+    private static String getAvatarUrl(CommandContext ctx) {
+        return ctx.getE().getJDA().getSelfUser().getEffectiveAvatarUrl();
     }
 
     /**
@@ -145,12 +160,7 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
         if (examplesOpt.isPresent()) {
             help += "\n\n**Examples**:\n" + examplesOpt.get();
         }
-        return showHelpInternal(ctx, c, help);
-    }
 
-    private static EmbedBuilder showHelpInternal(CommandContext ctx, Command c, String help) {
-        String prefix = ctx.getPrefix();
-        Lang lang = ctx.getLang();
         help += "\n";
 
         help += getAddedPermsHelp(c.getUserPermissions(), "**Required User Perms**")
@@ -180,6 +190,7 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
                 .setTitle(name + " Help")
                 .setDescription(desc);
     }
+
     private static String getAddedPermsHelp(Collection<Permission> permissions, String permissionDescriptor) {
         if (permissions.isEmpty()) {
             return "";
