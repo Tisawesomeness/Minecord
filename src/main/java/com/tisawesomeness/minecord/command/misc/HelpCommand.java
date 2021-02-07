@@ -8,14 +8,15 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import java.util.Collection;
+import java.util.EnumSet;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class HelpCommand extends AbstractMiscCommand implements IMultiNameCommand {
-
     private final @NonNull CommandRegistry registry;
 
     public @NonNull String getId() {
@@ -90,13 +91,15 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
             }
             String mHelp = cmds.stream()
                 .filter(c -> !(c instanceof IHiddenCommand))
-                .map(c -> formatCommand(ctx, prefix, lang, c))
+                .map(c -> formatCommand(ctx, c))
                 .collect(Collectors.joining(", "));
             eb.addField(m.getDisplayName(lang), mHelp, false);
         }
         ctx.reply(eb);
     }
-    private static String formatCommand(CommandContext ctx, String prefix, Lang lang, Command c) {
+    private static String formatCommand(CommandContext ctx, Command c) {
+        String prefix = ctx.getPrefix();
+        Lang lang = ctx.getLang();
         if (c.isEnabled(ctx.getConfig().getCommandConfig())) {
             return String.format("`%s%s`", prefix, c.getDisplayName(lang));
         }
@@ -109,7 +112,7 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
 
         String mUsage = registry.getCommandsInModule(m).stream()
                 .filter(c -> !(c instanceof IHiddenCommand) || m.isHidden()) // All admin commands are hidden
-                .map(c -> formatCommandFull(ctx, prefix, lang, c))
+                .map(c -> formatCommandFull(ctx, c))
                 .collect(Collectors.joining("\n"));
         // Add module-specific help if it exists
         Optional<String> mHelp = m.getHelp(lang, prefix);
@@ -122,7 +125,9 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
                 .setDescription(mUsage);
         ctx.reply(eb);
     }
-    private static String formatCommandFull(CommandContext ctx, String prefix, Lang lang, Command c) {
+    private static String formatCommandFull(CommandContext ctx, Command c) {
+        String prefix = ctx.getPrefix();
+        Lang lang = ctx.getLang();
         // Formatting changes based on whether the command has arguments
         Optional<String> usageOpt = c.getUsage(lang);
         if (usageOpt.isEmpty()) {
@@ -135,10 +140,6 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
             return String.format("`%s%s %s` - %s", prefix, c.getDisplayName(lang), usageOpt.get(), c.getDescription(lang));
         }
         return String.format("~~`%s%s %s`~~ - %s", prefix, c.getDisplayName(lang), usageOpt.get(), c.getDescription(lang));
-    }
-
-    private static String getAvatarUrl(CommandContext ctx) {
-        return ctx.getE().getJDA().getSelfUser().getEffectiveAvatarUrl();
     }
 
     /**
@@ -154,57 +155,77 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
         Lang lang = ctx.getLang();
         String prefix = ctx.getPrefix();
         String tag = ctx.getE().getJDA().getSelfUser().getAsMention();
+        EmbedBuilder eb = new EmbedBuilder();
+
+        eb.setTitle("Help for " + formatCommandUsage(ctx, c));
 
         String help = isAdmin ? c.getAdminHelp(lang, prefix, tag) : c.getHelp(lang, prefix, tag);
+        eb.setDescription(help);
+
         Optional<String> examplesOpt = isAdmin ? c.getAdminExamples(lang, prefix, tag) : c.getExamples(lang, prefix, tag);
         if (examplesOpt.isPresent()) {
-            help += "\n\n**Examples**:\n" + examplesOpt.get();
+            eb.addField("Examples", examplesOpt.get(), false);
         }
 
-        help += "\n";
-
-        help += getAddedPermsHelp(c.getUserPermissions(), "**Required User Perms**")
-                + getAddedPermsHelp(c.getBotPermissions(), "**Required Bot Perms**");
-
-        // Alias list formatted with prefix in code blocks
-        if (!c.getAliases(lang).isEmpty()) {
-            String aliases = c.getAliases(lang).stream()
-                    .map(s -> String.format("`%s%s`", prefix, s))
-                    .collect(Collectors.joining(", "));
-            help += "\n**Aliases**: " + aliases;
+        EnumSet<Permission> userPerms = c.getUserPermissions();
+        if (!userPerms.isEmpty()) {
+            eb.addField("Required User Permissions", joinPerms(userPerms), false);
         }
-        // If the cooldown is exactly N seconds, treat as int
+        EnumSet<Permission> botPerms = c.getBotPermissions();
+        if (!botPerms.isEmpty()) {
+            eb.addField("Required Bot Permissions", joinPerms(botPerms), false);
+        }
+
         int cooldown = c.getCooldown(ctx.getConfig().getCommandConfig());
         if (cooldown > 0) {
-            help += getCooldownString(cooldown);
+            eb.addField("Cooldown", getCooldownString(cooldown), true);
         }
 
-        String name;
-        if (c.isEnabled(ctx.getConfig().getCommandConfig())) {
-            name = prefix + c.getDisplayName(lang);
-        } else {
-            name = String.format("~~%s%s~~", prefix, c.getDisplayName(lang));
+        eb.addField("Module", c.getModule().getDisplayName(lang), true);
+
+        if (!c.getAliases(lang).isEmpty()) {
+            eb.addField("Aliases", joinAliases(ctx, c), true);
         }
-        String desc = String.format("%s\n**Module**: `%s`", help, c.getModule().getDisplayName(lang));
-        return new EmbedBuilder()
-                .setTitle(name + " Help")
-                .setDescription(desc);
+
+        return eb;
     }
 
-    private static String getAddedPermsHelp(Collection<Permission> permissions, String permissionDescriptor) {
-        if (permissions.isEmpty()) {
-            return "";
-        }
-        String permissionsString = permissions.stream()
-                .map(Permission::getName)
+    private static String joinAliases(CommandContext ctx, Command c) {
+        return c.getAliases(ctx.getLang()).stream()
+                .map(MarkdownUtil::monospace)
                 .collect(Collectors.joining(", "));
-        return String.format("\n%s: %s", permissionDescriptor, permissionsString);
+    }
+    private static String formatCommandUsage(CommandContext ctx, Command c) {
+        String prefix = ctx.getPrefix();
+        Lang lang = ctx.getLang();
+        // Formatting changes based on whether the command has arguments
+        Optional<String> usageOpt = c.getUsage(lang);
+        if (usageOpt.isEmpty()) {
+            if (c.isEnabled(ctx.getConfig().getCommandConfig())) {
+                return String.format("`%s%s`", prefix, c.getDisplayName(lang));
+            }
+            return String.format("~~`%s%s`~~", prefix, c.getDisplayName(lang));
+        }
+        if (c.isEnabled(ctx.getConfig().getCommandConfig())) {
+            return String.format("`%s%s %s`", prefix, c.getDisplayName(lang), usageOpt.get());
+        }
+        return String.format("~~`%s%s %s`~~", prefix, c.getDisplayName(lang), usageOpt.get());
+    }
+    private static String joinPerms(Collection<Permission> permissions) {
+        return permissions.stream()
+                .map(Permission::getName)
+                .map(MarkdownUtil::monospace)
+                .collect(Collectors.joining(", "));
     }
     private static String getCooldownString(int cooldown) {
         if (cooldown % 1000 == 0) {
-            return String.format("\n**Cooldown**: `%ss`", cooldown / 1000);
+            return String.format("`%ss`", cooldown / 1000);
         }
-        return String.format("\n**Cooldown**: `%ss`", cooldown / 1000.0);
+        return String.format("`%ss`", cooldown / 1000.0);
+    }
+
+    private static String getAvatarUrl(CommandContext ctx) {
+        return ctx.getE().getJDA().getSelfUser().getEffectiveAvatarUrl();
     }
 
 }
