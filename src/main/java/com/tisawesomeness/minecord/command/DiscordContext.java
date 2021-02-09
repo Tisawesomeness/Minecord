@@ -56,7 +56,7 @@ public class DiscordContext extends CommandContext {
         e.getChannel().sendMessage(emb).queue();
     }
     public void requestHelp() {
-        sendMessage(brand(HelpCommand.showHelp(this, cmd)).build());
+        sendMessage(brand(cmd.showHelp(this)).build());
     }
 
     public void triggerCooldown() {

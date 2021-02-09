@@ -1,17 +1,14 @@
 package com.tisawesomeness.minecord.command.misc;
 
-import com.tisawesomeness.minecord.command.*;
 import com.tisawesomeness.minecord.command.Module;
+import com.tisawesomeness.minecord.command.*;
 import com.tisawesomeness.minecord.lang.Lang;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import java.util.Collection;
-import java.util.EnumSet;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -56,10 +53,10 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
             }
             // Admin check
             if (args.length > 1 && "admin".equals(args[1])) {
-                ctx.reply(showHelp(ctx, c, true));
+                ctx.reply(c.showAdminHelp(ctx));
                 return;
             }
-            ctx.reply(showHelp(ctx, c));
+            ctx.reply(c.showHelp(ctx));
             return;
         }
 
@@ -140,88 +137,6 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
             return String.format("`%s%s %s` - %s", prefix, c.getDisplayName(lang), usageOpt.get(), c.getDescription(lang));
         }
         return String.format("~~`%s%s %s`~~ - %s", prefix, c.getDisplayName(lang), usageOpt.get(), c.getDescription(lang));
-    }
-
-    /**
-     * Creates the help menu for a command.
-     * @param ctx The incoming context, used to get prefix and language
-     * @param c The command
-     * @return An unbranded embed builder with the title and description set
-     */
-    public static EmbedBuilder showHelp(CommandContext ctx, Command c) {
-        return showHelp(ctx, c, false);
-    }
-    private static EmbedBuilder showHelp(CommandContext ctx, Command c, boolean isAdmin) {
-        Lang lang = ctx.getLang();
-        String prefix = ctx.getPrefix();
-        String tag = ctx.getE().getJDA().getSelfUser().getAsMention();
-        EmbedBuilder eb = new EmbedBuilder();
-
-        eb.setTitle("Help for " + formatCommandUsage(ctx, c));
-
-        String help = isAdmin ? c.getAdminHelp(lang, prefix, tag) : c.getHelp(lang, prefix, tag);
-        eb.setDescription(help);
-
-        Optional<String> examplesOpt = isAdmin ? c.getAdminExamples(lang, prefix, tag) : c.getExamples(lang, prefix, tag);
-        if (examplesOpt.isPresent()) {
-            eb.addField("Examples", examplesOpt.get(), false);
-        }
-
-        EnumSet<Permission> userPerms = c.getUserPermissions();
-        if (!userPerms.isEmpty()) {
-            eb.addField("Required User Permissions", joinPerms(userPerms), false);
-        }
-        EnumSet<Permission> botPerms = c.getBotPermissions();
-        if (!botPerms.isEmpty()) {
-            eb.addField("Required Bot Permissions", joinPerms(botPerms), false);
-        }
-
-        int cooldown = c.getCooldown(ctx.getConfig().getCommandConfig());
-        if (cooldown > 0) {
-            eb.addField("Cooldown", getCooldownString(cooldown), true);
-        }
-
-        eb.addField("Module", c.getModule().getDisplayName(lang), true);
-
-        if (!c.getAliases(lang).isEmpty()) {
-            eb.addField("Aliases", joinAliases(ctx, c), true);
-        }
-
-        return eb;
-    }
-
-    private static String joinAliases(CommandContext ctx, Command c) {
-        return c.getAliases(ctx.getLang()).stream()
-                .map(MarkdownUtil::monospace)
-                .collect(Collectors.joining(", "));
-    }
-    private static String formatCommandUsage(CommandContext ctx, Command c) {
-        String prefix = ctx.getPrefix();
-        Lang lang = ctx.getLang();
-        // Formatting changes based on whether the command has arguments
-        Optional<String> usageOpt = c.getUsage(lang);
-        if (usageOpt.isEmpty()) {
-            if (c.isEnabled(ctx.getConfig().getCommandConfig())) {
-                return String.format("`%s%s`", prefix, c.getDisplayName(lang));
-            }
-            return String.format("~~`%s%s`~~", prefix, c.getDisplayName(lang));
-        }
-        if (c.isEnabled(ctx.getConfig().getCommandConfig())) {
-            return String.format("`%s%s %s`", prefix, c.getDisplayName(lang), usageOpt.get());
-        }
-        return String.format("~~`%s%s %s`~~", prefix, c.getDisplayName(lang), usageOpt.get());
-    }
-    private static String joinPerms(Collection<Permission> permissions) {
-        return permissions.stream()
-                .map(Permission::getName)
-                .map(MarkdownUtil::monospace)
-                .collect(Collectors.joining(", "));
-    }
-    private static String getCooldownString(int cooldown) {
-        if (cooldown % 1000 == 0) {
-            return String.format("`%ss`", cooldown / 1000);
-        }
-        return String.format("`%ss`", cooldown / 1000.0);
     }
 
     private static String getAvatarUrl(CommandContext ctx) {

@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class ColorShortcut extends AbstractUtilityCommand implements IShortcutCommand, IHiddenCommand {
+public class ColorShortcut extends ColorCommand implements IShortcutCommand, IHiddenCommand {
 
     private final Command colorCmd;
     private final String colorCode;
@@ -27,16 +27,13 @@ public class ColorShortcut extends AbstractUtilityCommand implements IShortcutCo
         color = ColorUtils.getColor(index);
     }
 
+    @Override
     public @NonNull String getId() {
         return colorCode;
     }
     @Override
     public @NonNull String getDisplayName(Lang lang) {
         return colorCode;
-    }
-    @Override
-    public @NonNull String getDescription(Lang lang) {
-        return colorCmd.getDescription(lang);
     }
     @Override
     public Optional<String> getUsage(Lang lang) {
@@ -55,15 +52,19 @@ public class ColorShortcut extends AbstractUtilityCommand implements IShortcutCo
         // Prevent calling getId() in superclass, which redirects to getId() in this class
         return Optional.of(colorCmd.getId());
     }
-
-    public @NonNull String getHelp(Lang lang, String prefix, String tag) {
-        return colorCmd.getHelp(lang, prefix, tag);
+    @Override
+    public EmbedBuilder showHelp(CommandContext ctx) {
+        return colorCmd.showHelp(ctx);
+    }
+    @Override
+    public EmbedBuilder showAdminHelp(CommandContext ctx) {
+        return colorCmd.showAdminHelp(ctx);
     }
 
+    @Override
     public void run(String[] args, CommandContext ctx) {
         ctx.triggerCooldown();
-        EmbedBuilder eb = ColorCommand.buildColorInfo(color);
-        ctx.replyRaw(ctx.addFooter(eb));
+        ctx.replyRaw(ctx.addFooter(buildColorInfo(color)));
     }
 
 }

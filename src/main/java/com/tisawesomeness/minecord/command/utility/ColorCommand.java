@@ -28,7 +28,7 @@ public class ColorCommand extends AbstractUtilityCommand {
         ctx.replyRaw(ctx.addFooter(buildColorInfo(c)));
     }
 
-    public static EmbedBuilder buildColorInfo(Color c) {
+    protected static EmbedBuilder buildColorInfo(Color c) {
         String formats = ColorUtils.getRGB(c) + "\n" +
                 ColorUtils.getHSV(c) + "\n" +
                 ColorUtils.getHSL(c) + "\n" +
