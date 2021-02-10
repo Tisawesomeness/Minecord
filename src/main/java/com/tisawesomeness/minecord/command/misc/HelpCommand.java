@@ -7,6 +7,7 @@ import com.tisawesomeness.minecord.lang.Lang;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -34,7 +35,7 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
             ctx.triggerCooldown();
             Module m = moduleOpt.get();
             if (m.isHidden() && !ctx.isElevated()) {
-                ctx.warn("You do not have permission to view that module.");
+                ctx.warn(ctx.i18n("noModulePerms"));
                 return;
             }
             moduleHelp(ctx, m);
@@ -48,7 +49,7 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
             Command c = cmdOpt.get();
             // Elevation check
             if (c instanceof IElevatedCommand && !ctx.isElevated()) {
-                ctx.warn("You do not have permission to view that command.");
+                ctx.warn(ctx.i18n("noCommandPerms"));
                 return;
             }
             // Admin check
@@ -60,21 +61,15 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
             return;
         }
 
-        ctx.invalidArgs("That command or module does not exist.");
+        ctx.invalidArgs(ctx.i18n("doesNotExist"));
     }
 
     private void generalHelp(CommandContext ctx) {
         Lang lang = ctx.getLang();
-        String prefix = ctx.getPrefix();
 
-        // Help menu only contains names of commands, tell user how to get more help
-        String help = String.format(
-            "Use `%shelp <command>` to get more information about a command.\n" +
-            "Use `%shelp <module>` to get help for that module.",
-            prefix, prefix);
         EmbedBuilder eb = new EmbedBuilder()
-                .setAuthor("Minecord Help", null, getAvatarUrl(ctx))
-                .setDescription(help);
+                .setAuthor(ctx.i18n("title"), null, getAvatarUrl(ctx))
+                .setDescription(getMoreHelp(ctx));
 
         // Hidden modules must be viewed directly
         for (Module m : Module.values()) {
@@ -87,9 +82,9 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
                 continue;
             }
             String mHelp = cmds.stream()
-                .filter(c -> !(c instanceof IHiddenCommand))
-                .map(c -> formatCommand(ctx, c))
-                .collect(Collectors.joining(", "));
+                    .filter(c -> !(c instanceof IHiddenCommand))
+                    .map(c -> formatCommand(ctx, c))
+                    .collect(Collectors.joining(", "));
             eb.addField(m.getDisplayName(lang), mHelp, false);
         }
         ctx.reply(eb);
@@ -101,6 +96,14 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
             return String.format("`%s%s`", prefix, c.getDisplayName(lang));
         }
         return String.format("~~`%s%s`~~", prefix, c.getDisplayName(lang));
+    }
+    // Help menu only contains names of commands, tell user how to get more help
+    private static String getMoreHelp(CommandContext ctx) {
+        String commandUsage = MarkdownUtil.monospace(ctx.i18nf("commandUsage", ctx.getPrefix()));
+        String commandHelp = ctx.i18nf("commandHelp", commandUsage);
+        String moduleUsage = MarkdownUtil.monospace(ctx.i18nf("moduleUsage", ctx.getPrefix()));
+        String moduleHelp = ctx.i18nf("moduleHelp", moduleUsage);
+        return commandHelp + "\n" + moduleHelp;
     }
 
     private void moduleHelp(CommandContext ctx, Module m) {
@@ -116,7 +119,7 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
         if (mHelp.isPresent()) {
             mUsage = mHelp.get() + "\n\n" + mUsage;
         }
-        String title = m.getDisplayName(lang) + " Module Help";
+        String title = ctx.i18nf("moduleTitle", m.getDisplayName(lang));
         EmbedBuilder eb = new EmbedBuilder()
                 .setAuthor(title, null, getAvatarUrl(ctx))
                 .setDescription(mUsage);

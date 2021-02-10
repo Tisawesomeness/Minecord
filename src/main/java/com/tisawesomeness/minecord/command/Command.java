@@ -244,36 +244,36 @@ public abstract class Command {
         Lang lang = ctx.getLang();
         String prefix = ctx.getPrefix();
         String tag = ctx.getE().getJDA().getSelfUser().getAsMention();
-        EmbedBuilder eb = new EmbedBuilder();
 
-        eb.setTitle("Help for " + formatCommandUsage(ctx));
-
-        String help = isAdmin ? getAdminHelp(lang, prefix, tag) : getHelp(lang, prefix, tag);
-        eb.setDescription(help);
+        String helpDesc = isAdmin ? getAdminHelp(lang, prefix, tag) : getHelp(lang, prefix, tag);
+        EmbedBuilder eb = new EmbedBuilder()
+                .setTitle(lang.i18nf("command.meta.helpTitle", formatCommandUsage(ctx)))
+                .setDescription(helpDesc);
 
         Optional<String> examplesOpt = isAdmin ? getAdminExamples(lang, prefix, tag) : getExamples(lang, prefix, tag);
         if (examplesOpt.isPresent()) {
-            eb.addField("Examples", examplesOpt.get(), false);
+            eb.addField(lang.i18n("command.meta.examples"), examplesOpt.get(), false);
         }
 
         EnumSet<Permission> userPerms = getUserPermissions();
         if (!userPerms.isEmpty()) {
-            eb.addField("Required User Permissions", joinPerms(userPerms), false);
+            eb.addField(lang.i18n("command.meta.userPerms"), joinPerms(userPerms), false);
         }
         EnumSet<Permission> botPerms = getBotPermissions();
         if (!botPerms.isEmpty()) {
-            eb.addField("Required Bot Permissions", joinPerms(botPerms), false);
+            eb.addField(lang.i18n("command.meta.botPerms"), joinPerms(botPerms), false);
         }
 
         int cooldown = getCooldown(ctx.getConfig().getCommandConfig());
         if (cooldown > 0) {
-            eb.addField("Cooldown", getCooldownString(cooldown), true);
+            String cooldownStr = MarkdownUtil.monospace(getCooldownString(cooldown, lang));
+            eb.addField(lang.i18n("command.meta.cooldown"), cooldownStr, true);
         }
 
-        eb.addField("Module", getModule().getDisplayName(lang), true);
+        eb.addField(lang.i18n("command.meta.module"), getModule().getDisplayName(lang), true);
 
         if (!getAliases(lang).isEmpty()) {
-            eb.addField("Aliases", joinAliases(ctx), true);
+            eb.addField(lang.i18n("command.meta.aliases"), joinAliases(ctx), true);
         }
 
         return eb;
@@ -306,11 +306,11 @@ public abstract class Command {
                 .map(MarkdownUtil::monospace)
                 .collect(Collectors.joining(", "));
     }
-    private static String getCooldownString(int cooldown) {
+    private static String getCooldownString(int cooldown, Lang lang) {
         if (cooldown % 1000 == 0) {
-            return String.format("`%ss`", cooldown / 1000);
+            return lang.i18nf("command.meta.cooldownFormat", cooldown / 1000);
         }
-        return String.format("`%ss`", cooldown / 1000.0);
+        return lang.i18nf("command.meta.cooldownFormat", cooldown / 1000.0);
     }
 
     @Override
