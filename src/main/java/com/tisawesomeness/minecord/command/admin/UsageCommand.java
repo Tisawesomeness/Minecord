@@ -28,43 +28,44 @@ public class UsageCommand extends AbstractAdminCommand {
     }
 
     public void run(String[] args, CommandContext ctx) {
-        Lang lang = ctx.getLang();
-        EmbedBuilder eb = new EmbedBuilder()
-                .setTitle("Command usage for " + DateUtils.getDurationString(ctx.getBot().getBirth()));
-
         if (args.length == 0) {
-            processGlobalUsage(ctx, eb);
+            processGlobalUsage(ctx);
             return;
         } else if ("full".equalsIgnoreCase(args[0])) {
-            processFullUsage(ctx, eb);
+            processFullUsage(ctx);
             return;
         }
+        Lang lang = ctx.getLang();
         Optional<Module> moduleOpt = Module.from(args[0], lang);
         if (moduleOpt.isPresent()) {
-            getModuleUsage(ctx, eb, moduleOpt.get());
+            getModuleUsage(ctx, moduleOpt.get());
             return;
         }
         Optional<Command> cmdOpt = registry.getCommand(args[0], lang);
         if (cmdOpt.isPresent()) {
-            getCommandUsage(ctx, eb, cmdOpt.get());
+            getCommandUsage(ctx, cmdOpt.get());
             return;
         }
         ctx.invalidArgs("That command or module does not exist.");
     }
 
-    private void processGlobalUsage(CommandContext ctx, EmbedBuilder eb) {
-        addFields(ctx, eb, c -> formatCommand(c, ctx));
+    private void processGlobalUsage(CommandContext ctx) {
         Multiset<Result> totalResults = accumulateResults(registry, ctx);
         int uses = ctx.getExecutor().getTotalUses();
-        eb.setDescription(formatResults(totalResults, uses));
+        EmbedBuilder eb = new EmbedBuilder()
+                .setTitle(commandUsageTitle(ctx))
+                .setDescription(formatResults(totalResults, uses));
+        addFields(ctx, eb, c -> formatCommand(c, ctx));
         ctx.reply(eb);
     }
-    private void processFullUsage(CommandContext ctx, EmbedBuilder eb) {
+    private void processFullUsage(CommandContext ctx) {
         ctx.getExecutor().pushUses(); // Make sure uses are up-to-date
         try {
             Multiset<String> commandUses = ctx.getExecutor().getCommandStats().getCommandUses();
+            EmbedBuilder eb = new EmbedBuilder()
+                    .setTitle("Full Command Usage")
+                    .setDescription(usesHeader(commandUses.size()));
             addFields(ctx, eb, c -> formatCommandFull(c, ctx, commandUses));
-            eb.setDescription(usesHeader(commandUses.size()));
             ctx.reply(eb);
             return;
         } catch (SQLException ex) {
@@ -83,7 +84,7 @@ public class UsageCommand extends AbstractAdminCommand {
         }
     }
 
-    private void getModuleUsage(CommandContext ctx, EmbedBuilder eb, Module m) {
+    private void getModuleUsage(CommandContext ctx, Module m) {
         Collection<Command> cmds = registry.getCommandsInModule(m);
         if (cmds.isEmpty()) {
             ctx.warn("That module has no commands!");
@@ -92,13 +93,17 @@ public class UsageCommand extends AbstractAdminCommand {
         Multiset<Result> totalResults = accumulateResults(cmds, ctx);
         String usage = buildUsageString(cmds, c -> formatCommandDetailed(c, ctx));
         int uses = ctx.getExecutor().getUses(m);
-        eb.setDescription(formatResults(totalResults, uses) + "\n\n" + usage);
+        EmbedBuilder eb = new EmbedBuilder()
+                .setTitle(commandUsageTitle(ctx))
+                .setDescription(formatResults(totalResults, uses) + "\n\n" + usage);
         ctx.reply(eb);
     }
-    private static void getCommandUsage(CommandContext ctx, EmbedBuilder eb, Command c) {
+    private static void getCommandUsage(CommandContext ctx, Command c) {
         Multiset<Result> results = ctx.getExecutor().getResults(c);
         int uses = ctx.getExecutor().getUses(c);
-        eb.setDescription(formatResults(results, uses));
+        EmbedBuilder eb = new EmbedBuilder()
+                .setTitle(commandUsageTitle(ctx))
+                .setDescription(formatResults(results, uses));
         ctx.reply(eb);
     }
 
@@ -159,6 +164,10 @@ public class UsageCommand extends AbstractAdminCommand {
             totalResults.addAll(ctx.getExecutor().getResults(c));
         }
         return totalResults;
+    }
+
+    private static String commandUsageTitle(CommandContext ctx) {
+        return "Command usage for " + DateUtils.getDurationString(ctx.getBot().getBirth());
     }
 
 }
