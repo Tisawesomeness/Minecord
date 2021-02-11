@@ -85,7 +85,7 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
                     .filter(c -> !(c instanceof IHiddenCommand))
                     .map(c -> formatCommand(ctx, c))
                     .collect(Collectors.joining(", "));
-            eb.addField(m.getDisplayName(lang), mHelp, false);
+            eb.addField(lang.localize(m), mHelp, false);
         }
         ctx.reply(eb);
     }
@@ -119,7 +119,7 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
         if (mHelp.isPresent()) {
             mUsage = mHelp.get() + "\n\n" + mUsage;
         }
-        String title = ctx.i18nf("moduleTitle", m.getDisplayName(lang));
+        String title = ctx.i18nf("moduleTitle", lang.localize(m));
         EmbedBuilder eb = new EmbedBuilder()
                 .setAuthor(title, null, getAvatarUrl(ctx))
                 .setDescription(mUsage);

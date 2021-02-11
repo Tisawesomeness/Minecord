@@ -10,6 +10,7 @@ import com.google.common.collect.Multiset;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import java.sql.SQLException;
 import java.util.Collection;
@@ -80,7 +81,7 @@ public class UsageCommand extends AbstractAdminCommand {
                 continue;
             }
             String field = buildUsageString(cmds, commandToLineMapper);
-            eb.addField(String.format("**%s**", m.getDisplayName(ctx.getLang())), field, true);
+            eb.addField(MarkdownUtil.bold(ctx.getLang().localize(m)), field, true);
         }
     }
 

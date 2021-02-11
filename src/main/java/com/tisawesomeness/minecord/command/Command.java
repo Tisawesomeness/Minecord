@@ -270,7 +270,7 @@ public abstract class Command {
             eb.addField(lang.i18n("command.meta.cooldown"), cooldownStr, true);
         }
 
-        eb.addField(lang.i18n("command.meta.module"), getModule().getDisplayName(lang), true);
+        eb.addField(lang.i18n("command.meta.module"), lang.localize(getModule()), true);
 
         if (!getAliases(lang).isEmpty()) {
             eb.addField(lang.i18n("command.meta.aliases"), joinAliases(ctx), true);

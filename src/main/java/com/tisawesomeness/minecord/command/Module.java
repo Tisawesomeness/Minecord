@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command;
 
 import com.tisawesomeness.minecord.lang.Lang;
+import com.tisawesomeness.minecord.lang.Localizable;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -10,7 +11,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public enum Module {
+public enum Module implements Localizable {
     PLAYER(),
     UTILITY(),
     DISCORD(),
@@ -32,14 +33,6 @@ public enum Module {
         return name().toLowerCase();
     }
     /**
-     * Gets the display name for this module
-     * @param lang The lang to use
-     * @return The localized display name
-     */
-    public @NonNull String getDisplayName(Lang lang) {
-        return lang.i18n(formatKey("name"));
-    }
-    /**
      * Defines the help text shown by {@code &help <module>}.
      * @return The help string, or empty if not defined
      */
@@ -54,11 +47,19 @@ public enum Module {
      */
     public static Optional<Module> from(@NonNull String name, Lang lang) {
         return Arrays.stream(values())
-                .filter(m -> m.getDisplayName(lang).equalsIgnoreCase(name))
+                .filter(m -> lang.localize(m).equalsIgnoreCase(name))
                 .findFirst();
+    }
+
+    public @NonNull String getTranslationKey() {
+        return formatKey("name");
+    }
+    public Object[] getTranslationArgs() {
+        return new Object[0];
     }
 
     private String formatKey(String key) {
         return String.format("module.%s.%s", getId(), key);
     }
+
 }
