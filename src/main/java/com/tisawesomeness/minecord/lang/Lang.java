@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.lang;
 import com.google.common.base.Splitter;
 import lombok.Getter;
 import lombok.NonNull;
+import net.dv8tion.jda.api.Permission;
 
 import java.text.MessageFormat;
 import java.util.Arrays;
@@ -186,6 +187,15 @@ public enum Lang {
      */
     public @NonNull String localize(boolean bool) {
         return bool ? i18n("general.true") : i18n("general.false");
+    }
+    /**
+     * Localizes a permission.
+     * @param permission The permission, may be unknown
+     * @return The name of the permission in this language
+     */
+    public @NonNull String localize(Permission permission) {
+        return i18nOpt("discord.permissions." + permission.name().toLowerCase())
+                .orElseGet(() -> i18n("discord.permissions.unknown"));
     }
 
     @Override

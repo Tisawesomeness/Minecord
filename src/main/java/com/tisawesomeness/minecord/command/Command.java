@@ -257,11 +257,11 @@ public abstract class Command {
 
         EnumSet<Permission> userPerms = getUserPermissions();
         if (!userPerms.isEmpty()) {
-            eb.addField(lang.i18n("command.meta.userPerms"), joinPerms(userPerms), false);
+            eb.addField(lang.i18n("command.meta.userPerms"), joinPerms(userPerms, lang), false);
         }
         EnumSet<Permission> botPerms = getBotPermissions();
         if (!botPerms.isEmpty()) {
-            eb.addField(lang.i18n("command.meta.botPerms"), joinPerms(botPerms), false);
+            eb.addField(lang.i18n("command.meta.botPerms"), joinPerms(botPerms, lang), false);
         }
 
         int cooldown = getCooldown(ctx.getConfig().getCommandConfig());
@@ -300,9 +300,9 @@ public abstract class Command {
         }
         return String.format("~~`%s%s %s`~~", prefix, getDisplayName(lang), usageOpt.get());
     }
-    private static String joinPerms(Collection<Permission> permissions) {
+    private static String joinPerms(Collection<Permission> permissions, Lang lang) {
         return permissions.stream()
-                .map(Permission::getName)
+                .map(lang::localize)
                 .map(MarkdownUtil::monospace)
                 .collect(Collectors.joining(", "));
     }
