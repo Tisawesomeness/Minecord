@@ -17,13 +17,13 @@ public final class Main {
         log.debug("Program started");
         ArgsHandler handle = new ArgsHandler();
         int exitCode = new CommandLine(handle).execute(args);
-        if (exitCode != ExitCode.SUCCESS.asInt()) {
+        if (exitCode != ExitCodes.SUCCESS) {
             System.exit(exitCode);
         }
         if (handle.isReady()) {
-            ExitCode botExitCode = new Bot().setup(handle);
-            if (botExitCode != ExitCode.SUCCESS) {
-                System.exit(botExitCode.asInt());
+            int botExitCode = new Bot().setup(handle);
+            if (botExitCode != ExitCodes.SUCCESS) {
+                System.exit(botExitCode);
             }
         }
     }

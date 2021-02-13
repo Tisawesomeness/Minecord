@@ -106,7 +106,7 @@ public class Bot {
      * @param args The parsed command-line arguments
      * @return The error code to send on failure, or 0 on success
      */
-    public ExitCode setup(ArgsHandler args) {
+    public int setup(ArgsHandler args) {
         birth = System.currentTimeMillis();
         log.info("Bot starting...");
         this.args = args;
@@ -116,10 +116,10 @@ public class Bot {
             config = ConfigReader.read(args.getConfigPath());
         } catch (IOException ex) {
             log.error("FATAL: There was an error reading the config", ex);
-            return ExitCode.CONFIG_IOE;
+            return ExitCodes.CONFIG_IOE;
         } catch (InvalidConfigException ex) {
             log.error("FATAL: The config was invalid", ex);
-            return ExitCode.INVALID_CONFIG;
+            return ExitCodes.INVALID_CONFIG;
         }
 
         // only logs after this line can be changed :(
@@ -134,7 +134,7 @@ public class Bot {
                 announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
             } catch (IOException ex) {
                 log.error("FATAL: There was an error reading the announcements", ex);
-                return ExitCode.ANNOUNCE_IOE;
+                return ExitCodes.ANNOUNCE_IOE;
             }
         }
 
@@ -173,7 +173,7 @@ public class Bot {
 
         } catch (CompletionException | LoginException | InterruptedException ex) {
             log.error("FATAL: There was an error logging in, check if your token is correct.", ex);
-            return ExitCode.LOGIN_ERROR;
+            return ExitCodes.LOGIN_ERROR;
         }
 
         // These depend on ShardManager
@@ -186,7 +186,7 @@ public class Bot {
             database = futureDB.get();
         } catch (ExecutionException ex) {
             log.error("FATAL: There was an error connecting to the database", ex);
-            return ExitCode.DATABASE_ERROR;
+            return ExitCodes.DATABASE_ERROR;
         } catch (InterruptedException ex) {
             throw new AssertionError("It should not be possible to interrupt the main thread" +
                     " before the bot can accept commands.");
@@ -196,7 +196,7 @@ public class Bot {
                 database.getCache().getUser(owner).withElevated(true).update();
             } catch (SQLException ex) {
                 log.error("FATAL: Owner " + owner + " could not be elevated", ex);
-                return ExitCode.FAILED_TO_SET_OWNER;
+                return ExitCodes.FAILED_TO_SET_OWNER;
             }
         }
 
@@ -233,17 +233,17 @@ public class Bot {
                 voteHandler = futureVH.get();
             } catch (ExecutionException ex) {
                 log.error("FATAL: There was an error starting the vote handler", ex);
-                return ExitCode.VOTE_HANDLER_ERROR;
+                return ExitCodes.VOTE_HANDLER_ERROR;
             } catch (InterruptedException ignore) {
                 // It's possible to be interrupted if the shutdown command executes
                 // after the bot starts but before the vote handler starts
                 log.warn("Vote handler startup was interrupted. Did you use the shutdown command?");
-                return ExitCode.SUCCESS;
+                return ExitCodes.SUCCESS;
             }
         }
 
         log.info("Post-init finished.");
-        return ExitCode.SUCCESS;
+        return ExitCodes.SUCCESS;
 
     }
 

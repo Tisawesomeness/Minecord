@@ -49,10 +49,6 @@ public class ArgsHandler implements Callable<Integer>, Serializable {
      */
     @Override
     public Integer call() {
-        return handle().asInt();
-    }
-
-    private ExitCode handle() {
 
         // Path is null if not specified by user
         if (path == null) {
@@ -63,12 +59,12 @@ public class ArgsHandler implements Callable<Integer>, Serializable {
                     Files.createDirectory(path);
                 } catch (IOException ex) {
                     log.error("FATAL: There was an error creating the minecord folder", ex);
-                    return ExitCode.COULD_NOT_CREATE_FOLDER;
+                    return ExitCodes.COULD_NOT_CREATE_FOLDER;
                 }
             }
         } else if (!path.toFile().isDirectory()) {
             log.error("FATAL: The path argument must be a directory!");
-            return ExitCode.INVALID_PATH;
+            return ExitCodes.INVALID_PATH;
         }
 
         // ensure announce exists, but it's not necessary
@@ -90,20 +86,21 @@ public class ArgsHandler implements Callable<Integer>, Serializable {
 
         ready = true;
         log.info("Found valid config file");
-        return ExitCode.SUCCESS;
+        return ExitCodes.SUCCESS;
 
     }
 
-    private static ExitCode createConfig(Path configPath) {
+
+    private static int createConfig(Path configPath) {
         log.debug("Creating config...");
         try {
             Files.writeString(configPath, RequestUtils.loadResource("config.yml"));
             log.info("The config file was created! Put your bot token in config.yml to run the bot.");
         } catch (IOException ex) {
             log.error("FATAL: There was an error creating the config", ex);
-            return ExitCode.COULD_NOT_CREATE_CONFIG;
+            return ExitCodes.COULD_NOT_CREATE_CONFIG;
         }
-        return ExitCode.SUCCESS;
+        return ExitCodes.SUCCESS;
     }
 
     private static void createAnnounce(Path announcePath) {
