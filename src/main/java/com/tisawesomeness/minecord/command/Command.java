@@ -245,10 +245,17 @@ public abstract class Command {
         String prefix = ctx.getPrefix();
         String tag = ctx.getE().getJDA().getSelfUser().getAsMention();
 
-        String helpDesc = isAdmin ? getAdminHelp(lang, prefix, tag) : getHelp(lang, prefix, tag);
+        String titleKey = isAdmin ? "command.meta.adminHelpTitle" : "command.meta.helpTitle";
+        String help = isAdmin ? getAdminHelp(lang, prefix, tag) : getHelp(lang, prefix, tag);
+        String desc;
+        if (this instanceof IElevatedCommand) {
+            desc = MarkdownUtil.underline(lang.i18n("command.meta.adminOnly")) + "\n\n" + help;
+        } else {
+            desc = help;
+        }
         EmbedBuilder eb = new EmbedBuilder()
-                .setTitle(lang.i18nf("command.meta.helpTitle", formatCommandUsage(ctx)))
-                .setDescription(helpDesc);
+                .setTitle(lang.i18nf(titleKey, formatCommandUsage(ctx)))
+                .setDescription(desc);
 
         Optional<String> examplesOpt = isAdmin ? getAdminExamples(lang, prefix, tag) : getExamples(lang, prefix, tag);
         if (examplesOpt.isPresent()) {
