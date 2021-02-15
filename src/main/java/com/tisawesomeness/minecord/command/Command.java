@@ -247,12 +247,7 @@ public abstract class Command {
 
         String titleKey = isAdmin ? "command.meta.adminHelpTitle" : "command.meta.helpTitle";
         String help = isAdmin ? getAdminHelp(lang, prefix, tag) : getHelp(lang, prefix, tag);
-        String desc;
-        if (this instanceof IElevatedCommand) {
-            desc = MarkdownUtil.underline(lang.i18n("command.meta.adminOnly")) + "\n\n" + help;
-        } else {
-            desc = help;
-        }
+        String desc = formatModifiers(lang, isAdmin) + help;
         EmbedBuilder eb = new EmbedBuilder()
                 .setTitle(lang.i18nf(titleKey, formatCommandUsage(ctx)))
                 .setDescription(desc);
@@ -280,14 +275,33 @@ public abstract class Command {
         eb.addField(lang.i18n("command.meta.module"), lang.localize(getModule()), true);
 
         if (!getAliases(lang).isEmpty()) {
-            eb.addField(lang.i18n("command.meta.aliases"), joinAliases(ctx), true);
+            eb.addField(lang.i18n("command.meta.aliases"), joinAliases(lang), true);
         }
 
         return eb;
     }
 
-    private String joinAliases(CommandContext ctx) {
-        return getAliases(ctx.getLang()).stream()
+    private String formatModifiers(Lang lang, boolean isAdmin) {
+        StringJoiner sj = new StringJoiner(", ", "", "\n\n");
+        boolean modified = false;
+        if (this instanceof IElevatedCommand) {
+            sj.add(MarkdownUtil.underline(lang.i18n("command.meta.adminOnly")));
+            modified = true;
+        }
+        if (this instanceof IGuildOnlyCommand) {
+            IGuildOnlyCommand goThis = (IGuildOnlyCommand) this;
+            if (!isAdmin || goThis.guildOnlyAppliesToAdmins()) {
+                sj.add(MarkdownUtil.underline(lang.i18n("command.meta.guildOnly")));
+                modified = true;
+            }
+        }
+        if (modified) {
+            return sj.toString();
+        }
+        return "";
+    }
+    private String joinAliases(Lang lang) {
+        return getAliases(lang).stream()
                 .map(MarkdownUtil::monospace)
                 .collect(Collectors.joining(", "));
     }

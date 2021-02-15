@@ -34,8 +34,11 @@ public class CommandVerifier {
 
     private boolean processGuildOnly(Command c, CommandContext ctx) {
         if (c instanceof IGuildOnlyCommand && !ctx.isFromGuild()) {
-            ctx.guildOnly("This command is not available in DMs.");
-            return false;
+            IGuildOnlyCommand goc = (IGuildOnlyCommand) c;
+            if (!ctx.isElevated() || goc.guildOnlyAppliesToAdmins()) {
+                ctx.guildOnly("This command is not available in DMs.");
+                return false;
+            }
         }
         return processElevation(c, ctx);
     }
