@@ -20,6 +20,8 @@ public class FlagConfig {
     boolean showExtraInfo;
     @JsonProperty("elevatedSkipCooldown")
     boolean elevatedSkipCooldown;
+    @JsonProperty("elevatedBypassDisabled")
+    boolean elevatedBypassDisabled;
     @JsonProperty("useElectroidAPI")
     boolean useElectroidAPI;
 }

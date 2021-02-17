@@ -1,5 +1,7 @@
 package com.tisawesomeness.minecord.command;
 
+import com.tisawesomeness.minecord.config.serial.Config;
+
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
@@ -25,11 +27,16 @@ public class CommandVerifier {
      * @return Whether the command should run
      */
     public boolean shouldRun(Command c, CommandContext ctx) {
-        if (c.isEnabled(ctx.getConfig().getCommandConfig())) {
+        if (c.isEnabled(ctx.getConfig().getCommandConfig()) || shouldBypassDisabled(c, ctx)) {
             return processGuildOnly(c, ctx);
         }
         ctx.warn(ctx.getLang().i18n("command.meta.disabled"));
         return false;
+    }
+    private static boolean shouldBypassDisabled(Command c, CommandContext ctx) {
+        return ctx.getConfig().getFlagConfig().isElevatedBypassDisabled()
+                && ctx.isElevated()
+                && !(c instanceof IElevatedCommand);
     }
 
     private boolean processGuildOnly(Command c, CommandContext ctx) {

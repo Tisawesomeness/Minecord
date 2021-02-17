@@ -92,6 +92,9 @@ flags:
   showExtraInfo: false
   # Whether elevated users skip command cooldowns
   elevatedSkipCooldown: true
+  # Whether elevated users can run disabled commands
+  # Admin-only commands will still be disabled for elevated users
+  elevatedBypassDisabled: true
   # Whether player lookups should use the Electroid API and fallback to the Mojang API.
   # If false, only the Mojang API will be used.
   useElectroidAPI: true
