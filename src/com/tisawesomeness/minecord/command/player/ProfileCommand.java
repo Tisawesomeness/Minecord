@@ -90,7 +90,7 @@ public class ProfileCommand extends Command {
 
         // Image and NameMC URLs
         String avatarUrl = "https://crafatar.com/avatars/" + uuid;
-        String bodyUrl = "https://crafatar.com/renders/body/" + uuid;
+        String bodyUrl = "https://crafatar.com/renders/body/" + uuid + "?overlay";
         String skinUrl = "https://crafatar.com/skins/" + uuid;
         String nameUrl = "https://namemc.com/profile/" + player;
 
