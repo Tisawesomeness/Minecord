@@ -5,6 +5,7 @@ import com.tisawesomeness.minecord.config.ConfigReader;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.SkinType;
 import com.tisawesomeness.minecord.mc.player.Username;
+import com.tisawesomeness.minecord.testutil.MiscTestUtils;
 import com.tisawesomeness.minecord.testutil.PlayerTestUtils;
 import com.tisawesomeness.minecord.testutil.mc.TestMCLibrary;
 import com.tisawesomeness.minecord.testutil.mc.TestPlayerProvider;
@@ -67,7 +68,7 @@ public class SkinCommandIT {
     @Test
     @DisplayName("Skin command with too long username warns the user")
     public void testTooLong() {
-        String args = "A".repeat(Username.MAX_LENGTH + 1);
+        String args = MiscTestUtils.repeat("A", Username.MAX_LENGTH + 1);
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasNotTriggeredCooldown()

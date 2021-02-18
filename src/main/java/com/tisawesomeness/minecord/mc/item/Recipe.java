@@ -2,7 +2,7 @@ package com.tisawesomeness.minecord.mc.item;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.ReactMenu;
-import com.tisawesomeness.minecord.util.RequestUtils;
+import com.tisawesomeness.minecord.util.IOUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import org.json.JSONArray;
@@ -10,17 +10,12 @@ import org.json.JSONObject;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
+import java.util.*;
 
 public class Recipe {
 
-    private static final JSONObject recipes = RequestUtils.loadJSONResource("mc/recipes.json");
-    private static final JSONObject tags = RequestUtils.loadJSONResource("mc/tags.json");
+    private static final JSONObject recipes = new JSONObject(IOUtils.loadResource("mc/recipes.json"));
+    private static final JSONObject tags = new JSONObject(IOUtils.loadResource("mc/tags.json"));
 
     /**
      * Creates an EmbedBuilder from a recipe

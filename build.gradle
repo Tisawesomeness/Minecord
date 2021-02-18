@@ -49,8 +49,6 @@ dependencies {
     // Command-line arguments
     implementation 'info.picocli:picocli:4.3.2'
     annotationProcessor 'info.picocli:picocli-codegen:4.3.2'
-    // Jshell for eval
-    api 'ch.obermuhlner:jshell-scriptengine:1.1.0'
     // Logging
     implementation 'ch.qos.logback:logback-classic:1.2.3'
     // Testing
@@ -61,7 +59,7 @@ dependencies {
 
 group = 'com.tisawesomeness'
 version = '1.0.0-ALPHA'
-sourceCompatibility = '1.11'
+sourceCompatibility = '1.8'
 
 import org.apache.tools.ant.filters.ReplaceTokens
 

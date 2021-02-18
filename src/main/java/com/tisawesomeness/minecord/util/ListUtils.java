@@ -1,15 +1,21 @@
 package com.tisawesomeness.minecord.util;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- * Utility functions that don't fit anywhere else.
- */
-public final class MiscUtils {
-    private MiscUtils() {}
+public final class ListUtils {
+    private ListUtils() {}
+
+    /**
+     * Creates an immutable list from the parameters.
+     * @param ts The objects in the list
+     * @param <T> The type of the list
+     * @return A unmodifiable list
+     */
+    @SafeVarargs // asList() is also @SafeVarargs
+    public static <T> List<T> of(T... ts) {
+        return Collections.unmodifiableList(Arrays.asList(ts));
+    }
 
     /**
      * Sorts a collection into a new list.

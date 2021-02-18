@@ -5,6 +5,7 @@ import com.tisawesomeness.minecord.mc.player.Profile;
 import com.tisawesomeness.minecord.mc.player.SkinType;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.testutil.mc.MockMojangAPI;
+import com.tisawesomeness.minecord.util.ListUtils;
 import com.tisawesomeness.minecord.util.UUIDUtils;
 import com.tisawesomeness.minecord.util.network.URLUtils;
 
@@ -64,7 +65,7 @@ public class MojangAPITest {
     public void testNameHistory() throws IOException {
         NameChange original = NameChange.original(ORIGINAL_USERNAME);
         NameChange changed = NameChange.withTimestamp(TESTING_USERNAME, TESTING_TIMESTAMP);
-        List<NameChange> history = List.of(changed, original);
+        List<NameChange> history = ListUtils.of(changed, original);
         MockMojangAPI api = new MockMojangAPI();
         api.mapNameHistory(TESTING_UUID, nameHistoryToJSON(history));
         assertThat(api.getNameHistory(TESTING_UUID)).isEqualTo(history);

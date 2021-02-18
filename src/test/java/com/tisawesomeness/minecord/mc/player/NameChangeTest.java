@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.mc.player;
 
-import com.tisawesomeness.minecord.util.MiscUtils;
+import com.tisawesomeness.minecord.util.ListUtils;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -43,8 +43,8 @@ public class NameChangeTest {
     public void testComparisonOriginal() {
         NameChange original = NameChange.original(ORIGINAL_USERNAME);
         NameChange changed = NameChange.withTimestamp(TESTING_USERNAME, TESTING_TIMESTAMP);
-        List<NameChange> history = List.of(changed, original);
-        assertThat(MiscUtils.sort(history)).containsExactly(original, changed);
+        List<NameChange> history = ListUtils.of(changed, original);
+        assertThat(ListUtils.sort(history)).containsExactly(original, changed);
     }
 
     @Test
@@ -53,8 +53,8 @@ public class NameChangeTest {
         NameChange first = NameChange.withTimestamp(TESTING_USERNAME, TESTING_TIMESTAMP);
         NameChange second = NameChange.withTimestamp(TESTING_USERNAME, TESTING_TIMESTAMP + 1L);
         NameChange third = NameChange.withTimestamp(TESTING_USERNAME, TESTING_TIMESTAMP + 2L);
-        List<NameChange> history = List.of(second, third, first);
-        assertThat(MiscUtils.sort(history)).containsExactly(first, second, third);
+        List<NameChange> history = ListUtils.of(second, third, first);
+        assertThat(ListUtils.sort(history)).containsExactly(first, second, third);
     }
 
     @Test
@@ -66,8 +66,8 @@ public class NameChangeTest {
         NameChange first = NameChange.withTimestamp(nameA, TESTING_TIMESTAMP);
         NameChange second = NameChange.withTimestamp(nameB, TESTING_TIMESTAMP);
         NameChange third = NameChange.withTimestamp(nameC, TESTING_TIMESTAMP);
-        List<NameChange> history = List.of(third, second, first);
-        assertThat(MiscUtils.sort(history)).containsExactly(first, second, third);
+        List<NameChange> history = ListUtils.of(third, second, first);
+        assertThat(ListUtils.sort(history)).containsExactly(first, second, third);
     }
 
 }

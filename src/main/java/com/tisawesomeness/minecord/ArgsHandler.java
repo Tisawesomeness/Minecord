@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord;
 
-import com.tisawesomeness.minecord.util.RequestUtils;
+import com.tisawesomeness.minecord.util.IOUtils;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -94,7 +94,7 @@ public class ArgsHandler implements Callable<Integer>, Serializable {
     private static int createConfig(Path configPath) {
         log.debug("Creating config...");
         try {
-            Files.writeString(configPath, RequestUtils.loadResource("config.yml"));
+            IOUtils.write(configPath, IOUtils.loadResource("config.yml"));
             log.info("The config file was created! Put your bot token in config.yml to run the bot.");
         } catch (IOException ex) {
             log.error("FATAL: There was an error creating the config", ex);
@@ -105,7 +105,7 @@ public class ArgsHandler implements Callable<Integer>, Serializable {
 
     private static void createAnnounce(Path announcePath) {
         try {
-            Files.writeString(announcePath, RequestUtils.loadResource("announce.json"));
+            IOUtils.write(announcePath, IOUtils.loadResource("announce.json"));
         } catch (IOException ex) {
             log.warn("Could not load announce file, continuing anyway...", ex);
         }

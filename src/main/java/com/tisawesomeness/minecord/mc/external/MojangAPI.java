@@ -43,13 +43,13 @@ public abstract class MojangAPI {
             throw new IllegalArgumentException(username + " is not supported by the Mojang API.");
         }
         Optional<String> responseOpt = requestUUID(username);
-        if (responseOpt.isEmpty()) {
+        if (!responseOpt.isPresent()) {
             return Optional.empty();
         }
         JSONObject json = new JSONObject(responseOpt.get());
         String uuidStr = json.getString("id");
         Optional<UUID> uuidOpt = UUIDUtils.fromString(uuidStr);
-        if (uuidOpt.isEmpty()) {
+        if (!uuidOpt.isPresent()) {
             log.warn("Mojang API returned invalid UUID: " + uuidStr);
         }
         return uuidOpt;
@@ -71,7 +71,7 @@ public abstract class MojangAPI {
      */
     public List<NameChange> getNameHistory(@NonNull UUID uuid) throws IOException {
         Optional<String> responseOpt = requestNameHistory(uuid);
-        if (responseOpt.isEmpty()) {
+        if (!responseOpt.isPresent()) {
             return Collections.emptyList();
         }
         JSONArray json = new JSONArray(responseOpt.get());
@@ -105,7 +105,7 @@ public abstract class MojangAPI {
      */
     public Optional<Profile> getProfile(@NonNull UUID uuid) throws IOException {
         Optional<String> responseOpt = requestProfile(uuid);
-        if (responseOpt.isEmpty()) {
+        if (!responseOpt.isPresent()) {
             return Optional.empty();
         }
         JSONObject json = new JSONObject(responseOpt.get());

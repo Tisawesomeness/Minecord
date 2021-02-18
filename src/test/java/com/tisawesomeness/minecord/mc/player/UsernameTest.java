@@ -1,5 +1,7 @@
 package com.tisawesomeness.minecord.mc.player;
 
+import com.tisawesomeness.minecord.testutil.MiscTestUtils;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -33,7 +35,8 @@ public class UsernameTest {
             "Din-ex",
             "sample@email.com", // this specific username isn't real but email usernames do exist
             "Will Wall",
-            " ".repeat(45) + "timmy" + " ".repeat(62) // yes this was real at one point, I am not kidding
+            MiscTestUtils.repeat(" ", 45) + "timmy" + MiscTestUtils.repeat(" ", 62)
+            // yes this was real at one point, I am not kidding
     };
 
     @ParameterizedTest(name = "{index} ==> String \"{0}\" is a supported username")
@@ -58,7 +61,7 @@ public class UsernameTest {
     @Test
     @DisplayName("Only usernames up to the max length are supported")
     public void testMaxLength() {
-        String maxLengthName = "A".repeat(Username.MAX_LENGTH);
+        String maxLengthName = MiscTestUtils.repeat("A", Username.MAX_LENGTH);
         assertThat(new Username(maxLengthName).isSupportedByMojangAPI()).isTrue();
         String overMaxLengthName = maxLengthName + "A";
         assertThat(new Username(overMaxLengthName).isSupportedByMojangAPI()).isFalse();

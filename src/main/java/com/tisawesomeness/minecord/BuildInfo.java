@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord;
 
-import com.tisawesomeness.minecord.util.RequestUtils;
+import com.tisawesomeness.minecord.util.IOUtils;
 
 import lombok.Getter;
 import picocli.CommandLine;
@@ -19,7 +19,7 @@ public final class BuildInfo {
     public final String jdaVersion;
 
     private BuildInfo() {
-        Properties prop = RequestUtils.loadPropertiesResource("build.properties");
+        Properties prop = IOUtils.loadPropertiesResource("build.properties");
         version = prop.getProperty("version");
         jdaVersion = prop.getProperty("jdaVersion");
     }

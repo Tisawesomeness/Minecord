@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.*;
 
 /**
@@ -61,7 +62,7 @@ public class IntegralDuration implements Comparable<IntegralDuration>, Localizab
         Iterator<ChronoUnit> iter = units.descendingIterator();
         while (iter.hasNext()) {
             ChronoUnit unit = iter.next();
-            long value = duration.dividedBy(unit.getDuration());
+            long value = divide(duration, unit);
             if (Math.abs(value) >= 1) {
                 return fromUnit(unit, value);
             }
@@ -80,7 +81,7 @@ public class IntegralDuration implements Comparable<IntegralDuration>, Localizab
         if (isZero()) {
             return ZERO;
         }
-        long value = toDuration().dividedBy(unit.getDuration());
+        long value = divide(toDuration(), unit);
         if (value == 0) {
             return ZERO;
         }
@@ -119,9 +120,13 @@ public class IntegralDuration implements Comparable<IntegralDuration>, Localizab
 
     public Object[] getTranslationArgs() {
         if (unit.compareTo(ChronoUnit.DAYS) > 0) {
-            return new Object[]{toDuration().dividedBy(unit.getDuration())};
+            return new Object[]{divide(toDuration(), unit)};
         }
         return new Object[]{value};
+    }
+
+    private static long divide(Duration x, TemporalUnit y) {
+        return x.toMillis() / y.getDuration().toMillis();
     }
 
     /**

@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.util.discord;
 
-import com.tisawesomeness.minecord.util.MiscUtils;
+import com.tisawesomeness.minecord.util.ListUtils;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ public class MarkdownActionTest {
     public void testOrdering() {
         MaskedLink maskedLink = new MaskedLink("https://example.com/");
         Codeblock codeblock = new Codeblock();
-        List<MarkdownAction> actions = List.of(
+        List<MarkdownAction> actions = ListUtils.of(
                 codeblock,
                 SimpleMarkdownAction.BOLD,
                 SimpleMarkdownAction.QUOTE,
@@ -28,7 +28,7 @@ public class MarkdownActionTest {
                 SimpleMarkdownAction.SPOILER,
                 maskedLink
         );
-        List<MarkdownAction> sorted = MiscUtils.sort(actions, MarkdownAction.comparingByPriority());
+        List<MarkdownAction> sorted = ListUtils.sort(actions, MarkdownAction.comparingByPriority());
         assertThat(sorted)
                 .startsWith(SimpleMarkdownAction.QUOTE_BLOCK, SimpleMarkdownAction.QUOTE)
                 .endsWith(maskedLink, SimpleMarkdownAction.MONOSPACE, codeblock);

@@ -310,7 +310,7 @@ public abstract class Command {
         Lang lang = ctx.getLang();
         // Formatting changes based on whether the command has arguments
         Optional<String> usageOpt = getUsage(lang);
-        if (usageOpt.isEmpty()) {
+        if (!usageOpt.isPresent()) {
             if (isEnabled(ctx.getConfig().getCommandConfig())) {
                 return String.format("`%s%s`", prefix, getDisplayName(lang));
             }

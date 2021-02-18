@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.config;
 
 import com.tisawesomeness.minecord.config.serial.Config;
+import com.tisawesomeness.minecord.util.IOUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 import com.tisawesomeness.minecord.util.type.Verification;
 
@@ -62,7 +63,7 @@ public class ConfigReader {
      */
     @TestOnly
     public static Config readFromResources() throws JsonProcessingException {
-        return mapper.readValue(RequestUtils.loadResource("config.yml"), Config.class);
+        return mapper.readValue(IOUtils.loadResource("config.yml"), Config.class);
     }
 
 }

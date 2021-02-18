@@ -41,10 +41,7 @@ public abstract class ElectroidAPI {
             throw new IllegalArgumentException("Invalid usernames are not supported by the Electroid API.");
         }
         Optional<String> responseOpt = requestPlayer(username);
-        if (responseOpt.isEmpty()) {
-            return Optional.empty();
-        }
-        return parseResponse(responseOpt.get());
+        return responseOpt.flatMap(ElectroidAPI::parseResponse);
     }
 
     /**
@@ -62,17 +59,14 @@ public abstract class ElectroidAPI {
      */
     public Optional<Player> getPlayer(@NonNull UUID uuid) throws IOException {
         Optional<String> responseOpt = requestPlayer(uuid);
-        if (responseOpt.isEmpty()) {
-            return Optional.empty();
-        }
-        return parseResponse(responseOpt.get());
+        return responseOpt.flatMap(ElectroidAPI::parseResponse);
     }
 
     private static @NonNull Optional<Player> parseResponse(@NonNull String response) {
         JSONObject obj = new JSONObject(response);
         String uuidStr = obj.getString("uuid");
         Optional<UUID> uuidOpt = UUIDUtils.fromString(uuidStr);
-        if (uuidOpt.isEmpty()) {
+        if (!uuidOpt.isPresent()) {
             log.warn("Mojang API returned invalid UUID: " + uuidStr);
             return Optional.empty();
         }

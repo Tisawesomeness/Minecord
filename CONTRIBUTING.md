@@ -8,8 +8,6 @@ To get started, clone the repository with `git clone https://github.com/Tisaweso
 ([IntelliJ](https://www.jetbrains.com/idea/) is recommended, though any proper IDE will work).
 Make sure to install the [Lombok](https://projectlombok.org/) plugin to add support for its annotations.
 
-**Minecord is built on Java 11.** You may need to set the Java version in your IDE.
-
 Running can be done from your IDE. To build an executable JAR file, use `gradle shadowJar`.
 
 To contribute your changes, make a pull request to (usually) the `dev` branch. Note that all tests must pass before your changes can be accepted, use `gradle check` and `gradle integrationTest` to run the tests.

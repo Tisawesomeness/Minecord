@@ -1,26 +1,17 @@
 package com.tisawesomeness.minecord.util;
 
 import lombok.Cleanup;
-import org.json.JSONObject;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Properties;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public final class RequestUtils {
 
@@ -169,52 +160,6 @@ public final class RequestUtils {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         ImageIO.write(image, "png", os);
         return new ByteArrayInputStream(os.toByteArray());
-    }
-
-    /**
-     * Loads a file from the resources folder.
-     * @param name The filename with extension
-     * @return A string with the contents of the file
-     */
-    public static String loadResource(String name) {
-        InputStream is = openResource(name);
-        try (InputStreamReader isr = new InputStreamReader(is);
-             BufferedReader br = new BufferedReader(isr)) {
-            return br.lines().collect(Collectors.joining("\n"));
-        } catch (IOException ex) {
-            throw new AssertionError("An IOException when closing a resource stream should never happen.");
-        }
-    }
-    /**
-     * Loads a JSON file from the resources folder.
-     * <br>The file must start with a JSON object, not a JSON array.
-     * @param name The filename with extension
-     * @return The contained JSON object
-     */
-    public static JSONObject loadJSONResource(String name) {
-        return new JSONObject(loadResource(name));
-    }
-    /**
-     * Loads a properties file from the resources folder.
-     * @param name The filename with extension
-     * @return A properties object with the contents of the file
-     */
-    public static Properties loadPropertiesResource(String name) {
-        InputStream is = openResource(name);
-        Properties prop = new Properties();
-        try {
-            prop.load(is);
-        } catch (IOException ex) {
-            throw new IllegalArgumentException("The resource was not loaded properly!", ex);
-        }
-        return prop;
-    }
-    private static InputStream openResource(String name) {
-        InputStream is = RequestUtils.class.getClassLoader().getResourceAsStream(name);
-        if (is == null) {
-            throw new IllegalArgumentException("The resource was not found!");
-        }
-        return is;
     }
 
     // Converts a string to SHA1 (modified from http://www.sha1-online.com/sha1-java/)

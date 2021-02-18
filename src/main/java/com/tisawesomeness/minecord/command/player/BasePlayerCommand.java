@@ -85,7 +85,7 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
         throw new RuntimeException(ex);
     }
     private void processPlayer(Optional<Player> playerOpt, CommandContext ctx, String i18nKey) {
-        if (playerOpt.isEmpty()) {
+        if (!playerOpt.isPresent()) {
             ctx.reply(ctx.getLang().i18n(i18nKey));
             return;
         }
@@ -113,7 +113,7 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
     }
     private static String getDateAgo(CommandContext ctx, Temporal now, TimeUtils.Format format, NameChange nc) {
         Optional<Instant> timeOpt = nc.getTime();
-        if (timeOpt.isEmpty()) {
+        if (!timeOpt.isPresent()) {
             return MarkdownUtil.bold(ctx.getLang().i18n("mc.player.history.original"));
         }
         Instant time = timeOpt.get();

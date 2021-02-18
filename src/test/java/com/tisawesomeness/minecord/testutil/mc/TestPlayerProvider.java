@@ -22,17 +22,17 @@ public class TestPlayerProvider implements PlayerProvider {
     }
     public CompletableFuture<Optional<UUID>> getUUID(@NonNull Username username) {
         if (throwingUsernames.contains(username)) {
-            return CompletableFuture.failedFuture(new IOException("Mocked IOE"));
+            return failedFuture(new IOException("Mocked IOE"));
         }
         return CompletableFuture.completedFuture(Optional.ofNullable(uuidMap.get(username)));
     }
 
     public CompletableFuture<Optional<Player>> getPlayer(@NonNull Username username) {
         if (throwingUsernames.contains(username)) {
-            return CompletableFuture.failedFuture(new IOException("Mocked IOE"));
+            return failedFuture(new IOException("Mocked IOE"));
         }
         return getUUID(username).thenCompose(uuidOpt -> {
-            if (uuidOpt.isEmpty()) {
+            if (!uuidOpt.isPresent()) {
                 return CompletableFuture.completedFuture(Optional.empty());
             }
             return getPlayer(uuidOpt.get());
@@ -49,9 +49,15 @@ public class TestPlayerProvider implements PlayerProvider {
     }
     public CompletableFuture<Optional<Player>> getPlayer(@NonNull UUID uuid) {
         if (throwingUuids.contains(uuid)) {
-            return CompletableFuture.failedFuture(new IOException("Mocked IOE"));
+            return failedFuture(new IOException("Mocked IOE"));
         }
         return CompletableFuture.completedFuture(Optional.ofNullable(playerMap.get(uuid)));
+    }
+
+    private static <T> CompletableFuture<T> failedFuture(Throwable ex) {
+        CompletableFuture<T> future = new CompletableFuture<>();
+        future.completeExceptionally(ex);
+        return future;
     }
 
 }

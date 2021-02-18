@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class StringUtilsTest {
 
-    private static final List<String> TEST_INPUT = List.of("len4", "length7", "len4");
+    private static final List<String> TEST_INPUT = ListUtils.of("len4", "length7", "len4");
 
     @Test
     @DisplayName("Splitting a list of empty strings by length returns an empty list")
@@ -25,7 +25,7 @@ public class StringUtilsTest {
     @Test
     @DisplayName("Splitting a list of empty strings by length returns an empty list")
     public void testSplitSingleList() {
-        List<String> lines = List.of("a");
+        List<String> lines = ListUtils.of("a");
         assertThat(StringUtils.partitionLinesByLength(lines, 1))
                 .isEqualTo(lines);
     }
@@ -33,7 +33,7 @@ public class StringUtilsTest {
     @Test
     @DisplayName("Splitting a list of strings by length 0 returns the list unmodified")
     public void testSplitMaxLengthZero() {
-        List<String> lines = List.of("a", "b", "c");
+        List<String> lines = ListUtils.of("a", "b", "c");
         assertThat(StringUtils.partitionLinesByLength(lines, 0))
                 .isEqualTo(lines);
     }
@@ -84,7 +84,7 @@ public class StringUtilsTest {
     @DisplayName("Splitting a list of strings by length with a string over max length" +
             " leaves that string in a group by itself")
     public void testSplitGroupingOverfill() {
-        List<String> lines = List.of("<", "len4", ">");
+        List<String> lines = ListUtils.of("<", "len4", ">");
         assertThat(StringUtils.partitionLinesByLength(lines, 3))
                 .isEqualTo(lines);
     }
@@ -92,7 +92,7 @@ public class StringUtilsTest {
     @Test
     @DisplayName("Splitting a list of strings by length accounts for empty strings properly")
     public void testSplitEmptyString_Case1() {
-        List<String> lines = List.of("abc", "", "def", "ghi", "");
+        List<String> lines = ListUtils.of("abc", "", "def", "ghi", "");
         assertThat(StringUtils.partitionLinesByLength(lines, 7))
                 .containsExactly("abc\n", "def\nghi", "");
     }
@@ -100,7 +100,7 @@ public class StringUtilsTest {
     @Test
     @DisplayName("Splitting a list of strings by length accounts for empty strings properly")
     public void testSplitEmptyString_Case2() {
-        List<String> lines = List.of("", "abc", "def");
+        List<String> lines = ListUtils.of("", "abc", "def");
         assertThat(StringUtils.partitionLinesByLength(lines, 5))
                 .containsExactly("\nabc", "def");
     }
@@ -108,7 +108,7 @@ public class StringUtilsTest {
     @Test
     @DisplayName("Splitting a list of strings by length accounts for empty strings properly")
     public void testSplitEmptyString_Case3() {
-        List<String> lines = List.of("abc", "", "", "", "", "", "def");
+        List<String> lines = ListUtils.of("abc", "", "", "", "", "", "def");
         assertThat(StringUtils.partitionLinesByLength(lines, 5))
                 .containsExactly("abc\n\n", "\n\n", "def");
     }
@@ -130,7 +130,7 @@ public class StringUtilsTest {
     @Test
     @DisplayName("Splitting a list of strings by length works with a multi-char joiner")
     public void testSplitWithLongJoiner() {
-        List<String> lines = List.of("len4", "len4", "length7");
+        List<String> lines = ListUtils.of("len4", "len4", "length7");
         assertThat(StringUtils.partitionByLength(lines, "---", 16))
                 .containsExactly("len4---len4", "length7");
     }
@@ -138,7 +138,7 @@ public class StringUtilsTest {
     @Test
     @DisplayName("Splitting a list of empty strings by a negative length throws IllegalArgumentException")
     public void testSplitNegativeMaxLength() {
-        List<String> lines = List.of("a", "b", "c");
+        List<String> lines = ListUtils.of("a", "b", "c");
         assertThatThrownBy(() -> StringUtils.partitionLinesByLength(lines, -1))
                 .isInstanceOf(IllegalArgumentException.class);
     }

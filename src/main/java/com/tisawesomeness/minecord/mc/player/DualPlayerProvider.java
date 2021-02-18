@@ -65,7 +65,7 @@ public class DualPlayerProvider implements PlayerProvider {
     }
     private Optional<UUID> tryUUIDFromElectroid(Username username) throws IOException {
         Optional<Player> playerOpt = electroidAPI.getPlayer(username);
-        if (playerOpt.isEmpty()) {
+        if (!playerOpt.isPresent()) {
             return Optional.empty();
         }
         Player player = playerOpt.get();
@@ -92,7 +92,7 @@ public class DualPlayerProvider implements PlayerProvider {
         }
         Username username = nameHistory.get(0).getUsername();
         Optional<Profile> profileOpt = mojangAPI.getProfile(uuid);
-        if (profileOpt.isEmpty()) {
+        if (!profileOpt.isPresent()) {
             log.warn("Mojang API name history succeeded but profile failed. Check for a format change.");
             return Optional.empty();
         }
@@ -106,7 +106,7 @@ public class DualPlayerProvider implements PlayerProvider {
 
     public CompletableFuture<Optional<Player>> getPlayer(@NonNull Username username) {
         return getUUID(username).thenCompose(uuidOpt -> {
-            if (uuidOpt.isEmpty()) {
+            if (!uuidOpt.isPresent()) {
                 return CompletableFuture.completedFuture(Optional.empty());
             }
             return getPlayer(uuidOpt.get());

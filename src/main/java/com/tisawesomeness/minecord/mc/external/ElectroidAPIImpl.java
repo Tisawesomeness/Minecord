@@ -13,8 +13,6 @@ import okhttp3.Response;
 
 import java.io.IOException;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,7 +28,7 @@ public class ElectroidAPIImpl extends ElectroidAPI {
     private final @NonNull APIClient client;
 
     protected Optional<String> requestPlayer(@NonNull Username username) throws IOException {
-        String encodedName = URLEncoder.encode(username.toString(), StandardCharsets.UTF_8);
+        String encodedName = URLUtils.encode(username.toString());
         URL url = URLUtils.createUrl(BASE + encodedName);
         @Cleanup Response response = client.get(url);
         return processResponse(response);

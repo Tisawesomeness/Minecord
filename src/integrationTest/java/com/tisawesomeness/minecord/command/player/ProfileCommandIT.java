@@ -3,11 +3,13 @@ package com.tisawesomeness.minecord.command.player;
 import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.config.ConfigReader;
 import com.tisawesomeness.minecord.mc.player.*;
+import com.tisawesomeness.minecord.testutil.MiscTestUtils;
 import com.tisawesomeness.minecord.testutil.mc.MockMojangAPI;
 import com.tisawesomeness.minecord.testutil.mc.TestMCLibrary;
 import com.tisawesomeness.minecord.testutil.mc.TestPlayerProvider;
 import com.tisawesomeness.minecord.testutil.runner.TestCommandRunner;
-import com.tisawesomeness.minecord.util.RequestUtils;
+import com.tisawesomeness.minecord.util.IOUtils;
+import com.tisawesomeness.minecord.util.ListUtils;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -30,7 +32,7 @@ public class ProfileCommandIT {
 
     private static final Username SHORT_HISTORY_NAME = new Username("Tis_awesomeness");
     private static final UUID SHORT_HISTORY_UUID = UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3af");
-    private static final List<NameChange> SHORT_HISTORY = List.of(
+    private static final List<NameChange> SHORT_HISTORY = ListUtils.of(
             NameChange.withTimestamp(SHORT_HISTORY_NAME, 1438695830000L),
             NameChange.original(new Username("tis_awesomeness"))
     );
@@ -61,7 +63,7 @@ public class ProfileCommandIT {
     }
     private static List<NameChange> getLongHistory() throws IOException {
         MockMojangAPI api = new MockMojangAPI();
-        String response = RequestUtils.loadResource("TeraStellaHistory.json");
+        String response = IOUtils.loadResource("TeraStellaHistory.json");
         api.mapNameHistory(LONG_HISTORY_UUID, response);
         return api.getNameHistory(LONG_HISTORY_UUID);
     }
@@ -75,7 +77,7 @@ public class ProfileCommandIT {
     @Test
     @DisplayName("Profile command with too long username warns the user")
     public void testTooLong() {
-        String args = "A".repeat(Username.MAX_LENGTH + 1);
+        String args = MiscTestUtils.repeat("A", Username.MAX_LENGTH + 1);
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasNotTriggeredCooldown()

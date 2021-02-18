@@ -130,16 +130,20 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
         Lang lang = ctx.getLang();
         // Formatting changes based on whether the command has arguments
         Optional<String> usageOpt = c.getUsage(lang);
-        if (usageOpt.isEmpty()) {
+        if (usageOpt.isPresent()) {
             if (c.isEnabled(ctx.getConfig().getCommandConfig())) {
-                return String.format("`%s%s` - %s", prefix, c.getDisplayName(lang), c.getDescription(lang));
+                return String.format("`%s%s %s` - %s",
+                        prefix, c.getDisplayName(lang), usageOpt.get(), c.getDescription(lang));
             }
-            return String.format("~~`%s%s`~~ - %s", prefix, c.getDisplayName(lang), c.getDescription(lang));
+            return String.format("~~`%s%s %s`~~ - %s",
+                    prefix, c.getDisplayName(lang), usageOpt.get(), c.getDescription(lang));
         }
         if (c.isEnabled(ctx.getConfig().getCommandConfig())) {
-            return String.format("`%s%s %s` - %s", prefix, c.getDisplayName(lang), usageOpt.get(), c.getDescription(lang));
+            return String.format("`%s%s` - %s",
+                    prefix, c.getDisplayName(lang), c.getDescription(lang));
         }
-        return String.format("~~`%s%s %s`~~ - %s", prefix, c.getDisplayName(lang), usageOpt.get(), c.getDescription(lang));
+        return String.format("~~`%s%s`~~ - %s",
+                prefix, c.getDisplayName(lang), c.getDescription(lang));
     }
 
     private static String getAvatarUrl(CommandContext ctx) {

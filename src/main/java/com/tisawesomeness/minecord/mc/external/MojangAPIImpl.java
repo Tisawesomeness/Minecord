@@ -15,8 +15,6 @@ import okhttp3.Response;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -47,7 +45,7 @@ public class MojangAPIImpl extends MojangAPI {
                 return new URL(BASE_URL, username.toString());
             }
             // Otherwise, encoding is necessary to clean out naughty characters
-            return new URL(BASE_URL, URLEncoder.encode(username.toString(), StandardCharsets.UTF_8));
+            return new URL(BASE_URL, URLUtils.encode(username.toString()));
         } catch (MalformedURLException ex) {
             throw new AssertionError(ex);
         }

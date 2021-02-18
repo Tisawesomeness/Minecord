@@ -8,7 +8,7 @@ import java.util.List;
 
 public final class ColorUtils {
 
-    private static final JSONObject colors = RequestUtils.loadJSONResource("mc/colors.json");
+    private static final JSONObject colors = new JSONObject(IOUtils.loadResource("mc/colors.json"));
 
     private static final List<Color> mcColors = Arrays.asList(
         new Color(0, 0, 0),

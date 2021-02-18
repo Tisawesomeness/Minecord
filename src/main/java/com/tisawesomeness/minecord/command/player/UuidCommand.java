@@ -73,7 +73,7 @@ public class UuidCommand extends AbstractPlayerCommand {
         constructReply(ctx, uuid, title);
     }
     private static void processUUID(Optional<UUID> uuidOpt, CommandContext ctx, Username username) {
-        if (uuidOpt.isEmpty()) {
+        if (!uuidOpt.isPresent()) {
             ctx.reply(ctx.getLang().i18n("mc.player.username.doesNotExist"));
             return;
         }

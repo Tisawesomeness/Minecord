@@ -16,7 +16,7 @@ public abstract class CacheDebugOption implements DebugOption {
 
     public @NonNull String debug(@NonNull String extra) {
         Optional<CacheStats> statsOpt = getCacheStats(extra);
-        if (statsOpt.isEmpty()) {
+        if (!statsOpt.isPresent()) {
             return "N/A";
         }
         CacheStats stats = statsOpt.get();

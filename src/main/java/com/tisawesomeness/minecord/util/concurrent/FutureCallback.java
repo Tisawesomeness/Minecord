@@ -9,6 +9,8 @@ import java.util.function.Consumer;
 
 /**
  * A utility class for adding callbacks when a {@link CompletableFuture} completes.
+ * <br>The complete function runs first, then the success or error function.
+ * <br>If an uncaught exception occurs in the complete function, the success or error function will still run.
  */
 @Slf4j
 public final class FutureCallback {

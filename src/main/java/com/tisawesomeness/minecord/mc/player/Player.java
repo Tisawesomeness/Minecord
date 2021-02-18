@@ -8,8 +8,6 @@ import lombok.Value;
 
 import javax.annotation.Nullable;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -73,7 +71,7 @@ public class Player implements Comparable<Player> {
      */
     public boolean hasCustomSkin() {
         Optional<URL> skinUrlOpt = profile.getSkinUrl();
-        if (skinUrlOpt.isEmpty()) {
+        if (!skinUrlOpt.isPresent()) {
             return false;
         }
         URL skinUrl = skinUrlOpt.get();
@@ -120,7 +118,7 @@ public class Player implements Comparable<Player> {
      * @return A link to the player's Optifine cape image, may not actually exist
      */
     public @NonNull URL getOptifineCapeUrl() {
-        String encodedName = URLEncoder.encode(username.toString(), StandardCharsets.UTF_8);
+        String encodedName = URLUtils.encode(username.toString());
         return URLUtils.createUrl(String.format("http://s.optifine.net/capes/%s.png", encodedName));
     }
 
@@ -135,7 +133,7 @@ public class Player implements Comparable<Player> {
      * @return A link to the player's NameMC profile
      */
     public static @NonNull URL getNameMCUrlFor(@NonNull Username username) {
-        String encodedName = URLEncoder.encode(username.toString(), StandardCharsets.UTF_8);
+        String encodedName = URLUtils.encode(username.toString());
         return URLUtils.createUrl("https://namemc.com/profile/" + encodedName);
     }
     /**

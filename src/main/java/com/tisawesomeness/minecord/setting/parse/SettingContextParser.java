@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.setting.parse;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.dao.DbChannel;
 import com.tisawesomeness.minecord.util.DiscordUtils;
+import com.tisawesomeness.minecord.util.ListUtils;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -15,8 +16,8 @@ import java.util.Optional;
  * Parses the context arg, picks a subcommand, or ends the chain if the context is invalid.
  */
 public class SettingContextParser extends SettingCommandHandler {
-    private final static List<String> USER_WORDS = List.of("user", "dm", "dms");
-    private final static List<String> GUILD_WORDS = List.of("guild", "server");
+    private final static List<String> USER_WORDS = ListUtils.of("user", "dm", "dms");
+    private final static List<String> GUILD_WORDS = ListUtils.of("guild", "server");
 
     @Getter private final @NonNull CommandContext ctx;
     @Getter private final @NonNull SettingCommandType type;
