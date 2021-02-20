@@ -1,9 +1,11 @@
 package com.tisawesomeness.minecord.util;
 
+import com.google.common.base.Preconditions;
 import lombok.NonNull;
 
 import java.util.Optional;
 import java.util.UUID;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -21,6 +23,7 @@ public final class UUIDUtils {
     private static final String SHORT_UUID_REPLACEMENT = "$1-$2-$3-$4-$5";
     private static final Pattern LONG_UUID_PATTERN = Pattern.compile(
             "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$");
+    private static final Pattern DASH = Pattern.compile("-", Pattern.LITERAL);
 
     /**
      * Tries to parse a version 4, variant 1 UUID from a string.
@@ -63,7 +66,7 @@ public final class UUIDUtils {
      * @return The UUID as a string
      */
     public static @NonNull String toShortString(@NonNull UUID uuid) {
-        return uuid.toString().replace("-", "");
+        return DASH.matcher(uuid.toString()).replaceAll(Matcher.quoteReplacement(""));
     }
 
     /**
@@ -107,6 +110,18 @@ public final class UUIDUtils {
         arr[2] = (int) (lsb >> 32);
         arr[3] = (int) lsb;
         return arr;
+    }
+    /**
+     * Converts an int array to a UUID
+     * @param arr An array of four ints, most to least significant
+     * @return The UUID
+     */
+    public static @NonNull UUID fromIntArray(int[] arr) {
+        Preconditions.checkArgument(arr.length == 4,
+                String.format("Array length was %d, not 4", arr.length));
+        long msb = ((long) arr[0] << 32) | arr[1];
+        long lsb = ((long) arr[2] << 32) | arr[3];
+        return new UUID(msb, lsb);
     }
 
 }

@@ -18,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class UUIDUtilsTest {
 
     private static final UUID TESTING_UUID = UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3af");
+    private static final int[] TESTING_ARRAY = {-163013767,2057259490,-1743903142,98288559};
 
     private static final String[] invalidUuids = {
             " ", "   ", "\n", "\t", // Whitespace
@@ -161,7 +162,13 @@ public class UUIDUtilsTest {
     @Test
     @DisplayName("Int array is generated correctly")
     public void testIntArray() {
-        assertThat(UUIDUtils.toIntArray(TESTING_UUID)).contains(-163013767,2057259490,-1743903142,98288559);
+        assertThat(UUIDUtils.toIntArray(TESTING_UUID)).isEqualTo(TESTING_ARRAY);
+    }
+
+    @Test
+    @DisplayName("Int arrays are correctly converted to UUIDs")
+    public void testFromIntArray() {
+        assertThat(UUIDUtils.fromIntArray(TESTING_ARRAY)).isEqualTo(TESTING_UUID);
     }
 
     @Test
