@@ -2,6 +2,9 @@ package com.tisawesomeness.minecord.util;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -168,6 +171,84 @@ public class StringUtilsTest {
     public void testSplitNullJoiner() {
         assertThatThrownBy(() -> StringUtils.partitionByLength(TEST_INPUT, null, 7))
                 .isInstanceOf(NullPointerException.class);
+    }
+
+    @ParameterizedTest(name = "{index} ==> Int {0} is safely parsed")
+    @DisplayName("Integers are safely parsed")
+    @ValueSource(ints = {
+            Integer.MIN_VALUE,
+            -25565,
+            -1,
+            0,
+            1,
+            25565,
+            Integer.MAX_VALUE
+    })
+    public void testSafeParseIntValid(int candidate) {
+        assertThat(StringUtils.safeParseInt(String.valueOf(candidate))).hasValue(candidate);
+    }
+    @ParameterizedTest(name = "{index} ==> String {0} is not an int")
+    @DisplayName("Invalid int strings return empty")
+    @ValueSource(strings = {
+            "letters",
+            "-",
+            " ",
+            "   ",
+            "1\n2",
+            "3\r4",
+            "5\r\n6",
+            "7\t8",
+            "9 10",
+            "123-456",
+            "12.5",
+            "12,5",
+            "2147483648", // over int limit
+            "-2147483649",
+            "9223372036854775808", // over long limit
+            "-9223372036854775809"
+    })
+    @NullAndEmptySource
+    public void testSafeParseIntInvalid(String candidate) {
+        assertThat(StringUtils.safeParseInt(candidate)).isEmpty();
+    }
+
+    @ParameterizedTest(name = "{index} ==> Long {0} is safely parsed")
+    @DisplayName("Longs are safely parsed")
+    @ValueSource(longs = {
+            Long.MIN_VALUE,
+            Integer.MIN_VALUE,
+            -25565,
+            -1,
+            0,
+            1,
+            25565,
+            Integer.MAX_VALUE,
+            Long.MAX_VALUE
+    })
+    public void testSafeParseIntValid(long candidate) {
+        assertThat(StringUtils.safeParseLong(String.valueOf(candidate))).hasValue(candidate);
+    }
+    @ParameterizedTest(name = "{index} ==> String {0} is not a long")
+    @DisplayName("Invalid long strings return empty")
+    @ValueSource(strings = {
+            "letters",
+            "-",
+            " ",
+            "   ",
+            "1\n2",
+            "3\r4",
+            "5\r\n6",
+            "7\t8",
+            "9 10",
+            "123-456",
+            "12.5",
+            "12,5",
+            "9223372036854775808", // over long limit
+            "-9223372036854775809"
+    })
+    @NullAndEmptySource
+    public void testSafeParseLongInvalid(String candidate) {
+        assertThat(StringUtils.safeParseLong(candidate)).isEmpty();
     }
 
 }

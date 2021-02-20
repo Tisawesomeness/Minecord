@@ -1,12 +1,12 @@
 package com.tisawesomeness.minecord.util;
 
+import com.google.common.base.CharMatcher;
 import com.google.common.base.Preconditions;
+import lombok.Cleanup;
 import lombok.NonNull;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.StringJoiner;
+import javax.annotation.Nullable;
+import java.util.*;
 
 public final class StringUtils {
     private StringUtils() {}
@@ -75,6 +75,37 @@ public final class StringUtils {
         // so the current partition will always be modified and need to be added
         partitions.add(currentPartition.toString());
         return Collections.unmodifiableList(partitions);
+    }
+
+    /**
+     * Parses an int from a string without relying on exceptions
+     * @param str The string to parse, may or may not be an integer
+     * @return The integer if present, empty if null
+     */
+    public static OptionalInt safeParseInt(@Nullable String str) {
+        if (str == null || CharMatcher.whitespace().matchesAnyOf(str)) {
+            return OptionalInt.empty();
+        }
+        @Cleanup Scanner scan = new Scanner(str);
+        if (scan.hasNextInt()) {
+            return OptionalInt.of(scan.nextInt());
+        }
+        return OptionalInt.empty();
+    }
+    /**
+     * Parses a long from a string without relying on exceptions
+     * @param str The string to parse, may or may not be a long
+     * @return The long if present, empty if null
+     */
+    public static OptionalLong safeParseLong(@Nullable String str) {
+        if (str == null || CharMatcher.whitespace().matchesAnyOf(str)) {
+            return OptionalLong.empty();
+        }
+        @Cleanup Scanner scan = new Scanner(str);
+        if (scan.hasNextLong()) {
+            return OptionalLong.of(scan.nextLong());
+        }
+        return OptionalLong.empty();
     }
 
 }
