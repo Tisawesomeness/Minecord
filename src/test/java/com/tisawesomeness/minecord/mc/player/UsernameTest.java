@@ -93,8 +93,63 @@ public class UsernameTest {
             "hmm\", hmm\\\"",
             "hmm\\, hmm\\\\"
     })
+    @DisplayName("Usernames escape quotes and backslashes")
     public void testEscape(CharSequence candidate, CharSequence expected) {
         assertThat(Username.escape(candidate)).isEqualTo(expected);
+    }
+
+    @ParameterizedTest(name = "{index} ==> <{0}> is parsed to <{1}>")
+    @CsvSource({
+            "name, name",
+            "\"tis\", tis",
+            "`tis`, tis",
+            "\"tis, tis",
+            "tis\", tis\"",
+            "`tis, tis",
+            "tis`, tis`",
+            "\"tis`, tis`",
+            "`tis\", tis\"",
+            "12\\\\34, 12\\\\34",
+            "\"12\\\\34\", 12\\34",
+            "`12\\\\34`, 12\\34",
+            "ab\\\\\\cd, ab\\\\\\cd",
+            "\"ab\\\\\\cd\", ab\\\\cd",
+            "`ab\\\\\\cd`, ab\\\\cd",
+            "ef\"gh, ef\"gh",
+            "\"ef\"gh\", ef",
+            "\"ef\\\"gh\", ef\"gh",
+            "`ef\"gh`, ef\"gh",
+            "`ef\\\"gh`, ef\\\"gh",
+            "ij`kl, ij`kl",
+            "\"ij`kl\", ij`kl",
+            "\"ij\\`kl\", ij\\`kl",
+            "`ij`kl`, ij",
+            "`ij\\`kl`, ij`kl"
+    })
+    @DisplayName("Username parsing works with quoted names and escaped characters")
+    public void testParse(String candidate, String expected) {
+        String parsedName = Username.parse(candidate).toString();
+        assertThat(parsedName)
+                .withFailMessage("Expecting string <%s> to be parsed to <%s> but was instead <%s>.",
+                        candidate, expected, parsedName)
+                .isEqualTo(expected);
+    }
+
+    @ParameterizedTest(name = "{index} ==> <{0}> is parsed to itself")
+    @ValueSource(strings = {
+            "Will Wall",
+            "alex 99",
+            "amjacobs ",
+            " toon",
+            " hmmm "
+    })
+    @DisplayName("Username parsing works with names with spaces in them")
+    public void testParseSpaces(String candidate) {
+        String parsedName = Username.parse(candidate).toString();
+        assertThat(parsedName)
+                .withFailMessage("Expecting string <%s> to be parsed to itself but was instead <%s>.",
+                        candidate, parsedName)
+                .isEqualTo(candidate);
     }
 
     private static Stream<String> validNameProvider() {
