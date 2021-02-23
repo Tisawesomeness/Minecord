@@ -179,4 +179,5 @@ public class CommandRegistry implements Iterable<Command> {
     public Stream<Command> stream() {
         return moduleToCommandsMap.values().stream();
     }
+
 }

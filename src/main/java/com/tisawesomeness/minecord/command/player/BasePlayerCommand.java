@@ -62,7 +62,7 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
             ctx.warn(ctx.getLang().i18n("mc.player.username.tooLong"));
             return;
         }
-        Username username = new Username(input);
+        Username username = Username.parse(input);
         if (!username.isSupportedByMojangAPI()) {
             ctx.warn(ctx.getLang().i18n("mc.player.username.unsupportedSpecialCharacters"));
             return;
