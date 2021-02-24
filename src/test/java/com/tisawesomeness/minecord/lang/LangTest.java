@@ -17,7 +17,7 @@ public class LangTest {
     @Test
     @DisplayName("The default lang is not in development")
     public void testDefaultLang() {
-        assertThat(Lang.getDefault().isInDevelopment()).isFalse();
+        assertThat(Lang.getDefault().getFeatures().isInDevelopment()).isFalse();
     }
 
     @Test

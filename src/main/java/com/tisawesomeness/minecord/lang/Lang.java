@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.lang;
 import com.google.common.base.Splitter;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Value;
 import net.dv8tion.jda.api.Permission;
 
 import java.text.Collator;
@@ -17,59 +18,32 @@ public enum Lang {
     DE_DE("de_DE", new Locale("de", "DE")),
     PT_BR("pt_BR", new Locale("pt", "BR"));
 
-    private final ResourceBundle resource;
-
-    @Getter private final @NonNull String code;
-    @Getter private final @NonNull Locale locale;
+    private final @NonNull ResourceBundle resource;
     private final @NonNull Collator collator2;
     private final @NonNull Collator collator3;
 
+    @Getter private final @NonNull String code;
+    @Getter private final @NonNull Locale locale;
+    @Getter private final @NonNull Lang.Features features;
+
     /**
-     * Whether this lang changes the text used in the output of commands.
+     * The flag emote ({@code :flag_xx:}) for the country this lang is based in.
      */
-    @Getter private final boolean botStringsSupported;
-    /**
-     * Whether this lang adds language-specific command aliases.
-     */
-    @Getter private final boolean commandAliasSupported;
-    /**
-     * Whether this lang translates Minecraft item names.
-     */
-    @Getter private final boolean itemsSupported;
-    /**
-     * Whether this lang has search strings allowing for easier item searching, such as "gapple" for "golden apple".
-     */
-    @Getter private final boolean itemSearchSupported;
-    /**
-     * Whether this lang is in development, and should be hidden to un-elevated users.
-     */
-    @Getter private final boolean inDevelopment;
-    /**
-     * The flag emote ({@code :flag_xx:}) for the country
-     */
-    @Getter private final String flagEmote;
+    @Getter private final @NonNull String flagEmote;
 
     Lang(@NonNull String code, @NonNull Locale locale) {
         this.code = code;
         this.locale = locale;
-
         resource = ResourceBundle.getBundle("lang/lang", locale);
-        botStringsSupported = getBool("lang.botStringsSupported");
-        commandAliasSupported = getBool("lang.commandAliasSupported");
-        itemsSupported = getBool("lang.itemsSupported");
-        itemSearchSupported = getBool("lang.itemSearchSupported");
-        inDevelopment = getBool("lang.inDevelopment");
+        features = new Features();
+        collator2 = newCollator(Collator.SECONDARY);
+        collator3 = newCollator(Collator.TERTIARY);
         flagEmote = i18n("lang.flagEmote");
-
-        Collator collator2 = Collator.getInstance(locale);
-        collator2.setStrength(Collator.SECONDARY);
-        this.collator2 = collator2;
-        Collator collator3 = Collator.getInstance(locale);
-        collator3.setStrength(Collator.TERTIARY);
-        this.collator3 = collator3;
     }
-    private boolean getBool(String key) {
-        return Boolean.parseBoolean(resource.getString(key));
+    private Collator newCollator(int strength) {
+        Collator collator = Collator.getInstance(locale);
+        collator.setStrength(strength);
+        return collator;
     }
 
     /**
@@ -279,6 +253,44 @@ public enum Lang {
     @Override
     public String toString() {
         return String.format("Lang(%s)", code);
+    }
+
+    /**
+     * A list of language features and whether they're supported.
+     */
+    @Value
+    public class Features {
+        /**
+         * Whether this lang is in development, and should be hidden to un-elevated users.
+         */
+        boolean inDevelopment;
+        /**
+         * Whether this lang changes the text used in the output of commands.
+         */
+        boolean botStringsSupported;
+        /**
+         * Whether this lang adds language-specific command aliases.
+         */
+        boolean commandAliasSupported;
+        /**
+         * Whether this lang translates Minecraft item names.
+         */
+        boolean itemsSupported;
+        /**
+         * Whether this lang has search strings allowing for easier item searching, such as "gapple" for "golden apple".
+         */
+        boolean itemSearchSupported;
+
+        private Features() {
+            inDevelopment = getBool("lang.inDevelopment");
+            botStringsSupported = getBool("lang.botStringsSupported");
+            commandAliasSupported = getBool("lang.commandAliasSupported");
+            itemsSupported = getBool("lang.itemsSupported");
+            itemSearchSupported = getBool("lang.itemSearchSupported");
+        }
+        private boolean getBool(String key) {
+            return Boolean.parseBoolean(resource.getString(key));
+        }
     }
 
 }

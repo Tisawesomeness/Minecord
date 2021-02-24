@@ -53,7 +53,7 @@ public class LangCommand extends AbstractConfigCommand {
     private static void listLanguages(CommandContext ctx, String title, boolean includeDevelopment) {
         Stream<Lang> langStream = Arrays.stream(Lang.values());
         if (!includeDevelopment) {
-            langStream = langStream.filter(l -> !l.isInDevelopment());
+            langStream = langStream.filter(l -> !l.getFeatures().isInDevelopment());
         }
         String langStr = langStream
                 .map(LangCommand::getLangDescriptionString)
@@ -66,20 +66,22 @@ public class LangCommand extends AbstractConfigCommand {
                 .setDescription(langHelp + "\n\n" + langStr);
         ctx.reply(eb);
     }
-    private static String getLangDescriptionString(Lang l) {
-        return String.format("**`%s`** %s - %s", l.getCode(), l.getFlagEmote(), l.getLocale().getDisplayName());
+    private static String getLangDescriptionString(Lang lang) {
+        String name = lang.getLocale().getDisplayName();
+        return String.format("**`%s`** %s - %s", lang.getCode(), lang.getFlagEmote(), name);
     }
 
-    private static void displayLanguageInfo(CommandContext ctx, Lang l) {
+    private static void displayLanguageInfo(CommandContext ctx, Lang lang) {
+        Lang.Features p = lang.getFeatures();
         EmbedBuilder eb = new EmbedBuilder()
-                .setTitle("Language Info for " + l.getLocale().getDisplayName() + " " + l.getFlagEmote());
+                .setTitle("Language Info for " + lang.getLocale().getDisplayName() + " " + lang.getFlagEmote());
         eb.getDescriptionBuilder()
-                .append("Language Code: `").append(l.getCode()).append("`\n")
-                .append("Supports Messages?: ").append(emote(l.isBotStringsSupported())).append("\n")
-                .append("Has Command Aliases?: ").append(emote(l.isCommandAliasSupported())).append("\n")
-                .append("Supports Minecraft Items?: ").append(emote(l.isItemsSupported())).append("\n")
-                .append("Supports Enhanced Item Search?: ").append(emote(l.isItemSearchSupported())).append("\n")
-                .append("In Development?: ").append(emote(l.isInDevelopment()));
+                .append("Language Code: `").append(lang.getCode()).append("`\n")
+                .append("Supports Messages?: ").append(emote(p.isBotStringsSupported())).append("\n")
+                .append("Has Command Aliases?: ").append(emote(p.isCommandAliasSupported())).append("\n")
+                .append("Supports Minecraft Items?: ").append(emote(p.isItemsSupported())).append("\n")
+                .append("Supports Enhanced Item Search?: ").append(emote(p.isItemSearchSupported())).append("\n")
+                .append("In Development?: ").append(emote(p.isInDevelopment()));
         ctx.reply(eb);
     }
     // exists purely to save space
