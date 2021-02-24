@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,9 +23,16 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
     }
 
     public void run(String[] args, CommandContext ctx) {
+
         if (args.length == 0) {
             ctx.triggerCooldown();
             generalHelp(ctx);
+            return;
+        }
+
+        if (firstArgMatchesExtra(ctx)) {
+            ctx.triggerCooldown();
+            extraHelp(ctx);
             return;
         }
 
@@ -53,7 +61,7 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
                 return;
             }
             // Admin check
-            if (args.length > 1 && "admin".equals(args[1])) {
+            if (args.length > 1 && "admin".equalsIgnoreCase(args[1])) {
                 ctx.reply(c.showAdminHelp(ctx));
                 return;
             }
@@ -61,7 +69,22 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
             return;
         }
 
+        // Extra help
+        Optional<ExtraHelpPage> ehpOpt = ExtraHelpPage.from(args[0], lang);
+        if (ehpOpt.isPresent()) {
+            ctx.triggerCooldown();
+            ExtraHelpPage ehp = ehpOpt.get();
+            ctx.reply(ehp.showHelp(ctx));
+            return;
+        }
+
         ctx.invalidArgs(ctx.i18n("doesNotExist"));
+    }
+
+    private boolean firstArgMatchesExtra(CommandContext ctx) {
+        String arg = ctx.getArgs()[0];
+        return arg.equalsIgnoreCase(ctx.i18n("extra"))
+                || arg.equalsIgnoreCase(Lang.getDefault().i18n(formatKey("extra")));
     }
 
     private void generalHelp(CommandContext ctx) {
@@ -99,11 +122,14 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
     }
     // Help menu only contains names of commands, tell user how to get more help
     private static String getMoreHelp(CommandContext ctx) {
-        String commandUsage = MarkdownUtil.monospace(ctx.i18nf("commandUsage", ctx.getPrefix()));
+        String prefix = ctx.getPrefix();
+        String commandUsage = MarkdownUtil.monospace(ctx.i18nf("commandUsage", prefix));
         String commandHelp = ctx.i18nf("commandHelp", commandUsage);
-        String moduleUsage = MarkdownUtil.monospace(ctx.i18nf("moduleUsage", ctx.getPrefix()));
+        String moduleUsage = MarkdownUtil.monospace(ctx.i18nf("moduleUsage", prefix));
         String moduleHelp = ctx.i18nf("moduleHelp", moduleUsage);
-        return commandHelp + "\n" + moduleHelp;
+        String extraUsage = MarkdownUtil.monospace(ctx.i18nf("extraUsage", prefix));
+        String extraHelp = ctx.i18nf("extraHelp", extraUsage);
+        return commandHelp + "\n" + moduleHelp + "\n" + extraHelp;
     }
 
     private void moduleHelp(CommandContext ctx, Module m) {
@@ -148,6 +174,20 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
 
     private static String getAvatarUrl(CommandContext ctx) {
         return ctx.getE().getJDA().getSelfUser().getEffectiveAvatarUrl();
+    }
+
+    private static void extraHelp(CommandContext ctx) {
+        String desc = Arrays.stream(ExtraHelpPage.values())
+                .map(ehp -> extraHelpLine(ctx, ehp))
+                .collect(Collectors.joining("\n"));
+        EmbedBuilder eb = new EmbedBuilder()
+                .setTitle(ctx.i18n("extraHelpTitle"))
+                .setDescription(desc);
+        ctx.reply(eb);
+    }
+    private static String extraHelpLine(CommandContext ctx, ExtraHelpPage ehp) {
+        Lang lang = ctx.getLang();
+        return String.format("`%shelp %s` - %s", ctx.getPrefix(), lang.localize(ehp), ehp.getDescription(lang));
     }
 
 }

@@ -43,6 +43,7 @@ public enum Module implements Localizable {
     /**
      * Gets a module from its name.
      * @param name The case-insensitive name
+     * @param lang The current language
      * @return The module, or empty if not found
      */
     public static Optional<Module> from(@NonNull String name, Lang lang) {

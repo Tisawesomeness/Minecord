@@ -31,7 +31,7 @@ public final class UUIDUtils {
             "\\[?(I;)?(-?\\d{1,10}),(-?\\d{1,10}),(-?\\d{1,10}),(-?\\d{1,10})\\]?", Pattern.CASE_INSENSITIVE);
     private static final Pattern MOST_LEAST_STRING = Pattern.compile("(-?\\d{1,19}),(-?\\d{1,19})");
 
-    public static final long LOWER_FOUR_BYTES = 0x0000_0000_FFFF_FFFFL;
+    private static final long LOWER_FOUR_BYTES = 0x0000_0000_FFFF_FFFFL;
 
     /**
      * <p>

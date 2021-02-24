@@ -149,7 +149,7 @@ public abstract class Command {
     public final List<String> i18nList(Lang lang, @NonNull String key) {
         return lang.i18nList(formatKey(key));
     }
-    private String formatKey(String key) {
+    protected @NonNull String formatKey(@NonNull String key) {
         return String.format("command.%s.%s.%s", getModule().getId(), getId(), key);
     }
 
