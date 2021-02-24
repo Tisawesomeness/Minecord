@@ -37,9 +37,9 @@ public enum ExtraHelpPage implements Localizable {
                 .findFirst();
     }
     private boolean matches(@NonNull String name, Lang lang) {
-        return id.equalsIgnoreCase(name)
-                || lang.localize(this).equalsIgnoreCase(name)
-                || getAliases(lang).stream().anyMatch(s -> s.equalsIgnoreCase(name));
+        return lang.equalsIgnoreCase(id, name)
+                || lang.equalsIgnoreCase(lang.localize(this), name)
+                || lang.containsIgnoreCase(getAliases(lang), name);
     }
 
     /**

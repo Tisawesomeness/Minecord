@@ -49,4 +49,69 @@ public class LangTest {
         }
     }
 
+    @ParameterizedTest(name = "{index} ==> {0} equals() is true for two identical strings")
+    @EnumSource
+    @DisplayName("equals() is true for identical strings")
+    public void testEquals(Lang candidate) {
+        assertThat(candidate.equals("abc", "abc")).isTrue();
+    }
+    @ParameterizedTest(name = "{index} ==> {0} equals() is false for different strings")
+    @EnumSource
+    @DisplayName("equals() is false for for unambiguous different strings")
+    public void testNotEquals(Lang candidate) {
+        assertThat(candidate.equals("abc", "def")).isFalse();
+    }
+
+    @ParameterizedTest(name = "{index} ==> {0} equalsIgnoreCase() is true for different cased strings")
+    @EnumSource
+    @DisplayName("equalsIgnoreCase() is true for different cased strings")
+    public void testEqualsIgnoreCase(Lang candidate) {
+        assertThat(candidate.equalsIgnoreCase("abc", "ABC")).isTrue();
+    }
+
+    @ParameterizedTest(name = "{index} ==> {0} compare(a, b) is -1 when a < b")
+    @EnumSource
+    @DisplayName("compare(a, b) is -1 when a < b")
+    public void testCompareLess(Lang candidate) {
+        assertThat(candidate.compare("a", "z")).isEqualTo(-1);
+    }
+    @ParameterizedTest(name = "{index} ==> {0} compare(a, b) is 0 when a == b")
+    @EnumSource
+    @DisplayName("compare(a, b) is 0 when a == b")
+    public void testCompare(Lang candidate) {
+        assertThat(candidate.compare("a", "a")).isEqualTo(0);
+    }
+    @ParameterizedTest(name = "{index} ==> {0} compare(a, b) is 1 when a > b")
+    @EnumSource
+    @DisplayName("compare(a, b) is 1 when a > b")
+    public void testCompareMore(Lang candidate) {
+        assertThat(candidate.compare("z", "a")).isEqualTo(1);
+    }
+
+    @ParameterizedTest(name = "{index} ==> {0} compareIgnoreCase(a, b) is -1 when a < b")
+    @EnumSource
+    @DisplayName("compareIgnoreCase(a, b) is -1 when a < b")
+    public void testCompareLessIgnoreCase(Lang candidate) {
+        assertThat(candidate.compareIgnoreCase("a", "Z")).isEqualTo(-1);
+    }
+    @ParameterizedTest(name = "{index} ==> {0} compareIgnoreCase(a, b) is 0 when a == b")
+    @EnumSource
+    @DisplayName("compareIgnoreCase(a, b) is 0 when a == b")
+    public void testCompareIgnoreCase(Lang candidate) {
+        assertThat(candidate.compareIgnoreCase("A", "a")).isEqualTo(0);
+    }
+    @ParameterizedTest(name = "{index} ==> {0} compareIgnoreCase(a, b) is 1 when a > b")
+    @EnumSource
+    @DisplayName("compareIgnoreCase(a, b) is 1 when a > b")
+    public void testCompareMoreIgnoreCase(Lang candidate) {
+        assertThat(candidate.compareIgnoreCase("z", "A")).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("Comparisons with ß --> SS are correctly handled")
+    public void testUppercaseTrickery() {
+        assertThat(Lang.DE_DE.equals("ß", "SS")).isFalse();
+        assertThat(Lang.DE_DE.equalsIgnoreCase("ß", "SS")).isTrue();
+    }
+
 }

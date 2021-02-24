@@ -5,13 +5,9 @@ import lombok.Getter;
 import lombok.NonNull;
 import net.dv8tion.jda.api.Permission;
 
+import java.text.Collator;
 import java.text.MessageFormat;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * An enum of all the registered bot languages.
@@ -25,6 +21,8 @@ public enum Lang {
 
     @Getter private final @NonNull String code;
     @Getter private final @NonNull Locale locale;
+    private final @NonNull Collator collator2;
+    private final @NonNull Collator collator3;
 
     /**
      * Whether this lang changes the text used in the output of commands.
@@ -62,6 +60,13 @@ public enum Lang {
         itemSearchSupported = getBool("lang.itemSearchSupported");
         inDevelopment = getBool("lang.inDevelopment");
         flagEmote = i18n("lang.flagEmote");
+
+        Collator collator2 = Collator.getInstance(locale);
+        collator2.setStrength(Collator.SECONDARY);
+        this.collator2 = collator2;
+        Collator collator3 = Collator.getInstance(locale);
+        collator3.setStrength(Collator.TERTIARY);
+        this.collator3 = collator3;
     }
     private boolean getBool(String key) {
         return Boolean.parseBoolean(resource.getString(key));
@@ -93,7 +98,7 @@ public enum Lang {
      * <br>Lang config keys are in the {@code lang} category.
      * @param key The <b>case-sensitive</b> localization key. For example, {@code command.server.embedTitle}.
      * @return The localized string
-     * @throws java.util.MissingResourceException If the given key could not be found.
+     * @throws java.util.MissingResourceException If the given key could not be found
      */
     public @NonNull String i18n(@NonNull String key) {
         return resource.getString(key);
@@ -102,8 +107,6 @@ public enum Lang {
      * Gets a localized string for this lang if the key exists.
      * @param key The <b>case-sensitive</b> localization key used in {@link #i18n(String)}
      * @return The localized string, or empty if not found
-     * @see MessageFormat
-     * @see Locale
      */
     public Optional<String> i18nOpt(@NonNull String key) {
         if (resource.keySet().contains(key)) {
@@ -116,7 +119,7 @@ public enum Lang {
      * @param key The <b>case-sensitive</b> localization key used in {@link #i18n(String)}
      * @param args An ordered list of arguments to place into the string
      * @return The localized string
-     * @throws java.util.MissingResourceException If the given key could not be found.
+     * @throws java.util.MissingResourceException If the given key could not be found
      * @see MessageFormat
      * @see Locale
      */
@@ -128,7 +131,7 @@ public enum Lang {
      * @param key The <b>case-sensitive</b> localization key used in {@link #i18n(String)}
      * @param args An ordered list of arguments to place into the string
      * @return A new localized markdown builder
-     * @throws java.util.MissingResourceException If the given key could not be found.
+     * @throws java.util.MissingResourceException If the given key could not be found
      * @see LocalizedMarkdownBuilder
      * @see MessageFormat
      * @see Locale
@@ -168,6 +171,7 @@ public enum Lang {
      * Localizes an object as a user-readable string.
      * @param obj The localizable object
      * @return The object's description in this language
+     * @throws java.util.MissingResourceException If the localization key could not be found
      */
     public @NonNull String localize(@NonNull Localizable obj) {
         return i18nf(obj.getTranslationKey(), obj.getTranslationArgs());
@@ -176,6 +180,7 @@ public enum Lang {
      * Localizes an object as a user-readable string.
      * @param obj The localizable object
      * @return A builder to add markdown to the object's description in this language
+     * @throws java.util.MissingResourceException If the localization key could not be found
      */
     public @NonNull LocalizedMarkdownBuilder localizeMarkdown(@NonNull Localizable obj) {
         return i18nm(obj.getTranslationKey(), obj.getTranslationArgs());
@@ -198,9 +203,82 @@ public enum Lang {
                 .orElseGet(() -> i18n("discord.permissions.unknown"));
     }
 
+    /**
+     * Checks if two localized strings are generally equal, according to the current locale.
+     * The "same" string may actually have different Unicode code points, those differences are ignored.
+     * @param a The source string
+     * @param b The target string
+     * @return Whether the two strings are equal
+     * @see Collator
+     * @see Collator#TERTIARY
+     */
+    public boolean equals(@NonNull String a, @NonNull String b) {
+        return collator3.equals(a, b);
+    }
+    /**
+     * Compares two localized strings, according to the current locale.
+     * The "same" string may actually have different Unicode code points, those differences are ignored.
+     * @param a The source string
+     * @param b The target string
+     * @return -1, 0, or 1 if string A is less than, equal to, or greater than string B
+     * @see Collator
+     * @see Collator#TERTIARY
+     */
+    public int compare(@NonNull String a, @NonNull String b) {
+        return collator3.compare(a, b);
+    }
+    /**
+     * Checks if a list contains a string, according to the current locale.
+     * The "same" string may actually have different Unicode code points, those differences are ignored.
+     * @param list A list of non-null strings
+     * @param str The string to look for
+     * @return Whether the list contains the given string
+     * @see Collator
+     * @see Collator#TERTIARY
+     */
+    public boolean contains(Collection<? extends String> list, @NonNull String str) {
+        return list.stream().anyMatch(s -> equals(s, str));
+    }
+    /**
+     * Checks if two localized strings are generally equal ignoring case, according to the current locale.
+     * The "same" string may actually have different Unicode code points, those differences are ignored.
+     * @param a The source string
+     * @param b The target string
+     * @return Whether the two strings are equal ignoring case
+     * @see Collator
+     * @see Collator#SECONDARY
+     */
+    public boolean equalsIgnoreCase(@NonNull String a, @NonNull String b) {
+        return collator2.equals(a, b);
+    }
+    /**
+     * Compares two localized strings ignoring case, according to the current locale.
+     * The "same" string may actually have different Unicode code points, those differences are ignored.
+     * @param a The source string
+     * @param b The target string
+     * @return -1, 0, or 1 if string A is less than, equal to, or greater than string B ignoring case
+     * @see Collator
+     * @see Collator#SECONDARY
+     */
+    public int compareIgnoreCase(@NonNull String a, @NonNull String b) {
+        return collator2.compare(a, b);
+    }
+    /**
+     * Checks if a list contains a string, according to the current locale.
+     * The "same" string may actually have different Unicode code points, those differences are ignored.
+     * @param list A list of non-null strings
+     * @param str The string to look for
+     * @return Whether the list contains the given string
+     * @see Collator
+     * @see Collator#SECONDARY
+     */
+    public boolean containsIgnoreCase(Collection<? extends String> list, @NonNull String str) {
+        return list.stream().anyMatch(s -> equalsIgnoreCase(s, str));
+    }
+
     @Override
     public String toString() {
-        return code;
+        return String.format("Lang(%s)", code);
     }
 
 }
