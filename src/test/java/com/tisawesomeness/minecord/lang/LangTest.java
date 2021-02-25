@@ -114,4 +114,123 @@ public class LangTest {
         assertThat(Lang.DE_DE.equalsIgnoreCase("ß", "SS")).isTrue();
     }
 
+    @ParameterizedTest(name = "{index} ==> String {0} is a valid int")
+    @DisplayName("Ints are safely parsed")
+    @ValueSource(ints = {
+            Integer.MIN_VALUE,
+            -25565,
+            -1,
+            0,
+            1,
+            25565,
+            Integer.MAX_VALUE
+    })
+    public void testParseIntValid(int candidate) {
+        for (Lang lang : Lang.values()) {
+            assertThat(lang.parseInt(String.valueOf(candidate))).hasValue(candidate);
+        }
+    }
+    @ParameterizedTest(name = "{index} ==> String {0} is not an int")
+    @DisplayName("Invalid int strings return empty")
+    @ValueSource(strings = {
+            "letters",
+            "-",
+            " ",
+            "   ",
+            "1\n2",
+            "3\r4",
+            "5\r\n6",
+            "7\t8",
+            "9 10",
+            "123-456",
+    })
+    @EmptySource
+    public void testSafeParseIntInvalid(String candidate) {
+        for (Lang lang : Lang.values()) {
+            assertThat(lang.parseInt(candidate)).isEmpty();
+        }
+    }
+    @Test
+    @DisplayName("parseInt() caps instead of overflowing")
+    public void testSafeParseIntOverflow() {
+        for (Lang lang : Lang.values()) {
+            assertThat(lang.parseInt("2147483648")).hasValue(Integer.MAX_VALUE);
+            assertThat(lang.parseInt("2147483648")).hasValue(Integer.MAX_VALUE);
+        }
+    }
+    @Test
+    @DisplayName("parseInt() caps instead of underflowing")
+    public void testSafeParseIntUnderflow() {
+        for (Lang lang : Lang.values()) {
+            assertThat(lang.parseInt("-2147483649")).hasValue(Integer.MIN_VALUE);
+        }
+    }
+
+    @Test
+    @DisplayName("parseInt() follows English rules")
+    public void testSafeParseIntEnglish() {
+        assertThat(Lang.EN_US.parseInt("123,456")).hasValue(123456);
+        assertThat(Lang.EN_US.parseInt("123.456")).isEmpty();
+    }
+
+    @ParameterizedTest(name = "{index} ==> String {0} is a valid long")
+    @DisplayName("Longs are safely parsed")
+    @ValueSource(longs = {
+            Long.MIN_VALUE,
+            Integer.MIN_VALUE,
+            -25565,
+            -1,
+            0,
+            1,
+            25565,
+            Integer.MAX_VALUE,
+            Long.MAX_VALUE
+    })
+    public void testSafeParseIntValid(long candidate) {
+        for (Lang lang : Lang.values()) {
+            assertThat(lang.parseLong(String.valueOf(candidate))).hasValue(candidate);
+        }
+    }
+    @ParameterizedTest(name = "{index} ==> String {0} is not a long")
+    @DisplayName("Invalid long strings return empty")
+    @ValueSource(strings = {
+            "letters",
+            "-",
+            " ",
+            "   ",
+            "1\n2",
+            "3\r4",
+            "5\r\n6",
+            "7\t8",
+            "9 10",
+            "123-456"
+    })
+    @EmptySource
+    public void testSafeParseLongInvalid(String candidate) {
+        for (Lang lang : Lang.values()) {
+            assertThat(lang.parseLong(candidate)).isEmpty();
+        }
+    }
+    @Test
+    @DisplayName("parseLong() caps instead of overflowing")
+    public void testSafeParseLongOverflow() {
+        for (Lang lang : Lang.values()) {
+            assertThat(lang.parseLong("9223372036854775808")).hasValue(Long.MAX_VALUE);
+        }
+    }
+    @Test
+    @DisplayName("parseLong() caps instead of underflowing")
+    public void testSafeParseLongUnderflow() {
+        for (Lang lang : Lang.values()) {
+            assertThat(lang.parseLong("-9223372036854775809")).hasValue(Long.MIN_VALUE);
+        }
+    }
+
+    @Test
+    @DisplayName("parseLong() follows English rules")
+    public void testSafeParseLongEnglish() {
+        assertThat(Lang.EN_US.parseLong("123,456")).hasValue(123456L);
+        assertThat(Lang.EN_US.parseLong("123.456")).isEmpty();
+    }
+
 }

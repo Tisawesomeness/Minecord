@@ -8,6 +8,8 @@ import net.dv8tion.jda.api.Permission;
 
 import java.text.Collator;
 import java.text.MessageFormat;
+import java.text.NumberFormat;
+import java.text.ParsePosition;
 import java.util.*;
 
 /**
@@ -248,6 +250,49 @@ public enum Lang {
      */
     public boolean containsIgnoreCase(Collection<? extends String> list, @NonNull String str) {
         return list.stream().anyMatch(s -> equalsIgnoreCase(s, str));
+    }
+
+    /**
+     * Parses an int from a string without relying on exceptions.
+     * The current locale determines the accepted formats.
+     * If the number overflows the integer max/min, the max/min will be returned.
+     * @param str The string to parse, may or may not be an integer
+     * @return The integer if present, empty if null
+     */
+    public OptionalInt parseInt(@NonNull String str) {
+        ParsePosition pp = new ParsePosition(0);
+        Number n = NumberFormat.getIntegerInstance(locale).parse(str, pp);
+        if (n == null || str.length() != pp.getIndex()) {
+            return OptionalInt.empty();
+        }
+        // Integers overflow, floating point doesn't
+        // If the input is too large for a double, the double will be Infinity and the integer will be at max/min
+        double d = n.doubleValue();
+        int i = n.intValue();
+        if ((int) d != i) {
+            return OptionalInt.of(d < 0 ? Integer.MIN_VALUE : Integer.MAX_VALUE);
+        }
+        return OptionalInt.of(i);
+    }
+    /**
+     * Parses a long from a string without relying on exceptions.
+     * The current locale determines the accepted formats.
+     * If the number overflows the long max/min, the max/min will be returned.
+     * @param str The string to parse, may or may not be a long
+     * @return The long if present, empty if null
+     */
+    public OptionalLong parseLong(@NonNull String str) {
+        ParsePosition pp = new ParsePosition(0);
+        Number n = NumberFormat.getIntegerInstance(locale).parse(str, pp);
+        if (n == null || str.length() != pp.getIndex()) {
+            return OptionalLong.empty();
+        }
+        double d = n.doubleValue();
+        long l = n.longValue();
+        if ((long) d != l) {
+            return OptionalLong.of(d < 0 ? Long.MIN_VALUE : Long.MAX_VALUE);
+        }
+        return OptionalLong.of(l);
     }
 
     @Override

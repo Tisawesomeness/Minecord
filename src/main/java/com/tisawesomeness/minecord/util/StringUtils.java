@@ -78,7 +78,7 @@ public final class StringUtils {
     }
 
     /**
-     * Parses an int from a string without relying on exceptions
+     * Parses an int from a string without relying on exceptions.
      * @param str The string to parse, may or may not be an integer
      * @return The integer if present, empty if null
      */
@@ -93,7 +93,7 @@ public final class StringUtils {
         return OptionalInt.empty();
     }
     /**
-     * Parses a long from a string without relying on exceptions
+     * Parses a long from a string without relying on exceptions.
      * @param str The string to parse, may or may not be a long
      * @return The long if present, empty if null
      */
