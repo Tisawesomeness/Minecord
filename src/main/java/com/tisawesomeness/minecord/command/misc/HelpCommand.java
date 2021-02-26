@@ -106,19 +106,11 @@ public class HelpCommand extends AbstractMiscCommand implements IMultiNameComman
             }
             String mHelp = cmds.stream()
                     .filter(c -> !(c instanceof IHiddenCommand))
-                    .map(c -> formatCommand(ctx, c))
+                    .map(c -> c.formatCommandName(ctx))
                     .collect(Collectors.joining(", "));
             eb.addField(lang.localize(m), mHelp, false);
         }
         ctx.reply(eb);
-    }
-    private static String formatCommand(CommandContext ctx, Command c) {
-        String prefix = ctx.getPrefix();
-        Lang lang = ctx.getLang();
-        if (c.isEnabled(ctx.getConfig().getCommandConfig())) {
-            return String.format("`%s%s`", prefix, c.getDisplayName(lang));
-        }
-        return String.format("~~`%s%s`~~", prefix, c.getDisplayName(lang));
     }
     // Help menu only contains names of commands, tell user how to get more help
     private static String getMoreHelp(CommandContext ctx) {

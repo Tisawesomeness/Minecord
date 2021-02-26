@@ -249,7 +249,7 @@ public abstract class Command {
         String help = isAdmin ? getAdminHelp(lang, prefix, tag) : getHelp(lang, prefix, tag);
         String desc = formatModifiers(lang, isAdmin) + help;
         EmbedBuilder eb = new EmbedBuilder()
-                .setTitle(lang.i18nf(titleKey, formatCommandUsage(ctx)))
+                .setTitle(lang.i18nf(titleKey, formatCommandName(ctx)))
                 .setDescription(desc);
 
         Optional<String> examplesOpt = isAdmin ? getAdminExamples(lang, prefix, tag) : getExamples(lang, prefix, tag);
@@ -305,21 +305,18 @@ public abstract class Command {
                 .map(MarkdownUtil::monospace)
                 .collect(Collectors.joining(", "));
     }
-    private String formatCommandUsage(CommandContext ctx) {
+    /**
+     * Formats this command to "&name" according to the current prefix and lang.
+     * @param ctx The context of the executing command
+     * @return The equivalent of "&name"
+     */
+    public @NonNull String formatCommandName(@NonNull CommandContext ctx) {
         String prefix = ctx.getPrefix();
         Lang lang = ctx.getLang();
-        // Formatting changes based on whether the command has arguments
-        Optional<String> usageOpt = getUsage(lang);
-        if (!usageOpt.isPresent()) {
-            if (isEnabled(ctx.getConfig().getCommandConfig())) {
-                return String.format("`%s%s`", prefix, getDisplayName(lang));
-            }
-            return String.format("~~`%s%s`~~", prefix, getDisplayName(lang));
-        }
         if (isEnabled(ctx.getConfig().getCommandConfig())) {
-            return String.format("`%s%s %s`", prefix, getDisplayName(lang), usageOpt.get());
+            return String.format("`%s%s`", prefix, getDisplayName(lang));
         }
-        return String.format("~~`%s%s %s`~~", prefix, getDisplayName(lang), usageOpt.get());
+        return String.format("~~`%s%s`~~", prefix, getDisplayName(lang));
     }
     private static String joinPerms(Collection<Permission> permissions, Lang lang) {
         return permissions.stream()
