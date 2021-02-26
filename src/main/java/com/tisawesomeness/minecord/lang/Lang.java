@@ -162,14 +162,6 @@ public enum Lang {
         return i18nm(obj.getTranslationKey(), obj.getTranslationArgs());
     }
     /**
-     * Localizes a boolean value.
-     * @param bool The boolean
-     * @return "True" or "False" in this language
-     */
-    public @NonNull String localize(boolean bool) {
-        return bool ? i18n("general.true") : i18n("general.false");
-    }
-    /**
      * Localizes a permission.
      * @param permission The permission, may be unknown
      * @return The name of the permission in this language
@@ -177,6 +169,24 @@ public enum Lang {
     public @NonNull String localize(Permission permission) {
         return i18nOpt("discord.permissions." + permission.name().toLowerCase())
                 .orElseGet(() -> i18n("discord.permissions.unknown"));
+    }
+
+    /**
+     * Displays a boolean as a string
+     * @param bool The bool
+     * @return The boolean as a string, first letter capitalized
+     */
+    public @NonNull String displayBool(boolean bool) {
+        return displayBool(bool, BoolFormat.TRUE);
+    }
+    /**
+     * Displays a boolean as a string
+     * @param bool The bool
+     * @param format The format to display with
+     * @return The boolean as a string, first letter capitalized
+     */
+    public @NonNull String displayBool(boolean bool, BoolFormat format) {
+        return bool ? i18n(format.getTrueKey()) : i18n(format.getFalseKey());
     }
 
     /**
@@ -293,6 +303,108 @@ public enum Lang {
             return OptionalLong.of(d < 0 ? Long.MIN_VALUE : Long.MAX_VALUE);
         }
         return OptionalLong.of(l);
+    }
+
+    /**
+     * Checks if a string is truthy in this language, such as "true" and "enabled" in English.
+     * <b>If a string is <i>not</i> truthy, that does <i>NOT</i> necessarily mean that the string is falsy.</b>
+     * A word (such as "maybe") can be neither truthy nor falsy.
+     * @param str The case-insensitive input string
+     * @return Whether the string is truthy
+     */
+    public boolean isTruthy(@NonNull String str) {
+        return isTruthy(str, BoolFormat.ALL);
+    }
+    /**
+     * Checks if a string is truthy in this language, such as "true" and "enabled" in English.
+     * <b>If a string is <i>not</i> truthy, that does <i>NOT</i> necessarily mean that the string is falsy.</b>
+     * A word (such as "maybe") can be neither truthy nor falsy.
+     * @param str The case-insensitive input string
+     * @param supportedFormat The boolean format that the input will be checked against
+     * @return Whether the string is truthy
+     */
+    public boolean isTruthy(@NonNull String str, BoolFormat supportedFormat) {
+        return testForBool(str, supportedFormat, true);
+    }
+    /**
+     * Checks if a string is truthy in this language, such as "true" and "enabled" in English.
+     * <b>If a string is <i>not</i> truthy, that does <i>NOT</i> necessarily mean that the string is falsy.</b>
+     * A word (such as "maybe") can be neither truthy nor falsy.
+     * @param str The case-insensitive input string
+     * @param supportedFormats The set of boolean formats that the input will be checked against
+     * @return Whether the string is truthy
+     * @throws IllegalArgumentException If the set of supported formats is empty
+     */
+    public boolean isTruthy(@NonNull String str, EnumSet<BoolFormat> supportedFormats) {
+        return testForBool(str, supportedFormats, true);
+    }
+
+    /**
+     * Checks if a string is falsy in this language, such as "true" and "enabled" in English.
+     * <b>If a string is <i>not</i> falsy, that does <i>NOT</i> necessarily mean that the string is truthy.</b>
+     * A word (such as "maybe") can be neither truthy nor falsy.
+     * @param str The case-insensitive input string
+     * @return Whether the string is falsy
+     */
+    public boolean isFalsy(@NonNull String str) {
+        return isFalsy(str, BoolFormat.ALL);
+    }
+    /**
+     * Checks if a string is falsy in this language, such as "true" and "enabled" in English.
+     * <b>If a string is <i>not</i> falsy, that does <i>NOT</i> necessarily mean that the string is truthy.</b>
+     * A word (such as "maybe") can be neither truthy nor falsy.
+     * @param str The case-insensitive input string
+     * @param supportedFormat The boolean format that the input will be checked against
+     * @return Whether the string is falsy
+     */
+    public boolean isFalsy(@NonNull String str, BoolFormat supportedFormat) {
+        return testForBool(str, supportedFormat, false);
+    }
+    /**
+     * Checks if a string is falsy in this language, such as "true" and "enabled" in English.
+     * <b>If a string is <i>not</i> falsy, that does <i>NOT</i> necessarily mean that the string is truthy.</b>
+     * A word (such as "maybe") can be neither truthy nor falsy.
+     * @param str The case-insensitive input string
+     * @param supportedFormats The set of boolean formats that the input will be checked against
+     * @return Whether the string is falsy
+     * @throws IllegalArgumentException If the set of supported formats is empty
+     */
+    public boolean isFalsy(@NonNull String str, EnumSet<BoolFormat> supportedFormats) {
+        return testForBool(str, supportedFormats, false);
+    }
+
+    private boolean testForBool(@NonNull String str, BoolFormat supportedFormat, boolean bool) {
+        String key = bool ? supportedFormat.getTrueKey() : supportedFormat.getFalseKey();
+        String possibleMatch = i18n(key);
+        if (equalsIgnoreCase(str, possibleMatch)) {
+            return true;
+        }
+        if (supportedFormat.isIncludeDefaultLang() && Lang.getDefault() != this) {
+            String possibleMatchDefaultLang = Lang.getDefault().i18n(key);
+            return equalsIgnoreCase(str, possibleMatchDefaultLang);
+        }
+        return false;
+    }
+    private boolean testForBool(@NonNull String str, EnumSet<BoolFormat> supportedFormats, boolean bool) {
+        if (supportedFormats.isEmpty()) {
+            throw new IllegalArgumentException("The set of supported formats was empty!");
+        }
+        boolean triedDefaultLang = false;
+        for (BoolFormat format : supportedFormats) {
+            String key = bool ? format.getTrueKey() : format.getFalseKey();
+            String possibleMatch = i18n(key);
+            if (equalsIgnoreCase(str, possibleMatch)) {
+                return true;
+            }
+            if (!triedDefaultLang && format.isIncludeDefaultLang() && Lang.getDefault() != this) {
+                String possibleMatchDefaultLang = Lang.getDefault().i18n(key);
+                if (equalsIgnoreCase(str, possibleMatchDefaultLang)) {
+                    return true;
+                }
+                triedDefaultLang = true;
+            }
+        }
+        return false;
     }
 
     @Override

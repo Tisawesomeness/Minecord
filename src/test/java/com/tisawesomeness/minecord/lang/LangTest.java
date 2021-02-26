@@ -145,14 +145,14 @@ public class LangTest {
             "123-456",
     })
     @EmptySource
-    public void testSafeParseIntInvalid(String candidate) {
+    public void testParseIntInvalid(String candidate) {
         for (Lang lang : Lang.values()) {
             assertThat(lang.parseInt(candidate)).isEmpty();
         }
     }
     @Test
     @DisplayName("parseInt() caps instead of overflowing")
-    public void testSafeParseIntOverflow() {
+    public void testParseIntOverflow() {
         for (Lang lang : Lang.values()) {
             assertThat(lang.parseInt("2147483648")).hasValue(Integer.MAX_VALUE);
             assertThat(lang.parseInt("2147483648")).hasValue(Integer.MAX_VALUE);
@@ -160,7 +160,7 @@ public class LangTest {
     }
     @Test
     @DisplayName("parseInt() caps instead of underflowing")
-    public void testSafeParseIntUnderflow() {
+    public void testParseIntUnderflow() {
         for (Lang lang : Lang.values()) {
             assertThat(lang.parseInt("-2147483649")).hasValue(Integer.MIN_VALUE);
         }
@@ -168,7 +168,7 @@ public class LangTest {
 
     @Test
     @DisplayName("parseInt() follows English rules")
-    public void testSafeParseIntEnglish() {
+    public void testParseIntEnglish() {
         assertThat(Lang.EN_US.parseInt("123,456")).hasValue(123456);
         assertThat(Lang.EN_US.parseInt("123.456")).isEmpty();
     }
@@ -186,7 +186,7 @@ public class LangTest {
             Integer.MAX_VALUE,
             Long.MAX_VALUE
     })
-    public void testSafeParseIntValid(long candidate) {
+    public void testParseIntValid(long candidate) {
         for (Lang lang : Lang.values()) {
             assertThat(lang.parseLong(String.valueOf(candidate))).hasValue(candidate);
         }
@@ -206,21 +206,21 @@ public class LangTest {
             "123-456"
     })
     @EmptySource
-    public void testSafeParseLongInvalid(String candidate) {
+    public void testParseLongInvalid(String candidate) {
         for (Lang lang : Lang.values()) {
             assertThat(lang.parseLong(candidate)).isEmpty();
         }
     }
     @Test
     @DisplayName("parseLong() caps instead of overflowing")
-    public void testSafeParseLongOverflow() {
+    public void testParseLongOverflow() {
         for (Lang lang : Lang.values()) {
             assertThat(lang.parseLong("9223372036854775808")).hasValue(Long.MAX_VALUE);
         }
     }
     @Test
     @DisplayName("parseLong() caps instead of underflowing")
-    public void testSafeParseLongUnderflow() {
+    public void testParseLongUnderflow() {
         for (Lang lang : Lang.values()) {
             assertThat(lang.parseLong("-9223372036854775809")).hasValue(Long.MIN_VALUE);
         }
@@ -228,9 +228,38 @@ public class LangTest {
 
     @Test
     @DisplayName("parseLong() follows English rules")
-    public void testSafeParseLongEnglish() {
+    public void testParseLongEnglish() {
         assertThat(Lang.EN_US.parseLong("123,456")).hasValue(123456L);
         assertThat(Lang.EN_US.parseLong("123.456")).isEmpty();
+    }
+
+    @Test
+    @DisplayName("isTruthy() is true for 'true' in all languages")
+    public void testIsTruthyTrue() {
+        for (Lang lang : Lang.values()) {
+            assertThat(lang.isTruthy("true")).isTrue();
+        }
+    }
+    @Test
+    @DisplayName("isTruthy() is false for 'false' in all languages")
+    public void testIsTruthyFalse() {
+        for (Lang lang : Lang.values()) {
+            assertThat(lang.isTruthy("false")).isFalse();
+        }
+    }
+    @Test
+    @DisplayName("isFalsy() is false for 'true' in all languages")
+    public void testIsFalsyTrue() {
+        for (Lang lang : Lang.values()) {
+            assertThat(lang.isFalsy("true")).isFalse();
+        }
+    }
+    @Test
+    @DisplayName("isFalsy() is true for 'false' in all languages")
+    public void testIsFalsyFalse() {
+        for (Lang lang : Lang.values()) {
+            assertThat(lang.isFalsy("false")).isTrue();
+        }
     }
 
 }

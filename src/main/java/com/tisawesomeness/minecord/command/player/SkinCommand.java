@@ -35,7 +35,7 @@ public class SkinCommand extends BasePlayerCommand {
     private static @NonNull String constructDescription(CommandContext ctx, Player player) {
         Lang lang = ctx.getLang();
         String custom = MarkdownUtil.bold(lang.i18n("mc.player.skin.custom")) + ": " +
-                lang.localize(player.hasCustomSkin());
+                lang.displayBool(player.hasCustomSkin());
         String skinType = MarkdownUtil.bold(lang.i18n("mc.player.skin.model")) + ": " +
                 lang.i18n(player.getSkinType().getTranslationKey());
         String defaultModel = MarkdownUtil.bold(lang.i18n("mc.player.skin.default")) + ": " +

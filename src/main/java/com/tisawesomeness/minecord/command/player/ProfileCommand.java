@@ -79,18 +79,18 @@ public class ProfileCommand extends BasePlayerCommand {
         Lang lang = ctx.getLang();
         String skinLink = boldMaskedLink(ctx.i18n("skinLink"), player.getSkinUrl());
         String custom = MarkdownUtil.bold(lang.i18n("mc.player.skin.custom")) + ": " +
-                lang.localize(player.hasCustomSkin());
+                lang.displayBool(player.hasCustomSkin());
         String skinHistoryLink = boldMaskedLink(ctx.i18n("skinHistoryLink"), player.getMCSkinHistoryUrl());
         return skinLink + "\n" + custom + "\n" + skinHistoryLink;
     }
     private static @NonNull String constructAccountInfo(CommandContext ctx, Player player) {
         Lang lang = ctx.getLang();
         String legacy = MarkdownUtil.bold(ctx.i18n("legacy")) + ": " +
-                lang.localize(player.getProfile().isLegacy());
+                lang.displayBool(player.getProfile().isLegacy());
         String demo = MarkdownUtil.bold(ctx.i18n("demo")) + ": " +
-                lang.localize(player.getProfile().isDemo());
+                lang.displayBool(player.getProfile().isDemo());
         String invalid = MarkdownUtil.bold(ctx.i18n("invalid")) + ": " +
-                lang.localize(!player.getUsername().isValid());
+                lang.displayBool(!player.getUsername().isValid());
         return legacy + "\n" + demo + "\n" + invalid;
     }
 
