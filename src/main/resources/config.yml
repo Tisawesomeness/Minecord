@@ -84,6 +84,9 @@ flags:
   debugMode: false
   # If true, announcements from announce.json will be put in the footer of all embeds
   useAnnouncements: false
+  # Whether the bot will attempt to load translations from "minecord/lang/*.properties"
+  # If the load fails, the standard translations will be used instead
+  loadTranslationsFromFile: false
   # Highly recommended to be true, whether the bot responds to "@Minecord command"
   respondToMentions: true
   # Currently bugged, sorry (best to leave this disabled)

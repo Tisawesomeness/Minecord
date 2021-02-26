@@ -9,6 +9,7 @@ import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.database.VoteHandler;
+import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.listen.CommandListener;
 import com.tisawesomeness.minecord.listen.GuildCountListener;
 import com.tisawesomeness.minecord.listen.ReactListener;
@@ -137,6 +138,11 @@ public class Bot {
                 log.error("FATAL: There was an error reading the announcements", ex);
                 return ExitCodes.ANNOUNCE_IOE;
             }
+        }
+
+        if (config.getFlagConfig().isLoadTranslationsFromFile()) {
+            log.debug("Config enabled external translations, reading...");
+            Lang.reloadFromFile(args.getPath().resolve("lang"));
         }
 
         apiClient = new APIClient();
@@ -286,6 +292,13 @@ public class Bot {
         // These can be started before the database
         if (config.getFlagConfig().isUseAnnouncements()) {
             announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
+        }
+        if (config.getFlagConfig().isLoadTranslationsFromFile()) {
+            log.debug("Config enabled external translations, reading...");
+            Lang.reloadFromFile(args.getPath().resolve("lang"));
+        } else {
+            log.debug("Config disabled external translations, reloading from resources...");
+            Lang.reloadFromResources();
         }
         settings = new SettingRegistry(config.getSettingsConfig());
         presenceService = new PresenceService(shardManager, config.getPresenceConfig());

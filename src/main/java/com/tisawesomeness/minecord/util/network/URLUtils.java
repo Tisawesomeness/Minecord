@@ -4,6 +4,7 @@ import lombok.NonNull;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -21,9 +22,23 @@ public final class URLUtils {
      * @return A URL
      * @throws AssertionError if the string is not a valid URL
      */
-    public static URL createUrl(String str) {
+    public static @NonNull URL createUrl(@NonNull String str) {
         try {
             return new URL(str);
+        } catch (MalformedURLException ex) {
+            throw new AssertionError(ex);
+        }
+    }
+    /**
+     * Creates a URL from a URI without throwing a checked exception. <b>Verify that all URIs passed to this
+     * method are valid URLs.</b>
+     * @param uri The URL as a URI
+     * @return A URL
+     * @throws AssertionError if the URI is not a valid URL
+     */
+    public static @NonNull URL createUrl(@NonNull URI uri) {
+        try {
+            return uri.toURL();
         } catch (MalformedURLException ex) {
             throw new AssertionError(ex);
         }

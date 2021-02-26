@@ -12,6 +12,8 @@ public class FlagConfig {
     boolean debugMode;
     @JsonProperty("useAnnouncements")
     boolean useAnnouncements;
+    @JsonProperty("loadTranslationsFromFile")
+    boolean loadTranslationsFromFile;
     @JsonProperty("respondToMentions")
     boolean respondToMentions;
     @JsonProperty("sendTyping")

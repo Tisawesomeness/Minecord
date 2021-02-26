@@ -1,11 +1,18 @@
 package com.tisawesomeness.minecord.lang;
 
+import com.tisawesomeness.minecord.util.network.URLUtils;
+
 import com.google.common.base.Splitter;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Value;
+import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.Permission;
 
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.nio.file.Path;
 import java.text.Collator;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
@@ -15,12 +22,15 @@ import java.util.*;
 /**
  * An enum of all the registered bot languages.
  */
+@Slf4j
 public enum Lang {
     EN_US("en_US", new Locale("en", "US")),
     DE_DE("de_DE", new Locale("de", "DE")),
     PT_BR("pt_BR", new Locale("pt", "BR"));
 
-    private final @NonNull ResourceBundle resource;
+    // Setting a variable is atomic, reloading lang is rare and
+    // changes do not need to be seen immediately across all threads
+    private @NonNull ResourceBundle resource;
     private final @NonNull Collator collator2;
     private final @NonNull Collator collator3;
 
@@ -48,6 +58,7 @@ public enum Lang {
         return collator;
     }
 
+
     /**
      * Gets the default lang for the bot without configuration.
      */
@@ -66,6 +77,47 @@ public enum Lang {
                 .filter(l -> l.code.equalsIgnoreCase(code))
                 .findFirst();
     }
+
+    /**
+     * Updates the loaded translations by reading from an external file.
+     * If the provided directory does not exist, the files will not load.
+     * @param path The path to the lang folder containing {@code lang.properties}
+     */
+    public static void reloadFromFile(@NonNull Path path) {
+        if (!path.toFile().isDirectory()) {
+            log.warn(String.format("There is no directory at \"%s\", aborting...", path));
+            return;
+        }
+        URL[] urls = {URLUtils.createUrl(path.toUri())};
+        ResourceBundle.clearCache();
+        for (Lang lang : values()) {
+            lang.setResource(path, urls);
+        }
+    }
+    private void setResource(Path path, URL[] urls) {
+        String fileName = Lang.getDefault() == this ? "lang.properties" : String.format("lang_%s.properties", code);
+        if (!path.resolve(fileName).toFile().isFile()) {
+            log.warn(String.format("File \"%s\" does not exist in the lang folder, " +
+                    "using default translations instead...", fileName));
+            return;
+        }
+        try (URLClassLoader loader = new URLClassLoader(urls)) {
+            resource = ResourceBundle.getBundle("lang", locale, loader);
+        } catch (IOException ex) {
+            log.error("There was an error closing the file URL", ex);
+        }
+    }
+
+    /**
+     * Updates the loaded translations by reading from resources.
+     */
+    public static void reloadFromResources() {
+        ResourceBundle.clearCache();
+        for (Lang lang : values()) {
+            lang.resource = ResourceBundle.getBundle("lang/lang", lang.locale);
+        }
+    }
+
 
     /**
      * Gets the localization string for this lang.
@@ -142,6 +194,7 @@ public enum Lang {
         }
         return Splitter.on(',').omitEmptyStrings().splitToList(i18n(key));
     }
+
 
     /**
      * Localizes an object as a user-readable string.
@@ -261,6 +314,7 @@ public enum Lang {
     public boolean containsIgnoreCase(Collection<? extends String> list, @NonNull String str) {
         return list.stream().anyMatch(s -> equalsIgnoreCase(s, str));
     }
+
 
     /**
      * Parses an int from a string without relying on exceptions.
@@ -406,6 +460,7 @@ public enum Lang {
         }
         return false;
     }
+
 
     @Override
     public String toString() {
