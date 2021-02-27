@@ -105,15 +105,27 @@ public abstract class Command {
      * @return Never-null help string
      */
     public @NonNull String getHelp(Lang lang, String prefix, String tag) {
-        return i18nfOpt(lang, "help", prefix, tag).orElseGet(() -> getDescription(lang));
+        return i18nfOpt(lang, "help", getHelpArgs(prefix, tag))
+                .orElseGet(() -> getDescription(lang));
     }
     /**
      * Defines the help text shown by {@code &help <command> admin}.
      * @return Never-null help string
      */
     public @NonNull String getAdminHelp(Lang lang, String prefix, String tag) {
-        Optional<String> help = i18nfOpt(lang, "adminHelp", prefix, tag);
-        return help.orElseGet(() -> getHelp(lang, prefix, tag));
+        return i18nfOpt(lang, "adminHelp", getHelpArgs(prefix, tag))
+                .orElseGet(() -> getHelp(lang, prefix, tag));
+    }
+    /**
+     * Creates the object array that the help menu will be formatted with.
+     * By convention, {@code {0}} is the prefix and {@code {1}} is the bot's tag.
+     * If the help menu needs information that can change (such as config values), they should be added here.
+     * @param prefix The bot prefix
+     * @param tag The bot's tag, such as {@code @Minecord}
+     * @return The formatting arguments
+     */
+    public Object[] getHelpArgs(String prefix, String tag) {
+        return new Object[]{prefix, tag};
     }
     /**
      * Gets a string containing a list of command examples.
