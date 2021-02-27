@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.command.player;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.mc.player.Player;
+import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.network.APIClient;
 import com.tisawesomeness.minecord.util.ColorUtils;
 
@@ -50,7 +51,7 @@ public class CapeCommand extends BasePlayerCommand {
 
     private static void sendCape(CommandContext ctx, Player player, URL capeUrl, String translationKey) {
         String nameMcUrl = player.getNameMCUrl().toString();
-        String avatarUrl = player.getAvatarUrl().toString();
+        String avatarUrl = player.createRender(RenderType.AVATAR, true).render().toString();
         String title = ctx.i18nf(translationKey, player.getUsername());
         Color color = player.isRainbow() ? ColorUtils.randomColor() : Bot.color;
         EmbedBuilder eb = new EmbedBuilder()

@@ -4,6 +4,7 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.mc.player.Player;
+import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.ColorUtils;
 
 import lombok.NonNull;
@@ -21,7 +22,7 @@ public class SkinCommand extends BasePlayerCommand {
     public void onSuccessfulPlayer(CommandContext ctx, Player player) {
         String title = ctx.i18nf("title", player.getUsername());
         String skinHistoryUrl = player.getMCSkinHistoryUrl().toString();
-        String avatarUrl = player.getAvatarUrl().toString();
+        String avatarUrl = player.createRender(RenderType.AVATAR, true).render().toString();
         String description = constructDescription(ctx, player);
 
         Color color = player.isRainbow() ? ColorUtils.randomColor() : Bot.color;

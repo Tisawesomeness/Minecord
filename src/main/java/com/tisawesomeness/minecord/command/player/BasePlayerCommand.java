@@ -12,7 +12,6 @@ import com.tisawesomeness.minecord.util.type.IntegralDuration;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
-import java.io.IOException;
 import java.text.NumberFormat;
 import java.time.Duration;
 import java.time.Instant;
@@ -76,14 +75,6 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
                 .build();
     }
 
-    private static void handleIOE(Throwable ex, CommandContext ctx, String errorMessage) {
-        if (ex instanceof IOException) {
-            log.error(errorMessage, ex);
-            ctx.err(ctx.getLang().i18n("mc.external.mojang.error"));
-            return;
-        }
-        throw new RuntimeException(ex);
-    }
     private void processPlayer(Optional<Player> playerOpt, CommandContext ctx, String i18nKey) {
         if (!playerOpt.isPresent()) {
             ctx.reply(ctx.getLang().i18n(i18nKey));

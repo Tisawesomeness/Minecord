@@ -3,6 +3,8 @@ package com.tisawesomeness.minecord.command.player;
 import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.mc.player.Player;
+import com.tisawesomeness.minecord.mc.player.Render;
+import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.UUIDUtils;
 
@@ -94,7 +96,7 @@ public class UuidCommand extends AbstractPlayerCommand {
                 MarkdownUtil.monospace(UUIDUtils.toMostLeastString(uuid));
         String desc = shortUuid + "\n" + longUuid + "\n" + skinType + "\n" + intArray + "\n" + mostLeast;
         String nameMCUrl = Player.getNameMCUrlFor(uuid).toString();
-        String avatarUrl = Player.getAvatarUrlFor(uuid).toString();
+        String avatarUrl = new Render(uuid, RenderType.AVATAR, true).render().toString();
 
         EmbedBuilder eb = new EmbedBuilder()
                 .setAuthor(title, nameMCUrl, avatarUrl)

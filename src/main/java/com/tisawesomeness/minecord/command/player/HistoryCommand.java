@@ -37,7 +37,7 @@ public class HistoryCommand extends BasePlayerCommand {
     private static @NonNull MessageEmbed constructBaseEmbed(CommandContext ctx, Player player) {
         String title = ctx.i18nf("title", player.getUsername());
         String nameMCUrl = player.getNameMCUrl().toString();
-        String avatarUrl = player.getAvatarUrl().toString();
+        String avatarUrl = player.createRender(RenderType.AVATAR, true).render().toString();
         Color color = player.isRainbow() ? ColorUtils.randomColor() : Bot.color;
         return ctx.addFooter(new EmbedBuilder())
                 .setAuthor(title, nameMCUrl, avatarUrl)

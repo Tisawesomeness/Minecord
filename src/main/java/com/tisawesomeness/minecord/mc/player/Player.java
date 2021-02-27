@@ -96,22 +96,22 @@ public class Player implements Comparable<Player> {
     }
 
     /**
-     * @return A link to the player's Crafatr avatar image
+     * Creates a render of this player.
+     * @param type The type of render
+     * @param overlay Whether to show the second skin layer, or overlay
      */
-    public @NonNull URL getAvatarUrl() {
-        return getAvatarUrlFor(uuid);
+    public @NonNull Render createRender(RenderType type, boolean overlay) {
+        return new Render(uuid, type, overlay);
     }
     /**
-     * @return A link to the player's Crafatr avatar image
+     * Creates a render of this player.
+     * @param type The type of render
+     * @param overlay Whether to show the second skin layer, or overlay
+     * @param scale The scale of the render, capped at {@link RenderType#getMaxScale()}
+     * @throws IllegalArgumentException If the scale is zero or negative
      */
-    public static @NonNull URL getAvatarUrlFor(UUID uuid) {
-        return URLUtils.createUrl("https://crafatar.com/avatars/" + uuid);
-    }
-    /**
-     * @return A link to the player's Crafatar body render
-     */
-    public @NonNull URL getBodyUrl() {
-        return URLUtils.createUrl("https://crafatar.com/renders/body/" + uuid);
+    public @NonNull Render createRender(RenderType type, boolean overlay, int scale) {
+        return new Render(uuid, type, overlay, scale);
     }
 
     /**

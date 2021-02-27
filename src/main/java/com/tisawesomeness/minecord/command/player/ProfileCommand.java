@@ -4,6 +4,7 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.mc.player.Player;
+import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.*;
 
 import lombok.NonNull;
@@ -28,8 +29,8 @@ public class ProfileCommand extends BasePlayerCommand {
 
         String title = ctx.i18nf("title", player.getUsername());
         String nameMCUrl = player.getNameMCUrl().toString();
-        String avatarUrl = player.getAvatarUrl().toString();
-        String bodyUrl = player.getBodyUrl().toString();
+        String avatarUrl = player.createRender(RenderType.AVATAR, true).render().toString();
+        String bodyUrl = player.createRender(RenderType.BODY, true).render().toString();
 
         String desc = constructDescription(ctx, player);
         String skinInfo = constructSkinInfo(ctx, player);
