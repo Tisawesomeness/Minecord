@@ -7,6 +7,7 @@ import com.tisawesomeness.minecord.command.misc.*;
 import com.tisawesomeness.minecord.command.player.*;
 import com.tisawesomeness.minecord.command.utility.*;
 import com.tisawesomeness.minecord.lang.Lang;
+import com.tisawesomeness.minecord.mc.player.RenderType;
 
 import com.google.common.collect.*;
 import lombok.NonNull;
@@ -37,9 +38,9 @@ public class CommandRegistry implements Iterable<Command> {
                 new ProfileCommand(),
                 new HistoryCommand(),
                 new UuidCommand(),
-                new AvatarCommand(),
-                new HeadCommand(),
-                new BodyCommand(),
+                new RenderCommand(RenderType.AVATAR),
+                new RenderCommand(RenderType.HEAD),
+                new RenderCommand(RenderType.BODY),
                 new SkinCommand(),
                 new CapeCommand(),
                 new EscapeCommand(),
