@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.config;
 
+import com.tisawesomeness.minecord.Branding;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
@@ -26,11 +27,11 @@ public class Announcement {
      * @param config The config used to parse variables.
      * @throws IllegalArgumentException If the weight is negative.
      */
-    public Announcement(@NonNull String text, int weight, @NonNull Config config) {
+    public Announcement(@NonNull String text, int weight, @NonNull Config config, @NonNull Branding branding) {
         if (weight < 0) {
             throw new IllegalArgumentException("Announcement weight cannot be negative!");
         }
-        this.text = DiscordUtils.parseConstants(text, config);
+        this.text = DiscordUtils.parseConstants(text, config, branding);
         this.weight = weight;
     }
 

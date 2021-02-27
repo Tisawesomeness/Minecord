@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.misc;
 
 import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Branding;
 import com.tisawesomeness.minecord.command.CommandContext;
 
 import lombok.NonNull;
@@ -14,10 +15,11 @@ public class InviteCommand extends AbstractMiscCommand {
 
     public void run(String[] args, CommandContext ctx) {
         ctx.triggerCooldown();
+        Branding branding = ctx.getBot().getBranding();
         EmbedBuilder eb = new EmbedBuilder()
-                .addField("Invite me!", ctx.getConfig().getInviteLink(), false)
-                .addField("Help server", Bot.helpServer, false)
-                .addField("Website", Bot.website, true);
+                .addField("Invite me!", branding.getInvite(), false)
+                .addField("Help server", branding.getHelpServer(), false)
+                .addField("Website", branding.getWebsite(), true);
         ctx.reply(eb);
     }
 

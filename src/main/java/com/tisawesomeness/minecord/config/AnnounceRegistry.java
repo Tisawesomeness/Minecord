@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.config;
 
+import com.tisawesomeness.minecord.Branding;
 import com.tisawesomeness.minecord.config.serial.Config;
 
 import lombok.NonNull;
@@ -27,14 +28,15 @@ public class AnnounceRegistry {
      * @param announcePath The path to the announce.json file
      * @throws IOException When the announce file couldn't be found
      */
-    public AnnounceRegistry(@NonNull Path announcePath, @NonNull Config config) throws IOException {
+    public AnnounceRegistry(@NonNull Path announcePath, @NonNull Config config,
+                            @NonNull Branding branding) throws IOException {
         announcements = new ArrayList<>();
         JSONArray announceArr = new JSONArray(new String(Files.readAllBytes(announcePath)));
         for (int i = 0; i < announceArr.length(); i++) {
             JSONObject announceObj = announceArr.getJSONObject(i);
             String text = announceObj.getString("text");
             int weight = announceObj.getInt("weight");
-            announcements.add(new Announcement(text, weight, config));
+            announcements.add(new Announcement(text, weight, config, branding));
             totalWeight += weight;
             // Integer overflow check (should never happen, still checking because this is user input)
             if (totalWeight < 0) {

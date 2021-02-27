@@ -73,10 +73,6 @@ public abstract class AbstractContext extends CommandContext {
         unsupported();
         return null;
     }
-    public @NonNull EmbedBuilder brand(@NonNull EmbedBuilder eb) {
-        unsupported();
-        return null;
-    }
     public boolean isFromGuild() {
         unsupported();
         return false;

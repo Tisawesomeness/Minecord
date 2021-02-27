@@ -25,7 +25,7 @@ public class SkinCommand extends BasePlayerCommand {
         String avatarUrl = player.createRender(RenderType.AVATAR, true).render().toString();
         String description = constructDescription(ctx, player);
 
-        Color color = player.isRainbow() ? ColorUtils.randomColor() : Bot.color;
+        Color color = player.isRainbow() ? ColorUtils.randomColor() : ctx.getColor();
         EmbedBuilder eb = ctx.addFooter(new EmbedBuilder())
                 .setAuthor(title, skinHistoryUrl, avatarUrl)
                 .setColor(color)

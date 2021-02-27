@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.command.misc;
 
-import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Branding;
 import com.tisawesomeness.minecord.command.CommandContext;
 
 import lombok.NonNull;
@@ -18,9 +18,6 @@ public class CreditsCommand extends AbstractMiscCommand {
         MarkdownUtil.maskedLink("samueldcs#4675", "https://github.com/samueldcs") + " - Made the Website\n" +
         MarkdownUtil.maskedLink("DJ Electro#1677", "https://github.com/Electromaster232") + " - Helped with Git once";
     
-    private final String CONTRIB = MarkdownUtil.maskedLink("Contribute on GitHub", Bot.github) + "\n" +
-        MarkdownUtil.maskedLink("Suggest features here", Bot.helpServer);
-    
     private final String APIS = "Discord API Wrapper - " + MarkdownUtil.maskedLink("JDA", "https://github.com/DV8FromTheWorld/JDA") + "\n" +
         "MC Account Info - " + MarkdownUtil.maskedLink("Mojang API", "https://wiki.vg/Mojang_API") + "\n" +
         "Skin Renders - " + MarkdownUtil.maskedLink("Crafatar", "https://crafatar.com") + "\n" +
@@ -32,14 +29,27 @@ public class CreditsCommand extends AbstractMiscCommand {
 
     public void run(String[] args, CommandContext ctx) {
         ctx.triggerCooldown();
+
+        Branding branding = ctx.getBot().getBranding();
+        String contrib = MarkdownUtil.maskedLink("Contribute on GitHub", branding.getGithub()) + "\n" +
+                MarkdownUtil.maskedLink("Suggest features here", branding.getHelpServer());
+
         EmbedBuilder eb = new EmbedBuilder()
             .setTitle("Minecord Credits")
-            .setColor(Bot.color)
+            .setColor(branding.getColor())
             .setDescription("Thanks to all these great people who helped to make the bot possible. :heart:")
             .addField("Developers", DEVS, true)
-            .addField("Contribute", CONTRIB, true)
-            .addField("APIs Used", APIS, false)
-            .setFooter("Website: " + Bot.website);
+            .addField("Contribute", contrib, true)
+            .addField("APIs Used", APIS, false);
+        if (ctx.getConfig().isSelfHosted()) {
+            String selfHost = "This bot is self-hosted by **" + branding.getAuthor() + "**\n" +
+                    "Original Website - " + MarkdownUtil.maskedLink(Branding.WEBSITE, Branding.WEBSITE) + "\n" +
+                    "Original Help Server - " + MarkdownUtil.maskedLink(Branding.HELP_SERVER, Branding.HELP_SERVER) + "\n" +
+                    "Original Github - " + MarkdownUtil.maskedLink("Source Code", Branding.GITHUB);
+            eb.addField("Self-Hosting", selfHost, false);
+        }
+        eb.setFooter("Website: " + branding.getWebsite());
+
         ctx.replyRaw(eb);
     }
 

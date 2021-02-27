@@ -39,7 +39,7 @@ public class ProfileCommand extends BasePlayerCommand {
                 .orElseGet(() -> ctx.i18n("noCape"));
         String accountInfo = constructAccountInfo(ctx, player);
 
-        Color color = player.isRainbow() ? ColorUtils.randomColor() : Bot.color;
+        Color color = player.isRainbow() ? ColorUtils.randomColor() : ctx.getColor();
         EmbedBuilder eb = new EmbedBuilder()
                 .setColor(color)
                 .setAuthor(title, nameMCUrl, avatarUrl);

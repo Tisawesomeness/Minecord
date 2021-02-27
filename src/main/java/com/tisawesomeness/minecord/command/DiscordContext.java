@@ -80,9 +80,6 @@ public class DiscordContext extends CommandContext {
 //        User owner = Bot.shardManager.retrieveUserById(Config.getOwner()).complete();
 //        return eb.setFooter(announcement, owner.getAvatarUrl());
     }
-    public @NonNull EmbedBuilder brand(@NonNull EmbedBuilder eb) {
-        return addFooter(eb).setColor(Bot.color);
-    }
 
     public boolean userHasPermission(Permission... permissions) {
         if (isElevated) {

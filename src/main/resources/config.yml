@@ -49,8 +49,24 @@ logChannelId: 0
 # Setting this to INFO or DEBUG is recommended
 # Log message that print before the config is read cannot be changed
 logLevel: INFO
-# The bot invite link displayed in &invite and elsewhere
-inviteLink: "https://minecord.github.io/invite"
+# If you are self-hosting, leave this to true
+# Setting this to false is unsupported
+isSelfHosted: true
+
+branding:
+  # Your name here
+  author: "Tis_awesomeness"
+  # Your Discord tag
+  "authorTag": "@Tis_awesomeness#8617"
+  # The bot invite link, use the format below (replace "CLIENT_ID" with the bot's client ID)
+  # https://discord.com/oauth2/authorize?client_id=CLIENT_ID&scope=bot&permissions=93248
+  "invite": "https://minecord.github.io/invite"
+  # A link to the help server
+  "helpServer": "https://minecord.github.io/support"
+  # A link to the bot website
+  "website": "https://minecord.github.io"
+  # If you make changes, link to your fork on GitHub here
+  "github": "https://github.com/Tisawesomeness/Minecord"
 
 presence:
   # How often bot presences switch in seconds, set to -1 to update on guild join/leave

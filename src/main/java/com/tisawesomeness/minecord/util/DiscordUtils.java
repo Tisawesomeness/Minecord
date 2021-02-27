@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.util;
 
-import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Branding;
 import com.tisawesomeness.minecord.BuildInfo;
 import com.tisawesomeness.minecord.config.serial.Config;
 
@@ -31,16 +31,16 @@ public final class DiscordUtils {
      * @param config The config file to get the invite and default prefix from
      * @return The string with resolved constants, though variables such as {guilds} are unresolved
      */
-    public static String parseConstants(String input, Config config) {
+    public static String parseConstants(String input, Config config, Branding branding) {
     return input
-            .replace("{author}", Bot.author)
-            .replace("{author_tag}", Bot.authorTag)
-            .replace("{help_server}", Bot.helpServer)
-            .replace("{website}", Bot.website)
-            .replace("{github}", Bot.github)
+            .replace("{author}", branding.getAuthor())
+            .replace("{author_tag}", branding.getAuthorTag())
+            .replace("{help_server}", branding.getHelpServer())
+            .replace("{website}", branding.getWebsite())
+            .replace("{github}", branding.getGithub())
+            .replace("{invite}", branding.getInvite())
             .replace("{jda_ver}", buildInfo.jdaVersion)
             .replace("{version}", buildInfo.version)
-            .replace("{invite}", config.getInviteLink())
             .replace("{prefix}", config.getSettingsConfig().getDefaultPrefix());
     }
 

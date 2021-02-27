@@ -31,9 +31,11 @@ public class Config {
     long logChannelId;
     @JsonProperty("logLevel")
     Level logLevel;
-    @JsonProperty("inviteLink")
-    String inviteLink;
+    @JsonProperty("isSelfHosted")
+    boolean isSelfHosted;
 
+    @JsonProperty("branding")
+    BrandingConfig brandingConfig;
     @JsonProperty("presence")
     PresenceConfig presenceConfig;
     @JsonProperty("settings")

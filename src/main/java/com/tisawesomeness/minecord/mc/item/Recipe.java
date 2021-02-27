@@ -33,7 +33,6 @@ public class Recipe {
         } catch (URISyntaxException ex) {
             ex.printStackTrace();
         }
-        eb.setColor(Bot.color);
         return eb;
     }
 

@@ -1,8 +1,10 @@
 package com.tisawesomeness.minecord.command.misc;
 
 import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Branding;
 import com.tisawesomeness.minecord.BuildInfo;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.util.DateUtils;
 
 import lombok.NonNull;
@@ -28,7 +30,6 @@ public class InfoCommand extends AbstractMiscCommand {
 
     public void run(String[] args, CommandContext ctx) {
         ctx.triggerCooldown();
-        ShardManager sm = ctx.getBot().getShardManager();
 
         // If the author used the admin keyword and is an elevated user
         boolean elevated = false;
@@ -36,14 +37,20 @@ public class InfoCommand extends AbstractMiscCommand {
             elevated = true;
         }
 
-        // Build message
+        Config config = ctx.getConfig();
+        Branding branding = ctx.getBot().getBranding();
         EmbedBuilder eb = new EmbedBuilder();
 
-        eb.addField("Author", Bot.author, true);
+        eb.addField("Author", Branding.AUTHOR, true);
+        if (config.isSelfHosted()) {
+            eb.addField("Self-Hoster", branding.getAuthor(), true);
+        }
         eb.addField("Version", MarkdownUtil.monospace(buildInfo.version), true);
 
+        Bot bot = ctx.getBot();
+        ShardManager sm = bot.getShardManager();
         String guilds = String.valueOf(sm.getGuilds().size());
-        int shardTotal = ctx.getBot().getShardManager().getShardsTotal();
+        int shardTotal = bot.getShardManager().getShardsTotal();
         if (shardTotal > 1) {
             String shards = ctx.getE().getJDA().getShardInfo().getShardId() + 1 + "/" + shardTotal;
             eb.addField("Shard", shards, true);
@@ -51,11 +58,11 @@ public class InfoCommand extends AbstractMiscCommand {
         }
         eb.addField("Guilds", guilds, true);
 
-        eb.addField("Uptime", DateUtils.getDurationString(ctx.getBot().getBirth()), true);
+        eb.addField("Uptime", DateUtils.getDurationString(bot.getBirth()), true);
         eb.addField("Ping", sm.getAverageGatewayPing() + "ms", true);
-        if (ctx.getConfig().getFlagConfig().isShowExtraInfo() || elevated) {
+        if (config.getFlagConfig().isShowExtraInfo() || elevated) {
             eb.addField("Memory", getMemoryString(), true);
-            eb.addField("Boot Time", DateUtils.getBootTime(ctx.getBot().getBootTime()), true);
+            eb.addField("Boot Time", DateUtils.getBootTime(bot.getBootTime()), true);
             eb.addField("OS", OS_NAME, true);
             eb.addField("OS Arch", OS_ARCH, true);
             eb.addField("OS Version", MarkdownUtil.monospace(OS_VERSION), true);
@@ -64,10 +71,10 @@ public class InfoCommand extends AbstractMiscCommand {
         eb.addField("Java Version", MarkdownUtil.monospace(JAVA_VERSION), true);
         eb.addField("JDA Version", MarkdownUtil.monospace(buildInfo.jdaVersion), true);
 
-        String links = MarkdownUtil.maskedLink("INVITE", ctx.getConfig().getInviteLink()) + " | " +
-            MarkdownUtil.maskedLink("SUPPORT", Bot.helpServer) + " | " +
-            MarkdownUtil.maskedLink("WEBSITE", Bot.website) + " | " +
-            MarkdownUtil.maskedLink("GITHUB", Bot.github);
+        String links = MarkdownUtil.maskedLink("INVITE", branding.getInvite()) + " | " +
+            MarkdownUtil.maskedLink("SUPPORT", branding.getHelpServer()) + " | " +
+            MarkdownUtil.maskedLink("WEBSITE", branding.getWebsite()) + " | " +
+            MarkdownUtil.maskedLink("GITHUB", branding.getGithub());
         eb.addField("Links", "**" + links + "**", false);
 
         ctx.reply(eb);

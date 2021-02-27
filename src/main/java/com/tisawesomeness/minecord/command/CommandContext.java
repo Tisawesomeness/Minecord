@@ -22,6 +22,7 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
+import java.awt.Color;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Collection;
@@ -229,11 +230,19 @@ public abstract class CommandContext {
      */
     public abstract @NonNull EmbedBuilder addFooter(@NonNull EmbedBuilder eb);
     /**
+     * @return The bot color
+     */
+    public @NonNull Color getColor() {
+        return getBot().getBranding().getColor();
+    }
+    /**
      * Adds the bot color and a random announcement to an embed.
      * @param eb The given EmbedBuilder.
      * @return The same builder with added branding.
      */
-    public abstract @NonNull EmbedBuilder brand(@NonNull EmbedBuilder eb);
+    public @NonNull EmbedBuilder brand(@NonNull EmbedBuilder eb) {
+        return addFooter(eb.setColor(getColor()));
+    }
 
     /**
      * @return True if the command was executed in a guild

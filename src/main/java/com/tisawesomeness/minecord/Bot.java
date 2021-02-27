@@ -45,7 +45,6 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import org.slf4j.LoggerFactory;
 
 import javax.security.auth.login.LoginException;
-import java.awt.Color;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.OffsetDateTime;
@@ -60,14 +59,6 @@ import java.util.concurrent.*;
 @Slf4j
 @NoArgsConstructor
 public class Bot {
-
-    // Bot constants, all others defined in config
-    public static final String author = "Tis_awesomeness";
-    public static final String authorTag = "@Tis_awesomeness#8617";
-    public static final String helpServer = "https://minecord.github.io/support";
-    public static final String website = "https://minecord.github.io";
-    public static final String github = "https://github.com/Tisawesomeness/Minecord";
-    public static final Color color = Color.GREEN;
 
     // Only use what's necessary
     private static final List<GatewayIntent> gateways = ListUtils.of(
@@ -93,6 +84,7 @@ public class Bot {
     @Getter private SettingRegistry settings;
     @Getter private AnnounceRegistry announceRegistry;
     @Getter private VoteHandler voteHandler;
+    @Getter private Branding branding;
     @Getter private long birth;
     @Getter private long bootTime;
 
@@ -123,6 +115,9 @@ public class Bot {
             log.error("FATAL: The config was invalid", ex);
             return ExitCodes.INVALID_CONFIG;
         }
+        if (!config.isSelfHosted()) {
+            log.info("This bot is NOT self-hosted, support is unavailable");
+        }
 
         // only logs after this line can be changed :(
         Logger logger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
@@ -130,10 +125,12 @@ public class Bot {
         log.info("Setting log level to " + logLevel);
         logger.setLevel(logLevel);
 
+        branding = new Branding(config);
+
         if (config.getFlagConfig().isUseAnnouncements()) {
             log.debug("Config enabled announcements, reading...");
             try {
-                announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
+                announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config, branding);
             } catch (IOException ex) {
                 log.error("FATAL: There was an error reading the announcements", ex);
                 return ExitCodes.ANNOUNCE_IOE;
@@ -290,8 +287,12 @@ public class Bot {
         }
 
         // These can be started before the database
+        if (!config.isSelfHosted()) {
+            log.info("This bot is NOT self-hosted, support is unavailable");
+        }
+        branding = new Branding(config);
         if (config.getFlagConfig().isUseAnnouncements()) {
-            announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config);
+            announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config, branding);
         }
         if (config.getFlagConfig().isLoadTranslationsFromFile()) {
             log.debug("Config enabled external translations, reading...");

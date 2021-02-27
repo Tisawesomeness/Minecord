@@ -67,8 +67,9 @@ public class RecipeCommand extends AbstractUtilityCommand {
             ctx.commandResult(Result.SUCCESS);
             return;
         }
-        EmbedBuilder eb = Recipe.displayImg(recipes.get(page), "en_US");
-        eb.setFooter(String.format("Page %s/%s%s", page + 1, recipes.size(), status.getReason()), null);
+        EmbedBuilder eb = Recipe.displayImg(recipes.get(page), "en_US")
+                .setColor(ctx.getColor())
+                .setFooter(String.format("Page %s/%s%s", page + 1, recipes.size(), status.getReason()), null);
         ctx.replyRaw(eb);
 
     }

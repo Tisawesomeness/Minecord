@@ -53,7 +53,7 @@ public class CapeCommand extends BasePlayerCommand {
         String nameMcUrl = player.getNameMCUrl().toString();
         String avatarUrl = player.createRender(RenderType.AVATAR, true).render().toString();
         String title = ctx.i18nf(translationKey, player.getUsername());
-        Color color = player.isRainbow() ? ColorUtils.randomColor() : Bot.color;
+        Color color = player.isRainbow() ? ColorUtils.randomColor() : ctx.getColor();
         EmbedBuilder eb = new EmbedBuilder()
                 .setAuthor(title, nameMcUrl, avatarUrl)
                 .setColor(color)

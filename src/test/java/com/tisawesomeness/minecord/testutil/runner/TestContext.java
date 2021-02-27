@@ -16,6 +16,7 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import org.junit.jupiter.api.Assertions;
 
 import javax.annotation.Nullable;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -119,6 +120,10 @@ public class TestContext extends AbstractContext {
     @Override
     public @NonNull EmbedBuilder addFooter(@NonNull EmbedBuilder eb) {
         return eb;
+    }
+    @Override
+    public @NonNull Color getColor() {
+        return Color.GREEN;
     }
     @Override
     public @NonNull EmbedBuilder brand(@NonNull EmbedBuilder eb) {

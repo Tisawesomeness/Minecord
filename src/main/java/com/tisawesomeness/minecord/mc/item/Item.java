@@ -142,7 +142,7 @@ public class Item {
 
         // Get rid of trailing newline
         sb.delete(sb.length() - 1, sb.length());
-        return eb.setColor(Bot.color);
+        return eb;
     }
 
     /**

@@ -38,7 +38,7 @@ public class HistoryCommand extends BasePlayerCommand {
         String title = ctx.i18nf("title", player.getUsername());
         String nameMCUrl = player.getNameMCUrl().toString();
         String avatarUrl = player.createRender(RenderType.AVATAR, true).render().toString();
-        Color color = player.isRainbow() ? ColorUtils.randomColor() : Bot.color;
+        Color color = player.isRainbow() ? ColorUtils.randomColor() : ctx.getColor();
         return ctx.addFooter(new EmbedBuilder())
                 .setAuthor(title, nameMCUrl, avatarUrl)
                 .setColor(color)
