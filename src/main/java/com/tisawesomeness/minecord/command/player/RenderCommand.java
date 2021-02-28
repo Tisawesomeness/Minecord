@@ -28,7 +28,7 @@ public class RenderCommand extends AbstractPlayerCommand {
 
     @Override
     public Object[] getHelpArgs(String prefix, String tag) {
-        return new Object[]{prefix, tag, type.getMaxScale()};
+        return new Object[]{prefix, tag, type.getMaxScale(), type.getDefaultScale()};
     }
 
     public void run(String[] args, CommandContext ctx) {
