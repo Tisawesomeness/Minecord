@@ -18,7 +18,7 @@ public class RenderCommand extends AbstractPlayerCommand {
     private final @NonNull String id;
     private final RenderType type;
     public RenderCommand(RenderType type) {
-        id = type.getName();
+        id = type.getId();
         this.type = type;
     }
 
@@ -36,21 +36,27 @@ public class RenderCommand extends AbstractPlayerCommand {
             ctx.showHelp();
             return;
         }
-        PlayerProvider provider = ctx.getMCLibrary().getPlayerProvider();
+        parseAndSendRender(ctx, type, 0);
+    }
 
-        Optional<UUID> parsedUuidOpt = UUIDUtils.fromString(args[0]);
+    protected static void parseAndSendRender(@NonNull CommandContext ctx,
+                                             @NonNull RenderType type, int playerArgIndex) {
+        PlayerProvider provider = ctx.getMCLibrary().getPlayerProvider();
+        String playerArg = ctx.getArgs()[playerArgIndex];
+
+        Optional<UUID> parsedUuidOpt = UUIDUtils.fromString(playerArg);
         if (parsedUuidOpt.isPresent()) {
             UUID uuid = parsedUuidOpt.get();
 
             ctx.triggerCooldown();
             ctx.newCallbackBuilder(provider.getPlayer(uuid))
                     .onFailure(ex -> handleIOE(ex, ctx, "IOE getting player from UUID " + uuid))
-                    .onSuccess(playerOpt -> processPlayer(ctx, playerOpt))
+                    .onSuccess(playerOpt -> processPlayer(ctx, playerOpt, type, playerArgIndex))
                     .build();
             return;
         }
 
-        String input = Username.isQuoted(args[0]) ? ctx.joinArgs() : args[0];
+        String input = Username.isQuoted(playerArg) ? ctx.joinArgsSlice(playerArgIndex) : playerArg;
         if (input.length() > Username.MAX_LENGTH) {
             ctx.warn(ctx.getLang().i18n("mc.player.username.tooLong"));
             return;
@@ -64,34 +70,37 @@ public class RenderCommand extends AbstractPlayerCommand {
         ctx.triggerCooldown();
         ctx.newCallbackBuilder(provider.getUUID(username))
                 .onFailure(ex -> handleIOE(ex, ctx, "IOE getting UUID from username " + username))
-                .onSuccess(uuidOpt -> processUuid(ctx, uuidOpt, username))
+                .onSuccess(uuidOpt -> processUuid(ctx, uuidOpt, username, type, playerArgIndex))
                 .build();
     }
 
-    private void processPlayer(CommandContext ctx, Optional<Player> playerOpt) {
+    private static void processPlayer(CommandContext ctx, Optional<Player> playerOpt,
+                                      RenderType type, int playerArgIndex) {
         if (playerOpt.isPresent()) {
             Player player = playerOpt.get();
-            parseRender(ctx, player.getUuid(), player.getUsername(), 1);
+            parseRender(ctx, player.getUuid(), player.getUsername(), playerArgIndex + 1, playerArgIndex, type);
             return;
         }
         ctx.reply(ctx.getLang().i18n("mc.player.uuid.doesNotExist"));
     }
-    private void processUuid(CommandContext ctx, Optional<UUID> uuidOpt, Username username) {
+    private static void processUuid(CommandContext ctx, Optional<UUID> uuidOpt, Username username,
+                                    RenderType type, int playerArgIndex) {
         if (uuidOpt.isPresent()) {
             UUID uuid = uuidOpt.get();
-            parseRender(ctx, uuid, username, username.argsUsed());
+            parseRender(ctx, uuid, username, username.argsUsed() + playerArgIndex, playerArgIndex, type);
             return;
         }
         ctx.reply(ctx.getLang().i18n("mc.player.username.doesNotExist"));
     }
 
-    private void parseRender(CommandContext ctx, UUID uuid, Username username, int argsUsed) {
+    private static void parseRender(CommandContext ctx, UUID uuid, Username username,
+                                    int argsUsed, int playerArgIndex, RenderType type) {
         int currentArg = argsUsed;
         Lang lang = ctx.getLang();
         String[] args = ctx.getArgs();
 
         if (currentArg + 2 < args.length) {
-            ctx.warn(lang.i18nf("command.meta.upToArgs", 3));
+            ctx.warn(lang.i18nf("command.meta.upToArgs", playerArgIndex + 3));
             return;
         }
 
@@ -147,12 +156,16 @@ public class RenderCommand extends AbstractPlayerCommand {
         ctx.reply(buildRenderEmbed(ctx, username, render));
     }
 
-    private EmbedBuilder buildRenderEmbed(CommandContext ctx, Username username, Render render) {
+    private static EmbedBuilder buildRenderEmbed(CommandContext ctx, Username username, Render render) {
+        RenderType type = render.getType();
+        Lang lang = ctx.getLang();
+        String renderName = lang.i18n("mc.player.render." + type.getId());
+
         EmbedBuilder eb = new EmbedBuilder()
-                .setTitle(ctx.i18nf("title", username))
+                .setTitle(lang.i18nf("mc.player.render.title", renderName, username))
                 .setImage(render.render().toString());
         if (render.getScale() > type.getMaxScale()) {
-            eb.setDescription(ctx.getLang().i18nf("mc.player.render.scaleOverflow", type.getMaxScale()));
+            eb.setDescription(lang.i18nf("mc.player.render.scaleOverflow", type.getMaxScale()));
         }
         return eb;
     }

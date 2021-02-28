@@ -13,15 +13,15 @@ public enum RenderType {
     HEAD("head", "renders/head", true),
     BODY("body", "renders/body", true);
 
-    private static final int MAX_SIZE = 512;
-    private static final int DEFAULT_SIZE = 160;
-    private static final int MAX_SCALE = 10;
-    private static final int DEFAULT_SCALE = 6;
+    public static final int MAX_SIZE = 512;
+    public static final int DEFAULT_SIZE = 160;
+    public static final int MAX_SCALE = 10;
+    public static final int DEFAULT_SCALE = 6;
 
     /**
      * The name of the render type
      */
-    @Getter private final String name;
+    @Getter private final String id;
     /**
      * The path to the API endpoint
      */

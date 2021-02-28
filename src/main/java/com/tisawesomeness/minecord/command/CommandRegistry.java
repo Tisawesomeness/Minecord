@@ -41,6 +41,7 @@ public class CommandRegistry implements Iterable<Command> {
                 new RenderCommand(RenderType.AVATAR),
                 new RenderCommand(RenderType.HEAD),
                 new RenderCommand(RenderType.BODY),
+                new GeneralRenderCommand(),
                 new SkinCommand(),
                 new CapeCommand(),
                 new EscapeCommand(),

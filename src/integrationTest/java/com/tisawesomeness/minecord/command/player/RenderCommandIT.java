@@ -172,7 +172,6 @@ public class RenderCommandIT {
         String args = "abc 5 true tooManyArgs";
         assertThat(runners.get(type).run(args))
                 .awaitResult()
-                .hasTriggeredCooldown()
                 .resultIs(Result.WARNING);
     }
     @ParameterizedTest
@@ -182,7 +181,6 @@ public class RenderCommandIT {
         String args = "abc invalid";
         assertThat(runners.get(type).run(args))
                 .awaitResult()
-                .hasTriggeredCooldown()
                 .resultIs(Result.WARNING);
     }
 
