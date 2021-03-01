@@ -156,6 +156,7 @@ public class GeneralRenderCommandIT {
         String args = "avatar abc 5 true tooManyArgs";
         assertThat(runner.run(args))
                 .awaitResult()
+                .hasNotTriggeredCooldown()
                 .resultIs(Result.WARNING);
     }
     @Test
@@ -164,6 +165,7 @@ public class GeneralRenderCommandIT {
         String args = "head abc invalid";
         assertThat(runner.run(args))
                 .awaitResult()
+                .hasNotTriggeredCooldown()
                 .resultIs(Result.WARNING);
     }
     @Test

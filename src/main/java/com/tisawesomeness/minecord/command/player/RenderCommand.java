@@ -5,8 +5,10 @@ import com.tisawesomeness.minecord.lang.BoolFormat;
 import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.mc.player.*;
 import com.tisawesomeness.minecord.util.UUIDUtils;
+import com.tisawesomeness.minecord.util.type.Either;
 
 import lombok.NonNull;
+import lombok.Value;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.util.Optional;
@@ -39,69 +41,108 @@ public class RenderCommand extends AbstractPlayerCommand {
         parseAndSendRender(ctx, type, 0);
     }
 
-    protected static void parseAndSendRender(@NonNull CommandContext ctx,
-                                             @NonNull RenderType type, int playerArgIndex) {
-        PlayerProvider provider = ctx.getMCLibrary().getPlayerProvider();
+    /**
+     * Parses the username, scale, and overlay from args, then sends the render.
+     * @param ctx The context of the executing command
+     * @param type The type of render to send
+     * @param playerArgIndex The index of the username/uuid argument (example: 1 for {@code &render body jeb_ 5})
+     */
+    protected static void parseAndSendRender(@NonNull CommandContext ctx, RenderType type, int playerArgIndex) {
+        // If username is quoted, the location of the scale and overlay args changes
+        // and an unquoted string could also be a UUID
         String playerArg = ctx.getArgs()[playerArgIndex];
+        if (Username.isQuoted(playerArg)) {
+            handleQuoted(ctx, type, playerArgIndex);
+        } else {
+            handleUnquoted(ctx, type, playerArgIndex);
+        }
+    }
 
-        Optional<UUID> parsedUuidOpt = UUIDUtils.fromString(playerArg);
+    private static void handleQuoted(@NonNull CommandContext ctx, RenderType type, int playerArgIndex) {
+        String argsWithUsernameStart = ctx.joinArgsSlice(playerArgIndex);
+        Either<String, Username> errorOrUsername = validateUsername(argsWithUsernameStart, ctx.getLang());
+        if (!errorOrUsername.isRight()) {
+            ctx.warn(errorOrUsername.getLeft());
+            return;
+        }
+        Username username = errorOrUsername.getRight();
+
+        // render args are processed before the username to avoid
+        // unnecessary Mojang API requests in case the render args are invalid
+        int argsUsed = username.argsUsed() + playerArgIndex;
+        Either<String, ImpersonalRender> errorOrRender = parseRenderFromArgs(ctx, type, argsUsed, playerArgIndex);
+        if (!errorOrRender.isRight()) {
+            ctx.warn(errorOrRender.getLeft());
+            return;
+        }
+        ImpersonalRender irender = errorOrRender.getRight();
+
+        PlayerProvider provider = ctx.getMCLibrary().getPlayerProvider();
+        ctx.triggerCooldown();
+        ctx.newCallbackBuilder(provider.getUUID(username))
+                .onFailure(ex -> handleIOE(ex, ctx, "IOE getting UUID from username " + username))
+                .onSuccess(uuidOpt -> processUuid(ctx, uuidOpt, username, irender))
+                .build();
+    }
+    private static void handleUnquoted(@NonNull CommandContext ctx, RenderType type, int playerArgIndex) {
+        // render args are processed before the username or UUID to avoid
+        // unnecessary Mojang API requests in case the render args are invalid
+        int argsUsed = playerArgIndex + 1;
+        Either<String, ImpersonalRender> errorOrRender = parseRenderFromArgs(ctx, type, argsUsed, playerArgIndex);
+        if (!errorOrRender.isRight()) {
+            ctx.warn(errorOrRender.getLeft());
+            return;
+        }
+        ImpersonalRender irender = errorOrRender.getRight();
+
+        String usernameArg = ctx.getArgs()[playerArgIndex];
+        Optional<UUID> parsedUuidOpt = UUIDUtils.fromString(usernameArg);
         if (parsedUuidOpt.isPresent()) {
             UUID uuid = parsedUuidOpt.get();
 
             ctx.triggerCooldown();
+            PlayerProvider provider = ctx.getMCLibrary().getPlayerProvider();
             ctx.newCallbackBuilder(provider.getPlayer(uuid))
                     .onFailure(ex -> handleIOE(ex, ctx, "IOE getting player from UUID " + uuid))
-                    .onSuccess(playerOpt -> processPlayer(ctx, playerOpt, type, playerArgIndex))
+                    .onSuccess(playerOpt -> processPlayer(ctx, playerOpt, irender))
                     .build();
             return;
         }
 
-        String input = Username.isQuoted(playerArg) ? ctx.joinArgsSlice(playerArgIndex) : playerArg;
-        if (input.length() > Username.MAX_LENGTH) {
-            ctx.warn(ctx.getLang().i18n("mc.player.username.tooLong"));
+        Either<String, Username> errorOrUsername = validateUsername(usernameArg, ctx.getLang());
+        if (!errorOrUsername.isRight()) {
+            ctx.warn(errorOrUsername.getLeft());
             return;
         }
-        Username username = Username.parse(input);
-        if (!username.isSupportedByMojangAPI()) {
-            ctx.warn(ctx.getLang().i18n("mc.player.username.unsupportedSpecialCharacters"));
-            return;
-        }
+        Username username = errorOrUsername.getRight();
 
         ctx.triggerCooldown();
+        PlayerProvider provider = ctx.getMCLibrary().getPlayerProvider();
         ctx.newCallbackBuilder(provider.getUUID(username))
                 .onFailure(ex -> handleIOE(ex, ctx, "IOE getting UUID from username " + username))
-                .onSuccess(uuidOpt -> processUuid(ctx, uuidOpt, username, type, playerArgIndex))
+                .onSuccess(uuidOpt -> processUuid(ctx, uuidOpt, username, irender))
                 .build();
     }
 
-    private static void processPlayer(CommandContext ctx, Optional<Player> playerOpt,
-                                      RenderType type, int playerArgIndex) {
-        if (playerOpt.isPresent()) {
-            Player player = playerOpt.get();
-            parseRender(ctx, player.getUuid(), player.getUsername(), playerArgIndex + 1, playerArgIndex, type);
-            return;
+    private static Either<String, Username> validateUsername(String input, Lang lang) {
+        if (input.length() > Username.MAX_LENGTH) {
+            return Either.left(lang.i18n("mc.player.username.tooLong"));
         }
-        ctx.reply(ctx.getLang().i18n("mc.player.uuid.doesNotExist"));
-    }
-    private static void processUuid(CommandContext ctx, Optional<UUID> uuidOpt, Username username,
-                                    RenderType type, int playerArgIndex) {
-        if (uuidOpt.isPresent()) {
-            UUID uuid = uuidOpt.get();
-            parseRender(ctx, uuid, username, username.argsUsed() + playerArgIndex, playerArgIndex, type);
-            return;
+        Username username = Username.parse(input);
+        if (!username.isSupportedByMojangAPI()) {
+            return Either.left(lang.i18n("mc.player.username.unsupportedSpecialCharacters"));
         }
-        ctx.reply(ctx.getLang().i18n("mc.player.username.doesNotExist"));
+        return Either.right(username);
     }
 
-    private static void parseRender(CommandContext ctx, UUID uuid, Username username,
-                                    int argsUsed, int playerArgIndex, RenderType type) {
+    private static Either<String, ImpersonalRender> parseRenderFromArgs(CommandContext ctx, RenderType type,
+                                                                        int argsUsed, int playerArgIndex) {
         int currentArg = argsUsed;
         Lang lang = ctx.getLang();
         String[] args = ctx.getArgs();
 
         if (currentArg + 2 < args.length) {
-            ctx.warn(lang.i18nf("command.meta.upToArgs", playerArgIndex + 3));
-            return;
+            return Either.left(lang.i18nf("command.meta.upToArgs", playerArgIndex + 3));
         }
 
         int scale = type.getDefaultScale();
@@ -126,8 +167,7 @@ public class RenderCommand extends AbstractPlayerCommand {
                     continue;
                 } else if (scaleSet) {
                     // If the scale was already processed, we know this argument is the overlay
-                    ctx.warn(lang.i18nf("command.meta.invalidBool", arg));
-                    return;
+                    return Either.left(lang.i18nf("command.meta.invalidBool", arg));
                 }
             }
 
@@ -135,28 +175,46 @@ public class RenderCommand extends AbstractPlayerCommand {
             if (scaleOpt.isPresent()) {
                 int potentialScale = scaleOpt.getAsInt();
                 if (potentialScale < 1) {
-                    ctx.warn(lang.i18nf("mc.player.render.scaleLimit", type.getMaxScale()));
-                    return;
+                    return Either.left(lang.i18nf("mc.player.render.scaleLimit", type.getMaxScale()));
                 }
                 scale = potentialScale;
                 scaleSet = true;
                 continue;
             } else if (overlaySet) {
                 // If the overlay was already processed, we know this argument is the scale
-                ctx.warn(lang.i18nf("command.meta.invalidNumber", arg));
-                return;
+                return Either.left(lang.i18nf("command.meta.invalidNumber", arg));
             }
 
             // If reached, all attempts to process arguments failed
-            ctx.warn(lang.i18nf("command.meta.invalidBoolOrNumber", arg));
-            return;
+            return Either.left(lang.i18nf("command.meta.invalidBoolOrNumber", arg));
         }
-
-        Render render = new Render(uuid, type, overlay, scale);
-        ctx.reply(buildRenderEmbed(ctx, username, render));
+        return Either.right(new ImpersonalRender(type, scale, overlay));
     }
 
-    private static EmbedBuilder buildRenderEmbed(CommandContext ctx, Username username, Render render) {
+    private static void processUuid(CommandContext ctx, Optional<UUID> uuidOpt,
+                                    Username username, ImpersonalRender irender) {
+        if (uuidOpt.isPresent()) {
+            UUID uuid = uuidOpt.get();
+            Render render = completeRender(uuid, irender);
+            sendRenderEmbed(ctx, username, render);
+            return;
+        }
+        ctx.reply(ctx.getLang().i18n("mc.player.username.doesNotExist"));
+    }
+    private static void processPlayer(CommandContext ctx, Optional<Player> playerOpt, ImpersonalRender irender) {
+        if (playerOpt.isPresent()) {
+            Player player = playerOpt.get();
+            Render render = completeRender(player.getUuid(), irender);
+            sendRenderEmbed(ctx, player.getUsername(), render);
+            return;
+        }
+        ctx.reply(ctx.getLang().i18n("mc.player.uuid.doesNotExist"));
+    }
+    private static Render completeRender(UUID uuid, ImpersonalRender irender) {
+        return new Render(uuid, irender.type, irender.overlay, irender.scale);
+    }
+
+    private static void sendRenderEmbed(CommandContext ctx, Username username, Render render) {
         RenderType type = render.getType();
         Lang lang = ctx.getLang();
         String renderName = lang.i18n("mc.player.render." + type.getId());
@@ -167,7 +225,14 @@ public class RenderCommand extends AbstractPlayerCommand {
         if (render.getScale() > type.getMaxScale()) {
             eb.setDescription(lang.i18nf("mc.player.render.scaleOverflow", type.getMaxScale()));
         }
-        return eb;
+        ctx.reply(eb);
+    }
+
+    @Value
+    private static class ImpersonalRender {
+        RenderType type;
+        int scale;
+        boolean overlay;
     }
 
 }
