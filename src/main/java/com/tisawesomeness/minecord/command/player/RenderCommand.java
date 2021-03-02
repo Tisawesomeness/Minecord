@@ -4,6 +4,7 @@ import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.lang.BoolFormat;
 import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.mc.player.*;
+import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.UUIDUtils;
 import com.tisawesomeness.minecord.util.type.Either;
 
@@ -11,6 +12,7 @@ import lombok.NonNull;
 import lombok.Value;
 import net.dv8tion.jda.api.EmbedBuilder;
 
+import java.awt.Color;
 import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.UUID;
@@ -219,13 +221,15 @@ public class RenderCommand extends AbstractPlayerCommand {
         Lang lang = ctx.getLang();
         String renderName = lang.i18n("mc.player.render." + type.getId());
 
-        EmbedBuilder eb = new EmbedBuilder()
+        Color color = Player.isRainbow(username) ? ColorUtils.randomColor() : ctx.getColor();
+        EmbedBuilder eb = ctx.addFooter(new EmbedBuilder())
                 .setTitle(lang.i18nf("mc.player.render.title", renderName, username))
-                .setImage(render.render().toString());
+                .setImage(render.render().toString())
+                .setColor(color);
         if (render.getScale() > type.getMaxScale()) {
             eb.setDescription(lang.i18nf("mc.player.render.scaleOverflow", type.getMaxScale()));
         }
-        ctx.reply(eb);
+        ctx.replyRaw(eb);
     }
 
     @Value

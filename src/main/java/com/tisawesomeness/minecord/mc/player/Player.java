@@ -155,12 +155,24 @@ public class Player implements Comparable<Player> {
      * @return If the player is upside down as an easter egg
      */
     public boolean isUpsideDown() {
+        return isUpsideDown(username);
+    }
+    /**
+     * @return If the player is upside down as an easter egg
+     */
+    public static boolean isUpsideDown(@NonNull Username username) {
         return username.equals(DINNERBONE) || username.equals(GRUMM);
     }
     /**
      * @return If the player makes sheep rainbow colored as an easter egg
      */
     public boolean isRainbow() {
+        return isRainbow(username);
+    }
+    /**
+     * @return If the player makes sheep rainbow colored as an easter egg
+     */
+    public static boolean isRainbow(@NonNull Username username) {
         return username.equals(JEB);
     }
 
