@@ -20,7 +20,7 @@ public class CommandRegistryTest {
     @DisplayName("Every command's id, display name, and aliases do not conflict with other commands.")
     public void testNameAliasConflicts(Lang lang) {
         Collection<String> inputs = new HashSet<>();
-        inputs.add(Lang.getDefault().i18n("command.misc.help.extra"));
+        inputs.add(Lang.getDefault().i18n("command.core.help.extra"));
         for (Command c : cr) {
             Collection<String> temp = new HashSet<>();
             temp.add(c.getId());

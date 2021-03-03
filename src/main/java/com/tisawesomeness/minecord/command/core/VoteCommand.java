@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.command.misc;
+package com.tisawesomeness.minecord.command.core;
 
 import com.tisawesomeness.minecord.command.CommandContext;
 
@@ -6,7 +6,7 @@ import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
-public class VoteCommand extends AbstractMiscCommand {
+public class VoteCommand extends AbstractCoreCommand {
 
     public @NonNull String getId() {
         return "vote";

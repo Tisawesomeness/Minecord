@@ -3,7 +3,7 @@ package com.tisawesomeness.minecord.command;
 import com.tisawesomeness.minecord.command.admin.*;
 import com.tisawesomeness.minecord.command.config.*;
 import com.tisawesomeness.minecord.command.discord.*;
-import com.tisawesomeness.minecord.command.misc.*;
+import com.tisawesomeness.minecord.command.core.*;
 import com.tisawesomeness.minecord.command.player.*;
 import com.tisawesomeness.minecord.command.utility.*;
 import com.tisawesomeness.minecord.lang.Lang;
@@ -33,6 +33,15 @@ public class CommandRegistry implements Iterable<Command> {
 
         Command colorCmd = new ColorCommand();
         Command[] commands = {
+
+                // Core
+                new HelpCommand(this),
+                new InfoCommand(),
+                new PingCommand(),
+                new InviteCommand(),
+                new VoteCommand(),
+                new CreditsCommand(),
+                new ThankCommand(),
 
                 // Player
                 new ProfileCommand(),
@@ -87,15 +96,6 @@ public class CommandRegistry implements Iterable<Command> {
                 new PermsCommand(),
                 new PrefixCommand(),
                 new LangCommand(),
-
-                // Misc
-                new HelpCommand(this),
-                new InfoCommand(),
-                new PingCommand(),
-                new InviteCommand(),
-                new VoteCommand(),
-                new CreditsCommand(),
-                new ThankCommand(),
 
                 // Admin
                 new SayCommand(),

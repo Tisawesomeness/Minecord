@@ -12,11 +12,11 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 public enum Module implements Localizable {
+    CORE(),
     PLAYER(),
     UTILITY(),
     DISCORD(),
     CONFIG(),
-    MISC(),
     ADMIN(true),
     CUSTOM;
 

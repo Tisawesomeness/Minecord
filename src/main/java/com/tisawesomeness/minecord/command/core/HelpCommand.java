@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.command.misc;
+package com.tisawesomeness.minecord.command.core;
 
 import com.tisawesomeness.minecord.command.Module;
 import com.tisawesomeness.minecord.command.*;
@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public class HelpCommand extends AbstractMiscCommand implements IMultiNameCommand {
+public class HelpCommand extends AbstractCoreCommand implements IMultiNameCommand {
     private final @NonNull CommandRegistry registry;
 
     public @NonNull String getId() {

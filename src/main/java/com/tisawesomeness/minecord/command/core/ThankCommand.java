@@ -1,11 +1,11 @@
-package com.tisawesomeness.minecord.command.misc;
+package com.tisawesomeness.minecord.command.core;
 
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.IHiddenCommand;
 
 import lombok.NonNull;
 
-public class ThankCommand extends AbstractMiscCommand implements IHiddenCommand {
+public class ThankCommand extends AbstractCoreCommand implements IHiddenCommand {
     public @NonNull String getId() {
         return "thank";
     }

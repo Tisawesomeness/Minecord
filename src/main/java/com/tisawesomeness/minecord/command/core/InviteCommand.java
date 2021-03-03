@@ -1,13 +1,12 @@
-package com.tisawesomeness.minecord.command.misc;
+package com.tisawesomeness.minecord.command.core;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Branding;
 import com.tisawesomeness.minecord.command.CommandContext;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 
-public class InviteCommand extends AbstractMiscCommand {
+public class InviteCommand extends AbstractCoreCommand {
 
     public @NonNull String getId() {
         return "invite";

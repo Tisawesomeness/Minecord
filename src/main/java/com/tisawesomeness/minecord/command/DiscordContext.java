@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.command;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.lang.Lang;
-import com.tisawesomeness.minecord.command.misc.HelpCommand;
 import com.tisawesomeness.minecord.config.serial.Config;
 
 import lombok.Getter;

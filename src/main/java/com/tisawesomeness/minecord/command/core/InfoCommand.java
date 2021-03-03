@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.command.misc;
+package com.tisawesomeness.minecord.command.core;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Branding;
@@ -15,7 +15,7 @@ import net.dv8tion.jda.api.utils.MarkdownUtil;
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 
-public class InfoCommand extends AbstractMiscCommand {
+public class InfoCommand extends AbstractCoreCommand {
 
     private static final String JAVA_VERSION = System.getProperty("java.version");
     private static final String JAVA_VENDOR = System.getProperty("java.vendor");
