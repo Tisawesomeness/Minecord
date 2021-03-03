@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.command.core;
 
-import com.tisawesomeness.minecord.command.Module;
+import com.tisawesomeness.minecord.command.Category;
 import com.tisawesomeness.minecord.command.*;
 import com.tisawesomeness.minecord.lang.Lang;
 
@@ -36,17 +36,17 @@ public class HelpCommand extends AbstractCoreCommand implements IMultiNameComman
             return;
         }
 
-        // Check module first
+        // Check category first
         Lang lang = ctx.getLang();
-        Optional<Module> moduleOpt = Module.from(args[0], lang);
-        if (moduleOpt.isPresent()) {
+        Optional<Category> categoryOpt = Category.from(args[0], lang);
+        if (categoryOpt.isPresent()) {
             ctx.triggerCooldown();
-            Module m = moduleOpt.get();
-            if (m.isHidden() && !ctx.isElevated()) {
-                ctx.warn(ctx.i18n("noModulePerms"));
+            Category cat = categoryOpt.get();
+            if (cat.isHidden() && !ctx.isElevated()) {
+                ctx.warn(ctx.i18n("noCategoryPerms"));
                 return;
             }
-            moduleHelp(ctx, m);
+            categoryHelp(ctx, cat);
             return;
         }
 
@@ -94,13 +94,13 @@ public class HelpCommand extends AbstractCoreCommand implements IMultiNameComman
                 .setAuthor(ctx.i18n("title"), null, getAvatarUrl(ctx))
                 .setDescription(getMoreHelp(ctx));
 
-        // Hidden modules must be viewed directly
-        for (Module m : Module.values()) {
-            if (m.isHidden()) {
+        // Hidden categories must be viewed directly
+        for (Category cat : Category.values()) {
+            if (cat.isHidden()) {
                 continue;
             }
-            // Build that module's list of user-facing commands
-            Collection<Command> cmds = registry.getCommandsInModule(m);
+            // Build that category's list of user-facing commands
+            Collection<Command> cmds = registry.getCommandsInCategory(cat);
             if (cmds.isEmpty()) {
                 continue;
             }
@@ -108,7 +108,7 @@ public class HelpCommand extends AbstractCoreCommand implements IMultiNameComman
                     .filter(c -> !(c instanceof IHiddenCommand))
                     .map(c -> c.formatCommandName(ctx))
                     .collect(Collectors.joining(", "));
-            eb.addField(lang.localize(m), mHelp, false);
+            eb.addField(lang.localize(cat), mHelp, false);
         }
         ctx.reply(eb);
     }
@@ -117,27 +117,27 @@ public class HelpCommand extends AbstractCoreCommand implements IMultiNameComman
         String prefix = ctx.getPrefix();
         String commandUsage = MarkdownUtil.monospace(ctx.i18nf("commandUsage", prefix));
         String commandHelp = ctx.i18nf("commandHelp", commandUsage);
-        String moduleUsage = MarkdownUtil.monospace(ctx.i18nf("moduleUsage", prefix));
-        String moduleHelp = ctx.i18nf("moduleHelp", moduleUsage);
+        String categoryUsage = MarkdownUtil.monospace(ctx.i18nf("categoryUsage", prefix));
+        String categoryHelp = ctx.i18nf("categoryHelp", categoryUsage);
         String extraUsage = MarkdownUtil.monospace(ctx.i18nf("extraUsage", prefix));
         String extraHelp = ctx.i18nf("extraHelp", extraUsage);
-        return commandHelp + "\n" + moduleHelp + "\n" + extraHelp;
+        return commandHelp + "\n" + categoryHelp + "\n" + extraHelp;
     }
 
-    private void moduleHelp(CommandContext ctx, Module m) {
+    private void categoryHelp(CommandContext ctx, Category cat) {
         Lang lang = ctx.getLang();
         String prefix = ctx.getPrefix();
 
-        String mUsage = registry.getCommandsInModule(m).stream()
-                .filter(c -> !(c instanceof IHiddenCommand) || m.isHidden()) // All admin commands are hidden
+        String mUsage = registry.getCommandsInCategory(cat).stream()
+                .filter(c -> !(c instanceof IHiddenCommand) || cat.isHidden()) // All admin commands are hidden
                 .map(c -> formatCommandFull(ctx, c))
                 .collect(Collectors.joining("\n"));
-        // Add module-specific help if it exists
-        Optional<String> mHelp = m.getHelp(lang, prefix);
+        // Add category-specific help if it exists
+        Optional<String> mHelp = cat.getHelp(lang, prefix);
         if (mHelp.isPresent()) {
             mUsage = mHelp.get() + "\n\n" + mUsage;
         }
-        String title = ctx.i18nf("moduleTitle", lang.localize(m));
+        String title = ctx.i18nf("categoryTitle", lang.localize(cat));
         EmbedBuilder eb = new EmbedBuilder()
                 .setAuthor(title, null, getAvatarUrl(ctx))
                 .setDescription(mUsage);

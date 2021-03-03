@@ -2,7 +2,7 @@ package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Module;
+import com.tisawesomeness.minecord.command.Category;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -11,8 +11,8 @@ import java.io.IOException;
 @Slf4j
 public abstract class AbstractPlayerCommand extends Command {
     @Override
-    public final Module getModule() {
-        return Module.PLAYER;
+    public final Category getCategory() {
+        return Category.PLAYER;
     }
 
     protected static void handleIOE(Throwable ex, CommandContext ctx, String errorMessage) {

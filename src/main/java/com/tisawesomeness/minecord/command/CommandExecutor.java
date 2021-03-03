@@ -145,13 +145,13 @@ public class CommandExecutor {
         return commandUses.count(c);
     }
     /**
-     * Gets the number of times any command in a module has been used.
-     * @param m The module
+     * Gets the number of times any command in a category has been used.
+     * @param cat The category
      * @return A non-negative integer
      */
-    public int getUses(@NonNull Module m) {
+    public int getUses(@NonNull Category cat) {
         return commandUses.stream()
-                .filter(cm -> cm.getModule() == m)
+                .filter(cm -> cm.getCategory() == cat)
                 .mapToInt(this::getUses)
                 .sum();
     }

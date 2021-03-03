@@ -9,20 +9,20 @@ import org.junit.jupiter.params.provider.EnumSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ModuleTest {
+public class CategoryTest {
 
     @Test
-    @DisplayName("No module with the ID 'meta' exists, since that id can conflict")
+    @DisplayName("No category with the ID 'meta' exists, since that id can conflict")
     public void testNoMetaConflict() {
-        for (Module m : Module.values()) {
+        for (Category m : Category.values()) {
             assertThat(m.getId()).isNotEqualTo("meta");
         }
     }
 
     @ParameterizedTest(name = "{index} ==> Module ''{0}'' can be localized")
     @EnumSource
-    @DisplayName("All modules can be localized")
-    public void testLocalization(Module candidate) {
+    @DisplayName("All categories can be localized")
+    public void testLocalization(Category candidate) {
         assertThat(Lang.getDefault().localize(candidate)).isNotEmpty();
     }
 

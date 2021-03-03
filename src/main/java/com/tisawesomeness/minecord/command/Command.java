@@ -29,11 +29,11 @@ public abstract class Command {
     public abstract @NonNull String getId();
 
     /**
-     * Gets the module this command belongs to for organization purposes.
-     * @return A non-null Module
+     * Gets the category this command belongs to for organization purposes.
+     * @return A non-null Category
      */
-    public Module getModule() {
-        return Module.CUSTOM;
+    public Category getCategory() {
+        return Category.CUSTOM;
     }
 
     /**
@@ -162,7 +162,7 @@ public abstract class Command {
         return lang.i18nList(formatKey(key));
     }
     protected @NonNull String formatKey(@NonNull String key) {
-        return String.format("command.%s.%s.%s", getModule().getId(), getId(), key);
+        return String.format("command.%s.%s.%s", getCategory().getId(), getId(), key);
     }
 
     /**
@@ -284,7 +284,7 @@ public abstract class Command {
             eb.addField(lang.i18n("command.meta.cooldown"), cooldownStr, true);
         }
 
-        eb.addField(lang.i18n("command.meta.module"), lang.localize(getModule()), true);
+        eb.addField(lang.i18n("command.meta.category"), lang.localize(getCategory()), true);
 
         if (!getAliases(lang).isEmpty()) {
             eb.addField(lang.i18n("command.meta.aliases"), joinAliases(lang), true);

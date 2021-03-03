@@ -2,7 +2,7 @@ package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.command.*;
-import com.tisawesomeness.minecord.command.Module;
+import com.tisawesomeness.minecord.command.Category;
 import com.tisawesomeness.minecord.util.DateUtils;
 
 import com.google.common.collect.EnumMultiset;
@@ -37,9 +37,9 @@ public class UsageCommand extends AbstractAdminCommand {
             return;
         }
         Lang lang = ctx.getLang();
-        Optional<Module> moduleOpt = Module.from(args[0], lang);
-        if (moduleOpt.isPresent()) {
-            getModuleUsage(ctx, moduleOpt.get());
+        Optional<Category> categoryOpt = Category.from(args[0], lang);
+        if (categoryOpt.isPresent()) {
+            getCategoryUsage(ctx, categoryOpt.get());
             return;
         }
         Optional<Command> cmdOpt = registry.getCommand(args[0], lang);
@@ -47,7 +47,7 @@ public class UsageCommand extends AbstractAdminCommand {
             getCommandUsage(ctx, cmdOpt.get());
             return;
         }
-        ctx.invalidArgs("That command or module does not exist.");
+        ctx.invalidArgs("That command or category does not exist.");
     }
 
     private void processGlobalUsage(CommandContext ctx) {
@@ -75,25 +75,25 @@ public class UsageCommand extends AbstractAdminCommand {
         ctx.err("There was an internal error.");
     }
     private void addFields(CommandContext ctx, EmbedBuilder eb, Function<? super Command, String> commandToLineMapper) {
-        for (Module m : Module.values()) {
-            Collection<Command> cmds = registry.getCommandsInModule(m);
+        for (Category cat : Category.values()) {
+            Collection<Command> cmds = registry.getCommandsInCategory(cat);
             if (cmds.isEmpty()) {
                 continue;
             }
             String field = buildUsageString(cmds, commandToLineMapper);
-            eb.addField(MarkdownUtil.bold(ctx.getLang().localize(m)), field, true);
+            eb.addField(MarkdownUtil.bold(ctx.getLang().localize(cat)), field, true);
         }
     }
 
-    private void getModuleUsage(CommandContext ctx, Module m) {
-        Collection<Command> cmds = registry.getCommandsInModule(m);
+    private void getCategoryUsage(CommandContext ctx, Category cat) {
+        Collection<Command> cmds = registry.getCommandsInCategory(cat);
         if (cmds.isEmpty()) {
-            ctx.warn("That module has no commands!");
+            ctx.warn("That category has no commands!");
             return;
         }
         Multiset<Result> totalResults = accumulateResults(cmds, ctx);
         String usage = buildUsageString(cmds, c -> formatCommandDetailed(c, ctx));
-        int uses = ctx.getExecutor().getUses(m);
+        int uses = ctx.getExecutor().getUses(cat);
         EmbedBuilder eb = new EmbedBuilder()
                 .setTitle(commandUsageTitle(ctx))
                 .setDescription(formatResults(totalResults, uses) + "\n\n" + usage);

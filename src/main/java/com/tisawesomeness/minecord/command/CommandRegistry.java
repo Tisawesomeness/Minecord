@@ -23,11 +23,11 @@ import java.util.stream.Stream;
  */
 public class CommandRegistry implements Iterable<Command> {
 
-    private final Multimap<Module, Command> moduleToCommandsMap;
+    private final Multimap<Category, Command> categoryToCommandsMap;
     private final Table<Lang, String, Command> commandTable;
 
     /**
-     * Adds every module to the registry and maps the possible aliases to the command to execute.
+     * Adds every category to the registry and maps the possible aliases to the command to execute.
      */
     public CommandRegistry() {
 
@@ -113,14 +113,14 @@ public class CommandRegistry implements Iterable<Command> {
 
         };
 
-        moduleToCommandsMap = buildModuleToCommandsMap(commands);
+        categoryToCommandsMap = buildCategoryToCommandsMap(commands);
         commandTable = buildCommandTable();
     }
 
-    private static Multimap<Module, Command> buildModuleToCommandsMap(Command[] commands) {
-        Multimap<Module, Command> mm = MultimapBuilder.enumKeys(Module.class).arrayListValues().build();
+    private static Multimap<Category, Command> buildCategoryToCommandsMap(Command[] commands) {
+        Multimap<Category, Command> mm = MultimapBuilder.enumKeys(Category.class).arrayListValues().build();
         for (Command c : commands) {
-            mm.put(c.getModule(), c);
+            mm.put(c.getCategory(), c);
         }
         return ImmutableMultimap.copyOf(mm);
     }
@@ -159,27 +159,27 @@ public class CommandRegistry implements Iterable<Command> {
         return Optional.ofNullable(commandTable.get(lang, name));
     }
     /**
-     * Gets all registered commands that are in the given module.
-     * @param module The module
+     * Gets all registered commands that are in the given category.
+     * @param category The category
      * @return A possibly-empty list of commands
      */
-    public Collection<Command> getCommandsInModule(Module module) {
-        return moduleToCommandsMap.get(module);
+    public Collection<Command> getCommandsInCategory(Category category) {
+        return categoryToCommandsMap.get(category);
     }
 
     /**
      * Used to loop over all commands in this registry.
-     * @return An iterator over all commands in all modules
+     * @return An iterator over all commands in all categories
      */
     public @NonNull Iterator<Command> iterator() {
-        return moduleToCommandsMap.values().iterator();
+        return categoryToCommandsMap.values().iterator();
     }
     /**
      * Creates a stream for all commands in this registry.
-     * @return A stream over all commands in all modules
+     * @return A stream over all commands in all categories
      */
     public Stream<Command> stream() {
-        return moduleToCommandsMap.values().stream();
+        return categoryToCommandsMap.values().stream();
     }
 
 }

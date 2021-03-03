@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public enum Module implements Localizable {
+public enum Category implements Localizable {
     CORE(),
     PLAYER(),
     UTILITY(),
@@ -21,19 +21,19 @@ public enum Module implements Localizable {
     CUSTOM;
 
     @Getter private final boolean hidden;
-    Module() {
+    Category() {
         hidden = false;
     }
 
     /**
-     * Gets the ID of this module for localization purposes
+     * Gets the ID of this category for localization purposes
      * @return The lowercase enum name
      */
     public @NonNull String getId() {
         return name().toLowerCase();
     }
     /**
-     * Defines the help text shown by {@code &help <module>}.
+     * Defines the help text shown by {@code &help <category>}.
      * @return The help string, or empty if not defined
      */
     public Optional<String> getHelp(Lang lang, @NonNull String prefix) {
@@ -41,12 +41,12 @@ public enum Module implements Localizable {
     }
 
     /**
-     * Gets a module from its name.
+     * Gets a category from its name.
      * @param name The case-insensitive name
      * @param lang The current language
-     * @return The module, or empty if not found
+     * @return The category, or empty if not found
      */
-    public static Optional<Module> from(@NonNull String name, Lang lang) {
+    public static Optional<Category> from(@NonNull String name, Lang lang) {
         return Arrays.stream(values())
                 .filter(m -> lang.localize(m).equalsIgnoreCase(name))
                 .findFirst();
@@ -60,7 +60,7 @@ public enum Module implements Localizable {
     }
 
     private String formatKey(String key) {
-        return String.format("module.%s.%s", getId(), key);
+        return String.format("category.%s.%s", getId(), key);
     }
 
 }

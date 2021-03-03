@@ -1,11 +1,11 @@
 package com.tisawesomeness.minecord.command.discord;
 
+import com.tisawesomeness.minecord.command.Category;
 import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.command.Module;
 
 public abstract class AbstractDiscordCommand extends Command {
     @Override
-    public final Module getModule() {
-        return Module.DISCORD;
+    public final Category getCategory() {
+        return Category.DISCORD;
     }
 }
