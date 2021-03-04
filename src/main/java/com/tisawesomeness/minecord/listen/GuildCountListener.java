@@ -31,7 +31,7 @@ public class GuildCountListener extends ListenerAdapter {
         List<Member> members = guild.getMembers();
         long size = members.stream()
                 .map(Member::getUser)
-                .filter(u -> !u.isBot() && !u.isFake())
+                .filter(u -> !u.isBot())
                 .count();
         EmbedBuilder eb = new EmbedBuilder()
                 .addField("Name", guild.getName(), true)
