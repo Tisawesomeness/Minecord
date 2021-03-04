@@ -53,7 +53,6 @@ public class CommandRegistry implements Iterable<Command> {
                 new GeneralRenderCommand(),
                 new SkinCommand(),
                 new CapeCommand(),
-                new EscapeCommand(),
 
                 // Utility
                 new StatusCommand(),

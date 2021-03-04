@@ -43,14 +43,20 @@ public class UsernameTest {
     @MethodSource({"validNameProvider", "invalidNameProvider"})
     @DisplayName("Any ASCII username from 1 to max characters is supported")
     public void testFrom(String candidate) {
-        assertThat(new Username(candidate).isSupportedByMojangAPI()).isTrue();
+        assertThat(new Username(candidate).isSupportedByMojangAPI())
+                .withFailMessage("Expected %s to be supported by Mojang API but was not", candidate)
+                .isTrue();
     }
 
     @ParameterizedTest(name = "{index} ==> String \"{0}\" is not a supported username")
     @ValueSource(strings = {
             "Sengångaren",
             "Séboutron",
-            "kriſtjan144"
+            "kriſtjan144",
+            // shoutouts to HxLiquid for these
+            "' OR 1=1",
+            "http://a/%%30%30",
+            "https://cdn.discordapp.com/"
     })
     @EmptySource
     @DisplayName("Usernames from non-ascii and empty strings are not supported by Mojang")
@@ -83,48 +89,24 @@ public class UsernameTest {
         assertThat(name.isValid()).isFalse();
     }
 
-    @ParameterizedTest(name = "{index} ==> username `{0}` escapes to `{1}`")
-    @CsvSource({
-            "Tis_awesomeness, Tis_awesomeness",
-            "jeb_, jeb_",
-            "Will Wall, Will Wall",
-            "ab\"cd, ab\\\"cd",
-            "ab\\cd, ab\\\\cd",
-            "hmm\", hmm\\\"",
-            "hmm\\, hmm\\\\"
-    })
-    @DisplayName("Usernames escape quotes and backslashes")
-    public void testEscape(CharSequence candidate, CharSequence expected) {
-        assertThat(Username.escape(candidate)).isEqualTo(expected);
-    }
-
     @ParameterizedTest(name = "{index} ==> <{0}> is parsed to <{1}>")
     @CsvSource({
             "name, name",
             "\"tis\", tis",
             "`tis`, tis",
-            "\"tis, tis",
+            "\"tis, \"tis",
             "tis\", tis\"",
-            "`tis, tis",
+            "`tis, `tis",
             "tis`, tis`",
-            "\"tis`, tis`",
-            "`tis\", tis\"",
+            "\"tis`, \"tis`",
+            "`tis\", `tis\"",
             "12\\\\34, 12\\\\34",
-            "\"12\\\\34\", 12\\34",
-            "`12\\\\34`, 12\\34",
             "ab\\\\\\cd, ab\\\\\\cd",
-            "\"ab\\\\\\cd\", ab\\\\cd",
-            "`ab\\\\\\cd`, ab\\\\cd",
-            "ef\"gh, ef\"gh",
-            "\"ef\"gh\", ef",
-            "\"ef\\\"gh\", ef\"gh",
-            "`ef\"gh`, ef\"gh",
-            "`ef\\\"gh`, ef\\\"gh",
             "ij`kl, ij`kl",
+            "\"ij\"kl\", ij",
             "\"ij`kl\", ij`kl",
             "\"ij\\`kl\", ij\\`kl",
-            "`ij`kl`, ij",
-            "`ij\\`kl`, ij`kl"
+            "`ij`kl`, ij"
     })
     @DisplayName("Username parsing works with quoted names and escaped characters")
     public void testParse(String candidate, String expected) {

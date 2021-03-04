@@ -11,6 +11,7 @@ import lombok.Cleanup;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -30,6 +31,7 @@ public class MojangAPIImpl extends MojangAPI {
             .or(CharMatcher.inRange('a', 'z'))
             .or(CharMatcher.anyOf("_-.*@"));
     private static final URL BASE_URL = URLUtils.createUrl("https://api.mojang.com/users/profiles/minecraft/");
+    public static final int LONGEST_DEBUGGABLE_ERROR = 256;
     private final APIClient client;
     
     protected Optional<String> requestUUID(@NonNull Username username) throws IOException {
@@ -75,7 +77,12 @@ public class MojangAPIImpl extends MojangAPI {
     }
     private static void throwIfError(Response response) throws IOException {
         if (!response.isSuccessful()) {
-            throw new IOException(response.code() + " error from Mojang API: " + response.message());
+            ResponseBody body = response.body();
+            String error = response.code() + " error from Mojang API: " + response.message();
+            if (body == null || body.contentLength() > LONGEST_DEBUGGABLE_ERROR) {
+                throw new IOException(error);
+            }
+            throw new IOException(error + " | " + body.string());
         }
     }
 

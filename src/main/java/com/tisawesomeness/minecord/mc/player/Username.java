@@ -3,9 +3,7 @@ package com.tisawesomeness.minecord.mc.player;
 import com.google.common.base.CharMatcher;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
-import java.util.Arrays;
 import java.util.regex.Pattern;
 
 /**
@@ -26,7 +24,10 @@ import java.util.regex.Pattern;
 public class Username implements CharSequence, Comparable<Username> {
 
     private static final Pattern VALID_USERNAME_PATTERN = Pattern.compile("^[0-9A-Za-z_]{3,16}$");
-    private static final char BACKSLASH = '\\';
+    private static final CharMatcher MOJANG_SUPPORTED_MATCHER = CharMatcher.inRange('0', '9')
+            .or(CharMatcher.inRange('A', 'Z'))
+            .or(CharMatcher.inRange('a', 'z'))
+            .or(CharMatcher.anyOf("_!@$()-:.? "));
     private static final char QUOTE = '"';
     private static final char BACKTICK = '`';
 
@@ -45,7 +46,7 @@ public class Username implements CharSequence, Comparable<Username> {
     }
 
     /**
-     * Checks if a username is valid according to Mojang's current (as of 12/22/20) requirements:
+     * Checks if a username is valid according to Mojang's current (as of 3/4/21) requirements:
      * 3-16 letters, numbers, or underscores.
      * @return True only if the username is valid
      */
@@ -64,13 +65,12 @@ public class Username implements CharSequence, Comparable<Username> {
 
     /**
      * Checks if a username can be sent to the Mojang API.
-     * @return True only if the username contains only 1-{@link #MAX_LENGTH} ASCII characters, empty otherwise
+     * Some characters (such as {@code -} or {@code $} are not valid but Mojang will process them.
+     * Others (such as {@code #} and all non-ASCII) have appeared in usernames before but make Mojang freak out.
+     * @return True only if the username contains only 1-{@link #MAX_LENGTH} approved characters, empty otherwise
      */
     public boolean isSupportedByMojangAPI() {
-        return !name.isEmpty() && name.length() <= MAX_LENGTH && isAscii(name);
-    }
-    private static boolean isAscii(@NonNull CharSequence str) {
-        return CharMatcher.ascii().matchesAllOf(str);
+        return !name.isEmpty() && name.length() <= MAX_LENGTH && MOJANG_SUPPORTED_MATCHER.matchesAllOf(name);
     }
 
     public boolean contains(@NonNull CharSequence s) {
@@ -78,25 +78,7 @@ public class Username implements CharSequence, Comparable<Username> {
     }
 
     /**
-     * Escapes a username for use in commands by replacing " with \" and \ with \\.
-     * <br>This is needed just in case a username with a quote or backslash ever gets created.
-     * @param input The unescaped username as input
-     * @return The escaped username
-     */
-    public static @NonNull String escape(@NonNull CharSequence input) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < input.length(); i++) {
-            char ch = input.charAt(i);
-            if (ch == QUOTE || ch == BACKSLASH) {
-                sb.append(BACKSLASH);
-            }
-            sb.append(ch);
-        }
-        return sb.toString();
-    }
-
-    /**
-     * Determines if a string will be treated as quoted. Note that only the starting quote is necessary.
+     * Determines if a string will be treated as quoted. Both the starting and ending quote are necessary.
      * @param input The string
      * @return Whether the string will be parsed like a quoted name
      */
@@ -109,47 +91,27 @@ public class Username implements CharSequence, Comparable<Username> {
      * <p>
      *     Takes an input string, which may or may not be quoted, and parses it.
      *     If the input is unquoted, the username is interpreted literally.
-     *     Otherwise, the username extends until the closing quote character. Quotes can be either quote characters or
-     *     backticks, both may be escaped by a backslash, and backslashes themselves can be escaped.
+     *     Otherwise, the username extends until the first closing quote character.
      * </p>
      * <p>
-     *     The purpose of parsing strings it to ensure that spaces and special characters in names don't interfere with
+     *     The purpose of parsing strings is to ensure that spaces and special characters in names don't interfere with
      *     other arguments in commands.
      * </p>
      * @param input The input string
      * @return The parsed username
      */
     public static @NonNull Username parse(@NonNull String input) {
-        if (input.length() <= 1) {
+        if (input.length() <= 2) {
             return new Username(input);
         }
-        QuoteType quoteType = QuoteType.from(input.charAt(0));
-        if (quoteType == QuoteType.NONE) {
-            return new Username(input);
-        }
-
-        // Starting at 1 to not include the first quote
-        StringBuilder sb = new StringBuilder();
-        for (int i = 1; i < input.length() - 1; i++) {
-            char ch = input.charAt(i);
-            if (ch == BACKSLASH) {
-                char next = input.charAt(i + 1);
-                if (next == BACKSLASH || next == quoteType.ch) {
-                    sb.append(next);
-                    // make sure next char does not get processed
-                    i++;
-                    continue;
-                }
-            } else if (ch == quoteType.ch) {
-                return new Username(sb.toString());
+        char startQuote = input.charAt(0);
+        if (startQuote == QUOTE || startQuote == BACKTICK) {
+            int endQuotePos = input.indexOf(startQuote, 1);
+            if (endQuotePos != -1) {
+                return new Username(input.substring(1, endQuotePos));
             }
-            sb.append(ch);
         }
-        char lastChar = input.charAt(input.length() - 1);
-        if (lastChar != quoteType.ch) {
-            sb.append(lastChar);
-        }
-        return new Username(sb.toString());
+        return new Username(input);
     }
 
     public int length() {
@@ -178,19 +140,6 @@ public class Username implements CharSequence, Comparable<Username> {
     @Override
     public @NonNull String toString() {
         return name;
-    }
-
-    @RequiredArgsConstructor
-    private enum QuoteType {
-        QUOTES(QUOTE), BACKTICKS(BACKTICK), NONE('\0');
-
-        public final char ch;
-        public static QuoteType from(char ch) {
-            return Arrays.stream(QuoteType.values())
-                    .filter(qt -> ch == qt.ch)
-                    .findFirst()
-                    .orElse(NONE);
-        }
     }
 
 }
