@@ -38,7 +38,9 @@ public class CapeCommand extends BasePlayerCommand {
         URL optifineCapeUrl = player.getOptifineCapeUrl();
         try {
             hasOptifineCape = client.exists(optifineCapeUrl);
-            sendCape(ctx, player, optifineCapeUrl, "optifineCape");
+            if (hasOptifineCape) {
+                sendCape(ctx, player, optifineCapeUrl, "optifineCape");
+            }
         } catch (IOException ex) {
             log.error("IOE getting optifine cape for " + player, ex);
             ctx.err(ctx.i18n("optifineError"));
