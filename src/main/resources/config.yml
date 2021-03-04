@@ -114,8 +114,8 @@ flags:
   # Whether elevated users can run disabled commands
   # Admin-only commands will still be disabled for elevated users
   elevatedBypassDisabled: true
-  # Whether player lookups should use the Electroid API and fallback to the Mojang API.
-  # If false, only the Mojang API will be used.
+  # Whether player lookups should use the Electroid API and fallback to the Mojang API
+  # If false, only the Mojang API will be used
   useElectroidAPI: true
 
 # Do not post a self-hosted version of Minecord to a bot list
@@ -134,7 +134,7 @@ database:
   path: "./minecord/minecord.db"
 
 commands:
-  # The default cooldown, in miliseconds, users must wait before using the same command agian
+  # The default cooldown, in milliseconds, users must wait before using the same command again
   defaultCooldown: 0
   # How often to send command uses to the database in seconds
   pushUsesInterval: 60
@@ -142,25 +142,27 @@ commands:
   overrides:
     avatar:
       # The name of the cooldown pool this command is a part of
-      cooldownPool: "playerImage"
+      cooldownPool: "playerRender"
       # Whether the command is disabled (default enabled)
-      # Disabled commands are not registerd and will not give a response or show in &help
+      # Disabled commands are not registered and will not give a response or show in &help
       disabled: false
     body:
-      cooldownPool: "playerImage"
+      cooldownPool: "playerRender"
     cape:
-      cooldownPool: "playerImage"
+      cooldownPool: "playerLookup"
     head:
-      cooldownPool: "playerImage"
+      cooldownPool: "playerRender"
     history:
-      cooldownPool: "playerName"
+      cooldownPool: "playerLookup"
     profile:
-      cooldownPool: "playerName"
+      cooldownPool: "playerLookup"
+    render:
+      cooldownPool: "playerRender"
     skin:
-      cooldownPool: "playerImage"
+      cooldownPool: "playerLookup"
     uuid:
       # Cooldowns can also be defined explicitly
-      cooldown: 5000
+      cooldown: 3000
     codes:
       cooldown: 1000
     color:
@@ -202,9 +204,9 @@ commands:
     eval:
       disabled: true
   # All commands with the same cooldown pool share cooldowns.
-  # The number is the cooldown in miliseconds.
+  # The number is the cooldown in milliseconds.
   cooldownPools:
-    playerImage: 5000
-    playerName: 5000
+    playerRender: 4000
+    playerLookup: 4000
     itemLookup: 5000
     botConfig: 3000
