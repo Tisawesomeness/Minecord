@@ -19,7 +19,7 @@ public class CategoryTest {
         }
     }
 
-    @ParameterizedTest(name = "{index} ==> Module ''{0}'' can be localized")
+    @ParameterizedTest(name = "{index} ==> Category ''{0}'' can be localized")
     @EnumSource
     @DisplayName("All categories can be localized")
     public void testLocalization(Category candidate) {
