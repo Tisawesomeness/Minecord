@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.util;
 
-import com.google.common.base.CharMatcher;
 import com.google.common.base.Preconditions;
 import lombok.Cleanup;
 import lombok.NonNull;
@@ -83,7 +82,7 @@ public final class StringUtils {
      * @return The integer if present, empty if null
      */
     public static OptionalInt safeParseInt(@Nullable String str) {
-        if (str == null || CharMatcher.whitespace().matchesAnyOf(str)) {
+        if (str == null || hasJavaWhitespace(str)) {
             return OptionalInt.empty();
         }
         @Cleanup Scanner scan = new Scanner(str);
@@ -98,7 +97,7 @@ public final class StringUtils {
      * @return The long if present, empty if null
      */
     public static OptionalLong safeParseLong(@Nullable String str) {
-        if (str == null || CharMatcher.whitespace().matchesAnyOf(str)) {
+        if (str == null || hasJavaWhitespace(str)) {
             return OptionalLong.empty();
         }
         @Cleanup Scanner scan = new Scanner(str);
@@ -106,6 +105,15 @@ public final class StringUtils {
             return OptionalLong.of(scan.nextLong());
         }
         return OptionalLong.empty();
+    }
+
+    private static boolean hasJavaWhitespace(@NonNull CharSequence str) {
+        for (int i = 0; i < str.length(); i++) {
+            if (Character.isWhitespace(str.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
