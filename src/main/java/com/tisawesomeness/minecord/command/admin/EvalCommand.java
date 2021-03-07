@@ -35,6 +35,7 @@ public class EvalCommand extends AbstractAdminCommand {
     private static final int CODEBLOCK_LENGTH = 12;
 
     private final Map<String, Object> storage = new ConcurrentHashMap<>();
+    private final ScriptEngineManager factory = new ScriptEngineManager();
 
     public @NonNull String getId() {
         return "eval";
@@ -44,13 +45,12 @@ public class EvalCommand extends AbstractAdminCommand {
         MessageReceivedEvent e = ctx.getE();
 
         // Parse args
-        if (args.length == 0) {
+        if (args.length == 0 || (args.length == 1 && "help".equalsIgnoreCase(args[0]))) {
             ctx.showHelp();
             return;
         }
 
         // Javascript engine with JDA, event and config variables.
-        ScriptEngineManager factory = new ScriptEngineManager();
         ScriptEngine engine = factory.getEngineByExtension("js");
         engine.put("ctx", ctx);
         engine.put("bot", ctx.getBot());
