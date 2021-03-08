@@ -1,7 +1,5 @@
 package com.tisawesomeness.minecord.command;
 
-import com.tisawesomeness.minecord.config.serial.Config;
-
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
@@ -28,7 +26,7 @@ public class CommandVerifier {
      */
     public boolean shouldRun(Command c, CommandContext ctx) {
         if (c.isEnabled(ctx.getConfig().getCommandConfig()) || shouldBypassDisabled(c, ctx)) {
-            return processGuildOnly(c, ctx);
+            return processElevation(c, ctx);
         }
         ctx.warn(ctx.getLang().i18n("command.meta.disabled"));
         return false;
@@ -39,6 +37,13 @@ public class CommandVerifier {
                 && !(c instanceof IElevatedCommand);
     }
 
+    private boolean processElevation(Command c, CommandContext ctx) {
+        if (c instanceof IElevatedCommand && !ctx.isElevated()) {
+            ctx.notElevated("You must be elevated to use that command!");
+            return false;
+        }
+        return processGuildOnly(c, ctx);
+    }
     private boolean processGuildOnly(Command c, CommandContext ctx) {
         if (c instanceof IGuildOnlyCommand && !ctx.isFromGuild()) {
             IGuildOnlyCommand goc = (IGuildOnlyCommand) c;
@@ -46,13 +51,6 @@ public class CommandVerifier {
                 ctx.guildOnly("This command is not available in DMs.");
                 return false;
             }
-        }
-        return processElevation(c, ctx);
-    }
-    private boolean processElevation(Command c, CommandContext ctx) {
-        if (c instanceof IElevatedCommand && !ctx.isElevated()) {
-            ctx.notElevated("You must be elevated to use that command!");
-            return false;
         }
         return processPermissions(c, ctx);
     }
@@ -91,7 +89,7 @@ public class CommandVerifier {
                 return false;
             }
         }
-        return processCooldown(c, ctx);
+        return processMultiLines(c, ctx);
     }
     // Mutates permissions collection! Only use when done
     private static String getMissingPermissionString(Member m, TextChannel tc, Collection<Permission> permissions) {
@@ -99,6 +97,18 @@ public class CommandVerifier {
         return permissions.stream()
                 .map(Permission::getName)
                 .collect(Collectors.joining(", "));
+    }
+
+    private boolean processMultiLines(Command c, CommandContext ctx) {
+        if (!(c instanceof IMultiLineCommand)) {
+            for (String arg : ctx.getArgs()) {
+                if (arg.contains("\n") || arg.contains("\r")) {
+                    ctx.warn("This command must be on one line.");
+                    return false;
+                }
+            }
+        }
+        return processCooldown(c, ctx);
     }
 
     private boolean processCooldown(Command c, CommandContext ctx) {

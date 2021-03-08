@@ -1,11 +1,12 @@
 package com.tisawesomeness.minecord.command.utility;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.IMultiLineCommand;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import lombok.NonNull;
 
-public class Sha1Command extends AbstractUtilityCommand {
+public class Sha1Command extends AbstractUtilityCommand implements IMultiLineCommand {
 
     public @NonNull String getId() {
         return "sha1";
