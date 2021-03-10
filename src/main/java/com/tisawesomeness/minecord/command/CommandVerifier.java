@@ -1,13 +1,18 @@
 package com.tisawesomeness.minecord.command;
 
+import com.tisawesomeness.minecord.lang.Lang;
+import com.tisawesomeness.minecord.util.TimeUtils;
+
+import com.google.common.collect.Sets;
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -39,7 +44,7 @@ public class CommandVerifier {
 
     private boolean processElevation(Command c, CommandContext ctx) {
         if (c instanceof IElevatedCommand && !ctx.isElevated()) {
-            ctx.notElevated("You must be elevated to use that command!");
+            ctx.notElevated(ctx.getLang().i18n("command.meta.notBotAdmin"));
             return false;
         }
         return processGuildOnly(c, ctx);
@@ -48,54 +53,73 @@ public class CommandVerifier {
         if (c instanceof IGuildOnlyCommand && !ctx.isFromGuild()) {
             IGuildOnlyCommand goc = (IGuildOnlyCommand) c;
             if (!ctx.isElevated() || goc.guildOnlyAppliesToAdmins()) {
-                ctx.guildOnly("This command is not available in DMs.");
+                ctx.guildOnly(ctx.getLang().i18n("command.meta.noDMs"));
                 return false;
             }
         }
-        return processPermissions(c, ctx);
+        return processPerms(c, ctx);
     }
 
-    private boolean processPermissions(Command c, CommandContext ctx) {
+    private boolean processPerms(Command c, CommandContext ctx) {
         if (ctx.isFromGuild()) {
-            return processBotPermissions(c, ctx);
+            return processBotPerms(c, ctx);
         }
         return processCooldown(c, ctx);
     }
-    private boolean processBotPermissions(Command c, CommandContext ctx) {
+    private boolean processBotPerms(Command c, CommandContext ctx) {
+        Lang lang = ctx.getLang();
         if (!ctx.botHasPermission(Permission.MESSAGE_EMBED_LINKS)) {
-            ctx.noBotPermissions("I need Embed Links permissions to use commands!");
+            ctx.noBotPermissions(lang.i18n("command.meta.missingEmbedLinks"));
             return false;
         }
-        EnumSet<Permission> rbp = c.getBotPermissions();
-        if (!ctx.botHasPermission(rbp)) {
-            Member sm = ctx.getE().getGuild().getSelfMember();
-            TextChannel tc = ctx.getE().getTextChannel();
-            String missingPermissions = getMissingPermissionString(sm, tc, rbp);
-            String errMsg = String.format("I am missing the %s permissions.", missingPermissions);
+
+        EnumSet<Permission> requiredBotPerms = c.getBotPermissions();
+        if (!ctx.botHasPermission(requiredBotPerms)) {
+
+            EnumSet<Permission> currentBotPerms = getCurrentBotPerms(ctx);
+            Set<Permission> missingPerms = Sets.difference(requiredBotPerms, currentBotPerms);
+            String missingPermsStr = getMissingPermissionString(ctx, missingPerms);
+            // Size included to determine if "permission" is plural
+            String errMsg = lang.i18nf("command.meta.missingBotPermissions",
+                    missingPermsStr, missingPerms.size());
             ctx.noBotPermissions(errMsg);
             return false;
+
         }
-        return processUserPermissions(c, ctx);
+        return processUserPerms(c, ctx);
     }
-    private boolean processUserPermissions(Command c, CommandContext ctx) {
+    private static EnumSet<Permission> getCurrentBotPerms(CommandContext ctx) {
+        MessageReceivedEvent e = ctx.getE();
+        return e.getGuild().getSelfMember().getPermissions(e.getTextChannel());
+    }
+    private boolean processUserPerms(Command c, CommandContext ctx) {
         if (!ctx.isElevated()) {
-            EnumSet<Permission> rup = c.getUserPermissions();
-            if (!ctx.userHasPermission(rup)) {
-                Member mem = Objects.requireNonNull(ctx.getE().getMember());
-                TextChannel tc = ctx.getE().getTextChannel();
-                String missingPermissions = getMissingPermissionString(mem, tc, rup);
-                String errMsg = String.format("You are missing the %s permissions.", missingPermissions);
+            EnumSet<Permission> requiredUserPerms = c.getUserPermissions();
+            if (!ctx.userHasPermission(requiredUserPerms)) {
+
+                EnumSet<Permission> currentUserPerms = getCurrentUserPerms(ctx);
+                Set<Permission> missingPerms = Sets.difference(requiredUserPerms, currentUserPerms);
+                String missingPermsStr = getMissingPermissionString(ctx, requiredUserPerms);
+                Lang lang = ctx.getLang();
+                // Size included to determine if "permission" is plural
+                String errMsg = lang.i18nf("command.meta.missingUserPermissions",
+                        missingPermsStr, missingPerms.size());
                 ctx.noUserPermissions(errMsg);
                 return false;
+
             }
         }
         return processMultiLines(c, ctx);
     }
-    // Mutates permissions collection! Only use when done
-    private static String getMissingPermissionString(Member m, TextChannel tc, Collection<Permission> permissions) {
-        permissions.removeAll(m.getPermissions(tc));
-        return permissions.stream()
-                .map(Permission::getName)
+    private static EnumSet<Permission> getCurrentUserPerms(CommandContext ctx) {
+        MessageReceivedEvent e = ctx.getE();
+        return Objects.requireNonNull(e.getMember()).getPermissions(e.getTextChannel());
+    }
+    private static String getMissingPermissionString(CommandContext ctx, Collection<Permission> missingPerms) {
+        Lang lang = ctx.getLang();
+        return missingPerms.stream()
+                .map(lang::localize)
+                .map(MarkdownUtil::bold)
                 .collect(Collectors.joining(", "));
     }
 
@@ -103,7 +127,7 @@ public class CommandVerifier {
         if (!(c instanceof IMultiLineCommand)) {
             for (String arg : ctx.getArgs()) {
                 if (arg.contains("\n") || arg.contains("\r")) {
-                    ctx.warn("This command must be on one line.");
+                    ctx.warn(ctx.getLang().i18n("command.meta.oneLine"));
                     return false;
                 }
             }
@@ -115,15 +139,21 @@ public class CommandVerifier {
         if (!exe.shouldSkipCooldown(ctx)) {
             long cooldown = exe.getCooldown(c);
             if (cooldown > 0) {
-                long uid = ctx.getUserId();
-                long lastExecutedTime = exe.getLastExecutedTime(c, uid);
-                long msLeft = cooldown + lastExecutedTime - System.currentTimeMillis();
-                if (msLeft > 0) {
-                    String cooldownMsg = String.format("Wait `%.3f` more seconds.", (double) msLeft/1000);
-                    ctx.sendResult(Result.COOLDOWN, cooldownMsg);
-                    return false;
-                }
+                return checkCooldown(c, ctx, cooldown);
             }
+        }
+        return true;
+    }
+    private boolean checkCooldown(Command c, CommandContext ctx, long cooldown) {
+        long uid = ctx.getUserId();
+        long lastExecutedTime = exe.getLastExecutedTime(c, uid);
+        long msLeft = cooldown + lastExecutedTime - System.currentTimeMillis();
+        if (msLeft > 0) {
+            Lang lang = ctx.getLang();
+            String cooldownSeconds = TimeUtils.formatMillisAsSeconds(msLeft, lang.getLocale());
+            String cooldownMsg = lang.i18nf("command.meta.onCooldown", MarkdownUtil.monospace(cooldownSeconds));
+            ctx.sendResult(Result.COOLDOWN, cooldownMsg);
+            return false;
         }
         return true;
     }

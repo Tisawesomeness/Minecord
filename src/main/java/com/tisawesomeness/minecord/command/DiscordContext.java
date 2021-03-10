@@ -131,13 +131,13 @@ public class DiscordContext extends CommandContext {
 
     @Override
     public String toString() {
-        String argsStr = getArgs().length == 0 ? "" : " " + joinArgs();
+        String argsStr = args.length == 0 ? "" : " " + joinArgs();
         String cmdStr = String.format("'%s%s'", cmd, argsStr);
         return new StringJoiner("\n  ", DiscordContext.class.getSimpleName() + "{", "\n}")
                 .add(cmdStr)
                 .add("e=#" + e.getResponseNumber())
                 .add("elevated=" + isElevated)
-                .add("config=" + config.hashCode()) // Listing all fields of config would take too long
+                .add("config=" + config.hashCode()) // Listing all fields of config would be too long
                 .add("prefix=`" + prefix + "`")
                 .add("lang=" + lang)
                 .toString();

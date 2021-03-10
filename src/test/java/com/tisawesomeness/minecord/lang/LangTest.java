@@ -155,7 +155,6 @@ public class LangTest {
     public void testParseIntOverflow() {
         for (Lang lang : Lang.values()) {
             assertThat(lang.parseInt("2147483648")).hasValue(Integer.MAX_VALUE);
-            assertThat(lang.parseInt("2147483648")).hasValue(Integer.MAX_VALUE);
         }
     }
     @Test
