@@ -2,13 +2,11 @@ package com.tisawesomeness.minecord.config;
 
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.util.IOUtils;
-import com.tisawesomeness.minecord.util.RequestUtils;
 import com.tisawesomeness.minecord.util.type.Verification;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;

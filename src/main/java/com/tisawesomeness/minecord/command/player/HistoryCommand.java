@@ -1,9 +1,12 @@
 package com.tisawesomeness.minecord.command.player;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.mc.player.*;
-import com.tisawesomeness.minecord.util.*;
+import com.tisawesomeness.minecord.mc.player.Player;
+import com.tisawesomeness.minecord.mc.player.RenderType;
+import com.tisawesomeness.minecord.util.ColorUtils;
+import com.tisawesomeness.minecord.util.DiscordUtils;
+import com.tisawesomeness.minecord.util.StringUtils;
+import com.tisawesomeness.minecord.util.TimeUtils;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +14,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
 import java.awt.Color;
-import java.util.*;
+import java.util.List;
 
 @Slf4j
 public class HistoryCommand extends BasePlayerCommand {

@@ -1,28 +1,20 @@
 package com.tisawesomeness.minecord.listen;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.lang.Lang;
-import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.CommandExecutor;
-import com.tisawesomeness.minecord.command.CommandRegistry;
-import com.tisawesomeness.minecord.command.DiscordContext;
+import com.tisawesomeness.minecord.command.*;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.config.serial.FlagConfig;
 import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.database.dao.CommandStats;
 import com.tisawesomeness.minecord.database.dao.DbUser;
+import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.setting.SettingRegistry;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import lombok.Getter;
 import lombok.NonNull;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.ChannelType;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.SelfUser;
-import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 

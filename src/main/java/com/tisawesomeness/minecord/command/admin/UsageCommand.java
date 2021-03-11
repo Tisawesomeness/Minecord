@@ -1,8 +1,7 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.command.*;
-import com.tisawesomeness.minecord.command.Category;
+import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.util.DateUtils;
 
 import com.google.common.collect.EnumMultiset;

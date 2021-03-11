@@ -3,7 +3,6 @@ package com.tisawesomeness.minecord.command.player;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.config.ConfigReader;
-import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.mc.player.Render;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.mc.player.Username;

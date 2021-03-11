@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.command.core;
 
-import com.tisawesomeness.minecord.command.Category;
 import com.tisawesomeness.minecord.command.*;
 import com.tisawesomeness.minecord.lang.Lang;
 

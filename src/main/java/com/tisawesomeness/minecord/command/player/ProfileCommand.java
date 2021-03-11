@@ -1,8 +1,7 @@
 package com.tisawesomeness.minecord.command.player;
 
-import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.*;
@@ -15,7 +14,9 @@ import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import java.awt.Color;
 import java.net.URL;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 public class ProfileCommand extends BasePlayerCommand {

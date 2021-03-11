@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.command.player;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.RenderType;

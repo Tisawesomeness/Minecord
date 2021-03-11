@@ -3,7 +3,7 @@ package com.tisawesomeness.minecord.command.player;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.IHiddenCommand;
 import com.tisawesomeness.minecord.lang.Lang;
-import com.tisawesomeness.minecord.mc.player.*;
+import com.tisawesomeness.minecord.mc.player.RenderType;
 
 import lombok.NonNull;
 

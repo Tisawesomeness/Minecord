@@ -1,8 +1,8 @@
 package com.tisawesomeness.minecord.setting.impl;
 
-import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.config.serial.SettingsConfig;
 import com.tisawesomeness.minecord.database.dao.SettingContainer;
+import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.setting.Setting;
 import com.tisawesomeness.minecord.util.type.Validation;
 

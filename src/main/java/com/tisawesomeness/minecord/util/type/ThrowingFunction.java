@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.util.type;
 
 import lombok.SneakyThrows;
 
-import java.sql.SQLException;
 import java.util.function.Function;
 
 /**

@@ -1,8 +1,8 @@
 package com.tisawesomeness.minecord.command;
 
-import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.config.serial.CommandConfig;
 import com.tisawesomeness.minecord.config.serial.CommandOverride;
+import com.tisawesomeness.minecord.lang.Lang;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;

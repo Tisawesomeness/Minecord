@@ -2,8 +2,8 @@ package com.tisawesomeness.minecord.command;
 
 import com.tisawesomeness.minecord.command.admin.*;
 import com.tisawesomeness.minecord.command.config.*;
-import com.tisawesomeness.minecord.command.discord.*;
 import com.tisawesomeness.minecord.command.core.*;
+import com.tisawesomeness.minecord.command.discord.*;
 import com.tisawesomeness.minecord.command.player.*;
 import com.tisawesomeness.minecord.command.utility.*;
 import com.tisawesomeness.minecord.lang.Lang;

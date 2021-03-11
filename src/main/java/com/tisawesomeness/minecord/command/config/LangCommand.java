@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command.config;
 
-import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.setting.parse.SmartSetParser;
 import com.tisawesomeness.minecord.util.BooleanUtils;
 
