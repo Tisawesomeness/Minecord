@@ -58,7 +58,7 @@ dependencies {
 }
 
 group = 'com.tisawesomeness'
-version = '1.0.0-ALPHA-2'
+version = '1.0.0-ALPHA-3'
 sourceCompatibility = '1.8'
 
 import org.apache.tools.ant.filters.ReplaceTokens
