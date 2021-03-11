@@ -148,7 +148,7 @@ public class RenderCommand extends AbstractPlayerCommand {
         String[] args = ctx.getArgs();
 
         if (currentArg + 2 < args.length) {
-            return Either.left(lang.i18nf("command.meta.upToArgs", playerArgIndex + 3));
+            return Either.left(lang.i18nf("command.meta.upToArgs", ctx.formatCommandName(), playerArgIndex + 3));
         }
 
         int scale = type.getDefaultScale();

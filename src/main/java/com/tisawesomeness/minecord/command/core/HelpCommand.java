@@ -105,7 +105,7 @@ public class HelpCommand extends AbstractCoreCommand implements IMultiNameComman
             }
             String mHelp = cmds.stream()
                     .filter(c -> !(c instanceof IHiddenCommand))
-                    .map(c -> c.formatCommandName(ctx))
+                    .map(ctx::formatCommandName)
                     .collect(Collectors.joining(", "));
             eb.addField(lang.localize(cat), mHelp, false);
         }

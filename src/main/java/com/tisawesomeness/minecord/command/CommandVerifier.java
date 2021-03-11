@@ -33,7 +33,7 @@ public class CommandVerifier {
         if (c.isEnabled(ctx.getConfig().getCommandConfig()) || shouldBypassDisabled(c, ctx)) {
             return processElevation(c, ctx);
         }
-        ctx.warn(ctx.getLang().i18n("command.meta.disabled"));
+        ctx.warn(ctx.getLang().i18nf("command.meta.disabled", ctx.formatCommandName()));
         return false;
     }
     private static boolean shouldBypassDisabled(Command c, CommandContext ctx) {
@@ -44,7 +44,7 @@ public class CommandVerifier {
 
     private boolean processElevation(Command c, CommandContext ctx) {
         if (c instanceof IElevatedCommand && !ctx.isElevated()) {
-            ctx.notElevated(ctx.getLang().i18n("command.meta.notBotAdmin"));
+            ctx.notElevated(ctx.getLang().i18nf("command.meta.notBotAdmin", ctx.formatCommandName()));
             return false;
         }
         return processGuildOnly(c, ctx);
@@ -53,7 +53,7 @@ public class CommandVerifier {
         if (c instanceof IGuildOnlyCommand && !ctx.isFromGuild()) {
             IGuildOnlyCommand goc = (IGuildOnlyCommand) c;
             if (!ctx.isElevated() || goc.guildOnlyAppliesToAdmins()) {
-                ctx.guildOnly(ctx.getLang().i18n("command.meta.noDMs"));
+                ctx.guildOnly(ctx.getLang().i18nf("command.meta.noDMs", ctx.formatCommandName()));
                 return false;
             }
         }
@@ -127,7 +127,7 @@ public class CommandVerifier {
         if (!(c instanceof IMultiLineCommand)) {
             for (String arg : ctx.getArgs()) {
                 if (arg.contains("\n") || arg.contains("\r")) {
-                    ctx.warn(ctx.getLang().i18n("command.meta.oneLine"));
+                    ctx.warn(ctx.getLang().i18nf("command.meta.oneLine", ctx.formatCommandName()));
                     return false;
                 }
             }

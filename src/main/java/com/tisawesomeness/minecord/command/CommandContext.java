@@ -273,6 +273,25 @@ public abstract class CommandContext {
     public abstract boolean botHasPermission(Collection<Permission> permissions);
 
     /**
+     * Formats the executing command to "&name" according to the current prefix and lang.
+     * @return The equivalent of "&name"
+     */
+    public @NonNull String formatCommandName() {
+        return formatCommandName(getCmd());
+    }
+    /**
+     * Formats a command to "&name" according to the current prefix and lang.
+     * @param c A command
+     * @return The equivalent of "&name"
+     */
+    public @NonNull String formatCommandName(@NonNull Command c) {
+        if (c.isEnabled(getConfig().getCommandConfig())) {
+            return String.format("`%s%s`", getPrefix(), c.getDisplayName(getLang()));
+        }
+        return String.format("~~`%s%s`~~", getPrefix(), c.getDisplayName(getLang()));
+    }
+
+    /**
      * Equivalent to {@code String.join(" ", ctx.getArgs())}
      * @return All arguments as a single string
      */

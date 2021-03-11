@@ -62,6 +62,7 @@ public class Config {
                 verifyShards(),
                 presenceConfig.verify(),
                 settingsConfig.verify(),
+                cacheConfig.verify(),
                 botListConfig.verify(),
                 commandConfig.verify()
         );
