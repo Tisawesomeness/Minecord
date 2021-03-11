@@ -1,5 +1,7 @@
 package com.tisawesomeness.minecord.mc.player;
 
+import com.tisawesomeness.minecord.config.serial.CacheConfig;
+import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.config.serial.FlagConfig;
 import com.tisawesomeness.minecord.mc.external.ElectroidAPI;
 import com.tisawesomeness.minecord.mc.external.ElectroidAPIImpl;
@@ -35,20 +37,26 @@ public class DualPlayerProvider implements PlayerProvider {
     /**
      * Creates a new PlayerProvider
      * @param client The API client to use for HTTP requests
-     * @param flagConfig The flag config determines whether to record cache stats
+     * @param config The configuration to use for caching
      */
-    public DualPlayerProvider(APIClient client, FlagConfig flagConfig) {
+    public DualPlayerProvider(APIClient client, Config config) {
+        FlagConfig flagConfig = config.getFlagConfig();
+        CacheConfig cacheConfig = config.getCacheConfig();
+
         mojangAPI = new MojangAPIImpl(client);
         electroidAPI = new ElectroidAPIImpl(client);
         useElectroidAPI = flagConfig.isUseElectroidAPI();
 
-        Caffeine<Object, Object> builder = Caffeine.newBuilder()
-                .expireAfterWrite(1, TimeUnit.MINUTES);
+        Caffeine<Object, Object> uuidBuilder = Caffeine.newBuilder()
+                .expireAfterWrite(cacheConfig.getMojangUuidLifetime(), TimeUnit.SECONDS);
+        Caffeine<Object, Object> playerBuilder = Caffeine.newBuilder()
+                .expireAfterWrite(cacheConfig.getMojangPlayerLifetime(), TimeUnit.SECONDS);
         if (flagConfig.isDebugMode()) {
-            builder.recordStats();
+            uuidBuilder.recordStats();
+            playerBuilder.recordStats();
         }
-        uuidCache = builder.buildAsync(this::loadUUID);
-        playerCache = builder.buildAsync(this::loadPlayer);
+        uuidCache = uuidBuilder.buildAsync(this::loadUUID);
+        playerCache = playerBuilder.buildAsync(this::loadPlayer);
     }
 
     private Optional<UUID> loadUUID(Username username) throws IOException {

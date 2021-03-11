@@ -118,6 +118,12 @@ flags:
   # If false, only the Mojang API will be used
   useElectroidAPI: true
 
+cache:
+  # The amount of time in seconds a Username-->UUID mapping is kept in the cache, minimum 60 seconds
+  mojangUuidLifetime: 60
+  # The amount of time in seconds a UUID-->Player mapping is kept in the cache, minimum 60 seconds
+  mojangPlayerLifetime: 60
+
 # Do not post a self-hosted version of Minecord to a bot list
 botLists:
   sendServerCount: false

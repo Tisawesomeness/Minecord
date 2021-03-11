@@ -17,7 +17,7 @@ public class StandardMCLibrary implements MCLibrary {
     @Getter private final @NonNull PlayerProvider playerProvider;
     public StandardMCLibrary(@NonNull APIClient client, @NonNull Config config) {
         this.client = client;
-        playerProvider = new DualPlayerProvider(client, config.getFlagConfig());
+        playerProvider = new DualPlayerProvider(client, config);
     }
 
 }

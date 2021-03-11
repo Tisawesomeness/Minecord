@@ -42,6 +42,8 @@ public class Config {
     SettingsConfig settingsConfig;
     @JsonProperty("flags")
     FlagConfig flagConfig;
+    @JsonProperty("cache")
+    CacheConfig cacheConfig;
     @JsonProperty("botLists")
     BotListConfig botListConfig;
     @JsonProperty("database")
