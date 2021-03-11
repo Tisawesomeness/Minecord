@@ -157,7 +157,7 @@ public class GeneralRenderCommandIT {
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasNotTriggeredCooldown()
-                .resultIs(Result.WARNING);
+                .resultIs(Result.INVALID_ARGS);
     }
     @Test
     @DisplayName("Render command warns for invalid args")
@@ -166,7 +166,7 @@ public class GeneralRenderCommandIT {
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasNotTriggeredCooldown()
-                .resultIs(Result.WARNING);
+                .resultIs(Result.INVALID_ARGS);
     }
     @Test
     @DisplayName("Render command warns for invalid render type")
@@ -175,7 +175,7 @@ public class GeneralRenderCommandIT {
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasNotTriggeredCooldown()
-                .resultIs(Result.WARNING);
+                .resultIs(Result.INVALID_ARGS);
     }
 
 }

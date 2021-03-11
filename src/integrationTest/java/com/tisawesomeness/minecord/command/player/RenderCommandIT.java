@@ -173,7 +173,7 @@ public class RenderCommandIT {
         assertThat(runners.get(type).run(args))
                 .awaitResult()
                 .hasNotTriggeredCooldown()
-                .resultIs(Result.WARNING);
+                .resultIs(Result.INVALID_ARGS);
     }
     @ParameterizedTest
     @EnumSource
@@ -183,7 +183,7 @@ public class RenderCommandIT {
         assertThat(runners.get(type).run(args))
                 .awaitResult()
                 .hasNotTriggeredCooldown()
-                .resultIs(Result.WARNING);
+                .resultIs(Result.INVALID_ARGS);
     }
 
 }

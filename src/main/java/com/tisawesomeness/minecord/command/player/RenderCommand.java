@@ -74,7 +74,7 @@ public class RenderCommand extends AbstractPlayerCommand {
         int argsUsed = username.argsUsed() + playerArgIndex;
         Either<String, ImpersonalRender> errorOrRender = parseRenderFromArgs(ctx, type, argsUsed, playerArgIndex);
         if (!errorOrRender.isRight()) {
-            ctx.warn(errorOrRender.getLeft());
+            ctx.invalidArgs(errorOrRender.getLeft());
             return;
         }
         ImpersonalRender irender = errorOrRender.getRight();
@@ -92,7 +92,7 @@ public class RenderCommand extends AbstractPlayerCommand {
         int argsUsed = playerArgIndex + 1;
         Either<String, ImpersonalRender> errorOrRender = parseRenderFromArgs(ctx, type, argsUsed, playerArgIndex);
         if (!errorOrRender.isRight()) {
-            ctx.warn(errorOrRender.getLeft());
+            ctx.invalidArgs(errorOrRender.getLeft());
             return;
         }
         ImpersonalRender irender = errorOrRender.getRight();
@@ -190,14 +190,14 @@ public class RenderCommand extends AbstractPlayerCommand {
             // If reached, all attempts to process arguments failed
             return Either.left(lang.i18nf("command.meta.invalidBoolOrNumber", arg));
         }
-        return Either.right(new ImpersonalRender(type, scale, overlay));
+        return Either.right(new ImpersonalRender(type, overlay, scale));
     }
 
     private static void processUuid(CommandContext ctx, Optional<UUID> uuidOpt,
                                     Username username, ImpersonalRender irender) {
         if (uuidOpt.isPresent()) {
             UUID uuid = uuidOpt.get();
-            Render render = completeRender(uuid, irender);
+            Render render = irender.completeWith(uuid);
             sendRenderEmbed(ctx, username, render);
             return;
         }
@@ -206,14 +206,11 @@ public class RenderCommand extends AbstractPlayerCommand {
     private static void processPlayer(CommandContext ctx, Optional<Player> playerOpt, ImpersonalRender irender) {
         if (playerOpt.isPresent()) {
             Player player = playerOpt.get();
-            Render render = completeRender(player.getUuid(), irender);
+            Render render = irender.completeWith(player.getUuid());
             sendRenderEmbed(ctx, player.getUsername(), render);
             return;
         }
         ctx.reply(ctx.getLang().i18n("mc.player.uuid.doesNotExist"));
-    }
-    private static Render completeRender(UUID uuid, ImpersonalRender irender) {
-        return new Render(uuid, irender.type, irender.overlay, irender.scale);
     }
 
     private static void sendRenderEmbed(CommandContext ctx, Username username, Render render) {
@@ -235,8 +232,12 @@ public class RenderCommand extends AbstractPlayerCommand {
     @Value
     private static class ImpersonalRender {
         RenderType type;
-        int scale;
         boolean overlay;
+        int scale;
+
+        public Render completeWith(UUID uuid) {
+            return new Render(uuid, type, overlay, scale);
+        }
     }
 
 }

@@ -43,7 +43,7 @@ public class HelpCommand extends AbstractCoreCommand implements IMultiNameComman
             ctx.triggerCooldown();
             Category cat = categoryOpt.get();
             if (cat.isHidden() && !ctx.isElevated()) {
-                ctx.warn(ctx.i18n("noCategoryPerms"));
+                ctx.noUserPermissions(ctx.i18n("noCategoryPerms"));
                 return;
             }
             categoryHelp(ctx, cat);
@@ -57,7 +57,7 @@ public class HelpCommand extends AbstractCoreCommand implements IMultiNameComman
             Command c = cmdOpt.get();
             // Elevation check
             if (c instanceof IElevatedCommand && !ctx.isElevated()) {
-                ctx.warn(ctx.i18n("noCommandPerms"));
+                ctx.notElevated(ctx.i18n("noCommandPerms"));
                 return;
             }
             // Admin check

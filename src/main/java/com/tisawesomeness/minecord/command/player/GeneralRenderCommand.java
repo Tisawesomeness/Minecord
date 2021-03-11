@@ -29,7 +29,7 @@ public class GeneralRenderCommand extends AbstractPlayerCommand implements IHidd
 
         Optional<RenderType> typeOpt = from(args[0], ctx.getLang());
         if (!typeOpt.isPresent()) {
-            ctx.warn(ctx.i18n("invalidRenderType"));
+            ctx.invalidArgs(ctx.i18n("invalidRenderType"));
             return;
         }
         RenderType type = typeOpt.get();
