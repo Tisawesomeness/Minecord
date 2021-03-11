@@ -6,7 +6,7 @@ import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.debug.*;
 import com.tisawesomeness.minecord.debug.cache.*;
-import com.tisawesomeness.minecord.mc.player.PlayerProvider;
+import com.tisawesomeness.minecord.mc.external.PlayerProvider;
 import com.tisawesomeness.minecord.util.ListUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
@@ -92,7 +92,7 @@ public class DebugCommand extends AbstractAdminCommand {
     }
 
     private static void printToConsole(String debugInfo, User author) {
-        String requestedBy = String.format("Requested By %s (%s)\n", author.getAsTag(), author.getId());
+        String requestedBy = String.format("Requested By %s (%s)%n", author.getAsTag(), author.getId());
         System.out.println("\n" + requestedBy + MarkdownSanitizer.sanitize(debugInfo) + "\n");
     }
 }

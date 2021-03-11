@@ -10,7 +10,6 @@ import com.tisawesomeness.minecord.testutil.mc.TestPlayerProvider;
 import com.tisawesomeness.minecord.testutil.runner.TestCommandRunner;
 import com.tisawesomeness.minecord.util.IOUtils;
 import com.tisawesomeness.minecord.util.ListUtils;
-import com.tisawesomeness.minecord.util.RequestUtils;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -52,12 +51,12 @@ public class HistoryCommandIT {
         playerProvider.throwOnUsername(THROWING_USERNAME);
         playerProvider.throwOnUuid(THROWING_UUID);
 
-        Player shortHistoryPlayer = new Player(SHORT_HISTORY_UUID, SHORT_HISTORY_NAME, SHORT_HISTORY, DUMMY_PROFILE);
+        Player shortHistoryPlayer = new Player(SHORT_HISTORY_UUID, SHORT_HISTORY, DUMMY_PROFILE);
         playerProvider.mapUuid(SHORT_HISTORY_NAME, SHORT_HISTORY_UUID);
         playerProvider.mapPlayer(SHORT_HISTORY_UUID, shortHistoryPlayer);
 
         longHistory = getLongHistory();
-        Player longHistoryPlayer = new Player(LONG_HISTORY_UUID, LONG_HISTORY_NAME, longHistory, DUMMY_PROFILE);
+        Player longHistoryPlayer = new Player(LONG_HISTORY_UUID, longHistory, DUMMY_PROFILE);
         playerProvider.mapUuid(LONG_HISTORY_NAME, LONG_HISTORY_UUID);
         playerProvider.mapPlayer(LONG_HISTORY_UUID, longHistoryPlayer);
 

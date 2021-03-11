@@ -1,4 +1,7 @@
-package com.tisawesomeness.minecord.mc.player;
+package com.tisawesomeness.minecord.mc.external;
+
+import com.tisawesomeness.minecord.mc.player.Player;
+import com.tisawesomeness.minecord.mc.player.Username;
 
 import lombok.NonNull;
 

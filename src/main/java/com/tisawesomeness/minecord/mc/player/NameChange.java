@@ -21,7 +21,7 @@ import java.util.Optional;
  */
 @Value
 public class NameChange implements Comparable<NameChange> {
-    private static final Comparator<NameChange> comparator = initComparator();
+    private static final Comparator<NameChange> COMPARATOR = initComparator();
 
     /**
      * The username the player was <b>changed to</b>.
@@ -78,7 +78,7 @@ public class NameChange implements Comparable<NameChange> {
      * or greater than the other name change respectively
      */
     public int compareTo(@NonNull NameChange other) {
-        return comparator.compare(this, other);
+        return COMPARATOR.compare(this, other);
     }
 
     @Override

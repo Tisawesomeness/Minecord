@@ -24,7 +24,7 @@ public class PlayerTestUtils {
         List<NameChange> history = Collections.singletonList(NameChange.original(name));
         // skin type does not matter if both URLs are null
         Profile profile = new Profile(false, false, SkinType.STEVE, null, null);
-        return new Player(uuid, name, history, profile);
+        return new Player(uuid, history, profile);
     }
 
     public static Player initPlayerWithSkinType(UUID uuid, SkinType skinType) {
@@ -33,7 +33,7 @@ public class PlayerTestUtils {
     public static Player initPlayerWithSkinType(UUID uuid, Username name, SkinType skinType) {
         List<NameChange> history = Collections.singletonList(NameChange.original(name));
         Profile profile = new Profile(false, false, skinType, CUSTOM_SKIN_URL, null);
-        return new Player(uuid, name, history, profile);
+        return new Player(uuid, history, profile);
     }
 
     public static Player initPlayerWithDefaultSkinUrl(UUID uuid, SkinType skinType) {
@@ -43,7 +43,7 @@ public class PlayerTestUtils {
         List<NameChange> history = Collections.singletonList(NameChange.original(name));
         URL skinUrl = skinType == SkinType.STEVE ? Player.STEVE_SKIN_URL : Player.ALEX_SKIN_URL;
         Profile profile = new Profile(false, false, skinType, skinUrl, null);
-        return new Player(uuid, name, history, profile);
+        return new Player(uuid, history, profile);
     }
 
 }

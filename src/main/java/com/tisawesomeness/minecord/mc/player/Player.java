@@ -8,15 +8,16 @@ import lombok.Value;
 
 import javax.annotation.Nullable;
 import java.net.URL;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.time.Instant;
+import java.util.*;
 
 /**
  * Represents a single Minecraft player identified by a unique UUID.
+ * <br>Note: this class has a natural ordering that is inconsistent with equals.
  */
 @Value
 public class Player implements Comparable<Player> {
+    private static final Comparator<Player> COMPARATOR = initComparator();
 
     public static final URL STEVE_SKIN_URL = URLUtils.createUrl("https://textures.minecraft.net/texture/" +
             "1a4af718455d4aab528e7a61f86fa25e6a369d1768dcb13f7df319a713eb810b");
@@ -32,10 +33,6 @@ public class Player implements Comparable<Player> {
      */
     @NonNull UUID uuid;
     /**
-     * The player's current username
-     */
-    @NonNull Username username;
-    /**
      * A non-empty list of name changes, sorted from latest to earliest, including the original name
      */
     List<NameChange> nameHistory;
@@ -43,6 +40,31 @@ public class Player implements Comparable<Player> {
      * Contains additional profile information about the player
      */
     @NonNull Profile profile;
+    /**
+     * The time this player was requested
+     */
+    @NonNull Instant requestTime;
+
+    /**
+     * Creates a new player representation.
+     * @param uuid The unique ID of the player
+     * @param nameHistory A list of name changes, <b>assumed to be sorted</b> according to the natural ordering
+     *                    (see the {@link NameChange} docs)
+     * @param profile Additional information about the player
+     */
+    public Player(@NonNull UUID uuid, List<NameChange> nameHistory, @NonNull Profile profile) {
+        this.uuid = uuid;
+        this.nameHistory = Collections.unmodifiableList(nameHistory);
+        this.profile = profile;
+        requestTime = Instant.now();
+    }
+
+    /**
+     * @return The player's current username
+     */
+    public @NonNull Username getUsername() {
+        return nameHistory.get(0).getUsername();
+    }
 
     /**
      * @return The skin type of the player's current skin
@@ -118,7 +140,7 @@ public class Player implements Comparable<Player> {
      * @return A link to the player's Optifine cape image, may not actually exist
      */
     public @NonNull URL getOptifineCapeUrl() {
-        String encodedName = URLUtils.encode(username.toString());
+        String encodedName = URLUtils.encode(getUsername().toString());
         return URLUtils.createUrl(String.format("http://s.optifine.net/capes/%s.png", encodedName));
     }
 
@@ -126,7 +148,7 @@ public class Player implements Comparable<Player> {
      * @return A link to the player's NameMC profile
      */
     public @NonNull URL getNameMCUrl() {
-        return getNameMCUrlFor(username);
+        return getNameMCUrlFor(getUsername());
     }
     /**
      * @param username The username of the player
@@ -155,7 +177,7 @@ public class Player implements Comparable<Player> {
      * @return If the player is upside down as an easter egg
      */
     public boolean isUpsideDown() {
-        return isUpsideDown(username);
+        return isUpsideDown(getUsername());
     }
     /**
      * @return If the player is upside down as an easter egg
@@ -167,7 +189,7 @@ public class Player implements Comparable<Player> {
      * @return If the player makes sheep rainbow colored as an easter egg
      */
     public boolean isRainbow() {
-        return isRainbow(username);
+        return isRainbow(getUsername());
     }
     /**
      * @return If the player makes sheep rainbow colored as an easter egg
@@ -177,13 +199,13 @@ public class Player implements Comparable<Player> {
     }
 
     /**
-     * Compares this player to another alphabetically by username
+     * Compares this player to another alphabetically by username, then by UUID, then by request time
      * @param other The other player to compare to
      * @return -1, 0, or 1 if this player is less than, equal to,
      * or greater than the other player respectively
      */
     public int compareTo(@NonNull Player other) {
-        return username.compareTo(other.username);
+        return COMPARATOR.compare(this, other);
     }
 
     /**
@@ -210,7 +232,13 @@ public class Player implements Comparable<Player> {
 
     @Override
     public @NonNull String toString() {
-        return "P:" + UUIDUtils.toShortString(uuid);
+        return "P:" + UUIDUtils.toShortString(uuid) + "@" + requestTime.toEpochMilli();
+    }
+
+    private static Comparator<Player> initComparator() {
+        return Comparator.comparing(Player::getUsername)
+                .thenComparing(Player::getUuid)
+                .thenComparing(Player::getRequestTime);
     }
 
 }

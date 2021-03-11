@@ -72,10 +72,9 @@ public abstract class ElectroidAPI {
         }
         UUID uuid = uuidOpt.get();
 
-        Username username = new Username(obj.getString("username"));
         List<NameChange> history = parseNameHistory(obj.getJSONArray("username_history"));
         Profile profile = parseProfile(obj);
-        return Optional.of(new Player(uuid, username, history, profile));
+        return Optional.of(new Player(uuid, history, profile));
     }
     private static List<NameChange> parseNameHistory(JSONArray json) {
         List<NameChange> nameHistoryList = new ArrayList<>();

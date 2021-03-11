@@ -50,12 +50,12 @@ public class ProfileCommandIT {
         playerProvider.throwOnUsername(THROWING_USERNAME);
         playerProvider.throwOnUuid(THROWING_UUID);
 
-        Player shortHistoryPlayer = new Player(SHORT_HISTORY_UUID, SHORT_HISTORY_NAME, SHORT_HISTORY, DUMMY_PROFILE);
+        Player shortHistoryPlayer = new Player(SHORT_HISTORY_UUID, SHORT_HISTORY, DUMMY_PROFILE);
         playerProvider.mapUuid(SHORT_HISTORY_NAME, SHORT_HISTORY_UUID);
         playerProvider.mapPlayer(SHORT_HISTORY_UUID, shortHistoryPlayer);
 
         longHistory = getLongHistory();
-        Player longHistoryPlayer = new Player(LONG_HISTORY_UUID, LONG_HISTORY_NAME, longHistory, DUMMY_PROFILE);
+        Player longHistoryPlayer = new Player(LONG_HISTORY_UUID, longHistory, DUMMY_PROFILE);
         playerProvider.mapUuid(LONG_HISTORY_NAME, LONG_HISTORY_UUID);
         playerProvider.mapPlayer(LONG_HISTORY_UUID, longHistoryPlayer);
 

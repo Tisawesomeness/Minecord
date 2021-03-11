@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.mc;
 
-import com.tisawesomeness.minecord.mc.player.PlayerProvider;
+import com.tisawesomeness.minecord.mc.external.PlayerProvider;
 import com.tisawesomeness.minecord.network.APIClient;
 
 import lombok.NonNull;

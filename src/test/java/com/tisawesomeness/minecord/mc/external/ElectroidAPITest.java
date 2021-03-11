@@ -12,7 +12,9 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -21,7 +23,6 @@ public class ElectroidAPITest {
 
     private static final Player TESTING_PLAYER = new Player(
             UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3af"),
-            new Username("Tis_awesomeness"),
             ListUtils.of(
                     NameChange.withTimestamp(new Username("Tis_awesomeness"), 1438695830000L),
                     NameChange.original(new Username("tis_awesomeness"))
@@ -48,6 +49,7 @@ public class ElectroidAPITest {
         assertThat(api.getPlayer(username).orElse(null))
                 .isNotNull()
                 .usingRecursiveComparison()
+                .ignoringFields("requestTime")
                 .isEqualTo(TESTING_PLAYER);
     }
 
@@ -74,6 +76,7 @@ public class ElectroidAPITest {
         assertThat(api.getPlayer(uuid).orElse(null))
                 .isNotNull()
                 .usingRecursiveComparison()
+                .ignoringFields("requestTime")
                 .isEqualTo(TESTING_PLAYER);
     }
 

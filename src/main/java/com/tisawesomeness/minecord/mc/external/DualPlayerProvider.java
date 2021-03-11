@@ -1,12 +1,12 @@
-package com.tisawesomeness.minecord.mc.player;
+package com.tisawesomeness.minecord.mc.external;
 
 import com.tisawesomeness.minecord.config.serial.CacheConfig;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.config.serial.FlagConfig;
-import com.tisawesomeness.minecord.mc.external.ElectroidAPI;
-import com.tisawesomeness.minecord.mc.external.ElectroidAPIImpl;
-import com.tisawesomeness.minecord.mc.external.MojangAPI;
-import com.tisawesomeness.minecord.mc.external.MojangAPIImpl;
+import com.tisawesomeness.minecord.mc.player.NameChange;
+import com.tisawesomeness.minecord.mc.player.Player;
+import com.tisawesomeness.minecord.mc.player.Profile;
+import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.network.APIClient;
 
 import com.github.benmanes.caffeine.cache.AsyncLoadingCache;
@@ -98,14 +98,13 @@ public class DualPlayerProvider implements PlayerProvider {
         if (nameHistory.isEmpty()) {
             return Optional.empty();
         }
-        Username username = nameHistory.get(0).getUsername();
         Optional<Profile> profileOpt = mojangAPI.getProfile(uuid);
         if (!profileOpt.isPresent()) {
             log.warn("Mojang API name history succeeded but profile failed. Check for a format change.");
             return Optional.empty();
         }
         Profile profile = profileOpt.get();
-        return Optional.of(new Player(uuid, username, nameHistory, profile));
+        return Optional.of(new Player(uuid, nameHistory, profile));
     }
 
     public CompletableFuture<Optional<UUID>> getUUID(@NonNull Username username) {

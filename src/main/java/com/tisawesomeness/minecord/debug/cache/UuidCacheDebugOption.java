@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.debug.cache;
 
-import com.tisawesomeness.minecord.mc.player.DualPlayerProvider;
-import com.tisawesomeness.minecord.mc.player.PlayerProvider;
+import com.tisawesomeness.minecord.mc.external.DualPlayerProvider;
+import com.tisawesomeness.minecord.mc.external.PlayerProvider;
 
 import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import lombok.NonNull;
