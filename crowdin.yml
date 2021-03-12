@@ -1,3 +1,3 @@
 files:
-  - source: /**/resources/lang_en_US.properties
-    translation: /**/resources/lang_%locale_with_underscore%.properties
+  - source: /**/resources/lang/lang.properties
+    translation: /**/resources/lang/lang_%locale_with_underscore%.properties
