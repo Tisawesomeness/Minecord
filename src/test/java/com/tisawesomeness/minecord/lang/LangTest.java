@@ -49,6 +49,23 @@ public class LangTest {
         }
     }
 
+    @Test
+    @DisplayName("Booleans without a format can be displayed")
+    public void testDisplayBool() {
+        Lang lang = Lang.getDefault();
+        assertThat(lang.displayBool(true)).isNotEmpty();
+        assertThat(lang.displayBool(false)).isNotEmpty();
+    }
+
+    @ParameterizedTest(name = "{index} ==> Boolean format ''{0}'' has a value for true and false")
+    @EnumSource
+    @DisplayName("All boolean formats can be displayed")
+    public void testDisplayBool(BoolFormat format) {
+        Lang lang = Lang.getDefault();
+        assertThat(lang.displayBool(true, format)).isNotEmpty();
+        assertThat(lang.displayBool(false, format)).isNotEmpty();
+    }
+
     @ParameterizedTest(name = "{index} ==> {0} equals() is true for two identical strings")
     @EnumSource
     @DisplayName("equals() is true for identical strings")
