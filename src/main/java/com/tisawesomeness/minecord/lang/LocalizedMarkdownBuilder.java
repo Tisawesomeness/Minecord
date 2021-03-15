@@ -7,6 +7,7 @@ import com.tisawesomeness.minecord.util.discord.SimpleMarkdownAction;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -31,12 +32,14 @@ import java.util.stream.Collectors;
  *     same character, {@link MarkdownAction#comparingByPriority()} is used to resolve conflicts. For example,
  *     bold will always be applied outside monospace text when they both start on the same character.
  * </p>
+ * @implNote This class is NOT thread-safe
  * @see MarkdownAction
  */
 public class LocalizedMarkdownBuilder {
     private final @NonNull MessageFormat mf;
     private final Object[] args;
     private final List<List<PotentialAction>> table;
+    private int size;
 
     /**
      * Creates a new builder.
@@ -282,10 +285,12 @@ public class LocalizedMarkdownBuilder {
         }
         if (fields.length == 0) {
             table.get(index).add(new PotentialAction(null, action));
+            size++;
         }
         for (Format.Field field : fields) {
             if (field instanceof NumberFormat.Field || field instanceof DateFormat.Field) {
                 table.get(index).add(new PotentialAction(field, action));
+                size++;
             }
         }
         return this;
@@ -297,6 +302,12 @@ public class LocalizedMarkdownBuilder {
     public int getArgsLength() {
         return args.length;
     }
+    /**
+     * @return The number of arg + field combinations for this builder
+     */
+    public int size() {
+        return size;
+    }
 
     /**
      * Builds a localized string from this builder's MessageFormat and the provided markdown.
@@ -304,9 +315,70 @@ public class LocalizedMarkdownBuilder {
      * @return A localized string with all markdown applied
      */
     public @NonNull String build() {
-        if (table.stream().allMatch(List::isEmpty)) {
+        if (size == 0) {
             return mf.format(args);
         }
+        if (size == 1) {
+            return buildNoConflicts();
+        }
+        return buildWithConflicts();
+    }
+
+    // A simpler and more efficient way to apply markdown when we don't need to worry about conflicts
+    // Assumes size == 1
+    private String buildNoConflicts() {
+        AttributedCharacterIterator iter = mf.formatToCharacterIterator(args);
+        IndexedPotentialAction potentialAction = getPotentialAction();
+        StringBuilder mainString = new StringBuilder();
+        StringBuilder markdownString = new StringBuilder();
+
+        boolean currentlyProcessingMarkdown = false;
+        char ch = iter.first();
+        StringBuilder currentRun = mainString;
+        while (ch != AttributedCharacterIterator.DONE) {
+
+            // If we just finished processing markdown
+            if (currentlyProcessingMarkdown) {
+                if (!potentialAction.satisfies(iter)) {
+                    // Add it to the main string
+                    currentlyProcessingMarkdown = false;
+                    String formatted = potentialAction.apply(markdownString.toString());
+                    mainString.append(formatted);
+                    currentRun = mainString;
+                }
+            // swap to processing markdown if needed
+            } else if (potentialAction.satisfies(iter)) {
+                currentlyProcessingMarkdown = true;
+                currentRun = markdownString;
+            }
+
+            // appending the text
+            int runLength = iter.getRunLimit() - iter.getRunStart();
+            for (int i = 0; i < runLength; i++) {
+                currentRun.append(ch);
+                ch = iter.next();
+            }
+        }
+
+        // if the MessageFormat ends with a parameter, add the unprocessed markdown to the main string
+        if (currentlyProcessingMarkdown) {
+            String formatted = potentialAction.apply(markdownString.toString());
+            mainString.append(formatted);
+        }
+        return mainString.toString();
+    }
+    // Assumes size == 1
+    private IndexedPotentialAction getPotentialAction() {
+        for (int i = 0; i < args.length; i++) {
+            List<PotentialAction> actions = table.get(i);
+            if (!actions.isEmpty()) {
+                return new IndexedPotentialAction(actions.get(0), i);
+            }
+        }
+        throw new AssertionError("No potential actions found but size == 1!");
+    }
+
+    public String buildWithConflicts() {
         AttributedCharacterIterator iter = mf.formatToCharacterIterator(args);
 
         // root StringBuilder used when stack is empty
@@ -320,16 +392,7 @@ public class LocalizedMarkdownBuilder {
         Set<MarkdownAction> activeActions = markdownOrderedSet();
         char ch = iter.first();
 
-        while (true) {
-            if (ch == AttributedCharacterIterator.DONE) {
-                // if the MessageFormat ends with a parameter, the stack may still have unfinished markdown
-                // in that case, keep on collapsing until everything is added to sb
-                while (!markdownStack.isEmpty()) {
-                    collapseOneLevel(sb, markdownStack, currentRuns);
-                }
-                return sb.toString();
-            }
-
+        while (ch != AttributedCharacterIterator.DONE) {
             Set<MarkdownAction> currentActions = getCurrentActions(iter);
             // runs that were active but now are not must be removed in LIFO order
             int numFinishedActions = activeActions.size() - currentActions.size();
@@ -355,6 +418,13 @@ public class LocalizedMarkdownBuilder {
                 ch = iter.next();
             }
         }
+
+        // if the MessageFormat ends with a parameter, the stack may still have unfinished markdown
+        // in that case, keep on collapsing until everything is added to sb
+        while (!markdownStack.isEmpty()) {
+            collapseOneLevel(sb, markdownStack, currentRuns);
+        }
+        return sb.toString();
     }
     private static void collapseOneLevel(StringBuilder sb, Deque<? extends MarkdownAction> markdownStack,
                                          Map<MarkdownAction, StringBuilder> currentRuns) {
@@ -373,7 +443,7 @@ public class LocalizedMarkdownBuilder {
         }
         return table.get(arg).stream()
                 .filter(potentialAction -> potentialAction.satisfies(iter))
-                .map(potentialAction -> potentialAction.action)
+                .map(PotentialAction::getAction)
                 .collect(Collectors.toCollection(() -> currentElements));
     }
 
@@ -385,10 +455,31 @@ public class LocalizedMarkdownBuilder {
     @RequiredArgsConstructor
     private static class PotentialAction {
         private final @Nullable Format.Field field;
-        private final MarkdownAction action;
+        @Getter private final MarkdownAction action;
 
         public boolean satisfies(AttributedCharacterIterator iter) {
             return field == null || iter.getAttribute(field) != null;
+        }
+        public @NonNull String apply(@NonNull String text) {
+            return action.apply(text);
+        }
+    }
+
+    @ToString
+    @RequiredArgsConstructor
+    private static class IndexedPotentialAction {
+        private final @NonNull PotentialAction potentialAction;
+        private final int arg;
+
+        public boolean satisfies(AttributedCharacterIterator iter) {
+            Integer arg = (Integer) iter.getAttribute(MessageFormat.Field.ARGUMENT);
+            if (arg == null) {
+                return false;
+            }
+            return this.arg == arg && potentialAction.satisfies(iter);
+        }
+        public @NonNull String apply(@NonNull String text) {
+            return potentialAction.apply(text);
         }
     }
 

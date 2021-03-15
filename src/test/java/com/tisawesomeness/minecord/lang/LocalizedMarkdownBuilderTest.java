@@ -73,6 +73,18 @@ public class LocalizedMarkdownBuilderTest {
         assertThat(actual).isEqualTo(candidate.apply(arg));
     }
 
+    @ParameterizedTest(name = "{index} ==> Action {0} is applied correctly when extra text is at the end")
+    @DisplayName("Adding markdown works")
+    @MethodSource("actionProvider")
+    public void testMarkdownWithEnd(MarkdownAction candidate) {
+        String arg = "123";
+        MessageFormat mf = new MessageFormat("{0} test");
+        String actual = new LocalizedMarkdownBuilder(mf, arg)
+                .apply(0, candidate)
+                .build();
+        assertThat(actual).isEqualTo(candidate.apply(arg) + " test");
+    }
+
     @Test
     @DisplayName("Builder resolves conflicting bold and monospace markdown")
     public void testConflictingMarkdown() {
