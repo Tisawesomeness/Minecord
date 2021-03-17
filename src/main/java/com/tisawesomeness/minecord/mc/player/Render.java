@@ -17,6 +17,7 @@ public class Render {
     RenderType type;
     boolean overlay;
     int scale;
+    int providedScale;
 
     /**
      * Creates a render.
@@ -43,6 +44,7 @@ public class Render {
         this.type = type;
         this.overlay = overlay;
         this.scale = Math.min(scale, type.getMaxScale());
+        providedScale = scale;
     }
 
     /**

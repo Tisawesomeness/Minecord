@@ -227,7 +227,7 @@ public class RenderCommand extends AbstractPlayerCommand {
                 .setTitle(lang.i18nf("mc.player.render.title", renderName, username))
                 .setImage(render.render().toString())
                 .setColor(color);
-        if (render.getScale() > type.getMaxScale()) {
+        if (render.getProvidedScale() > type.getMaxScale()) {
             eb.setDescription(lang.i18nf("mc.player.render.scaleOverflow", type.getMaxScale()));
         }
         ctx.replyRaw(eb);
