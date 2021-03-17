@@ -4,6 +4,7 @@ import com.tisawesomeness.minecord.config.serial.CommandConfig;
 import com.tisawesomeness.minecord.config.serial.CommandOverride;
 import com.tisawesomeness.minecord.lang.Lang;
 
+import com.google.common.collect.Streams;
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -11,6 +12,7 @@ import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Represents a command. Documentation refers to commands as the ID prefixed by {@code &}.
@@ -313,9 +315,15 @@ public abstract class Command {
         return "";
     }
     private String joinAliases(Lang lang) {
-        return getAliases(lang).stream()
+        return getAliasesStream(lang)
                 .map(MarkdownUtil::monospace)
                 .collect(Collectors.joining(", "));
+    }
+    private Stream<String> getAliasesStream(Lang lang) {
+        if (lang.equals(getId(), getDisplayName(lang))) {
+            return getAliases(lang).stream();
+        }
+        return Streams.concat(getAliases(lang).stream(), Stream.of(getId()));
     }
     private static String joinPerms(Collection<Permission> permissions, Lang lang) {
         return permissions.stream()
