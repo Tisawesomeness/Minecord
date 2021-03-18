@@ -6,6 +6,11 @@ plugins {
     id 'org.unbroken-dome.test-sets' version '3.0.1'
 }
 
+group = 'com.tisawesomeness'
+version = '1.0.0-ALPHA-3'
+sourceCompatibility = '1.8'
+def jdaVersion = '4.2.0_231'
+
 repositories {
     mavenLocal()
     maven {
@@ -22,8 +27,6 @@ repositories {
 testSets {
     integrationTest
 }
-
-def jdaVersion = '4.2.0_231'
 
 dependencies {
     // JDA with no audio
@@ -57,9 +60,12 @@ dependencies {
     integrationTestImplementation sourceSets.test.output
 }
 
-group = 'com.tisawesomeness'
-version = '1.0.0-ALPHA-3'
-sourceCompatibility = '1.8'
+tasks.withType(Test) {
+    useJUnitPlatform()
+}
+
+check.dependsOn integrationTest
+integrationTest.mustRunAfter test
 
 import org.apache.tools.ant.filters.ReplaceTokens
 
@@ -70,10 +76,6 @@ processResources {
                 "jdaVersion": jdaVersion
         ]
     }
-}
-
-tasks.withType(Test) {
-    useJUnitPlatform()
 }
 
 jar {
