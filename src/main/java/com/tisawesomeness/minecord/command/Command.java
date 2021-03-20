@@ -22,6 +22,11 @@ import java.util.stream.Stream;
 public abstract class Command {
 
     /**
+     * The maximum length for command names.
+     */
+    public static final int MAX_NAME_LENGTH = 32;
+
+    /**
      * Gets the ID of this command, used internally.
      * <br>Typing this ID as the command name will always work, no matter the language.
      * <br><b>Must be constant and unique for every {@link CommandRegistry}!</b>

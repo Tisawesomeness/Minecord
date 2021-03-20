@@ -7,27 +7,32 @@ import com.tisawesomeness.minecord.command.discord.*;
 import com.tisawesomeness.minecord.command.player.*;
 import com.tisawesomeness.minecord.command.utility.*;
 import com.tisawesomeness.minecord.lang.Lang;
+import com.tisawesomeness.minecord.lang.LangSpecificKey;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 
-import com.google.common.collect.*;
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.MultimapBuilder;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
- * The list of all commands the bot knows.
+ * A registry of all active commands, their inputs, and categories.
  */
+@Slf4j
 public class CommandRegistry implements Iterable<Command> {
 
+    private static final String CONFLICT_WARNING = "Input conflict detected for %s, %s will be overwritten with %s, " +
+            "check the lang files!";
+
     private final Multimap<Category, Command> categoryToCommandsMap;
-    private final Table<Lang, String, Command> commandTable;
+    private final Map<LangSpecificKey, Command> commandInputMap;
 
     /**
-     * Adds every category to the registry and maps the possible aliases to the command to execute.
+     * Adds every commands to the registry and maps the possible aliases to the command to execute.
      */
     public CommandRegistry() {
 
@@ -113,7 +118,7 @@ public class CommandRegistry implements Iterable<Command> {
         };
 
         categoryToCommandsMap = buildCategoryToCommandsMap(commands);
-        commandTable = buildCommandTable();
+        commandInputMap = buildCommandInputMap();
     }
 
     private static Multimap<Category, Command> buildCategoryToCommandsMap(Command[] commands) {
@@ -123,29 +128,45 @@ public class CommandRegistry implements Iterable<Command> {
         }
         return ImmutableMultimap.copyOf(mm);
     }
-    private Table<Lang, String, Command> buildCommandTable() {
-        Table<Lang, String, Command> table = HashBasedTable.create();
+    private Map<LangSpecificKey, Command> buildCommandInputMap() {
+        Map<LangSpecificKey, Command> map = new HashMap<>();
         for (Command c : this) {
-            registerNameAndAliases(table, c);
-        }
-        return ImmutableTable.copyOf(table);
-    }
-    private static void registerNameAndAliases(Table<Lang, String, Command> table, Command c) {
-        for (Lang lang : Lang.values()) {
-            Collection<String> possibleInputs = new HashSet<>();
-            possibleInputs.add(c.getId());
-            if (c instanceof IMultiNameCommand) {
-                for (Lang lang2 : Lang.values()) {
-                    possibleInputs.add(c.getDisplayName(lang2));
+            for (LangSpecificKey key : getInputs(c)) {
+                if (map.containsKey(key)) {
+                    Command overwritten = map.get(key);
+                    log.warn(String.format(CONFLICT_WARNING, key, overwritten, c));
                 }
-            } else {
-                possibleInputs.add(c.getDisplayName(lang));
-            }
-            possibleInputs.addAll(c.getAliases(lang));
-            for (String input : possibleInputs) {
-                table.put(lang, input, c);
+                map.put(key, c);
             }
         }
+        return Collections.unmodifiableMap(map);
+    }
+    private static Set<LangSpecificKey> getInputs(Command c) {
+        Set<LangSpecificKey> possibleInputs = new HashSet<>();
+        for (Lang lang : Lang.values()) {
+            for (String input : getLangSpecificInputs(c, lang)) {
+                if (input.isEmpty() || input.length() > Command.MAX_NAME_LENGTH) {
+                    log.warn(String.format("Not adding input `%s` for %s, length must be from 1-%d but was %d",
+                            input, c, Command.MAX_NAME_LENGTH, input.length()));
+                } else {
+                    possibleInputs.add(new LangSpecificKey(input, lang));
+                }
+            }
+        }
+        return possibleInputs;
+    }
+    private static Set<String> getLangSpecificInputs(Command c, Lang lang) {
+        Set<String> langSpecificInputs = new HashSet<>();
+        langSpecificInputs.add(c.getId());
+        if (c instanceof IMultiNameCommand) {
+            for (Lang otherLang : Lang.values()) {
+                langSpecificInputs.add(c.getDisplayName(otherLang));
+            }
+        } else {
+            langSpecificInputs.add(c.getDisplayName(lang));
+        }
+        langSpecificInputs.addAll(c.getAliases(lang));
+        return langSpecificInputs;
     }
 
     /**
@@ -155,7 +176,10 @@ public class CommandRegistry implements Iterable<Command> {
      * @return The command which should be executed, or empty if there is no command associated with the input.
      */
     public Optional<Command> getCommand(String name, Lang lang) {
-        return Optional.ofNullable(commandTable.get(lang, name));
+        if (name.isEmpty() || name.length() > Command.MAX_NAME_LENGTH) {
+            return Optional.empty();
+        }
+        return Optional.ofNullable(commandInputMap.get(new LangSpecificKey(name, lang)));
     }
     /**
      * Gets all registered commands that are in the given category.
