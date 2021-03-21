@@ -43,12 +43,15 @@ public class LangSpecificKey {
      */
     @Override
     public boolean equals(Object o) {
-        if (o instanceof LangSpecificKey) {
-            LangSpecificKey other = (LangSpecificKey) o;
-            // since the strings are normalized, no need for lang-specific equals
-            return lang == other.lang && normalized.equals(other.normalized);
+        if (o == this) {
+            return true;
         }
-        return false;
+        if (!(o instanceof LangSpecificKey)) {
+            return false;
+        }
+        LangSpecificKey other = (LangSpecificKey) o;
+        // since the strings are normalized, no need for lang-specific equals
+        return lang == other.lang && normalized.equals(other.normalized);
     }
     /**
      * Two keys are equal if they have the same normalized string and same language.

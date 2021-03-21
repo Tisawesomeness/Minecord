@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.util.type;
 
-import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
@@ -16,7 +15,6 @@ import java.util.function.Function;
  * @param <R> The type of the right value
  */
 @RequiredArgsConstructor
-@EqualsAndHashCode
 public final class Either<L, R> {
     private final @Nullable L left;
     private final @Nullable R right;
@@ -114,6 +112,29 @@ public final class Either<L, R> {
         return leftMapper.apply(left);
     }
 
+    @Override
+    public boolean equals(final Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Either)) {
+            return false;
+        }
+        Either<?, ?> other = (Either<?, ?>) o;
+        if (isRight()) {
+            return other.isRight() && right.equals(other.right);
+        }
+        return !other.isRight() && left.equals(other.left);
+    }
+    @Override
+    public int hashCode() {
+        // LSB is 1 for left, 0 for right
+        if (isRight()) {
+            return right.hashCode() << 1;
+        }
+        return left.hashCode() << 1 + 1;
+    }
+
     /**
      * Displays whether this Either is a Left or a Right and its corresponding value.
      * <br>Uses each value's {@link Object#toString()} method.
@@ -122,4 +143,5 @@ public final class Either<L, R> {
     public String toString() {
         return fold(l -> String.format("Left{%s}", l), r -> String.format("Right{%s}", r));
     }
+
 }

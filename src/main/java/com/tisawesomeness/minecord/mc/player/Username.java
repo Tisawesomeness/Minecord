@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.mc.player;
 
 import com.google.common.base.CharMatcher;
-import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 
 import java.util.regex.Pattern;
@@ -20,7 +19,6 @@ import java.util.regex.Pattern;
  *     the name, even if someone tries to change their name to it.
  * </p>
  */
-@EqualsAndHashCode
 public class Username implements CharSequence, Comparable<Username> {
 
     private static final Pattern VALID_USERNAME_PATTERN = Pattern.compile("^[0-9A-Za-z_]{3,16}$");
@@ -132,6 +130,22 @@ public class Username implements CharSequence, Comparable<Username> {
      */
     public int compareTo(@NonNull Username other) {
         return name.compareTo(other.name);
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Username)) {
+            return false;
+        }
+        Username other = (Username) o;
+        return name.equals(other.name);
+    }
+    @Override
+    public int hashCode() {
+        return name.hashCode();
     }
 
     /**

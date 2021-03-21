@@ -210,16 +210,19 @@ public class Player implements Comparable<Player> {
 
     /**
      * Checks if this object is equal to another by comparing the UUID
-     * @param other The other object to compare to
+     * @param o The other object to compare to
      * @return True only if this object is equal to the other object
      */
     @Override
-    public boolean equals(@Nullable Object other) {
-        if (other instanceof Player) {
-            Player otherPlayer = (Player) other;
-            return uuid.equals(otherPlayer.uuid);
+    public boolean equals(@Nullable Object o) {
+        if (o == this) {
+            return true;
         }
-        return false;
+        if (!(o instanceof Player)) {
+            return false;
+        }
+        Player otherPlayer = (Player) o;
+        return uuid.equals(otherPlayer.uuid);
     }
     /**
      * @return The hash code of the player's UUID

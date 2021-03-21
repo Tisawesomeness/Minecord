@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.util.type;
 
 import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
@@ -21,7 +20,6 @@ import java.util.function.Function;
  * @see Verification
  */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-@EqualsAndHashCode
 public final class Validation<T> {
     private final @Nullable T value;
     private final Verification verification;
@@ -157,6 +155,28 @@ public final class Validation<T> {
         return propogateError(this);
     }
 
+    @Override
+    public boolean equals(final Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Validation)) {
+            return false;
+        }
+        Validation<?> other = (Validation<?>) o;
+        if (isValid()) {
+            return other.isValid() && verification.equals(other.verification);
+        }
+        return !other.isValid();
+    }
+    @Override
+    public int hashCode() {
+        if (isValid()) {
+            return 31 * value.hashCode() + verification.hashCode();
+        }
+        return 0;
+    }
+
     /**
      * Displays either the value or all error messages of this Validation, depending on the result of {@link #isValid()}.
      * <br>Uses {@link #getValue()}.{@link Object#toString() toString()} if valid.
@@ -168,4 +188,5 @@ public final class Validation<T> {
         }
         return String.format("Invalid{%s}", getErrors());
     }
+
 }

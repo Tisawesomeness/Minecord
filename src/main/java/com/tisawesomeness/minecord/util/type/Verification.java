@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.util.type;
 
 import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
@@ -16,7 +15,6 @@ import java.util.List;
  * <br>See {@link Verification} for a version of this class that also contains a value when valid.
  */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-@EqualsAndHashCode
 public final class Verification {
     private final static Verification VALID = new Verification(Collections.emptyList());
     private final List<String> errors; // Must be immutable
@@ -96,7 +94,24 @@ public final class Verification {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Verification)) {
+            return false;
+        }
+        Verification other = (Verification) o;
+        return errors.equals(other.errors);
+    }
+    @Override
+    public int hashCode() {
+        return errors.hashCode();
+    }
+
+    @Override
     public String toString() {
         return "Verification" + errors;
     }
+
 }
