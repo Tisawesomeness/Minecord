@@ -4,18 +4,17 @@ import com.tisawesomeness.minecord.config.serial.CommandConfig;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.config.serial.FlagConfig;
 import com.tisawesomeness.minecord.database.dao.CommandStats;
+import com.tisawesomeness.minecord.util.type.EnumMultiSet;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.stats.CacheStats;
-import com.google.common.base.Functions;
-import com.google.common.collect.ConcurrentHashMultiset;
-import com.google.common.collect.EnumMultiset;
-import com.google.common.collect.Multiset;
-import com.google.common.collect.Multisets;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.MultiSet;
+import org.apache.commons.collections4.MultiSetUtils;
+import org.apache.commons.collections4.multiset.HashMultiSet;
 import org.jetbrains.annotations.TestOnly;
 
 import java.sql.SQLException;
@@ -37,9 +36,9 @@ public class CommandExecutor {
     @Getter private final CommandStats commandStats;
     private final CommandVerifier commandVerifier;
     private final Map<String, Cache<Long, Long>> cooldownMap;
-    private final Map<Command, Multiset<Result>> results;
-    private final Multiset<Command> commandUses = ConcurrentHashMultiset.create();
-    private final Multiset<String> unpushedUses = ConcurrentHashMultiset.create();
+    private final Map<Command, MultiSet<Result>> results;
+    private final MultiSet<Command> commandUses = MultiSetUtils.synchronizedMultiSet(new HashMultiSet<>());
+    private final MultiSet<String> unpushedUses = MultiSetUtils.synchronizedMultiSet(new HashMultiSet<>());
 
     /**
      * Creates a new command executor, initializing a cache for each command.
@@ -62,13 +61,13 @@ public class CommandExecutor {
                 .map(c -> c.getCooldownId(cc))
                 .distinct()
                 .collect(Collectors.toMap(
-                        Functions.identity(),
+                        Function.identity(),
                         s -> builder.build()
                 ));
         results = cr.stream()
                 .collect(Collectors.toMap(
                         Function.identity(),
-                        c -> EnumMultiset.create(Result.class)
+                        c -> new EnumMultiSet<>(Result.class)
                 ));
     }
 
@@ -144,7 +143,7 @@ public class CommandExecutor {
      * @return A non-negative integer
      */
     public int getUses(@NonNull Command c) {
-        return commandUses.count(c);
+        return commandUses.getCount(c);
     }
     /**
      * Gets the number of times any command in a category has been used.
@@ -152,10 +151,12 @@ public class CommandExecutor {
      * @return A non-negative integer
      */
     public int getUses(@NonNull Category cat) {
-        return commandUses.stream()
-                .filter(cm -> cm.getCategory() == cat)
-                .mapToInt(this::getUses)
-                .sum();
+        synchronized (commandUses) {
+            return commandUses.entrySet().stream()
+                    .filter(en -> en.getElement().getCategory() == cat)
+                    .mapToInt(MultiSet.Entry::getCount)
+                    .sum();
+        }
     }
     /**
      * Gets the number of times any command has been used.
@@ -170,8 +171,8 @@ public class CommandExecutor {
      * @param c The command
      * @return A Multiset where the size is equal to the number of command results (NOT executions)
      */
-    public Multiset<Result> getResults(@NonNull Command c) {
-        return Multisets.unmodifiableMultiset(results.get(c));
+    public MultiSet<Result> getResults(@NonNull Command c) {
+        return MultiSetUtils.unmodifiableMultiSet(results.get(c));
     }
 
     /**
@@ -180,7 +181,7 @@ public class CommandExecutor {
      * @param result The result to record
      */
     public void pushResult(@NonNull Command c, Result result) {
-        Multiset<Result> resultsMultiset = results.get(c);
+        MultiSet<Result> resultsMultiset = results.get(c);
         if (resultsMultiset != null) {
             resultsMultiset.add(result);
         }
@@ -190,9 +191,13 @@ public class CommandExecutor {
      * Records all command uses since the last push to the database.
      */
     public void pushUses() {
-        try {
-            commandStats.pushCommandUses(unpushedUses);
+        MultiSet<String> copy;
+        synchronized (unpushedUses) {
+            copy = new HashMultiSet<>(unpushedUses);
             unpushedUses.clear();
+        }
+        try {
+            commandStats.pushCommandUses(copy);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

@@ -2,11 +2,11 @@ package com.tisawesomeness.minecord.database.dao;
 
 import com.tisawesomeness.minecord.database.Database;
 
-import com.google.common.collect.HashMultiset;
-import com.google.common.collect.ImmutableMultiset;
-import com.google.common.collect.Multiset;
 import lombok.Cleanup;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.MultiSet;
+import org.apache.commons.collections4.MultiSetUtils;
+import org.apache.commons.collections4.multiset.HashMultiSet;
 
 import java.sql.*;
 
@@ -26,26 +26,26 @@ public class CommandStatsImpl implements CommandStats {
 
     private final Database db;
 
-    public Multiset<String> getCommandUses() throws SQLException {
+    public MultiSet<String> getCommandUses() throws SQLException {
         @Cleanup Connection connect = db.getConnect();
         @Cleanup Statement st = connect.createStatement();
         ResultSet rs = st.executeQuery(
                 "SELECT * FROM command;"
         );
-        Multiset<String> commandUses = HashMultiset.create();
+        MultiSet<String> commandUses = new HashMultiSet<>();
         while (rs.next()) {
             commandUses.add(rs.getString("id"), rs.getInt("uses"));
         }
-        return ImmutableMultiset.copyOf(commandUses);
+        return MultiSetUtils.unmodifiableMultiSet(commandUses);
     }
 
-    public void pushCommandUses(Multiset<String> commandUses) throws SQLException {
+    public void pushCommandUses(MultiSet<String> commandUses) throws SQLException {
         @Cleanup Connection connect = db.getConnect();
         connect.setAutoCommit(false);
         @Cleanup PreparedStatement updateSt = connect.prepareStatement(UPDATE_SQL);
         @Cleanup PreparedStatement insertSt = connect.prepareStatement(INSERT_SQL);
         try {
-            for (Multiset.Entry<String> entry : commandUses.entrySet()) {
+            for (MultiSet.Entry<String> entry : commandUses.entrySet()) {
                 String id = entry.getElement();
                 int uses = entry.getCount();
                 updateSt.setInt(1, uses);

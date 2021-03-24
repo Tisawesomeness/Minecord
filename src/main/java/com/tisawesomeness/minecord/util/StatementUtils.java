@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.util;
 
-import com.google.common.base.Preconditions;
 import lombok.NonNull;
 
 import java.sql.PreparedStatement;
@@ -47,7 +46,9 @@ public final class StatementUtils {
      */
     public static void setOptionalString(
             @NonNull PreparedStatement st, int parameterIndex, Optional<String> value) throws SQLException {
-        Preconditions.checkArgument(parameterIndex > 0);
+        if (parameterIndex <= 0) {
+            throw new IllegalArgumentException("Parameter index must be positive but was " + parameterIndex);
+        }
         if (value.isPresent()) {
             st.setString(parameterIndex, value.get());
             return;
@@ -63,7 +64,9 @@ public final class StatementUtils {
      */
     public static void setOptionalBoolean(
             @NonNull PreparedStatement st, int parameterIndex, Optional<Boolean> value) throws SQLException {
-        Preconditions.checkArgument(parameterIndex > 0);
+        if (parameterIndex <= 0) {
+            throw new IllegalArgumentException("Parameter index must be positive but was " + parameterIndex);
+        }
         if (value.isPresent()) {
             st.setBoolean(parameterIndex, value.get());
             return;

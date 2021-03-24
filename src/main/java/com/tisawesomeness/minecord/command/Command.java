@@ -4,7 +4,6 @@ import com.tisawesomeness.minecord.config.serial.CommandConfig;
 import com.tisawesomeness.minecord.config.serial.CommandOverride;
 import com.tisawesomeness.minecord.lang.Lang;
 
-import com.google.common.collect.Streams;
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -328,7 +327,7 @@ public abstract class Command {
         if (lang.equals(getId(), getDisplayName(lang))) {
             return getAliases(lang).stream();
         }
-        return Streams.concat(getAliases(lang).stream(), Stream.of(getId()));
+        return Stream.concat(getAliases(lang).stream(), Stream.of(getId()));
     }
     private static String joinPerms(Collection<Permission> permissions, Lang lang) {
         return permissions.stream()

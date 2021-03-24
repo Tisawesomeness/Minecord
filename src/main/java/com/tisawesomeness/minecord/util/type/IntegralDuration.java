@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.util.type;
 
 import com.tisawesomeness.minecord.lang.Localizable;
 
-import com.google.common.base.Preconditions;
 import lombok.*;
 
 import java.time.Duration;
@@ -56,8 +55,10 @@ public class IntegralDuration implements Comparable<IntegralDuration>, Localizab
      * @throws IllegalArgumentException If the starting time unit comes after the ending time unit
      */
     public static IntegralDuration fromDuration(@NonNull Duration duration, ChronoUnit from, ChronoUnit to) {
-        Preconditions.checkArgument(from.compareTo(to) <= 0,
-                "The from unit %s was greater than the to unit %s", from, to);
+        if (from.compareTo(to) > 0) {
+            throw new IllegalArgumentException(
+                    String.format("The from unit %s was greater than the to unit %s", from, to));
+        }
         if (duration.isZero()) {
             return ZERO;
         }

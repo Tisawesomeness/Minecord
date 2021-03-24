@@ -1,13 +1,14 @@
 package com.tisawesomeness.minecord.debug;
 
-import com.google.common.collect.EnumMultiset;
-import com.google.common.collect.Multiset;
+import com.tisawesomeness.minecord.util.type.EnumMultiSet;
+
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.Region;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
+import org.apache.commons.collections4.MultiSet;
 
 import java.util.Comparator;
 import java.util.List;
@@ -25,20 +26,24 @@ public class RegionDebugOption implements DebugOption {
     public @NonNull String debug(@NonNull String extra) {
         List<Guild> guilds = shardManager.getGuilds();
         int total = guilds.size();
+        if (total == 0) {
+            return "no guilds";
+        }
         List<Region> regions = guilds.stream()
                 .map(Guild::getRegion)
                 .collect(Collectors.toList());
-        Multiset<Region> regionCounts = EnumMultiset.create(regions);
-        return regionCounts.elementSet().stream()
-                .sorted(Comparator.comparingInt(regionCounts::count))
-                .map(r -> printCount(regionCounts, r, total))
+        MultiSet<Region> regionCounts = new EnumMultiSet<>(regions);
+        return regionCounts.entrySet().stream()
+                .sorted(Comparator.comparingInt(MultiSet.Entry::getCount))
+                .map(en -> printCount(en, total))
                 .collect(Collectors.joining("\n"));
     }
 
-    private static @NonNull String printCount(Multiset<Region> regionCounts, Region r, int total) {
-        int count = regionCounts.count(r);
+    private static @NonNull String printCount(MultiSet.Entry<Region> regionEntry, int total) {
+        Region region = regionEntry.getElement();
+        int count = regionEntry.getCount();
         double rate = total == 0 ? 100.0 : 100.0 * count / total;
-        return String.format("%s | `%s` | `%.2f%%`", MarkdownUtil.bold(r.getName()), count, rate);
+        return String.format("%s | `%s` | `%.2f%%`", MarkdownUtil.bold(region.getName()), count, rate);
     }
 
 }

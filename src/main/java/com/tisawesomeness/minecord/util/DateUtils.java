@@ -1,7 +1,5 @@
 package com.tisawesomeness.minecord.util;
 
-import com.google.common.base.Preconditions;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -215,7 +213,9 @@ public final class DateUtils {
      * @return A string in the format "?d?h?m?s".
      */
     public static String getDurationString(long startTime, long endTime) {
-        Preconditions.checkArgument(startTime < endTime);
+        if (startTime >= endTime) {
+            throw new IllegalArgumentException("end time must be greater than start time");
+        }
         long duration = (endTime - startTime) / 1000;
         if (duration == 0) {
             return "0s";

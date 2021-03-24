@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.mc.player;
 
-import com.google.common.base.CharMatcher;
 import lombok.NonNull;
 
 import java.util.regex.Pattern;
@@ -22,10 +21,7 @@ import java.util.regex.Pattern;
 public class Username implements CharSequence, Comparable<Username> {
 
     private static final Pattern VALID_USERNAME_PATTERN = Pattern.compile("^[0-9A-Za-z_]{3,16}$");
-    private static final CharMatcher MOJANG_SUPPORTED_MATCHER = CharMatcher.inRange('0', '9')
-            .or(CharMatcher.inRange('A', 'Z'))
-            .or(CharMatcher.inRange('a', 'z'))
-            .or(CharMatcher.anyOf("_!@$()-:.? "));
+    private static final Pattern MOJANG_SUPPORTED_PATTERN = Pattern.compile("[0-9A-Za-z_!@$()\\-:.? ]+");
     private static final char QUOTE = '"';
     private static final char BACKTICK = '`';
 
@@ -58,7 +54,7 @@ public class Username implements CharSequence, Comparable<Username> {
      * @return A number greater than or equal to 1
      */
     public int argsUsed() {
-        return CharMatcher.is(' ').countIn(name) + 1;
+        return (int) name.chars().filter(c -> c == ' ').count() + 1;
     }
 
     /**
@@ -68,7 +64,7 @@ public class Username implements CharSequence, Comparable<Username> {
      * @return True only if the username contains only 1-{@link #MAX_LENGTH} approved characters, empty otherwise
      */
     public boolean isSupportedByMojangAPI() {
-        return !name.isEmpty() && name.length() <= MAX_LENGTH && MOJANG_SUPPORTED_MATCHER.matchesAllOf(name);
+        return !name.isEmpty() && name.length() <= MAX_LENGTH && MOJANG_SUPPORTED_PATTERN.matcher(name).matches();
     }
 
     public boolean contains(@NonNull CharSequence s) {

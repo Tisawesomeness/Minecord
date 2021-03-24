@@ -3,11 +3,11 @@ package com.tisawesomeness.minecord.command;
 import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.util.TimeUtils;
 
-import com.google.common.collect.Sets;
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
+import org.apache.commons.collections4.SetUtils;
 
 import java.util.Collection;
 import java.util.EnumSet;
@@ -77,7 +77,7 @@ public class CommandVerifier {
         if (!ctx.botHasPermission(requiredBotPerms)) {
 
             EnumSet<Permission> currentBotPerms = getCurrentBotPerms(ctx);
-            Set<Permission> missingPerms = Sets.difference(requiredBotPerms, currentBotPerms);
+            Set<Permission> missingPerms = SetUtils.difference(requiredBotPerms, currentBotPerms);
             String missingPermsStr = getMissingPermissionString(ctx, missingPerms);
             // Size included to determine if "permission" is plural
             String errMsg = lang.i18nf("command.meta.missingBotPermissions",
@@ -98,7 +98,7 @@ public class CommandVerifier {
             if (!ctx.userHasPermission(requiredUserPerms)) {
 
                 EnumSet<Permission> currentUserPerms = getCurrentUserPerms(ctx);
-                Set<Permission> missingPerms = Sets.difference(requiredUserPerms, currentUserPerms);
+                Set<Permission> missingPerms = SetUtils.difference(requiredUserPerms, currentUserPerms);
                 String missingPermsStr = getMissingPermissionString(ctx, requiredUserPerms);
                 Lang lang = ctx.getLang();
                 // Size included to determine if "permission" is plural

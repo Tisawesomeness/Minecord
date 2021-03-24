@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.util;
 
-import com.google.common.base.Preconditions;
 import lombok.NonNull;
 
 import java.util.Optional;
@@ -278,8 +277,9 @@ public final class UUIDUtils {
      * @return The UUID
      */
     public static @NonNull UUID fromIntArray(int[] arr) {
-        Preconditions.checkArgument(arr.length == 4,
-                String.format("Array length was %d, not 4", arr.length));
+        if (arr.length != 4) {
+            throw new IllegalArgumentException("Array length must be 4 but was " + arr.length);
+        }
         return fromInts(arr[0], arr[1], arr[2], arr[3]);
     }
     /**

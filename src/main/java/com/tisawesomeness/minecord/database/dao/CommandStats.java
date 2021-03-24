@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.database.dao;
 
-import com.google.common.collect.Multiset;
+import org.apache.commons.collections4.MultiSet;
 
 import java.sql.SQLException;
 
@@ -14,7 +14,7 @@ public interface CommandStats {
      * @return A Multiset of strings where each key is a command ID and its count is the number of uses
      * @throws SQLException When a database error occurs
      */
-    Multiset<String> getCommandUses() throws SQLException;
+    MultiSet<String> getCommandUses() throws SQLException;
 
     /**
      * Adds the provided uses to the running count in the database.
@@ -22,6 +22,6 @@ public interface CommandStats {
      * @param commandUses A Multiset of strings where each key is a command ID and its count is the number of uses
      * @throws SQLException When a database error occurs
      */
-    void pushCommandUses(Multiset<String> commandUses) throws SQLException;
+    void pushCommandUses(MultiSet<String> commandUses) throws SQLException;
 
 }

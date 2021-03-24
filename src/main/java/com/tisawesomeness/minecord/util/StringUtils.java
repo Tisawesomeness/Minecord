@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.util;
 
-import com.google.common.base.Preconditions;
 import lombok.NonNull;
 
 import javax.annotation.Nullable;
@@ -40,13 +39,17 @@ public final class StringUtils {
      * @throws IllegalArgumentException if the max length is negative
      * @throws NullPointerException if the list contains null
      */
-    public static List<String> partitionByLength(List<@NonNull String> strings, @NonNull String joiner, int maxLength) {
-        Preconditions.checkArgument(maxLength >= 0);
+    public static List<String> partitionByLength(List<String> strings, @NonNull String joiner, int maxLength) {
+        if (maxLength < 0) {
+            throw new IllegalArgumentException("Max length must be non-negative but was "+ maxLength);
+        }
         if (strings.isEmpty() || maxLength == 0) {
             return strings;
         }
         String startingStr = strings.get(0);
-        Preconditions.checkNotNull(startingStr);
+        if (startingStr == null) {
+            throw new NullPointerException("The first string in the input list cannot be null.");
+        }
         if (strings.size() == 1) {
             return strings;
         }
@@ -57,7 +60,9 @@ public final class StringUtils {
 
         for (int i = 1; i < strings.size(); i++) {
             String str = strings.get(i);
-            Preconditions.checkNotNull(str);
+            if (str == null) {
+                throw new NullPointerException("The string in index " + i + " in the input list cannot be null.");
+            }
 
             // only adds the current partition to the list when the next line won't fit
             int lengthIfLineAdded = currentPartition.length() + str.length() + joiner.length();

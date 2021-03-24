@@ -5,7 +5,6 @@ import com.tisawesomeness.minecord.database.dao.CommandStats;
 import com.tisawesomeness.minecord.database.dao.CommandStatsImpl;
 import com.tisawesomeness.minecord.util.IOUtils;
 
-import com.google.common.base.Splitter;
 import lombok.Cleanup;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -104,7 +103,7 @@ public class Database {
         String initScript = IOUtils.loadResource(resourceName);
         @Cleanup Connection connect = getConnect();
         @Cleanup Statement statement = connect.createStatement();
-        for (String query : Splitter.on(";").omitEmptyStrings().split(initScript)) {
+        for (String query : initScript.split(",")) {
             statement.executeUpdate(query);
         }
     }

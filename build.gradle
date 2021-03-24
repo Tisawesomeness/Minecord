@@ -30,13 +30,12 @@ testSets {
 
 dependencies {
     // JDA with no audio
+    // okhttp and apache-collections4 included
     implementation ("net.dv8tion:JDA:$jdaVersion") {
         exclude module: 'opus-java'
     }
     // Top.gg bot site API wrapper
     implementation 'com.github.DiscordBotList:Java-Wrapper:v1.0'
-    // All-purpose library
-    implementation 'com.google.guava:guava:29.0-jre'
     // Caching
     api 'com.github.ben-manes.caffeine:caffeine:2.8.5'
     // JSON library
@@ -48,7 +47,7 @@ dependencies {
     implementation 'org.xerial:sqlite-jdbc:3.34.0'
     // Used for MCServerPing
     implementation 'dnsjava:dnsjava:2.1.8'
-    implementation 'net.md-5:bungeecord-chat:1.12-SNAPSHOT'
+    implementation 'net.kyori:text-serializer-gson:3.0.4'
     // Command-line arguments
     implementation 'info.picocli:picocli:4.6.1'
     annotationProcessor 'info.picocli:picocli-codegen:4.6.1'

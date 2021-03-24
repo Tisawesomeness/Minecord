@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.testutil;
 
-import com.google.common.base.Preconditions;
 import lombok.NonNull;
 
 public class MiscTestUtils {
@@ -13,7 +12,9 @@ public class MiscTestUtils {
      * @throws IllegalArgumentException If {@code n} is negative
      */
     public static @NonNull String repeat(@NonNull String str, int n) {
-        Preconditions.checkArgument(n >= 0, "number of times to repeat must be non-negative");
+        if (n < 0) {
+            throw new IllegalArgumentException("Number of times to repeat must be non-negative, was " + n);
+        }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < n; i++) {
             sb.append(str);

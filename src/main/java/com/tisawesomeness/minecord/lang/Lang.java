@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.lang;
 
 import com.tisawesomeness.minecord.util.network.URLUtils;
 
-import com.google.common.base.Splitter;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Value;
@@ -192,7 +191,11 @@ public enum Lang {
         if (!resource.keySet().contains(key)) {
             return Collections.emptyList();
         }
-        return Splitter.on(',').omitEmptyStrings().splitToList(i18n(key));
+        String str = i18n(key);
+        if (str.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return Arrays.asList(str.split(","));
     }
 
 

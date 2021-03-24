@@ -9,12 +9,12 @@ import com.tisawesomeness.minecord.command.utility.*;
 import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.lang.LangSpecificKey;
 import com.tisawesomeness.minecord.mc.player.RenderType;
+import com.tisawesomeness.minecord.util.type.ListValuedEnumMap;
 
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.MultimapBuilder;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.MultiMapUtils;
+import org.apache.commons.collections4.MultiValuedMap;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -28,7 +28,7 @@ public class CommandRegistry implements Iterable<Command> {
     private static final String CONFLICT_WARNING = "Input conflict detected for %s, %s will be overwritten with %s, " +
             "check the lang files!";
 
-    private final Multimap<Category, Command> categoryToCommandsMap;
+    private final MultiValuedMap<Category, Command> categoryToCommandsMap;
     private final Map<LangSpecificKey, Command> commandInputMap;
 
     /**
@@ -121,12 +121,12 @@ public class CommandRegistry implements Iterable<Command> {
         commandInputMap = buildCommandInputMap();
     }
 
-    private static Multimap<Category, Command> buildCategoryToCommandsMap(Command[] commands) {
-        Multimap<Category, Command> mm = MultimapBuilder.enumKeys(Category.class).arrayListValues().build();
+    private static MultiValuedMap<Category, Command> buildCategoryToCommandsMap(Command[] commands) {
+        MultiValuedMap<Category, Command> mm = new ListValuedEnumMap<>(Category.class);
         for (Command c : commands) {
             mm.put(c.getCategory(), c);
         }
-        return ImmutableMultimap.copyOf(mm);
+        return MultiMapUtils.unmodifiableMultiValuedMap(mm);
     }
     private Map<LangSpecificKey, Command> buildCommandInputMap() {
         Map<LangSpecificKey, Command> map = new HashMap<>();

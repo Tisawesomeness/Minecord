@@ -6,7 +6,6 @@ import com.tisawesomeness.minecord.network.StatusCodes;
 import com.tisawesomeness.minecord.util.UUIDUtils;
 import com.tisawesomeness.minecord.util.network.URLUtils;
 
-import com.google.common.base.CharMatcher;
 import lombok.Cleanup;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +18,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 /**
  * Implements the Mojang API.
@@ -26,10 +26,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class MojangAPIImpl extends MojangAPI {
 
-    private static final CharMatcher EMAIL_CASE_MATCHER = CharMatcher.inRange('0', '9')
-            .or(CharMatcher.inRange('A', 'Z'))
-            .or(CharMatcher.inRange('a', 'z'))
-            .or(CharMatcher.anyOf("_-.*@"));
+    private static final Pattern EMAIL_CASE_PATTERN = Pattern.compile("^[0-9A-Za-z_\\-.*@]+$");
     private static final URL BASE_URL = URLUtils.createUrl("https://api.mojang.com/users/profiles/minecraft/");
     public static final int LONGEST_DEBUGGABLE_ERROR = 256;
     private final APIClient client;
@@ -43,7 +40,7 @@ public class MojangAPIImpl extends MojangAPI {
         try {
             // Email usernames ("sample@email.com") only work when the @ is unescaped
             // This special case skips URL encoding if all characters (excluding @) are the same after encoding
-            if (username.contains("@") && EMAIL_CASE_MATCHER.matchesAllOf(username)) {
+            if (username.contains("@") && EMAIL_CASE_PATTERN.matcher(username).matches()) {
                 return new URL(BASE_URL, username.toString());
             }
             // Otherwise, encoding is necessary to clean out naughty characters

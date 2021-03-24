@@ -5,12 +5,11 @@ import com.tisawesomeness.minecord.util.discord.MarkdownAction;
 import com.tisawesomeness.minecord.util.discord.MaskedLink;
 import com.tisawesomeness.minecord.util.discord.SimpleMarkdownAction;
 
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Sets;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import org.apache.commons.collections4.SetUtils;
 
 import javax.annotation.Nullable;
 import java.net.URL;
@@ -279,7 +278,9 @@ public class LocalizedMarkdownBuilder {
      * @see DateFormat.Field
      */
     public LocalizedMarkdownBuilder apply(int index, @NonNull MarkdownAction action, Format.Field... fields) {
-        Preconditions.checkArgument(index >= 0, "Index must be positive, was %d", index);
+        if (index < 0) {
+            throw new IllegalArgumentException("Index must be non-negative but was " + index);
+        }
         if (index >= args.length) {
             return this;
         }
@@ -403,7 +404,7 @@ public class LocalizedMarkdownBuilder {
             // thanks to enum ordering, monospace/codeblocks will always apply before (inside) other markdown such
             // as bold or underline, so the codeblocks should stay literals
             // not guaranteed if the caller tries to do something that does not work in normal Discord
-            for (MarkdownAction activatedElement : Sets.difference(currentActions, activeActions)) {
+            for (MarkdownAction activatedElement : SetUtils.difference(currentActions, activeActions)) {
                 markdownStack.push(activatedElement);
                 currentRuns.put(activatedElement, new StringBuilder());
             }
