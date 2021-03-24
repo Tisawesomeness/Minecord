@@ -8,8 +8,8 @@ plugins {
 
 group = 'com.tisawesomeness'
 sourceCompatibility = '1.8'
-version = '1.0.0-ALPHA-4'
-def jdaVersion = '4.2.0_242'
+version = '1.0.0-ALPHA-5'
+def jdaVersion = '4.2.0_247'
 
 repositories {
     mavenLocal()
