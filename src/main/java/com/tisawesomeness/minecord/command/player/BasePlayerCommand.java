@@ -58,7 +58,7 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
         }
 
         if (input.length() > Username.MAX_LENGTH) {
-            ctx.warn(ctx.getLang().i18n("mc.player.username.tooLong"));
+            ctx.warn(ctx.getLang().i18nf("mc.player.username.tooLong", Username.MAX_LENGTH));
             return;
         }
         Username username = Username.parse(input);

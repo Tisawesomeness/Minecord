@@ -132,7 +132,7 @@ public class RenderCommand extends AbstractPlayerCommand {
 
     private static Either<String, Username> validateUsername(String input, Lang lang) {
         if (input.length() > Username.MAX_LENGTH) {
-            return Either.left(lang.i18n("mc.player.username.tooLong"));
+            return Either.left(lang.i18nf("mc.player.username.tooLong", Username.MAX_LENGTH));
         }
         Username username = Username.parse(input);
         if (!username.isSupportedByMojangAPI()) {
