@@ -1,13 +1,13 @@
 package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.command.Result;
+import com.tisawesomeness.minecord.config.ConfigReader;
 import com.tisawesomeness.minecord.mc.player.Player;
+import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.testutil.MiscTestUtils;
-import com.tisawesomeness.minecord.testutil.runner.TestCommandRunner;
 import com.tisawesomeness.minecord.testutil.mc.TestMCLibrary;
 import com.tisawesomeness.minecord.testutil.mc.TestPlayerProvider;
-import com.tisawesomeness.minecord.config.ConfigReader;
-import com.tisawesomeness.minecord.mc.player.Username;
+import com.tisawesomeness.minecord.testutil.runner.TestCommandRunner;
 import com.tisawesomeness.minecord.util.UUIDUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -93,8 +93,8 @@ public class UuidCommandIT {
         String args = INVALID_UUID.toString();
         assertThat(runner.run(args))
                 .awaitResult()
-                .hasTriggeredCooldown()
-                .isSuccess();
+                .hasNotTriggeredCooldown()
+                .resultIs(Result.WARNING);
     }
 
     @Test

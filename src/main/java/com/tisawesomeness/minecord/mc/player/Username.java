@@ -20,15 +20,16 @@ import java.util.regex.Pattern;
  */
 public class Username implements CharSequence, Comparable<Username> {
 
-    private static final Pattern VALID_USERNAME_PATTERN = Pattern.compile("^[0-9A-Za-z_]{3,16}$");
-    private static final Pattern MOJANG_SUPPORTED_PATTERN = Pattern.compile("[0-9A-Za-z_!@$()\\-:.? ]+");
-    private static final char QUOTE = '"';
-    private static final char BACKTICK = '`';
-
     /**
      * The max length of a username for sanity check purposes.
      */
-    public static final int MAX_LENGTH = 256;
+    public static final int MAX_LENGTH = 25;
+
+    private static final Pattern VALID_USERNAME_PATTERN = Pattern.compile("^[0-9A-Za-z_]{3,16}$");
+    private static final Pattern MOJANG_SUPPORTED_PATTERN = Pattern.compile(String.format(
+            "^[0-9A-Za-z_!@$()\\-:.? ]{1,%d}$", MAX_LENGTH));
+    private static final char QUOTE = '"';
+    private static final char BACKTICK = '`';
 
     private final @NonNull String name;
     /**
@@ -64,7 +65,7 @@ public class Username implements CharSequence, Comparable<Username> {
      * @return True only if the username contains only 1-{@link #MAX_LENGTH} approved characters, empty otherwise
      */
     public boolean isSupportedByMojangAPI() {
-        return !name.isEmpty() && name.length() <= MAX_LENGTH && MOJANG_SUPPORTED_PATTERN.matcher(name).matches();
+        return MOJANG_SUPPORTED_PATTERN.matcher(name).matches();
     }
 
     public boolean contains(@NonNull CharSequence s) {

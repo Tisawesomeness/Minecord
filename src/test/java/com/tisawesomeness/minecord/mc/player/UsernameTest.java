@@ -35,8 +35,9 @@ public class UsernameTest {
             "Din-ex",
             "sample@email.com", // this specific username isn't real but email usernames do exist
             "Will Wall",
-            MiscTestUtils.repeat(" ", 45) + "timmy" + MiscTestUtils.repeat(" ", 62)
+//            MiscTestUtils.repeat(" ", 45) + "timmy" + MiscTestUtils.repeat(" ", 62)
             // yes this was real at one point, I am not kidding
+            // disabled since mojang api seems to limit names to 25 chars
     };
 
     @ParameterizedTest(name = "{index} ==> String \"{0}\" is a supported username")
