@@ -8,7 +8,7 @@ plugins {
 
 group = 'com.tisawesomeness'
 sourceCompatibility = '1.8'
-version = '1.0.0-ALPHA-5'
+version = '1.0.0-ALPHA-6'
 def jdaVersion = '4.2.0_247'
 
 repositories {
