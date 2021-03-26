@@ -8,9 +8,10 @@ import java.util.regex.Pattern;
  * Represents a Minecraft Java username.
  * <p>
  *     <b>Beware: usernames are NOT guarenteed to contain only letters, numbers, and underscores!</b> They may have
- *     spaces or special characters (such as {@code /}). Normally, usernames can only be 3-16 characters and contain
+ *     spaces or special characters, such as {@code $}. Normally, usernames can only be 3-16 characters and contain
  *     only ASCII letters, numbers, and underscores, but due to glitches or other methods, "invalid" accounts exist.
- *     This can be checked with {@link #isSupportedByMojangAPI()}.
+ *     This can be checked with {@link #isValid()}. Also note that some usernames have characters that can't be put
+ *     into the Mojang API, such as {@code #}. This can be checked with {@link #isSupportedByMojangAPI()}.
  * </p>
  * <p>
  *     Note that names with swear words are often filtered out or involuntarily changed by Mojang, leading to blocked
@@ -21,13 +22,16 @@ import java.util.regex.Pattern;
 public class Username implements CharSequence, Comparable<Username> {
 
     /**
-     * The max length of a username for sanity check purposes.
+     * The max length of a username.
      */
     public static final int MAX_LENGTH = 25;
 
     private static final Pattern VALID_USERNAME_PATTERN = Pattern.compile("^[0-9A-Za-z_]{3,16}$");
+    // '#' existed before but breaks the API
+    // ':' and ')' sometimes break the API, but since they were included in only one known name "1cream#:)"
+    // and Mojang's validation criteria is not clear, these characters are not supported
     private static final Pattern MOJANG_SUPPORTED_PATTERN = Pattern.compile(String.format(
-            "^[0-9A-Za-z_!@$()\\-:.? ]{1,%d}$", MAX_LENGTH));
+            "^[0-9A-Za-z_!@$\\-.? ]{1,%d}$", MAX_LENGTH));
     private static final char QUOTE = '"';
     private static final char BACKTICK = '`';
 

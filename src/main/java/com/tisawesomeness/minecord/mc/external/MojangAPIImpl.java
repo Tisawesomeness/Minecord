@@ -32,6 +32,11 @@ public class MojangAPIImpl extends MojangAPI {
     private final APIClient client;
     
     protected Optional<String> requestUUID(@NonNull Username username) throws IOException {
+        // While technically possible usernames, these two cannot be queried since they mess up URLs
+        String name = username.toString();
+        if (".".equals(name) || "..".equals(name)) {
+            return Optional.empty();
+        }
         @Cleanup Response response = client.get(getUuidUrl(username));
         return getContentIfPresent(response);
     }
