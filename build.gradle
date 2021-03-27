@@ -9,18 +9,21 @@ plugins {
 group = 'com.tisawesomeness'
 sourceCompatibility = '1.8'
 version = '1.0.0-ALPHA-6'
-def jdaVersion = '4.2.0_247'
+def jdaVersion = '4.2.0_249'
 
 repositories {
-    mavenLocal()
+    mavenCentral()
     maven {
-        url = uri('https://jcenter.bintray.com')
+        name 'm2-dv8tion'
+        url 'https://m2.dv8tion.net/releases'
     }
     maven {
-        url = uri('https://jitpack.io')
+        name 'jitpack'
+        url 'https://jitpack.io'
     }
     maven {
-        url = uri('https://oss.sonatype.org/content/repositories/snapshots')
+        name 'sonatype'
+        url 'https://oss.sonatype.org/content/repositories/snapshots'
     }
 }
 
@@ -65,6 +68,8 @@ tasks.withType(Test) {
 
 check.dependsOn integrationTest
 integrationTest.mustRunAfter test
+
+compileJava.options.encoding = 'UTF-8'
 
 import org.apache.tools.ant.filters.ReplaceTokens
 
