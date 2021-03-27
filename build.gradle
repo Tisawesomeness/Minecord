@@ -8,8 +8,8 @@ plugins {
 
 group = 'com.tisawesomeness'
 sourceCompatibility = '1.8'
-version = '1.0.0-ALPHA-6'
-def jdaVersion = '4.2.0_249'
+version = '1.0.0-ALPHA-7'
+def jdaVersion = '4.2.0_251'
 
 repositories {
     mavenCentral()
@@ -62,14 +62,14 @@ dependencies {
     integrationTestImplementation sourceSets.test.output
 }
 
+compileJava.options.encoding = 'UTF-8'
+
 tasks.withType(Test) {
     useJUnitPlatform()
 }
 
 check.dependsOn integrationTest
 integrationTest.mustRunAfter test
-
-compileJava.options.encoding = 'UTF-8'
 
 import org.apache.tools.ant.filters.ReplaceTokens
 

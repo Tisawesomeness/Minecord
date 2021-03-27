@@ -29,10 +29,12 @@ public class UsernameTest {
             "8",
             "$",
             "crazybitingturtle", // 17 chars
+            "IvanderSchreckliche", // 19 chars
             "michael.selvaggio",
             "Cool.J",
             "Awesomeness!!!",
             "Din-ex",
+            "..",
             "sample@email.com", // this specific username isn't real but email usernames do exist
             "Will Wall",
 //            MiscTestUtils.repeat(" ", 45) + "timmy" + MiscTestUtils.repeat(" ", 62)
@@ -54,10 +56,15 @@ public class UsernameTest {
             "Sengångaren",
             "Séboutron",
             "kriſtjan144",
-            // shoutouts to HxLiquid for these
+            // shoutouts to HxLiquid
             "' OR 1=1",
             "http://a/%%30%30",
-            "https://cdn.discordapp.com/"
+            "https://cdn.discordapp.com/",
+            // shoutouts for Darkflame72
+            "99999999999999999999999999",
+            // shoutouts to the BLNS
+            "(null)",
+            "JavaSCript:alert(123)"
     })
     @EmptySource
     @DisplayName("Usernames from non-ascii and empty strings are not supported by Mojang")
