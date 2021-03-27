@@ -38,6 +38,7 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.hooks.EventListener;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.requests.restaction.MessageAction;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
@@ -66,6 +67,9 @@ public class Bot {
             GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS);
     private static final EnumSet<CacheFlag> disabledCacheFlags = EnumSet.of(
             CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOTE, CacheFlag.VOICE_STATE);
+    private static final EnumSet<Message.MentionType> ALLOWED_MENTIONS = EnumSet.complementOf(EnumSet.of(
+            Message.MentionType.EVERYONE, Message.MentionType.HERE,
+            Message.MentionType.USER, Message.MentionType.ROLE));
 
     private PresenceService presenceService;
     private BotListService botListService;
@@ -211,6 +215,7 @@ public class Bot {
         settings = new SettingRegistry(config.getSettingsConfig());
 
         // Bot has started, start accepting messages
+        MessageAction.setDefaultMentions(ALLOWED_MENTIONS);
         shardManager.addEventListener(commandListener, reactListener, guildCountListener);
         log.info("Bot ready!");
 
