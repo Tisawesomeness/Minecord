@@ -339,12 +339,6 @@ public abstract class CommandContext {
     public abstract boolean shouldUseMenus();
 
     /**
-     * The current locale, used in formatters.
-     */
-    public @NonNull Locale getLocale() {
-        return getLang().getLocale();
-    }
-    /**
      * Gets a localized string for the current lang.
      * @param key The <b>case-sensitive</b> localization key
      * @return The localized string

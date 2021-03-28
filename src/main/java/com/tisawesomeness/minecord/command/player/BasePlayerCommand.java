@@ -115,7 +115,7 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
                 .bold(0, NumberFormat.Field.INTEGER)
                 .build();
 
-        String date = TimeUtils.format(time, ctx.getLocale(), format);
+        String date = TimeUtils.format(time, ctx.getLang().getLocale(), format);
         return String.format("%s (%s)", date, ago);
     }
 
