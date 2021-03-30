@@ -26,12 +26,12 @@ public class Username implements CharSequence, Comparable<Username> {
      */
     public static final int MAX_LENGTH = 25;
 
-    private static final Pattern VALID_USERNAME_PATTERN = Pattern.compile("^[0-9A-Za-z_]{3,16}$");
+    private static final Pattern VALID_USERNAME_PATTERN = Pattern.compile("^\\w{3,16}$");
     // '#' existed before but breaks the API
     // ':' and ')' sometimes break the API, but since they were included in only one known name "1cream#:)"
     // and Mojang's validation criteria is not clear, these characters are not supported
     private static final Pattern MOJANG_SUPPORTED_PATTERN = Pattern.compile(String.format(
-            "^[0-9A-Za-z_!@$\\-.? ]{1,%d}$", MAX_LENGTH));
+            "^[\\w !@$\\-.?]{1,%d}$", MAX_LENGTH));
     private static final char QUOTE = '"';
     private static final char BACKTICK = '`';
 

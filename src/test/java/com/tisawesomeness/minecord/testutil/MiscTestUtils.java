@@ -22,4 +22,17 @@ public class MiscTestUtils {
         return sb.toString();
     }
 
+    /**
+     * Determines if a string starts with an ascii letter
+     * @param str Any string
+     * @return Whether the string contains an ascii letter, false if empty
+     */
+    public static boolean startsWithAsciiLetter(@NonNull CharSequence str) {
+        if (str.length() == 0) {
+            return false;
+        }
+        char ch = str.charAt(0);
+        return ('A' <= ch && ch <= 'Z') || ('a' <= ch && ch <= 'z');
+    }
+
 }

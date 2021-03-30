@@ -1,22 +1,29 @@
 package com.tisawesomeness.minecord.command;
 
 import com.tisawesomeness.minecord.lang.Lang;
+import com.tisawesomeness.minecord.testutil.MiscTestUtils;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CommandRegistryTest {
 
+    // Tests ONLY that an ID contains just letters and numbers
+    private static final Pattern ID_PATTERN = Pattern.compile("^[a-zA-Z0-9]+$");
+
     private static final CommandRegistry cr = new CommandRegistry();
 
     @ParameterizedTest(name = "{index} ==> Scanning for conflicts in {0} lang")
-    @EnumSource(Lang.class)
+    @EnumSource
     @DisplayName("Every command's id, display name, and aliases do not conflict with other commands.")
     public void testNameAliasConflicts(Lang lang) {
         Collection<String> inputs = new HashSet<>();
@@ -42,6 +49,20 @@ public class CommandRegistryTest {
                     .doesNotContainAnyElementsOf(temp);
             inputs.addAll(temp);
         }
+    }
+
+    @ParameterizedTest(name = "{index} ==> Command {0} has valid ID")
+    @DisplayName("All command IDs are valid")
+    @MethodSource("commandProvider")
+    public void test(Command cmd) {
+        assertThat(cmd.getId())
+                .hasSizeBetween(1, Command.MAX_NAME_LENGTH)
+                .matches(ID_PATTERN)
+                .satisfies(MiscTestUtils::startsWithAsciiLetter);
+    }
+
+    private static Stream<Command> commandProvider() {
+        return cr.stream();
     }
 
 }

@@ -26,11 +26,17 @@ public abstract class Command {
     public static final int MAX_NAME_LENGTH = 32;
 
     /**
-     * Gets the ID of this command, used internally.
-     * <br>Typing this ID as the command name will always work, no matter the language.
-     * <br><b>Must be constant and unique for every {@link CommandRegistry}!</b>
-     * <br>If you are creating only one instance of this command, {@code return "id"} is enough.
-     * @return A string that should contains only lowercase letters and numbers, and start with a letter
+     * Gets the ID of this command, used as its canonical, language-independent name.
+     * <p>
+     *     Typing this ID as the command name will always work, no matter the language.
+     *     If you are creating only one instance of this command, {@code return "id"} is enough.
+     * </p>
+     * <p>
+     *     <b>Must be unique for every {@link CommandRegistry} and constant for each instance!</b>
+     *     Command IDs must have only ASCII letters and numbers (case does not matter but lowercase is preferred),
+     *     must start with a letter, and be between 1 and {@link Command#MAX_NAME_LENGTH}.
+     * </p>
+     * @return A string that labels this command and satisfies the requirements above
      */
     public abstract @NonNull String getId();
 
