@@ -47,7 +47,7 @@ public class DbGuild implements SettingContainer, Bannable {
     }
 
     /**
-     * Loads a guild from the database for use in a {@link com.google.common.cache.LoadingCache}.
+     * Loads a guild from the database for use in a {@link com.github.benmanes.caffeine.cache.LoadingCache}.
      * @param db The database to pull from
      * @param key The guild id
      * @return The guild, or empty if it is not in the database

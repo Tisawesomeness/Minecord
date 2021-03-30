@@ -48,7 +48,7 @@ public class DbChannel implements SettingContainer, Bannable {
     }
 
     /**
-     * Loads a channel from the database for use in a {@link com.google.common.cache.LoadingCache}.
+     * Loads a channel from the database for use in a {@link com.github.benmanes.caffeine.cache.LoadingCache}.
      * @param db The database to pull from
      * @param key The channel id
      * @return The channel, or empty if it is not in the database
