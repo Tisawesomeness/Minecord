@@ -7,7 +7,7 @@ import picocli.CommandLine;
  * Parses command-line args and starts up the bot.
  */
 @Slf4j
-public final class Main {
+public final class Launcher {
 
     /**
      * The entry point for Minecord.
