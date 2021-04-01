@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command;
 
 import com.tisawesomeness.minecord.lang.Lang;
-import com.tisawesomeness.minecord.testutil.MiscTestUtils;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -58,7 +57,11 @@ public class CommandRegistryTest {
         assertThat(cmd.getId())
                 .hasSizeBetween(1, Command.MAX_NAME_LENGTH)
                 .matches(ID_PATTERN)
-                .satisfies(MiscTestUtils::startsWithAsciiLetter);
+                .satisfies(CommandRegistryTest::startsWithAsciiLetter);
+    }
+    public static boolean startsWithAsciiLetter(CharSequence str) {
+        char ch = str.charAt(0);
+        return ('A' <= ch && ch <= 'Z') || ('a' <= ch && ch <= 'z');
     }
 
     private static Stream<Command> commandProvider() {

@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.mc.player;
 
-import com.tisawesomeness.minecord.testutil.MiscTestUtils;
+import com.tisawesomeness.minecord.util.StringUtils;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -75,7 +75,7 @@ public class UsernameTest {
     @Test
     @DisplayName("Only usernames up to the max length are supported")
     public void testMaxLength() {
-        String maxLengthName = MiscTestUtils.repeat("A", Username.MAX_LENGTH);
+        String maxLengthName = StringUtils.repeat("A", Username.MAX_LENGTH);
         assertThat(new Username(maxLengthName).isSupportedByMojangAPI()).isTrue();
         String overMaxLengthName = maxLengthName + "A";
         assertThat(new Username(overMaxLengthName).isSupportedByMojangAPI()).isFalse();

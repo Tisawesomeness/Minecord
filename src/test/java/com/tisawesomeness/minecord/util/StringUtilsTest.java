@@ -18,13 +18,28 @@ public class StringUtilsTest {
     private static final List<String> TEST_INPUT = ListUtils.of("len4", "length7", "len4");
 
     @Test
+    @DisplayName("Repeating a string 0 times gives an empty string")
+    public void testRepeat0() {
+        assertThat(StringUtils.repeat("test", 0)).isEmpty();
+    }
+    @Test
+    @DisplayName("Repeating a string 1 time gives the same string")
+    public void testRepeat1() {
+        assertThat(StringUtils.repeat("test", 1)).isEqualTo("test");
+    }
+    @Test
+    @DisplayName("Repeating a string works")
+    public void testRepeat() {
+        assertThat(StringUtils.repeat("test", 3)).isEqualTo("testtesttest");
+    }
+
+    @Test
     @DisplayName("Splitting a list of empty strings by length returns an empty list")
     public void testSplitEmptyList() {
         List<String> lines = Collections.emptyList();
         assertThat(StringUtils.partitionLinesByLength(lines, 1))
                 .isEmpty();
     }
-
     @Test
     @DisplayName("Splitting a list of empty strings by length returns an empty list")
     public void testSplitSingleList() {
@@ -32,7 +47,6 @@ public class StringUtilsTest {
         assertThat(StringUtils.partitionLinesByLength(lines, 1))
                 .isEqualTo(lines);
     }
-
     @Test
     @DisplayName("Splitting a list of strings by length 0 returns the list unmodified")
     public void testSplitMaxLengthZero() {
@@ -47,42 +61,36 @@ public class StringUtilsTest {
         assertThat(StringUtils.partitionLinesByLength(TEST_INPUT, 11))
                 .containsExactly("len4", "length7", "len4");
     }
-
     @Test
     @DisplayName("Splitting a list of strings by length accounts for newlines properly")
     public void testSplitGrouping_Case2() {
         assertThat(StringUtils.partitionLinesByLength(TEST_INPUT, 12))
                 .containsExactly("len4\nlength7", "len4");
     }
-
     @Test
     @DisplayName("Splitting a list of strings by length accounts for newlines properly")
     public void testSplitGrouping_Case3() {
         assertThat(StringUtils.partitionLinesByLength(TEST_INPUT, 13))
                 .containsExactly("len4\nlength7", "len4");
     }
-
     @Test
     @DisplayName("Splitting a list of strings by length accounts for newlines properly")
     public void testSplitGrouping_Case4() {
         assertThat(StringUtils.partitionLinesByLength(TEST_INPUT, 15))
                 .containsExactly("len4\nlength7", "len4");
     }
-
     @Test
     @DisplayName("Splitting a list of strings by length accounts for newlines properly")
     public void testSplitGrouping_Case5() {
         assertThat(StringUtils.partitionLinesByLength(TEST_INPUT, 16))
                 .containsExactly("len4\nlength7", "len4");
     }
-
     @Test
     @DisplayName("Splitting a list of strings by length accounts for newlines properly")
     public void testSplitGrouping_Case6() {
         assertThat(StringUtils.partitionLinesByLength(TEST_INPUT, 17))
                 .containsExactly("len4\nlength7\nlen4");
     }
-
     @Test
     @DisplayName("Splitting a list of strings by length with a string over max length" +
             " leaves that string in a group by itself")
@@ -99,7 +107,6 @@ public class StringUtilsTest {
         assertThat(StringUtils.partitionLinesByLength(lines, 7))
                 .containsExactly("abc\n", "def\nghi", "");
     }
-
     @Test
     @DisplayName("Splitting a list of strings by length accounts for empty strings properly")
     public void testSplitEmptyString_Case2() {
@@ -107,7 +114,6 @@ public class StringUtilsTest {
         assertThat(StringUtils.partitionLinesByLength(lines, 5))
                 .containsExactly("\nabc", "def");
     }
-
     @Test
     @DisplayName("Splitting a list of strings by length accounts for empty strings properly")
     public void testSplitEmptyString_Case3() {
@@ -122,14 +128,12 @@ public class StringUtilsTest {
         assertThat(StringUtils.partitionByLength(TEST_INPUT, " ", 16))
                 .containsExactly("len4 length7", "len4");
     }
-
     @Test
     @DisplayName("Splitting a list of strings by length works with an empty string joiner")
     public void testSplitWithEmptyJoiner() {
         assertThat(StringUtils.partitionByLength(TEST_INPUT, "", 16))
                 .containsExactly("len4length7len4");
     }
-
     @Test
     @DisplayName("Splitting a list of strings by length works with a multi-char joiner")
     public void testSplitWithLongJoiner() {
@@ -154,7 +158,6 @@ public class StringUtilsTest {
         assertThatThrownBy(() -> StringUtils.partitionLinesByLength(lines, 7))
                 .isInstanceOf(NullPointerException.class);
     }
-
     @Test
     @DisplayName("Splitting a list with null strings throws NullPointerException")
     public void testSplitNullStrings_Case2() {

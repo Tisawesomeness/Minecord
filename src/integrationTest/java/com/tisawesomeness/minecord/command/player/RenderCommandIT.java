@@ -7,11 +7,11 @@ import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.mc.player.Render;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.mc.player.Username;
-import com.tisawesomeness.minecord.testutil.MiscTestUtils;
 import com.tisawesomeness.minecord.testutil.PlayerTestUtils;
 import com.tisawesomeness.minecord.testutil.mc.TestMCLibrary;
 import com.tisawesomeness.minecord.testutil.mc.TestPlayerProvider;
 import com.tisawesomeness.minecord.testutil.runner.TestCommandRunner;
+import com.tisawesomeness.minecord.util.StringUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.BeforeAll;
@@ -60,7 +60,7 @@ public class RenderCommandIT {
     @EnumSource
     @DisplayName("Render commands with too long username warns the user")
     public void testTooLong(RenderType type) {
-        String args = MiscTestUtils.repeat("A", Username.MAX_LENGTH + 1);
+        String args = StringUtils.repeat("A", Username.MAX_LENGTH + 1);
         assertThat(runners.get(type).run(args))
                 .awaitResult()
                 .hasNotTriggeredCooldown()
