@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord;
 import com.tisawesomeness.minecord.util.IOUtils;
 
 import lombok.Getter;
+import lombok.NonNull;
 import picocli.CommandLine;
 
 import java.util.Properties;
@@ -15,8 +16,8 @@ public final class BuildInfo {
     /**
      * The semantic version of the bot, in {@code major.minor.patch-EXTRA} format.
      */
-    public final String version;
-    public final String jdaVersion;
+    public final @NonNull String version;
+    public final @NonNull String jdaVersion;
 
     private BuildInfo() {
         Properties prop = IOUtils.loadPropertiesResource("build.properties");

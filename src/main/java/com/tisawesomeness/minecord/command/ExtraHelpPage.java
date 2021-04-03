@@ -13,7 +13,19 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * A help page not connected to a command, shown in {@code &help extra}.
+ * <p>
+ *     A help page not connected to a command, shown in {@code &help extra}.
+ * </p>
+ * <p>
+ *     An extra help page's ID, display name, and aliases cannot conflict with...
+ *     <ul>
+ *         <li>Any other {@link ExtraHelpPage} ID or display name, or aliases</li>
+ *         <li>Any command's ID, display name, or aliases</li>
+ *         <li>The word "extra" in the default or current language as used in {@code &help extra}</li>
+ *     </ul>
+ *     ...for each language.
+ *     <br>A help page's ID and display name also cannot conflict with any category name in any language.
+ * </p>
  */
 @RequiredArgsConstructor
 public enum ExtraHelpPage implements Localizable {

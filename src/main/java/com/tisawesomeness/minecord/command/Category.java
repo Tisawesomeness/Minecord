@@ -10,6 +10,10 @@ import lombok.RequiredArgsConstructor;
 import java.util.Arrays;
 import java.util.Optional;
 
+/**
+ * A category for organizing {@link Command Commands}.
+ * Cannot conflict with the word "meta", or the word "extra" in the current or default language.
+ */
 @RequiredArgsConstructor
 public enum Category implements Localizable {
     CORE(),
@@ -48,7 +52,7 @@ public enum Category implements Localizable {
      */
     public static Optional<Category> from(@NonNull String name, Lang lang) {
         return Arrays.stream(values())
-                .filter(m -> lang.localize(m).equalsIgnoreCase(name))
+                .filter(m -> lang.equalsIgnoreCase(lang.localize(m), name))
                 .findFirst();
     }
 

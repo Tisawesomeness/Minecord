@@ -14,7 +14,19 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Represents a command. Documentation refers to commands as the ID prefixed by {@code &}.
+ * <p>
+ *     Represents a command. Documentation refers to commands as the ID prefixed by {@code &}.
+ * </p>
+ * <p>
+ *     A command's ID, display name, and aliases cannot conflict with...
+ *     <ul>
+ *         <li>Any other command's ID, display name, or aliases</li>
+ *         <li>Any {@link ExtraHelpPage} ID, display name, or aliases</li>
+ *         <li>The word "extra" in the default or current language as used in {@code &help extra}</li>
+ *     </ul>
+ *     ...for each language.
+ *     <br>A command's ID and display name also cannot conflict with any category name in any language.
+ * </p>
  * @see <a href="https://github.com/Tisawesomeness/Minecord/wiki/Adding-a-New-Command">The wiki</a>
  * for instructions on how to add your own commands.
  */
@@ -34,9 +46,10 @@ public abstract class Command {
      * <p>
      *     <b>Must be unique for every {@link CommandRegistry} and constant for each instance!</b>
      *     Command IDs must have only ASCII letters and numbers (case does not matter but lowercase is preferred),
-     *     must start with a letter, and be between 1 and {@link Command#MAX_NAME_LENGTH}.
+     *     must start with a letter, and have between 1 and {@link Command#MAX_NAME_LENGTH} characters.
      * </p>
      * @return A string that labels this command and satisfies the requirements above
+     * @see Command for information on name conflicts
      */
     public abstract @NonNull String getId();
 
@@ -76,6 +89,7 @@ public abstract class Command {
      * Gets the display name of this command, or how it should be displayed to the user. Defaults to the id.
      * @param lang The language used
      * @return A string that contains only lowercase letters and numbers, and starts with a letter
+     * @see Command for information on name conflicts
      */
     public @NonNull String getDisplayName(Lang lang) {
         return i18nOpt(lang, "name").orElse(getId());
@@ -107,6 +121,7 @@ public abstract class Command {
      * Gets a list of aliases for this command.
      * @param lang The language used
      * @return A possibly-empty list
+     * @see Command for information on name conflicts
      */
     public List<String> getAliases(Lang lang) {
         return i18nList(lang, "aliases");
