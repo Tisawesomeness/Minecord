@@ -149,8 +149,28 @@ public class ValidationTest {
         assertThat(vCombined.getErrors()).containsExactly(errorMessage1, errorMessage2);
     }
     @Test
+    @DisplayName("Combining with varargs combines valids")
+    public void testCombineAllValid() {
+        Validation<Integer> v1 = Validation.valid(1);
+        Validation<Integer> v2 = Validation.valid(2);
+        Validation<Integer> v3 = Validation.valid(3);
+        Validation<Integer> vCombined = Validation.combineAll(v1, v2, v3);
+        assertThat(vCombined.isValid()).isTrue();
+        assertThat(vCombined.getValue()).isEqualTo(3);
+    }
+    @Test
+    @DisplayName("Combining with varargs combines valids and invalids the same as combining normally")
+    public void testCombineAllMixed() {
+        Validation<Integer> v1 = Validation.valid(1);
+        String errorMessage = "error message";
+        Validation<Integer> v2 = Validation.invalid(errorMessage);
+        Validation<Integer> vCombined = Validation.combineAll(v1, v2);
+        assertThat(vCombined.isValid()).isFalse();
+        assertThat(vCombined.getErrors()).containsExactly(errorMessage);
+    }
+    @Test
     @DisplayName("Combining with varargs combines all error message")
-    public void testCombineAll() {
+    public void testCombineAllInvalid() {
         String errorMessage1 = "First error message";
         Validation<Object> v1 = Validation.invalid(errorMessage1);
         String errorMessage2 = "Second error message";
@@ -181,6 +201,60 @@ public class ValidationTest {
         Validation<Integer> mappedValidation = validation.map(mapper);
         assertThat(mappedValidation.isValid()).isFalse();
         assertThat(mappedValidation.getErrors()).containsExactly(errorMessage);
+    }
+
+    @Test
+    @DisplayName("A valid Validation is equal to itself")
+    public void testEqualsReflexiveValid() {
+        Validation<Object> v = Validation.valid(new Object());
+        assertThat(v).isEqualTo(v);
+    }
+    @Test
+    @DisplayName("An invalid Validation is equal to itself")
+    public void testEqualsReflexiveInvalid() {
+        Validation<Object> v = Validation.invalid("err");
+        assertThat(v).isEqualTo(v);
+    }
+    @Test
+    @DisplayName("Two Validations with the same error message are symmetrically equal")
+    public void testEqualsSymmetric() {
+        Validation<Object> v1 = Validation.invalid("err");
+        Validation<Object> v2 = Validation.invalid("err");
+        assertThat(v1).isEqualTo(v2).hasSameHashCodeAs(v2);
+        assertThat(v2).isEqualTo(v1);
+    }
+    @Test
+    @DisplayName("Two Validations with the same error messages are symmetrically equal")
+    public void testEqualsSymmetric2() {
+        String err1 = "err1";
+        String err2 = "err2";
+        Validation<Object> v1 = Validation.invalid(err1, err2);
+        Validation<Object> v2 = Validation.invalid(err1, err2);
+        assertThat(v1).isEqualTo(v2).hasSameHashCodeAs(v2);
+        assertThat(v2).isEqualTo(v1);
+    }
+    @Test
+    @DisplayName("A valid Validation is never equal to an invalid Validation")
+    public void testValidNotEqualsInvalid() {
+        Validation<Object> valid = Validation.valid(new Object());
+        Validation<Object> invalid = Validation.invalid("err");
+        assertThat(valid).isNotEqualTo(invalid);
+    }
+    @Test
+    @DisplayName("Two Validations with different error messages are not equal")
+    public void testNotEqualsInvalid() {
+        Validation<Object> v1 = Validation.invalid("err");
+        Validation<Object> v2 = Validation.invalid("ERR");
+        assertThat(v1).isNotEqualTo(v2);
+    }
+    @Test
+    @DisplayName("Two Validations with differently ordered error messages are not equal")
+    public void testNotEqualsOrdered() {
+        String err1 = "err1";
+        String err2 = "err2";
+        Validation<Object> v1 = Validation.invalid(err1, err2);
+        Validation<Object> v2 = Validation.invalid(err2, err1);
+        assertThat(v1).isNotEqualTo(v2);
     }
 
 }

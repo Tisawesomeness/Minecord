@@ -5,9 +5,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 
 // Inspiration from Vavr's Validation type
@@ -41,6 +39,27 @@ public final class Validation<T> {
      */
     public static <T> Validation<T> invalid(@NonNull String errorMessage) {
         return new Validation<>(null, Verification.invalid(errorMessage));
+    }
+    /**
+     * Creates an invalid Validation.
+     * @param firstError The first error message
+     * @param secondError The second error message
+     * @param rest The rest of the error messages
+     * @param <T> The type of the Validation value, not the type of the error message
+     * @return An invalid Validation with no value
+     */
+    public static <T> Validation<T> invalid(@NonNull String firstError, @NonNull String secondError, String... rest) {
+        return new Validation<>(null, Verification.invalid(firstError, secondError, rest));
+    }
+    /**
+     * Creates an invalid Validation.
+     * @param errorMessages The list of error messages
+     * @param <T> The type of the Validation value, not the type of the error message
+     * @return An invalid Validation with no value
+     * @throws IllegalArgumentException If the list of error messages is empty
+     */
+    public static <T> Validation<T> invalid(Collection<String> errorMessages) {
+        return new Validation<>(null, Verification.invalid(errorMessages));
     }
 
     /**
@@ -137,8 +156,21 @@ public final class Validation<T> {
      * @return A single Validation, which is valid only if both input Validations are valid.
      */
     @SafeVarargs // Does not store anything in array, and rest array is not visible
-    public static <U> Validation<U> combineAll(Validation<U> first, Validation<U>... rest) {
-        return Arrays.stream(rest).reduce(first, Validation::combine);
+    public static <U> Validation<U> combineAll(Validation<? extends U> first, Validation<? extends U>... rest) {
+        U val = first.isValid() ? first.getValue() : null;
+        List<String> errors = new ArrayList<>(first.getErrors());
+        for (Validation<? extends U> v : rest) {
+            if (v.isValid()) {
+                val = v.getValue();
+            } else {
+                errors.addAll(v.getErrors());
+            }
+        }
+        if (errors.isEmpty()) {
+            assert val != null; // if there are no errors, at least one validation must be valid and contain a value
+            return valid(val);
+        }
+        return fromInvalidVerification(new Verification(Collections.unmodifiableList(errors)));
     }
 
     /**
@@ -165,13 +197,14 @@ public final class Validation<T> {
         }
         Validation<?> other = (Validation<?>) o;
         if (isValid()) {
-            return other.isValid() && verification.equals(other.verification);
+            return other.isValid();
         }
-        return !other.isValid();
+        return !other.isValid() && verification.equals(other.verification);
     }
     @Override
     public int hashCode() {
         if (isValid()) {
+            assert value != null;
             return 31 * value.hashCode() + verification.hashCode();
         }
         return 0;

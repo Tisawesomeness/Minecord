@@ -100,4 +100,57 @@ public class EitherTest {
         assertThat(either.fold(wrongMapper, mapper)).isEqualTo(s.length());
     }
 
+    @Test
+    @DisplayName("A Left is equal to itself")
+    public void testEqualsReflexiveLeft() {
+        Either<Object, Object> either = Either.left(new Object());
+        assertThat(either).isEqualTo(either);
+    }
+    @Test
+    @DisplayName("A Right is equal to itself")
+    public void testEqualsReflexiveRight() {
+        Either<Object, Object> either = Either.right(new Object());
+        assertThat(either).isEqualTo(either);
+    }
+    @Test
+    @DisplayName("Identical Lefts are symmetrically equal")
+    public void testEqualsSymmetricLeft() {
+        Object o = new Object();
+        Either<Object, Object> either1 = Either.left(o);
+        Either<Object, Object> either2 = Either.left(o);
+        assertThat(either1).isEqualTo(either2).hasSameHashCodeAs(either2);
+        assertThat(either2).isEqualTo(either1);
+    }
+    @Test
+    @DisplayName("Identical Rights are symmetrically equal")
+    public void testEqualsSymmetricRight() {
+        Object o = new Object();
+        Either<Object, Object> either1 = Either.right(o);
+        Either<Object, Object> either2 = Either.right(o);
+        assertThat(either1).isEqualTo(either2).hasSameHashCodeAs(either2);
+        assertThat(either2).isEqualTo(either1);
+    }
+    @Test
+    @DisplayName("Two Lefts with different values are not equal")
+    public void testNotEqualsLeft() {
+        Either<Object, Object> either1 = Either.left(new Object());
+        Either<Object, Object> either2 = Either.left(new Object());
+        assertThat(either1).isNotEqualTo(either2);
+    }
+    @Test
+    @DisplayName("Two Rights with different values are not equal")
+    public void testNotEqualsRight() {
+        Either<Object, Object> either1 = Either.right(new Object());
+        Either<Object, Object> either2 = Either.right(new Object());
+        assertThat(either1).isNotEqualTo(either2);
+    }
+    @Test
+    @DisplayName("A Left never equals a Right")
+    public void testLeftNotEqualsRight() {
+        Object o = new Object();
+        Either<Object, Object> left = Either.left(o);
+        Either<Object, Object> right = Either.right(o);
+        assertThat(left).isNotEqualTo(right);
+    }
+
 }

@@ -1,12 +1,10 @@
 package com.tisawesomeness.minecord.util.type;
 
 import lombok.AccessLevel;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * An object that may contain one or more error messages.
@@ -14,7 +12,7 @@ import java.util.List;
  * <br>This class is immutable and therefore thread-safe.
  * <br>See {@link Verification} for a version of this class that also contains a value when valid.
  */
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public final class Verification {
     private final static Verification VALID = new Verification(Collections.emptyList());
     private final List<String> errors; // Must be immutable
@@ -31,8 +29,34 @@ public final class Verification {
      * @param errorMessage The error message
      * @return A Verification that has one error message
      */
-    public static Verification invalid(String errorMessage) {
+    public static Verification invalid(@NonNull String errorMessage) {
         return new Verification(Collections.singletonList(errorMessage));
+    }
+    /**
+     * Creates an invalid Verification.
+     * @param firstError The first error message
+     * @param secondError The second error message
+     * @param rest The rest of the error messages
+     * @return A Verification that has multiple error messages
+     */
+    public static Verification invalid(@NonNull String firstError, @NonNull String secondError, String... rest) {
+        List<String> errors = new ArrayList<>();
+        errors.add(firstError);
+        errors.add(secondError);
+        errors.addAll(Arrays.asList(rest));
+        return new Verification(Collections.unmodifiableList(errors));
+    }
+    /**
+     * Creates an invalid Verification.
+     * @param errorMessages The list of error messages
+     * @return A Verification that has multiple error messages
+     * @throws IllegalArgumentException If the list of error messages is empty
+     */
+    public static Verification invalid(Collection<String> errorMessages) {
+        if (errorMessages.isEmpty()) {
+            throw new IllegalArgumentException("The list of error messages must not be empty");
+        }
+        return new Verification(Collections.unmodifiableList(new ArrayList<>(errorMessages)));
     }
 
     /**
@@ -57,7 +81,7 @@ public final class Verification {
      * @param <T> The type of the new Validation
      * @return A Validation that is valid only if this Verification is valid
      */
-    public <T> Validation<T> toValidation(T value) {
+    public <T> Validation<T> toValidation(@NonNull T value) {
         if (isValid()) {
             return Validation.valid(value);
         }
@@ -90,7 +114,11 @@ public final class Verification {
      * @return A single Verification, which is valid only if both input Verifications are valid.
      */
     public static Verification combineAll(Verification first, Verification... rest) {
-        return Arrays.stream(rest).reduce(first, Verification::combine);
+        List<String> list = new ArrayList<>(first.errors);
+        for (Verification v : rest) {
+            list.addAll(v.errors);
+        }
+        return new Verification(Collections.unmodifiableList(list));
     }
 
     @Override

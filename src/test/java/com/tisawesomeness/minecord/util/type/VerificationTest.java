@@ -81,8 +81,25 @@ public class VerificationTest {
         assertThat(vCombined.getErrors()).containsExactly(errorMessage1, errorMessage2);
     }
     @Test
+    @DisplayName("Combining with varargs combines valids")
+    public void testCombineAllValid() {
+        Verification v = Verification.valid();
+        Verification vCombined = Verification.combineAll(v, v, v);
+        assertThat(vCombined.isValid()).isTrue();
+    }
+    @Test
+    @DisplayName("Combining with varargs combines valids and invalids the same as combining normally")
+    public void testCombineAllMixed() {
+        Verification v1 = Verification.valid();
+        String errorMessage = "error message";
+        Verification v2 = Verification.invalid(errorMessage);
+        Verification vCombined = Verification.combineAll(v1, v2);
+        assertThat(vCombined.isValid()).isFalse();
+        assertThat(vCombined.getErrors()).containsExactly(errorMessage);
+    }
+    @Test
     @DisplayName("Combining with varargs combines all error message")
-    public void testCombineVarargs() {
+    public void testCombineAllInvalid() {
         String errorMessage1 = "First error message";
         Verification v1 = Verification.invalid(errorMessage1);
         String errorMessage2 = "Second error message";
@@ -92,6 +109,60 @@ public class VerificationTest {
         Verification vCombined = Verification.combineAll(v1, v2, v3);
         assertThat(vCombined.isValid()).isFalse();
         assertThat(vCombined.getErrors()).containsExactly(errorMessage1, errorMessage2, errorMessage3);
+    }
+
+    @Test
+    @DisplayName("A valid Verification is equal to itself")
+    public void testEqualsReflexiveValid() {
+        Verification v = Verification.valid();
+        assertThat(v).isEqualTo(v);
+    }
+    @Test
+    @DisplayName("An invalid Verification is equal to itself")
+    public void testEqualsReflexiveInvalid() {
+        Verification v = Verification.invalid("err");
+        assertThat(v).isEqualTo(v);
+    }
+    @Test
+    @DisplayName("Two Verifications with the same error message are symmetrically equal")
+    public void testEqualsSymmetric() {
+        Verification v1 = Verification.invalid("err");
+        Verification v2 = Verification.invalid("err");
+        assertThat(v1).isEqualTo(v2).hasSameHashCodeAs(v2);
+        assertThat(v2).isEqualTo(v1);
+    }
+    @Test
+    @DisplayName("Two Verifications with the same error messages are symmetrically equal")
+    public void testEqualsSymmetric2() {
+        String err1 = "err1";
+        String err2 = "err2";
+        Verification v1 = Verification.invalid(err1, err2);
+        Verification v2 = Verification.invalid(err1, err2);
+        assertThat(v1).isEqualTo(v2).hasSameHashCodeAs(v2);
+        assertThat(v2).isEqualTo(v1);
+    }
+    @Test
+    @DisplayName("A valid Verification is never equal to an invalid Verification")
+    public void testValidNotEqualsInvalid() {
+        Verification valid = Verification.valid();
+        Verification invalid = Verification.invalid("err");
+        assertThat(valid).isNotEqualTo(invalid);
+    }
+    @Test
+    @DisplayName("Two Verifications with different error messages are not equal")
+    public void testNotEqualsInvalid() {
+        Verification v1 = Verification.invalid("err");
+        Verification v2 = Verification.invalid("ERR");
+        assertThat(v1).isNotEqualTo(v2);
+    }
+    @Test
+    @DisplayName("Two Verifications with differently ordered error messages are not equal")
+    public void testNotEqualsOrdered() {
+        String err1 = "err1";
+        String err2 = "err2";
+        Verification v1 = Verification.invalid(err1, err2);
+        Verification v2 = Verification.invalid(err2, err1);
+        assertThat(v1).isNotEqualTo(v2);
     }
 
 }
