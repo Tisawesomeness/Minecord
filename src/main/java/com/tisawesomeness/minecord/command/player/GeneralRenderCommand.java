@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.IHiddenCommand;
+import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 
@@ -16,7 +17,7 @@ public class GeneralRenderCommand extends AbstractPlayerCommand implements IHidd
     }
 
     @Override
-    public Object[] getHelpArgs(String prefix, String tag) {
+    public Object[] getHelpArgs(String prefix, String tag, Config config) {
         return new Object[]{prefix, tag, RenderType.MAX_SCALE, RenderType.DEFAULT_SCALE,
                 RenderType.MAX_SIZE, RenderType.DEFAULT_SIZE};
     }

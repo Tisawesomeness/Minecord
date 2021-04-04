@@ -34,6 +34,9 @@ public class Config {
     @JsonProperty("isSelfHosted")
     boolean isSelfHosted;
 
+    @JsonProperty("supportedMCVersion")
+    String supportedMCVersion;
+
     @JsonProperty("branding")
     BrandingConfig brandingConfig;
     @JsonProperty("presence")

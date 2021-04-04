@@ -47,11 +47,15 @@ owners:
 logChannelId: 0
 # Possible log levels: OFF, ERROR, WARN, INFO, DEBUG, TRACE, ALL
 # Setting this to INFO or DEBUG is recommended
-# Log message that print before the config is read cannot be changed
+# Log messages that print before the config is read cannot be changed
 logLevel: INFO
 # If you are self-hosting, leave this to true
 # Setting this to false is unsupported
 isSelfHosted: true
+
+# The latest Minecraft version that the bot supports (recipes, servers, etc.)
+# If a new version releases and no recipes change, you can update the version below.
+supportedMCVersion: "1.15.2"
 
 branding:
   # Your name here

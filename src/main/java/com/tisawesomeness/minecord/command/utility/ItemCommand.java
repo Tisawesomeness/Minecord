@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.utility;
 
 import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.mc.item.Item;
 
 import lombok.NonNull;
@@ -10,6 +11,11 @@ public class ItemCommand extends AbstractUtilityCommand {
 
     public @NonNull String getId() {
         return "item";
+    }
+
+    @Override
+    public Object[] getHelpArgs(String prefix, String tag, Config config) {
+        return new Object[]{prefix, tag, config.getSupportedMCVersion()};
     }
 
     public void run(String[] args, CommandContext ctx) {

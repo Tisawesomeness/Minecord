@@ -46,6 +46,7 @@ public class InfoCommand extends AbstractCoreCommand {
             eb.addField("Self-Hoster", branding.getAuthor(), true);
         }
         eb.addField("Version", MarkdownUtil.monospace(buildInfo.version), true);
+        eb.addField("MC Version", MarkdownUtil.monospace(config.getSupportedMCVersion()), true);
 
         Bot bot = ctx.getBot();
         ShardManager sm = bot.getShardManager();

@@ -4,6 +4,7 @@ import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.ReactMenu.MenuStatus;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.Result;
+import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.mc.item.Recipe;
 
 import lombok.NonNull;
@@ -16,6 +17,11 @@ public class IngredientCommand extends AbstractUtilityCommand {
 
     public @NonNull String getId() {
         return "ingredient";
+    }
+
+    @Override
+    public Object[] getHelpArgs(String prefix, String tag, Config config) {
+        return new Object[]{prefix, tag, config.getSupportedMCVersion()};
     }
 
     public void run(String[] argsOrig, CommandContext ctx)  {

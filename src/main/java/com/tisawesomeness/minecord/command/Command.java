@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.command;
 
 import com.tisawesomeness.minecord.config.serial.CommandConfig;
 import com.tisawesomeness.minecord.config.serial.CommandOverride;
+import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.lang.Lang;
 
 import lombok.NonNull;
@@ -131,17 +132,17 @@ public abstract class Command {
      * Defines the help text shown by {@code &help <command>}.
      * @return Never-null help string
      */
-    public @NonNull String getHelp(Lang lang, String prefix, String tag) {
-        return i18nfOpt(lang, "help", getHelpArgs(prefix, tag))
+    public @NonNull String getHelp(Lang lang, String prefix, String tag, Config config) {
+        return i18nfOpt(lang, "help", getHelpArgs(prefix, tag, config))
                 .orElseGet(() -> getDescription(lang));
     }
     /**
      * Defines the help text shown by {@code &help <command> admin}.
      * @return Never-null help string
      */
-    public @NonNull String getAdminHelp(Lang lang, String prefix, String tag) {
-        return i18nfOpt(lang, "adminHelp", getHelpArgs(prefix, tag))
-                .orElseGet(() -> getHelp(lang, prefix, tag));
+    public @NonNull String getAdminHelp(Lang lang, String prefix, String tag, Config config) {
+        return i18nfOpt(lang, "adminHelp", getHelpArgs(prefix, tag, config))
+                .orElseGet(() -> getHelp(lang, prefix, tag, config));
     }
     /**
      * Creates the object array that the help menu will be formatted with.
@@ -151,7 +152,7 @@ public abstract class Command {
      * @param tag The bot's tag, such as {@code @Minecord}
      * @return The formatting arguments
      */
-    public Object[] getHelpArgs(String prefix, String tag) {
+    public Object[] getHelpArgs(String prefix, String tag, Config config) {
         return new Object[]{prefix, tag};
     }
     /**
@@ -283,9 +284,10 @@ public abstract class Command {
         Lang lang = ctx.getLang();
         String prefix = ctx.getPrefix();
         String tag = ctx.getE().getJDA().getSelfUser().getAsMention();
+        Config config = ctx.getConfig();
 
         String titleKey = isAdmin ? "command.meta.adminHelpTitle" : "command.meta.helpTitle";
-        String help = isAdmin ? getAdminHelp(lang, prefix, tag) : getHelp(lang, prefix, tag);
+        String help = isAdmin ? getAdminHelp(lang, prefix, tag, config) : getHelp(lang, prefix, tag, config);
         String desc = formatModifiers(lang, isAdmin) + help;
         EmbedBuilder eb = new EmbedBuilder()
                 .setTitle(lang.i18nf(titleKey, ctx.formatCommandName(this)))
