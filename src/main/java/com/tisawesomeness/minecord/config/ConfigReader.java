@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.InvalidNullException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
@@ -43,6 +44,10 @@ public class ConfigReader {
         Config config;
         try {
             config = mapper.readValue(path.toFile(), Config.class);
+        } catch (InvalidNullException ex) {
+            String msg = String.format("The config file is invalid!%n\"%s\" was either not present or null.",
+                    ex.getPropertyName());
+            throw new InvalidConfigException(msg);
         } catch (JsonProcessingException ex) {
             throw new InvalidConfigException(ex);
         }

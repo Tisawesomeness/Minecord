@@ -123,6 +123,21 @@ flags:
   useElectroidAPI: true
 
 cache:
+  # The amount of time in seconds a guild database record is kept in the cache
+  guildLifetime: 600
+  # The maximum guild cache size
+  # Set to -1 for no limit or 0 to disable caching
+  guildMaxSize: -1
+  # The amount of time in seconds a channel database record is kept in the cache
+  channelLifetime: 600
+  # The maximum channel cache size
+  # Set to -1 for no limit or 0 to disable caching
+  channelMaxSize: -1
+  # The amount of time in seconds a user database record is kept in the cache
+  userLifetime: 600
+  # The maximum user cache size
+  # Set to -1 for no limit or 0 to disable caching
+  userMaxSize: -1
   # The amount of time in seconds a Username-->UUID mapping is kept in the cache, minimum 60 seconds
   mojangUuidLifetime: 60
   # The amount of time in seconds a UUID-->Player mapping is kept in the cache, minimum 60 seconds

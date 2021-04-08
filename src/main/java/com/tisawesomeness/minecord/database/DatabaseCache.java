@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.database;
 
+import com.tisawesomeness.minecord.config.serial.CacheConfig;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.database.dao.DbChannel;
 import com.tisawesomeness.minecord.database.dao.DbGuild;
@@ -40,16 +41,47 @@ public class DatabaseCache {
      */
     public DatabaseCache(Database db, Config config) {
         this.db = db;
+        guilds = build(builder(config, CacheType.GUILD), key -> DbGuild.load(db, key));
+        channels = build(builder(config, CacheType.CHANNEL), key -> DbChannel.load(db, key));
+        users = build(builder(config, CacheType.USER), key -> DbUser.load(db, key));
+    }
+
+    private static Caffeine<Object, Object> builder(Config config, CacheType type) {
         Caffeine<Object, Object> builder = Caffeine.newBuilder()
-                .expireAfterAccess(10, TimeUnit.MINUTES);
+                .expireAfterAccess(getLifetime(config, type), TimeUnit.SECONDS);
+        int maxSize = getMaxSize(config, type);
+        if (maxSize >= 0) {
+            builder.maximumSize(maxSize);
+        }
         if (config.getFlagConfig().isDebugMode()) {
             builder.recordStats();
         }
-        guilds = build(builder, key -> DbGuild.load(db, key));
-        channels = build(builder, key -> DbChannel.load(db, key));
-        users = build(builder, key -> DbUser.load(db, key));
+        return builder;
     }
-
+    private static int getLifetime(Config config, CacheType type) {
+        CacheConfig cc = config.getCacheConfig();
+        switch (type) {
+            case GUILD:
+                return cc.getGuildLifetime();
+            case CHANNEL:
+                return cc.getChannelLifetime();
+            case USER:
+                return cc.getUserLifetime();
+        }
+        throw new AssertionError("Unreachable");
+    }
+    private static int getMaxSize(Config config, CacheType type) {
+        CacheConfig cc = config.getCacheConfig();
+        switch (type) {
+            case GUILD:
+                return cc.getGuildMaxSize();
+            case CHANNEL:
+                return cc.getChannelMaxSize();
+            case USER:
+                return cc.getUserMaxSize();
+        }
+        throw new AssertionError("Unreachable");
+    }
     // Shortens code by matching loadFunction type to cache type, getting rid of the explicit CacheLoader declaration
     private static <T, R> LoadingCache<T, R> build(
             Caffeine<Object, Object> builder, ThrowingFunction<? super T, ? extends R, SQLException> loadFunction) {
@@ -163,6 +195,10 @@ public class DatabaseCache {
     }
     public CacheStats getUserStats() {
         return users.stats();
+    }
+
+    private enum CacheType {
+        GUILD, CHANNEL, USER
     }
 
 }
