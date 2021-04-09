@@ -122,6 +122,10 @@ public class Bot {
         if (!config.isSelfHosted()) {
             log.info("This bot is NOT self-hosted, support is unavailable");
         }
+        if ("your token here".equals(config.getToken())) {
+            log.info("--> Put your bot token in config.yml to run the bot.");
+            return ExitCodes.SUCCESS;
+        }
 
         // only logs after this line can be changed :(
         Logger logger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
