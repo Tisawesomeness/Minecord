@@ -11,10 +11,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -146,4 +143,35 @@ public final class DiscordUtils {
         }
         return eb.build();
     }
+
+    /**
+     * Isolates the command name and args from the prefix, but only if the string actually contains the prefix.
+     * For example, {@code &profile Dinnerbone} becomes {@code profile Dinnerbone}.
+     * @param content The raw content of the message
+     * @param prefix The current prefix
+     * @param selfId The bot's user ID as a string
+     * @param respondToMentions Whether the bot should respond to its mention as a prefix
+     * @return The command name and args in a single string, or empty if the prefix is not present
+     * @see com.tisawesomeness.minecord.setting.impl.PrefixSetting#resolve(String) for valid prefix rules
+     */
+    public static Optional<String> parseCommand(@NonNull String content, @NonNull String prefix,
+                                                @NonNull String selfId, boolean respondToMentions) {
+        if (respondToMentions) {
+            // mentions may either be <@id> or <@!id>
+            int endIndex = content.indexOf('>');
+            if (endIndex >= 0 && content.startsWith("<@")) {
+                int idStartIndex = content.charAt(2) == '!' ? 3 : 2;
+                if (content.substring(idStartIndex, endIndex).equals(selfId)) {
+                    // safe substring necessary to prevent index OOB when no command name is present
+                    return Optional.of(StringUtils.safeSubstring(content, endIndex + 2));
+                }
+            }
+        }
+
+        if (content.startsWith(prefix)) {
+            return Optional.of(content.substring(prefix.length()));
+        }
+        return Optional.empty();
+    }
+
 }

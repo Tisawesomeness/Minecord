@@ -33,6 +33,34 @@ public final class StringUtils {
     }
 
     /**
+     * Safely substrings a string. The start index will be bound between 0 and the length of the string.
+     * @param str The string to slice
+     * @param beginIndex The starting substring index, inclusive
+     * @return The sliced string
+     * @see String#substring(int)
+     */
+    public static @NonNull String safeSubstring(@NonNull String str, int beginIndex) {
+        return str.substring(limit(0, beginIndex, str.length()));
+    }
+    /**
+     * Safely substrings a string. The start and end indices will be bound between 0 and the length of the string.
+     * @param str The string to slice
+     * @param beginIndex The starting substring index, inclusive
+     * @param endIndex The ending substring index, exclusive
+     * @return The sliced string
+     * @see String#substring(int, int)
+     */
+    public static @NonNull String safeSubstring(@NonNull String str, int beginIndex, int endIndex) {
+        if (beginIndex >= endIndex) {
+            return "";
+        }
+        return str.substring(Math.max(beginIndex, 0), Math.min(endIndex, str.length()));
+    }
+    private static int limit(int low, int val, int high) {
+        return Math.max(low, Math.min(val, high));
+    }
+
+    /**
      * Joins a list of lines into a series of partitions, ensuring that no line in the returned list
      * has a length over the max length (as long as every input line is no longer than the max length).
      * This is useful for transforming a single message (split into inseparable pieces) into multiple message that
