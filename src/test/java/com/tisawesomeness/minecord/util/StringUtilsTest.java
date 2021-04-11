@@ -34,6 +34,67 @@ public class StringUtilsTest {
     }
 
     @Test
+    @DisplayName("A substring starting at -1 is the whole string")
+    public void testSafeSubstringN1() {
+        assertThat(StringUtils.safeSubstring("abc", -1)).isEqualTo("abc");
+    }
+    @Test
+    @DisplayName("A substring starting at 0 is the whole string")
+    public void testSafeSubstring0() {
+        assertThat(StringUtils.safeSubstring("abc", 0)).isEqualTo("abc");
+    }
+    @Test
+    @DisplayName("A substring starting at 1 slices correctly")
+    public void testSafeSubstring1() {
+        assertThat(StringUtils.safeSubstring("abc", 1)).isEqualTo("bc");
+    }
+    @Test
+    @DisplayName("A substring starting at string length is empty")
+    public void testSafeSubstringMax() {
+        assertThat(StringUtils.safeSubstring("abc", 3)).isEmpty();
+    }
+    @Test
+    @DisplayName("A substring starting past string length is empty")
+    public void testSafeSubstringOver() {
+        assertThat(StringUtils.safeSubstring("abc", 4)).isEmpty();
+    }
+    @Test
+    @DisplayName("A substring ending at -1 is empty")
+    public void testSafeSubstring0toN1() {
+        assertThat(StringUtils.safeSubstring("abc", 0, -1)).isEmpty();
+    }
+    @Test
+    @DisplayName("A substring ending at 0 is empty")
+    public void testSafeSubstring0to0() {
+        assertThat(StringUtils.safeSubstring("abc", 0, 0)).isEmpty();
+    }
+    @Test
+    @DisplayName("A substring ending at 1 is slices correctly")
+    public void testSafeSubstring0to1() {
+        assertThat(StringUtils.safeSubstring("abc", 0, 1)).isEqualTo("a");
+    }
+    @Test
+    @DisplayName("A substring ending at string length is the whole string")
+    public void testSafeSubstring0toMax() {
+        assertThat(StringUtils.safeSubstring("abc", 0, 3)).isEqualTo("abc");
+    }
+    @Test
+    @DisplayName("A substring ending past string length is the whole string")
+    public void testSafeSubstring0toOver() {
+        assertThat(StringUtils.safeSubstring("abc", 0, 4)).isEqualTo("abc");
+    }
+    @Test
+    @DisplayName("A substring starting at 1 and ending at 2 slices correctly")
+    public void testSafeSubstring1to2() {
+        assertThat(StringUtils.safeSubstring("abc", 1, 2)).isEqualTo("b");
+    }
+    @Test
+    @DisplayName("A substring starting at 2 and ending at 1 is empty")
+    public void testSafeSubstring2to1() {
+        assertThat(StringUtils.safeSubstring("abc", 2, 1)).isEmpty();
+    }
+
+    @Test
     @DisplayName("Splitting a list of empty strings by length returns an empty list")
     public void testSplitEmptyList() {
         List<String> lines = Collections.emptyList();
