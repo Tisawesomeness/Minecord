@@ -83,8 +83,12 @@ public class CommandListener extends ListenerAdapter {
         int nameArgsSeparatorIndex = getSeparatorIndex(commandString);
         String commandName = commandString.substring(0, nameArgsSeparatorIndex);
 
-        // Name is empty if there is a space after the prefix
-        if (commandName.isEmpty()) {
+        // Command string is empty if only the prefix or mention is typed
+        if (commandString.isEmpty()) {
+            // If "@Minecord" and nothing else is typed, show help for new users
+            if (e.getMessage().getContentRaw().startsWith("<@")) {
+                runHelp(e, prefix, lang, isElevated);
+            }
             return;
         }
         Optional<Command> cmdOpt = registry.getCommand(commandName, lang);
@@ -116,6 +120,13 @@ public class CommandListener extends ListenerAdapter {
             return new String[0];
         }
         return commandString.substring(nameArgsSeparatorIndex + 1).split(" ");
+    }
+
+    private void runHelp(MessageReceivedEvent e, String prefix, Lang lang, boolean isElevated) {
+        String[] args = new String[0];
+        Command cmd = registry.getHelpCommand();
+        CommandContext ctx = new DiscordContext(args, e, config, bot, cmd, commandExecutor, isElevated, prefix, lang);
+        commandExecutor.run(cmd, ctx);
     }
 
 }

@@ -11,6 +11,7 @@ import com.tisawesomeness.minecord.lang.LangSpecificKey;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.type.ListValuedEnumMap;
 
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.MultiMapUtils;
@@ -30,17 +31,19 @@ public class CommandRegistry implements Iterable<Command> {
 
     private final MultiValuedMap<Category, Command> categoryToCommandsMap;
     private final Map<LangSpecificKey, Command> commandInputMap;
+    @Getter private final Command helpCommand;
 
     /**
      * Adds every commands to the registry and maps the possible aliases to the command to execute.
      */
     public CommandRegistry() {
 
+        helpCommand = new HelpCommand(this);
         Command colorCmd = new ColorCommand();
         Command[] commands = {
 
                 // Core
-                new HelpCommand(this),
+                helpCommand,
                 new InfoCommand(),
                 new PingCommand(),
                 new InviteCommand(),
