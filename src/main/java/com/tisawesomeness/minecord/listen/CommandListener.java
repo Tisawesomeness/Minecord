@@ -9,6 +9,7 @@ import com.tisawesomeness.minecord.database.dao.DbUser;
 import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.setting.SettingRegistry;
 import com.tisawesomeness.minecord.util.DiscordUtils;
+import com.tisawesomeness.minecord.util.type.ListValuedEnumMap;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -18,7 +19,10 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Optional;
 
 public class CommandListener extends ListenerAdapter {
@@ -27,6 +31,7 @@ public class CommandListener extends ListenerAdapter {
     private final @NonNull Config config;
     private final @NonNull CommandRegistry registry;
     @Getter private final @NonNull CommandExecutor commandExecutor;
+    private final ListValuedEnumMap<Lang, String> prefixQuestions;
 
     public CommandListener(@NonNull Bot bot, @NonNull Config config,
             @NonNull CommandRegistry registry, @NonNull CommandStats commandStats) {
@@ -34,6 +39,19 @@ public class CommandListener extends ListenerAdapter {
         this.config = config;
         this.registry = registry;
         commandExecutor = new CommandExecutor(registry, commandStats, config);
+        prefixQuestions = buildPrefixQuestionsMap(); // Pre-loading prefix questions since it will be queried a lot
+    }
+    private static ListValuedEnumMap<Lang, String> buildPrefixQuestionsMap() {
+        ListValuedEnumMap<Lang, String> prefixQuestions;
+        prefixQuestions = ListValuedEnumMap.create(Lang.class);
+        for (Lang lang : Lang.values()) {
+            Collection<String> temp = new HashSet<>(lang.i18nList("command.meta.prefixQuestions"));
+            if (lang != Lang.getDefault()) {
+                temp.addAll(Lang.getDefault().i18nList("command.meta.prefixQuestions"));
+            }
+            prefixQuestions.putAll(lang, temp);
+        }
+        return prefixQuestions;
     }
 
     @Override
@@ -91,6 +109,13 @@ public class CommandListener extends ListenerAdapter {
             }
             return;
         }
+        // Some people expect the bot to respond to "@Minecord what's your prefix"
+        if (lang.containsIgnoreCase(prefixQuestions.get(lang), commandString)) {
+            String prefixMsg = lang.i18nf("command.meta.currentPrefix", MarkdownUtil.monospace(prefix));
+            e.getChannel().sendMessage(prefixMsg).queue();
+            return;
+        }
+
         Optional<Command> cmdOpt = registry.getCommand(commandName, lang);
         if (!cmdOpt.isPresent()) {
             return;
