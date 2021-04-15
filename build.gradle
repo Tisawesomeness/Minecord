@@ -77,10 +77,9 @@ tasks.withType(JacocoReport) {
 }
 
 check.dependsOn integrationTest
-check.dependsOn jacocoTestReport
-check.dependsOn jacocoIntegrationTestReport
 integrationTest.mustRunAfter test
-jacocoTestReport.mustRunAfter integrationTest
+test.finalizedBy jacocoTestReport
+integrationTest.finalizedBy jacocoIntegrationTestReport
 jacocoIntegrationTestReport.mustRunAfter jacocoTestReport
 
 import org.apache.tools.ant.filters.ReplaceTokens
