@@ -66,7 +66,8 @@ public class Bot {
             GatewayIntent.DIRECT_MESSAGES, GatewayIntent.DIRECT_MESSAGE_REACTIONS,
             GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS);
     private static final EnumSet<CacheFlag> disabledCacheFlags = EnumSet.of(
-            CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOTE, CacheFlag.VOICE_STATE);
+            CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOTE,
+            CacheFlag.ONLINE_STATUS, CacheFlag.VOICE_STATE);
     private static final EnumSet<Message.MentionType> ALLOWED_MENTIONS = EnumSet.complementOf(EnumSet.of(
             Message.MentionType.EVERYONE, Message.MentionType.HERE,
             Message.MentionType.USER, Message.MentionType.ROLE));
