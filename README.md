@@ -1,10 +1,10 @@
-# Minecord [![Build Status](https://travis-ci.org/Tisawesomeness/Minecord.svg?branch=refactor)](https://travis-ci.org/Tisawesomeness/Minecord) [![Discord Bots](https://discordbots.org/api/widget/status/292279711034245130.png)](https://discordbots.org/bot/292279711034245130) [![Discord Bots](https://discordbots.org/api/widget/servers/292279711034245130.png)](https://discordbots.org/bot/292279711034245130) [![Discord Bots](https://discordbots.org/api/widget/upvotes/292279711034245130.png)](https://discordbots.org/bot/292279711034245130) [![GitHub](https://img.shields.io/github/license/Tisawesomeness/Minecord)](https://github.com/Tisawesomeness/Minecord/blob/refactor/LICENSE)
+# Minecord [![Build Status](https://travis-ci.com/Tisawesomeness/Minecord.svg?branch=refactor)](https://travis-ci.com/Tisawesomeness/Minecord) [![Discord Bots](https://discordbots.org/api/widget/status/292279711034245130.png)](https://discordbots.org/bot/292279711034245130) [![Discord Bots](https://discordbots.org/api/widget/servers/292279711034245130.png)](https://discordbots.org/bot/292279711034245130) [![Discord Bots](https://discordbots.org/api/widget/upvotes/292279711034245130.png)](https://discordbots.org/bot/292279711034245130) [![GitHub](https://img.shields.io/github/license/Tisawesomeness/Minecord)](https://github.com/Tisawesomeness/Minecord/blob/refactor/LICENSE)
 
 A Discord bot with many Minecraft-related features, such as name history, skin renders, color codes, and recipe lookup! Pull Requests and issues are welcome.
 
-- **Official Bot Invite: https://discordapp.com/oauth2/authorize?client_id=292279711034245130&scope=bot&permissions=93248**
-- Bot User: Minecord#1216
-- Support Server: https://discord.gg/hrfQaD7
+- **Official Bot Invite: https://minecord.github.io/invite**
+- Bot User: `Minecord#1216`
+- Support Server: https://minecord.github.io/support
 
 ### Self Hosting
 
