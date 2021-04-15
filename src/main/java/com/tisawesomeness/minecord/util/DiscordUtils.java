@@ -4,13 +4,16 @@ import com.tisawesomeness.minecord.Branding;
 import com.tisawesomeness.minecord.BuildInfo;
 import com.tisawesomeness.minecord.config.serial.Config;
 
+import lombok.AccessLevel;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
+import javax.annotation.Nullable;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -148,20 +151,21 @@ public final class DiscordUtils {
      * Isolates the command name and args from the prefix, but only if the string actually contains the prefix.
      * For example, {@code &profile Dinnerbone} becomes {@code profile Dinnerbone}.
      * @param content The raw content of the message
-     * @param prefix The current prefix
-     * @param selfId The bot's user ID as a string
-     * @param respondToMentions Whether the bot should respond to its mention as a prefix
+     * @param prefix The current prefix, see
+     *               {@link com.tisawesomeness.minecord.setting.impl.PrefixSetting#resolve(String)
+     *               PrefixSetting.resolve(String)} for valid prefix rules
+     * @param options The configuration options that determine how commands can be parsed
      * @return The command name and args in a single string, or empty if the prefix is not present
-     * @see com.tisawesomeness.minecord.setting.impl.PrefixSetting#resolve(String) for valid prefix rules
+     * @see #parseOptionsBuilder()
      */
     public static Optional<String> parseCommand(@NonNull String content, @NonNull String prefix,
-                                                @NonNull String selfId, boolean respondToMentions) {
-        if (respondToMentions) {
+                                                @NonNull ParseOptions options) {
+        if (options.respondToMentions) {
             // mentions may either be <@id> or <@!id>
             int endIndex = content.indexOf('>');
             if (endIndex >= 0 && content.startsWith("<@")) {
                 int idStartIndex = content.charAt(2) == '!' ? 3 : 2;
-                if (content.substring(idStartIndex, endIndex).equals(selfId)) {
+                if (content.substring(idStartIndex, endIndex).equals(options.selfId)) {
                     // safe substring necessary to prevent index OOB when no command name is present
                     return Optional.of(StringUtils.safeSubstring(content, endIndex + 2));
                 }
@@ -171,7 +175,64 @@ public final class DiscordUtils {
         if (content.startsWith(prefix)) {
             return Optional.of(content.substring(prefix.length()));
         }
-        return Optional.empty();
+        return options.prefixRequired ? Optional.empty() : Optional.of(content);
+    }
+    /**
+     * @return A new builder for use in {@link #parseCommand(String, String, ParseOptions)}
+     */
+    public static ParseBuilder parseOptionsBuilder() {
+        return new ParseBuilder();
+    }
+
+    /**
+     * Contains all the options that determine how a command prefix should be parsed.
+     */
+    @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+    public static class ParseOptions {
+        private final boolean respondToMentions;
+        private final @Nullable String selfId; // null only if respondToMentions false
+        private final boolean prefixRequired;
+    }
+    /**
+     * Builds a {@link ParseOptions}.
+     */
+    public static class ParseBuilder {
+        private boolean respondToMentions;
+        private String selfId;
+        private boolean prefixRequired = true;
+
+        /**
+         * Changes whether a mention counts as a prefix
+         * @param respondToMentions Whether the bot should respond to mentions
+         * @param selfId The ID of the bot user
+         * @return This builder
+         * @throws NullPointerException If {@code respondToMentions} is true and {@code selfId} is null
+         */
+        public ParseBuilder respondToMentions(boolean respondToMentions, @Nullable String selfId) {
+            if (respondToMentions) {
+                if (selfId == null) {
+                    throw new NullPointerException("Self ID cannot be null if the bot is responding to mentions");
+                }
+                this.selfId = selfId;
+            }
+            this.respondToMentions = respondToMentions;
+            return this;
+        }
+        /**
+         * Changes whether a prefix is required
+         * @param prefixRequired Whether a prefix is required
+         * @return This builder
+         */
+        public ParseBuilder prefixRequired(boolean prefixRequired) {
+            this.prefixRequired = prefixRequired;
+            return this;
+        }
+        /**
+         * @return The built parse options object
+         */
+        public ParseOptions build() {
+            return new ParseOptions(respondToMentions, selfId, prefixRequired);
+        }
     }
 
 }

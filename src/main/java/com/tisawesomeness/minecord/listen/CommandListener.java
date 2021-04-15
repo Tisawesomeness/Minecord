@@ -127,11 +127,13 @@ public class CommandListener extends ListenerAdapter {
         commandExecutor.run(cmd, ctx);
     }
     private Optional<String> getCommandString(MessageReceivedEvent e, String prefix) {
-        String content = e.getMessage().getContentRaw();
-        String selfId = e.getJDA().getSelfUser().getId();
         boolean respondToMentions = config.getFlagConfig().isRespondToMentions();
-
-        return DiscordUtils.parseCommand(content, prefix, selfId, respondToMentions);
+        String selfId = e.getJDA().getSelfUser().getId();
+        DiscordUtils.ParseOptions options = DiscordUtils.parseOptionsBuilder()
+                .respondToMentions(respondToMentions, selfId)
+                .prefixRequired(e.isFromGuild())
+                .build();
+        return DiscordUtils.parseCommand(e.getMessage().getContentRaw(), prefix, options);
     }
     private static int getSeparatorIndex(String commandPart) {
         int spaceIndex = commandPart.indexOf(' ');
