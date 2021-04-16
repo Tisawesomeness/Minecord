@@ -3,7 +3,7 @@ package com.tisawesomeness.minecord.setting.impl;
 import com.tisawesomeness.minecord.config.serial.SettingsConfig;
 import com.tisawesomeness.minecord.database.dao.SettingContainer;
 import com.tisawesomeness.minecord.setting.Setting;
-import com.tisawesomeness.minecord.util.DiscordUtils;
+import com.tisawesomeness.minecord.util.Discord;
 import com.tisawesomeness.minecord.util.type.Validation;
 import com.tisawesomeness.minecord.util.type.Verification;
 
@@ -78,7 +78,7 @@ public class PrefixSetting extends Setting<String> {
     public static Verification verify(String input) {
         // The mention "@a" is 18 characters long when sent to discord
         // Telling the user the prefix is too long, or other errors, would be confusing
-        if (DiscordUtils.ANY_MENTION.matcher(input).find()) {
+        if (Discord.ANY_MENTION.matcher(input).find()) {
             return Verification.invalid("The prefix cannot contain user/channel/role mentions or emojis.");
         }
         if ("unset".equalsIgnoreCase(input)) {

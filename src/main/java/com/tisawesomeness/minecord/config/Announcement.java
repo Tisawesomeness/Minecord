@@ -2,7 +2,7 @@ package com.tisawesomeness.minecord.config;
 
 import com.tisawesomeness.minecord.Branding;
 import com.tisawesomeness.minecord.config.serial.Config;
-import com.tisawesomeness.minecord.util.DiscordUtils;
+import com.tisawesomeness.minecord.util.Discord;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.sharding.ShardManager;
@@ -31,7 +31,7 @@ public class Announcement {
         if (weight < 0) {
             throw new IllegalArgumentException("Announcement weight cannot be negative!");
         }
-        this.text = DiscordUtils.parseConstants(text, config, branding);
+        this.text = Discord.parseConstants(text, config, branding);
         this.weight = weight;
     }
 
@@ -41,7 +41,7 @@ public class Announcement {
      * @return The parsed announcement text.
      */
     public String parse(ShardManager sm) {
-        return DiscordUtils.parseVariables(text, sm);
+        return Discord.parseVariables(text, sm);
     }
 
 }

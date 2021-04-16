@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.util.DiscordUtils;
+import com.tisawesomeness.minecord.util.Discord;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -24,7 +24,7 @@ public class MsgCommand extends AbstractAdminCommand {
         }
 
         //Extract user
-        User user = DiscordUtils.findUser(args[0], ctx.getBot().getShardManager());
+        User user = Discord.findUser(args[0], ctx.getBot().getShardManager());
         if (user == null) {
             ctx.warn("Not a valid user!");
             return;

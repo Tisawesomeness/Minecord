@@ -7,11 +7,11 @@ import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.mc.player.Render;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.mc.player.Username;
-import com.tisawesomeness.minecord.testutil.PlayerTestUtils;
+import com.tisawesomeness.minecord.testutil.PlayerTests;
 import com.tisawesomeness.minecord.testutil.mc.TestMCLibrary;
 import com.tisawesomeness.minecord.testutil.mc.TestPlayerProvider;
 import com.tisawesomeness.minecord.testutil.runner.TestCommandRunner;
-import com.tisawesomeness.minecord.util.StringUtils;
+import com.tisawesomeness.minecord.util.Strings;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.BeforeAll;
@@ -43,7 +43,7 @@ public class RenderCommandIT {
         TestPlayerProvider playerProvider = library.getPlayerProvider();
 
         playerProvider.throwOnUsername(THROWING_USERNAME);
-        playerProvider.mapUuid(new Username("abc"), PlayerTestUtils.STEVE_UUID);
+        playerProvider.mapUuid(new Username("abc"), PlayerTests.STEVE_UUID);
 
         runner.mcLibrary = library;
         return runner;
@@ -60,7 +60,7 @@ public class RenderCommandIT {
     @EnumSource
     @DisplayName("Render commands with too long username warns the user")
     public void testTooLong(RenderType type) {
-        String args = StringUtils.repeat("A", Username.MAX_LENGTH + 1);
+        String args = Strings.repeat("A", Username.MAX_LENGTH + 1);
         assertThat(runners.get(type).run(args))
                 .awaitResult()
                 .hasNotTriggeredCooldown()
@@ -105,7 +105,7 @@ public class RenderCommandIT {
     @DisplayName("Render commands generates render correctly")
     public void testStandardRender(RenderType type) {
         String args = "abc";
-        Render expectedRender = new Render(PlayerTestUtils.STEVE_UUID, type, false);
+        Render expectedRender = new Render(PlayerTests.STEVE_UUID, type, false);
         assertThat(runners.get(type).run(args))
                 .awaitResult()
                 .hasTriggeredCooldown()
@@ -118,7 +118,7 @@ public class RenderCommandIT {
     @DisplayName("Render commands generates render with scale correctly")
     public void testScaledRender(RenderType type) {
         String args = "abc 5";
-        Render expectedRender = new Render(PlayerTestUtils.STEVE_UUID, type, false, 5);
+        Render expectedRender = new Render(PlayerTests.STEVE_UUID, type, false, 5);
         assertThat(runners.get(type).run(args))
                 .awaitResult()
                 .hasTriggeredCooldown()
@@ -131,7 +131,7 @@ public class RenderCommandIT {
     @DisplayName("Render commands generates render with overlay correctly")
     public void testOverlayRender(RenderType type) {
         String args = "abc true";
-        Render expectedRender = new Render(PlayerTestUtils.STEVE_UUID, type, true);
+        Render expectedRender = new Render(PlayerTests.STEVE_UUID, type, true);
         assertThat(runners.get(type).run(args))
                 .awaitResult()
                 .hasTriggeredCooldown()
@@ -144,7 +144,7 @@ public class RenderCommandIT {
     @DisplayName("Render commands generates render with scale and overlay correctly")
     public void testScaleAndOverlayRender(RenderType type) {
         String args = "abc 5 true";
-        Render expectedRender = new Render(PlayerTestUtils.STEVE_UUID, type, true, 5);
+        Render expectedRender = new Render(PlayerTests.STEVE_UUID, type, true, 5);
         assertThat(runners.get(type).run(args))
                 .awaitResult()
                 .hasTriggeredCooldown()
@@ -157,7 +157,7 @@ public class RenderCommandIT {
     @DisplayName("Render commands generates render with overlay and scale correctly")
     public void testOverlayAndScaleRender(RenderType type) {
         String args = "abc true 5";
-        Render expectedRender = new Render(PlayerTestUtils.STEVE_UUID, type, true, 5);
+        Render expectedRender = new Render(PlayerTests.STEVE_UUID, type, true, 5);
         assertThat(runners.get(type).run(args))
                 .awaitResult()
                 .hasTriggeredCooldown()

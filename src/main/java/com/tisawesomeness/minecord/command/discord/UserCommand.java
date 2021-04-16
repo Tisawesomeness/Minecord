@@ -3,7 +3,7 @@ package com.tisawesomeness.minecord.command.discord;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.dao.DbUser;
 import com.tisawesomeness.minecord.util.DateUtils;
-import com.tisawesomeness.minecord.util.DiscordUtils;
+import com.tisawesomeness.minecord.util.Discord;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -31,7 +31,7 @@ public class UserCommand extends AbstractDiscordCommand {
 
         //If the author used the admin keyword and is an elevated user
         if (args.length > 1 && args[1].equals("admin") && ctx.isElevated()) {
-            if (!DiscordUtils.isDiscordId(args[0])) {
+            if (!Discord.isDiscordId(args[0])) {
                 ctx.invalidArgs("Not a valid ID!");
                 return;
             }
@@ -94,7 +94,7 @@ public class UserCommand extends AbstractDiscordCommand {
         if (mentioned.size() > 0) {
             mem = mentioned.get(0);
         } else {
-            if (DiscordUtils.isDiscordId(args[0])) {
+            if (Discord.isDiscordId(args[0])) {
                 mem = e.getGuild().retrieveMemberById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
                 if (mem == null) {
                     ctx.warn("That user does not exist.");

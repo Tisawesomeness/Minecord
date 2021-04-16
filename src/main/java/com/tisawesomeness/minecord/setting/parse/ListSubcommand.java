@@ -3,7 +3,7 @@ package com.tisawesomeness.minecord.setting.parse;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.dao.DbChannel;
 import com.tisawesomeness.minecord.setting.Setting;
-import com.tisawesomeness.minecord.util.DiscordUtils;
+import com.tisawesomeness.minecord.util.Discord;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -62,7 +62,7 @@ public class ListSubcommand {
 
     private void parseGuildAndList() {
         String guildArg = ctx.getArgs()[currentArg];
-        if (!DiscordUtils.isDiscordId(guildArg)) {
+        if (!Discord.isDiscordId(guildArg)) {
             ctx.invalidArgs("Not a valid guild id.");
             return;
         }

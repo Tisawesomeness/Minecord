@@ -2,7 +2,7 @@ package com.tisawesomeness.minecord.command.discord;
 
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.IGuildOnlyCommand;
-import com.tisawesomeness.minecord.util.DiscordUtils;
+import com.tisawesomeness.minecord.util.Discord;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import lombok.NonNull;
@@ -37,7 +37,7 @@ public class RolesCommand extends AbstractDiscordCommand implements IGuildOnlyCo
         if (mentioned.size() > 0) {
             mem = mentioned.get(0);
         } else {
-            if (DiscordUtils.isDiscordId(args[0])) {
+            if (Discord.isDiscordId(args[0])) {
                 mem = e.getGuild().retrieveMemberById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
                 if (mem == null) {
                     ctx.warn("That user does not exist.");

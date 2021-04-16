@@ -11,7 +11,8 @@ import java.util.Optional;
 /**
  * Utility class to make {@link ResultSet} and {@link PreparedStatement} work with {@link Optional}.
  */
-public final class StatementUtils {
+public final class Statements {
+    private Statements() {}
 
     /**
      * Gets a string from the ResultSet, checking for null.

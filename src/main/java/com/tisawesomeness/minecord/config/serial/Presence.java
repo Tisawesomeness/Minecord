@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.config.serial;
 
-import com.tisawesomeness.minecord.util.DiscordUtils;
+import com.tisawesomeness.minecord.util.Discord;
 import com.tisawesomeness.minecord.util.type.Verification;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -59,7 +59,7 @@ public class Presence {
             sm.setPresence(status, null);
             return;
         }
-        String displayContent = DiscordUtils.parseVariables(content, sm);
+        String displayContent = Discord.parseVariables(content, sm);
         Activity.ActivityType activityType = Objects.requireNonNull(type).getActivityType();
         Activity jdaActivity = Activity.of(activityType, displayContent, url);
         sm.setPresence(status, jdaActivity);

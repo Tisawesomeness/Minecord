@@ -2,7 +2,7 @@ package com.tisawesomeness.minecord.command.utility;
 
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.IMultiLineCommand;
-import com.tisawesomeness.minecord.util.RequestUtils;
+import com.tisawesomeness.minecord.util.Mth;
 
 import lombok.NonNull;
 
@@ -18,7 +18,7 @@ public class Sha1Command extends AbstractUtilityCommand implements IMultiLineCom
             return;
         }
         ctx.triggerCooldown();
-        ctx.reply(RequestUtils.sha1(ctx.joinArgs()));
+        ctx.reply(Mth.sha1(ctx.joinArgs()));
     }
 
 }

@@ -7,7 +7,7 @@ import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.debug.*;
 import com.tisawesomeness.minecord.debug.cache.*;
 import com.tisawesomeness.minecord.mc.external.PlayerProvider;
-import com.tisawesomeness.minecord.util.ListUtils;
+import com.tisawesomeness.minecord.util.Lists;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import lombok.NonNull;
@@ -64,7 +64,7 @@ public class DebugCommand extends AbstractAdminCommand {
         DatabaseCache dbCache = ctx.getBot().getDatabaseCache();
         CommandExecutor executor = ctx.getExecutor();
         PlayerProvider playerProvider = ctx.getMCLibrary().getPlayerProvider();
-        return ListUtils.of(
+        return Lists.of(
                 new JDADebugOption(sm),
                 new ThreadDebugOption(),
                 new RegionDebugOption(sm),

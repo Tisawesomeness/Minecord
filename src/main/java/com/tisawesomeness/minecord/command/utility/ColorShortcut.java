@@ -1,12 +1,12 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.IHiddenCommand;
 import com.tisawesomeness.minecord.command.IShortcutCommand;
 import com.tisawesomeness.minecord.config.serial.CommandConfig;
-import com.tisawesomeness.minecord.util.ColorUtils;
+import com.tisawesomeness.minecord.lang.Lang;
+import com.tisawesomeness.minecord.util.Colors;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -24,7 +24,7 @@ public class ColorShortcut extends ColorCommand implements IShortcutCommand, IHi
     public ColorShortcut(Command colorCmd, int index) {
         this.colorCmd = colorCmd;
         colorCode = String.format("%01x", index);
-        color = ColorUtils.getColor(index);
+        color = Colors.getColor(index);
     }
 
     @Override

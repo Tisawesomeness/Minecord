@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.util.network;
+package com.tisawesomeness.minecord.util;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,12 +8,12 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class URLUtilsTest {
+public class URLsTest {
 
     @Test
     @DisplayName("Http addresses can be converted to https")
     public void testHttps() {
-        assertThat(URLUtils.httpToHttps("http://example.com/")).isEqualTo("https://example.com/");
+        assertThat(URLs.httpToHttps("http://example.com/")).isEqualTo("https://example.com/");
     }
 
     @ParameterizedTest(name = "{index} ==> String URL {0} is unmodified")
@@ -25,7 +25,7 @@ public class URLUtilsTest {
     @EmptySource
     @DisplayName("httpToHttps() leaves non-http urls unmodified")
     public void testNotHttps(String candidate) {
-        assertThat(URLUtils.httpToHttps(candidate)).isEqualTo(candidate);
+        assertThat(URLs.httpToHttps(candidate)).isEqualTo(candidate);
     }
 
 }

@@ -3,7 +3,7 @@ package com.tisawesomeness.minecord.database;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.database.dao.CommandStats;
 import com.tisawesomeness.minecord.database.dao.CommandStatsImpl;
-import com.tisawesomeness.minecord.util.IOUtils;
+import com.tisawesomeness.minecord.util.IO;
 
 import lombok.Cleanup;
 import lombok.Getter;
@@ -100,7 +100,7 @@ public class Database {
      * @throws SQLException If there is an error executing the script.
      */
     private void runScript(String resourceName) throws SQLException {
-        String initScript = IOUtils.loadResource(resourceName);
+        String initScript = IO.loadResource(resourceName);
         @Cleanup Connection connect = getConnect();
         @Cleanup Statement statement = connect.createStatement();
         for (String query : initScript.split(",")) {

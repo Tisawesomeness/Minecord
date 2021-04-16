@@ -3,7 +3,7 @@ package com.tisawesomeness.minecord.mc.external;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.network.APIClient;
 import com.tisawesomeness.minecord.network.StatusCodes;
-import com.tisawesomeness.minecord.util.network.URLUtils;
+import com.tisawesomeness.minecord.util.URLs;
 
 import lombok.Cleanup;
 import lombok.NonNull;
@@ -28,14 +28,14 @@ public class ElectroidAPIImpl extends ElectroidAPI {
     private final @NonNull APIClient client;
 
     protected Optional<String> requestPlayer(@NonNull Username username) throws IOException {
-        String encodedName = URLUtils.encode(username.toString());
-        URL url = URLUtils.createUrl(BASE + encodedName);
+        String encodedName = URLs.encode(username.toString());
+        URL url = URLs.createUrl(BASE + encodedName);
         @Cleanup Response response = client.get(url);
         return processResponse(response);
     }
 
     protected Optional<String> requestPlayer(@NonNull UUID uuid) throws IOException {
-        URL url = URLUtils.createUrl(BASE + uuid);
+        URL url = URLs.createUrl(BASE + uuid);
         @Cleanup Response response = client.get(url);
         return processResponse(response);
     }

@@ -3,8 +3,8 @@ package com.tisawesomeness.minecord.mc.external;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.network.APIClient;
 import com.tisawesomeness.minecord.network.StatusCodes;
-import com.tisawesomeness.minecord.util.UUIDUtils;
-import com.tisawesomeness.minecord.util.network.URLUtils;
+import com.tisawesomeness.minecord.util.URLs;
+import com.tisawesomeness.minecord.util.UUIDs;
 
 import lombok.Cleanup;
 import lombok.NonNull;
@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 public class MojangAPIImpl extends MojangAPI {
 
     private static final Pattern EMAIL_CASE_PATTERN = Pattern.compile("^[0-9A-Za-z_\\-.*@]+$");
-    private static final URL BASE_URL = URLUtils.createUrl("https://api.mojang.com/users/profiles/minecraft/");
+    private static final URL BASE_URL = URLs.createUrl("https://api.mojang.com/users/profiles/minecraft/");
     public static final int LONGEST_DEBUGGABLE_ERROR = 256;
     private final APIClient client;
     
@@ -49,7 +49,7 @@ public class MojangAPIImpl extends MojangAPI {
                 return new URL(BASE_URL, username.toString());
             }
             // Otherwise, encoding is necessary to clean out naughty characters
-            return new URL(BASE_URL, URLUtils.encode(username.toString()));
+            return new URL(BASE_URL, URLs.encode(username.toString()));
         } catch (MalformedURLException ex) {
             throw new AssertionError(ex);
         }
@@ -57,15 +57,15 @@ public class MojangAPIImpl extends MojangAPI {
 
     protected Optional<String> requestNameHistory(@NonNull UUID uuid) throws IOException {
         // UUID must have hyphens stripped
-        String link = String.format("https://api.mojang.com/user/profiles/%s/names", UUIDUtils.toShortString(uuid));
-        @Cleanup Response response = client.get(URLUtils.createUrl(link));
+        String link = String.format("https://api.mojang.com/user/profiles/%s/names", UUIDs.toShortString(uuid));
+        @Cleanup Response response = client.get(URLs.createUrl(link));
         return getContentIfPresent(response);
     }
 
     protected Optional<String> requestProfile(@NonNull UUID uuid) throws IOException {
         // UUID must have hyphens stripped
-        String link = "https://sessionserver.mojang.com/session/minecraft/profile/" + UUIDUtils.toShortString(uuid);
-        @Cleanup Response response = client.get(URLUtils.createUrl(link));
+        String link = "https://sessionserver.mojang.com/session/minecraft/profile/" + UUIDs.toShortString(uuid);
+        @Cleanup Response response = client.get(URLs.createUrl(link));
         return getContentIfPresent(response);
     }
 

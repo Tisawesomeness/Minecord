@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.util.DiscordUtils;
+import com.tisawesomeness.minecord.util.Discord;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -24,7 +24,7 @@ public class SayCommand extends AbstractAdminCommand {
         }
 
         //Extract channel
-        TextChannel channel = DiscordUtils.findChannel(args[0], ctx.getBot().getShardManager());
+        TextChannel channel = Discord.findChannel(args[0], ctx.getBot().getShardManager());
         if (channel == null) {
             ctx.warn("Not a valid channel!");
             return;

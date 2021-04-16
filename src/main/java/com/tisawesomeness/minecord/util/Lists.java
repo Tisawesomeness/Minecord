@@ -3,8 +3,8 @@ package com.tisawesomeness.minecord.util;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public final class ListUtils {
-    private ListUtils() {}
+public final class Lists {
+    private Lists() {}
 
     /**
      * Creates an immutable list from the parameters.

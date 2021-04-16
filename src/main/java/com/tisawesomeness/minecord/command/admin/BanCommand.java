@@ -3,7 +3,7 @@ package com.tisawesomeness.minecord.command.admin;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.dao.DbGuild;
 import com.tisawesomeness.minecord.database.dao.DbUser;
-import com.tisawesomeness.minecord.util.DiscordUtils;
+import com.tisawesomeness.minecord.util.Discord;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.entities.Guild;
@@ -37,7 +37,7 @@ public class BanCommand extends AbstractAdminCommand {
                 ctx.invalidArgs("Please define a user.");
                 return;
             }
-            if (!DiscordUtils.isDiscordId(args[1])) {
+            if (!Discord.isDiscordId(args[1])) {
                 ctx.invalidArgs("Not a valid ID!");
                 return;
             }
@@ -69,7 +69,7 @@ public class BanCommand extends AbstractAdminCommand {
                 ctx.invalidArgs("Please define a guild.");
                 return;
             }
-            if (!DiscordUtils.isDiscordId(args[1])) {
+            if (!Discord.isDiscordId(args[1])) {
                 ctx.invalidArgs("Not a valid ID!");
                 return;
             }
@@ -100,7 +100,7 @@ public class BanCommand extends AbstractAdminCommand {
 
         //Query part of command
         } else {
-            if (!DiscordUtils.isDiscordId(args[0])) {
+            if (!Discord.isDiscordId(args[0])) {
                 ctx.invalidArgs("Not a valid ID!");
                 return;
             }

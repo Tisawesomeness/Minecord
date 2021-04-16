@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.util.network;
+package com.tisawesomeness.minecord.util;
 
 import lombok.NonNull;
 
@@ -12,8 +12,8 @@ import java.nio.charset.StandardCharsets;
 /**
  * Utility class for working with URLs
  */
-public final class URLUtils {
-    private URLUtils() {}
+public final class URLs {
+    private URLs() {}
 
     /**
      * Creates a URL from a string without throwing a checked exception. <b>Verify that all strings passed to this

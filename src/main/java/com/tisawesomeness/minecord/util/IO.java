@@ -12,8 +12,8 @@ import java.nio.file.Path;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
-public final class IOUtils {
-    private IOUtils() {}
+public final class IO {
+    private IO() {}
 
     /**
      * Reads a string from a file.
@@ -65,7 +65,7 @@ public final class IOUtils {
         return prop;
     }
     private static InputStream openResource(String name) {
-        InputStream is = RequestUtils.class.getClassLoader().getResourceAsStream(name);
+        InputStream is = IO.class.getClassLoader().getResourceAsStream(name);
         if (is == null) {
             throw new IllegalArgumentException("The resource was not found!");
         }

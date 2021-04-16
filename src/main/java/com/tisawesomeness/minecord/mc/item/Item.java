@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.mc.item;
 
-import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.util.IOUtils;
+import com.tisawesomeness.minecord.util.IO;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import org.json.JSONArray;
@@ -23,8 +22,8 @@ public class Item {
             "minecraft.shield.white", "minecraft.white_shulker_box", "minecraft.white_bed",
             "minecraft.white_glazed_terracotta", "minecraft.white_concrete", "minecraft.white_concrete_powder" };
 
-    private static final JSONObject items = new JSONObject(IOUtils.loadResource("mc/items.json"));
-    private static final JSONObject data = new JSONObject(IOUtils.loadResource("mc/data.json"));
+    private static final JSONObject items = new JSONObject(IO.loadResource("mc/items.json"));
+    private static final JSONObject data = new JSONObject(IO.loadResource("mc/data.json"));
 
     public static final String help = "Items can be:\n" +
         "- Namespaced IDs: `minecraft:iron_block`\n" +

@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.lang;
 
-import com.tisawesomeness.minecord.util.ListUtils;
+import com.tisawesomeness.minecord.util.Lists;
 import com.tisawesomeness.minecord.util.discord.Codeblock;
 import com.tisawesomeness.minecord.util.discord.MarkdownAction;
 import com.tisawesomeness.minecord.util.discord.MaskedLink;
@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class LocalizedMarkdownBuilderTest {
 
-    private static final List<MarkdownAction> actions = ListUtils.of(
+    private static final List<MarkdownAction> actions = Lists.of(
             SimpleMarkdownAction.QUOTE_BLOCK,
             SimpleMarkdownAction.QUOTE,
             SimpleMarkdownAction.BOLD,

@@ -4,7 +4,7 @@ import com.tisawesomeness.minecord.config.serial.SettingsConfig;
 import com.tisawesomeness.minecord.setting.impl.LangSetting;
 import com.tisawesomeness.minecord.setting.impl.PrefixSetting;
 import com.tisawesomeness.minecord.setting.impl.UseMenusSetting;
-import com.tisawesomeness.minecord.util.ListUtils;
+import com.tisawesomeness.minecord.util.Lists;
 
 import lombok.NonNull;
 
@@ -30,7 +30,7 @@ public class SettingRegistry implements Iterable<Setting<?>> {
         prefix = new PrefixSetting(config);
         lang = new LangSetting(config);
         useMenus = new UseMenusSetting(config);
-        settingsList = ListUtils.of(prefix, lang, useMenus);
+        settingsList = Lists.of(prefix, lang, useMenus);
     }
 
     /**

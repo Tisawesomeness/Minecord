@@ -3,7 +3,7 @@ package com.tisawesomeness.minecord.setting.parse;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.database.dao.DbChannel;
-import com.tisawesomeness.minecord.util.DiscordUtils;
+import com.tisawesomeness.minecord.util.Discord;
 import com.tisawesomeness.minecord.util.type.Either;
 
 import lombok.Getter;
@@ -104,7 +104,7 @@ public class ChannelContext extends SettingContext {
 
     private Either<String, TextChannel> getChannel(String input) {
         long gid = ctx.getE().getGuild().getIdLong();
-        if (DiscordUtils.isDiscordId(input)) {
+        if (Discord.isDiscordId(input)) {
             return getChannelFromIdIfInGuild(input, gid);
         }
         return getChannelFromMentions(gid);
@@ -159,7 +159,7 @@ public class ChannelContext extends SettingContext {
     }
 
     private Either<String, Long> getChannelId(String input) {
-        if (DiscordUtils.isDiscordId(input)) {
+        if (Discord.isDiscordId(input)) {
             return Either.right(Long.parseLong(input));
         }
         return getChannelIdFromMentions();

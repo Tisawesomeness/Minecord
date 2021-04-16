@@ -20,7 +20,7 @@ import com.tisawesomeness.minecord.network.APIClient;
 import com.tisawesomeness.minecord.service.*;
 import com.tisawesomeness.minecord.setting.SettingRegistry;
 import com.tisawesomeness.minecord.util.DateUtils;
-import com.tisawesomeness.minecord.util.ListUtils;
+import com.tisawesomeness.minecord.util.Lists;
 import com.tisawesomeness.minecord.util.concurrent.ACExecutorService;
 import com.tisawesomeness.minecord.util.concurrent.ShutdownBehavior;
 
@@ -62,7 +62,7 @@ import java.util.concurrent.*;
 public class Bot {
 
     // Only use what's necessary
-    private static final List<GatewayIntent> gateways = ListUtils.of(
+    private static final List<GatewayIntent> gateways = Lists.of(
             GatewayIntent.DIRECT_MESSAGES, GatewayIntent.DIRECT_MESSAGE_REACTIONS,
             GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS);
     private static final EnumSet<CacheFlag> disabledCacheFlags = EnumSet.of(

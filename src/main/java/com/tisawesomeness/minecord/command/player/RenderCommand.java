@@ -9,8 +9,8 @@ import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.Render;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.mc.player.Username;
-import com.tisawesomeness.minecord.util.ColorUtils;
-import com.tisawesomeness.minecord.util.UUIDUtils;
+import com.tisawesomeness.minecord.util.Colors;
+import com.tisawesomeness.minecord.util.UUIDs;
 import com.tisawesomeness.minecord.util.type.Either;
 
 import lombok.NonNull;
@@ -103,7 +103,7 @@ public class RenderCommand extends AbstractPlayerCommand {
         ImpersonalRender irender = errorOrRender.getRight();
 
         String usernameArg = ctx.getArgs()[playerArgIndex];
-        Optional<UUID> parsedUuidOpt = UUIDUtils.fromString(usernameArg);
+        Optional<UUID> parsedUuidOpt = UUIDs.fromString(usernameArg);
         if (parsedUuidOpt.isPresent()) {
             UUID uuid = parsedUuidOpt.get();
 
@@ -223,7 +223,7 @@ public class RenderCommand extends AbstractPlayerCommand {
         Lang lang = ctx.getLang();
         String renderName = lang.i18n("mc.player.render." + type.getId());
 
-        Color color = Player.isRainbow(username) ? ColorUtils.randomColor() : ctx.getColor();
+        Color color = Player.isRainbow(username) ? Colors.randomColor() : ctx.getColor();
         EmbedBuilder eb = ctx.addFooter(new EmbedBuilder())
                 .setTitle(lang.i18nf("mc.player.render.title", renderName, username))
                 .setImage(render.render().toString())

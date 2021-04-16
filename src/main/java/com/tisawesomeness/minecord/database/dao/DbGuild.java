@@ -2,7 +2,7 @@ package com.tisawesomeness.minecord.database.dao;
 
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.lang.Lang;
-import com.tisawesomeness.minecord.util.StatementUtils;
+import com.tisawesomeness.minecord.util.Statements;
 
 import lombok.*;
 
@@ -65,9 +65,9 @@ public class DbGuild implements SettingContainer, Bannable {
         return new DbGuild(db, true,
                 rs.getLong("id"),
                 rs.getBoolean("banned"),
-                StatementUtils.getOptionalString(rs, "prefix"),
-                StatementUtils.getOptionalString(rs, "lang").flatMap(Lang::from),
-                StatementUtils.getOptionalBoolean(rs, "use_menu")
+                Statements.getOptionalString(rs, "prefix"),
+                Statements.getOptionalString(rs, "lang").flatMap(Lang::from),
+                Statements.getOptionalBoolean(rs, "use_menu")
         );
     }
 
@@ -80,9 +80,9 @@ public class DbGuild implements SettingContainer, Bannable {
         String sql = inDB ? SQL_UPDATE : SQL_INSERT;
         @Cleanup PreparedStatement st = connect.prepareStatement(sql);
         st.setBoolean(1, banned);
-        StatementUtils.setOptionalString(st, 2, prefix);
-        StatementUtils.setOptionalString(st, 3, lang.map(Lang::getCode));
-        StatementUtils.setOptionalBoolean(st, 4, useMenu);
+        Statements.setOptionalString(st, 2, prefix);
+        Statements.setOptionalString(st, 3, lang.map(Lang::getCode));
+        Statements.setOptionalBoolean(st, 4, useMenu);
         st.setLong(5, id);
         st.executeUpdate();
         db.getCache().invalidateGuild(id);

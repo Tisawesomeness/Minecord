@@ -2,8 +2,8 @@ package com.tisawesomeness.minecord.mc.external;
 
 import com.tisawesomeness.minecord.mc.player.*;
 import com.tisawesomeness.minecord.testutil.mc.MockElectroidAPI;
-import com.tisawesomeness.minecord.util.ListUtils;
-import com.tisawesomeness.minecord.util.network.URLUtils;
+import com.tisawesomeness.minecord.util.Lists;
+import com.tisawesomeness.minecord.util.URLs;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -23,7 +23,7 @@ public class ElectroidAPITest {
 
     private static final Player TESTING_PLAYER = new Player(
             UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3af"),
-            ListUtils.of(
+            Lists.of(
                     NameChange.withTimestamp(new Username("Tis_awesomeness"), 1438695830000L),
                     NameChange.original(new Username("tis_awesomeness"))
             ),
@@ -31,7 +31,7 @@ public class ElectroidAPITest {
                     false,
                     false,
                     SkinType.STEVE,
-                    URLUtils.createUrl("https://textures.minecraft.net/texture/" +
+                    URLs.createUrl("https://textures.minecraft.net/texture/" +
                             "8c38fdb8e126e8416edf8864d6b5f69c072836abbc8d6ebc6b3d72644e48b1bd"),
                     null
             )

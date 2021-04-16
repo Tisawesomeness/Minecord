@@ -4,8 +4,8 @@ import com.tisawesomeness.minecord.mc.player.NameChange;
 import com.tisawesomeness.minecord.mc.player.Profile;
 import com.tisawesomeness.minecord.mc.player.SkinType;
 import com.tisawesomeness.minecord.mc.player.Username;
-import com.tisawesomeness.minecord.util.UUIDUtils;
-import com.tisawesomeness.minecord.util.network.URLUtils;
+import com.tisawesomeness.minecord.util.URLs;
+import com.tisawesomeness.minecord.util.UUIDs;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -48,7 +48,7 @@ public abstract class MojangAPI {
         }
         JSONObject json = new JSONObject(responseOpt.get());
         String uuidStr = json.getString("id");
-        Optional<UUID> uuidOpt = UUIDUtils.fromString(uuidStr);
+        Optional<UUID> uuidOpt = UUIDs.fromString(uuidStr);
         if (!uuidOpt.isPresent()) {
             log.warn("Mojang API returned invalid UUID: " + uuidStr);
         }
@@ -123,7 +123,7 @@ public abstract class MojangAPI {
             JSONObject skinObj = textures.getJSONObject("SKIN");
             String link = skinObj.getString("url");
             try {
-                skinUrl = new URL(URLUtils.httpToHttps(link));
+                skinUrl = new URL(URLs.httpToHttps(link));
                 skinType = getSkinType(skinObj);
             } catch (MalformedURLException ex) {
                 log.error("Mojang returned an invalid skin URL: " + link, ex);
@@ -133,7 +133,7 @@ public abstract class MojangAPI {
         if (textures.has("CAPE")) {
             String link = textures.getJSONObject("CAPE").getString("url");
             try {
-                capeUrl = new URL(URLUtils.httpToHttps(link));
+                capeUrl = new URL(URLs.httpToHttps(link));
             } catch (MalformedURLException ex) {
                 log.error("Mojang returned an invalid cape URL: " + link, ex);
             }

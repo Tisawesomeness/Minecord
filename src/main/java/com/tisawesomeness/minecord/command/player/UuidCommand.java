@@ -6,7 +6,7 @@ import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.Render;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.mc.player.Username;
-import com.tisawesomeness.minecord.util.UUIDUtils;
+import com.tisawesomeness.minecord.util.UUIDs;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ public class UuidCommand extends AbstractPlayerCommand {
         }
 
         String input = ctx.joinArgs();
-        Optional<UUID> parsedUuidOpt = UUIDUtils.fromString(input);
+        Optional<UUID> parsedUuidOpt = UUIDs.fromString(input);
         if (parsedUuidOpt.isPresent()) {
             UUID uuid = parsedUuidOpt.get();
             ctx.triggerCooldown();
@@ -85,15 +85,15 @@ public class UuidCommand extends AbstractPlayerCommand {
     private static void constructReply(CommandContext ctx, UUID uuid, String title) {
         Lang lang = ctx.getLang();
         String shortUuid = MarkdownUtil.bold(lang.i18n("mc.player.uuid.short")) + ": " +
-                MarkdownUtil.monospace(UUIDUtils.toShortString(uuid));
+                MarkdownUtil.monospace(UUIDs.toShortString(uuid));
         String longUuid = MarkdownUtil.bold(lang.i18n("mc.player.uuid.long")) + ": " +
-                MarkdownUtil.monospace(UUIDUtils.toLongString(uuid));
+                MarkdownUtil.monospace(UUIDs.toLongString(uuid));
         String skinType = MarkdownUtil.bold(lang.i18n("mc.player.skin.default")) + ": " +
                 lang.i18n(Player.getDefaultSkinTypeFor(uuid).getTranslationKey());
         String intArray = MarkdownUtil.bold(ctx.i18n("nbt")) + ": " +
-                MarkdownUtil.monospace(UUIDUtils.toIntArrayString(uuid));
+                MarkdownUtil.monospace(UUIDs.toIntArrayString(uuid));
         String mostLeast = MarkdownUtil.bold(ctx.i18n("legacyNbt")) + ": " +
-                MarkdownUtil.monospace(UUIDUtils.toMostLeastString(uuid));
+                MarkdownUtil.monospace(UUIDs.toMostLeastString(uuid));
         String desc = shortUuid + "\n" + longUuid + "\n" + skinType + "\n" + intArray + "\n" + mostLeast;
         String nameMCUrl = Player.getNameMCUrlFor(uuid).toString();
         String avatarUrl = new Render(uuid, RenderType.AVATAR, true).render().toString();

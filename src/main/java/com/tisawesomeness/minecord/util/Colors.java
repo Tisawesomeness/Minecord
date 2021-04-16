@@ -2,13 +2,14 @@ package com.tisawesomeness.minecord.util;
 
 import org.json.JSONObject;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.List;
 
-public final class ColorUtils {
+public final class Colors {
+    private Colors() {}
 
-    private static final JSONObject colors = new JSONObject(IOUtils.loadResource("mc/colors.json"));
+    private static final JSONObject colors = new JSONObject(IO.loadResource("mc/colors.json"));
 
     private static final List<Color> mcColors = Arrays.asList(
         new Color(0, 0, 0),
@@ -245,9 +246,9 @@ public final class ColorUtils {
 
         // Random colors
         if (query.equalsIgnoreCase("rand") || query.equalsIgnoreCase("random")) {
-            return ColorUtils.randomColor();
+            return Colors.randomColor();
         } else if (query.equalsIgnoreCase("very rand") || query.equalsIgnoreCase("very random")) {
-            return ColorUtils.veryRandomColor();
+            return Colors.veryRandomColor();
         }
 
         // Parse &2 as 2
@@ -256,7 +257,7 @@ public final class ColorUtils {
             query = query.substring(1);
         }
         // Predefined names
-        Color c = ColorUtils.getColor(query, lang);
+        Color c = Colors.getColor(query, lang);
         if (c != null) {
             return c;
         }

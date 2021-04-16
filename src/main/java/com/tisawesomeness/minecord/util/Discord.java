@@ -18,7 +18,8 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class DiscordUtils {
+public final class Discord {
+    private Discord() {}
 
     public static final Pattern ANY_MENTION = Pattern.compile("<(@(!?|&)|#|:(.{2,32}):)\\d{17,20}>");
 
@@ -167,7 +168,7 @@ public final class DiscordUtils {
                 int idStartIndex = content.charAt(2) == '!' ? 3 : 2;
                 if (content.substring(idStartIndex, endIndex).equals(options.selfId)) {
                     // safe substring necessary to prevent index OOB when no command name is present
-                    return Optional.of(StringUtils.safeSubstring(content, endIndex + 2));
+                    return Optional.of(Strings.safeSubstring(content, endIndex + 2));
                 }
             }
         }

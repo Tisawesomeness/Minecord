@@ -40,7 +40,7 @@ public class ProfileCommand extends BasePlayerCommand {
                 .orElseGet(() -> ctx.i18n("noCape"));
         String accountInfo = constructAccountInfo(ctx, player);
 
-        Color color = player.isRainbow() ? ColorUtils.randomColor() : ctx.getColor();
+        Color color = player.isRainbow() ? Colors.randomColor() : ctx.getColor();
         EmbedBuilder eb = new EmbedBuilder()
                 .setColor(color)
                 .setAuthor(title, nameMCUrl, avatarUrl);
@@ -54,9 +54,9 @@ public class ProfileCommand extends BasePlayerCommand {
         String nameHistoryTitle = lang.i18n("mc.player.history.nameHistory");
         List<String> parts = buildHistoryPartitions(ctx, player);
 
-        MessageEmbed mainEmbed = DiscordUtils.addFieldsUntilFullNoCopy(eb, nameHistoryTitle, parts);
+        MessageEmbed mainEmbed = Discord.addFieldsUntilFullNoCopy(eb, nameHistoryTitle, parts);
         ctx.reply(mainEmbed);
-        List<MessageEmbed> additionalEmbeds = DiscordUtils.splitEmbeds(baseEmbed, nameHistoryTitle, parts, "\n");
+        List<MessageEmbed> additionalEmbeds = Discord.splitEmbeds(baseEmbed, nameHistoryTitle, parts, "\n");
         for (MessageEmbed emb : additionalEmbeds) {
             ctx.reply(emb);
         }
@@ -68,9 +68,9 @@ public class ProfileCommand extends BasePlayerCommand {
                 MarkdownUtil.monospace(String.valueOf(player.getUsername().length()));
         UUID uuid = player.getUuid();
         String shortUuid = MarkdownUtil.bold(lang.i18n("mc.player.uuid.shortUuid")) + ": " +
-                MarkdownUtil.monospace(UUIDUtils.toShortString(uuid));
+                MarkdownUtil.monospace(UUIDs.toShortString(uuid));
         String longUuid = MarkdownUtil.bold(lang.i18n("mc.player.uuid.longUuid")) + ": " +
-                MarkdownUtil.monospace(UUIDUtils.toLongString(uuid));
+                MarkdownUtil.monospace(UUIDs.toLongString(uuid));
         String skinType = MarkdownUtil.bold(lang.i18n("mc.player.skin.model")) + ": " +
                 lang.i18n(player.getSkinType().getTranslationKey());
         String defaultModel = MarkdownUtil.bold(lang.i18n("mc.player.skin.default")) + ": " +
@@ -101,8 +101,8 @@ public class ProfileCommand extends BasePlayerCommand {
     }
 
     private static List<String> buildHistoryPartitions(CommandContext ctx, Player player) {
-        List<String> nameHistoryLines = buildHistoryLines(ctx, TimeUtils.Format.DATE, player.getNameHistory());
-        List<String> partitions = StringUtils.partitionLinesByLength(nameHistoryLines, MessageEmbed.VALUE_MAX_LENGTH);
+        List<String> nameHistoryLines = buildHistoryLines(ctx, Time.Format.DATE, player.getNameHistory());
+        List<String> partitions = Strings.partitionLinesByLength(nameHistoryLines, MessageEmbed.VALUE_MAX_LENGTH);
         return new LinkedList<>(partitions);
     }
 

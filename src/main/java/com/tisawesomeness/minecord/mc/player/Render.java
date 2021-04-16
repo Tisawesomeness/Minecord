@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.mc.player;
 
-import com.tisawesomeness.minecord.util.network.URLUtils;
+import com.tisawesomeness.minecord.util.URLs;
 
 import lombok.NonNull;
 import lombok.Value;
@@ -54,7 +54,7 @@ public class Render {
     public @NonNull URL render() {
         String query = type.isRender() ? "scale" : "size";
         String overlayStr = overlay ? "&overlay" : "";
-        return URLUtils.createUrl(String.format("https://crafatar.com/%s/%s?%s=%d%s",
+        return URLs.createUrl(String.format("https://crafatar.com/%s/%s?%s=%d%s",
                 type.getBasePath(), player, query, scale, overlayStr));
     }
 }

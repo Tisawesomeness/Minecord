@@ -4,7 +4,7 @@ import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.network.APIClient;
-import com.tisawesomeness.minecord.util.ColorUtils;
+import com.tisawesomeness.minecord.util.Colors;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -54,7 +54,7 @@ public class CapeCommand extends BasePlayerCommand {
         String nameMcUrl = player.getNameMCUrl().toString();
         String avatarUrl = player.createRender(RenderType.AVATAR, true).render().toString();
         String title = ctx.i18nf(translationKey, player.getUsername());
-        Color color = player.isRainbow() ? ColorUtils.randomColor() : ctx.getColor();
+        Color color = player.isRainbow() ? Colors.randomColor() : ctx.getColor();
         EmbedBuilder eb = new EmbedBuilder()
                 .setAuthor(title, nameMcUrl, avatarUrl)
                 .setColor(color)

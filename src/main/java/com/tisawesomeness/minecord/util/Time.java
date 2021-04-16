@@ -13,8 +13,8 @@ import java.time.format.FormatStyle;
 import java.time.temporal.TemporalAccessor;
 import java.util.Locale;
 
-public final class TimeUtils {
-    private TimeUtils() {}
+public final class Time {
+    private Time() {}
 
     /**
      * Formats a time into a localized, human-readable string

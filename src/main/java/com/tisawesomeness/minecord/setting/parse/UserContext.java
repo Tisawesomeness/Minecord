@@ -2,7 +2,7 @@ package com.tisawesomeness.minecord.setting.parse;
 
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.database.dao.DbUser;
-import com.tisawesomeness.minecord.util.DiscordUtils;
+import com.tisawesomeness.minecord.util.Discord;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -42,7 +42,7 @@ public class UserContext extends SettingContext {
 
     private void parseUserId() {
         String userArg = ctx.getArgs()[currentArg];
-        if (!DiscordUtils.isDiscordId(userArg)) {
+        if (!Discord.isDiscordId(userArg)) {
             ctx.invalidArgs("Not a valid user id.");
             return;
         }

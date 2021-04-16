@@ -6,7 +6,7 @@ import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.testutil.mc.TestMCLibrary;
 import com.tisawesomeness.minecord.testutil.mc.TestPlayerProvider;
 import com.tisawesomeness.minecord.testutil.runner.TestCommandRunner;
-import com.tisawesomeness.minecord.util.StringUtils;
+import com.tisawesomeness.minecord.util.Strings;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.BeforeAll;
@@ -38,7 +38,7 @@ public class CapeCommandIT {
     @Test
     @DisplayName("Cape command with too long username warns the user")
     public void testTooLong() {
-        String args = StringUtils.repeat("A", Username.MAX_LENGTH + 1);
+        String args = Strings.repeat("A", Username.MAX_LENGTH + 1);
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasNotTriggeredCooldown()

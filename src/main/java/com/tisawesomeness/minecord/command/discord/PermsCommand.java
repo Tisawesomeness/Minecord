@@ -3,7 +3,7 @@ package com.tisawesomeness.minecord.command.discord;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.Result;
 import com.tisawesomeness.minecord.util.BooleanUtils;
-import com.tisawesomeness.minecord.util.DiscordUtils;
+import com.tisawesomeness.minecord.util.Discord;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.Permission;
@@ -31,7 +31,7 @@ public class PermsCommand extends AbstractDiscordCommand {
         TextChannel c;
         // Check any channel id if admin
         if (args.length > 1 && args[1].equals("admin") && ctx.isElevated()) {
-            if (!DiscordUtils.isDiscordId(args[0])) {
+            if (!Discord.isDiscordId(args[0])) {
                 ctx.invalidArgs("Not a valid ID!");
                 return;
             }
@@ -48,7 +48,7 @@ public class PermsCommand extends AbstractDiscordCommand {
         
         } else if (args.length > 0) {
             // Find by id
-            if (DiscordUtils.isDiscordId(args[0])) {
+            if (Discord.isDiscordId(args[0])) {
                 TextChannel tc = e.getGuild().getTextChannelById(args[0]);
                 if (tc == null || tc.getGuild().getIdLong() != e.getGuild().getIdLong()) {
                     ctx.warn(invalidChannel);

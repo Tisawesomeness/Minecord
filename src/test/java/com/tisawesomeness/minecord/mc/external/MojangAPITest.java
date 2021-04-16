@@ -5,9 +5,9 @@ import com.tisawesomeness.minecord.mc.player.Profile;
 import com.tisawesomeness.minecord.mc.player.SkinType;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.testutil.mc.MockMojangAPI;
-import com.tisawesomeness.minecord.util.ListUtils;
-import com.tisawesomeness.minecord.util.UUIDUtils;
-import com.tisawesomeness.minecord.util.network.URLUtils;
+import com.tisawesomeness.minecord.util.Lists;
+import com.tisawesomeness.minecord.util.URLs;
+import com.tisawesomeness.minecord.util.UUIDs;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -39,7 +39,7 @@ public class MojangAPITest {
     @DisplayName("Username-->uuid endpoint is parsed correctly")
     public void testUsernameToUUID() throws IOException {
         JSONObject response = new JSONObject();
-        response.put("id", UUIDUtils.toShortString(TESTING_UUID));
+        response.put("id", UUIDs.toShortString(TESTING_UUID));
         response.put("name", TESTING_USERNAME.toString());
         MockMojangAPI api = new MockMojangAPI();
         api.mapUUID(TESTING_USERNAME, response.toString());
@@ -65,7 +65,7 @@ public class MojangAPITest {
     public void testNameHistory() throws IOException {
         NameChange original = NameChange.original(ORIGINAL_USERNAME);
         NameChange changed = NameChange.withTimestamp(TESTING_USERNAME, TESTING_TIMESTAMP);
-        List<NameChange> history = ListUtils.of(changed, original);
+        List<NameChange> history = Lists.of(changed, original);
         MockMojangAPI api = new MockMojangAPI();
         api.mapNameHistory(TESTING_UUID, nameHistoryToJSON(history));
         assertThat(api.getNameHistory(TESTING_UUID)).isEqualTo(history);
@@ -92,7 +92,7 @@ public class MojangAPITest {
     @Test
     @DisplayName("Profile endpoint is parsed correctly")
     public void testProfile() throws IOException {
-        URL skinUrl = URLUtils.createUrl("https://textures.minecraft.net/texture/" +
+        URL skinUrl = URLs.createUrl("https://textures.minecraft.net/texture/" +
                 "8c38fdb8e126e8416edf8864d6b5f69c072836abbc8d6ebc6b3d72644e48b1bd");
         Profile profile = new Profile(false, false, SkinType.STEVE, skinUrl, null);
         MockMojangAPI api = new MockMojangAPI();
@@ -101,7 +101,7 @@ public class MojangAPITest {
     }
     private static String profileToJSON(UUID uuid, Username name, Profile profile) {
         JSONObject obj = new JSONObject();
-        obj.put("id", UUIDUtils.toShortString(uuid));
+        obj.put("id", UUIDs.toShortString(uuid));
         obj.put("name", name.toString());
         obj.put("properties", getPropertiesArr(uuid, name, profile));
         if (profile.isLegacy()) {
@@ -126,7 +126,7 @@ public class MojangAPITest {
     }
     private static JSONObject getValueObj(UUID uuid, Username name, Profile profile) {
         JSONObject obj = new JSONObject();
-        obj.put("profileId", UUIDUtils.toShortString(uuid));
+        obj.put("profileId", UUIDs.toShortString(uuid));
         obj.put("profileName", name.toString());
         obj.put("textures", getTexturesObj(profile));
         return obj;

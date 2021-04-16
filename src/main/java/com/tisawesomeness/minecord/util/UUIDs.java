@@ -12,8 +12,8 @@ import java.util.regex.Pattern;
 /**
  * Utility class to work with {@link UUID} and UUID strings in various formats.
  */
-public final class UUIDUtils {
-    private UUIDUtils() {}
+public final class UUIDs {
+    private UUIDs() {}
 
     private static final Pattern SHORT_UUID_PATTERN = Pattern.compile(
             "^([0-9a-fA-F]{8})([0-9a-fA-F]{4})(4[0-9a-fA-F]{3})([89abAB][0-9a-fA-F]{3})([0-9a-fA-F]{12})$");
@@ -76,9 +76,9 @@ public final class UUIDUtils {
         // Requires extra verification to check if the UUID is version 4, variant 1
         Optional<UUID> opt = fromStringIntArray(str);
         if (opt.isPresent()) {
-            return opt.flatMap(UUIDUtils::flatMapIfValid);
+            return opt.flatMap(UUIDs::flatMapIfValid);
         }
-        return fromMostLeast(str).flatMap(UUIDUtils::flatMapIfValid);
+        return fromMostLeast(str).flatMap(UUIDs::flatMapIfValid);
     }
 
     // Not guaranteed to return version 4, variant 1
@@ -87,22 +87,22 @@ public final class UUIDUtils {
         if (!arrMatcher.matches()) {
             return Optional.empty();
         }
-        OptionalInt oa = StringUtils.safeParseInt(arrMatcher.group(2));
+        OptionalInt oa = Mth.safeParseInt(arrMatcher.group(2));
         if (!oa.isPresent()) {
             return Optional.empty();
         }
         int a = oa.getAsInt();
-        OptionalInt ob = StringUtils.safeParseInt(arrMatcher.group(3));
+        OptionalInt ob = Mth.safeParseInt(arrMatcher.group(3));
         if (!ob.isPresent()) {
             return Optional.empty();
         }
         int b = ob.getAsInt();
-        OptionalInt oc = StringUtils.safeParseInt(arrMatcher.group(4));
+        OptionalInt oc = Mth.safeParseInt(arrMatcher.group(4));
         if (!oc.isPresent()) {
             return Optional.empty();
         }
         int c = oc.getAsInt();
-        OptionalInt od = StringUtils.safeParseInt(arrMatcher.group(5));
+        OptionalInt od = Mth.safeParseInt(arrMatcher.group(5));
         if (!od.isPresent()) {
             return Optional.empty();
         }
@@ -118,12 +118,12 @@ public final class UUIDUtils {
         }
         Matcher mostLeastMatcher = MOST_LEAST_STRING.matcher(str);
         if (mostLeastMatcher.matches()) {
-            OptionalLong msbOpt = StringUtils.safeParseLong(mostLeastMatcher.group(1));
+            OptionalLong msbOpt = Mth.safeParseLong(mostLeastMatcher.group(1));
             if (!msbOpt.isPresent()) {
                 return Optional.empty();
             }
             long msb = msbOpt.getAsLong();
-            OptionalLong lsbOpt = StringUtils.safeParseLong(mostLeastMatcher.group(2));
+            OptionalLong lsbOpt = Mth.safeParseLong(mostLeastMatcher.group(2));
             if (!lsbOpt.isPresent()) {
                 return Optional.empty();
             }
@@ -142,7 +142,7 @@ public final class UUIDUtils {
             return Optional.empty();
         }
         String firstNumStr = first.substring(firstColonIndex + 1);
-        OptionalLong firstNumOpt = StringUtils.safeParseLong(firstNumStr);
+        OptionalLong firstNumOpt = Mth.safeParseLong(firstNumStr);
         if (!firstNumOpt.isPresent()) {
             return Optional.empty();
         }
@@ -155,7 +155,7 @@ public final class UUIDUtils {
             return Optional.empty();
         }
         String secondNumStr = second.substring(secondColonIndex + 1);
-        OptionalLong secondNumOpt = StringUtils.safeParseLong(secondNumStr);
+        OptionalLong secondNumOpt = Mth.safeParseLong(secondNumStr);
         if (!secondNumOpt.isPresent()) {
             return Optional.empty();
         }

@@ -1,8 +1,8 @@
 package com.tisawesomeness.minecord.mc.external;
 
 import com.tisawesomeness.minecord.mc.player.*;
-import com.tisawesomeness.minecord.util.UUIDUtils;
-import com.tisawesomeness.minecord.util.network.URLUtils;
+import com.tisawesomeness.minecord.util.URLs;
+import com.tisawesomeness.minecord.util.UUIDs;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -65,7 +65,7 @@ public abstract class ElectroidAPI {
     private static @NonNull Optional<Player> parseResponse(@NonNull String response) {
         JSONObject obj = new JSONObject(response);
         String uuidStr = obj.getString("uuid");
-        Optional<UUID> uuidOpt = UUIDUtils.fromString(uuidStr);
+        Optional<UUID> uuidOpt = UUIDs.fromString(uuidStr);
         if (!uuidOpt.isPresent()) {
             log.warn("Mojang API returned invalid UUID: " + uuidStr);
             return Optional.empty();
@@ -102,7 +102,7 @@ public abstract class ElectroidAPI {
             JSONObject skinObj = textures.getJSONObject("skin");
             String link = skinObj.getString("url");
             try {
-                skinUrl = new URL(URLUtils.httpToHttps(link));
+                skinUrl = new URL(URLs.httpToHttps(link));
                 if (textures.optBoolean("slim")) {
                     skinType = SkinType.ALEX;
                 }
@@ -117,7 +117,7 @@ public abstract class ElectroidAPI {
             String potentialCape = capeObj.optString("url");
             if (potentialCape != null) {
                 try {
-                    capeUrl = new URL(URLUtils.httpToHttps(potentialCape));
+                    capeUrl = new URL(URLs.httpToHttps(potentialCape));
                 } catch (MalformedURLException ex) {
                     log.error("Electroid returned an invalid cape URL: ", ex);
                 }

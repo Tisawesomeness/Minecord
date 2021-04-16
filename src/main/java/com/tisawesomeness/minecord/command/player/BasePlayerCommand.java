@@ -5,8 +5,8 @@ import com.tisawesomeness.minecord.mc.external.PlayerProvider;
 import com.tisawesomeness.minecord.mc.player.NameChange;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.Username;
-import com.tisawesomeness.minecord.util.TimeUtils;
-import com.tisawesomeness.minecord.util.UUIDUtils;
+import com.tisawesomeness.minecord.util.Time;
+import com.tisawesomeness.minecord.util.UUIDs;
 import com.tisawesomeness.minecord.util.type.IntegralDuration;
 
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +44,7 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
         PlayerProvider provider = ctx.getMCLibrary().getPlayerProvider();
 
         String input = ctx.joinArgs();
-        Optional<UUID> parsedUuidOpt = UUIDUtils.fromString(input);
+        Optional<UUID> parsedUuidOpt = UUIDs.fromString(input);
         if (parsedUuidOpt.isPresent()) {
             UUID uuid = parsedUuidOpt.get();
 
@@ -90,7 +90,7 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
      * @param history The player's name history
      * @return A mutable list of strings, one line per name change
      */
-    public static List<String> buildHistoryLines(CommandContext ctx, TimeUtils.Format format,
+    public static List<String> buildHistoryLines(CommandContext ctx, Time.Format format,
                                                  List<NameChange> history) {
         Instant now = Instant.now();
         List<String> historyLines = new ArrayList<>();
@@ -102,7 +102,7 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
         }
         return historyLines;
     }
-    private static String getDateAgo(CommandContext ctx, Temporal now, TimeUtils.Format format, NameChange nc) {
+    private static String getDateAgo(CommandContext ctx, Temporal now, Time.Format format, NameChange nc) {
         Optional<Instant> timeOpt = nc.getTime();
         if (!timeOpt.isPresent()) {
             return MarkdownUtil.bold(ctx.getLang().i18n("mc.player.history.original"));
@@ -115,7 +115,7 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
                 .bold(0, NumberFormat.Field.INTEGER)
                 .build();
 
-        String date = TimeUtils.format(time, ctx.getLang().getLocale(), format);
+        String date = Time.format(time, ctx.getLang().getLocale(), format);
         return String.format("%s (%s)", date, ago);
     }
 

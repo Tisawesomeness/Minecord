@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command;
 
 import com.tisawesomeness.minecord.lang.Lang;
-import com.tisawesomeness.minecord.util.TimeUtils;
+import com.tisawesomeness.minecord.util.Time;
 
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.Permission;
@@ -150,7 +150,7 @@ public class CommandVerifier {
         long msLeft = cooldown + lastExecutedTime - System.currentTimeMillis();
         if (msLeft > 0) {
             Lang lang = ctx.getLang();
-            String cooldownSeconds = TimeUtils.formatMillisAsSeconds(msLeft, lang.getLocale());
+            String cooldownSeconds = Time.formatMillisAsSeconds(msLeft, lang.getLocale());
             String cooldownMsg = lang.i18nf("command.meta.onCooldown", MarkdownUtil.monospace(cooldownSeconds));
             ctx.sendResult(Result.COOLDOWN, cooldownMsg);
             return false;

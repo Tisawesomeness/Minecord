@@ -3,133 +3,53 @@ package com.tisawesomeness.minecord.util;
 import lombok.NonNull;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.OptionalInt;
+import java.util.OptionalLong;
 
-public final class StringUtils {
-    private StringUtils() {}
-
-    /**
-     * Repeats a string a certain number of times.
-     * @param str The string to repeat
-     * @param n The number of times to repeat
-     * @return The repeated string
-     * @throws IllegalArgumentException If {@code n} is negative
-     */
-    public static @NonNull String repeat(@NonNull String str, int n) {
-        if (n < 0) {
-            throw new IllegalArgumentException("Number of times to repeat must be non-negative, was " + n);
-        }
-        if (n == 0) {
-            return "";
-        }
-        if (n == 1) {
-            return str;
-        }
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < n; i++) {
-            sb.append(str);
-        }
-        return sb.toString();
-    }
+public final class Mth {
+    private Mth() {}
 
     /**
-     * Safely substrings a string. The start index will be bound between 0 and the length of the string.
-     * @param str The string to slice
-     * @param beginIndex The starting substring index, inclusive
-     * @return The sliced string
-     * @see String#substring(int)
+     * Clamps a value between a low and high bound.
+     * If the value is lower than the low bound, the low bound is returned.
+     * If the value is higher than the high bound, the high bound is returned.
+     * Otherwise, the value itself is returned.
+     * @param val The input number
+     * @param low The low bound, inclusive
+     * @param high The high bound, inclusive
+     * @return A number guaranteed to be between the low and high bounds inclusive
+     * @throws IllegalArgumentException If the low bound is not less than or equal to the high bound
      */
-    public static @NonNull String safeSubstring(@NonNull String str, int beginIndex) {
-        return str.substring(limit(0, beginIndex, str.length()));
-    }
-    /**
-     * Safely substrings a string. The start and end indices will be bound between 0 and the length of the string.
-     * @param str The string to slice
-     * @param beginIndex The starting substring index, inclusive
-     * @param endIndex The ending substring index, exclusive
-     * @return The sliced string
-     * @see String#substring(int, int)
-     */
-    public static @NonNull String safeSubstring(@NonNull String str, int beginIndex, int endIndex) {
-        if (beginIndex >= endIndex) {
-            return "";
+    public static int clamp(int val, int low, int high) {
+        if (low > high) {
+            throw new IllegalArgumentException(String.format("low=%d must be <= high=%d", low, high));
         }
-        return str.substring(Math.max(beginIndex, 0), Math.min(endIndex, str.length()));
-    }
-    private static int limit(int low, int val, int high) {
         return Math.max(low, Math.min(val, high));
     }
 
     /**
-     * Joins a list of lines into a series of partitions, ensuring that no line in the returned list
-     * has a length over the max length (as long as every input line is no longer than the max length).
-     * This is useful for transforming a single message (split into inseparable pieces) into multiple message that
-     * satisfy all length limits.
-     * <br>If the input list contains any line that is over the max length, it will appear in the output list
-     * unmodified. Therefore, you should ensure that the input list has strings with the correct length.
-     * @param lines The list of lines to partition
-     * @param maxLength The max length of any string in the output list
-     * @return A list of strings, where no string has a length over the max length
-     * @throws IllegalArgumentException if the max length is negative
-     * @throws NullPointerException if the list contains null
+     * Computes the sha1 hash of a string.
+     * @param str Any input string in UTF-8
+     * @return The sha1 hash
      */
-    public static List<String> partitionLinesByLength(List<@NonNull String> lines, int maxLength) {
-        return partitionByLength(lines, "\n", maxLength);
+    // adapted from http://www.sha1-online.com/sha1-java/
+    public static @NonNull String sha1(@NonNull String str) {
+        byte[] result = getDigest().digest(str.getBytes(StandardCharsets.UTF_8));
+        StringBuilder sb = new StringBuilder();
+        for (byte b : result) {
+            sb.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
+        }
+        return sb.toString();
     }
-
-    /**
-     * Joins a list of strings into a series of partitions, ensuring that no string in the returned list
-     * has a length over the max length (as long as every input string is no longer than the max length).
-     * This is useful for transforming a single message (split into inseparable pieces) into multiple message that
-     * satisfy all length limits.
-     * <br>If the input list contains any string that is over the max length, it will appear in the output list
-     * unmodified. Therefore, you should ensure that the input list has strings with the correct length.
-     * @param strings The list of strings to partition
-     * @param joiner When multiple input strings are joined into a single output string, this joiner is used
-     * @param maxLength The max length of any string in the output list
-     * @return A list of strings, where no string has a length over the max length
-     * @throws IllegalArgumentException if the max length is negative
-     * @throws NullPointerException if the list contains null
-     */
-    public static List<String> partitionByLength(List<String> strings, @NonNull String joiner, int maxLength) {
-        if (maxLength < 0) {
-            throw new IllegalArgumentException("Max length must be non-negative but was "+ maxLength);
+    private static MessageDigest getDigest() {
+        try {
+            return MessageDigest.getInstance("SHA-1");
+        } catch (NoSuchAlgorithmException ex) {
+            throw new AssertionError(ex);
         }
-        if (strings.isEmpty() || maxLength == 0) {
-            return strings;
-        }
-        String startingStr = strings.get(0);
-        if (startingStr == null) {
-            throw new NullPointerException("The first string in the input list cannot be null.");
-        }
-        if (strings.size() == 1) {
-            return strings;
-        }
-
-        List<String> partitions = new ArrayList<>();
-        StringJoiner currentPartition = new StringJoiner(joiner);
-        currentPartition.add(startingStr);
-
-        for (int i = 1; i < strings.size(); i++) {
-            String str = strings.get(i);
-            if (str == null) {
-                throw new NullPointerException("The string in index " + i + " in the input list cannot be null.");
-            }
-
-            // only adds the current partition to the list when the next line won't fit
-            int lengthIfLineAdded = currentPartition.length() + str.length() + joiner.length();
-            if (lengthIfLineAdded > maxLength) {
-                partitions.add(currentPartition.toString());
-                currentPartition = new StringJoiner(joiner);
-            }
-            currentPartition.add(str);
-        }
-
-        // the leftover partition wasn't added in the earlier loop, add manually
-        // the loop always runs at least once (since list has size > 1)
-        // so the current partition will always be modified and need to be added
-        partitions.add(currentPartition.toString());
-        return Collections.unmodifiableList(partitions);
     }
 
 
@@ -175,6 +95,7 @@ public final class StringUtils {
     public static OptionalInt safeParseInt(@Nullable String str) {
         return safeParseInt(str, 10);
     }
+
     /**
      * Parses an int from a string without relying on exceptions.
      * @param str The string to parse, may or may not be an integer
@@ -246,6 +167,7 @@ public final class StringUtils {
     public static OptionalLong safeParseLong(@Nullable String str) {
         return safeParseLong(str, 10);
     }
+
     /**
      * Parses a long from a string without relying on exceptions.
      * @param str The string to parse, may or may not be a long
@@ -290,7 +212,7 @@ public final class StringUtils {
             long result = 0;
             while (i < len) {
                 // Accumulating negatively avoids surprises near MAX_VALUE
-                int digit = Character.digit(str.charAt(i++),radix);
+                int digit = Character.digit(str.charAt(i++), radix);
                 if (digit < 0 || result < multmin) {
                     return OptionalLong.empty();
                 }

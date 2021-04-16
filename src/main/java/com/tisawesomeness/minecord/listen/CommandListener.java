@@ -8,7 +8,7 @@ import com.tisawesomeness.minecord.database.dao.CommandStats;
 import com.tisawesomeness.minecord.database.dao.DbUser;
 import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.setting.SettingRegistry;
-import com.tisawesomeness.minecord.util.DiscordUtils;
+import com.tisawesomeness.minecord.util.Discord;
 import com.tisawesomeness.minecord.util.type.ListValuedEnumMap;
 
 import lombok.Getter;
@@ -129,11 +129,11 @@ public class CommandListener extends ListenerAdapter {
     private Optional<String> getCommandString(MessageReceivedEvent e, String prefix) {
         boolean respondToMentions = config.getFlagConfig().isRespondToMentions();
         String selfId = e.getJDA().getSelfUser().getId();
-        DiscordUtils.ParseOptions options = DiscordUtils.parseOptionsBuilder()
+        Discord.ParseOptions options = Discord.parseOptionsBuilder()
                 .respondToMentions(respondToMentions, selfId)
                 .prefixRequired(e.isFromGuild())
                 .build();
-        return DiscordUtils.parseCommand(e.getMessage().getContentRaw(), prefix, options);
+        return Discord.parseCommand(e.getMessage().getContentRaw(), prefix, options);
     }
     private static int getSeparatorIndex(String commandPart) {
         int spaceIndex = commandPart.indexOf(' ');

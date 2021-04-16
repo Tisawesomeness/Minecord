@@ -6,11 +6,11 @@ import com.tisawesomeness.minecord.config.ConfigReader;
 import com.tisawesomeness.minecord.mc.player.Render;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.mc.player.Username;
-import com.tisawesomeness.minecord.testutil.PlayerTestUtils;
+import com.tisawesomeness.minecord.testutil.PlayerTests;
 import com.tisawesomeness.minecord.testutil.mc.TestMCLibrary;
 import com.tisawesomeness.minecord.testutil.mc.TestPlayerProvider;
 import com.tisawesomeness.minecord.testutil.runner.TestCommandRunner;
-import com.tisawesomeness.minecord.util.StringUtils;
+import com.tisawesomeness.minecord.util.Strings;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.BeforeAll;
@@ -32,7 +32,7 @@ public class GeneralRenderCommandIT {
         TestPlayerProvider playerProvider = library.getPlayerProvider();
 
         playerProvider.throwOnUsername(THROWING_USERNAME);
-        playerProvider.mapUuid(new Username("abc"), PlayerTestUtils.STEVE_UUID);
+        playerProvider.mapUuid(new Username("abc"), PlayerTests.STEVE_UUID);
 
         runner.mcLibrary = library;
     }
@@ -52,7 +52,7 @@ public class GeneralRenderCommandIT {
     @Test
     @DisplayName("Render command with too long username warns the user")
     public void testTooLong() {
-        String args = "avatar " + StringUtils.repeat("A", Username.MAX_LENGTH + 1);
+        String args = "avatar " + Strings.repeat("A", Username.MAX_LENGTH + 1);
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasNotTriggeredCooldown()
@@ -93,7 +93,7 @@ public class GeneralRenderCommandIT {
     @DisplayName("Render command generates render correctly")
     public void testStandardRender() {
         String args = "head abc";
-        Render expectedRender = new Render(PlayerTestUtils.STEVE_UUID, RenderType.HEAD, false);
+        Render expectedRender = new Render(PlayerTests.STEVE_UUID, RenderType.HEAD, false);
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasTriggeredCooldown()
@@ -105,7 +105,7 @@ public class GeneralRenderCommandIT {
     @DisplayName("Render command generates render with scale correctly")
     public void testScaledRender() {
         String args = "body abc 5";
-        Render expectedRender = new Render(PlayerTestUtils.STEVE_UUID, RenderType.BODY, false, 5);
+        Render expectedRender = new Render(PlayerTests.STEVE_UUID, RenderType.BODY, false, 5);
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasTriggeredCooldown()
@@ -117,7 +117,7 @@ public class GeneralRenderCommandIT {
     @DisplayName("Render command generates render with overlay correctly")
     public void testOverlayRender() {
         String args = "avatar abc true";
-        Render expectedRender = new Render(PlayerTestUtils.STEVE_UUID, RenderType.AVATAR, true);
+        Render expectedRender = new Render(PlayerTests.STEVE_UUID, RenderType.AVATAR, true);
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasTriggeredCooldown()
@@ -129,7 +129,7 @@ public class GeneralRenderCommandIT {
     @DisplayName("Render command generates render with scale and overlay correctly")
     public void testScaleAndOverlayRender() {
         String args = "head abc 5 true";
-        Render expectedRender = new Render(PlayerTestUtils.STEVE_UUID, RenderType.HEAD, true, 5);
+        Render expectedRender = new Render(PlayerTests.STEVE_UUID, RenderType.HEAD, true, 5);
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasTriggeredCooldown()
@@ -141,7 +141,7 @@ public class GeneralRenderCommandIT {
     @DisplayName("Render command generates render with overlay and scale correctly")
     public void testOverlayAndScaleRender() {
         String args = "body abc true 5";
-        Render expectedRender = new Render(PlayerTestUtils.STEVE_UUID, RenderType.BODY, true, 5);
+        Render expectedRender = new Render(PlayerTests.STEVE_UUID, RenderType.BODY, true, 5);
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasTriggeredCooldown()

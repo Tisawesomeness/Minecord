@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.mc.player;
 
-import com.tisawesomeness.minecord.util.UUIDUtils;
-import com.tisawesomeness.minecord.util.network.URLUtils;
+import com.tisawesomeness.minecord.util.URLs;
+import com.tisawesomeness.minecord.util.UUIDs;
 
 import lombok.NonNull;
 import lombok.Value;
@@ -19,9 +19,9 @@ import java.util.*;
 public class Player implements Comparable<Player> {
     private static final Comparator<Player> COMPARATOR = initComparator();
 
-    public static final URL STEVE_SKIN_URL = URLUtils.createUrl("https://textures.minecraft.net/texture/" +
+    public static final URL STEVE_SKIN_URL = URLs.createUrl("https://textures.minecraft.net/texture/" +
             "1a4af718455d4aab528e7a61f86fa25e6a369d1768dcb13f7df319a713eb810b");
-    public static final URL ALEX_SKIN_URL = URLUtils.createUrl("https://textures.minecraft.net/texture/" +
+    public static final URL ALEX_SKIN_URL = URLs.createUrl("https://textures.minecraft.net/texture/" +
             "3b60a1f6d562f52aaebbf1434f1de147933a3affe0e764fa49ea057536623cd3");
     private static final Username DINNERBONE = new Username("Dinnerbone");
     private static final Username GRUMM = new Username("Grumm");
@@ -140,8 +140,8 @@ public class Player implements Comparable<Player> {
      * @return A link to the player's Optifine cape image, may not actually exist
      */
     public @NonNull URL getOptifineCapeUrl() {
-        String encodedName = URLUtils.encode(getUsername().toString());
-        return URLUtils.createUrl(String.format("http://s.optifine.net/capes/%s.png", encodedName));
+        String encodedName = URLs.encode(getUsername().toString());
+        return URLs.createUrl(String.format("http://s.optifine.net/capes/%s.png", encodedName));
     }
 
     /**
@@ -155,22 +155,22 @@ public class Player implements Comparable<Player> {
      * @return A link to the player's NameMC profile
      */
     public static @NonNull URL getNameMCUrlFor(@NonNull Username username) {
-        String encodedName = URLUtils.encode(username.toString());
-        return URLUtils.createUrl("https://namemc.com/profile/" + encodedName);
+        String encodedName = URLs.encode(username.toString());
+        return URLs.createUrl("https://namemc.com/profile/" + encodedName);
     }
     /**
      * @param uuid The UUID of the player
      * @return A link to the player's NameMC profile
      */
     public static @NonNull URL getNameMCUrlFor(@NonNull UUID uuid) {
-        return URLUtils.createUrl("https://namemc.com/profile/" + uuid);
+        return URLs.createUrl("https://namemc.com/profile/" + uuid);
     }
 
     /**
      * @return A link to the player's MCSkinHistory profile
      */
     public @NonNull URL getMCSkinHistoryUrl() {
-        return URLUtils.createUrl("https://mcskinhistory.com/player/" + uuid);
+        return URLs.createUrl("https://mcskinhistory.com/player/" + uuid);
     }
 
     /**
@@ -235,7 +235,7 @@ public class Player implements Comparable<Player> {
 
     @Override
     public @NonNull String toString() {
-        return "P:" + UUIDUtils.toShortString(uuid) + "@" + requestTime.toEpochMilli();
+        return "P:" + UUIDs.toShortString(uuid) + "@" + requestTime.toEpochMilli();
     }
 
     private static Comparator<Player> initComparator() {

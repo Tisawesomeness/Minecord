@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-public class UUIDUtilsTest {
+public class UUIDsTest {
 
     private static final UUID TESTING_UUID = UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3af");
     private static final int[] TESTING_ARRAY = {-163013767,2057259490,-1743903142,98288559};
@@ -50,9 +50,9 @@ public class UUIDUtilsTest {
     })
     @DisplayName("Short strings are correctly mapped to a UUID")
     public void testFromStringShort(String candidate) {
-        assertThat(UUIDUtils.fromString(candidate))
+        assertThat(UUIDs.fromString(candidate))
                 .isPresent()
-                .map(UUIDUtils::toShortString)
+                .map(UUIDs::toShortString)
                 .get().asString()
                 .isEqualToIgnoringCase(candidate);
     }
@@ -70,9 +70,9 @@ public class UUIDUtilsTest {
     })
     @DisplayName("Long strings are correctly mapped to a UUID")
     public void testFromStringLong(String candidate) {
-        assertThat(UUIDUtils.fromString(candidate))
+        assertThat(UUIDs.fromString(candidate))
                 .isPresent()
-                .map(UUIDUtils::toLongString)
+                .map(UUIDs::toLongString)
                 .get().asString()
                 .isEqualToIgnoringCase(candidate);
     }
@@ -81,7 +81,7 @@ public class UUIDUtilsTest {
     @MethodSource("fromStringTestCaseProvider")
     @DisplayName("fromString() parses all UUID formats")
     public void testFromString(String candidate, UUID expected) {
-        assertThat(UUIDUtils.fromString(candidate)).contains(expected);
+        assertThat(UUIDs.fromString(candidate)).contains(expected);
     }
 
     @ParameterizedTest(name = "{index} ==> String {0} is an invalid UUID")
@@ -95,7 +95,7 @@ public class UUIDUtilsTest {
     @EmptySource
     @DisplayName("Using fromString() on an invalid UUID string returns empty")
     public void testFromStringInvalid(String candidate) {
-        assertThat(UUIDUtils.fromString(candidate)).isEmpty();
+        assertThat(UUIDs.fromString(candidate)).isEmpty();
     }
 
     @ParameterizedTest(name = "{index} ==> String {0} stripped of dashes is a valid short UUID")
@@ -111,8 +111,8 @@ public class UUIDUtilsTest {
     })
     @DisplayName("fromGuarenteedShortString() correctly maps short strings to UUIDs")
     public void testFromGuarenteedShortStringValid(String candidate) {
-        UUID uuid = UUIDUtils.fromGuarenteedShortString(candidate.replace("-", ""));
-        assertThat(UUIDUtils.toLongString(uuid)).isEqualToIgnoringCase(candidate);
+        UUID uuid = UUIDs.fromGuarenteedShortString(candidate.replace("-", ""));
+        assertThat(UUIDs.toLongString(uuid)).isEqualToIgnoringCase(candidate);
     }
 
     @ParameterizedTest(name =
@@ -121,7 +121,7 @@ public class UUIDUtilsTest {
     @EmptySource
     @DisplayName("fromGuarenteedShortString() throws IllegalArgumentException if the input string is not a valid UUID")
     public void testFromGuarenteedShortStringInvalid(String candidate) {
-        assertThatThrownBy(() -> UUIDUtils.fromGuarenteedShortString(candidate))
+        assertThatThrownBy(() -> UUIDs.fromGuarenteedShortString(candidate))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -138,7 +138,7 @@ public class UUIDUtilsTest {
     })
     @DisplayName("toShortString() returns the UUID with dashes stripped")
     public void testToShortString(UUID candidate, CharSequence expected) {
-        assertThat(UUIDUtils.toShortString(candidate)).isEqualToIgnoringCase(expected);
+        assertThat(UUIDs.toShortString(candidate)).isEqualToIgnoringCase(expected);
     }
 
     @ParameterizedTest(name = "{index} ==> String {0} is the same as its UUID long string")
@@ -154,39 +154,39 @@ public class UUIDUtilsTest {
     })
     @DisplayName("Converting to and from UUID does not modify the UUID")
     public void testToLongString(String candidate) {
-        assertThat(UUIDUtils.toLongString(UUID.fromString(candidate))).isEqualToIgnoringCase(candidate);
+        assertThat(UUIDs.toLongString(UUID.fromString(candidate))).isEqualToIgnoringCase(candidate);
     }
 
     @Test
     @DisplayName("Most/least NBT is generated correctly")
     public void testMostLeast() {
-        assertThat(UUIDUtils.toMostLeastString(TESTING_UUID))
+        assertThat(UUIDs.toMostLeastString(TESTING_UUID))
                 .isEqualTo("UUIDMost:-700138796005504542,UUIDLeast:-7490006962183355473");
     }
 
     @Test
     @DisplayName("Int array is generated correctly")
     public void testIntArray() {
-        assertThat(UUIDUtils.toIntArray(TESTING_UUID)).isEqualTo(TESTING_ARRAY);
+        assertThat(UUIDs.toIntArray(TESTING_UUID)).isEqualTo(TESTING_ARRAY);
     }
 
     @Test
     @DisplayName("Int arrays are correctly converted to UUIDs")
     public void testFromIntArray() {
-        assertThat(UUIDUtils.fromIntArray(TESTING_ARRAY)).isEqualTo(TESTING_UUID);
+        assertThat(UUIDs.fromIntArray(TESTING_ARRAY)).isEqualTo(TESTING_UUID);
     }
 
     @Test
     @DisplayName("Int arrays are still correctly converted to UUIDs")
     public void testFromInts() {
-        UUID uuid = UUIDUtils.fromInts(TESTING_ARRAY[0], TESTING_ARRAY[1], TESTING_ARRAY[2], TESTING_ARRAY[3]);
+        UUID uuid = UUIDs.fromInts(TESTING_ARRAY[0], TESTING_ARRAY[1], TESTING_ARRAY[2], TESTING_ARRAY[3]);
         assertThat(uuid).isEqualTo(TESTING_UUID);
     }
 
     @Test
     @DisplayName("Int array NBT is generated correctly")
     public void testIntArrayString() {
-        assertThat(UUIDUtils.toIntArrayString(TESTING_UUID))
+        assertThat(UUIDs.toIntArrayString(TESTING_UUID))
                 .isEqualTo("[I;-163013767,2057259490,-1743903142,98288559]");
     }
 

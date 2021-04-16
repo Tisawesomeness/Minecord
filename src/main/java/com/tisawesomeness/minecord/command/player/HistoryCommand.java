@@ -3,10 +3,10 @@ package com.tisawesomeness.minecord.command.player;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.RenderType;
-import com.tisawesomeness.minecord.util.ColorUtils;
-import com.tisawesomeness.minecord.util.DiscordUtils;
-import com.tisawesomeness.minecord.util.StringUtils;
-import com.tisawesomeness.minecord.util.TimeUtils;
+import com.tisawesomeness.minecord.util.Colors;
+import com.tisawesomeness.minecord.util.Discord;
+import com.tisawesomeness.minecord.util.Strings;
+import com.tisawesomeness.minecord.util.Time;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -24,14 +24,14 @@ public class HistoryCommand extends BasePlayerCommand {
     }
 
     public void onSuccessfulPlayer(CommandContext ctx, Player player) {
-        List<String> historyLines = buildHistoryLines(ctx, TimeUtils.Format.DATETIME, player.getNameHistory());
-        List<String> historyPartitions = StringUtils.partitionLinesByLength(
+        List<String> historyLines = buildHistoryLines(ctx, Time.Format.DATETIME, player.getNameHistory());
+        List<String> historyPartitions = Strings.partitionLinesByLength(
                 historyLines, MessageEmbed.VALUE_MAX_LENGTH);
 
         MessageEmbed baseEmbed = constructBaseEmbed(ctx, player);
         String fieldTitle = ctx.getLang().i18n("mc.player.history.nameHistory");
 
-        List<MessageEmbed> embeds = DiscordUtils.splitEmbeds(baseEmbed, fieldTitle, historyPartitions, "\n");
+        List<MessageEmbed> embeds = Discord.splitEmbeds(baseEmbed, fieldTitle, historyPartitions, "\n");
         for (MessageEmbed emb : embeds) {
             ctx.reply(emb);
         }
@@ -41,7 +41,7 @@ public class HistoryCommand extends BasePlayerCommand {
         String title = ctx.i18nf("title", player.getUsername());
         String nameMCUrl = player.getNameMCUrl().toString();
         String avatarUrl = player.createRender(RenderType.AVATAR, true).render().toString();
-        Color color = player.isRainbow() ? ColorUtils.randomColor() : ctx.getColor();
+        Color color = player.isRainbow() ? Colors.randomColor() : ctx.getColor();
         return ctx.addFooter(new EmbedBuilder())
                 .setAuthor(title, nameMCUrl, avatarUrl)
                 .setColor(color)

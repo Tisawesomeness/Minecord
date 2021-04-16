@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.lang;
 
-import com.tisawesomeness.minecord.util.network.URLUtils;
+import com.tisawesomeness.minecord.util.URLs;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -87,7 +87,7 @@ public enum Lang {
             log.warn(String.format("There is no directory at \"%s\", aborting...", path));
             return;
         }
-        URL[] urls = {URLUtils.createUrl(path.toUri())};
+        URL[] urls = {URLs.createUrl(path.toUri())};
         ResourceBundle.clearCache();
         for (Lang lang : values()) {
             lang.setResource(path, urls);

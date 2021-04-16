@@ -9,10 +9,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
+@Deprecated
 public final class RequestUtils {
 
     private static final String charset = StandardCharsets.UTF_8.name();
@@ -160,22 +159,6 @@ public final class RequestUtils {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         ImageIO.write(image, "png", os);
         return new ByteArrayInputStream(os.toByteArray());
-    }
-
-    // Converts a string to SHA1 (modified from http://www.sha1-online.com/sha1-java/)
-    public static String sha1(String str) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA1");
-            byte[] result = md.digest(str.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for (byte b : result) {
-                sb.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
-            }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException ex) {
-            ex.printStackTrace();
-            return null;
-        }
     }
 
 }

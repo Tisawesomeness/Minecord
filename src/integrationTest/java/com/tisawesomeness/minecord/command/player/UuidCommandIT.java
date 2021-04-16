@@ -7,8 +7,8 @@ import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.testutil.mc.TestMCLibrary;
 import com.tisawesomeness.minecord.testutil.mc.TestPlayerProvider;
 import com.tisawesomeness.minecord.testutil.runner.TestCommandRunner;
-import com.tisawesomeness.minecord.util.StringUtils;
-import com.tisawesomeness.minecord.util.UUIDUtils;
+import com.tisawesomeness.minecord.util.Strings;
+import com.tisawesomeness.minecord.util.UUIDs;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.BeforeAll;
@@ -49,7 +49,7 @@ public class UuidCommandIT {
     @Test
     @DisplayName("Uuid command with too long username warns the user")
     public void testTooLong() {
-        String args = StringUtils.repeat("A", Username.MAX_LENGTH + 1);
+        String args = Strings.repeat("A", Username.MAX_LENGTH + 1);
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasNotTriggeredCooldown()
@@ -109,10 +109,10 @@ public class UuidCommandIT {
                 .headerContains(TESTING_USERNAME)
                 .headerLinksToAnyOf(Player.getNameMCUrlFor(TESTING_USERNAME), Player.getNameMCUrlFor(TESTING_UUID))
                 .descriptionContains(
-                        UUIDUtils.toShortString(TESTING_UUID),
-                        UUIDUtils.toLongString(TESTING_UUID),
-                        UUIDUtils.toIntArrayString(TESTING_UUID),
-                        UUIDUtils.toMostLeastString(TESTING_UUID)
+                        UUIDs.toShortString(TESTING_UUID),
+                        UUIDs.toLongString(TESTING_UUID),
+                        UUIDs.toIntArrayString(TESTING_UUID),
+                        UUIDs.toMostLeastString(TESTING_UUID)
                 );
     }
 
@@ -128,10 +128,10 @@ public class UuidCommandIT {
                 .headerContains(SPACES_USERNAME)
                 .headerLinksToAnyOf(Player.getNameMCUrlFor(SPACES_USERNAME), Player.getNameMCUrlFor(SPACES_UUID))
                 .descriptionContains(
-                        UUIDUtils.toShortString(SPACES_UUID),
-                        UUIDUtils.toLongString(SPACES_UUID),
-                        UUIDUtils.toIntArrayString(SPACES_UUID),
-                        UUIDUtils.toMostLeastString(SPACES_UUID)
+                        UUIDs.toShortString(SPACES_UUID),
+                        UUIDs.toLongString(SPACES_UUID),
+                        UUIDs.toIntArrayString(SPACES_UUID),
+                        UUIDs.toMostLeastString(SPACES_UUID)
                 );
     }
 
@@ -147,10 +147,10 @@ public class UuidCommandIT {
                 .headerContains(TESTING_UUID.toString())
                 .headerLinksToAnyOf(Player.getNameMCUrlFor(TESTING_USERNAME), Player.getNameMCUrlFor(TESTING_UUID))
                 .descriptionContains(
-                        UUIDUtils.toShortString(TESTING_UUID),
-                        UUIDUtils.toLongString(TESTING_UUID),
-                        UUIDUtils.toIntArrayString(TESTING_UUID),
-                        UUIDUtils.toMostLeastString(TESTING_UUID)
+                        UUIDs.toShortString(TESTING_UUID),
+                        UUIDs.toLongString(TESTING_UUID),
+                        UUIDs.toIntArrayString(TESTING_UUID),
+                        UUIDs.toMostLeastString(TESTING_UUID)
                 );
     }
 

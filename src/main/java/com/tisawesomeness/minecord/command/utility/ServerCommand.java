@@ -7,6 +7,7 @@ import br.com.azalim.mcserverping.MCPingResponse.Player;
 import br.com.azalim.mcserverping.MCPingUtil;
 import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.Result;
+import com.tisawesomeness.minecord.util.Mth;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import lombok.NonNull;
@@ -15,11 +16,7 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ServerCommand extends AbstractUtilityCommand {
@@ -125,18 +122,18 @@ public class ServerCommand extends AbstractUtilityCommand {
     // Checks if a server is blocked by Mojang
     private static boolean isBlocked(String server, boolean ip) {
         server = server.toLowerCase();
-        if (blockedServers.contains(RequestUtils.sha1(server))) return true;
+        if (blockedServers.contains(Mth.sha1(server))) return true;
         if (ip) {
             int i = server.lastIndexOf('.');
             while (i >= 0) {
-                if (blockedServers.contains(RequestUtils.sha1(server.substring(0, i + 1) + ".*"))) return true;
+                if (blockedServers.contains(Mth.sha1(server.substring(0, i + 1) + ".*"))) return true;
                 i = server.lastIndexOf('.', i) - 1;
             }
         } else {
             int i = 0;
             while (i != server.lastIndexOf('.') + 1) {
                 i = server.indexOf('.', i) + 1;
-                if (blockedServers.contains(RequestUtils.sha1("*." + server.substring(i)))) return true;
+                if (blockedServers.contains(Mth.sha1("*." + server.substring(i)))) return true;
             }
         }
         return false;

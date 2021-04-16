@@ -1,18 +1,18 @@
 package com.tisawesomeness.minecord.testutil;
 
 import com.tisawesomeness.minecord.mc.player.*;
-import com.tisawesomeness.minecord.util.network.URLUtils;
+import com.tisawesomeness.minecord.util.URLs;
 
 import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-public class PlayerTestUtils {
+public class PlayerTests {
 
     public static final UUID STEVE_UUID = UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3af"); // Tis_awesomeness
     public static final UUID ALEX_UUID = UUID.fromString("853c80ef-3c37-49fd-aa49-938b674adae6"); // jeb_
-    public static final URL CUSTOM_SKIN_URL = URLUtils.createUrl("https://textures.minecraft.net/texture/" +
+    public static final URL CUSTOM_SKIN_URL = URLs.createUrl("https://textures.minecraft.net/texture/" +
                     "8c38fdb8e126e8416edf8864d6b5f69c072836abbc8d6ebc6b3d72644e48b1bd");
 
     private static final Username SAMPLE = new Username("SamplePlayer");

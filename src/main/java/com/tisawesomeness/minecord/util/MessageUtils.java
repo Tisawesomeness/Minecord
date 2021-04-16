@@ -1,53 +1,10 @@
 package com.tisawesomeness.minecord.util;
 
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.SelfUser;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.regex.Pattern;
 
+@Deprecated
 public final class MessageUtils {
-
-    /**
-     * Parses boolean arguments.
-     * @param search The string array to search through.
-     * @param include A string that also means true.
-     * @return The first index of the boolean argument. Returns -1 if not found.
-     */
-    public static int parseBoolean(String[] search, String include) {
-
-        List<String> searchList = Arrays.asList(search);
-        String[] words = new String[]{"true", "yes", "allow", include};
-        for (String word : words) {
-            int index = searchList.indexOf(word);
-            if (index > -1) {
-                return index;
-            }
-        }
-        return -1;
-    }
-
-    /**
-     * Gets the command-useful content of a message, keeping the name and arguments and purging the prefix and mention.
-     */
-    public static String[] getContent(Message m, String prefix, SelfUser su, boolean respondToMentions) {
-        String content = m.getContentRaw();
-        if (m.getContentRaw().startsWith(prefix)) {
-            return content.replaceFirst(Pattern.quote(prefix), "").split(" ");
-        } else if (respondToMentions && content.replaceFirst("@!", "@").startsWith(su.getAsMention())) {
-            String[] args = content.split(" ");
-            return Arrays.copyOfRange(args, 1, args.length);
-        }
-        return null;
-    }
-
-    public static String dateErrorString(String prefix, String cmd) {
-        return ":x: Improperly formatted date. " +
-            "At least a date or time is required. " +
-            "Do `" + prefix + cmd + "` for more info.";
-    }
 
     /**
      * Splits a string with newlines into groups, making sure that every group is a whole number of lines and at most the max length.

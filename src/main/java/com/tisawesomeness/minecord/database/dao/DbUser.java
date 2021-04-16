@@ -2,7 +2,7 @@ package com.tisawesomeness.minecord.database.dao;
 
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.lang.Lang;
-import com.tisawesomeness.minecord.util.StatementUtils;
+import com.tisawesomeness.minecord.util.Statements;
 
 import lombok.*;
 
@@ -67,9 +67,9 @@ public class DbUser implements SettingContainer, Bannable {
                 rs.getLong("id"),
                 rs.getBoolean("banned"),
                 rs.getBoolean("elevated"),
-                StatementUtils.getOptionalString(rs, "prefix"),
-                StatementUtils.getOptionalString(rs, "lang").flatMap(Lang::from),
-                StatementUtils.getOptionalBoolean(rs, "use_menu")
+                Statements.getOptionalString(rs, "prefix"),
+                Statements.getOptionalString(rs, "lang").flatMap(Lang::from),
+                Statements.getOptionalBoolean(rs, "use_menu")
         );
     }
 
@@ -83,9 +83,9 @@ public class DbUser implements SettingContainer, Bannable {
         @Cleanup PreparedStatement st = connect.prepareStatement(sql);
         st.setBoolean(1, banned);
         st.setBoolean(2, elevated);
-        StatementUtils.setOptionalString(st, 3, prefix);
-        StatementUtils.setOptionalString(st, 4, lang.map(Lang::getCode));
-        StatementUtils.setOptionalBoolean(st, 5, useMenu);
+        Statements.setOptionalString(st, 3, prefix);
+        Statements.setOptionalString(st, 4, lang.map(Lang::getCode));
+        Statements.setOptionalBoolean(st, 5, useMenu);
         st.setLong(6, id);
         st.executeUpdate();
         db.getCache().invalidateUser(id);

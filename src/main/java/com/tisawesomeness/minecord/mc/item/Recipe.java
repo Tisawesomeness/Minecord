@@ -1,8 +1,7 @@
 package com.tisawesomeness.minecord.mc.item;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.ReactMenu;
-import com.tisawesomeness.minecord.util.IOUtils;
+import com.tisawesomeness.minecord.util.IO;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import org.json.JSONArray;
@@ -14,8 +13,8 @@ import java.util.*;
 
 public class Recipe {
 
-    private static final JSONObject recipes = new JSONObject(IOUtils.loadResource("mc/recipes.json"));
-    private static final JSONObject tags = new JSONObject(IOUtils.loadResource("mc/tags.json"));
+    private static final JSONObject recipes = new JSONObject(IO.loadResource("mc/recipes.json"));
+    private static final JSONObject tags = new JSONObject(IO.loadResource("mc/tags.json"));
 
     /**
      * Creates an EmbedBuilder from a recipe

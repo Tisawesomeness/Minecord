@@ -5,7 +5,7 @@ import com.tisawesomeness.minecord.command.IGuildOnlyCommand;
 import com.tisawesomeness.minecord.database.dao.DbGuild;
 import com.tisawesomeness.minecord.setting.Setting;
 import com.tisawesomeness.minecord.util.DateUtils;
-import com.tisawesomeness.minecord.util.DiscordUtils;
+import com.tisawesomeness.minecord.util.Discord;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -36,7 +36,7 @@ public class GuildCommand extends AbstractDiscordCommand implements IGuildOnlyCo
         Guild g;
         if (args.length > 1 && args[1].equals("admin") && ctx.isElevated()) {
             elevated = true;
-            if (!DiscordUtils.isDiscordId(args[0])) {
+            if (!Discord.isDiscordId(args[0])) {
                 ctx.invalidArgs("Not a valid ID!");
                 return;
             }
