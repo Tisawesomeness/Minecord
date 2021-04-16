@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.meta.CommandContext;
 
 import lombok.NonNull;
 

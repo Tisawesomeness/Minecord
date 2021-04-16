@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command.discord;
 
-import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.IGuildOnlyCommand;
+import com.tisawesomeness.minecord.command.meta.CommandContext;
+import com.tisawesomeness.minecord.command.meta.IGuildOnlyCommand;
 import com.tisawesomeness.minecord.util.Discord;
 import com.tisawesomeness.minecord.util.MessageUtils;
 

@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.command.player;
 
-import com.tisawesomeness.minecord.command.Result;
+import com.tisawesomeness.minecord.command.meta.Result;
 import com.tisawesomeness.minecord.config.ConfigReader;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.Username;

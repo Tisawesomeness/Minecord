@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.meta.CommandContext;
 import com.tisawesomeness.minecord.util.Colors;
 
 import lombok.NonNull;

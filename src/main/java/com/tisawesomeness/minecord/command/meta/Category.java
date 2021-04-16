@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.command;
+package com.tisawesomeness.minecord.command.meta;
 
 import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.lang.Localizable;

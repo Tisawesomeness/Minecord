@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.setting.parse;
 
-import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.meta.CommandContext;
 import com.tisawesomeness.minecord.database.dao.DbGuild;
 import com.tisawesomeness.minecord.util.Discord;
 

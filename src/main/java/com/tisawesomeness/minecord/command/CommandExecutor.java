@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command;
 
+import com.tisawesomeness.minecord.command.meta.*;
 import com.tisawesomeness.minecord.config.serial.CommandConfig;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.config.serial.FlagConfig;

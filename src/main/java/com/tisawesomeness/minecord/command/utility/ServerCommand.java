@@ -5,8 +5,8 @@ import br.com.azalim.mcserverping.MCPingOptions;
 import br.com.azalim.mcserverping.MCPingResponse;
 import br.com.azalim.mcserverping.MCPingResponse.Player;
 import br.com.azalim.mcserverping.MCPingUtil;
-import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
+import com.tisawesomeness.minecord.command.meta.CommandContext;
+import com.tisawesomeness.minecord.command.meta.Result;
 import com.tisawesomeness.minecord.util.Mth;
 import com.tisawesomeness.minecord.util.RequestUtils;
 

@@ -1,8 +1,8 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.CommandExecutor;
-import com.tisawesomeness.minecord.command.Result;
+import com.tisawesomeness.minecord.command.meta.CommandContext;
+import com.tisawesomeness.minecord.command.meta.Result;
 import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.debug.*;
 import com.tisawesomeness.minecord.debug.cache.*;

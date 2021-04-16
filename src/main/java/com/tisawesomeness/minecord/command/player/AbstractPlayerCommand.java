@@ -1,8 +1,8 @@
 package com.tisawesomeness.minecord.command.player;
 
-import com.tisawesomeness.minecord.command.Category;
-import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.meta.Category;
+import com.tisawesomeness.minecord.command.meta.Command;
+import com.tisawesomeness.minecord.command.meta.CommandContext;
 
 import lombok.extern.slf4j.Slf4j;
 

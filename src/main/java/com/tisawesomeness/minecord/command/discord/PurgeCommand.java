@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command.discord;
 
-import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.IGuildOnlyCommand;
+import com.tisawesomeness.minecord.command.meta.CommandContext;
+import com.tisawesomeness.minecord.command.meta.IGuildOnlyCommand;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.Permission;

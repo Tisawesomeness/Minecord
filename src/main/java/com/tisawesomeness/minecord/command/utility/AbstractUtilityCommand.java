@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import com.tisawesomeness.minecord.command.Category;
-import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.meta.Category;
+import com.tisawesomeness.minecord.command.meta.Command;
 
 public abstract class AbstractUtilityCommand extends Command {
     @Override

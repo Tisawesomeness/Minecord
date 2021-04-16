@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command.core;
 
 import com.tisawesomeness.minecord.Branding;
-import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.meta.CommandContext;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;

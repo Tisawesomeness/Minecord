@@ -1,5 +1,7 @@
-package com.tisawesomeness.minecord.command;
+package com.tisawesomeness.minecord.command.meta;
 
+import com.tisawesomeness.minecord.command.CommandRegistry;
+import com.tisawesomeness.minecord.command.ExtraHelpPage;
 import com.tisawesomeness.minecord.config.serial.CommandConfig;
 import com.tisawesomeness.minecord.config.serial.CommandOverride;
 import com.tisawesomeness.minecord.config.serial.Config;

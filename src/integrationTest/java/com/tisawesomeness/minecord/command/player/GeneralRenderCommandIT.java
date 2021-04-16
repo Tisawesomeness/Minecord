@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command.player;
 
-import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.command.Result;
+import com.tisawesomeness.minecord.command.meta.Command;
+import com.tisawesomeness.minecord.command.meta.Result;
 import com.tisawesomeness.minecord.config.ConfigReader;
 import com.tisawesomeness.minecord.mc.player.Render;
 import com.tisawesomeness.minecord.mc.player.RenderType;

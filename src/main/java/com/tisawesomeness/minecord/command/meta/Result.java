@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.command;
+package com.tisawesomeness.minecord.command.meta;
 
 import lombok.Getter;
 import lombok.NonNull;

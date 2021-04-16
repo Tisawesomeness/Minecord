@@ -1,14 +1,17 @@
 package com.tisawesomeness.minecord.testutil.runner;
 
-import com.tisawesomeness.minecord.lang.Lang;
-import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.command.CommandContext;
 import com.tisawesomeness.minecord.command.CommandExecutor;
-import com.tisawesomeness.minecord.command.Result;
+import com.tisawesomeness.minecord.command.meta.Command;
+import com.tisawesomeness.minecord.command.meta.CommandContext;
+import com.tisawesomeness.minecord.command.meta.Result;
 import com.tisawesomeness.minecord.config.serial.Config;
+import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.mc.MCLibrary;
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
@@ -17,12 +20,10 @@ import org.junit.jupiter.api.Assertions;
 
 import javax.annotation.Nullable;
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.StringJoiner;
-import java.util.concurrent.*;
+import java.util.*;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 

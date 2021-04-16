@@ -1,6 +1,8 @@
 package com.tisawesomeness.minecord.command.core;
 
-import com.tisawesomeness.minecord.command.*;
+import com.tisawesomeness.minecord.command.CommandRegistry;
+import com.tisawesomeness.minecord.command.ExtraHelpPage;
+import com.tisawesomeness.minecord.command.meta.*;
 import com.tisawesomeness.minecord.lang.Lang;
 
 import lombok.NonNull;

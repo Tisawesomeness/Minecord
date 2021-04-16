@@ -1,6 +1,7 @@
-package com.tisawesomeness.minecord.command;
+package com.tisawesomeness.minecord.command.meta;
 
 import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.command.CommandExecutor;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.lang.Lang;
 

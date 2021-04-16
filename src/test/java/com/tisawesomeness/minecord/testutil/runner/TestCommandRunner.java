@@ -1,11 +1,11 @@
 package com.tisawesomeness.minecord.testutil.runner;
 
-import com.tisawesomeness.minecord.lang.Lang;
-import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.CommandExecutor;
 import com.tisawesomeness.minecord.command.CommandRegistry;
+import com.tisawesomeness.minecord.command.meta.Command;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.database.dao.CommandStats;
+import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.mc.MCLibrary;
 
 import lombok.EqualsAndHashCode;

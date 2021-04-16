@@ -2,8 +2,8 @@ package com.tisawesomeness.minecord.command.utility;
 
 import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.ReactMenu.MenuStatus;
-import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
+import com.tisawesomeness.minecord.command.meta.CommandContext;
+import com.tisawesomeness.minecord.command.meta.Result;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.mc.item.Recipe;
 

@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.command;
+package com.tisawesomeness.minecord.command.meta;
 
 /**
  * Commands with this interface can accept arguments with newlines

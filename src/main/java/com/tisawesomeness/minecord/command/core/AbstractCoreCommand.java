@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command.core;
 
-import com.tisawesomeness.minecord.command.Category;
-import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.meta.Category;
+import com.tisawesomeness.minecord.command.meta.Command;
 
 public abstract class AbstractCoreCommand extends Command {
     @Override

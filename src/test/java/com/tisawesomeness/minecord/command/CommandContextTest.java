@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command;
 
+import com.tisawesomeness.minecord.command.meta.CommandContext;
 import com.tisawesomeness.minecord.testutil.runner.AbstractContext;
 
 import lombok.Getter;

@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command.core;
 
-import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.IHiddenCommand;
+import com.tisawesomeness.minecord.command.meta.CommandContext;
+import com.tisawesomeness.minecord.command.meta.IHiddenCommand;
 
 import lombok.NonNull;
 

@@ -3,7 +3,7 @@ package com.tisawesomeness.minecord.command.core;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Branding;
 import com.tisawesomeness.minecord.BuildInfo;
-import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.meta.CommandContext;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.util.DateUtils;
 

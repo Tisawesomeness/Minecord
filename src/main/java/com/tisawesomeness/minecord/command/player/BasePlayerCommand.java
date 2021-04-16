@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.command.player;
 
-import com.tisawesomeness.minecord.command.CommandContext;
+import com.tisawesomeness.minecord.command.meta.CommandContext;
 import com.tisawesomeness.minecord.mc.external.PlayerProvider;
 import com.tisawesomeness.minecord.mc.player.NameChange;
 import com.tisawesomeness.minecord.mc.player.Player;

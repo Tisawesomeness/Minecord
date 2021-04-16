@@ -1,5 +1,7 @@
 package com.tisawesomeness.minecord.command;
 
+import com.tisawesomeness.minecord.command.meta.Category;
+import com.tisawesomeness.minecord.command.meta.Command;
 import com.tisawesomeness.minecord.lang.Lang;
 
 import org.junit.jupiter.api.DisplayName;

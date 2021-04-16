@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.IMultiLineCommand;
+import com.tisawesomeness.minecord.command.meta.CommandContext;
+import com.tisawesomeness.minecord.command.meta.IMultiLineCommand;
 import com.tisawesomeness.minecord.util.Mth;
 
 import lombok.NonNull;

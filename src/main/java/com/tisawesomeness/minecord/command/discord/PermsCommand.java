@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command.discord;
 
-import com.tisawesomeness.minecord.command.CommandContext;
-import com.tisawesomeness.minecord.command.Result;
+import com.tisawesomeness.minecord.command.meta.CommandContext;
+import com.tisawesomeness.minecord.command.meta.Result;
 import com.tisawesomeness.minecord.util.BooleanUtils;
 import com.tisawesomeness.minecord.util.Discord;
 
