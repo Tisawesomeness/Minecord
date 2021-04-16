@@ -26,31 +26,31 @@ public class CommandVerifier {
     /**
      * Checks whether a command should run, by checking cooldowns, permissions, etc. This method will automatically
      * send the appropriate warning messages based on which requirement was not satisfied.
-     * @param c The command
      * @param ctx The context of the command
      * @return Whether the command should run
      */
-    public boolean shouldRun(Command c, CommandContext ctx) {
-        if (c.isEnabled(ctx.getConfig().getCommandConfig()) || shouldBypassDisabled(c, ctx)) {
-            return processElevation(c, ctx);
+    public boolean shouldRun(CommandContext ctx) {
+        if (ctx.getCmd().isEnabled(ctx.getConfig().getCommandConfig()) || shouldBypassDisabled(ctx)) {
+            return processElevation(ctx);
         }
         ctx.warn(ctx.getLang().i18nf("command.meta.disabled", ctx.formatCommandName()));
         return false;
     }
-    private static boolean shouldBypassDisabled(Command c, CommandContext ctx) {
+    private static boolean shouldBypassDisabled(CommandContext ctx) {
         return ctx.getConfig().getFlagConfig().isElevatedBypassDisabled()
                 && ctx.isElevated()
-                && !(c instanceof IElevatedCommand);
+                && !(ctx.getCmd() instanceof IElevatedCommand);
     }
 
-    private boolean processElevation(Command c, CommandContext ctx) {
-        if (c instanceof IElevatedCommand && !ctx.isElevated()) {
+    private boolean processElevation(CommandContext ctx) {
+        if (ctx.getCmd() instanceof IElevatedCommand && !ctx.isElevated()) {
             ctx.notElevated(ctx.getLang().i18nf("command.meta.notBotAdmin", ctx.formatCommandName()));
             return false;
         }
-        return processGuildOnly(c, ctx);
+        return processGuildOnly(ctx);
     }
-    private boolean processGuildOnly(Command c, CommandContext ctx) {
+    private boolean processGuildOnly(CommandContext ctx) {
+        Command c = ctx.getCmd();
         if (c instanceof IGuildOnlyCommand && !ctx.isFromGuild()) {
             IGuildOnlyCommand goc = (IGuildOnlyCommand) c;
             if (!ctx.isElevated() || goc.guildOnlyAppliesToAdmins()) {
@@ -58,23 +58,23 @@ public class CommandVerifier {
                 return false;
             }
         }
-        return processPerms(c, ctx);
+        return processPerms(ctx);
     }
 
-    private boolean processPerms(Command c, CommandContext ctx) {
+    private boolean processPerms(CommandContext ctx) {
         if (ctx.isFromGuild()) {
-            return processBotPerms(c, ctx);
+            return processBotPerms(ctx);
         }
-        return processCooldown(c, ctx);
+        return processCooldown(ctx);
     }
-    private boolean processBotPerms(Command c, CommandContext ctx) {
+    private boolean processBotPerms(CommandContext ctx) {
         Lang lang = ctx.getLang();
         if (!ctx.botHasPermission(Permission.MESSAGE_EMBED_LINKS)) {
             ctx.noBotPermissions(lang.i18n("command.meta.missingEmbedLinks"));
             return false;
         }
 
-        EnumSet<Permission> requiredBotPerms = c.getBotPermissions();
+        EnumSet<Permission> requiredBotPerms = ctx.getCmd().getBotPermissions();
         if (!ctx.botHasPermission(requiredBotPerms)) {
 
             EnumSet<Permission> currentBotPerms = getCurrentBotPerms(ctx);
@@ -87,15 +87,15 @@ public class CommandVerifier {
             return false;
 
         }
-        return processUserPerms(c, ctx);
+        return processUserPerms(ctx);
     }
     private static EnumSet<Permission> getCurrentBotPerms(CommandContext ctx) {
         MessageReceivedEvent e = ctx.getE();
         return e.getGuild().getSelfMember().getPermissions(e.getTextChannel());
     }
-    private boolean processUserPerms(Command c, CommandContext ctx) {
+    private boolean processUserPerms(CommandContext ctx) {
         if (!ctx.isElevated()) {
-            EnumSet<Permission> requiredUserPerms = c.getUserPermissions();
+            EnumSet<Permission> requiredUserPerms = ctx.getCmd().getUserPermissions();
             if (!ctx.userHasPermission(requiredUserPerms)) {
 
                 EnumSet<Permission> currentUserPerms = getCurrentUserPerms(ctx);
@@ -110,7 +110,7 @@ public class CommandVerifier {
 
             }
         }
-        return processMultiLines(c, ctx);
+        return processMultiLines(ctx);
     }
     private static EnumSet<Permission> getCurrentUserPerms(CommandContext ctx) {
         MessageReceivedEvent e = ctx.getE();
@@ -124,8 +124,8 @@ public class CommandVerifier {
                 .collect(Collectors.joining(", "));
     }
 
-    private boolean processMultiLines(Command c, CommandContext ctx) {
-        if (!(c instanceof IMultiLineCommand)) {
+    private boolean processMultiLines(CommandContext ctx) {
+        if (!(ctx.getCmd() instanceof IMultiLineCommand)) {
             for (String arg : ctx.getArgs()) {
                 if (arg.contains("\n") || arg.contains("\r")) {
                     ctx.warn(ctx.getLang().i18nf("command.meta.oneLine", ctx.formatCommandName()));
@@ -133,21 +133,21 @@ public class CommandVerifier {
                 }
             }
         }
-        return processCooldown(c, ctx);
+        return processCooldown(ctx);
     }
 
-    private boolean processCooldown(Command c, CommandContext ctx) {
+    private boolean processCooldown(CommandContext ctx) {
         if (!exe.shouldSkipCooldown(ctx)) {
-            long cooldown = exe.getCooldown(c);
+            long cooldown = exe.getCooldown(ctx.getCmd());
             if (cooldown > 0) {
-                return checkCooldown(c, ctx, cooldown);
+                return checkCooldown(ctx, cooldown);
             }
         }
         return true;
     }
-    private boolean checkCooldown(Command c, CommandContext ctx, long cooldown) {
+    private boolean checkCooldown(CommandContext ctx, long cooldown) {
         long uid = ctx.getUserId();
-        long lastExecutedTime = exe.getLastExecutedTime(c, uid);
+        long lastExecutedTime = exe.getLastExecutedTime(ctx.getCmd(), uid);
         long msLeft = cooldown + lastExecutedTime - System.currentTimeMillis();
         if (msLeft > 0) {
             Lang lang = ctx.getLang();

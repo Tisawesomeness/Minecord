@@ -128,7 +128,7 @@ public class CommandListener extends ListenerAdapter {
         String[] args = getArgs(commandString, nameArgsSeparatorIndex);
 
         CommandContext ctx = new DiscordContext(args, e, config, bot, cmd, commandExecutor, isElevated, prefix, lang);
-        commandExecutor.run(cmd, ctx);
+        commandExecutor.run(ctx);
     }
     private Optional<String> getCommandString(MessageReceivedEvent e, String prefix) {
         boolean respondToMentions = config.getFlagConfig().isRespondToMentions();
@@ -157,7 +157,7 @@ public class CommandListener extends ListenerAdapter {
         String[] args = new String[0];
         Command cmd = registry.getHelpCommand();
         CommandContext ctx = new DiscordContext(args, e, config, bot, cmd, commandExecutor, isElevated, prefix, lang);
-        commandExecutor.run(cmd, ctx);
+        commandExecutor.run(ctx);
     }
 
 }

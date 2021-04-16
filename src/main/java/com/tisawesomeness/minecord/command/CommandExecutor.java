@@ -74,27 +74,27 @@ public class CommandExecutor {
 
     /**
      * Runs the given command with this executor.
-     * @param c The command
      * @param ctx The context of the command
      */
-    public void run(Command c, CommandContext ctx) {
-        runCommand(c, ctx);
+    public void run(CommandContext ctx) {
+        Command c = ctx.getCmd();
+        runCommand(ctx);
         commandUses.add(c);
         unpushedUses.add(c.getId());
     }
     /**
      * Directly runs a command without keeping track of it.
-     * @param c The command
      * @param ctx The context of the command
      */
     @TestOnly
-    public void runCommand(Command c, CommandContext ctx) {
-        if (commandVerifier.shouldRun(c, ctx)) {
-            tryToRun(c, ctx);
+    public void runCommand(CommandContext ctx) {
+        if (commandVerifier.shouldRun(ctx)) {
+            tryToRun(ctx);
         }
     }
 
-    private void tryToRun(Command c, CommandContext ctx) {
+    private void tryToRun(CommandContext ctx) {
+        Command c = ctx.getCmd();
         try {
             c.run(ctx.getArgs(), ctx);
         } catch (Exception ex) {
