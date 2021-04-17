@@ -30,10 +30,12 @@ public class CommandVerifier {
      * @return Whether the command should run
      */
     public boolean shouldRun(CommandContext ctx) {
-        if (ctx.getCmd().isEnabled(ctx.getConfig().getCommandConfig()) || shouldBypassDisabled(ctx)) {
+        Command c = ctx.getCmd();
+        if (c.isEnabled(ctx.getConfig().getCommandConfig()) || shouldBypassDisabled(ctx)) {
             return processElevation(ctx);
         }
-        ctx.warn(ctx.getLang().i18nf("command.meta.disabled", ctx.formatCommandName()));
+        String commandName = MarkdownUtil.monospace(ctx.getPrefix() + c.getDisplayName(ctx.getLang()));
+        ctx.warn(ctx.getLang().i18nf("command.meta.disabled", commandName));
         return false;
     }
     private static boolean shouldBypassDisabled(CommandContext ctx) {
