@@ -22,6 +22,7 @@ import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageDeleteEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
@@ -158,6 +159,11 @@ public class CommandListener extends ListenerAdapter {
         Command cmd = registry.getHelpCommand();
         CommandContext ctx = new DiscordContext(args, e, config, bot, cmd, commandExecutor, isElevated, prefix, lang);
         commandExecutor.run(ctx);
+    }
+
+    @Override
+    public void onGuildMessageDelete(@NonNull GuildMessageDeleteEvent e) {
+        commandExecutor.deleteLinks(e);
     }
 
 }

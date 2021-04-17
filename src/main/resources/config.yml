@@ -107,6 +107,8 @@ flags:
   # Whether the bot will attempt to load translations from "minecord/lang/*.properties"
   # If the load fails, the standard translations will be used instead
   loadTranslationsFromFile: false
+  # If true, the bot will deleteLinks its message when the calling command is deleted.
+  linkedDeletion: true
   # Highly recommended to be true, whether the bot responds to "@Minecord command"
   respondToMentions: true
   # Currently bugged, sorry (best to leave this disabled)
@@ -138,6 +140,11 @@ cache:
   # The maximum user cache size
   # Set to -1 for no limit or 0 to disable caching
   userMaxSize: -1
+  # The amount of time in seconds a message link (for linked deletion) is kept in the cache
+  linkLifetime: 300
+  # The maximum linked deletion cache size
+  # Set to -1 for no limit or 0 to disable caching
+  linkMaxSize: -1
   # The amount of time in seconds a Username-->UUID mapping is kept in the cache, minimum 60 seconds
   mojangUuidLifetime: 60
   # The amount of time in seconds a UUID-->Player mapping is kept in the cache, minimum 60 seconds

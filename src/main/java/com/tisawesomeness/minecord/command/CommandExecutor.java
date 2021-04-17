@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command;
 
 import com.tisawesomeness.minecord.command.meta.*;
+import com.tisawesomeness.minecord.config.serial.CacheConfig;
 import com.tisawesomeness.minecord.config.serial.CommandConfig;
 import com.tisawesomeness.minecord.config.serial.Config;
 import com.tisawesomeness.minecord.database.dao.CommandStats;
@@ -14,15 +15,16 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageDeleteEvent;
 import org.apache.commons.collections4.MultiSet;
 import org.apache.commons.collections4.MultiSetUtils;
 import org.apache.commons.collections4.multiset.HashMultiSet;
 import org.jetbrains.annotations.TestOnly;
 
+import javax.annotation.Nullable;
 import java.sql.SQLException;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -33,15 +35,22 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CommandExecutor {
 
-    private static final double COOLDOWN_CACHE_TOLERANCE = 1.05;
+    // linked deletion parameters
+    private static final int MAX_DELETES = 25; // most replies the bot will try to delete
+    private static final double COOLDOWN_CACHE_TOLERANCE = 1.05; // added time to let cooldown expire
+    private static final int INITIAL_CAPACITY = 2; // expected number of replies per command invocation
+    private static final float LOAD_FACTOR = 0.75f; // map load factor
+    private static final int CONCURRENCY_LEVEL = 1; // expected number of replying threads per command invocation
 
     private final Config config;
     @Getter private final CommandStats commandStats;
     private final CommandVerifier commandVerifier;
     private final Map<String, Cache<Long, Long>> cooldownMap;
     private final Map<Command, MultiSet<Result>> results;
+    // Below two require synchronization on iteration
     private final MultiSet<Command> commandUses = MultiSetUtils.synchronizedMultiSet(new HashMultiSet<>());
     private final MultiSet<String> unpushedUses = MultiSetUtils.synchronizedMultiSet(new HashMultiSet<>());
+    private final @Nullable Cache<Long, Set<Long>> linkCache;
 
     /**
      * Creates a new command executor, initializing a cache for each command.
@@ -58,6 +67,7 @@ public class CommandExecutor {
                         Function.identity(),
                         c -> new EnumMultiSet<>(Result.class)
                 ));
+        linkCache = buildLinkCache(config);
     }
     private Map<String, Cache<Long, Long>> buildCooldownMap(CommandRegistry cr) {
         CommandConfig cc = config.getCommandConfig();
@@ -74,6 +84,22 @@ public class CommandExecutor {
         int cooldown = (int) (ch.getCooldown() * COOLDOWN_CACHE_TOLERANCE);
         Caffeine<Object, Object> builder = Caffeine.newBuilder()
                 .expireAfterWrite(cooldown, TimeUnit.MILLISECONDS);
+        if (config.getFlagConfig().isDebugMode()) {
+            builder.recordStats();
+        }
+        return builder.build();
+    }
+    private static @Nullable Cache<Long, Set<Long>> buildLinkCache(@NonNull Config config) {
+        if (!config.getFlagConfig().isLinkedDeletion()) {
+            return null;
+        }
+        CacheConfig cc = config.getCacheConfig();
+        Caffeine<Object, Object> builder = Caffeine.newBuilder()
+                .expireAfterWrite(cc.getLinkLifetime(), TimeUnit.SECONDS);
+        int maxSize = cc.getLinkMaxSize();
+        if (maxSize >= 0) {
+            builder.maximumSize(maxSize);
+        }
         if (config.getFlagConfig().isDebugMode()) {
             builder.recordStats();
         }
@@ -216,7 +242,7 @@ public class CommandExecutor {
      * Gets the combined stats of all cooldown caches.
      * @return A possibly-empty CacheStats
      */
-    public CacheStats stats() {
+    public @NonNull CacheStats cooldownStats() {
         return cooldownMap.values().stream()
                 .map(Cache::stats)
                 .reduce(CacheStats::plus)
@@ -227,19 +253,63 @@ public class CommandExecutor {
      * @param pool The cache pool
      * @return An empty optional if the pool does not exist, and the stats itself may be empty
      */
-    public Optional<CacheStats> stats(String pool) {
+    public Optional<CacheStats> cooldownStats(String pool) {
         return Optional.ofNullable(cooldownMap.get(pool)).map(Cache::stats);
     }
 
     /**
-     * Builds a string showing each pool and it's estimated cache size
+     * Builds a string showing each pool and it's estimated cache size.
      * @return A debug string
      */
-    public String debugEstimatedSizes() {
+    public @NonNull String debugEstimatedSizes() {
         return cooldownMap.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .map(en -> String.format("**%s**: `%d`", en.getKey(), en.getValue().estimatedSize()))
                 .collect(Collectors.joining("\n"));
+    }
+
+    /**
+     * Links a reply message to the calling message if linked deletion is enabled.
+     * @param caller The ID of the caller message
+     * @param reply The ID of the reply message
+     */
+    public void link(long caller, long reply) {
+        if (config.getFlagConfig().isLinkedDeletion()) {
+            Set<Long> replies = Objects.requireNonNull(linkCache).get(caller, key -> initSet());
+            Objects.requireNonNull(replies).add(reply);
+        }
+    }
+    private static Set<Long> initSet() {
+        Map<Long, Boolean> map = new ConcurrentHashMap<>(INITIAL_CAPACITY, LOAD_FACTOR, CONCURRENCY_LEVEL);
+        return Collections.newSetFromMap(map);
+    }
+    /**
+     * Deletes all replies linked to the deleted message if linked deletion is enabled.
+     * @param e The deleted message event
+     */
+    public void deleteLinks(GuildMessageDeleteEvent e) {
+        if (!config.getFlagConfig().isLinkedDeletion()) {
+            return;
+        }
+        long caller = e.getMessageIdLong();
+        Set<Long> replies = Objects.requireNonNull(linkCache).getIfPresent(caller);
+        if (replies == null) {
+            return;
+        }
+        linkCache.invalidate(caller);
+
+        long[] toDelete = replies.stream()
+                .unordered()
+                .limit(MAX_DELETES)
+                .mapToLong(l -> l) // unboxing
+                .toArray();
+        e.getChannel().purgeMessagesById(toDelete); // This ignores errors! Not a big deal
+    }
+    /**
+     * @return the cache stats for the linked deletion cache
+     */
+    public @NonNull Optional<CacheStats> linkStats() {
+        return Optional.ofNullable(linkCache).map(Cache::stats);
     }
 
     @Value

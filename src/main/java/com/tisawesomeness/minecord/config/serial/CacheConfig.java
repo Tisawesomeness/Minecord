@@ -25,6 +25,11 @@ public class CacheConfig {
     @JsonProperty("userMaxSize")
     int userMaxSize;
 
+    @JsonProperty("linkLifetime")
+    int linkLifetime;
+    @JsonProperty("linkMaxSize")
+    int linkMaxSize;
+
     @JsonProperty("mojangUuidLifetime")
     int mojangUuidLifetime;
     @JsonProperty("mojangPlayerLifetime")
@@ -42,6 +47,8 @@ public class CacheConfig {
                 verifyChannelMaxSize(),
                 verifyUserLifetime(),
                 verifyUserMaxSize(),
+                verifyLinkLifetime(),
+                verifyLinkMaxSize(),
                 verifyUuid(),
                 verifyPlayer()
         );
@@ -82,6 +89,19 @@ public class CacheConfig {
             return Verification.valid();
         }
         return Verification.invalid("User cache max size must be -1, 0, or positive");
+    }
+
+    private Verification verifyLinkLifetime() {
+        if (linkLifetime >= 0) {
+            return Verification.valid();
+        }
+        return Verification.invalid("Link lifetime cannot be negative");
+    }
+    private Verification verifyLinkMaxSize() {
+        if (linkMaxSize >= -1) {
+            return Verification.valid();
+        }
+        return Verification.invalid("Link cache max size must be -1, 0, or positive");
     }
 
     private Verification verifyUuid() {

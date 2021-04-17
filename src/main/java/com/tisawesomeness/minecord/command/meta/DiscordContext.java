@@ -50,13 +50,16 @@ public class DiscordContext extends CommandContext {
     }
 
     protected void sendMessage(@NonNull CharSequence text) {
-        e.getChannel().sendMessage(text).queue();
+        e.getChannel().sendMessage(text).queue(this::link);
     }
     protected void sendMessage(@NonNull MessageEmbed emb) {
-        e.getChannel().sendMessage(emb).queue();
+        e.getChannel().sendMessage(emb).queue(this::link);
     }
     public void requestHelp() {
         sendMessage(brand(cmd.showHelp(this)).build());
+    }
+    private void link(Message m) {
+        executor.link(e.getMessageIdLong(), m.getIdLong());
     }
 
     public void triggerCooldown() {

@@ -9,15 +9,12 @@ import lombok.RequiredArgsConstructor;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class CooldownCacheDebugOption extends CacheDebugOption {
+public class LinkCacheDebugOption extends CacheDebugOption {
     private final @NonNull CommandExecutor executor;
     public @NonNull String getName() {
-        return "cooldownCache";
+        return "linkCache";
     }
     public Optional<CacheStats> getCacheStats(@NonNull String extra) {
-        if (extra.isEmpty()) {
-            return Optional.of(executor.cooldownStats());
-        }
-        return executor.cooldownStats(extra);
+        return executor.linkStats();
     }
 }

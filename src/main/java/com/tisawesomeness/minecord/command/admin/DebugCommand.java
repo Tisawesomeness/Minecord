@@ -71,10 +71,11 @@ public class DebugCommand extends AbstractAdminCommand {
                 new ItemDebugOption(),
                 new PoolsDebugOption(executor),
                 new ClientDebugOption(ctx.getBot().getApiClient()),
-                new CooldownCacheDebugOption(executor),
                 new GuildCacheDebugOption(dbCache),
                 new ChannelCacheDebugOption(dbCache),
                 new UserCacheDebugOption(dbCache),
+                new CooldownCacheDebugOption(executor),
+                new LinkCacheDebugOption(executor),
                 new UuidCacheDebugOption(playerProvider),
                 new PlayerCacheDebugOption(playerProvider)
         );

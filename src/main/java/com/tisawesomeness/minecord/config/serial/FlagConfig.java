@@ -14,6 +14,8 @@ public class FlagConfig {
     boolean useAnnouncements;
     @JsonProperty("loadTranslationsFromFile")
     boolean loadTranslationsFromFile;
+    @JsonProperty("linkedDeletion")
+    boolean linkedDeletion;
     @JsonProperty("respondToMentions")
     boolean respondToMentions;
     @JsonProperty("sendTyping")
