@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.config.serial;
 
+import com.tisawesomeness.minecord.mc.external.MojangAPI;
 import com.tisawesomeness.minecord.util.type.Verification;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +11,6 @@ import lombok.Value;
  */
 @Value
 public class CacheConfig {
-    private static final int MOJANG_RATELIMIT = 60;
 
     @JsonProperty("guildLifetime")
     int guildLifetime;
@@ -85,16 +85,18 @@ public class CacheConfig {
     }
 
     private Verification verifyUuid() {
-        if (mojangUuidLifetime >= MOJANG_RATELIMIT) {
+        if (mojangUuidLifetime >= MojangAPI.PROFILE_RATELIMIT) {
             return Verification.valid();
         }
-        return Verification.invalid("UUIDs must be in the cache for at least " + MOJANG_RATELIMIT + " seconds");
+        return Verification.invalid(
+                "UUIDs must be in the cache for at least " + MojangAPI.PROFILE_RATELIMIT + " seconds");
     }
     private Verification verifyPlayer() {
-        if (mojangUuidLifetime >= MOJANG_RATELIMIT) {
+        if (mojangUuidLifetime >= MojangAPI.PROFILE_RATELIMIT) {
             return Verification.valid();
         }
-        return Verification.invalid("Players must be in the cache for at least " + MOJANG_RATELIMIT + " seconds");
+        return Verification.invalid(
+                "Players must be in the cache for at least " + MojangAPI.PROFILE_RATELIMIT + " seconds");
     }
 
 }

@@ -3,15 +3,16 @@ package com.tisawesomeness.minecord.command;
 import com.tisawesomeness.minecord.command.meta.*;
 import com.tisawesomeness.minecord.config.serial.CommandConfig;
 import com.tisawesomeness.minecord.config.serial.Config;
-import com.tisawesomeness.minecord.config.serial.FlagConfig;
 import com.tisawesomeness.minecord.database.dao.CommandStats;
 import com.tisawesomeness.minecord.util.type.EnumMultiSet;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.stats.CacheStats;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.MultiSet;
 import org.apache.commons.collections4.MultiSetUtils;
@@ -32,8 +33,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CommandExecutor {
 
-    private final CommandConfig cc;
-    private final FlagConfig fc;
+    private static final double COOLDOWN_CACHE_TOLERANCE = 1.05;
+
+    private final Config config;
     @Getter private final CommandStats commandStats;
     private final CommandVerifier commandVerifier;
     private final Map<String, Cache<Long, Long>> cooldownMap;
@@ -47,29 +49,35 @@ public class CommandExecutor {
      * @param config The configuration options
      */
     public CommandExecutor(@NonNull CommandRegistry cr, @NonNull CommandStats commandStats, @NonNull Config config) {
-        cc = config.getCommandConfig();
-        fc = config.getFlagConfig();
+        this.config = config;
         this.commandStats = commandStats;
         commandVerifier = new CommandVerifier(this);
-        Caffeine<Object, Object> builder = Caffeine.newBuilder()
-                .expireAfterWrite(30L, TimeUnit.SECONDS)
-                .maximumSize(100L);
-        if (fc.isDebugMode()) {
-            builder.recordStats();
-        }
-        cooldownMap = cr.stream()
-                .filter(c -> !(c instanceof IElevatedCommand))
-                .map(c -> c.getCooldownId(cc))
-                .distinct()
-                .collect(Collectors.toMap(
-                        Function.identity(),
-                        s -> builder.build()
-                ));
+        cooldownMap = buildCooldownMap(cr);
         results = cr.stream()
                 .collect(Collectors.toMap(
                         Function.identity(),
                         c -> new EnumMultiSet<>(Result.class)
                 ));
+    }
+    private Map<String, Cache<Long, Long>> buildCooldownMap(CommandRegistry cr) {
+        CommandConfig cc = config.getCommandConfig();
+        return cr.stream()
+                .filter(c -> !(c instanceof IElevatedCommand))
+                .map(c -> new CooldownHolder(c.getCooldownId(cc), c.getCooldown(cc)))
+                .distinct()
+                .collect(Collectors.toMap(
+                        CooldownHolder::getId,
+                        this::buildCooldownCache
+                ));
+    }
+    private Cache<Long, Long> buildCooldownCache(CooldownHolder ch) {
+        int cooldown = (int) (ch.getCooldown() * COOLDOWN_CACHE_TOLERANCE);
+        Caffeine<Object, Object> builder = Caffeine.newBuilder()
+                .expireAfterWrite(cooldown, TimeUnit.MILLISECONDS);
+        if (config.getFlagConfig().isDebugMode()) {
+            builder.recordStats();
+        }
+        return builder.build();
     }
 
     /**
@@ -106,10 +114,10 @@ public class CommandExecutor {
     /**
      * Gets the effective cooldown of a specific command for this executor.
      * @param c The command
-     * @return The cooldown in miliseconds
+     * @return The cooldown in milliseconds
      */
     public int getCooldown(Command c) {
-        return c.getCooldown(cc);
+        return c.getCooldown(config.getCommandConfig());
     }
     /**
      * Gets the Unix timestamp of when the user last executed the command.
@@ -118,7 +126,7 @@ public class CommandExecutor {
      * @return The last executed time, or 0 if the user is not in the cooldown cache
      */
     public long getLastExecutedTime(Command c, long uid) {
-        Long let = cooldownMap.get(c.getCooldownId(cc)).get(uid, ignore -> 0L);
+        Long let = cooldownMap.get(c.getCooldownId(config.getCommandConfig())).get(uid, ignore -> 0L);
         return Objects.requireNonNull(let); // Null value never put into map
     }
     /**
@@ -127,7 +135,7 @@ public class CommandExecutor {
      * @param uid The Discord user ID of the author of the command
      */
     public void startCooldown(Command c, long uid) {
-        cooldownMap.get(c.getCooldownId(cc)).put(uid, System.currentTimeMillis());
+        cooldownMap.get(c.getCooldownId(config.getCommandConfig())).put(uid, System.currentTimeMillis());
     }
     /**
      * Determines if the author of a command has permission to skip cooldowns.
@@ -135,7 +143,7 @@ public class CommandExecutor {
      * @return True if cooldowns should not be processed
      */
     public boolean shouldSkipCooldown(CommandContext ctx) {
-        return fc.isElevatedSkipCooldown() && ctx.isElevated();
+        return config.getFlagConfig().isElevatedSkipCooldown() && ctx.isElevated();
     }
 
     /**
@@ -200,7 +208,7 @@ public class CommandExecutor {
         try {
             commandStats.pushCommandUses(copy);
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            log.error("Exception pushing command uses", ex);
         }
     }
 
@@ -232,6 +240,13 @@ public class CommandExecutor {
                 .sorted(Map.Entry.comparingByKey())
                 .map(en -> String.format("**%s**: `%d`", en.getKey(), en.getValue().estimatedSize()))
                 .collect(Collectors.joining("\n"));
+    }
+
+    @Value
+    private static class CooldownHolder {
+        String id;
+        @EqualsAndHashCode.Exclude
+        int cooldown;
     }
 
 }

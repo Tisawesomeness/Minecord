@@ -217,7 +217,7 @@ public abstract class Command {
      * @param config The command config to pull cooldown pools from
      * @return The name of the cooldown pool this command is a part of, or this command's ID
      */
-    public final @NonNull String getCooldownId(CommandConfig config) {
+    public @NonNull String getCooldownId(CommandConfig config) {
         return getCooldownPool(config).orElse(getId());
     }
 
@@ -240,6 +240,11 @@ public abstract class Command {
         }
         return 0;
     }
+    /**
+     * Gets the cooldown pool for this command.
+     * @param config The command config to pull cooldown pools from
+     * @return The name of the cooldown pool if it exists
+     */
     public Optional<String> getCooldownPool(CommandConfig config) {
         CommandOverride co = config.getOverrides().get(getId());
         if (co == null) {

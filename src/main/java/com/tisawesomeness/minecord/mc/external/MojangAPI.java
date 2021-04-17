@@ -25,6 +25,11 @@ import java.util.*;
 public abstract class MojangAPI {
 
     /**
+     * The current ratelimit in seconds for name and profile lookups
+     */
+    public static final int PROFILE_RATELIMIT = 60;
+
+    /**
      * Requests the UUID currently associated with a username.
      * @param username A supported username
      * @return The raw JSON response, or empty if the username doesn't <b>currently</b> exist

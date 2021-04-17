@@ -43,15 +43,20 @@ public class ColorShortcut extends ColorCommand implements IShortcutCommand, IHi
     public List<String> getAliases(Lang lang) {
         return Collections.emptyList();
     }
+
+    @Override
+    public int getCooldown(CommandConfig config) {
+        return colorCmd.getCooldown(config);
+    }
+    @Override
+    public @NonNull String getCooldownId(CommandConfig config) {
+        return colorCmd.getCooldownId(config);
+    }
     @Override
     public Optional<String> getCooldownPool(CommandConfig config) {
-        Optional<String> poolOpt = colorCmd.getCooldownPool(config);
-        if (poolOpt.isPresent()) {
-            return poolOpt;
-        }
-        // Prevent calling getId() in superclass, which redirects to getId() in this class
-        return Optional.of(colorCmd.getId());
+        return colorCmd.getCooldownPool(config);
     }
+
     @Override
     public EmbedBuilder showHelp(CommandContext ctx) {
         return colorCmd.showHelp(ctx);
