@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.config;
 
-import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.util.IO;
 import com.tisawesomeness.minecord.util.type.Verification;
 
@@ -13,13 +12,14 @@ import com.fasterxml.jackson.databind.exc.InvalidNullException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
+import lombok.NonNull;
 import org.jetbrains.annotations.TestOnly;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
 /**
- * Utility class to read the bot config file.
+ * Utility class to read the bot config files.
  */
 public class ConfigReader {
     private static final YAMLFactory factory = new YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER);
@@ -40,7 +40,7 @@ public class ConfigReader {
      * @throws InvalidConfigException If the config is invalid, either because the YAML isn't formatted properly
      * or one of the config fields has an invalid value.
      */
-    public static <K extends VerifiableConfig> K read(Path path, Class<K> clazz)
+    public static <K extends VerifiableConfig> @NonNull K read(@NonNull Path path, Class<K> clazz)
             throws IOException, InvalidConfigException {
         K obj;
         try {
@@ -66,8 +66,9 @@ public class ConfigReader {
      * or one of the config fields has an invalid value.
      */
     @TestOnly
-    public static Config readFromResources() throws JsonProcessingException {
-        return mapper.readValue(IO.loadResource("config.yml"), Config.class);
+    public static <K extends VerifiableConfig> @NonNull K readFromResources(@NonNull String resource, Class<K> clazz)
+            throws JsonProcessingException {
+        return mapper.readValue(IO.loadResource(resource), clazz);
     }
 
 }

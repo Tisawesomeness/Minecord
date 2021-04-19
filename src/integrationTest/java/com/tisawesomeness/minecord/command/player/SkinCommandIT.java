@@ -1,11 +1,11 @@
 package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.command.meta.Result;
-import com.tisawesomeness.minecord.config.ConfigReader;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.SkinType;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.testutil.PlayerTests;
+import com.tisawesomeness.minecord.testutil.Resources;
 import com.tisawesomeness.minecord.testutil.mc.TestMCLibrary;
 import com.tisawesomeness.minecord.testutil.mc.TestPlayerProvider;
 import com.tisawesomeness.minecord.testutil.runner.TestCommandRunner;
@@ -42,7 +42,7 @@ public class SkinCommandIT {
 
     @BeforeAll
     private static void initRunner() throws IOException {
-        runner = new TestCommandRunner(ConfigReader.readFromResources(), new SkinCommand());
+        runner = new TestCommandRunner(Resources.config(), new SkinCommand());
         TestMCLibrary library = new TestMCLibrary();
         TestPlayerProvider playerProvider = library.getPlayerProvider();
 

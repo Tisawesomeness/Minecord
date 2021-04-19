@@ -1,8 +1,6 @@
-package com.tisawesomeness.minecord.command;
+package com.tisawesomeness.minecord.command.meta;
 
-import com.tisawesomeness.minecord.command.meta.Command;
-import com.tisawesomeness.minecord.command.meta.CommandContext;
-import com.tisawesomeness.minecord.config.ConfigReader;
+import com.tisawesomeness.minecord.testutil.Resources;
 import com.tisawesomeness.minecord.testutil.runner.TestCommandRunner;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -20,7 +18,7 @@ public class CommandTest {
 
     @BeforeAll
     private static void initRunner() throws JsonProcessingException {
-        runner = new TestCommandRunner(ConfigReader.readFromResources(), new SimpleReplyCommand());
+        runner = new TestCommandRunner(Resources.config(), new SimpleReplyCommand());
     }
 
     @Test

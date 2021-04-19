@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.setting.impl;
 
-import com.tisawesomeness.minecord.config.ConfigReader;
 import com.tisawesomeness.minecord.config.config.Config;
+import com.tisawesomeness.minecord.testutil.Resources;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.BeforeAll;
@@ -20,7 +20,7 @@ public class PrefixSettingTest {
 
     @BeforeAll
     private static void initConfig() throws JsonProcessingException {
-        Config config = ConfigReader.readFromResources();
+        Config config = Resources.config();
         prefix = new PrefixSetting(config.getSettingsConfig());
     }
 

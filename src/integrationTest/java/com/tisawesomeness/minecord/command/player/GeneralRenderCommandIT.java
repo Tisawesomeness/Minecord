@@ -2,11 +2,11 @@ package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.command.meta.Command;
 import com.tisawesomeness.minecord.command.meta.Result;
-import com.tisawesomeness.minecord.config.ConfigReader;
 import com.tisawesomeness.minecord.mc.player.Render;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.testutil.PlayerTests;
+import com.tisawesomeness.minecord.testutil.Resources;
 import com.tisawesomeness.minecord.testutil.mc.TestMCLibrary;
 import com.tisawesomeness.minecord.testutil.mc.TestPlayerProvider;
 import com.tisawesomeness.minecord.testutil.runner.TestCommandRunner;
@@ -27,7 +27,7 @@ public class GeneralRenderCommandIT {
     @BeforeAll
     private static void initRunner() throws JsonProcessingException {
         Command cmd = new GeneralRenderCommand();
-        runner = new TestCommandRunner(ConfigReader.readFromResources(), cmd);
+        runner = new TestCommandRunner(Resources.config(), cmd);
         TestMCLibrary library = new TestMCLibrary();
         TestPlayerProvider playerProvider = library.getPlayerProvider();
 

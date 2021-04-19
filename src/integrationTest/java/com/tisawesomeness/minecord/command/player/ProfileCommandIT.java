@@ -1,8 +1,8 @@
 package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.command.meta.Result;
-import com.tisawesomeness.minecord.config.ConfigReader;
 import com.tisawesomeness.minecord.mc.player.*;
+import com.tisawesomeness.minecord.testutil.Resources;
 import com.tisawesomeness.minecord.testutil.mc.MockMojangAPI;
 import com.tisawesomeness.minecord.testutil.mc.TestMCLibrary;
 import com.tisawesomeness.minecord.testutil.mc.TestPlayerProvider;
@@ -43,7 +43,7 @@ public class ProfileCommandIT {
 
     @BeforeAll
     private static void initRunner() throws IOException {
-        runner = new TestCommandRunner(ConfigReader.readFromResources(), new ProfileCommand());
+        runner = new TestCommandRunner(Resources.config(), new ProfileCommand());
         TestMCLibrary library = new TestMCLibrary();
         TestPlayerProvider playerProvider = library.getPlayerProvider();
 
