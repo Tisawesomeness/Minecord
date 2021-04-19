@@ -8,7 +8,11 @@ import com.tisawesomeness.minecord.util.Discord;
 import lombok.NonNull;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
-import java.util.*;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 /**
@@ -16,7 +20,6 @@ import java.util.stream.Collectors;
  */
 public class AnnounceRegistry {
 
-    private static final Random random = new Random();
     private final Map<Lang, WeightedAnnouncements> announcementsMap;
     private final boolean fallbackToDefaultLang;
 
@@ -51,27 +54,20 @@ public class AnnounceRegistry {
 
     private static class WeightedAnnouncements {
         private final List<ParsedAnnouncement> announcements;
-        private final int totalWeight;
+        private final long totalWeight;
 
         private WeightedAnnouncements(Map.Entry<Lang, List<Announcement>> entry, Config config, BotBranding branding) {
             announcements = entry.getValue().stream()
                     .map(ann -> new ParsedAnnouncement(ann, config, branding))
                     .collect(Collectors.toList());
-            int weight = 0;
-            for (ParsedAnnouncement parsedAnnouncement : announcements) {
-                weight += parsedAnnouncement.weight;
-                if (weight < 0) {
-                    throw new IllegalStateException("The total weight was so high it caused an integer overflow.");
-                }
-            }
-            if (weight == 0) {
-                throw new IllegalStateException("The total weight cannot be 0.");
-            }
-            totalWeight = weight;
+            // weight was already verified by the config
+            totalWeight = announcements.stream()
+                    .mapToLong(ann -> ann.weight)
+                    .sum();
         }
 
         private String roll() {
-            int rand = random.nextInt(totalWeight);
+            long rand = ThreadLocalRandom.current().nextLong(totalWeight);
             int i = -1;
             while (rand >= 0) {
                 i++;
@@ -83,7 +79,7 @@ public class AnnounceRegistry {
 
     private static class ParsedAnnouncement {
         private final @NonNull String text;
-        private final int weight;
+        private final long weight;
 
         private ParsedAnnouncement(Announcement ann, Config config, BotBranding branding) {
             text = Discord.parseConstants(ann.getText(), config, branding);

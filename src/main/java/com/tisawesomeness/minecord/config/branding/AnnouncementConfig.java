@@ -41,11 +41,11 @@ public class AnnouncementConfig {
                 .orElse(Verification.valid());
     }
     private static Verification verifyTotalWeight(Iterable<Announcement> announcements) {
-        int weight = 0;
+        long weight = 0;
         for (Announcement announcement : announcements) {
             weight += announcement.getWeight();
             if (weight < 0) {
-                return Verification.invalid("The total weight was so high it caused an integer overflow.");
+                return Verification.invalid("The total weight was so high it caused a long integer overflow.");
             }
         }
         if (weight == 0) {

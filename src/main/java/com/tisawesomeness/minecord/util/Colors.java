@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import java.awt.Color;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public final class Colors {
     private Colors() {}
@@ -78,13 +79,13 @@ public final class Colors {
      * Picks a random Minecraft color
      */
     public static Color randomColor() {
-        return mcColors.get((int) (Math.random()*16));
+        return mcColors.get(ThreadLocalRandom.current().nextInt(mcColors.size()));
     }
     /**
      * Picks a random color out of all possible
      */
     public static Color veryRandomColor() {
-        return new Color((int) (Math.random()*0x00FFFFFF));
+        return new Color(ThreadLocalRandom.current().nextInt(0x00FFFFFF));
     }
 
     /**

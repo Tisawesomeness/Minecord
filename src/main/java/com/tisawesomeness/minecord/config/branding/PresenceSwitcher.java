@@ -3,14 +3,13 @@ package com.tisawesomeness.minecord.config.branding;
 import lombok.NonNull;
 
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Switches between presences according to the {@link PresenceBehavior}.
  */
 public class PresenceSwitcher {
 
-    private static final Random random = new Random();
     private final List<Presence> presences;
     private final @NonNull PresenceBehavior behavior;
     private int currentPresence;
@@ -37,14 +36,14 @@ public class PresenceSwitcher {
         return current();
     }
     public @NonNull Presence random() {
-        currentPresence = random.nextInt(presences.size());
+        currentPresence = ThreadLocalRandom.current().nextInt(presences.size());
         return current();
     }
     public @NonNull Presence randomUnique() {
         if (presences.size() == 1) {
             return current();
         }
-        int r = random.nextInt(presences.size() - 1);
+        int r = ThreadLocalRandom.current().nextInt(presences.size() - 1);
         if (r >= currentPresence) {
             r += 1;
         }
