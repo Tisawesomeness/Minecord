@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.service;
 
 import com.tisawesomeness.minecord.command.CommandExecutor;
-import com.tisawesomeness.minecord.config.serial.CommandConfig;
+import com.tisawesomeness.minecord.config.config.CommandConfig;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

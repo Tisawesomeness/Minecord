@@ -3,15 +3,18 @@ package com.tisawesomeness.minecord;
 import com.tisawesomeness.minecord.util.IO;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 import java.util.concurrent.Callable;
 
 /**
@@ -27,21 +30,17 @@ import java.util.concurrent.Callable;
 public class ArgsHandler implements Callable<Integer>, Serializable {
 
     @Option(names = {"-t", "--token"}, description = "The custom token to use.")
-    @Getter private String tokenOverride;
+    @Getter private @Nullable String tokenOverride;
 
-    @Option(names = {"-p", "--path"}, description = "The path to the directory where config files are located. Can be overwritten with other arguments.")
-    @Getter private Path path;
-
-    @Option(names = {"-c", "-conf", "--config"}, description = "The path to the config file.")
-    @Getter private Path configPath;
-
-    @Option(names = {"-a", "-announce", "--announcements"}, description = "The path to the announcements file.")
-    @Getter private Path announcePath;
+    @Option(names = {"-p", "--path"}, description = "The path to the directory where config files are located.")
+    @Getter private @Nullable Path path;
 
     /**
      * Whether the bot should be started
      */
     @Getter private boolean ready;
+    private @Nullable Path configPath;
+    private @Nullable Path brandingPath;
 
     /**
      * Parses all command-line arguments.
@@ -67,13 +66,11 @@ public class ArgsHandler implements Callable<Integer>, Serializable {
             return ExitCodes.INVALID_PATH;
         }
 
-        // ensure announce exists, but it's not necessary
-        if (announcePath == null) {
-            announcePath = path.resolve("announce.json");
-        }
-        if (!announcePath.toFile().exists()) {
-            log.debug("Announce file does not exist, creating...");
-            createAnnounce(announcePath);
+        // ensure branding exists, but it's not necessary
+        brandingPath = path.resolve("branding.yml");
+        if (!brandingPath.toFile().exists()) {
+            log.debug("Branding file does not exist, creating...");
+            createBranding(brandingPath);
         }
 
         // config, however, is necessary
@@ -103,12 +100,33 @@ public class ArgsHandler implements Callable<Integer>, Serializable {
         return ExitCodes.SUCCESS;
     }
 
-    private static void createAnnounce(Path announcePath) {
+    private static void createBranding(Path brandingPath) {
         try {
-            IO.write(announcePath, IO.loadResource("announce.json"));
+            IO.write(brandingPath, IO.loadResource("branding.yml"));
         } catch (IOException ex) {
-            log.warn("Could not load announce file, continuing anyway...", ex);
+            log.warn("Could not load branding file, continuing anyway...", ex);
         }
+    }
+
+    /**
+     * @return The path to the config file
+     * @throws IllegalArgumentException if {@link #isReady()} is false
+     */
+    public @NonNull Path getConfigPath() {
+        if (configPath == null) {
+            throw new IllegalStateException("Args handler is not ready!");
+        }
+        return configPath;
+    }
+    /**
+     * @return The path to the branding config file, may not exist
+     * @throws IllegalArgumentException if {@link #isReady()} is false
+     */
+    public Optional<Path> getBrandingPath() {
+        if (!ready) {
+            throw new IllegalStateException("Args handler is not ready!");
+        }
+        return Optional.ofNullable(brandingPath);
     }
 
 }

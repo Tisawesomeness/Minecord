@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.config;
 
-import com.tisawesomeness.minecord.config.serial.Config;
+import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.util.IO;
 import com.tisawesomeness.minecord.util.type.Verification;
 
@@ -40,10 +40,11 @@ public class ConfigReader {
      * @throws InvalidConfigException If the config is invalid, either because the YAML isn't formatted properly
      * or one of the config fields has an invalid value.
      */
-    public static Config read(Path path) throws IOException, InvalidConfigException {
-        Config config;
+    public static <K extends VerifiableConfig> K read(Path path, Class<K> clazz)
+            throws IOException, InvalidConfigException {
+        K obj;
         try {
-            config = mapper.readValue(path.toFile(), Config.class);
+            obj = mapper.readValue(path.toFile(), clazz);
         } catch (InvalidNullException ex) {
             String msg = String.format("The config file is invalid!%n\"%s\" was either not present or null.",
                     ex.getPropertyName());
@@ -51,9 +52,9 @@ public class ConfigReader {
         } catch (JsonProcessingException ex) {
             throw new InvalidConfigException(ex);
         }
-        Verification v = config.verify();
+        Verification v = obj.verify();
         if (v.isValid()) {
-            return config;
+            return obj;
         }
         throw new InvalidConfigException(v);
     }

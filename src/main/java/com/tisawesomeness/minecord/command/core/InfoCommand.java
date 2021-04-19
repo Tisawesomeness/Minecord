@@ -1,10 +1,10 @@
 package com.tisawesomeness.minecord.command.core;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.Branding;
+import com.tisawesomeness.minecord.BotBranding;
 import com.tisawesomeness.minecord.BuildInfo;
 import com.tisawesomeness.minecord.command.meta.CommandContext;
-import com.tisawesomeness.minecord.config.serial.Config;
+import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.util.DateUtils;
 
 import lombok.NonNull;
@@ -38,10 +38,10 @@ public class InfoCommand extends AbstractCoreCommand {
         }
 
         Config config = ctx.getConfig();
-        Branding branding = ctx.getBot().getBranding();
+        BotBranding branding = ctx.getBot().getBranding();
         EmbedBuilder eb = new EmbedBuilder();
 
-        eb.addField("Author", Branding.AUTHOR, true);
+        eb.addField("Author", BotBranding.AUTHOR, true);
         if (config.isSelfHosted()) {
             eb.addField("Self-Hoster", branding.getAuthor(), true);
         }

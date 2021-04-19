@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.service;
 
-import com.tisawesomeness.minecord.config.serial.BotListConfig;
+import com.tisawesomeness.minecord.config.config.BotListConfig;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import lombok.NonNull;

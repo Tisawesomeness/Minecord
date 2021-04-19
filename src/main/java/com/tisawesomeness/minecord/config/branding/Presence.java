@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.config.serial;
+package com.tisawesomeness.minecord.config.branding;
 
 import com.tisawesomeness.minecord.util.Discord;
 import com.tisawesomeness.minecord.util.type.Verification;

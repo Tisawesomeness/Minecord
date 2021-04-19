@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.config.serial;
+package com.tisawesomeness.minecord.config.config;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Value;
@@ -10,8 +10,6 @@ import lombok.Value;
 public class FlagConfig {
     @JsonProperty("debugMode")
     boolean debugMode;
-    @JsonProperty("useAnnouncements")
-    boolean useAnnouncements;
     @JsonProperty("loadTranslationsFromFile")
     boolean loadTranslationsFromFile;
     @JsonProperty("linkedDeletion")

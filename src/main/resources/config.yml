@@ -57,39 +57,6 @@ isSelfHosted: true
 # If a new version releases and no recipes change, you can update the version below.
 supportedMCVersion: "1.15.2"
 
-branding:
-  # Your name here
-  author: "Tis_awesomeness"
-  # Your Discord tag
-  "authorTag": "@Tis_awesomeness#8617"
-  # The bot invite link, use the format below (replace "CLIENT_ID" with the bot's client ID)
-  # https://discord.com/oauth2/authorize?client_id=CLIENT_ID&scope=bot&permissions=93248
-  "invite": "https://minecord.github.io/invite"
-  # A link to the help server
-  "helpServer": "https://minecord.github.io/support"
-  # A link to the bot website
-  "website": "https://minecord.github.io"
-  # If you make changes, link to your fork on GitHub here
-  "github": "https://github.com/Tisawesomeness/Minecord"
-
-presence:
-  # How often bot presences switch in seconds, set to -1 to update on guild join/leave
-  changeInterval: 60
-  # Determines how to switch presences, which can be:
-  # - CYCLE: go through each presence in order
-  # - RANDOM: randomly pick a presence with duplicates
-  # - RANDOM_UNIQUE: randomly pick a presence without duplicates
-  behavior: RANDOM
-  # A list of presences to change between
-  # All require a status, which is ONLINE, IDLE, DO_NOT_DISTURB, or INVISIBLE
-  # Type is optional, which can be PLAYING, STREAMING, or LISTENING
-  # If type is defined, content is the text that displays ("playing <content>")
-  presences:
-  - status: ONLINE
-    type: PLAYING
-    content: "@Minecord help | {guilds} guilds"
-    url: "https://example.com/url-that-only-displays-when-type-is-STREAMING.php"
-
 settings:
   # The prefix for every command, default is "&" on the main bot
   defaultPrefix: "&"
@@ -102,8 +69,6 @@ settings:
 flags:
   # Collects extra debug information and enables &debug, but makes the bot slower
   debugMode: false
-  # If true, announcements from announce.json will be put in the footer of all embeds
-  useAnnouncements: false
   # Whether the bot will attempt to load translations from "minecord/lang/*.properties"
   # If the load fails, the standard translations will be used instead
   loadTranslationsFromFile: false

@@ -4,7 +4,7 @@ import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.ReactMenu.MenuStatus;
 import com.tisawesomeness.minecord.command.meta.CommandContext;
 import com.tisawesomeness.minecord.command.meta.Result;
-import com.tisawesomeness.minecord.config.serial.Config;
+import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.mc.item.Recipe;
 
 import lombok.NonNull;

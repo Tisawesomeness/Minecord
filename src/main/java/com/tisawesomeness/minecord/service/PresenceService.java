@@ -1,11 +1,13 @@
 package com.tisawesomeness.minecord.service;
 
-import com.tisawesomeness.minecord.config.PresenceSwitcher;
-import com.tisawesomeness.minecord.config.serial.PresenceConfig;
+import com.tisawesomeness.minecord.config.branding.Branding;
+import com.tisawesomeness.minecord.config.branding.PresenceConfig;
+import com.tisawesomeness.minecord.config.branding.PresenceSwitcher;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
+import javax.annotation.Nullable;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
@@ -14,23 +16,28 @@ import java.util.concurrent.TimeUnit;
  */
 public class PresenceService extends Service {
     private final @NonNull ShardManager sm;
-    private final @NonNull PresenceConfig config;
-    private final @NonNull PresenceSwitcher switcher;
+    private final @Nullable PresenceConfig config;
+    private final @Nullable PresenceSwitcher switcher;
 
     /**
      * Initializes this service and the presence switcher.
      * @param sm The ShardManager used to switch presences
-     * @param config The config containing all presences
+     * @param branding The branding config containing all presences
      */
-    public PresenceService(ShardManager sm, PresenceConfig config) {
+    public PresenceService(@NonNull ShardManager sm, @Nullable Branding branding) {
         this.sm = sm;
-        this.config = config;
-        switcher = new PresenceSwitcher(config);
+        if (branding == null) {
+            config = null;
+            switcher = null;
+        } else {
+            config = branding.getPresenceConfig();
+            switcher = new PresenceSwitcher(config);
+        }
     }
 
     @Override
     public boolean shouldRun() {
-        return config.getChangeInterval() > 0;
+        return config != null && config.getChangeInterval() > 0;
     }
 
     public void schedule(ScheduledExecutorService exe) {

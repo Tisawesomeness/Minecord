@@ -1,8 +1,8 @@
 package com.tisawesomeness.minecord.util;
 
-import com.tisawesomeness.minecord.Branding;
+import com.tisawesomeness.minecord.BotBranding;
 import com.tisawesomeness.minecord.BuildInfo;
-import com.tisawesomeness.minecord.config.serial.Config;
+import com.tisawesomeness.minecord.config.config.Config;
 
 import lombok.AccessLevel;
 import lombok.NonNull;
@@ -32,7 +32,7 @@ public final class Discord {
      * @param config The config file to get the invite and default prefix from
      * @return The string with resolved constants, though variables such as {guilds} are unresolved
      */
-    public static String parseConstants(String input, Config config, Branding branding) {
+    public static String parseConstants(String input, Config config, BotBranding branding) {
     return input
             .replace("{author}", branding.getAuthor())
             .replace("{author_tag}", branding.getAuthorTag())

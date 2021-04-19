@@ -1,5 +1,6 @@
-package com.tisawesomeness.minecord.config.serial;
+package com.tisawesomeness.minecord.config.config;
 
+import com.tisawesomeness.minecord.config.VerifiableConfig;
 import com.tisawesomeness.minecord.util.type.Verification;
 
 import ch.qos.logback.classic.Level;
@@ -11,7 +12,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /**
- * Contains all the values that changes how the bot function, mirroring {@code config.yml}.
+ * Contains all the values that changes how the bot functions, mirroring {@code config.yml}.
  * <br>This class assumes it is being parsed with nulls failing by default, which can be set with:
  * <pre>{@code
  *     ObjectMapper mapper = ...;
@@ -20,7 +21,7 @@ import java.util.List;
  * Optional fields are annotated with {@code @JsonSetter(nulls = Nulls.SET)}.
  */
 @Value
-public class Config {
+public class Config implements VerifiableConfig {
     @JsonProperty("token") @ToString.Exclude
     String token;
     @JsonProperty("shardCount")
@@ -37,10 +38,6 @@ public class Config {
     @JsonProperty("supportedMCVersion")
     String supportedMCVersion;
 
-    @JsonProperty("branding")
-    BrandingConfig brandingConfig;
-    @JsonProperty("presence")
-    PresenceConfig presenceConfig;
     @JsonProperty("settings")
     SettingsConfig settingsConfig;
     @JsonProperty("flags")
@@ -63,7 +60,6 @@ public class Config {
     public Verification verify() {
         return Verification.combineAll(
                 verifyShards(),
-                presenceConfig.verify(),
                 settingsConfig.verify(),
                 cacheConfig.verify(),
                 botListConfig.verify(),
@@ -98,4 +94,5 @@ public class Config {
                 .map(Object::toString)
                 .anyMatch(s -> s.equals(id));
     }
+
 }

@@ -1,9 +1,9 @@
 package com.tisawesomeness.minecord.command;
 
 import com.tisawesomeness.minecord.command.meta.*;
-import com.tisawesomeness.minecord.config.serial.CacheConfig;
-import com.tisawesomeness.minecord.config.serial.CommandConfig;
-import com.tisawesomeness.minecord.config.serial.Config;
+import com.tisawesomeness.minecord.config.config.CacheConfig;
+import com.tisawesomeness.minecord.config.config.CommandConfig;
+import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.database.dao.CommandStats;
 import com.tisawesomeness.minecord.util.type.EnumMultiSet;
 

@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.command.core;
 
-import com.tisawesomeness.minecord.Branding;
+import com.tisawesomeness.minecord.BotBranding;
 import com.tisawesomeness.minecord.command.meta.CommandContext;
 
 import lombok.NonNull;
@@ -14,7 +14,7 @@ public class InviteCommand extends AbstractCoreCommand {
 
     public void run(String[] args, CommandContext ctx) {
         ctx.triggerCooldown();
-        Branding branding = ctx.getBot().getBranding();
+        BotBranding branding = ctx.getBot().getBranding();
         EmbedBuilder eb = new EmbedBuilder()
                 .addField("Invite me!", branding.getInvite(), false)
                 .addField("Help server", branding.getHelpServer(), false)

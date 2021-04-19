@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.command.core;
 
-import com.tisawesomeness.minecord.Branding;
+import com.tisawesomeness.minecord.BotBranding;
 import com.tisawesomeness.minecord.command.meta.CommandContext;
 
 import lombok.NonNull;
@@ -31,7 +31,7 @@ public class CreditsCommand extends AbstractCoreCommand {
     public void run(String[] args, CommandContext ctx) {
         ctx.triggerCooldown();
 
-        Branding branding = ctx.getBot().getBranding();
+        BotBranding branding = ctx.getBot().getBranding();
         String contrib = MarkdownUtil.maskedLink("Contribute on GitHub", branding.getGithub()) + "\n" +
                 MarkdownUtil.maskedLink("Suggest features here", branding.getHelpServer());
 
@@ -44,9 +44,9 @@ public class CreditsCommand extends AbstractCoreCommand {
                 .addField("APIs Used", APIS, false);
         if (ctx.getConfig().isSelfHosted()) {
             String selfHost = "This bot is self-hosted by **" + branding.getAuthor() + "**\n" +
-                    "Original Website - " + MarkdownUtil.maskedLink(Branding.WEBSITE, Branding.WEBSITE) + "\n" +
-                    "Original Help Server - " + MarkdownUtil.maskedLink(Branding.HELP_SERVER, Branding.HELP_SERVER) + "\n" +
-                    "Original Github - " + MarkdownUtil.maskedLink("Source Code", Branding.GITHUB);
+                    "Original Website - " + MarkdownUtil.maskedLink(BotBranding.WEBSITE, BotBranding.WEBSITE) + "\n" +
+                    "Original Help Server - " + MarkdownUtil.maskedLink(BotBranding.HELP_SERVER, BotBranding.HELP_SERVER) + "\n" +
+                    "Original Github - " + MarkdownUtil.maskedLink("Source Code", BotBranding.GITHUB);
             eb.addField("Self-Hosting", selfHost, false);
         } else {
             eb.addField("Hosting", HOST, false);

@@ -1,11 +1,12 @@
 package com.tisawesomeness.minecord;
 
 import com.tisawesomeness.minecord.command.CommandRegistry;
-import com.tisawesomeness.minecord.config.AnnounceRegistry;
 import com.tisawesomeness.minecord.config.ConfigReader;
 import com.tisawesomeness.minecord.config.InvalidConfigException;
-import com.tisawesomeness.minecord.config.serial.BotListConfig;
-import com.tisawesomeness.minecord.config.serial.Config;
+import com.tisawesomeness.minecord.config.branding.AnnounceRegistry;
+import com.tisawesomeness.minecord.config.branding.Branding;
+import com.tisawesomeness.minecord.config.config.BotListConfig;
+import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.database.VoteHandler;
@@ -45,12 +46,15 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nullable;
 import javax.security.auth.login.LoginException;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.*;
 
 /**
@@ -87,9 +91,10 @@ public class Bot {
     @Getter private ArgsHandler args;
     @Getter private ShardManager shardManager;
     @Getter private SettingRegistry settings;
-    @Getter private AnnounceRegistry announceRegistry;
+    private @Nullable AnnounceRegistry announceRegistry;
     @Getter private VoteHandler voteHandler;
-    @Getter private Branding branding;
+    private @Nullable Branding brandingConfig;
+    @Getter private BotBranding branding;
     @Getter private long birth;
     @Getter private long bootTime;
 
@@ -112,20 +117,13 @@ public class Bot {
 
         // Pre-init
         try {
-            config = ConfigReader.read(args.getConfigPath());
+            config = ConfigReader.read(args.getConfigPath(), Config.class);
         } catch (IOException ex) {
             log.error("FATAL: There was an error reading the config", ex);
             return ExitCodes.CONFIG_IOE;
         } catch (InvalidConfigException ex) {
             log.error("FATAL: The config was invalid", ex);
             return ExitCodes.INVALID_CONFIG;
-        }
-        if (!config.isSelfHosted()) {
-            log.info("This bot is NOT self-hosted, support is unavailable");
-        }
-        if ("your token here".equals(config.getToken())) {
-            log.info("--> Put your bot token in config.yml to run the bot.");
-            return ExitCodes.SUCCESS;
         }
 
         // only logs after this line can be changed :(
@@ -134,16 +132,29 @@ public class Bot {
         log.info("Setting log level to " + logLevel);
         logger.setLevel(logLevel);
 
-        branding = new Branding(config);
+        if (!config.isSelfHosted()) {
+            log.info("This bot is NOT self-hosted, support is unavailable");
+        }
+        if ("your token here".equals(config.getToken())) {
+            log.info("--> Put your bot token in config.yml to run the bot.");
+            return ExitCodes.SUCCESS;
+        }
 
-        if (config.getFlagConfig().isUseAnnouncements()) {
-            log.debug("Config enabled announcements, reading...");
+        Optional<Path> brandingPathOpt = args.getBrandingPath();
+        if (brandingPathOpt.isPresent()) {
+            log.debug("Branding file detected, reading...");
             try {
-                announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config, branding);
+                brandingConfig = ConfigReader.read(brandingPathOpt.get(), Branding.class);
+                branding = new BotBranding(config, brandingConfig);
+                announceRegistry = new AnnounceRegistry(config, branding, brandingConfig.getAnnouncementConfig());
             } catch (IOException ex) {
-                log.error("FATAL: There was an error reading the announcements", ex);
-                return ExitCodes.ANNOUNCE_IOE;
+                log.error("There was an error reading the branding config", ex);
+            } catch (InvalidConfigException ex) {
+                log.error("The branding config was invalid", ex);
             }
+        }
+        if (branding == null) {
+            branding = new BotBranding();
         }
 
         if (config.getFlagConfig().isLoadTranslationsFromFile()) {
@@ -190,9 +201,12 @@ public class Bot {
         }
 
         // These depend on ShardManager
-        presenceService = new PresenceService(shardManager, config.getPresenceConfig());
+        presenceService = new PresenceService(shardManager, brandingConfig);
         botListService = new BotListService(shardManager, config.getBotListConfig());
-        guildCountListener = new GuildCountListener(this, config, presenceService, botListService);
+        if (brandingConfig != null) {
+            guildCountListener = new GuildCountListener(this, config.getBotListConfig(),
+                    brandingConfig.getPresenceConfig(), presenceService, botListService);
+        }
 
         // Wait for database
         try {
@@ -221,7 +235,10 @@ public class Bot {
 
         // Bot has started, start accepting messages
         MessageAction.setDefaultMentions(ALLOWED_MENTIONS);
-        shardManager.addEventListener(commandListener, reactListener, guildCountListener);
+        shardManager.addEventListener(commandListener, reactListener);
+        if (guildCountListener != null) {
+            shardManager.addEventListener(guildCountListener);
+        }
         log.info("Bot ready!");
 
         // Start web server
@@ -285,7 +302,13 @@ public class Bot {
         menuService.shutdown();
         commandStatsService.shutdown();
         shardManager.removeEventListener(commandListener, guildCountListener);
-        config = ConfigReader.read(args.getConfigPath());
+
+        config = ConfigReader.read(args.getConfigPath(), Config.class);
+
+        Logger logger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+        Level logLevel = config.getLogLevel();
+        log.info("Setting log level to " + logLevel);
+        logger.setLevel(logLevel);
 
         // Database and vote handler need separate threads
         ExecutorService exe = Executors.newSingleThreadExecutor();
@@ -300,9 +323,16 @@ public class Bot {
         if (!config.isSelfHosted()) {
             log.info("This bot is NOT self-hosted, support is unavailable");
         }
-        branding = new Branding(config);
-        if (config.getFlagConfig().isUseAnnouncements()) {
-            announceRegistry = new AnnounceRegistry(args.getAnnouncePath(), config, branding);
+        Optional<Path> brandingPathOpt = args.getBrandingPath();
+        if (brandingPathOpt.isPresent()) {
+            log.debug("Branding file detected, reading...");
+            brandingConfig = ConfigReader.read(brandingPathOpt.get(), Branding.class);
+            branding = new BotBranding(config, brandingConfig);
+            announceRegistry = new AnnounceRegistry(config, branding, brandingConfig.getAnnouncementConfig());
+        }
+        if (branding == null) {
+            branding = new BotBranding();
+            announceRegistry = null;
         }
         if (config.getFlagConfig().isLoadTranslationsFromFile()) {
             log.debug("Config enabled external translations, reading...");
@@ -312,11 +342,14 @@ public class Bot {
             Lang.reloadFromResources();
         }
         settings = new SettingRegistry(config.getSettingsConfig());
-        presenceService = new PresenceService(shardManager, config.getPresenceConfig());
+        presenceService = new PresenceService(shardManager, brandingConfig);
         presenceService.start();
         botListService = new BotListService(shardManager, blc);
         botListService.start();
-        guildCountListener = new GuildCountListener(this ,config, presenceService, botListService);
+        if (brandingConfig != null) {
+            guildCountListener = new GuildCountListener(this ,config.getBotListConfig(),
+                    brandingConfig.getPresenceConfig(), presenceService, botListService);
+        }
         menuService = new MenuService();
         menuService.start();
 
@@ -326,7 +359,10 @@ public class Bot {
         commandListener = new CommandListener(this, config, registry, database.getCommandStats());
         commandStatsService = new CommandStatsService(commandListener.getCommandExecutor(), config.getCommandConfig());
         commandStatsService.start();
-        shardManager.addEventListener(commandListener, guildCountListener);
+        shardManager.addEventListener(commandListener);
+        if (guildCountListener != null) {
+            shardManager.addEventListener(guildCountListener);
+        }
         if (futureVH != null) {
             voteHandler = futureVH.get();
         }
@@ -353,6 +389,13 @@ public class Bot {
             jda.shutdown();
         }
         log.debug("Shutdown queued");
+    }
+
+    public Optional<AnnounceRegistry> getAnnounceRegistry() {
+        return Optional.ofNullable(announceRegistry);
+    }
+    public Optional<Branding> getBrandingConfig() {
+        return Optional.ofNullable(brandingConfig);
     }
 
     /**

@@ -1,8 +1,8 @@
 package com.tisawesomeness.minecord.mc.external;
 
-import com.tisawesomeness.minecord.config.serial.CacheConfig;
-import com.tisawesomeness.minecord.config.serial.Config;
-import com.tisawesomeness.minecord.config.serial.FlagConfig;
+import com.tisawesomeness.minecord.config.config.CacheConfig;
+import com.tisawesomeness.minecord.config.config.Config;
+import com.tisawesomeness.minecord.config.config.FlagConfig;
 import com.tisawesomeness.minecord.mc.player.NameChange;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.Profile;

@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.database;
 
-import com.tisawesomeness.minecord.config.serial.CacheConfig;
-import com.tisawesomeness.minecord.config.serial.Config;
+import com.tisawesomeness.minecord.config.config.CacheConfig;
+import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.database.dao.DbChannel;
 import com.tisawesomeness.minecord.database.dao.DbGuild;
 import com.tisawesomeness.minecord.database.dao.DbUser;

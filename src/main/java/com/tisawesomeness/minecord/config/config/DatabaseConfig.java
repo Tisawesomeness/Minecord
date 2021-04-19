@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.config.serial;
+package com.tisawesomeness.minecord.config.config;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.ToString;

@@ -1,6 +1,4 @@
-package com.tisawesomeness.minecord.config;
-
-import com.tisawesomeness.minecord.config.serial.Presence;
+package com.tisawesomeness.minecord.config.branding;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

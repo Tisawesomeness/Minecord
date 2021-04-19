@@ -2,8 +2,8 @@ package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.command.meta.CommandContext;
 import com.tisawesomeness.minecord.command.meta.Result;
-import com.tisawesomeness.minecord.config.serial.BotListConfig;
-import com.tisawesomeness.minecord.config.serial.Config;
+import com.tisawesomeness.minecord.config.config.BotListConfig;
+import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import lombok.NonNull;

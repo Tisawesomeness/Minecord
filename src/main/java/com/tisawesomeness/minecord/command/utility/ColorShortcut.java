@@ -4,7 +4,7 @@ import com.tisawesomeness.minecord.command.meta.Command;
 import com.tisawesomeness.minecord.command.meta.CommandContext;
 import com.tisawesomeness.minecord.command.meta.IHiddenCommand;
 import com.tisawesomeness.minecord.command.meta.IShortcutCommand;
-import com.tisawesomeness.minecord.config.serial.CommandConfig;
+import com.tisawesomeness.minecord.config.config.CommandConfig;
 import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.util.Colors;
 

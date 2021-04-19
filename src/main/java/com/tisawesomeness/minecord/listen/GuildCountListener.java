@@ -1,7 +1,8 @@
 package com.tisawesomeness.minecord.listen;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.config.serial.Config;
+import com.tisawesomeness.minecord.config.branding.PresenceConfig;
+import com.tisawesomeness.minecord.config.config.BotListConfig;
 import com.tisawesomeness.minecord.service.BotListService;
 import com.tisawesomeness.minecord.service.PresenceService;
 
@@ -14,13 +15,15 @@ import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 @RequiredArgsConstructor
 public class GuildCountListener extends ListenerAdapter {
 
     private final @NonNull Bot bot;
-    private final @NonNull Config config;
+    private final @NonNull BotListConfig botListConfig;
+    private final @Nullable PresenceConfig presenceConfig;
     private final @NonNull PresenceService presenceService;
     private final @NonNull BotListService botListService;
 
@@ -63,11 +66,11 @@ public class GuildCountListener extends ListenerAdapter {
     private void updateGuilds(EmbedBuilder eb, Guild guild) {
         eb.setThumbnail(guild.getIconUrl());
         bot.log(eb.build());
-        if (config.getPresenceConfig().getChangeInterval() == -1) {
-            presenceService.run();
-        }
-        if (config.getBotListConfig().getSendGuildsInterval() == -1) {
+        if (botListConfig.getSendGuildsInterval() == -1) {
             botListService.run();
+        }
+        if (presenceConfig != null && presenceConfig.getChangeInterval() == -1) {
+            presenceService.run();
         }
     }
 

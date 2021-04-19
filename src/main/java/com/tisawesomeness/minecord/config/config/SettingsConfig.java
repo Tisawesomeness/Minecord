@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.config.serial;
+package com.tisawesomeness.minecord.config.config;
 
 import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.setting.impl.PrefixSetting;

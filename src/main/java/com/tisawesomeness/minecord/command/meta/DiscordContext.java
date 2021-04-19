@@ -2,7 +2,8 @@ package com.tisawesomeness.minecord.command.meta;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.CommandExecutor;
-import com.tisawesomeness.minecord.config.serial.Config;
+import com.tisawesomeness.minecord.config.branding.Branding;
+import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.lang.Lang;
 
 import lombok.Getter;
@@ -17,6 +18,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.StringJoiner;
 
 /**
@@ -69,8 +71,16 @@ public class DiscordContext extends CommandContext {
     }
 
     public @NonNull EmbedBuilder addFooter(@NonNull EmbedBuilder eb) {
-        if (config.getFlagConfig().isUseAnnouncements()) {
-            return eb.setFooter(bot.getAnnounceRegistry().roll(bot.getShardManager()));
+        Optional<Branding> brandingConfigOpt = bot.getBrandingConfig();
+        if (brandingConfigOpt.isPresent()) {
+            Branding brandingConfig = brandingConfigOpt.get();
+            if (brandingConfig.getAnnouncementConfig().isEnabled()) {
+                Optional<String> announcementOpt = bot.getAnnounceRegistry()
+                        .flatMap(ar -> ar.roll(lang, bot.getShardManager()));
+                if (announcementOpt.isPresent()) {
+                    return eb.setFooter(announcementOpt.get());
+                }
+            }
         }
         User author = e.getAuthor();
         String requestedBy = "Requested by " + author.getAsTag();

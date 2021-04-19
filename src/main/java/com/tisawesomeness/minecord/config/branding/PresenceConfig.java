@@ -1,6 +1,5 @@
-package com.tisawesomeness.minecord.config.serial;
+package com.tisawesomeness.minecord.config.branding;
 
-import com.tisawesomeness.minecord.config.PresenceBehavior;
 import com.tisawesomeness.minecord.util.type.Verification;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
