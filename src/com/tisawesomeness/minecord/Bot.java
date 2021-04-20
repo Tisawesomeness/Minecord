@@ -43,7 +43,7 @@ public class Bot {
 	public static final String github = "https://github.com/Tisawesomeness/Minecord";
 	private static final String version = "0.12.4";
 	public static final String javaVersion = "1.8";
-	public static final String jdaVersion = "4.2.0_168";
+	public static final String jdaVersion = "4.2.1_259";
 	public static final Color color = Color.GREEN;
 	
 	public static ShardManager shardManager;
@@ -60,7 +60,7 @@ public class Bot {
 		GatewayIntent.DIRECT_MESSAGES, GatewayIntent.DIRECT_MESSAGE_REACTIONS,
 		GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS);
 	private static final EnumSet<CacheFlag> disabledCacheFlags = EnumSet.of(
-		CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOTE, CacheFlag.VOICE_STATE);
+		CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOTE, CacheFlag.ONLINE_STATUS, CacheFlag.VOICE_STATE);
 	
 	public static boolean setup(String[] args, boolean devMode) {
 		long startTime = System.currentTimeMillis();
