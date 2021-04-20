@@ -6588,6 +6588,9 @@
   "minecraft.iron_ingot": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Iron"
+        ],
         "display_name": "Iron Ingot"
       }
     },
@@ -6599,7 +6602,8 @@
     "lang": {
       "en_US": {
         "search_names": [
-          "Golden Ingot"
+          "Golden Ingot",
+          "Gold"
         ],
         "display_name": "Gold Ingot"
       }
@@ -13856,6 +13860,9 @@
   "minecraft.netherite_ingot": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Netherite"
+        ],
         "display_name": "Netherite Ingot"
       }
     },
