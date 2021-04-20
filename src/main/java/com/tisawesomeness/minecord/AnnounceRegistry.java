@@ -1,6 +1,7 @@
-package com.tisawesomeness.minecord.config.branding;
+package com.tisawesomeness.minecord;
 
-import com.tisawesomeness.minecord.BotBranding;
+import com.tisawesomeness.minecord.config.branding.Announcement;
+import com.tisawesomeness.minecord.config.branding.AnnouncementConfig;
 import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.util.Discord;

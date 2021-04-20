@@ -1,8 +1,12 @@
-package com.tisawesomeness.minecord.config.branding;
+package com.tisawesomeness.minecord.util.discord;
+
+import com.tisawesomeness.minecord.config.branding.Presence;
+import com.tisawesomeness.minecord.config.branding.PresenceConfig;
 
 import lombok.NonNull;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -20,7 +24,7 @@ public class PresenceSwitcher {
      */
     public PresenceSwitcher(PresenceConfig config) {
         presences = config.getPresences();
-        behavior = config.getBehavior();
+        behavior = Objects.requireNonNull(config.getBehavior());
     }
 
     /**
@@ -51,7 +55,10 @@ public class PresenceSwitcher {
         return current();
     }
 
-    private @NonNull Presence current() {
+    /**
+     * @return The current presence
+     */
+    public @NonNull Presence current() {
         return presences.get(currentPresence);
     }
 

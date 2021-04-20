@@ -1,9 +1,10 @@
-package com.tisawesomeness.minecord.config.branding;
+package com.tisawesomeness.minecord.util.discord;
+
+import com.tisawesomeness.minecord.config.branding.Presence;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Arrays;
 import java.util.function.Function;
 
 /**
@@ -35,15 +36,4 @@ public enum PresenceBehavior {
         return switchFunction.apply(switcher);
     }
 
-    /**
-     * Gets a behavior from config input.
-     * @param key The case-insensitive key (or name) of the behavior
-     * @return The behavior
-     */
-    public static @NonNull PresenceBehavior fromKey(String key) {
-        return Arrays.stream(values())
-                .filter(pb -> pb.name().equalsIgnoreCase(key))
-                .findFirst()
-                .orElse(CYCLE);
-    }
 }

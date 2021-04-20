@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.config.branding;
 
 import com.tisawesomeness.minecord.util.Discord;
+import com.tisawesomeness.minecord.util.discord.PresenceType;
 import com.tisawesomeness.minecord.util.type.Verification;
 
 import com.fasterxml.jackson.annotation.JsonInclude;

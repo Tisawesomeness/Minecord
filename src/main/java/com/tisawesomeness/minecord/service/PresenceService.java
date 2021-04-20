@@ -2,7 +2,7 @@ package com.tisawesomeness.minecord.service;
 
 import com.tisawesomeness.minecord.config.branding.Branding;
 import com.tisawesomeness.minecord.config.branding.PresenceConfig;
-import com.tisawesomeness.minecord.config.branding.PresenceSwitcher;
+import com.tisawesomeness.minecord.util.discord.PresenceSwitcher;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.sharding.ShardManager;

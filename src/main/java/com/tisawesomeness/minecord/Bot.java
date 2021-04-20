@@ -3,7 +3,6 @@ package com.tisawesomeness.minecord;
 import com.tisawesomeness.minecord.command.CommandRegistry;
 import com.tisawesomeness.minecord.config.ConfigReader;
 import com.tisawesomeness.minecord.config.InvalidConfigException;
-import com.tisawesomeness.minecord.config.branding.AnnounceRegistry;
 import com.tisawesomeness.minecord.config.branding.Branding;
 import com.tisawesomeness.minecord.config.config.BotListConfig;
 import com.tisawesomeness.minecord.config.config.Config;

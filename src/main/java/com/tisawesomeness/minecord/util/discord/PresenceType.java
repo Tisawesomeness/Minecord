@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.config.branding;
+package com.tisawesomeness.minecord.util.discord;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
