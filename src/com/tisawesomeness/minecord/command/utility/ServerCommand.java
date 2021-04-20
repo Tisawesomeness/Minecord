@@ -24,8 +24,9 @@ import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 import java.io.IOException;
 
 public class ServerCommand extends Command {
-	
-	private final String serverAddressRegex = "([a-z0-9][a-z0-9\\-]*\\.)+[a-z0-9][a-z0-9\\-]*(:[0-9]{1,6})?";
+
+	// modified from https://mkyong.com/regular-expressions/domain-name-regular-expression-example/
+	private final String serverAddressRegex = "((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,24}(:[0-9]{1,6})?";
 	private final String ipAddressRegex = "((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])";
 	private final String chatCodeRegex = "\u00A7[a-fA-Fklmnor0-9]"; //§
 	
@@ -94,7 +95,13 @@ public class ServerCommand extends Command {
 				return new Result(Outcome.ERROR, ":x: The server gave a bad response. It might be just starting up, try again later.");
 			}
 		} catch (IOException ignore) {
-			return new Result(Outcome.WARNING, ":warning: The server is down or unreachable.\nDid you spell it correctly?");
+			String msg;
+			if (hostname.equals(hostname.toLowerCase())) {
+				msg = ":warning: The server is down or unreachable.\nDid you spell it correctly?";
+			} else {
+				msg = ":warning: The server is down or unreachable.\nTry using lowercase letters.";
+			}
+			return new Result(Outcome.WARNING, msg);
 		}
 
 		String address = port == 25565 ? hostname : hostname + ":" + port;
