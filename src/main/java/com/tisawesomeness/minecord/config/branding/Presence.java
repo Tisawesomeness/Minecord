@@ -65,4 +65,5 @@ public class Presence {
         Activity jdaActivity = Activity.of(activityType, displayContent, url);
         sm.setPresence(status, jdaActivity);
     }
+
 }

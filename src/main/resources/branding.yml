@@ -32,6 +32,11 @@ presence:
       type: PLAYING
       content: "@Minecord help | {guilds} guilds"
       url: "https://example.com/url-that-only-displays-when-type-is-STREAMING.php"
+  # The presence (activity) that shows when the bot is loading
+  # Same format as presence but only type and content are allowed
+  loadingActivity:
+    type: PLAYING
+    content: "Loading..."
 
 announcements:
   # Turns on or off announcements in the embed footer

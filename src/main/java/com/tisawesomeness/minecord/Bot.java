@@ -4,6 +4,7 @@ import com.tisawesomeness.minecord.command.CommandRegistry;
 import com.tisawesomeness.minecord.config.ConfigReader;
 import com.tisawesomeness.minecord.config.InvalidConfigException;
 import com.tisawesomeness.minecord.config.branding.Branding;
+import com.tisawesomeness.minecord.config.branding.LoadingActivity;
 import com.tisawesomeness.minecord.config.config.BotListConfig;
 import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.database.Database;
@@ -32,6 +33,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -140,10 +142,12 @@ public class Bot {
         }
 
         Optional<Path> brandingPathOpt = args.getBrandingPath();
+        LoadingActivity loadingActivity = null;
         if (brandingPathOpt.isPresent()) {
             log.debug("Branding file detected, reading...");
             try {
                 brandingConfig = ConfigReader.read(brandingPathOpt.get(), Branding.class);
+                loadingActivity = brandingConfig.getPresenceConfig().getLoadingActivity();
                 branding = new BotBranding(config, brandingConfig);
                 announceRegistry = new AnnounceRegistry(config, branding, brandingConfig.getAnnouncementConfig());
             } catch (IOException ex) {
@@ -154,7 +158,9 @@ public class Bot {
         }
         if (branding == null) {
             branding = new BotBranding();
+            loadingActivity = LoadingActivity.getDefault();
         }
+        Activity activity = loadingActivity == null ? null : loadingActivity.asActivity();
 
         if (config.getFlagConfig().isLoadTranslationsFromFile()) {
             log.debug("Config enabled external translations, reading...");
@@ -184,7 +190,8 @@ public class Bot {
                     .setAutoReconnect(true)
                     .addEventListeners(readyListener)
                     .setShardsTotal(config.getShardCount())
-                    .setActivity(Activity.playing("Loading..."))
+                    .setStatus(OnlineStatus.IDLE)
+                    .setActivity(activity)
                     .setMemberCachePolicy(MemberCachePolicy.NONE)
                     .disableCache(disabledCacheFlags)
                     .setHttpClientBuilder(apiClient.getHttpClientBuilder())
@@ -251,6 +258,7 @@ public class Bot {
         bootTime = System.currentTimeMillis() - birth;
         log.info("Boot Time: " + DateUtils.getBootTime(bootTime));
         log(":white_check_mark: **Bot started!**");
+        shardManager.setStatus(OnlineStatus.ONLINE);
         presenceService.start();
         botListService.start();
         menuService = new MenuService();

@@ -24,6 +24,8 @@ public class PresenceConfig {
     @Nullable PresenceBehavior behavior;
     @JsonProperty("presences")
     List<Presence> presences;
+    @JsonProperty("loadingActivity") @JsonSetter(nulls = Nulls.SET)
+    @Nullable LoadingActivity loadingActivity;
 
     /**
      * Checks if there are either no presences (no verification needed)
