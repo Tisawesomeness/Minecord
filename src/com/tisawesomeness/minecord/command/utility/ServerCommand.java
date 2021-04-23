@@ -27,7 +27,7 @@ public class ServerCommand extends Command {
 
 	// modified from https://mkyong.com/regular-expressions/domain-name-regular-expression-example/
 	private final String serverAddressRegex = "((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,24}(:[0-9]{1,6})?";
-	private final String ipAddressRegex = "((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])";
+	private final String ipAddressRegex = "((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])(:[0-9]{1,6})?";
 	private final String chatCodeRegex = "\u00A7[a-fA-Fklmnor0-9]"; //§
 	
 	private static Set<String> blockedServers = new HashSet<String>();
