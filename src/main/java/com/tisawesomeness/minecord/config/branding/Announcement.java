@@ -10,7 +10,7 @@ public class Announcement {
     @JsonProperty("text")
     String text;
     @JsonProperty("weight")
-    long weight;
+    int weight;
 
     public Verification verify() {
         if (weight >= 0) {

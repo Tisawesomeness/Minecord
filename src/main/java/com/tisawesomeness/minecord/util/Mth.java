@@ -1,13 +1,16 @@
 package com.tisawesomeness.minecord.util;
 
 import lombok.NonNull;
+import org.apache.commons.collections4.MultiSet;
 
 import javax.annotation.Nullable;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Iterator;
 import java.util.OptionalInt;
 import java.util.OptionalLong;
+import java.util.concurrent.ThreadLocalRandom;
 
 public final class Mth {
     private Mth() {}
@@ -28,6 +31,27 @@ public final class Mth {
             throw new IllegalArgumentException(String.format("low=%d must be <= high=%d", low, high));
         }
         return Math.max(low, Math.min(val, high));
+    }
+
+    /**
+     * Randomly picks from a list of items, weighted by how many times each item occurs in the multiset
+     * @param items A multiset of items, the size should not actually be more than {@link Integer#MAX_VALUE}
+     * @param <T> The type of the items to choose from
+     * @return A random item
+     * @throws IllegalArgumentException if the list of items is empty
+     */
+    public static <T> T weightedRandom(MultiSet<T> items) {
+        if (items.isEmpty()) {
+            throw new IllegalArgumentException("Items must not be empty!");
+        }
+        int rand = ThreadLocalRandom.current().nextInt(items.size());
+        Iterator<MultiSet.Entry<T>> iter = items.entrySet().iterator();
+        MultiSet.Entry<T> entry = null;
+        while (rand >= 0) {
+            entry = iter.next();
+            rand -= entry.getCount();
+        }
+        return entry.getElement();
     }
 
     /**

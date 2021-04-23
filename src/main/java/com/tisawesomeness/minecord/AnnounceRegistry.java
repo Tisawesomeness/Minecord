@@ -5,23 +5,25 @@ import com.tisawesomeness.minecord.config.branding.AnnouncementConfig;
 import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.util.Discord;
+import com.tisawesomeness.minecord.util.Mth;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.sharding.ShardManager;
+import org.apache.commons.collections4.MultiSet;
+import org.apache.commons.collections4.MultiSetUtils;
+import org.apache.commons.collections4.multiset.HashMultiSet;
 
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 
 /**
  * Holds a list of possible announcements and their weights
  */
 public class AnnounceRegistry {
 
-    private final Map<Lang, WeightedAnnouncements> announcementsMap;
+    private final Map<Lang, MultiSet<String>> announcementsMap;
     private final boolean fallbackToDefaultLang;
 
     /**
@@ -32,9 +34,18 @@ public class AnnounceRegistry {
         announcementsMap = new EnumMap<>(Lang.class);
         for (Map.Entry<Lang, List<Announcement>> entry : announceConf.getAnnouncements().entrySet()) {
             Lang lang = entry.getKey();
-            announcementsMap.put(lang, new WeightedAnnouncements(entry, config, branding));
+            announcementsMap.put(lang, buildWeightedAnnouncements(entry, config, branding));
         }
         fallbackToDefaultLang = announceConf.isFallbackToDefaultLang();
+    }
+    private static MultiSet<String> buildWeightedAnnouncements(Map.Entry<Lang, List<Announcement>> entry,
+                                                               Config config, BotBranding branding) {
+        MultiSet<String> multiSet = new HashMultiSet<>();
+        for (Announcement ann : entry.getValue()) {
+            String text = Discord.parseConstants(ann.getText(), config, branding);
+            multiSet.add(text, ann.getWeight());
+        }
+        return MultiSetUtils.unmodifiableMultiSet(multiSet);
     }
 
     /**
@@ -43,49 +54,14 @@ public class AnnounceRegistry {
      * @return The selected announcement string
      */
     public Optional<String> roll(Lang lang, ShardManager sm) {
-        WeightedAnnouncements announcements = announcementsMap.get(lang);
+        MultiSet<String> announcements = announcementsMap.get(lang);
         if (announcements == null) {
             if (fallbackToDefaultLang && lang != Lang.getDefault()) {
                 return roll(Lang.getDefault(), sm);
             }
             return Optional.empty();
         }
-        return Optional.of(Discord.parseVariables(announcements.roll(), sm));
-    }
-
-    private static class WeightedAnnouncements {
-        private final List<ParsedAnnouncement> announcements;
-        private final long totalWeight;
-
-        private WeightedAnnouncements(Map.Entry<Lang, List<Announcement>> entry, Config config, BotBranding branding) {
-            announcements = entry.getValue().stream()
-                    .map(ann -> new ParsedAnnouncement(ann, config, branding))
-                    .collect(Collectors.toList());
-            // weight was already verified by the config
-            totalWeight = announcements.stream()
-                    .mapToLong(ann -> ann.weight)
-                    .sum();
-        }
-
-        private String roll() {
-            long rand = ThreadLocalRandom.current().nextLong(totalWeight);
-            int i = -1;
-            while (rand >= 0) {
-                i++;
-                rand -= announcements.get(i).weight;
-            }
-            return announcements.get(i).text;
-        }
-    }
-
-    private static class ParsedAnnouncement {
-        private final @NonNull String text;
-        private final long weight;
-
-        private ParsedAnnouncement(Announcement ann, Config config, BotBranding branding) {
-            text = Discord.parseConstants(ann.getText(), config, branding);
-            weight = ann.getWeight();
-        }
+        return Optional.of(Discord.parseVariables(Mth.weightedRandom(announcements), sm));
     }
 
 }
