@@ -34,7 +34,7 @@ public final class Mth {
     }
 
     /**
-     * Randomly picks from a list of items, weighted by how many times each item occurs in the multiset
+     * Randomly picks from a list of items, weighted by how many times each item occurs in the multiset.
      * @param items A multiset of items, the size should not actually be more than {@link Integer#MAX_VALUE}
      * @param <T> The type of the items to choose from
      * @return A random item
@@ -42,13 +42,42 @@ public final class Mth {
      */
     public static <T> T weightedRandom(MultiSet<T> items) {
         if (items.isEmpty()) {
-            throw new IllegalArgumentException("Items must not be empty!");
+            throw new IllegalArgumentException("Items must not be empty");
         }
         int rand = ThreadLocalRandom.current().nextInt(items.size());
         Iterator<MultiSet.Entry<T>> iter = items.entrySet().iterator();
         MultiSet.Entry<T> entry = null;
         while (rand >= 0) {
             entry = iter.next();
+            rand -= entry.getCount();
+        }
+        return entry.getElement();
+    }
+
+    /**
+     * Randomly picks from a list of items, weighted by how many times each item occurs in the multiset.
+     * @param items A multiset of items, the size should not actually be more than {@link Integer#MAX_VALUE}
+     * @param ignored An item that will be ignored if found in the multiset (using reference equality)
+     * @param <T> The type of the items to choose from
+     * @return A random item
+     * @throws IllegalArgumentException if the list of items is empty
+     */
+    public static <T> T weightedRandomUnique(MultiSet<T> items, T ignored) {
+        if (items.isEmpty()) {
+            throw new IllegalArgumentException("Items must not be empty");
+        }
+        int totalWeight = items.size() - items.getCount(ignored);
+        if (totalWeight == 0) {
+            throw new IllegalArgumentException("The ignored item cannot be the only item in the collection");
+        }
+        int rand = ThreadLocalRandom.current().nextInt(totalWeight);
+        Iterator<MultiSet.Entry<T>> iter = items.entrySet().iterator();
+        MultiSet.Entry<T> entry = null;
+        while (rand >= 0) {
+            entry = iter.next();
+            if (entry.getElement() == ignored) {
+                continue;
+            }
             rand -= entry.getCount();
         }
         return entry.getElement();
