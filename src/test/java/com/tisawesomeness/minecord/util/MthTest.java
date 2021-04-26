@@ -1,5 +1,7 @@
 package com.tisawesomeness.minecord.util;
 
+import org.apache.commons.collections4.MultiSet;
+import org.apache.commons.collections4.multiset.HashMultiSet;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -29,7 +31,8 @@ public class MthTest {
     @Test
     @DisplayName("IllegalArgumentException is thrown if the low bound is greater than the high bound")
     public void testClampBad() {
-        assertThatThrownBy(() -> Mth.clamp(2, 3, 1)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> Mth.clamp(2, 3, 1))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
@@ -41,6 +44,55 @@ public class MthTest {
     @DisplayName("sha1 accepts an empty string")
     public void testSha1Empty() {
         assertThat(Mth.sha1("")).isEqualTo("da39a3ee5e6b4b0d3255bfef95601890afd80709");
+    }
+
+    @Test
+    @DisplayName("Weighted random throws IllegalArgumentException on an empty multiset")
+    public void testWeightedRandomEmpty() {
+        assertThatThrownBy(() -> Mth.weightedRandom(new HashMultiSet<>()))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+    @Test
+    @DisplayName("Weighted random on one unique item selects that item")
+    public void testWeightedRandomSingle() {
+        String str = "test";
+        MultiSet<String> ms = new HashMultiSet<>();
+        ms.add(str);
+        assertThat(Mth.weightedRandomUnique(ms, null)).isEqualTo(str);
+    }
+    @Test
+    @DisplayName("Weighted random unique throws IllegalArgumentException on an empty multiset")
+    public void testWeightedRandomUniqueEmpty() {
+        assertThatThrownBy(() -> Mth.weightedRandomUnique(new HashMultiSet<>(), null))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+    @Test
+    @DisplayName("Weighted random unique on one unique item selects that item")
+    public void testWeightedRandomUniqueSingle() {
+        String str = "test";
+        MultiSet<String> ms = new HashMultiSet<>();
+        ms.add(str);
+        assertThat(Mth.weightedRandomUnique(ms, null)).isEqualTo(str);
+    }
+    @Test
+    @DisplayName("Weighted random unique ignoring the only unique item throws IllegalArgumentException")
+    public void testWeightedRandomUniqueIgnored() {
+        String str = "test";
+        MultiSet<String> ms = new HashMultiSet<>();
+        ms.add(str);
+        assertThatThrownBy(() -> Mth.weightedRandomUnique(ms, str))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+    @Test
+    @DisplayName("Weighted random unique on two items, one ignored, selects the other")
+    public void testWeightedRandomUniqueDouble() {
+        String str1 = "test1";
+        String str2 = "test2";
+        MultiSet<String> ms = new HashMultiSet<>();
+        ms.add(str1);
+        ms.add(str2);
+        assertThat(Mth.weightedRandomUnique(ms, str1)).isEqualTo(str2);
+        assertThat(Mth.weightedRandomUnique(ms, str2)).isEqualTo(str1);
     }
 
     @ParameterizedTest(name = "{index} ==> Int {0} is safely parsed")
