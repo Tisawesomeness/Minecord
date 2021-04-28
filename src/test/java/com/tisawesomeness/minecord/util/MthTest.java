@@ -58,7 +58,19 @@ public class MthTest {
         String str = "test";
         MultiSet<String> ms = new HashMultiSet<>();
         ms.add(str);
-        assertThat(Mth.weightedRandomUnique(ms, null)).isEqualTo(str);
+        assertThat(Mth.weightedRandom(ms)).isEqualTo(str);
+    }
+    @Test
+    @DisplayName("Weighted random index throws IllegalArgumentException on an empty array")
+    public void testWeightedRandomIndexEmpty() {
+        assertThatThrownBy(() -> Mth.weightedRandomIndex(new int[0]))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+    @Test
+    @DisplayName("Weighted random index on one unique item selects that item")
+    public void testWeightedRandomIndexSingle() {
+        int[] arr = {1};
+        assertThat(Mth.weightedRandomIndex(arr)).isEqualTo(0);
     }
     @Test
     @DisplayName("Weighted random unique throws IllegalArgumentException on an empty multiset")
@@ -93,6 +105,32 @@ public class MthTest {
         ms.add(str2);
         assertThat(Mth.weightedRandomUnique(ms, str1)).isEqualTo(str2);
         assertThat(Mth.weightedRandomUnique(ms, str2)).isEqualTo(str1);
+    }
+    @Test
+    @DisplayName("Weighted random unique index throws IllegalArgumentException on an empty array")
+    public void testWeightedRandomUniqueIndexEmpty() {
+        assertThatThrownBy(() -> Mth.weightedRandomUniqueIndex(new int[0], -1))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+    @Test
+    @DisplayName("Weighted random unique on one unique item selects that item")
+    public void testWeightedRandomUniqueIndexSingle() {
+        int[] arr = {1};
+        assertThat(Mth.weightedRandomUniqueIndex(arr, -1)).isEqualTo(0);
+    }
+    @Test
+    @DisplayName("Weighted random unique index ignoring the only nonzero weight throws IllegalArgumentException")
+    public void testWeightedRandomUniqueIndexIgnored() {
+        int[] arr = {1};
+        assertThatThrownBy(() -> Mth.weightedRandomUniqueIndex(arr, 0))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+    @Test
+    @DisplayName("Weighted random unique index on two items, one ignored, selects the other")
+    public void testWeightedRandomUniqueIndexDouble() {
+        int[] arr = {1, 1};
+        assertThat(Mth.weightedRandomUniqueIndex(arr, 0)).isEqualTo(1);
+        assertThat(Mth.weightedRandomUniqueIndex(arr, 1)).isEqualTo(0);
     }
 
     @ParameterizedTest(name = "{index} ==> Int {0} is safely parsed")

@@ -38,7 +38,7 @@ public final class Mth {
      * @param items A multiset of items, the size should not actually be more than {@link Integer#MAX_VALUE}
      * @param <T> The type of the items to choose from
      * @return A random item
-     * @throws IllegalArgumentException if the list of items is empty
+     * @throws IllegalArgumentException if the list of items is empty or a weight is negative
      */
     public static <T> T weightedRandom(MultiSet<T> items) {
         if (items.isEmpty()) {
@@ -53,6 +53,22 @@ public final class Mth {
         }
         return entry.getElement();
     }
+    /**
+     * Randomly picks an index from an array, weighted by their values.
+     * @param weights An array of weights
+     * @return The chosen index
+     * @throws IllegalArgumentException if the weights array is empty or a weight is negative
+     */
+    public static int weightedRandomIndex(int[] weights) {
+        int totalWeight = getTotalWeight(weights);
+        int rand = ThreadLocalRandom.current().nextInt(totalWeight);
+        int i = -1;
+        while (rand >= 0) {
+            i++;
+            rand -= weights[i];
+        }
+        return i;
+    }
 
     /**
      * Randomly picks from a list of items, weighted by how many times each item occurs in the multiset.
@@ -60,7 +76,8 @@ public final class Mth {
      * @param ignored An item that will be ignored if found in the multiset (using reference equality)
      * @param <T> The type of the items to choose from
      * @return A random item
-     * @throws IllegalArgumentException if the list of items is empty
+     * @throws IllegalArgumentException if the list of items is empty, a weight is negative,
+     * or the only unique item in the list is ignored
      */
     public static <T> T weightedRandomUnique(MultiSet<T> items, T ignored) {
         if (items.isEmpty()) {
@@ -81,6 +98,47 @@ public final class Mth {
             rand -= entry.getCount();
         }
         return entry.getElement();
+    }
+    /**
+     * Randomly picks an index from an array, weighted by their values.
+     * @param weights An array of weights
+     * @param ignoredIndex An index that will be ignored if in bounds
+     * @return A random item
+     * @throws IllegalArgumentException if the weights array is empty, a weight is negative,
+     * or the only weight is ignored
+     */
+    public static int weightedRandomUniqueIndex(int[] weights, int ignoredIndex) {
+        int totalWeight = getTotalWeight(weights);
+        if (0 <= ignoredIndex && ignoredIndex < weights.length) {
+            totalWeight -= weights[ignoredIndex];
+        }
+        if (totalWeight == 0) {
+            throw new IllegalArgumentException("The ignored weight can not be the only nonzero weight in the array");
+        }
+        int rand = ThreadLocalRandom.current().nextInt(totalWeight);
+        int i = -1;
+        while (rand >= 0) {
+            i++;
+            if (i == ignoredIndex) {
+                continue;
+            }
+            rand -= weights[i];
+        }
+        return i;
+    }
+
+    private static int getTotalWeight(int[] weights) {
+        if (weights.length == 0) {
+            throw new IllegalArgumentException("The weights array must not be empty");
+        }
+        int totalWeight = 0;
+        for (int weight : weights) {
+            if (weight < 0) {
+                throw new IllegalArgumentException("Weight cannot be negative but was " + weight);
+            }
+            totalWeight += weight;
+        }
+        return totalWeight;
     }
 
     /**
