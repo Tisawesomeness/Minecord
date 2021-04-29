@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.config.branding;
 
 import com.tisawesomeness.minecord.testutil.Resources;
+import com.tisawesomeness.minecord.util.discord.PresenceBehavior;
 import com.tisawesomeness.minecord.util.type.Verification;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -26,6 +27,15 @@ public class BrandingTest {
         assertThat(v.isValid())
                 .withFailMessage("Expecting branding to be valid, but got errors " + v.getErrors())
                 .isTrue();
+    }
+
+    /**
+     * {@link com.tisawesomeness.minecord.util.discord.PresenceSwitcherTest#test(PresenceBehavior)}
+     */
+    @Test
+    @DisplayName("Default branding has one and only one presence")
+    public void testOnePresenceExists() {
+        assertThat(branding.getPresenceConfig().getPresences()).hasSize(1);
     }
 
 }

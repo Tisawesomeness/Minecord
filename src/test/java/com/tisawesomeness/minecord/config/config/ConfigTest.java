@@ -28,4 +28,13 @@ public class ConfigTest {
                 .isTrue();
     }
 
+    /**
+     * Used generally everywhere, not a big deal for tests but a HUGE deal for users and docs
+     */
+    @Test
+    @DisplayName("Default config has prefix &")
+    public void testDefaultPrefix() {
+        assertThat(config.getSettingsConfig().getDefaultPrefix()).isEqualTo("&");
+    }
+
 }
