@@ -34,14 +34,15 @@ public class AnnounceRegistry {
         announcementsMap = new EnumMap<>(Lang.class);
         for (Map.Entry<Lang, List<Announcement>> entry : announceConf.getAnnouncements().entrySet()) {
             Lang lang = entry.getKey();
-            announcementsMap.put(lang, buildWeightedAnnouncements(entry, config, branding));
+            List<Announcement> announcements = entry.getValue();
+            announcementsMap.put(lang, buildWeightedAnnouncements(announcements, config, branding));
         }
         fallbackToDefaultLang = announceConf.isFallbackToDefaultLang();
     }
-    private static MultiSet<String> buildWeightedAnnouncements(Map.Entry<Lang, List<Announcement>> entry,
+    private static MultiSet<String> buildWeightedAnnouncements(Iterable<Announcement> announcements,
                                                                Config config, BotBranding branding) {
         MultiSet<String> multiSet = new HashMultiSet<>();
-        for (Announcement ann : entry.getValue()) {
+        for (Announcement ann : announcements) {
             String text = Discord.parseConstants(ann.getText(), config, branding);
             multiSet.add(text, ann.getWeight());
         }

@@ -32,16 +32,30 @@ public class Presence {
     @Nullable String content;
     @JsonProperty("url") @JsonSetter(nulls = Nulls.SET)
     @Nullable String url;
+    @JsonProperty("weight")
+    int weight;
 
     /**
      * Checks if a presence type is defined, then content is as well
      * @return The Verification
      */
     public Verification verify() {
+        return Verification.combineAll(
+                verifyContent(),
+                verifyWeight()
+        );
+    }
+    private Verification verifyContent() {
         if (type != null && content == null) {
             return Verification.invalid("If the presence type is set, you must also set content.");
         }
         return Verification.valid();
+    }
+    private Verification verifyWeight() {
+        if (weight >= 0) {
+            return Verification.valid();
+        }
+        return Verification.invalid("Presence weight must be non-negative");
     }
 
     /**

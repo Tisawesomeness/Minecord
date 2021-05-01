@@ -2,12 +2,12 @@ package com.tisawesomeness.minecord.util.discord;
 
 import com.tisawesomeness.minecord.config.branding.Presence;
 import com.tisawesomeness.minecord.config.branding.PresenceConfig;
+import com.tisawesomeness.minecord.util.Mth;
 
 import lombok.NonNull;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Switches between presences according to the {@link PresenceBehavior}.
@@ -15,8 +15,9 @@ import java.util.concurrent.ThreadLocalRandom;
 public class PresenceSwitcher {
 
     private final List<Presence> presences;
+    private final int[] weights;
     private final @NonNull PresenceBehavior behavior;
-    private int currentPresence;
+    private int currentPresenceIndex;
 
     /**
      * Creates a new switcher.
@@ -24,6 +25,9 @@ public class PresenceSwitcher {
      */
     public PresenceSwitcher(PresenceConfig config) {
         presences = config.getPresences();
+        weights = presences.stream()
+                .mapToInt(Presence::getWeight)
+                .toArray();
         behavior = Objects.requireNonNull(config.getBehavior());
     }
 
@@ -36,22 +40,17 @@ public class PresenceSwitcher {
     }
 
     public @NonNull Presence cycle() {
-        currentPresence = (currentPresence + 1) % presences.size();
+        currentPresenceIndex = (currentPresenceIndex + 1) % presences.size();
         return current();
     }
     public @NonNull Presence random() {
-        currentPresence = ThreadLocalRandom.current().nextInt(presences.size());
+        currentPresenceIndex = Mth.weightedRandomIndex(weights);
         return current();
     }
     public @NonNull Presence randomUnique() {
-        if (presences.size() == 1) {
-            return current();
+        if (presences.size() > 1) {
+            currentPresenceIndex = Mth.weightedRandomUniqueIndex(weights, currentPresenceIndex);
         }
-        int r = ThreadLocalRandom.current().nextInt(presences.size() - 1);
-        if (r >= currentPresence) {
-            r += 1;
-        }
-        currentPresence = r;
         return current();
     }
 
@@ -59,7 +58,7 @@ public class PresenceSwitcher {
      * @return The current presence
      */
     public @NonNull Presence current() {
-        return presences.get(currentPresence);
+        return presences.get(currentPresenceIndex);
     }
 
 }

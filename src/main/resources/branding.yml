@@ -32,6 +32,7 @@ presence:
       type: PLAYING
       content: "@Minecord help | {guilds} guilds"
       url: "https://example.com/url-that-only-displays-when-type-is-STREAMING.php"
+      weight: 1
   # The presence (activity) that shows when the bot is loading
   # Same format as presence but only type and content are allowed
   loadingActivity:
@@ -45,7 +46,7 @@ announcements:
   # If true, the announcements for the default language will be used instead
   # If false, no announcements will show
   fallbackToDefaultLang: false
-  # TODO redo and document variables
+  # TODO redo and document variables, document weight
   # Weight cannot be negative
   announcements:
     en_US:
