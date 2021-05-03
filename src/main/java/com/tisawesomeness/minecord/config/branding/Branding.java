@@ -4,7 +4,11 @@ import com.tisawesomeness.minecord.config.VerifiableConfig;
 import com.tisawesomeness.minecord.util.type.Verification;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import lombok.Value;
+
+import javax.annotation.Nullable;
 
 /**
  * Contains all the values that change how the bot presents itself, mirroring {@code branding.yml}
@@ -12,8 +16,8 @@ import lombok.Value;
  */
 @Value
 public class Branding implements VerifiableConfig {
-    @JsonProperty("branding")
-    BrandingConfig brandingConfig;
+    @JsonProperty("branding") @JsonSetter(nulls = Nulls.SET)
+    @Nullable BrandingConfig brandingConfig;
     @JsonProperty("announcements")
     AnnouncementConfig announcementConfig;
     @JsonProperty("presence")

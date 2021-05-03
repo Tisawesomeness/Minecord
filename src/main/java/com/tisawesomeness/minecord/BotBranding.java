@@ -46,7 +46,7 @@ public class BotBranding {
      * @param branding The branding config
      */
     public BotBranding(@NonNull Config config, @NonNull Branding branding) {
-        if (config.isSelfHosted()) {
+        if (config.isSelfHosted() && branding.getBrandingConfig() != null) {
             BrandingConfig bc = branding.getBrandingConfig();
             author = bc.getAuthor();
             authorTag = bc.getAuthorTag();
