@@ -59,7 +59,7 @@ public class DatabaseCache {
         return builder;
     }
     private static int getLifetime(Config config, CacheType type) {
-        CacheConfig cc = config.getCacheConfig();
+        CacheConfig cc = config.getAdvancedConfig().getCacheConfig();
         switch (type) {
             case GUILD:
                 return cc.getGuildLifetime();
@@ -71,7 +71,7 @@ public class DatabaseCache {
         throw new AssertionError("Unreachable");
     }
     private static int getMaxSize(Config config, CacheType type) {
-        CacheConfig cc = config.getCacheConfig();
+        CacheConfig cc = config.getAdvancedConfig().getCacheConfig();
         switch (type) {
             case GUILD:
                 return cc.getGuildMaxSize();

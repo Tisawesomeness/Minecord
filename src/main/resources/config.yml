@@ -89,32 +89,6 @@ flags:
   # If false, only the Mojang API will be used
   useElectroidAPI: true
 
-cache:
-  # The amount of time in seconds a guild database record is kept in the cache
-  guildLifetime: 600
-  # The maximum guild cache size
-  # Set to -1 for no limit or 0 to disable caching
-  guildMaxSize: -1
-  # The amount of time in seconds a channel database record is kept in the cache
-  channelLifetime: 600
-  # The maximum channel cache size
-  # Set to -1 for no limit or 0 to disable caching
-  channelMaxSize: -1
-  # The amount of time in seconds a user database record is kept in the cache
-  userLifetime: 600
-  # The maximum user cache size
-  # Set to -1 for no limit or 0 to disable caching
-  userMaxSize: -1
-  # The amount of time in seconds a message link (for linked deletion) is kept in the cache
-  linkLifetime: 300
-  # The maximum linked deletion cache size
-  # Set to -1 for no limit or 0 to disable caching
-  linkMaxSize: -1
-  # The amount of time in seconds a Username-->UUID mapping is kept in the cache, minimum 60 seconds
-  mojangUuidLifetime: 60
-  # The amount of time in seconds a UUID-->Player mapping is kept in the cache, minimum 60 seconds
-  mojangPlayerLifetime: 60
-
 # Do not post a self-hosted version of Minecord to a bot list
 botLists:
   sendServerCount: false
@@ -207,3 +181,47 @@ commands:
     playerLookup: 4000
     itemLookup: 5000
     botConfig: 3000
+
+# Advanced config, edit with caution
+advanced:
+
+  cache:
+    # The amount of time in seconds a guild database record is kept in the cache
+    guildLifetime: 600
+    # The maximum guild cache size
+    # Set to -1 for no limit or 0 to disable caching
+    guildMaxSize: -1
+    # The amount of time in seconds a channel database record is kept in the cache
+    channelLifetime: 600
+    # The maximum channel cache size
+    # Set to -1 for no limit or 0 to disable caching
+    channelMaxSize: -1
+    # The amount of time in seconds a user database record is kept in the cache
+    userLifetime: 600
+    # The maximum user cache size
+    # Set to -1 for no limit or 0 to disable caching
+    userMaxSize: -1
+    # The extra time an entry is kept in the cooldown cache, a percentage of the cooldown time
+    # 0.01 = 1%, this would make a 3 second cooldown stay in the cache for 3.03 seconds
+    # Set to 0 for no extra time
+    cooldownTolerance: 0.05
+    # The amount of time in seconds a message link (for linked deletion) is kept in the cache
+    linkLifetime: 300
+    # The maximum linked deletion cache size
+    # Set to -1 for no limit or 0 to disable caching
+    linkMaxSize: -1
+    # The amount of time in seconds a Username-->UUID mapping is kept in the cache, minimum 60 seconds
+    mojangUuidLifetime: 60
+    # The amount of time in seconds a UUID-->Player mapping is kept in the cache, minimum 60 seconds
+    mojangPlayerLifetime: 60
+
+  linkedDeletion:
+    # The most replies the bot will try to delete, cannot be 0
+    maxDeletes: 25
+    # Below three are parameters for the concurrent set of linked message IDs, see java ConcurrentHashMap docs
+    # Expected number of replies per command invocation, cannot be 0
+    initialCapacity: 2
+    # Map table density, must be between 0 and 1
+    loadFactor: 0.75
+    # Expected number of replying threads per command invocation, cannot be 0
+    concurrencyLevel: 1

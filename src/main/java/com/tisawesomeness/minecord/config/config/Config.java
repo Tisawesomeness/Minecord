@@ -42,14 +42,14 @@ public class Config implements VerifiableConfig {
     SettingsConfig settingsConfig;
     @JsonProperty("flags")
     FlagConfig flagConfig;
-    @JsonProperty("cache")
-    CacheConfig cacheConfig;
     @JsonProperty("botLists")
     BotListConfig botListConfig;
     @JsonProperty("database")
     DatabaseConfig databaseConfig;
     @JsonProperty("commands")
     CommandConfig commandConfig;
+    @JsonProperty("advanced")
+    AdvancedConfig advancedConfig;
 
     /**
      * Checks if this config is valid.
@@ -61,9 +61,9 @@ public class Config implements VerifiableConfig {
         return Verification.combineAll(
                 verifyShards(),
                 settingsConfig.verify(),
-                cacheConfig.verify(),
                 botListConfig.verify(),
-                commandConfig.verify()
+                commandConfig.verify(),
+                advancedConfig.verify(flagConfig.isLinkedDeletion())
         );
     }
     private Verification verifyShards() {

@@ -4,6 +4,7 @@ import com.tisawesomeness.minecord.command.meta.*;
 import com.tisawesomeness.minecord.config.config.CacheConfig;
 import com.tisawesomeness.minecord.config.config.CommandConfig;
 import com.tisawesomeness.minecord.config.config.Config;
+import com.tisawesomeness.minecord.config.config.LinkedDeletionConfig;
 import com.tisawesomeness.minecord.database.dao.CommandStats;
 import com.tisawesomeness.minecord.util.type.EnumMultiSet;
 
@@ -34,13 +35,6 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 public class CommandExecutor {
-
-    // linked deletion parameters
-    private static final int MAX_DELETES = 25; // most replies the bot will try to delete
-    private static final double COOLDOWN_CACHE_TOLERANCE = 1.05; // added time to let cooldown expire
-    private static final int INITIAL_CAPACITY = 2; // expected number of replies per command invocation
-    private static final float LOAD_FACTOR = 0.75f; // map load factor
-    private static final int CONCURRENCY_LEVEL = 1; // expected number of replying threads per command invocation
 
     private final Config config;
     @Getter private final CommandStats commandStats;
@@ -81,7 +75,8 @@ public class CommandExecutor {
                 ));
     }
     private Cache<Long, Long> buildCooldownCache(CooldownHolder ch) {
-        int cooldown = (int) (ch.getCooldown() * COOLDOWN_CACHE_TOLERANCE);
+        double cooldownTolerance = 1.0 + config.getAdvancedConfig().getCacheConfig().getCooldownTolerance();
+        int cooldown = (int) (ch.getCooldown() * cooldownTolerance);
         Caffeine<Object, Object> builder = Caffeine.newBuilder()
                 .expireAfterWrite(cooldown, TimeUnit.MILLISECONDS);
         if (config.getFlagConfig().isDebugMode()) {
@@ -93,7 +88,7 @@ public class CommandExecutor {
         if (!config.getFlagConfig().isLinkedDeletion()) {
             return null;
         }
-        CacheConfig cc = config.getCacheConfig();
+        CacheConfig cc = config.getAdvancedConfig().getCacheConfig();
         Caffeine<Object, Object> builder = Caffeine.newBuilder()
                 .expireAfterWrite(cc.getLinkLifetime(), TimeUnit.SECONDS);
         int maxSize = cc.getLinkMaxSize();
@@ -279,8 +274,10 @@ public class CommandExecutor {
             Objects.requireNonNull(replies).add(reply);
         }
     }
-    private static Set<Long> initSet() {
-        Map<Long, Boolean> map = new ConcurrentHashMap<>(INITIAL_CAPACITY, LOAD_FACTOR, CONCURRENCY_LEVEL);
+    private Set<Long> initSet() {
+        LinkedDeletionConfig ldc = config.getAdvancedConfig().getLinkedDeletionConfig();
+        Map<Long, Boolean> map = new ConcurrentHashMap<>(
+                ldc.getInitialCapacity(), ldc.getLoadFactor(), ldc.getConcurrencyLevel());
         return Collections.newSetFromMap(map);
     }
     /**
@@ -300,7 +297,7 @@ public class CommandExecutor {
 
         long[] toDelete = replies.stream()
                 .unordered()
-                .limit(MAX_DELETES)
+                .limit(config.getAdvancedConfig().getLinkedDeletionConfig().getMaxDeletes())
                 .mapToLong(l -> l) // unboxing
                 .toArray();
         e.getChannel().purgeMessagesById(toDelete); // This ignores errors! Not a big deal

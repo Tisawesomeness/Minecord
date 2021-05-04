@@ -25,6 +25,8 @@ public class CacheConfig {
     @JsonProperty("userMaxSize")
     int userMaxSize;
 
+    @JsonProperty("cooldownTolerance")
+    double cooldownTolerance;
     @JsonProperty("linkLifetime")
     int linkLifetime;
     @JsonProperty("linkMaxSize")
@@ -47,6 +49,7 @@ public class CacheConfig {
                 verifyChannelMaxSize(),
                 verifyUserLifetime(),
                 verifyUserMaxSize(),
+                verifyCooldownTolerance(),
                 verifyLinkLifetime(),
                 verifyLinkMaxSize(),
                 verifyUuid(),
@@ -91,6 +94,12 @@ public class CacheConfig {
         return Verification.invalid("User cache max size must be -1, 0, or positive");
     }
 
+    private Verification verifyCooldownTolerance() {
+        if (cooldownTolerance >= 0.0) {
+            return Verification.valid();
+        }
+        return Verification.invalid("Cooldown tolerance cannot be negative");
+    }
     private Verification verifyLinkLifetime() {
         if (linkLifetime >= 0) {
             return Verification.valid();

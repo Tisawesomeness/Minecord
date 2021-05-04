@@ -41,7 +41,7 @@ public class DualPlayerProvider implements PlayerProvider {
      */
     public DualPlayerProvider(APIClient client, Config config) {
         FlagConfig flagConfig = config.getFlagConfig();
-        CacheConfig cacheConfig = config.getCacheConfig();
+        CacheConfig cacheConfig = config.getAdvancedConfig().getCacheConfig();
 
         mojangAPI = new MojangAPIImpl(client);
         electroidAPI = new ElectroidAPIImpl(client);
