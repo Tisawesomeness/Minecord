@@ -1,8 +1,5 @@
 package com.tisawesomeness.minecord.command.player;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.util.DateUtils;
@@ -10,12 +7,13 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class ProfileCommand extends Command {
 	
@@ -56,61 +54,59 @@ public class ProfileCommand extends Command {
 			return new Result(Outcome.WARNING, m, 5);
         }
 
-		// UUID --> Username
+		// Username --> UUID
 		String player = args[0];
-		if (player.matches(NameUtils.uuidRegex)) {
-			player = NameUtils.getName(player);
+		if (!player.matches(NameUtils.uuidRegex)) {
+			String uuid = NameUtils.getUUID(player);
 
 			// Check for errors
-			if (player == null) {
+			if (uuid == null) {
 				String m = ":x: The Mojang API could not be reached." +
-					"\n" + "Are you sure that UUID exists?";
-				return new Result(Outcome.WARNING, m, 1.5);
-			} else if (!player.matches(NameUtils.playerRegex)) {
-				String m = ":x: The API responded with an error:\n" + player;
+						"\n" + "Are you sure that username exists?" +
+						"\n" + "Usernames are case-sensitive.";
+				return new Result(Outcome.WARNING, m, 2);
+			} else if (!uuid.matches(NameUtils.uuidRegex)) {
+				String m = ":x: The API responded with an error:\n" + uuid;
 				return new Result(Outcome.ERROR, m, 3);
 			}
+
+			player = uuid;
 		}
 
         // Get profile info
-        JSONArray payload = new JSONArray();
-        payload.put(player);
-        String request = RequestUtils.post("https://api.mojang.com/profiles/minecraft", payload.toString());
+        String url = "https://sessionserver.mojang.com/session/minecraft/profile/" + player.replaceAll("-", "");
+        String request = RequestUtils.get(url);
 		if (request == null) {
 			return new Result(Outcome.ERROR, ":x: The Mojang API could not be reached.");
 		}
-		JSONArray profileArr = new JSONArray(request);
-		if (profileArr.length() == 0) {
-			return new Result(Outcome.WARNING, ":warning: That username does not exist.");
-		}
-        JSONObject profile = profileArr.getJSONObject(0);
-        String uuid = profile.getString("id");
+		JSONObject profile = new JSONObject(request);
+        String name = profile.getString("name");
         boolean legacy = profile.optBoolean("legacy");
         boolean demo = profile.optBoolean("demo");
 
         // Image and NameMC URLs
-        String avatarUrl = "https://crafatar.com/avatars/" + uuid;
-        String bodyUrl = "https://crafatar.com/renders/body/" + uuid + "?overlay";
-        String skinUrl = "https://crafatar.com/skins/" + uuid;
-        String nameUrl = "https://namemc.com/profile/" + player;
+        String avatarUrl = "https://crafatar.com/avatars/" + player;
+        String bodyUrl = "https://crafatar.com/renders/body/" + player + "?overlay";
+        String skinUrl = "https://crafatar.com/skins/" + player;
+        String nameUrl = "https://namemc.com/profile/" + name;
 
         // Get cape
         String cape;
-		if (NameUtils.mojangUUIDs.contains(uuid)) {
+		if (NameUtils.mojangUUIDs.contains(player)) {
             // Mojang cape
             cape = MarkdownUtil.maskedLink("Open Image", "https://minecord.github.io/capes/mojang.png");
 		} else {
 			// Other minecraft capes
-			String url = "https://crafatar.com/capes/" + uuid;
-			if (RequestUtils.checkURL(url)) {
-                cape = MarkdownUtil.maskedLink("Open Image", url);
+			String capeUrl = "https://crafatar.com/capes/" + player;
+			if (RequestUtils.checkURL(capeUrl)) {
+                cape = MarkdownUtil.maskedLink("Open Image", capeUrl);
 			} else {
                 cape = "No cape.";
             }
 		}
 
 		// Fetch name history
-		String historyUrl = "https://api.mojang.com/user/profiles/" + uuid + "/names";
+		String historyUrl = "https://api.mojang.com/user/profiles/" + player + "/names";
 		request = RequestUtils.get(historyUrl);
 		if (request == null) {
 			return new Result(Outcome.ERROR, ":x: The Mojang API could not be reached.");
@@ -123,7 +119,7 @@ public class ProfileCommand extends Command {
 			
 			// Get info
 			JSONObject change = names.getJSONObject(i);
-			String name = change.getString("name");
+			String nameChange = change.getString("name");
 			String date;
 			if (change.has("changedToAt")) {
 				date = DateUtils.getDateAgoShort(change.getLong("changedToAt"));
@@ -132,14 +128,14 @@ public class ProfileCommand extends Command {
 			}
 			
 			// Add to lines in reverse
-			lines.add(0, String.format("**%d.** `%s` | %s", i + 1, name, date));
+			lines.add(0, String.format("**%d.** `%s` | %s", i + 1, nameChange, date));
 		}
 
         EmbedBuilder eb = new EmbedBuilder()
-            .setAuthor("Profile for " + player, nameUrl, avatarUrl)
+            .setAuthor("Profile for " + name, nameUrl, avatarUrl)
             .setColor(Bot.color)
             .setThumbnail(bodyUrl)
-            .setDescription(String.format("Short UUID: `%s`\nLong UUID: `%s`", uuid, NameUtils.formatUUID(uuid)))
+            .setDescription(String.format("Short UUID: `%s`\nLong UUID: `%s`", player, NameUtils.formatUUID(player)))
             .addField("Skin", MarkdownUtil.maskedLink("Open Image", skinUrl), true)
             .addField("Cape", cape, true)
             .addField("Account Info", String.format("Legacy: `%s`\nDemo: `%s`", boolToString(legacy), boolToString(demo)), true);
