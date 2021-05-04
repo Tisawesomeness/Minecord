@@ -167,7 +167,7 @@ public class Bot {
             Lang.reloadFromFile(args.getPath().resolve("lang"));
         }
 
-        apiClient = new APIClient();
+        apiClient = new APIClient(config.getAdvancedConfig().getHttpConfig());
         mcLibrary = new StandardMCLibrary(apiClient, config);
 
         String tokenOverride = args.getTokenOverride();

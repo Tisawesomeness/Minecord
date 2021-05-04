@@ -15,11 +15,14 @@ public class AdvancedConfig {
     CacheConfig cacheConfig;
     @JsonProperty("linkedDeletion") @JsonSetter(nulls = Nulls.SET)
     @Nullable LinkedDeletionConfig linkedDeletionConfig;
+    @JsonProperty("http")
+    HttpConfig httpConfig;
 
     public Verification verify(boolean linkedDeletion) {
         return Verification.combineAll(
                 cacheConfig.verify(),
-                verifyLinkedDeletion(linkedDeletion)
+                verifyLinkedDeletion(linkedDeletion),
+                httpConfig.verify()
         );
     }
     private Verification verifyLinkedDeletion(boolean linkedDeletion) {

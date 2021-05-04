@@ -1,5 +1,7 @@
 package com.tisawesomeness.minecord.network;
 
+import com.tisawesomeness.minecord.config.config.HttpConfig;
+
 import lombok.Getter;
 import lombok.NonNull;
 import okhttp3.*;
@@ -13,7 +15,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class APIClient {
 
-    private static final int MAX_REQUESTS_PER_HOST = 25;
     /**
      * The builder used to construct a {@link OkHttpClient} instance
      */
@@ -24,11 +25,12 @@ public class APIClient {
     /**
      * Creates a new API client with the default settings.
      */
-    public APIClient() {
+    public APIClient(HttpConfig config) {
         // client is set to JDA defaults
         dispatcher = new Dispatcher();
-        dispatcher.setMaxRequestsPerHost(MAX_REQUESTS_PER_HOST);
-        connectionPool = new ConnectionPool(5, 10, TimeUnit.SECONDS);
+        dispatcher.setMaxRequestsPerHost(config.getMaxRequestsPerHost());
+        connectionPool = new ConnectionPool(config.getMaxIdleConnections(),
+                config.getKeepAlive(), TimeUnit.MILLISECONDS);
         httpClientBuilder = new OkHttpClient.Builder()
                 .connectionPool(connectionPool)
                 .dispatcher(dispatcher);

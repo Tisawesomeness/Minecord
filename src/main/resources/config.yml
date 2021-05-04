@@ -185,6 +185,14 @@ commands:
 # Advanced config, edit with caution
 advanced:
 
+  http:
+    # Max requests to one host (usually Discord)
+    maxRequestsPerHost: 25
+    # Max idling connections
+    maxIdleConnections: 5
+    # Keep alive duration in milliseconds
+    keepAlive: 10000
+
   cache:
     # The amount of time in seconds a guild database record is kept in the cache
     guildLifetime: 600
