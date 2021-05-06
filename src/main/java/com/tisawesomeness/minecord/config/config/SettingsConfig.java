@@ -14,12 +14,24 @@ import lombok.Value;
 public class SettingsConfig {
     @JsonProperty("defaultPrefix")
     String defaultPrefix;
+    @JsonProperty("maxPrefixLength")
+    int maxPrefixLength;
     @JsonProperty("defaultLang")
     Lang defaultLang;
     @JsonProperty("defaultUseMenus")
     boolean defaultUseMenus;
 
     public Verification verify() {
-        return PrefixSetting.verify(defaultPrefix);
+        return Verification.combineAll(
+                PrefixSetting.verify(defaultPrefix),
+                verifyMaxLength()
+        );
     }
+    private Verification verifyMaxLength() {
+        if (maxPrefixLength < 1 || PrefixSetting.MAX_LENGTH < maxPrefixLength) {
+            return Verification.invalid("Max prefix length must be between 1 and " + PrefixSetting.MAX_LENGTH);
+        }
+        return Verification.valid();
+    }
+
 }

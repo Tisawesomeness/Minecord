@@ -60,6 +60,9 @@ supportedMCVersion: "1.15.2"
 settings:
   # The prefix for every command, default is "&" on the main bot
   defaultPrefix: "&"
+  # The maximum prefix length you can set in &prefix
+  # Prefixes longer than this length will still function but users won't be able to create them
+  maxPrefixLength: 8
   # The default lang used for user commands, admin commands and console messages are not translated
   # Current languages: en_US, de_DE, pt_BR
   defaultLang: en_US

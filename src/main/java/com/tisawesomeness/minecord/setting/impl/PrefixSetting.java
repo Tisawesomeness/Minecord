@@ -23,7 +23,11 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 public class PrefixSetting extends Setting<String> {
 
-    private static final int MAX_LENGTH = 8;
+    /**
+     * The maximum prefix length that can be defined in the config for sanity check purposes.
+     */
+    public static final int MAX_LENGTH = 64;
+
     private static final Pattern DISCORD_CONFLICT_PATTERN = Pattern.compile("[@#*()`_\\[\\]\\\\:]");
     private static final Pattern STRIKETHROUGH_CONFLICT_PATTERN = Pattern.compile("~($|~)");
     private static final Pattern SPOILER_CONFLICT_PATTERN = Pattern.compile("\\|($|\\|)");
@@ -73,6 +77,10 @@ public class PrefixSetting extends Setting<String> {
      * Legal symbols: {@code !$%^&-=+;',./{}"<>?}.
      */
     public Validation<String> resolve(@NonNull String input) {
+        Verification ver = verifyLength(input);
+        if (!ver.isValid()) {
+            return Validation.fromInvalidVerification(ver);
+        }
         return verify(input).toValidation(input);
     }
     public static Verification verify(String input) {
@@ -85,16 +93,19 @@ public class PrefixSetting extends Setting<String> {
             return Verification.invalid("The prefix cannot be literally `unset`.");
         }
         return Verification.combineAll(
-                verifyLength(input),
                 verifyEndNotLetter(input),
                 verifyLegalChars(input),
                 verifyPattern(input, DISCORD_CONFLICT_PATTERN, DISCORD_CONFLICT_ERROR),
                 verifyPattern(input, STRIKETHROUGH_CONFLICT_PATTERN, STRIKETHROUGH_CONFLICT_ERROR),
                 verifyPattern(input, SPOILER_CONFLICT_PATTERN, SPOILER_CONFLICT_ERROR));
     }
-    private static Verification verifyLength(String input) {
-        if (input.length() > MAX_LENGTH) {
-            return Verification.invalid(String.format("The prefix must be %s or fewer characters.", MAX_LENGTH));
+    private Verification verifyLength(String input) {
+        if (input.isEmpty()) {
+            return Verification.invalid("The prefix cannot be empty.");
+        }
+        if (input.length() > config.getMaxPrefixLength()) {
+            return Verification.invalid(String.format("The prefix must be %s or fewer characters.",
+                    config.getMaxPrefixLength()));
         }
         return Verification.valid();
     }

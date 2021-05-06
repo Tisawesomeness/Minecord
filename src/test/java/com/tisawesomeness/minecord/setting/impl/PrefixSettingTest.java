@@ -2,10 +2,12 @@ package com.tisawesomeness.minecord.setting.impl;
 
 import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.testutil.Resources;
+import com.tisawesomeness.minecord.util.Strings;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -17,11 +19,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PrefixSettingTest {
 
     private static PrefixSetting prefix;
+    private static int maxLength;
 
     @BeforeAll
-    private static void initConfig() throws JsonProcessingException {
+    private static void initPrefix() throws JsonProcessingException {
         Config config = Resources.config();
         prefix = new PrefixSetting(config.getSettingsConfig());
+        maxLength = config.getSettingsConfig().getMaxPrefixLength();
     }
 
     @ParameterizedTest(name = "{index} ==> Prefix ''{0}'' is accepted")
@@ -37,7 +41,7 @@ public class PrefixSettingTest {
     @MethodSource("symbolProvider")
     @DisplayName("Valid prefixes are accepted")
     public void testResolveValid(String candidate) {
-        assertThat(prefix.resolve(candidate).isValid()).isTrue();
+        assertThat(PrefixSetting.verify(candidate).isValid()).isTrue();
     }
 
     @ParameterizedTest(name = "{index} ==> Prefix ''{0}'' is rejected")
@@ -69,7 +73,25 @@ public class PrefixSettingTest {
     @MethodSource("invalidSymbolProvider")
     @DisplayName("Invalid prefixes are rejected")
     public void testResolveInvalid(String candidate) {
-        assertThat(prefix.resolve(candidate).isValid()).isFalse();
+        assertThat(PrefixSetting.verify(candidate).isValid()).isFalse();
+    }
+
+    @Test
+    @DisplayName("An empty prefix is rejected")
+    public void testLengthZero() {
+        assertThat(prefix.resolve("").isValid()).isFalse();
+    }
+    @Test
+    @DisplayName("A prefix at max length is accepted")
+    public void testLengthMax() {
+        String str = "m" + Strings.repeat("!", maxLength - 1);
+        assertThat(prefix.resolve(str).isValid()).isTrue();
+    }
+    @Test
+    @DisplayName("A prefix over max length is rejected")
+    public void testLengthOver() {
+        String str = "m" + Strings.repeat("!", maxLength);
+        assertThat(prefix.resolve(str).isValid()).isFalse();
     }
 
     private static Stream<String> symbolProvider() {
