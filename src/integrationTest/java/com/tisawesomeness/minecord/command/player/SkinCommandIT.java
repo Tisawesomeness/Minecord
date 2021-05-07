@@ -27,11 +27,11 @@ public class SkinCommandIT {
 
     private static final Username STEVE_USERNAME = new Username("Steve");
     private static final Player STEVE_PLAYER = PlayerTests.initPlayerWithDefaultSkinUrl(
-            PlayerTests.STEVE_UUID, STEVE_USERNAME, SkinType.STEVE);
+            PlayerTests.TIS_STEVE_UUID, STEVE_USERNAME, SkinType.STEVE);
 
     private static final Username ALEX_USERNAME = new Username("Alex");
     private static final Player ALEX_PLAYER = PlayerTests.initPlayerWithDefaultSkinUrl(
-            PlayerTests.ALEX_UUID, ALEX_USERNAME, SkinType.ALEX);
+            PlayerTests.JEB_ALEX_UUID, ALEX_USERNAME, SkinType.ALEX);
 
     private static final Username CUSTOM_USERNAME = new Username("Custom");
     private static final UUID CUSTOM_UUID = UUID.fromString("9c2ac958-5de9-45a8-8ca1-4122eb4c0b9e");
@@ -49,10 +49,10 @@ public class SkinCommandIT {
         playerProvider.throwOnUsername(THROWING_USERNAME);
         playerProvider.throwOnUuid(THROWING_UUID);
 
-        playerProvider.mapUuid(STEVE_USERNAME, PlayerTests.STEVE_UUID);
-        playerProvider.mapPlayer(PlayerTests.STEVE_UUID, STEVE_PLAYER);
-        playerProvider.mapUuid(ALEX_USERNAME, PlayerTests.ALEX_UUID);
-        playerProvider.mapPlayer(PlayerTests.ALEX_UUID, ALEX_PLAYER);
+        playerProvider.mapUuid(STEVE_USERNAME, PlayerTests.TIS_STEVE_UUID);
+        playerProvider.mapPlayer(PlayerTests.TIS_STEVE_UUID, STEVE_PLAYER);
+        playerProvider.mapUuid(ALEX_USERNAME, PlayerTests.JEB_ALEX_UUID);
+        playerProvider.mapPlayer(PlayerTests.JEB_ALEX_UUID, ALEX_PLAYER);
         playerProvider.mapUuid(CUSTOM_USERNAME, CUSTOM_UUID);
         playerProvider.mapPlayer(CUSTOM_UUID, CUSTOM_PLAYER);
 

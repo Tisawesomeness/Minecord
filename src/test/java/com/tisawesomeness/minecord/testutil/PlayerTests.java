@@ -10,8 +10,15 @@ import java.util.UUID;
 
 public class PlayerTests {
 
-    public static final UUID STEVE_UUID = UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3af"); // Tis_awesomeness
-    public static final UUID ALEX_UUID = UUID.fromString("853c80ef-3c37-49fd-aa49-938b674adae6"); // jeb_
+    public static final UUID TIS_STEVE_UUID = UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3af");
+    public static final Username TIS_USERNAME = new Username("Tis_awesomeness");
+
+    public static final UUID JEB_ALEX_UUID = UUID.fromString("853c80ef-3c37-49fd-aa49-938b674adae6");
+    public static final Username JEB_USERNAME = new Username("jeb_");
+
+    public static final UUID NOTCH_STEVE_UUID = UUID.fromString("069a79f4-44e9-4726-a5be-fca90e38aaf5");
+    public static final Username NOTCH_USERNAME = new Username("Notch");
+
     public static final URL CUSTOM_SKIN_URL = URLs.createUrl("https://textures.minecraft.net/texture/" +
                     "8c38fdb8e126e8416edf8864d6b5f69c072836abbc8d6ebc6b3d72644e48b1bd");
 

@@ -13,7 +13,7 @@ public class RenderTest {
     @DisplayName("Avatar renders generate as expected")
     public void testRenderAvatar() {
         RenderType type = RenderType.AVATAR;
-        Render render = new Render(PlayerTests.STEVE_UUID, type, false);
+        Render render = new Render(PlayerTests.TIS_STEVE_UUID, type, false);
         String expected = "https://crafatar.com/avatars/f6489b79-7a9f-49e2-980e-265a05dbc3af?size="
                 + type.getDefaultScale();
         assertThat(render.render()).hasToString(expected);
@@ -22,7 +22,7 @@ public class RenderTest {
     @DisplayName("Head renders generate as expected")
     public void testRenderHead() {
         RenderType type = RenderType.HEAD;
-        Render render = new Render(PlayerTests.STEVE_UUID, type, false);
+        Render render = new Render(PlayerTests.TIS_STEVE_UUID, type, false);
         String expected = "https://crafatar.com/renders/head/f6489b79-7a9f-49e2-980e-265a05dbc3af?scale="
                 + type.getDefaultScale();
         assertThat(render.render()).hasToString(expected);
@@ -31,7 +31,7 @@ public class RenderTest {
     @DisplayName("Body renders generate as expected")
     public void testRenderBody() {
         RenderType type = RenderType.BODY;
-        Render render = new Render(PlayerTests.STEVE_UUID, type, false);
+        Render render = new Render(PlayerTests.TIS_STEVE_UUID, type, false);
         String expected = "https://crafatar.com/renders/body/f6489b79-7a9f-49e2-980e-265a05dbc3af?scale="
                 + type.getDefaultScale();
         assertThat(render.render()).hasToString(expected);
@@ -41,7 +41,7 @@ public class RenderTest {
     @DisplayName("Avatar renders with overlay generate as expected")
     public void testRenderAvatarOverlay() {
         RenderType type = RenderType.AVATAR;
-        Render render = new Render(PlayerTests.STEVE_UUID, type, true);
+        Render render = new Render(PlayerTests.TIS_STEVE_UUID, type, true);
         String expected = String.format("https://crafatar.com/avatars/" +
                 "f6489b79-7a9f-49e2-980e-265a05dbc3af?size=%d&overlay", type.getDefaultScale());
         assertThat(render.render()).hasToString(expected);
@@ -50,7 +50,7 @@ public class RenderTest {
     @DisplayName("Head renders with overlay generate as expected")
     public void testRenderHeadOverlay() {
         RenderType type = RenderType.HEAD;
-        Render render = new Render(PlayerTests.STEVE_UUID, type, true);
+        Render render = new Render(PlayerTests.TIS_STEVE_UUID, type, true);
         String expected = String.format("https://crafatar.com/renders/head/" +
                 "f6489b79-7a9f-49e2-980e-265a05dbc3af?scale=%d&overlay", type.getDefaultScale());
         assertThat(render.render()).hasToString(expected);
@@ -59,7 +59,7 @@ public class RenderTest {
     @DisplayName("Body renders with overlay generate as expected")
     public void testRenderBodyOverlay() {
         RenderType type = RenderType.BODY;
-        Render render = new Render(PlayerTests.STEVE_UUID, type, true);
+        Render render = new Render(PlayerTests.TIS_STEVE_UUID, type, true);
         String expected = String.format("https://crafatar.com/renders/body/" +
                 "f6489b79-7a9f-49e2-980e-265a05dbc3af?scale=%d&overlay", type.getDefaultScale());
         assertThat(render.render()).hasToString(expected);
@@ -70,7 +70,7 @@ public class RenderTest {
     public void testRenderAvatarSize() {
         int size = 256;
         RenderType type = RenderType.AVATAR;
-        Render render = new Render(PlayerTests.STEVE_UUID, type, false, size);
+        Render render = new Render(PlayerTests.TIS_STEVE_UUID, type, false, size);
         String expected = "https://crafatar.com/avatars/f6489b79-7a9f-49e2-980e-265a05dbc3af?size=" + size;
         assertThat(render.render()).hasToString(expected);
     }
@@ -79,7 +79,7 @@ public class RenderTest {
     public void testRenderHeadSize() {
         int scale = 3;
         RenderType type = RenderType.HEAD;
-        Render render = new Render(PlayerTests.STEVE_UUID, type, false, scale);
+        Render render = new Render(PlayerTests.TIS_STEVE_UUID, type, false, scale);
         String expected = "https://crafatar.com/renders/head/f6489b79-7a9f-49e2-980e-265a05dbc3af?scale=" + scale;
         assertThat(render.render()).hasToString(expected);
     }
@@ -88,7 +88,7 @@ public class RenderTest {
     public void testRenderBodySize() {
         int scale = 3;
         RenderType type = RenderType.BODY;
-        Render render = new Render(PlayerTests.STEVE_UUID, type, false, scale);
+        Render render = new Render(PlayerTests.TIS_STEVE_UUID, type, false, scale);
         String expected = "https://crafatar.com/renders/body/f6489b79-7a9f-49e2-980e-265a05dbc3af?scale=" + scale;
         assertThat(render.render()).hasToString(expected);
     }
@@ -97,7 +97,7 @@ public class RenderTest {
     @DisplayName("Avatar renders with size above max use max size")
     public void testRenderAvatarOverflow() {
         RenderType type = RenderType.AVATAR;
-        Render render = new Render(PlayerTests.STEVE_UUID, type, false, type.getMaxScale() + 1);
+        Render render = new Render(PlayerTests.TIS_STEVE_UUID, type, false, type.getMaxScale() + 1);
         String expected = "https://crafatar.com/avatars/f6489b79-7a9f-49e2-980e-265a05dbc3af?size="
                 + type.getMaxScale();
         assertThat(render.render()).hasToString(expected);
@@ -106,7 +106,7 @@ public class RenderTest {
     @DisplayName("Body renders with size above max use max size")
     public void testRenderHeadOverflow() {
         RenderType type = RenderType.HEAD;
-        Render render = new Render(PlayerTests.STEVE_UUID, type, false, type.getMaxScale() + 1);
+        Render render = new Render(PlayerTests.TIS_STEVE_UUID, type, false, type.getMaxScale() + 1);
         String expected = "https://crafatar.com/renders/head/f6489b79-7a9f-49e2-980e-265a05dbc3af?scale="
                 + type.getMaxScale();
         assertThat(render.render()).hasToString(expected);
@@ -115,7 +115,7 @@ public class RenderTest {
     @DisplayName("Head renders with size above max use max size")
     public void testRenderBodyOverflow() {
         RenderType type = RenderType.BODY;
-        Render render = new Render(PlayerTests.STEVE_UUID, type, false, type.getMaxScale() + 1);
+        Render render = new Render(PlayerTests.TIS_STEVE_UUID, type, false, type.getMaxScale() + 1);
         String expected = "https://crafatar.com/renders/body/f6489b79-7a9f-49e2-980e-265a05dbc3af?scale="
                 + type.getMaxScale();
         assertThat(render.render()).hasToString(expected);
