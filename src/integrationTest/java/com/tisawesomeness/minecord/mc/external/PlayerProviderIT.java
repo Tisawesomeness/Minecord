@@ -10,10 +10,12 @@ import com.tisawesomeness.minecord.util.Lists;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -31,7 +33,29 @@ public class PlayerProviderIT {
     }
 
     @Test
-    public void testProfile() {
+    @DisplayName("Mojang/Electroid API username --> UUID endpoint works")
+    public void testUsernameToUUID() {
+        List<Optional<UUID>> list = Lists.of(
+                provider.getUUID(PlayerTests.TIS_USERNAME),
+                provider.getUUID(PlayerTests.JEB_USERNAME),
+                provider.getUUID(PlayerTests.NOTCH_USERNAME)
+        ).stream()
+                .map(CompletableFuture::join)
+                .collect(Collectors.toList());
+        // Test will fail if any player lookup fails (throws an exception)
+        boolean[] asserts = {
+                PlayerTests.TIS_STEVE_UUID.equals(list.get(0).orElse(null)),
+                PlayerTests.JEB_ALEX_UUID.equals(list.get(1).orElse(null)),
+                PlayerTests.NOTCH_STEVE_UUID.equals(list.get(2).orElse(null))
+        };
+        // At least one username out of Tis_awesomeness, jeb_ and Notch must stay the same for the test to pass
+        // It is very unlikely that all three will change at the same time (especially because I am Tis lol)
+        assertThat(asserts).contains(true);
+    }
+
+    @Test
+    @DisplayName("Mojang/Electroid API UUID --> player endpoint works")
+    public void testUUIDToPlayer() {
         List<Optional<Player>> list = Lists.of(
                 provider.getPlayer(PlayerTests.TIS_STEVE_UUID),
                 provider.getPlayer(PlayerTests.JEB_ALEX_UUID),
@@ -39,16 +63,32 @@ public class PlayerProviderIT {
         ).stream()
                 .map(CompletableFuture::join)
                 .collect(Collectors.toList());
-        // Test will fail if any player lookup fails (throws an exception)
         boolean[] asserts = {
                 playerHasName(list.get(0), PlayerTests.TIS_USERNAME),
                 playerHasName(list.get(1), PlayerTests.JEB_USERNAME),
                 playerHasName(list.get(2), PlayerTests.NOTCH_USERNAME)
         };
-        // At least one username out of Tis_awesomeness, jeb_ and Notch must stay the same for the test to pass
-        // It is very unlikely that all three will change at the same time (especially because I am Tis lol)
         assertThat(asserts).contains(true);
     }
+
+    @Test
+    @DisplayName("Mojang/Electroid API username --> player endpoint works")
+    public void testUsernameToPlayer() {
+        List<Optional<Player>> list = Lists.of(
+                provider.getPlayer(PlayerTests.TIS_USERNAME),
+                provider.getPlayer(PlayerTests.JEB_USERNAME),
+                provider.getPlayer(PlayerTests.NOTCH_USERNAME)
+        ).stream()
+                .map(CompletableFuture::join)
+                .collect(Collectors.toList());
+        boolean[] asserts = {
+                playerHasName(list.get(0), PlayerTests.TIS_USERNAME),
+                playerHasName(list.get(1), PlayerTests.JEB_USERNAME),
+                playerHasName(list.get(2), PlayerTests.NOTCH_USERNAME)
+        };
+        assertThat(asserts).contains(true);
+    }
+
     private static boolean playerHasName(Optional<Player> playerOpt, Username name) {
         if (!playerOpt.isPresent()) {
             return false;
