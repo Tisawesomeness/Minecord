@@ -25,7 +25,7 @@ presence:
   behavior: RANDOM
   # A list of presences to change between
   # All require a status, which is ONLINE, IDLE, DO_NOT_DISTURB, or INVISIBLE
-  # Type is optional, which can be PLAYING, STREAMING, or LISTENING
+  # Type is optional, which can be PLAYING, STREAMING, LISTENING, or COMPETING
   # If type is defined, content is the text that displays ("playing <content>")
   presences:
     - status: ONLINE
