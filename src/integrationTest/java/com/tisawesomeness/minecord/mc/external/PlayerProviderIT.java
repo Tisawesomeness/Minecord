@@ -6,6 +6,7 @@ import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.network.APIClient;
 import com.tisawesomeness.minecord.testutil.PlayerTests;
 import com.tisawesomeness.minecord.testutil.Resources;
+import com.tisawesomeness.minecord.testutil.annotation.MojangAPITest;
 import com.tisawesomeness.minecord.util.Lists;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@MojangAPITest
 public class PlayerProviderIT {
 
     private static PlayerProvider provider;

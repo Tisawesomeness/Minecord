@@ -66,7 +66,10 @@ dependencies {
 compileJava.options.encoding = 'UTF-8'
 
 tasks.withType(Test) {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        // Uncomment the line below to exclude tags from testing such as "MojangAPI"
+        // excludeTags 'MojangAPI'
+    }
 }
 
 tasks.withType(JacocoReport) {
