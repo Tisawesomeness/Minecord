@@ -3,15 +3,21 @@ package com.tisawesomeness.minecord.testutil;
 import com.tisawesomeness.minecord.mc.player.*;
 import com.tisawesomeness.minecord.util.URLs;
 
+import org.junit.jupiter.params.provider.Arguments;
+
 import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 public class PlayerTests {
 
     public static final UUID TIS_STEVE_UUID = UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3af");
     public static final Username TIS_USERNAME = new Username("Tis_awesomeness");
+    public static final Username TIS_ORIGINAL_USERNAME = new Username("tis_awesomeness");
 
     public static final UUID JEB_ALEX_UUID = UUID.fromString("853c80ef-3c37-49fd-aa49-938b674adae6");
     public static final Username JEB_USERNAME = new Username("jeb_");
@@ -51,6 +57,17 @@ public class PlayerTests {
         URL skinUrl = skinType == SkinType.STEVE ? Player.STEVE_SKIN_URL : Player.ALEX_SKIN_URL;
         Profile profile = new Profile(false, false, skinType, skinUrl, null);
         return new Player(uuid, history, profile);
+    }
+
+    public static Stream<UUID> uuidProvider() {
+        return Stream.of(TIS_STEVE_UUID, JEB_ALEX_UUID, NOTCH_STEVE_UUID);
+    }
+    public static Stream<Arguments> originalNameTestCaseProvider() {
+        return Stream.of(
+                arguments(TIS_STEVE_UUID, TIS_ORIGINAL_USERNAME),
+                arguments(JEB_ALEX_UUID, JEB_USERNAME),
+                arguments(NOTCH_STEVE_UUID, NOTCH_USERNAME)
+        );
     }
 
 }
