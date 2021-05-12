@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import lombok.Value;
+import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.sharding.ShardManager;
@@ -22,6 +23,7 @@ import java.util.Objects;
  * or a streaming activity with URL.
  */
 @Value
+@Slf4j
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Presence {
     @JsonProperty("status")
@@ -44,6 +46,9 @@ public class Presence {
      * @return The Verification
      */
     public Verification verify() {
+        if (type == PresenceType.STREAMING && url != null && !Activity.isValidStreamingUrl(url)) {
+            log.warn("Presence url " + url + " is not a valid streaming (Twitch or YouTube) URL");
+        }
         return Verification.combineAll(
                 verifyContent(),
                 verifyWeight()
