@@ -7,6 +7,7 @@ import ch.qos.logback.classic.Level;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.ToString;
 import lombok.Value;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.List;
  * Optional fields are annotated with {@code @JsonSetter(nulls = Nulls.SET)}.
  */
 @Value
+@Slf4j
 public class Config implements VerifiableConfig {
     @JsonProperty("token") @ToString.Exclude
     String token;
@@ -58,6 +60,9 @@ public class Config implements VerifiableConfig {
      * @return A valid Verification only if this config is valid
      */
     public Verification verify() {
+        if (owners.isEmpty()) {
+            log.warn("The list of owners in the config is empty. Add your user ID to get access to admin commands.");
+        }
         return Verification.combineAll(
                 verifyShards(),
                 settingsConfig.verify(),
