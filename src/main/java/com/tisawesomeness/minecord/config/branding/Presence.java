@@ -4,7 +4,6 @@ import com.tisawesomeness.minecord.util.Discord;
 import com.tisawesomeness.minecord.util.discord.PresenceType;
 import com.tisawesomeness.minecord.util.type.Verification;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
@@ -24,7 +23,6 @@ import java.util.Objects;
  */
 @Value
 @Slf4j
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Presence {
     @JsonProperty("status")
     OnlineStatus status;

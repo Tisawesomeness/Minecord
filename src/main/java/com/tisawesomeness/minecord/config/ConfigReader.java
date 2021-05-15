@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.config;
 import com.tisawesomeness.minecord.util.IO;
 import com.tisawesomeness.minecord.util.type.Verification;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -28,6 +29,7 @@ public class ConfigReader {
     private static ObjectMapper buildMapper() {
         return JsonMapper.builder(factory)
                 .defaultSetterInfo(JsonSetter.Value.forValueNulls(Nulls.FAIL))
+                .serializationInclusion(JsonInclude.Include.NON_NULL)
                 .enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS)
                 .build();
     }

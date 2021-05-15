@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.config.config;
 
 import com.tisawesomeness.minecord.util.type.Verification;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
@@ -15,7 +14,6 @@ import javax.annotation.Nullable;
  * Configures sending the guild count to bot lists and receiving votes
  */
 @Value
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BotListConfig {
     private static final int MAX_PORT = 65536;
 

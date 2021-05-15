@@ -3,7 +3,6 @@ package com.tisawesomeness.minecord.config.branding;
 import com.tisawesomeness.minecord.util.discord.PresenceBehavior;
 import com.tisawesomeness.minecord.util.type.Verification;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
@@ -16,7 +15,6 @@ import java.util.List;
  * Holds all the presences and determines how and how often to switch between them.
  */
 @Value
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PresenceConfig {
     @JsonProperty("changeInterval") @JsonSetter(nulls = Nulls.SET)
     int changeInterval;
