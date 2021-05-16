@@ -7,6 +7,7 @@ import lombok.NonNull;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.Permission;
+import org.jetbrains.annotations.PropertyKey;
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,6 +27,8 @@ public enum Lang {
     EN_US("en_US", new Locale("en", "US")),
     DE_DE("de_DE", new Locale("de", "DE")),
     PT_BR("pt_BR", new Locale("pt", "BR"));
+
+    private static final String RB = "lang.lang";
 
     // Setting a variable is atomic, reloading lang is rare and
     // changes do not need to be seen immediately across all threads
@@ -127,7 +130,7 @@ public enum Lang {
      * @return The localized string
      * @throws java.util.MissingResourceException If the given key could not be found
      */
-    public @NonNull String i18n(@NonNull String key) {
+    public @NonNull String i18n(@NonNull @PropertyKey(resourceBundle = RB) String key) {
         return resource.getString(key);
     }
     /**
@@ -135,7 +138,7 @@ public enum Lang {
      * @param key The <b>case-sensitive</b> localization key used in {@link #i18n(String)}
      * @return The localized string, or empty if not found
      */
-    public Optional<String> i18nOpt(@NonNull String key) {
+    public Optional<String> i18nOpt(@NonNull @PropertyKey(resourceBundle = RB) String key) {
         if (resource.keySet().contains(key)) {
             return Optional.of(i18n(key));
         }
@@ -150,7 +153,7 @@ public enum Lang {
      * @see MessageFormat
      * @see Locale
      */
-    public @NonNull String i18nf(@NonNull String key, Object... args) {
+    public @NonNull String i18nf(@NonNull @PropertyKey(resourceBundle = RB) String key, Object... args) {
         return new MessageFormat(i18n(key), locale).format(args);
     }
     /**
@@ -163,7 +166,8 @@ public enum Lang {
      * @see MessageFormat
      * @see Locale
      */
-    public @NonNull LocalizedMarkdownBuilder i18nm(@NonNull String key, Object... args) {
+    public @NonNull LocalizedMarkdownBuilder i18nm(@NonNull @PropertyKey(resourceBundle = RB) String key,
+                                                   Object... args) {
         return new LocalizedMarkdownBuilder(new MessageFormat(i18n(key), locale), args);
     }
     /**
@@ -174,7 +178,7 @@ public enum Lang {
      * @see MessageFormat
      * @see Locale
      */
-    public Optional<String> i18nfOpt(@NonNull String key, Object... args) {
+    public Optional<String> i18nfOpt(@NonNull @PropertyKey(resourceBundle = RB) String key, Object... args) {
         if (resource.keySet().contains(key)) {
             return Optional.of(i18nf(key, args));
         }
@@ -187,7 +191,7 @@ public enum Lang {
      * @see MessageFormat
      * @see Locale
      */
-    public List<String> i18nList(@NonNull String key) {
+    public List<String> i18nList(@NonNull @PropertyKey(resourceBundle = RB) String key) {
         if (!resource.keySet().contains(key)) {
             return Collections.emptyList();
         }
