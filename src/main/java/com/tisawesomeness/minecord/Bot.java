@@ -34,10 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.OnlineStatus;
-import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.hooks.EventListener;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.requests.restaction.MessageAction;
@@ -424,6 +421,7 @@ public class Bot {
      * Logs a message to the logging channel.
      */
     public void log(CharSequence m) {
+        log.info(m.toString());
         long logChannel = config.getLogChannelId();
         if (logChannel == 0) {
             return;
@@ -438,6 +436,10 @@ public class Bot {
      * Logs a message to the logging channel.
      */
     public void log(Message m) {
+        User author = m.getAuthor();
+        String logMessage = String.format("Logged message %d sent by %#s, ID %d: %#s",
+                m.getIdLong(), author, author.getIdLong(), m);
+        log.info(logMessage);
         long logChannel = config.getLogChannelId();
         if (logChannel == 0) {
             return;
@@ -452,6 +454,7 @@ public class Bot {
      * Logs a message to the logging channel.
      */
     public void log(MessageEmbed m) {
+        log.info(m.toData().toString());
         long logChannel = config.getLogChannelId();
         if (logChannel == 0) {
             return;

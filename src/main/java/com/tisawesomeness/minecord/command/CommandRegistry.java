@@ -118,6 +118,7 @@ public class CommandRegistry implements Iterable<Command> {
                 new ReloadCommand(),
                 new ShutdownCommand(),
                 new EvalCommand(),
+                new LogCommand(),
                 new DebugCommand(),
                 new TestCommand()
 
