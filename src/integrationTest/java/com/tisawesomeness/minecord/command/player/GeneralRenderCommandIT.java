@@ -102,6 +102,18 @@ public class GeneralRenderCommandIT {
                 .imageLinksTo(expectedRender.render());
     }
     @Test
+    @DisplayName("Render command handles quoted names correctly")
+    public void testQuotedName() {
+        String args = "head \"abc\"";
+        Render expectedRender = new Render(PlayerTests.TIS_STEVE_UUID, RenderType.HEAD, false);
+        assertThat(runner.run(args))
+                .awaitResult()
+                .hasTriggeredCooldown()
+                .isSuccess()
+                .asEmbedReply()
+                .imageLinksTo(expectedRender.render());
+    }
+    @Test
     @DisplayName("Render command generates render with scale correctly")
     public void testScaledRender() {
         String args = "body abc 5";

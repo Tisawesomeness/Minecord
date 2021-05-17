@@ -115,6 +115,19 @@ public class RenderCommandIT {
     }
     @ParameterizedTest
     @EnumSource
+    @DisplayName("Render commands handles quoted names correctly")
+    public void testQuotedName(RenderType type) {
+        String args = "\"abc\"";
+        Render expectedRender = new Render(PlayerTests.TIS_STEVE_UUID, type, false);
+        assertThat(runners.get(type).run(args))
+                .awaitResult()
+                .hasTriggeredCooldown()
+                .isSuccess()
+                .asEmbedReply()
+                .imageLinksTo(expectedRender.render());
+    }
+    @ParameterizedTest
+    @EnumSource
     @DisplayName("Render commands generates render with scale correctly")
     public void testScaledRender(RenderType type) {
         String args = "abc 5";
