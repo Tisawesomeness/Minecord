@@ -1,9 +1,8 @@
 package com.tisawesomeness.minecord.command.admin;
 
+import com.tisawesomeness.minecord.Secrets;
 import com.tisawesomeness.minecord.command.meta.CommandContext;
 import com.tisawesomeness.minecord.command.meta.Result;
-import com.tisawesomeness.minecord.config.config.BotListConfig;
-import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import lombok.NonNull;
@@ -43,6 +42,7 @@ public class EvalCommand extends AbstractAdminCommand {
 
     public void run(String[] args, CommandContext ctx) {
         MessageReceivedEvent e = ctx.getE();
+        Secrets secrets = ctx.getBot().getSecrets();
 
         // Parse args
         if (args.length == 0 || (args.length == 1 && "help".equalsIgnoreCase(args[0]))) {
@@ -80,7 +80,7 @@ public class EvalCommand extends AbstractAdminCommand {
             output = engine.eval(code);
         } catch (ScriptException ex) {
             ex.printStackTrace();
-            exMsg = ex.getMessage() == null ? "Null Script Exception" : clean(ex.getMessage(), ctx.getConfig());
+            exMsg = ex.getMessage() == null ? "Null Script Exception" : clean(ex.getMessage(), secrets);
         }
         if (output == null) {
             output = "null";
@@ -88,7 +88,7 @@ public class EvalCommand extends AbstractAdminCommand {
 
         // Build embed
         EmbedBuilder eb = new EmbedBuilder();
-        String in = clean(code, ctx.getConfig());
+        String in = clean(code, secrets);
         if (in.length() > MessageEmbed.TEXT_MAX_LENGTH - CODEBLOCK_LENGTH) {
             eb.addField("Input", "Input too long!", false);
         } else if (in.length() > MessageEmbed.VALUE_MAX_LENGTH - CODEBLOCK_LENGTH) {
@@ -109,7 +109,7 @@ public class EvalCommand extends AbstractAdminCommand {
         }
 
         // Check for length
-        String out = clean(output.toString(), ctx.getConfig());
+        String out = clean(output.toString(), secrets);
         if (out.length() > MessageEmbed.VALUE_MAX_LENGTH - CODEBLOCK_LENGTH) {
             // Send up to 10 2000-char messages
             List<String> lines = MessageUtils.splitLinesByLength(out, Message.MAX_CONTENT_LENGTH - CODEBLOCK_LENGTH);
@@ -135,21 +135,10 @@ public class EvalCommand extends AbstractAdminCommand {
      * @param s The input string
      * @return A cleaned string with blacklisted strings replaced with [redacted]
      */
-    private static String clean(String s, Config config) {
-        BotListConfig blc = config.getBotListConfig();
-        String[] blacklist = {
-                config.getToken(),
-                blc.getPwToken(),
-                blc.getOrgToken(),
-                blc.getWebhookUrl(),
-                blc.getWebhookAuth()
-        };
-        for (String nono : blacklist) {
-            if (nono != null) {
-                s = s.replace(nono, "[redacted]");
-            }
-        }
-        return s.replace("@everyone", "[everyone]").replace("@here", "[here]");
+    private static String clean(String s, Secrets secrets) {
+        return secrets.clean(s)
+                .replace("@everyone", "[everyone]")
+                .replace("@here", "[here]");
     }
 
     private static String help(Object o) {

@@ -93,6 +93,7 @@ public class Bot {
     @Getter private VoteHandler voteHandler;
     private @Nullable Branding brandingConfig;
     @Getter private BotBranding branding;
+    @Getter private Secrets secrets;
     @Getter private long birth;
     @Getter private long bootTime;
 
@@ -138,6 +139,8 @@ public class Bot {
             return ExitCodes.SUCCESS;
         }
 
+        secrets = new Secrets(config);
+
         Optional<Path> brandingPathOpt = args.getBrandingPath();
         LoadingActivity loadingActivity = null;
         if (brandingPathOpt.isPresent()) {
@@ -167,9 +170,6 @@ public class Bot {
         apiClient = new APIClient(config.getAdvancedConfig().getHttpConfig());
         mcLibrary = new StandardMCLibrary(apiClient, config);
 
-        String tokenOverride = args.getTokenOverride();
-        String token = tokenOverride == null ? config.getToken() : tokenOverride;
-
         CountDownLatch readyLatch = new CountDownLatch(config.getShardCount());
         EventListener readyListener = new ReadyListener(readyLatch);
         EventListener reactListener = new ReactListener();
@@ -183,7 +183,7 @@ public class Bot {
             // Initialize JDA
             log.info("Logging in...");
             shardManager = DefaultShardManagerBuilder.create(gateways)
-                    .setToken(token)
+                    .setToken(secrets.getToken())
                     .setAutoReconnect(true)
                     .addEventListeners(readyListener)
                     .setShardsTotal(config.getShardCount())
@@ -248,7 +248,7 @@ public class Bot {
         Future<VoteHandler> futureVH = null;
         if (config.getBotListConfig().isReceiveVotes()) {
             log.debug("Config enabled vote handler, starting...");
-            futureVH = exe.submit(() -> new VoteHandler(this, config.getBotListConfig()));
+            futureVH = exe.submit(() -> new VoteHandler(this, secrets));
         }
 
         // Post-init
@@ -319,8 +319,9 @@ public class Bot {
         Future<Database> futureDB = exe.submit(() -> new Database(config));
         Future<VoteHandler> futureVH = null;
         BotListConfig blc = config.getBotListConfig();
+        secrets = new Secrets(config);
         if (blc.isReceiveVotes()) {
-            futureVH = exe.submit(() -> new VoteHandler(this, blc));
+            futureVH = exe.submit(() -> new VoteHandler(this, secrets));
         }
 
         // These can be started before the database

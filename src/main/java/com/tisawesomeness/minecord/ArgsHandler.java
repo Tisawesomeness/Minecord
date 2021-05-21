@@ -29,9 +29,6 @@ import java.util.concurrent.Callable;
 @Slf4j
 public class ArgsHandler implements Callable<Integer>, Serializable {
 
-    @Option(names = {"-t", "--token"}, description = "The custom token to use.")
-    @Getter private @Nullable String tokenOverride;
-
     @Option(names = {"-p", "--path"}, description = "The path to the directory where config files are located.")
     @Getter private @Nullable Path path;
 
