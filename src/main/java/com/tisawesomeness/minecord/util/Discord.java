@@ -1,9 +1,5 @@
 package com.tisawesomeness.minecord.util;
 
-import com.tisawesomeness.minecord.BotBranding;
-import com.tisawesomeness.minecord.BuildInfo;
-import com.tisawesomeness.minecord.config.config.Config;
-
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -24,35 +20,6 @@ public final class Discord {
     public static final Pattern ANY_MENTION = Pattern.compile("<(@(!?|&)|#|:(.{2,32}):)\\d{17,20}>");
 
     private final static Pattern DISCORD_ID = Pattern.compile("\\d{17,20}");
-    private static final BuildInfo buildInfo = BuildInfo.getInstance();
-
-    /**
-     * Replaces constants in the input string with their values
-     * @param input A string with {constants}
-     * @param config The config file to get the invite and default prefix from
-     * @return The string with resolved constants, though variables such as {guilds} are unresolved
-     */
-    public static String parseConstants(String input, Config config, BotBranding branding) {
-    return input
-            .replace("{author}", branding.getAuthor())
-            .replace("{author_tag}", branding.getAuthorTag())
-            .replace("{help_server}", branding.getHelpServer())
-            .replace("{website}", branding.getWebsite())
-            .replace("{github}", branding.getGithub())
-            .replace("{invite}", branding.getInvite())
-            .replace("{jda_ver}", buildInfo.jdaVersion)
-            .replace("{version}", buildInfo.version)
-            .replace("{prefix}", config.getSettingsConfig().getDefaultPrefix());
-    }
-
-    /**
-     * Replaces variables in the input string with their values
-     * @param input A string with {variables}
-     * @return The string with resolved variables, though constants such as {version} are unresolved
-     */
-    public static String parseVariables(String input, ShardManager sm) {
-        return input.replace("{guilds}", String.valueOf(sm.getGuildCache().size()));
-    }
 
     public static User findUser(String search, ShardManager sm) {
         Matcher ma = Pattern.compile("(<@!?)?([0-9]{9,20})>?").matcher(search);

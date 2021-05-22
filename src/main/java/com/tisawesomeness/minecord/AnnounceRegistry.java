@@ -4,7 +4,6 @@ import com.tisawesomeness.minecord.config.branding.Announcement;
 import com.tisawesomeness.minecord.config.branding.AnnouncementConfig;
 import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.lang.Lang;
-import com.tisawesomeness.minecord.util.Discord;
 import com.tisawesomeness.minecord.util.Mth;
 
 import lombok.NonNull;
@@ -43,7 +42,7 @@ public class AnnounceRegistry {
                                                                Config config, BotBranding branding) {
         MultiSet<String> multiSet = new HashMultiSet<>();
         for (Announcement ann : announcements) {
-            String text = Discord.parseConstants(ann.getText(), config, branding);
+            String text = branding.parseConstants(ann.getContent(), config.getSettingsConfig());
             multiSet.add(text, ann.getWeight());
         }
         return MultiSetUtils.unmodifiableMultiSet(multiSet);
@@ -62,7 +61,7 @@ public class AnnounceRegistry {
             }
             return Optional.empty();
         }
-        return Optional.of(Discord.parseVariables(Mth.weightedRandom(announcements), sm));
+        return Optional.of(BotBranding.parseVariables(Mth.weightedRandom(announcements), sm));
     }
 
 }

@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.config.branding;
 
-import com.tisawesomeness.minecord.util.Discord;
 import com.tisawesomeness.minecord.util.discord.PresenceType;
 import com.tisawesomeness.minecord.util.type.Verification;
 
@@ -11,10 +10,8 @@ import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.sharding.ShardManager;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
 
 /**
  * Represents a presence that cane be only a status,
@@ -70,21 +67,6 @@ public class Presence {
      */
     public boolean hasContent() {
         return content != null;
-    }
-
-    /**
-     * Changes the bot presence to this one
-     * @param sm The ShardManager used to change presence
-     */
-    public void setPresence(ShardManager sm) {
-        if (!hasContent()) {
-            sm.setPresence(status, null);
-            return;
-        }
-        String displayContent = Discord.parseVariables(content, sm);
-        Activity.ActivityType activityType = Objects.requireNonNull(type).getActivityType();
-        Activity jdaActivity = Activity.of(activityType, displayContent, url);
-        sm.setPresence(status, jdaActivity);
     }
 
 }

@@ -1,4 +1,6 @@
-# Branding config
+################################
+#   Minecord Branding Config   #
+################################
 
 branding:
   # Your name here
@@ -15,6 +17,17 @@ branding:
   # If you make changes, link to your fork on GitHub here
   "github": "https://github.com/Tisawesomeness/Minecord"
 
+# Placeholders can be used in both presence and announcement content
+# %author%, %author_tag%, %invite%, %help_server%, %website%, %github% - Same as the above branding
+# %prefix% - The default prefix
+# %version% - The bot version
+# %jda_version% - The JDA version
+# %guilds% - The current number of guilds the bot is in
+
+# Both presences and announcements are weighted
+# The chance that a presence or announcement will be randomly selected is:
+# (weight of presence or announcement) / (total weight of all presences or announcements) * 100%
+
 presence:
   # How often bot presences switch in seconds, set to -1 to update on guild join/leave
   changeInterval: 60
@@ -30,7 +43,7 @@ presence:
   presences:
     - status: ONLINE
       type: PLAYING
-      content: "@Minecord help | {guilds} guilds"
+      content: "@Minecord help | %guilds% guilds"
       url: "https://example.com/url-that-only-displays-when-type-is-STREAMING.php"
       weight: 1
   # The presence (activity) that shows when the bot is loading
@@ -46,13 +59,12 @@ announcements:
   # If true, the announcements for the default language will be used instead
   # If false, no announcements will show
   fallbackToDefaultLang: false
-  # TODO redo and document variables, document weight
-  # Weight cannot be negative
+  # Use the language code for each language (example: pt_BR)
   announcements:
     en_US:
-      - text: "Minecord {version} | Made with ❤ by {author}"
+      - content: "Minecord %version% | Made with ❤ by %author%"
         weight: 16
-      - text: "Join the help server at {help_server}"
+      - content: "Join the help server at %help_server%"
         weight: 3
-      - text: "Invite me to your server! {invite}"
+      - content: "Invite me to your server! %invite%"
         weight: 1

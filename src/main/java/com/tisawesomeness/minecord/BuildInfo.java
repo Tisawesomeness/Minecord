@@ -26,6 +26,16 @@ public final class BuildInfo {
     }
 
     /**
+     * Replaces constants in the string with their values
+     * @param str A string with %constants%
+     * @return The string with resolved constants from build info
+     */
+    public @NonNull String parsePlaceholders(@NonNull String str) {
+        return str.replace("%jda_version%", jdaVersion)
+                .replace("%version%", version);
+    }
+
+    /**
      * Supplies the version in a format that {@link ArgsHandler} can accept.
      */
     public static final class VersionProvider implements CommandLine.IVersionProvider {

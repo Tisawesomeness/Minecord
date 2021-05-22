@@ -299,7 +299,7 @@ public class Bot {
         log.info("Reloading...");
 
         // Closing everything down
-        if (config.getBotListConfig().isReceiveVotes()) {
+        if (config.getBotListConfig() != null && config.getBotListConfig().isReceiveVotes()) {
             voteHandler.close();
         }
         presenceService.shutdown();
@@ -320,7 +320,7 @@ public class Bot {
         Future<VoteHandler> futureVH = null;
         BotListConfig blc = config.getBotListConfig();
         secrets = new Secrets(config);
-        if (blc.isReceiveVotes()) {
+        if (blc != null && blc.isReceiveVotes()) {
             futureVH = exe.submit(() -> new VoteHandler(this, secrets));
         }
 

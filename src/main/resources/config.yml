@@ -16,6 +16,7 @@
 # For help, check out these resources:
 # GitHub: https://github.com/Tisawesomeness/Minecord
 # Support Server: https://minecord.github.io/support
+# Remember to grab the self-hosting role in #self-roles in the support server!
 #
 # Pull requests are welcome!
 # If you make changes, we would love for you to contribute them
@@ -23,6 +24,7 @@
 #
 # Remember that Minecord uses the GNU AGPL-3 license,
 # so if you make changes on a public self-hosted bot, you must make it open source.
+# You can link to the GitHub page in branding.yml.
 # https://github.com/Tisawesomeness/Minecord/blob/refactor/LICENSE
 #
 # Keeping the above in mind, run wild!

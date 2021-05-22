@@ -11,8 +11,8 @@ import javax.annotation.Nullable;
 
 @Value
 public class Announcement {
-    @JsonProperty("text")
-    String text;
+    @JsonProperty("content")
+    String content;
     @JsonProperty("weight") @JsonSetter(nulls = Nulls.SET)
     @Nullable Integer weight;
 

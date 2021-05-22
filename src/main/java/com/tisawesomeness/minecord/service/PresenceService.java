@@ -1,13 +1,17 @@
 package com.tisawesomeness.minecord.service;
 
+import com.tisawesomeness.minecord.BotBranding;
 import com.tisawesomeness.minecord.config.branding.Branding;
+import com.tisawesomeness.minecord.config.branding.Presence;
 import com.tisawesomeness.minecord.config.branding.PresenceConfig;
 import com.tisawesomeness.minecord.util.discord.PresenceSwitcher;
 
 import lombok.NonNull;
+import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
@@ -52,6 +56,14 @@ public class PresenceService extends Service {
      * Call to manually run this service once.
      */
     public void run() {
-        switcher.switchPresence().setPresence(sm);
+        Presence presence = switcher.switchPresence();
+        if (!presence.hasContent()) {
+            sm.setPresence(presence.getStatus(), null);
+            return;
+        }
+        String displayContent = BotBranding.parseVariables(presence.getContent(), sm);
+        Activity.ActivityType activityType = Objects.requireNonNull(presence.getType()).getActivityType();
+        Activity jdaActivity = Activity.of(activityType, displayContent, presence.getUrl());
+        sm.setPresence(presence.getStatus(), jdaActivity);
     }
 }
