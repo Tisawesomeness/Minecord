@@ -22,7 +22,7 @@ import java.util.List;
 public class GuildCountListener extends ListenerAdapter {
 
     private final @NonNull Bot bot;
-    private final @NonNull BotListConfig botListConfig;
+    private final @Nullable BotListConfig botListConfig;
     private final @Nullable PresenceConfig presenceConfig;
     private final @NonNull PresenceService presenceService;
     private final @NonNull BotListService botListService;
@@ -66,7 +66,7 @@ public class GuildCountListener extends ListenerAdapter {
     private void updateGuilds(EmbedBuilder eb, Guild guild) {
         eb.setThumbnail(guild.getIconUrl());
         bot.log(eb.build());
-        if (botListConfig.getSendGuildsInterval() == -1) {
+        if (botListConfig != null && botListConfig.getSendGuildsInterval() == -1) {
             botListService.run();
         }
         if (presenceConfig != null && presenceConfig.getChangeInterval() == -1) {

@@ -205,7 +205,7 @@ public class Bot {
 
         // These depend on ShardManager
         presenceService = new PresenceService(shardManager, brandingConfig);
-        botListService = new BotListService(shardManager, config.getBotListConfig());
+        botListService = new BotListService(shardManager, config.getBotListConfig(), secrets);
         if (brandingConfig != null) {
             guildCountListener = new GuildCountListener(this, config.getBotListConfig(),
                     brandingConfig.getPresenceConfig(), presenceService, botListService);
@@ -349,7 +349,7 @@ public class Bot {
         settings = new SettingRegistry(config.getSettingsConfig());
         presenceService = new PresenceService(shardManager, brandingConfig);
         presenceService.start();
-        botListService = new BotListService(shardManager, blc);
+        botListService = new BotListService(shardManager, blc, secrets);
         botListService.start();
         if (brandingConfig != null) {
             guildCountListener = new GuildCountListener(this ,config.getBotListConfig(),

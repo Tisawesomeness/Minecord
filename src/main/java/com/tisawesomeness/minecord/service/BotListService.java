@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.service;
 
+import com.tisawesomeness.minecord.Secrets;
 import com.tisawesomeness.minecord.config.config.BotListConfig;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
@@ -19,7 +20,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class BotListService extends Service {
     private final @NonNull ShardManager sm;
-    private final @NonNull BotListConfig config;
+    private final @Nullable BotListConfig config;
+    private final @NonNull Secrets secrets;
     private final @Nullable DiscordBotListAPI api;
 
     /**
@@ -27,11 +29,12 @@ public class BotListService extends Service {
      * @param sm The ShardManager to pull guild counts from
      * @param config The config that decides if and how often this service should run
      */
-    public BotListService(@NonNull ShardManager sm, @NonNull BotListConfig config) {
+    public BotListService(@NonNull ShardManager sm, @Nullable BotListConfig config, @NonNull Secrets secrets) {
         this.sm = sm;
         this.config = config;
-        if (config.isSendServerCount() && config.getOrgToken() != null) {
-            api = new DiscordBotListAPI.Builder().token(config.getOrgToken()).build();
+        this.secrets = secrets;
+        if (config != null && config.isSendServerCount() && secrets.getOrgToken() != null) {
+            api = new DiscordBotListAPI.Builder().token(secrets.getOrgToken()).build();
         } else {
             api = null;
         }
@@ -39,7 +42,7 @@ public class BotListService extends Service {
 
     @Override
     public boolean shouldRun() {
-        return config.isSendServerCount();
+        return config != null && config.isSendServerCount();
     }
 
     public void schedule(ScheduledExecutorService exe) {
@@ -53,10 +56,10 @@ public class BotListService extends Service {
         int servers = sm.getGuilds().size();
         String id = sm.getShardById(0).getSelfUser().getId();
 
-        if (config.getPwToken() != null) {
+        if (secrets.getPwToken() != null) {
             String url = "https://bots.discord.pw/api/bots/" + id + "/stats";
             String query = "{\"server_count\": " + servers + "}";
-            RequestUtils.post(url, query, config.getPwToken());
+            RequestUtils.post(url, query, secrets.getPwToken());
         }
 
         /*

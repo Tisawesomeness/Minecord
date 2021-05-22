@@ -5,6 +5,8 @@ import com.tisawesomeness.minecord.util.type.Verification;
 
 import ch.qos.logback.classic.Level;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import lombok.ToString;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
@@ -44,8 +46,8 @@ public class Config implements VerifiableConfig {
     SettingsConfig settingsConfig;
     @JsonProperty("flags")
     FlagConfig flagConfig;
-    @JsonProperty("botLists")
-    BotListConfig botListConfig;
+    @JsonProperty("botLists") @JsonSetter(nulls = Nulls.SET)
+    @Nullable BotListConfig botListConfig;
     @JsonProperty("database")
     DatabaseConfig databaseConfig;
     @JsonProperty("commands")
@@ -66,7 +68,7 @@ public class Config implements VerifiableConfig {
         return Verification.combineAll(
                 verifyShards(),
                 settingsConfig.verify(),
-                botListConfig.verify(),
+                verifyBotListConfig(),
                 commandConfig.verify(),
                 advancedConfig.verify(flagConfig.isLinkedDeletion())
         );
@@ -76,6 +78,12 @@ public class Config implements VerifiableConfig {
             return Verification.invalid("The shard count must be positive!");
         }
         return Verification.valid();
+    }
+    private Verification verifyBotListConfig() {
+        if (botListConfig == null) {
+            return Verification.valid();
+        }
+        return botListConfig.verify();
     }
 
     /**

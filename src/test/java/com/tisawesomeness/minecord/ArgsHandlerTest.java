@@ -11,19 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Tag("ArgsHandler")
 public class ArgsHandlerTest {
 
-    @ParameterizedTest(name = "{index} ==> Accepting token with flag ''{0}''")
-    @ValueSource(strings = {"-t", "--token"})
-    @DisplayName("Custom tokens supplied through command-line args are accepted")
-    public void testToken(String candidate) {
-        String token = "dummyToken";
-        String[] args = getArgs(candidate, token);
-        ArgsHandler handler = new ArgsHandler();
-        int exitCode = new CommandLine(handler).execute(args);
-        assertThat(exitCode).isEqualTo(0);
-        // Not using isEqualTo to make sure tokens NEVER get printed
-        assertThat(handler.getTokenOverride().equals(token)).isTrue();
-    }
-
     @ParameterizedTest(name = "{index} ==> Accepting path with flag ''{0}''")
     @ValueSource(strings = {"-p", "--path"})
     @DisplayName("Paths to files supplied through command-line args are rejected")

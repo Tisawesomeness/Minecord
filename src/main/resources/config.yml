@@ -92,17 +92,6 @@ flags:
   # If false, only the Mojang API will be used
   useElectroidAPI: true
 
-# Do not post a self-hosted version of Minecord to a bot list
-botLists:
-  sendServerCount: false
-  sendGuildsInterval: 60
-  pwToken: "your token here"
-  orgToken: "your token here"
-  receiveVotes: false
-  webhookUrl: "your URL here"
-  webhookPort: 8000
-  webhookAuth: "your auth here"
-
 database:
   # The path to the SQLite database file
   path: "./minecord/minecord.db"
