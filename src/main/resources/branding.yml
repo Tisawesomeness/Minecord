@@ -48,6 +48,7 @@ presence:
       weight: 1
   # The presence (activity) that shows when the bot is loading
   # Same format as presence but only type and content are allowed
+  # The %guilds% placeholder is unavailable
   loadingActivity:
     type: PLAYING
     content: "Loading..."
