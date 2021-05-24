@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.config.branding;
 
 import com.tisawesomeness.minecord.BotBranding;
-import com.tisawesomeness.minecord.config.config.SettingsConfig;
+import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.util.discord.PresenceType;
 import com.tisawesomeness.minecord.util.type.Verification;
 
@@ -46,7 +46,7 @@ public class LoadingActivity {
     /**
      * @return This loading activity as a JDA activity
      */
-    public @Nullable Activity asActivity(BotBranding branding, SettingsConfig config) {
+    public @Nullable Activity asActivity(BotBranding branding, Config config) {
         if (!hasContent()) {
             return null;
         }

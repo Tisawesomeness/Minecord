@@ -3,10 +3,10 @@ package com.tisawesomeness.minecord;
 import com.tisawesomeness.minecord.config.branding.Branding;
 import com.tisawesomeness.minecord.config.branding.BrandingConfig;
 import com.tisawesomeness.minecord.config.config.Config;
-import com.tisawesomeness.minecord.config.config.SettingsConfig;
 
 import lombok.Getter;
 import lombok.NonNull;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
 import java.awt.Color;
@@ -78,7 +78,7 @@ public class BotBranding {
      * @param config The config file to get the default prefix from
      * @return The string with resolved constants, though variables such as %guilds% are unresolved
      */
-    public @NonNull String parseConstants(@NonNull String str, @NonNull SettingsConfig config) {
+    public @NonNull String parseConstants(@NonNull String str, @NonNull Config config) {
         return buildInfo.parsePlaceholders(str)
                 .replace("%author%", author)
                 .replace("%author_tag%", authorTag)
@@ -86,7 +86,10 @@ public class BotBranding {
                 .replace("%invite%", invite)
                 .replace("%website%", website)
                 .replace("%github%", github)
-                .replace("%prefix%", config.getDefaultPrefix());
+                .replace("%java_version%", System.getProperty("java.version"))
+                .replace("%mc_version%", config.getSupportedMCVersion())
+                .replace("%bot_shards%", String.valueOf(config.getShardCount()))
+                .replace("%prefix%", config.getSettingsConfig().getDefaultPrefix());
     }
     /**
      * Replaces variables in the input string with their values
@@ -94,7 +97,12 @@ public class BotBranding {
      * @return The string with resolved variables, though constants such as %version% are unresolved
      */
     public static String parseVariables(String str, ShardManager sm) {
-        return str.replace("%guilds%", String.valueOf(sm.getGuildCache().size()));
+        User u = sm.getShards().get(0).getSelfUser();
+        return str.replace("%guilds%", String.valueOf(sm.getGuildCache().size()))
+                .replace("%bot_username%", u.getName())
+                .replace("%bot_tag%", u.getAsTag())
+                .replace("%bot_mention%", u.getAsMention())
+                .replace("%bot_id%", u.getId());
     }
 
 }

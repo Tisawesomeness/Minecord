@@ -6,23 +6,30 @@ branding:
   # Your name here
   author: "Tis_awesomeness"
   # Your Discord tag
-  "authorTag": "@Tis_awesomeness#8617"
+  authorTag: "@Tis_awesomeness#8617"
   # The bot invite link, use the format below (replace "CLIENT_ID" with the bot's client ID)
   # https://discord.com/oauth2/authorize?client_id=CLIENT_ID&scope=bot&permissions=93248
-  "invite": "https://minecord.github.io/invite"
+  invite: "https://minecord.github.io/invite"
   # A link to the help server
-  "helpServer": "https://minecord.github.io/support"
+  helpServer: "https://minecord.github.io/support"
   # A link to the bot website
-  "website": "https://minecord.github.io"
+  website: "https://minecord.github.io"
   # If you make changes, link to your fork on GitHub here
-  "github": "https://github.com/Tisawesomeness/Minecord"
+  github: "https://github.com/Tisawesomeness/Minecord"
 
 # Placeholders can be used in both presence and announcement content
 # %author%, %author_tag%, %invite%, %help_server%, %website%, %github% - Same as the above branding
 # %prefix% - The default prefix
 # %version% - The bot version
 # %jda_version% - The JDA version
+# %java_version% - The Java version
+# %mc_version% - The maximum support MC version, same as in config.yml
+# %bot_shards% - The total number of shards, same as in config.yml
 # %guilds% - The current number of guilds the bot is in
+# %bot_username% - The bot's Discord username
+# %bot_tag% - The bot's Discord tag (such as Minecord#1216)
+# %bot_mention% - The bot's @mention
+# %bot_id% - The bot's Discord ID
 
 # Both presences and announcements are weighted
 # The chance that a presence or announcement will be randomly selected is:
@@ -43,12 +50,12 @@ presence:
   presences:
     - status: ONLINE
       type: PLAYING
-      content: "@Minecord help | %guilds% guilds"
+      content: "@%bot_username% help | %guilds% guilds"
       url: "https://example.com/url-that-only-displays-when-type-is-STREAMING.php"
       weight: 1
   # The presence (activity) that shows when the bot is loading
   # Same format as presence but only type and content are allowed
-  # The %guilds% placeholder is unavailable
+  # The %guilds%, %bot_username%, %bot_tag%, %bot_mention%, and %bot_id% placeholders are unavailable
   loadingActivity:
     type: PLAYING
     content: "Loading..."

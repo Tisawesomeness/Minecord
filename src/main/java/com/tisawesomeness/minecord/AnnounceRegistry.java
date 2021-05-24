@@ -26,7 +26,7 @@ public class AnnounceRegistry {
     private final boolean fallbackToDefaultLang;
 
     /**
-     * Reads announcements from file and parses their {constants}
+     * Reads announcements from file and parses their %constants%
      */
     public AnnounceRegistry(@NonNull Config config, @NonNull BotBranding branding,
                             @NonNull AnnouncementConfig announceConf) {
@@ -42,7 +42,7 @@ public class AnnounceRegistry {
                                                                Config config, BotBranding branding) {
         MultiSet<String> multiSet = new HashMultiSet<>();
         for (Announcement ann : announcements) {
-            String text = branding.parseConstants(ann.getContent(), config.getSettingsConfig());
+            String text = branding.parseConstants(ann.getContent(), config);
             multiSet.add(text, ann.getWeight());
         }
         return MultiSetUtils.unmodifiableMultiSet(multiSet);
