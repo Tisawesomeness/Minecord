@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.config.config;
 
+import com.tisawesomeness.minecord.BotBrandingTest;
 import com.tisawesomeness.minecord.testutil.Resources;
 import com.tisawesomeness.minecord.util.type.Verification;
 
@@ -35,6 +36,14 @@ public class ConfigTest {
     @DisplayName("Default config has prefix &")
     public void testDefaultPrefix() {
         assertThat(config.getSettingsConfig().getDefaultPrefix()).isEqualTo("&");
+    }
+    /**
+     * {@link BotBrandingTest#testConfigBranding()}
+     */
+    @Test
+    @DisplayName("Default config is self hosted")
+    public void testSelfHosted() {
+        assertThat(config.isSelfHosted()).isTrue();
     }
 
 }

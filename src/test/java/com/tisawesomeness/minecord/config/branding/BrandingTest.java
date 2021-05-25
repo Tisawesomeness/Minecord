@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.config.branding;
 
+import com.tisawesomeness.minecord.BotBrandingTest;
 import com.tisawesomeness.minecord.testutil.Resources;
 import com.tisawesomeness.minecord.util.discord.PresenceBehavior;
 import com.tisawesomeness.minecord.util.type.Verification;
@@ -36,6 +37,14 @@ public class BrandingTest {
     @DisplayName("Default branding has one and only one presence")
     public void testOnePresenceExists() {
         assertThat(branding.getPresenceConfig().getPresences()).hasSize(1);
+    }
+    /**
+     * {@link BotBrandingTest#testConfigBranding()}
+     */
+    @Test
+    @DisplayName("Default config has branding config")
+    public void testHasBrandingConfig() {
+        assertThat(branding.getBrandingConfig()).isNotNull();
     }
 
 }
