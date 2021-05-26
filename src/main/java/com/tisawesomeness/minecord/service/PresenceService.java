@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.service;
 
-import com.tisawesomeness.minecord.BotBranding;
+import com.tisawesomeness.minecord.Placeholders;
 import com.tisawesomeness.minecord.config.branding.Branding;
 import com.tisawesomeness.minecord.config.branding.Presence;
 import com.tisawesomeness.minecord.config.branding.PresenceConfig;
@@ -61,7 +61,7 @@ public class PresenceService extends Service {
             sm.setPresence(presence.getStatus(), null);
             return;
         }
-        String displayContent = BotBranding.parseVariables(presence.getContent(), sm);
+        String displayContent = Placeholders.parseVariables(Objects.requireNonNull(presence.getContent()), sm);
         Activity.ActivityType activityType = Objects.requireNonNull(presence.getType()).getActivityType();
         Activity jdaActivity = Activity.of(activityType, displayContent, presence.getUrl());
         sm.setPresence(presence.getStatus(), jdaActivity);

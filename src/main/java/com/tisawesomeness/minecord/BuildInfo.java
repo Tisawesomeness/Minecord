@@ -31,8 +31,8 @@ public final class BuildInfo {
      * @return The string with resolved constants from build info
      */
     public @NonNull String parsePlaceholders(@NonNull String str) {
-        return str.replace("%jda_version%", jdaVersion)
-                .replace("%version%", version);
+        return str.replace(Placeholders.VERSION, version)
+                .replace(Placeholders.JDA_VERSION, jdaVersion);
     }
 
     /**

@@ -42,7 +42,7 @@ public class AnnounceRegistry {
                                                                Config config, BotBranding branding) {
         MultiSet<String> multiSet = new HashMultiSet<>();
         for (Announcement ann : announcements) {
-            String text = branding.parseConstants(ann.getContent(), config);
+            String text = Placeholders.parseConstants(ann.getContent(), config, branding);
             multiSet.add(text, ann.getWeight());
         }
         return MultiSetUtils.unmodifiableMultiSet(multiSet);
@@ -61,7 +61,7 @@ public class AnnounceRegistry {
             }
             return Optional.empty();
         }
-        return Optional.of(BotBranding.parseVariables(Mth.weightedRandom(announcements), sm));
+        return Optional.of(Placeholders.parseVariables(Mth.weightedRandom(announcements), sm));
     }
 
 }

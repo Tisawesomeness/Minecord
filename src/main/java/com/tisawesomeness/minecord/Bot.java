@@ -160,7 +160,7 @@ public class Bot {
             branding = new BotBranding();
             loadingActivity = LoadingActivity.getDefault();
         }
-        Activity activity = loadingActivity == null ? null : loadingActivity.asActivity(branding, config);
+        Activity activity = loadingActivity == null ? null : loadingActivity.asActivity(config, branding);
 
         if (config.getFlagConfig().isLoadTranslationsFromFile()) {
             log.debug("Config enabled external translations, reading...");

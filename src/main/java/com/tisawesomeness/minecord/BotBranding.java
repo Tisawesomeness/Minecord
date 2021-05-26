@@ -6,8 +6,6 @@ import com.tisawesomeness.minecord.config.config.Config;
 
 import lombok.Getter;
 import lombok.NonNull;
-import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.sharding.ShardManager;
 
 import java.awt.Color;
 
@@ -75,34 +73,16 @@ public class BotBranding {
     /**
      * Replaces constants in the input string with their values
      * @param str A string with %constants%
-     * @param config The config file to get the default prefix from
      * @return The string with resolved constants, though variables such as %guilds% are unresolved
      */
-    public @NonNull String parseConstants(@NonNull String str, @NonNull Config config) {
+    public @NonNull String parsePlaceholders(@NonNull String str) {
         return buildInfo.parsePlaceholders(str)
-                .replace("%author%", author)
-                .replace("%author_tag%", authorTag)
-                .replace("%help_server%", helpServer)
-                .replace("%invite%", invite)
-                .replace("%website%", website)
-                .replace("%github%", github)
-                .replace("%java_version%", System.getProperty("java.version"))
-                .replace("%mc_version%", config.getSupportedMCVersion())
-                .replace("%bot_shards%", String.valueOf(config.getShardCount()))
-                .replace("%prefix%", config.getSettingsConfig().getDefaultPrefix());
-    }
-    /**
-     * Replaces variables in the input string with their values
-     * @param str A string with %variables%
-     * @return The string with resolved variables, though constants such as %version% are unresolved
-     */
-    public static String parseVariables(String str, ShardManager sm) {
-        User u = sm.getShards().get(0).getSelfUser();
-        return str.replace("%guilds%", String.valueOf(sm.getGuildCache().size()))
-                .replace("%bot_username%", u.getName())
-                .replace("%bot_tag%", u.getAsTag())
-                .replace("%bot_mention%", u.getAsMention())
-                .replace("%bot_id%", u.getId());
+                .replace(Placeholders.AUTHOR, author)
+                .replace(Placeholders.AUTHOR_TAG, authorTag)
+                .replace(Placeholders.HELP_SERVER, helpServer)
+                .replace(Placeholders.INVITE, invite)
+                .replace(Placeholders.WEBSITE, website)
+                .replace(Placeholders.GITHUB, github);
     }
 
 }
