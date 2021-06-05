@@ -22,9 +22,7 @@ public class CommandOverride {
     boolean disabled;
 
     public Verification verify() {
-        if (cooldown != null && cooldownPool != null) {
-            return Verification.invalid("You cannot include both a cooldown and cooldown pool in the same command.");
-        }
-        return Verification.valid();
+        return Verification.verify(cooldown == null || cooldownPool == null,
+                "You cannot include both a cooldown and cooldown pool in the same command.");
     }
 }

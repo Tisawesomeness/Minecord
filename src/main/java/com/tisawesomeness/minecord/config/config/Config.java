@@ -74,10 +74,7 @@ public class Config implements VerifiableConfig {
         );
     }
     private Verification verifyShards() {
-        if (shardCount <= 0) {
-            return Verification.invalid("The shard count must be positive!");
-        }
-        return Verification.valid();
+        return Verification.verify(shardCount > 0, "The shard count must be positive!");
     }
     private Verification verifyBotListConfig() {
         if (botListConfig == null) {

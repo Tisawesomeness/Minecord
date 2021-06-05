@@ -43,55 +43,25 @@ public class CacheConfig {
      */
     public Verification verify() {
         return Verification.combineAll(
-                verifyGuildLifetime(),
-                verifyGuildMaxSize(),
-                verifyChannelLifetime(),
-                verifyChannelMaxSize(),
-                verifyUserLifetime(),
-                verifyUserMaxSize(),
+                verifyCacheLifetime(guildLifetime, "Guild"),
+                verifyCacheMaxSize(guildMaxSize, "Guild"),
+                verifyCacheLifetime(channelLifetime, "Channel"),
+                verifyCacheMaxSize(channelMaxSize, "Channel"),
+                verifyCacheLifetime(userLifetime, "User"),
+                verifyCacheMaxSize(userMaxSize, "User"),
                 verifyCooldownTolerance(),
-                verifyLinkLifetime(),
-                verifyLinkMaxSize(),
+                verifyCacheLifetime(linkLifetime, "Link"),
+                verifyCacheMaxSize(linkMaxSize, "Link"),
                 verifyUuid(),
                 verifyPlayer()
         );
     }
 
-    private Verification verifyGuildLifetime() {
-        if (guildLifetime >= 0) {
-            return Verification.valid();
-        }
-        return Verification.invalid("Guild lifetime cannot be negative");
+    private static Verification verifyCacheLifetime(long lifetime, String cacheName) {
+        return Verification.verify(lifetime >= 0, cacheName + " lifetime cannot be negative");
     }
-    private Verification verifyGuildMaxSize() {
-        if (guildMaxSize >= -1) {
-            return Verification.valid();
-        }
-        return Verification.invalid("Guild cache max size must be -1, 0, or positive");
-    }
-    private Verification verifyChannelLifetime() {
-        if (channelLifetime >= 0) {
-            return Verification.valid();
-        }
-        return Verification.invalid("Channel lifetime cannot be negative");
-    }
-    private Verification verifyChannelMaxSize() {
-        if (channelMaxSize >= -1) {
-            return Verification.valid();
-        }
-        return Verification.invalid("Channel cache max size must be -1, 0, or positive");
-    }
-    private Verification verifyUserLifetime() {
-        if (userLifetime >= 0) {
-            return Verification.valid();
-        }
-        return Verification.invalid("User lifetime cannot be negative");
-    }
-    private Verification verifyUserMaxSize() {
-        if (userMaxSize >= -1) {
-            return Verification.valid();
-        }
-        return Verification.invalid("User cache max size must be -1, 0, or positive");
+    private static Verification verifyCacheMaxSize(long maxSize, String cacheName) {
+        return Verification.verify(maxSize >= -1, cacheName + " cache max size must be -1, 0, or positive");
     }
 
     private Verification verifyCooldownTolerance() {
@@ -99,18 +69,6 @@ public class CacheConfig {
             return Verification.valid();
         }
         return Verification.invalid("Cooldown tolerance cannot be negative");
-    }
-    private Verification verifyLinkLifetime() {
-        if (linkLifetime >= 0) {
-            return Verification.valid();
-        }
-        return Verification.invalid("Link lifetime cannot be negative");
-    }
-    private Verification verifyLinkMaxSize() {
-        if (linkMaxSize >= -1) {
-            return Verification.valid();
-        }
-        return Verification.invalid("Link cache max size must be -1, 0, or positive");
     }
 
     private Verification verifyUuid() {

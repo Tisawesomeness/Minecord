@@ -42,17 +42,12 @@ public class PresenceConfig {
     }
     // Assumes presences is not empty
     private Verification verifyChangeInterval() {
-        if (changeInterval < -1 || changeInterval == 0) {
-            return Verification.invalid("The change interval must be -1 or positive.");
-        }
-        return Verification.valid();
+        return Verification.verify(changeInterval == -1 || changeInterval > 0,
+                "The change interval must be -1 or positive.");
     }
     // Assumes presences is not empty
     private Verification verifyBehavior() {
-        if (behavior == null) {
-            return Verification.invalid("You must provide the presence behavior.");
-        }
-        return Verification.valid();
+        return Verification.verify(behavior != null, "You must provide the presence behavior.");
     }
     private Verification verifyPresences() {
         return presences.stream()

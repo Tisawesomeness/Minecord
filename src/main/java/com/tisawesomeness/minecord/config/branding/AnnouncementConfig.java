@@ -48,10 +48,7 @@ public class AnnouncementConfig {
                 return Verification.invalid("The total weight was so high it caused an integer overflow.");
             }
         }
-        if (weight == 0) {
-            return Verification.invalid("The total weight cannot be 0.");
-        }
-        return Verification.valid();
+        return Verification.verify(weight != 0, "The total weight cannot be 0.");
     }
 
 }

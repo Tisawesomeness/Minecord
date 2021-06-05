@@ -30,10 +30,7 @@ public class CommandConfig {
         );
     }
     private Verification verifyPushUsesInterval() {
-        if (pushUsesInterval > 0) {
-            return Verification.valid();
-        }
-        return Verification.invalid("pushUsesInterval must be positive.");
+        return Verification.verify(pushUsesInterval > 0, "pushUsesInterval must be positive.");
     }
     private Verification verifyOverrides() {
         return overrides.values().stream()
@@ -46,9 +43,6 @@ public class CommandConfig {
                 .map(CommandOverride::getCooldownPool)
                 .filter(Objects::nonNull)
                 .allMatch(cooldownPools::containsKey);
-        if (poolsExist) {
-            return Verification.valid();
-        }
-        return Verification.invalid("One of the cooldown pools does not exist.");
+        return Verification.verify(poolsExist, "One of the cooldown pools does not exist.");
     }
 }

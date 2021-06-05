@@ -21,10 +21,7 @@ public class Announcement {
     }
 
     public Verification verify() {
-        if (weight == null || weight >= 0) {
-            return Verification.valid();
-        }
-        return Verification.invalid("Announcement weight must be non-negative");
+        return Verification.verify(weight == null || weight >= 0, "Announcement weight must be non-negative");
     }
 
 }

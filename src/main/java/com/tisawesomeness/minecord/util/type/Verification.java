@@ -60,6 +60,16 @@ public final class Verification {
     }
 
     /**
+     * Creates a Verification that verifies if the given condition is true.
+     * @param condition The condition
+     * @param errorMessage The error message to use if the condition is false
+     * @return A Verification that is valid if the condition is valid, and invalid if the condition is invalid
+     */
+    public static Verification verify(boolean condition, @NonNull String errorMessage) {
+        return condition ? valid() : invalid(errorMessage);
+    }
+
+    /**
      * Tests if this Verification is valid.
      * <br>If true, {@link #getErrors()} is empty.
      * @return Whether this Verification is valid

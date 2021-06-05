@@ -56,10 +56,7 @@ public class Presence {
         return Verification.valid();
     }
     private Verification verifyWeight() {
-        if (weight == null || weight >= 0) {
-            return Verification.valid();
-        }
-        return Verification.invalid("Presence weight must be non-negative");
+        return Verification.verify(weight == null || weight >= 0, "Presence weight must be non-negative");
     }
 
     /**

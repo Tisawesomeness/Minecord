@@ -23,22 +23,13 @@ public class HttpConfig {
     }
 
     private Verification verifyMaxRequestsPerHost() {
-        if (maxRequestsPerHost < 1) {
-            return Verification.invalid("Max requests per host must be positive");
-        }
-        return Verification.valid();
+        return Verification.verify(maxRequestsPerHost > 0, "Max requests per host must be positive");
     }
     private Verification verifyMaxIdleConnections() {
-        if (maxIdleConnections < 1) {
-            return Verification.invalid("Max idle connections must be positive");
-        }
-        return Verification.valid();
+        return Verification.verify(maxRequestsPerHost > 0, "Max idle connections must be positive");
     }
     private Verification verifyKeepAlive() {
-        if (keepAlive < 1) {
-            return Verification.invalid("Keep alive time must be positive");
-        }
-        return Verification.valid();
+        return Verification.verify(keepAlive > 0, "Keep alive time must be positive");
     }
 
 }

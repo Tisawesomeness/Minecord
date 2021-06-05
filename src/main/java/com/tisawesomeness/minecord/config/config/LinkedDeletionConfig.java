@@ -26,28 +26,16 @@ public class LinkedDeletionConfig {
     }
 
     private Verification verifyMaxDeletes() {
-        if (maxDeletes < 1) {
-            return Verification.invalid("The maximum replies to delete must be positive");
-        }
-        return Verification.valid();
+        return Verification.verify(maxDeletes > 0, "The maximum replies to delete must be positive");
     }
     private Verification verifyInitialCapacity() {
-        if (initialCapacity < 1) {
-            return Verification.invalid("The initial capacity must be positive");
-        }
-        return Verification.valid();
+        return Verification.verify(initialCapacity > 0, "The initial capacity must be positive");
     }
     private Verification verifyLoadFactor() {
-        if (0.0 <= loadFactor && loadFactor <= 1.0) {
-            return Verification.valid();
-        }
-        return Verification.invalid("The load factor must be between 0 and 1");
+        return Verification.verify(0.0 <= loadFactor && loadFactor <= 1.0, "The load factor must be between 0 and 1");
     }
     private Verification verifyConcurrencyLevel() {
-        if (concurrencyLevel < 1) {
-            return Verification.invalid("The concurrency level must be positive");
-        }
-        return Verification.valid();
+        return Verification.verify(concurrencyLevel > 0, "The concurrency level must be positive");
     }
 
 }
