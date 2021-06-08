@@ -580,12 +580,12 @@
   "minecraft.lapis_block": {
     "lang": {
       "en_US": {
+        "previously": "Lapis Lazuli Block",
         "search_names": [
           "Lapis Block",
-          "Block of Lapis",
-          "Block of Lapis Lazuli"
+          "Block of Lapis"
         ],
-        "display_name": "Lapis Lazuli Block"
+        "display_name": "Block of Lapis Lazuli"
       }
     },
     "properties": {
@@ -5465,18 +5465,20 @@
       "id": 207
     }
   },
-  "minecraft.grass_path": {
+  "minecraft.dirt_path": {
     "lang": {
       "en_US": {
         "search_names": [
           "Path",
           "Path Block"
         ],
-        "display_name": "Grass Path"
+        "previously": "Grass Path",
+        "display_name": "Dirt Path"
       }
     },
     "properties": {
       "id": 208,
+      "previous_id": "minecraft.grass_path",
       "version": "1.9"
     }
   },
@@ -7655,10 +7657,7 @@
       "en_US": {
         "previously": "Ink Sack",
         "search_names": [
-          "Inc Sac",
-          "Inc Sack",
-          "Ink",
-          "Inc"
+          "Ink"
         ],
         "display_name": "Ink Sac"
       }
@@ -13215,6 +13214,9 @@
   "minecraft.white_dye": {
     "lang": {
       "en_US": {
+        "uncolored": [
+          "Dye"
+        ],
         "display_name": "White Dye"
       }
     },
@@ -13754,6 +13756,7 @@
   "minecraft.music_disc_pigstep": {
     "lang": {
       "en_US": {
+        "lore": "Lena Raine - Pigstep",
         "search_names": [
           "Pigstep Disc",
           "Music Disc Pigstep",
@@ -13761,7 +13764,6 @@
           "Lena Raine - Pigstep",
           "Best Song"
         ],
-        "lore": "Lena Raine - Pigstep",
         "display_name": "Music Disc",
         "name_conflict": true
       }
@@ -13926,13 +13928,13 @@
   "minecraft.piglin_banner_pattern": {
     "lang": {
       "en_US": {
+        "lore": "Snout",
         "search_names": [
           "Snout Banner Pattern",
           "Piglin Banner Pattern",
           "Snout Pattern",
           "Piglin Pattern"
         ],
-        "lore": "Snout",
         "display_name": "Banner Pattern",
         "name_conflict": true
       }
@@ -14659,6 +14661,2338 @@
     },
     "properties": {
       "version": "1.16"
+    }
+  },
+  "minecraft.piglin_brute_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Spawn Piglin Brute",
+          "Piglin Brute Egg"
+        ],
+        "display_name": "Piglin Brute Spawn Egg"
+      }
+    },
+    "properties": {
+      "version": "1.16.2"
+    }
+  },
+  "minecraft.amethyst_block": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Amethyst Block"
+        ],
+        "display_name": "Block of Amethyst"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.amethyst_cluster": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Amethyst Crystal",
+          "Amethyst Crystals"
+        ],
+        "display_name": "Amethyst Cluster"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.amethyst_shard": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Amethyst",
+          "Crystal Shard"
+        ],
+        "display_name": "Amethyst Shard"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.axolotl_bucket": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Bucket of Axolomeh"
+        ],
+        "display_name": "Bucket of Axolotl"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.axolotl_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Spawn Axolotl",
+          "Axolotl Egg"
+        ],
+        "display_name": "Axolotl Spawn Egg"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.azalea": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Azalea Shrub",
+          "Azalea Bush"
+        ],
+        "display_name": "Azalea"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.azalea_leaves": {
+    "lang": {
+      "en_US": {
+        "display_name": "Azalea Leaves"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.big_dripleaf": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Big Drip Leaf"
+        ],
+        "display_name": "Big Dripleaf"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.big_dripleaf_stem": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Big Drip Leaf Stem",
+          "Dripleaf Stem",
+          "Drip Leaf Stem"
+        ],
+        "display_name": "Big Dripleaf Stem"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.black_candle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Black Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.black_candle_cake": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cake with Black Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.blue_candle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Blue Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.blue_candle_cake": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cake with Blue Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.brown_candle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Brown Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.brown_candle_cake": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cake with Brown Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.budding_amethyst": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Amethyst Budding"
+        ],
+        "display_name": "Budding Amethyst"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.bundle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Bundle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.calcite": {
+    "lang": {
+      "en_US": {
+        "display_name": "Calcite"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.candle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.candle_cake": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Candle Cake"
+        ],
+        "display_name": "Cake With Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.cave_vines": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Cave Vine",
+          "Cave Vines Head"
+        ],
+        "display_name": "Cave Vines"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.cave_vines_plant": {
+    "lang": {
+      "en_US": {
+        "search names": [
+          "Cave Vine Plant",
+          "Cave Vines Body"
+        ],
+        "display_name": "Cave Vines Plant"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.chiseled_deepslate": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Chiseled Grimstone",
+          "Chiseled Grim Stone"
+        ],
+        "display_name": "Chiseled Deepslate"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.cobbled_deepslate": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Cobble Deepslate",
+          "Cobbled Grimstone",
+          "Cobble Grimstone",
+          "Cobbled Grim Stone",
+          "Cobble Grim Stone"
+        ],
+        "display_name": "Cobbled Deepslate"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.cobbled_deepslate_slab": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Cobble Deepslate Slab",
+          "Cobbled Grimstone Slab",
+          "Cobble Grimstone Slab",
+          "Cobbled Grim Stone Slab",
+          "Cobble Grim Stone Slab"
+        ],
+        "display_name": "Cobbled Deepslate Slab"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.cobbled_deepslate_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Cobble Deepslate Stairs",
+          "Cobbled Grimstone Stairs",
+          "Cobble Grimstone Stairs",
+          "Cobbled Grim Stone Stairs",
+          "Cobble Grim Stone Stairs",
+          "Cobbled Deepslate Stair",
+          "Cobble Deepslate Stair",
+          "Cobbled Grimstone Stair",
+          "Cobble Grimstone Stair",
+          "Cobbled Grim Stone Stair",
+          "Cobble Grim Stone Stair"
+        ],
+        "display_name": "Cobbled Deepslate Stairs"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.cobbled_deepslate_wall": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Cobble Deepslate Wall",
+          "Cobbled Grimstone Wall",
+          "Cobble Grimstone Wall",
+          "Cobbled Grim Stone Wall",
+          "Cobble Grim Stone Wall"
+        ],
+        "display_name": "Cobbled Deepslate Wall"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.copper_block": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Copper Block"
+        ],
+        "display_name": "Block of Copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.copper_ingot": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Copper"
+        ],
+        "display_name": "Copper Ingot"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.copper_ore": {
+    "lang": {
+      "en_US": {
+        "display_name": "Copper Ore"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.cracked_deepslate_bricks": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Cracked Grimstone Bricks",
+          "Cracked Grim Stone Bricks",
+          "Cracked Deepslate Brick",
+          "Cracked Grimstone Brick",
+          "Cracked Grim Stone Brick"
+        ],
+        "display_name": "Cracked Deepslate Bricks"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.cracked_deepslate_tiles": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Cracked Grimstone Tiles",
+          "Cracked Grim Stone Tiles",
+          "Cracked Deepslate Tiles",
+          "Cracked Grimstone Tiles",
+          "Cracked Grim Stone Tiles",
+          "Cracked Deepslate Tile",
+          "Cracked Grimstone Tile",
+          "Cracked Grim Stone Tile",
+          "Cracked Deepslate Tile",
+          "Cracked Grimstone Tile",
+          "Cracked Grim Stone Tile",
+          "Cracked Tiled Deepslate",
+          "Cracked Tiled Grimstone",
+          "Cracked Tiled Grim Stone",
+          "Cracked Tiled Deepslate",
+          "Cracked Tiled Grimstone",
+          "Cracked Tiled Grim Stone",
+          "Tiled Cracked Deepslate",
+          "Tiled Cracked Grimstone",
+          "Tiled Cracked Grim Stone",
+          "Tiled Cracked Deepslate",
+          "Tiled Cracked Grimstone",
+          "Tiled Cracked Grim Stone"
+        ],
+        "display_name": "Cracked Deepslate Tiles"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.cut_copper": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Cut Copper Block",
+          "Cut Block of Copper",
+          "Block of Cut Copper"
+        ],
+        "display_name": "Cut Copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.cut_copper_slab": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Copper Slab"
+        ],
+        "display_name": "Cut Copper Slab"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.cut_copper_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Copper Stairs",
+          "Copper Stair",
+          "Cut Copper Stair"
+        ],
+        "display_name": "Cut Copper Stairs"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.cyan_candle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cyan Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.cyan_candle_cake": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cake with Cyan Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.deepslate": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Grimstone",
+          "Grim Stone"
+        ],
+        "display_name": "Deepslate"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.deepslate_brick_slab": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Grimstone Brick Slab",
+          "Grim Stone Brick Slab"
+        ],
+        "display_name": "Deepslate Brick Slab"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.deepslate_brick_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Grimstone Brick Stairs",
+          "Grim Stone Brick Stairs",
+          "Deepslate Brick Stair",
+          "Grimstone Brick Stair",
+          "Grim Stone Brick Stair"
+        ],
+        "display_name": "Deepslate Brick Stairs"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.deepslate_brick_wall": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Grimstone Brick Wall",
+          "Grim Stone Brick Wall"
+        ],
+        "display_name": "Deepslate Brick Wall"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.deepslate_bricks": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Grimstone Bricks",
+          "Grim Stone Bricks",
+          "Deepslate Brick",
+          "Grimstone Brick",
+          "Grim Stone Brick"
+        ],
+        "display_name": "Deepslate Bricks"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.deepslate_coal_ore": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Grimstone Coal Ore",
+          "Grim Stone Coal Ore"
+        ],
+        "display_name": "Deepslate Coal Ore"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.deepslate_copper_ore": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Grimstone Copper Ore",
+          "Grim Stone Copper Ore"
+        ],
+        "display_name": "Deepslate Copper Ore"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.deepslate_diamond_ore": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Grimstone Diamond Ore",
+          "Grim Stone Diamond Ore"
+        ],
+        "display_name": "Deepslate Diamond Ore"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.deepslate_emerald_ore": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Grimstone Emerald Ore",
+          "Grim Stone Emerald Ore"
+        ],
+        "display_name": "Deepslate Emerald Ore"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.deepslate_gold_ore": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Grimstone Gold Ore",
+          "Grim Stone Gold Ore"
+        ],
+        "display_name": "Deepslate Gold Ore"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.deepslate_iron_ore": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Grimstone Iron Ore",
+          "Grim Stone Iron Ore"
+        ],
+        "display_name": "Deepslate Iron Ore"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.deepslate_lapis_ore": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Grimstone Lapis Lazuli Ore",
+          "Grim Stone Lapis Lazuli Ore",
+          "Deepslate Lapis Ore",
+          "Grimstone Lapis Ore",
+          "Grim Stone Lapis Ore"
+        ],
+        "display_name": "Deepslate Lapis Lazuli Ore"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.deepslate_redstone_ore": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Grimstone Redstone Ore",
+          "Grim Stone Redstone Ore"
+        ],
+        "display_name": "Deepslate Redstone Ore"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.deepslate_tile_slab": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Grimstone Tile Slab",
+          "Grim Stone Tile Slab",
+          "Tiled Deepslate Slab",
+          "Tiled Grimstone Slab",
+          "Tiled Grim Stone Slab"
+        ],
+        "display_name": "Deepslate Tile Slab"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.deepslate_tile_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Grimstone Tile Stairs",
+          "Grim Stone Tile Stairs",
+          "Tiled Deepslate Stairs",
+          "Tiled Grimstone Stairs",
+          "Tiled Grim Stone Stairs",
+          "Deepslate Tile Stair",
+          "Grimstone Tile Stair",
+          "Grim Stone Tile Stair",
+          "Tiled Deepslate Stair",
+          "Tiled Grimstone Stair",
+          "Tiled Grim Stone Stair"
+        ],
+        "display_name": "Deepslate Tile Stairs"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.deepslate_tile_wall": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Grimstone Tile Wall",
+          "Grim Stone Tile Wall",
+          "Tiled Deepslate Wall",
+          "Tiled Grimstone Wall",
+          "Tiled Grim Stone Wall"
+        ],
+        "display_name": "Deepslate Tile Wall"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.deepslate_tiles": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Grimstone Tile",
+          "Grim Stone Tile",
+          "Deepslate Tile",
+          "Grimstone Tile",
+          "Grim Stone Tile",
+          "Tiled Deepslate",
+          "Tiled Grimstone",
+          "Tiled Grim Stone"
+        ],
+        "display_name": "Deepslate Tiles"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.dripstone_block": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Drip",
+          "Dripstone",
+          "Drip Stone",
+          "Drip Stone Block"
+        ],
+        "display_name": "Dripstone Block"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.exposed_copper": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Lightly Weathered Copper",
+          "Exposed Copper Block",
+          "Lightly Weathered Copper Block",
+          "Exposed Block of Copper",
+          "Lightly Weathered Block of Copper"
+        ],
+        "display_name": "Exposed Copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.exposed_cut_copper": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Lightly Weathered Cut Copper",
+          "Exposed Cut Copper Block",
+          "Lightly Weathered Cut Copper Block",
+          "Exposed Cut Block of Copper",
+          "Lightly Weathered Cut Block of Copper",
+          "Cut Exposed Copper",
+          "Cut Lightly Weathered Copper",
+          "Cut Exposed Copper Block",
+          "Cut Lightly Weathered Copper Block",
+          "Cut Exposed Block of Copper",
+          "Cut Lightly Weathered Block of Copper"
+        ],
+        "display_name": "Exposed Cut Copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.exposed_cut_copper_slab": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Lightly Weathered Cut Copper Slab",
+          "Cut Exposed Copper Slab",
+          "Cut Lightly Weathered Copper Slab",
+          "Exposed Copper Slab",
+          "Lightly Weathered Copper Slab"
+        ],
+        "display_name": "Exposed Cut Copper Slab"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.exposed_cut_copper_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Lightly Weathered Cut Copper Stairs",
+          "Cut Exposed Copper Stairs",
+          "Cut Lightly Weathered Copper Stairs",
+          "Exposed Copper Stairs",
+          "Lightly Weathered Copper Stairs",
+          "Exposed Cut Copper Stair",
+          "Lightly Weathered Cut Copper Stair",
+          "Cut Exposed Copper Stair",
+          "Cut Lightly Weathered Copper Stair",
+          "Exposed Copper Stair",
+          "Lightly Weathered Copper Stair"
+        ],
+        "display_name": "Exposed Cut Copper Stairs"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.flowering_azalea": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Flowering Azalea Shrub",
+          "Flowering Azalea Bush",
+          "Flower Azalea",
+          "Flower Azalea Shrub",
+          "Flower Azalea Bush"
+        ],
+        "display_name": "Flowering Azalea"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.flowering_azalea_leaves": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Flower Azalea Leaves"
+        ],
+        "display_name": "Flowering Azalea Leaves"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.glow_berries": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Glow Berry"
+        ],
+        "display_name": "Glow Berries"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.glow_ink_sac": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Glow Ink Sack",
+          "Glow Ink",
+          "Glowing Ink Sac",
+          "Glowing Ink Sack",
+          "Glowing Ink"
+        ],
+        "display_name": "Glow Ink Sac"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.glow_item_frame": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Glowing Item Frame"
+        ],
+        "display_name": "Glow Item Frame"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.glow_lichen": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Glowing Lichen"
+        ],
+        "display_name": "Glow Lichen"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.glow_squid_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Spawn Glow Squid",
+          "Glow Squid Egg",
+          "Glowing Squid Spawn Egg",
+          "Spawn Glowing Squid",
+          "Glowing Squid Egg"
+        ],
+        "display_name": "Glow Squid Spawn Egg"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.goat_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Spawn Goat",
+          "Goat Egg"
+        ],
+        "display_name": "Goat Spawn Egg"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.gray_candle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Gray Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.gray_candle_cake": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cake with Gray Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.green_candle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Green Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.green_candle_cake": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cake with Green Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.hanging_roots": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Hanging Root"
+        ],
+        "display_name": "Hanging Roots"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.infested_deepslate": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Infested Grimstone",
+          "Infested Grim Stone",
+          "Deepslate Monster Egg",
+          "Grimstone Monster Egg",
+          "Grim Stone Monster Egg"
+        ],
+        "display_name": "Infested Deepslate"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.large_amethyst_bud": {
+    "lang": {
+      "en_US": {
+        "display_name": "Large Amethyst Bud"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.lava_cauldron": {
+    "lang": {
+      "en_US": {
+        "display_name": "Lava Cauldron"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.light": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Light Block",
+          "Block of Light",
+          "Light Negative"
+        ],
+        "display_name": "Light"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.light_blue_candle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Light Blue Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.light_blue_candle_cake": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cake with Light Blue Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.light_gray_candle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Light Gray Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.light_gray_candle_cake": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cake with Light Gray Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.lightning_rod": {
+    "lang": {
+      "en_US": {
+        "display_name": "Lightning Rod"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.lime_candle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Lime Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.lime_candle_cake": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cake with Lime Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.magenta_candle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Magenta Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.magenta_candle_cake": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cake with Magenta Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.medium_amethyst_bud": {
+    "lang": {
+      "en_US": {
+        "display_name": "Medium Amethyst Bud"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.moss_block": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Block of Moss"
+        ],
+        "display_name": "Moss Block"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.moss_carpet": {
+    "lang": {
+      "en_US": {
+        "display_name": "Moss Carpet"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.orange_candle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Orange Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.orange_candle_cake": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cake with Orange Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.oxidized_copper": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Oxidized Copper Block",
+          "Oxidized Block of Copper"
+        ],
+        "display_name": "Oxidized Copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.oxidized_cut_copper": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Oxidized Cut Copper Block",
+          "Oxidized Cut Block of Copper",
+          "Cut Oxidized Copper",
+          "Cut Oxidized Copper Block",
+          "Cut Oxidized Block of Copper"
+        ],
+        "display_name": "Oxidized Cut Copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.oxidized_cut_copper_slab": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Cut Oxidized Copper Slab",
+          "Oxidized Copper Slab"
+        ],
+        "display_name": "Oxidized Cut Copper Slab"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.oxidized_cut_copper_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Cut Oxidized Copper Stairs",
+          "Oxidized Copper Stairs",
+          "Oxidized Cut Copper Stair",
+          "Cut Oxidized Copper Stair",
+          "Oxidized Copper Stair"
+        ],
+        "display_name": "Oxidized Cut Copper Stairs"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.pink_candle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Pink Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.pink_candle_cake": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cake with Pink Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.pointed_dripstone": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pointed Drip Stone",
+          "Large Dripstone",
+          "Large Drip Stone",
+          "Small Dripstone",
+          "Small Drip Stone",
+          "Stalactite",
+          "Stalagmite"
+        ],
+        "display_name": "Pointed Dripstone"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.polished_deepslate": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Polished Grimstone",
+          "Polished Grim Stone"
+        ],
+        "display_name": "Polished Deepslate"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.polished_deepslate_slab": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Polished Grimstone Slab",
+          "Polished Grim Stone Slab"
+        ],
+        "display_name": "Polished Deepslate Slab"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.polished_deepslate_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Polished Grimstone Stairs",
+          "Polished Grim Stone Stairs",
+          "Polished Deepslate Stair",
+          "Polished Grimstone Stair",
+          "Polished Grim Stone Stair"
+        ],
+        "display_name": "Polished Deepslate Stairs"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.polished_deepslate_wall": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Polished Grimstone Wall",
+          "Polished Grim Stone Wall"
+        ],
+        "display_name": "Polished Deepslate Wall"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.potted_azalea_bush": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Potted Azalea Shrub",
+          "Potted Azalea Bush"
+        ],
+        "display_name": "Potted Azalea"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.potted_flowering_azalea_bush": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Potted Flowering Azalea Shrub",
+          "Potted Flowering Azalea Bush",
+          "Potted Flower Azalea",
+          "Potted Flower Azalea Shrub",
+          "Potted Flower Azalea Bush"
+        ],
+        "display_name": "Potted Flowering Azalea"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.powder_snow": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Powdered Snow",
+          "Snowier Snow",
+          "Powder Snow Block"
+        ],
+        "display_name": "Powder Snow"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.powder_snow_bucket": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Bucket of Powder Snow",
+          "Bucket of Powdered Snow",
+          "Bucket of Snowier Snow",
+          "Bucket of Snow"
+        ],
+        "display_name": "Powder Snow Bucket"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.powder_snow_cauldron": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Powdered Snow Cauldron",
+          "Snowier Snow Cauldron",
+          "Snow Cauldron"
+        ],
+        "display_name": "Powder Snow Cauldron"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.purple_candle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Purple Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.purple_candle_cake": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cake with Purple Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.raw_copper": {
+    "lang": {
+      "en_US": {
+        "display_name": "Raw Copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.raw_copper_block": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Raw Copper Block",
+          "Copper Beans"
+        ],
+        "display_name": "Block of Raw Copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.raw_gold": {
+    "lang": {
+      "en_US": {
+        "display_name": "Raw Gold"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.raw_gold_block": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Raw Gold Block",
+          "Gold Beans"
+        ],
+        "display_name": "Block of Raw Gold"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.raw_iron": {
+    "lang": {
+      "en_US": {
+        "display_name": "Raw Iron"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.raw_iron_block": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Raw Iron Block",
+          "Iron Beans"
+        ],
+        "display_name": "Block of Raw Iron"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.red_candle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Red Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.red_candle_cake": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cake with Red Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.rooted_dirt": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Azalea Roots"
+        ],
+        "display_name": "Rooted Dirt"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.sculk_sensor": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Wireless Redstone"
+        ],
+        "display_name": "Sculk Sensor"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.small_amethyst_bud": {
+    "lang": {
+      "en_US": {
+        "display_name": "Small Amethyst Bud"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.small_dripleaf": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Small Drip Leaf"
+        ],
+        "display_name": "Small Dripleaf"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.smooth_basalt": {
+    "lang": {
+      "en_US": {
+        "display_name": "Smooth Basalt"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.spore_blossom": {
+    "lang": {
+      "en_US": {
+        "display_name": "Spore Blossom"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.spyglass": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Spy Glass",
+          "Telescope",
+          "OptiFine Zoom"
+        ],
+        "display_name": "Spyglass"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.tinted_glass": {
+    "lang": {
+      "en_US": {
+        "display_name": "Tinted Glass"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.tuff": {
+    "lang": {
+      "en_US": {
+        "display_name": "Tuff"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.water_cauldron": {
+    "lang": {
+      "en_US": {
+        "display_name": "Water Cauldron"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.waxed_copper_block": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Waxed Copper Block",
+          "Waxed Copper"
+        ],
+        "display_name": "Waxed Block of Copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.waxed_cut_copper": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Waxed Cut Copper Block",
+          "Waxed Cut Block of Copper",
+          "Cut Waxed Copper",
+          "Cut Waxed Copper Block",
+          "Cut Waxed Block of Copper"
+        ],
+        "display_name": "Waxed Cut Copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.waxed_cut_copper_slab": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Cut Waxed Copper Slab",
+          "Waxed Copper Slab"
+        ],
+        "display_name": "Waxed Cut Copper Slab"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.waxed_cut_copper_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Cut Waxed Copper Stairs",
+          "Waxed Copper Stairs",
+          "Waxed Cut Copper Stair",
+          "Cut Waxed Copper Stair",
+          "Waxed Copper Stair"
+        ],
+        "display_name": "Waxed Cut Copper Stairs"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.waxed_exposed_copper": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Exposed Waxed Copper",
+          "Waxed Lightly Weathered Copper",
+          "Lightly Weathered Waxed Copper",
+          "Waxed Exposed Copper Block",
+          "Exposed Waxed Copper Block",
+          "Waxed Lightly Weathered Copper Block",
+          "Lightly Weathered Waxed Copper Block",
+          "Waxed Exposed Block of Copper",
+          "Exposed Waxed Block of Copper",
+          "Waxed Lightly Weathered Block of Copper",
+          "Lightly Weathered Waxed Block of Copper"
+        ],
+        "display_name": "Waxed Exposed Copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.waxed_exposed_cut_copper": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Exposed Waxed Cut Copper",
+          "Waxed Cut Exposed Copper",
+          "Waxed Lightly Weathered Cut Copper",
+          "Lightly Weathered Waxed Cut Copper",
+          "Lightly Weathered Cut Waxed Copper",
+          "Waxed Exposed Cut Copper Block",
+          "Exposed Waxed Cut Copper Block",
+          "Exposed Cut Waxed Copper Block",
+          "Waxed Lightly Weathered Cut Copper Block",
+          "Lightly Weathered Waxed Cut Copper Block",
+          "Lightly Weathered Cut Waxed Copper Block",
+          "Waxed Exposed Cut Block of Copper",
+          "Exposed Waxed Cut Block of Copper",
+          "Exposed Cut Waxed Block of Copper",
+          "Waxed Lightly Weathered Cut Block of Copper",
+          "Lightly Weathered Waxed Cut Block of Copper",
+          "Lightly Weathered Cut Waxed Block of Copper",
+          "Waxed Cut Exposed Copper",
+          "Cut Waxed Exposed Copper",
+          "Cut Exposed Waxed Copper",
+          "Waxed Cut Lightly Weathered Copper",
+          "Cut Waxed Lightly Weathered Copper",
+          "Cut Lightly Weathered Waxed Copper",
+          "Waxed Cut Exposed Copper Block",
+          "Cut Waxed Exposed Copper Block",
+          "Cut Exposed Waxed Copper Block",
+          "Waxed Cut Lightly Weathered Copper Block",
+          "Cut Waxed Lightly Weathered Copper Block",
+          "Cut Lightly Weathered Waxed Copper Block",
+          "Waxed Cut Exposed Block of Copper",
+          "Cut Waxed Exposed Block of Copper",
+          "Cut Exposed Waxed Block of Copper",
+          "Waxed Cut Lightly Weathered Block of Copper",
+          "Cut Waxed Lightly Weathered Block of Copper",
+          "Cut Lightly Weathered Waxed Block of Copper"
+        ],
+        "display_name": "Waxed Exposed Cut Copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.waxed_exposed_cut_copper_slab": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Exposed Waxed Cut Copper Slab",
+          "Exposed Cut Waxed Copper Slab",
+          "Waxed Lightly Weathered Cut Copper Slab",
+          "Lightly Weathered Waxed Cut Copper Slab",
+          "Lightly Weathered Cut Waxed Copper Slab",
+          "Waxed Cut Exposed Copper Slab",
+          "Cut Waxed Exposed Copper Slab",
+          "Cut Exposed Waxed Copper Slab",
+          "Waxed Cut Lightly Weathered Copper Slab",
+          "Cut Waxed Lightly Weathered Copper Slab",
+          "Cut Lightly Weathered Waxed Copper Slab",
+          "Waxed Exposed Copper Slab",
+          "Exposed Waxed Copper Slab",
+          "Waxed Lightly Weathered Copper Slab",
+          "Lightly Weathered Waxed Copper Slab"
+        ],
+        "display_name": "Waxed Exposed Cut Copper Slab"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.waxed_exposed_cut_copper_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Exposed Waxed Cut Copper Stairs",
+          "Exposed Cut Waxed Copper Stairs",
+          "Waxed Lightly Weathered Cut Copper Stairs",
+          "Lightly Weathered Waxed Cut Copper Stairs",
+          "Lightly Weathered Cut Waxed Copper Stairs",
+          "Waxed Cut Exposed Copper Stairs",
+          "Cut Waxed Exposed Copper Stairs",
+          "Cut Exposed Waxed Copper Stairs",
+          "Waxed Cut Lightly Weathered Copper Stairs",
+          "Cut Waxed Lightly Weathered Copper Stairs",
+          "Cut Lightly Weathered Waxed Copper Stairs",
+          "Waxed Exposed Copper Stairs",
+          "Exposed Waxed Copper Stairs",
+          "Waxed Lightly Weathered Copper Stairs",
+          "Lightly Weathered Waxed Copper Stairs",
+          "Waxed Exposed Cut Copper Stair",
+          "Exposed Waxed Cut Copper Stair",
+          "Exposed Cut Waxed Copper Stair",
+          "Waxed Lightly Weathered Cut Copper Stair",
+          "Lightly Weathered Waxed Cut Copper Stair",
+          "Lightly Weathered Cut Waxed Copper Stair",
+          "Waxed Cut Exposed Copper Stair",
+          "Cut Waxed Exposed Copper Stair",
+          "Cut Exposed Waxed Copper Stair",
+          "Waxed Cut Lightly Weathered Copper Stair",
+          "Cut Waxed Lightly Weathered Copper Stair",
+          "Cut Lightly Weathered Waxed Copper Stair",
+          "Waxed Exposed Copper Stair",
+          "Exposed Waxed Copper Stair",
+          "Waxed Lightly Weathered Copper Stair",
+          "Lightly Weathered Waxed Copper Stair"
+        ],
+        "display_name": "Waxed Exposed Cut Copper Stairs"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.waxed_oxidized_copper": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Oxidized Waxed Copper",
+          "Waxed Oxidized Copper Block",
+          "Oxidized Waxed Copper Block",
+          "Waxed Oxidized Block of Copper",
+          "Oxidized Waxed Block of Copper"
+        ],
+        "display_name": "Waxed Oxidized Copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.waxed_oxidized_cut_copper": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Oxidized Waxed Cut Copper",
+          "Oxidized Cut Waxed Copper",
+          "Waxed Oxidized Cut Copper Block",
+          "Oxidized Waxed Cut Copper Block",
+          "Oxidized Cut Waxed Copper Block",
+          "Waxed Oxidized Cut Block of Copper",
+          "Oxidized Waxed Cut Block of Copper",
+          "Oxidized Cut Waxed Block of Copper",
+          "Waxed Cut Oxidized Copper",
+          "Cut Waxed Oxidized Copper",
+          "Cut Oxidized Waxed Copper",
+          "Waxed Cut Oxidized Copper Block",
+          "Cut Waxed Oxidized Copper Block",
+          "Cut Oxidized Waxed Copper Block",
+          "Waxed Cut Oxidized Block of Copper",
+          "Cut Waxed Oxidized Block of Copper",
+          "Cut Oxidized Waxed Block of Copper"
+        ],
+        "display_name": "Waxed Oxidized Cut Copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.waxed_oxidized_cut_copper_slab": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Oxidized Waxed Cut Copper Slab",
+          "Oxidized Cut Waxed Copper Slab",
+          "Waxed Cut Oxidized Copper Slab",
+          "Cut Waxed Oxidized Copper Slab",
+          "Cut Oxidized Waxed Copper Slab",
+          "Waxed Oxidized Copper Slab",
+          "Oxidized Waxed Copper Slab"
+        ],
+        "display_name": "Waxed Oxidized Cut Copper Slab"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.waxed_oxidized_cut_copper_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Oxidized Waxed Cut Copper Stairs",
+          "Oxidized Cut Waxed Copper Stairs",
+          "Waxed Cut Oxidized Copper Stairs",
+          "Cut Waxed Oxidized Copper Stairs",
+          "Cut Oxidized Waxed Copper Stairs",
+          "Waxed Oxidized Copper Stairs",
+          "Oxidized Waxed Copper Stairs",
+          "Waxed Oxidized Cut Copper Stair",
+          "Oxidized Waxed Cut Copper Stair",
+          "Oxidized Cut Waxed Copper Stair",
+          "Waxed Cut Oxidized Copper Stair",
+          "Cut Waxed Oxidized Copper Stair",
+          "Cut Oxidized Waxed Copper Stair",
+          "Waxed Oxidized Copper Stair",
+          "Oxidized Waxed Copper Stair"
+        ],
+        "display_name": "Waxed Oxidized Cut Copper Stairs"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.waxed_weathered_copper": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Waxed Semi-Weathered Copper",
+          "Waxed Semi Weathered Copper",
+          "Waxed Weathered Copper Block",
+          "Waxed Semi-Weathered Copper Block",
+          "Waxed Semi Weathered Copper Block",
+          "Waxed Weathered Block of Copper",
+          "Waxed Semi-Weathered Block of Copper",
+          "Waxed Semi Weathered Block of Copper",
+          "Weathered Waxed Copper",
+          "Semi-Weathered Waxed Copper",
+          "Semi Weathered Waxed Copper",
+          "Weathered Waxed Copper Block",
+          "Semi-Weathered Waxed Copper Block",
+          "Semi Weathered Waxed Copper Block",
+          "Weathered Waxed Block of Copper",
+          "Semi-Weathered Waxed Block of Copper",
+          "Semi Weathered Waxed Block of Copper"
+        ],
+        "display_name": "Waxed Weathered Copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.waxed_weathered_cut_copper": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Waxed Semi-Weathered Cut Copper",
+          "Waxed Semi Weathered Cut Copper",
+          "Waxed Weathered Cut Copper Block",
+          "Waxed Semi-Weathered Cut Copper Block",
+          "Waxed Semi Weathered Cut Copper Block",
+          "Waxed Weathered Cut Block of Copper",
+          "Waxed Semi-Weathered Cut Block of Copper",
+          "Waxed Semi Weathered Cut Block of Copper",
+          "Waxed Cut Weathered Copper",
+          "Waxed Cut Semi-Weathered Copper",
+          "Waxed Cut Semi Weathered Copper",
+          "Waxed Cut Weathered Copper Block",
+          "Waxed Cut Semi-Weathered Copper Block",
+          "Waxed Cut Semi Weathered Copper Block",
+          "Waxed Cut Weathered Block of Copper",
+          "Waxed Cut Semi-Weathered Block of Copper",
+          "Waxed Cut Semi Weathered Block of Copper",
+          "Weathered Waxed Cut Copper",
+          "Semi-Weathered Waxed Cut Copper",
+          "Semi Weathered Waxed Cut Copper",
+          "Weathered Waxed Cut Copper Block",
+          "Semi-Weathered Waxed Cut Copper Block",
+          "Semi Weathered Waxed Cut Copper Block",
+          "Weathered Waxed Cut Block of Copper",
+          "Semi-Weathered Waxed Cut Block of Copper",
+          "Semi Weathered Waxed Cut Block of Copper",
+          "Cut Waxed Weathered Copper",
+          "Cut Waxed Semi-Weathered Copper",
+          "Cut Waxed Semi Weathered Copper",
+          "Cut Waxed Weathered Copper Block",
+          "Cut Waxed Semi-Weathered Copper Block",
+          "Cut Waxed Semi Weathered Copper Block",
+          "Cut Waxed Weathered Block of Copper",
+          "Cut Waxed Semi-Weathered Block of Copper",
+          "Cut Waxed Semi Weathered Block of Copper",
+          "Weathered Cut Waxed Copper",
+          "Semi-Weathered Cut Waxed Copper",
+          "Semi Weathered Cut Waxed Copper",
+          "Weathered Cut Waxed Copper Block",
+          "Semi-Weathered Cut Waxed Copper Block",
+          "Semi Weathered Cut Waxed Copper Block",
+          "Weathered Cut Waxed Block of Copper",
+          "Semi-Weathered Cut Waxed Block of Copper",
+          "Semi Weathered Cut Waxed Block of Copper",
+          "Cut Weathered Waxed Copper",
+          "Cut Semi-Weathered Waxed Copper",
+          "Cut Semi Weathered Waxed Copper",
+          "Cut Weathered Waxed Copper Block",
+          "Cut Semi-Weathered Waxed Copper Block",
+          "Cut Semi Weathered Waxed Copper Block",
+          "Cut Weathered Waxed Block of Copper",
+          "Cut Semi-Weathered Waxed Block of Copper",
+          "Cut Semi Weathered Waxed Block of Copper"
+        ],
+        "display_name": "Waxed Weathered Cut Copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.waxed_weathered_cut_copper_slab": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Waxed Semi-Weathered Cut Copper Slab",
+          "Waxed Semi Weathered Cut Copper Slab",
+          "Weathered Waxed Cut Copper Slab",
+          "Semi-Weathered Waxed Cut Copper Slab",
+          "Semi Weathered Waxed Cut Copper Slab",
+          "Weathered Cut Waxed Copper Slab",
+          "Semi-Weathered Cut Waxed Copper Slab",
+          "Semi Weathered Cut Waxed Copper Slab",
+          "Waxed Weathered Copper Slab",
+          "Waxed Semi-Weathered Copper Slab",
+          "Waxed Semi Weathered Copper Slab",
+          "Weathered Waxed Copper Slab",
+          "Semi-Weathered Waxed Copper Slab",
+          "Semi Weathered Waxed Copper Slab",
+          "Waxed Cut Weathered Copper Slab",
+          "Waxed Cut Semi-Weathered Copper Slab",
+          "Waxed Cut Semi Weathered Copper Slab",
+          "Cut Waxed Weathered Copper Slab",
+          "Cut Waxed Semi-Weathered Copper Slab",
+          "Cut Waxed Semi Weathered Copper Slab",
+          "Cut Weathered Waxed Copper Slab",
+          "Cut Semi-Weathered Waxed Copper Slab",
+          "Cut Semi Weathered Waxed Copper Slab"
+        ],
+        "display_name": "Waxed Weathered Cut Copper Slab"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.waxed_weathered_cut_copper_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Waxed Semi-Weathered Cut Copper Stairs",
+          "Waxed Semi Weathered Cut Copper Stairs",
+          "Weathered Waxed Cut Copper Stairs",
+          "Semi-Weathered Waxed Cut Copper Stairs",
+          "Semi Weathered Waxed Cut Copper Stairs",
+          "Weathered Cut Waxed Copper Stairs",
+          "Semi-Weathered Cut Waxed Copper Stairs",
+          "Semi Weathered Cut Waxed Copper Stairs",
+          "Waxed Weathered Copper Stairs",
+          "Waxed Semi-Weathered Copper Stairs",
+          "Waxed Semi Weathered Copper Stairs",
+          "Weathered Waxed Copper Stairs",
+          "Semi-Weathered Waxed Copper Stairs",
+          "Semi Weathered Waxed Copper Stairs",
+          "Waxed Cut Weathered Copper Stairs",
+          "Waxed Cut Semi-Weathered Copper Stairs",
+          "Waxed Cut Semi Weathered Copper Stairs",
+          "Cut Waxed Weathered Copper Stairs",
+          "Cut Waxed Semi-Weathered Copper Stairs",
+          "Cut Waxed Semi Weathered Copper Stairs",
+          "Cut Weathered Waxed Copper Stairs",
+          "Cut Semi-Weathered Waxed Copper Stairs",
+          "Cut Semi Weathered Waxed Copper Stairs",
+          "Waxed Weathered Cut Copper Stair",
+          "Waxed Semi-Weathered Cut Copper Stair",
+          "Waxed Semi Weathered Cut Copper Stair",
+          "Weathered Waxed Cut Copper Stair",
+          "Semi-Weathered Waxed Cut Copper Stair",
+          "Semi Weathered Waxed Cut Copper Stair",
+          "Weathered Cut Waxed Copper Stair",
+          "Semi-Weathered Cut Waxed Copper Stair",
+          "Semi Weathered Cut Waxed Copper Stair",
+          "Waxed Weathered Copper Stair",
+          "Waxed Semi-Weathered Copper Stair",
+          "Waxed Semi Weathered Copper Stair",
+          "Weathered Waxed Copper Stair",
+          "Semi-Weathered Waxed Copper Stair",
+          "Semi Weathered Waxed Copper Stair",
+          "Waxed Cut Weathered Copper Stair",
+          "Waxed Cut Semi-Weathered Copper Stair",
+          "Waxed Cut Semi Weathered Copper Stair",
+          "Cut Waxed Weathered Copper Stair",
+          "Cut Waxed Semi-Weathered Copper Stair",
+          "Cut Waxed Semi Weathered Copper Stair",
+          "Cut Weathered Waxed Copper Stair",
+          "Cut Semi-Weathered Waxed Copper Stair",
+          "Cut Semi Weathered Waxed Copper Stair"
+        ],
+        "display_name": "Waxed Weathered Cut Copper Stairs"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.weathered_copper": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Semi-Weathered Copper",
+          "Semi Weathered Copper",
+          "Weathered Copper Block",
+          "Semi-Weathered Copper Block",
+          "Semi Weathered Copper Block",
+          "Weathered Block of Copper",
+          "Semi-Weathered Block of Copper",
+          "Semi Weathered Block of Copper"
+        ],
+        "display_name": "Weathered Copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.weathered_cut_copper": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Semi-Weathered Cut Copper",
+          "Semi Weathered Cut Copper",
+          "Weathered Cut Copper Block",
+          "Semi-Weathered Cut Copper Block",
+          "Semi Weathered Cut Copper Block",
+          "Weathered Cut Block of Copper",
+          "Semi-Weathered Cut Block of Copper",
+          "Semi Weathered Cut Block of Copper",
+          "Cut Weathered Copper",
+          "Cut Semi-Weathered Copper",
+          "Cut Semi Weathered Copper",
+          "Cut Weathered Copper Block",
+          "Cut Semi-Weathered Copper Block",
+          "Cut Semi Weathered Copper Block",
+          "Cut Weathered Block of Copper",
+          "Cut Semi-Weathered Block of Copper",
+          "Cut Semi Weathered Block of Copper"
+        ],
+        "display_name": "Weathered Cut Copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.weathered_cut_copper_slab": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Semi-Weathered Cut Copper Slab",
+          "Semi Weathered Cut Copper Slab",
+          "Weathered Copper Slab",
+          "Semi-Weathered Copper Slab",
+          "Semi Weathered Copper Slab",
+          "Cut Weathered Copper Slab",
+          "Cut Semi-Weathered Copper Slab",
+          "Cut Semi Weathered Copper Slab"
+        ],
+        "display_name": "Weathered Cut Copper Slab"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.weathered_cut_copper_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Semi-Weathered Cut Copper Stairs",
+          "Semi Weathered Cut Copper Stairs",
+          "Weathered Copper Stairs",
+          "Semi-Weathered Copper Stairs",
+          "Semi Weathered Copper Stairs",
+          "Cut Weathered Copper Stairs",
+          "Cut Semi-Weathered Copper Stairs",
+          "Cut Semi Weathered Copper Stairs",
+          "Weathered Cut Copper Stair",
+          "Semi-Weathered Cut Copper Stair",
+          "Semi Weathered Cut Copper Stair",
+          "Weathered Copper Stair",
+          "Semi-Weathered Copper Stair",
+          "Semi Weathered Copper Stair",
+          "Cut Weathered Copper Stair",
+          "Cut Semi-Weathered Copper Stair",
+          "Cut Semi Weathered Copper Stair"
+        ],
+        "display_name": "Weathered Cut Copper Stairs"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.white_candle": {
+    "lang": {
+      "en_US": {
+        "uncolored": [
+          "Candle"
+        ],
+        "display_name": "White Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.white_candle_cake": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cake with White Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.yellow_candle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Yellow Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "minecraft.yellow_candle_cake": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cake with Yellow Candle"
+      }
+    },
+    "properties": {
+      "version": "1.17"
     }
   },
   "minecraft.lingering_potion.effect.awkward": {

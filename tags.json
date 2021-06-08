@@ -15,6 +15,9 @@
     "minecraft:tipped_arrow",
     "minecraft:spectral_arrow"
   ],
+  "axolotl_tempt_items": [
+    "minecraft:tropical_fish_bucket"
+  ],
   "banners": [
     "minecraft:white_banner",
     "minecraft:orange_banner",
@@ -77,6 +80,25 @@
     "minecraft:stone_button",
     "minecraft:polished_blackstone_button"
   ],
+  "candles": [
+    "minecraft:candle",
+    "minecraft:white_candle",
+    "minecraft:orange_candle",
+    "minecraft:magenta_candle",
+    "minecraft:light_blue_candle",
+    "minecraft:yellow_candle",
+    "minecraft:lime_candle",
+    "minecraft:pink_candle",
+    "minecraft:gray_candle",
+    "minecraft:light_gray_candle",
+    "minecraft:cyan_candle",
+    "minecraft:purple_candle",
+    "minecraft:blue_candle",
+    "minecraft:brown_candle",
+    "minecraft:green_candle",
+    "minecraft:red_candle",
+    "minecraft:black_candle"
+  ],
   "carpets": [
     "minecraft:white_carpet",
     "minecraft:orange_carpet",
@@ -95,9 +117,25 @@
     "minecraft:red_carpet",
     "minecraft:black_carpet"
   ],
+  "cluster_max_harvestables": [
+    "minecraft:diamond_pickaxe",
+    "minecraft:golden_pickaxe",
+    "minecraft:iron_pickaxe",
+    "minecraft:netherite_pickaxe",
+    "minecraft:stone_pickaxe",
+    "minecraft:wooden_pickaxe"
+  ],
+  "coal_ores": [
+    "minecraft:coal_ore",
+    "minecraft:deepslate_coal_ore"
+  ],
   "coals": [
     "minecraft:coal",
     "minecraft:charcoal"
+  ],
+  "copper_ores": [
+    "minecraft:copper_ore",
+    "minecraft:deepslate_copper_ore"
   ],
   "creeper_drop_music_discs": [
     "minecraft:music_disc_13",
@@ -125,9 +163,17 @@
     "minecraft:stripped_dark_oak_log",
     "minecraft:stripped_dark_oak_wood"
   ],
+  "diamond_ores": [
+    "minecraft:diamond_ore",
+    "minecraft:deepslate_diamond_ore"
+  ],
   "doors": [
     "#minecraft:wooden_doors",
     "minecraft:iron_door"
+  ],
+  "emerald_ores": [
+    "minecraft:emerald_ore",
+    "minecraft:deepslate_emerald_ore"
   ],
   "fences": [
     "#minecraft:wooden_fences",
@@ -143,15 +189,32 @@
   ],
   "flowers": [
     "#minecraft:small_flowers",
-    "#minecraft:tall_flowers"
+    "#minecraft:tall_flowers",
+    "minecraft:azalea_leaves_flowers",
+    "minecraft:flowering_azalea"
   ],
-  "furnace_materials": [
-    "minecraft:cobblestone",
-    "minecraft:blackstone"
+  "fox_food": [
+    "minecraft:sweet_berries",
+    "minecraft:glow_berries"
+  ],
+  "freeze_immune_wearables": [
+    "minecraft:leather_boots",
+    "minecraft:leather_leggings",
+    "minecraft:leather_chestplate",
+    "minecraft:leather_helmet",
+    "minecraft:leather_horse_armor"
   ],
   "gold_ores": [
     "minecraft:gold_ore",
-    "minecraft:nether_gold_ore"
+    "minecraft:nether_gold_ore",
+    "minecraft:deepslate_gold_ore"
+  ],
+  "ignored_by_piglin_babies": [
+    "minecraft:leather"
+  ],
+  "iron_ores": [
+    "minecraft:iron_ore",
+    "minecraft:deepslate_iron_ore"
   ],
   "jungle_logs": [
     "minecraft:jungle_log",
@@ -159,13 +222,19 @@
     "minecraft:stripped_jungle_log",
     "minecraft:stripped_jungle_wood"
   ],
+  "lapis_ores": [
+    "minecraft:lapis_ore",
+    "minecraft:deepslate_lapis_ore"
+  ],
   "leaves": [
-    "minecraft:jungle_leaves",
     "minecraft:oak_leaves",
     "minecraft:spruce_leaves",
-    "minecraft:dark_oak_leaves",
+    "minecraft:birch_leaves",
+    "minecraft:jungle_leaves",
     "minecraft:acacia_leaves",
-    "minecraft:birch_leaves"
+    "minecraft:dark_oak_leaves",
+    "minecraft:azalea_leaves",
+    "minecraft:azalea_leaves_flowers"
   ],
   "lectern_books": [
     "minecraft:written_book",
@@ -177,12 +246,12 @@
     "#minecraft:warped_stems"
   ],
   "logs_that_burn": [
-    "#minecraft:dark_oak_logs",
     "#minecraft:oak_logs",
-    "#minecraft:acacia_logs",
+    "#minecraft:spruce_logs",
     "#minecraft:birch_logs",
     "#minecraft:jungle_logs",
-    "#minecraft:spruce_logs"
+    "#minecraft:acacia_logs",
+    "#minecraft:dark_oak_logs"
   ],
   "music_discs": [
     "#minecraft:creeper_drop_music_discs",
@@ -224,12 +293,18 @@
     "minecraft:stripped_oak_log",
     "minecraft:stripped_oak_wood"
   ],
+  "occludes_vibration_signals": [
+    "#minecraft:wool"
+  ],
+  "piglin_food": [
+    "minecraft:porkchop",
+    "minecraft:cooked_porkchop"
+  ],
   "piglin_loved": [
     "#minecraft:gold_ores",
     "minecraft:gold_block",
     "minecraft:gilded_blackstone",
     "minecraft:light_weighted_pressure_plate",
-    "minecraft:gold_nugget",
     "minecraft:gold_ingot",
     "minecraft:bell",
     "minecraft:clock",
@@ -246,7 +321,9 @@
     "minecraft:golden_pickaxe",
     "minecraft:golden_shovel",
     "minecraft:golden_axe",
-    "minecraft:golden_hoe"
+    "minecraft:golden_hoe",
+    "minecraft:raw_gold",
+    "minecraft:raw_gold_block"
   ],
   "piglin_repellents": [
     "minecraft:soul_torch",
@@ -269,6 +346,10 @@
     "minecraft:detector_rail",
     "minecraft:activator_rail"
   ],
+  "redstone_ores": [
+    "minecraft:redstone_ore",
+    "minecraft:deepslate_redstone_ore"
+  ],
   "sand": [
     "minecraft:sand",
     "minecraft:red_sand"
@@ -279,7 +360,9 @@
     "minecraft:birch_sapling",
     "minecraft:jungle_sapling",
     "minecraft:acacia_sapling",
-    "minecraft:dark_oak_sapling"
+    "minecraft:dark_oak_sapling",
+    "minecraft:azalea",
+    "minecraft:flowering_azalea"
   ],
   "signs": [
     "minecraft:oak_sign",
@@ -324,7 +407,19 @@
     "minecraft:cut_red_sandstone_slab",
     "minecraft:blackstone_slab",
     "minecraft:polished_blackstone_brick_slab",
-    "minecraft:polished_blackstone_slab"
+    "minecraft:polished_blackstone_slab",
+    "minecraft:cobbled_deepslate_slab",
+    "minecraft:polished_deepslate_slab",
+    "minecraft:deepslate_tile_slab",
+    "minecraft:deepslate_brick_slab",
+    "minecraft:waxed_weathered_cut_copper_slab",
+    "minecraft:waxed_exposed_cut_copper_slab",
+    "minecraft:waxed_cut_copper_slab",
+    "minecraft:oxidized_cut_copper_slab",
+    "minecraft:weathered_cut_copper_slab",
+    "minecraft:exposed_cut_copper_slab",
+    "minecraft:cut_copper_slab",
+    "minecraft:waxed_oxidized_cut_copper_slab"
   ],
   "small_flowers": [
     "minecraft:dandelion",
@@ -380,7 +475,19 @@
     "minecraft:diorite_stairs",
     "minecraft:blackstone_stairs",
     "minecraft:polished_blackstone_brick_stairs",
-    "minecraft:polished_blackstone_stairs"
+    "minecraft:polished_blackstone_stairs",
+    "minecraft:cobbled_deepslate_stairs",
+    "minecraft:polished_deepslate_stairs",
+    "minecraft:deepslate_tile_stairs",
+    "minecraft:deepslate_brick_stairs",
+    "minecraft:oxidized_cut_copper_stairs",
+    "minecraft:weathered_cut_copper_stairs",
+    "minecraft:exposed_cut_copper_stairs",
+    "minecraft:cut_copper_stairs",
+    "minecraft:waxed_weathered_cut_copper_stairs",
+    "minecraft:waxed_exposed_cut_copper_stairs",
+    "minecraft:waxed_cut_copper_stairs",
+    "minecraft:waxed_oxidized_cut_copper_stairs"
   ],
   "stone_bricks": [
     "minecraft:stone_bricks",
@@ -388,9 +495,15 @@
     "minecraft:cracked_stone_bricks",
     "minecraft:chiseled_stone_bricks"
   ],
+  "stone_crafting_materials": [
+    "minecraft:cobblestone",
+    "minecraft:blackstone",
+    "minecraft:cobbled_deepslate"
+  ],
   "stone_tool_materials": [
     "minecraft:cobblestone",
-    "minecraft:blackstone"
+    "minecraft:blackstone",
+    "minecraft:cobbled_deepslate"
   ],
   "tall_flowers": [
     "minecraft:sunflower",
@@ -419,7 +532,11 @@
     "minecraft:diorite_wall",
     "minecraft:blackstone_wall",
     "minecraft:polished_blackstone_brick_wall",
-    "minecraft:polished_blackstone_wall"
+    "minecraft:polished_blackstone_wall",
+    "minecraft:cobbled_deepslate_wall",
+    "minecraft:polished_deepslate_wall",
+    "minecraft:deepslate_tile_wall",
+    "minecraft:deepslate_brick_wall"
   ],
   "warped_stems": [
     "minecraft:warped_stem",
@@ -488,12 +605,12 @@
     "minecraft:warped_stairs"
   ],
   "wooden_trapdoors": [
-    "minecraft:acacia_trapdoor",
-    "minecraft:birch_trapdoor",
-    "minecraft:dark_oak_trapdoor",
-    "minecraft:jungle_trapdoor",
     "minecraft:oak_trapdoor",
     "minecraft:spruce_trapdoor",
+    "minecraft:birch_trapdoor",
+    "minecraft:jungle_trapdoor",
+    "minecraft:acacia_trapdoor",
+    "minecraft:dark_oak_trapdoor",
     "minecraft:crimson_trapdoor",
     "minecraft:warped_trapdoor"
   ],

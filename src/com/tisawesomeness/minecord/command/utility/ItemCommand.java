@@ -24,7 +24,7 @@ public class ItemCommand extends Command {
 
 	public String getHelp() {
 		return "Searches for a Minecraft item.\n" +
-			"Items are from Java Edition 1.7 to 1.16.\n" +
+			"Items are from Java Edition 1.7 to 1.17.\n" +
 			"\n" +
 			Item.help + "\n";
 	}
@@ -53,9 +53,8 @@ public class ItemCommand extends Command {
 		
 		// Build message
 		EmbedBuilder eb = Item.display(item, "en_US", MessageUtils.getPrefix(e));
-		eb.setFooter("See an error? Please report them at https://goo.gl/KWCxis", null);
-		// eb = MessageUtils.addFooter(eb);
-		
+		eb = MessageUtils.addFooter(eb);
+
 		return new Result(Outcome.SUCCESS, eb.build());
 	}
 
