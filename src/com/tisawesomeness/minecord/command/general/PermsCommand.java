@@ -1,9 +1,5 @@
 package com.tisawesomeness.minecord.command.general;
 
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.List;
-
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
@@ -12,6 +8,9 @@ import com.tisawesomeness.minecord.util.DiscordUtils;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import java.util.EnumSet;
+import java.util.List;
 
 public class PermsCommand extends Command {
 
@@ -106,11 +105,7 @@ public class PermsCommand extends Command {
         }
 
         EnumSet<Permission> perms = c.getGuild().getSelfMember().getPermissions(c);
-        boolean menuPerms = perms.containsAll(Arrays.asList(
-            Permission.MESSAGE_EMBED_LINKS, Permission.MESSAGE_ADD_REACTION, Permission.MESSAGE_MANAGE
-        ));
-        String name = c.getName() == null ? "channel" : c.getName();
-        String m = String.format("**Bot Permissions for %s:**", name) +
+        String m = String.format("**Bot Permissions for %s:**", c.getName()) +
             "\nView channels: " + getBoolEmote(perms.contains(Permission.VIEW_CHANNEL)) +
             "\nRead messages: " + getBoolEmote(perms.contains(Permission.MESSAGE_READ)) +
             "\nRead message history: " + getBoolEmote(perms.contains(Permission.MESSAGE_HISTORY)) +
@@ -118,7 +113,7 @@ public class PermsCommand extends Command {
             "\nEmbed links: " + getBoolEmote(perms.contains(Permission.MESSAGE_EMBED_LINKS)) +
             "\nAdd reactions: " + getBoolEmote(perms.contains(Permission.MESSAGE_ADD_REACTION)) +
             "\nManage messages: " + getBoolEmote(perms.contains(Permission.MESSAGE_MANAGE)) +
-            "\nCan use reaction menus: " + getBoolEmote(menuPerms);
+            "\nCan use reaction menus: " + getMenuEmote(perms);
         
         return new Result(Outcome.SUCCESS, m);
     }
@@ -128,6 +123,16 @@ public class PermsCommand extends Command {
      */
     private static String getBoolEmote(boolean bool) {
         return bool ? ":white_check_mark:" : ":x:";
+    }
+
+    private static String getMenuEmote(EnumSet<Permission> perms) {
+        if (perms.contains(Permission.MESSAGE_EMBED_LINKS) && perms.contains(Permission.MESSAGE_ADD_REACTION)) {
+            if (perms.contains(Permission.MESSAGE_MANAGE)) {
+                return ":white_check_mark:";
+            }
+            return ":warning: Partial, users must remove reactions manually, give manage messages perms to fix";
+        }
+        return ":x:";
     }
     
 }
