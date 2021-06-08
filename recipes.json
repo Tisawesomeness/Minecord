@@ -155,7 +155,7 @@
     "properties": {
       "version": "1.14"
     },
-    "group": "sign"
+    "group": "wooden_sign"
   },
   "acacia_slab": {
     "result": {
@@ -252,6 +252,24 @@
       "X": {
         "item": "minecraft:iron_ingot"
       }
+    }
+  },
+  "amethyst_block": {
+    "result": {
+      "item": "minecraft:amethyst_block"
+    },
+    "pattern": [
+      "SS",
+      "SS"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "S": {
+        "item": "minecraft:amethyst_shard"
+      }
+    },
+    "properties": {
+      "version": "1.17"
     }
   },
   "amplified_harming_lingering_potion": {
@@ -814,6 +832,15 @@
       "item": "minecraft.potion.effect.awkward"
     }
   },
+  "baked_potato": {
+    "result": "minecraft:baked_potato",
+    "ingredient": {
+      "item": "minecraft:potato"
+    },
+    "type": "minecraft:smelting",
+    "experience": 0.35,
+    "cookingtime": 200
+  },
   "baked_potato_from_campfire_cooking": {
     "result": "minecraft:baked_potato",
     "ingredient": {
@@ -822,15 +849,6 @@
     "type": "minecraft:campfire_cooking",
     "experience": 0.35,
     "cookingtime": 600
-  },
-  "baked_potato_from_smelting": {
-    "result": "minecraft:baked_potato",
-    "ingredient": {
-      "item": "minecraft:potato"
-    },
-    "type": "minecraft:smelting",
-    "experience": 0.35,
-    "cookingtime": 200
   },
   "baked_potato_from_smoking": {
     "result": "minecraft:baked_potato",
@@ -1105,7 +1123,7 @@
     "properties": {
       "version": "1.14"
     },
-    "group": "sign"
+    "group": "wooden_sign"
   },
   "birch_slab": {
     "result": {
@@ -1260,6 +1278,24 @@
       "version": "1.12"
     },
     "group": "dyed_bed"
+  },
+  "black_candle": {
+    "result": {
+      "item": "minecraft:black_candle"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:candle"
+      },
+      {
+        "item": "minecraft:black_dye"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "dyed_candle"
   },
   "black_carpet": {
     "result": {
@@ -1828,6 +1864,24 @@
     },
     "group": "dyed_bed"
   },
+  "blue_candle": {
+    "result": {
+      "item": "minecraft:blue_candle"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:candle"
+      },
+      {
+        "item": "minecraft:blue_dye"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "dyed_candle"
+  },
   "blue_carpet": {
     "result": {
       "item": "minecraft:blue_carpet",
@@ -2212,13 +2266,13 @@
       "item": "minecraft:bone_block"
     },
     "pattern": [
-      "XXX",
-      "XXX",
-      "XXX"
+      "###",
+      "###",
+      "###"
     ],
     "type": "minecraft:crafting_shaped",
     "key": {
-      "X": {
+      "#": {
         "item": "minecraft:bone_meal"
       }
     },
@@ -2389,6 +2443,27 @@
     },
     "properties": {
       "version": "1.16.2"
+    }
+  },
+  "brewing_stand_from_cobbled_deepslate": {
+    "result": {
+      "item": "minecraft:brewing_stand"
+    },
+    "pattern": [
+      " B ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "B": {
+        "item": "minecraft:blaze_rod"
+      },
+      "#": {
+        "item": "minecraft:cobbled_deepslate"
+      }
+    },
+    "properties": {
+      "version": "1.17"
     }
   },
   "brick": {
@@ -2578,6 +2653,24 @@
       "version": "1.12"
     },
     "group": "dyed_bed"
+  },
+  "brown_candle": {
+    "result": {
+      "item": "minecraft:brown_candle"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:candle"
+      },
+      {
+        "item": "minecraft:brown_dye"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "dyed_candle"
   },
   "brown_carpet": {
     "result": {
@@ -2939,6 +3032,28 @@
       }
     }
   },
+  "bundle": {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "-#-",
+      "# #",
+      "###"
+    ],
+    "key": {
+      "#": {
+        "item": "minecraft:rabbit_hide"
+      },
+      "-": {
+        "item": "minecraft:string"
+      }
+    },
+    "result": {
+      "item": "minecraft:bundle"
+    },
+    "properties": {
+      "version": "1.17 Datapack"
+    }
+  },
   "cake": {
     "result": {
       "item": "minecraft:cake"
@@ -2993,6 +3108,27 @@
     "properties": {
       "animated": true,
       "version": "1.14"
+    }
+  },
+  "candle": {
+    "result": {
+      "item": "minecraft:candle"
+    },
+    "pattern": [
+      "S",
+      "H"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "S": {
+        "item": "minecraft:string"
+      },
+      "H": {
+        "item": "minecraft:honeycomb"
+      }
+    },
+    "properties": {
+      "version": "1.17"
     }
   },
   "carrot_on_a_stick": {
@@ -3195,6 +3331,35 @@
       "B": {
         "item": "minecraft:minecart"
       }
+    }
+  },
+  "chiseled_deepslate": {
+    "result": {
+      "item": "minecraft:chiseled_deepslate"
+    },
+    "pattern": [
+      "#",
+      "#"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:cobbled_deepslate_slab"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "chiseled_deepslate_from_cobbled_deepslate_stonecutting": {
+    "result": "minecraft:chiseled_deepslate",
+    "ingredient": {
+      "item": "minecraft:cobbled_deepslate"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
     }
   },
   "chiseled_nether_bricks": {
@@ -3446,22 +3611,53 @@
       }
     }
   },
-  "coal_from_blasting": {
+  "coal_from_blasting_coal_ore": {
     "result": "minecraft:coal",
     "ingredient": {
       "item": "minecraft:coal_ore"
     },
     "type": "minecraft:blasting",
     "experience": 0.1,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "coal",
     "cookingtime": 100
   },
-  "coal_from_smelting": {
+  "coal_from_blasting_deepslate_coal_ore": {
+    "result": "minecraft:coal",
+    "ingredient": {
+      "item": "minecraft:deepslate_coal_ore"
+    },
+    "type": "minecraft:blasting",
+    "experience": 0.1,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "coal",
+    "cookingtime": 100
+  },
+  "coal_from_smelting_coal_ore": {
     "result": "minecraft:coal",
     "ingredient": {
       "item": "minecraft:coal_ore"
     },
     "type": "minecraft:smelting",
     "experience": 0.1,
+    "group": "coal",
+    "cookingtime": 200
+  },
+  "coal_from_smelting_deepslate_coal_ore": {
+    "result": "minecraft:coal",
+    "ingredient": {
+      "item": "minecraft:deepslate_coal_ore"
+    },
+    "type": "minecraft:smelting",
+    "experience": 0.1,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "coal",
     "cookingtime": 200
   },
   "coarse_dirt": {
@@ -3484,6 +3680,96 @@
     },
     "properties": {
       "version": "1.8"
+    }
+  },
+  "cobbled_deepslate_slab": {
+    "result": {
+      "item": "minecraft:cobbled_deepslate_slab",
+      "count": 6
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:cobbled_deepslate"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "cobbled_deepslate_slab_from_cobbled_deepslate_stonecutting": {
+    "result": "minecraft:cobbled_deepslate_slab",
+    "ingredient": {
+      "item": "minecraft:cobbled_deepslate"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "cobbled_deepslate_stairs": {
+    "result": {
+      "item": "minecraft:cobbled_deepslate_stairs",
+      "count": 4
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:cobbled_deepslate"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "cobbled_deepslate_stairs_from_cobbled_deepslate_stonecutting": {
+    "result": "minecraft:cobbled_deepslate_stairs",
+    "ingredient": {
+      "item": "minecraft:cobbled_deepslate"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "cobbled_deepslate_wall": {
+    "result": {
+      "item": "minecraft:cobbled_deepslate_wall",
+      "count": 6
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:cobbled_deepslate"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "cobbled_deepslate_wall_from_cobbled_deepslate_stonecutting": {
+    "result": "minecraft:cobbled_deepslate_wall",
+    "ingredient": {
+      "item": "minecraft:cobbled_deepslate"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
     }
   },
   "cobblestone_slab": {
@@ -3677,6 +3963,15 @@
       "version": "1.13"
     }
   },
+  "cooked_beef": {
+    "result": "minecraft:cooked_beef",
+    "ingredient": {
+      "item": "minecraft:beef"
+    },
+    "type": "minecraft:smelting",
+    "experience": 0.35,
+    "cookingtime": 200
+  },
   "cooked_beef_from_campfire_cooking": {
     "result": "minecraft:cooked_beef",
     "ingredient": {
@@ -3685,15 +3980,6 @@
     "type": "minecraft:campfire_cooking",
     "experience": 0.35,
     "cookingtime": 600
-  },
-  "cooked_beef_from_smelting": {
-    "result": "minecraft:cooked_beef",
-    "ingredient": {
-      "item": "minecraft:beef"
-    },
-    "type": "minecraft:smelting",
-    "experience": 0.35,
-    "cookingtime": 200
   },
   "cooked_beef_from_smoking": {
     "result": "minecraft:cooked_beef",
@@ -3704,6 +3990,15 @@
     "experience": 0.35,
     "cookingtime": 100
   },
+  "cooked_chicken": {
+    "result": "minecraft:cooked_chicken",
+    "ingredient": {
+      "item": "minecraft:chicken"
+    },
+    "type": "minecraft:smelting",
+    "experience": 0.35,
+    "cookingtime": 200
+  },
   "cooked_chicken_from_campfire_cooking": {
     "result": "minecraft:cooked_chicken",
     "ingredient": {
@@ -3712,15 +4007,6 @@
     "type": "minecraft:campfire_cooking",
     "experience": 0.35,
     "cookingtime": 600
-  },
-  "cooked_chicken_from_smelting": {
-    "result": "minecraft:cooked_chicken",
-    "ingredient": {
-      "item": "minecraft:chicken"
-    },
-    "type": "minecraft:smelting",
-    "experience": 0.35,
-    "cookingtime": 200
   },
   "cooked_chicken_from_smoking": {
     "result": "minecraft:cooked_chicken",
@@ -3731,6 +4017,15 @@
     "experience": 0.35,
     "cookingtime": 100
   },
+  "cooked_cod": {
+    "result": "minecraft:cooked_cod",
+    "ingredient": {
+      "item": "minecraft:cod"
+    },
+    "type": "minecraft:smelting",
+    "experience": 0.35,
+    "cookingtime": 200
+  },
   "cooked_cod_from_campfire_cooking": {
     "result": "minecraft:cooked_cod",
     "ingredient": {
@@ -3740,15 +4035,6 @@
     "experience": 0.35,
     "cookingtime": 600
   },
-  "cooked_cod_from_smelting": {
-    "result": "minecraft:cooked_cod",
-    "ingredient": {
-      "item": "minecraft:cod"
-    },
-    "type": "minecraft:smelting",
-    "experience": 0.35,
-    "cookingtime": 200
-  },
   "cooked_cod_from_smoking": {
     "result": "minecraft:cooked_cod",
     "ingredient": {
@@ -3757,6 +4043,15 @@
     "type": "minecraft:smoking",
     "experience": 0.35,
     "cookingtime": 100
+  },
+  "cooked_mutton": {
+    "result": "minecraft:cooked_mutton",
+    "ingredient": {
+      "item": "minecraft:mutton"
+    },
+    "type": "minecraft:smelting",
+    "experience": 0.35,
+    "cookingtime": 200
   },
   "cooked_mutton_from_campfire_cooking": {
     "result": "minecraft:cooked_mutton",
@@ -3770,18 +4065,6 @@
     },
     "cookingtime": 600
   },
-  "cooked_mutton_from_smelting": {
-    "result": "minecraft:cooked_mutton",
-    "ingredient": {
-      "item": "minecraft:mutton"
-    },
-    "type": "minecraft:smelting",
-    "experience": 0.35,
-    "properties": {
-      "version": "1.8"
-    },
-    "cookingtime": 200
-  },
   "cooked_mutton_from_smoking": {
     "result": "minecraft:cooked_mutton",
     "ingredient": {
@@ -3794,6 +4077,15 @@
     },
     "cookingtime": 100
   },
+  "cooked_porkchop": {
+    "result": "minecraft:cooked_porkchop",
+    "ingredient": {
+      "item": "minecraft:porkchop"
+    },
+    "type": "minecraft:smelting",
+    "experience": 0.35,
+    "cookingtime": 200
+  },
   "cooked_porkchop_from_campfire_cooking": {
     "result": "minecraft:cooked_porkchop",
     "ingredient": {
@@ -3802,15 +4094,6 @@
     "type": "minecraft:campfire_cooking",
     "experience": 0.35,
     "cookingtime": 600
-  },
-  "cooked_porkchop_from_smelting": {
-    "result": "minecraft:cooked_porkchop",
-    "ingredient": {
-      "item": "minecraft:porkchop"
-    },
-    "type": "minecraft:smelting",
-    "experience": 0.35,
-    "cookingtime": 200
   },
   "cooked_porkchop_from_smoking": {
     "result": "minecraft:cooked_porkchop",
@@ -3821,6 +4104,15 @@
     "experience": 0.35,
     "cookingtime": 100
   },
+  "cooked_rabbit": {
+    "result": "minecraft:cooked_rabbit",
+    "ingredient": {
+      "item": "minecraft:rabbit"
+    },
+    "type": "minecraft:smelting",
+    "experience": 0.35,
+    "cookingtime": 200
+  },
   "cooked_rabbit_from_campfire_cooking": {
     "result": "minecraft:cooked_rabbit",
     "ingredient": {
@@ -3829,18 +4121,6 @@
     "type": "minecraft:campfire_cooking",
     "experience": 0.35,
     "cookingtime": 600
-  },
-  "cooked_rabbit_from_smelting": {
-    "result": "minecraft:cooked_rabbit",
-    "ingredient": {
-      "item": "minecraft:rabbit"
-    },
-    "type": "minecraft:smelting",
-    "experience": 0.35,
-    "properties": {
-      "version": "1.8"
-    },
-    "cookingtime": 200
   },
   "cooked_rabbit_from_smoking": {
     "result": "minecraft:cooked_rabbit",
@@ -3851,6 +4131,15 @@
     "experience": 0.35,
     "cookingtime": 100
   },
+  "cooked_salmon": {
+    "result": "minecraft:cooked_salmon",
+    "ingredient": {
+      "item": "minecraft:salmon"
+    },
+    "type": "minecraft:smelting",
+    "experience": 0.35,
+    "cookingtime": 200
+  },
   "cooked_salmon_from_campfire_cooking": {
     "result": "minecraft:cooked_salmon",
     "ingredient": {
@@ -3859,15 +4148,6 @@
     "type": "minecraft:campfire_cooking",
     "experience": 0.35,
     "cookingtime": 600
-  },
-  "cooked_salmon_from_smelting": {
-    "result": "minecraft:cooked_salmon",
-    "ingredient": {
-      "item": "minecraft:salmon"
-    },
-    "type": "minecraft:smelting",
-    "experience": 0.35,
-    "cookingtime": 200
   },
   "cooked_salmon_from_smoking": {
     "result": "minecraft:cooked_salmon",
@@ -3895,6 +4175,159 @@
         "item": "minecraft:cocoa_beans"
       }
     }
+  },
+  "copper_block": {
+    "result": {
+      "item": "minecraft:copper_block"
+    },
+    "pattern": [
+      "###",
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:copper_ingot"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "copper_ingot": {
+    "result": {
+      "item": "minecraft:copper_ingot",
+      "count": 9
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:copper_block"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "copper_ingot"
+  },
+  "copper_ingot_from_blasting_copper_ore": {
+    "result": "minecraft:copper_ingot",
+    "ingredient": {
+      "item": "minecraft:copper_ore"
+    },
+    "type": "minecraft:blasting",
+    "experience": 0.7,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "copper_ingot",
+    "cookingtime": 100
+  },
+  "copper_ingot_from_blasting_deepslate_copper_ore": {
+    "result": "minecraft:copper_ingot",
+    "ingredient": {
+      "item": "minecraft:deepslate_copper_ore"
+    },
+    "type": "minecraft:blasting",
+    "experience": 0.7,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "copper_ingot",
+    "cookingtime": 100
+  },
+  "copper_ingot_from_blasting_raw_copper": {
+    "result": "minecraft:copper_ingot",
+    "ingredient": {
+      "item": "minecraft:raw_copper"
+    },
+    "type": "minecraft:blasting",
+    "experience": 0.7,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "copper_ingot",
+    "cookingtime": 100
+  },
+  "copper_ingot_from_smelting_copper_ore": {
+    "result": "minecraft:copper_ingot",
+    "ingredient": {
+      "item": "minecraft:copper_ore"
+    },
+    "type": "minecraft:smelting",
+    "experience": 0.7,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "copper_ingot",
+    "cookingtime": 200
+  },
+  "copper_ingot_from_smelting_deepslate_copper_ore": {
+    "result": "minecraft:copper_ingot",
+    "ingredient": {
+      "item": "minecraft:deepslate_copper_ore"
+    },
+    "type": "minecraft:smelting",
+    "experience": 0.7,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "copper_ingot",
+    "cookingtime": 200
+  },
+  "copper_ingot_from_smelting_raw_copper": {
+    "result": "minecraft:copper_ingot",
+    "ingredient": {
+      "item": "minecraft:raw_copper"
+    },
+    "type": "minecraft:smelting",
+    "experience": 0.7,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "copper_ingot",
+    "cookingtime": 200
+  },
+  "copper_ingot_from_waxed_copper_block": {
+    "result": {
+      "item": "minecraft:copper_ingot",
+      "count": 9
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:waxed_copper_block"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "copper_ingot"
+  },
+  "cracked_deepslate_bricks": {
+    "result": "minecraft:cracked_deepslate_bricks",
+    "ingredient": {
+      "item": "minecraft:deepslate_bricks"
+    },
+    "type": "minecraft:smelting",
+    "experience": 0.1,
+    "properties": {
+      "version": "1.17"
+    },
+    "cookingtime": 200
+  },
+  "cracked_deepslate_tiles": {
+    "result": "minecraft:cracked_deepslate_tiles",
+    "ingredient": {
+      "item": "minecraft:deepslate_tiles"
+    },
+    "type": "minecraft:smelting",
+    "experience": 0.1,
+    "properties": {
+      "version": "1.17"
+    },
+    "cookingtime": 200
   },
   "cracked_nether_bricks": {
     "result": "minecraft:cracked_nether_bricks",
@@ -4125,7 +4558,26 @@
     "properties": {
       "version": "1.16"
     },
-    "group": "sign"
+    "group": "wooden_sign"
+  },
+  "crimson_slab": {
+    "result": {
+      "item": "minecraft:crimson_slab",
+      "count": 6
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:crimson_planks"
+      }
+    },
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "wooden_slab"
   },
   "crimson_stairs": {
     "result": {
@@ -4194,6 +4646,118 @@
     },
     "properties": {
       "version": "1.14"
+    }
+  },
+  "cut_copper": {
+    "result": {
+      "item": "minecraft:cut_copper",
+      "count": 4
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:copper_block"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "cut_copper_from_copper_block_stonecutting": {
+    "result": "minecraft:cut_copper",
+    "ingredient": {
+      "item": "minecraft:copper_block"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "cut_copper_slab": {
+    "result": {
+      "item": "minecraft:cut_copper_slab",
+      "count": 6
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:cut_copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "cut_copper_slab_from_copper_block_stonecutting": {
+    "result": "minecraft:cut_copper_slab",
+    "ingredient": {
+      "item": "minecraft:copper_block"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "cut_copper_slab_from_cut_copper_stonecutting": {
+    "result": "minecraft:cut_copper_slab",
+    "ingredient": {
+      "item": "minecraft:cut_copper"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "cut_copper_stairs": {
+    "result": {
+      "item": "minecraft:cut_copper_stairs",
+      "count": 4
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:cut_copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "cut_copper_stairs_from_copper_block_stonecutting": {
+    "result": "minecraft:cut_copper_stairs",
+    "ingredient": {
+      "item": "minecraft:copper_block"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "cut_copper_stairs_from_cut_copper_stonecutting": {
+    "result": "minecraft:cut_copper_stairs",
+    "ingredient": {
+      "item": "minecraft:cut_copper"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
     }
   },
   "cut_red_sandstone": {
@@ -4396,6 +4960,24 @@
       "version": "1.12"
     },
     "group": "dyed_bed"
+  },
+  "cyan_candle": {
+    "result": {
+      "item": "minecraft:cyan_candle"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:candle"
+      },
+      {
+        "item": "minecraft:cyan_dye"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "dyed_candle"
   },
   "cyan_carpet": {
     "result": {
@@ -4776,7 +5358,7 @@
     "properties": {
       "version": "1.14"
     },
-    "group": "sign"
+    "group": "wooden_sign"
   },
   "dark_oak_slab": {
     "result": {
@@ -4982,6 +5564,456 @@
       "animated": true
     }
   },
+  "deepslate": {
+    "result": "minecraft:deepslate",
+    "ingredient": {
+      "item": "minecraft:cobbled_deepslate"
+    },
+    "type": "minecraft:smelting",
+    "experience": 0.1,
+    "properties": {
+      "version": "1.17"
+    },
+    "cookingtime": 200
+  },
+  "deepslate_brick_slab": {
+    "result": {
+      "item": "minecraft:deepslate_brick_slab",
+      "count": 6
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:deepslate_bricks"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_brick_slab_from_cobbled_deepslate_stonecutting": {
+    "result": "minecraft:deepslate_brick_slab",
+    "ingredient": {
+      "item": "minecraft:cobbled_deepslate"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_brick_slab_from_deepslate_bricks_stonecutting": {
+    "result": "minecraft:deepslate_brick_slab",
+    "ingredient": {
+      "item": "minecraft:deepslate_bricks"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_brick_slab_from_polished_deepslate_stonecutting": {
+    "result": "minecraft:deepslate_brick_slab",
+    "ingredient": {
+      "item": "minecraft:polished_deepslate"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_brick_stairs": {
+    "result": {
+      "item": "minecraft:deepslate_brick_stairs",
+      "count": 4
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:deepslate_bricks"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_brick_stairs_from_cobbled_deepslate_stonecutting": {
+    "result": "minecraft:deepslate_brick_stairs",
+    "ingredient": {
+      "item": "minecraft:cobbled_deepslate"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_brick_stairs_from_deepslate_bricks_stonecutting": {
+    "result": "minecraft:deepslate_brick_stairs",
+    "ingredient": {
+      "item": "minecraft:deepslate_bricks"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_brick_stairs_from_polished_deepslate_stonecutting": {
+    "result": "minecraft:deepslate_brick_stairs",
+    "ingredient": {
+      "item": "minecraft:polished_deepslate"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_brick_wall": {
+    "result": {
+      "item": "minecraft:deepslate_brick_wall",
+      "count": 6
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:deepslate_bricks"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_brick_wall_from_cobbled_deepslate_stonecutting": {
+    "result": "minecraft:deepslate_brick_wall",
+    "ingredient": {
+      "item": "minecraft:cobbled_deepslate"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_brick_wall_from_deepslate_bricks_stonecutting": {
+    "result": "minecraft:deepslate_brick_wall",
+    "ingredient": {
+      "item": "minecraft:deepslate_bricks"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_brick_wall_from_polished_deepslate_stonecutting": {
+    "result": "minecraft:deepslate_brick_wall",
+    "ingredient": {
+      "item": "minecraft:polished_deepslate"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_bricks": {
+    "result": {
+      "item": "minecraft:deepslate_bricks",
+      "count": 4
+    },
+    "pattern": [
+      "SS",
+      "SS"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "S": {
+        "item": "minecraft:polished_deepslate"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_bricks_from_cobbled_deepslate_stonecutting": {
+    "result": "minecraft:deepslate_bricks",
+    "ingredient": {
+      "item": "minecraft:cobbled_deepslate"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_bricks_from_polished_deepslate_stonecutting": {
+    "result": "minecraft:deepslate_bricks",
+    "ingredient": {
+      "item": "minecraft:polished_deepslate"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_tile_slab": {
+    "result": {
+      "item": "minecraft:deepslate_tile_slab",
+      "count": 6
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:deepslate_tiles"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_tile_slab_from_cobbled_deepslate_stonecutting": {
+    "result": "minecraft:deepslate_tile_slab",
+    "ingredient": {
+      "item": "minecraft:cobbled_deepslate"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_tile_slab_from_deepslate_bricks_stonecutting": {
+    "result": "minecraft:deepslate_tile_slab",
+    "ingredient": {
+      "item": "minecraft:deepslate_bricks"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_tile_slab_from_deepslate_tiles_stonecutting": {
+    "result": "minecraft:deepslate_tile_slab",
+    "ingredient": {
+      "item": "minecraft:deepslate_tiles"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_tile_slab_from_polished_deepslate_stonecutting": {
+    "result": "minecraft:deepslate_tile_slab",
+    "ingredient": {
+      "item": "minecraft:polished_deepslate"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_tile_stairs": {
+    "result": {
+      "item": "minecraft:deepslate_tile_stairs",
+      "count": 4
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:deepslate_tiles"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_tile_stairs_from_cobbled_deepslate_stonecutting": {
+    "result": "minecraft:deepslate_tile_stairs",
+    "ingredient": {
+      "item": "minecraft:cobbled_deepslate"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_tile_stairs_from_deepslate_bricks_stonecutting": {
+    "result": "minecraft:deepslate_tile_stairs",
+    "ingredient": {
+      "item": "minecraft:deepslate_bricks"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_tile_stairs_from_deepslate_tiles_stonecutting": {
+    "result": "minecraft:deepslate_tile_stairs",
+    "ingredient": {
+      "item": "minecraft:deepslate_tiles"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_tile_stairs_from_polished_deepslate_stonecutting": {
+    "result": "minecraft:deepslate_tile_stairs",
+    "ingredient": {
+      "item": "minecraft:polished_deepslate"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_tile_wall": {
+    "result": {
+      "item": "minecraft:deepslate_tile_wall",
+      "count": 6
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:deepslate_tiles"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_tile_wall_from_cobbled_deepslate_stonecutting": {
+    "result": "minecraft:deepslate_tile_wall",
+    "ingredient": {
+      "item": "minecraft:cobbled_deepslate"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_tile_wall_from_deepslate_bricks_stonecutting": {
+    "result": "minecraft:deepslate_tile_wall",
+    "ingredient": {
+      "item": "minecraft:deepslate_bricks"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_tile_wall_from_deepslate_tiles_stonecutting": {
+    "result": "minecraft:deepslate_tile_wall",
+    "ingredient": {
+      "item": "minecraft:deepslate_tiles"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_tile_wall_from_polished_deepslate_stonecutting": {
+    "result": "minecraft:deepslate_tile_wall",
+    "ingredient": {
+      "item": "minecraft:polished_deepslate"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_tiles": {
+    "result": {
+      "item": "minecraft:deepslate_tiles",
+      "count": 4
+    },
+    "pattern": [
+      "SS",
+      "SS"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "S": {
+        "item": "minecraft:deepslate_bricks"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_tiles_from_cobbled_deepslate_stonecutting": {
+    "result": "minecraft:deepslate_tiles",
+    "ingredient": {
+      "item": "minecraft:cobbled_deepslate"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_tiles_from_deepslate_bricks_stonecutting": {
+    "result": "minecraft:deepslate_tiles",
+    "ingredient": {
+      "item": "minecraft:deepslate_bricks"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "deepslate_tiles_from_polished_deepslate_stonecutting": {
+    "result": "minecraft:deepslate_tiles",
+    "ingredient": {
+      "item": "minecraft:polished_deepslate"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
   "detector_rail": {
     "result": {
       "item": "minecraft:detector_rail",
@@ -5083,22 +6115,50 @@
       }
     }
   },
-  "diamond_from_blasting": {
+  "diamond_from_blasting_deepslate_diamond_ore": {
+    "result": "minecraft:diamond",
+    "ingredient": {
+      "item": "minecraft:deepslate_diamond_ore"
+    },
+    "type": "minecraft:blasting",
+    "experience": 1,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "diamond",
+    "cookingtime": 100
+  },
+  "diamond_from_blasting_diamond_ore": {
     "result": "minecraft:diamond",
     "ingredient": {
       "item": "minecraft:diamond_ore"
     },
     "type": "minecraft:blasting",
     "experience": 1,
+    "group": "diamond",
     "cookingtime": 100
   },
-  "diamond_from_smelting": {
+  "diamond_from_smelting_deepslate_diamond_ore": {
+    "result": "minecraft:diamond",
+    "ingredient": {
+      "item": "minecraft:deepslate_diamond_ore"
+    },
+    "type": "minecraft:smelting",
+    "experience": 1,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "diamond",
+    "cookingtime": 200
+  },
+  "diamond_from_smelting_diamond_ore": {
     "result": "minecraft:diamond",
     "ingredient": {
       "item": "minecraft:diamond_ore"
     },
     "type": "minecraft:smelting",
     "experience": 1,
+    "group": "diamond",
     "cookingtime": 200
   },
   "diamond_helmet": {
@@ -5361,36 +6421,17 @@
     "result": {
       "item": "minecraft:dried_kelp_block"
     },
-    "ingredients": [
-      {
-        "item": "minecraft:dried_kelp"
-      },
-      {
-        "item": "minecraft:dried_kelp"
-      },
-      {
-        "item": "minecraft:dried_kelp"
-      },
-      {
-        "item": "minecraft:dried_kelp"
-      },
-      {
-        "item": "minecraft:dried_kelp"
-      },
-      {
-        "item": "minecraft:dried_kelp"
-      },
-      {
-        "item": "minecraft:dried_kelp"
-      },
-      {
-        "item": "minecraft:dried_kelp"
-      },
-      {
+    "pattern": [
+      "###",
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
         "item": "minecraft:dried_kelp"
       }
-    ],
-    "type": "minecraft:crafting_shapeless",
+    },
     "properties": {
       "version": "1.13"
     }
@@ -5430,6 +6471,25 @@
       "version": "1.13"
     },
     "cookingtime": 100
+  },
+  "dripstone_block": {
+    "result": {
+      "item": "minecraft:dripstone_block"
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:pointed_dripstone"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "pointed_dripstone"
   },
   "dropper": {
     "result": {
@@ -5478,22 +6538,50 @@
       }
     }
   },
-  "emerald_from_blasting": {
+  "emerald_from_blasting_deepslate_emerald_ore": {
+    "result": "minecraft:emerald",
+    "ingredient": {
+      "item": "minecraft:deepslate_emerald_ore"
+    },
+    "type": "minecraft:blasting",
+    "experience": 1,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "emerald",
+    "cookingtime": 100
+  },
+  "emerald_from_blasting_emerald_ore": {
     "result": "minecraft:emerald",
     "ingredient": {
       "item": "minecraft:emerald_ore"
     },
     "type": "minecraft:blasting",
     "experience": 1,
+    "group": "emerald",
     "cookingtime": 100
   },
-  "emerald_from_smelting": {
+  "emerald_from_smelting_deepslate_emerald_ore": {
+    "result": "minecraft:emerald",
+    "ingredient": {
+      "item": "minecraft:deepslate_emerald_ore"
+    },
+    "type": "minecraft:smelting",
+    "experience": 1,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "emerald",
+    "cookingtime": 200
+  },
+  "emerald_from_smelting_emerald_ore": {
     "result": "minecraft:emerald",
     "ingredient": {
       "item": "minecraft:emerald_ore"
     },
     "type": "minecraft:smelting",
     "experience": 1,
+    "group": "emerald",
     "cookingtime": 200
   },
   "empty_lingering_potion": {
@@ -5798,6 +6886,118 @@
       }
     ],
     "type": "minecraft:crafting_shapeless"
+  },
+  "exposed_cut_copper": {
+    "result": {
+      "item": "minecraft:exposed_cut_copper",
+      "count": 4
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:exposed_copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "exposed_cut_copper_from_exposed_copper_stonecutting": {
+    "result": "minecraft:exposed_cut_copper",
+    "ingredient": {
+      "item": "minecraft:exposed_copper"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "exposed_cut_copper_slab": {
+    "result": {
+      "item": "minecraft:exposed_cut_copper_slab",
+      "count": 6
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:exposed_cut_copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "exposed_cut_copper_slab_from_exposed_copper_stonecutting": {
+    "result": "minecraft:exposed_cut_copper_slab",
+    "ingredient": {
+      "item": "minecraft:exposed_copper"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "exposed_cut_copper_slab_from_exposed_cut_copper_stonecutting": {
+    "result": "minecraft:exposed_cut_copper_slab",
+    "ingredient": {
+      "item": "minecraft:exposed_cut_copper"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "exposed_cut_copper_stairs": {
+    "result": {
+      "item": "minecraft:exposed_cut_copper_stairs",
+      "count": 4
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:exposed_cut_copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "exposed_cut_copper_stairs_from_exposed_copper_stonecutting": {
+    "result": "minecraft:exposed_cut_copper_stairs",
+    "ingredient": {
+      "item": "minecraft:exposed_copper"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "exposed_cut_copper_stairs_from_exposed_cut_copper_stonecutting": {
+    "result": "minecraft:exposed_cut_copper_stairs",
+    "ingredient": {
+      "item": "minecraft:exposed_cut_copper"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
   },
   "extended_fire_resistance_lingering_potion": {
     "result": "minecraft.lingering_potion.effect.fire_resistance.extended",
@@ -6892,7 +8092,7 @@
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": {
-        "tag": "minecraft:furnace_materials"
+        "tag": "minecraft:stone_crafting_materials"
       }
     },
     "properties": {
@@ -6980,6 +8180,23 @@
       }
     }
   },
+  "glow_item_frame": {
+    "result": {
+      "item": "minecraft:glow_item_frame"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:item_frame"
+      },
+      {
+        "item": "minecraft:glow_ink_sac"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    }
+  },
   "glowstone": {
     "result": {
       "item": "minecraft:glowstone"
@@ -7011,13 +8228,53 @@
       }
     }
   },
-  "gold_ingot_from_blasting": {
+  "gold_ingot_from_blasting_deepslate_gold_ore": {
     "result": "minecraft:gold_ingot",
     "ingredient": {
-      "tag": "minecraft:gold_ores"
+      "item": "minecraft:deepslate_gold_ore"
     },
     "type": "minecraft:blasting",
     "experience": 1,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "gold_ingot",
+    "cookingtime": 100
+  },
+  "gold_ingot_from_blasting_gold_ore": {
+    "result": "minecraft:gold_ingot",
+    "ingredient": {
+      "item": "minecraft:gold_ore"
+    },
+    "type": "minecraft:blasting",
+    "experience": 1,
+    "group": "gold_ingot",
+    "cookingtime": 100
+  },
+  "gold_ingot_from_blasting_nether_gold_ore": {
+    "result": "minecraft:gold_ingot",
+    "ingredient": {
+      "item": "minecraft:nether_gold_ore"
+    },
+    "type": "minecraft:blasting",
+    "experience": 1,
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "gold_ingot",
+    "cookingtime": 100
+  },
+  "gold_ingot_from_blasting_raw_gold": {
+    "result": "minecraft:gold_ingot",
+    "ingredient": {
+      "item": "minecraft:raw_gold"
+    },
+    "type": "minecraft:blasting",
+    "experience": 1,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "gold_ingot",
     "cookingtime": 100
   },
   "gold_ingot_from_gold_block": {
@@ -7050,13 +8307,53 @@
     },
     "group": "gold_ingot"
   },
-  "gold_ingot_from_smelting": {
+  "gold_ingot_from_smelting_deepslate_gold_ore": {
+    "result": "minecraft:gold_ingot",
+    "ingredient": {
+      "item": "minecraft:deepslate_gold_ore"
+    },
+    "type": "minecraft:smelting",
+    "experience": 1,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "gold_ingot",
+    "cookingtime": 200
+  },
+  "gold_ingot_from_smelting_gold_ore": {
     "result": "minecraft:gold_ingot",
     "ingredient": {
       "item": "minecraft:gold_ore"
     },
     "type": "minecraft:smelting",
     "experience": 1,
+    "group": "gold_ingot",
+    "cookingtime": 200
+  },
+  "gold_ingot_from_smelting_nether_gold_ore": {
+    "result": "minecraft:gold_ingot",
+    "ingredient": {
+      "item": "minecraft:nether_gold_ore"
+    },
+    "type": "minecraft:smelting",
+    "experience": 1,
+    "properties": {
+      "version": "1.16"
+    },
+    "group": "gold_ingot",
+    "cookingtime": 200
+  },
+  "gold_ingot_from_smelting_raw_gold": {
+    "result": "minecraft:gold_ingot",
+    "ingredient": {
+      "item": "minecraft:raw_gold"
+    },
+    "type": "minecraft:smelting",
+    "experience": 1,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "gold_ingot",
     "cookingtime": 200
   },
   "gold_nugget": {
@@ -7514,6 +8811,24 @@
     },
     "group": "dyed_bed"
   },
+  "gray_candle": {
+    "result": {
+      "item": "minecraft:gray_candle"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:candle"
+      },
+      {
+        "item": "minecraft:gray_dye"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "dyed_candle"
+  },
   "gray_carpet": {
     "result": {
       "item": "minecraft:gray_carpet",
@@ -7797,6 +9112,24 @@
       "version": "1.12"
     },
     "group": "dyed_bed"
+  },
+  "green_candle": {
+    "result": {
+      "item": "minecraft:green_candle"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:candle"
+      },
+      {
+        "item": "minecraft:green_dye"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "dyed_candle"
   },
   "green_carpet": {
     "result": {
@@ -8404,13 +9737,40 @@
       }
     }
   },
-  "iron_ingot_from_blasting": {
+  "iron_ingot_from_blasting_deepslate_iron_ore": {
+    "result": "minecraft:iron_ingot",
+    "ingredient": {
+      "item": "minecraft:deepslate_iron_ore"
+    },
+    "type": "minecraft:blasting",
+    "experience": 0.7,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "iron_ingot",
+    "cookingtime": 100
+  },
+  "iron_ingot_from_blasting_iron_ore": {
     "result": "minecraft:iron_ingot",
     "ingredient": {
       "item": "minecraft:iron_ore"
     },
     "type": "minecraft:blasting",
     "experience": 0.7,
+    "group": "iron_ingot",
+    "cookingtime": 100
+  },
+  "iron_ingot_from_blasting_raw_iron": {
+    "result": "minecraft:iron_ingot",
+    "ingredient": {
+      "item": "minecraft:raw_iron"
+    },
+    "type": "minecraft:blasting",
+    "experience": 0.7,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "iron_ingot",
     "cookingtime": 100
   },
   "iron_ingot_from_iron_block": {
@@ -8446,13 +9806,40 @@
     },
     "group": "iron_ingot"
   },
-  "iron_ingot_from_smelting": {
+  "iron_ingot_from_smelting_deepslate_iron_ore": {
+    "result": "minecraft:iron_ingot",
+    "ingredient": {
+      "item": "minecraft:deepslate_iron_ore"
+    },
+    "type": "minecraft:smelting",
+    "experience": 0.7,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "iron_ingot",
+    "cookingtime": 200
+  },
+  "iron_ingot_from_smelting_iron_ore": {
     "result": "minecraft:iron_ingot",
     "ingredient": {
       "item": "minecraft:iron_ore"
     },
     "type": "minecraft:smelting",
     "experience": 0.7,
+    "group": "iron_ingot",
+    "cookingtime": 200
+  },
+  "iron_ingot_from_smelting_raw_iron": {
+    "result": "minecraft:iron_ingot",
+    "ingredient": {
+      "item": "minecraft:raw_iron"
+    },
+    "type": "minecraft:smelting",
+    "experience": 0.7,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "iron_ingot",
     "cookingtime": 200
   },
   "iron_leggings": {
@@ -8883,7 +10270,7 @@
     "properties": {
       "version": "1.14"
     },
-    "group": "sign"
+    "group": "wooden_sign"
   },
   "jungle_slab": {
     "result": {
@@ -9014,24 +10401,6 @@
       }
     }
   },
-  "lapis_from_blasting": {
-    "result": "minecraft:lapis_lazuli",
-    "ingredient": {
-      "item": "minecraft:lapis_ore"
-    },
-    "type": "minecraft:blasting",
-    "experience": 0.2,
-    "cookingtime": 100
-  },
-  "lapis_from_smelting": {
-    "result": "minecraft:lapis_lazuli",
-    "ingredient": {
-      "item": "minecraft:lapis_ore"
-    },
-    "type": "minecraft:smelting",
-    "experience": 0.2,
-    "cookingtime": 200
-  },
   "lapis_lazuli": {
     "result": {
       "item": "minecraft:lapis_lazuli",
@@ -9043,6 +10412,52 @@
       }
     ],
     "type": "minecraft:crafting_shapeless"
+  },
+  "lapis_lazuli_from_blasting_deepslate_lapis_ore": {
+    "result": "minecraft:lapis_lazuli",
+    "ingredient": {
+      "item": "minecraft:deepslate_lapis_ore"
+    },
+    "type": "minecraft:blasting",
+    "experience": 0.2,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "lapus_lazuli",
+    "cookingtime": 100
+  },
+  "lapis_lazuli_from_blasting_lapis_ore": {
+    "result": "minecraft:lapis_lazuli",
+    "ingredient": {
+      "item": "minecraft:lapis_ore"
+    },
+    "type": "minecraft:blasting",
+    "experience": 0.2,
+    "group": "lapus_lazuli",
+    "cookingtime": 100
+  },
+  "lapis_lazuli_from_smelting_deepslate_lapis_ore": {
+    "result": "minecraft:lapis_lazuli",
+    "ingredient": {
+      "item": "minecraft:deepslate_lapis_ore"
+    },
+    "type": "minecraft:smelting",
+    "experience": 0.2,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "lapus_lazuli",
+    "cookingtime": 200
+  },
+  "lapis_lazuli_from_smelting_lapis_ore": {
+    "result": "minecraft:lapis_lazuli",
+    "ingredient": {
+      "item": "minecraft:lapis_ore"
+    },
+    "type": "minecraft:smelting",
+    "experience": 0.2,
+    "group": "lapus_lazuli",
+    "cookingtime": 200
   },
   "lead": {
     "result": {
@@ -9303,6 +10718,24 @@
       "version": "1.12"
     },
     "group": "dyed_bed"
+  },
+  "light_blue_candle": {
+    "result": {
+      "item": "minecraft:light_blue_candle"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:candle"
+      },
+      {
+        "item": "minecraft:light_blue_dye"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "dyed_candle"
   },
   "light_blue_carpet": {
     "result": {
@@ -9601,6 +11034,24 @@
       "version": "1.12"
     },
     "group": "dyed_bed"
+  },
+  "light_gray_candle": {
+    "result": {
+      "item": "minecraft:light_gray_candle"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:candle"
+      },
+      {
+        "item": "minecraft:light_gray_dye"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "dyed_candle"
   },
   "light_gray_carpet": {
     "result": {
@@ -9921,6 +11372,25 @@
       }
     }
   },
+  "lightning_rod": {
+    "result": {
+      "item": "minecraft:lightning_rod"
+    },
+    "pattern": [
+      "#",
+      "#",
+      "#"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:copper_ingot"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
   "lime_banner": {
     "result": {
       "item": "minecraft:lime_banner"
@@ -9981,6 +11451,24 @@
       "version": "1.12"
     },
     "group": "dyed_bed"
+  },
+  "lime_candle": {
+    "result": {
+      "item": "minecraft:lime_candle"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:candle"
+      },
+      {
+        "item": "minecraft:lime_dye"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "dyed_candle"
   },
   "lime_carpet": {
     "result": {
@@ -11039,6 +12527,24 @@
     },
     "group": "dyed_bed"
   },
+  "magenta_candle": {
+    "result": {
+      "item": "minecraft:magenta_candle"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:candle"
+      },
+      {
+        "item": "minecraft:magenta_dye"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "dyed_candle"
+  },
   "magenta_carpet": {
     "result": {
       "item": "minecraft:magenta_carpet",
@@ -11477,7 +12983,44 @@
       "version": "1.14"
     }
   },
-  "mossy_cobblestone": {
+  "moss_carpet": {
+    "result": {
+      "item": "minecraft:moss_carpet",
+      "count": 3
+    },
+    "pattern": [
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:moss_block"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "carpet"
+  },
+  "mossy_cobblestone_from_moss_block": {
+    "result": {
+      "item": "minecraft:mossy_cobblestone"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:cobblestone"
+      },
+      {
+        "item": "minecraft:moss_block"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "mossy_cobblestone"
+  },
+  "mossy_cobblestone_from_vine": {
     "result": {
       "item": "minecraft:mossy_cobblestone"
     },
@@ -11492,7 +13035,8 @@
     "type": "minecraft:crafting_shapeless",
     "properties": {
       "version": "1.8"
-    }
+    },
+    "group": "mossy_cobblestone"
   },
   "mossy_cobblestone_slab": {
     "result": {
@@ -11674,7 +13218,25 @@
       "version": "1.14"
     }
   },
-  "mossy_stone_bricks": {
+  "mossy_stone_bricks_from_moss_block": {
+    "result": {
+      "item": "minecraft:mossy_stone_bricks"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:stone_bricks"
+      },
+      {
+        "item": "minecraft:moss_block"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "mossy_stone_bricks"
+  },
+  "mossy_stone_bricks_from_vine": {
     "result": {
       "item": "minecraft:mossy_stone_bricks"
     },
@@ -11689,7 +13251,8 @@
     "type": "minecraft:crafting_shapeless",
     "properties": {
       "version": "1.8"
-    }
+    },
+    "group": "mossy_stone_bricks"
   },
   "mundane_lingering_potion": {
     "result": "minecraft.lingering_potion.effect.mundane",
@@ -11785,16 +13348,16 @@
       "count": 6
     },
     "pattern": [
-      "#-#",
-      "#-#"
+      "W#W",
+      "W#W"
     ],
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": {
-        "item": "minecraft:nether_bricks"
-      },
-      "-": {
         "item": "minecraft:nether_brick"
+      },
+      "W": {
+        "item": "minecraft:nether_bricks"
       }
     },
     "properties": {
@@ -12383,7 +13946,7 @@
         "item": "minecraft:stick"
       }
     },
-    "group": "sign"
+    "group": "wooden_sign"
   },
   "oak_slab": {
     "result": {
@@ -12541,6 +14104,24 @@
       "version": "1.12"
     },
     "group": "dyed_bed"
+  },
+  "orange_candle": {
+    "result": {
+      "item": "minecraft:orange_candle"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:candle"
+      },
+      {
+        "item": "minecraft:orange_dye"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "dyed_candle"
   },
   "orange_carpet": {
     "result": {
@@ -12757,6 +14338,118 @@
     "type": "minecraft:crafting_shapeless",
     "group": "wool"
   },
+  "oxidized_cut_copper": {
+    "result": {
+      "item": "minecraft:oxidized_cut_copper",
+      "count": 4
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:oxidized_copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "oxidized_cut_copper_from_oxidized_copper_stonecutting": {
+    "result": "minecraft:oxidized_cut_copper",
+    "ingredient": {
+      "item": "minecraft:oxidized_copper"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "oxidized_cut_copper_slab": {
+    "result": {
+      "item": "minecraft:oxidized_cut_copper_slab",
+      "count": 6
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:oxidized_cut_copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "oxidized_cut_copper_slab_from_oxidized_copper_stonecutting": {
+    "result": "minecraft:oxidized_cut_copper_slab",
+    "ingredient": {
+      "item": "minecraft:oxidized_copper"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "oxidized_cut_copper_slab_from_oxidized_cut_copper_stonecutting": {
+    "result": "minecraft:oxidized_cut_copper_slab",
+    "ingredient": {
+      "item": "minecraft:oxidized_cut_copper"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "oxidized_cut_copper_stairs": {
+    "result": {
+      "item": "minecraft:oxidized_cut_copper_stairs",
+      "count": 4
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:oxidized_cut_copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "oxidized_cut_copper_stairs_from_oxidized_copper_stonecutting": {
+    "result": "minecraft:oxidized_cut_copper_stairs",
+    "ingredient": {
+      "item": "minecraft:oxidized_copper"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "oxidized_cut_copper_stairs_from_oxidized_cut_copper_stonecutting": {
+    "result": "minecraft:oxidized_cut_copper_stairs",
+    "ingredient": {
+      "item": "minecraft:oxidized_cut_copper"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
   "packed_ice": {
     "result": {
       "item": "minecraft:packed_ice"
@@ -12892,6 +14585,24 @@
       "version": "1.12"
     },
     "group": "dyed_bed"
+  },
+  "pink_candle": {
+    "result": {
+      "item": "minecraft:pink_candle"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:candle"
+      },
+      {
+        "item": "minecraft:pink_dye"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "dyed_candle"
   },
   "pink_carpet": {
     "result": {
@@ -13527,12 +15238,12 @@
       "count": 4
     },
     "pattern": [
-      "##",
-      "##"
+      "SS",
+      "SS"
     ],
     "type": "minecraft:crafting_shaped",
     "key": {
-      "#": {
+      "S": {
         "item": "minecraft:polished_blackstone"
       }
     },
@@ -13725,6 +15436,159 @@
     "type": "minecraft:stonecutting",
     "properties": {
       "version": "1.16"
+    }
+  },
+  "polished_deepslate": {
+    "result": {
+      "item": "minecraft:polished_deepslate",
+      "count": 4
+    },
+    "pattern": [
+      "SS",
+      "SS"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "S": {
+        "item": "minecraft:cobbled_deepslate"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "polished_deepslate_from_cobbled_deepslate_stonecutting": {
+    "result": "minecraft:polished_deepslate",
+    "ingredient": {
+      "item": "minecraft:cobbled_deepslate"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "polished_deepslate_slab": {
+    "result": {
+      "item": "minecraft:polished_deepslate_slab",
+      "count": 6
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:polished_deepslate"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "polished_deepslate_slab_from_cobbled_deepslate_stonecutting": {
+    "result": "minecraft:polished_deepslate_slab",
+    "ingredient": {
+      "item": "minecraft:cobbled_deepslate"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "polished_deepslate_slab_from_polished_deepslate_stonecutting": {
+    "result": "minecraft:polished_deepslate_slab",
+    "ingredient": {
+      "item": "minecraft:polished_deepslate"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "polished_deepslate_stairs": {
+    "result": {
+      "item": "minecraft:polished_deepslate_stairs",
+      "count": 4
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:polished_deepslate"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "polished_deepslate_stairs_from_cobbled_deepslate_stonecutting": {
+    "result": "minecraft:polished_deepslate_stairs",
+    "ingredient": {
+      "item": "minecraft:cobbled_deepslate"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "polished_deepslate_stairs_from_polished_deepslate_stonecutting": {
+    "result": "minecraft:polished_deepslate_stairs",
+    "ingredient": {
+      "item": "minecraft:polished_deepslate"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "polished_deepslate_wall": {
+    "result": {
+      "item": "minecraft:polished_deepslate_wall",
+      "count": 6
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:polished_deepslate"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "polished_deepslate_wall_from_cobbled_deepslate_stonecutting": {
+    "result": "minecraft:polished_deepslate_wall",
+    "ingredient": {
+      "item": "minecraft:cobbled_deepslate"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "polished_deepslate_wall_from_polished_deepslate_stonecutting": {
+    "result": "minecraft:polished_deepslate_wall",
+    "ingredient": {
+      "item": "minecraft:polished_deepslate"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
     }
   },
   "polished_diorite": {
@@ -14269,6 +16133,24 @@
     },
     "group": "dyed_bed"
   },
+  "purple_candle": {
+    "result": {
+      "item": "minecraft:purple_candle"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:candle"
+      },
+      {
+        "item": "minecraft:purple_dye"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "dyed_candle"
+  },
   "purple_carpet": {
     "result": {
       "item": "minecraft:purple_carpet",
@@ -14612,6 +16494,15 @@
       "version": "1.14"
     }
   },
+  "quartz": {
+    "result": "minecraft:quartz",
+    "ingredient": {
+      "item": "minecraft:nether_quartz_ore"
+    },
+    "type": "minecraft:smelting",
+    "experience": 0.2,
+    "cookingtime": 200
+  },
   "quartz_block": {
     "result": {
       "item": "minecraft:quartz_block"
@@ -14862,6 +16753,108 @@
       }
     }
   },
+  "raw_copper": {
+    "result": {
+      "item": "minecraft:raw_copper",
+      "count": 9
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:raw_copper_block"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "raw_copper_block": {
+    "result": {
+      "item": "minecraft:raw_copper_block"
+    },
+    "pattern": [
+      "###",
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:raw_copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "raw_gold": {
+    "result": {
+      "item": "minecraft:raw_gold",
+      "count": 9
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:raw_gold_block"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "raw_gold_block": {
+    "result": {
+      "item": "minecraft:raw_gold_block"
+    },
+    "pattern": [
+      "###",
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:raw_gold"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "raw_iron": {
+    "result": {
+      "item": "minecraft:raw_iron",
+      "count": 9
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:raw_iron_block"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "raw_iron_block": {
+    "result": {
+      "item": "minecraft:raw_iron_block"
+    },
+    "pattern": [
+      "###",
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:raw_iron"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
   "red_banner": {
     "result": {
       "item": "minecraft:red_banner"
@@ -14922,6 +16915,24 @@
       "version": "1.12"
     },
     "group": "dyed_bed"
+  },
+  "red_candle": {
+    "result": {
+      "item": "minecraft:red_candle"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:candle"
+      },
+      {
+        "item": "minecraft:red_dye"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "dyed_candle"
   },
   "red_carpet": {
     "result": {
@@ -15422,22 +17433,50 @@
       }
     }
   },
-  "redstone_from_blasting": {
+  "redstone_from_blasting_deepslate_redstone_ore": {
+    "result": "minecraft:redstone",
+    "ingredient": {
+      "item": "minecraft:deepslate_redstone_ore"
+    },
+    "type": "minecraft:blasting",
+    "experience": 0.7,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "redstone",
+    "cookingtime": 100
+  },
+  "redstone_from_blasting_redstone_ore": {
     "result": "minecraft:redstone",
     "ingredient": {
       "item": "minecraft:redstone_ore"
     },
     "type": "minecraft:blasting",
     "experience": 0.7,
+    "group": "redstone",
     "cookingtime": 100
   },
-  "redstone_from_smelting": {
+  "redstone_from_smelting_deepslate_redstone_ore": {
+    "result": "minecraft:redstone",
+    "ingredient": {
+      "item": "minecraft:deepslate_redstone_ore"
+    },
+    "type": "minecraft:smelting",
+    "experience": 0.7,
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "redstone",
+    "cookingtime": 200
+  },
+  "redstone_from_smelting_redstone_ore": {
     "result": "minecraft:redstone",
     "ingredient": {
       "item": "minecraft:redstone_ore"
     },
     "type": "minecraft:smelting",
     "experience": 0.7,
+    "group": "redstone",
     "cookingtime": 200
   },
   "redstone_lamp": {
@@ -17273,6 +19312,18 @@
       "version": "1.14"
     }
   },
+  "smooth_basalt": {
+    "result": "minecraft:smooth_basalt",
+    "ingredient": {
+      "item": "minecraft:basalt"
+    },
+    "type": "minecraft:smelting",
+    "experience": 0.1,
+    "properties": {
+      "version": "1.17"
+    },
+    "cookingtime": 200
+  },
   "smooth_quartz": {
     "result": "minecraft:smooth_quartz",
     "ingredient": {
@@ -18470,7 +20521,7 @@
     "properties": {
       "version": "1.14"
     },
-    "group": "sign"
+    "group": "wooden_sign"
   },
   "spruce_slab": {
     "result": {
@@ -18545,6 +20596,28 @@
       "version": "1.13"
     },
     "group": "bark"
+  },
+  "spyglass": {
+    "result": {
+      "item": "minecraft:spyglass"
+    },
+    "pattern": [
+      " # ",
+      " X ",
+      " X "
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:amethyst_shard"
+      },
+      "X": {
+        "item": "minecraft:copper_ingot"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
   },
   "stick": {
     "result": {
@@ -19355,6 +21428,29 @@
     },
     "base": {
       "item": "minecraft.potion.effect.thick"
+    }
+  },
+  "tinted_glass": {
+    "result": {
+      "item": "minecraft:tinted_glass",
+      "count": 2
+    },
+    "pattern": [
+      " S ",
+      "SGS",
+      " S "
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "S": {
+        "item": "minecraft:amethyst_shard"
+      },
+      "G": {
+        "item": "minecraft:glass"
+      }
+    },
+    "properties": {
+      "version": "1.17"
     }
   },
   "tipped_arrow_awkward": {
@@ -20696,7 +22792,7 @@
     "properties": {
       "version": "1.16"
     },
-    "group": "sign"
+    "group": "wooden_sign"
   },
   "warped_slab": {
     "result": {
@@ -20817,6 +22913,754 @@
       "item": "minecraft.potion.effect.water"
     }
   },
+  "waxed_copper_block_from_honeycomb": {
+    "result": {
+      "item": "minecraft:waxed_copper_block"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:copper_block"
+      },
+      {
+        "item": "minecraft:honeycomb"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_copper_block"
+  },
+  "waxed_cut_copper": {
+    "result": {
+      "item": "minecraft:waxed_cut_copper",
+      "count": 4
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:waxed_copper_block"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_cut_copper"
+  },
+  "waxed_cut_copper_from_honeycomb": {
+    "result": {
+      "item": "minecraft:waxed_cut_copper"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:cut_copper"
+      },
+      {
+        "item": "minecraft:honeycomb"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_cut_copper"
+  },
+  "waxed_cut_copper_from_waxed_copper_block_stonecutting": {
+    "result": "minecraft:waxed_cut_copper",
+    "ingredient": {
+      "item": "minecraft:waxed_copper_block"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "waxed_cut_copper_slab": {
+    "result": {
+      "item": "minecraft:waxed_cut_copper_slab",
+      "count": 6
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:waxed_cut_copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_cut_copper_slab"
+  },
+  "waxed_cut_copper_slab_from_honeycomb": {
+    "result": {
+      "item": "minecraft:waxed_cut_copper_slab"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:cut_copper_slab"
+      },
+      {
+        "item": "minecraft:honeycomb"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_cut_copper_slab"
+  },
+  "waxed_cut_copper_slab_from_waxed_copper_block_stonecutting": {
+    "result": "minecraft:waxed_cut_copper_slab",
+    "ingredient": {
+      "item": "minecraft:waxed_copper_block"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "waxed_cut_copper_slab_from_waxed_cut_copper_stonecutting": {
+    "result": "minecraft:waxed_cut_copper_slab",
+    "ingredient": {
+      "item": "minecraft:waxed_cut_copper"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "waxed_cut_copper_stairs": {
+    "result": {
+      "item": "minecraft:waxed_cut_copper_stairs",
+      "count": 4
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:waxed_cut_copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_cut_copper_stairs"
+  },
+  "waxed_cut_copper_stairs_from_honeycomb": {
+    "result": {
+      "item": "minecraft:waxed_cut_copper_stairs"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:cut_copper_stairs"
+      },
+      {
+        "item": "minecraft:honeycomb"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_cut_copper_stairs"
+  },
+  "waxed_cut_copper_stairs_from_waxed_copper_block_stonecutting": {
+    "result": "minecraft:waxed_cut_copper_stairs",
+    "ingredient": {
+      "item": "minecraft:waxed_copper_block"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "waxed_cut_copper_stairs_from_waxed_cut_copper_stonecutting": {
+    "result": "minecraft:waxed_cut_copper_stairs",
+    "ingredient": {
+      "item": "minecraft:waxed_cut_copper"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "waxed_exposed_copper_from_honeycomb": {
+    "result": {
+      "item": "minecraft:waxed_exposed_copper"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:exposed_copper"
+      },
+      {
+        "item": "minecraft:honeycomb"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_exposed_copper"
+  },
+  "waxed_exposed_cut_copper": {
+    "result": {
+      "item": "minecraft:waxed_exposed_cut_copper",
+      "count": 4
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:waxed_exposed_copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_exposed_cut_copper"
+  },
+  "waxed_exposed_cut_copper_from_honeycomb": {
+    "result": {
+      "item": "minecraft:waxed_exposed_cut_copper"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:exposed_cut_copper"
+      },
+      {
+        "item": "minecraft:honeycomb"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_exposed_cut_copper"
+  },
+  "waxed_exposed_cut_copper_from_waxed_exposed_copper_stonecutting": {
+    "result": "minecraft:waxed_exposed_cut_copper",
+    "ingredient": {
+      "item": "minecraft:waxed_exposed_copper"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "waxed_exposed_cut_copper_slab": {
+    "result": {
+      "item": "minecraft:waxed_exposed_cut_copper_slab",
+      "count": 6
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:waxed_exposed_cut_copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_exposed_cut_copper_slab"
+  },
+  "waxed_exposed_cut_copper_slab_from_honeycomb": {
+    "result": {
+      "item": "minecraft:waxed_exposed_cut_copper_slab"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:exposed_cut_copper_slab"
+      },
+      {
+        "item": "minecraft:honeycomb"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_exposed_cut_copper_slab"
+  },
+  "waxed_exposed_cut_copper_slab_from_waxed_exposed_copper_stonecutting": {
+    "result": "minecraft:waxed_exposed_cut_copper_slab",
+    "ingredient": {
+      "item": "minecraft:waxed_exposed_copper"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "waxed_exposed_cut_copper_slab_from_waxed_exposed_cut_copper_stonecutting": {
+    "result": "minecraft:waxed_exposed_cut_copper_slab",
+    "ingredient": {
+      "item": "minecraft:waxed_exposed_cut_copper"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "waxed_exposed_cut_copper_stairs": {
+    "result": {
+      "item": "minecraft:waxed_exposed_cut_copper_stairs",
+      "count": 4
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:waxed_exposed_cut_copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_exposed_cut_copper_stairs"
+  },
+  "waxed_exposed_cut_copper_stairs_from_honeycomb": {
+    "result": {
+      "item": "minecraft:waxed_exposed_cut_copper_stairs"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:exposed_cut_copper_stairs"
+      },
+      {
+        "item": "minecraft:honeycomb"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_exposed_cut_copper_stairs"
+  },
+  "waxed_exposed_cut_copper_stairs_from_waxed_exposed_copper_stonecutting": {
+    "result": "minecraft:waxed_exposed_cut_copper_stairs",
+    "ingredient": {
+      "item": "minecraft:waxed_exposed_copper"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "waxed_exposed_cut_copper_stairs_from_waxed_exposed_cut_copper_stonecutting": {
+    "result": "minecraft:waxed_exposed_cut_copper_stairs",
+    "ingredient": {
+      "item": "minecraft:waxed_exposed_cut_copper"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "waxed_oxidized_copper_from_honeycomb": {
+    "result": {
+      "item": "minecraft:waxed_oxidized_copper"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:oxidized_copper"
+      },
+      {
+        "item": "minecraft:honeycomb"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_oxidized_copper"
+  },
+  "waxed_oxidized_cut_copper": {
+    "result": {
+      "item": "minecraft:waxed_oxidized_cut_copper",
+      "count": 4
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:waxed_oxidized_copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_oxidized_cut_copper"
+  },
+  "waxed_oxidized_cut_copper_from_honeycomb": {
+    "result": {
+      "item": "minecraft:waxed_oxidized_cut_copper"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:oxidized_cut_copper"
+      },
+      {
+        "item": "minecraft:honeycomb"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_oxidized_cut_copper"
+  },
+  "waxed_oxidized_cut_copper_from_waxed_oxidized_copper_stonecutting": {
+    "result": "minecraft:waxed_oxidized_cut_copper",
+    "ingredient": {
+      "item": "minecraft:waxed_oxidized_copper"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "waxed_oxidized_cut_copper_slab": {
+    "result": {
+      "item": "minecraft:waxed_oxidized_cut_copper_slab",
+      "count": 6
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:waxed_oxidized_cut_copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_oxidized_cut_copper_slab"
+  },
+  "waxed_oxidized_cut_copper_slab_from_honeycomb": {
+    "result": {
+      "item": "minecraft:waxed_oxidized_cut_copper_slab"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:oxidized_cut_copper_slab"
+      },
+      {
+        "item": "minecraft:honeycomb"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_oxidized_cut_copper_slab"
+  },
+  "waxed_oxidized_cut_copper_slab_from_waxed_oxidized_copper_stonecutting": {
+    "result": "minecraft:waxed_oxidized_cut_copper_slab",
+    "ingredient": {
+      "item": "minecraft:waxed_oxidized_copper"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "waxed_oxidized_cut_copper_slab_from_waxed_oxidized_cut_copper_stonecutting": {
+    "result": "minecraft:waxed_oxidized_cut_copper_slab",
+    "ingredient": {
+      "item": "minecraft:waxed_oxidized_cut_copper"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "waxed_oxidized_cut_copper_stairs": {
+    "result": {
+      "item": "minecraft:waxed_oxidized_cut_copper_stairs",
+      "count": 4
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:waxed_oxidized_cut_copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_oxidized_cut_copper_stairs"
+  },
+  "waxed_oxidized_cut_copper_stairs_from_honeycomb": {
+    "result": {
+      "item": "minecraft:waxed_oxidized_cut_copper_stairs"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:oxidized_cut_copper_stairs"
+      },
+      {
+        "item": "minecraft:honeycomb"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_oxidized_cut_copper_stairs"
+  },
+  "waxed_oxidized_cut_copper_stairs_from_waxed_oxidized_copper_stonecutting": {
+    "result": "minecraft:waxed_oxidized_cut_copper_stairs",
+    "ingredient": {
+      "item": "minecraft:waxed_oxidized_copper"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "waxed_oxidized_cut_copper_stairs_from_waxed_oxidized_cut_copper_stonecutting": {
+    "result": "minecraft:waxed_oxidized_cut_copper_stairs",
+    "ingredient": {
+      "item": "minecraft:waxed_oxidized_cut_copper"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "waxed_weathered_copper_from_honeycomb": {
+    "result": {
+      "item": "minecraft:waxed_weathered_copper"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:weathered_copper"
+      },
+      {
+        "item": "minecraft:honeycomb"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_weathered_copper"
+  },
+  "waxed_weathered_cut_copper": {
+    "result": {
+      "item": "minecraft:waxed_weathered_cut_copper",
+      "count": 4
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:waxed_weathered_copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_weathered_cut_copper"
+  },
+  "waxed_weathered_cut_copper_from_honeycomb": {
+    "result": {
+      "item": "minecraft:waxed_weathered_cut_copper"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:weathered_cut_copper"
+      },
+      {
+        "item": "minecraft:honeycomb"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_weathered_cut_copper"
+  },
+  "waxed_weathered_cut_copper_from_waxed_weathered_copper_stonecutting": {
+    "result": "minecraft:waxed_weathered_cut_copper",
+    "ingredient": {
+      "item": "minecraft:waxed_weathered_copper"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "waxed_weathered_cut_copper_slab": {
+    "result": {
+      "item": "minecraft:waxed_weathered_cut_copper_slab",
+      "count": 6
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:waxed_weathered_cut_copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_weathered_cut_copper_slab"
+  },
+  "waxed_weathered_cut_copper_slab_from_honeycomb": {
+    "result": {
+      "item": "minecraft:waxed_weathered_cut_copper_slab"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:weathered_cut_copper_slab"
+      },
+      {
+        "item": "minecraft:honeycomb"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_weathered_cut_copper_slab"
+  },
+  "waxed_weathered_cut_copper_slab_from_waxed_weathered_copper_stonecutting": {
+    "result": "minecraft:waxed_weathered_cut_copper_slab",
+    "ingredient": {
+      "item": "minecraft:waxed_weathered_copper"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "waxed_weathered_cut_copper_slab_from_waxed_weathered_cut_copper_stonecutting": {
+    "result": "minecraft:waxed_weathered_cut_copper_slab",
+    "ingredient": {
+      "item": "minecraft:waxed_weathered_cut_copper"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "waxed_weathered_cut_copper_stairs": {
+    "result": {
+      "item": "minecraft:waxed_weathered_cut_copper_stairs",
+      "count": 4
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:waxed_weathered_cut_copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_weathered_cut_copper_stairs"
+  },
+  "waxed_weathered_cut_copper_stairs_from_honeycomb": {
+    "result": {
+      "item": "minecraft:waxed_weathered_cut_copper_stairs"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:weathered_cut_copper_stairs"
+      },
+      {
+        "item": "minecraft:honeycomb"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "waxed_weathered_cut_copper_stairs"
+  },
+  "waxed_weathered_cut_copper_stairs_from_waxed_weathered_copper_stonecutting": {
+    "result": "minecraft:waxed_weathered_cut_copper_stairs",
+    "ingredient": {
+      "item": "minecraft:waxed_weathered_copper"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "waxed_weathered_cut_copper_stairs_from_waxed_weathered_cut_copper_stonecutting": {
+    "result": "minecraft:waxed_weathered_cut_copper_stairs",
+    "ingredient": {
+      "item": "minecraft:waxed_weathered_cut_copper"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
   "weakness_lingering_potion": {
     "result": "minecraft.lingering_potion.effect.weakness",
     "reagent": {
@@ -20879,6 +23723,118 @@
       "item": "minecraft.potion.effect.weakness"
     }
   },
+  "weathered_cut_copper": {
+    "result": {
+      "item": "minecraft:weathered_cut_copper",
+      "count": 4
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:weathered_copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "weathered_cut_copper_from_weathered_copper_stonecutting": {
+    "result": "minecraft:weathered_cut_copper",
+    "ingredient": {
+      "item": "minecraft:weathered_copper"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "weathered_cut_copper_slab": {
+    "result": {
+      "item": "minecraft:weathered_cut_copper_slab",
+      "count": 6
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:weathered_cut_copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "weathered_cut_copper_slab_from_weathered_copper_stonecutting": {
+    "result": "minecraft:weathered_cut_copper_slab",
+    "ingredient": {
+      "item": "minecraft:weathered_copper"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "weathered_cut_copper_slab_from_weathered_cut_copper_stonecutting": {
+    "result": "minecraft:weathered_cut_copper_slab",
+    "ingredient": {
+      "item": "minecraft:weathered_cut_copper"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "weathered_cut_copper_stairs": {
+    "result": {
+      "item": "minecraft:weathered_cut_copper_stairs",
+      "count": 4
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:weathered_cut_copper"
+      }
+    },
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "weathered_cut_copper_stairs_from_weathered_copper_stonecutting": {
+    "result": "minecraft:weathered_cut_copper_stairs",
+    "ingredient": {
+      "item": "minecraft:weathered_copper"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
+  "weathered_cut_copper_stairs_from_weathered_cut_copper_stonecutting": {
+    "result": "minecraft:weathered_cut_copper_stairs",
+    "ingredient": {
+      "item": "minecraft:weathered_cut_copper"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.17"
+    }
+  },
   "wheat": {
     "result": {
       "item": "minecraft:wheat",
@@ -20936,6 +23892,24 @@
       "version": "1.12"
     },
     "group": "bed"
+  },
+  "white_candle": {
+    "result": {
+      "item": "minecraft:white_candle"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:candle"
+      },
+      {
+        "item": "minecraft:white_dye"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "dyed_candle"
   },
   "white_carpet": {
     "result": {
@@ -21439,6 +24413,24 @@
       "version": "1.12"
     },
     "group": "dyed_bed"
+  },
+  "yellow_candle": {
+    "result": {
+      "item": "minecraft:yellow_candle"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:candle"
+      },
+      {
+        "item": "minecraft:yellow_dye"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.17"
+    },
+    "group": "dyed_candle"
   },
   "yellow_carpet": {
     "result": {

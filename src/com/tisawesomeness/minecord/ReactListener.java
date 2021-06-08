@@ -7,6 +7,7 @@ import com.tisawesomeness.minecord.ReactMenu.Emote;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.MessageReaction;
 import net.dv8tion.jda.api.entities.MessageReaction.ReactionEmote;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageEmbedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -57,15 +58,26 @@ public class ReactListener extends ListenerAdapter {
     }
 
     /**
-     * Removes an emote, whitelisting stars for starboard purposes
-     * @param e
+     * Removes an emote, keeping stars for starboard purposes
+     * @param e The event received from a message reaction
      */
     private void removeEmote(MessageReactionAddEvent e) {
-        MessageReaction r = e.getReaction();
-        ReactionEmote re = r.getReactionEmote();
-        if (e.getGuild().getSelfMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE)
-                && (!re.isEmoji() || !re.getAsCodepoints().equals(Emote.STAR.toString()))) {
-            r.removeReaction(e.getUser()).queue();
+        if (!e.isFromGuild() || !hasManageMessagePerms(e)) {
+            return;
         }
+        MessageReaction r = e.getReaction();
+        if (!isRemovableEmoji(r.getReactionEmote())) {
+            return;
+        }
+        User u = e.getUser();
+        if (u != null) {
+            r.removeReaction(u).queue();
+        }
+    }
+    private static boolean hasManageMessagePerms(MessageReactionAddEvent e) {
+        return e.getGuild().getSelfMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE);
+    }
+    private static boolean isRemovableEmoji(ReactionEmote re) {
+        return !re.isEmoji() || !re.getAsCodepoints().equals(Emote.STAR.toString());
     }
 }

@@ -1,23 +1,18 @@
 package com.tisawesomeness.minecord.item;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import net.dv8tion.jda.api.EmbedBuilder;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Recipe {
 
@@ -38,7 +33,7 @@ public class Recipe {
     /**
      * Creates an EmbedBuilder from a recipe
      * 
-     * @param item The name of the recipe
+     * @param recipe The name of the recipe
      * @param lang The language code to pull names from
      * @return An EmbedBuilder containing properties of the item
      */
@@ -154,7 +149,7 @@ public class Recipe {
 
     /**
      * Searches the database for all recipes with an item as an input
-     * @param str The namespaced ID of the item to search with
+     * @param namespacedID The namespaced ID of the item to search with
      * @param lang The language code to pull names from
      * @return Null if the item cannot be found, otherwise a list of recipe names that may be empty
      */
@@ -331,6 +326,35 @@ public class Recipe {
         return properties == null ? null : properties.optString("removed", null);
     }
 
+    private static int compareRecipes(String recipe1, String recipe2) {
+        double removedVer1 = getVersionNum(getRemovedVersion(recipe1));
+        double removedVer2 = getVersionNum(getRemovedVersion(recipe2));
+        if (removedVer1 == 0 && removedVer2 != 0) {
+            return -1;
+        }
+        if (removedVer1 != 0 && removedVer2 == 0) {
+            return 1;
+        }
+        int removedVerCompare = Double.compare(removedVer1, removedVer2);
+        if (removedVerCompare != 0) {
+            return removedVerCompare;
+        }
+        int verCompare = Double.compare(getVersionNum(getVersion(recipe1)), getVersionNum(getVersion(recipe2)));
+        if (verCompare != 0) {
+            return verCompare;
+        }
+        return recipe1.compareTo(recipe2);
+    }
+    private static double getVersionNum(String version) {
+        if (version == null) {
+            return 0;
+        }
+        if (version.equals("1.17 Datapack")) {
+            return 99;
+        }
+        return Double.parseDouble(version.substring(2));
+    }
+
     /**
      * Returns the notes that should be displayed when a recipe is viewed
      * @param recipe The recipe key
@@ -365,7 +389,10 @@ public class Recipe {
          */
 		public RecipeMenu(List<String> recipeList, int page, String lang) {
 			super(page, lang);
-			this.recipeList = recipeList;
+			this.recipeList = recipeList.stream()
+                    .sequential()
+                    .sorted(Recipe::compareRecipes)
+                    .collect(Collectors.toList());
         }
         
 		public EmbedBuilder getContent(int page) {
@@ -496,21 +523,19 @@ public class Recipe {
             int c = 0;
             if (type.equals("minecraft:smelting")) {
                 // Blast furnace, Smoker, Campfire
-                boolean notJustFurnace = recipe.endsWith("smelting");
-                boolean isSmoking = notJustFurnace ? recipes.has(recipe.replace("smelting", "smoking")) : false;
-                if (notJustFurnace) {
-                    if (isSmoking) {
-                        desc += String.format("\n%s %s\n%s %s",
-                                Emote.N1.getText(), Item.getDisplayName("minecraft.smoker", getLang()),
-                                Emote.N2.getText(), Item.getDisplayName("minecraft.campfire", getLang()));
-                        c = 2;
-                    } else {
-                        desc += String.format("\n%s %s", Emote.N1.getText(), Item.getDisplayName("minecraft.blast_furnace", getLang()));
-                        c = 1;
-                    }
+                boolean isSmoking = recipes.has(recipe + "_from_smoking");
+                boolean isBlasting = recipes.has(recipe.replace("from_smelting", "from_blasting"));
+                if (isSmoking) {
+                    desc += String.format("\n%s %s\n%s %s",
+                            Emote.N1.getText(), Item.getDisplayName("minecraft.smoker", getLang()),
+                            Emote.N2.getText(), Item.getDisplayName("minecraft.campfire", getLang()));
+                    c = 2;
+                } else if (isBlasting) {
+                    desc += String.format("\n%s %s", Emote.N1.getText(), Item.getDisplayName("minecraft.blast_furnace", getLang()));
+                    c = 1;
                 }
                 buttons.put(Emote.N1.getCodepoint(), () -> {
-                    if (notJustFurnace) {
+                    if (isSmoking || isBlasting) {
                         if (isSmoking) {
                             recipeList = Arrays.asList(Item.getNamespacedID("minecraft.smoker").substring(10));
                         } else {

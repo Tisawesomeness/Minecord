@@ -67,7 +67,7 @@ public abstract class ReactMenu {
         ready = false;
         buttons = createButtons(page);
         this.page = page;
-        if (hasPerms(Permission.MESSAGE_MANAGE, Permission.MESSAGE_ADD_REACTION)) {
+        if (hasPerms(Permission.MESSAGE_ADD_REACTION)) {
             message = message.editMessage(getEmbed(page)).complete();
             ready = true;
             if (updateButtons) {
@@ -107,7 +107,7 @@ public abstract class ReactMenu {
     /**
      * Posts the menu in chat
      * @param channel The channel to post in
-     * @param ownerID The owner the menu is assigned to, only they can use buttons
+     * @param owner The owner the menu is assigned to, only they can use buttons
      */
     public void post(MessageChannel channel, User owner) {
         this.ownerID = owner.getIdLong();
@@ -160,6 +160,9 @@ public abstract class ReactMenu {
      * Check for permissions with less typing
      */
     private boolean hasPerms(Permission... permissions) {
+        if (!message.isFromGuild()) {
+            return true;
+        }
         return message.getGuild().getSelfMember().hasPermission(message.getTextChannel(), permissions);
     }
 
@@ -168,14 +171,17 @@ public abstract class ReactMenu {
      * @return True if the guild has menus enabled and the bot has manage message and add reaction permissions
      */
     public static MenuStatus getMenuStatus(MessageReceivedEvent e) {
+        if (!Config.getUseMenus()) {
+            return MenuStatus.DISABLED;
+        }
         if (!e.isFromGuild()) {
-            return Config.getUseMenus() ? MenuStatus.PRIVATE_MESSAGE : MenuStatus.DISABLED;
+            return MenuStatus.VALID;
         }
         Guild g = e.getGuild();
         if (!Database.getUseMenu(g.getIdLong())) {
             return MenuStatus.DISABLED;
         }
-        if (!g.getSelfMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE, Permission.MESSAGE_ADD_REACTION)) {
+        if (!g.getSelfMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_ADD_REACTION)) {
             return MenuStatus.NO_PERMISSION;
         }
         return MenuStatus.VALID;
@@ -314,7 +320,6 @@ public abstract class ReactMenu {
     public enum MenuStatus {
         VALID(),
         DISABLED(),
-        PRIVATE_MESSAGE("Reaction menus cannot be used in DMs."),
         NO_PERMISSION("Give the bot manage messages permissions to use an interactive menu!");
 
         private String reason;

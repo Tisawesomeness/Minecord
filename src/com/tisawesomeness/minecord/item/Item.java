@@ -5,6 +5,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.regex.Pattern;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.util.RequestUtils;
@@ -17,12 +18,14 @@ import net.dv8tion.jda.api.EmbedBuilder;
 public class Item {
 
     private static final String numberRegex = "^[0-9]{1,5}$";
+    private static final Pattern CANDLE_CAKE_PATTERN = Pattern.compile("cake with (.+) candle");
     private static final String[] colorNames = new String[] { "white", "orange", "magenta", "light_blue", "yellow",
             "lime", "pink", "gray", "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black" };
     private static final String[] coloredEdgeCases = new String[] { "minecraft.white_wool",
             "minecraft.white_stained_glass", "minecraft.white_terracotta", "minecraft.white_stained_glass_pane",
             "minecraft.shield.white", "minecraft.white_shulker_box", "minecraft.white_bed",
-            "minecraft.white_glazed_terracotta", "minecraft.white_concrete", "minecraft.white_concrete_powder" };
+            "minecraft.white_glazed_terracotta", "minecraft.white_concrete", "minecraft.white_concrete_powder",
+            "minecraft.white_dye", "minecraft.white_candle" };
 
     private static JSONObject items;
     private static JSONObject data;
@@ -163,7 +166,10 @@ public class Item {
         if (toMatch.startsWith("minecraft")) {
             return searchIDs(toMatch);
         } else if (Character.isDigit(toMatch.charAt(0))) {
-            return searchNumerical(toMatch, lang);
+            String search = searchNumerical(toMatch, lang);
+            if (search != null) {
+                return search;
+            }
         }
         // Default potions special case
         String prepped = toMatch.replace("_", " ").replace(".", " ");
@@ -318,6 +324,24 @@ public class Item {
                     }
                 }
             }
+        }
+
+        // Colored cake candles special case
+        if (toParse.endsWith(" cake candle") || toParse.endsWith("candle cake")) {
+            String color = toParse.substring(0, toParse.length() - 12).trim();
+            int colorData = parseDataFromFile(color, lang);
+            if (colorData == 0) {
+                return "minecraft.white_candle_cake";
+            } else if (colorData > 0) {
+                return "minecraft.white_candle_cake".replace("white", colorNames[colorData]);
+            }
+        }
+        String color = CANDLE_CAKE_PATTERN.matcher(toParse).replaceFirst("$1");
+        int colorData = parseDataFromFile(color, lang);
+        if (colorData == 0) {
+            return "minecraft.white_candle_cake";
+        } else if (colorData > 0) {
+            return "minecraft.white_candle_cake".replace("white", colorNames[colorData]);
         }
 
         // Banners special case
@@ -488,7 +512,7 @@ public class Item {
      * @param item The item key
      * @return The image filename, without the extension or URL
      */
-    private static String getImageKey(String item) {
+    public static String getImageKey(String item) {
         JSONObject properties = items.getJSONObject(item).optJSONObject("properties");
         if (properties != null && properties.has("image_key")) {
             return properties.getString("image_key");
