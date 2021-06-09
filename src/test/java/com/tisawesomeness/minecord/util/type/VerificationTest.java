@@ -21,6 +21,21 @@ public class VerificationTest {
         assertThat(v.isValid()).isFalse();
         assertThat(v.getErrors()).containsExactly(errorMessage);
     }
+    @Test
+    @DisplayName("Verify factory method returns valid Verification when condition is true")
+    public void testVerifyValid() {
+        String errorMessage = "An error message";
+        Verification v = Verification.verify(true, errorMessage);
+        assertThat(v.isValid()).isTrue();
+    }
+    @Test
+    @DisplayName("Verify factory method returns invalid Verification when condition is false")
+    public void testVerifyInvalid() {
+        String errorMessage = "An error message";
+        Verification v = Verification.verify(false, errorMessage);
+        assertThat(v.isValid()).isFalse();
+        assertThat(v.getErrors()).containsExactly(errorMessage);
+    }
 
     @Test
     @DisplayName("Valid Verification converts to valid Validation")
