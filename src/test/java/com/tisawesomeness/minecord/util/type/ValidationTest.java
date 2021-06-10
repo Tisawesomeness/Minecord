@@ -1,11 +1,14 @@
 package com.tisawesomeness.minecord.util.type;
 
+import com.tisawesomeness.minecord.util.Lists;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.Collection;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -30,6 +33,41 @@ public class ValidationTest {
         Validation<Object> v = Validation.invalid(candidate);
         assertThat(v.isValid()).isFalse();
         assertThat(v.getErrors()).containsExactly(candidate);
+    }
+    @Test
+    @DisplayName("Invalid factory method returns invalid Validation with two errors")
+    public void testInvalid2() {
+        String error1 = "error1";
+        String error2 = "error2";
+        Validation<Object> v = Validation.invalid(error1, error2);
+        assertThat(v.isValid()).isFalse();
+        assertThat(v.getErrors()).containsExactly(error1, error2);
+    }
+    @Test
+    @DisplayName("Invalid factory method returns invalid Validation with three errors")
+    public void testInvalid3() {
+        String error1 = "error1";
+        String error2 = "error2";
+        String error3 = "error3";
+        Validation<Object> v = Validation.invalid(error1, error2, error3);
+        assertThat(v.isValid()).isFalse();
+        assertThat(v.getErrors()).containsExactly(error1, error2, error3);
+    }
+    @Test
+    @DisplayName("Invalid factory method returns invalid Validation from list with two errors")
+    public void testInvalidList2() {
+        Collection<String> list = Lists.of("error1", "error2");
+        Validation<Object> v = Validation.invalid(list);
+        assertThat(v.isValid()).isFalse();
+        assertThat(v.getErrors()).isEqualTo(list);
+    }
+    @Test
+    @DisplayName("Invalid factory method returns invalid Validation from list with three errors")
+    public void testInvalidList3() {
+        Collection<String> list = Lists.of("error1", "error2", "error3");
+        Validation<Object> v = Validation.invalid(list);
+        assertThat(v.isValid()).isFalse();
+        assertThat(v.getErrors()).isEqualTo(list);
     }
 
     @Test

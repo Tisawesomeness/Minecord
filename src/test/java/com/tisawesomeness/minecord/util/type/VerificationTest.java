@@ -1,7 +1,11 @@
 package com.tisawesomeness.minecord.util.type;
 
+import com.tisawesomeness.minecord.util.Lists;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,6 +25,42 @@ public class VerificationTest {
         assertThat(v.isValid()).isFalse();
         assertThat(v.getErrors()).containsExactly(errorMessage);
     }
+    @Test
+    @DisplayName("Invalid factory method returns invalid Verification with two errors")
+    public void testInvalid2() {
+        String error1 = "error1";
+        String error2 = "error2";
+        Verification v = Verification.invalid(error1, error2);
+        assertThat(v.isValid()).isFalse();
+        assertThat(v.getErrors()).containsExactly(error1, error2);
+    }
+    @Test
+    @DisplayName("Invalid factory method returns invalid Verification with three errors")
+    public void testInvalid3() {
+        String error1 = "error1";
+        String error2 = "error2";
+        String error3 = "error3";
+        Verification v = Verification.invalid(error1, error2, error3);
+        assertThat(v.isValid()).isFalse();
+        assertThat(v.getErrors()).containsExactly(error1, error2, error3);
+    }
+    @Test
+    @DisplayName("Invalid factory method returns invalid Verification from list with two errors")
+    public void testInvalidList2() {
+        Collection<String> list = Lists.of("error1", "error2");
+        Verification v = Verification.invalid(list);
+        assertThat(v.isValid()).isFalse();
+        assertThat(v.getErrors()).isEqualTo(list);
+    }
+    @Test
+    @DisplayName("Invalid factory method returns invalid Verification from list with three errors")
+    public void testInvalidList3() {
+        Collection<String> list = Lists.of("error1", "error2", "error3");
+        Verification v = Verification.invalid(list);
+        assertThat(v.isValid()).isFalse();
+        assertThat(v.getErrors()).isEqualTo(list);
+    }
+
     @Test
     @DisplayName("Verify factory method returns valid Verification when condition is true")
     public void testVerifyValid() {
