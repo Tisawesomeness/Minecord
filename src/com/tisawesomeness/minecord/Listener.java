@@ -245,7 +245,7 @@ public class Listener extends ListenerAdapter {
 			eb.addField("Users", guild.getMembers().size() + "", true);
 			ArrayList<Member> users = new ArrayList<Member>(guild.getMembers());
 			for (Member u : new ArrayList<Member>(users)) {
-				if (u.getUser().isBot() || u.getUser().isFake()) {
+				if (u.getUser().isBot()) {
 					users.remove(u);
 				}
 			}

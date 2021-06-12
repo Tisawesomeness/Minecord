@@ -14906,7 +14906,7 @@
         "search_names": [
           "Candle Cake"
         ],
-        "display_name": "Cake With Candle"
+        "display_name": "Cake with Candle"
       }
     },
     "properties": {
@@ -15763,7 +15763,8 @@
       }
     },
     "properties": {
-      "version": "1.17"
+      "version": "1.17",
+      "image_key": "Light Negative"
     }
   },
   "minecraft.light_blue_candle": {
