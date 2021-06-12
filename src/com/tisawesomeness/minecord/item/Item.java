@@ -327,7 +327,7 @@ public class Item {
         }
 
         // Colored cake candles special case
-        if (toParse.endsWith(" cake candle") || toParse.endsWith("candle cake")) {
+        if (toParse.endsWith(" cake candle") || toParse.endsWith(" candle cake")) {
             String color = toParse.substring(0, toParse.length() - 12).trim();
             int colorData = parseDataFromFile(color, lang);
             if (colorData == 0) {
