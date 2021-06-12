@@ -76,7 +76,6 @@ public class GuildCommand extends Command {
             .addField("Roles", String.valueOf(g.getRoles().size()), true)
             .addField("Categories", String.valueOf(g.getCategories().size()), true)
             .addField("Channels", String.format("%d (%d text, %d voice)", textChannels + voiceChannels, textChannels, voiceChannels), true)
-            .addField("Region", g.getRegion().getName(), true)
             .addField("Verification Level", g.getVerificationLevel().toString(), true)
             .addField("Owner", MarkdownSanitizer.escape(owner.getAsTag()), true)
             .addField("Owner ID", owner.getId(), true)
