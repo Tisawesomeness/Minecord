@@ -61,7 +61,8 @@ public class PresenceService extends Service {
             sm.setPresence(presence.getStatus(), null);
             return;
         }
-        String displayContent = Placeholders.parseVariables(Objects.requireNonNull(presence.getContent()), sm);
+        String parsedContent = Placeholders.parseVariables(Objects.requireNonNull(presence.getContent()), sm);
+        String displayContent = parsedContent.substring(Presence.MAX_CONTENT_LENGTH);
         Activity.ActivityType activityType = Objects.requireNonNull(presence.getType()).getActivityType();
         Activity jdaActivity = Activity.of(activityType, displayContent, presence.getUrl());
         sm.setPresence(presence.getStatus(), jdaActivity);

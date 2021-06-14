@@ -52,7 +52,8 @@ public class LoadingActivity {
             return null;
         }
         Activity.ActivityType activityType = Objects.requireNonNull(type).getActivityType();
-        return Activity.of(activityType, Placeholders.parseConstants(content, config, branding));
+        String parsedContent = Placeholders.parseConstants(content, config, branding);
+        return Activity.of(activityType, parsedContent.substring(Presence.MAX_CONTENT_LENGTH));
     }
 
 }

@@ -21,6 +21,8 @@ import javax.annotation.Nullable;
 @Value
 @Slf4j
 public class Presence {
+    public static final int MAX_CONTENT_LENGTH = 128;
+
     @JsonProperty("status")
     OnlineStatus status;
     @JsonProperty("type") @JsonSetter(nulls = Nulls.SET)
@@ -50,8 +52,13 @@ public class Presence {
         );
     }
     private Verification verifyContent() {
-        if (type != null && content == null) {
-            return Verification.invalid("If the presence type is set, you must also set content.");
+        if (type != null) {
+            if (content == null) {
+                return Verification.invalid("If the presence type is set, you must also set content.");
+            }
+            if (content.isEmpty()) {
+                return Verification.invalid("Presence content cannot be empty.");
+            }
         }
         return Verification.valid();
     }
@@ -63,7 +70,7 @@ public class Presence {
      * @return True if this presence is an activity with content, false if it's only an online status
      */
     public boolean hasContent() {
-        return content != null;
+        return content != null && !content.isEmpty();
     }
 
 }
