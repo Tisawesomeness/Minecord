@@ -78,7 +78,7 @@ public class DiscordContext extends CommandContext {
                 Optional<String> announcementOpt = bot.getAnnounceRegistry()
                         .flatMap(ar -> ar.roll(lang, bot.getShardManager()));
                 if (announcementOpt.isPresent()) {
-                    return eb.setFooter(announcementOpt.get());
+                    return eb.setFooter(announcementOpt.get().substring(MessageEmbed.TEXT_MAX_LENGTH));
                 }
             }
         }

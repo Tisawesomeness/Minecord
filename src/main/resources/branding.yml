@@ -47,7 +47,7 @@ presence:
   # All require a status, which is ONLINE, IDLE, DO_NOT_DISTURB, or INVISIBLE
   # Type is optional, which can be PLAYING, STREAMING, LISTENING, or COMPETING
   # If type is defined, content is the text that displays ("playing <content>")
-  # Content will be truncated to 128 characters
+  # Content will be limited to 128 characters
   presences:
     - status: ONLINE
       type: PLAYING
@@ -69,6 +69,7 @@ announcements:
   # If false, no announcements will show
   fallbackToDefaultLang: false
   # Use the language code for each language (example: pt_BR)
+  # Content will be limited to 2048 characters
   announcements:
     en_US:
       - content: "Minecord %version% | Made with ❤ by %author%"
