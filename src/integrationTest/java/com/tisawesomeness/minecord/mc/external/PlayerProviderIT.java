@@ -4,6 +4,7 @@ import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.network.APIClient;
+import com.tisawesomeness.minecord.network.OkAPIClient;
 import com.tisawesomeness.minecord.testutil.PlayerTests;
 import com.tisawesomeness.minecord.testutil.Resources;
 import com.tisawesomeness.minecord.testutil.annotation.MojangAPITest;
@@ -30,7 +31,7 @@ public class PlayerProviderIT {
     @BeforeAll
     private static void initAPI() throws JsonProcessingException {
         Config config = Resources.config();
-        APIClient client = new APIClient(config.getAdvancedConfig().getHttpConfig());
+        APIClient client = new OkAPIClient(config.getAdvancedConfig().getHttpConfig());
         provider = new DualPlayerProvider(client, config);
     }
 

@@ -5,6 +5,7 @@ import com.tisawesomeness.minecord.mc.player.NameChange;
 import com.tisawesomeness.minecord.mc.player.Profile;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.network.APIClient;
+import com.tisawesomeness.minecord.network.OkAPIClient;
 import com.tisawesomeness.minecord.testutil.PlayerTests;
 import com.tisawesomeness.minecord.testutil.Resources;
 import com.tisawesomeness.minecord.testutil.annotation.MojangAPITest;
@@ -32,7 +33,7 @@ public class MojangAPIIT {
     @BeforeAll
     private static void initAPI() throws JsonProcessingException {
         Config config = Resources.config();
-        APIClient client = new APIClient(config.getAdvancedConfig().getHttpConfig());
+        APIClient client = new OkAPIClient(config.getAdvancedConfig().getHttpConfig());
         api = new MojangAPIImpl(client);
     }
 

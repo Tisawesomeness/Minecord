@@ -18,6 +18,7 @@ import com.tisawesomeness.minecord.listen.ReadyListener;
 import com.tisawesomeness.minecord.mc.MCLibrary;
 import com.tisawesomeness.minecord.mc.StandardMCLibrary;
 import com.tisawesomeness.minecord.network.APIClient;
+import com.tisawesomeness.minecord.network.OkAPIClient;
 import com.tisawesomeness.minecord.service.*;
 import com.tisawesomeness.minecord.setting.SettingRegistry;
 import com.tisawesomeness.minecord.util.DateUtils;
@@ -167,7 +168,7 @@ public class Bot {
             Lang.reloadFromFile(args.getPath().resolve("lang"));
         }
 
-        apiClient = new APIClient(config.getAdvancedConfig().getHttpConfig());
+        apiClient = new OkAPIClient(config.getAdvancedConfig().getHttpConfig());
         mcLibrary = new StandardMCLibrary(apiClient, config);
 
         CountDownLatch readyLatch = new CountDownLatch(config.getShardCount());
