@@ -6,8 +6,11 @@ import lombok.NonNull;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.api.CharSequenceAssert;
+import org.assertj.core.error.AssertionErrorCreator;
 import org.assertj.core.internal.Iterables;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
@@ -468,6 +471,21 @@ public class TestContextAssert extends AbstractAssert<TestContextAssert, TestCon
         return this;
     }
 
+    public TestContextAssert anyReplySatisfies(Consumer<? super CharSequence> assertion) {
+        isNotNull();
+        repliesIsNotEmpty();
+        List<AssertionError> errors = new ArrayList<>();
+        for (CharSequence reply : actual.getReplies()) {
+            try {
+                assertion.accept(reply);
+                return this;
+            } catch (AssertionError err) {
+                errors.add(err);
+            }
+        }
+        throw new AssertionErrorCreator().multipleAssertionsError(info.description(), errors);
+    }
+
     /**
      * Extracts the actual TestContext's only embed reply and creates a MessageEmbedAssert object.
      * @return the message embed assertion object.
@@ -486,6 +504,21 @@ public class TestContextAssert extends AbstractAssert<TestContextAssert, TestCon
             assertion.accept(actualReply);
         }
         return this;
+    }
+
+    public TestContextAssert anyEmbedReplySatisfies(Consumer<? super MessageEmbed> assertion) {
+        isNotNull();
+        embedRepliesIsNotEmpty();
+        List<AssertionError> errors = new ArrayList<>();
+        for (MessageEmbed reply : actual.getEmbedReplies()) {
+            try {
+                assertion.accept(reply);
+                return this;
+            } catch (AssertionError err) {
+                errors.add(err);
+            }
+        }
+        throw new AssertionErrorCreator().multipleAssertionsError(info.description(), errors);
     }
 
 
