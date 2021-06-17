@@ -26,7 +26,10 @@ public class PlayerTests {
     public static final Username NOTCH_USERNAME = new Username("Notch");
 
     public static final URL CUSTOM_SKIN_URL = URLs.createUrl("https://textures.minecraft.net/texture/" +
-                    "8c38fdb8e126e8416edf8864d6b5f69c072836abbc8d6ebc6b3d72644e48b1bd");
+            "8c38fdb8e126e8416edf8864d6b5f69c072836abbc8d6ebc6b3d72644e48b1bd");
+
+    public static final URL MOJANG_CAPE_URL = URLs.createUrl("https://textures.minecraft.net/texture/" +
+            "5786fe99be377dfb6858859f926c4dbc995751e91cee373468c5fbf4865e7151");
 
     private static final Username SAMPLE = new Username("SamplePlayer");
 
@@ -56,6 +59,15 @@ public class PlayerTests {
         List<NameChange> history = Collections.singletonList(NameChange.original(name));
         URL skinUrl = skinType == SkinType.STEVE ? Player.STEVE_SKIN_URL : Player.ALEX_SKIN_URL;
         Profile profile = new Profile(false, false, skinType, skinUrl, null);
+        return new Player(uuid, history, profile);
+    }
+
+    public static Player initPlayerWithCape(UUID uuid, URL capeUrl) {
+        return  initPlayerWithCape(uuid, SAMPLE, capeUrl);
+    }
+    public static Player initPlayerWithCape(UUID uuid, Username name, URL capeUrl) {
+        List<NameChange> history = Collections.singletonList(NameChange.original(name));
+        Profile profile =new Profile(false, false, SkinType.STEVE, null, capeUrl);
         return new Player(uuid, history, profile);
     }
 
