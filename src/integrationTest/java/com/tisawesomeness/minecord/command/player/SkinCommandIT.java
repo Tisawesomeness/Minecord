@@ -50,11 +50,11 @@ public class SkinCommandIT {
         playerProvider.throwOnUuid(THROWING_UUID);
 
         playerProvider.mapUuid(STEVE_USERNAME, PlayerTests.TIS_STEVE_UUID);
-        playerProvider.mapPlayer(PlayerTests.TIS_STEVE_UUID, STEVE_PLAYER);
+        playerProvider.mapPlayer(STEVE_PLAYER);
         playerProvider.mapUuid(ALEX_USERNAME, PlayerTests.JEB_ALEX_UUID);
-        playerProvider.mapPlayer(PlayerTests.JEB_ALEX_UUID, ALEX_PLAYER);
+        playerProvider.mapPlayer(ALEX_PLAYER);
         playerProvider.mapUuid(CUSTOM_USERNAME, CUSTOM_UUID);
-        playerProvider.mapPlayer(CUSTOM_UUID, CUSTOM_PLAYER);
+        playerProvider.mapPlayer(CUSTOM_PLAYER);
 
         runner.mcLibrary = library;
     }

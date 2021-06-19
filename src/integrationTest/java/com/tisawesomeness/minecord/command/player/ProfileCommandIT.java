@@ -52,12 +52,12 @@ public class ProfileCommandIT {
 
         Player shortHistoryPlayer = new Player(SHORT_HISTORY_UUID, SHORT_HISTORY, DUMMY_PROFILE);
         playerProvider.mapUuid(SHORT_HISTORY_NAME, SHORT_HISTORY_UUID);
-        playerProvider.mapPlayer(SHORT_HISTORY_UUID, shortHistoryPlayer);
+        playerProvider.mapPlayer(shortHistoryPlayer);
 
         longHistory = getLongHistory();
         Player longHistoryPlayer = new Player(LONG_HISTORY_UUID, longHistory, DUMMY_PROFILE);
         playerProvider.mapUuid(LONG_HISTORY_NAME, LONG_HISTORY_UUID);
-        playerProvider.mapPlayer(LONG_HISTORY_UUID, longHistoryPlayer);
+        playerProvider.mapPlayer(longHistoryPlayer);
 
         runner.mcLibrary = library;
     }

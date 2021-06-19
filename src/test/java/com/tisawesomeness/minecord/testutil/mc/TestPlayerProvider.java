@@ -40,8 +40,8 @@ public class TestPlayerProvider implements PlayerProvider {
     }
 
     private final Map<UUID, Player> playerMap = new HashMap<>();
-    public void mapPlayer(@NonNull UUID uuid, @NonNull Player player) {
-        playerMap.put(uuid, player);
+    public void mapPlayer(@NonNull Player player) {
+        playerMap.put(player.getUuid(), player);
     }
     private final Collection<UUID> throwingUuids = new ArrayList<>();
     public void throwOnUuid(@NonNull UUID uuid) {

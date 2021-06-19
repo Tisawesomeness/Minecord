@@ -157,7 +157,7 @@ public class CapeCommandIT {
             client.addUrlThatExists(player.getOptifineCapeUrl());
         }
         TestPlayerProvider playerProvider = library.getPlayerProvider();
-        playerProvider.mapPlayer(player.getUuid(), player);
+        playerProvider.mapPlayer(player);
         runner.mcLibrary = library;
         return runner;
     }
