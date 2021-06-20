@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.config.branding;
 import com.tisawesomeness.minecord.BotBranding;
 import com.tisawesomeness.minecord.Placeholders;
 import com.tisawesomeness.minecord.config.config.Config;
+import com.tisawesomeness.minecord.util.Strings;
 import com.tisawesomeness.minecord.util.discord.PresenceType;
 import com.tisawesomeness.minecord.util.type.Verification;
 
@@ -53,7 +54,7 @@ public class LoadingActivity {
         }
         Activity.ActivityType activityType = Objects.requireNonNull(type).getActivityType();
         String parsedContent = Placeholders.parseConstants(content, config, branding);
-        return Activity.of(activityType, parsedContent.substring(Presence.MAX_CONTENT_LENGTH));
+        return Activity.of(activityType, Strings.safeSubstring(parsedContent, 0, Presence.MAX_CONTENT_LENGTH));
     }
 
 }

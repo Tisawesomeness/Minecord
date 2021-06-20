@@ -5,6 +5,7 @@ import com.tisawesomeness.minecord.command.CommandExecutor;
 import com.tisawesomeness.minecord.config.branding.Branding;
 import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.lang.Lang;
+import com.tisawesomeness.minecord.util.Strings;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -78,7 +79,7 @@ public class DiscordContext extends CommandContext {
                 Optional<String> announcementOpt = bot.getAnnounceRegistry()
                         .flatMap(ar -> ar.roll(lang, bot.getShardManager()));
                 if (announcementOpt.isPresent()) {
-                    return eb.setFooter(announcementOpt.get().substring(MessageEmbed.TEXT_MAX_LENGTH));
+                    return eb.setFooter(Strings.safeSubstring(announcementOpt.get(), 0, MessageEmbed.TEXT_MAX_LENGTH));
                 }
             }
         }
