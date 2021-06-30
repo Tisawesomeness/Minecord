@@ -86,6 +86,9 @@ public class ServerCommand extends Command {
 		if (arg.contains(":")) {
 			hostname = arg.substring(0, arg.indexOf(":"));
 			port = Integer.parseInt(arg.substring(arg.indexOf(":") + 1));
+			if (port > 65535) {
+				return new Result(Outcome.WARNING, ":warning: That is not a valid server address.");
+			}
 		}
 		MCPingResponse reply;
 		try {
@@ -112,7 +115,7 @@ public class ServerCommand extends Command {
 		
 		// Build and format message
 		String m = isBlocked(arg, ip) ? "**BLOCKED BY MOJANG**\n" : "";
-		m = "**Address:** " + address +
+		m += "**Address:** " + address +
 			"\n" + "**Version:** " + version +
 			"\n" + "**Players:** " + playerInfo +
 			"\n" + "**MOTD:** " + motd;
