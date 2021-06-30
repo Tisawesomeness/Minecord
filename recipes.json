@@ -10423,7 +10423,7 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "lapus_lazuli",
+    "group": "lapis_lazuli",
     "cookingtime": 100
   },
   "lapis_lazuli_from_blasting_lapis_ore": {
@@ -10433,7 +10433,7 @@
     },
     "type": "minecraft:blasting",
     "experience": 0.2,
-    "group": "lapus_lazuli",
+    "group": "lapis_lazuli",
     "cookingtime": 100
   },
   "lapis_lazuli_from_smelting_deepslate_lapis_ore": {
@@ -10446,7 +10446,7 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "lapus_lazuli",
+    "group": "lapis_lazuli",
     "cookingtime": 200
   },
   "lapis_lazuli_from_smelting_lapis_ore": {
@@ -10456,7 +10456,7 @@
     },
     "type": "minecraft:smelting",
     "experience": 0.2,
-    "group": "lapus_lazuli",
+    "group": "lapis_lazuli",
     "cookingtime": 200
   },
   "lead": {
