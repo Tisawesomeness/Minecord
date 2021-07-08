@@ -141,6 +141,14 @@ public final class Discord {
         }
 
         if (content.startsWith(prefix)) {
+            // prevents OOB
+            if (content.length() == prefix.length()) {
+                return Optional.of("");
+            }
+            // don't include extra space in the returned command
+            if (content.charAt(prefix.length()) == ' ') {
+                return Optional.of(content.substring(prefix.length() + 1));
+            }
             return Optional.of(content.substring(prefix.length()));
         }
         return options.prefixRequired ? Optional.empty() : Optional.of(content);

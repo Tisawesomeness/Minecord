@@ -37,8 +37,6 @@ public class PrefixSetting extends Setting<String> {
             "The prefix cannot have two `~` in a row or at the end since it conflicts with strikethrough formatting.";
     private static final String SPOILER_CONFLICT_ERROR =
             "The prefix cannot have two `|` in a row or at the end since it conflicts with spoiler formatting.";
-    private static final String ENDS_WITH_LETTER_ERROR =
-            "The prefix cannot end with a letter, since the recipe command would be `abcrecipe` with prefix `abc`.";
 
     private static final String DESC = "The prefix used before every command.\n" +
             "`@%s command` will work regardless of prefix.\n" +
@@ -67,7 +65,6 @@ public class PrefixSetting extends Setting<String> {
      *     <li>Does not contain user, channel, or role mentions</li>
      *     <li>Does not contain emojis</li>
      *     <li>Is not too long</li>
-     *     <li>Does not end with a letter (to prevent {@code abcrecipe} for prefix {@code abc})</li>
      *     <li>Only contains keyboard-reachable characters (letters, digits, symbols),
      *         or chars {@code 0x21} to {@code 0x7E}</li>
      *     <li>Does not contain the formatting characters {@code @#*()`_[]\:}</li>
@@ -85,7 +82,7 @@ public class PrefixSetting extends Setting<String> {
     }
     public static Verification verify(String input) {
         // The mention "@a" is 18 characters long when sent to discord
-        // Telling the user the prefix is too long, or other errors, would be confusing
+        // Telling the user the prefix is too long or other errors would be confusing
         if (Discord.ANY_MENTION.matcher(input).find()) {
             return Verification.invalid("The prefix cannot contain user/channel/role mentions or emojis.");
         }
@@ -93,7 +90,6 @@ public class PrefixSetting extends Setting<String> {
             return Verification.invalid("The prefix cannot be literally `unset`.");
         }
         return Verification.combineAll(
-                verifyEndNotLetter(input),
                 verifyLegalChars(input),
                 verifyPattern(input, DISCORD_CONFLICT_PATTERN, DISCORD_CONFLICT_ERROR),
                 verifyPattern(input, STRIKETHROUGH_CONFLICT_PATTERN, STRIKETHROUGH_CONFLICT_ERROR),
@@ -106,13 +102,6 @@ public class PrefixSetting extends Setting<String> {
         if (input.length() > config.getMaxPrefixLength()) {
             return Verification.invalid(String.format("The prefix must be %s or fewer characters.",
                     config.getMaxPrefixLength()));
-        }
-        return Verification.valid();
-    }
-    private static Verification verifyEndNotLetter(String input) {
-        char lastChar = input.charAt(input.length() - 1);
-        if (Character.isLetter(lastChar)) {
-            return Verification.invalid(ENDS_WITH_LETTER_ERROR);
         }
         return Verification.valid();
     }

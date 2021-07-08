@@ -31,8 +31,8 @@ public class PrefixSettingTest {
     @ParameterizedTest(name = "{index} ==> Prefix ''{0}'' is accepted")
     @ValueSource(strings = {
             "&", // used in bot documentation
-            ">&", "mc!", // common alternatives
-            "abc!", "Abc!", "ABC!", "az!", "Az!", "aZ!", "AZ!", // letter case
+            ">&", "m!", "mc!", // common alternatives
+            "abc", "Abc", "ABC", "az", "Az", "aZ", "AZ", "mc", "minecraft", // letters
             "0", "1", "5", "9", // single digits
             "00", "11", "1234", "55", "99", //multiple digits
             "~test!", "te~st!", // not strikethrough formatting
@@ -46,7 +46,7 @@ public class PrefixSettingTest {
 
     @ParameterizedTest(name = "{index} ==> Prefix ''{0}'' is rejected")
     @ValueSource(strings = {
-            "abc", "Abc", "ABC", "az", "Az", "aZ", "AZ", "mc", "unset", // ends with letter
+            "unset", // rejecting this literally prevents confusion
             " ", "  ", "   ", "\t", "\t\t", " \t ", "\t \t", // whitespace
             "\n", "\n\n", "\r", "\r\r", "\n\r", "\r\n", // newlines
             "\uD83D\uDE48", "\uD83D\uDE49", "\uD83D\uDE4A", // see no bugs, hear no bugs, write no bugs

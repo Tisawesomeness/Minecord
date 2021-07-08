@@ -27,6 +27,12 @@ public class DiscordTest {
                 .contains("ping");
     }
     @Test
+    @DisplayName("Command parsing removes literal prefix plus space")
+    public void testParsePrefixSpace() {
+        assertThat(Discord.parseCommand("& ping", "&", NORMAL))
+                .contains("ping");
+    }
+    @Test
     @DisplayName("Command parsing removes mention")
     public void testParseMention() {
         assertThat(Discord.parseCommand(MENTION + " ping", "&", NORMAL))
@@ -42,6 +48,12 @@ public class DiscordTest {
     @DisplayName("Command parsing removes literal prefix even when string empty")
     public void testParsePrefixEmpty() {
         assertThat(Discord.parseCommand("&", "&", NORMAL))
+                .contains("");
+    }
+    @Test
+    @DisplayName("Command parsing removes literal prefix plus space even when string empty")
+    public void testParsePrefixEmptySpace() {
+        assertThat(Discord.parseCommand("& ", "&", NORMAL))
                 .contains("");
     }
     @Test
@@ -80,6 +92,12 @@ public class DiscordTest {
     @DisplayName("Command parsing removes literal prefix even when prefix optional")
     public void testParsePrefixOptional() {
         assertThat(Discord.parseCommand("&ping", "&", OPTIONAL_PREFIX))
+                .contains("ping");
+    }
+    @Test
+    @DisplayName("Command parsing removes literal prefix  plus spaceeven when prefix optional")
+    public void testParsePrefixOptionalSpace() {
+        assertThat(Discord.parseCommand("& ping", "&", OPTIONAL_PREFIX))
                 .contains("ping");
     }
     @Test

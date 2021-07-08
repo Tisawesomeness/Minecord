@@ -47,8 +47,7 @@ public class CommandListener extends ListenerAdapter {
         prefixQuestions = buildPrefixQuestionsMap(); // Pre-loading prefix questions since it will be queried a lot
     }
     private static ListValuedEnumMap<Lang, String> buildPrefixQuestionsMap() {
-        ListValuedEnumMap<Lang, String> prefixQuestions;
-        prefixQuestions = ListValuedEnumMap.create(Lang.class);
+        ListValuedEnumMap<Lang, String> prefixQuestions = ListValuedEnumMap.create(Lang.class);
         for (Lang lang : Lang.values()) {
             Collection<String> temp = new HashSet<>(lang.i18nList("command.meta.prefixQuestions"));
             if (lang != Lang.getDefault()) {
