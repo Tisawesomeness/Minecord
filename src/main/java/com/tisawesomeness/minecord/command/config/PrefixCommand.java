@@ -14,7 +14,7 @@ public class PrefixCommand extends AbstractConfigCommand {
     public void run(String[] args, CommandContext ctx) {
         if (args.length == 0) {
             ctx.triggerCooldown();
-            ctx.reply(String.format("The current prefix is `%s`", ctx.getPrefix()));
+            ctx.reply(String.format("The current prefix is `%s`", ctx.getRawPrefix()));
             return;
         }
         new SmartSetParser(ctx, ctx.getBot().getSettings().prefix).parse();

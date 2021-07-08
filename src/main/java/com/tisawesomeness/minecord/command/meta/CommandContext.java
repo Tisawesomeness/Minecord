@@ -62,9 +62,9 @@ public abstract class CommandContext {
      */
     public abstract boolean isElevated();
     /**
-     * The current prefix.
+     * The current prefix without any spaces.
      */
-    public abstract @NonNull String getPrefix();
+    public abstract @NonNull String getRawPrefix();
     /**
      * The current language. Use {@link #i18n(String)} as a shortcut for {@link Lang#i18n(String) lang.get(String)}.
      */
@@ -273,6 +273,18 @@ public abstract class CommandContext {
      */
     public abstract boolean botHasPermission(Collection<Permission> permissions);
 
+    /**
+     * Gets the prefix, but formatted with an extra space at the end if the prefix ends with a letter.
+     * @return The prefix
+     */
+    public @NonNull String getPrefix() {
+        String prefix = getRawPrefix();
+        char lastChar = prefix.charAt(prefix.length() - 1);
+        if (Character.isLetter(lastChar)) {
+            return prefix + " ";
+        }
+        return prefix;
+    }
     /**
      * Formats the executing command to "&name" according to the current prefix and lang.
      * @return The equivalent of "&name"

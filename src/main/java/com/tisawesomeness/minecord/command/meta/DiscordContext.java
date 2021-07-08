@@ -35,7 +35,7 @@ public class DiscordContext extends CommandContext {
     @Getter private final @NonNull CommandExecutor executor;
     @Getter private final boolean isElevated;
     // These settings are used often and calculated beforehand, so simply passing their values makes sense
-    @Getter private final @NonNull String prefix;
+    @Getter private final @NonNull String rawPrefix;
     @Getter private final Lang lang;
 
     public DiscordContext(@NonNull String[] args, @NonNull MessageReceivedEvent e, @NonNull Config config,
@@ -48,7 +48,7 @@ public class DiscordContext extends CommandContext {
         this.cmd = cmd;
         this.executor = executor;
         this.isElevated = isElevated;
-        this.prefix = prefix;
+        rawPrefix = prefix;
         this.lang = lang;
     }
 
@@ -153,7 +153,7 @@ public class DiscordContext extends CommandContext {
                 .add("e=#" + e.getResponseNumber())
                 .add("elevated=" + isElevated)
                 .add("config=" + config.hashCode()) // Listing all fields of config would be too long
-                .add("prefix=`" + prefix + "`")
+                .add("prefix=`" + rawPrefix + "`")
                 .add("lang=" + lang)
                 .toString();
     }

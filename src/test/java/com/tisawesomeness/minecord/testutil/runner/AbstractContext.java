@@ -49,7 +49,7 @@ public abstract class AbstractContext extends CommandContext {
         unsupported();
         return false;
     }
-    public @NonNull String getPrefix() {
+    public @NonNull String getRawPrefix() {
         unsupported();
         return null;
     }
