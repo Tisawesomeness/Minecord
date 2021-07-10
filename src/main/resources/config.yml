@@ -62,9 +62,9 @@ supportedMCVersion: "1.15.2"
 settings:
   # The prefix for every command, default is "&" on the main bot
   defaultPrefix: "&"
-  # The maximum prefix length you can set in &prefix
+  # The maximum prefix length you can set in &prefix, must be between 1 and 64
   # Prefixes longer than this length will still function but users won't be able to create them
-  maxPrefixLength: 8
+  maxPrefixLength: 16
   # The maximum prefix length that will be shown before every command in &help
   # Prefixes that end in a letter will be treated as if there is an extra space at the end of the prefix
   # If a prefix is longer, then
