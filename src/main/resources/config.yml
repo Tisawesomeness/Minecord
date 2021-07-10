@@ -65,6 +65,11 @@ settings:
   # The maximum prefix length you can set in &prefix
   # Prefixes longer than this length will still function but users won't be able to create them
   maxPrefixLength: 8
+  # The maximum prefix length that will be shown before every command in &help
+  # Prefixes that end in a letter will be treated as if there is an extra space at the end of the prefix
+  # If a prefix is longer, then
+  # Set to 0 or below to always show full prefixes in &help
+  helpMaxPrefixLength: 4
   # The default lang used for user commands, admin commands and console messages are not translated
   # Current languages: en_US, de_DE, pt_BR
   defaultLang: en_US

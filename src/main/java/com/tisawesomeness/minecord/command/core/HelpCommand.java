@@ -107,11 +107,23 @@ public class HelpCommand extends AbstractCoreCommand implements IMultiNameComman
             }
             String mHelp = cmds.stream()
                     .filter(c -> !(c instanceof IHiddenCommand))
-                    .map(ctx::formatCommandName)
+                    .map(c -> formatHelpName(ctx, c))
                     .collect(Collectors.joining(", "));
             eb.addField(lang.localize(cat), mHelp, false);
         }
         ctx.reply(eb);
+    }
+    private static String formatHelpName(CommandContext ctx, Command c) {
+        String commandHelpIdentifier = MarkdownUtil.monospace(getCommandHelpIdentifier(ctx, c));
+        return strikeIfDisabled(ctx, c, commandHelpIdentifier);
+    }
+    private static String getCommandHelpIdentifier(CommandContext ctx, Command c) {
+        String prefix = ctx.getPrefix();
+        String displayName = c.getDisplayName(ctx.getLang());
+        if (prefix.length() > ctx.getConfig().getSettingsConfig().getHelpMaxPrefixLength()) {
+            return displayName;
+        }
+        return prefix + displayName;
     }
     // Help menu only contains names of commands, tell user how to get more help
     private static String getMoreHelp(CommandContext ctx) {
@@ -122,7 +134,12 @@ public class HelpCommand extends AbstractCoreCommand implements IMultiNameComman
         String categoryHelp = ctx.i18nf("categoryHelp", categoryUsage);
         String extraUsage = MarkdownUtil.monospace(ctx.i18nf("extraUsage", prefix));
         String extraHelp = ctx.i18nf("extraHelp", extraUsage);
-        return commandHelp + "\n" + categoryHelp + "\n" + extraHelp;
+
+        String moreHelp = commandHelp + "\n" + categoryHelp + "\n" + extraHelp;
+        if (prefix.length() > ctx.getConfig().getSettingsConfig().getHelpMaxPrefixLength()) {
+            return MarkdownUtil.bold(getRunHelp(ctx)) + "\n" + moreHelp;
+        }
+        return moreHelp;
     }
 
     private void categoryHelp(CommandContext ctx, Category cat) {
@@ -133,11 +150,17 @@ public class HelpCommand extends AbstractCoreCommand implements IMultiNameComman
                 .filter(c -> !(c instanceof IHiddenCommand) || cat.isHidden()) // All admin commands are hidden
                 .map(c -> formatCommandFull(ctx, c))
                 .collect(Collectors.joining("\n"));
+
         // Add category-specific help if it exists
         Optional<String> mHelp = cat.getHelp(lang, prefix);
         if (mHelp.isPresent()) {
             mUsage = mHelp.get() + "\n\n" + mUsage;
         }
+
+        if (prefix.length() > ctx.getConfig().getSettingsConfig().getHelpMaxPrefixLength()) {
+            mUsage = MarkdownUtil.bold(getRunHelp(ctx)) + "\n\n" + mUsage;
+        }
+
         String title = ctx.i18nf("categoryTitle", lang.localize(cat));
         EmbedBuilder eb = new EmbedBuilder()
                 .setAuthor(title, null, getAvatarUrl(ctx))
@@ -145,24 +168,29 @@ public class HelpCommand extends AbstractCoreCommand implements IMultiNameComman
         ctx.reply(eb);
     }
     private static String formatCommandFull(CommandContext ctx, Command c) {
-        String prefix = ctx.getPrefix();
         Lang lang = ctx.getLang();
+        String usage = MarkdownUtil.monospace(formatCommandUsage(ctx, c));
+        return strikeIfDisabled(ctx, c, usage) + " - " + c.getDescription(lang);
+    }
+    private static String formatCommandUsage(CommandContext ctx, Command c) {
+        String commandHelpIdentifier = getCommandHelpIdentifier(ctx, c);
         // Formatting changes based on whether the command has arguments
-        Optional<String> usageOpt = c.getUsage(lang);
+        Optional<String> usageOpt = c.getUsage(ctx.getLang());
         if (usageOpt.isPresent()) {
-            if (c.isEnabled(ctx.getConfig().getCommandConfig())) {
-                return String.format("`%s%s %s` - %s",
-                        prefix, c.getDisplayName(lang), usageOpt.get(), c.getDescription(lang));
-            }
-            return String.format("~~`%s%s %s`~~ - %s",
-                    prefix, c.getDisplayName(lang), usageOpt.get(), c.getDescription(lang));
+            return commandHelpIdentifier + " " + usageOpt.get();
         }
+        return commandHelpIdentifier;
+    }
+
+    private static String getRunHelp(CommandContext ctx) {
+        String runUsage = MarkdownUtil.monospace(ctx.i18nf("runUsage", ctx.getPrefix()));
+        return ctx.i18nf("runHelp", runUsage);
+    }
+    private static String strikeIfDisabled(CommandContext ctx, Command c, String str) {
         if (c.isEnabled(ctx.getConfig().getCommandConfig())) {
-            return String.format("`%s%s` - %s",
-                    prefix, c.getDisplayName(lang), c.getDescription(lang));
+            return str;
         }
-        return String.format("~~`%s%s`~~ - %s",
-                prefix, c.getDisplayName(lang), c.getDescription(lang));
+        return MarkdownUtil.strike(str);
     }
 
     private static String getAvatarUrl(CommandContext ctx) {

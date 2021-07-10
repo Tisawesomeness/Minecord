@@ -16,6 +16,8 @@ public class SettingsConfig {
     String defaultPrefix;
     @JsonProperty("maxPrefixLength")
     int maxPrefixLength;
+    @JsonProperty("helpMaxPrefixLength")
+    int helpMaxPrefixLength;
     @JsonProperty("defaultLang")
     Lang defaultLang;
     @JsonProperty("defaultUseMenus")
