@@ -131,6 +131,14 @@ public final class Validation<T> {
     }
 
     /**
+     * Converts this Validation to a Verification, dropping the value if this Validation is valid.
+     * @return This Validation as a Verification
+     */
+    public Verification asVerification() {
+        return verification;
+    }
+
+    /**
      * Combines this Validation with another.
      * <br>If either is invalid, then the error messages are combined.
      * <br>If both are valid, then the value in {@code other} is used.

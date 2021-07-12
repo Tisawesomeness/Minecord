@@ -119,6 +119,20 @@ public class ValidationTest {
     }
 
     @Test
+    @DisplayName("asVerification() converts to a valid verification")
+    public void testAsVerificationValid() {
+        Validation<Object> v = Validation.valid(new Object());
+        assertThat(v.asVerification().isValid()).isTrue();
+    }
+    @Test
+    @DisplayName("asVerification() converts to an invalid verification")
+    public void testAsVerificationInvalid() {
+        String err = "An error message";
+        Validation<?> v = Validation.invalid(err);
+        assertThat(v.asVerification().getErrors()).containsExactly(err);
+    }
+
+    @Test
     @DisplayName("propogateError() keeps the error message")
     public void testPropogateError() {
         String errorMessage = "An error message";
