@@ -25,8 +25,8 @@ public class SettingsConfig {
 
     public Verification verify() {
         return Verification.combineAll(
-                PrefixSetting.verify(defaultPrefix),
-                verifyMaxLength()
+                verifyMaxLength(),
+                new PrefixSetting(this).resolve(defaultPrefix).asVerification()
         );
     }
     private Verification verifyMaxLength() {

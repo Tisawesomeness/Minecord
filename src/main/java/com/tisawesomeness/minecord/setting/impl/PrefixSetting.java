@@ -74,13 +74,21 @@ public class PrefixSetting extends Setting<String> {
      * Legal symbols: {@code !$%^&-=+;',./{}"<>?}.
      */
     public Validation<String> resolve(@NonNull String input) {
-        Verification ver = verifyLength(input);
+        String prefix = truncateTrailingSpace(input);
+        Verification ver = verifyLength(prefix);
         if (!ver.isValid()) {
             return Validation.fromInvalidVerification(ver);
         }
-        return verify(input).toValidation(input);
+        return verify(prefix).toValidation(prefix);
     }
-    public static Verification verify(String input) {
+    private static String truncateTrailingSpace(String input) {
+        if (input.endsWith(" ")) {
+            return input.substring(0, input.length() - 1);
+        }
+        return input;
+    }
+
+    private static Verification verify(@NonNull String input) {
         // The mention "@a" is 18 characters long when sent to discord
         // Telling the user the prefix is too long or other errors would be confusing
         if (Discord.ANY_MENTION.matcher(input).find()) {

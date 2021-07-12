@@ -1,6 +1,8 @@
 package com.tisawesomeness.minecord.setting.impl;
 
 import com.tisawesomeness.minecord.config.config.Config;
+import com.tisawesomeness.minecord.config.config.SettingsConfig;
+import com.tisawesomeness.minecord.testutil.Reflect;
 import com.tisawesomeness.minecord.testutil.Resources;
 import com.tisawesomeness.minecord.util.Strings;
 
@@ -19,13 +21,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PrefixSettingTest {
 
     private static PrefixSetting prefix;
+    private static PrefixSetting prefixNoMax;
     private static int maxLength;
 
     @BeforeAll
-    private static void initPrefix() throws JsonProcessingException {
+    private static void initPrefix() throws JsonProcessingException, NoSuchFieldException {
         Config config = Resources.config();
-        prefix = new PrefixSetting(config.getSettingsConfig());
         maxLength = config.getSettingsConfig().getMaxPrefixLength();
+        prefix = new PrefixSetting(config.getSettingsConfig());
+
+        SettingsConfig noMaxSc = Resources.config().getSettingsConfig();
+        Reflect.setField(noMaxSc, "maxPrefixLength", Integer.MAX_VALUE);
+        prefixNoMax = new PrefixSetting(noMaxSc);
     }
 
     @ParameterizedTest(name = "{index} ==> Prefix ''{0}'' is accepted")
@@ -41,13 +48,25 @@ public class PrefixSettingTest {
     @MethodSource("symbolProvider")
     @DisplayName("Valid prefixes are accepted")
     public void testResolveValid(String candidate) {
-        assertThat(PrefixSetting.verify(candidate).isValid()).isTrue();
+        assertThat(prefixNoMax.resolve(candidate).getValue()).isEqualTo(candidate);
+    }
+
+    @ParameterizedTest(name = "{index} ==> Prefix with trailing space ''{0}'' is accepted")
+    @ValueSource(strings = {
+            "& ", "mc! ", "mc "
+    })
+    @DisplayName("Valid prefixes with trailing spaces are accepted")
+    public void testResolveValidTrailingSpace(String candidate) {
+        String truncated = candidate.substring(0, candidate.length() - 1);
+        assertThat(prefixNoMax.resolve(candidate).getValue()).isEqualTo(truncated);
     }
 
     @ParameterizedTest(name = "{index} ==> Prefix ''{0}'' is rejected")
     @ValueSource(strings = {
             "unset", // rejecting this literally prevents confusion
-            " ", "  ", "   ", "\t", "\t\t", " \t ", "\t \t", // whitespace
+            " ", "  ", "   ", // spaces
+            "&  ", "mc!  ", "mc  ", " & ", "m c ", // multiple spaces
+            "\t", "\t\t", " \t ", "\t \t", // other whitespace
             "\n", "\n\n", "\r", "\r\r", "\n\r", "\r\n", // newlines
             "\uD83D\uDE48", "\uD83D\uDE49", "\uD83D\uDE4A", // see no bugs, hear no bugs, write no bugs
             "Ω!", "√!", "¿!", // unicode symbols
@@ -73,7 +92,7 @@ public class PrefixSettingTest {
     @MethodSource("invalidSymbolProvider")
     @DisplayName("Invalid prefixes are rejected")
     public void testResolveInvalid(String candidate) {
-        assertThat(PrefixSetting.verify(candidate).isValid()).isFalse();
+        assertThat(prefixNoMax.resolve(candidate).isValid()).isFalse();
     }
 
     @Test
@@ -91,6 +110,19 @@ public class PrefixSettingTest {
     @DisplayName("A prefix over max length is rejected")
     public void testLengthOver() {
         String str = "m" + Strings.repeat("!", maxLength);
+        assertThat(prefix.resolve(str).isValid()).isFalse();
+    }
+    @Test
+    @DisplayName("A prefix with one space over max is accepted")
+    public void testLengthSpace() {
+        String expectedPrefix = "m" + Strings.repeat("!", maxLength - 1);
+        String str = expectedPrefix + " ";
+        assertThat(prefix.resolve(str).getValue()).isEqualTo(expectedPrefix);
+    }
+    @Test
+    @DisplayName("A prefix with two spaces, one over max is rejected")
+    public void testLengthTwoSpace() {
+        String str = "m" + Strings.repeat("!", maxLength - 2) + "  ";
         assertThat(prefix.resolve(str).isValid()).isFalse();
     }
 
