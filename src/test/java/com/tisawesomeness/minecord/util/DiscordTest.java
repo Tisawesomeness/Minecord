@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class DiscordTest {
 
@@ -15,6 +16,9 @@ public class DiscordTest {
             .respondToMentions(true, ID)
             .build();
     private static final Discord.ParseOptions NO_MENTIONS = Discord.parseOptionsBuilder().build();
+    private static final Discord.ParseOptions MANUAL_NO_MENTIONS = Discord.parseOptionsBuilder()
+            .respondToMentions(false, null)
+            .build();
     private static final Discord.ParseOptions OPTIONAL_PREFIX = Discord.parseOptionsBuilder()
             .respondToMentions(true, ID)
             .prefixRequired(false)
@@ -87,6 +91,12 @@ public class DiscordTest {
         assertThat(Discord.parseCommand(NICK_MENTION + " ping", "&", NO_MENTIONS))
                 .isEmpty();
     }
+    @Test
+    @DisplayName("Command parsing does not remove mention when disabled manually")
+    public void testParseMentionDisabledManual() {
+        assertThat(Discord.parseCommand(MENTION + " ping", "&", MANUAL_NO_MENTIONS))
+                .isEmpty();
+    }
 
     @Test
     @DisplayName("Command parsing removes literal prefix even when prefix optional")
@@ -117,6 +127,13 @@ public class DiscordTest {
     public void testParseNoPrefixOptional() {
         assertThat(Discord.parseCommand("ping", "&", OPTIONAL_PREFIX))
                 .contains("ping");
+    }
+
+    @Test
+    @DisplayName("Providing a null self id when responding to mentions throws NPE")
+    public void testParseBuilderNullSelfId() {
+        assertThatThrownBy(() -> Discord.parseOptionsBuilder().respondToMentions(true, null))
+                .isInstanceOf(NullPointerException.class);
     }
 
 }
