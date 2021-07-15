@@ -11,6 +11,11 @@ public class DiscordTest {
     private static final String ID = "292279711034245130";
     private static final String MENTION = "<@" + ID + ">";
     private static final String NICK_MENTION = "<@!" + ID + ">";
+    private static final String INCOMPLETE_MENTION = "<@" + ID;
+    private static final String INCOMPLETE_NICK_MENTION = "<@!" + ID;
+    private static final String OTHER_ID = "211261249386708992";
+    private static final String OTHER_MENTION = "<@" + OTHER_ID + ">";
+    private static final String OTHER_NICK_MENTION = "<@!" + OTHER_ID + ">";
 
     private static final Discord.ParseOptions NORMAL = Discord.parseOptionsBuilder()
             .respondToMentions(true, ID)
@@ -43,10 +48,34 @@ public class DiscordTest {
                 .contains("ping");
     }
     @Test
+    @DisplayName("Command parsing fails when mention is incomplete")
+    public void testParseIncompleteMention() {
+        assertThat(Discord.parseCommand(INCOMPLETE_MENTION + " ping", "&", NORMAL))
+                .isEmpty();
+    }
+    @Test
+    @DisplayName("Command parsing fails when mention is incorrect")
+    public void testParseOtherMention() {
+        assertThat(Discord.parseCommand(OTHER_MENTION + " ping", "&", NORMAL))
+                .isEmpty();
+    }
+    @Test
     @DisplayName("Command parsing removes nick mention")
     public void testParseNickMention() {
         assertThat(Discord.parseCommand(NICK_MENTION + " ping", "&", NORMAL))
                 .contains("ping");
+    }
+    @Test
+    @DisplayName("Command parsing fails when nick mention is incomplete")
+    public void testParseIncompleteNickMention() {
+        assertThat(Discord.parseCommand(INCOMPLETE_NICK_MENTION + " ping", "&", NORMAL))
+                .isEmpty();
+    }
+    @Test
+    @DisplayName("Command parsing fails when nick mention is incorrect")
+    public void testParseOtherNickMention() {
+        assertThat(Discord.parseCommand(OTHER_NICK_MENTION + " ping", "&", NORMAL))
+                .isEmpty();
     }
     @Test
     @DisplayName("Command parsing removes literal prefix even when string empty")
