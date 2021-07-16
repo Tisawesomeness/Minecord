@@ -8,7 +8,6 @@ import com.tisawesomeness.minecord.testutil.PlayerTests;
 import com.tisawesomeness.minecord.testutil.Resources;
 import com.tisawesomeness.minecord.testutil.mc.TestMCLibrary;
 import com.tisawesomeness.minecord.testutil.mc.TestPlayerProvider;
-import com.tisawesomeness.minecord.testutil.network.TestClient;
 import com.tisawesomeness.minecord.testutil.runner.TestCommandRunner;
 import com.tisawesomeness.minecord.util.Strings;
 import com.tisawesomeness.minecord.util.UUIDs;
@@ -89,7 +88,7 @@ public class CapeCommandIT {
     @DisplayName("Cape command responds with success when requesting a valid player with no cape")
     public void testNoCape() throws URISyntaxException {
         Player player = PlayerTests.initPlayerWithDefaultSkin(PlayerTests.TIS_STEVE_UUID);
-        TestCommandRunner runner = createRunner(player, false);
+        TestCommandRunner runner = createRunner(player, OptifineCape.NO);
         String args = UUIDs.toShortString(player.getUuid());
         assertThat(runner.run(args))
                 .awaitResult()
@@ -101,7 +100,7 @@ public class CapeCommandIT {
     @DisplayName("Cape command responds with success when requesting a player with minecraft cape")
     public void testMinecraftCape() throws URISyntaxException {
         Player player = PlayerTests.initPlayerWithCape(PlayerTests.JEB_ALEX_UUID, PlayerTests.MOJANG_CAPE_URL);
-        TestCommandRunner runner = createRunner(player, false);
+        TestCommandRunner runner = createRunner(player, OptifineCape.NO);
         String args = UUIDs.toShortString(player.getUuid());
         assertThat(runner.run(args))
                 .awaitEmbedReply()
@@ -117,7 +116,7 @@ public class CapeCommandIT {
     @DisplayName("Cape command responds with success when requesting a player with optifine cape")
     public void testOptifineCape() throws URISyntaxException {
         Player player = PlayerTests.initPlayerWithDefaultSkin(PlayerTests.TIS_STEVE_UUID);
-        TestCommandRunner runner = createRunner(player, true);
+        TestCommandRunner runner = createRunner(player, OptifineCape.YES);
         String args = UUIDs.toShortString(player.getUuid());
         assertThat(runner.run(args))
                 .awaitEmbedReply()
@@ -133,7 +132,7 @@ public class CapeCommandIT {
     @DisplayName("Cape command responds with success when requesting a player with minecraft and optifine capes")
     public void testBothCapes() throws URISyntaxException {
         Player player = PlayerTests.initPlayerWithCape(PlayerTests.JEB_ALEX_UUID, PlayerTests.MOJANG_CAPE_URL);
-        TestCommandRunner runner = createRunner(player, true);
+        TestCommandRunner runner = createRunner(player, OptifineCape.YES);
         String args = UUIDs.toShortString(player.getUuid());
         assertThat(runner.run(args))
                 .awaitEmbedReplies(2)
@@ -148,18 +147,39 @@ public class CapeCommandIT {
                 .anyEmbedReplySatisfies(emb -> assertThat(emb)
                         .imageLinksTo(player.getOptifineCapeUrl()));
     }
+    @Test
+    @DisplayName("Cape command responds with optifine failure but general success when optifine IOE fails")
+    public void testOptifineCapeThrow() throws URISyntaxException {
+        Player player = PlayerTests.initPlayerWithDefaultSkin(PlayerTests.TIS_STEVE_UUID);
+        TestCommandRunner runner = createRunner(player, OptifineCape.THROW);
+        String args = UUIDs.toShortString(player.getUuid());
+        assertThat(runner.run(args))
+                .awaitReplies(2)
+                .isSuccess()
+                .hasTriggeredCooldown()
+                .embedRepliesIsEmpty();
+    }
 
-    private static TestCommandRunner createRunner(Player player, boolean hasOptifineCape) throws URISyntaxException {
+    private static TestCommandRunner createRunner(Player player, OptifineCape capeStatus) throws URISyntaxException {
         TestCommandRunner runner = new TestCommandRunner(config, new CapeCommand());
         TestMCLibrary library = new TestMCLibrary();
-        if (hasOptifineCape) {
-            TestClient client = library.getClient();
-            client.addUrlThatExists(player.getOptifineCapeUrl());
+        switch (capeStatus) {
+            case NO:
+                break;
+            case YES:
+                library.getClient().addUrlThatExists(player.getOptifineCapeUrl());
+                break;
+            case THROW:
+                library.getClient().addThrowingUrl(player.getOptifineCapeUrl());
+                break;
         }
         TestPlayerProvider playerProvider = library.getPlayerProvider();
         playerProvider.mapPlayer(player);
         runner.mcLibrary = library;
         return runner;
+    }
+    private enum OptifineCape {
+        NO, YES, THROW;
     }
 
     private static URL[] getNameMCUrls(Player player) {
