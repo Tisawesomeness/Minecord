@@ -82,9 +82,9 @@ flags:
   # Whether the bot will attempt to load translations from "minecord/lang/*.properties"
   # If the load fails, the standard translations will be used instead
   loadTranslationsFromFile: false
-  # If true, the bot will deleteLinks its message when the calling command is deleted.
+  # If true, the bot will delete its message when the calling command is deleted.
   linkedDeletion: true
-  # Highly recommended to be true, whether the bot responds to "@Minecord command"
+  # Whether the bot responds to "@Minecord command", highly recommended
   respondToMentions: true
   # Currently bugged, sorry (best to leave this disabled)
   sendTyping: false

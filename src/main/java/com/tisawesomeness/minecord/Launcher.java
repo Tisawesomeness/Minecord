@@ -15,6 +15,14 @@ public final class Launcher {
      */
     public static void main(String[] args) {
         log.debug("Program started");
+        try {
+            start(args);
+        } catch (Exception ex) {
+            log.error("FATAL: A fatal exception occurred on startup", ex);
+            System.exit(ExitCodes.GENERAL_FAILURE);
+        }
+    }
+    private static void start(String[] args) {
         ArgsHandler handle = new ArgsHandler();
         int exitCode = new CommandLine(handle).execute(args);
         if (exitCode != ExitCodes.SUCCESS) {
