@@ -183,24 +183,28 @@ public class Listener extends ListenerAdapter {
 		
 		//Catch exceptions
 		if (result == null) {
-			if (exception != null) {exception.printStackTrace();}
-			String err = ":x: There was an unexpected exception: `" + exception.toString() + "`\n```";
-			if (Config.getDebugMode()) {
-				exception.printStackTrace();
-				for (StackTraceElement ste : exception.getStackTrace()) {
-					err += "\n" + ste.toString();
-					String className = ste.getClassName();
-					if (className.contains("net.dv8tion") || className.contains("com.neovisionaries")) {
-						err += "...";
-						break;
+			String err;
+			if (exception == null) {
+				err = ":x: There was a null exception";
+			} else {
+				err = ":x: There was an unexpected exception: `" + exception + "`\n```";
+				if (Config.getDebugMode()) {
+					exception.printStackTrace();
+					for (StackTraceElement ste : exception.getStackTrace()) {
+						err += "\n" + ste.toString();
+						String className = ste.getClassName();
+						if (className.contains("net.dv8tion") || className.contains("com.neovisionaries")) {
+							err += "...";
+							break;
+						}
 					}
 				}
+				err += "```";
 			}
-			err += "```";
 			MessageUtils.log(err);
 			c.sendMessage(err).queue();
 		//If message is empty
-		} if (result.message == null) {
+		} else if (result.message == null) {
 			if (result.outcome != null && result.outcome != Outcome.SUCCESS) {
 				System.out.println("Command \"" + ci.name + "\" returned an empty " +
 					result.outcome.toString().toLowerCase());
@@ -236,12 +240,15 @@ public class Listener extends ListenerAdapter {
 		
 		//Create embed
 		if (e instanceof GuildJoinEvent) {
-			
-			eb.setAuthor("Joined guild!", null, owner.getUser().getAvatarUrl());
+
+			String avatarUrl = owner == null ? null : owner.getUser().getAvatarUrl();
+			eb.setAuthor("Joined guild!", null, avatarUrl);
 			eb.addField("Name", guild.getName(), true);
 			eb.addField("Guild ID", guild.getId(), true);
-			eb.addField("Owner", owner.getEffectiveName(), true);
-			eb.addField("Owner ID", owner.getUser().getId(), true);
+			if (owner != null) {
+				eb.addField("Owner", owner.getEffectiveName(), true);
+				eb.addField("Owner ID", owner.getUser().getId(), true);
+			}
 			eb.addField("Users", guild.getMembers().size() + "", true);
 			ArrayList<Member> users = new ArrayList<Member>(guild.getMembers());
 			for (Member u : new ArrayList<Member>(users)) {
@@ -254,8 +261,10 @@ public class Listener extends ListenerAdapter {
 			eb.addField("Channels", guild.getTextChannels().size() + "", true);
 			
 		} else if (e instanceof GuildLeaveEvent) {
-			eb.setAuthor(owner.getEffectiveName() + " (" + owner.getUser().getId() + ")",
-				null, owner.getUser().getAvatarUrl());
+			if (owner != null) {
+				eb.setAuthor(owner.getEffectiveName() + " (" + owner.getUser().getId() + ")",
+						null, owner.getUser().getAvatarUrl());
+			}
 			eb.setDescription("Left guild `" + guild.getName() + "` (" + guild.getId() + ")");
 		} else {
 			return;
