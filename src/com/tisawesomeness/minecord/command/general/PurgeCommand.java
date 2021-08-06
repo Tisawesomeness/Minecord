@@ -90,7 +90,7 @@ public class PurgeCommand extends Command {
 				List<Message> msgs = mh.retrievePast(25).complete(true);
 				boolean exit = false;
 				for (Message m : msgs) {
-					if (m.getAuthor().getId().equals(Bot.id)) {
+					if (m.getAuthor().getId().equals(e.getJDA().getSelfUser().getId())) {
 						temp.add(m);
 					}
 					if (mine.size() + temp.size() >= num) {

@@ -47,7 +47,6 @@ public class Bot {
 	public static final Color color = Color.GREEN;
 
 	public static ShardManager shardManager;
-	public static String id;
 	private static Listener listener;
 	private static ReactListener reactListener;
 	public static long birth;
@@ -173,8 +172,9 @@ public class Bot {
 		}
 
 		//Start discordbots.org API
+		String id = shardManager.getShardById(0).getSelfUser().getId();
 		if (Config.getSendServerCount() || Config.getReceiveVotes()) {
-			RequestUtils.api = new DiscordBotListAPI.Builder().token(Config.getOrgToken()).build();
+			RequestUtils.api = new DiscordBotListAPI.Builder().token(Config.getOrgToken()).botId(id).build();
 		}
 
 		//Wait for database and web server
@@ -185,7 +185,6 @@ public class Bot {
 		} catch (InterruptedException ex) {}
 
 		//Update persistent bot info
-		id = shardManager.getShardById(0).getSelfUser().getId();
 		if (!Config.getLogChannel().equals("0")) {
 			MessageUtils.logChannel = shardManager.getTextChannelById(Config.getLogChannel());
 		}

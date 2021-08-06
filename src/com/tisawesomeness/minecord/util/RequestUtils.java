@@ -182,7 +182,7 @@ public class RequestUtils {
 		if (Config.getSendServerCount()) {
 			List<Integer> serverCounts = new ArrayList<Integer>();
 			for (JDA jda : Bot.shardManager.getShards()) serverCounts.add(jda.getGuilds().size());
-			api.setStats(Bot.id, serverCounts);
+			api.setStats(serverCounts);
 		}
 	}
 
