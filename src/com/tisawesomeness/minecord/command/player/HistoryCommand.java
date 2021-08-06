@@ -43,14 +43,10 @@ public class HistoryCommand extends Command {
 	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
-		String prefix = MessageUtils.getPrefix(e);
-		
+
 		// No arguments message
 		if (args.length == 0) {
-			String m = ":warning: Incorrect arguments." +
-				"\n" + prefix + "history <username|uuid> [date] " +
-				"\n" + DateUtils.dateHelp;
-			return new Result(Outcome.WARNING, m, 5);
+			return new Result(Outcome.WARNING, ":warning: You must specify a player.", 5);
 		}
 
 		String player = args[0];	
