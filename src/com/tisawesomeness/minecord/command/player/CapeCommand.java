@@ -1,18 +1,13 @@
 package com.tisawesomeness.minecord.command.player;
 
-import java.io.IOException;
-import java.util.Arrays;
-
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class CapeCommand extends Command {
@@ -103,30 +98,13 @@ public class CapeCommand extends Command {
 			sendImage(c, "Optifine Cape", url);
 			hasCape = true;
 		}
-		// LabyMod cape (doesn't show in embed, download required)
-		url = String.format("http://capes.labymod.net/capes/%s", NameUtils.formatUUID(uuid));
-		if (RequestUtils.checkURL(url)) {
-			MessageEmbed emb = new EmbedBuilder().setTitle("LabyMod Cape").setColor(Bot.color).setImage("attachment://cape.png").build();
-			try {
-				c.sendFile(RequestUtils.downloadImage(url), "cape.png").embed(emb).queue();
-				hasCape = true;
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-		// MinecraftCapes.co.uk
-		url = String.format("https://www.minecraftcapes.co.uk/gallery/grab-player-capes/%s", player);
-		if (RequestUtils.checkURL(url, true)) {
-			sendImage(c, "MinecraftCapes.co.uk Cape", url);
-			hasCape = true;
-		}
 		
 		if (!hasCape) return new Result(Outcome.WARNING, ":warning: " + player + " does not have a cape!");
 		return new Result(Outcome.SUCCESS);
 	}
 
 	private static void sendImage(MessageChannel c, String title, String url) {
-		c.sendMessage(new EmbedBuilder().setTitle(title).setColor(Bot.color).setImage(url).build()).queue();
+		c.sendMessageEmbeds(new EmbedBuilder().setTitle(title).setColor(Bot.color).setImage(url).build()).queue();
 	}
 	
 }
