@@ -68,7 +68,7 @@ public abstract class ReactMenu {
         buttons = createButtons(page);
         this.page = page;
         if (hasPerms(Permission.MESSAGE_ADD_REACTION)) {
-            message = message.editMessage(getEmbed(page)).complete();
+            message = message.editMessageEmbeds(getEmbed(page)).complete();
             ready = true;
             if (updateButtons) {
                 List<String> currentButtons = message.getReactions().stream()
@@ -83,7 +83,7 @@ public abstract class ReactMenu {
                 }
             }
         } else {
-            message = message.editMessage(getEmbed(page, true)).complete();
+            message = message.editMessageEmbeds(getEmbed(page, true)).complete();
         }
     }
     /**
@@ -96,7 +96,7 @@ public abstract class ReactMenu {
         if (delete) {
             message.delete().queue();
         } else {
-            message = message.editMessage( new EmbedBuilder(emb).setFooter(emb.getFooter().getText() + " (expired)").build()).complete();
+            message = message.editMessageEmbeds( new EmbedBuilder(emb).setFooter(emb.getFooter().getText() + " (expired)").build()).complete();
             if (hasPerms(Permission.MESSAGE_MANAGE)) {
                 message.getReactions().stream()
                     .filter(r -> r.isSelf())
@@ -113,7 +113,7 @@ public abstract class ReactMenu {
         this.ownerID = owner.getIdLong();
         this.ownerName = owner.getName();
         buttons = createButtons(page);
-        message = channel.sendMessage(getEmbed(page)).complete();
+        message = channel.sendMessageEmbeds(getEmbed(page)).complete();
         for (String button : buttons.keySet()) {
             if (buttons.get(button) != null) {
                 message.addReaction(button).submit();

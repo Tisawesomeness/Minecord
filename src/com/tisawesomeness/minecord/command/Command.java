@@ -128,7 +128,7 @@ public abstract class Command implements ICommand {
 		 */
 		public Result(Outcome outcome, MessageEmbed message) {
 			this.outcome = outcome;
-			this.message = new MessageBuilder().setEmbed(message).build();
+			this.message = new MessageBuilder().setEmbeds(message).build();
 		}
 		
 		/**
@@ -174,7 +174,7 @@ public abstract class Command implements ICommand {
 		 */
 		public Result(Outcome outcome, MessageEmbed message, double notifyMultiplier) {
 			this.outcome = outcome;
-			this.message = new MessageBuilder().setEmbed(message).build();
+			this.message = new MessageBuilder().setEmbeds(message).build();
 			this.notifyMultiplier = notifyMultiplier;
 		}
 	}

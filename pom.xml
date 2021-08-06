@@ -3,7 +3,7 @@
   <groupId>com.tisawesomeness</groupId>
   <artifactId>minecord</artifactId>
   <version>0.13.2</version>
-  
+
   <repositories>
     <repository>
       <id>dv8tion</id>
@@ -19,16 +19,16 @@
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </repository>
   </repositories>
-  
+
   <dependencies>
     <dependency>
       <groupId>net.dv8tion</groupId>
       <artifactId>JDA</artifactId>
-      <version>4.3.0_288</version>
+      <version>4.3.0_306</version>
       <exclusions>
         <exclusion>
-            <groupId>club.minnced</groupId>
-            <artifactId>opus-java</artifactId>
+          <groupId>club.minnced</groupId>
+          <artifactId>opus-java</artifactId>
         </exclusion>
       </exclusions>
     </dependency>

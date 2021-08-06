@@ -43,9 +43,9 @@ public class Bot {
 	public static final String github = "https://github.com/Tisawesomeness/Minecord";
 	private static final String version = "0.13.2";
 	public static final String javaVersion = "1.8";
-	public static final String jdaVersion = "4.3.0_288";
+	public static final String jdaVersion = "4.3.0_306";
 	public static final Color color = Color.GREEN;
-	
+
 	public static ShardManager shardManager;
 	public static String id;
 	private static Listener listener;
@@ -53,28 +53,28 @@ public class Bot {
 	public static long birth;
 	public static long bootTime;
 	public static String[] args;
-	
+
 	public static Thread thread;
 	public static volatile int readyShards = 0;
 	private static final List<GatewayIntent> gateways = Arrays.asList(
-		GatewayIntent.DIRECT_MESSAGES, GatewayIntent.DIRECT_MESSAGE_REACTIONS,
-		GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS);
+			GatewayIntent.DIRECT_MESSAGES, GatewayIntent.DIRECT_MESSAGE_REACTIONS,
+			GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS);
 	private static final EnumSet<CacheFlag> disabledCacheFlags = EnumSet.of(
-		CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOTE, CacheFlag.ONLINE_STATUS, CacheFlag.VOICE_STATE);
-	
+			CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOTE, CacheFlag.ONLINE_STATUS, CacheFlag.VOICE_STATE);
+
 	public static boolean setup(String[] args, boolean devMode) {
 		long startTime = System.currentTimeMillis();
 		if (!devMode) {
 			System.out.println("Bot starting...");
 		}
-		
+
 		//Parse arguments
 		Bot.args = args;
 		Config.read(false);
 		if (Config.getDevMode() && !devMode) return false;
 		boolean reload = false;
 		if (args.length > 0 && ArrayUtils.contains(args, "-r")) reload = true;
-		
+
 		//Pre-init
 		thread = Thread.currentThread();
 		listener = new Listener();
@@ -90,7 +90,7 @@ public class Bot {
 		}
 		ReactMenu.startPurgeThread();
 		Registry.init();
-		
+
 		//Connect to database
 		Thread db = new Thread(() -> {
 			try {
@@ -100,7 +100,7 @@ public class Bot {
 			}
 		});
 		db.start();
-		
+
 		//Start web server
 		Thread ws = null;
 		if (Config.getReceiveVotes()) {
@@ -113,19 +113,19 @@ public class Bot {
 			});
 			ws.start();
 		}
-		
+
 		//Fetch main class
 		try {
 			if (Config.getDevMode()) {
 				@SuppressWarnings("static-access")
 				Class<?> clazz = Thread.currentThread().getContextClassLoader().getSystemClassLoader()
-					.loadClass(mainClass);
+						.loadClass(mainClass);
 				MethodName.clazz = clazz;
 			}
-			
+
 			//If this is a reload
 			if (reload && Config.getDevMode()) {
-				
+
 				//Get main class info
 				Message m = (Message) MethodName.GET_MESSAGE.method().invoke(null, "ignore");
 				User u = (User) MethodName.GET_USER.method().invoke(null, "ignore");
@@ -137,21 +137,21 @@ public class Bot {
 				}
 				m.editMessage(":white_check_mark: **Bot reloaded!**").queue();
 				MessageUtils.log(":arrows_counterclockwise: **Bot reloaded by " + u.getName() + "**");
-				
-			//If this is the first run
+
+				//If this is the first run
 			} else {
-				
+
 				//Initialize JDA
 				shardManager = DefaultShardManagerBuilder.create(gateways)
-					.setToken(Config.getClientToken())
-					.setAutoReconnect(true)
-					.addEventListeners(listener, reactListener)
-					.setShardsTotal(Config.getShardCount())
-					.setActivity(Activity.playing("Loading..."))
-					.setMemberCachePolicy(MemberCachePolicy.NONE)
-					.disableCache(disabledCacheFlags)
-					.build();
-				
+						.setToken(Config.getClientToken())
+						.setAutoReconnect(true)
+						.addEventListeners(listener, reactListener)
+						.setShardsTotal(Config.getShardCount())
+						.setActivity(Activity.playing("Loading..."))
+						.setMemberCachePolicy(MemberCachePolicy.NONE)
+						.disableCache(disabledCacheFlags)
+						.build();
+
 				//Update main class
 				birth = startTime;
 				if (Config.getDevMode()) {
@@ -165,13 +165,13 @@ public class Bot {
 					Thread.sleep(100);
 				}
 				System.out.println("Shards ready");
-				
+
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return false;
 		}
-		
+
 		//Start discordbots.org API
 		if (Config.getSendServerCount() || Config.getReceiveVotes()) {
 			RequestUtils.api = new DiscordBotListAPI.Builder().token(Config.getOrgToken()).build();
@@ -189,20 +189,20 @@ public class Bot {
 		if (!Config.getLogChannel().equals("0")) {
 			MessageUtils.logChannel = shardManager.getTextChannelById(Config.getLogChannel());
 		}
-		
+
 		//Post-init
 		bootTime = System.currentTimeMillis() - birth;
 		System.out.println("Boot Time: " + DateUtils.getBootTime());
 		MessageUtils.log(":white_check_mark: **Bot started!**");
 		DiscordUtils.update();
 		RequestUtils.sendGuilds();
-		
+
 		return true;
-		
+
 	}
-	
+
 	public static void shutdown(Message m, User u) {
-		
+
 		//Disable JDA
 		for (JDA jda : shardManager.getShards()) {
 			jda.setAutoReconnect(false);
@@ -218,16 +218,16 @@ public class Bot {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		
+
 		//Stop the thread
 		thread.interrupt();
-		
+
 	}
-	
+
 	public static String getVersion() {
 		return version;
 	}
-	
+
 	//Helps with reflection
 	private enum MethodName {
 		MAIN("main"),
@@ -240,12 +240,12 @@ public class Bot {
 		SET_SHARDS("setShards"),
 		GET_BIRTH("getBirth"),
 		SET_BIRTH("setBirth");
-		
+
 		private String name;
 		private MethodName(String name) {
 			this.name = name;
 		}
-		
+
 		public static Class<?> clazz;
 		public Method method() {
 			for (Method m : clazz.getDeclaredMethods()) {

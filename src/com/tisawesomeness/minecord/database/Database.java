@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.database;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,8 +31,8 @@ public class Database {
 		if (Config.getType().equals("mysql")) {
 			url += "mysql://";
 			try {
-				Class.forName("com.mysql.jdbc.Driver").newInstance();
-			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
+				Class.forName("com.mysql.jdbc.Driver").getDeclaredConstructor().newInstance();
+			} catch (ReflectiveOperationException ex) {
 				ex.printStackTrace();
 			}
 		} else {
