@@ -18,6 +18,7 @@ import br.com.azalim.mcserverping.MCPingResponse;
 import br.com.azalim.mcserverping.MCPingUtil;
 import br.com.azalim.mcserverping.MCPingResponse.Player;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 
@@ -133,13 +134,17 @@ public class ServerCommand extends Command {
 		} else {
 			String favicon = reply.getFavicon().replace("\n", "");
 			if (favicon.contains(",")) {
-				try {
-					byte[] data = Base64.getDecoder().decode(favicon.split(",")[1]);
-					e.getChannel().sendFile(data, "favicon.png").embed(eb.setDescription(m).setThumbnail("attachment://favicon.png").build()).queue();
-					return new Result(Outcome.SUCCESS);
-				} catch (IllegalArgumentException ex) {
-					ex.printStackTrace();
-					eb.setDescription(m + "\n:x: Server returned an invalid icon.");
+				if (e.getMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_ATTACH_FILES)) {
+					try {
+						byte[] data = Base64.getDecoder().decode(favicon.split(",")[1]);
+						e.getChannel().sendFile(data, "favicon.png").setEmbeds(eb.setDescription(m).setThumbnail("attachment://favicon.png").build()).queue();
+						return new Result(Outcome.SUCCESS);
+					} catch (IllegalArgumentException ex) {
+						ex.printStackTrace();
+						eb.setDescription(m + "\n:x: Server returned an invalid icon.");
+					}
+				} else {
+					eb.setDescription(m + "\n:warning: Give Minecord permission to attach files to see server icons.");
 				}
 			}
 		}
@@ -151,7 +156,6 @@ public class ServerCommand extends Command {
 		server = server.toLowerCase();
 		if (blockedServers.contains(RequestUtils.sha1(server))) return true;
 		if (ip) {
-			System.out.println("> " + server);
 			int i = server.lastIndexOf('.');
 			while (i >= 0) {
 				if (blockedServers.contains(RequestUtils.sha1(server.substring(0, i + 1) + ".*"))) return true;

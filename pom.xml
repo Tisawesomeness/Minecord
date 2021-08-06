@@ -2,8 +2,8 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.tisawesomeness</groupId>
   <artifactId>minecord</artifactId>
-  <version>0.13.2</version>
-  
+  <version>0.13.3</version>
+
   <repositories>
     <repository>
       <id>dv8tion</id>
@@ -19,53 +19,53 @@
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </repository>
   </repositories>
-  
+
   <dependencies>
     <dependency>
       <groupId>net.dv8tion</groupId>
       <artifactId>JDA</artifactId>
-      <version>4.3.0_288</version>
+      <version>4.3.0_306</version>
       <exclusions>
         <exclusion>
-            <groupId>club.minnced</groupId>
-            <artifactId>opus-java</artifactId>
+          <groupId>club.minnced</groupId>
+          <artifactId>opus-java</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>com.github.DiscordBotList</groupId>
-      <artifactId>Java-Wrapper</artifactId>
-      <version>v1.0</version>
+      <groupId>org.discordbots</groupId>
+      <artifactId>DBL-Java-Library</artifactId>
+      <version>2.0.1</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
-      <version>3.5</version>
+      <version>3.12.0</version>
     </dependency>
     <dependency>
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
-      <version>20160810</version>
+      <version>20210307</version>
     </dependency>
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.20</version>
+      <version>8.0.26</version>
     </dependency>
     <dependency>
       <groupId>org.xerial</groupId>
       <artifactId>sqlite-jdbc</artifactId>
-      <version>3.21.0</version>
+      <version>3.36.0.1</version>
     </dependency>
     <dependency>
       <groupId>dnsjava</groupId>
       <artifactId>dnsjava</artifactId>
-      <version>2.1.8</version>
+      <version>3.4.1</version>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.2</version>
+      <version>1.18.20</version>
       <scope>provided</scope>
     </dependency>
     <dependency>

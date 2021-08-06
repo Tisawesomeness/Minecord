@@ -32,7 +32,6 @@ public class MessageUtils {
 	 * @param url A URL that the title goes to when clicked. Only works if title is not null.
 	 * @param body The main body of the message.
 	 * @param color The color of the embed. Discord markdown formatting and newline are supported.
-	 * @param thumb The URL of the thumbnail.
 	 * @return A MessageEmbed representing the message. You can add additional info (e.g. fields) by passing this variable into a new EmbedBuilder.
 	 */
 	public static MessageEmbed embedMessage(String title, String url, String body, Color color) {
@@ -110,7 +109,7 @@ public class MessageUtils {
 		if (!Config.getLogChannel().equals("0")) {
 			EmbedBuilder eb = new EmbedBuilder(m);
 			eb.setTimestamp(OffsetDateTime.now());
-			logChannel.sendMessage(eb.build()).queue();
+			logChannel.sendMessageEmbeds(eb.build()).queue();
 		}
 	}
 	

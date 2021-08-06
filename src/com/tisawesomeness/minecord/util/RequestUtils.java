@@ -150,7 +150,7 @@ public class RequestUtils {
 	/**
 	 * Checks if a URL exists and can respond to an HTTP request.
 	 * @param url The URL to check.
-	 * @param followRedirects If true, pretends to be a browser
+	 * @param fakeUserAgent If true, pretends to be a browser
 	 * @return True if the URL exists, false if it doesn't or an error occured.
 	 */
 	public static boolean checkURL(String url, boolean fakeUserAgent) {
@@ -180,20 +180,9 @@ public class RequestUtils {
 	 */
 	public static void sendGuilds() {
 		if (Config.getSendServerCount()) {
-			int servers = Bot.shardManager.getGuilds().size();
-			String id = Bot.id;
-			
-			String url = "https://bots.discord.pw/api/bots/" + id + "/stats";
-			String query = "{\"server_count\": " + servers + "}";
-			post(url, query, Config.getPwToken());
-			
-			/*url = "https://discordbots.org/api/bots/" + id + "/stats";
-			query = "{\"server_count\": " + servers + "}";
-			post(url, query, Config.getOrgToken());*/
-			
 			List<Integer> serverCounts = new ArrayList<Integer>();
 			for (JDA jda : Bot.shardManager.getShards()) serverCounts.add(jda.getGuilds().size());
-			api.setStats(id, serverCounts);
+			api.setStats(serverCounts);
 		}
 	}
 
