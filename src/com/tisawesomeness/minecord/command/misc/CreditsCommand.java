@@ -30,6 +30,7 @@ public class CreditsCommand extends Command {
     
     private String apis = "Discord API Wrapper - " + MarkdownUtil.maskedLink("JDA", "https://github.com/DV8FromTheWorld/JDA") + "\n" +
         "MC Account Info - " + MarkdownUtil.maskedLink("Mojang API", "https://wiki.vg/Mojang_API") + "\n" +
+        "MC Status - " + MarkdownUtil.maskedLink("Obsidion API", "https://api.obsidion-dev.com/docs") + "\n" +
         "Skin Renders - " + MarkdownUtil.maskedLink("Crafatar", "https://crafatar.com") + "\n" +
         "Server Pinging - " + MarkdownUtil.maskedLink("MCServerPing", "https://github.com/lucaazalim/minecraft-server-ping") + "\n" +
         "Cape Sites - " +
