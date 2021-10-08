@@ -41,9 +41,9 @@ public class Bot {
 	public static final String helpServer = "https://minecord.github.io/support";
 	public static final String website = "https://minecord.github.io";
 	public static final String github = "https://github.com/Tisawesomeness/Minecord";
-	private static final String version = "0.13.3";
+	private static final String version = "0.13.4";
 	public static final String javaVersion = "1.8";
-	public static final String jdaVersion = "4.3.0_306";
+	public static final String jdaVersion = "4.3.0_334";
 	public static final Color color = Color.GREEN;
 
 	public static ShardManager shardManager;
