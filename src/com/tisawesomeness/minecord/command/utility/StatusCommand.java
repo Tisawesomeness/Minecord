@@ -1,17 +1,15 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import java.awt.Color;
-import java.util.ArrayList;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import org.json.JSONObject;
+
+import java.awt.Color;
 
 public class StatusCommand extends Command {
 	
@@ -29,57 +27,36 @@ public class StatusCommand extends Command {
 	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
-		
-		//Request information from Mojang
-		String request = RequestUtils.get("https://status.mojang.com/check");
+		// Request information from Mojang through Obsidion API
+		String request = RequestUtils.get("https://api.obsidion-dev.com/api/v1/mojang/check", null, true);
 		if (request == null) {
-			return new Result(Outcome.ERROR, ":x: The Mojang API could not be reached.");
+			return new Result(Outcome.ERROR, ":x: The Mojang API could not be checked.");
 		}
-		
-		Color color = Color.GREEN;
-		//Iterate over response sections
-		ArrayList<String> responses = new ArrayList<String>();
-		JSONArray status = new JSONArray(request);
-		for (int i = 0; i < status.length(); i++) {
 
-			//session server response is broken
-			if (i == 4) {
-				responses.add("[Status broken](https://bugs.mojang.com/browse/WEB-2303)");
-				continue;
-			}
-			
-			//Fetch the response
-			JSONObject json = status.getJSONObject(i);
-			String[] names = JSONObject.getNames(json);
-			String response = json.getString(names[0]);
-			
-			//Parse the response
-			String output = ":x:";
-			if ("green".equals(response)) {
-				output = ":white_check_mark:";
-			} else if ("yellow".equals(response)) {
-				output = ":warning:";
-				if (color != Color.RED) color = Color.YELLOW;
-			} else {
-				color = Color.RED;
-			}
-			
-			responses.add(output);
-		}
-		
-		//Build message (session server status seems to be broken)
-		String m = "**Minecraft:** " + responses.get(0) +
-			"\n" + "**Accounts:** " + responses.get(2) +
-			"\n" + "**Textures:** " + responses.get(6) +
-			"\n" + "**Session:** " + responses.get(1) +
-			"\n" + "**Session Server:** " + responses.get(4) +
-			"\n" + "**Auth Server:** " + responses.get(3) +
-			"\n" + "**Mojang:** " + responses.get(7) +
-			"\n" + "**Mojang API:** " + responses.get(5);
+		// Extract statuses
+		JSONObject status = new JSONObject(request);
+		boolean mcStatus = isGreen(status, "https://www.minecraft.net");
+		boolean accountStatus = isGreen(status, "https://account.mojang.com");
+		boolean authStatus = isGreen(status, "https://authserver.mojang.com");
+		boolean textureStatus = isGreen(status, "https://textures.minecraft.net");
+		boolean apiStatus = isGreen(status, "https://api.mojang.com");
+
+		boolean allGood = mcStatus && accountStatus && authStatus && textureStatus && apiStatus;
+		Color color = allGood ? Color.GREEN : Color.RED;
+
+		// Build message
+		String m = "**Minecraft:** " + DiscordUtils.getBoolEmote(mcStatus) +
+				"\n" + "**Accounts:** " + DiscordUtils.getBoolEmote(accountStatus) +
+				"\n" + "**Auth Server:** " + DiscordUtils.getBoolEmote(authStatus) +
+				"\n" + "**Textures:** " + DiscordUtils.getBoolEmote(textureStatus) +
+				"\n" + "**Mojang API:** " + DiscordUtils.getBoolEmote(apiStatus);
 		
 		MessageEmbed me = MessageUtils.embedMessage("Minecraft Status", null, m, color);
-		
 		return new Result(Outcome.SUCCESS, me);
+	}
+
+	private static boolean isGreen(JSONObject status, String key) {
+		return "green".equals(status.optString(key));
 	}
 	
 }

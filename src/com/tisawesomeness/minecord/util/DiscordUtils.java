@@ -67,4 +67,11 @@ public class DiscordUtils {
 		return ma.matches() ? Bot.shardManager.getTextChannelById(ma.group(2)) : null;
 	}
 
+    /**
+     * Gets the emote text associated with true or false.
+     */
+    public static String getBoolEmote(boolean bool) {
+        return bool ? ":white_check_mark:" : ":x:";
+    }
+
 }
