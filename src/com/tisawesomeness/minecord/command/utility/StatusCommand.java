@@ -58,9 +58,7 @@ public class StatusCommand extends Command {
 				"\n" + "**Textures:** " + statusEmotes.get(3) +
 				"\n" + "**Mojang API:** " + statusEmotes.get(4);
 
-		boolean allGood = statuses.stream().allMatch(b -> b);
-		Color color = allGood ? Color.GREEN : Color.RED;
-		
+		Color color = getColor(statuses);
 		MessageEmbed me = MessageUtils.embedMessage("Minecraft Status", null, m, color);
 		return new Result(Outcome.SUCCESS, me);
 	}
@@ -74,6 +72,18 @@ public class StatusCommand extends Command {
 			return RequestUtils.checkWithSocket("minecraft.net");
 		}
 		return RequestUtils.checkURLWithGet(url);
+	}
+
+	private static Color getColor(List<Boolean> statuses) {
+		boolean allGood = statuses.stream().allMatch(b -> b);
+		if (allGood) {
+			return Color.GREEN;
+		}
+		boolean allBad = statuses.stream().noneMatch(b -> b);
+		if (allBad) {
+			return Color.RED;
+		}
+		return Color.YELLOW;
 	}
 	
 }
