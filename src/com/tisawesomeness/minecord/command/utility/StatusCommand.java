@@ -23,6 +23,10 @@ public class StatusCommand extends Command {
 			"https://textures.minecraft.net",
 			"https://api.mojang.com"
 	);
+	private static final int CACHE_TIME = 1000 * 60;
+
+	private static long timestamp = 0;
+	private static MessageEmbed statusResponse;
 	
 	public CommandInfo getInfo() {
 		return new CommandInfo(
@@ -38,6 +42,15 @@ public class StatusCommand extends Command {
 	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
+		// Command is cached to prevent slow requests
+		if (System.currentTimeMillis() - CACHE_TIME > timestamp) {
+			statusResponse = getStatusResponse();
+			timestamp = System.currentTimeMillis();
+		}
+		return new Result(Outcome.SUCCESS, statusResponse);
+	}
+
+	private static MessageEmbed getStatusResponse() {
 		// Pings done in separate threads to speed up in case some URLs timeout
 		List<CompletableFuture<Boolean>> statusRequests = URLS.stream()
 				.map(StatusCommand::checkUrl)
@@ -59,8 +72,7 @@ public class StatusCommand extends Command {
 				"\n" + "**Mojang API:** " + statusEmotes.get(4);
 
 		Color color = getColor(statuses);
-		MessageEmbed me = MessageUtils.embedMessage("Minecraft Status", null, m, color);
-		return new Result(Outcome.SUCCESS, me);
+		return MessageUtils.embedMessage("Minecraft Status", null, m, color);
 	}
 
 	private static CompletableFuture<Boolean> checkUrl(String url) {
