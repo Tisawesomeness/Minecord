@@ -70,7 +70,10 @@ public class RequestUtils {
 	 * @return The response of the request in string form.
 	 */
 	public static String get(String url, String auth) {
-		if (checkURL(url)) {
+		return get(url, auth, false);
+	}
+	public static String get(String url, String auth, boolean skipCheck) {
+		if (skipCheck || checkURL(url)) {
 			try {
 				URLConnection conn = open(url, auth, jsonType);
 				return get(conn, jsonType);
@@ -161,7 +164,8 @@ public class RequestUtils {
 			if (fakeUserAgent) {
 				con.setRequestProperty("User-Agent", browserAgent);
 			}
-			return con.getResponseCode() == HttpURLConnection.HTTP_OK;
+			int code = con.getResponseCode();
+			return code == HttpURLConnection.HTTP_OK;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return false;

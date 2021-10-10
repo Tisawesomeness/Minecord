@@ -106,23 +106,16 @@ public class PermsCommand extends Command {
 
         EnumSet<Permission> perms = c.getGuild().getSelfMember().getPermissions(c);
         String m = String.format("**Bot Permissions for %s:**", c.getName()) +
-            "\nView channels: " + getBoolEmote(perms.contains(Permission.VIEW_CHANNEL)) +
-            "\nRead messages: " + getBoolEmote(perms.contains(Permission.MESSAGE_READ)) +
-            "\nRead message history: " + getBoolEmote(perms.contains(Permission.MESSAGE_HISTORY)) +
-            "\nWrite messages: " + getBoolEmote(perms.contains(Permission.MESSAGE_WRITE)) +
-            "\nEmbed links: " + getBoolEmote(perms.contains(Permission.MESSAGE_EMBED_LINKS)) +
-            "\nAdd reactions: " + getBoolEmote(perms.contains(Permission.MESSAGE_ADD_REACTION)) +
-            "\nManage messages: " + getBoolEmote(perms.contains(Permission.MESSAGE_MANAGE)) +
+            "\nView channels: " + DiscordUtils.getBoolEmote(perms.contains(Permission.VIEW_CHANNEL)) +
+            "\nRead messages: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_READ)) +
+            "\nRead message history: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_HISTORY)) +
+            "\nWrite messages: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_WRITE)) +
+            "\nEmbed links: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_EMBED_LINKS)) +
+            "\nAdd reactions: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_ADD_REACTION)) +
+            "\nManage messages: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_MANAGE)) +
             "\nCan use reaction menus: " + getMenuEmote(perms);
         
         return new Result(Outcome.SUCCESS, m);
-    }
-
-    /**
-     * Gets the emote text associated with true or false.
-     */
-    private static String getBoolEmote(boolean bool) {
-        return bool ? ":white_check_mark:" : ":x:";
     }
 
     private static String getMenuEmote(EnumSet<Permission> perms) {

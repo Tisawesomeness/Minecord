@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.tisawesomeness</groupId>
   <artifactId>minecord</artifactId>
-  <version>0.13.3</version>
+  <version>0.13.4</version>
 
   <repositories>
     <repository>
@@ -24,7 +24,7 @@
     <dependency>
       <groupId>net.dv8tion</groupId>
       <artifactId>JDA</artifactId>
-      <version>4.3.0_306</version>
+      <version>4.3.0_334</version>
       <exclusions>
         <exclusion>
           <groupId>club.minnced</groupId>
