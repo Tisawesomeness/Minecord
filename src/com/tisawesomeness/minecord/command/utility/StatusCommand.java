@@ -7,11 +7,26 @@ import com.tisawesomeness.minecord.util.RequestUtils;
 
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import org.json.JSONObject;
 
 import java.awt.Color;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 public class StatusCommand extends Command {
+
+	private static final List<String> URLS = Arrays.asList(
+			"https://minecraft.net",
+			"https://account.mojang.com",
+			"https://authserver.mojang.com",
+			"https://textures.minecraft.net",
+			"https://api.mojang.com"
+	);
+	private static final int CACHE_TIME = 1000 * 60;
+
+	private static long timestamp = 0;
+	private static MessageEmbed statusResponse;
 	
 	public CommandInfo getInfo() {
 		return new CommandInfo(
@@ -27,36 +42,60 @@ public class StatusCommand extends Command {
 	}
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
-		// Request information from Mojang through Obsidion API
-		String request = RequestUtils.get("https://api.obsidion-dev.com/api/v1/mojang/check", null, true);
-		if (request == null) {
-			return new Result(Outcome.ERROR, ":x: The Mojang API could not be checked.");
+		// Command is cached to prevent slow requests
+		if (System.currentTimeMillis() - CACHE_TIME > timestamp) {
+			statusResponse = getStatusResponse();
+			timestamp = System.currentTimeMillis();
 		}
-
-		// Extract statuses
-		JSONObject status = new JSONObject(request);
-		boolean mcStatus = isGreen(status, "https://www.minecraft.net");
-		boolean accountStatus = isGreen(status, "https://account.mojang.com");
-		boolean authStatus = isGreen(status, "https://authserver.mojang.com");
-		boolean textureStatus = isGreen(status, "https://textures.minecraft.net");
-		boolean apiStatus = isGreen(status, "https://api.mojang.com");
-
-		boolean allGood = mcStatus && accountStatus && authStatus && textureStatus && apiStatus;
-		Color color = allGood ? Color.GREEN : Color.RED;
-
-		// Build message
-		String m = "**Minecraft:** " + DiscordUtils.getBoolEmote(mcStatus) +
-				"\n" + "**Accounts:** " + DiscordUtils.getBoolEmote(accountStatus) +
-				"\n" + "**Auth Server:** " + DiscordUtils.getBoolEmote(authStatus) +
-				"\n" + "**Textures:** " + DiscordUtils.getBoolEmote(textureStatus) +
-				"\n" + "**Mojang API:** " + DiscordUtils.getBoolEmote(apiStatus);
-		
-		MessageEmbed me = MessageUtils.embedMessage("Minecraft Status", null, m, color);
-		return new Result(Outcome.SUCCESS, me);
+		return new Result(Outcome.SUCCESS, statusResponse);
 	}
 
-	private static boolean isGreen(JSONObject status, String key) {
-		return "green".equals(status.optString(key));
+	private static MessageEmbed getStatusResponse() {
+		// Pings done in separate threads to speed up in case some URLs timeout
+		List<CompletableFuture<Boolean>> statusRequests = URLS.stream()
+				.map(StatusCommand::checkUrl)
+				.collect(Collectors.toList());
+		CompletableFuture.allOf(statusRequests.toArray(new CompletableFuture[URLS.size()])).join();
+		List<Boolean> statuses = statusRequests.stream()
+				.map(CompletableFuture::join)
+				.collect(Collectors.toList());
+
+		// Transform list of true/false into emote check/x
+		List<String> statusEmotes = statuses.stream()
+				.map(DiscordUtils::getBoolEmote)
+				.collect(Collectors.toList());
+
+		String m = "**Minecraft:** " + statusEmotes.get(0) +
+				"\n" + "**Accounts:** " + statusEmotes.get(1) +
+				"\n" + "**Auth Server:** " + statusEmotes.get(2) +
+				"\n" + "**Textures:** " + statusEmotes.get(3) +
+				"\n" + "**Mojang API:** " + statusEmotes.get(4);
+
+		Color color = getColor(statuses);
+		return MessageUtils.embedMessage("Minecraft Status", null, m, color);
+	}
+
+	private static CompletableFuture<Boolean> checkUrl(String url) {
+		return CompletableFuture.supplyAsync(() -> check(url));
+	}
+	private static boolean check(String url) {
+		// The Minecraft website likes to bug out for some reason, regular GET request sometimes breaks
+		if (url.equals("https://minecraft.net")) {
+			return RequestUtils.checkWithSocket("minecraft.net");
+		}
+		return RequestUtils.checkURLWithGet(url);
+	}
+
+	private static Color getColor(List<Boolean> statuses) {
+		boolean allGood = statuses.stream().allMatch(b -> b);
+		if (allGood) {
+			return Color.GREEN;
+		}
+		boolean allBad = statuses.stream().noneMatch(b -> b);
+		if (allBad) {
+			return Color.RED;
+		}
+		return Color.YELLOW;
 	}
 	
 }

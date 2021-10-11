@@ -6,10 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -30,11 +27,12 @@ import com.tisawesomeness.minecord.Config;
 import net.dv8tion.jda.api.JDA;
 
 public class RequestUtils {
-	
+
 	private static final String charset = StandardCharsets.UTF_8.name();
 	private static final String jsonType = "application/json";
 	private static final String plainType = "text/plain";
 	private static final String browserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
+	private static final int TIMEOUT = 5000;
 	public static DiscordBotListAPI api = null;
 	
 	private static String get(URLConnection conn, String type) throws IOException {
@@ -137,6 +135,8 @@ public class RequestUtils {
 		conn.setDoOutput(true);
 		conn.setRequestProperty("Accept-Charset", charset);
 		conn.setRequestProperty("Content-Type", contentType);
+		conn.setConnectTimeout(TIMEOUT);
+		conn.setReadTimeout(TIMEOUT);
 		if (auth != null) conn.setRequestProperty("Authorization", auth);
 		return conn;
 	}
@@ -144,7 +144,7 @@ public class RequestUtils {
 	/**
 	 * Checks if a URL exists and can respond to an HTTP request.
 	 * @param url The URL to check.
-	 * @return True if the URL exists, false if it doesn't or an error occured.
+	 * @return True if the URL exists, false if it doesn't or an error occurred.
 	 */
 	public static boolean checkURL(String url) {
 		return checkURL(url, false);
@@ -154,12 +154,14 @@ public class RequestUtils {
 	 * Checks if a URL exists and can respond to an HTTP request.
 	 * @param url The URL to check.
 	 * @param fakeUserAgent If true, pretends to be a browser
-	 * @return True if the URL exists, false if it doesn't or an error occured.
+	 * @return True if the URL exists, false if it doesn't or an error occurred.
 	 */
 	public static boolean checkURL(String url, boolean fakeUserAgent) {
 		try {
-			HttpURLConnection.setFollowRedirects(false);
 			HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
+			con.setConnectTimeout(TIMEOUT);
+			con.setReadTimeout(TIMEOUT);
+			con.setInstanceFollowRedirects(false);
 			con.setRequestMethod("HEAD");
 			if (fakeUserAgent) {
 				con.setRequestProperty("User-Agent", browserAgent);
@@ -167,6 +169,40 @@ public class RequestUtils {
 			int code = con.getResponseCode();
 			return code == HttpURLConnection.HTTP_OK;
 		} catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
+
+	/**
+	 * Checks if a URL exists and can respond to an HTTP request, but using GET instead of HEAD.
+	 * @param url The URL to check.
+	 * @return True if the URL exists, false if it doesn't or an error occurred.
+	 */
+	public static boolean checkURLWithGet(String url) {
+		try {
+			HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
+			con.setConnectTimeout(TIMEOUT);
+			con.setReadTimeout(TIMEOUT);
+			con.setInstanceFollowRedirects(false);
+			int code = con.getResponseCode();
+			return code == HttpURLConnection.HTTP_OK;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
+
+	/**
+	 * Checks if a URL exists and can respond to a socket request.
+	 * @param url The URL to check.
+	 * @return True if the URL exists, false if it doesn't or an error occurred.
+	 */
+	public static boolean checkWithSocket(String url) {
+		try (Socket s = new Socket(url, 443)) {
+			s.setSoTimeout(TIMEOUT);
+			return s.isConnected();
+		} catch (IOException ex) {
 			ex.printStackTrace();
 			return false;
 		}
