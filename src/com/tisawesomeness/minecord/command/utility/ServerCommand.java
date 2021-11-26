@@ -72,15 +72,6 @@ public class ServerCommand extends Command {
 				return new Result(Outcome.WARNING, ":warning: That is not a valid server address.");
 			}
 		}
-		
-		// Query Mojang for blocked servers, cached by the hour
-		if (System.currentTimeMillis() - 3600000 > timestamp) {
-			String request = RequestUtils.getPlain("https://sessionserver.mojang.com/blockedservers");
-			if (request != null) {
-				blockedServers = new HashSet<String>(Arrays.asList(request.split("\n")));
-				timestamp = System.currentTimeMillis();
-			}
-		}
 
 		String hostname = arg;
 		int port = 25565;
@@ -91,21 +82,32 @@ public class ServerCommand extends Command {
 				return new Result(Outcome.WARNING, ":warning: That is not a valid server address.");
 			}
 		}
+
+		// Query Mojang for blocked servers, cached by the hour
+		if (System.currentTimeMillis() - 3600000 > timestamp) {
+			String request = RequestUtils.getPlain("https://sessionserver.mojang.com/blockedservers");
+			if (request != null) {
+				blockedServers = new HashSet<String>(Arrays.asList(request.split("\n")));
+				timestamp = System.currentTimeMillis();
+			}
+		}
+		boolean blocked = isBlocked(arg, ip);
+		String m = blocked ? "**BLOCKED BY MOJANG**\n" : "";
+
 		MCPingResponse reply;
 		try {
 			MCPingOptions options = MCPingOptions.builder().hostname(hostname).port(port).build();
 			reply = MCPing.getPing(options);
 			if (reply == null) {
-				return new Result(Outcome.ERROR, ":x: The server gave a bad response. It might be just starting up, try again later.");
+				return new Result(Outcome.ERROR, m + ":x: The server gave a bad response. It might be just starting up, try again later.");
 			}
 		} catch (IOException ignore) {
-			String msg;
 			if (hostname.equals(hostname.toLowerCase())) {
-				msg = ":warning: The server is down or unreachable.\nDid you spell it correctly?";
+				m += ":warning: The server is down or unreachable.\nDid you spell it correctly?";
 			} else {
-				msg = ":warning: The server is down or unreachable.\nTry using lowercase letters.";
+				m += ":warning: The server is down or unreachable.\nTry using lowercase letters.";
 			}
-			return new Result(Outcome.WARNING, msg);
+			return new Result(Outcome.WARNING, m);
 		}
 
 		String address = port == 25565 ? hostname : hostname + ":" + port;
@@ -115,7 +117,6 @@ public class ServerCommand extends Command {
 		List<Player> sample = reply.getPlayers().getSample();
 		
 		// Build and format message
-		String m = isBlocked(arg, ip) ? "**BLOCKED BY MOJANG**\n" : "";
 		m += "**Address:** " + address +
 			"\n" + "**Version:** " + version +
 			"\n" + "**Players:** " + playerInfo +
