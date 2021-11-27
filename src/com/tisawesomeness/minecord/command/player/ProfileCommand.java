@@ -87,18 +87,12 @@ public class ProfileCommand extends Command {
         String nameUrl = "https://namemc.com/profile/" + name;
 
         // Get cape
-        String cape;
-		if (NameUtils.mojangUUIDs.contains(player)) {
-            // Mojang cape
-            cape = MarkdownUtil.maskedLink("Open Image", "https://minecord.github.io/capes/mojang.png");
+		String cape;
+		String capeUrl = "https://crafatar.com/capes/" + player;
+		if (RequestUtils.checkURL(capeUrl)) {
+			cape = MarkdownUtil.maskedLink("Open Image", capeUrl);
 		} else {
-			// Other minecraft capes
-			String capeUrl = "https://crafatar.com/capes/" + player;
-			if (RequestUtils.checkURL(capeUrl)) {
-                cape = MarkdownUtil.maskedLink("Open Image", capeUrl);
-			} else {
-                cape = "No cape.";
-            }
+			cape = "No cape.";
 		}
 
 		// Fetch name history

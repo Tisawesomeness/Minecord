@@ -80,22 +80,15 @@ public class CapeCommand extends Command {
 		// Minecraft capes
 		MessageChannel c = e.getChannel();
 		boolean hasCape = false;
-		if (NameUtils.mojangUUIDs.contains(uuid)) {
-			// Mojang cape
-			sendImage(c, "Minecraft Cape", "https://minecord.github.io/capes/mojang.png");
+		String url = "https://crafatar.com/capes/" + uuid;
+		if (RequestUtils.checkURL(url)) {
+			sendImage(c, "Minecraft Cape", url);
 			hasCape = true;
-		} else {
-			// Other minecraft capes
-			String url = "https://crafatar.com/capes/" + uuid;
-			if (RequestUtils.checkURL(url)) {
-				sendImage(c, "Minecraft Cape", url);
-				hasCape = true;
-			}
 		}
 		// Optifine cape
-		String url = String.format("http://s.optifine.net/capes/%s.png", player);
-		if (RequestUtils.checkURL(url)) {
-			sendImage(c, "Optifine Cape", url);
+		String optifineUrl = String.format("http://s.optifine.net/capes/%s.png", player);
+		if (RequestUtils.checkURL(optifineUrl)) {
+			sendImage(c, "Optifine Cape", optifineUrl);
 			hasCape = true;
 		}
 		
