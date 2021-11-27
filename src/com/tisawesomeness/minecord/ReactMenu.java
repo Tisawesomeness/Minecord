@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -11,12 +12,8 @@ import com.tisawesomeness.minecord.database.Database;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.entities.Guild;
 
 /**
  * Represents a menu the user can interact with by reacting to the message
@@ -24,7 +21,7 @@ import net.dv8tion.jda.api.entities.Guild;
 public abstract class ReactMenu {
 
     private final static long timeout = 10 * 60 * 1000;
-    private static HashMap<Long, ReactMenu> menus = new HashMap<Long, ReactMenu>();
+    private static HashMap<Long, ReactMenu> menus = new HashMap<>();
     private Message message;
     private int page;
     private boolean ready;
@@ -72,12 +69,13 @@ public abstract class ReactMenu {
             ready = true;
             if (updateButtons) {
                 List<String> currentButtons = message.getReactions().stream()
-                    .map(r -> r.getReactionEmote())
-                    .filter(re -> re.isEmoji())
-                    .map(re -> re.getAsCodepoints())
+                    .map(MessageReaction::getReactionEmote)
+                    .filter(MessageReaction.ReactionEmote::isEmoji)
+                    .map(MessageReaction.ReactionEmote::getAsCodepoints)
                     .collect(Collectors.toList());
-                for (String button : buttons.keySet()) {
-                    if (buttons.get(button) != null && !currentButtons.contains(button)) {
+                for (Map.Entry<String, Runnable> entry : buttons.entrySet()) {
+                    String button = entry.getKey();
+                    if (entry.getValue() != null && !currentButtons.contains(button)) {
                         message.addReaction(button).submit();
                     }
                 }
@@ -99,7 +97,7 @@ public abstract class ReactMenu {
             message = message.editMessageEmbeds( new EmbedBuilder(emb).setFooter(emb.getFooter().getText() + " (expired)").build()).complete();
             if (hasPerms(Permission.MESSAGE_MANAGE)) {
                 message.getReactions().stream()
-                    .filter(r -> r.isSelf())
+                    .filter(MessageReaction::isSelf)
                     .forEach(r -> r.removeReaction().queue());
             }
         }
@@ -114,9 +112,9 @@ public abstract class ReactMenu {
         this.ownerName = owner.getName();
         buttons = createButtons(page);
         message = channel.sendMessageEmbeds(getEmbed(page)).complete();
-        for (String button : buttons.keySet()) {
-            if (buttons.get(button) != null) {
-                message.addReaction(button).submit();
+        for (Map.Entry<String, Runnable> entry : buttons.entrySet()) {
+            if (entry.getValue() != null) {
+                message.addReaction(entry.getKey()).submit();
             }
         }
         keepAlive();
@@ -150,11 +148,12 @@ public abstract class ReactMenu {
      * Purges all expired menus from the list
      */
     public static void startPurgeThread() {
-        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
-            menus.values().stream()
+        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(ReactMenu::purge, 10, 1, TimeUnit.MINUTES);
+    }
+    private static void purge() {
+        menus.values().stream()
                 .filter(m -> m.expire < System.currentTimeMillis())
                 .forEach(m -> m.disable(false));
-        }, 10, 1, TimeUnit.MINUTES);
     }
     /**
      * Check for permissions with less typing
@@ -276,10 +275,10 @@ public abstract class ReactMenu {
 
         private final String codepoint;
         private final String text;
-        private Emote(String codepoint) {
+        Emote(String codepoint) {
             this(codepoint, null);
         }
-        private Emote(String codepoint, String text) {
+        Emote(String codepoint, String text) {
             this.codepoint = codepoint;
             this.text = text;
         }
@@ -324,11 +323,11 @@ public abstract class ReactMenu {
 
         private String reason;
         private boolean useSpacer;
-        private MenuStatus() {
+        MenuStatus() {
             this("");
             this.useSpacer = false;
         }
-        private MenuStatus(String reason) {
+        MenuStatus(String reason) {
             this.reason = reason;
             this.useSpacer = true;
         }

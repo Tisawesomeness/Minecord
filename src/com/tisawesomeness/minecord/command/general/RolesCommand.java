@@ -10,6 +10,7 @@ import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.IMentionable;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -51,24 +52,21 @@ public class RolesCommand extends Command {
         }
         
         // Find user
-        Member mem = null;
+        Member mem;
         List<Member> mentioned = e.getMessage().getMentionedMembers();
         if (mentioned.size() > 0) {
             mem = mentioned.get(0);
         } else {
             if (args[0].matches(DiscordUtils.idRegex)) {
                 mem = e.getGuild().retrieveMemberById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_MEMBER::test, x -> null).complete();
-                if (mem == null) {
-                    return new Result(Outcome.WARNING, ":warning: That user does not exist.");
-                }
             } else {
                 if (!User.USER_TAG.matcher(args[0]).matches()) {
                     return new Result(Outcome.WARNING, ":warning: Not a valid user format. Use `name#1234`, a mention, or an 18-digit ID.");
                 }
                 mem = e.getGuild().getMemberByTag(args[0]);
-                if (mem == null) {
-                    return new Result(Outcome.WARNING, ":warning: That user does not exist.");
-                }
+            }
+            if (mem == null) {
+                return new Result(Outcome.WARNING, ":warning: That user does not exist.");
             }
         }
     
@@ -77,9 +75,9 @@ public class RolesCommand extends Command {
             .setColor(Bot.color);
 
         // Truncate role list until 6000 chars reached
-        ArrayList<String> lines = new ArrayList<String>(mem.getRoles().stream()
-            .map(r -> r.getAsMention())
-            .collect(Collectors.toList()));
+        ArrayList<String> lines = mem.getRoles().stream()
+                .map(IMentionable::getAsMention)
+                .collect(Collectors.toCollection(ArrayList::new));
         int chars = MessageUtils.getTotalChars(lines);
         boolean truncated = false;
         while (chars > 6000 - 4) {

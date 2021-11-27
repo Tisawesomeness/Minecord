@@ -50,7 +50,7 @@ public class GuildCommand extends Command {
             }
             g = Bot.shardManager.getGuildById(args[0]);
             if (g == null) {
-                long gid = Long.valueOf(args[0]);
+                long gid = Long.parseLong(args[0]);
                 if (Database.isBanned(gid)) {
                     return new Result(Outcome.SUCCESS, "__**GUILD BANNED FROM MINECORD**__\n" + getSettingsStr(gid));
                 }

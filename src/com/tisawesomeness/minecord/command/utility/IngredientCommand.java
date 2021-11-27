@@ -41,7 +41,7 @@ public class IngredientCommand extends Command {
 		int page = 0;
 		if (args.length > 1) {
 			if (args[args.length - 1].matches("^[0-9]+$")) {
-				page = Integer.valueOf(args[args.length - 1]) - 1;
+				page = Integer.parseInt(args[args.length - 1]) - 1;
 				args = Arrays.copyOf(args, args.length - 1);
 			}
 		}

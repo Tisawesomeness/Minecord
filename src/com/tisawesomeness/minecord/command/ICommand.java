@@ -10,18 +10,18 @@ public interface ICommand {
 	/**
 	 * @return The command info.
 	 */
-	public CommandInfo getInfo();
+	CommandInfo getInfo();
 
 	/**
 	 * Defines the help text shown by &help <command>.
-	 * Use {&} to substitute the current prefix, or {@} to substitute the bot mention.
+	 * Use {&} to substitute the current prefix, or {@literal @} to substitute the bot mention.
 	 * @return Never-null help string
 	 */
-	public default String getHelp() {
+	default String getHelp() {
 		return getInfo().description + "\n";
 	}
 
-	public default String getAdminHelp() {
+	default String getAdminHelp() {
 		return getHelp();
 	}
 	
@@ -31,6 +31,6 @@ public interface ICommand {
 	 * @param e The message event.
 	 * @return The Result of the command.
 	 */
-	public Result run(String[] args, MessageReceivedEvent e) throws Exception;
+	Result run(String[] args, MessageReceivedEvent e) throws Exception;
 
 }

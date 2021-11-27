@@ -71,8 +71,7 @@ public class Bot {
 		Bot.args = args;
 		Config.read(false);
 		if (Config.getDevMode() && !devMode) return false;
-		boolean reload = false;
-		if (args.length > 0 && ArrayUtils.contains(args, "-r")) reload = true;
+		boolean reload = args.length > 0 && ArrayUtils.contains(args, "-r");
 
 		//Pre-init
 		thread = Thread.currentThread();
@@ -182,7 +181,7 @@ public class Bot {
 			db.join();
 			if (ws != null) ws.join();
 			System.out.println("Bot ready!");
-		} catch (InterruptedException ex) {}
+		} catch (InterruptedException ignored) {}
 
 		//Update persistent bot info
 		if (!Config.getLogChannel().equals("0")) {
@@ -241,7 +240,7 @@ public class Bot {
 		SET_BIRTH("setBirth");
 
 		private String name;
-		private MethodName(String name) {
+		MethodName(String name) {
 			this.name = name;
 		}
 

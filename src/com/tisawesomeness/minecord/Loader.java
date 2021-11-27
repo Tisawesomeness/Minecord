@@ -19,14 +19,14 @@ public class Loader implements Runnable {
 	public void run() {
 		
 		//Clear references
-		DynamicLoader dl = null;
+		DynamicLoader dl;
 		
 		//Dynamically start a new bot
 		dl = new DynamicLoader(Main.cl);
 		if (propagate) Thread.currentThread().setContextClassLoader(dl);
 		Class<?> clazz = dl.loadClass(botClass);
 		try {
-			clazz.getMethods()[1].invoke(null, (Object) args, (Object) true);
+			clazz.getMethods()[1].invoke(null, args, true);
 		} catch (ClassCastException ex) {
 			//Do nothing
 		} catch (Exception ex) {
@@ -56,8 +56,8 @@ public class Loader implements Runnable {
  			} catch (IOException ioe) {
  				try {
  					return super.loadClass(s);
- 				} catch (ClassNotFoundException ignore) {
- 					ignore.printStackTrace(System.out);
+ 				} catch (ClassNotFoundException ex) {
+ 					ex.printStackTrace(System.out);
  				}
  				ioe.printStackTrace(System.out);
  				return null;
@@ -72,7 +72,7 @@ public class Loader implements Runnable {
 				 URL url = clazz.getResource(name + ".class");
 				 File f = new File(url.toURI());
 				 int size = (int) f.length();
-				 byte buff[] = new byte[size];
+				 byte[] buff = new byte[size];
 				 try (DataInputStream dis = new DataInputStream(new FileInputStream(f))) {
 					 dis.readFully(buff);
 				 }

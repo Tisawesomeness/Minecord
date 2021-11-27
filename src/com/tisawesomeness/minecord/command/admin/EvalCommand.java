@@ -1,11 +1,13 @@
 package com.tisawesomeness.minecord.command.admin;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -164,15 +166,15 @@ public class EvalCommand extends Command {
 		Class<?> clazz = o.getClass();
 		String fields = "NONE";
 		if (clazz.getFields().length > 0) {
-			fields = Arrays.asList(clazz.getFields()).stream()
-				.sorted((f1, f2) -> f1.getName().compareTo(f2.getName())) // Sort by field name
+			fields = Arrays.stream(clazz.getFields())
+				.sorted(Comparator.comparing(Field::getName)) // Sort by field name
 				.map(f -> f.getType().getSimpleName() + " : " + f.getName())
 				.collect(Collectors.joining("\n"));
 		}
 		String methods = "NONE";
 		if (clazz.getMethods().length > 0) {
-			methods = Arrays.asList(clazz.getMethods()).stream()
-				.sorted((m1, m2) -> m1.getName().compareTo(m2.getName())) // Sort by method name
+			methods = Arrays.stream(clazz.getMethods())
+				.sorted(Comparator.comparing(Method::getName)) // Sort by method name
 				.map(EvalCommand::getSignature)
 				.collect(Collectors.joining("\n"));
 		}
@@ -185,7 +187,7 @@ public class EvalCommand extends Command {
 	 * @return The signature as a string
 	 */
 	private static String getSignature(Method m) {
-		String params = Arrays.asList(m.getParameters()).stream()
+		String params = Arrays.stream(m.getParameters())
 			.map(p -> cleanType(p.getType()))
 			.collect(Collectors.joining(", ")); // Comma-separated args like in "add(int x, int y)"
 		String staticc = Modifier.isStatic(m.getModifiers()) ? "static " : ""; // Only static is included for brevity
@@ -201,11 +203,11 @@ public class EvalCommand extends Command {
 		String typeName = t.getTypeName();
 		if (typeName.contains("<")) {
 			String[] split = typeName.split("<");
-			String type = split[0].substring(split[0].lastIndexOf(".") + 1); // Thanks -1 on failure for making this super clean
-			String generic = split[1].substring(split[1].lastIndexOf(".") + 1, split[1].length() - 1);
+			String type = split[0].substring(split[0].lastIndexOf('.') + 1); // Thanks -1 on failure for making this super clean
+			String generic = split[1].substring(split[1].lastIndexOf('.') + 1, split[1].length() - 1);
 			return type + "<" + generic + ">";
 		}
-		return typeName.substring(typeName.lastIndexOf(".") + 1);
+		return typeName.substring(typeName.lastIndexOf('.') + 1);
 	}
 
 }

@@ -15,7 +15,7 @@ import java.util.TimeZone;
 import com.tisawesomeness.minecord.Bot;
 
 public class DateUtils {
-	
+
 	private static final String timestampRegex = "^[0-9]{4,}$";
 	private static final String dateRegex = "^(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])$";
 	private static final String shortDateRegex = "^(?:(?:(?:0?[13578]|1[02])(\\/|-|\\.)31)\\1|(?:(?:0?[1,3-9]|1[0-2])(\\/|-|\\.)(?:29|30)\\2))(?:\\d{2})$|^(?:0?2(\\/|-|\\.)29\\3(?:(?:(?:0[48]|[2468][048]|[13579][26])|(?:00))))$|^(?:(?:0?[1-9])|(?:1[0-2]))(\\/|-|\\.)(?:0?[1-9]|1\\d|2[0-8])\\4(?:\\d{2})$";
@@ -34,14 +34,14 @@ public class DateUtils {
 		"\n" + "Date Examples: " +
 		"\n" + "- `9/25` | `2/29/2012` | `5/15 8:30` | `3/2/06 2:47:32`" +
 		"\n" + "- `9:00 PM` | `12/25/12 12:00 AM EST` | `5:22 CST`";
-	
+
 	/**
 	 * Parses a list of date-related strings to build a date, then a timestamp.
 	 * @param args The list of arguments
 	 * @return A timestamp in long format.
 	 */
-	public static long getTimestamp(String args[]) {
-		
+	public static long getTimestamp2(String[] args) {
+
 		int year = -1;
 		int month = -1;
 		int day = -1;
@@ -51,11 +51,11 @@ public class DateUtils {
 		boolean hours24 = false;
 		int ampm = -1;
 		TimeZone timezone = Calendar.getInstance().getTimeZone();
-		
+
 		for (String arg : args) {
 			if (arg == null) {continue;}
 			if (arg.matches(timestampRegex)) {
-				return Long.valueOf(arg);
+				return Long.parseLong(arg);
 			}
 			if (arg.matches(fullDateRegex)) {
 				Calendar cal = parseUnstable(arg, "MM/dd/yyyy");
@@ -121,9 +121,9 @@ public class DateUtils {
 			} else {
 				timezone = cal.getTimeZone();
 			}
-			
+
 		}
-		
+
 		if (minute == -1 && day == -1) {
 			return -1;
 		} else {
@@ -145,17 +145,17 @@ public class DateUtils {
 				ampm = Calendar.AM;
 			}
 		}
-		
+
 		Calendar cal = Calendar.getInstance();
 		cal.set(year, month, day, hour, minute, second);
 		cal.setTimeZone(timezone);
 		if (!hours24) {
 			cal.set(Calendar.AM_PM, ampm);
 		}
-		
+
 		return cal.getTime().getTime();
 	}
-	
+
 	/**
 	 * Converts a string into a Calendar with the supplied date format.
 	 * @param string The string to convert.
@@ -170,7 +170,7 @@ public class DateUtils {
 		cal.setTimeInMillis(time);
 		return cal;
 	}
-	
+
 	/**
 	 * Converts a string into a Calendar with the supplied date format.
 	 * This method does not handle errors.
@@ -180,7 +180,7 @@ public class DateUtils {
 	 */
 	private static Calendar parseUnstable(String string, String format) {
 		SimpleDateFormat inputDateFormat = new SimpleDateFormat(format); //MM/dd/yyyy hh:mm:ss a
-		Date date = null;
+		Date date;
 		try {
 			date = inputDateFormat.parse(string);
 		} catch (ParseException e) {
@@ -225,7 +225,7 @@ public class DateUtils {
 		if (uptimeRaw > 0) {
 			uptime = uptime + uptimeRaw + "s";
 		}
-		if ("".equals(uptime)) {
+		if (uptime.isEmpty()) {
 			uptime = "0s";
 		}
 		

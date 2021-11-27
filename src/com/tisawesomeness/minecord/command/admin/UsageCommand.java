@@ -36,8 +36,8 @@ public class UsageCommand extends Command {
 			.setTitle("Command usage for " + DateUtils.getUptime())
 			.setColor(Bot.color);
 		for (Module m : Registry.modules) {
-			String field = Arrays.asList(m.getCommands()).stream()
-				.filter(c -> !c.getInfo().name.equals("") && !c.getInfo().description.equals("Look up a color code."))
+			String field = Arrays.stream(m.getCommands())
+				.filter(c -> !c.getInfo().name.isEmpty() && !c.getInfo().description.equals("Look up a color code."))
 				.map(c -> String.format("`%s%s` **-** %d", prefix, c.getInfo().name, c.uses))
 				.collect(Collectors.joining("\n"));
 			eb.addField(String.format("**%s**", m.getName()), field, true);

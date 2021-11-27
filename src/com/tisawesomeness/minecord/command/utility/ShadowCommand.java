@@ -39,7 +39,7 @@ public class ShadowCommand extends Command {
     }
     private static long stringToSeed(String seed) {
         if (seed.matches("-?\\d{1,20}")) {
-            return Long.valueOf(seed);
+            return Long.parseLong(seed);
         }
         return seed.hashCode();
     }

@@ -110,7 +110,7 @@ public class ProfileCommand extends Command {
 		
 		// Loop over each name change
 		JSONArray names = new JSONArray(request);
-		ArrayList<String> lines = new ArrayList<String>();
+		ArrayList<String> lines = new ArrayList<>();
 		for (int i = 0; i < names.length(); i++) {
 			
 			// Get info

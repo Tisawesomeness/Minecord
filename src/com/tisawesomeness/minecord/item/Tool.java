@@ -16,7 +16,7 @@ public enum Tool {
 	
 	Enchantment[] enchantments;
 	
-	private Tool(Enchantment[] enchantments) {
+	Tool(Enchantment[] enchantments) {
 		this.enchantments = enchantments;
 	}
 	

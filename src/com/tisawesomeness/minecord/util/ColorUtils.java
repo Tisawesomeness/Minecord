@@ -97,7 +97,7 @@ public class ColorUtils {
     }
     /**
      * Gets the hex code for a color
-     * @param raw The color
+     * @param c The color
      * @return The hex code in #ffffff format
      */
     public static String getHexCode(Color c) {

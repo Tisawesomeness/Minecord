@@ -93,7 +93,7 @@ public class Registry {
 			new TestCommand()
 		)
 	};
-	private static LinkedHashMap<String, Command> commandMap = new LinkedHashMap<String, Command>();
+	private static LinkedHashMap<String, Command> commandMap = new LinkedHashMap<>();
 	
 	/**
 	 * Adds every module to the registry and maps the possible aliases to the command to execute.

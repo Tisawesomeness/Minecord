@@ -70,7 +70,7 @@ public class SettingsCommand extends Command {
             if (Bot.shardManager.getGuildById(args[0]) == null) {
                 return new Result(Outcome.WARNING, ":warning: Minecord does not know that guild ID!");
             }
-            gid = Long.valueOf(args[0]);
+            gid = Long.parseLong(args[0]);
             args = Arrays.copyOfRange(args, 2, args.length);
             targetPrefix = Database.getPrefix(gid);
             elevated = true;
@@ -115,7 +115,7 @@ public class SettingsCommand extends Command {
                 false)
                 .setDescription(String.format(
                     "`%ssettings <setting> <value>` - Change a setting.",
-                    sourcePrefix, sourcePrefix
+                    sourcePrefix
                 ));
             return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
         

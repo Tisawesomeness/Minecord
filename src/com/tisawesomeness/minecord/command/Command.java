@@ -13,7 +13,7 @@ import net.dv8tion.jda.api.entities.User;
 public abstract class Command implements ICommand {
 	
 	public int uses = 0;
-	public HashMap<User, Long> cooldowns = new HashMap<User, Long>();
+	public HashMap<User, Long> cooldowns = new HashMap<>();
 	
 	/**
 	 * Represents all of the data needed to register a command.
@@ -189,7 +189,7 @@ public abstract class Command implements ICommand {
 		SUCCESS("Success"), WARNING("Warning"), ERROR("Error");
 
 		private String s;
-		private Outcome(String s) {
+		Outcome(String s) {
 			this.s = s;
 		}
 		public String toString() {

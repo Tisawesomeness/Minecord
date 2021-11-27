@@ -59,13 +59,12 @@ public class UserCommand extends Command {
         //If the author used the admin keyword and is an elevated user
         boolean elevated = false;
 		if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
-            elevated = true;
             if (!args[0].matches(DiscordUtils.idRegex)) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
             User u = Bot.shardManager.retrieveUserById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
             if (u == null) {
-                long gid = Long.valueOf(args[0]);
+                long gid = Long.parseLong(args[0]);
                 String elevatedStr = String.format("Elevated: `%s`", Database.isElevated(gid));
                 if (Database.isBanned(gid)) {
                     return new Result(Outcome.SUCCESS, "__**USER BANNED FROM MINECORD**__\n" + elevatedStr);
@@ -111,36 +110,33 @@ public class UserCommand extends Command {
         }
         
         // Find user
-        Member mem = null;
+        Member mem;
         List<Member> mentioned = e.getMessage().getMentionedMembers();
         if (mentioned.size() > 0) {
             mem = mentioned.get(0);
         } else {
             if (args[0].matches(DiscordUtils.idRegex)) {
                 mem = e.getGuild().retrieveMemberById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_MEMBER::test, x -> null).complete();
-                if (mem == null) {
-                    return new Result(Outcome.WARNING, ":warning: That user does not exist.");
-                }
             } else {
                 if (!User.USER_TAG.matcher(args[0]).matches()) {
                     return new Result(Outcome.WARNING, ":warning: Not a valid user format. Use `name#1234`, a mention, or an 18-digit ID.");
                 }
                 mem = e.getGuild().getMemberByTag(args[0]);
-                if (mem == null) {
-                    return new Result(Outcome.WARNING, ":warning: That user does not exist.");
-                }
+            }
+            if (mem == null) {
+                return new Result(Outcome.WARNING, ":warning: That user does not exist.");
             }
         }
         User u = mem.getUser();
 
         // Build role string
-        String roles = "";
+        StringBuilder roles = new StringBuilder();
         int c = 0;
         for (Role r : mem.getRoles()) {
-            roles += r.getAsMention() + "\n";
+            roles.append(r.getAsMention()).append("\n");
             c += 1;
             if (c == 5) {
-                roles += "...";
+                roles.append("...");
                 break;
             }
         }
@@ -158,10 +154,7 @@ public class UserCommand extends Command {
         if (mem.getTimeBoosted() != null) {
             eb.addField("Boosted", DateUtils.getDateAgo(mem.getTimeBoosted()), false);
         }
-        eb.addField("Roles", roles, false);
-        if (elevated && Database.isBanned(u.getIdLong())) {
-            eb.setDescription("__**USER BANNED FROM MINECORD**__");
-        }
+        eb.addField("Roles", roles.toString(), false);
         return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
     }
     

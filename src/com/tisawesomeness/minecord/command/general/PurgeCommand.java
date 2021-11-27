@@ -56,10 +56,10 @@ public class PurgeCommand extends Command {
 		}
 		
 		//Parse args
-		int num = 50;
-		boolean perms = false;
+		int num;
+		boolean perms;
 		if (args.length > 0 && args[0].matches("^[0-9]+$")) {
-			num = Integer.valueOf(args[0]);
+			num = Integer.parseInt(args[0]);
 			
 			//Check for bot permissions
 			perms = e.getGuild().getSelfMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE);

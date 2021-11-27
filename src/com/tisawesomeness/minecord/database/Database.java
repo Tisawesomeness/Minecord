@@ -17,8 +17,8 @@ import com.tisawesomeness.minecord.Config;
 public class Database {
 	
 	private static DataSource source;
-	private static HashMap<Long, DbGuild> guilds = new HashMap<Long, DbGuild>();
-	private static HashMap<Long, DbUser> users = new HashMap<Long, DbUser>();
+	private static HashMap<Long, DbGuild> guilds = new HashMap<>();
+	private static HashMap<Long, DbUser> users = new HashMap<>();
 	
 	private static Connection getConnect() throws SQLException {
 		return source.getConnection();
@@ -77,7 +77,7 @@ public class Database {
 		
 		// Add owner to elevated
 		if (!Config.getOwner().equals("0")) {
-			changeElevated(Long.valueOf(Config.getOwner()), true);
+			changeElevated(Long.parseLong(Config.getOwner()), true);
 		}
 		
 		refresh();

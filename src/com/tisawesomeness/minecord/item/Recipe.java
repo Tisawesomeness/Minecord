@@ -23,7 +23,7 @@ public class Recipe {
      * Initializes the recipe database by reading from file
      * 
      * @param path The path to read from
-     * @throws IOException
+     * @throws IOException on IO error
      */
     public static void init(String path) throws IOException {
         recipes = RequestUtils.loadJSON(path + "/recipes.json");
@@ -76,7 +76,7 @@ public class Recipe {
      */
     private static ArrayList<String> searchItemOutput(String namespacedID, String lang) {
         // Loop through all recipes
-        ArrayList<String> recipesFound = new ArrayList<String>();
+        ArrayList<String> recipesFound = new ArrayList<>();
         Iterator<String> iter = recipes.keys();
         while (iter.hasNext()) {
             String recipe = iter.next();
@@ -155,7 +155,7 @@ public class Recipe {
      */
     private static ArrayList<String> searchItemIngredient(String namespacedID, String lang) {
         // Loop through all recipes
-        ArrayList<String> recipesFound = new ArrayList<String>();
+        ArrayList<String> recipesFound = new ArrayList<>();
         Iterator<String> iter = recipes.keys();
         while (iter.hasNext()) {
             String recipe = iter.next();
@@ -189,7 +189,7 @@ public class Recipe {
      * @return A set of namespaced item ids that may be empty
      */
     private static LinkedHashSet<String> getIngredients(JSONObject recipe) {
-        LinkedHashSet<String> ingredients = new LinkedHashSet<String>();
+        LinkedHashSet<String> ingredients = new LinkedHashSet<>();
         String type = recipe.getString("type");
         // Shaped recipes
         if (shapedTypes.contains(type)) {
@@ -284,7 +284,7 @@ public class Recipe {
      * @return A list of blocks, with "minecraft:"
      */
     private static ArrayList<String> getTag(String tag) {
-        ArrayList<String> items = new ArrayList<String>();
+        ArrayList<String> items = new ArrayList<>();
         JSONArray tagArr = tags.getJSONArray(tag);
         for (int i = 0; i < tagArr.length(); i++) {
             String item = tagArr.getString(i);
@@ -425,7 +425,7 @@ public class Recipe {
 		public LinkedHashMap<String, Runnable> createButtons(int page) {
             String recipe = recipeList.get(page);
             JSONObject recipeObj = recipes.getJSONObject(recipe);
-            LinkedHashMap<String, Runnable> buttons = new LinkedHashMap<String, Runnable>();
+            LinkedHashMap<String, Runnable> buttons = new LinkedHashMap<>();
             desc = ":track_previous: / :track_next: Go to beginning/end"
                 + "\n:rewind: / :fast_forward: Go back/forward 10"
                 + "\n:arrow_backward: / :arrow_forward: Go back/forward 1";
@@ -494,7 +494,6 @@ public class Recipe {
             String item;
             switch (recipes.getJSONObject(recipe).getString("type")) {
                 case "minecraft:smelting":
-                    item = "minecraft.furnace"; break;
                 case "minecraft.smelting_special_sponge":
                     item = "minecraft.furnace"; break;
                 case "minecraft:stonecutting":
@@ -513,7 +512,7 @@ public class Recipe {
             }
             buttons.put(Emote.T.getCodepoint(), () -> {
                 if (needsTable) {
-                    recipeList = Arrays.asList(table);
+                    recipeList = Collections.singletonList(table);
                     startingIngredient = 0;
                     setPage(0);
                 }
@@ -537,9 +536,9 @@ public class Recipe {
                 buttons.put(Emote.N1.getCodepoint(), () -> {
                     if (isSmoking || isBlasting) {
                         if (isSmoking) {
-                            recipeList = Arrays.asList(Item.getNamespacedID("minecraft.smoker").substring(10));
+                            recipeList = Collections.singletonList(Item.getNamespacedID("minecraft.smoker").substring(10));
                         } else {
-                            recipeList = Arrays.asList(Item.getNamespacedID("minecraft.blast_furnace").substring(10));
+                            recipeList = Collections.singletonList(Item.getNamespacedID("minecraft.blast_furnace").substring(10));
                         }
                         startingIngredient = 0;
                         setPage(0);
@@ -547,7 +546,7 @@ public class Recipe {
                 });
                 buttons.put(Emote.N2.getCodepoint(), () -> {
                     if (isSmoking) {
-                        recipeList = Arrays.asList(Item.getNamespacedID("minecraft.campfire").substring(10));
+                        recipeList = Collections.singletonList(Item.getNamespacedID("minecraft.campfire").substring(10));
                         startingIngredient = 0;
                         setPage(0);
                     }
@@ -555,7 +554,7 @@ public class Recipe {
             } else if (type.equals("minecraft.brewing")) {
                 // Blaze powder
                 buttons.put(Emote.N1.getCodepoint(), () -> {
-                    recipeList = Arrays.asList(Item.getNamespacedID("minecraft.blaze_powder").substring(10));
+                    recipeList = Collections.singletonList(Item.getNamespacedID("minecraft.blaze_powder").substring(10));
                     startingIngredient = 0;
                     setPage(0);
                 });
@@ -584,8 +583,8 @@ public class Recipe {
                     if (!ingredientItem.contains("potion") && !ingredientItem.contains("tipped_arrow")) {
                         toSearch = Item.getNamespacedID(ingredientItem);
                     }
-                    ArrayList<String> ingredientMore = ingredientItem == null ? null : searchItemOutput(toSearch, getLang());
-                    if (ingredientMore != null && ingredientMore.size() > 0) {
+                    ArrayList<String> ingredientMore = searchItemOutput(toSearch, getLang());
+                    if (ingredientMore.size() > 0) {
                         Emote emote = Emote.valueOf(c + 1);
                         buttons.put(emote.getCodepoint(), () -> {
                             recipeList = ingredientMore;
@@ -622,15 +621,11 @@ public class Recipe {
             } else if (type.equals("minecraft:stonecutting")) {
                 String ingredient = getIngredients(recipeObj).toArray(new String[0])[0];
                 ArrayList<String> output = searchItemOutput(ingredient, getLang());
-                if (output != null) {
-                    desc += String.format("\n%s %s", Emote.N1.getText(), Item.getDisplayName(Item.search(ingredient, getLang()), getLang()));
-                }
+                desc += String.format("\n%s %s", Emote.N1.getText(), Item.getDisplayName(Item.search(ingredient, getLang()), getLang()));
                 buttons.put(Emote.N1.getCodepoint(), () -> {
-                    if (output != null) {
-                        recipeList = output;
-                        startingIngredient = 0;
-                        setPage(0);
-                    }
+                    recipeList = output;
+                    startingIngredient = 0;
+                    setPage(0);
                 });
                 for (int i = 1; i < 9; i++) {
                     buttons.put(Emote.valueOf(i + 1).getCodepoint(), null);

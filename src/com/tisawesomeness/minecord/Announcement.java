@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 public class Announcement {
 
-    private static ArrayList<Announcement> announcements = new ArrayList<Announcement>();
+    private static ArrayList<Announcement> announcements = new ArrayList<>();
     private static int totalWeight;
     private String text;
     private int weight;
@@ -27,7 +27,7 @@ public class Announcement {
      * @throws IOException If announce.json is not found
      */
     public static void init(String path) throws IOException {
-        announcements = new ArrayList<Announcement>();
+        announcements = new ArrayList<>();
         JSONArray announceArr = RequestUtils.loadJSONArray(path + "/announce.json");
         for (int i = 0; i < announceArr.length(); i++) {
             JSONObject announceObj = announceArr.getJSONObject(i);

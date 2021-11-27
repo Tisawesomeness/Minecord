@@ -42,7 +42,7 @@ public class MsgCommand extends Command {
 		if (user == null) return new Result(Outcome.ERROR, ":x: Not a valid user!");
 		
 		//Send the message
-		String msg = null;
+		String msg;
 		try {
 			PrivateChannel channel = user.openPrivateChannel().submit().get();
 			msg = String.join(" ", ArrayUtils.remove(args, 0));

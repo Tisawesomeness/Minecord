@@ -27,11 +27,11 @@ import java.io.IOException;
 public class ServerCommand extends Command {
 
 	// modified from https://mkyong.com/regular-expressions/domain-name-regular-expression-example/
-	private final String serverAddressRegex = "((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,24}(:[0-9]{1,6})?";
-	private final String ipAddressRegex = "((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])(:[0-9]{1,6})?";
-	private final String chatCodeRegex = "\u00A7[a-fA-Fklmnor0-9]"; //§
+	private static final String serverAddressRegex = "((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,24}(:[0-9]{1,6})?";
+	private static final String ipAddressRegex = "((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])(:[0-9]{1,6})?";
+	private static final String chatCodeRegex = "\u00A7[a-fA-Fklmnor0-9]"; //§
 	
-	private static Set<String> blockedServers = new HashSet<String>();
+	private static Set<String> blockedServers = new HashSet<>();
 	private static long timestamp = 0;
 	
 	public CommandInfo getInfo() {
@@ -76,8 +76,8 @@ public class ServerCommand extends Command {
 		String hostname = arg;
 		int port = 25565;
 		if (arg.contains(":")) {
-			hostname = arg.substring(0, arg.indexOf(":"));
-			port = Integer.parseInt(arg.substring(arg.indexOf(":") + 1));
+			hostname = arg.substring(0, arg.indexOf(':'));
+			port = Integer.parseInt(arg.substring(arg.indexOf(':') + 1));
 			if (port > 65535) {
 				return new Result(Outcome.WARNING, ":warning: That is not a valid server address.");
 			}
@@ -87,7 +87,7 @@ public class ServerCommand extends Command {
 		if (System.currentTimeMillis() - 3600000 > timestamp) {
 			String request = RequestUtils.getPlain("https://sessionserver.mojang.com/blockedservers");
 			if (request != null) {
-				blockedServers = new HashSet<String>(Arrays.asList(request.split("\n")));
+				blockedServers = new HashSet<>(Arrays.asList(request.split("\n")));
 				timestamp = System.currentTimeMillis();
 			}
 		}

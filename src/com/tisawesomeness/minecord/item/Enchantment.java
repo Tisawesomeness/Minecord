@@ -11,7 +11,7 @@ public enum Enchantment {
 	private final String version;
 	private final Enchantment[] conflicts;
 	
-	private Enchantment(String name, int min, int max, int weight, String version, Enchantment[] conflicts) {
+	Enchantment(String name, int min, int max, int weight, String version, Enchantment[] conflicts) {
 		this.name = name;
 		this.min = min;
 		this.max = max;

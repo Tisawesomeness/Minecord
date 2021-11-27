@@ -130,7 +130,7 @@ public class RequestUtils {
 		return null;
 	}
 	
-	private static URLConnection open(String url, String auth, String contentType) throws MalformedURLException, IOException {
+	private static URLConnection open(String url, String auth, String contentType) throws IOException {
 		URLConnection conn = new URL(url).openConnection();
 		conn.setDoOutput(true);
 		conn.setRequestProperty("Accept-Charset", charset);
@@ -220,7 +220,7 @@ public class RequestUtils {
 	 */
 	public static void sendGuilds() {
 		if (Config.getSendServerCount()) {
-			List<Integer> serverCounts = new ArrayList<Integer>();
+			List<Integer> serverCounts = new ArrayList<>();
 			for (JDA jda : Bot.shardManager.getShards()) serverCounts.add(jda.getGuilds().size());
 			api.setStats(serverCounts);
 		}
@@ -239,9 +239,9 @@ public class RequestUtils {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA1");
 			byte[] result = md.digest(str.getBytes());
-			StringBuffer sb = new StringBuffer();
-			for (int i = 0; i < result.length; i++) {
-				sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
+			StringBuilder sb = new StringBuilder();
+			for (byte b : result) {
+				sb.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
 			}
 			return sb.toString();
 		} catch (NoSuchAlgorithmException ex) {

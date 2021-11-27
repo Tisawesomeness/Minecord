@@ -24,7 +24,7 @@ public class CodesCommand extends Command {
 		);
 	}
 	
-	private String img = "https://minecraft.gamepedia.com/media/minecraft.gamepedia.com/7/7e/Minecraft_Formatting.gif";
+	private static final String img = "https://minecraft.gamepedia.com/media/minecraft.gamepedia.com/7/7e/Minecraft_Formatting.gif";
 	
 	public Result run(String[] args, MessageReceivedEvent e) {
 		

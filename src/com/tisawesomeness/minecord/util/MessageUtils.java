@@ -166,7 +166,7 @@ public class MessageUtils {
 	 * @return A list of strings where every string length < maxLength - 1
 	 */
 	public static ArrayList<String> splitLinesByLength(ArrayList<String> lines, int maxLength) {
-		ArrayList<String> split = new ArrayList<String>();
+		ArrayList<String> split = new ArrayList<>();
 		String splitBuf = "";
 		for (int i = 0; i < lines.size(); i++) {
 			// Max line length check
