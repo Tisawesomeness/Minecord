@@ -1,5 +1,18 @@
 package com.tisawesomeness.minecord.command.admin;
 
+import com.tisawesomeness.minecord.Config;
+import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.util.MessageUtils;
+
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -10,20 +23,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
-
-import com.tisawesomeness.minecord.Config;
-import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.util.MessageUtils;
-
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 public class EvalCommand extends Command {
 

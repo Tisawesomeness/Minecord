@@ -1,8 +1,5 @@
 package com.tisawesomeness.minecord.command.misc;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.ICommand;
@@ -13,6 +10,9 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class HelpCommand extends Command {
 	

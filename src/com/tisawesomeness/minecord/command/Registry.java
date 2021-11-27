@@ -1,13 +1,13 @@
 package com.tisawesomeness.minecord.command;
 
-import java.util.LinkedHashMap;
-
 import com.tisawesomeness.minecord.command.Command.CommandInfo;
 import com.tisawesomeness.minecord.command.admin.*;
 import com.tisawesomeness.minecord.command.general.*;
 import com.tisawesomeness.minecord.command.misc.*;
 import com.tisawesomeness.minecord.command.player.*;
 import com.tisawesomeness.minecord.command.utility.*;
+
+import java.util.LinkedHashMap;
 
 /**
  * The list of all commands the bot knows.

@@ -1,5 +1,24 @@
 package com.tisawesomeness.minecord;
 
+import com.tisawesomeness.minecord.command.Registry;
+import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.database.VoteHandler;
+import com.tisawesomeness.minecord.item.Item;
+import com.tisawesomeness.minecord.item.Recipe;
+import com.tisawesomeness.minecord.util.*;
+
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
+import net.dv8tion.jda.api.sharding.ShardManager;
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
+import org.apache.commons.lang3.ArrayUtils;
+import org.discordbots.api.client.DiscordBotListAPI;
+
 import java.awt.Color;
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -7,30 +26,6 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
-
-import org.apache.commons.lang3.ArrayUtils;
-import org.discordbots.api.client.DiscordBotListAPI;
-
-import com.tisawesomeness.minecord.command.Registry;
-import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.database.VoteHandler;
-import com.tisawesomeness.minecord.item.Item;
-import com.tisawesomeness.minecord.item.Recipe;
-import com.tisawesomeness.minecord.util.ColorUtils;
-import com.tisawesomeness.minecord.util.DateUtils;
-import com.tisawesomeness.minecord.util.DiscordUtils;
-import com.tisawesomeness.minecord.util.MessageUtils;
-import com.tisawesomeness.minecord.util.RequestUtils;
-
-import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
-import net.dv8tion.jda.api.sharding.ShardManager;
-import net.dv8tion.jda.api.utils.MemberCachePolicy;
-import net.dv8tion.jda.api.utils.cache.CacheFlag;
-import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.requests.GatewayIntent;
 
 public class Bot {
 

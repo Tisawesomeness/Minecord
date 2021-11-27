@@ -1,18 +1,16 @@
 package com.tisawesomeness.minecord.database;
 
-import java.lang.reflect.InvocationTargetException;
+import com.tisawesomeness.minecord.Config;
+
+import com.mysql.cj.jdbc.MysqlDataSource;
+import org.sqlite.SQLiteDataSource;
+
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-
-import javax.sql.DataSource;
-
-import org.sqlite.SQLiteDataSource;
-
-import com.mysql.cj.jdbc.MysqlDataSource;
-import com.tisawesomeness.minecord.Config;
 
 public class Database {
 	

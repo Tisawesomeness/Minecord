@@ -1,12 +1,12 @@
 package com.tisawesomeness.minecord;
 
-import java.io.IOException;
+import com.tisawesomeness.minecord.util.RequestUtils;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.tisawesomeness.minecord.util.RequestUtils;
+import java.io.IOException;
 
 public class Config {
 

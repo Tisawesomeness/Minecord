@@ -1,8 +1,5 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import java.text.DecimalFormat;
-import org.json.JSONObject;
-
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.util.MessageUtils;
@@ -10,6 +7,9 @@ import com.tisawesomeness.minecord.util.RequestUtils;
 
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import org.json.JSONObject;
+
+import java.text.DecimalFormat;
 
 public class SalesCommand extends Command {
 	

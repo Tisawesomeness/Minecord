@@ -1,13 +1,13 @@
 package com.tisawesomeness.minecord;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class Announcement {
 

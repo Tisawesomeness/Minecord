@@ -1,11 +1,11 @@
 package com.tisawesomeness.minecord.util;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 public class NameUtils {
 

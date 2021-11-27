@@ -1,11 +1,11 @@
 package com.tisawesomeness.minecord.util;
 
+import org.json.JSONObject;
+
 import java.awt.Color;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-
-import org.json.JSONObject;
 
 public class ColorUtils {
 

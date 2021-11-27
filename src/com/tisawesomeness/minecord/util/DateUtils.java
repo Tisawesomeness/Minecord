@@ -1,5 +1,7 @@
 package com.tisawesomeness.minecord.util;
 
+import com.tisawesomeness.minecord.Bot;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -11,8 +13,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
-
-import com.tisawesomeness.minecord.Bot;
 
 public class DateUtils {
 

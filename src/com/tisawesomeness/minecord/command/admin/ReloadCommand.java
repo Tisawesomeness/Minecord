@@ -1,8 +1,5 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import java.io.IOException;
-import java.sql.SQLException;
-
 import com.tisawesomeness.minecord.Announcement;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
@@ -14,6 +11,9 @@ import com.tisawesomeness.minecord.item.Recipe;
 
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import java.io.IOException;
+import java.sql.SQLException;
 
 public class ReloadCommand extends Command {
 	

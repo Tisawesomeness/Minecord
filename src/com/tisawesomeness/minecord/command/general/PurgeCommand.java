@@ -1,9 +1,5 @@
 package com.tisawesomeness.minecord.command.general;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
 
@@ -13,6 +9,9 @@ import net.dv8tion.jda.api.entities.MessageHistory;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.RateLimitedException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PurgeCommand extends Command {
 	

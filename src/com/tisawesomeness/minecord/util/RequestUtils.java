@@ -1,12 +1,20 @@
 package com.tisawesomeness.minecord.util;
 
+import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Config;
+
+import net.dv8tion.jda.api.JDA;
+import org.discordbots.api.client.DiscordBotListAPI;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.*;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.Socket;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -15,16 +23,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import javax.imageio.ImageIO;
-import org.discordbots.api.client.DiscordBotListAPI;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.Config;
-
-import net.dv8tion.jda.api.JDA;
 
 public class RequestUtils {
 
