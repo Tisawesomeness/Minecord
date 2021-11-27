@@ -24,7 +24,7 @@
     <dependency>
       <groupId>net.dv8tion</groupId>
       <artifactId>JDA</artifactId>
-      <version>4.3.0_334</version>
+      <version>4.4.0_350</version>
       <exclusions>
         <exclusion>
           <groupId>club.minnced</groupId>
@@ -50,22 +50,22 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.26</version>
+      <version>8.0.27</version>
     </dependency>
     <dependency>
       <groupId>org.xerial</groupId>
       <artifactId>sqlite-jdbc</artifactId>
-      <version>3.36.0.1</version>
+      <version>3.36.0.2</version>
     </dependency>
     <dependency>
       <groupId>dnsjava</groupId>
       <artifactId>dnsjava</artifactId>
-      <version>3.4.1</version>
+      <version>3.4.2</version>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.20</version>
+      <version>1.18.22</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
