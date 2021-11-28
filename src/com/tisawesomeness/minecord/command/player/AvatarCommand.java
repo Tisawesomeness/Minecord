@@ -37,11 +37,9 @@ public class AvatarCommand extends Command {
 	}
 	
 	public Result run(String[] argsOrig, MessageReceivedEvent e) {
-		String prefix = MessageUtils.getPrefix(e);
-		
 		//No arguments message
 		if (argsOrig.length == 0) {
-			return new Result(Outcome.WARNING, ":warning: You must specify a player.", 5);
+			return new Result(Outcome.WARNING, ":warning: You must specify a player.");
 		}
 		String[] args = argsOrig;
 		
@@ -63,10 +61,10 @@ public class AvatarCommand extends Command {
 				String m = ":x: The Mojang API could not be reached." +
 					"\n" + "Are you sure that username exists?" +
 					"\n" + "Usernames are case-sensitive.";
-				return new Result(Outcome.WARNING, m, 2);
+				return new Result(Outcome.WARNING, m);
 			} else if (!uuid.matches(NameUtils.uuidRegex)) {
 				String m = ":x: The API responded with an error:\n" + uuid;
-				return new Result(Outcome.ERROR, m, 3);
+				return new Result(Outcome.ERROR, m);
 			}
 			
 			param = uuid;

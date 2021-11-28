@@ -57,7 +57,6 @@ public class UserCommand extends Command {
     public Result run(String[] args, MessageReceivedEvent e) {
 
         //If the author used the admin keyword and is an elevated user
-        boolean elevated = false;
 		if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
             if (!args[0].matches(DiscordUtils.idRegex)) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");

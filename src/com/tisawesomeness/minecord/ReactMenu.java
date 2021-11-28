@@ -21,23 +21,15 @@ import java.util.stream.Collectors;
 public abstract class ReactMenu {
 
     private final static long timeout = 10 * 60 * 1000;
-    private static HashMap<Long, ReactMenu> menus = new HashMap<>();
+    private static final HashMap<Long, ReactMenu> menus = new HashMap<>();
     private Message message;
     private int page;
-    private boolean ready;
     private long expire;
     private HashMap<String, Runnable> buttons;
     private long ownerID;
     private String ownerName;
-    private String lang;
+    private final String lang;
 
-    /**
-     * Creates, but does not activate a reaction menu object that users can interact with, starting on page 0
-     * @param lang The language code to use
-     */
-    public ReactMenu(String lang) {
-        this(0, lang);
-    }
     /**
      * Creates, but does not activate a reaction menu object that users can interact with
      * @param lang The language code to use
@@ -61,12 +53,10 @@ public abstract class ReactMenu {
      * @param updateButtons Whether or not to remove and re-add buttons
      */
     public void setPage(int page, boolean updateButtons) {
-        ready = false;
         buttons = createButtons(page);
         this.page = page;
         if (hasPerms(Permission.MESSAGE_ADD_REACTION)) {
             message = message.editMessageEmbeds(getEmbed(page)).complete();
-            ready = true;
             if (updateButtons) {
                 List<String> currentButtons = message.getReactions().stream()
                     .map(MessageReaction::getReactionEmote)
@@ -88,7 +78,6 @@ public abstract class ReactMenu {
      * Removes this menu from the registry, meaning nobody can react to it
      */
     public void disable(boolean delete) {
-        ready = false;
         MessageEmbed emb = message.getEmbeds().get(0);
         menus.remove(getMessageID());
         if (delete) {
@@ -205,22 +194,10 @@ public abstract class ReactMenu {
         return ownerID;
     }
     /**
-     * @return The current page
-     */
-    public int getPage() {
-        return page;
-    }
-    /**
      * @return A list of buttons, with emoji codepoint strings as the key and the button's function as the value
      */
     public HashMap<String, Runnable> getButtons() {
         return buttons;
-    }
-    /**
-     * @return Whether the menu is ready for user input
-     */
-    public boolean isReady() {
-        return ready;
     }
     /**
      * @return The language code
@@ -251,9 +228,6 @@ public abstract class ReactMenu {
      */
     public enum Emote {
         STAR("U+2b50"),
-        FULL_BLANK("U+1f5a4"),
-        SKIP_BLANK("U+2b1b"),
-        BLANK("U+26ab"),
         FULL_BACK("U+23ee"),
         SKIP_BACK("U+23ea"),
         BACK("U+25c0"),
@@ -321,7 +295,7 @@ public abstract class ReactMenu {
         DISABLED(),
         NO_PERMISSION("Give the bot manage messages permissions to use an interactive menu!");
 
-        private String reason;
+        private final String reason;
         private boolean useSpacer;
         MenuStatus() {
             this("");

@@ -8,8 +8,6 @@ import org.discordbots.api.client.DiscordBotListAPI;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.Socket;
@@ -33,7 +31,7 @@ public class RequestUtils {
 	private static final int TIMEOUT = 5000;
 	public static DiscordBotListAPI api = null;
 	
-	private static String get(URLConnection conn, String type) throws IOException {
+	private static String get(URLConnection conn) throws IOException {
 		InputStream response = conn.getInputStream();
 		Scanner scanner = new Scanner(response);
 		String responseBody = scanner.hasNext() ? scanner.useDelimiter("\\A").next() : "";
@@ -72,7 +70,7 @@ public class RequestUtils {
 		if (skipCheck || checkURL(url)) {
 			try {
 				URLConnection conn = open(url, auth, jsonType);
-				return get(conn, jsonType);
+				return get(conn);
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
@@ -89,7 +87,7 @@ public class RequestUtils {
 	public static String getPlain(String url, String auth) {
 		try {
 			URLConnection conn = open(url, auth, plainType);
-			return get(conn, plainType);
+			return get(conn);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
@@ -121,7 +119,7 @@ public class RequestUtils {
 			output.write(query.getBytes(charset));
 			output.close();
 			
-			return get(conn, jsonType);
+			return get(conn);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
@@ -204,13 +202,6 @@ public class RequestUtils {
 			ex.printStackTrace();
 			return false;
 		}
-	}
-	
-	public static InputStream downloadImage(String url) throws IOException {
-		BufferedImage image = ImageIO.read(new URL(url));
-		ByteArrayOutputStream os = new ByteArrayOutputStream();
-		ImageIO.write(image, "png", os);
-		return new ByteArrayInputStream(os.toByteArray());
 	}
 	
 	/**

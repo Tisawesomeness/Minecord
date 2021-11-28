@@ -182,8 +182,8 @@ public class SettingsCommand extends Command {
         return setting ? "enabled" : "disabled";
     }
 
-    private static List<String> truthy = Arrays.asList("enabled", "yes", "y", "true", "t", "on", "1");
-    private static List<String> falsy = Arrays.asList("disabled", "no", "n", "false", "f", "off", "0");
+    private static final List<String> truthy = Arrays.asList("enabled", "yes", "y", "true", "t", "on", "1");
+    private static final List<String> falsy = Arrays.asList("disabled", "no", "n", "false", "f", "off", "0");
     private static Boolean parseBoolSetting(String input) {
         if (truthy.contains(input.toLowerCase())) {
             return true;

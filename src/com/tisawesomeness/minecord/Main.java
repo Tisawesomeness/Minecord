@@ -14,7 +14,7 @@ public class Main {
 	private static Message message;
 	private static long birth;
 	
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		
 		if (!Bot.setup(args, false)) {
 			cl = Thread.currentThread().getContextClassLoader();
@@ -24,7 +24,7 @@ public class Main {
 	}
 	
 	//Start loader
-	public static void load(String[] args) throws Exception {
+	public static void load(String[] args) {
 		new Thread(new Loader(args)).start();
 	}
 	

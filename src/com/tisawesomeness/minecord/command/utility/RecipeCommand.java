@@ -37,7 +37,7 @@ public class RecipeCommand extends Command {
 			Item.help + "\n";
 	}
 
-	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+	public Result run(String[] args, MessageReceivedEvent e) {
 
 		// Parse page number
 		int page = 0;

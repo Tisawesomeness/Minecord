@@ -6,8 +6,8 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class ColorShortcut extends Command {
 
-    private Command colorCmd;
-    private String colorCode;
+    private final Command colorCmd;
+    private final String colorCode;
     public ColorShortcut(Command colorCmd, String colorCode) {
         this.colorCmd = colorCmd;
         this.colorCode = colorCode;

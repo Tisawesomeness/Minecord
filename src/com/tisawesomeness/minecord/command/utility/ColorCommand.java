@@ -41,7 +41,7 @@ public class ColorCommand extends Command {
             "Use `{&}0` through `{&}f` as shortcuts.";
     }
 
-    public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+    public Result run(String[] args, MessageReceivedEvent e) {
 
         if (args.length == 0) {
             return new Result(Outcome.WARNING, ":warning: You must specify a color.");

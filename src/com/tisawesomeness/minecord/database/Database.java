@@ -15,8 +15,8 @@ import java.util.HashMap;
 public class Database {
 	
 	private static DataSource source;
-	private static HashMap<Long, DbGuild> guilds = new HashMap<>();
-	private static HashMap<Long, DbUser> users = new HashMap<>();
+	private static final HashMap<Long, DbGuild> guilds = new HashMap<>();
+	private static final HashMap<Long, DbUser> users = new HashMap<>();
 	
 	private static Connection getConnect() throws SQLException {
 		return source.getConnection();

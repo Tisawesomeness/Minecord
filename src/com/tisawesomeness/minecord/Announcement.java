@@ -13,8 +13,8 @@ public class Announcement {
 
     private static ArrayList<Announcement> announcements = new ArrayList<>();
     private static int totalWeight;
-    private String text;
-    private int weight;
+    private final String text;
+    private final int weight;
 
     private Announcement(String text, int weight) {
         this.text = DiscordUtils.parseConstants(text);

@@ -40,7 +40,7 @@ public class EvalCommand extends Command {
 		);
 	}
 
-	String docsLink = "https://docs.oracle.com/javase/8/docs/technotes/guides/scripting/prog_guide/javascript.html#CIHFFHED";
+	private final String docsLink = "https://docs.oracle.com/javase/8/docs/technotes/guides/scripting/prog_guide/javascript.html#CIHFFHED";
 	public String getHelp() {
 		return "Evaluates some js code using the Rhino engine.\n" +
 			"Variables: `jda`, `sm`, `config`, `db`, `event`, `user`, `channel`\n" +
@@ -53,7 +53,7 @@ public class EvalCommand extends Command {
 	}
 
 	@Override
-	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+	public Result run(String[] args, MessageReceivedEvent e) {
 		
 		// Parse args
 		if (args.length == 0) {

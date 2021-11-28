@@ -10,7 +10,7 @@ public class Loader implements Runnable {
 
 	private final static boolean propagate = false;
 	private final static String botClass = "com.tisawesomeness.minecord.Bot";
-	private String[] args;
+	private final String[] args;
 	
 	public Loader(String[] args) {
 		this.args = args;
@@ -38,7 +38,7 @@ public class Loader implements Runnable {
 	// Adapted from https://github.com/evacchi/class-reloader
  	static class DynamicLoader extends ClassLoader {
 
- 		private ClassLoader orig;
+ 		private final ClassLoader orig;
  		DynamicLoader(ClassLoader orig) {
  			this.orig = orig;
  		}

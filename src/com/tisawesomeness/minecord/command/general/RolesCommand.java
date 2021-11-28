@@ -39,7 +39,7 @@ public class RolesCommand extends Command {
             "- `{&}roles 211261249386708992`\n";
     }
 
-    public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+    public Result run(String[] args, MessageReceivedEvent e) {
         
         // Guild-only command
         if (!e.isFromGuild()) {

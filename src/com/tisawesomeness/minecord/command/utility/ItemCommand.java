@@ -29,7 +29,7 @@ public class ItemCommand extends Command {
 			Item.help + "\n";
 	}
 
-	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+	public Result run(String[] args, MessageReceivedEvent e) {
 		// Check for argument length
 		if (args.length == 0) {
 			return new Result(Outcome.WARNING, ":warning: You must specify an item!");

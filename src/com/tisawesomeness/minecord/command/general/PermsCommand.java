@@ -52,9 +52,9 @@ public class PermsCommand extends Command {
     }
 
     // Error message cannot be "you cannot see that channel" since it reveals the channel exists when the user couldn't have known that otherwise
-    private static Result invalidChannel = new Result(Outcome.WARNING, ":warning: That channel does not exist in the current guild or is not visible to you.");
+    private static final Result invalidChannel = new Result(Outcome.WARNING, ":warning: That channel does not exist in the current guild or is not visible to you.");
 
-    public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+    public Result run(String[] args, MessageReceivedEvent e) {
 
         TextChannel c;
         // Check any channel id if admin

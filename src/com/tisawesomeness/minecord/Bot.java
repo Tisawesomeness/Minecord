@@ -234,7 +234,7 @@ public class Bot {
 		GET_BIRTH("getBirth"),
 		SET_BIRTH("setBirth");
 
-		private String name;
+		private final String name;
 		MethodName(String name) {
 			this.name = name;
 		}

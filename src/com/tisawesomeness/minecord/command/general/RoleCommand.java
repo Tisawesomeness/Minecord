@@ -50,7 +50,7 @@ public class RoleCommand extends Command {
             "- `{&}role 347797250266628108 admin`\n";
     }
 
-    public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+    public Result run(String[] args, MessageReceivedEvent e) {
 
         // Check for argument length
         if (args.length == 0) {

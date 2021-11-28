@@ -244,7 +244,7 @@ public class Listener extends ListenerAdapter {
 	//Class to send typing notification every 5 seconds
 	private static class Typing extends TimerTask {
 		private Future<Void> fv = null;
-		private MessageChannel c;
+		private final MessageChannel c;
 		public Typing(MessageChannel c) {
 			this.c = c;
 		}

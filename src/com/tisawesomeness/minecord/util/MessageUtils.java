@@ -17,8 +17,7 @@ import java.util.Arrays;
 import java.util.regex.Pattern;
 
 public class MessageUtils {
-	
-	public static long ownerID;
+
 	public static TextChannel logChannel;
 	
 	/**
@@ -33,22 +32,6 @@ public class MessageUtils {
 		EmbedBuilder eb = new EmbedBuilder();
 		if (title != null) eb.setTitle(title, url);
 		eb.setDescription(body);
-		eb.setColor(color);
-		eb = addFooter(eb);
-		return eb.build();
-	}
-	
-	/**
-	 * Formats an image to look more fancy using an embed.
-	 * @param title The title or header.
-	 * @param url The URL of the image.
-	 * @param color The color of the embed. Discord markdown formatting and newline are supported.
-	 * @return A MessageEmbed representing the message. You can add additional info (e.g. fields) by passing this variable into a new EmbedBuilder.
-	 */
-	public static MessageEmbed embedImage(String title, String url, Color color) {
-		EmbedBuilder eb = new EmbedBuilder();
-		if (title != null) {eb.setAuthor(title, null, null);}
-		eb.setImage(url);
 		eb.setColor(color);
 		eb = addFooter(eb);
 		return eb.build();
@@ -92,14 +75,6 @@ public class MessageUtils {
 	/**
 	 * Logs a message to the logging channel.
 	 */
-	public static void log(Message m) {
-		if (!Config.getLogChannel().equals("0")) {
-			logChannel.sendMessage(m).queue();
-		}
-	}
-	/**
-	 * Logs a message to the logging channel.
-	 */
 	public static void log(MessageEmbed m) {
 		if (!Config.getLogChannel().equals("0")) {
 			EmbedBuilder eb = new EmbedBuilder(m);
@@ -121,12 +96,6 @@ public class MessageUtils {
 		} else {
 			return null;
 		}
-	}
-	
-	public static String dateErrorString(String prefix, String cmd) {
-		return ":x: Improperly formatted date. " +
-			"At least a date or time is required. " +
-			"Do `" + prefix + cmd + "` for more info.";
 	}
 
 	/**

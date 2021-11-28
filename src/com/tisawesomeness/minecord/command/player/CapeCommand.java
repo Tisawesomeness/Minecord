@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
@@ -37,11 +36,9 @@ public class CapeCommand extends Command {
 	}
 
 	public Result run(String[] args, MessageReceivedEvent e) {
-		String prefix = MessageUtils.getPrefix(e);
-
 		// No arguments message
 		if (args.length == 0) {
-			return new Result(Outcome.WARNING, ":warning: You must specify a player.", 5);
+			return new Result(Outcome.WARNING, ":warning: You must specify a player.");
 		}
 
 		// Get playername
@@ -54,10 +51,10 @@ public class CapeCommand extends Command {
 			if (player == null) {
 				String m = ":x: The Mojang API could not be reached." +
 					"\n" + "Are you sure that UUID exists?";
-				return new Result(Outcome.WARNING, m, 1.5);
+				return new Result(Outcome.WARNING, m);
 			} else if (!player.matches(NameUtils.playerRegex)) {
 				String m = ":x: The API responded with an error:\n" + player;
-				return new Result(Outcome.ERROR, m, 3);
+				return new Result(Outcome.ERROR, m);
 			}
 		} else {
 			// Parse date argument
@@ -68,10 +65,10 @@ public class CapeCommand extends Command {
 				String m = ":x: The Mojang API could not be reached." +
 						"\n" +"Are you sure that username exists?" +
 						"\n" + "Usernames are case-sensitive.";
-				return new Result(Outcome.WARNING, m, 2);
+				return new Result(Outcome.WARNING, m);
 			} else if (!uuid.matches(NameUtils.uuidRegex)) {
 				String m = ":x: The API responded with an error:\n" + uuid;
-				return new Result(Outcome.ERROR, m, 3);
+				return new Result(Outcome.ERROR, m);
 			}
 
 			uuid = uuid.replace("-", "").toLowerCase();

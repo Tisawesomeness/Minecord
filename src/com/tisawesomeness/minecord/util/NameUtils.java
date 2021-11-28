@@ -3,10 +3,6 @@ package com.tisawesomeness.minecord.util;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
 public class NameUtils {
 
 	public static final String uuidRegex = "[a-f0-9]{32}|[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}";
@@ -31,13 +27,6 @@ public class NameUtils {
 	 */
 	public static String getUUID(String playername) {
 		return getUUIDInternal(playername);
-	}
-	
-	/**
-	 * Gets a UUID from a playername and Unix timestamp
-	 */
-	public static String getUUID(String playername, long timestamp) {
-		return getUUIDInternal(playername + "?at=" + timestamp);
 	}
 	
 	private static String getUUIDInternal(String query) {

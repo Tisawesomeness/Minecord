@@ -96,15 +96,15 @@ public class Recipe {
         return recipesFound;
     }
 
-    private static List<String> shapedTypes = Arrays.asList(
+    private static final List<String> shapedTypes = Arrays.asList(
         "minecraft:crafting_shaped", "minecraft:crafting_special_tippedarrow"
     );
-    private static List<String> shapelessTypes = Arrays.asList(
+    private static final List<String> shapelessTypes = Arrays.asList(
         "minecraft:crafting_shapeless",
         "minecraft:crafting_special_firework_star", "minecraft:crafting_special_firework_star_fade", "minecraft:crafting_special_firework_rocket",
         "minecraft:crafting_special_shulkerboxcoloring", "minecraft:crafting_special_suspiciousstew"
     );
-    private static List<String> otherTypes = Arrays.asList(
+    private static final List<String> otherTypes = Arrays.asList(
         "minecraft:stonecutting", "minecraft.brewing", "minecraft:smithing"
     );
     /**

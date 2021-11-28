@@ -4,10 +4,10 @@ package com.tisawesomeness.minecord.command;
  * A category of commands grouped together.
  */
 public class Module {
-    private String name;
-    private boolean hidden;
-    private String moduleHelp;
-    private Command[] commands;
+    private final String name;
+    private final boolean hidden;
+    private final String moduleHelp;
+    private final Command[] commands;
 
     /**
      * Creates a new user-facing module.
