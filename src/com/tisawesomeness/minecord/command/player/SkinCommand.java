@@ -41,7 +41,7 @@ public class SkinCommand extends Command {
 
 		String player = args[0];
 		String param = player;
-		if (!player.matches(NameUtils.uuidRegex)) {
+		if (!NameUtils.isUuid(player)) {
 			String uuid = NameUtils.getUUID(player);
 			
 			//Check for errors
@@ -50,7 +50,7 @@ public class SkinCommand extends Command {
 					"\n" + "Are you sure that username exists?" +
 					"\n" + "Usernames are case-sensitive.";
 				return new Result(Outcome.WARNING, m);
-			} else if (!uuid.matches(NameUtils.uuidRegex)) {
+			} else if (!NameUtils.isUuid(player)) {
 				String m = ":x: The API responded with an error:\n" + uuid;
 				return new Result(Outcome.ERROR, m);
 			}
@@ -59,7 +59,7 @@ public class SkinCommand extends Command {
 		}
 
 		//Fetch skin
-		String url = "https://crafatar.com/skins/" + param.replaceAll("-", "");
+		String url = "https://crafatar.com/skins/" + param.replace("-", "");
 		return new Result(Outcome.SUCCESS, new EmbedBuilder().setImage(url).setColor(Bot.color).build());
 	}
 	

@@ -90,7 +90,7 @@ public class MessageUtils {
 		String content = m.getContentRaw();
 		if (m.getContentRaw().startsWith(prefix)) {
 			return content.replaceFirst(Pattern.quote(prefix), "").split(" ");
-		} else if (content.replaceFirst("@!", "@").startsWith(su.getAsMention())) {
+		} else if (content.replace("@!", "@").startsWith(su.getAsMention())) {
 			String[] args = content.split(" ");
 			return ArrayUtils.removeElement(args, args[0]);
 		} else {

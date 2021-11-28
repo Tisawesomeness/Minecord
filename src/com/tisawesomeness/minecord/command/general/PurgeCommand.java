@@ -57,8 +57,12 @@ public class PurgeCommand extends Command {
 		//Parse args
 		int num;
 		boolean perms;
-		if (args.length > 0 && args[0].matches("^[0-9]+$")) {
-			num = Integer.parseInt(args[0]);
+		if (args.length > 0) {
+			try {
+				num = Integer.parseInt(args[0]);
+			} catch (NumberFormatException ignored) {
+				return new Result(Outcome.WARNING, ":warning: Please specify a number!");
+			}
 			
 			//Check for bot permissions
 			perms = e.getGuild().getSelfMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE);

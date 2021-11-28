@@ -224,10 +224,12 @@ public class Item {
             idStr = toParse;
         }
         // Id must be a nonnegative number
-        if (!idStr.matches(numberRegex)) {
+        int id;
+        try {
+            id = Integer.parseInt(idStr);
+        } catch (NumberFormatException ignored) {
             return null;
         }
-        int id = Integer.parseInt(idStr);
 
         // Banners special case
         if (id == 176 || id == 425) {
@@ -453,10 +455,11 @@ public class Item {
      * @return An integer data value from 0-69 or -1 otherwise
      */
     private static int parseData(String data, String lang) {
-        if (data.matches(numberRegex)) {
+        try {
             return Integer.parseInt(data);
+        } catch (NumberFormatException ignored) {
+            return parseDataFromFile(data, lang);
         }
-        return parseDataFromFile(data, lang);
     }
     /**
      * Looks up a data value in data.json

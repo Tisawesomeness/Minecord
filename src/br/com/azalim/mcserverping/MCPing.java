@@ -43,11 +43,13 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.regex.Pattern;
 
 public class MCPing {
 
     private static final Gson GSON = new Gson();
     private static final String SRV_QUERY_PREFIX = "_minecraft._tcp.%s";
+    private static final Pattern PATTERN = Pattern.compile("\\.$");
 
     /**
      * Fetches a {@link MCPingResponse} for the supplied hostname.
@@ -84,7 +86,7 @@ public class MCPing {
                 for (Record record : records) {
                     SRVRecord srv = (SRVRecord) record;
 
-                    hostname = srv.getTarget().toString().replaceFirst("\\.$", "");
+                    hostname = PATTERN.matcher(srv.getTarget().toString()).replaceFirst("");
                     port = srv.getPort();
                 }
 

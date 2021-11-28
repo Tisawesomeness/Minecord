@@ -17,15 +17,16 @@ import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class ServerCommand extends Command {
 
 	// modified from https://mkyong.com/regular-expressions/domain-name-regular-expression-example/
-	private static final String serverAddressRegex = "((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,24}(:[0-9]{1,6})?";
-	private static final String ipAddressRegex = "((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])(:[0-9]{1,6})?";
-	private static final String chatCodeRegex = "\u00A7[a-fA-Fklmnor0-9]"; //§
-	
+	private static final Pattern IP_PATTERN = Pattern.compile("((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])(:[0-9]{1,6})?");
+	private static final Pattern SERVER_PATTERN = Pattern.compile("((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,24}(:[0-9]{1,6})?");
+	private static final Pattern CHAT_CODE_PATTERN = Pattern.compile("\u00A7[a-fA-Fklmnor0-9]"); //§
+
 	private static Set<String> blockedServers = new HashSet<>();
 	private static long timestamp = 0;
 	
@@ -61,9 +62,9 @@ public class ServerCommand extends Command {
 		}
 		String arg = args[0];
 		boolean ip = true;
-		if (!arg.matches(ipAddressRegex)) {
+		if (!IP_PATTERN.matcher(arg).matches()) {
 			ip = false;
-			if (!arg.matches(serverAddressRegex)) {
+			if (!SERVER_PATTERN.matcher(arg).matches()) {
 				return new Result(Outcome.WARNING, ":warning: That is not a valid server address.");
 			}
 		}
@@ -106,7 +107,8 @@ public class ServerCommand extends Command {
 		}
 
 		String address = port == 25565 ? hostname : hostname + ":" + port;
-		String version = reply.getVersion().getName().replaceAll(chatCodeRegex, "");
+		String versionName = reply.getVersion().getName();
+		String version = CHAT_CODE_PATTERN.matcher(versionName).replaceAll("");
 		String playerInfo = reply.getPlayers().getOnline() + "/" + reply.getPlayers().getMax();
 		String motd = MarkdownSanitizer.escape(reply.getDescription().getStrippedText());
 		List<Player> sample = reply.getPlayers().getSample();

@@ -68,7 +68,7 @@ public class RoleCommand extends Command {
         } else if (mentioned.size() > 0) {
             role = mentioned.get(0);
         // Search by id
-        } else if (args[0].matches(DiscordUtils.idRegex)) {
+        } else if (DiscordUtils.isDiscordId(args[0])) {
             role = e.getGuild().getRoleById(args[0]);
         // Search by name
         } else {

@@ -59,7 +59,7 @@ public class PermsCommand extends Command {
         TextChannel c;
         // Check any channel id if admin
 		if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
-            if (!args[0].matches(DiscordUtils.idRegex)) {
+            if (!DiscordUtils.isDiscordId(args[0])) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
             c = Bot.shardManager.getTextChannelById(args[0]);
@@ -73,7 +73,7 @@ public class PermsCommand extends Command {
         
         } else if (args.length > 0) {
             // Find by id
-            if (args[0].matches(DiscordUtils.idRegex)) {
+            if (DiscordUtils.isDiscordId(args[0])) {
                 TextChannel tc = e.getGuild().getTextChannelById(args[0]);
                 if (tc == null || tc.getGuild().getIdLong() != e.getGuild().getIdLong()) {
                     return invalidChannel;

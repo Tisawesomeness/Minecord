@@ -12,7 +12,11 @@ import java.util.regex.Pattern;
 
 public class DiscordUtils {
 
-	public static final String idRegex = "[0-9]{2,32}";
+	private static final Pattern ID_PATTERN = Pattern.compile("[0-9]{2,32}");
+
+	public static boolean isDiscordId(String str) {
+		return ID_PATTERN.matcher(str).matches();
+	}
 	
 	public static void update() {
 		Bot.shardManager.setActivity(Activity.playing(parseAll(Config.getGame())));

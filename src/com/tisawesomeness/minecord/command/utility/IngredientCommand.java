@@ -40,10 +40,10 @@ public class IngredientCommand extends Command {
 		// Parse page number
 		int page = 0;
 		if (args.length > 1) {
-			if (args[args.length - 1].matches("^[0-9]+$")) {
+			try {
 				page = Integer.parseInt(args[args.length - 1]) - 1;
 				args = Arrays.copyOf(args, args.length - 1);
-			}
+			} catch (NumberFormatException ignored) {}
 		}
 
 		//Check for argument length

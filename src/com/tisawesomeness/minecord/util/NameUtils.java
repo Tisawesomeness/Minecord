@@ -3,10 +3,20 @@ package com.tisawesomeness.minecord.util;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.regex.Pattern;
+
 public class NameUtils {
 
-	public static final String uuidRegex = "[a-f0-9]{32}|[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}";
-	public static final String playerRegex = "[0-9A-Za-z_]{1,16}";
+	private static final Pattern UUID_PATTERN = Pattern.compile("[a-f0-9]{32}|[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}");
+	private static final Pattern USERNAME_REGEX = Pattern.compile("[0-9A-Za-z_]{1,16}");
+	private static final Pattern UUID_REPLACE_PATTERN = Pattern.compile("([0-9a-fA-F]{8})([0-9a-fA-F]{4})([0-9a-fA-F]{4})([0-9a-fA-F]{4})([0-9a-fA-F]+)");
+
+	public static boolean isUuid(String str) {
+		return UUID_PATTERN.matcher(str).matches();
+	}
+	public static boolean isUsername(String str) {
+		return USERNAME_REGEX.matcher(str).matches();
+	}
 
 	/**
 	 * Gets a playername from a UUID
@@ -50,10 +60,7 @@ public class NameUtils {
 	 * Adds dashes to a UUID
 	 */
 	public static String formatUUID(String uuid) {
-		return uuid.replaceFirst(
-			"([0-9a-fA-F]{8})([0-9a-fA-F]{4})([0-9a-fA-F]{4})([0-9a-fA-F]{4})([0-9a-fA-F]+)",
-			"$1-$2-$3-$4-$5"
-		);
+		return UUID_REPLACE_PATTERN.matcher(uuid).replaceFirst("$1-$2-$3-$4-$5");
 	}
 
 }

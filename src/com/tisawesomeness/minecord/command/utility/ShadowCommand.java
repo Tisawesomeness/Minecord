@@ -38,10 +38,11 @@ public class ShadowCommand extends Command {
         return SUM - seed;
     }
     private static long stringToSeed(String seed) {
-        if (seed.matches("-?\\d{1,20}")) {
+        try {
             return Long.parseLong(seed);
+        } catch (NumberFormatException ignored) {
+            return seed.hashCode();
         }
-        return seed.hashCode();
     }
 
 }

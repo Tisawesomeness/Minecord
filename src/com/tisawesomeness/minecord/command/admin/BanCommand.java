@@ -53,7 +53,7 @@ public class BanCommand extends Command {
 		if ("user".equals(args[0])) {
 			//Get user from message
 			if (args.length == 1) return new Result(Outcome.WARNING, ":warning: Please define a user.");
-            if (!args[1].matches(DiscordUtils.idRegex)) {
+            if (!DiscordUtils.isDiscordId(args[1])) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
 			if (args[1].equals(Config.getOwner())) {
@@ -73,7 +73,7 @@ public class BanCommand extends Command {
 		} else if ("guild".equals(args[0])) {
 			//Get guild from message
 			if (args.length == 1) return new Result(Outcome.WARNING, ":warning: Please define a guild.");
-            if (!args[1].matches(DiscordUtils.idRegex)) {
+            if (!DiscordUtils.isDiscordId(args[1])) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
 			Guild guild = Bot.shardManager.getGuildById(args[1]);
@@ -91,7 +91,7 @@ public class BanCommand extends Command {
 		
 		//Query part of command
 		} else {
-            if (!args[0].matches(DiscordUtils.idRegex)) {
+            if (!DiscordUtils.isDiscordId(args[0])) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
 			String msg = args[0] + (Database.isBanned(Long.parseLong(args[0])) ? " is banned!" : " is not banned.");

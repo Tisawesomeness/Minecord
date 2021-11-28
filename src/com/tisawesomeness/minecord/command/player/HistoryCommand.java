@@ -48,7 +48,7 @@ public class HistoryCommand extends Command {
 		}
 
 		String player = args[0];	
-		if (!player.matches(NameUtils.uuidRegex)) {
+		if (!NameUtils.isUuid(player)) {
 			String uuid = NameUtils.getUUID(player);
 			
 			// Check for errors
@@ -57,7 +57,7 @@ public class HistoryCommand extends Command {
 					"\n" + "Are you sure that username exists?" +
 					"\n" + "Usernames are case-sensitive.";
 				return new Result(Outcome.WARNING, m);
-			} else if (!uuid.matches(NameUtils.uuidRegex)) {
+			} else if (!NameUtils.isUuid(player)) {
 				String m = ":x: The API responded with an error:\n" + uuid;
 				return new Result(Outcome.ERROR, m);
 			}
@@ -66,7 +66,7 @@ public class HistoryCommand extends Command {
 		}
 
 		// Fetch name history
-		String url = "https://api.mojang.com/user/profiles/" + player.replaceAll("-", "") + "/names";
+		String url = "https://api.mojang.com/user/profiles/" + player.replace("-", "") + "/names";
 		String request = RequestUtils.get(url);
 		if (request == null) {
 			return new Result(Outcome.ERROR, ":x: The Mojang API could not be reached.");

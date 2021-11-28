@@ -57,7 +57,7 @@ public class RolesCommand extends Command {
         if (mentioned.size() > 0) {
             mem = mentioned.get(0);
         } else {
-            if (args[0].matches(DiscordUtils.idRegex)) {
+            if (DiscordUtils.isDiscordId(args[0])) {
                 mem = e.getGuild().retrieveMemberById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_MEMBER::test, x -> null).complete();
             } else {
                 if (!User.USER_TAG.matcher(args[0]).matches()) {

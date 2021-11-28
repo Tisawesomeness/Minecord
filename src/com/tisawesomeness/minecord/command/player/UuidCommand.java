@@ -50,7 +50,7 @@ public class UuidCommand extends Command {
 				"\n" + "Are you sure that username exists?" +
 				"\n" + "Usernames are case-sensitive.";
 			return new Result(Outcome.WARNING, m);
-		} else if (!uuid.matches(NameUtils.uuidRegex)) {
+		} else if (!NameUtils.isUuid(uuid)) {
 			String m = ":x: The API responded with an error:\n" + uuid;
 			return new Result(Outcome.ERROR, m);
 		}

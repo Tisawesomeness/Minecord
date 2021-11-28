@@ -52,7 +52,7 @@ public class ProfileCommand extends Command {
 
 		// Username --> UUID
 		String player = args[0];
-		if (!player.matches(NameUtils.uuidRegex)) {
+		if (!NameUtils.isUuid(player)) {
 			String uuid = NameUtils.getUUID(player);
 
 			// Check for errors
@@ -61,7 +61,7 @@ public class ProfileCommand extends Command {
 						"\n" + "Are you sure that username exists?" +
 						"\n" + "Usernames are case-sensitive.";
 				return new Result(Outcome.WARNING, m);
-			} else if (!uuid.matches(NameUtils.uuidRegex)) {
+			} else if (!NameUtils.isUuid(player)) {
 				String m = ":x: The API responded with an error:\n" + uuid;
 				return new Result(Outcome.ERROR, m);
 			}
@@ -70,7 +70,7 @@ public class ProfileCommand extends Command {
 		}
 
         // Get profile info
-        String url = "https://sessionserver.mojang.com/session/minecraft/profile/" + player.replaceAll("-", "");
+        String url = "https://sessionserver.mojang.com/session/minecraft/profile/" + player.replace("-", "");
         String request = RequestUtils.get(url);
 		if (request == null) {
 			return new Result(Outcome.ERROR, ":x: The Mojang API could not be reached.");

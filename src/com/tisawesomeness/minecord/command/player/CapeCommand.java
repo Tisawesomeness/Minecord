@@ -44,7 +44,7 @@ public class CapeCommand extends Command {
 		// Get playername
 		String player = args[0];
 		String uuid = player;
-		if (player.matches(NameUtils.uuidRegex)) {
+		if (NameUtils.isUuid(player)) {
 			player = NameUtils.getName(player);
 
 			// Check for errors
@@ -52,7 +52,7 @@ public class CapeCommand extends Command {
 				String m = ":x: The Mojang API could not be reached." +
 					"\n" + "Are you sure that UUID exists?";
 				return new Result(Outcome.WARNING, m);
-			} else if (!player.matches(NameUtils.playerRegex)) {
+			} else if (!NameUtils.isUsername(player)) {
 				String m = ":x: The API responded with an error:\n" + player;
 				return new Result(Outcome.ERROR, m);
 			}
@@ -66,7 +66,7 @@ public class CapeCommand extends Command {
 						"\n" +"Are you sure that username exists?" +
 						"\n" + "Usernames are case-sensitive.";
 				return new Result(Outcome.WARNING, m);
-			} else if (!uuid.matches(NameUtils.uuidRegex)) {
+			} else if (!NameUtils.isUuid(player)) {
 				String m = ":x: The API responded with an error:\n" + uuid;
 				return new Result(Outcome.ERROR, m);
 			}
