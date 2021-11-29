@@ -1,8 +1,8 @@
 package com.tisawesomeness.minecord;
 
+import com.tisawesomeness.minecord.util.ArrayUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 

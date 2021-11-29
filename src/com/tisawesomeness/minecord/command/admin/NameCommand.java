@@ -2,13 +2,13 @@ package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.util.ArrayUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import org.apache.commons.lang3.ArrayUtils;
 
 public class NameCommand extends Command {
 	

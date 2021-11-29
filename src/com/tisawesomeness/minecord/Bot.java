@@ -16,7 +16,6 @@ import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
-import org.apache.commons.lang3.ArrayUtils;
 import org.discordbots.api.client.DiscordBotListAPI;
 
 import java.awt.Color;
@@ -203,8 +202,7 @@ public class Bot {
 		}
 		try {
 			//Reload this class using reflection
-			String[] args = new String[]{"-r"};
-			ArrayUtils.addAll(args, Bot.args);
+			String[] args = ArrayUtils.addAll(new String[]{"-r"}, Bot.args);
 			MethodName.SET_MESSAGE.method().invoke(null, m);
 			MethodName.SET_USER.method().invoke(null, u);
 			MethodName.LOAD.method().invoke(null, (Object) args);

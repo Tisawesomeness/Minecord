@@ -8,7 +8,6 @@ import com.tisawesomeness.minecord.database.Database;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import org.apache.commons.lang3.ArrayUtils;
 
 import java.awt.Color;
 import java.time.OffsetDateTime;
@@ -92,7 +91,7 @@ public class MessageUtils {
 			return content.replaceFirst(Pattern.quote(prefix), "").split(" ");
 		} else if (content.replace("@!", "@").startsWith(su.getAsMention())) {
 			String[] args = content.split(" ");
-			return ArrayUtils.removeElement(args, args[0]);
+			return ArrayUtils.remove(args, 0);
 		} else {
 			return null;
 		}
