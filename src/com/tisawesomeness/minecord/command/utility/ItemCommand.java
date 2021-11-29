@@ -38,12 +38,6 @@ public class ItemCommand extends Command {
 		// Search through the item database
 		String item = Item.search(String.join(" ", args), "en_US");
 		
-		MessageUtils.log(
-			"Item command executed" +
-			"\nCommand: `" + e.getMessage().getContentDisplay() + "`" +
-			"\nItem: `" + item + "`"
-		);
-		
 		// If nothing is found
 		if (item == null) {
 			return new Result(Outcome.WARNING,
