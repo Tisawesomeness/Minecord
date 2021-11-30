@@ -105,10 +105,10 @@ public class MCPing {
             ping = System.currentTimeMillis() - start;
 
             try (DataInputStream in = new DataInputStream(socket.getInputStream());
-                    DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-                    //> Handshake
-                    ByteArrayOutputStream handshake_bytes = new ByteArrayOutputStream();
-                    DataOutputStream handshake = new DataOutputStream(handshake_bytes)) {
+                DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+                //> Handshake
+                ByteArrayOutputStream handshake_bytes = new ByteArrayOutputStream();
+                DataOutputStream handshake = new DataOutputStream(handshake_bytes)) {
 
                 handshake.writeByte(MCPingUtil.PACKET_HANDSHAKE);
                 MCPingUtil.writeVarInt(handshake, MCPingUtil.PROTOCOL_VERSION);
@@ -160,22 +160,30 @@ public class MCPing {
         if (!jsonObject.has("description")) {
             return null;
         }
-        // Modification from tis
-        // Sometimes a server may set description as a string, rather than a JsonObject
-        // In that case, add a fake JsonObject
-        JsonElement descriptionElement = jsonObject.get("description");
-        if (!descriptionElement.isJsonObject()) {
-            JsonObject descriptionObject = new JsonObject();
-            descriptionObject.addProperty("text", descriptionElement.getAsString());
-            jsonObject.add("description", descriptionObject);
-        }
-        JsonObject descriptionJsonObject = jsonObject.get("description").getAsJsonObject();
+        JsonElement descriptionJsonElement = jsonObject.get("description");
 
-        if (descriptionJsonObject.has("extra")) {
-            descriptionJsonObject.addProperty("text", new TextComponent(ComponentSerializer.parse(descriptionJsonObject.get("extra").getAsJsonArray().toString())).toLegacyText());
+        if (descriptionJsonElement.isJsonObject()) {
+
+            // For those versions that work with TextComponent MOTDs
+
+            JsonObject descriptionJsonObject = jsonObject.get("description").getAsJsonObject();
+
+            if (descriptionJsonObject.has("extra")) {
+                descriptionJsonObject.addProperty("text", new TextComponent(ComponentSerializer.parse(descriptionJsonObject.get("extra").getAsJsonArray().toString())).toLegacyText());
+                jsonObject.add("description", descriptionJsonObject);
+            }
+
+        } else {
+
+            // For those versions that work with String MOTDs
+
+            String description = descriptionJsonElement.getAsString();
+            JsonObject descriptionJsonObject = new JsonObject();
+            descriptionJsonObject.addProperty("text", description);
             jsonObject.add("description", descriptionJsonObject);
+
         }
-        
+
         MCPingResponse output = GSON.fromJson(jsonObject, MCPingResponse.class);
         output.setPing(ping);
 
