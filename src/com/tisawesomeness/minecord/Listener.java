@@ -62,7 +62,7 @@ public class Listener extends ListenerAdapter {
 		
 		//If the message is a valid command
 		String[] content = MessageUtils.getContent(m, prefix, e.getJDA().getSelfUser());
-		if (content == null) {
+		if (content == null || content.length == 0) {
 			return;
 		}
 
