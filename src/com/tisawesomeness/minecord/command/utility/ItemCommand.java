@@ -24,12 +24,12 @@ public class ItemCommand extends Command {
 
 	public String getHelp() {
 		return "Searches for a Minecraft item.\n" +
-			"Items are from Java Edition 1.7 to 1.17.\n" +
+			"Items are from Java Edition 1.7 to 1.18.\n" +
 			"\n" +
 			Item.help + "\n";
 	}
 
-	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+	public Result run(String[] args, MessageReceivedEvent e) {
 		// Check for argument length
 		if (args.length == 0) {
 			return new Result(Outcome.WARNING, ":warning: You must specify an item!");
@@ -37,12 +37,6 @@ public class ItemCommand extends Command {
 		
 		// Search through the item database
 		String item = Item.search(String.join(" ", args), "en_US");
-		
-		MessageUtils.log(
-			"Item command executed" +
-			"\nCommand: `" + e.getMessage().getContentDisplay() + "`" +
-			"\nItem: `" + item + "`"
-		);
 		
 		// If nothing is found
 		if (item == null) {

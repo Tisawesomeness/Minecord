@@ -6,12 +6,12 @@ import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
-import java.util.Arrays;
-import java.util.List;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class SettingsCommand extends Command {
 
@@ -64,13 +64,13 @@ public class SettingsCommand extends Command {
         long gid;
         boolean elevated = false;
 		if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
-            if (!args[0].matches(DiscordUtils.idRegex)) {
+            if (!DiscordUtils.isDiscordId(args[0])) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
             if (Bot.shardManager.getGuildById(args[0]) == null) {
                 return new Result(Outcome.WARNING, ":warning: Minecord does not know that guild ID!");
             }
-            gid = Long.valueOf(args[0]);
+            gid = Long.parseLong(args[0]);
             args = Arrays.copyOfRange(args, 2, args.length);
             targetPrefix = Database.getPrefix(gid);
             elevated = true;
@@ -115,7 +115,7 @@ public class SettingsCommand extends Command {
                 false)
                 .setDescription(String.format(
                     "`%ssettings <setting> <value>` - Change a setting.",
-                    sourcePrefix, sourcePrefix
+                    sourcePrefix
                 ));
             return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
         
@@ -133,7 +133,7 @@ public class SettingsCommand extends Command {
                     return new Result(Outcome.WARNING, ":warning: The prefix you specified is too long!");
                 }
                 //Easter egg for those naughty bois
-                if (args[1].equals("'") && args[2].equals("OR") && args[3].equals("1=1")) {
+                if (args.length == 4 && args[1].equals("'") && args[2].equals("OR") && args[3].equals("1=1")) {
                     return new Result(Outcome.WARNING, "Nice try.");
                 }
                 // Check for duplicate
@@ -182,8 +182,8 @@ public class SettingsCommand extends Command {
         return setting ? "enabled" : "disabled";
     }
 
-    private static List<String> truthy = Arrays.asList("enabled", "yes", "y", "true", "t", "on", "1");
-    private static List<String> falsy = Arrays.asList("disabled", "no", "n", "false", "f", "off", "0");
+    private static final List<String> truthy = Arrays.asList("enabled", "yes", "y", "true", "t", "on", "1");
+    private static final List<String> falsy = Arrays.asList("disabled", "no", "n", "false", "f", "off", "0");
     private static Boolean parseBoolSetting(String input) {
         if (truthy.contains(input.toLowerCase())) {
             return true;

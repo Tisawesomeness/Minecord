@@ -25,7 +25,7 @@ public class ShadowCommand extends Command {
         return "Generates a seed's \"shadow\", where the biome maps are the same but everything else is different.\n";
     }
 
-    public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+    public Result run(String[] args, MessageReceivedEvent e) {
         if (args.length == 0) {
             return new Result(Outcome.WARNING, ":warning: You must specify a seed.");
         }
@@ -38,10 +38,11 @@ public class ShadowCommand extends Command {
         return SUM - seed;
     }
     private static long stringToSeed(String seed) {
-        if (seed.matches("-?\\d{1,20}")) {
-            return Long.valueOf(seed);
+        try {
+            return Long.parseLong(seed);
+        } catch (NumberFormatException ignored) {
+            return seed.hashCode();
         }
-        return seed.hashCode();
     }
 
 }

@@ -1,37 +1,30 @@
 package com.tisawesomeness.minecord;
 
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.Future;
-import org.apache.commons.lang3.ArrayUtils;
-
 import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.command.Command.CommandInfo;
 import com.tisawesomeness.minecord.command.Command.Outcome;
 import com.tisawesomeness.minecord.command.Command.Result;
+import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.util.ArrayUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.ChannelType;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.entities.Message.MentionType;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.GenericGuildEvent;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Future;
 
 public class Listener extends ListenerAdapter {
 
@@ -69,7 +62,7 @@ public class Listener extends ListenerAdapter {
 		
 		//If the message is a valid command
 		String[] content = MessageUtils.getContent(m, prefix, e.getJDA().getSelfUser());
-		if (content == null) {
+		if (content == null || content.length == 0) {
 			return;
 		}
 
@@ -113,26 +106,15 @@ public class Listener extends ListenerAdapter {
 			if (System.currentTimeMillis() - ci.cooldown < last) {
 				//Format warning message
 				long time = (long) ci.cooldown + last - System.currentTimeMillis();
-				String seconds = String.valueOf(time);
+				StringBuilder seconds = new StringBuilder(String.valueOf(time));
 				while (seconds.length() < 4) {
-					seconds = "0" + seconds;
+					seconds.insert(0, "0");
 				}
-				seconds = new StringBuilder(seconds).insert(seconds.length() - 3, ".").toString();
+				seconds.insert(seconds.length() - 3, ".");
 				c.sendMessage(":warning: Wait " + seconds + " more seconds.").queue();
 				return;
 			} else {
 				cmd.cooldowns.remove(a);
-			}
-		}
-		
-		//Class to send typing notification every 5 seconds
-		class Typing extends TimerTask {
-			private Future<Void> fv = null;
-			@Override
-			public void run() {
-				synchronized (this) {
-					fv = c.sendTyping().submit();
-				}
 			}
 		}
 		
@@ -141,7 +123,7 @@ public class Listener extends ListenerAdapter {
 		Typing typing = null;
 		if (Config.getSendTyping() && ci.typing) {
 			timer = new Timer();
-			typing = new Typing();
+			typing = new Typing(c);
 			timer.schedule(typing, 0, 5000);
 		}
 		
@@ -169,26 +151,26 @@ public class Listener extends ListenerAdapter {
 		
 		//Catch exceptions
 		if (result == null) {
-			String err;
+			StringBuilder err;
 			if (exception == null) {
-				err = ":x: There was a null exception";
+				err = new StringBuilder(":x: There was a null exception");
 			} else {
-				err = ":x: There was an unexpected exception: `" + exception + "`\n```";
+				err = new StringBuilder(":x: There was an unexpected exception: `" + exception + "`\n```");
 				if (Config.getDebugMode()) {
 					exception.printStackTrace();
 					for (StackTraceElement ste : exception.getStackTrace()) {
-						err += "\n" + ste.toString();
+						err.append("\n").append(ste.toString());
 						String className = ste.getClassName();
 						if (className.contains("net.dv8tion") || className.contains("com.neovisionaries")) {
-							err += "...";
+							err.append("...");
 							break;
 						}
 					}
 				}
-				err += "```";
+				err.append("```");
 			}
-			MessageUtils.log(err);
-			c.sendMessage(err).queue();
+			MessageUtils.log(err.toString());
+			c.sendMessage(err.toString()).queue();
 		//If message is empty
 		} else if (result.message == null) {
 			if (result.outcome != null && result.outcome != Outcome.SUCCESS) {
@@ -201,7 +183,7 @@ public class Listener extends ListenerAdapter {
 			if (result.outcome == Outcome.SUCCESS) {
 				while (typing != null && typing.fv != null && !typing.fv.isDone()) {
 					synchronized (this) {
-						try {wait();} catch (InterruptedException ex) {}
+						try {wait();} catch (InterruptedException ignored) {}
 					}
 				}
 				e.getChannel().sendMessage(result.message).queue();
@@ -235,16 +217,12 @@ public class Listener extends ListenerAdapter {
 				eb.addField("Owner", owner.getEffectiveName(), true);
 				eb.addField("Owner ID", owner.getUser().getId(), true);
 			}
-			eb.addField("Users", guild.getMembers().size() + "", true);
-			ArrayList<Member> users = new ArrayList<Member>(guild.getMembers());
-			for (Member u : new ArrayList<Member>(users)) {
-				if (u.getUser().isBot()) {
-					users.remove(u);
-				}
-			}
-			eb.addField("Humans", users.size() + "", true);
-			eb.addField("Bots", guild.getMembers().size() - users.size() + "", true);
-			eb.addField("Channels", guild.getTextChannels().size() + "", true);
+			eb.addField("Users", String.valueOf(guild.getMembers().size()), true);
+			ArrayList<Member> users = new ArrayList<>(guild.getMembers());
+			users.removeIf(u -> u.getUser().isBot());
+			eb.addField("Humans", String.valueOf(users.size()), true);
+			eb.addField("Bots", String.valueOf(guild.getMembers().size() - users.size()), true);
+			eb.addField("Channels", String.valueOf(guild.getTextChannels().size()), true);
 			
 		} else if (e instanceof GuildLeaveEvent) {
 			if (owner != null) {
@@ -261,6 +239,21 @@ public class Listener extends ListenerAdapter {
 		RequestUtils.sendGuilds();
 		DiscordUtils.update(); //Update guild, channel, and user count
 		
+	}
+
+	//Class to send typing notification every 5 seconds
+	private static class Typing extends TimerTask {
+		private Future<Void> fv = null;
+		private final MessageChannel c;
+		public Typing(MessageChannel c) {
+			this.c = c;
+		}
+		@Override
+		public void run() {
+			synchronized (this) {
+				fv = c.sendTyping().submit();
+			}
+		}
 	}
 	
 }

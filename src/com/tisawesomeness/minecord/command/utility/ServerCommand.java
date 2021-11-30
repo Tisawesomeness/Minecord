@@ -1,37 +1,33 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
+import br.com.azalim.mcserverping.MCPing;
+import br.com.azalim.mcserverping.MCPingOptions;
+import br.com.azalim.mcserverping.MCPingResponse;
+import br.com.azalim.mcserverping.MCPingResponse.Player;
+import br.com.azalim.mcserverping.MCPingUtil;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
-import br.com.azalim.mcserverping.MCPing;
-import br.com.azalim.mcserverping.MCPingOptions;
-import br.com.azalim.mcserverping.MCPingResponse;
-import br.com.azalim.mcserverping.MCPingUtil;
-import br.com.azalim.mcserverping.MCPingResponse.Player;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 
 import java.io.IOException;
+import java.util.*;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class ServerCommand extends Command {
 
 	// modified from https://mkyong.com/regular-expressions/domain-name-regular-expression-example/
-	private final String serverAddressRegex = "((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,24}(:[0-9]{1,6})?";
-	private final String ipAddressRegex = "((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])(:[0-9]{1,6})?";
-	private final String chatCodeRegex = "\u00A7[a-fA-Fklmnor0-9]"; //§
-	
-	private static Set<String> blockedServers = new HashSet<String>();
+	private static final Pattern IP_PATTERN = Pattern.compile("((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])(:[0-9]{1,6})?");
+	private static final Pattern SERVER_PATTERN = Pattern.compile("((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,24}(:[0-9]{1,6})?");
+	private static final Pattern CHAT_CODE_PATTERN = Pattern.compile("\u00A7[a-fA-Fklmnor0-9]"); //§
+
+	private static Set<String> blockedServers = new HashSet<>();
 	private static long timestamp = 0;
 	
 	public CommandInfo getInfo() {
@@ -62,60 +58,62 @@ public class ServerCommand extends Command {
 		if (args.length == 0) {
 			String m = ":warning: You must specify a server." +
 				"\n" + MessageUtils.getPrefix(e) + "server <address>[:port]";
-			return new Result(Outcome.WARNING, m, 2);
+			return new Result(Outcome.WARNING, m);
 		}
 		String arg = args[0];
 		boolean ip = true;
-		if (!arg.matches(ipAddressRegex)) {
+		if (!IP_PATTERN.matcher(arg).matches()) {
 			ip = false;
-			if (!arg.matches(serverAddressRegex)) {
+			if (!SERVER_PATTERN.matcher(arg).matches()) {
 				return new Result(Outcome.WARNING, ":warning: That is not a valid server address.");
-			}
-		}
-		
-		// Query Mojang for blocked servers, cached by the hour
-		if (System.currentTimeMillis() - 3600000 > timestamp) {
-			String request = RequestUtils.getPlain("https://sessionserver.mojang.com/blockedservers");
-			if (request != null) {
-				blockedServers = new HashSet<String>(Arrays.asList(request.split("\n")));
-				timestamp = System.currentTimeMillis();
 			}
 		}
 
 		String hostname = arg;
 		int port = 25565;
 		if (arg.contains(":")) {
-			hostname = arg.substring(0, arg.indexOf(":"));
-			port = Integer.parseInt(arg.substring(arg.indexOf(":") + 1));
+			hostname = arg.substring(0, arg.indexOf(':'));
+			port = Integer.parseInt(arg.substring(arg.indexOf(':') + 1));
 			if (port > 65535) {
 				return new Result(Outcome.WARNING, ":warning: That is not a valid server address.");
 			}
 		}
+
+		// Query Mojang for blocked servers, cached by the hour
+		if (System.currentTimeMillis() - 3600000 > timestamp) {
+			String request = RequestUtils.getPlain("https://sessionserver.mojang.com/blockedservers");
+			if (request != null) {
+				blockedServers = new HashSet<>(Arrays.asList(request.split("\n")));
+				timestamp = System.currentTimeMillis();
+			}
+		}
+		boolean blocked = isBlocked(arg, ip);
+		String m = blocked ? "**BLOCKED BY MOJANG**\n" : "";
+
 		MCPingResponse reply;
 		try {
 			MCPingOptions options = MCPingOptions.builder().hostname(hostname).port(port).build();
 			reply = MCPing.getPing(options);
 			if (reply == null) {
-				return new Result(Outcome.ERROR, ":x: The server gave a bad response. It might be just starting up, try again later.");
+				return new Result(Outcome.ERROR, m + ":x: The server gave a bad response. It might be just starting up, try again later.");
 			}
 		} catch (IOException ignore) {
-			String msg;
 			if (hostname.equals(hostname.toLowerCase())) {
-				msg = ":warning: The server is down or unreachable.\nDid you spell it correctly?";
+				m += ":warning: The server is down or unreachable.\nDid you spell it correctly?";
 			} else {
-				msg = ":warning: The server is down or unreachable.\nTry using lowercase letters.";
+				m += ":warning: The server is down or unreachable.\nTry using lowercase letters.";
 			}
-			return new Result(Outcome.WARNING, msg);
+			return new Result(Outcome.WARNING, m);
 		}
 
 		String address = port == 25565 ? hostname : hostname + ":" + port;
-		String version = reply.getVersion().getName().replaceAll(chatCodeRegex, "");
+		String versionName = reply.getVersion().getName();
+		String version = CHAT_CODE_PATTERN.matcher(versionName).replaceAll("");
 		String playerInfo = reply.getPlayers().getOnline() + "/" + reply.getPlayers().getMax();
 		String motd = MarkdownSanitizer.escape(reply.getDescription().getStrippedText());
 		List<Player> sample = reply.getPlayers().getSample();
 		
 		// Build and format message
-		String m = isBlocked(arg, ip) ? "**BLOCKED BY MOJANG**\n" : "";
 		m += "**Address:** " + address +
 			"\n" + "**Version:** " + version +
 			"\n" + "**Players:** " + playerInfo +

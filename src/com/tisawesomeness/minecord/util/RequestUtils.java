@@ -1,12 +1,20 @@
 package com.tisawesomeness.minecord.util;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Config;
+
+import net.dv8tion.jda.api.JDA;
+import org.discordbots.api.client.DiscordBotListAPI;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.*;
+import java.net.HttpURLConnection;
+import java.net.Socket;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -15,16 +23,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import javax.imageio.ImageIO;
-import org.discordbots.api.client.DiscordBotListAPI;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.Config;
-
-import net.dv8tion.jda.api.JDA;
 
 public class RequestUtils {
 
@@ -35,7 +33,7 @@ public class RequestUtils {
 	private static final int TIMEOUT = 5000;
 	public static DiscordBotListAPI api = null;
 	
-	private static String get(URLConnection conn, String type) throws IOException {
+	private static String get(URLConnection conn) throws IOException {
 		InputStream response = conn.getInputStream();
 		Scanner scanner = new Scanner(response);
 		String responseBody = scanner.hasNext() ? scanner.useDelimiter("\\A").next() : "";
@@ -74,7 +72,7 @@ public class RequestUtils {
 		if (skipCheck || checkURL(url)) {
 			try {
 				URLConnection conn = open(url, auth, jsonType);
-				return get(conn, jsonType);
+				return get(conn);
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
@@ -91,7 +89,7 @@ public class RequestUtils {
 	public static String getPlain(String url, String auth) {
 		try {
 			URLConnection conn = open(url, auth, plainType);
-			return get(conn, plainType);
+			return get(conn);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
@@ -123,14 +121,14 @@ public class RequestUtils {
 			output.write(query.getBytes(charset));
 			output.close();
 			
-			return get(conn, jsonType);
+			return get(conn);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 		return null;
 	}
 	
-	private static URLConnection open(String url, String auth, String contentType) throws MalformedURLException, IOException {
+	private static URLConnection open(String url, String auth, String contentType) throws IOException {
 		URLConnection conn = new URL(url).openConnection();
 		conn.setDoOutput(true);
 		conn.setRequestProperty("Accept-Charset", charset);
@@ -208,19 +206,12 @@ public class RequestUtils {
 		}
 	}
 	
-	public static InputStream downloadImage(String url) throws IOException {
-		BufferedImage image = ImageIO.read(new URL(url));
-		ByteArrayOutputStream os = new ByteArrayOutputStream();
-		ImageIO.write(image, "png", os);
-		return new ByteArrayInputStream(os.toByteArray());
-	}
-	
 	/**
 	 * Sends the guild count
 	 */
 	public static void sendGuilds() {
 		if (Config.getSendServerCount()) {
-			List<Integer> serverCounts = new ArrayList<Integer>();
+			List<Integer> serverCounts = new ArrayList<>();
 			for (JDA jda : Bot.shardManager.getShards()) serverCounts.add(jda.getGuilds().size());
 			api.setStats(serverCounts);
 		}
@@ -239,9 +230,9 @@ public class RequestUtils {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA1");
 			byte[] result = md.digest(str.getBytes());
-			StringBuffer sb = new StringBuffer();
-			for (int i = 0; i < result.length; i++) {
-				sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
+			StringBuilder sb = new StringBuilder();
+			for (byte b : result) {
+				sb.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
 			}
 			return sb.toString();
 		} catch (NoSuchAlgorithmException ex) {

@@ -19,7 +19,7 @@ public class TestCommand extends Command {
 		);
 	}
 	
-	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+	public Result run(String[] args, MessageReceivedEvent e) {
 		return new Result(Outcome.SUCCESS, "Test");
 	}
 	

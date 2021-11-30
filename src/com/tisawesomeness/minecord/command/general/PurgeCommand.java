@@ -1,9 +1,5 @@
 package com.tisawesomeness.minecord.command.general;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
 
@@ -13,6 +9,9 @@ import net.dv8tion.jda.api.entities.MessageHistory;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.RateLimitedException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PurgeCommand extends Command {
 	
@@ -56,10 +55,14 @@ public class PurgeCommand extends Command {
 		}
 		
 		//Parse args
-		int num = 50;
-		boolean perms = false;
-		if (args.length > 0 && args[0].matches("^[0-9]+$")) {
-			num = Integer.valueOf(args[0]);
+		int num;
+		boolean perms;
+		if (args.length > 0) {
+			try {
+				num = Integer.parseInt(args[0]);
+			} catch (NumberFormatException ignored) {
+				return new Result(Outcome.WARNING, ":warning: Please specify a number!");
+			}
 			
 			//Check for bot permissions
 			perms = e.getGuild().getSelfMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE);
@@ -70,7 +73,7 @@ public class PurgeCommand extends Command {
 			} else {
 				if (num <= 0 || num > 50) {
 					return new Result(Outcome.ERROR,
-						":x: The number must be between 1-50, I don't have permission to manage messages!", 1.5);
+						":x: The number must be between 1-50, I don't have permission to manage messages!");
 				}
 			}
 			

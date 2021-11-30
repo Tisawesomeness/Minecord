@@ -33,43 +33,42 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.chat.ComponentSerializer;
+import org.xbill.DNS.*;
+
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.chat.ComponentSerializer;
-import org.xbill.DNS.Lookup;
-import org.xbill.DNS.Record;
-import org.xbill.DNS.SRVRecord;
-import org.xbill.DNS.TextParseException;
-import org.xbill.DNS.Type;
+import java.util.regex.Pattern;
 
 public class MCPing {
 
     private static final Gson GSON = new Gson();
     private static final String SRV_QUERY_PREFIX = "_minecraft._tcp.%s";
+    private static final Pattern PATTERN = Pattern.compile("\\.$");
 
     /**
-     * Fetches a {@link MCPingResponsew} for the supplied hostname.
+     * Fetches a {@link MCPingResponse} for the supplied hostname.
      * <b>Assumed timeout of 2s and port of 25565.</b>
      *
      * @param address - a valid String hostname
-     * @return {@link MCPingResponsew}
-     * @throws IOException
+     * @return {@link MCPingResponse}
+     * @throws IOException on IO error
      */
     public static MCPingResponse getPing(final String address) throws IOException {
         return getPing(MCPingOptions.builder().hostname(address).build());
     }
 
     /**
-     * Fetches a {@link MCPingResponsew} for the supplied options.
+     * Fetches a {@link MCPingResponse} for the supplied options.
      *
      * @param options - a filled instance of {@link MCPingOptions}
-     * @return {@link MCPingResponsew}
-     * @throws IOException
+     * @return {@link MCPingResponse}
+     * @throws IOException on IO error
      */
     public static MCPingResponse getPing(final MCPingOptions options) throws IOException {
 
@@ -87,7 +86,7 @@ public class MCPing {
                 for (Record record : records) {
                     SRVRecord srv = (SRVRecord) record;
 
-                    hostname = srv.getTarget().toString().replaceFirst("\\.$", "");
+                    hostname = PATTERN.matcher(srv.getTarget().toString()).replaceFirst("");
                     port = srv.getPort();
                 }
 
@@ -97,7 +96,7 @@ public class MCPing {
         }
 
         String json;
-        long ping = -1;
+        long ping;
 
         try (final Socket socket = new Socket()) {
 
@@ -106,10 +105,10 @@ public class MCPing {
             ping = System.currentTimeMillis() - start;
 
             try (DataInputStream in = new DataInputStream(socket.getInputStream());
-                    DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-                    //> Handshake
-                    ByteArrayOutputStream handshake_bytes = new ByteArrayOutputStream();
-                    DataOutputStream handshake = new DataOutputStream(handshake_bytes)) {
+                DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+                //> Handshake
+                ByteArrayOutputStream handshake_bytes = new ByteArrayOutputStream();
+                DataOutputStream handshake = new DataOutputStream(handshake_bytes)) {
 
                 handshake.writeByte(MCPingUtil.PACKET_HANDSHAKE);
                 MCPingUtil.writeVarInt(handshake, MCPingUtil.PROTOCOL_VERSION);
@@ -161,22 +160,30 @@ public class MCPing {
         if (!jsonObject.has("description")) {
             return null;
         }
-        // Modification from tis
-        // Sometimes a server may set description as a string, rather than a JsonObject
-        // In that case, add a fake JsonObject
-        JsonElement descriptionElement = jsonObject.get("description");
-        if (!descriptionElement.isJsonObject()) {
-            JsonObject descriptionObject = new JsonObject();
-            descriptionObject.addProperty("text", descriptionElement.getAsString());
-            jsonObject.add("description", descriptionObject);
-        }
-        JsonObject descriptionJsonObject = jsonObject.get("description").getAsJsonObject();
+        JsonElement descriptionJsonElement = jsonObject.get("description");
 
-        if (descriptionJsonObject.has("extra")) {
-            descriptionJsonObject.addProperty("text", new TextComponent(ComponentSerializer.parse(descriptionJsonObject.get("extra").getAsJsonArray().toString())).toLegacyText());
+        if (descriptionJsonElement.isJsonObject()) {
+
+            // For those versions that work with TextComponent MOTDs
+
+            JsonObject descriptionJsonObject = jsonObject.get("description").getAsJsonObject();
+
+            if (descriptionJsonObject.has("extra")) {
+                descriptionJsonObject.addProperty("text", new TextComponent(ComponentSerializer.parse(descriptionJsonObject.get("extra").getAsJsonArray().toString())).toLegacyText());
+                jsonObject.add("description", descriptionJsonObject);
+            }
+
+        } else {
+
+            // For those versions that work with String MOTDs
+
+            String description = descriptionJsonElement.getAsString();
+            JsonObject descriptionJsonObject = new JsonObject();
+            descriptionJsonObject.addProperty("text", description);
             jsonObject.add("description", descriptionJsonObject);
+
         }
-        
+
         MCPingResponse output = GSON.fromJson(jsonObject, MCPingResponse.class);
         output.setPing(ping);
 

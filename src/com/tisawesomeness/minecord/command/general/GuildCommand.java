@@ -9,8 +9,8 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.Guild.BoostTier;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 import net.dv8tion.jda.api.utils.TimeUtil;
@@ -45,12 +45,12 @@ public class GuildCommand extends Command {
         Guild g;
 		if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
             elevated = true;
-            if (!args[0].matches(DiscordUtils.idRegex)) {
+            if (!DiscordUtils.isDiscordId(args[0])) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
             g = Bot.shardManager.getGuildById(args[0]);
             if (g == null) {
-                long gid = Long.valueOf(args[0]);
+                long gid = Long.parseLong(args[0]);
                 if (Database.isBanned(gid)) {
                     return new Result(Outcome.SUCCESS, "__**GUILD BANNED FROM MINECORD**__\n" + getSettingsStr(gid));
                 }

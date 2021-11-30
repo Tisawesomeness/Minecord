@@ -43,16 +43,16 @@ public class ProfileCommand extends Command {
 	}
 
     @Override
-    public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+    public Result run(String[] args, MessageReceivedEvent e) {
 
 		// No arguments message
 		if (args.length == 0) {
-			return new Result(Outcome.WARNING, ":warning: You must specify a player.", 5);
+			return new Result(Outcome.WARNING, ":warning: You must specify a player.");
 		}
 
 		// Username --> UUID
 		String player = args[0];
-		if (!player.matches(NameUtils.uuidRegex)) {
+		if (!NameUtils.isUuid(player)) {
 			String uuid = NameUtils.getUUID(player);
 
 			// Check for errors
@@ -60,17 +60,17 @@ public class ProfileCommand extends Command {
 				String m = ":x: The Mojang API could not be reached." +
 						"\n" + "Are you sure that username exists?" +
 						"\n" + "Usernames are case-sensitive.";
-				return new Result(Outcome.WARNING, m, 2);
-			} else if (!uuid.matches(NameUtils.uuidRegex)) {
+				return new Result(Outcome.WARNING, m);
+			} else if (!NameUtils.isUuid(player)) {
 				String m = ":x: The API responded with an error:\n" + uuid;
-				return new Result(Outcome.ERROR, m, 3);
+				return new Result(Outcome.ERROR, m);
 			}
 
 			player = uuid;
 		}
 
         // Get profile info
-        String url = "https://sessionserver.mojang.com/session/minecraft/profile/" + player.replaceAll("-", "");
+        String url = "https://sessionserver.mojang.com/session/minecraft/profile/" + player.replace("-", "");
         String request = RequestUtils.get(url);
 		if (request == null) {
 			return new Result(Outcome.ERROR, ":x: The Mojang API could not be reached.");
@@ -87,18 +87,12 @@ public class ProfileCommand extends Command {
         String nameUrl = "https://namemc.com/profile/" + name;
 
         // Get cape
-        String cape;
-		if (NameUtils.mojangUUIDs.contains(player)) {
-            // Mojang cape
-            cape = MarkdownUtil.maskedLink("Open Image", "https://minecord.github.io/capes/mojang.png");
+		String cape;
+		String capeUrl = "https://crafatar.com/capes/" + player;
+		if (RequestUtils.checkURL(capeUrl)) {
+			cape = MarkdownUtil.maskedLink("Open Image", capeUrl);
 		} else {
-			// Other minecraft capes
-			String capeUrl = "https://crafatar.com/capes/" + player;
-			if (RequestUtils.checkURL(capeUrl)) {
-                cape = MarkdownUtil.maskedLink("Open Image", capeUrl);
-			} else {
-                cape = "No cape.";
-            }
+			cape = "No cape.";
 		}
 
 		// Fetch name history
@@ -110,7 +104,7 @@ public class ProfileCommand extends Command {
 		
 		// Loop over each name change
 		JSONArray names = new JSONArray(request);
-		ArrayList<String> lines = new ArrayList<String>();
+		ArrayList<String> lines = new ArrayList<>();
 		for (int i = 0; i < names.length(); i++) {
 			
 			// Get info

@@ -1,10 +1,8 @@
 package com.tisawesomeness.minecord.command.misc;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.ICommand;
 import com.tisawesomeness.minecord.command.Module;
 import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.database.Database;
@@ -12,6 +10,9 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class HelpCommand extends Command {
 	
@@ -75,8 +76,8 @@ public class HelpCommand extends Command {
 					continue;
 				}
 				// Build that module's list of user-facing commands
-				String mHelp = Arrays.asList(m.getCommands()).stream()
-					.map(c -> c.getInfo())
+				String mHelp = Arrays.stream(m.getCommands())
+					.map(ICommand::getInfo)
 					.filter(ci -> !ci.hidden)
 					.map(ci -> String.format("`%s%s`", prefix, ci.name))
 					.collect(Collectors.joining(", "));
@@ -91,8 +92,8 @@ public class HelpCommand extends Command {
 			if (m.isHidden() && !Database.isElevated(e.getAuthor().getIdLong())) {
 				return new Result(Outcome.WARNING, ":warning: You do not have permission to view that module.");
 			}
-			String mUsage = Arrays.asList(m.getCommands()).stream()
-				.map(c -> c.getInfo())
+			String mUsage = Arrays.stream(m.getCommands())
+				.map(ICommand::getInfo)
 				.filter(ci -> !ci.hidden || m.isHidden()) // All admin commands are hidden
 				.map(ci -> {
 					// Formatting changes based on whether the command has arguments
@@ -130,7 +131,7 @@ public class HelpCommand extends Command {
 			help = help.replace("{@}", e.getJDA().getSelfUser().getAsMention()).replace("{&}", prefix);
 			// Alias list formatted with prefix in code blocks
 			if (ci.aliases.length > 0) {
-				String aliases = Arrays.asList(ci.aliases).stream()
+				String aliases = Arrays.stream(ci.aliases)
 					.map(s -> String.format("`%s%s`", prefix, s))
 					.collect(Collectors.joining(", "));
 				help += "\nAliases: " + aliases;

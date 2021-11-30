@@ -1,22 +1,19 @@
 package com.tisawesomeness.minecord;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-
 import com.tisawesomeness.minecord.database.Database;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.entities.Guild;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * Represents a menu the user can interact with by reacting to the message
@@ -24,23 +21,15 @@ import net.dv8tion.jda.api.entities.Guild;
 public abstract class ReactMenu {
 
     private final static long timeout = 10 * 60 * 1000;
-    private static HashMap<Long, ReactMenu> menus = new HashMap<Long, ReactMenu>();
+    private static final HashMap<Long, ReactMenu> menus = new HashMap<>();
     private Message message;
     private int page;
-    private boolean ready;
     private long expire;
     private HashMap<String, Runnable> buttons;
     private long ownerID;
     private String ownerName;
-    private String lang;
+    private final String lang;
 
-    /**
-     * Creates, but does not activate a reaction menu object that users can interact with, starting on page 0
-     * @param lang The language code to use
-     */
-    public ReactMenu(String lang) {
-        this(0, lang);
-    }
     /**
      * Creates, but does not activate a reaction menu object that users can interact with
      * @param lang The language code to use
@@ -64,20 +53,19 @@ public abstract class ReactMenu {
      * @param updateButtons Whether or not to remove and re-add buttons
      */
     public void setPage(int page, boolean updateButtons) {
-        ready = false;
         buttons = createButtons(page);
         this.page = page;
         if (hasPerms(Permission.MESSAGE_ADD_REACTION)) {
             message = message.editMessageEmbeds(getEmbed(page)).complete();
-            ready = true;
             if (updateButtons) {
                 List<String> currentButtons = message.getReactions().stream()
-                    .map(r -> r.getReactionEmote())
-                    .filter(re -> re.isEmoji())
-                    .map(re -> re.getAsCodepoints())
+                    .map(MessageReaction::getReactionEmote)
+                    .filter(MessageReaction.ReactionEmote::isEmoji)
+                    .map(MessageReaction.ReactionEmote::getAsCodepoints)
                     .collect(Collectors.toList());
-                for (String button : buttons.keySet()) {
-                    if (buttons.get(button) != null && !currentButtons.contains(button)) {
+                for (Map.Entry<String, Runnable> entry : buttons.entrySet()) {
+                    String button = entry.getKey();
+                    if (entry.getValue() != null && !currentButtons.contains(button)) {
                         message.addReaction(button).submit();
                     }
                 }
@@ -90,7 +78,6 @@ public abstract class ReactMenu {
      * Removes this menu from the registry, meaning nobody can react to it
      */
     public void disable(boolean delete) {
-        ready = false;
         MessageEmbed emb = message.getEmbeds().get(0);
         menus.remove(getMessageID());
         if (delete) {
@@ -99,7 +86,7 @@ public abstract class ReactMenu {
             message = message.editMessageEmbeds( new EmbedBuilder(emb).setFooter(emb.getFooter().getText() + " (expired)").build()).complete();
             if (hasPerms(Permission.MESSAGE_MANAGE)) {
                 message.getReactions().stream()
-                    .filter(r -> r.isSelf())
+                    .filter(MessageReaction::isSelf)
                     .forEach(r -> r.removeReaction().queue());
             }
         }
@@ -114,9 +101,9 @@ public abstract class ReactMenu {
         this.ownerName = owner.getName();
         buttons = createButtons(page);
         message = channel.sendMessageEmbeds(getEmbed(page)).complete();
-        for (String button : buttons.keySet()) {
-            if (buttons.get(button) != null) {
-                message.addReaction(button).submit();
+        for (Map.Entry<String, Runnable> entry : buttons.entrySet()) {
+            if (entry.getValue() != null) {
+                message.addReaction(entry.getKey()).submit();
             }
         }
         keepAlive();
@@ -150,11 +137,12 @@ public abstract class ReactMenu {
      * Purges all expired menus from the list
      */
     public static void startPurgeThread() {
-        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
-            menus.values().stream()
+        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(ReactMenu::purge, 10, 1, TimeUnit.MINUTES);
+    }
+    private static void purge() {
+        menus.values().stream()
                 .filter(m -> m.expire < System.currentTimeMillis())
                 .forEach(m -> m.disable(false));
-        }, 10, 1, TimeUnit.MINUTES);
     }
     /**
      * Check for permissions with less typing
@@ -206,22 +194,10 @@ public abstract class ReactMenu {
         return ownerID;
     }
     /**
-     * @return The current page
-     */
-    public int getPage() {
-        return page;
-    }
-    /**
      * @return A list of buttons, with emoji codepoint strings as the key and the button's function as the value
      */
     public HashMap<String, Runnable> getButtons() {
         return buttons;
-    }
-    /**
-     * @return Whether the menu is ready for user input
-     */
-    public boolean isReady() {
-        return ready;
     }
     /**
      * @return The language code
@@ -252,9 +228,6 @@ public abstract class ReactMenu {
      */
     public enum Emote {
         STAR("U+2b50"),
-        FULL_BLANK("U+1f5a4"),
-        SKIP_BLANK("U+2b1b"),
-        BLANK("U+26ab"),
         FULL_BACK("U+23ee"),
         SKIP_BACK("U+23ea"),
         BACK("U+25c0"),
@@ -276,10 +249,10 @@ public abstract class ReactMenu {
 
         private final String codepoint;
         private final String text;
-        private Emote(String codepoint) {
+        Emote(String codepoint) {
             this(codepoint, null);
         }
-        private Emote(String codepoint, String text) {
+        Emote(String codepoint, String text) {
             this.codepoint = codepoint;
             this.text = text;
         }
@@ -322,13 +295,13 @@ public abstract class ReactMenu {
         DISABLED(),
         NO_PERMISSION("Give the bot manage messages permissions to use an interactive menu!");
 
-        private String reason;
+        private final String reason;
         private boolean useSpacer;
-        private MenuStatus() {
+        MenuStatus() {
             this("");
             this.useSpacer = false;
         }
-        private MenuStatus(String reason) {
+        MenuStatus(String reason) {
             this.reason = reason;
             this.useSpacer = true;
         }

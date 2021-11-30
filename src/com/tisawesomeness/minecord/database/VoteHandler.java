@@ -1,21 +1,20 @@
 package com.tisawesomeness.minecord.database;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.InetSocketAddress;
-import java.util.Arrays;
-import java.util.Scanner;
-
-import org.json.JSONObject;
-
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
-import com.sun.net.httpserver.HttpServer;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
 import net.dv8tion.jda.api.entities.User;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.util.Collections;
+import java.util.Scanner;
 
 public class VoteHandler {
 	
@@ -32,7 +31,7 @@ public class VoteHandler {
 				
 				//Check if request is a POST request and the authorization is correct
 				if ("POST".equals(t.getRequestMethod())
-						&& t.getRequestHeaders().getOrDefault("Authorization", Arrays.asList("N/A"))
+						&& t.getRequestHeaders().getOrDefault("Authorization", Collections.singletonList("N/A"))
 						.get(0).equals(Config.getWebhookAuth())) {
 					
 					//Get post body

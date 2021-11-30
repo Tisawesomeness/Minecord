@@ -1,13 +1,13 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import java.awt.Color;
-
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import java.awt.Color;
 
 public class ColorCommand extends Command {
 
@@ -41,7 +41,7 @@ public class ColorCommand extends Command {
             "Use `{&}0` through `{&}f` as shortcuts.";
     }
 
-    public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+    public Result run(String[] args, MessageReceivedEvent e) {
 
         if (args.length == 0) {
             return new Result(Outcome.WARNING, ":warning: You must specify a color.");

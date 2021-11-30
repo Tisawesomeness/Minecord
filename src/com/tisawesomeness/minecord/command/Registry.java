@@ -1,13 +1,13 @@
 package com.tisawesomeness.minecord.command;
 
-import java.util.LinkedHashMap;
-
 import com.tisawesomeness.minecord.command.Command.CommandInfo;
 import com.tisawesomeness.minecord.command.admin.*;
 import com.tisawesomeness.minecord.command.general.*;
 import com.tisawesomeness.minecord.command.misc.*;
 import com.tisawesomeness.minecord.command.player.*;
 import com.tisawesomeness.minecord.command.utility.*;
+
+import java.util.LinkedHashMap;
 
 /**
  * The list of all commands the bot knows.
@@ -21,7 +21,7 @@ public class Registry {
 	"`{&}user <user id> admin [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include \"mutual\" to show mutual guilds.\n" +
 	"`{&}guild <guild id> admin` - Show info and ban status for another guild.\n";
 
-	private static Command colorCmd = new ColorCommand();
+	private static final Command colorCmd = new ColorCommand();
 	public static final Module[] modules = {
 		new Module("General",
 			new GuildCommand(),
@@ -93,7 +93,7 @@ public class Registry {
 			new TestCommand()
 		)
 	};
-	private static LinkedHashMap<String, Command> commandMap = new LinkedHashMap<String, Command>();
+	private static final LinkedHashMap<String, Command> commandMap = new LinkedHashMap<>();
 	
 	/**
 	 * Adds every module to the registry and maps the possible aliases to the command to execute.

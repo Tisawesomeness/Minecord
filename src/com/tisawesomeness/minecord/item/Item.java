@@ -1,19 +1,19 @@
 package com.tisawesomeness.minecord.item;
 
+import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.util.RequestUtils;
+
+import net.dv8tion.jda.api.EmbedBuilder;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.regex.Pattern;
-
-import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.util.RequestUtils;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import net.dv8tion.jda.api.EmbedBuilder;
 
 public class Item {
 
@@ -224,10 +224,12 @@ public class Item {
             idStr = toParse;
         }
         // Id must be a nonnegative number
-        if (!idStr.matches(numberRegex)) {
+        int id;
+        try {
+            id = Integer.parseInt(idStr);
+        } catch (NumberFormatException ignored) {
             return null;
         }
-        int id = Integer.valueOf(idStr);
 
         // Banners special case
         if (id == 176 || id == 425) {
@@ -398,7 +400,7 @@ public class Item {
         JSONObject itemObj = items.getJSONObject(item);
         JSONObject langObj = itemObj.getJSONObject("lang").getJSONObject(lang);
         JSONObject properties = itemObj.optJSONObject("properties");
-        ArrayList<String> toCheck = new ArrayList<String>();
+        ArrayList<String> toCheck = new ArrayList<>();
         // Data must match or not matter
         if (data < 0 || (properties != null && properties.optInt("data", 0) == data)) {
             // Display, block, and previous names (but don't match display name if another item has it)
@@ -431,11 +433,9 @@ public class Item {
                 
             }
             // Equals ignore case
-            toCheck.removeIf(t -> t == null);
-            toCheck.replaceAll(t -> t.toLowerCase());
-            if (toCheck.contains(id)) {
-                return true;
-            }
+            toCheck.removeIf(Objects::isNull);
+            toCheck.replaceAll(String::toLowerCase);
+            return toCheck.contains(id);
         }
         return false;
     }
@@ -445,7 +445,7 @@ public class Item {
      * @return The converted id, or a blank string if a blank string is provided
      */
     private static String convertID(String id) {
-        return "".equals(id) ? "" : id.replace("minecraft.", "").replace("legacy.", "").replace("_", " ");
+        return id.isEmpty() ? "" : id.replace("minecraft.", "").replace("legacy.", "").replace("_", " ");
     }
     
     /**
@@ -455,10 +455,11 @@ public class Item {
      * @return An integer data value from 0-69 or -1 otherwise
      */
     private static int parseData(String data, String lang) {
-        if (data.matches(numberRegex)) {
-            return Integer.valueOf(data);
+        try {
+            return Integer.parseInt(data);
+        } catch (NumberFormatException ignored) {
+            return parseDataFromFile(data, lang);
         }
-        return parseDataFromFile(data, lang);
     }
     /**
      * Looks up a data value in data.json
@@ -504,7 +505,7 @@ public class Item {
      */
     private static int getID(String item) {
         JSONObject properties = items.getJSONObject(item).optJSONObject("properties");
-        return properties == null ? null : properties.optInt("id", -1);
+        return properties == null ? -1 : properties.optInt("id", -1);
     }
 
     /**

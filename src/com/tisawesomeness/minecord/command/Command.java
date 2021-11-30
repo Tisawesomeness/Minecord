@@ -1,11 +1,11 @@
 package com.tisawesomeness.minecord.command;
 
-import java.util.HashMap;
-
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
+
+import java.util.HashMap;
 
 /**
  * Represents a command.
@@ -13,7 +13,7 @@ import net.dv8tion.jda.api.entities.User;
 public abstract class Command implements ICommand {
 	
 	public int uses = 0;
-	public HashMap<User, Long> cooldowns = new HashMap<User, Long>();
+	public final HashMap<User, Long> cooldowns = new HashMap<>();
 	
 	/**
 	 * Represents all of the data needed to register a command.
@@ -88,9 +88,8 @@ public abstract class Command implements ICommand {
 	 * Represents the result of a command.
 	 */
 	public static class Result {
-		public Outcome outcome;
-		public Message message;
-		public double notifyMultiplier = 1;
+		public final Outcome outcome;
+		public final Message message;
 		
 		/**
 		 * Represents the result of a command.
@@ -116,66 +115,9 @@ public abstract class Command implements ICommand {
 		 * @param outcome Represents the outcome of the command, either SUCCESS, WARNING, or ERROR.
 		 * @param message The message to send.
 		 */
-		public Result(Outcome outcome, Message message) {
-			this.outcome = outcome;
-			this.message = message;
-		}
-		
-		/**
-		 * Represents the result of a command.
-		 * @param outcome Represents the outcome of the command, either SUCCESS, WARNING, or ERROR.
-		 * @param message The message to send.
-		 */
 		public Result(Outcome outcome, MessageEmbed message) {
 			this.outcome = outcome;
 			this.message = new MessageBuilder().setEmbeds(message).build();
-		}
-		
-		/**
-		 * Represents the result of a command.
-		 * @param outcome Represents the outcome of the command, either SUCCESS, WARNING, or ERROR.
-		 * @param notifyMultiplier The value to multiply the notification time by.
-		 */
-		public Result(Outcome outcome, double notifyMultiplier) {
-			this.outcome = outcome;
-			this.message = null;
-			this.notifyMultiplier = notifyMultiplier;
-		}
-		
-		/**
-		 * Represents the result of a command.
-		 * @param outcome Represents the outcome of the command, either SUCCESS, WARNING, or ERROR.
-		 * @param message The message to send.
-		 * @param notifyMultiplier The value to multiply the notification time by.
-		 */
-		public Result(Outcome outcome, String message, double notifyMultiplier) {
-			this.outcome = outcome;
-			this.message = new MessageBuilder().append(message).build();
-			this.notifyMultiplier = notifyMultiplier;
-		}
-		
-		/**
-		 * Represents the result of a command.
-		 * @param outcome Represents the outcome of the command, either SUCCESS, WARNING, or ERROR.
-		 * @param message The message to send.
-		 * @param notifyMultiplier The value to multiply the notification time by.
-		 */
-		public Result(Outcome outcome, Message message, double notifyMultiplier) {
-			this.outcome = outcome;
-			this.message = message;
-			this.notifyMultiplier = notifyMultiplier;
-		}
-		
-		/**
-		 * Represents the result of a command.
-		 * @param outcome Represents the outcome of the command, either SUCCESS, WARNING, or ERROR.
-		 * @param message The message to send.
-		 * @param notifyMultiplier The value to multiply the notification time by.
-		 */
-		public Result(Outcome outcome, MessageEmbed message, double notifyMultiplier) {
-			this.outcome = outcome;
-			this.message = new MessageBuilder().setEmbeds(message).build();
-			this.notifyMultiplier = notifyMultiplier;
 		}
 	}
 	
@@ -188,8 +130,8 @@ public abstract class Command implements ICommand {
 	public enum Outcome {
 		SUCCESS("Success"), WARNING("Warning"), ERROR("Error");
 
-		private String s;
-		private Outcome(String s) {
+		private final String s;
+		Outcome(String s) {
 			this.s = s;
 		}
 		public String toString() {

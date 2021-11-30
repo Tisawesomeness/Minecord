@@ -1,29 +1,22 @@
 package com.tisawesomeness.minecord.util;
 
-import java.awt.Color;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.regex.Pattern;
-
-import org.apache.commons.lang3.ArrayUtils;
-
 import com.tisawesomeness.minecord.Announcement;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.database.Database;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.SelfUser;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+import java.awt.Color;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.regex.Pattern;
+
 public class MessageUtils {
-	
-	public static long ownerID;
+
 	public static TextChannel logChannel;
 	
 	/**
@@ -38,22 +31,6 @@ public class MessageUtils {
 		EmbedBuilder eb = new EmbedBuilder();
 		if (title != null) eb.setTitle(title, url);
 		eb.setDescription(body);
-		eb.setColor(color);
-		eb = addFooter(eb);
-		return eb.build();
-	}
-	
-	/**
-	 * Formats an image to look more fancy using an embed.
-	 * @param title The title or header.
-	 * @param url The URL of the image.
-	 * @param color The color of the embed. Discord markdown formatting and newline are supported.
-	 * @return A MessageEmbed representing the message. You can add additional info (e.g. fields) by passing this variable into a new EmbedBuilder.
-	 */
-	public static MessageEmbed embedImage(String title, String url, Color color) {
-		EmbedBuilder eb = new EmbedBuilder();
-		if (title != null) {eb.setAuthor(title, null, null);}
-		eb.setImage(url);
 		eb.setColor(color);
 		eb = addFooter(eb);
 		return eb.build();
@@ -97,14 +74,6 @@ public class MessageUtils {
 	/**
 	 * Logs a message to the logging channel.
 	 */
-	public static void log(Message m) {
-		if (!Config.getLogChannel().equals("0")) {
-			logChannel.sendMessage(m).queue();
-		}
-	}
-	/**
-	 * Logs a message to the logging channel.
-	 */
 	public static void log(MessageEmbed m) {
 		if (!Config.getLogChannel().equals("0")) {
 			EmbedBuilder eb = new EmbedBuilder(m);
@@ -120,18 +89,12 @@ public class MessageUtils {
 		String content = m.getContentRaw();
 		if (m.getContentRaw().startsWith(prefix)) {
 			return content.replaceFirst(Pattern.quote(prefix), "").split(" ");
-		} else if (content.replaceFirst("@!", "@").startsWith(su.getAsMention())) {
+		} else if (content.replace("@!", "@").startsWith(su.getAsMention())) {
 			String[] args = content.split(" ");
-			return ArrayUtils.removeElement(args, args[0]);
+			return ArrayUtils.remove(args, 0);
 		} else {
 			return null;
 		}
-	}
-	
-	public static String dateErrorString(String prefix, String cmd) {
-		return ":x: Improperly formatted date. " +
-			"At least a date or time is required. " +
-			"Do `" + prefix + cmd + "` for more info.";
 	}
 
 	/**
@@ -166,7 +129,7 @@ public class MessageUtils {
 	 * @return A list of strings where every string length < maxLength - 1
 	 */
 	public static ArrayList<String> splitLinesByLength(ArrayList<String> lines, int maxLength) {
-		ArrayList<String> split = new ArrayList<String>();
+		ArrayList<String> split = new ArrayList<>();
 		String splitBuf = "";
 		for (int i = 0; i < lines.size(); i++) {
 			// Max line length check

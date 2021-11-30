@@ -60,7 +60,7 @@ public class PrefixCommand extends Command {
 				return new Result(Outcome.WARNING, ":warning: The prefix you specified is too long!");
 			}
 			//Easter egg for those naughty bois
-			if (args[0].equals("'") && args[1].equals("OR") && args[2].equals("1=1")) {
+			if (args.length == 3 && args[0].equals("'") && args[1].equals("OR") && args[2].equals("1=1")) {
 				return new Result(Outcome.SUCCESS, "Nice try.");
 			}
 			//Set new prefix

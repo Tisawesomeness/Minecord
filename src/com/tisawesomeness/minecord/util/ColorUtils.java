@@ -1,11 +1,11 @@
 package com.tisawesomeness.minecord.util;
 
+import org.json.JSONObject;
+
 import java.awt.Color;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-
-import org.json.JSONObject;
 
 public class ColorUtils {
 
@@ -97,7 +97,7 @@ public class ColorUtils {
     }
     /**
      * Gets the hex code for a color
-     * @param raw The color
+     * @param c The color
      * @return The hex code in #ffffff format
      */
     public static String getHexCode(Color c) {

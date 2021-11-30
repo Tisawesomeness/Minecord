@@ -1,20 +1,20 @@
 package com.tisawesomeness.minecord;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class Announcement {
 
-    private static ArrayList<Announcement> announcements = new ArrayList<Announcement>();
+    private static ArrayList<Announcement> announcements = new ArrayList<>();
     private static int totalWeight;
-    private String text;
-    private int weight;
+    private final String text;
+    private final int weight;
 
     private Announcement(String text, int weight) {
         this.text = DiscordUtils.parseConstants(text);
@@ -27,7 +27,7 @@ public class Announcement {
      * @throws IOException If announce.json is not found
      */
     public static void init(String path) throws IOException {
-        announcements = new ArrayList<Announcement>();
+        announcements = new ArrayList<>();
         JSONArray announceArr = RequestUtils.loadJSONArray(path + "/announce.json");
         for (int i = 0; i < announceArr.length(); i++) {
             JSONObject announceObj = announceArr.getJSONObject(i);

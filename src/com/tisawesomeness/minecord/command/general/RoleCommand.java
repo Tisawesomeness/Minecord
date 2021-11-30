@@ -1,7 +1,5 @@
 package com.tisawesomeness.minecord.command.general;
 
-import java.util.List;
-
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
@@ -14,6 +12,8 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import java.util.List;
 
 public class RoleCommand extends Command {
 
@@ -50,7 +50,7 @@ public class RoleCommand extends Command {
             "- `{&}role 347797250266628108 admin`\n";
     }
 
-    public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+    public Result run(String[] args, MessageReceivedEvent e) {
 
         // Check for argument length
         if (args.length == 0) {
@@ -68,7 +68,7 @@ public class RoleCommand extends Command {
         } else if (mentioned.size() > 0) {
             role = mentioned.get(0);
         // Search by id
-        } else if (args[0].matches(DiscordUtils.idRegex)) {
+        } else if (DiscordUtils.isDiscordId(args[0])) {
             role = e.getGuild().getRoleById(args[0]);
         // Search by name
         } else {

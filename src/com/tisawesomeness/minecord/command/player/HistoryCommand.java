@@ -1,8 +1,5 @@
 package com.tisawesomeness.minecord.command.player;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.util.DateUtils;
@@ -10,11 +7,12 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import java.util.ArrayList;
 
 public class HistoryCommand extends Command {
 	
@@ -46,11 +44,11 @@ public class HistoryCommand extends Command {
 
 		// No arguments message
 		if (args.length == 0) {
-			return new Result(Outcome.WARNING, ":warning: You must specify a player.", 5);
+			return new Result(Outcome.WARNING, ":warning: You must specify a player.");
 		}
 
 		String player = args[0];	
-		if (!player.matches(NameUtils.uuidRegex)) {
+		if (!NameUtils.isUuid(player)) {
 			String uuid = NameUtils.getUUID(player);
 			
 			// Check for errors
@@ -58,17 +56,17 @@ public class HistoryCommand extends Command {
 				String m = ":x: The Mojang API could not be reached." +
 					"\n" + "Are you sure that username exists?" +
 					"\n" + "Usernames are case-sensitive.";
-				return new Result(Outcome.WARNING, m, 2);
-			} else if (!uuid.matches(NameUtils.uuidRegex)) {
+				return new Result(Outcome.WARNING, m);
+			} else if (!NameUtils.isUuid(player)) {
 				String m = ":x: The API responded with an error:\n" + uuid;
-				return new Result(Outcome.ERROR, m, 3);
+				return new Result(Outcome.ERROR, m);
 			}
 			
 			player = uuid;
 		}
 
 		// Fetch name history
-		String url = "https://api.mojang.com/user/profiles/" + player.replaceAll("-", "") + "/names";
+		String url = "https://api.mojang.com/user/profiles/" + player.replace("-", "") + "/names";
 		String request = RequestUtils.get(url);
 		if (request == null) {
 			return new Result(Outcome.ERROR, ":x: The Mojang API could not be reached.");
@@ -76,7 +74,7 @@ public class HistoryCommand extends Command {
 		
 		// Loop over each name change
 		JSONArray names = new JSONArray(request);
-		ArrayList<String> lines = new ArrayList<String>();
+		ArrayList<String> lines = new ArrayList<>();
 		for (int i = 0; i < names.length(); i++) {
 			
 			// Get info

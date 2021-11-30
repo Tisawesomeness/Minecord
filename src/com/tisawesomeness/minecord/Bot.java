@@ -1,5 +1,23 @@
 package com.tisawesomeness.minecord;
 
+import com.tisawesomeness.minecord.command.Registry;
+import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.database.VoteHandler;
+import com.tisawesomeness.minecord.item.Item;
+import com.tisawesomeness.minecord.item.Recipe;
+import com.tisawesomeness.minecord.util.*;
+
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
+import net.dv8tion.jda.api.sharding.ShardManager;
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
+import org.discordbots.api.client.DiscordBotListAPI;
+
 import java.awt.Color;
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -7,30 +25,6 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
-
-import org.apache.commons.lang3.ArrayUtils;
-import org.discordbots.api.client.DiscordBotListAPI;
-
-import com.tisawesomeness.minecord.command.Registry;
-import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.database.VoteHandler;
-import com.tisawesomeness.minecord.item.Item;
-import com.tisawesomeness.minecord.item.Recipe;
-import com.tisawesomeness.minecord.util.ColorUtils;
-import com.tisawesomeness.minecord.util.DateUtils;
-import com.tisawesomeness.minecord.util.DiscordUtils;
-import com.tisawesomeness.minecord.util.MessageUtils;
-import com.tisawesomeness.minecord.util.RequestUtils;
-
-import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
-import net.dv8tion.jda.api.sharding.ShardManager;
-import net.dv8tion.jda.api.utils.MemberCachePolicy;
-import net.dv8tion.jda.api.utils.cache.CacheFlag;
-import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.requests.GatewayIntent;
 
 public class Bot {
 
@@ -41,9 +35,9 @@ public class Bot {
 	public static final String helpServer = "https://minecord.github.io/support";
 	public static final String website = "https://minecord.github.io";
 	public static final String github = "https://github.com/Tisawesomeness/Minecord";
-	private static final String version = "0.13.5";
+	private static final String version = "0.13.6";
 	public static final String javaVersion = "1.8";
-	public static final String jdaVersion = "4.3.0_334";
+	public static final String jdaVersion = "4.3.0_350";
 	public static final Color color = Color.GREEN;
 
 	public static ShardManager shardManager;
@@ -71,8 +65,7 @@ public class Bot {
 		Bot.args = args;
 		Config.read(false);
 		if (Config.getDevMode() && !devMode) return false;
-		boolean reload = false;
-		if (args.length > 0 && ArrayUtils.contains(args, "-r")) reload = true;
+		boolean reload = args.length > 0 && ArrayUtils.contains(args, "-r");
 
 		//Pre-init
 		thread = Thread.currentThread();
@@ -182,7 +175,7 @@ public class Bot {
 			db.join();
 			if (ws != null) ws.join();
 			System.out.println("Bot ready!");
-		} catch (InterruptedException ex) {}
+		} catch (InterruptedException ignored) {}
 
 		//Update persistent bot info
 		if (!Config.getLogChannel().equals("0")) {
@@ -209,8 +202,7 @@ public class Bot {
 		}
 		try {
 			//Reload this class using reflection
-			String[] args = new String[]{"-r"};
-			ArrayUtils.addAll(args, Bot.args);
+			String[] args = ArrayUtils.addAll(new String[]{"-r"}, Bot.args);
 			MethodName.SET_MESSAGE.method().invoke(null, m);
 			MethodName.SET_USER.method().invoke(null, u);
 			MethodName.LOAD.method().invoke(null, (Object) args);
@@ -240,8 +232,8 @@ public class Bot {
 		GET_BIRTH("getBirth"),
 		SET_BIRTH("setBirth");
 
-		private String name;
-		private MethodName(String name) {
+		private final String name;
+		MethodName(String name) {
 			this.name = name;
 		}
 

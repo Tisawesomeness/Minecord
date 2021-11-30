@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
@@ -37,27 +36,25 @@ public class CapeCommand extends Command {
 	}
 
 	public Result run(String[] args, MessageReceivedEvent e) {
-		String prefix = MessageUtils.getPrefix(e);
-
 		// No arguments message
 		if (args.length == 0) {
-			return new Result(Outcome.WARNING, ":warning: You must specify a player.", 5);
+			return new Result(Outcome.WARNING, ":warning: You must specify a player.");
 		}
 
 		// Get playername
 		String player = args[0];
 		String uuid = player;
-		if (player.matches(NameUtils.uuidRegex)) {
+		if (NameUtils.isUuid(player)) {
 			player = NameUtils.getName(player);
 
 			// Check for errors
 			if (player == null) {
 				String m = ":x: The Mojang API could not be reached." +
 					"\n" + "Are you sure that UUID exists?";
-				return new Result(Outcome.WARNING, m, 1.5);
-			} else if (!player.matches(NameUtils.playerRegex)) {
+				return new Result(Outcome.WARNING, m);
+			} else if (!NameUtils.isUsername(player)) {
 				String m = ":x: The API responded with an error:\n" + player;
-				return new Result(Outcome.ERROR, m, 3);
+				return new Result(Outcome.ERROR, m);
 			}
 		} else {
 			// Parse date argument
@@ -68,10 +65,10 @@ public class CapeCommand extends Command {
 				String m = ":x: The Mojang API could not be reached." +
 						"\n" +"Are you sure that username exists?" +
 						"\n" + "Usernames are case-sensitive.";
-				return new Result(Outcome.WARNING, m, 2);
-			} else if (!uuid.matches(NameUtils.uuidRegex)) {
+				return new Result(Outcome.WARNING, m);
+			} else if (!NameUtils.isUuid(player)) {
 				String m = ":x: The API responded with an error:\n" + uuid;
-				return new Result(Outcome.ERROR, m, 3);
+				return new Result(Outcome.ERROR, m);
 			}
 
 			uuid = uuid.replace("-", "").toLowerCase();
@@ -80,22 +77,15 @@ public class CapeCommand extends Command {
 		// Minecraft capes
 		MessageChannel c = e.getChannel();
 		boolean hasCape = false;
-		if (NameUtils.mojangUUIDs.contains(uuid)) {
-			// Mojang cape
-			sendImage(c, "Minecraft Cape", "https://minecord.github.io/capes/mojang.png");
+		String url = "https://crafatar.com/capes/" + uuid;
+		if (RequestUtils.checkURL(url)) {
+			sendImage(c, "Minecraft Cape", url);
 			hasCape = true;
-		} else {
-			// Other minecraft capes
-			String url = "https://crafatar.com/capes/" + uuid;
-			if (RequestUtils.checkURL(url)) {
-				sendImage(c, "Minecraft Cape", url);
-				hasCape = true;
-			}
 		}
 		// Optifine cape
-		String url = String.format("http://s.optifine.net/capes/%s.png", player);
-		if (RequestUtils.checkURL(url)) {
-			sendImage(c, "Optifine Cape", url);
+		String optifineUrl = String.format("http://s.optifine.net/capes/%s.png", player);
+		if (RequestUtils.checkURL(optifineUrl)) {
+			sendImage(c, "Optifine Cape", optifineUrl);
 			hasCape = true;
 		}
 		

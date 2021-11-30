@@ -1,8 +1,5 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.ReactMenu.MenuStatus;
 import com.tisawesomeness.minecord.command.Command;
@@ -11,6 +8,9 @@ import com.tisawesomeness.minecord.item.Recipe;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class RecipeCommand extends Command {
 
@@ -31,21 +31,21 @@ public class RecipeCommand extends Command {
 
 	public String getHelp() {
 		return "Shows the recipes for an item.\n" +
-			"Items and recipes are from Java Edition 1.7 to 1.17.\n" +
+			"Items and recipes are from Java Edition 1.7 to 1.18.\n" +
 			"All recipe types are searchable, including brewing.\n" +
 			"\n" +
 			Item.help + "\n";
 	}
 
-	public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+	public Result run(String[] args, MessageReceivedEvent e) {
 
 		// Parse page number
 		int page = 0;
 		if (args.length > 1) {
-			if (args[args.length - 1].matches("^[0-9]+$")) {
-				page = Integer.valueOf(args[args.length - 1]) - 1;
+			try {
+				page = Integer.parseInt(args[args.length - 1]) - 1;
 				args = Arrays.copyOf(args, args.length - 1);
-			}
+			} catch (NumberFormatException ignored) {}
 		}
 
 		// Check for argument length

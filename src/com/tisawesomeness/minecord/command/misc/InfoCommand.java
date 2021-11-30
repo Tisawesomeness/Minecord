@@ -1,8 +1,5 @@
 package com.tisawesomeness.minecord.command.misc;
 
-import java.text.CharacterIterator;
-import java.text.StringCharacterIterator;
-
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
@@ -14,6 +11,9 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
+
+import java.text.CharacterIterator;
+import java.text.StringCharacterIterator;
 
 public class InfoCommand extends Command {
 	
@@ -39,11 +39,8 @@ public class InfoCommand extends Command {
 		DiscordUtils.update();
 		
 		// If the author used the admin keyword and is an elevated user
-		boolean elevated = false;
-		if (args.length > 0 && args[0].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
-			elevated = true;
-		}
-		
+		boolean elevated = args.length > 0 && args[0].equals("admin") && Database.isElevated(e.getAuthor().getIdLong());
+
 		// Build message
 		EmbedBuilder eb = new EmbedBuilder();
 		
@@ -54,13 +51,13 @@ public class InfoCommand extends Command {
 		}
 		eb.addField("Version", Bot.getVersion(), true);
 		
-		String guilds = Bot.shardManager.getGuilds().size() + "";
+		String guilds = String.valueOf(Bot.shardManager.getGuilds().size());
 		if (Config.getShardCount() > 1) {
 			String shards = e.getJDA().getShardInfo().getShardId() + 1 + "/" + Config.getShardCount();
 			eb.addField("Shard", shards, true);
 			guilds += " {" + e.getJDA().getGuilds().size() + "}";
 		}
-		eb.addField("Guilds", guilds + "", true);
+		eb.addField("Guilds", guilds, true);
 		
 		eb.addField("Uptime", DateUtils.getUptime(), true);
 		eb.addField("Ping", Bot.shardManager.getAverageGatewayPing() + "ms", true);

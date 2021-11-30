@@ -1,12 +1,12 @@
 package com.tisawesomeness.minecord;
 
-import java.io.IOException;
+import com.tisawesomeness.minecord.util.ArrayUtils;
+import com.tisawesomeness.minecord.util.RequestUtils;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.tisawesomeness.minecord.util.RequestUtils;
+import java.io.IOException;
 
 public class Config {
 
@@ -60,8 +60,8 @@ public class Config {
 				if (index + 1 < args.length) {
 					args = ArrayUtils.remove(args, index);
 					String token = args[index];
-					if (token.matches("{32,}")) {
-						System.out.println("Found custom client token: " + token);
+					if (token.length() >= 32) {
+						System.out.println("Found custom client token (hash): " + token.hashCode());
 						clientToken = token;
 						args = ArrayUtils.remove(args, index);
 					}

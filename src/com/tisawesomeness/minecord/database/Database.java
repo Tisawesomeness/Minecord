@@ -1,24 +1,22 @@
 package com.tisawesomeness.minecord.database;
 
-import java.lang.reflect.InvocationTargetException;
+import com.tisawesomeness.minecord.Config;
+
+import com.mysql.cj.jdbc.MysqlDataSource;
+import org.sqlite.SQLiteDataSource;
+
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-import javax.sql.DataSource;
-
-import org.sqlite.SQLiteDataSource;
-
-import com.mysql.cj.jdbc.MysqlDataSource;
-import com.tisawesomeness.minecord.Config;
-
 public class Database {
 	
 	private static DataSource source;
-	private static HashMap<Long, DbGuild> guilds = new HashMap<Long, DbGuild>();
-	private static HashMap<Long, DbUser> users = new HashMap<Long, DbUser>();
+	private static final HashMap<Long, DbGuild> guilds = new HashMap<>();
+	private static final HashMap<Long, DbUser> users = new HashMap<>();
 	
 	private static Connection getConnect() throws SQLException {
 		return source.getConnection();
@@ -77,7 +75,7 @@ public class Database {
 		
 		// Add owner to elevated
 		if (!Config.getOwner().equals("0")) {
-			changeElevated(Long.valueOf(Config.getOwner()), true);
+			changeElevated(Long.parseLong(Config.getOwner()), true);
 		}
 		
 		refresh();

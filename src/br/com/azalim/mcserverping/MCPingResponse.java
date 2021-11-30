@@ -28,10 +28,11 @@
  */
 package br.com.azalim.mcserverping;
 
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.List;
 
 /**
  * References: http://wiki.vg/Server_List_Ping
@@ -42,37 +43,37 @@ import lombok.ToString;
 public class MCPingResponse {
 
     /**
-     * @return the MOTD
+     * the MOTD
      */
     private Description description;
 
     /**
-     * @return @{link Players}
+     * {@link Players}
      */
     private Players players;
 
     /**
-     * @return @{link Version}
+     * {@link Version}
      */
     private Version version;
 
     /**
-     * @return Base64 encoded favicon image
+     * Base64 encoded favicon image
      */
     private String favicon;
 
     /**
-     * @return Ping in ms.
+     * Ping in ms.
      */
     @Setter
     private long ping;
 
     @Getter
     @ToString
-    public class Description {
+    public static class Description {
 
         /**
-         * @return Server description text
+         * Server description text
          */
         private String text;
 
@@ -84,20 +85,20 @@ public class MCPingResponse {
 
     @Getter
     @ToString
-    public class Players {
+    public static class Players {
 
         /**
-         * @return Maximum player count
+         * Maximum player count
          */
         private int max;
 
         /**
-         * @return Online player count
+         * Online player count
          */
         private int online;
 
         /**
-         * @return List of some players (if any) specified by server
+         * List of some players (if any) specified by server
          */
         private List<Player> sample;
 
@@ -105,15 +106,15 @@ public class MCPingResponse {
 
     @Getter
     @ToString
-    public class Player {
+    public static class Player {
 
         /**
-         * @return Name of player
+         * Name of player
          */
         private String name;
 
         /**
-         * @return Unknown
+         * Unknown
          */
         private String id;
 
@@ -121,14 +122,14 @@ public class MCPingResponse {
 
     @Getter
     @ToString
-    public class Version {
+    public static class Version {
 
         /**
-         * @return Version name (ex: 13w41a)
+         * Version name (ex: 13w41a)
          */
         private String name;
         /**
-         * @return Protocol version
+         * Protocol version
          */
         private int protocol;
 

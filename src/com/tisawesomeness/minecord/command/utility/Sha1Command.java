@@ -29,7 +29,7 @@ public class Sha1Command extends Command {
             "- `{&}sha1 mc.hypixel.net`\n";
     }
 
-    public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+    public Result run(String[] args, MessageReceivedEvent e) {
         if (args.length == 0) {
             return new Result(Outcome.WARNING, ":warning: You must specify some text to hash.");
         }
