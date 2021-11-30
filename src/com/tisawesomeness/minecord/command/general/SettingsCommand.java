@@ -133,7 +133,7 @@ public class SettingsCommand extends Command {
                     return new Result(Outcome.WARNING, ":warning: The prefix you specified is too long!");
                 }
                 //Easter egg for those naughty bois
-                if (args[1].equals("'") && args[2].equals("OR") && args[3].equals("1=1")) {
+                if (args.length == 4 && args[1].equals("'") && args[2].equals("OR") && args[3].equals("1=1")) {
                     return new Result(Outcome.WARNING, "Nice try.");
                 }
                 // Check for duplicate
