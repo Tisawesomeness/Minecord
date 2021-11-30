@@ -389,7 +389,11 @@ public class Recipe {
          */
 		public RecipeMenu(List<String> recipeList, int page, String lang) {
 			super(page, lang);
-			this.recipeList = recipeList.stream()
+            setRecipeList(recipeList);
+        }
+
+        private void setRecipeList(List<String> recipeList) {
+            this.recipeList = recipeList.stream()
                     .sequential()
                     .sorted(Recipe::compareRecipes)
                     .collect(Collectors.toList());
@@ -458,7 +462,7 @@ public class Recipe {
             boolean hasOutput = outputMore != null && outputMore.size() > 0;
             buttons.put(Emote.UP.getCodepoint(), () -> {
                 if (hasOutput) {
-                    recipeList = outputMore;
+                    setRecipeList(outputMore);
                     startingIngredient = 0;
                     setPage(0);
                 }
@@ -587,7 +591,7 @@ public class Recipe {
                     if (ingredientMore.size() > 0) {
                         Emote emote = Emote.valueOf(c + 1);
                         buttons.put(emote.getCodepoint(), () -> {
-                            recipeList = ingredientMore;
+                            setRecipeList(ingredientMore);
                             startingIngredient = 0;
                             setPage(0);
                         });
@@ -623,7 +627,7 @@ public class Recipe {
                 ArrayList<String> output = searchItemOutput(ingredient, getLang());
                 desc += String.format("\n%s %s", Emote.N1.getText(), Item.getDisplayName(Item.search(ingredient, getLang()), getLang()));
                 buttons.put(Emote.N1.getCodepoint(), () -> {
-                    recipeList = output;
+                    setRecipeList(output);
                     startingIngredient = 0;
                     setPage(0);
                 });
