@@ -29,7 +29,7 @@ public class IngredientCommand extends Command {
 
 	public String getHelp() {
 		return "Searches for the recipes containing an ingredient.\n" +
-			"Items and recipes are from Java Edition 1.7 to 1.17.\n" +
+			"Items and recipes are from Java Edition 1.7 to 1.18.\n" +
 			"All recipe types are searchable, including brewing.\n" +
 			"\n" +
 			Item.help + "\n";
