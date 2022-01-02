@@ -105,17 +105,26 @@ public class PermsCommand extends Command {
         }
 
         EnumSet<Permission> perms = c.getGuild().getSelfMember().getPermissions(c);
-        String m = String.format("**Bot Permissions for %s:**", c.getName()) +
+        String m = String.format("**Bot Permissions for %s:**", c.getAsMention()) +
             "\nView channels: " + DiscordUtils.getBoolEmote(perms.contains(Permission.VIEW_CHANNEL)) +
             "\nRead messages: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_READ)) +
             "\nRead message history: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_HISTORY)) +
             "\nWrite messages: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_WRITE)) +
             "\nEmbed links: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_EMBED_LINKS)) +
+            "\nAttach files: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_ATTACH_FILES)) +
             "\nAdd reactions: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_ADD_REACTION)) +
             "\nManage messages: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_MANAGE)) +
+            "\nCan upload favicons: " + getFaviconEmote(perms) +
             "\nCan use reaction menus: " + getMenuEmote(perms);
         
         return new Result(Outcome.SUCCESS, m);
+    }
+
+    private static String getFaviconEmote(EnumSet<Permission> perms) {
+        if (perms.contains(Permission.MESSAGE_ATTACH_FILES)) {
+            return ":white_check_mark:";
+        }
+        return ":x: Give attach files permissions and add reactions permissions to fix";
     }
 
     private static String getMenuEmote(EnumSet<Permission> perms) {
@@ -123,9 +132,9 @@ public class PermsCommand extends Command {
             if (perms.contains(Permission.MESSAGE_MANAGE)) {
                 return ":white_check_mark:";
             }
-            return ":warning: Partial, users must remove reactions manually, give manage messages perms to fix";
+            return ":warning: Partial, users must remove reactions manually, give manage messages permissions to fix";
         }
-        return ":x:";
+        return ":x: Give embed links and add reactions permissions to fix";
     }
     
 }
