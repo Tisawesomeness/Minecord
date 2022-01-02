@@ -3,7 +3,6 @@ package com.tisawesomeness.minecord.command.general;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
@@ -13,6 +12,7 @@ import net.dv8tion.jda.api.entities.Guild.BoostTier;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
+import net.dv8tion.jda.api.utils.TimeFormat;
 import net.dv8tion.jda.api.utils.TimeUtil;
 
 public class GuildCommand extends Command {
@@ -79,7 +79,7 @@ public class GuildCommand extends Command {
             .addField("Verification Level", g.getVerificationLevel().toString(), true)
             .addField("Owner", MarkdownSanitizer.escape(owner.getAsTag()), true)
             .addField("Owner ID", owner.getId(), true)
-            .addField("Created", DateUtils.getDateAgo(TimeUtil.getTimeCreated(g)), false);
+            .addField("Created", TimeFormat.RELATIVE.format(TimeUtil.getTimeCreated(g)), true);
          if (g.getBoostTier() == BoostTier.UNKNOWN) {
             eb.addField("Boosts", g.getBoostCount() + " (Unknown Tier)", true);
         } else {

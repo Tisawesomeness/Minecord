@@ -4,7 +4,6 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.ColorUtils;
-import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
@@ -12,6 +11,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.utils.TimeFormat;
 
 import java.util.List;
 
@@ -93,7 +93,7 @@ public class RoleCommand extends Command {
             .addField("Mentionable?", role.isMentionable() ? "Yes" : "No", true)
             .addField("Hoisted?", role.isHoisted() ? "Yes" : "No", true)
             .addField("Managed?", role.isManaged() ? "Yes" : "No", true)
-            .addField("Role Created", DateUtils.getDateAgo(role.getTimeCreated()), false);
+            .addField("Role Created", TimeFormat.RELATIVE.format(role.getTimeCreated()), true);
 
         return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
     }
