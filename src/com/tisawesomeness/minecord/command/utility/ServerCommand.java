@@ -132,7 +132,7 @@ public class ServerCommand extends Command {
 		} else {
 			String favicon = reply.getFavicon().replace("\n", "");
 			if (favicon.contains(",")) {
-				if (e.getMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_ATTACH_FILES)) {
+				if (!e.isFromGuild() || e.getGuild().getSelfMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_ATTACH_FILES)) {
 					try {
 						byte[] data = Base64.getDecoder().decode(favicon.split(",")[1]);
 						e.getChannel().sendFile(data, "favicon.png").setEmbeds(eb.setDescription(m).setThumbnail("attachment://favicon.png").build()).queue();
