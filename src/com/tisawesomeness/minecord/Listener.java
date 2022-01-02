@@ -20,6 +20,7 @@ import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -151,26 +152,36 @@ public class Listener extends ListenerAdapter {
 		
 		//Catch exceptions
 		if (result == null) {
-			StringBuilder err;
+			String err;
 			if (exception == null) {
-				err = new StringBuilder(":x: There was a null exception");
+				err = ":boom: There was a null exception";
 			} else {
-				err = new StringBuilder(":x: There was an unexpected exception: `" + exception + "`\n```");
 				if (Config.getDebugMode()) {
 					exception.printStackTrace();
+
+					StringBuilder errSb = new StringBuilder();
+					boolean seenMinecordCode = false;
 					for (StackTraceElement ste : exception.getStackTrace()) {
-						err.append("\n").append(ste.toString());
+						errSb.append("\n").append(ste.toString());
 						String className = ste.getClassName();
-						if (className.contains("net.dv8tion") || className.contains("com.neovisionaries")) {
-							err.append("...");
-							break;
+						if (className.startsWith("net.dv8tion") || className.startsWith("com.neovisionaries")) {
+							if (seenMinecordCode) {
+								errSb.append("...");
+								break;
+							}
+						} else if (className.startsWith("com.tisawesomeness") || className.startsWith("br.com.azalim")) {
+							seenMinecordCode = true;
 						}
 					}
+
+					err = ":boom: There was an unexpected exception: " + MarkdownUtil.monospace(exception.toString()) +
+							"\n" + MarkdownUtil.codeblock("java", errSb.toString());
+				} else {
+					err = ":boom: There was an unexpected exception: " + MarkdownUtil.monospace(exception.toString());
 				}
-				err.append("```");
 			}
-			MessageUtils.log(err.toString());
-			c.sendMessage(err.toString()).queue();
+			MessageUtils.log(err);
+			c.sendMessage(err).queue();
 		//If message is empty
 		} else if (result.message == null) {
 			if (result.outcome != null && result.outcome != Outcome.SUCCESS) {

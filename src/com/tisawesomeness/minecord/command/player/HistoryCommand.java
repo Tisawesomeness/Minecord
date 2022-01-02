@@ -2,13 +2,13 @@ package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.NameUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.utils.TimeFormat;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -82,7 +82,7 @@ public class HistoryCommand extends Command {
 			String name = change.getString("name");
 			String date;
 			if (change.has("changedToAt")) {
-				date = DateUtils.getDateAgo(change.getLong("changedToAt"));
+				date = TimeFormat.RELATIVE.format(change.getLong("changedToAt"));
 			} else {
 				date = "Original";
 			}

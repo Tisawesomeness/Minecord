@@ -3,7 +3,6 @@ package com.tisawesomeness.minecord.command.general;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
@@ -15,6 +14,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 import net.dv8tion.jda.api.requests.ErrorResponse;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
+import net.dv8tion.jda.api.utils.TimeFormat;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -148,10 +148,10 @@ public class UserCommand extends Command {
             .addField("ID", u.getId(), true)
             .addField("Nickname", mem.getNickname() == null ? "None" : MarkdownSanitizer.escape(mem.getNickname()), true)
             .addField("Bot?", u.isBot() ? "Yes" : "No", true)
-            .addField("Joined Server", DateUtils.getDateAgo(mem.getTimeJoined()), false)
-            .addField("Created Account", DateUtils.getDateAgo(u.getTimeCreated()), false);
+            .addField("Joined Server", TimeFormat.RELATIVE.format(mem.getTimeJoined()), false)
+            .addField("Created Account", TimeFormat.RELATIVE.format(u.getTimeCreated()), false);
         if (mem.getTimeBoosted() != null) {
-            eb.addField("Boosted", DateUtils.getDateAgo(mem.getTimeBoosted()), false);
+            eb.addField("Boosted", TimeFormat.RELATIVE.format(mem.getTimeBoosted()), false);
         }
         eb.addField("Roles", roles.toString(), false);
         return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());

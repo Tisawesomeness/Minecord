@@ -4,14 +4,15 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.ColorUtils;
-import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.RoleIcon;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.utils.TimeFormat;
 
 import java.util.List;
 
@@ -84,6 +85,7 @@ public class RoleCommand extends Command {
             return new Result(Outcome.WARNING, ":warning: That role does not exist.");
         }
 
+        Role.RoleTags tags = role.getTags();
         EmbedBuilder eb = new EmbedBuilder()
             .setTitle(role.getName().substring(0, Math.min(MessageEmbed.TITLE_MAX_LENGTH, role.getName().length())))
             .setColor(role.getColorRaw())
@@ -92,8 +94,26 @@ public class RoleCommand extends Command {
             .addField("Position", (role.getPosition() + 2) + "/" + roles.size(), true) // Position corrected so @everyone is pos 1
             .addField("Mentionable?", role.isMentionable() ? "Yes" : "No", true)
             .addField("Hoisted?", role.isHoisted() ? "Yes" : "No", true)
-            .addField("Managed?", role.isManaged() ? "Yes" : "No", true)
-            .addField("Role Created", DateUtils.getDateAgo(role.getTimeCreated()), false);
+            .addField("Integration?", tags.isIntegration() ? "Yes" : "No", true);
+        if (tags.isIntegration()) {
+            eb.addField("Integration ID", tags.getIntegrationId(), true);
+        }
+        eb.addField("Bot?", tags.isBot() ? "Yes" : "No", true);
+        if (tags.isBot()) {
+            eb.addField("Bot ID", tags.getBotId(), true);
+        }
+        eb.addField("Boost?", tags.isBoost() ? "Yes" : "No", true);
+
+        RoleIcon icon = role.getIcon();
+        if (icon != null) {
+            if (icon.isEmoji()) {
+                eb.addField("Role Icon Emoji", icon.getEmoji(), true);
+            } else {
+                eb.setThumbnail(icon.getIconUrl());
+            }
+        }
+
+        eb.addField("Role Created", TimeFormat.RELATIVE.format(role.getTimeCreated()), false);
 
         return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
     }

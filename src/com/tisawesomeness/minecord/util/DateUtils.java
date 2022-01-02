@@ -2,18 +2,8 @@ package com.tisawesomeness.minecord.util;
 
 import com.tisawesomeness.minecord.Bot;
 
-import java.time.Instant;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-
 public class DateUtils {
 
-	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy @ hh:mm:ss a z").withZone(ZoneId.systemDefault());
-	private static final DateTimeFormatter formatterShort = DateTimeFormatter.ofPattern("MM/dd/yyyy").withZone(ZoneId.systemDefault());
-	
 	public static String getUptime() {
 		long uptimeRaw = System.currentTimeMillis() - Bot.birth;
 		uptimeRaw = Math.floorDiv(uptimeRaw, 1000L);
@@ -49,42 +39,6 @@ public class DateUtils {
 	 */
 	public static String getBootTime() {
 		return (double) Bot.bootTime / 1000 + "s";
-	}
-
-	/**
-	 * Generates a string with the formatted date and the amount of days since that date
-	 * @param time The timestamp to measure, must be in the past
-	 * @return A string formatted to "%s (%d days ago)"
-	 */
-	public static String getDateAgo(long time) {
-		return getDateAgo(Instant.ofEpochMilli(time).atOffset(ZoneOffset.UTC));
-	}
-
-	/**
-	 * Generates a string with the formatted date and the amount of days since that date
-	 * @param time The date to measure, must be in the past
-	 * @return A string formatted to "%s (%d days ago)"
-	 */
-	public static String getDateAgo(OffsetDateTime time) {
-		return String.format("%s (**%d** days ago)", time.format(formatter), time.until(OffsetDateTime.now(), ChronoUnit.DAYS));
-	}
-
-	/**
-	 * Generates a string with the formatted date and the amount of days since that date
-	 * @param time The timestamp to measure, must be in the past
-	 * @return A string formatted to "%s (%d days ago)"
-	 */
-	public static String getDateAgoShort(long time) {
-		return getDateAgoShort(Instant.ofEpochMilli(time).atOffset(ZoneOffset.UTC));
-	}
-
-	/**
-	 * Generates a string with the formatted date and the amount of days since that date
-	 * @param time The date to measure, must be in the past
-	 * @return A string formatted to "%s (%d days ago)"
-	 */
-	public static String getDateAgoShort(OffsetDateTime time) {
-		return String.format("%s (**%d** days ago)", time.format(formatterShort), time.until(OffsetDateTime.now(), ChronoUnit.DAYS));
 	}
 
 }
