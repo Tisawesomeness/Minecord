@@ -49,6 +49,10 @@ public class HistoryCommand extends Command {
 
 		String player = args[0];	
 		if (!NameUtils.isUuid(player)) {
+			if (!NameUtils.isUsername(player)) {
+				return new Result(Outcome.WARNING, ":warning: That username is invalid.");
+			}
+
 			String uuid = NameUtils.getUUID(player);
 			
 			// Check for errors

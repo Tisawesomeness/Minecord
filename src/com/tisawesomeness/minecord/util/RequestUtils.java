@@ -66,7 +66,7 @@ public class RequestUtils {
 	 * @return The response of the request in string form.
 	 */
 	public static String get(String url, String auth) {
-		return get(url, auth, false);
+		return get(url, auth, true);
 	}
 	public static String get(String url, String auth, boolean skipCheck) {
 		if (skipCheck || checkURL(url)) {
