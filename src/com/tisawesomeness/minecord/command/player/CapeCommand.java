@@ -57,7 +57,10 @@ public class CapeCommand extends Command {
 				return new Result(Outcome.ERROR, m);
 			}
 		} else {
-			// Parse date argument
+			if (!NameUtils.isUsername(player)) {
+				return new Result(Outcome.WARNING, ":warning: That username is invalid.");
+			}
+
 			uuid = NameUtils.getUUID(player);
 
 			// Check for errors

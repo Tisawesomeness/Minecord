@@ -42,6 +42,9 @@ public class UuidCommand extends Command {
 		}
 		
 		String username = args[0];
+		if (!NameUtils.isUsername(username)) {
+			return new Result(Outcome.WARNING, ":warning: That username is invalid.");
+		}
 		String uuid = NameUtils.getUUID(username);
 		
 		// Check for errors
