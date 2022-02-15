@@ -38,6 +38,16 @@ public final class Mth {
     }
 
     /**
+     * Casts an int to a long without sign extension.
+     * Equivalent to creating a long with the given int as the lower 32 bits and zeroes as the upper 32 bits.
+     * @param n an int
+     * @return a long
+     */
+    public static long castWithoutSignExtension(int n) {
+        return n & LOWER_FOUR_BYTES;
+    }
+
+    /**
      * Randomly picks from a list of items, weighted by how many times each item occurs in the multiset.
      * @param items A multiset of items, the size should not actually be more than {@link Integer#MAX_VALUE}
      * @param <T> The type of the items to choose from
@@ -340,7 +350,4 @@ public final class Mth {
         }
     }
 
-    static long castWithoutSignExtension(int n) {
-        return n & LOWER_FOUR_BYTES;
-    }
 }

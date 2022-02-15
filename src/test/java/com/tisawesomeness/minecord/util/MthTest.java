@@ -35,6 +35,28 @@ public class MthTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
+    @ParameterizedTest
+    @DisplayName("casting without sign extension is equivalent to java casting for positive numbers")
+    @ValueSource(ints = {0, 1, 16, Integer.MAX_VALUE})
+    public void testCWSE(int candidate) {
+        // isEqualTo() casts to long
+        assertThat(Mth.castWithoutSignExtension(candidate)).isEqualTo(candidate);
+    }
+    @Test
+    @DisplayName("casting without sign extension does not sign extend negative numbers")
+    public void testCWSENegative() {
+        int input = 1 << (Integer.SIZE - 1);
+        long expected = 1L << (Integer.SIZE - 1);
+        assertThat(Mth.castWithoutSignExtension(input)).isEqualTo(expected);
+    }
+    @Test
+    @DisplayName("casting without sign extension does not sign extend negative numbers")
+    public void testCWSENegative2() {
+        int input = 0xFFFF_FFFF;
+        long expected = 0x0000_0000_FFFF_FFFFL;
+        assertThat(Mth.castWithoutSignExtension(input)).isEqualTo(expected);
+    }
+
     @Test
     @DisplayName("sha1 hashes as expected")
     public void testSha1() {
