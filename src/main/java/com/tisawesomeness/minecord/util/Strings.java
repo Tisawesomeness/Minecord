@@ -42,7 +42,7 @@ public final class Strings {
      * @see String#substring(int)
      */
     public static @NonNull String safeSubstring(@NonNull String str, int beginIndex) {
-        return str.substring(limit(0, beginIndex, str.length()));
+        return str.substring(Mth.clamp(beginIndex, 0, str.length()));
     }
     /**
      * Safely substrings a string. The start and end indices will be bound between 0 and the length of the string.
@@ -57,9 +57,6 @@ public final class Strings {
             return "";
         }
         return str.substring(Math.max(beginIndex, 0), Math.min(endIndex, str.length()));
-    }
-    private static int limit(int low, int val, int high) {
-        return Math.max(low, Math.min(val, high));
     }
 
     /**

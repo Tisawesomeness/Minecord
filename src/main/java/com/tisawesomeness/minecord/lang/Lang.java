@@ -138,7 +138,7 @@ public enum Lang {
      * @param key The <b>case-sensitive</b> localization key used in {@link #i18n(String)}
      * @return The localized string, or empty if not found
      */
-    public Optional<String> i18nOpt(@NonNull @PropertyKey(resourceBundle = RB) String key) {
+    public Optional<String> i18nOpt(@NonNull String key) {
         if (resource.keySet().contains(key)) {
             return Optional.of(i18n(key));
         }
@@ -178,7 +178,7 @@ public enum Lang {
      * @see MessageFormat
      * @see Locale
      */
-    public Optional<String> i18nfOpt(@NonNull @PropertyKey(resourceBundle = RB) String key, Object... args) {
+    public Optional<String> i18nfOpt(@NonNull String key, Object... args) {
         if (resource.keySet().contains(key)) {
             return Optional.of(i18nf(key, args));
         }
@@ -199,7 +199,7 @@ public enum Lang {
         if (str.isEmpty()) {
             return Collections.emptyList();
         }
-        return Arrays.asList(str.split(","));
+        return Collections.unmodifiableList(Arrays.asList(str.split(",")));
     }
 
 

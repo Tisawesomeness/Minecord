@@ -30,8 +30,6 @@ public final class UUIDs {
             "\\[?(I;)?(-?\\d{1,10}),(-?\\d{1,10}),(-?\\d{1,10}),(-?\\d{1,10})\\]?", Pattern.CASE_INSENSITIVE);
     private static final Pattern MOST_LEAST_STRING = Pattern.compile("(-?\\d{1,19}),(-?\\d{1,19})");
 
-    private static final long LOWER_FOUR_BYTES = 0x0000_0000_FFFF_FFFFL;
-
     /**
      * <p>
      *     Tries to parse a version 4, variant 1 UUID from a string. Minecraft uses {@link UUID#randomUUID()}
@@ -212,7 +210,7 @@ public final class UUIDs {
      * @return A UUID object
      * @throws IllegalArgumentException if the input string is not a valid short UUID
      */
-    public static @NonNull UUID fromGuarenteedShortString(@NonNull CharSequence str) {
+    public static @NonNull UUID fromGuaranteedShortString(@NonNull CharSequence str) {
         if (str.length() != UUID_LENGTH) {
             throw new IllegalArgumentException("A short UUID must be exactly 32 characters.");
         }
@@ -292,12 +290,9 @@ public final class UUIDs {
      */
     public static @NonNull UUID fromInts(int a, int b, int c, int d) {
         // casting lower bits to long will sign-extend, which messes up the upper bits
-        long msb = (((long) a) << Integer.SIZE) | castWithoutSignExtension(b);
-        long lsb = (((long) c) << Integer.SIZE) | castWithoutSignExtension(d);
+        long msb = (((long) a) << Integer.SIZE) | Mth.castWithoutSignExtension(b);
+        long lsb = (((long) c) << Integer.SIZE) | Mth.castWithoutSignExtension(d);
         return new UUID(msb, lsb);
-    }
-    private static long castWithoutSignExtension(int n) {
-        return n & LOWER_FOUR_BYTES;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.util;
 
 import lombok.NonNull;
+import lombok.SneakyThrows;
 import org.apache.commons.collections4.MultiSet;
 
 import javax.annotation.Nullable;
@@ -13,6 +14,9 @@ import java.util.OptionalLong;
 import java.util.concurrent.ThreadLocalRandom;
 
 public final class Mth {
+
+    private static final long LOWER_FOUR_BYTES = 0x0000_0000_FFFF_FFFFL;
+
     private Mth() {}
 
     /**
@@ -155,12 +159,9 @@ public final class Mth {
         }
         return sb.toString();
     }
+    @SneakyThrows(NoSuchAlgorithmException.class) // not possible
     private static MessageDigest getDigest() {
-        try {
-            return MessageDigest.getInstance("SHA-1");
-        } catch (NoSuchAlgorithmException ex) {
-            throw new AssertionError(ex);
-        }
+        return MessageDigest.getInstance("SHA-1");
     }
 
 
@@ -339,4 +340,7 @@ public final class Mth {
         }
     }
 
+    static long castWithoutSignExtension(int n) {
+        return n & LOWER_FOUR_BYTES;
+    }
 }

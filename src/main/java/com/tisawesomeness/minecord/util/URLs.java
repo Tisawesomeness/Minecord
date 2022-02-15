@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.util;
 
 import lombok.NonNull;
+import lombok.SneakyThrows;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -20,28 +21,22 @@ public final class URLs {
      * method are valid URLs.</b>
      * @param str The URL in string form
      * @return A URL
-     * @throws AssertionError if the string is not a valid URL
+     * @throws MalformedURLException sneaky
      */
+    @SneakyThrows(MalformedURLException.class)
     public static @NonNull URL createUrl(@NonNull String str) {
-        try {
-            return new URL(str);
-        } catch (MalformedURLException ex) {
-            throw new AssertionError(ex);
-        }
+        return new URL(str);
     }
     /**
      * Creates a URL from a URI without throwing a checked exception. <b>Verify that all URIs passed to this
      * method are valid URLs.</b>
      * @param uri The URL as a URI
      * @return A URL
-     * @throws AssertionError if the URI is not a valid URL
+     * @throws MalformedURLException sneaky
      */
+    @SneakyThrows(MalformedURLException.class)
     public static @NonNull URL createUrl(@NonNull URI uri) {
-        try {
-            return uri.toURL();
-        } catch (MalformedURLException ex) {
-            throw new AssertionError(ex);
-        }
+        return uri.toURL();
     }
 
     /**
@@ -56,12 +51,9 @@ public final class URLs {
         return link;
     }
 
+    @SneakyThrows(UnsupportedEncodingException.class) // Not possible
     public static @NonNull String encode(@NonNull String str) {
-        try {
-            return URLEncoder.encode(str, StandardCharsets.UTF_8.toString());
-        } catch (UnsupportedEncodingException ex) {
-            throw new AssertionError(ex);
-        }
+        return URLEncoder.encode(str, StandardCharsets.UTF_8.toString());
     }
 
 }

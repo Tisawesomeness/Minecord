@@ -86,7 +86,7 @@ public class UUIDsTest {
 
     @ParameterizedTest(name = "{index} ==> String {0} is an invalid UUID")
     @MethodSource("invalidUUIDProvider")
-    // These are excluded from testing fromGuarenteedShortString since
+    // These are excluded from testing fromGuaranteedShortString since
     // these cases are valid UUIDs for other versions and have no dashes
     @ValueSource(strings = {
             "e72109b8e639cc7cb224ef1fd3a4a436", // Not correct version
@@ -109,19 +109,19 @@ public class UUIDsTest {
             "A1F04240-A7F8-48E9-903B-2A21AEA93E73",
             "F65882AC-26E1-42ED-9631-EEFAF81544D3"
     })
-    @DisplayName("fromGuarenteedShortString() correctly maps short strings to UUIDs")
+    @DisplayName("fromGuaranteedShortString() correctly maps short strings to UUIDs")
     public void testFromGuarenteedShortStringValid(String candidate) {
-        UUID uuid = UUIDs.fromGuarenteedShortString(candidate.replace("-", ""));
+        UUID uuid = UUIDs.fromGuaranteedShortString(candidate.replace("-", ""));
         assertThat(UUIDs.toLongString(uuid)).isEqualToIgnoringCase(candidate);
     }
 
     @ParameterizedTest(name =
-            "{index} ==> String {0} is an invalid UUID and fromGuarenteedShortString throws IllegalArgumentException")
+            "{index} ==> String {0} is an invalid UUID and fromGuaranteedShortString throws IllegalArgumentException")
     @MethodSource("invalidUUIDProvider")
     @EmptySource
-    @DisplayName("fromGuarenteedShortString() throws IllegalArgumentException if the input string is not a valid UUID")
-    public void testFromGuarenteedShortStringInvalid(String candidate) {
-        assertThatThrownBy(() -> UUIDs.fromGuarenteedShortString(candidate))
+    @DisplayName("fromGuaranteedShortString() throws IllegalArgumentException if the input string is not a valid UUID")
+    public void testFromGuaranteedShortStringInvalid(String candidate) {
+        assertThatThrownBy(() -> UUIDs.fromGuaranteedShortString(candidate))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
