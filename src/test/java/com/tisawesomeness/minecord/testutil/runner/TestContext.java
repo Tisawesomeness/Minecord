@@ -31,9 +31,9 @@ import java.util.stream.Collectors;
  * Provides the test environment to commands and keeps track of replies.
  * <br>The methods in the "See Also" section track the output of the command.
  * <br>
- * <br>Note that the @link #getE()}, {@link #getBot()}, and all database cache methods are unsupported.
+ * <br>Note that the {@link #getE()}, {@link #getBot()}, and all database cache methods are unsupported.
  * <br>See the docs in {@link TestCommandRunner} for changes from normal execution.
- * @implSpec This class is thread-safe outside of the runner package.
+ * @implSpec This class is thread-safe outside the runner package.
  * @see #getResult()
  * @see #getReplies()
  * @see #getEmbedReplies()
@@ -66,6 +66,7 @@ public class TestContext extends AbstractContext {
 
     private final BlockingQueue<Object> gate = new LinkedBlockingQueue<>(1);
     private @Nullable Predicate<View> condition;
+    // Lock ensures no concurrent modification/iteration
     private final Object lock = new Object();
 
 
@@ -74,48 +75,64 @@ public class TestContext extends AbstractContext {
         if (text.length() > Message.MAX_CONTENT_LENGTH) {
             throw new IllegalArgumentException(String.format("Message length %d is too long!", text.length()));
         }
-        replies.add(text);
+        synchronized (lock) {
+            replies.add(text);
+        }
     }
     @Override
     protected void sendMessage(@NonNull MessageEmbed emb) {
         if (!emb.isSendable()) {
             throw new IllegalArgumentException(String.format("Embed length %d is too long!", emb.getLength()));
         }
-        embedReplies.add(emb);
+        synchronized (lock) {
+            embedReplies.add(emb);
+        }
     }
     @Override
     public void requestHelp() {
-        requestedHelp = true;
+        synchronized (lock) {
+            requestedHelp = true;
+        }
     }
 
     @Override
     public void reply(@NonNull CharSequence text) {
-        sendMessage(text);
-        result = Result.SUCCESS;
-        onUpdate();
+        synchronized (lock) {
+            sendMessage(text);
+            result = Result.SUCCESS;
+            onUpdate();
+        }
     }
     @Override
     public void reply(@NonNull MessageEmbed emb) {
-        sendMessage(emb);
-        result = Result.SUCCESS;
-        onUpdate();
+        synchronized (lock) {
+            sendMessage(emb);
+            result = Result.SUCCESS;
+            onUpdate();
+        }
     }
     @Override
     public void showHelp() {
-        requestHelp();
-        result = Result.HELP;
-        onUpdate();
+        synchronized (lock) {
+            requestHelp();
+            result = Result.HELP;
+            onUpdate();
+        }
     }
     @Override
     public void sendResult(Result result, @NonNull CharSequence text) {
-        sendMessage(text);
-        this.result = result;
-        onUpdate();
+        synchronized (lock) {
+            sendMessage(text);
+            this.result = result;
+            onUpdate();
+        }
     }
     @Override
     public void triggerCooldown() {
-        triggeredCooldown = true;
-        onUpdate();
+        synchronized (lock) {
+            triggeredCooldown = true;
+            onUpdate();
+        }
     }
 
     @Override
@@ -194,13 +211,17 @@ public class TestContext extends AbstractContext {
      * @return An immutable list of <b>text</b> replies, in order of appearance
      */
     public List<CharSequence> getReplies() {
-        return Collections.unmodifiableList(replies);
+        synchronized (lock) {
+            return Collections.unmodifiableList(new ArrayList<>(replies));
+        }
     }
     /**
      * @return An immutable list of <b>embed</b> replies, in order of appearance
      */
     public List<MessageEmbed> getEmbedReplies() {
-        return Collections.unmodifiableList(embedReplies);
+        synchronized (lock) {
+            return Collections.unmodifiableList(new ArrayList<>(embedReplies));
+        }
     }
     /**
      * @return True if {@link CommandContext#showHelp()} has been called at least once
@@ -279,11 +300,13 @@ public class TestContext extends AbstractContext {
     public static class View {
 
         private View(TestContext tc) {
-            result = tc.result;
-            replies = Collections.unmodifiableList(tc.replies);
-            embedReplies = Collections.unmodifiableList(tc.embedReplies);
-            requestedHelp = tc.requestedHelp;
-            triggeredCooldown = tc.triggeredCooldown;
+            synchronized (tc.lock) {
+                result = tc.result;
+                replies = tc.getReplies();
+                embedReplies = tc.getEmbedReplies();
+                requestedHelp = tc.requestedHelp;
+                triggeredCooldown = tc.triggeredCooldown;
+            }
         }
 
         /**
