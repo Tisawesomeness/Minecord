@@ -9,6 +9,8 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+import java.io.IOException;
+
 public class CapeCommand extends Command {
 
 	public CommandInfo getInfo() {
@@ -45,33 +47,35 @@ public class CapeCommand extends Command {
 		String player = args[0];
 		String uuid = player;
 		if (NameUtils.isUuid(player)) {
-			player = NameUtils.getName(player);
-
-			// Check for errors
-			if (player == null) {
-				String m = ":x: The Mojang API could not be reached." +
-					"\n" + "Are you sure that UUID exists?";
-				return new Result(Outcome.WARNING, m);
-			} else if (!NameUtils.isUsername(player)) {
-				String m = ":x: The API responded with an error:\n" + player;
-				return new Result(Outcome.ERROR, m);
+			try {
+				player = NameUtils.getName(player);
+				if (player == null) {
+					return new Result(Outcome.SUCCESS, "There is no player with that UUID.");
+				} else if (!NameUtils.isUsername(player)) {
+					String m = ":x: The API responded with an error:\n" + player;
+					return new Result(Outcome.ERROR, m);
+				}
+			} catch (IOException ex) {
+				ex.printStackTrace();
+				return new Result(Outcome.ERROR, "The Mojang API could not be reached.");
 			}
+
 		} else {
 			if (!NameUtils.isUsername(player)) {
 				return new Result(Outcome.WARNING, ":warning: That username is invalid.");
 			}
 
-			uuid = NameUtils.getUUID(player);
-
-			// Check for errors
-			if (uuid == null) {
-				String m = ":x: The Mojang API could not be reached." +
-						"\n" +"Are you sure that username exists?" +
-						"\n" + "Usernames are case-sensitive.";
-				return new Result(Outcome.WARNING, m);
-			} else if (!NameUtils.isUuid(uuid)) {
-				String m = ":x: The API responded with an error:\n" + uuid;
-				return new Result(Outcome.ERROR, m);
+			try {
+				uuid = NameUtils.getUUID(player);
+				if (uuid == null) {
+					return new Result(Outcome.SUCCESS, "That username does not exist.");
+				} else if (!NameUtils.isUuid(uuid)) {
+					String m = ":x: The API responded with an error:\n" + uuid;
+					return new Result(Outcome.ERROR, m);
+				}
+			} catch (IOException ex) {
+				ex.printStackTrace();
+				return new Result(Outcome.ERROR, "The Mojang API could not be reached.");
 			}
 
 			uuid = uuid.replace("-", "").toLowerCase();

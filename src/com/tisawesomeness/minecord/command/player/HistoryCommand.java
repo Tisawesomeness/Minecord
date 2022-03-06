@@ -12,6 +12,7 @@ import net.dv8tion.jda.api.utils.TimeFormat;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class HistoryCommand extends Command {
@@ -53,17 +54,18 @@ public class HistoryCommand extends Command {
 				return new Result(Outcome.WARNING, ":warning: That username is invalid.");
 			}
 
-			String uuid = NameUtils.getUUID(player);
-			
-			// Check for errors
-			if (uuid == null) {
-				String m = ":x: The Mojang API could not be reached." +
-					"\n" + "Are you sure that username exists?" +
-					"\n" + "Usernames are case-sensitive.";
-				return new Result(Outcome.WARNING, m);
-			} else if (!NameUtils.isUuid(uuid)) {
-				String m = ":x: The API responded with an error:\n" + uuid;
-				return new Result(Outcome.ERROR, m);
+			String uuid;
+			try {
+				uuid = NameUtils.getUUID(player);
+				if (uuid == null) {
+					return new Result(Outcome.SUCCESS, "That username does not exist.");
+				} else if (!NameUtils.isUuid(uuid)) {
+					String m = ":x: The API responded with an error:\n" + uuid;
+					return new Result(Outcome.ERROR, m);
+				}
+			} catch (IOException ex) {
+				ex.printStackTrace();
+				return new Result(Outcome.ERROR, "The Mojang API could not be reached.");
 			}
 			
 			player = uuid;
@@ -71,8 +73,11 @@ public class HistoryCommand extends Command {
 
 		// Fetch name history
 		String url = "https://api.mojang.com/user/profiles/" + player.replace("-", "") + "/names";
-		String request = RequestUtils.get(url);
-		if (request == null) {
+		String request;
+		try {
+			request = RequestUtils.get(url);
+		} catch (IOException ex) {
+			ex.printStackTrace();
 			return new Result(Outcome.ERROR, ":x: The Mojang API could not be reached.");
 		}
 		

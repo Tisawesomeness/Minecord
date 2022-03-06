@@ -9,8 +9,10 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+import java.io.IOException;
+
 public class UuidCommand extends Command {
-	
+
 	public CommandInfo getInfo() {
 		return new CommandInfo(
 			"uuid",
@@ -34,33 +36,35 @@ public class UuidCommand extends Command {
 			"`{&}uuid f6489b797a9f49e2980e265a05dbc3af`\n" +
 			"`{&}uuid 069a79f4-44e9-4726-a5be-fca90e38aaf5`\n";
 	}
-	
+
 	public Result run(String[] args, MessageReceivedEvent e) {
 		// No arguments message
 		if (args.length == 0) {
 			return new Result(Outcome.WARNING, ":warning: You must specify a player.");
 		}
-		
+
 		String username = args[0];
 		if (!NameUtils.isUsername(username)) {
 			return new Result(Outcome.WARNING, ":warning: That username is invalid.");
 		}
-		String uuid = NameUtils.getUUID(username);
-		
-		// Check for errors
-		if (uuid == null) {
-			String m = ":x: The Mojang API could not be reached." +
-				"\n" + "Are you sure that username exists?" +
-				"\n" + "Usernames are case-sensitive.";
-			return new Result(Outcome.WARNING, m);
-		} else if (!NameUtils.isUuid(uuid)) {
-			String m = ":x: The API responded with an error:\n" + uuid;
-			return new Result(Outcome.ERROR, m);
+
+		String uuid;
+		try {
+			uuid = NameUtils.getUUID(username);
+			if (uuid == null) {
+				return new Result(Outcome.SUCCESS, "That username does not exist.");
+			} else if (!NameUtils.isUuid(uuid)) {
+				String m = ":x: The API responded with an error:\n" + uuid;
+				return new Result(Outcome.ERROR, m);
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			return new Result(Outcome.ERROR, "The Mojang API could not be reached.");
 		}
-		
+
 		// Get NameMC url
 		String url = "https://namemc.com/profile/" + uuid;
-		
+
 		// Proper apostrophe grammar
 		String title = username;
 		if (title.endsWith("s")) {
@@ -68,11 +72,11 @@ public class UuidCommand extends Command {
 		} else {
 			title = title + "'s UUID";
 		}
-		
+
 		String m = String.format("Short: `%s`\nLong: `%s`", uuid, NameUtils.formatUUID(uuid));
 		MessageEmbed me = MessageUtils.embedMessage(title, url, m, Bot.color);
-		
+
 		return new Result(Outcome.SUCCESS, new EmbedBuilder(me).build());
 	}
-	
+
 }

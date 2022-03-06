@@ -81,11 +81,17 @@ public class ServerCommand extends Command {
 
 		// Query Mojang for blocked servers, cached by the hour
 		if (System.currentTimeMillis() - 3600000 > timestamp) {
-			String request = RequestUtils.getPlain("https://sessionserver.mojang.com/blockedservers");
-			if (request != null) {
-				blockedServers = new HashSet<>(Arrays.asList(request.split("\n")));
-				timestamp = System.currentTimeMillis();
+			String request;
+			try {
+				request = RequestUtils.getPlain("https://sessionserver.mojang.com/blockedservers");
+				if (request != null) {
+					blockedServers = new HashSet<>(Arrays.asList(request.split("\n")));
+				}
+			} catch (IOException ex) {
+				ex.printStackTrace();
+				// not getting blocked servers okay
 			}
+			timestamp = System.currentTimeMillis();
 		}
 		boolean blocked = isBlocked(arg, ip);
 		String m = blocked ? "**BLOCKED BY MOJANG**\n" : "";

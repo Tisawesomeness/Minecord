@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 
 public class SalesCommand extends Command {
@@ -32,8 +33,11 @@ public class SalesCommand extends Command {
 		
 		//Send a request to Mojang
 		String payload = "{\"metricKeys\":[\"item_sold_minecraft\",\"prepaid_card_redeemed_minecraft\"]}";
-		String request = RequestUtils.post("https://api.mojang.com/orders/statistics", payload);
-		if (request == null) {
+		String request;
+		try {
+			request = RequestUtils.post("https://api.mojang.com/orders/statistics", payload);
+		} catch (IOException ex) {
+			ex.printStackTrace();
 			return new Result(Outcome.ERROR, ":x: The Mojang API could not be reached.");
 		}
 		
