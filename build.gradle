@@ -2,9 +2,9 @@ plugins {
     id 'java'
     id 'java-library'
     id 'jacoco'
-    id 'io.freefair.lombok' version '5.3.0'
-    id 'com.github.johnrengelman.shadow' version '6.0.0'
-    id 'org.unbroken-dome.test-sets' version '3.0.1'
+    id 'io.freefair.lombok' version '6.4.1'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'org.unbroken-dome.test-sets' version '4.0.0'
 }
 
 group = 'com.tisawesomeness'
@@ -41,25 +41,25 @@ dependencies {
     // Top.gg bot site API wrapper
     implementation 'com.github.DiscordBotList:Java-Wrapper:v1.0'
     // Caching
-    api 'com.github.ben-manes.caffeine:caffeine:2.8.5'
+    api 'com.github.ben-manes.caffeine:caffeine:2.9.3'
     // JSON library
-    implementation 'org.json:json:20201115'
+    implementation 'org.json:json:20211205'
     // YAML library
-    api 'com.fasterxml.jackson.core:jackson-databind:2.12.0'
-    api 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.12.0'
+    api 'com.fasterxml.jackson.core:jackson-databind:2.13.2'
+    api 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.1'
     // SQLite driver
-    implementation 'org.xerial:sqlite-jdbc:3.34.0'
+    implementation 'org.xerial:sqlite-jdbc:3.36.0.2'
     // Used for MCServerPing
-    implementation 'dnsjava:dnsjava:2.1.8'
+    implementation 'dnsjava:dnsjava:3.5.0'
     implementation 'net.kyori:text-serializer-gson:3.0.4'
     // Command-line arguments
-    implementation 'info.picocli:picocli:4.6.1'
-    annotationProcessor 'info.picocli:picocli-codegen:4.6.1'
+    implementation 'info.picocli:picocli:4.6.3'
+    annotationProcessor 'info.picocli:picocli-codegen:4.6.3'
     // Logging
-    implementation 'ch.qos.logback:logback-classic:1.2.3'
+    implementation 'ch.qos.logback:logback-classic:1.2.11'
     // Testing
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.1'
-    testImplementation 'org.assertj:assertj-core:3.19.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+    testImplementation 'org.assertj:assertj-core:3.22.0'
     integrationTestImplementation sourceSets.test.output
 }
 
