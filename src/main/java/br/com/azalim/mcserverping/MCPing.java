@@ -34,7 +34,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.kyori.text.Component;
 import net.kyori.text.serializer.gson.GsonComponentSerializer;
-import org.xbill.DNS.*;
+import org.xbill.DNS.Lookup;
+import org.xbill.DNS.SRVRecord;
+import org.xbill.DNS.TextParseException;
+import org.xbill.DNS.Type;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -80,11 +83,11 @@ public class MCPing {
 
         try {
 
-            Record[] records = new Lookup(String.format(SRV_QUERY_PREFIX, hostname), Type.SRV).run();
+            org.xbill.DNS.Record[] records = new Lookup(String.format(SRV_QUERY_PREFIX, hostname), Type.SRV).run();
 
             if (records != null) {
 
-                for (Record record : records) {
+                for (org.xbill.DNS.Record record : records) {
                     SRVRecord srv = (SRVRecord) record;
 
                     hostname = srv.getTarget().toString().replaceFirst("\\.$", "");
