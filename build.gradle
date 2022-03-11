@@ -70,6 +70,12 @@ tasks.withType(Test) {
     useJUnitPlatform {
         // Uncomment the line below to exclude tags from testing such as "MojangAPI"
         // excludeTags 'MojangAPI'
+        if (System.getProperty("includeTags")) {
+            includeTags System.getProperty("includeTags")
+        }
+        if (System.getProperty("excludeTags")) {
+            excludeTags System.getProperty("excludeTags")
+        }
     }
 }
 

@@ -31,5 +31,7 @@ jobs:
         distribution: 'temurin'
     - name: Run Gradle check task
       uses: gradle/gradle-build-action@v2
+      env:
+        MINECORD_MOJANG_API: "false"
       with:
         arguments: check
