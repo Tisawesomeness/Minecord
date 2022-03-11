@@ -18,8 +18,11 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
-        java: [ '8', '17' ]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        java: ['8']
+        include:
+          - java: '17'
+            os: ubuntu-latest
     runs-on: ${{ matrix.os }}
 
     steps:
