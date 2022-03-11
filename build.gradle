@@ -10,7 +10,7 @@ plugins {
 group = 'com.tisawesomeness'
 sourceCompatibility = '1.8'
 version = '1.0.0-ALPHA-10'
-def jdaVersion = '4.3.0_296'
+def jdaVersion = '4.4.0_352'
 
 repositories {
     mavenCentral()
