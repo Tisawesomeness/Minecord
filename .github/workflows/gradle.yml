@@ -18,7 +18,7 @@ jobs:
 
     strategy:
       matrix:
-        run_number: '${{ github.run_number }}'
+        run_number: ['${{ github.run_number }}']
         os: [ubuntu-latest, macos-latest, windows-latest]
         java: ['17']
         include:
