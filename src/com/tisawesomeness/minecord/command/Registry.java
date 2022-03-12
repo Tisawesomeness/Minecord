@@ -35,7 +35,6 @@ public class Registry {
 		),
 		new Module("Utility",
 			new StatusCommand(),
-			new SalesCommand(),
 			new CodesCommand(),
 			colorCmd,
 			new ColorShortcut(colorCmd, "0"),

@@ -1,7 +1,10 @@
-/target/
-/.vscode/
-/.settings/
+.classpath
 .project
 .factorypath
-.classpath
+/.settings/
+/.vscode/
+/.idea/
+*.iml
+/target/
+
 minecord.db

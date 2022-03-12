@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.util;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -46,10 +47,10 @@ public class NameUtils {
 	 * Gets a playername from a UUID
 	 * @param uuid A UUID with or without dashes
 	 */
-	public static String getName(String uuid) {
+	public static String getName(String uuid) throws IOException {
 		String url = "https://api.mojang.com/user/profiles/" + uuid + "/names";
 		String request = RequestUtils.get(url);
-		if (request == null) {
+		if (request.isEmpty()) {
 			return null;
 		}
 		JSONArray names = new JSONArray(request);
@@ -59,14 +60,10 @@ public class NameUtils {
 	/**
 	 * Gets a UUID from a playername
 	 */
-	public static String getUUID(String playername) {
-		return getUUIDInternal(playername);
-	}
-
-	private static String getUUIDInternal(String query) {
-		String url = getUUIDUrl(query).toString();
+	public static String getUUID(String playername) throws IOException {
+		String url = getUUIDUrl(playername).toString();
 		String request = RequestUtils.get(url);
-		if (request == null) {
+		if (request.isEmpty()) {
 			return null;
 		}
 

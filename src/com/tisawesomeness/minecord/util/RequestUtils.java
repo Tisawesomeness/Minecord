@@ -46,7 +46,7 @@ public class RequestUtils {
 	 * @param url The request URL.
 	 * @return The response of the request in string form.
 	 */
-	public static String get(String url) {
+	public static String get(String url) throws IOException {
 		return get(url, null);
 	}
 
@@ -55,7 +55,7 @@ public class RequestUtils {
 	 * @param url The request URL.
 	 * @return The response of the request in string form.
 	 */
-	public static String getPlain(String url) {
+	public static String getPlain(String url) throws IOException {
 		return getPlain(url, null);
 	}
 	
@@ -65,19 +65,15 @@ public class RequestUtils {
 	 * @param auth The content of the Authorization header.
 	 * @return The response of the request in string form.
 	 */
-	public static String get(String url, String auth) {
+	public static String get(String url, String auth) throws IOException {
 		return get(url, auth, true);
 	}
-	public static String get(String url, String auth, boolean skipCheck) {
+	public static String get(String url, String auth, boolean skipCheck) throws IOException {
 		if (skipCheck || checkURL(url)) {
-			try {
-				URLConnection conn = open(url, auth, jsonType);
-				return get(conn);
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
+			URLConnection conn = open(url, auth, jsonType);
+			return get(conn);
 		}
-		return null;
+		throw new IOException("URL" + url + "does not exist");
 	}
 	
 	/**
@@ -86,14 +82,9 @@ public class RequestUtils {
 	 * @param auth The content of the Authorization header.
 	 * @return The response of the request in string form.
 	 */
-	public static String getPlain(String url, String auth) {
-		try {
-			URLConnection conn = open(url, auth, plainType);
-			return get(conn);
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-		return null;
+	public static String getPlain(String url, String auth) throws IOException {
+		URLConnection conn = open(url, auth, plainType);
+		return get(conn);
 	}
 	
 	/**
@@ -102,7 +93,7 @@ public class RequestUtils {
 	 * @param query The request payload, in string form.
 	 * @return The response of the request in string form.
 	 */
-	public static String post(String url, String query) {
+	public static String post(String url, String query) throws IOException {
 		return post(url, query, null);
 	}
 	
@@ -113,19 +104,14 @@ public class RequestUtils {
 	 * @param auth The content of the Authorization header.
 	 * @return The response of the request in string form.
 	 */
-	public static String post(String url, String query, String auth) {
-		try {
-			URLConnection conn = open(url, auth, jsonType);
-			
-			OutputStream output = conn.getOutputStream();
-			output.write(query.getBytes(charset));
-			output.close();
-			
-			return get(conn);
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-		return null;
+	public static String post(String url, String query, String auth) throws IOException {
+		URLConnection conn = open(url, auth, jsonType);
+
+		OutputStream output = conn.getOutputStream();
+		output.write(query.getBytes(charset));
+		output.close();
+
+		return get(conn);
 	}
 	
 	private static URLConnection open(String url, String auth, String contentType) throws IOException {
@@ -135,7 +121,9 @@ public class RequestUtils {
 		conn.setRequestProperty("Content-Type", contentType);
 		conn.setConnectTimeout(TIMEOUT);
 		conn.setReadTimeout(TIMEOUT);
-		if (auth != null) conn.setRequestProperty("Authorization", auth);
+		if (auth != null) {
+			conn.setRequestProperty("Authorization", auth);
+		}
 		return conn;
 	}
 	
@@ -236,8 +224,7 @@ public class RequestUtils {
 			}
 			return sb.toString();
 		} catch (NoSuchAlgorithmException ex) {
-			ex.printStackTrace();
-			return null;
+			throw new AssertionError(ex);
 		}
 	}
 
