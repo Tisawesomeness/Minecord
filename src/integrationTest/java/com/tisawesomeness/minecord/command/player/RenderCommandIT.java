@@ -22,7 +22,7 @@ import org.junit.jupiter.params.provider.EnumSource;
 import java.util.EnumMap;
 import java.util.Map;
 
-import static com.tisawesomeness.minecord.testutil.runner.CommandAssertions.assertThat;
+import static com.tisawesomeness.minecord.testutil.assertion.CustomAssertions.assertThat;
 
 public class RenderCommandIT {
 

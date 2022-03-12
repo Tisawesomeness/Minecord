@@ -17,7 +17,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.tisawesomeness.minecord.testutil.runner.CommandAssertions.assertThat;
+import static com.tisawesomeness.minecord.testutil.assertion.CustomAssertions.assertThat;
 
 public class GeneralRenderCommandIT {
 

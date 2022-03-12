@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import static com.tisawesomeness.minecord.testutil.runner.CommandAssertions.assertThat;
+import static com.tisawesomeness.minecord.testutil.assertion.CustomAssertions.assertThat;
 
 public class CapeCommandIT {
 

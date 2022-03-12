@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.testutil.runner;
 
 import com.tisawesomeness.minecord.command.meta.Result;
+import com.tisawesomeness.minecord.testutil.assertion.MessageEmbedAssert;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.entities.MessageEmbed;

@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.UUID;
 
-import static com.tisawesomeness.minecord.testutil.runner.CommandAssertions.assertThat;
+import static com.tisawesomeness.minecord.testutil.assertion.CustomAssertions.assertThat;
 
 public class SkinCommandIT {
 

@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.testutil.runner;
+package com.tisawesomeness.minecord.testutil.assertion;
 
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import org.assertj.core.api.AbstractAssert;
