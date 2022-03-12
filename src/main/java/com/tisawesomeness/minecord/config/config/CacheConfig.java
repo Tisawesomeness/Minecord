@@ -36,12 +36,14 @@ public class CacheConfig {
     int mojangUuidLifetime;
     @JsonProperty("mojangPlayerLifetime")
     int mojangPlayerLifetime;
+    @JsonProperty("gappleStatusLifetime")
+    int gappleStatusLifetime;
 
     /**
      * Verifies that all cache values are valid
      * @return The Verification
      */
-    public Verification verify() {
+    public Verification verify(boolean useGappleAPI) {
         return Verification.combineAll(
                 verifyCacheLifetime(guildLifetime, "Guild"),
                 verifyCacheMaxSize(guildMaxSize, "Guild"),
@@ -53,7 +55,8 @@ public class CacheConfig {
                 verifyCacheLifetime(linkLifetime, "Link"),
                 verifyCacheMaxSize(linkMaxSize, "Link"),
                 verifyUuid(),
-                verifyPlayer()
+                verifyPlayer(),
+                verifyGappleCache(useGappleAPI)
         );
     }
 
@@ -84,6 +87,13 @@ public class CacheConfig {
         }
         return Verification.invalid(
                 "Players must be in the cache for at least " + MojangAPI.PROFILE_RATELIMIT + " seconds");
+    }
+
+    private Verification verifyGappleCache(boolean useGappleAPI) {
+        if (!useGappleAPI) {
+            return Verification.valid();
+        }
+        return verifyCacheLifetime(gappleStatusLifetime, "Gapple status");
     }
 
 }

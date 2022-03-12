@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.mc.external;
 
+import com.tisawesomeness.minecord.mc.player.AccountStatus;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.Username;
 
@@ -38,5 +39,19 @@ public interface PlayerProvider {
      * @return The player, or empty if the UUID doesn't currently exist
      */
     CompletableFuture<Optional<Player>> getPlayer(@NonNull UUID uuid);
+
+    /**
+     * @return true if getAccountStatus() is enabled
+     */
+    boolean areStatusAPIsEnabled();
+
+    /**
+     * Requests the status of the account associated with the given UUID.
+     * <br>The future throws {@link IOException} If an I/O error occurs
+     * @param uuid a valid UUID
+     * @return the account status, or empty if the uuid doesn't <b>currently</b> exist
+     * @throws IllegalStateException if status APIs are disabled
+     */
+    CompletableFuture<Optional<AccountStatus>> getAccountStatus(@NonNull UUID uuid);
 
 }

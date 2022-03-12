@@ -3,11 +3,9 @@ package com.tisawesomeness.minecord.mc.external;
 import com.tisawesomeness.minecord.config.config.CacheConfig;
 import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.config.config.FlagConfig;
-import com.tisawesomeness.minecord.mc.player.NameChange;
-import com.tisawesomeness.minecord.mc.player.Player;
-import com.tisawesomeness.minecord.mc.player.Profile;
-import com.tisawesomeness.minecord.mc.player.Username;
+import com.tisawesomeness.minecord.mc.player.*;
 import com.tisawesomeness.minecord.network.APIClient;
+import com.tisawesomeness.minecord.util.type.ThrowingFunction;
 
 import com.github.benmanes.caffeine.cache.AsyncLoadingCache;
 import com.github.benmanes.caffeine.cache.Caffeine;
@@ -15,6 +13,7 @@ import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -30,9 +29,12 @@ public class DualPlayerProvider implements PlayerProvider {
 
     private final AsyncLoadingCache<Username, Optional<UUID>> uuidCache;
     private final AsyncLoadingCache<UUID, Optional<Player>> playerCache;
+    private final @Nullable AsyncLoadingCache<UUID, Optional<AccountStatus>> statusCache;
     private final MojangAPI mojangAPI;
     private final ElectroidAPI electroidAPI;
+    private final @Nullable GappleAPI gappleAPI;
     private final boolean useElectroidAPI;
+    private final boolean useGappleAPI;
 
     /**
      * Creates a new PlayerProvider
@@ -42,21 +44,35 @@ public class DualPlayerProvider implements PlayerProvider {
     public DualPlayerProvider(APIClient client, Config config) {
         FlagConfig flagConfig = config.getFlagConfig();
         CacheConfig cacheConfig = config.getAdvancedConfig().getCacheConfig();
+        boolean debugMode = flagConfig.isDebugMode();
+
+        useElectroidAPI = flagConfig.isUseElectroidAPI();
+        useGappleAPI = flagConfig.isUseGappleAPI();
 
         mojangAPI = new MojangAPIImpl(client);
         electroidAPI = new ElectroidAPIImpl(client);
-        useElectroidAPI = flagConfig.isUseElectroidAPI();
-
-        Caffeine<Object, Object> uuidBuilder = Caffeine.newBuilder()
-                .expireAfterWrite(cacheConfig.getMojangUuidLifetime(), TimeUnit.SECONDS);
-        Caffeine<Object, Object> playerBuilder = Caffeine.newBuilder()
-                .expireAfterWrite(cacheConfig.getMojangPlayerLifetime(), TimeUnit.SECONDS);
-        if (flagConfig.isDebugMode()) {
-            uuidBuilder.recordStats();
-            playerBuilder.recordStats();
+        if (useGappleAPI) {
+            gappleAPI = new GappleAPIImpl(client);
+        } else {
+            gappleAPI = null;
         }
-        uuidCache = uuidBuilder.buildAsync(this::loadUUID);
-        playerCache = playerBuilder.buildAsync(this::loadPlayer);
+
+        uuidCache = build(cacheConfig.getMojangUuidLifetime(), debugMode, this::loadUUID);
+        playerCache = build(cacheConfig.getMojangPlayerLifetime(), debugMode, this::loadPlayer);
+        if (useGappleAPI) {
+            statusCache = build(cacheConfig.getGappleStatusLifetime(), debugMode, this::loadAccountStatus);
+        } else {
+            statusCache = null;
+        }
+    }
+    private static <T, R> AsyncLoadingCache<T, R> build(int lifetime, boolean debugMode,
+                ThrowingFunction<? super T, ? extends R, IOException> loadingFunc) {
+        Caffeine<Object, Object> builder = Caffeine.newBuilder()
+                .expireAfterWrite(lifetime, TimeUnit.SECONDS);
+        if (debugMode) {
+            builder.recordStats();
+        }
+        return builder.buildAsync(loadingFunc::apply);
     }
 
     private Optional<UUID> loadUUID(Username username) throws IOException {
@@ -107,6 +123,19 @@ public class DualPlayerProvider implements PlayerProvider {
         return Optional.of(new Player(uuid, nameHistory, profile));
     }
 
+    private Optional<AccountStatus> loadAccountStatus(UUID uuid) throws IOException {
+        try {
+            return gappleAPI.getAccountStatus(uuid);
+        } catch (IOException ex) {
+            log.warn("Getting account status from Gapple API failed with IOE", ex);
+            throw ex;
+        }
+    }
+
+    public boolean areStatusAPIsEnabled() {
+        return useGappleAPI;
+    }
+
     public CompletableFuture<Optional<UUID>> getUUID(@NonNull Username username) {
         return uuidCache.get(username);
     }
@@ -122,6 +151,13 @@ public class DualPlayerProvider implements PlayerProvider {
 
     public CompletableFuture<Optional<Player>> getPlayer(@NonNull UUID uuid) {
         return playerCache.get(uuid);
+    }
+
+    public CompletableFuture<Optional<AccountStatus>> getAccountStatus(@NonNull UUID uuid) {
+        if (useGappleAPI) {
+            return statusCache.get(uuid);
+        }
+        throw new IllegalStateException("Gapple API is not enabled");
     }
 
     // apparently async caches can't record stats? :(

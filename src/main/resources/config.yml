@@ -98,6 +98,9 @@ flags:
   # Whether player lookups should use the Electroid API and fallback to the Mojang API
   # If false, only the Mojang API will be used
   useElectroidAPI: true
+  # Whether the bot should use the Gapple API to look up account status
+  # If false, &profile will only show whether the account is legacy (mojang account, sign in with email)
+  useGappleAPI: true
 
 database:
   # The path to the SQLite database file
@@ -221,6 +224,8 @@ advanced:
     mojangUuidLifetime: 60
     # The amount of time in seconds a UUID-->Player mapping is kept in the cache, minimum 60 seconds
     mojangPlayerLifetime: 60
+    # The amount of time in seconds a UUID-->AccountStatus mapping is kept in the cache
+    gappleStatusLifetime: 60
 
   linkedDeletion:
     # The most replies the bot will try to delete, cannot be 0

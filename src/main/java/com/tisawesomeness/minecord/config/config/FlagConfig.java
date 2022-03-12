@@ -26,4 +26,6 @@ public class FlagConfig {
     boolean elevatedBypassDisabled;
     @JsonProperty("useElectroidAPI")
     boolean useElectroidAPI;
+    @JsonProperty("useGappleAPI")
+    boolean useGappleAPI;
 }

@@ -70,7 +70,7 @@ public class Config implements VerifiableConfig {
                 settingsConfig.verify(),
                 verifyBotListConfig(),
                 commandConfig.verify(),
-                advancedConfig.verify(flagConfig.isLinkedDeletion())
+                advancedConfig.verify(flagConfig)
         );
     }
     private Verification verifyShards() {

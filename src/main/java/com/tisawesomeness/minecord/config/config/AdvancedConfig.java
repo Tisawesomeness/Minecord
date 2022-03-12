@@ -18,10 +18,10 @@ public class AdvancedConfig {
     @JsonProperty("http")
     HttpConfig httpConfig;
 
-    public Verification verify(boolean linkedDeletion) {
+    public Verification verify(FlagConfig flagConfig) {
         return Verification.combineAll(
-                cacheConfig.verify(),
-                verifyLinkedDeletion(linkedDeletion),
+                cacheConfig.verify(flagConfig.isUseGappleAPI()),
+                verifyLinkedDeletion(flagConfig.isLinkedDeletion()),
                 httpConfig.verify()
         );
     }
