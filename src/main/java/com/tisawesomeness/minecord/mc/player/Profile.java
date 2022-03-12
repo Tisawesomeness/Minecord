@@ -12,7 +12,7 @@ import java.util.Optional;
 @Value
 public class Profile {
     /**
-     * Whether the player has not migrated to a Mojang account (using email to log in)
+     * Whether the player has not migrated to a Minecraft account (using email to log in)
      */
     boolean legacy;
     /**
