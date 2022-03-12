@@ -195,14 +195,6 @@ public final class UUIDs {
         return "UUIDLeast".equalsIgnoreCase(str) || "Least".equalsIgnoreCase(str);
     }
 
-    private static Optional<UUID> flatMapIfValid(@NonNull UUID uuid) {
-        // Variant 1 UUIDs will show up as variant 2 in Java
-        if (uuid.version() == 4 && uuid.variant() == 2) {
-            return Optional.of(uuid);
-        }
-        return Optional.empty();
-    }
-
     /**
      * Efficiently converts a short UUID to a UUID object by skipping regex validation.
      * <br>This does not enforce the correct UUID version and variant.
@@ -216,6 +208,19 @@ public final class UUIDs {
         }
         String r = EFFICIENT_SHORT_UUID_PATTERN.matcher(str).replaceFirst(SHORT_UUID_REPLACEMENT);
         return UUID.fromString(r);
+    }
+
+    /**
+     * Checks if a UUID is a valid version 4, variant 1 UUID.
+     * @param uuid the UUID
+     * @return true if the UUID is valid
+     */
+    public static boolean isValid(@NonNull UUID uuid) {
+        // Variant 1 UUIDs will show up as variant 2 in Java
+        return uuid.version() == 4 && uuid.variant() == 2;
+    }
+    private static Optional<UUID> flatMapIfValid(@NonNull UUID uuid) {
+        return isValid(uuid) ? Optional.of(uuid) : Optional.empty();
     }
 
     /**

@@ -125,6 +125,28 @@ public class UUIDsTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
+    @ParameterizedTest(name = "{index} ==> String {0} is a valid UUID")
+    @ValueSource(strings = {
+            "1ebe4f10-32a4-4fee-910c-2792d1aba0f6",
+            "58b11ba5-aaa0-407e-9e91-980dcc748ec6",
+            "346565d2-adf0-4db1-83c3-53e6c1a5b0e8",
+            "7023aa42-8de6-4838-b4d3-f836d06dc849"
+    })
+    @DisplayName("isValid() returns true on valid UUID")
+    public void testIsValidValid(UUID candidate) {
+        assertThat(UUIDs.isValid(candidate)).isTrue();
+    }
+
+    @ParameterizedTest(name = "{index} ==> String {0} is an invalid UUID")
+    @ValueSource(strings = {
+            "e72109b8-e639-cc7c-b224-ef1fd3a4a436", // Not correct version
+            "ca3f2ec2-2de4-4c91-6811-7dca326db097" // Not correct variant
+    })
+    @DisplayName("isValid() returns false on invalid UUID")
+    public void testIsValidInvalid(UUID candidate) {
+        assertThat(UUIDs.isValid(candidate)).isFalse();
+    }
+
     @ParameterizedTest(name = "{index} ==> UUID {0} without dashes is {1}")
     @CsvSource({
             "d174deab-8971-4891-9a5b-85fa4315bd1a, d174deab897148919a5b85fa4315bd1a",
