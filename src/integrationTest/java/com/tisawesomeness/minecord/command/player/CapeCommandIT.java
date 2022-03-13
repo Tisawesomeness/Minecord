@@ -160,6 +160,21 @@ public class CapeCommandIT {
                 .embedRepliesIsEmpty();
     }
 
+    @Test
+    @DisplayName("Cape command shows message if player is PHD")
+    public void testPHD() throws URISyntaxException {
+        Player player = PlayerTests.initPHDPlayer();
+        TestCommandRunner runner = createRunner(player, OptifineCape.NO);
+        String args = UUIDs.toShortString(player.getUuid());
+        assertThat(runner.run(args))
+                .awaitReply()
+                .hasTriggeredCooldown()
+                .isSuccess()
+                .embedRepliesIsEmpty()
+                .asReply()
+                .contains("PHD");
+    }
+
     private static TestCommandRunner createRunner(Player player, OptifineCape capeStatus) throws URISyntaxException {
         TestCommandRunner runner = new TestCommandRunner(config, new CapeCommand());
         TestMCLibrary library = new TestMCLibrary();

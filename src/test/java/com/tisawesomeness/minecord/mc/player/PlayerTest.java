@@ -9,6 +9,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class PlayerTest {
 
@@ -105,6 +106,17 @@ public class PlayerTest {
         URI steveUri = steve.getSkinUrl().toURI();
         URI alexUri = alex.getSkinUrl().toURI();
         assertThat(steveUri).isNotEqualTo(alexUri);
+    }
+
+    @Test
+    @DisplayName("PHD players do not have a profile")
+    public void testPHD() {
+        Player phd = PlayerTests.initPHDPlayer();
+        assertThat(phd.isPHD()).isTrue();
+        assertThatExceptionOfType(IllegalStateException.class).isThrownBy(phd::getProfile);
+        assertThatExceptionOfType(IllegalStateException.class).isThrownBy(phd::hasCustomSkin);
+        assertThatExceptionOfType(IllegalStateException.class).isThrownBy(phd::getSkinType);
+        assertThatExceptionOfType(IllegalStateException.class).isThrownBy(phd::getSkinUrl);
     }
 
 }

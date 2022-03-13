@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.command.meta.Result;
 import com.tisawesomeness.minecord.mc.player.*;
+import com.tisawesomeness.minecord.testutil.PlayerTests;
 import com.tisawesomeness.minecord.testutil.Resources;
 import com.tisawesomeness.minecord.testutil.mc.MockMojangAPI;
 import com.tisawesomeness.minecord.testutil.mc.TestMCLibrary;
@@ -10,6 +11,7 @@ import com.tisawesomeness.minecord.testutil.runner.TestCommandRunner;
 import com.tisawesomeness.minecord.util.IO;
 import com.tisawesomeness.minecord.util.Lists;
 import com.tisawesomeness.minecord.util.Strings;
+import com.tisawesomeness.minecord.util.UUIDs;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -42,6 +44,8 @@ public class ProfileCommandIT {
     );
     private static final AccountStatus ACCOUNT_STATUS = AccountStatus.MIGRATED_MICROSOFT;
 
+    private static final Player PHD_PLAYER = PlayerTests.initPHDPlayer();
+
     private static final Profile DUMMY_PROFILE = new Profile(false, false, SkinType.STEVE, null, null);
 
     private static TestCommandRunner runner;
@@ -67,6 +71,8 @@ public class ProfileCommandIT {
         Player accountStatusPlayer = new Player(ACCOUNT_STATUS_UUID, ACCOUNT_STATUS_HISTORY, DUMMY_PROFILE);
         playerProvider.mapPlayer(accountStatusPlayer);
         playerProvider.mapStatus(ACCOUNT_STATUS_UUID, ACCOUNT_STATUS);
+
+        playerProvider.mapPlayer(PHD_PLAYER);
 
         runner.mcLibrary = library;
     }
@@ -178,7 +184,21 @@ public class ProfileCommandIT {
                 .hasTriggeredCooldown()
                 .isSuccess()
                 .asEmbedReply()
+                .hasFieldWithName("Account")
                 .fieldsContains("Microsoft", "Migrated");
+    }
+
+    @Test
+    @DisplayName("Profile command shows message if player is PHD")
+    public void testPHD() {
+        String args = UUIDs.toShortString(PHD_PLAYER.getUuid());
+        assertThat(runner.run(args))
+                .awaitEmbedReply()
+                .hasTriggeredCooldown()
+                .isSuccess()
+                .asEmbedReply()
+                .descriptionContains("PHD")
+                .doesNotHaveFieldWithName("Account");
     }
 
 }

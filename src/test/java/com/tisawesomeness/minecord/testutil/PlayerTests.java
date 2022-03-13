@@ -71,6 +71,13 @@ public class PlayerTests {
         return new Player(uuid, history, profile);
     }
 
+    public static Player initPHDPlayer() {
+        UUID uuid = UUID.fromString("2b4c7e72-328d-4616-b27c-070bcfb257ea");
+        Username name = new Username("xxemilyy");
+        List<NameChange> history = Collections.singletonList(NameChange.original(name));
+        return new Player(uuid, history, null);
+    }
+
     public static Stream<UUID> uuidProvider() {
         return Stream.of(TIS_STEVE_UUID, JEB_ALEX_UUID, NOTCH_STEVE_UUID);
     }

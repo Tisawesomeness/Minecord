@@ -47,22 +47,24 @@ public class ProfileCommand extends BasePlayerCommand {
         String bodyUrl = player.createRender(RenderType.BODY, true).render().toString();
 
         String desc = constructDescription(ctx, player);
-        String skinInfo = constructSkinInfo(ctx, player);
-        String capeInfo = player.getProfile().getCapeUrl()
-                .map(url -> boldMaskedLink(ctx.i18n("capeLink"), url))
-                .orElseGet(() -> ctx.i18n("noCape"));
-        String accountInfo = constructAccountInfo(ctx, player, statusOpt);
-
         Color color = player.isRainbow() ? Colors.randomColor() : ctx.getColor();
+
         EmbedBuilder eb = new EmbedBuilder()
                 .setColor(color)
                 .setAuthor(title, nameMCUrl, avatarUrl);
         MessageEmbed baseEmbed = eb.build();
-        eb.setThumbnail(bodyUrl)
-                .setDescription(desc)
-                .addField(lang.i18n("mc.player.skin.skin"), skinInfo, true)
-                .addField(lang.i18n("mc.player.cape.cape"), capeInfo, true)
-                .addField(ctx.i18n("account"), accountInfo, true);
+        eb.setThumbnail(bodyUrl).setDescription(desc);
+
+        if (!player.isPHD()) {
+            String skinInfo = constructSkinInfo(ctx, player);
+            String capeInfo = player.getProfile().getCapeUrl()
+                    .map(url -> boldMaskedLink(ctx.i18n("capeLink"), url))
+                    .orElseGet(() -> ctx.i18n("noCape"));
+            String accountInfo = constructAccountInfo(ctx, player, statusOpt);
+            eb.addField(lang.i18n("mc.player.skin.skin"), skinInfo, true)
+                    .addField(lang.i18n("mc.player.cape.cape"), capeInfo, true)
+                    .addField(ctx.i18n("account"), accountInfo, true);
+        }
 
         String nameHistoryTitle = lang.i18n("mc.player.history.nameHistory");
         List<String> parts = buildHistoryPartitions(ctx, player);
@@ -77,19 +79,28 @@ public class ProfileCommand extends BasePlayerCommand {
 
     private static @NonNull String constructDescription(CommandContext ctx, Player player) {
         Lang lang = ctx.getLang();
+        UUID uuid = player.getUuid();
+
         String usernameLength = MarkdownUtil.bold(ctx.i18n("lettersInName")) + ": " +
                 MarkdownUtil.monospace(String.valueOf(player.getUsername().length()));
-        UUID uuid = player.getUuid();
         String shortUuid = MarkdownUtil.bold(lang.i18n("mc.player.uuid.shortUuid")) + ": " +
                 MarkdownUtil.monospace(UUIDs.toShortString(uuid));
         String longUuid = MarkdownUtil.bold(lang.i18n("mc.player.uuid.longUuid")) + ": " +
                 MarkdownUtil.monospace(UUIDs.toLongString(uuid));
-        String skinType = MarkdownUtil.bold(lang.i18n("mc.player.skin.model")) + ": " +
-                lang.i18n(player.getSkinType().getTranslationKey());
         String defaultModel = MarkdownUtil.bold(lang.i18n("mc.player.skin.default")) + ": " +
                 lang.i18n(player.getDefaultSkinType().getTranslationKey());
-        return usernameLength + "\n" + shortUuid + "\n" + longUuid + "\n" + skinType + "\n" + defaultModel;
+
+        String descriptionStart = usernameLength + "\n" + shortUuid + "\n" + longUuid + "\n";
+        if (player.isPHD()) {
+            String phdMessage = MarkdownUtil.bold(ctx.i18n("phd"));
+            return descriptionStart + defaultModel + "\n" + phdMessage;
+        } else {
+            String skinType = MarkdownUtil.bold(lang.i18n("mc.player.skin.model")) + ": " +
+                    lang.i18n(player.getSkinType().getTranslationKey());
+            return descriptionStart + skinType + "\n" + defaultModel;
+        }
     }
+
     private static @NonNull String constructSkinInfo(CommandContext ctx, Player player) {
         Lang lang = ctx.getLang();
         String skinLink = boldMaskedLink(ctx.i18n("skinLink"), player.getSkinUrl());

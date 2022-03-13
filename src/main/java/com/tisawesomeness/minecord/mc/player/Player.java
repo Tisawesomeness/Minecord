@@ -37,9 +37,9 @@ public class Player implements Comparable<Player> {
      */
     List<NameChange> nameHistory;
     /**
-     * Contains additional profile information about the player
+     * Contains additional profile information about the player, null if the player is PHD
      */
-    @NonNull Profile profile;
+    @Nullable Profile profile;
     /**
      * The time this player was requested
      */
@@ -50,13 +50,25 @@ public class Player implements Comparable<Player> {
      * @param uuid The unique ID of the player
      * @param nameHistory A list of name changes, <b>assumed to be sorted</b> according to the natural ordering
      *                    (see the {@link NameChange} docs)
-     * @param profile Additional information about the player
+     * @param profile Additional information about the player, null if PHD
      */
-    public Player(@NonNull UUID uuid, List<NameChange> nameHistory, @NonNull Profile profile) {
+    public Player(@NonNull UUID uuid, List<NameChange> nameHistory, @Nullable Profile profile) {
         this.uuid = uuid;
         this.nameHistory = Collections.unmodifiableList(nameHistory);
         this.profile = profile;
         requestTime = Instant.now();
+    }
+
+    /**
+     * Gets the player's profile data.
+     * @return the profile
+     * @throws IllegalStateException If the player is PHD, since PHD players have no profile
+     */
+    public @NonNull Profile getProfile() {
+        if (profile == null) {
+            throw new IllegalStateException("PHD accounts do not have a profile");
+        }
+        return profile;
     }
 
     /**
@@ -67,9 +79,24 @@ public class Player implements Comparable<Player> {
     }
 
     /**
+     * Checks if a player is pseudo hard-deleted, or <strong>PHD</strong>.
+     * PHD players can be looked up in the Mojang API by UUID, but not by name. They are blocked by the game but not
+     * completely deleted from Mojang's database.
+     * PHD players do not have {@link Profile} data, and so do not have a known account type, skin, or cape.
+     * @return whether the player is PHD
+     */
+    public boolean isPHD() {
+        return profile == null;
+    }
+
+    /**
      * @return The skin type of the player's current skin
+     * @throws IllegalStateException If the player is PHD
      */
     public SkinType getSkinType() {
+        if (profile == null) {
+            throw new IllegalStateException("PHD accounts do not have a profile");
+        }
         if (profile.getSkinUrl().isPresent()) {
             return profile.getSkinType();
         }
@@ -90,8 +117,12 @@ public class Player implements Comparable<Player> {
 
     /**
      * @return True if the player has a custom skin
+     * @throws IllegalStateException If the player is PHD
      */
     public boolean hasCustomSkin() {
+        if (profile == null) {
+            throw new IllegalStateException("PHD accounts do not have a profile");
+        }
         Optional<URL> skinUrlOpt = profile.getSkinUrl();
         if (!skinUrlOpt.isPresent()) {
             return false;
@@ -106,8 +137,12 @@ public class Player implements Comparable<Player> {
     /**
      * Gets the URL to the player's custom skin texture, or the default steve or alex texture if no custom skin is set.
      * @return The URL where Mojang hosts the skin texture
+     * @throws IllegalStateException If the player is PHD
      */
     public @NonNull URL getSkinUrl() {
+        if (profile == null) {
+            throw new IllegalStateException("PHD accounts do not have a profile");
+        }
         Optional<URL> skinUrl = profile.getSkinUrl();
         if (skinUrl.isPresent()) {
             return skinUrl.get();

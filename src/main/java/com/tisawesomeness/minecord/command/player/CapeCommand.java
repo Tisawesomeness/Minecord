@@ -25,6 +25,11 @@ public class CapeCommand extends BasePlayerCommand {
     public void onSuccessfulPlayer(CommandContext ctx, Player player) {
         APIClient client = ctx.getMCLibrary().getClient();
 
+        if (player.isPHD()) {
+            ctx.reply(ctx.i18nf("phd", player.getUuid()));
+            return;
+        }
+
         boolean hasMojangCape = false;
         Optional<URL> capeUrlOpt = player.getProfile().getCapeUrl();
         if (capeUrlOpt.isPresent()) {

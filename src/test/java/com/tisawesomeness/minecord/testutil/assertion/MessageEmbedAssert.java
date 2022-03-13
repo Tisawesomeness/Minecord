@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MessageEmbedAssert extends AbstractAssert<MessageEmbedAssert, MessageEmbed> {
 
@@ -248,6 +249,46 @@ public class MessageEmbedAssert extends AbstractAssert<MessageEmbedAssert, Messa
     public MessageEmbedAssert descriptionContainsSubsequence(Iterable<? extends CharSequence> values) {
         isNotNull();
         Assertions.assertThat(actual.getDescription()).containsSubsequence(values);
+        return this;
+    }
+
+
+    public MessageEmbedAssert hasFieldWithName(CharSequence... values) {
+        isNotNull();
+        Stream<String> fieldNames = actual.getFields().stream().map(MessageEmbed.Field::getName);
+        List<String> valuesList = Arrays.stream(values).map(Object::toString).collect(Collectors.toList());
+        Assertions.assertThat(fieldNames).containsAll(valuesList);
+        return this;
+    }
+
+    public MessageEmbedAssert hasFieldWithName(Iterable<? extends CharSequence> values) {
+        isNotNull();
+        Stream<String> fieldNames = actual.getFields().stream().map(MessageEmbed.Field::getName);
+        Collection<String> valuesList = new ArrayList<>();
+        for (CharSequence value : values) {
+            valuesList.add(value.toString());
+        }
+        Assertions.assertThat(fieldNames).containsAll(valuesList);
+        return this;
+    }
+
+    public MessageEmbedAssert doesNotHaveFieldWithName(CharSequence... values) {
+        isNotNull();
+        Stream<String> fieldNames = actual.getFields().stream().map(MessageEmbed.Field::getName);
+        String[] valuesArr = Arrays.stream(values).map(Object::toString).toArray(String[]::new);
+        Assertions.assertThat(fieldNames).doesNotContain(valuesArr);
+        return this;
+    }
+
+    public MessageEmbedAssert doesNotHaveFieldWithName(Iterable<? extends CharSequence> values) {
+        isNotNull();
+        Stream<String> fieldNames = actual.getFields().stream().map(MessageEmbed.Field::getName);
+        Collection<String> valuesList = new ArrayList<>();
+        for (CharSequence value : values) {
+            valuesList.add(value.toString());
+        }
+        String[] valuesArr = valuesList.toArray(new String[0]);
+        Assertions.assertThat(fieldNames).doesNotContain(valuesArr);
         return this;
     }
 
