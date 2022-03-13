@@ -6,7 +6,10 @@ import com.tisawesomeness.minecord.mc.external.PlayerProvider;
 import com.tisawesomeness.minecord.mc.player.AccountStatus;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.RenderType;
-import com.tisawesomeness.minecord.util.*;
+import com.tisawesomeness.minecord.util.Colors;
+import com.tisawesomeness.minecord.util.Discord;
+import com.tisawesomeness.minecord.util.Strings;
+import com.tisawesomeness.minecord.util.UUIDs;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -118,7 +121,7 @@ public class ProfileCommand extends BasePlayerCommand {
     }
 
     private static List<String> buildHistoryPartitions(CommandContext ctx, Player player) {
-        List<String> nameHistoryLines = buildHistoryLines(ctx, Time.Format.DATE, player.getNameHistory());
+        List<String> nameHistoryLines = buildHistoryLines(ctx, player.getNameHistory());
         List<String> partitions = Strings.partitionLinesByLength(nameHistoryLines, MessageEmbed.VALUE_MAX_LENGTH);
         return new LinkedList<>(partitions);
     }

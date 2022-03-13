@@ -6,7 +6,6 @@ import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.Colors;
 import com.tisawesomeness.minecord.util.Discord;
 import com.tisawesomeness.minecord.util.Strings;
-import com.tisawesomeness.minecord.util.Time;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +23,7 @@ public class HistoryCommand extends BasePlayerCommand {
     }
 
     public void onSuccessfulPlayer(CommandContext ctx, Player player) {
-        List<String> historyLines = buildHistoryLines(ctx, Time.Format.DATETIME, player.getNameHistory());
+        List<String> historyLines = buildHistoryLines(ctx, player.getNameHistory());
         List<String> historyPartitions = Strings.partitionLinesByLength(
                 historyLines, MessageEmbed.VALUE_MAX_LENGTH);
 
