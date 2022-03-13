@@ -2,6 +2,8 @@ package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.command.meta.CommandContext;
 import com.tisawesomeness.minecord.lang.Lang;
+import com.tisawesomeness.minecord.mc.external.PlayerProvider;
+import com.tisawesomeness.minecord.mc.player.AccountStatus;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.*;
@@ -16,6 +18,7 @@ import java.awt.Color;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -26,6 +29,13 @@ public class ProfileCommand extends BasePlayerCommand {
     }
 
     public void onSuccessfulPlayer(CommandContext ctx, Player player) {
+        PlayerProvider provider = ctx.getMCLibrary().getPlayerProvider();
+        provider.getAccountStatus(player.getUuid())
+                .exceptionally(ex -> Optional.empty())
+                .thenAccept(statusOpt -> onSuccessfulStatus(ctx, player, statusOpt));
+    }
+
+    private static void onSuccessfulStatus(CommandContext ctx, Player player, Optional<AccountStatus> statusOpt) {
         Lang lang = ctx.getLang();
 
         String title = ctx.i18nf("title", player.getUsername());
@@ -38,7 +48,7 @@ public class ProfileCommand extends BasePlayerCommand {
         String capeInfo = player.getProfile().getCapeUrl()
                 .map(url -> boldMaskedLink(ctx.i18n("capeLink"), url))
                 .orElseGet(() -> ctx.i18n("noCape"));
-        String accountInfo = constructAccountInfo(ctx, player);
+        String accountInfo = constructAccountInfo(ctx, player, statusOpt);
 
         Color color = player.isRainbow() ? Colors.randomColor() : ctx.getColor();
         EmbedBuilder eb = new EmbedBuilder()
@@ -85,15 +95,22 @@ public class ProfileCommand extends BasePlayerCommand {
         String skinHistoryLink = boldMaskedLink(ctx.i18n("skinHistoryLink"), player.getMCSkinHistoryUrl());
         return skinLink + "\n" + custom + "\n" + skinHistoryLink;
     }
-    private static @NonNull String constructAccountInfo(CommandContext ctx, Player player) {
+    private static @NonNull String constructAccountInfo(CommandContext ctx, Player player,
+                Optional<AccountStatus> statusOpt) {
         Lang lang = ctx.getLang();
-        String legacy = MarkdownUtil.bold(ctx.i18n("legacy")) + ": " +
-                lang.displayBool(player.getProfile().isLegacy());
+        String accountType = statusOpt
+                .map(lang::localize)
+                .map(MarkdownUtil::bold)
+                .orElseGet(() -> constructLegacyStr(ctx, player, lang));
         String demo = MarkdownUtil.bold(ctx.i18n("demo")) + ": " +
                 lang.displayBool(player.getProfile().isDemo());
         String invalid = MarkdownUtil.bold(ctx.i18n("invalid")) + ": " +
                 lang.displayBool(!player.getUsername().isValid());
-        return legacy + "\n" + demo + "\n" + invalid;
+        return accountType + "\n" + demo + "\n" + invalid;
+    }
+    private static @NonNull String constructLegacyStr(CommandContext ctx, Player player, Lang lang) {
+        return MarkdownUtil.bold(ctx.i18n("legacy")) + ": " +
+                lang.displayBool(player.getProfile().isLegacy());
     }
 
     private static String boldMaskedLink(String text, URL url) {

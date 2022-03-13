@@ -28,7 +28,6 @@ public class ProfileCommandIT {
 
     private static final Username LONG_HISTORY_NAME = new Username("TeraStella");
     private static final UUID LONG_HISTORY_UUID = UUID.fromString("38550ae0-706e-4bb5-b12e-d00c48e2f482");
-    private static List<NameChange> longHistory;
 
     private static final Username SHORT_HISTORY_NAME = new Username("Tis_awesomeness");
     private static final UUID SHORT_HISTORY_UUID = UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3af");
@@ -36,6 +35,12 @@ public class ProfileCommandIT {
             NameChange.withTimestamp(SHORT_HISTORY_NAME, 1438695830000L),
             NameChange.original(new Username("tis_awesomeness"))
     );
+
+    private static final UUID ACCOUNT_STATUS_UUID = UUID.fromString("c7b3d49c-580c-4af2-a824-ca07b37ff2f9");
+    private static final List<NameChange> ACCOUNT_STATUS_HISTORY = Lists.of(
+            NameChange.original(new Username("SeeSaw"))
+    );
+    private static final AccountStatus ACCOUNT_STATUS = AccountStatus.MIGRATED_MICROSOFT;
 
     private static final Profile DUMMY_PROFILE = new Profile(false, false, SkinType.STEVE, null, null);
 
@@ -54,10 +59,14 @@ public class ProfileCommandIT {
         playerProvider.mapUuid(SHORT_HISTORY_NAME, SHORT_HISTORY_UUID);
         playerProvider.mapPlayer(shortHistoryPlayer);
 
-        longHistory = getLongHistory();
+        List<NameChange> longHistory = getLongHistory();
         Player longHistoryPlayer = new Player(LONG_HISTORY_UUID, longHistory, DUMMY_PROFILE);
         playerProvider.mapUuid(LONG_HISTORY_NAME, LONG_HISTORY_UUID);
         playerProvider.mapPlayer(longHistoryPlayer);
+
+        Player accountStatusPlayer = new Player(ACCOUNT_STATUS_UUID, ACCOUNT_STATUS_HISTORY, DUMMY_PROFILE);
+        playerProvider.mapPlayer(accountStatusPlayer);
+        playerProvider.mapStatus(ACCOUNT_STATUS_UUID, ACCOUNT_STATUS);
 
         runner.mcLibrary = library;
     }
@@ -135,7 +144,7 @@ public class ProfileCommandIT {
     }
 
     @Test
-    @DisplayName("Profile command responds with success, even though the uuid doesn't exist")
+    @DisplayName("Profile command works with short history")
     public void testShortHistory() {
         String args = SHORT_HISTORY_UUID.toString();
         assertThat(runner.run(args))
@@ -148,7 +157,7 @@ public class ProfileCommandIT {
     }
 
     @Test
-    @DisplayName("Profile command responds with success, even though the uuid doesn't exist")
+    @DisplayName("Profile command works with long history")
     public void testLongHistory() {
         String args = LONG_HISTORY_UUID.toString();
         assertThat(runner.run(args))
@@ -158,6 +167,18 @@ public class ProfileCommandIT {
                 .asEmbedReply()
                 .headerContains(LONG_HISTORY_NAME)
                 .headerLinksToAnyOf(Player.getNameMCUrlFor(LONG_HISTORY_NAME), Player.getNameMCUrlFor(LONG_HISTORY_UUID));
+    }
+
+    @Test
+    @DisplayName("Profile command works with account status")
+    public void testAccountStatus() {
+        String args = ACCOUNT_STATUS_UUID.toString();
+        assertThat(runner.run(args))
+                .awaitResult()
+                .hasTriggeredCooldown()
+                .isSuccess()
+                .asEmbedReply()
+                .fieldsContains("Microsoft", "Migrated");
     }
 
 }
