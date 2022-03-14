@@ -11,14 +11,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AccountStatusTest {
 
     @ParameterizedTest(name = "{index} ==> Account status {0} can be localized")
-    @EnumSource(AccountStatus.class)
+    @EnumSource
     @DisplayName("All account statuses can be localized")
     public void testLocalization(AccountStatus candidate) {
         assertThat(Lang.getDefault().localize(candidate)).isNotEmpty();
     }
 
     @ParameterizedTest(name = "{index} ==> Account status {0} can be looked up by key")
-    @EnumSource(AccountStatus.class)
+    @EnumSource
     @DisplayName("All account statuses can be looked up by key")
     public void testFrom(AccountStatus candidate) {
         assertThat(AccountStatus.from(candidate.getKey())).contains(candidate);

@@ -117,7 +117,7 @@ public class ProfileCommand extends BasePlayerCommand {
         String longUuid = MarkdownUtil.bold(lang.i18n("mc.player.uuid.longUuid")) + ": " +
                 MarkdownUtil.monospace(UUIDs.toLongString(uuid));
         String defaultModel = MarkdownUtil.bold(lang.i18n("mc.player.skin.default")) + ": " +
-                lang.i18n(player.getDefaultSkinType().getTranslationKey());
+                lang.localize(player.getDefaultSkinType());
 
         String descriptionStart = usernameLength + "\n" + shortUuid + "\n" + longUuid + "\n";
         if (player.isPHD()) {
@@ -125,7 +125,7 @@ public class ProfileCommand extends BasePlayerCommand {
             return descriptionStart + defaultModel + "\n" + phdMessage;
         } else {
             String skinType = MarkdownUtil.bold(lang.i18n("mc.player.skin.model")) + ": " +
-                    lang.i18n(player.getSkinType().getTranslationKey());
+                    lang.localize(player.getSkinType());
             return descriptionStart + skinType + "\n" + defaultModel;
         }
     }

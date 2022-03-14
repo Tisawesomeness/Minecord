@@ -89,7 +89,7 @@ public class UuidCommand extends AbstractPlayerCommand {
         String longUuid = MarkdownUtil.bold(lang.i18n("mc.player.uuid.long")) + ": " +
                 MarkdownUtil.monospace(UUIDs.toLongString(uuid));
         String skinType = MarkdownUtil.bold(lang.i18n("mc.player.skin.default")) + ": " +
-                lang.i18n(Player.getDefaultSkinTypeFor(uuid).getTranslationKey());
+                lang.localize(Player.getDefaultSkinTypeFor(uuid));
         String intArray = MarkdownUtil.bold(ctx.i18n("nbt")) + ": " +
                 MarkdownUtil.monospace(UUIDs.toIntArrayString(uuid));
         String mostLeast = MarkdownUtil.bold(ctx.i18n("legacyNbt")) + ": " +

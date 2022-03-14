@@ -213,15 +213,6 @@ public enum Lang {
         return i18nf(obj.getTranslationKey(), obj.getTranslationArgs());
     }
     /**
-     * Localizes an object as a user-readable string.
-     * @param obj The localizable object
-     * @return A builder to add markdown to the object's description in this language
-     * @throws java.util.MissingResourceException If the localization key could not be found
-     */
-    public @NonNull LocalizedMarkdownBuilder localizeMarkdown(@NonNull Localizable obj) {
-        return i18nm(obj.getTranslationKey(), obj.getTranslationArgs());
-    }
-    /**
      * Localizes a permission.
      * @param permission The permission, may be unknown
      * @return The name of the permission in this language
