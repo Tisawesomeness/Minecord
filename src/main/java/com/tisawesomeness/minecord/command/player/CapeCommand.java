@@ -22,13 +22,12 @@ public class CapeCommand extends BasePlayerCommand {
         return "cape";
     }
 
-    public void onSuccessfulPlayer(CommandContext ctx, Player player) {
-        APIClient client = ctx.getMCLibrary().getClient();
+    protected boolean shouldRejectPHD() {
+        return true;
+    }
 
-        if (player.isPHD()) {
-            ctx.reply(ctx.i18nf("phd", player.getUuid()));
-            return;
-        }
+    protected void onSuccessfulPlayer(CommandContext ctx, Player player) {
+        APIClient client = ctx.getMCLibrary().getClient();
 
         boolean hasMojangCape = false;
         Optional<URL> capeUrlOpt = player.getProfile().getCapeUrl();

@@ -30,7 +30,11 @@ public class ProfileCommand extends BasePlayerCommand {
         return "profile";
     }
 
-    public void onSuccessfulPlayer(CommandContext ctx, Player player) {
+    protected boolean shouldRejectPHD() {
+        return false;
+    }
+
+    protected void onSuccessfulPlayer(CommandContext ctx, Player player) {
         PlayerProvider provider = ctx.getMCLibrary().getPlayerProvider();
         if (provider.isStatusAPIEnabled()) {
             provider.getAccountStatus(player.getUuid())
@@ -91,7 +95,7 @@ public class ProfileCommand extends BasePlayerCommand {
 
         String descriptionStart = usernameLength + "\n" + shortUuid + "\n" + longUuid + "\n";
         if (player.isPHD()) {
-            String phdMessage = MarkdownUtil.bold(ctx.i18n("phd"));
+            String phdMessage = MarkdownUtil.bold(ctx.getLang().i18n("mc.player.phdExclamation"));
             return descriptionStart + defaultModel + "\n" + phdMessage;
         } else {
             String skinType = MarkdownUtil.bold(lang.i18n("mc.player.skin.model")) + ": " +

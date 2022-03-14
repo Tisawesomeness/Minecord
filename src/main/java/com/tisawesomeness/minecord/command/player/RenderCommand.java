@@ -16,6 +16,7 @@ import com.tisawesomeness.minecord.util.type.Either;
 import lombok.NonNull;
 import lombok.Value;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import java.awt.Color;
 import java.util.Optional;
@@ -209,13 +210,18 @@ public class RenderCommand extends AbstractPlayerCommand {
         ctx.reply(ctx.getLang().i18n("mc.player.username.doesNotExist"));
     }
     private static void processPlayer(CommandContext ctx, Optional<Player> playerOpt, ImpersonalRender irender) {
+        Lang lang = ctx.getLang();
         if (playerOpt.isPresent()) {
             Player player = playerOpt.get();
+            if (player.isPHD()) {
+                ctx.reply(lang.i18nf("mc.player.phdMessage", MarkdownUtil.monospace(player.getUuid().toString())));
+                return;
+            }
             Render render = irender.completeWith(player.getUuid());
             sendRenderEmbed(ctx, player.getUsername(), render);
             return;
         }
-        ctx.reply(ctx.getLang().i18n("mc.player.uuid.doesNotExist"));
+        ctx.reply(lang.i18n("mc.player.uuid.doesNotExist"));
     }
 
     private static void sendRenderEmbed(CommandContext ctx, Username username, Render render) {

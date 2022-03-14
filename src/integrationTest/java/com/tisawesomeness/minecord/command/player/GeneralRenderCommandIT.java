@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.command.meta.Command;
 import com.tisawesomeness.minecord.command.meta.Result;
+import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.Render;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.mc.player.Username;
@@ -11,6 +12,7 @@ import com.tisawesomeness.minecord.testutil.mc.TestMCLibrary;
 import com.tisawesomeness.minecord.testutil.mc.TestPlayerProvider;
 import com.tisawesomeness.minecord.testutil.runner.TestCommandRunner;
 import com.tisawesomeness.minecord.util.Strings;
+import com.tisawesomeness.minecord.util.UUIDs;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.BeforeAll;
@@ -33,6 +35,8 @@ public class GeneralRenderCommandIT {
 
         playerProvider.throwOnUsername(THROWING_USERNAME);
         playerProvider.mapUuid(new Username("abc"), PlayerTests.TIS_STEVE_UUID);
+
+        playerProvider.mapPlayer(PlayerTests.initPHDPlayer());
 
         runner.mcLibrary = library;
     }
@@ -187,6 +191,20 @@ public class GeneralRenderCommandIT {
                 .awaitResult()
                 .hasNotTriggeredCooldown()
                 .resultIs(Result.INVALID_ARGS);
+    }
+
+    @Test
+    @DisplayName("Render command shows message if player is PHD")
+    public void testPHD() {
+        Player player = PlayerTests.initPHDPlayer();
+        String args = "head " + UUIDs.toShortString(player.getUuid());
+        assertThat(runner.run(args))
+                .awaitReply()
+                .hasTriggeredCooldown()
+                .isSuccess()
+                .embedRepliesIsEmpty()
+                .asReply()
+                .contains("PHD");
     }
 
 }

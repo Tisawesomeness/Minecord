@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.command.meta.CommandContext;
+import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.mc.external.PlayerProvider;
 import com.tisawesomeness.minecord.mc.player.NameChange;
 import com.tisawesomeness.minecord.mc.player.Player;
@@ -25,11 +26,17 @@ import java.util.UUID;
 public abstract class BasePlayerCommand extends AbstractPlayerCommand {
 
     /**
+     * @return whether pseudo hard-deleted players should be automatically rejected with an error message
+     * before the command is run
+     */
+    protected abstract boolean shouldRejectPHD();
+
+    /**
      * Run when a player is found successfully.
      * @param ctx The context of the command
      * @param player The player
      */
-    public abstract void onSuccessfulPlayer(CommandContext ctx, Player player);
+    protected abstract void onSuccessfulPlayer(CommandContext ctx, Player player);
 
     public void run(String[] args, CommandContext ctx) {
         if (args.length == 0) {
@@ -75,7 +82,13 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
             ctx.reply(ctx.getLang().i18n(i18nKey));
             return;
         }
-        onSuccessfulPlayer(ctx, playerOpt.get());
+        Player player = playerOpt.get();
+        if (shouldRejectPHD() && player.isPHD()) {
+            Lang lang = ctx.getLang();
+            ctx.reply(lang.i18nf("mc.player.phdMessage", MarkdownUtil.monospace(player.getUuid().toString())));
+            return;
+        }
+        onSuccessfulPlayer(ctx, player);
     }
 
     /**

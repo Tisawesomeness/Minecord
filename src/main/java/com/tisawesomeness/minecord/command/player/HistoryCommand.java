@@ -11,6 +11,7 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import java.awt.Color;
 import java.util.List;
@@ -22,8 +23,16 @@ public class HistoryCommand extends BasePlayerCommand {
         return "history";
     }
 
-    public void onSuccessfulPlayer(CommandContext ctx, Player player) {
+    protected boolean shouldRejectPHD() {
+        return false;
+    }
+
+    protected void onSuccessfulPlayer(CommandContext ctx, Player player) {
         List<String> historyLines = buildHistoryLines(ctx, player.getNameHistory());
+        if (player.isPHD()) {
+            String phdMessage = MarkdownUtil.bold(ctx.getLang().i18n("mc.player.phdExclamation"));
+            historyLines.add(0, phdMessage);
+        }
         List<String> historyPartitions = Strings.partitionLinesByLength(
                 historyLines, MessageEmbed.VALUE_MAX_LENGTH);
 

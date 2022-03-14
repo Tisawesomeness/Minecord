@@ -10,6 +10,7 @@ import com.tisawesomeness.minecord.testutil.mc.TestMCLibrary;
 import com.tisawesomeness.minecord.testutil.mc.TestPlayerProvider;
 import com.tisawesomeness.minecord.testutil.runner.TestCommandRunner;
 import com.tisawesomeness.minecord.util.Strings;
+import com.tisawesomeness.minecord.util.UUIDs;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -55,6 +56,8 @@ public class SkinCommandIT {
         playerProvider.mapPlayer(ALEX_PLAYER);
         playerProvider.mapUuid(CUSTOM_USERNAME, CUSTOM_UUID);
         playerProvider.mapPlayer(CUSTOM_PLAYER);
+
+        playerProvider.mapPlayer(PlayerTests.initPHDPlayer());
 
         runner.mcLibrary = library;
     }
@@ -155,6 +158,20 @@ public class SkinCommandIT {
                 .headerContains(CUSTOM_USERNAME)
                 .headerLinksTo(CUSTOM_PLAYER.getMCSkinHistoryUrl())
                 .imageLinksTo(CUSTOM_PLAYER.getSkinUrl());
+    }
+
+    @Test
+    @DisplayName("Skin command shows message if player is PHD")
+    public void testPHD() {
+        Player player = PlayerTests.initPHDPlayer();
+        String args = UUIDs.toShortString(player.getUuid());
+        assertThat(runner.run(args))
+                .awaitReply()
+                .hasTriggeredCooldown()
+                .isSuccess()
+                .embedRepliesIsEmpty()
+                .asReply()
+                .contains("PHD");
     }
 
 }
