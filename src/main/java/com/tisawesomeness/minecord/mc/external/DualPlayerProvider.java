@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -125,7 +126,7 @@ public class DualPlayerProvider implements PlayerProvider {
 
     private Optional<AccountStatus> loadAccountStatus(UUID uuid) throws IOException {
         try {
-            return gappleAPI.getAccountStatus(uuid);
+            return Objects.requireNonNull(gappleAPI).getAccountStatus(uuid);
         } catch (IOException ex) {
             log.warn("Getting account status from Gapple API failed with IOE", ex);
             throw ex;

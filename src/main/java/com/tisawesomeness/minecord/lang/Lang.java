@@ -156,20 +156,7 @@ public enum Lang {
     public @NonNull String i18nf(@NonNull @PropertyKey(resourceBundle = RB) String key, Object... args) {
         return new MessageFormat(i18n(key), locale).format(args);
     }
-    /**
-     * Gets a builder for a formatted, localized markdown string for this lang.
-     * @param key The <b>case-sensitive</b> localization key used in {@link #i18n(String)}
-     * @param args An ordered list of arguments to place into the string
-     * @return A new localized markdown builder
-     * @throws java.util.MissingResourceException If the given key could not be found
-     * @see LocalizedMarkdownBuilder
-     * @see MessageFormat
-     * @see Locale
-     */
-    public @NonNull LocalizedMarkdownBuilder i18nm(@NonNull @PropertyKey(resourceBundle = RB) String key,
-                                                   Object... args) {
-        return new LocalizedMarkdownBuilder(new MessageFormat(i18n(key), locale), args);
-    }
+
     /**
      * Gets a formatted, localized string for this lang if the key exists.
      * @param key The <b>case-sensitive</b> localization key used in {@link #i18n(String)}

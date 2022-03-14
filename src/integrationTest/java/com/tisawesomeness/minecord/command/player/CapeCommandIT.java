@@ -194,7 +194,7 @@ public class CapeCommandIT {
         return runner;
     }
     private enum OptifineCape {
-        NO, YES, THROW;
+        NO, YES, THROW
     }
 
     private static URL[] getNameMCUrls(Player player) {
