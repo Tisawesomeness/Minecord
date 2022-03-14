@@ -43,7 +43,7 @@ public interface PlayerProvider {
     /**
      * @return true if getAccountStatus() is enabled
      */
-    boolean areStatusAPIsEnabled();
+    boolean isStatusAPIEnabled();
 
     /**
      * Requests the status of the account associated with the given UUID.

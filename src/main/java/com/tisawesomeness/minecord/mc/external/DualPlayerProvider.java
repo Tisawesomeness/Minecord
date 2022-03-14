@@ -132,7 +132,7 @@ public class DualPlayerProvider implements PlayerProvider {
         }
     }
 
-    public boolean areStatusAPIsEnabled() {
+    public boolean isStatusAPIEnabled() {
         return useGappleAPI;
     }
 

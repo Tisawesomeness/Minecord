@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class TestPlayerProvider implements PlayerProvider {
 
-    public boolean areStatusAPIsEnabled() {
+    public boolean isStatusAPIEnabled() {
         return true;
     }
 

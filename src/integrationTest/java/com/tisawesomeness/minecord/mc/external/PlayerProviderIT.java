@@ -127,7 +127,7 @@ public class PlayerProviderIT {
         Reflect.setField(config.getFlagConfig(), "useGappleAPI", true);
         PlayerProvider provider = new DualPlayerProvider(client, config);
 
-        assertThat(provider.areStatusAPIsEnabled()).isTrue();
+        assertThat(provider.isStatusAPIEnabled()).isTrue();
     }
     @Test
     @DisplayName("Cannot request gapple account status if disabled")
@@ -136,7 +136,7 @@ public class PlayerProviderIT {
         Reflect.setField(config.getFlagConfig(), "useGappleAPI", false);
         PlayerProvider provider = new DualPlayerProvider(client, config);
 
-        assertThat(provider.areStatusAPIsEnabled()).isFalse();
+        assertThat(provider.isStatusAPIEnabled()).isFalse();
         assertThatExceptionOfType(IllegalStateException.class)
                 .isThrownBy(() -> provider.getAccountStatus(PlayerTests.TIS_STEVE_UUID));
     }

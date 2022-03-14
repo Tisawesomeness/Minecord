@@ -32,9 +32,13 @@ public class ProfileCommand extends BasePlayerCommand {
 
     public void onSuccessfulPlayer(CommandContext ctx, Player player) {
         PlayerProvider provider = ctx.getMCLibrary().getPlayerProvider();
-        provider.getAccountStatus(player.getUuid())
-                .exceptionally(ex -> Optional.empty())
-                .thenAccept(statusOpt -> onSuccessfulStatus(ctx, player, statusOpt));
+        if (provider.isStatusAPIEnabled()) {
+            provider.getAccountStatus(player.getUuid())
+                    .exceptionally(ex -> Optional.empty())
+                    .thenAccept(statusOpt -> onSuccessfulStatus(ctx, player, statusOpt));
+        } else {
+            onSuccessfulStatus(ctx, player, Optional.empty());
+        }
     }
 
     private static void onSuccessfulStatus(CommandContext ctx, Player player, Optional<AccountStatus> statusOpt) {
