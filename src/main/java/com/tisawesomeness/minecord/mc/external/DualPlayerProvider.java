@@ -41,7 +41,7 @@ public class DualPlayerProvider implements PlayerProvider {
      * @param client The API client to use for HTTP requests
      * @param config The configuration to use for caching
      */
-    public DualPlayerProvider(APIClient client, Config config) {
+    public DualPlayerProvider(@NonNull APIClient client, @NonNull Config config) {
         FlagConfig flagConfig = config.getFlagConfig();
         CacheConfig cacheConfig = config.getAdvancedConfig().getCacheConfig();
         boolean debugMode = flagConfig.isDebugMode();
@@ -109,6 +109,7 @@ public class DualPlayerProvider implements PlayerProvider {
         }
         return tryPlayerFromMojang(uuid);
     }
+    private final ThrowingFunction<UUID, Optional<Player>, IOException> loadFromMojang = this::tryPlayerFromMojang;
     private Optional<Player> tryPlayerFromMojang(UUID uuid) throws IOException {
         List<NameChange> nameHistory = mojangAPI.getNameHistory(uuid);
         if (nameHistory.isEmpty()) {
@@ -116,10 +117,9 @@ public class DualPlayerProvider implements PlayerProvider {
         }
         Optional<Profile> profileOpt = mojangAPI.getProfile(uuid);
         if (!profileOpt.isPresent()) {
-            log.warn("Mojang API name history succeeded but profile failed. Check for a format change.");
-            return Optional.empty();
+            log.info("Account {} has no profile, PHD account found", uuid);
         }
-        Profile profile = profileOpt.get();
+        Profile profile = profileOpt.orElse(null);
         return Optional.of(new Player(uuid, nameHistory, profile));
     }
 
@@ -141,20 +141,20 @@ public class DualPlayerProvider implements PlayerProvider {
     }
 
     public CompletableFuture<Optional<Player>> getPlayer(@NonNull Username username) {
-        return getUUID(username).thenCompose(uuidOpt -> {
-            if (!uuidOpt.isPresent()) {
-                return CompletableFuture.completedFuture(Optional.empty());
-            }
-            return getPlayer(uuidOpt.get());
-        });
+        return getUUID(username).thenCompose(this::getPlayerIfPresent);
     }
-
+    private CompletableFuture<Optional<Player>> getPlayerIfPresent(Optional<UUID> uuidOpt) {
+        if (!uuidOpt.isPresent()) {
+            return CompletableFuture.completedFuture(Optional.empty());
+        }
+        return playerCache.get(uuidOpt.get());
+    }
     public CompletableFuture<Optional<Player>> getPlayer(@NonNull UUID uuid) {
-        return playerCache.get(uuid);
+        return playerCache.get(uuid, loadFromMojang);
     }
 
     public CompletableFuture<Optional<AccountStatus>> getAccountStatus(@NonNull UUID uuid) {
-        if (useGappleAPI) {
+        if (statusCache != null) {
             return statusCache.get(uuid);
         }
         throw new IllegalStateException("Gapple API is not enabled");

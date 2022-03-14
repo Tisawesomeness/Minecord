@@ -16,6 +16,7 @@ import com.tisawesomeness.minecord.util.Lists;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -138,6 +139,22 @@ public class PlayerProviderIT {
         assertThat(provider.areStatusAPIsEnabled()).isFalse();
         assertThatExceptionOfType(IllegalStateException.class)
                 .isThrownBy(() -> provider.getAccountStatus(PlayerTests.TIS_STEVE_UUID));
+    }
+
+    @Test
+    @MojangAPITest
+    @DisplayName("PHD accounts work and return null profile")
+    @Disabled("PHD accounts are unstable and can change at any time, this test is not to be relied on")
+    public void testPHD() {
+        Player phd = PlayerTests.initPHDPlayer();
+        assertThat(provider.getPlayer(phd.getUuid()))
+                .succeedsWithin(TIMEOUT)
+                .asInstanceOf(InstanceOfAssertFactories.optional(Player.class))
+                .isPresent()
+                .get()
+                .extracting(Player::isPHD)
+                .asInstanceOf(InstanceOfAssertFactories.BOOLEAN)
+                .isTrue();
     }
 
 }

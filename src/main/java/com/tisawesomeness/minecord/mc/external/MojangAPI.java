@@ -105,7 +105,7 @@ public abstract class MojangAPI {
     /**
      * Gets the profile of a player.
      * @param uuid The player's UUID
-     * @return The profile, or empty if the UUID doesn't exist
+     * @return The profile, or empty if the UUID doesn't exist, <strong>or the account is PHD</strong>
      * @throws IOException If an I/O error occurs
      */
     public Optional<Profile> getProfile(@NonNull UUID uuid) throws IOException {

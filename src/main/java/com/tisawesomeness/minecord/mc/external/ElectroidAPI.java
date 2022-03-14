@@ -53,8 +53,9 @@ public abstract class ElectroidAPI {
     protected abstract Optional<String> requestPlayer(@NonNull UUID uuid) throws IOException;
     /**
      * Gets a player from a UUID.
+     * This will return empty if the account doesn't exist or is PHD. Use the {@link MojangAPI} to find out which.
      * @param uuid The player's UUID
-     * @return The player, or empty if the UUID doesn't exist
+     * @return The player, or empty if the UUID doesn't exist, <strong>or the account is PHD</strong>
      * @throws IOException If an I/O error occurs
      */
     public Optional<Player> getPlayer(@NonNull UUID uuid) throws IOException {
