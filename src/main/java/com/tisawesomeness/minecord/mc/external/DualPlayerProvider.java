@@ -15,12 +15,12 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Requests and caches player data from the Mojang API and the Electroid API wrapper (if enabled).
@@ -69,7 +69,7 @@ public class DualPlayerProvider implements PlayerProvider {
     private static <T, R> AsyncLoadingCache<T, R> build(int lifetime, boolean debugMode,
                 ThrowingFunction<? super T, ? extends R, IOException> loadingFunc) {
         Caffeine<Object, Object> builder = Caffeine.newBuilder()
-                .expireAfterWrite(lifetime, TimeUnit.SECONDS);
+                .expireAfterWrite(Duration.ofSeconds(lifetime));
         if (debugMode) {
             builder.recordStats();
         }

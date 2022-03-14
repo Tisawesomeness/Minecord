@@ -17,11 +17,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Handles cached values from the database in order to minimize creating expensive database connections
@@ -48,7 +48,7 @@ public class DatabaseCache {
 
     private static Caffeine<Object, Object> builder(Config config, CacheType type) {
         Caffeine<Object, Object> builder = Caffeine.newBuilder()
-                .expireAfterAccess(getLifetime(config, type), TimeUnit.SECONDS);
+                .expireAfterAccess(Duration.ofSeconds(getLifetime(config, type)));
         int maxSize = getMaxSize(config, type);
         if (maxSize >= 0) {
             builder.maximumSize(maxSize);

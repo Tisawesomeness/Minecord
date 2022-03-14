@@ -24,9 +24,9 @@ import org.jetbrains.annotations.TestOnly;
 
 import javax.annotation.Nullable;
 import java.sql.SQLException;
+import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -78,7 +78,7 @@ public class CommandExecutor {
         double cooldownTolerance = 1.0 + config.getAdvancedConfig().getCacheConfig().getCooldownTolerance();
         int cooldown = (int) (ch.getCooldown() * cooldownTolerance);
         Caffeine<Object, Object> builder = Caffeine.newBuilder()
-                .expireAfterWrite(cooldown, TimeUnit.MILLISECONDS);
+                .expireAfterWrite(Duration.ofMillis(cooldown));
         if (config.getFlagConfig().isDebugMode()) {
             builder.recordStats();
         }
@@ -90,7 +90,7 @@ public class CommandExecutor {
         }
         CacheConfig cc = config.getAdvancedConfig().getCacheConfig();
         Caffeine<Object, Object> builder = Caffeine.newBuilder()
-                .expireAfterWrite(cc.getLinkLifetime(), TimeUnit.SECONDS);
+                .expireAfterWrite(Duration.ofSeconds(cc.getLinkLifetime()));
         int maxSize = cc.getLinkMaxSize();
         if (maxSize >= 0) {
             builder.maximumSize(maxSize);
@@ -275,7 +275,7 @@ public class CommandExecutor {
         }
     }
     private Set<Long> initSet() {
-        LinkedDeletionConfig ldc = config.getAdvancedConfig().getLinkedDeletionConfig();
+        LinkedDeletionConfig ldc = Objects.requireNonNull(config.getAdvancedConfig().getLinkedDeletionConfig());
         Map<Long, Boolean> map = new ConcurrentHashMap<>(
                 ldc.getInitialCapacity(), ldc.getLoadFactor(), ldc.getConcurrencyLevel());
         return Collections.newSetFromMap(map);
@@ -295,9 +295,10 @@ public class CommandExecutor {
         }
         linkCache.invalidate(caller);
 
+        LinkedDeletionConfig ldc = Objects.requireNonNull(config.getAdvancedConfig().getLinkedDeletionConfig());
         long[] toDelete = replies.stream()
                 .unordered()
-                .limit(config.getAdvancedConfig().getLinkedDeletionConfig().getMaxDeletes())
+                .limit(ldc.getMaxDeletes())
                 .mapToLong(l -> l) // unboxing
                 .toArray();
         e.getChannel().purgeMessagesById(toDelete); // This ignores errors! Not a big deal
