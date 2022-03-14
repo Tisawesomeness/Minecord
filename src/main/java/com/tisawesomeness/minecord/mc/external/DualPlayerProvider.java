@@ -161,12 +161,14 @@ public class DualPlayerProvider implements PlayerProvider {
         throw new IllegalStateException("Gapple API is not enabled");
     }
 
-    // apparently async caches can't record stats? :(
-    public CacheStats getUuidCacheStats() {
-        return null;
+    public @NonNull CacheStats getUuidCacheStats() {
+        return uuidCache.synchronous().stats();
     }
-    public CacheStats getPlayerCacheStats() {
-        return null;
+    public @NonNull CacheStats getPlayerCacheStats() {
+        return playerCache.synchronous().stats();
+    }
+    public @Nullable CacheStats getStatusCacheStats() {
+        return statusCache == null ? null : statusCache.synchronous().stats();
     }
 
 }

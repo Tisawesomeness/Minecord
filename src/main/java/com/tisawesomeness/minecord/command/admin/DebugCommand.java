@@ -77,7 +77,8 @@ public class DebugCommand extends AbstractAdminCommand {
                 new CooldownCacheDebugOption(executor),
                 new LinkCacheDebugOption(executor),
                 new UuidCacheDebugOption(playerProvider),
-                new PlayerCacheDebugOption(playerProvider)
+                new PlayerCacheDebugOption(playerProvider),
+                new StatusCacheDebugOption(playerProvider)
         );
     }
 
