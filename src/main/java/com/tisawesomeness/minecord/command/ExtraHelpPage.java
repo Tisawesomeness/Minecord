@@ -31,7 +31,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public enum ExtraHelpPage implements Localizable {
     USERNAME_INPUT("usernameInput"),
-    UUID_INPUT("uuidInput");
+    UUID_INPUT("uuidInput"),
+    PHD("phd");
 
     /**
      * The internal ID of the help page
