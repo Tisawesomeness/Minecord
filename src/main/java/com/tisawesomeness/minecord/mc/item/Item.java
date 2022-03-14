@@ -44,7 +44,7 @@ public class Item {
      * @return An EmbedBuilder containing properties of the item
      */
     public static EmbedBuilder display(String item, String lang, String prefix) {
-        // All objects guarenteed to be there (except properties)
+        // All objects guaranteed to be there (except properties)
         JSONObject itemObj = items.getJSONObject(item);
         JSONObject langObj = itemObj.getJSONObject("lang").getJSONObject(lang);
         JSONObject properties = itemObj.optJSONObject("properties");

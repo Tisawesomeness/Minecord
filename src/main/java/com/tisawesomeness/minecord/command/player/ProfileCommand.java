@@ -8,15 +8,19 @@ import com.tisawesomeness.minecord.mc.player.NameChange;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.Colors;
+import com.tisawesomeness.minecord.util.Discord;
+import com.tisawesomeness.minecord.util.Strings;
 import com.tisawesomeness.minecord.util.UUIDs;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import java.awt.Color;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,7 +28,11 @@ import java.util.UUID;
 @Slf4j
 public class ProfileCommand extends BasePlayerCommand {
 
-    private static final int MAX_NAME_CHANGES = 10;
+    /**
+     * Max number of name changes that can be reliably displayed without splitting the embed.
+     * Not an exact value.
+     */
+    public static final int MAX_NAME_CHANGES_NO_SPLIT = 20;
 
     public @NonNull String getId() {
         return "profile";
@@ -47,6 +55,7 @@ public class ProfileCommand extends BasePlayerCommand {
 
     private static void onSuccessfulStatus(CommandContext ctx, Player player, Optional<AccountStatus> statusOpt) {
         Lang lang = ctx.getLang();
+        int maxNameChanges = ctx.getConfig().getGeneralConfig().getMaxProfileNameChanges();
 
         String title = ctx.i18nf("title", player.getUsername());
         String nameMCUrl = player.getNameMCUrl().toString();
@@ -58,9 +67,12 @@ public class ProfileCommand extends BasePlayerCommand {
 
         EmbedBuilder eb = new EmbedBuilder()
                 .setColor(color)
-                .setAuthor(title, nameMCUrl, avatarUrl)
-                .setThumbnail(bodyUrl)
-                .setDescription(desc);
+                .setAuthor(title, nameMCUrl, avatarUrl);
+        MessageEmbed baseEmbed = null;
+        if (maxNameChanges == -1) {
+            baseEmbed = eb.build();
+        }
+        eb.setThumbnail(bodyUrl).setDescription(desc);
 
         if (!player.isPHD()) {
             String skinInfo = constructSkinInfo(ctx, player);
@@ -73,11 +85,25 @@ public class ProfileCommand extends BasePlayerCommand {
                     .addField(ctx.i18n("account"), accountInfo, true);
         }
 
-        List<String> nameHistoryLines = constructNameHistoryLines(ctx, player);
-        String nameHistory = String.join("\n", nameHistoryLines);
-        eb.addField(lang.i18n("mc.player.history.nameHistory"), nameHistory, true);
+        String nameHistoryTitle = lang.i18n("mc.player.history.nameHistory");
+        if (maxNameChanges == -1) {
 
-        ctx.reply(eb);
+            List<String> parts = buildHistoryPartitions(ctx, player);
+            MessageEmbed mainEmbed = Discord.addFieldsUntilFullNoCopy(eb, nameHistoryTitle, parts);
+            ctx.reply(mainEmbed);
+            List<MessageEmbed> additionalEmbeds = Discord.splitEmbeds(baseEmbed, nameHistoryTitle, parts, "\n");
+            for (MessageEmbed emb : additionalEmbeds) {
+                ctx.reply(emb);
+            }
+
+        } else {
+
+            List<String> nameHistoryLines = constructNameHistoryLines(ctx, player);
+            String nameHistory = String.join("\n", nameHistoryLines);
+            eb.addField(nameHistoryTitle, nameHistory, true);
+            ctx.reply(eb);
+
+        }
     }
 
     private static @NonNull String constructDescription(CommandContext ctx, Player player) {
@@ -131,16 +157,22 @@ public class ProfileCommand extends BasePlayerCommand {
     }
 
     private static List<String> constructNameHistoryLines(CommandContext ctx, Player player) {
+        int maxNameChanges = ctx.getConfig().getGeneralConfig().getMaxProfileNameChanges();
         List<NameChange> history = player.getNameHistory();
-        if (history.size() <= MAX_NAME_CHANGES) {
+        if (history.size() <= maxNameChanges) {
             return buildHistoryLines(ctx, history);
         }
 
-        List<String> nameHistoryLines = buildHistoryLines(ctx, history, MAX_NAME_CHANGES - 2);
+        List<String> nameHistoryLines = buildHistoryLines(ctx, history, maxNameChanges - 2);
         nameHistoryLines.add("...");
         NameChange original = history.get(history.size() - 1);
         nameHistoryLines.add(buildHistoryLine(ctx, original, 1));
         return nameHistoryLines;
+    }
+    private static List<String> buildHistoryPartitions(CommandContext ctx, Player player) {
+        List<String> nameHistoryLines = buildHistoryLines(ctx, player.getNameHistory());
+        List<String> partitions = Strings.partitionLinesByLength(nameHistoryLines, MessageEmbed.VALUE_MAX_LENGTH);
+        return new LinkedList<>(partitions);
     }
 
     private static String boldMaskedLink(String text, URL url) {

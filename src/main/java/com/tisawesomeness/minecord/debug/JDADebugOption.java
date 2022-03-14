@@ -25,9 +25,9 @@ public class JDADebugOption implements DebugOption {
     }
 
     public @NonNull String debug(@NonNull String extra) {
-        List<JDA> shards = shardManager.getShards(); // Not guarenteed to be sorted by shard id
+        List<JDA> shards = shardManager.getShards(); // Not guaranteed to be sorted by shard id
         // Submitting all ping requests all at once
-        // Instead of waiting for one to finish to submit the nextp
+        // Instead of waiting for one to finish to submit the next
         List<CompletableFuture<Long>> shardPings = shards.stream()
                 .map(jda -> jda.getRestPing().submit())
                 .collect(Collectors.toList());

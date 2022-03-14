@@ -65,11 +65,6 @@ settings:
   # The maximum prefix length you can set in &prefix, must be between 1 and 64
   # Prefixes longer than this length will still function but users won't be able to create them
   maxPrefixLength: 16
-  # The maximum prefix length that will be shown before every command in &help
-  # Prefixes that end in a letter will be treated as if there is an extra space at the end of the prefix
-  # If a prefix is longer, then
-  # Set to 0 or below to always show full prefixes in &help
-  helpMaxPrefixLength: 4
   # The default lang used for user commands, admin commands and console messages are not translated
   # Current languages: en_US, de_DE, pt_BR
   defaultLang: en_US
@@ -101,6 +96,16 @@ flags:
   # Whether the bot should use the Gapple API to look up account status
   # If false, &profile will only show whether the account is legacy (mojang account, sign in with email)
   useGappleAPI: true
+
+general:
+  # The maximum prefix length that will be shown before every command in &help
+  # Prefixes that end in a letter will be treated as if there is an extra space at the end of the prefix
+  # If a prefix is longer, then the prefix is omitted from help messages
+  # Set to 0 or below to always show full prefixes in &help
+  helpMaxPrefixLength: 4
+  # The maximum number of name changes shown at once in &profile
+  # Set to -1 to show all changes, otherwise must be between 2 and 20
+  maxProfileNameChanges: 10
 
 database:
   # The path to the SQLite database file

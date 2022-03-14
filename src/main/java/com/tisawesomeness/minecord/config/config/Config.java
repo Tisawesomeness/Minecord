@@ -46,6 +46,8 @@ public class Config implements VerifiableConfig {
     SettingsConfig settingsConfig;
     @JsonProperty("flags")
     FlagConfig flagConfig;
+    @JsonProperty("general")
+    GeneralConfig generalConfig;
     @JsonProperty("botLists") @JsonSetter(nulls = Nulls.SET)
     @Nullable BotListConfig botListConfig;
     @JsonProperty("database")
@@ -68,6 +70,7 @@ public class Config implements VerifiableConfig {
         return Verification.combineAll(
                 verifyShards(),
                 settingsConfig.verify(),
+                generalConfig.verify(),
                 verifyBotListConfig(),
                 commandConfig.verify(),
                 advancedConfig.verify(flagConfig)
@@ -85,7 +88,7 @@ public class Config implements VerifiableConfig {
 
     /**
      * Determines if the given ID is listed in the config as an owner.
-     * <br>The config is not guarenteed to have any owners.
+     * <br>The config is not guaranteed to have any owners.
      * @param id The 17-20 digit ID, though invalid IDs return false
      */
     public boolean isOwner(long id) {
@@ -93,7 +96,7 @@ public class Config implements VerifiableConfig {
     }
     /**
      * Determines if the given ID is listed in the config as an owner.
-     * <br>The config is not guarenteed to have any owners.
+     * <br>The config is not guaranteed to have any owners.
      * @param id The 17-20 digit string ID (this method is safe for any input)
      */
     public boolean isOwner(@Nullable String id) {

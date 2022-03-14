@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 /**
  * Represents a Minecraft Java username.
  * <p>
- *     <b>Beware: usernames are NOT guarenteed to contain only letters, numbers, and underscores!</b> They may have
+ *     <b>Beware: usernames are NOT guaranteed to contain only letters, numbers, and underscores!</b> They may have
  *     spaces or special characters, such as {@code $}. Normally, usernames can only be 3-16 characters and contain
  *     only ASCII letters, numbers, and underscores, but due to glitches or other methods, "invalid" accounts exist.
  *     This can be checked with {@link #isValid()}. Also note that some usernames have characters that can't be put

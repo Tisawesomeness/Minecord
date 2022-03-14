@@ -120,7 +120,7 @@ public class HelpCommand extends AbstractCoreCommand implements IMultiNameComman
     private static String getCommandHelpIdentifier(CommandContext ctx, Command c) {
         String prefix = ctx.getPrefix();
         String displayName = c.getDisplayName(ctx.getLang());
-        if (prefix.length() > ctx.getConfig().getSettingsConfig().getHelpMaxPrefixLength()) {
+        if (prefix.length() > ctx.getConfig().getGeneralConfig().getHelpMaxPrefixLength()) {
             return displayName;
         }
         return prefix + displayName;
@@ -136,7 +136,7 @@ public class HelpCommand extends AbstractCoreCommand implements IMultiNameComman
         String extraHelp = ctx.i18nf("extraHelp", extraUsage);
 
         String moreHelp = commandHelp + "\n" + categoryHelp + "\n" + extraHelp;
-        if (prefix.length() > ctx.getConfig().getSettingsConfig().getHelpMaxPrefixLength()) {
+        if (prefix.length() > ctx.getConfig().getGeneralConfig().getHelpMaxPrefixLength()) {
             return MarkdownUtil.bold(getRunHelp(ctx)) + "\n" + moreHelp;
         }
         return moreHelp;
@@ -157,7 +157,7 @@ public class HelpCommand extends AbstractCoreCommand implements IMultiNameComman
             mUsage = mHelp.get() + "\n\n" + mUsage;
         }
 
-        if (prefix.length() > ctx.getConfig().getSettingsConfig().getHelpMaxPrefixLength()) {
+        if (prefix.length() > ctx.getConfig().getGeneralConfig().getHelpMaxPrefixLength()) {
             mUsage = MarkdownUtil.bold(getRunHelp(ctx)) + "\n\n" + mUsage;
         }
 
