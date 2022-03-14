@@ -27,7 +27,7 @@ public final class UUIDs {
     private static final Pattern DASH = Pattern.compile("-", Pattern.LITERAL);
 
     private static final Pattern INT_ARRAY_STRING = Pattern.compile(
-            "\\[?(I;)?(-?\\d{1,10}),(-?\\d{1,10}),(-?\\d{1,10}),(-?\\d{1,10})", Pattern.CASE_INSENSITIVE);
+            "\\[?(I;)?(-?\\d{1,10}),(-?\\d{1,10}),(-?\\d{1,10}),(-?\\d{1,10})]?", Pattern.CASE_INSENSITIVE);
     private static final Pattern MOST_LEAST_STRING = Pattern.compile("(-?\\d{1,19}),(-?\\d{1,19})");
 
     /**
