@@ -33,7 +33,7 @@ public class Player implements Comparable<Player> {
      */
     @NonNull UUID uuid;
     /**
-     * A non-empty list of name changes, sorted from latest to earliest, including the original name
+     * A non-empty list of name changes, sorted from latest to earliest, including the original name at the end
      */
     List<NameChange> nameHistory;
     /**

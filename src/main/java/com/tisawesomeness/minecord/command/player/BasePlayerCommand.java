@@ -85,16 +85,41 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
      * @return A mutable list of strings, one line per name change
      */
     public static List<String> buildHistoryLines(CommandContext ctx, List<NameChange> history) {
-        Instant now = Instant.now();
+        return buildHistoryLines(ctx, history, history.size());
+    }
+    /**
+     * Builds a list of lines from a player's name history
+     * @param ctx The context of the command
+     * @param history The player's name history
+     * @param limit Number of name changes to process
+     * @return A mutable list of strings, one line per name change
+     * @throws IndexOutOfBoundsException if limit is greater than the number of name changes
+     */
+    public static List<String> buildHistoryLines(CommandContext ctx, List<NameChange> history, int limit) {
+        if (limit > history.size()) {
+            throw new IndexOutOfBoundsException("limit must be less than history.size()");
+        }
         List<String> historyLines = new ArrayList<>();
-        for (int i = 0; i < history.size(); i++) {
+        for (int i = 0; i < limit; i++) {
             NameChange nc = history.get(i);
             int num = history.size() - i;
-            String dateAgo = getDateAgo(ctx, nc);
-            historyLines.add(String.format("**%d.** `%s` | %s", num, nc.getUsername(), dateAgo));
+            historyLines.add(buildHistoryLine(ctx, nc, num));
         }
         return historyLines;
     }
+
+    /**
+     * Builds a line from a player's name history
+     * @param ctx The context of the command
+     * @param nc The name change
+     * @param num The name change number, starting with the original name as 1 and increasing
+     * @return A string with a formatted name change
+     */
+    public static String buildHistoryLine(CommandContext ctx, NameChange nc, int num) {
+        String dateAgo = getDateAgo(ctx, nc);
+        return String.format("**%d.** `%s` | %s", num, nc.getUsername(), dateAgo);
+    }
+
     private static String getDateAgo(CommandContext ctx, NameChange nc) {
         Optional<Instant> timeOpt = nc.getTime();
         if (!timeOpt.isPresent()) {
