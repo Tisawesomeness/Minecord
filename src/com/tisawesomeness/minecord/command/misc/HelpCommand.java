@@ -20,7 +20,7 @@ public class HelpCommand extends Command {
 		return new CommandInfo(
 			"help",
 			"Displays help for the bot, a command, or a module.",
-			"[command|module]",
+			"[<command|module>]",
 			new String[]{
 				"cmds",
 				"commands",

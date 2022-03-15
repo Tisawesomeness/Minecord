@@ -17,7 +17,7 @@ public class BodyCommand extends Command {
 		return new CommandInfo(
 			"body",
 			"Gets the body of a player.",
-			"<username|uuid> [overlay?]",
+			"<username|uuid> [<overlay?>]",
 			new String[]{
 				"nude",
 				"nudes"},
@@ -29,9 +29,9 @@ public class BodyCommand extends Command {
 	}
 
 	public String getHelp() {
-		return "`{&}body <player> [overlay?]` - Gets an image of the player's body.\n" +
+		return "`{&}avatar <player> [<overlay?>]` - Gets an image of the player's body.\n" +
 			"- `<player>` can be a username or a UUID.\n" +
-			"- `[overlay?]` whether to include the second skin layer.\n" +
+			"- `[<overlay?>]` true or false, whether to include the second skin layer, default true.\n" +
 			"\n" +
 			"Examples:\n" +
 			"`{&}body Tis_awesomeness`\n" +

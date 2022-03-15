@@ -20,7 +20,7 @@ public class SettingsCommand extends Command {
         return new CommandInfo(
             "settings",
             "Change the bot's settings, including prefix.",
-            "[setting] [value]",
+            "[<setting> <value>]",
             new String[]{"config"},
             0,
             false,
@@ -31,7 +31,7 @@ public class SettingsCommand extends Command {
 
     public String getHelp() {
         return "`{&}settings` - Show all current settings and their possible values.\n" +
-            "`{&}settings <setting> <value>` - Sets <setting> to <value>. The user must have **Manage Server** permissions.\n" +
+            "`{&}settings <setting> <value>` - Sets `<setting>` to `<value>`. The user must have **Manage Server** permissions.\n" +
             "\n" +
             "Examples:\n" +
             "- `{&}settings prefix mc!`\n" +

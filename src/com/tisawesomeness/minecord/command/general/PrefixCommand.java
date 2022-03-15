@@ -12,7 +12,7 @@ public class PrefixCommand extends Command {
 		return new CommandInfo(
 			"prefix",
 			"Change the prefix.",
-			"[prefix]",
+			"[<prefix>]",
 			new String[]{
 				"resetprefix",
 				"changeprefix"},

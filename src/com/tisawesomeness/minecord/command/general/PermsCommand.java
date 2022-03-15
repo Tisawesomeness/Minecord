@@ -18,7 +18,7 @@ public class PermsCommand extends Command {
 		return new CommandInfo(
 			"perms",
 			"Test the bot's permissions in a channel.",
-			"[channel]",
+			"[<channel>]",
 			new String[]{"permissions"},
 			0,
 			false,

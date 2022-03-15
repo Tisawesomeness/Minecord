@@ -34,7 +34,7 @@ public class ServerCommand extends Command {
 		return new CommandInfo(
 			"server",
 			"Fetches the stats of a server.",
-			"<address>[:port]",
+			"<address>[:<port>]",
 			new String[]{"s"},
 			2000,
 			false,
@@ -44,7 +44,7 @@ public class ServerCommand extends Command {
 	}
 
 	public String getHelp() {
-		return "`{&}server <address>[:port}` - Fetches the stats of a server.\n" +
+		return "`{&}server <address>[:<port>]` - Fetches the status of a server.\n" +
 			"\n" +
 			"Examples:\n" +
 			"- `{&}server hypixel.net`\n" +

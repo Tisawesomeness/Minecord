@@ -17,7 +17,7 @@ public class AvatarCommand extends Command {
 		return new CommandInfo(
 			"avatar",
 			"Gets the avatar of a player.",
-			"<username|uuid> [overlay?]",
+			"<username|uuid> [<overlay?>]",
 			null,
 			2000,
 			false,
@@ -27,9 +27,9 @@ public class AvatarCommand extends Command {
 	}
 
 	public String getHelp() {
-		return "`{&}avatar <player> [overlay?]` - Gets an image of the player's avatar.\n" +
+		return "`{&}avatar <player> [<overlay?>]` - Gets an image of the player's avatar.\n" +
 			"- `<player>` can be a username or a UUID.\n" +
-			"- `[overlay?]` whether to include the second skin layer.\n" +
+			"- `[<overlay?>]` true or false, whether to include the second skin layer, default true.\n" +
 			"\n" +
 			"Examples:\n" +
 			"`{&}avatar Tis_awesomeness`\n" +
