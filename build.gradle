@@ -42,6 +42,8 @@ dependencies {
     implementation 'com.github.DiscordBotList:Java-Wrapper:v1.0'
     // Caching
     api 'com.github.ben-manes.caffeine:caffeine:2.9.3'
+    // Circuit breaker failsafe
+    implementation 'dev.failsafe:failsafe:3.2.3'
     // JSON library
     implementation 'org.json:json:20211205'
     // YAML library
