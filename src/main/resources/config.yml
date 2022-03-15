@@ -200,7 +200,15 @@ advanced:
     # Keep alive duration in milliseconds
     keepAlive: 10000
 
-  cache:
+  mojangAPI:
+    # The amount of time in seconds a Username-->UUID mapping is kept in the cache, minimum 60 seconds
+    mojangUuidLifetime: 60
+    # The amount of time in seconds a UUID-->Player mapping is kept in the cache, minimum 60 seconds
+    mojangPlayerLifetime: 60
+    # The amount of time in seconds a UUID-->AccountStatus mapping is kept in the cache
+    gappleStatusLifetime: 60
+
+  databaseCache:
     # The amount of time in seconds a guild database record is kept in the cache
     guildLifetime: 600
     # The maximum guild cache size
@@ -216,25 +224,21 @@ advanced:
     # The maximum user cache size
     # Set to -1 for no limit or 0 to disable caching
     userMaxSize: -1
+
+  discord:
     # The extra time an entry is kept in the cooldown cache, a percentage of the cooldown time
     # 0.01 = 1%, this would make a 3 second cooldown stay in the cache for 3.03 seconds
     # Set to 0 for no extra time
     cooldownTolerance: 0.05
+
+  linkedDeletion:
+    # The most replies the bot will try to delete, cannot be 0
+    maxDeletes: 25
     # The amount of time in seconds a message link (for linked deletion) is kept in the cache
     linkLifetime: 300
     # The maximum linked deletion cache size
     # Set to -1 for no limit or 0 to disable caching
     linkMaxSize: -1
-    # The amount of time in seconds a Username-->UUID mapping is kept in the cache, minimum 60 seconds
-    mojangUuidLifetime: 60
-    # The amount of time in seconds a UUID-->Player mapping is kept in the cache, minimum 60 seconds
-    mojangPlayerLifetime: 60
-    # The amount of time in seconds a UUID-->AccountStatus mapping is kept in the cache
-    gappleStatusLifetime: 60
-
-  linkedDeletion:
-    # The most replies the bot will try to delete, cannot be 0
-    maxDeletes: 25
     # Below three are parameters for the concurrent set of linked message IDs, see java ConcurrentHashMap docs
     # Expected number of replies per command invocation, cannot be 0
     initialCapacity: 2

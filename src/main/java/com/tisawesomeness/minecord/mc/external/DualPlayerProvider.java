@@ -1,8 +1,8 @@
 package com.tisawesomeness.minecord.mc.external;
 
-import com.tisawesomeness.minecord.config.config.CacheConfig;
 import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.config.config.FlagConfig;
+import com.tisawesomeness.minecord.config.config.MojangAPIConfig;
 import com.tisawesomeness.minecord.mc.player.*;
 import com.tisawesomeness.minecord.network.APIClient;
 import com.tisawesomeness.minecord.util.type.ThrowingFunction;
@@ -44,7 +44,7 @@ public class DualPlayerProvider implements PlayerProvider {
      */
     public DualPlayerProvider(@NonNull APIClient client, @NonNull Config config) {
         FlagConfig flagConfig = config.getFlagConfig();
-        CacheConfig cacheConfig = config.getAdvancedConfig().getCacheConfig();
+        MojangAPIConfig mConfig = config.getAdvancedConfig().getMojangAPIConfig();
         boolean debugMode = flagConfig.isDebugMode();
 
         useElectroidAPI = flagConfig.isUseElectroidAPI();
@@ -58,10 +58,10 @@ public class DualPlayerProvider implements PlayerProvider {
             gappleAPI = null;
         }
 
-        uuidCache = build(cacheConfig.getMojangUuidLifetime(), debugMode, this::loadUUID);
-        playerCache = build(cacheConfig.getMojangPlayerLifetime(), debugMode, this::loadPlayer);
+        uuidCache = build(mConfig.getMojangUuidLifetime(), debugMode, this::loadUUID);
+        playerCache = build(mConfig.getMojangPlayerLifetime(), debugMode, this::loadPlayer);
         if (useGappleAPI) {
-            statusCache = build(cacheConfig.getGappleStatusLifetime(), debugMode, this::loadAccountStatus);
+            statusCache = build(mConfig.getGappleStatusLifetime(), debugMode, this::loadAccountStatus);
         } else {
             statusCache = null;
         }

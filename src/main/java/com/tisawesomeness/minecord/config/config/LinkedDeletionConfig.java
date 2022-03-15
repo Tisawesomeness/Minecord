@@ -9,6 +9,10 @@ import lombok.Value;
 public class LinkedDeletionConfig {
     @JsonProperty("maxDeletes")
     int maxDeletes;
+    @JsonProperty("linkLifetime")
+    int linkLifetime;
+    @JsonProperty("linkMaxSize")
+    int linkMaxSize;
     @JsonProperty("initialCapacity")
     int initialCapacity;
     @JsonProperty("loadFactor")
@@ -19,6 +23,8 @@ public class LinkedDeletionConfig {
     public Verification verify() {
         return Verification.combineAll(
                 verifyMaxDeletes(),
+                AdvancedConfig.verifyCacheLifetime(linkLifetime, "Link"),
+                AdvancedConfig.verifyCacheMaxSize(linkMaxSize, "Link"),
                 verifyInitialCapacity(),
                 verifyLoadFactor(),
                 verifyConcurrencyLevel()

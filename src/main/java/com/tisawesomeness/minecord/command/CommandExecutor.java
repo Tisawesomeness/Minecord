@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command;
 
 import com.tisawesomeness.minecord.command.meta.*;
-import com.tisawesomeness.minecord.config.config.CacheConfig;
 import com.tisawesomeness.minecord.config.config.CommandConfig;
 import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.config.config.LinkedDeletionConfig;
@@ -75,7 +74,7 @@ public class CommandExecutor {
                 ));
     }
     private Cache<Long, Long> buildCooldownCache(CooldownHolder ch) {
-        double cooldownTolerance = 1.0 + config.getAdvancedConfig().getCacheConfig().getCooldownTolerance();
+        double cooldownTolerance = 1.0 + config.getAdvancedConfig().getAdvDiscordConfig().getCooldownTolerance();
         int cooldown = (int) (ch.getCooldown() * cooldownTolerance);
         Caffeine<Object, Object> builder = Caffeine.newBuilder()
                 .expireAfterWrite(Duration.ofMillis(cooldown));
@@ -88,10 +87,10 @@ public class CommandExecutor {
         if (!config.getFlagConfig().isLinkedDeletion()) {
             return null;
         }
-        CacheConfig cc = config.getAdvancedConfig().getCacheConfig();
+        LinkedDeletionConfig ldc = Objects.requireNonNull(config.getAdvancedConfig().getLinkedDeletionConfig());
         Caffeine<Object, Object> builder = Caffeine.newBuilder()
-                .expireAfterWrite(Duration.ofSeconds(cc.getLinkLifetime()));
-        int maxSize = cc.getLinkMaxSize();
+                .expireAfterWrite(Duration.ofSeconds(ldc.getLinkLifetime()));
+        int maxSize = ldc.getLinkMaxSize();
         if (maxSize >= 0) {
             builder.maximumSize(maxSize);
         }
