@@ -15,6 +15,7 @@ public class Config {
 	private static String owner;
 	
 	private static String logChannel;
+	private static String joinLogChannel;
 	private static boolean isSelfHosted;
 	private static String author;
 	private static String authorTag;
@@ -90,6 +91,7 @@ public class Config {
 			
 			JSONObject settings = config.getJSONObject("settings");
 			logChannel = settings.getString("logChannel");
+			joinLogChannel = settings.getString("joinLogChannel");
 			isSelfHosted = settings.getBoolean("isSelfHosted");
 			if (isSelfHosted) {
 				author = settings.getString("author");
@@ -149,6 +151,7 @@ public class Config {
 	public static String getOwner() {return owner;}
 
 	public static String getLogChannel() {return logChannel;}
+	public static String getJoinLogChannel() {return joinLogChannel;}
 	public static boolean isIsSelfHosted() {return isSelfHosted;}
 	public static String getAuthor() {return author;}
 	public static String getAuthorTag() {return authorTag;}

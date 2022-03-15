@@ -4,6 +4,7 @@
     "owner": "0",
     "settings": {
         "logChannel": "0",
+        "joinLogChannel": "0",
         "isSelfHosted": true,
         "author": "Tis_awesomeness",
         "authorTag": "@Tis_awesomeness#8617",

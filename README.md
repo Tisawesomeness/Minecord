@@ -70,6 +70,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Owner:* The user ID of the bot owner. The bot will work when owner is 0, but it is *highly encouraged* to set this value.
 
 - *Log Channel:* The bot will send any logging messages to this channel. Set to 0 to disable.
+- *Join Log Channel:* The bot will send server join/leave messages to this channel. Set to 0 to disable.
 - *Is Self Hosted:* Leave as `true` if you are self-hosting the bot.
 - *Author:* The name of the person hosting the bot.
 - *Author Tag:* The Discord tag of the person hosting the bot.
@@ -119,6 +120,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
     "owner": "0",
     "settings": {
         "logChannel": "0",
+        "joinLogChannel": "0",
         "isSelfHosted": true,
         "author": "Tis_awesomeness",
         "authorTag": "@Tis_awesomeness#8617",

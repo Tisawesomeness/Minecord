@@ -16,8 +16,6 @@ import java.util.Arrays;
 import java.util.regex.Pattern;
 
 public class MessageUtils {
-
-	public static TextChannel logChannel;
 	
 	/**
 	 * Formats a message to look more fancy using an embed. Pass null in any argument (except color) to remove that aspect of the message.
@@ -68,7 +66,12 @@ public class MessageUtils {
 	 */
 	public static void log(String m) {
 		if (!Config.getLogChannel().equals("0")) {
-			logChannel.sendMessage(m).queue();
+			TextChannel tc = Bot.shardManager.getTextChannelById(Config.getLogChannel());
+			if (tc == null) {
+				System.err.println("Logging channel not found!");
+			} else {
+				tc.sendMessage(m).queue();
+			}
 		}
 	}
 	/**
@@ -78,7 +81,27 @@ public class MessageUtils {
 		if (!Config.getLogChannel().equals("0")) {
 			EmbedBuilder eb = new EmbedBuilder(m);
 			eb.setTimestamp(OffsetDateTime.now());
-			logChannel.sendMessageEmbeds(eb.build()).queue();
+			TextChannel tc = Bot.shardManager.getTextChannelById(Config.getLogChannel());
+			if (tc == null) {
+				System.err.println("Logging channel not found!");
+			} else {
+				tc.sendMessageEmbeds(eb.build()).queue();
+			}
+		}
+	}
+	/**
+	 * Logs a message to the join log channel.
+	 */
+	public static void logJoin(MessageEmbed m) {
+		if (!Config.getJoinLogChannel().equals("0")) {
+			EmbedBuilder eb = new EmbedBuilder(m);
+			eb.setTimestamp(OffsetDateTime.now());
+			TextChannel tc = Bot.shardManager.getTextChannelById(Config.getJoinLogChannel());
+			if (tc == null) {
+				System.err.println("Join log channel not found!");
+			} else {
+				tc.sendMessageEmbeds(eb.build()).queue();
+			}
 		}
 	}
 	

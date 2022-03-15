@@ -177,11 +177,6 @@ public class Bot {
 			System.out.println("Bot ready!");
 		} catch (InterruptedException ignored) {}
 
-		//Update persistent bot info
-		if (!Config.getLogChannel().equals("0")) {
-			MessageUtils.logChannel = shardManager.getTextChannelById(Config.getLogChannel());
-		}
-
 		//Post-init
 		bootTime = System.currentTimeMillis() - birth;
 		System.out.println("Boot Time: " + DateUtils.getBootTime());

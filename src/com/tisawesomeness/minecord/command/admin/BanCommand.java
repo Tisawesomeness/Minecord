@@ -78,9 +78,6 @@ public class BanCommand extends Command {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
 			Guild guild = Bot.shardManager.getGuildById(args[1]);
-			if (guild != null && !Config.getLogChannel().equals("0") && guild.getId().equals(MessageUtils.logChannel.getGuild().getId())) {
-				return new Result(Outcome.WARNING, ":warning: You can't ban the guild with the log channel!");
-			}
 			long gid = Long.parseLong(args[1]);
 			//Ban or unban guild
 			boolean banned = Database.isBanned(gid);

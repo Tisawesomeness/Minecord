@@ -246,7 +246,7 @@ public class Listener extends ListenerAdapter {
 		}
 		
 		eb.setThumbnail(guild.getIconUrl());
-		MessageUtils.log(eb.build());
+		MessageUtils.logJoin(eb.build());
 		RequestUtils.sendGuilds();
 		DiscordUtils.update(); //Update guild, channel, and user count
 		
