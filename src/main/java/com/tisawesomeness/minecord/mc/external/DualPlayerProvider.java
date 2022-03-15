@@ -17,6 +17,7 @@ import dev.failsafe.FailsafeException;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.Contract;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
@@ -35,12 +36,15 @@ public class DualPlayerProvider implements PlayerProvider {
 
     private final AsyncLoadingCache<Username, Optional<UUID>> uuidCache;
     private final AsyncLoadingCache<UUID, Optional<Player>> playerCache;
+    // Present if gapple api enabled
     private final @Nullable AsyncLoadingCache<UUID, Optional<AccountStatus>> statusCache;
+    // Present if electroid api enabled
     private final @Nullable CircuitBreaker<Object> electroidBreaker;
+    // Present if gapple api enabled
     private final @Nullable CircuitBreaker<Object> gappleBreaker;
 
     private final MojangAPI mojangAPI;
-    private final ElectroidAPI electroidAPI;
+    private final @Nullable ElectroidAPI electroidAPI;
     private final @Nullable GappleAPI gappleAPI;
     private final boolean useElectroidAPI;
     private final boolean useGappleAPI;
@@ -59,12 +63,8 @@ public class DualPlayerProvider implements PlayerProvider {
         useGappleAPI = flagConfig.isUseGappleAPI();
 
         mojangAPI = new MojangAPIImpl(client);
-        electroidAPI = new ElectroidAPIImpl(client);
-        if (useGappleAPI) {
-            gappleAPI = new GappleAPIImpl(client);
-        } else {
-            gappleAPI = null;
-        }
+        electroidAPI = useElectroidAPI ? new ElectroidAPIImpl(client) : null;
+        gappleAPI = useGappleAPI ? new GappleAPIImpl(client) : null;
 
         uuidCache = build(mConfig.getMojangUuidLifetime(), debugMode, this::loadUUID);
         playerCache = build(mConfig.getMojangPlayerLifetime(), debugMode, this::loadPlayer);
@@ -78,8 +78,12 @@ public class DualPlayerProvider implements PlayerProvider {
         gappleBreaker = buildBreaker(mConfig.getGappleCircuitBreaker(), "Gapple API");
     }
 
-    private static <T, R> AsyncLoadingCache<T, R> build(int lifetime, boolean debugMode,
-                                                        ThrowingFunction<? super T, ? extends R, IOException> loadingFunc) {
+    @Contract("null, _, _ -> null")
+    private static @Nullable <T, R> AsyncLoadingCache<T, R> build(@Nullable Integer lifetime, boolean debugMode,
+            @NonNull ThrowingFunction<? super T, ? extends R, IOException> loadingFunc) {
+        if (lifetime == null) {
+            return null;
+        }
         Caffeine<Object, Object> builder = Caffeine.newBuilder()
                 .expireAfterWrite(Duration.ofSeconds(lifetime));
         if (debugMode) {
@@ -120,6 +124,7 @@ public class DualPlayerProvider implements PlayerProvider {
         Optional<Player> playerOpt;
         try {
             Objects.requireNonNull(electroidBreaker);
+            Objects.requireNonNull(electroidAPI);
             playerOpt = Failsafe.with(electroidBreaker).get(() -> electroidAPI.getPlayer(username));
         } catch (FailsafeException ex) {
             return handleFailsafe(ex);
@@ -138,6 +143,7 @@ public class DualPlayerProvider implements PlayerProvider {
         if (useElectroidAPI) {
             try {
                 Objects.requireNonNull(electroidBreaker);
+                Objects.requireNonNull(electroidAPI);
                 return Failsafe.with(electroidBreaker).get(() -> electroidAPI.getPlayer(uuid));
             } catch (Exception ex) {
                 log.warn("Getting player from Electroid API failed with IOE, trying Mojang API", ex);

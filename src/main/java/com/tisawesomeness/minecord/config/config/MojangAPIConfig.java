@@ -16,8 +16,8 @@ public class MojangAPIConfig {
     int mojangUuidLifetime;
     @JsonProperty("mojangPlayerLifetime")
     int mojangPlayerLifetime;
-    @JsonProperty("gappleStatusLifetime")
-    int gappleStatusLifetime;
+    @JsonProperty("gappleStatusLifetime") @JsonSetter(nulls = Nulls.SET)
+    @Nullable Integer gappleStatusLifetime;
 
     /** Null if electroid API disabled */
     @JsonProperty("electroidCircuitBreaker") @JsonSetter(nulls = Nulls.SET)
@@ -51,10 +51,11 @@ public class MojangAPIConfig {
                 "Players must be in the cache for at least " + MojangAPI.PROFILE_RATELIMIT + " seconds");
     }
     private Verification verifyGapple(FlagConfig flagConfig) {
-        if (!flagConfig.isUseGappleAPI()) {
-            return Verification.valid();
+        if (gappleStatusLifetime != null) {
+            return AdvancedConfig.verifyCacheLifetime(gappleStatusLifetime, "Gapple status");
         }
-        return AdvancedConfig.verifyCacheLifetime(gappleStatusLifetime, "Gapple status");
+        return Verification.verify(!flagConfig.isUseGappleAPI(),
+                "The gapple status lifetime must be present if the Electroid API is enabled");
     }
 
     private Verification verifyElectroidBreaker(FlagConfig flagConfig) {
