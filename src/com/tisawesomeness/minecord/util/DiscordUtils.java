@@ -13,6 +13,8 @@ import java.util.regex.Pattern;
 public class DiscordUtils {
 
 	private static final Pattern ID_PATTERN = Pattern.compile("[0-9]{2,32}");
+	private static final Pattern USER_MENTION_PATTERN = Pattern.compile("(<@!?)?([0-9]{2,32})>?");
+	private static final Pattern CHANNEL_MENTION_PATTERN = Pattern.compile("(<#)?([0-9]{2,32})>?");
 
 	public static boolean isDiscordId(String str) {
 		return ID_PATTERN.matcher(str).matches();
@@ -63,12 +65,18 @@ public class DiscordUtils {
 	}
 	
 	public static User findUser(String search) {
-		Matcher ma = Pattern.compile("(<@!?)?([0-9]{18})>?").matcher(search);
-		return ma.matches() ? Bot.shardManager.getUserById(ma.group(2)) : null;
+		if (isDiscordId(search)) {
+			return Bot.shardManager.retrieveUserById(search).complete();
+		}
+		Matcher ma = USER_MENTION_PATTERN.matcher(search);
+		return ma.matches() ? Bot.shardManager.retrieveUserById(ma.group(2)).complete() : null;
 	}
 	
 	public static TextChannel findChannel(String search) {
-		Matcher ma = Pattern.compile("(<#)?([0-9]{18})>?").matcher(search);
+		if (isDiscordId(search)) {
+			return Bot.shardManager.getTextChannelById(search);
+		}
+		Matcher ma = CHANNEL_MENTION_PATTERN.matcher(search);
 		return ma.matches() ? Bot.shardManager.getTextChannelById(ma.group(2)) : null;
 	}
 
