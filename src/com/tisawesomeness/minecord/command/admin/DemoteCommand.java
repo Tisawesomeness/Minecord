@@ -49,9 +49,8 @@ public class DemoteCommand extends Command {
 		
 		//Demote user
 		Database.changeElevated(id, false);
-		return new Result(Outcome.SUCCESS,
-			":arrow_down: Demoted " + user.getName() + "#" + user.getDiscriminator()
-		);
+		String msg = ":arrow_down: Demoted " + user.getName() + "#" + user.getDiscriminator();
+		return new Result(Outcome.SUCCESS, msg);
 		
 	}
 

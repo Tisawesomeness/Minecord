@@ -6,6 +6,7 @@ import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
@@ -95,9 +96,9 @@ public class EvalCommand extends Command {
 		// Build embed
 		EmbedBuilder eb = new EmbedBuilder();
 		String in = clean(code);
-		if (in.length() > 2048 - 10) {
+		if (in.length() > MessageEmbed.DESCRIPTION_MAX_LENGTH - 10) {
 			eb.addField("Input", "Input too long!", false);
-		} else if (in.length() > 1024 - 10) {
+		} else if (in.length() > MessageEmbed.VALUE_MAX_LENGTH - 10) {
 			eb.setDescription(MarkdownUtil.codeblock("js", in));
 		} else {
 			eb.addField("Input", MarkdownUtil.codeblock("js", in), false);
@@ -105,6 +106,9 @@ public class EvalCommand extends Command {
 		eb.setTimestamp(OffsetDateTime.now());
 		User u = e.getAuthor();
 		eb.setFooter(String.format("Sent by %s (%s)", u.getAsTag(), u.getId()), u.getAvatarUrl());
+
+		// Log embed with just input
+		MessageUtils.log(eb.build());
 
 		// Exception check
 		if (exMsg != null) {
@@ -114,9 +118,9 @@ public class EvalCommand extends Command {
 
 		// Check for length
 		String out = clean(output.toString());
-		if (out.length() > 1024 - 10) {
-			// Send up to 10 2000-char messages
-			ArrayList<String> lines = MessageUtils.splitLinesByLength(out, 2000 - 10);
+		if (out.length() > MessageEmbed.VALUE_MAX_LENGTH - 10) {
+			// Send up to 10 messages within limit
+			ArrayList<String> lines = MessageUtils.splitLinesByLength(out, MessageEmbed.DESCRIPTION_MAX_LENGTH - 10);
 			int i = 0;
 			while (i < 10 && i < lines.size()) {
 				e.getChannel().sendMessage(MarkdownUtil.codeblock("js", lines.get(i))).queue();
@@ -138,7 +142,7 @@ public class EvalCommand extends Command {
 
 	/**
 	 * Removes all blacklisted strings and everyone/here mentions from the input.
-	 * <b>NOT GUARENTEED TO WORK IN ALL CASES. NEVER REQUEST THE BOT TOKEN OR PRINT ALL JDA OR CONFIG VALUES.</b>
+	 * <b>NOT GUARANTEED TO WORK IN ALL CASES. NEVER REQUEST THE BOT TOKEN OR PRINT ALL JDA OR CONFIG VALUES.</b>
 	 * @param s The input string
 	 * @return A cleaned string with blacklisted strings replaced with [redacted]
 	 */

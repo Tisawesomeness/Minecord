@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.command.admin;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DiscordUtils;
+import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -41,9 +42,9 @@ public class PromoteCommand extends Command {
 		
 		//Elevate user
 		Database.changeElevated(user.getIdLong(), true);
-		return new Result(Outcome.SUCCESS,
-			":arrow_up: Elevated " + user.getName() + "#" + user.getDiscriminator()
-		);
+		String msg = ":arrow_up: Elevated " + user.getName() + "#" + user.getDiscriminator();
+		MessageUtils.log(msg);
+		return new Result(Outcome.SUCCESS, msg);
 		
 	}
 

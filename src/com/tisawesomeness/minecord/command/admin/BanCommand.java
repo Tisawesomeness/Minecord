@@ -67,6 +67,7 @@ public class BanCommand extends Command {
             User user = Bot.shardManager.retrieveUserById(args[1]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
 			String msg = user == null ? args[1] : user.getAsTag();
 			msg += banned ? " has been unbanned." : " was struck with the ban hammer!";
+			MessageUtils.log(msg);
 			return new Result(Outcome.SUCCESS, msg);
 		
 		//Guild part of command
@@ -87,6 +88,7 @@ public class BanCommand extends Command {
 			//Format message
 			String msg = guild.getName() + " (`" + guild.getId() + "`) ";
 			msg += banned ? "has been unbanned." : "was struck with the ban hammer!";
+			MessageUtils.log(msg);
 			return new Result(Outcome.SUCCESS, msg);
 		
 		//Query part of command
