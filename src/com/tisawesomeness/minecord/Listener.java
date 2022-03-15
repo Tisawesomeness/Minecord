@@ -180,7 +180,7 @@ public class Listener extends ListenerAdapter {
 					err = ":boom: There was an unexpected exception: " + MarkdownUtil.monospace(exception.toString());
 				}
 			}
-			MessageUtils.log(err);
+			MessageUtils.log("EXCEPTION: " + MarkdownUtil.monospace(m.getContentRaw()) + "\n" + err);
 			c.sendMessage(err).queue();
 		//If message is empty
 		} else if (result.message == null) {
