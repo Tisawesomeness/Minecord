@@ -2,8 +2,8 @@ package com.tisawesomeness.minecord.command;
 
 import com.tisawesomeness.minecord.command.Command.CommandInfo;
 import com.tisawesomeness.minecord.command.admin.*;
-import com.tisawesomeness.minecord.command.general.*;
-import com.tisawesomeness.minecord.command.misc.*;
+import com.tisawesomeness.minecord.command.core.*;
+import com.tisawesomeness.minecord.command.discord.*;
 import com.tisawesomeness.minecord.command.player.*;
 import com.tisawesomeness.minecord.command.utility.*;
 
@@ -13,87 +13,87 @@ import java.util.LinkedHashMap;
  * The list of all commands the bot knows.
  */
 public class Registry {
-	
+
 	private static final String adminHelp = "**These commands require elevation to use.**\n\n" +
-	"`{&}info admin` - Displays bot info, including used memory and boot time.\n" +
-	"`{&}settings <guild id> admin [setting] [value]` - Change the bot's settings for another guild.\n" +
-	"`{&}perms <channel id> admin` - Test the bot's permissions in any channel.\n" +
-	"`{&}user <user id> admin [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include \"mutual\" to show mutual guilds.\n" +
-	"`{&}guild <guild id> admin` - Show info and ban status for another guild.\n";
+			"`{&}info admin` - Displays bot info, including used memory and boot time.\n" +
+			"`{&}settings <guild id> admin [setting] [value]` - Change the bot's settings for another guild.\n" +
+			"`{&}perms <channel id> admin` - Test the bot's permissions in any channel.\n" +
+			"`{&}user <user id> admin [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include \"mutual\" to show mutual guilds.\n" +
+			"`{&}guild <guild id> admin` - Show info and ban status for another guild.\n";
 
 	private static final Command colorCmd = new ColorCommand();
 	public static final Module[] modules = {
-		new Module("General",
-			new GuildCommand(),
-			new RoleCommand(),
-			new RolesCommand(),
-			new UserCommand(),
-			new PurgeCommand(),
-			new PermsCommand(),
-			new PrefixCommand(),
-			new SettingsCommand()
-		),
-		new Module("Utility",
-			new StatusCommand(),
-			new CodesCommand(),
-			colorCmd,
-			new ColorShortcut(colorCmd, "0"),
-			new ColorShortcut(colorCmd, "1"),
-			new ColorShortcut(colorCmd, "2"),
-			new ColorShortcut(colorCmd, "3"),
-			new ColorShortcut(colorCmd, "4"),
-			new ColorShortcut(colorCmd, "5"),
-			new ColorShortcut(colorCmd, "6"),
-			new ColorShortcut(colorCmd, "7"),
-			new ColorShortcut(colorCmd, "8"),
-			new ColorShortcut(colorCmd, "9"),
-			new ColorShortcut(colorCmd, "a"),
-			new ColorShortcut(colorCmd, "b"),
-			new ColorShortcut(colorCmd, "c"),
-			new ColorShortcut(colorCmd, "d"),
-			new ColorShortcut(colorCmd, "e"),
-			new ColorShortcut(colorCmd, "f"),
-			new ServerCommand(),
-			new ShadowCommand(),
-			new Sha1Command(),
-			new ItemCommand(),
-			new RecipeCommand(),
-			new IngredientCommand()
-		),
-		new Module("Player",
-			new UuidCommand(),
-			new HistoryCommand(),
-			new AvatarCommand(),
-			new HeadCommand(),
-			new BodyCommand(),
-			new SkinCommand(),
-			new CapeCommand(),
-			new ProfileCommand()
-		),
-		new Module("Misc",
-			new HelpCommand(),
-			new InfoCommand(),
-			new PingCommand(),
-			new InviteCommand(),
-			new VoteCommand(),
-			new CreditsCommand()
-		),
-		new Module("Admin", true, adminHelp,
-			new SayCommand(),
-			new MsgCommand(),
-			new NameCommand(),
-			new UsageCommand(),
-			new PromoteCommand(),
-			new DemoteCommand(),
-			new BanCommand(),
-			new ReloadCommand(),
-			new ShutdownCommand(),
-			new EvalCommand(),
-			new TestCommand()
-		)
+			new Module("Core",
+					new HelpCommand(),
+					new InfoCommand(),
+					new PingCommand(),
+					new PrefixCommand(),
+					new SettingsCommand(),
+					new InviteCommand(),
+					new VoteCommand(),
+					new CreditsCommand()
+			),
+			new Module("Player",
+					new ProfileCommand(),
+					new HistoryCommand(),
+					new UuidCommand(),
+					new SkinCommand(),
+					new CapeCommand(),
+					new AvatarCommand(),
+					new HeadCommand(),
+					new BodyCommand()
+			),
+			new Module("Utility",
+					new StatusCommand(),
+					new ServerCommand(),
+					new RecipeCommand(),
+					new ItemCommand(),
+					new IngredientCommand(),
+					new CodesCommand(),
+					colorCmd,
+					new ColorShortcut(colorCmd, "0"),
+					new ColorShortcut(colorCmd, "1"),
+					new ColorShortcut(colorCmd, "2"),
+					new ColorShortcut(colorCmd, "3"),
+					new ColorShortcut(colorCmd, "4"),
+					new ColorShortcut(colorCmd, "5"),
+					new ColorShortcut(colorCmd, "6"),
+					new ColorShortcut(colorCmd, "7"),
+					new ColorShortcut(colorCmd, "8"),
+					new ColorShortcut(colorCmd, "9"),
+					new ColorShortcut(colorCmd, "a"),
+					new ColorShortcut(colorCmd, "b"),
+					new ColorShortcut(colorCmd, "c"),
+					new ColorShortcut(colorCmd, "d"),
+					new ColorShortcut(colorCmd, "e"),
+					new ColorShortcut(colorCmd, "f"),
+					new ShadowCommand(),
+					new Sha1Command()
+			),
+			new Module("Discord",
+					new UserCommand(),
+					new GuildCommand(),
+					new RoleCommand(),
+					new RolesCommand(),
+					new PurgeCommand(),
+					new PermsCommand()
+			),
+			new Module("Admin", true, adminHelp,
+					new SayCommand(),
+					new MsgCommand(),
+					new NameCommand(),
+					new UsageCommand(),
+					new PromoteCommand(),
+					new DemoteCommand(),
+					new BanCommand(),
+					new ReloadCommand(),
+					new ShutdownCommand(),
+					new EvalCommand(),
+					new TestCommand()
+			)
 	};
 	private static final LinkedHashMap<String, Command> commandMap = new LinkedHashMap<>();
-	
+
 	/**
 	 * Adds every module to the registry and maps the possible aliases to the command to execute.
 	 * Must be executed before getCommand() can be called.

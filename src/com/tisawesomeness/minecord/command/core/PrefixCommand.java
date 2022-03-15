@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.command.general;
+package com.tisawesomeness.minecord.command.core;
 
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
@@ -17,7 +17,7 @@ public class PrefixCommand extends Command {
 				"resetprefix",
 				"changeprefix"},
 			5000,
-			true,
+			false,
 			false,
 			true
 		);
