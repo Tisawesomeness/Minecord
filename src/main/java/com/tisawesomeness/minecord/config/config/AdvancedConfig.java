@@ -26,7 +26,7 @@ public class AdvancedConfig {
     public Verification verify(FlagConfig flagConfig) {
         return Verification.combineAll(
                 httpConfig.verify(),
-                mojangAPIConfig.verify(flagConfig.isUseGappleAPI()),
+                mojangAPIConfig.verify(flagConfig),
                 databaseCacheConfig.verify(),
                 advDiscordConfig.verify(),
                 verifyLinkedDeletion(flagConfig.isLinkedDeletion())

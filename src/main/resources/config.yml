@@ -208,6 +208,32 @@ advanced:
     # The amount of time in seconds a UUID-->AccountStatus mapping is kept in the cache
     gappleStatusLifetime: 60
 
+    # Circuit breaker failsafe that disables the Electroid API if there are too many failures
+    electroidCircuitBreaker:
+      # The percentage failure rate 1-100 that will trigger the circuit breaker failsafe
+      failureRateThreshold: 20
+      # Minimum number of API requests that must occur within the threshold period before the failsafe can be triggered
+      failureExecutionThreshold: 10
+      # Time in seconds to track failures
+      thresholdPeriod: 180
+      # Time in seconds the circuit is disabled after the threshold is reached
+      disablePeriod: 300
+      # Number of consecutive executions needed to reset the circuit back to normal
+      resetCount: 5
+
+    # Circuit breaker failsafe that disables the Gapple API if there are too many failures
+    gappleCircuitBreaker:
+      # The percentage failure rate 1-100 that will trigger the circuit breaker failsafe
+      failureRateThreshold: 20
+      # Minimum number of API requests that must occur within the threshold period before the failsafe can be triggered
+      failureExecutionThreshold: 10
+      # Time in seconds to track failures
+      thresholdPeriod: 180
+      # Time in seconds the circuit is disabled after the threshold is reached
+      disablePeriod: 300
+      # Number of consecutive executions needed to reset the circuit back to normal
+      resetCount: 5
+
   databaseCache:
     # The amount of time in seconds a guild database record is kept in the cache
     guildLifetime: 600

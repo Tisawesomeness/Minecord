@@ -4,7 +4,11 @@ import com.tisawesomeness.minecord.mc.external.MojangAPI;
 import com.tisawesomeness.minecord.util.type.Verification;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import lombok.Value;
+
+import javax.annotation.Nullable;
 
 @Value
 public class MojangAPIConfig {
@@ -15,11 +19,20 @@ public class MojangAPIConfig {
     @JsonProperty("gappleStatusLifetime")
     int gappleStatusLifetime;
 
-    public Verification verify(boolean useGappleAPI) {
+    /** Null if electroid API disabled */
+    @JsonProperty("electroidCircuitBreaker") @JsonSetter(nulls = Nulls.SET)
+    @Nullable CircuitBreakerConfig electroidCircuitBreaker;
+    /** Null if gapple API disabled */
+    @JsonProperty("gappleCircuitBreaker") @JsonSetter(nulls = Nulls.SET)
+    @Nullable CircuitBreakerConfig gappleCircuitBreaker;
+
+    public Verification verify(FlagConfig flagConfig) {
         return Verification.combineAll(
                 verifyUuid(),
                 verifyPlayer(),
-                verifyGapple(useGappleAPI)
+                verifyGapple(flagConfig),
+                verifyElectroidBreaker(flagConfig),
+                verifyGappleBreaker(flagConfig)
         );
     }
 
@@ -37,11 +50,26 @@ public class MojangAPIConfig {
         return Verification.invalid(
                 "Players must be in the cache for at least " + MojangAPI.PROFILE_RATELIMIT + " seconds");
     }
-    private Verification verifyGapple(boolean useGappleAPI) {
-        if (!useGappleAPI) {
+    private Verification verifyGapple(FlagConfig flagConfig) {
+        if (!flagConfig.isUseGappleAPI()) {
             return Verification.valid();
         }
         return AdvancedConfig.verifyCacheLifetime(gappleStatusLifetime, "Gapple status");
+    }
+
+    private Verification verifyElectroidBreaker(FlagConfig flagConfig) {
+        if (electroidCircuitBreaker != null) {
+            return electroidCircuitBreaker.verify();
+        }
+        return Verification.verify(!flagConfig.isUseElectroidAPI(),
+                "The electroid circuit breaker config must be present if the Electroid API is enabled");
+    }
+    private Verification verifyGappleBreaker(FlagConfig flagConfig) {
+        if (gappleCircuitBreaker != null) {
+            return gappleCircuitBreaker.verify();
+        }
+        return Verification.verify(!flagConfig.isUseGappleAPI(),
+                "The gapple circuit breaker config must be present if the Gapple API is enabled");
     }
 
 }

@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.mc.external;
 
+import com.tisawesomeness.minecord.config.config.CircuitBreakerConfig;
 import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.config.config.FlagConfig;
 import com.tisawesomeness.minecord.config.config.MojangAPIConfig;
@@ -35,8 +36,8 @@ public class DualPlayerProvider implements PlayerProvider {
     private final AsyncLoadingCache<Username, Optional<UUID>> uuidCache;
     private final AsyncLoadingCache<UUID, Optional<Player>> playerCache;
     private final @Nullable AsyncLoadingCache<UUID, Optional<AccountStatus>> statusCache;
-    private final CircuitBreaker<Object> electroidBreaker;
-    private final CircuitBreaker<Object> gappleBreaker;
+    private final @Nullable CircuitBreaker<Object> electroidBreaker;
+    private final @Nullable CircuitBreaker<Object> gappleBreaker;
 
     private final MojangAPI mojangAPI;
     private final ElectroidAPI electroidAPI;
@@ -73,24 +74,8 @@ public class DualPlayerProvider implements PlayerProvider {
             statusCache = null;
         }
 
-        electroidBreaker = CircuitBreaker.builder()
-                .handle(IOException.class)
-                .withFailureRateThreshold(20, 10, Duration.ofMinutes(3))
-                .withSuccessThreshold(5)
-                .withDelay(Duration.ofMinutes(5))
-                .onOpen(e -> log.warn("Electroid API circuit breaker tripped from state {}", e.getPreviousState()))
-                .onHalfOpen(e -> log.info("Electroid API circuit breaker half-open"))
-                .onClose(e -> log.info("Electroid API circuit breaker reset"))
-                .build();
-        gappleBreaker = CircuitBreaker.builder()
-                .handle(IOException.class)
-                .withFailureRateThreshold(20, 10, Duration.ofMinutes(3))
-                .withSuccessThreshold(5)
-                .withDelay(Duration.ofMinutes(5))
-                .onOpen(e -> log.warn("Gapple API circuit breaker tripped from state {}", e.getPreviousState()))
-                .onHalfOpen(e -> log.info("Gapple API circuit breaker half-open"))
-                .onClose(e -> log.info("Gapple API circuit breaker reset"))
-                .build();
+        electroidBreaker = buildBreaker(mConfig.getElectroidCircuitBreaker(), "Electroid API");
+        gappleBreaker = buildBreaker(mConfig.getGappleCircuitBreaker(), "Gapple API");
     }
 
     private static <T, R> AsyncLoadingCache<T, R> build(int lifetime, boolean debugMode,
@@ -101,6 +86,22 @@ public class DualPlayerProvider implements PlayerProvider {
             builder.recordStats();
         }
         return builder.buildAsync(loadingFunc::apply);
+    }
+    private static @Nullable CircuitBreaker<Object> buildBreaker(
+            @Nullable CircuitBreakerConfig config, @NonNull String name) {
+        if (config == null) {
+            return null;
+        }
+        return CircuitBreaker.builder()
+                .handle(IOException.class)
+                .withFailureRateThreshold(config.getFailureRateThreshold(),
+                        config.getFailureExecutionThreshold(), Duration.ofSeconds(config.getThresholdPeriod()))
+                .withDelay(Duration.ofSeconds(config.getDisablePeriod()))
+                .withSuccessThreshold(config.getResetCount())
+                .onOpen(e -> log.warn("{} circuit breaker tripped from state {}", name, e.getPreviousState()))
+                .onHalfOpen(e -> log.info("{} circuit breaker half-open", name))
+                .onClose(e -> log.info("{} circuit breaker reset", name))
+                .build();
     }
 
     private Optional<UUID> loadUUID(Username username) throws IOException {
@@ -118,6 +119,7 @@ public class DualPlayerProvider implements PlayerProvider {
     private Optional<UUID> tryUUIDFromElectroid(Username username) throws IOException {
         Optional<Player> playerOpt;
         try {
+            Objects.requireNonNull(electroidBreaker);
             playerOpt = Failsafe.with(electroidBreaker).get(() -> electroidAPI.getPlayer(username));
         } catch (FailsafeException ex) {
             return handleFailsafe(ex);
@@ -135,6 +137,7 @@ public class DualPlayerProvider implements PlayerProvider {
     private Optional<Player> loadPlayer(UUID uuid) throws IOException {
         if (useElectroidAPI) {
             try {
+                Objects.requireNonNull(electroidBreaker);
                 return Failsafe.with(electroidBreaker).get(() -> electroidAPI.getPlayer(uuid));
             } catch (Exception ex) {
                 log.warn("Getting player from Electroid API failed with IOE, trying Mojang API", ex);
@@ -166,7 +169,7 @@ public class DualPlayerProvider implements PlayerProvider {
     }
 
     public boolean isStatusAPIEnabled() {
-        return useGappleAPI && !gappleBreaker.isOpen();
+        return useGappleAPI && !Objects.requireNonNull(gappleBreaker).isOpen();
     }
 
     public CompletableFuture<Optional<UUID>> getUUID(@NonNull Username username) {
@@ -190,7 +193,7 @@ public class DualPlayerProvider implements PlayerProvider {
         if (statusCache == null) {
             throw new IllegalStateException("Gapple API is not enabled");
         }
-        return Failsafe.with(gappleBreaker).getStageAsync(() -> statusCache.get(uuid))
+        return Failsafe.with(Objects.requireNonNull(gappleBreaker)).getStageAsync(() -> statusCache.get(uuid))
                 .exceptionally(DualPlayerProvider::handleFailsafe);
     }
 
