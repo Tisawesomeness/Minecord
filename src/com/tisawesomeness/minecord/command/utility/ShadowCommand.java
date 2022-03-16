@@ -10,25 +10,25 @@ public class ShadowCommand extends Command {
 
     public CommandInfo getInfo() {
         return new CommandInfo(
-            "shadow",
-            "Gets the shadow of a seed.",
-            "<seed>",
-            null,
-            0,
-            false,
-            false,
-            false
+                "shadow",
+                "Gets the shadow of a seed.",
+                "<seed>",
+                null,
+                0,
+                false,
+                false,
+                false
         );
     }
 
     public String getHelp() {
         return "`{&}shadow <text>` - Generates a seed's \"shadow\", where the biome maps are the same but everything else is different.\n" +
-            "Spaces at the start and end are removed, and numbers are treated as raw numbers (same as MC 1.18.2).\n" +
-            "\n" +
-            "Examples:\n" +
-            "- `{&}shadow Glacier`\n" +
-            "- `{&}shadow zsjpxah` - converted to numeric 0\n" +
-            "- `{&}shadow 0` - numeric seed 0\n";
+                "Spaces at the start and end are removed, and numbers are treated as raw numbers (same as MC 1.18.2).\n" +
+                "\n" +
+                "Examples:\n" +
+                "- `{&}shadow Glacier`\n" +
+                "- `{&}shadow zsjpxah` - converted to numeric 0\n" +
+                "- `{&}shadow 0` - numeric seed 0\n";
     }
 
     public Result run(String[] args, MessageReceivedEvent e) {

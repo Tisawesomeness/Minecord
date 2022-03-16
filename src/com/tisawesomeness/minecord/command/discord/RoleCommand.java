@@ -19,36 +19,36 @@ import java.util.List;
 public class RoleCommand extends Command {
 
     public CommandInfo getInfo() {
-		return new CommandInfo(
-			"role",
-			"Shows role info.",
-			"<role|id>",
-			new String[]{"roleinfo"},
-			0,
-			false,
-			false,
-			false
-		);
+        return new CommandInfo(
+                "role",
+                "Shows role info.",
+                "<role|id>",
+                new String[]{"roleinfo"},
+                0,
+                false,
+                false,
+                false
+        );
     }
 
     public String getHelp() {
         return "Shows the info of a role in the current guild.\n" +
-            "\n" +
-            "Examples:\n" +
-            "- `{&}role Moderator`\n" +
-            "- `{&}role @Bot`\n" +
-            "- `{&}role 347797250266628108`\n";
+                "\n" +
+                "Examples:\n" +
+                "- `{&}role Moderator`\n" +
+                "- `{&}role @Bot`\n" +
+                "- `{&}role 347797250266628108`\n";
     }
 
     public String getAdminHelp() {
         return "`{&}role <role|id>` - Shows the info of a role in the current guild.\n" +
-            "`{&}role <role id> admin` - Shows the info of any role.\n" +
-            "\n" +
-            "Examples:\n" +
-            "- `{&}role Moderator`\n" +
-            "- `{&}role @Bot`\n" +
-            "- `{&}role 347797250266628108`\n" +
-            "- `{&}role 347797250266628108 admin`\n";
+                "`{&}role <role id> admin` - Shows the info of any role.\n" +
+                "\n" +
+                "Examples:\n" +
+                "- `{&}role Moderator`\n" +
+                "- `{&}role @Bot`\n" +
+                "- `{&}role 347797250266628108`\n" +
+                "- `{&}role 347797250266628108 admin`\n";
     }
 
     public Result run(String[] args, MessageReceivedEvent e) {
@@ -63,15 +63,15 @@ public class RoleCommand extends Command {
         List<Role> roles = e.getGuild().getRoles();
         List<Role> mentioned = e.getMessage().getMentionedRoles();
         // Search for any role if admin
-		if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
+        if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
             role = Bot.shardManager.getRoleById(args[0]);
-        // Mentioned roles
+            // Mentioned roles
         } else if (mentioned.size() > 0) {
             role = mentioned.get(0);
-        // Search by id
+            // Search by id
         } else if (DiscordUtils.isDiscordId(args[0])) {
             role = e.getGuild().getRoleById(args[0]);
-        // Search by name
+            // Search by name
         } else {
             String query = String.join(" ", args);
             for (Role r : roles) {
@@ -87,14 +87,14 @@ public class RoleCommand extends Command {
 
         Role.RoleTags tags = role.getTags();
         EmbedBuilder eb = new EmbedBuilder()
-            .setTitle(role.getName().substring(0, Math.min(MessageEmbed.TITLE_MAX_LENGTH, role.getName().length())))
-            .setColor(role.getColorRaw())
-            .addField("ID", role.getId(), true)
-            .addField("Color", ColorUtils.getHexCode(role.getColorRaw()), true) // Mask gets RGB of color
-            .addField("Position", (role.getPosition() + 2) + "/" + roles.size(), true) // Position corrected so @everyone is pos 1
-            .addField("Mentionable?", role.isMentionable() ? "Yes" : "No", true)
-            .addField("Hoisted?", role.isHoisted() ? "Yes" : "No", true)
-            .addField("Integration?", tags.isIntegration() ? "Yes" : "No", true);
+                .setTitle(role.getName().substring(0, Math.min(MessageEmbed.TITLE_MAX_LENGTH, role.getName().length())))
+                .setColor(role.getColorRaw())
+                .addField("ID", role.getId(), true)
+                .addField("Color", ColorUtils.getHexCode(role.getColorRaw()), true) // Mask gets RGB of color
+                .addField("Position", (role.getPosition() + 2) + "/" + roles.size(), true) // Position corrected so @everyone is pos 1
+                .addField("Mentionable?", role.isMentionable() ? "Yes" : "No", true)
+                .addField("Hoisted?", role.isHoisted() ? "Yes" : "No", true)
+                .addField("Integration?", tags.isIntegration() ? "Yes" : "No", true);
         if (tags.isIntegration()) {
             eb.addField("Integration ID", tags.getIntegrationId(), true);
         }

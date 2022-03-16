@@ -25,13 +25,13 @@ public class IdCommand extends Command {
 
     public String getHelp() {
         return "`{&}id <id>` - Gets the creation time of a Discord ID.\n" +
-            "This command does not check if an ID exists.\n" +
-            "To get Discord IDs, turn on User Settings > Advanced > Developer Mode, then right click and select \"Copy ID\"\n" +
-            "The `{&}user`/`{&}role`/`{&}guild` commands also show IDs.\n" +
-            "\n" +
-            "Examples:\n" +
-            "- `{&}id 211261249386708992`\n" +
-            "- `{&}id 292279711034245130`\n";
+                "This command does not check if an ID exists.\n" +
+                "To get Discord IDs, turn on User Settings > Advanced > Developer Mode, then right click and select \"Copy ID\"\n" +
+                "The `{&}user`/`{&}role`/`{&}guild` commands also show IDs.\n" +
+                "\n" +
+                "Examples:\n" +
+                "- `{&}id 211261249386708992`\n" +
+                "- `{&}id 292279711034245130`\n";
     }
 
     @Override

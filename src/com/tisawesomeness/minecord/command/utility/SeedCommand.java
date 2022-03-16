@@ -8,25 +8,25 @@ public class SeedCommand extends Command {
 
     public CommandInfo getInfo() {
         return new CommandInfo(
-            "seed",
-            "Converts some text to a seed number.",
-            "<text>",
-            null,
-            0,
-            false,
-            false,
-            true
+                "seed",
+                "Converts some text to a seed number.",
+                "<text>",
+                null,
+                0,
+                false,
+                false,
+                true
         );
     }
 
     public String getHelp() {
         return "`{&}seed <text>` - Converts some text to a seed number.\n" +
-            "Spaces at the start and end are removed, and numbers are treated as strings.\n" +
-            "\n" +
-            "Examples:\n" +
-            "- `{&}seed Glacier`\n" +
-            "- `{&}seed zsjpxah` - numeric seed 0\n" +
-            "- `{&}seed 0` - treated as a string\n";
+                "Spaces at the start and end are removed, and numbers are treated as strings.\n" +
+                "\n" +
+                "Examples:\n" +
+                "- `{&}seed Glacier`\n" +
+                "- `{&}seed zsjpxah` - numeric seed 0\n" +
+                "- `{&}seed 0` - treated as a string\n";
     }
 
     @Override

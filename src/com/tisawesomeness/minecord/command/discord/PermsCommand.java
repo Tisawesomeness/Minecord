@@ -15,40 +15,40 @@ import java.util.List;
 public class PermsCommand extends Command {
 
     public CommandInfo getInfo() {
-		return new CommandInfo(
-			"perms",
-			"Test the bot's permissions in a channel.",
-			"[<channel>]",
-			new String[]{"permissions"},
-			0,
-			false,
-			false,
-			false
-		);
+        return new CommandInfo(
+                "perms",
+                "Test the bot's permissions in a channel.",
+                "[<channel>]",
+                new String[]{"permissions"},
+                0,
+                false,
+                false,
+                false
+        );
     }
 
     public String getHelp() {
         return "`{&}perms` - Test the bot's permissions for the current channel.\n" +
-            "`{&}perms <channel>` - Test the bot's permissions for a channel in the same guild.\n" +
-            "You must have permission to send messages in the channel being tested.\n" +
-            "`<channel>` can be a `#channel` mention or an 18-digit ID.\n" +
-            "\n" +
-            "Examples:\n" +
-            "- `{&}perms #bot-commands`\n" +
-            "- `{&}perms 347909541264097281`\n";
+                "`{&}perms <channel>` - Test the bot's permissions for a channel in the same guild.\n" +
+                "You must have permission to send messages in the channel being tested.\n" +
+                "`<channel>` can be a `#channel` mention or an 18-digit ID.\n" +
+                "\n" +
+                "Examples:\n" +
+                "- `{&}perms #bot-commands`\n" +
+                "- `{&}perms 347909541264097281`\n";
     }
 
     public String getAdminHelp() {
         return "`{&}perms` - Test the bot's permissions for the current channel.\n" +
-            "`{&}perms <channel>` - Test the bot's permissions for a channel in the same guild.\n" +
-            "You must have permission to send messages in the channel being tested.\n" +
-            "`{&}perms <id> admin` - Test the bot's permissions for any channel.\n" +
-            "`<channel>` can be a `#channel` mention or an 18-digit ID.\n" +
-            "\n" +
-            "Examples:\n" +
-            "- `{&}perms #bot-commands`\n" +
-            "- `{&}perms 347909541264097281`\n" +
-            "- `{&}perms 399734453712191498 admin`\n";
+                "`{&}perms <channel>` - Test the bot's permissions for a channel in the same guild.\n" +
+                "You must have permission to send messages in the channel being tested.\n" +
+                "`{&}perms <id> admin` - Test the bot's permissions for any channel.\n" +
+                "`<channel>` can be a `#channel` mention or an 18-digit ID.\n" +
+                "\n" +
+                "Examples:\n" +
+                "- `{&}perms #bot-commands`\n" +
+                "- `{&}perms 347909541264097281`\n" +
+                "- `{&}perms 399734453712191498 admin`\n";
     }
 
     // Error message cannot be "you cannot see that channel" since it reveals the channel exists when the user couldn't have known that otherwise
@@ -58,7 +58,7 @@ public class PermsCommand extends Command {
 
         TextChannel c;
         // Check any channel id if admin
-		if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
+        if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
             if (!DiscordUtils.isDiscordId(args[0])) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
@@ -66,11 +66,11 @@ public class PermsCommand extends Command {
             if (c == null) {
                 return new Result(Outcome.WARNING, ":warning: That channel does not exist.");
             }
-        
-        // No admin = guild only
+
+            // No admin = guild only
         } else if (!e.isFromGuild()) {
             return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
-        
+
         } else if (args.length > 0) {
             // Find by id
             if (DiscordUtils.isDiscordId(args[0])) {
@@ -79,7 +79,7 @@ public class PermsCommand extends Command {
                     return invalidChannel;
                 }
                 c = tc;
-            // Find by mention
+                // Find by mention
             } else {
                 List<TextChannel> mentioned = e.getMessage().getMentionedChannels();
                 if (mentioned.size() == 0) {
@@ -98,25 +98,25 @@ public class PermsCommand extends Command {
             } else if (!e.getMember().hasPermission(c, Permission.MESSAGE_WRITE)) {
                 return new Result(Outcome.WARNING, ":warning: You do not have permission to write in that channel.");
             }
-        
-        // Get current channel if no args, user clearly has permission to send messages
+
+            // Get current channel if no args, user clearly has permission to send messages
         } else {
             c = e.getTextChannel();
         }
 
         EnumSet<Permission> perms = c.getGuild().getSelfMember().getPermissions(c);
         String m = String.format("**Bot Permissions for %s:**", c.getAsMention()) +
-            "\nView channels: " + DiscordUtils.getBoolEmote(perms.contains(Permission.VIEW_CHANNEL)) +
-            "\nRead messages: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_READ)) +
-            "\nRead message history: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_HISTORY)) +
-            "\nWrite messages: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_WRITE)) +
-            "\nEmbed links: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_EMBED_LINKS)) +
-            "\nAttach files: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_ATTACH_FILES)) +
-            "\nAdd reactions: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_ADD_REACTION)) +
-            "\nManage messages: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_MANAGE)) +
-            "\nCan upload favicons: " + getFaviconEmote(perms) +
-            "\nCan use reaction menus: " + getMenuEmote(perms);
-        
+                "\nView channels: " + DiscordUtils.getBoolEmote(perms.contains(Permission.VIEW_CHANNEL)) +
+                "\nRead messages: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_READ)) +
+                "\nRead message history: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_HISTORY)) +
+                "\nWrite messages: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_WRITE)) +
+                "\nEmbed links: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_EMBED_LINKS)) +
+                "\nAttach files: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_ATTACH_FILES)) +
+                "\nAdd reactions: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_ADD_REACTION)) +
+                "\nManage messages: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_MANAGE)) +
+                "\nCan upload favicons: " + getFaviconEmote(perms) +
+                "\nCan use reaction menus: " + getMenuEmote(perms);
+
         return new Result(Outcome.SUCCESS, m);
     }
 
@@ -136,5 +136,5 @@ public class PermsCommand extends Command {
         }
         return ":x: Give embed links and add reactions permissions to fix";
     }
-    
+
 }

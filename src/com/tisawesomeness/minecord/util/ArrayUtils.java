@@ -33,6 +33,7 @@ public class ArrayUtils {
         if (index < 0 || length <= index) {
             throw new IndexOutOfBoundsException("Index must be between 0 and " + length + " but was " + index);
         }
+
         @SuppressWarnings("unchecked")
         T[] newArr = (T[]) Array.newInstance(arr.getClass().getComponentType(), length - 1);
         System.arraycopy(arr, 0, newArr, 0, index);

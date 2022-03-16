@@ -18,32 +18,32 @@ import net.dv8tion.jda.api.utils.TimeUtil;
 public class GuildCommand extends Command {
 
     public CommandInfo getInfo() {
-		return new CommandInfo(
-			"guild",
-			"Shows guild info.",
-			null,
-			new String[]{"guildinfo"},
-			0,
-			false,
-			false,
-			false
-		);
+        return new CommandInfo(
+                "guild",
+                "Shows guild info.",
+                null,
+                new String[]{"guildinfo"},
+                0,
+                false,
+                false,
+                false
+        );
     }
 
     public String getAdminHelp() {
         return "`{&}guild` - Shows current guild info.\n" +
-            "`{&}guild <guild id> admin` - Shows the info of another guild.\n" +
-            "\n" +
-            "Examples:\n" +
-            "- `{&}guild 347765748577468416 admin`\n";
+                "`{&}guild <guild id> admin` - Shows the info of another guild.\n" +
+                "\n" +
+                "Examples:\n" +
+                "- `{&}guild 347765748577468416 admin`\n";
     }
-    
+
     public Result run(String[] args, MessageReceivedEvent e) {
 
         // If the author used the admin keyword and is an elevated user
         boolean elevated = false;
         Guild g;
-		if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
+        if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
             elevated = true;
             if (!DiscordUtils.isDiscordId(args[0])) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
@@ -68,19 +68,19 @@ public class GuildCommand extends Command {
         int textChannels = g.getTextChannels().size();
         int voiceChannels = g.getVoiceChannels().size();
         EmbedBuilder eb = new EmbedBuilder()
-            .setTitle(MarkdownSanitizer.escape(g.getName()))
-            .setColor(Bot.color)
-            .setImage(g.getIconUrl())
-            .addField("ID", g.getId(), true)
-            .addField("Users", String.valueOf(g.getMemberCount()), true)
-            .addField("Roles", String.valueOf(g.getRoles().size()), true)
-            .addField("Categories", String.valueOf(g.getCategories().size()), true)
-            .addField("Channels", String.format("%d (%d text, %d voice)", textChannels + voiceChannels, textChannels, voiceChannels), true)
-            .addField("Verification Level", g.getVerificationLevel().toString(), true)
-            .addField("Owner", MarkdownSanitizer.escape(owner.getAsTag()), true)
-            .addField("Owner ID", owner.getId(), true)
-            .addField("Created", TimeFormat.RELATIVE.format(TimeUtil.getTimeCreated(g)), true);
-         if (g.getBoostTier() == BoostTier.UNKNOWN) {
+                .setTitle(MarkdownSanitizer.escape(g.getName()))
+                .setColor(Bot.color)
+                .setImage(g.getIconUrl())
+                .addField("ID", g.getId(), true)
+                .addField("Users", String.valueOf(g.getMemberCount()), true)
+                .addField("Roles", String.valueOf(g.getRoles().size()), true)
+                .addField("Categories", String.valueOf(g.getCategories().size()), true)
+                .addField("Channels", String.format("%d (%d text, %d voice)", textChannels + voiceChannels, textChannels, voiceChannels), true)
+                .addField("Verification Level", g.getVerificationLevel().toString(), true)
+                .addField("Owner", MarkdownSanitizer.escape(owner.getAsTag()), true)
+                .addField("Owner ID", owner.getId(), true)
+                .addField("Created", TimeFormat.RELATIVE.format(TimeUtil.getTimeCreated(g)), true);
+        if (g.getBoostTier() == BoostTier.UNKNOWN) {
             eb.addField("Boosts", g.getBoostCount() + " (Unknown Tier)", true);
         } else {
             eb.addField("Boosts", String.format("%d (Tier %s)", g.getBoostCount(), g.getBoostTier().getKey()), true);
@@ -102,7 +102,7 @@ public class GuildCommand extends Command {
 
     private static String getSettingsStr(long gid) {
         return String.format("prefix: `%s`\ndeleteCommands: `%s`\nuseMenus: `%s`",
-            Database.getPrefix(gid), Database.getDeleteCommands(gid), Database.getUseMenu(gid));
+                Database.getPrefix(gid), Database.getDeleteCommands(gid), Database.getUseMenu(gid));
     }
-    
+
 }

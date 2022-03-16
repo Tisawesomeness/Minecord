@@ -21,7 +21,7 @@ public class Recipe {
 
     /**
      * Initializes the recipe database by reading from file
-     * 
+     *
      * @param path The path to read from
      * @throws IOException on IO error
      */
@@ -32,7 +32,7 @@ public class Recipe {
 
     /**
      * Creates an EmbedBuilder from a recipe
-     * 
+     *
      * @param recipe The name of the recipe
      * @param lang The language code to pull names from
      * @return An EmbedBuilder containing properties of the item
@@ -97,15 +97,15 @@ public class Recipe {
     }
 
     private static final List<String> shapedTypes = Arrays.asList(
-        "minecraft:crafting_shaped", "minecraft:crafting_special_tippedarrow"
+            "minecraft:crafting_shaped", "minecraft:crafting_special_tippedarrow"
     );
     private static final List<String> shapelessTypes = Arrays.asList(
-        "minecraft:crafting_shapeless",
-        "minecraft:crafting_special_firework_star", "minecraft:crafting_special_firework_star_fade", "minecraft:crafting_special_firework_rocket",
-        "minecraft:crafting_special_shulkerboxcoloring", "minecraft:crafting_special_suspiciousstew"
+            "minecraft:crafting_shapeless",
+            "minecraft:crafting_special_firework_star", "minecraft:crafting_special_firework_star_fade", "minecraft:crafting_special_firework_rocket",
+            "minecraft:crafting_special_shulkerboxcoloring", "minecraft:crafting_special_suspiciousstew"
     );
     private static final List<String> otherTypes = Arrays.asList(
-        "minecraft:stonecutting", "minecraft.brewing", "minecraft:smithing"
+            "minecraft:stonecutting", "minecraft.brewing", "minecraft:smithing"
     );
     /**
      * Checks if a recipe type is crafting
@@ -204,15 +204,15 @@ public class Recipe {
                     for (int i = 0; i < symbolArr.length(); i++) {
                         ingredients.add(symbolArr.getJSONObject(i).getString("item"));
                     }
-                // Ingredient is a single item
+                    // Ingredient is a single item
                 } else if (symbolObj.has("item")) {
                     ingredients.add(symbolObj.getString("item"));
-                // Ingredient is a tag
+                    // Ingredient is a tag
                 } else {
                     ingredients.addAll(getTag(symbolObj.getString("tag").substring(10)));
                 }
             }
-        // Shapeless recipes
+            // Shapeless recipes
         } else if (shapelessTypes.contains(type)) {
             JSONArray keyArr = recipe.getJSONArray("ingredients");
             for (int i = 0; i < keyArr.length(); i++) {
@@ -223,15 +223,15 @@ public class Recipe {
                     for (int j = 0; j < symbolArr.length(); j++) {
                         ingredients.add(symbolArr.getJSONObject(j).getString("item"));
                     }
-                // Ingredient is a single item
+                    // Ingredient is a single item
                 } else if (symbolObj.has("item")) {
                     ingredients.add(symbolObj.getString("item"));
-                // Ingredient is a tag
+                    // Ingredient is a tag
                 } else {
                     ingredients.addAll(getTag(symbolObj.getString("tag").substring(10)));
                 }
             }
-        // Smelting recipes
+            // Smelting recipes
         } else if (isSmelting(type)) {
             JSONObject ingredient = recipe.optJSONObject("ingredient");
             if (ingredient == null) {
@@ -247,10 +247,10 @@ public class Recipe {
             if (type.equals("minecraft.smelting_special_sponge")) {
                 ingredients.add("minecraft:bucket");
             }
-        // Stonecutting recipes
+            // Stonecutting recipes
         } else if (type.equals("minecraft:stonecutting")) {
             ingredients.add(recipe.getJSONObject("ingredient").getString("item"));
-        // Brewing recipes
+            // Brewing recipes
         } else if (type.equals("minecraft.brewing")) {
             JSONObject reagent = recipe.optJSONObject("reagent");
             if (reagent == null) {
@@ -270,7 +270,7 @@ public class Recipe {
             } else {
                 ingredients.add(base.getString("item"));
             }
-        // Smithing recipes
+            // Smithing recipes
         } else if (type.equals("minecraft:smithing")) {
             ingredients.add(recipe.getJSONObject("base").getString("item"));
             ingredients.add(recipe.getJSONObject("addition").getString("item"));
@@ -387,8 +387,8 @@ public class Recipe {
          * @param page The page to start on
          * @param lang The language code
          */
-		public RecipeMenu(List<String> recipeList, int page, String lang) {
-			super(page, lang);
+        public RecipeMenu(List<String> recipeList, int page, String lang) {
+            super(page, lang);
             setRecipeList(recipeList);
         }
 
@@ -398,9 +398,9 @@ public class Recipe {
                     .sorted(Recipe::compareRecipes)
                     .collect(Collectors.toList());
         }
-        
-		public EmbedBuilder getContent(int page) {
-			String recipe = recipeList.get(page);
+
+        public EmbedBuilder getContent(int page) {
+            String recipe = recipeList.get(page);
             EmbedBuilder eb = displayImg(recipe, "en_US");
             double xp = getXP(recipe);
             if (xp > 0) {
@@ -423,16 +423,16 @@ public class Recipe {
                 desc += "\n" + notes;
             }
             eb.setDescription(desc);
-			return eb;
+            return eb;
         }
-        
-		public LinkedHashMap<String, Runnable> createButtons(int page) {
+
+        public LinkedHashMap<String, Runnable> createButtons(int page) {
             String recipe = recipeList.get(page);
             JSONObject recipeObj = recipes.getJSONObject(recipe);
             LinkedHashMap<String, Runnable> buttons = new LinkedHashMap<>();
             desc = ":track_previous: / :track_next: Go to beginning/end"
-                + "\n:rewind: / :fast_forward: Go back/forward 10"
-                + "\n:arrow_backward: / :arrow_forward: Go back/forward 1";
+                    + "\n:rewind: / :fast_forward: Go back/forward 10"
+                    + "\n:arrow_backward: / :arrow_forward: Go back/forward 1";
             // Go to first page
             buttons.put(Emote.FULL_BACK.getCodepoint(), () -> {
                 if (page > 0) {
@@ -639,10 +639,10 @@ public class Recipe {
             return buttons;
         }
 
-		public int getLength() {
-			return recipeList.size();
-		}
-		
-	}
+        public int getLength() {
+            return recipeList.size();
+        }
+
+    }
 
 }

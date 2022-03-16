@@ -80,4 +80,5 @@ public class ReactListener extends ListenerAdapter {
     private static boolean isRemovableEmoji(ReactionEmote re) {
         return !re.isEmoji() || !re.getAsCodepoints().equals(Emote.STAR.toString());
     }
+
 }

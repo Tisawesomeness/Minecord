@@ -19,28 +19,28 @@ import java.util.stream.Collectors;
 public class RolesCommand extends Command {
 
     public CommandInfo getInfo() {
-		return new CommandInfo(
-			"roles",
-			"List a user's roles.",
-			"<user|id>",
-			null,
-			0,
-			false,
-			false,
-			false
-		);
+        return new CommandInfo(
+                "roles",
+                "List a user's roles.",
+                "<user|id>",
+                null,
+                0,
+                false,
+                false,
+                false
+        );
     }
 
     public String getHelp() {
         return "List the roles of a user in the current guild.\n" +
-            "\n" +
-            "Examples:\n" +
-            "- `{&}roles @Tis_awesomeness`\n" +
-            "- `{&}roles 211261249386708992`\n";
+                "\n" +
+                "Examples:\n" +
+                "- `{&}roles @Tis_awesomeness`\n" +
+                "- `{&}roles 211261249386708992`\n";
     }
 
     public Result run(String[] args, MessageReceivedEvent e) {
-        
+
         // Guild-only command
         if (!e.isFromGuild()) {
             return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
@@ -50,7 +50,7 @@ public class RolesCommand extends Command {
         if (args.length == 0) {
             return new Result(Outcome.WARNING, ":warning: You must specify a user!");
         }
-        
+
         // Find user
         Member mem;
         List<Member> mentioned = e.getMessage().getMentionedMembers();
@@ -69,10 +69,10 @@ public class RolesCommand extends Command {
                 return new Result(Outcome.WARNING, ":warning: That user does not exist.");
             }
         }
-    
+
         EmbedBuilder eb = new EmbedBuilder()
-            .setTitle("Roles for " + mem.getUser().getAsTag())
-            .setColor(Bot.color);
+                .setTitle("Roles for " + mem.getUser().getAsTag())
+                .setColor(Bot.color);
 
         // Truncate role list until 6000 chars reached
         ArrayList<String> lines = mem.getRoles().stream()
@@ -89,16 +89,16 @@ public class RolesCommand extends Command {
             lines.add("...");
         }
 
-		// If over 2048, use fields, otherwise use description
-		if (chars > 2048) {
-			// Split into fields, avoiding 1024 field char limit
-			for (String field : MessageUtils.splitLinesByLength(lines, 1024)) {
-				eb.addField("Roles", field, true);
-			}
-		} else {
-			eb.setDescription(String.join("\n", lines));
-		}
-        
+        // If over 2048, use fields, otherwise use description
+        if (chars > 2048) {
+            // Split into fields, avoiding 1024 field char limit
+            for (String field : MessageUtils.splitLinesByLength(lines, 1024)) {
+                eb.addField("Roles", field, true);
+            }
+        } else {
+            eb.setDescription(String.join("\n", lines));
+        }
+
         return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
     }
 

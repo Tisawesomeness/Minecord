@@ -22,42 +22,42 @@ import java.util.stream.Collectors;
 public class UserCommand extends Command {
 
     public CommandInfo getInfo() {
-		return new CommandInfo(
-			"user",
-			"Shows user info.",
-			"<user|id>",
-			new String[]{"whois", "userinfo"},
-			0,
-			false,
-			false,
-			false
-		);
+        return new CommandInfo(
+                "user",
+                "Shows user info.",
+                "<user|id>",
+                new String[]{"whois", "userinfo"},
+                0,
+                false,
+                false,
+                false
+        );
     }
 
     public String getHelp() {
         return "Shows the info of a user in the current guild.\n" +
-            "\n" +
-            "Examples:\n" +
-            "- `{&}user @Tis_awesomeness`\n" +
-            "- `{&}user 211261249386708992`\n";
+                "\n" +
+                "Examples:\n" +
+                "- `{&}user @Tis_awesomeness`\n" +
+                "- `{&}user 211261249386708992`\n";
     }
 
     public String getAdminHelp() {
         return "`{&}user <user|id>` - Shows the info of a user in the current guild.\n" +
-            "`{&}user <user id> admin` - Shows the info, ban status, and elevation of a user.\n" +
-            "`{&}user <user id> admin mutual` - Includes mutual guilds.\n" +
-            "__**Requesting mutual guilds with a large bot may freeze the shard!**__\n" +
-            "\n" +
-            "Examples:\n" +
-            "- `{&}user @Tis_awesomeness`\n" +
-            "- `{&}user 211261249386708992`\n" +
-            "- `{&}user 211261249386708992 admin`\n";
+                "`{&}user <user id> admin` - Shows the info, ban status, and elevation of a user.\n" +
+                "`{&}user <user id> admin mutual` - Includes mutual guilds.\n" +
+                "__**Requesting mutual guilds with a large bot may freeze the shard!**__\n" +
+                "\n" +
+                "Examples:\n" +
+                "- `{&}user @Tis_awesomeness`\n" +
+                "- `{&}user 211261249386708992`\n" +
+                "- `{&}user 211261249386708992 admin`\n";
     }
-    
+
     public Result run(String[] args, MessageReceivedEvent e) {
 
         //If the author used the admin keyword and is an elevated user
-		if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
+        if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
             if (!DiscordUtils.isDiscordId(args[0])) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
@@ -72,11 +72,11 @@ public class UserCommand extends Command {
             }
 
             EmbedBuilder eb = new EmbedBuilder()
-                .setTitle(MarkdownSanitizer.escape(u.getAsTag()))
-                .setColor(Bot.color)
-                .addField("ID", u.getId(), true)
-                .addField("Bot?", u.isBot() ? "Yes" : "No", true)
-                .addField("Elevated?", Database.isElevated(u.getIdLong()) ? "Yes" : "No", true);
+                    .setTitle(MarkdownSanitizer.escape(u.getAsTag()))
+                    .setColor(Bot.color)
+                    .addField("ID", u.getId(), true)
+                    .addField("Bot?", u.isBot() ? "Yes" : "No", true)
+                    .addField("Elevated?", Database.isElevated(u.getIdLong()) ? "Yes" : "No", true);
             if (Database.isBanned(u.getIdLong())) {
                 eb.setDescription("__**USER BANNED FROM MINECORD**__");
             }
@@ -84,20 +84,20 @@ public class UserCommand extends Command {
             // This may cause a lot of requests and lag, so it must be explicitly requested
             if (args.length > 2 && args[2].equals("mutual")) {
                 String mutualGuilds = Bot.shardManager.getGuilds().stream()
-                    .filter(g -> {
-                        try {
-                            return g.retrieveMember(u).complete() != null;
-                        } catch (ErrorResponseException ex) {
-                            return false;
-                        }
-                    })
-                    .map(g -> String.format("%s `%s`", g.getName(), g.getId()))
-                    .collect(Collectors.joining("\n"));
+                        .filter(g -> {
+                            try {
+                                return g.retrieveMember(u).complete() != null;
+                            } catch (ErrorResponseException ex) {
+                                return false;
+                            }
+                        })
+                        .map(g -> String.format("%s `%s`", g.getName(), g.getId()))
+                        .collect(Collectors.joining("\n"));
                 eb.addField("Mutual Guilds", mutualGuilds, false);
             }
             return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
         }
-        
+
         // Guild-only command
         if (!e.isFromGuild()) {
             return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
@@ -107,7 +107,7 @@ public class UserCommand extends Command {
         if (args.length == 0) {
             return new Result(Outcome.WARNING, ":warning: You must specify a user!");
         }
-        
+
         // Find user
         Member mem;
         List<Member> mentioned = e.getMessage().getMentionedMembers();
@@ -142,19 +142,19 @@ public class UserCommand extends Command {
 
         // Generate user info
         EmbedBuilder eb = new EmbedBuilder()
-            .setTitle(MarkdownSanitizer.escape(u.getAsTag()))
-            .setColor(mem.getColor())
-            .setImage(u.getAvatarUrl())
-            .addField("ID", u.getId(), true)
-            .addField("Nickname", mem.getNickname() == null ? "None" : MarkdownSanitizer.escape(mem.getNickname()), true)
-            .addField("Bot?", u.isBot() ? "Yes" : "No", true)
-            .addField("Joined Server", TimeFormat.RELATIVE.format(mem.getTimeJoined()), false)
-            .addField("Created Account", TimeFormat.RELATIVE.format(u.getTimeCreated()), false);
+                .setTitle(MarkdownSanitizer.escape(u.getAsTag()))
+                .setColor(mem.getColor())
+                .setImage(u.getAvatarUrl())
+                .addField("ID", u.getId(), true)
+                .addField("Nickname", mem.getNickname() == null ? "None" : MarkdownSanitizer.escape(mem.getNickname()), true)
+                .addField("Bot?", u.isBot() ? "Yes" : "No", true)
+                .addField("Joined Server", TimeFormat.RELATIVE.format(mem.getTimeJoined()), false)
+                .addField("Created Account", TimeFormat.RELATIVE.format(u.getTimeCreated()), false);
         if (mem.getTimeBoosted() != null) {
             eb.addField("Boosted", TimeFormat.RELATIVE.format(mem.getTimeBoosted()), false);
         }
         eb.addField("Roles", roles.toString(), false);
         return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
     }
-    
+
 }

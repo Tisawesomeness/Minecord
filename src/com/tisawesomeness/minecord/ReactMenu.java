@@ -59,10 +59,10 @@ public abstract class ReactMenu {
             message = message.editMessageEmbeds(getEmbed(page)).complete();
             if (updateButtons) {
                 List<String> currentButtons = message.getReactions().stream()
-                    .map(MessageReaction::getReactionEmote)
-                    .filter(MessageReaction.ReactionEmote::isEmoji)
-                    .map(MessageReaction.ReactionEmote::getAsCodepoints)
-                    .collect(Collectors.toList());
+                        .map(MessageReaction::getReactionEmote)
+                        .filter(MessageReaction.ReactionEmote::isEmoji)
+                        .map(MessageReaction.ReactionEmote::getAsCodepoints)
+                        .collect(Collectors.toList());
                 for (Map.Entry<String, Runnable> entry : buttons.entrySet()) {
                     String button = entry.getKey();
                     if (entry.getValue() != null && !currentButtons.contains(button)) {
@@ -86,8 +86,8 @@ public abstract class ReactMenu {
             message = message.editMessageEmbeds( new EmbedBuilder(emb).setFooter(emb.getFooter().getText() + " (expired)").build()).complete();
             if (hasPerms(Permission.MESSAGE_MANAGE)) {
                 message.getReactions().stream()
-                    .filter(MessageReaction::isSelf)
-                    .forEach(r -> r.removeReaction().queue());
+                        .filter(MessageReaction::isSelf)
+                        .forEach(r -> r.removeReaction().queue());
             }
         }
     }
@@ -174,7 +174,7 @@ public abstract class ReactMenu {
         }
         return MenuStatus.VALID;
     }
-    
+
     /**
      * @return The menu registry with message IDs as keys
      */
@@ -205,7 +205,7 @@ public abstract class ReactMenu {
     public String getLang() {
         return lang;
     }
-    
+
     /**
      * Generates the contents of one page in the menu
      * @param page The page to generate content for

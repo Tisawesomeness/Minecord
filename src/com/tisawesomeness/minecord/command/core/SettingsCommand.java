@@ -18,41 +18,41 @@ public class SettingsCommand extends Command {
     @Override
     public CommandInfo getInfo() {
         return new CommandInfo(
-            "settings",
-            "Change the bot's settings, including prefix.",
-            "[<setting> <value>]",
-            new String[]{"config"},
-            0,
-            false,
-            false,
-            false
+                "settings",
+                "Change the bot's settings, including prefix.",
+                "[<setting> <value>]",
+                new String[]{"config"},
+                0,
+                false,
+                false,
+                false
         );
     }
 
     public String getHelp() {
         return "`{&}settings` - Show all current settings and their possible values.\n" +
-            "`{&}settings <setting> <value>` - Sets `<setting>` to `<value>`. The user must have **Manage Server** permissions.\n" +
-            "\n" +
-            "Examples:\n" +
-            "- `{&}settings prefix mc!`\n" +
-            "- {@}` settings prefix &`\n" +
-            "- `{&}settings deleteCommands disabled`\n" +
-            "- `{&}settings useMenus enabled`\n";
+                "`{&}settings <setting> <value>` - Sets `<setting>` to `<value>`. The user must have **Manage Server** permissions.\n" +
+                "\n" +
+                "Examples:\n" +
+                "- `{&}settings prefix mc!`\n" +
+                "- {@}` settings prefix &`\n" +
+                "- `{&}settings deleteCommands disabled`\n" +
+                "- `{&}settings useMenus enabled`\n";
     }
 
     public String getAdminHelp() {
         return "`{&}settings` - Show all current settings and their possible values.\n" +
-            "`{&}settings <setting> <value>` - Sets <setting> to <value>. The user must have **Manage Server** permissions.\n" +
-            "`{&}settings <guild id> admin` - View settings for another guild.\n" +
-            "`{&}settings <guild id> admin <setting> <value>` - Changes settings in another guild.\n" +
-            "\n" +
-            "Examples:\n" +
-            "- `{&}settings prefix mc!`\n" +
-            "- {@}` settings prefix &`\n" +
-            "- `{&}settings deleteCommands disabled`\n" +
-            "- `{&}settings useMenus enabled`\n" +
-            "- `{&}settings 347765748577468416 admin`\n" +
-            "- `{&}settings 347765748577468416 admin prefix mc!`\n";
+                "`{&}settings <setting> <value>` - Sets <setting> to <value>. The user must have **Manage Server** permissions.\n" +
+                "`{&}settings <guild id> admin` - View settings for another guild.\n" +
+                "`{&}settings <guild id> admin <setting> <value>` - Changes settings in another guild.\n" +
+                "\n" +
+                "Examples:\n" +
+                "- `{&}settings prefix mc!`\n" +
+                "- {@}` settings prefix &`\n" +
+                "- `{&}settings deleteCommands disabled`\n" +
+                "- `{&}settings useMenus enabled`\n" +
+                "- `{&}settings 347765748577468416 admin`\n" +
+                "- `{&}settings 347765748577468416 admin prefix mc!`\n";
     }
 
     @Override
@@ -63,7 +63,7 @@ public class SettingsCommand extends Command {
         String targetPrefix;
         long gid;
         boolean elevated = false;
-		if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
+        if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
             if (!DiscordUtils.isDiscordId(args[0])) {
                 return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
             }
@@ -85,48 +85,48 @@ public class SettingsCommand extends Command {
         // Build embed with list of settings
         if (args.length == 0) {
             EmbedBuilder eb = new EmbedBuilder()
-                .setTitle("Minecord Settings")
-                .setColor(Bot.color)
-                .addField("prefix",
-                    String.format(
-                        "The prefix used before every command.\n" +
-                        "`@%s command` will work regardless of prefix.\n" +
-                        "Possible values: Any text between 1-16 characters.\n" +
-                        "Current: **`%s`**",
-                        e.getJDA().getSelfUser().getAsTag(), targetPrefix),
-                false)
-                .addField("deleteCommands",
-                    String.format(
-                        "If enabled, the bot will delete command messages to clear up space.\n" +
-                        "Requires Manage Message permissions.\n" +
-                        "Possible values: `enabled`, `disabled`\n" +
-                        "Current: **%s**",
-                        isEnabled(Database.getDeleteCommands(gid))
-                    ),
-                false)
-                .addField("useMenus",
-                    String.format(
-                        "If enabled, the bot will use a reaction menu for `%srecipe` and `%singredient` if possible.\n" +
-                        "Requires Manage Message and Add Reaction permissions.\n" +
-                        "Possible values: `enabled`, `disabled`\n" +
-                        "Current: **%s**",
-                        sourcePrefix, sourcePrefix, isEnabled(Database.getUseMenu(gid))
-                    ),
-                false)
-                .setDescription(String.format(
-                    "`%ssettings <setting> <value>` - Change a setting.",
-                    sourcePrefix
-                ));
+                    .setTitle("Minecord Settings")
+                    .setColor(Bot.color)
+                    .addField("prefix",
+                            String.format(
+                                    "The prefix used before every command.\n" +
+                                            "`@%s command` will work regardless of prefix.\n" +
+                                            "Possible values: Any text between 1-16 characters.\n" +
+                                            "Current: **`%s`**",
+                                    e.getJDA().getSelfUser().getAsTag(), targetPrefix),
+                            false)
+                    .addField("deleteCommands",
+                            String.format(
+                                    "If enabled, the bot will delete command messages to clear up space.\n" +
+                                            "Requires Manage Message permissions.\n" +
+                                            "Possible values: `enabled`, `disabled`\n" +
+                                            "Current: **%s**",
+                                    isEnabled(Database.getDeleteCommands(gid))
+                            ),
+                            false)
+                    .addField("useMenus",
+                            String.format(
+                                    "If enabled, the bot will use a reaction menu for `%srecipe` and `%singredient` if possible.\n" +
+                                            "Requires Manage Message and Add Reaction permissions.\n" +
+                                            "Possible values: `enabled`, `disabled`\n" +
+                                            "Current: **%s**",
+                                    sourcePrefix, sourcePrefix, isEnabled(Database.getUseMenu(gid))
+                            ),
+                            false)
+                    .setDescription(String.format(
+                            "`%ssettings <setting> <value>` - Change a setting.",
+                            sourcePrefix
+                    ));
             return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
-        
-        // Change setting
+
+            // Change setting
         } else if (args.length > 1) {
 
             // Check if user is elevated or has the manage messages permission
             if (elevated || !e.getMember().hasPermission(e.getTextChannel(), Permission.MANAGE_SERVER)) {
                 return new Result(Outcome.WARNING, ":warning: You must have manage server permissions!");
             }
-            
+
             if (args[0].equalsIgnoreCase("prefix")) {
                 //No prefixes longer than 16 characters
                 if (args[1].length() > 16) {
@@ -170,7 +170,7 @@ public class SettingsCommand extends Command {
             }
 
         }
-        
+
         return new Result(Outcome.WARNING, ":warning: You must specify a value!");
 
     }

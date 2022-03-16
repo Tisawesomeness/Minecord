@@ -14,36 +14,36 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class UsageCommand extends Command {
-	
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-			"usage",
-			"Shows how often commands are used.",
-			null,
-			null,
-			0,
-			true,
-			true,
-			false
-		);
-	}
-	
-	public Result run(String[] args, MessageReceivedEvent e) {
-		String prefix = MessageUtils.getPrefix(e);
 
-		// Build usage message
-		EmbedBuilder eb = new EmbedBuilder()
-			.setTitle("Command usage for " + DateUtils.getUptime())
-			.setColor(Bot.color);
-		for (Module m : Registry.modules) {
-			String field = Arrays.stream(m.getCommands())
-				.filter(c -> !c.getInfo().name.isEmpty() && !c.getInfo().description.equals("Look up a color code."))
-				.map(c -> String.format("`%s%s` **-** %d", prefix, c.getInfo().name, c.uses))
-				.collect(Collectors.joining("\n"));
-			eb.addField(String.format("**%s**", m.getName()), field, true);
-		}
+    public CommandInfo getInfo() {
+        return new CommandInfo(
+            "usage",
+            "Shows how often commands are used.",
+            null,
+            null,
+            0,
+            true,
+            true,
+            false
+        );
+    }
 
-		return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
-	}
-	
+    public Result run(String[] args, MessageReceivedEvent e) {
+        String prefix = MessageUtils.getPrefix(e);
+
+        // Build usage message
+        EmbedBuilder eb = new EmbedBuilder()
+            .setTitle("Command usage for " + DateUtils.getUptime())
+            .setColor(Bot.color);
+        for (Module m : Registry.modules) {
+            String field = Arrays.stream(m.getCommands())
+                .filter(c -> !c.getInfo().name.isEmpty() && !c.getInfo().description.equals("Look up a color code."))
+                .map(c -> String.format("`%s%s` **-** %d", prefix, c.getInfo().name, c.uses))
+                .collect(Collectors.joining("\n"));
+            eb.addField(String.format("**%s**", m.getName()), field, true);
+        }
+
+        return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+    }
+
 }

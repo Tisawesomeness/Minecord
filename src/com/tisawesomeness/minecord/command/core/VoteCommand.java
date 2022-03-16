@@ -11,16 +11,16 @@ import net.dv8tion.jda.api.utils.MarkdownUtil;
 public class VoteCommand extends Command {
 
     public CommandInfo getInfo() {
-		return new CommandInfo(
-			"vote",
-			"Vote for the bot!",
-			null,
-			new String[]{"v", "upvote", "updoot", "rep"},
-			0,
-			false,
-			false,
-			false
-		);
+        return new CommandInfo(
+                "vote",
+                "Vote for the bot!",
+                null,
+                new String[]{"v", "upvote", "updoot", "rep"},
+                0,
+                false,
+                false,
+                false
+        );
     }
 
     public Result run(String[] args, MessageReceivedEvent e) {

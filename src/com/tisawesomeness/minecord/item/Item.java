@@ -31,13 +31,13 @@ public class Item {
     private static JSONObject data;
 
     public static final String help = "Items can be:\n" +
-        "- Namespaced IDs: `minecraft:iron_block`\n" +
-        "- Numeric IDs: `50`\n" +
-        "- ID and data: `35:14`, `wool:14`\n" +
-        "- ID and color: `35:red`, `wool:red`\n" +
-        "- Display names: `Gold Ingot`\n" +
-        "- Nicknames: `Notch Apple`\n" +
-        "- Previous names: `White Hardened Clay`";
+            "- Namespaced IDs: `minecraft:iron_block`\n" +
+            "- Numeric IDs: `50`\n" +
+            "- ID and data: `35:14`, `wool:14`\n" +
+            "- ID and color: `35:red`, `wool:red`\n" +
+            "- Display names: `Gold Ingot`\n" +
+            "- Nicknames: `Notch Apple`\n" +
+            "- Previous names: `White Hardened Clay`";
 
     /**
      * Initializes the item database by reading from file
@@ -242,7 +242,7 @@ public class Item {
                 return "legacy.wall_banner";
             }
             return String.format("minecraft.%s_wall_banner", colorNames[data]);
-        // Flower pot special case
+            // Flower pot special case
         } else if (id == 140) {
             return "minecraft.flower_pot";
         }
@@ -430,7 +430,7 @@ public class Item {
                     toCheck.add(convertID(properties.optString("previous_id")));
                 }
                 toCheck.add(convertID(properties.optString("previous_block_id")));
-                
+
             }
             // Equals ignore case
             toCheck.removeIf(Objects::isNull);
@@ -447,7 +447,7 @@ public class Item {
     private static String convertID(String id) {
         return id.isEmpty() ? "" : id.replace("minecraft.", "").replace("legacy.", "").replace("_", " ");
     }
-    
+
     /**
      * Parses a string or numerical data value
      * @param data The string to parse
