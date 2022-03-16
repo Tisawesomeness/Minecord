@@ -13,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
-import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -55,19 +54,11 @@ public class UuidCommand extends AbstractPlayerCommand {
     }
     private static void fireUUIDRequest(CommandContext ctx, Username username) {
         CompletableFuture<Optional<UUID>> futureUUID = ctx.getMCLibrary().getPlayerProvider().getUUID(username);
+        String errorMessage = "IOE getting UUID from username " + username;
         ctx.newCallbackBuilder(futureUUID)
-                .onFailure(ex -> handleIOE(ex, ctx, username))
+                .onFailure(ex -> handleIOE(ex, ctx, errorMessage))
                 .onSuccess(uuidOpt -> processUUID(uuidOpt, ctx, username))
                 .build();
-    }
-
-    private static void handleIOE(Throwable ex, CommandContext ctx, Username username) {
-        if (ex instanceof IOException) {
-            log.error("IOE getting UUID from username " + username, ex);
-            ctx.err(ctx.getLang().i18n("mc.external.mojang.error"));
-            return;
-        }
-        throw new RuntimeException(ex);
     }
 
     private static void processLiteralUUID(UUID uuid, CommandContext ctx) {
