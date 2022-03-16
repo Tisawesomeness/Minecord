@@ -76,6 +76,7 @@ public class Registry {
 					new GuildCommand(),
 					new RoleCommand(),
 					new RolesCommand(),
+					new IdCommand(),
 					new PurgeCommand(),
 					new PermsCommand()
 			),
