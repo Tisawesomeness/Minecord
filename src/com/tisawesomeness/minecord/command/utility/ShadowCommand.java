@@ -22,7 +22,13 @@ public class ShadowCommand extends Command {
     }
 
     public String getHelp() {
-        return "Generates a seed's \"shadow\", where the biome maps are the same but everything else is different.\n";
+        return "`{&}shadow <text>` - Generates a seed's \"shadow\", where the biome maps are the same but everything else is different.\n" +
+            "Spaces at the start and end are removed, and numbers are treated as raw numbers (same as MC 1.18.2).\n" +
+            "\n" +
+            "Examples:\n" +
+            "- `{&}shadow Glacier`\n" +
+            "- `{&}shadow zsjpxah` - converted to numeric 0\n" +
+            "- `{&}shadow 0` - numeric seed 0\n";
     }
 
     public Result run(String[] args, MessageReceivedEvent e) {
@@ -37,7 +43,8 @@ public class ShadowCommand extends Command {
     private static long shadow(long seed) {
         return SUM - seed;
     }
-    private static long stringToSeed(String seed) {
+    private static long stringToSeed(String input) {
+        String seed = input.trim();
         try {
             return Long.parseLong(seed);
         } catch (NumberFormatException ignored) {
