@@ -67,6 +67,7 @@ public class Registry {
 					new ColorShortcut(colorCmd, "d"),
 					new ColorShortcut(colorCmd, "e"),
 					new ColorShortcut(colorCmd, "f"),
+					new SeedCommand(),
 					new ShadowCommand(),
 					new Sha1Command()
 			),
