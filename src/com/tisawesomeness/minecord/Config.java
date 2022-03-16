@@ -91,7 +91,7 @@ public class Config {
 			
 			JSONObject settings = config.getJSONObject("settings");
 			logChannel = settings.getString("logChannel");
-			joinLogChannel = settings.getString("joinLogChannel");
+			joinLogChannel = settings.optString("joinLogChannel", "0");
 			isSelfHosted = settings.getBoolean("isSelfHosted");
 			if (isSelfHosted) {
 				author = settings.getString("author");
