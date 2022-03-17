@@ -397,10 +397,10 @@ public abstract class CommandContext {
     public void handleException(Throwable ex) {
         try {
             log.error("Uncaught exception for command execution " + this, ex);
-            String unexpected = "There was an unexpected exception: " + MarkdownUtil.monospace(ex.toString());
+            String unexpected = getLang().i18nf("command.meta.exception", MarkdownUtil.monospace(ex.toString()));
             String errorMessage = Result.EXCEPTION.addEmote(unexpected);
             if (getConfig().getFlagConfig().isDebugMode()) {
-                errorMessage += buildStackTrace(ex);
+                errorMessage += "\n" + buildStackTrace(ex);
                 // Not guaranteed to escape properly, but since users should never see exceptions, it's not necessary
                 if (errorMessage.length() >= Message.MAX_CONTENT_LENGTH) {
                     errorMessage = errorMessage.substring(0, Message.MAX_CONTENT_LENGTH - 3) + "```";
