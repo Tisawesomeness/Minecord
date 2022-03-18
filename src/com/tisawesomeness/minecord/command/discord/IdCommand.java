@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.discord;
 
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.utils.TimeFormat;
@@ -41,12 +42,11 @@ public class IdCommand extends Command {
         } else if (args.length > 1) {
             return new Result(Outcome.WARNING, ":warning: Too many arguments.");
         }
-        try {
-            long id = Long.parseLong(args[0]);
-            OffsetDateTime time = TimeUtil.getTimeCreated(id);
+        if (DiscordUtils.isDiscordId(args[0])) {
+            OffsetDateTime time = TimeUtil.getTimeCreated(Long.parseLong(args[0]));
             return new Result(Outcome.SUCCESS, "Created " + TimeFormat.RELATIVE.format(time));
-        } catch (NumberFormatException ignore) {
-            return new Result(Outcome.SUCCESS, ":warning: " + args[0] + " is not a valid id.");
+        } else {
+            return new Result(Outcome.WARNING, ":warning: " + args[0] + " is not a valid id.");
         }
     }
 
