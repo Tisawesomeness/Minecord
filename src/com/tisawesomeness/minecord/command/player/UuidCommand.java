@@ -1,82 +1,107 @@
 package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.util.MessageUtils;
-import com.tisawesomeness.minecord.util.NameUtils;
+import com.tisawesomeness.minecord.mc.player.Player;
+import com.tisawesomeness.minecord.mc.player.Render;
+import com.tisawesomeness.minecord.mc.player.RenderType;
+import com.tisawesomeness.minecord.mc.player.Username;
+import com.tisawesomeness.minecord.util.UuidUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-import java.io.IOException;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
-public class UuidCommand extends Command {
+public class UuidCommand extends AbstractPlayerCommand {
 
-	public CommandInfo getInfo() {
-		return new CommandInfo(
-			"uuid",
-			"Gets the UUID of a player.",
-			"<username>",
-			new String[]{"u"},
-			2000,
-			false,
-			false,
-			true
-		);
-	}
+    public CommandInfo getInfo() {
+        return new CommandInfo(
+                "uuid",
+                "Shows UUID info for a player or entity.",
+                "<uuid|username>",
+                new String[]{"u", "uu"},
+                2000,
+                false,
+                false,
+                true
+        );
+    }
 
-	public String getHelp() {
-		return "`{&}uuid <player>` - Gets a player's short and long UUID.\n" +
-			"- `<player>` can be a username or a UUID.\n" +
-			"\n" +
-			"Examples:\n" +
-			"`{&}uuid Tis_awesomeness`\n" +
-			"`{&}uuid jeb_`\n" +
-			"`{&}uuid f6489b797a9f49e2980e265a05dbc3af`\n" +
-			"`{&}uuid 069a79f4-44e9-4726-a5be-fca90e38aaf5`\n";
-	}
+    public String getHelp() {
+        return "`{&}uuid <uuid|username>` - Shows UUID info for a player or entity.\n" +
+                "- `<uuid>` can be any valid short or long UUID, including UUIDs that do not belong to a player.\n" +
+                "- `<username>` can be any username.\n" +
+                "Use `{&}help usernameInput|uuidInput` for more help.\n" +
+                "\n" +
+                "Examples:\n" +
+                "- `{&}uuid Tis_awesomeness`\n" +
+                "- `{&}uuid LadyAgnes`\n" +
+                "- `{&}uuid f6489b79-7a9f-49e2-980e-265a05dbc3af`\n" +
+                "- `{&}uuid 853c80ef3c3749fdaa49938b674adae6`\n";
+    }
 
-	public Result run(String[] args, MessageReceivedEvent e) {
-		// No arguments message
-		if (args.length == 0) {
-			return new Result(Outcome.WARNING, ":warning: You must specify a player.");
-		}
+    public Result run(String[] args, MessageReceivedEvent e) {
+        if (args.length == 0) {
+            return new Result(Outcome.WARNING, ":warning: You must specify a player.");
+        }
 
-		String username = args[0];
-		if (!NameUtils.isUsername(username)) {
-			return new Result(Outcome.WARNING, ":warning: That username is invalid.");
-		}
+        String input = String.join(" ", args);
+        Optional<UUID> parsedUuidOpt = UuidUtils.fromString(input);
+        if (parsedUuidOpt.isPresent()) {
+            UUID uuid = parsedUuidOpt.get();
+            processLiteralUUID(uuid, e);
+            return new Result(Outcome.SUCCESS);
+        }
 
-		String uuid;
-		try {
-			uuid = NameUtils.getUUID(username);
-			if (uuid == null) {
-				return new Result(Outcome.SUCCESS, "That username does not exist.");
-			} else if (!NameUtils.isUuid(uuid)) {
-				String m = ":x: The API responded with an error:\n" + uuid;
-				return new Result(Outcome.ERROR, m);
-			}
-		} catch (IOException ex) {
-			ex.printStackTrace();
-			return new Result(Outcome.ERROR, "The Mojang API could not be reached.");
-		}
+        if (input.length() > Username.MAX_LENGTH) {
+            String msg = String.format("Usernames must be %d characters or less.", Username.MAX_LENGTH);
+            return new Result(Outcome.WARNING, msg);
+        }
+        Username username = Username.parse(input);
+        if (!username.isSupportedByMojangAPI()) {
+            return new Result(Outcome.WARNING, ":warning: Unfortunately, the Mojang API does not support " +
+                    "special characters other than spaces and `_!@$-.?`");
+        }
 
-		// Get NameMC url
-		String url = "https://namemc.com/profile/" + uuid;
+        fireUUIDRequest(e, username);
+        return new Result(Outcome.SUCCESS);
+    }
+    private static void fireUUIDRequest(MessageReceivedEvent e, Username username) {
+        CompletableFuture<Optional<UUID>> futureUUID = Bot.mcLibrary.getPlayerProvider().getUUID(username);
+        String errorMessage = "IOE getting UUID from username " + username;
+        newCallbackBuilder(futureUUID, e)
+                .onFailure(ex -> handleIOE(ex, e, errorMessage))
+                .onSuccess(uuidOpt -> processUUID(uuidOpt, e, username))
+                .build();
+    }
 
-		// Proper apostrophe grammar
-		String title = username;
-		if (title.endsWith("s")) {
-			title = title + "' UUID";
-		} else {
-			title = title + "'s UUID";
-		}
+    private static void processLiteralUUID(UUID uuid, MessageReceivedEvent e) {
+        constructReply(e, uuid, "UUID for player/entity " + uuid);
+    }
+    private static void processUUID(Optional<UUID> uuidOpt, MessageReceivedEvent e, Username username) {
+        if (!uuidOpt.isPresent()) {
+            e.getChannel().sendMessage("That username does not currently exist.").queue();
+            return;
+        }
+        String title = "UUID for " + username;
+        constructReply(e, uuidOpt.get(), title);
+    }
+    private static void constructReply(MessageReceivedEvent e, UUID uuid, String title) {
+        String shortUuid = String.format("**Short**: `%s`", UuidUtils.toShortString(uuid));
+        String longUuid = String.format("**Long**: `%s`", UuidUtils.toLongString(uuid));
+        String skinType = String.format("**Default Skin Model**: `%s`", Player.getDefaultSkinTypeFor(uuid));
+        String intArray = String.format("**Post-1.16 NBT**: `%s`", UuidUtils.toIntArrayString(uuid));
+        String mostLeast = String.format("**Pre-1.16 NBT**: `%s`", UuidUtils.toMostLeastString(uuid));
+        String desc = shortUuid + "\n" + longUuid + "\n" + skinType + "\n" + intArray + "\n" + mostLeast;
+        String nameMCUrl = Player.getNameMCUrlFor(uuid).toString();
+        String avatarUrl = new Render(uuid, RenderType.AVATAR, true).render().toString();
 
-		String m = String.format("Short: `%s`\nLong: `%s`", uuid, NameUtils.formatUUID(uuid));
-		MessageEmbed me = MessageUtils.embedMessage(title, url, m, Bot.color);
-
-		return new Result(Outcome.SUCCESS, new EmbedBuilder(me).build());
-	}
+        EmbedBuilder eb = new EmbedBuilder()
+                .setAuthor(title, nameMCUrl, avatarUrl)
+                .setDescription(desc);
+        e.getChannel().sendMessageEmbeds(eb.build()).queue();
+    }
 
 }

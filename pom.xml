@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.tisawesomeness</groupId>
   <artifactId>minecord</artifactId>
-  <version>0.13.11</version>
+  <version>0.14.0</version>
 
   <repositories>
     <repository>
@@ -13,10 +13,6 @@
     <repository>
       <id>jitpack.io</id>
       <url>https://jitpack.io</url>
-    </repository>
-    <repository>
-      <id>bungeecord-repo</id>
-      <url>https://oss.sonatype.org/content/repositories/release</url>
     </repository>
   </repositories>
 
@@ -64,10 +60,19 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>net.md-5</groupId>
-      <artifactId>bungeecord-chat</artifactId>
-      <version>1.16-R0.4</version>
-      <type>jar</type>
+      <groupId>net.kyori</groupId>
+      <artifactId>text-serializer-gson</artifactId>
+      <version>3.0.4</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.ben-manes.caffeine</groupId>
+      <artifactId>caffeine</artifactId>
+      <version>2.9.3</version>
+    </dependency>
+    <dependency>
+      <groupId>dev.failsafe</groupId>
+      <artifactId>failsafe</artifactId>
+      <version>3.2.3</version>
     </dependency>
   </dependencies>
 

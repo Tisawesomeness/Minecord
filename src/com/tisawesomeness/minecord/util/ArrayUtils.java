@@ -1,6 +1,8 @@
 package com.tisawesomeness.minecord.util;
 
 import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 // Adapted from apache lang3
 public class ArrayUtils {
@@ -33,6 +35,7 @@ public class ArrayUtils {
         if (index < 0 || length <= index) {
             throw new IndexOutOfBoundsException("Index must be between 0 and " + length + " but was " + index);
         }
+
         @SuppressWarnings("unchecked")
         T[] newArr = (T[]) Array.newInstance(arr.getClass().getComponentType(), length - 1);
         System.arraycopy(arr, 0, newArr, 0, index);
@@ -67,6 +70,15 @@ public class ArrayUtils {
             }
         }
         return -1;
+    }
+
+    public static String joinSlice(String[] arr, int beginIndex, String separator) {
+        if (beginIndex < 0) {
+            throw new IllegalArgumentException("beginIndex was " + beginIndex + " but must be nonnegative.");
+        }
+        return Arrays.stream(arr)
+                .skip(beginIndex)
+                .collect(Collectors.joining(separator));
     }
 
 }

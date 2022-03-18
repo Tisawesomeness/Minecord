@@ -36,19 +36,19 @@ public class Announcement {
             totalWeight += weight;
         }
     }
-    
+
     /**
      * Randomly selects an announcement based on their weights and parses their {variables}
      * @return The selected announcement string
      */
     public static String rollAnnouncement() {
-		int rand = (int) (Math.random() * totalWeight);
-		int i = -1;
-		while (rand >= 0) {
-			i++;
-			rand -= announcements.get(i).weight;
-		}
-		return DiscordUtils.parseVariables(announcements.get(i).text);
+        int rand = (int) (Math.random() * totalWeight);
+        int i = -1;
+        while (rand >= 0) {
+            i++;
+            rand -= announcements.get(i).weight;
+        }
+        return DiscordUtils.parseVariables(announcements.get(i).text);
     }
 
 }

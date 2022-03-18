@@ -12,46 +12,46 @@ public class ColorUtils {
     private static JSONObject colors;
 
     private static final List<Color> mcColors = Arrays.asList(
-        new Color(0, 0, 0),
-        new Color(0, 0, 170),
-        new Color(0, 170, 0),
-        new Color(0, 170, 170),
-        new Color(170, 0, 0),
-        new Color(170, 0, 170),
-        new Color(255, 170, 0),
-        new Color(170, 170, 170),
-        new Color(85, 85, 85),
-        new Color(85, 85, 255),
-        new Color(85, 255, 85),
-        new Color(85, 255, 255),
-        new Color(255, 85, 85),
-        new Color(255, 85, 255),
-        new Color(255, 255, 85),
-        new Color(255, 255, 255)
+            new Color(0, 0, 0),
+            new Color(0, 0, 170),
+            new Color(0, 170, 0),
+            new Color(0, 170, 170),
+            new Color(170, 0, 0),
+            new Color(170, 0, 170),
+            new Color(255, 170, 0),
+            new Color(170, 170, 170),
+            new Color(85, 85, 85),
+            new Color(85, 85, 255),
+            new Color(85, 255, 85),
+            new Color(85, 255, 255),
+            new Color(255, 85, 85),
+            new Color(255, 85, 255),
+            new Color(255, 255, 85),
+            new Color(255, 255, 255)
     );
     private static final List<String> mcColorNames = Arrays.asList(
-        "Black", "Dark Blue", "Dark Green", "Dark Aqua",
-        "Dark Red", "Dark Purple", "Gold", "Gray",
-        "Dark Gray", "Blue", "Green", "Aqua",
-        "Red", "Light Purple", "Yellow", "White"
+            "Black", "Dark Blue", "Dark Green", "Dark Aqua",
+            "Dark Red", "Dark Purple", "Gold", "Gray",
+            "Dark Gray", "Blue", "Green", "Aqua",
+            "Red", "Light Purple", "Yellow", "White"
     );
     private static final List<Color> mcBackgroundColors = Arrays.asList(
-        new Color(0, 0, 0),
-        new Color(0, 0, 42),
-        new Color(0, 42, 0),
-        new Color(0, 42, 42),
-        new Color(42, 0, 0),
-        new Color(42, 0, 42),
-        new Color(42, 42, 0),
-        new Color(42, 42, 42),
-        new Color(21, 21, 21),
-        new Color(21, 21, 63),
-        new Color(21, 63, 21),
-        new Color(21, 63, 63),
-        new Color(63, 21, 21),
-        new Color(63, 21, 63),
-        new Color(63, 63, 21),
-        new Color(63, 63, 63)
+            new Color(0, 0, 0),
+            new Color(0, 0, 42),
+            new Color(0, 42, 0),
+            new Color(0, 42, 42),
+            new Color(42, 0, 0),
+            new Color(42, 0, 42),
+            new Color(42, 42, 0),
+            new Color(42, 42, 42),
+            new Color(21, 21, 21),
+            new Color(21, 21, 63),
+            new Color(21, 63, 21),
+            new Color(21, 63, 63),
+            new Color(63, 21, 21),
+            new Color(63, 21, 63),
+            new Color(63, 63, 21),
+            new Color(63, 63, 63)
     );
 
     /**
@@ -62,7 +62,7 @@ public class ColorUtils {
     public static void init(String path) throws IOException {
         colors = RequestUtils.loadJSON(path + "/colors.json");
     }
-    
+
     /**
      * Searches for a Minecraft color in colors.json
      * @param color The string to look up
@@ -73,11 +73,11 @@ public class ColorUtils {
         int colorID = colors.getJSONObject(lang).optInt(color.toLowerCase().replace(" ", "_").replace("-", "_"), -1);
         return colorID == -1 ? null : mcColors.get(colorID);
     }
-	
-	/**
+
+    /**
      * Picks a random Minecraft color
      */
-	public static Color randomColor() {
+    public static Color randomColor() {
         return mcColors.get((int) (Math.random()*16));
     }
     /**
@@ -124,7 +124,7 @@ public class ColorUtils {
      * @param c The color
      * @return A string in hsv(h,s%,v%) format, where 0 <= h < 360 and 0% <= s,v <= 100%
      */
-	public static String getHSV(Color c) {
+    public static String getHSV(Color c) {
         float[] hsv = Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(), null);
         return String.format("`hsv(%d,%d%%,%d%%)`", (int) (360*hsv[0]), Math.round(100*hsv[1]), Math.round(100*hsv[2]));
     }
@@ -201,7 +201,7 @@ public class ColorUtils {
         float b = (1 - y) * (1 - k);
         return new Color(r, g, b);
     }
-    
+
     /**
      * Finds the index corresponding to a Minecraft color
      * @param c The color
@@ -275,11 +275,11 @@ public class ColorUtils {
                     // rgb(r,g,b)
                     if (prefix.equalsIgnoreCase("rgb(")) {
                         return new Color(Integer.parseInt(split[0]), Integer.parseInt(split[1]), Integer.parseInt(split[2]));
-                    // hsv(h,s,v)
+                        // hsv(h,s,v)
                     } else if (prefix.equalsIgnoreCase("hsv(")) {
                         float[] comps = parseSplit(split, 360, 100, 100);
                         return fromHSV(comps[0], comps[1], comps[2]);
-                    // hsv(h,s,v)
+                        // hsv(h,s,v)
                     } else if (prefix.equalsIgnoreCase("hsl(")) {
                         float[] comps = parseSplit(split, 360, 100, 100);
                         return fromHSL(comps[0], comps[1], comps[2]);
@@ -289,7 +289,7 @@ public class ColorUtils {
                 if (Character.isDigit(split[0].charAt(0))) {
                     return new Color(Integer.parseInt(split[0]), Integer.parseInt(split[1]), Integer.parseInt(split[2]));
                 }
-            // CMYK
+                // CMYK
             } else if (split.length == 4 && split[0].length() > 5 && split[3].endsWith(")")) {
                 String prefix = split[0].substring(0, 5);
                 split[0] = split[0].substring(5);
@@ -320,5 +320,5 @@ public class ColorUtils {
         }
         return comps;
     }
-    
+
 }

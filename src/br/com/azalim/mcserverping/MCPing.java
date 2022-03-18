@@ -28,13 +28,13 @@
  */
 package br.com.azalim.mcserverping;
 
-import com.google.common.base.Preconditions;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.chat.ComponentSerializer;
+import net.kyori.text.Component;
+import net.kyori.text.TextComponent;
+import net.kyori.text.serializer.gson.GsonComponentSerializer;
 import org.xbill.DNS.*;
 
 import java.io.ByteArrayOutputStream;
@@ -72,7 +72,11 @@ public class MCPing {
      */
     public static MCPingResponse getPing(final MCPingOptions options) throws IOException {
 
-        Preconditions.checkNotNull(options.getHostname(), "Hostname cannot be null.");
+        // modification from tis
+        // remove guava
+        if (options.getHostname() == null) {
+            throw new NullPointerException("Hostname cannot be null");
+        }
 
         String hostname = options.getHostname();
         int port = options.getPort();
@@ -169,7 +173,9 @@ public class MCPing {
             JsonObject descriptionJsonObject = jsonObject.get("description").getAsJsonObject();
 
             if (descriptionJsonObject.has("extra")) {
-                descriptionJsonObject.addProperty("text", new TextComponent(ComponentSerializer.parse(descriptionJsonObject.get("extra").getAsJsonArray().toString())).toLegacyText());
+                // Modification from tis
+                // Handle nested extra json recursively and switch to adventure
+                descriptionJsonObject.addProperty("text", getContent(descriptionJsonObject));
                 jsonObject.add("description", descriptionJsonObject);
             }
 
@@ -188,6 +194,22 @@ public class MCPing {
         output.setPing(ping);
 
         return output;
+    }
+
+    // Modification from tis
+    // Handle nested extra json recursively and switch to adventure
+    private static String getContent(JsonObject obj) {
+        Component c = GsonComponentSerializer.INSTANCE.deserialize(obj.toString());
+        StringBuilder sb = new StringBuilder();
+        addContent(c, sb);
+        return sb.toString();
+    }
+    private static void addContent(Component c, StringBuilder sb) {
+        TextComponent tc = (TextComponent) c;
+        sb.append(tc.content());
+        for (Component child : tc.children()) {
+            addContent(child, sb);
+        }
     }
 
 }

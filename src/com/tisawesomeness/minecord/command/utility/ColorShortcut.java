@@ -14,16 +14,16 @@ public class ColorShortcut extends Command {
     }
 
     public CommandInfo getInfo() {
-		return new CommandInfo(
-			colorCode,
-			"Look up a color code.",
-			null,
-			null,
-			1000,
-			true,
-			false,
-			true
-		);
+        return new CommandInfo(
+                colorCode,
+                "Look up a color code.",
+                null,
+                null,
+                1000,
+                true,
+                false,
+                true
+        );
     }
 
     public String getHelp() {
