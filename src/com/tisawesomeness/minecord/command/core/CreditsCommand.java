@@ -29,7 +29,10 @@ public class CreditsCommand extends Command {
             MarkdownUtil.maskedLink("DJ Electro#1677", "https://github.com/Electromaster232") + " - Supplied Hosting";
 
     private final String apis = "Discord API Wrapper - " + MarkdownUtil.maskedLink("JDA", "https://github.com/DV8FromTheWorld/JDA") + "\n" +
-            "MC Account Info - " + MarkdownUtil.maskedLink("Mojang API", "https://wiki.vg/Mojang_API") + "\n" +
+            "MC Account Info - " +
+                    MarkdownUtil.maskedLink("Mojang API", "https://wiki.vg/Mojang_API") + ", " +
+                    MarkdownUtil.maskedLink("Electroid API", "https://github.com/Electroid/mojang-api") + ", " +
+                    MarkdownUtil.maskedLink("Gapple API", "https://api.gapple.pw/") + "\n" +
             "Skin Renders - " + MarkdownUtil.maskedLink("Crafatar", "https://crafatar.com") + "\n" +
             "Server Pinging - " + MarkdownUtil.maskedLink("MCServerPing", "https://github.com/lucaazalim/minecraft-server-ping") + "\n" +
             "Custom Capes - " + MarkdownUtil.maskedLink("Optifine", "https://optifine.net");
