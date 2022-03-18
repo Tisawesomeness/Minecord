@@ -28,9 +28,10 @@
  */
 package br.com.azalim.mcserverping;
 
-import com.google.common.base.Charsets;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.nio.charset.StandardCharsets;
 
 /**
  * Storage class for {@link MCPing} options.
@@ -41,9 +42,11 @@ public class MCPingOptions {
     @Getter
     private String hostname;
 
+    // Modification from tis
+    // remove guava
     @Getter
     @Builder.Default
-    private String charset = Charsets.UTF_8.displayName();
+    private String charset = StandardCharsets.UTF_8.name();
 
     @Getter
     @Builder.Default

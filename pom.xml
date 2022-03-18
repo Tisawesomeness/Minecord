@@ -14,10 +14,6 @@
       <id>jitpack.io</id>
       <url>https://jitpack.io</url>
     </repository>
-    <repository>
-      <id>bungeecord-repo</id>
-      <url>https://oss.sonatype.org/content/repositories/release</url>
-    </repository>
   </repositories>
 
   <dependencies>
@@ -64,10 +60,9 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>net.md-5</groupId>
-      <artifactId>bungeecord-chat</artifactId>
-      <version>1.16-R0.4</version>
-      <type>jar</type>
+      <groupId>net.kyori</groupId>
+      <artifactId>text-serializer-gson</artifactId>
+      <version>3.0.4</version>
     </dependency>
     <dependency>
       <groupId>com.github.ben-manes.caffeine</groupId>
