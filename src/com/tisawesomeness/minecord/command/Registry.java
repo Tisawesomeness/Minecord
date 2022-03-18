@@ -6,6 +6,7 @@ import com.tisawesomeness.minecord.command.core.*;
 import com.tisawesomeness.minecord.command.discord.*;
 import com.tisawesomeness.minecord.command.player.*;
 import com.tisawesomeness.minecord.command.utility.*;
+import com.tisawesomeness.minecord.mc.player.RenderType;
 
 import java.util.LinkedHashMap;
 
@@ -39,9 +40,10 @@ public class Registry {
                     new UuidCommand(),
                     new SkinCommand(),
                     new CapeCommand(),
-                    new AvatarCommand(),
-                    new HeadCommand(),
-                    new BodyCommand()
+                    new RenderCommand(RenderType.AVATAR),
+                    new RenderCommand(RenderType.HEAD),
+                    new RenderCommand(RenderType.BODY),
+                    new GeneralRenderCommand()
             ),
             new Module("Utility",
                     new StatusCommand(),

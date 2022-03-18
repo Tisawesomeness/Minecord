@@ -12,7 +12,7 @@ public class CodesCommand extends Command {
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "codes",
-                "Get info on chat codes.",
+                "Lists the available chat codes.",
                 null,
                 new String[]{
                         "code",

@@ -21,7 +21,9 @@
         "useMenus": true,
         "sendTyping": false,
         "showMemory": false,
-        "elevatedSkipCooldown": true
+        "elevatedSkipCooldown": true,
+        "useElectroidAPI": true,
+        "useGappleAPI": true
     },
     "botLists": {
         "sendServerCount": false,

@@ -4,6 +4,7 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
+import com.tisawesomeness.minecord.util.StringUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.IMentionable;
@@ -78,12 +79,12 @@ public class RolesCommand extends Command {
         ArrayList<String> lines = mem.getRoles().stream()
                 .map(IMentionable::getAsMention)
                 .collect(Collectors.toCollection(ArrayList::new));
-        int chars = MessageUtils.getTotalChars(lines);
+        int chars = StringUtils.getTotalChars(lines);
         boolean truncated = false;
         while (chars > 6000 - 4) {
             truncated = true;
             lines.remove(lines.size() - 1);
-            chars = MessageUtils.getTotalChars(lines);
+            chars = StringUtils.getTotalChars(lines);
         }
         if (truncated) {
             lines.add("...");
@@ -92,7 +93,7 @@ public class RolesCommand extends Command {
         // If over 2048, use fields, otherwise use description
         if (chars > 2048) {
             // Split into fields, avoiding 1024 field char limit
-            for (String field : MessageUtils.splitLinesByLength(lines, 1024)) {
+            for (String field : StringUtils.splitLinesByLength(lines, 1024)) {
                 eb.addField("Roles", field, true);
             }
         } else {

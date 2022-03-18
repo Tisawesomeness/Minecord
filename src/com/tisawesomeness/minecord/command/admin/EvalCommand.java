@@ -4,6 +4,7 @@ import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.MessageUtils;
+import com.tisawesomeness.minecord.util.StringUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -120,7 +121,7 @@ public class EvalCommand extends Command {
         String out = clean(output.toString());
         if (out.length() > MessageEmbed.VALUE_MAX_LENGTH - 10) {
             // Send up to 10 messages within limit
-            ArrayList<String> lines = MessageUtils.splitLinesByLength(out, MessageEmbed.DESCRIPTION_MAX_LENGTH - 10);
+            ArrayList<String> lines = StringUtils.splitLinesByLength(out, MessageEmbed.DESCRIPTION_MAX_LENGTH - 10);
             int i = 0;
             while (i < 10 && i < lines.size()) {
                 e.getChannel().sendMessage(MarkdownUtil.codeblock("js", lines.get(i))).queue();

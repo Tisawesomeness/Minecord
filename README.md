@@ -6,50 +6,55 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - Support Server: https://discord.gg/hrfQaD7
 
 ### Command List
-#### General Commands
-- `&guild` - Shows guild info.
-- `&role <role|id>` - Shows role info.
-- `&roles <user|id>` - List a user's roles.
-- `&user <user|id>` - Shows user info.
-- `&purge [number]` - Cleans the bot messages. Requires Manage Messages permissions.
-- `&perms [channel]` - Test the bot's permissions in a channel. Leave blank to test the current channel.
-- `&prefix [prefix]` - A shortcut to change the prefix. Leave blank to show the current prefix. Requires Manage Server permissions.
-- `&settings [setting] [value]` - Change the bot's settings, including prefix. Requires Manage Server permissions.
 
-#### Utility Commands:
-- `&status` - Checks the status of Mojang servers.
-- `&sales` - Looks up the sale statistics.
-- `&codes` - Lists the available chat codes.
-- `&color` - Look up a color. Shows color code and background color for Minecraft colors.
-- `&server <address>[:port]` - Fetches the stats of a server.
-- `&item <item name|id>` - Looks up an item.
-- `&recipe <item name|id>` - Looks up a recipe.
-- `&ingredient <item name|id>` - Looks up the recipes an ingredient is used in.
-
-#### Player Commands:
-- `&uuid <username> [date]` - Gets the UUID of a player.
-- `&history <username|uuid> [date]` - Gets the name history of a player.
-- `&avatar <username|uuid> [date] [overlay?]` - Gets the avatar of a player.
-- `&head <username|uuid> [date] [overlay?]` - Gets the head render of a player.
-- `&body username|uuid> [date] [overlay?]` - Gets the body render of a player.
-- `&skin <username|uuid> [date]` - Gets the skin of a player.
-- `&cape <username|uuid> [date]` - Gets the cape of a player.
-
-### Misc Commands:
-- `&help [command|module]` - Displays help for the bot, a command, or a module.
+#### Core Commands
+- `&help [<command>|<module>|extra]` - Displays help for the bot, a command, or a module.
 - `&info` - Shows the bot info.
 - `&ping` - Pings the bot.
+- `&prefix [<prefix>]` - A shortcut to change the prefix. Leave blank to show the current prefix. Requires Manage Server permissions.
+- `&settings [<setting> <value>]` - Change the bot's settings, including prefix. Requires Manage Server permissions.
 - `&invite` - Get the invite link for the bot.
 - `&vote` - Get all the vote links.
 - `&credits` - See who made the bot possible.
 
-#### Admin Commands:
+#### Player Commands
+- `&profile <player>` - Shows info for a Minecraft account.
+- `&history <player>` - Shows a player's name history.
+- `&history <uuid|username>` - Shows UUID info for a player or entity.
+- `&skin <player>` - Shows an image of a player's skin.
+- `&cape <player>` - Shows a player's Minecraft and Optifine capes.
+- `&avatar <player> [<scale>] [<overlay?>]` - Shows an image of the player's avatar.
+- `&head <player> [<scale>] [<overlay?>]` - Shows an image of the player's head.
+- `&body <player> [<scale>] [<overlay?>]` - Shows an image of the player's body.
+
+#### Utility Commands
+- `&status` - Checks the status of Mojang servers.
+- `&server <address>[:<port>]` - Fetches the stats of a server.
+- `&recipe <item name|id>` - Look up recipes.
+- `&item <item name|id>` - Looks up an item.
+- `&ingredient <item name|id>` - Looks up the recipes an ingredient is used in.
+- `&codes` - Lists the available chat codes.
+- `&color` - Look up a color. Shows color code and background color for Minecraft colors.
+- `&seed <text>` - Converts some text to a seed number.
+- `&shadow <seed>` - Gets the shadow of a seed.
+- `&sha1 <text>` - Computes the sha1 hash of some text.
+
+#### General Commands
+- `&user <user|id>` - Shows user info.
+- `&guild` - Shows guild info.
+- `&role <role|id>` - Shows role info.
+- `&roles <user|id>` - List a user's roles.
+- `&id <id>` - Gets the creation time of a Discord ID.
+- `&purge <number>` - Cleans the bot messages. Requires Manage Messages permissions.
+- `&perms [<channel>]` - Test the bot's permissions in a channel. Leave blank to test the current channel.
+
+#### Admin Commands
 - `&help <command> admin` - Displays admin help for a command.
 - `&info admin` - Displays bot info, including used memory and boot time.
 - `&guild <guild id> admin` - Show info and ban status for another guild.
 - `&role <role id> admin` - Show role info for any role.
 - `&user <user id> admin [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include `mutual` to show mutual guilds.
-- `&settings <guild id> admin [setting] [value]` - Change the bot's settings for another guild.
+- `&settings <guild id> admin [<setting> <value>]` - Change the bot's settings for another guild.
 - `&perms <channel id> admin` - Test the bot's permissions in any channel.
 - `&say <channel> <message>` - Say a message.
 - `&msg <mention> <message>` - Open the DMs.
@@ -88,6 +93,8 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Send Typing:* If true, the bot will send typing packets.
 - *Show Memory:* Whether or not to show the memory in `&info`.
 - *Elevated Skip Cooldown:* Whether or not elevated users skip command cooldowns.
+- *Use Electroid API:* Whether to use the Electroid API to speed up player lookups. May cause slowdowns if the API is consistently down.
+- *Use Gapple API:* Whether to use the Gapple API to look up account types. May cause slowdowns if the API is consistently down.
 
 - *Send Server Count:* Whether or not the bot should send the guild count to bot list websites.
 - *Pw Token:* The token to use on bots.discord.pw.
@@ -137,7 +144,9 @@ A robust Discord bot using the JDA library for various Minecraft functions.
         "useMenus": true,
         "sendTyping": false,
         "showMemory": false,
-        "elevatedSkipCooldown": true
+        "elevatedSkipCooldown": true,
+        "useElectroidAPI": true,
+        "useGappleAPI": true
     },
     "botLists": {
         "sendServerCount": false,

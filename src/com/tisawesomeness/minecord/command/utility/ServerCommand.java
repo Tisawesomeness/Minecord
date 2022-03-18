@@ -7,6 +7,7 @@ import br.com.azalim.mcserverping.MCPingResponse.Player;
 import br.com.azalim.mcserverping.MCPingUtil;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.util.MathUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
@@ -158,18 +159,18 @@ public class ServerCommand extends Command {
     // Checks if a server is blocked by Mojang
     private static boolean isBlocked(String server, boolean ip) {
         server = server.toLowerCase();
-        if (blockedServers.contains(RequestUtils.sha1(server))) return true;
+        if (blockedServers.contains(MathUtils.sha1(server))) return true;
         if (ip) {
             int i = server.lastIndexOf('.');
             while (i >= 0) {
-                if (blockedServers.contains(RequestUtils.sha1(server.substring(0, i + 1) + ".*"))) return true;
+                if (blockedServers.contains(MathUtils.sha1(server.substring(0, i + 1) + ".*"))) return true;
                 i = server.lastIndexOf('.', i) - 1;
             }
         } else {
             int i = 0;
             while (i != server.lastIndexOf('.') + 1) {
                 i = server.indexOf('.', i) + 1;
-                if (blockedServers.contains(RequestUtils.sha1("*." + server.substring(i)))) return true;
+                if (blockedServers.contains(MathUtils.sha1("*." + server.substring(i)))) return true;
             }
         }
         return false;

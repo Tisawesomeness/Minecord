@@ -33,6 +33,8 @@ public class Config {
     private static boolean sendTyping;
     private static boolean showMemory;
     private static boolean elevatedSkipCooldown;
+    private static boolean useElectroidAPI;
+    private static boolean useGappleAPI;
 
     private static boolean sendServerCount;
     private static String pwToken;
@@ -118,6 +120,8 @@ public class Config {
             sendTyping = settings.getBoolean("sendTyping");
             showMemory = settings.getBoolean("showMemory");
             elevatedSkipCooldown = settings.getBoolean("elevatedSkipCooldown");
+            useElectroidAPI = settings.optBoolean("useElectroidAPI", true);
+            useGappleAPI = settings.optBoolean("useGappleAPI", true);
 
             JSONObject botLists = config.getJSONObject("botLists");
             if (isSelfHosted) {
@@ -169,6 +173,8 @@ public class Config {
     public static boolean getSendTyping() { return sendTyping; }
     public static boolean getShowMemory() { return showMemory; }
     public static boolean getElevatedSkipCooldown() { return elevatedSkipCooldown; }
+    public static boolean getUseElectroidAPI() { return useElectroidAPI; }
+    public static boolean getUseGappleAPI() { return useGappleAPI; }
 
     public static boolean getSendServerCount() { return sendServerCount; }
     public static String getPwToken() { return pwToken; }

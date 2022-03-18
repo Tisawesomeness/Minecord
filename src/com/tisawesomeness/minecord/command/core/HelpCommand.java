@@ -1,10 +1,8 @@
 package com.tisawesomeness.minecord.command.core;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.command.ICommand;
 import com.tisawesomeness.minecord.command.Module;
-import com.tisawesomeness.minecord.command.Registry;
+import com.tisawesomeness.minecord.command.*;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
@@ -20,7 +18,7 @@ public class HelpCommand extends Command {
         return new CommandInfo(
                 "help",
                 "Displays help for the bot, a command, or a module.",
-                "[<command|module>]",
+                "[<command>|<module>|extra]",
                 new String[]{
                         "cmds",
                         "commands",
@@ -38,10 +36,13 @@ public class HelpCommand extends Command {
         return "`{&}help` - Display help for the bot.\n" +
                 "`{&}help <module>` - Display help for a module.\n" +
                 "`{&}help <command>` - Display help for a command.\n" +
+                "`{&}help extra` - Show more help.\n" +
                 "\n" +
                 "Examples:\n" +
+                "- `{&}help server`\n" +
+                "- `{&}help profile`\n" +
                 "- `{&}help utility`\n" +
-                "- `{&}help server`\n";
+                "- `{&}help uuidInput`\n";
     }
 
     public String getAdminHelp() {
@@ -49,10 +50,13 @@ public class HelpCommand extends Command {
                 "`{&}help <module>` - Display help for a module.\n" +
                 "`{&}help <command>` - Display help for a command.\n" +
                 "`{&}help <command> admin` - Include admin-only command usage.\n" +
+                "`{&}help extra` - Show more help.\n" +
                 "\n" +
                 "Examples:\n" +
-                "- `{&}help utility`\n" +
                 "- `{&}help server`\n" +
+                "- `{&}help profile`\n" +
+                "- `{&}help utility`\n" +
+                "- `{&}help uuidInput`\n" +
                 "- `{&}help settings admin`\n";
     }
 
@@ -66,8 +70,9 @@ public class HelpCommand extends Command {
             // Help menu only contains names of commands, tell user how to get more help
             String help = String.format(
                     "Use `%shelp <command>` to get more information about a command.\n" +
-                            "Use `%shelp <module>` to get help for that module.",
-                    prefix, prefix);
+                            "Use `%shelp <module>` to get help for that module.\n" +
+                            "Use `%shelp extra` for more help.",
+                    prefix, prefix, prefix);
             eb.setAuthor("Minecord Help", null, url).setDescription(help);
 
             // Hidden modules must be viewed directly
@@ -83,6 +88,22 @@ public class HelpCommand extends Command {
                         .collect(Collectors.joining(", "));
                 eb.addField(m.getName(), mHelp, false);
             }
+            return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+        }
+
+        // Extra help
+        ExtraHelpPage ehp = ExtraHelpPage.from(args[0]);
+        if (ehp != null) {
+            eb.setTitle(ehp.getTitle()).setDescription(ehp.getHelp(prefix));
+            return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+        }
+
+        // General extra help
+        if (args[0].equalsIgnoreCase("extra")) {
+            String desc = Arrays.stream(ExtraHelpPage.values())
+                    .map(page -> extraHelpLine(page, prefix))
+                    .collect(Collectors.joining("\n"));
+            eb.setTitle("Extra Help").setDescription(desc);
             return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
         }
 
@@ -150,6 +171,10 @@ public class HelpCommand extends Command {
         }
 
         return new Result(Outcome.WARNING, ":warning: That command or module does not exist.");
+    }
+
+    private static String extraHelpLine(ExtraHelpPage ehp, String prefix) {
+        return String.format("`%shelp %s` - %s", prefix, ehp.getName(), ehp.getDescription());
     }
 
 }

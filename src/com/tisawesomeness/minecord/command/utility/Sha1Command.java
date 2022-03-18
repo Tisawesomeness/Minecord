@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command.utility;
 
 import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.util.RequestUtils;
+import com.tisawesomeness.minecord.util.MathUtils;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -33,7 +33,7 @@ public class Sha1Command extends Command {
         if (args.length == 0) {
             return new Result(Outcome.WARNING, ":warning: You must specify some text to hash.");
         }
-        return new Result(Outcome.SUCCESS, RequestUtils.sha1(String.join(" ", args)));
+        return new Result(Outcome.SUCCESS, MathUtils.sha1(String.join(" ", args)));
     }
 
 }

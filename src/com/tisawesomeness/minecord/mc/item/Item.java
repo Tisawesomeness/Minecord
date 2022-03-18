@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.item;
+package com.tisawesomeness.minecord.mc.item;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.util.RequestUtils;
@@ -17,7 +17,6 @@ import java.util.regex.Pattern;
 
 public class Item {
 
-    private static final String numberRegex = "^[0-9]{1,5}$";
     private static final Pattern CANDLE_CAKE_PATTERN = Pattern.compile("cake with (.+) candle");
     private static final String[] colorNames = new String[] { "white", "orange", "magenta", "light_blue", "yellow",
             "lime", "pink", "gray", "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black" };

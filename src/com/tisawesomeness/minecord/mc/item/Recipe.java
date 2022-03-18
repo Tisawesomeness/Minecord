@@ -1,4 +1,4 @@
-package com.tisawesomeness.minecord.item;
+package com.tisawesomeness.minecord.mc.item;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.ReactMenu;

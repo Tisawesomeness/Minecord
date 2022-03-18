@@ -10,7 +10,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.Socket;
 import java.net.URL;
@@ -18,8 +17,6 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -84,33 +81,6 @@ public class RequestUtils {
      */
     public static String getPlain(String url, String auth) throws IOException {
         URLConnection conn = open(url, auth, plainType);
-        return get(conn);
-    }
-
-    /**
-     * Performs an HTTP POST request.
-     * @param url The request URL.
-     * @param query The request payload, in string form.
-     * @return The response of the request in string form.
-     */
-    public static String post(String url, String query) throws IOException {
-        return post(url, query, null);
-    }
-
-    /**
-     * Performs an HTTP POST request.
-     * @param url The request URL.
-     * @param query The request payload, in string form.
-     * @param auth The content of the Authorization header.
-     * @return The response of the request in string form.
-     */
-    public static String post(String url, String query, String auth) throws IOException {
-        URLConnection conn = open(url, auth, jsonType);
-
-        OutputStream output = conn.getOutputStream();
-        output.write(query.getBytes(charset));
-        output.close();
-
         return get(conn);
     }
 
@@ -211,21 +181,6 @@ public class RequestUtils {
 
     public static JSONArray loadJSONArray(String path) throws IOException {
         return new JSONArray(new String(Files.readAllBytes(Paths.get(path))));
-    }
-
-    // Converts a string to SHA1 (from http://www.sha1-online.com/sha1-java/)
-    public static String sha1(String str) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA1");
-            byte[] result = md.digest(str.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for (byte b : result) {
-                sb.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
-            }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException ex) {
-            throw new AssertionError(ex);
-        }
     }
 
 }

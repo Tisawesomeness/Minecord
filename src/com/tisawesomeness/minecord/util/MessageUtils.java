@@ -12,7 +12,9 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import java.awt.Color;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class MessageUtils {
@@ -41,24 +43,6 @@ public class MessageUtils {
         }
         User owner = Bot.shardManager.retrieveUserById(Config.getOwner()).complete();
         return eb.setFooter(announcement, owner.getAvatarUrl());
-    }
-
-    /**
-     * Parses boolean arguments.
-     * @param search The string array to search through.
-     * @param include A string that also means true.
-     * @return The first index of the boolean argument. Returns -1 if not found.
-     */
-    public static int parseBoolean(String[] search, String include) {
-
-        String[] words = new String[]{"true", "yes", "allow", include};
-        for (String word : words) {
-            int index = ArrayUtils.indexOf(search, word);
-            if (index > -1) {
-                return index;
-            }
-        }
-        return -1;
     }
 
     /**
@@ -130,63 +114,75 @@ public class MessageUtils {
     }
 
     /**
-     * Splits a string with newlines into groups, making sure that every group is a whole number of lines and at most the max length.
-     * The provided String is split into lines, then stored in an ArrayList that follows the other methods specifications.
-     * If a line is over the max length, it is split into multiple lines.
-     * Useful for getting past Discord's char limits.
-     * @param str An ArrayList of String lines without newline characters.
-     * @param maxLength The maximum length allowed for a string in the returned list.
-     * @return A list of strings where every string length < maxLength - 1
+     * Splits a list of partitions into one or more embeds. If the total length of the partitions (or remaining
+     * partitions if some have been already used) can fit into an embed description, those partitions are joined
+     * with the joiner and placed into the description. Otherwise, fields are added, one partition per field, until
+     * the max embed length is reached.
+     * @param baseEmbed The base embed to add description/fields to, which will be copied if multiple embeds are needed,
+     *                  the description will be removed
+     * @param fieldTitle The title of each field if fields are used
+     * @param partitions A list of partitions, inseparable strings that will be placed into the embed
+     * @param joiner The joiner used to join partitions that can fit into an embed
+     * @return A list of message embeds, empty if the input partitions is empty
      */
-    public static ArrayList<String> splitLinesByLength(String str, int maxLength) {
-        return splitLinesByLength(new ArrayList<>(Arrays.asList(str.split("\n"))), maxLength);
+    public static List<MessageEmbed> splitEmbeds(MessageEmbed baseEmbed, String fieldTitle, List<String> partitions,
+                                                 String joiner) {
+        if (partitions.isEmpty()) {
+            return Collections.emptyList();
+        }
+        int maxDescriptionLength = getMaxDescriptionLength(baseEmbed);
+        boolean anyOverMaxLength = partitions.stream()
+                .mapToInt(String::length)
+                .anyMatch(x -> x > maxDescriptionLength);
+        if (anyOverMaxLength) {
+            throw new IllegalArgumentException("An input partition was over the max length " + maxDescriptionLength);
+        }
+
+        LinkedList<String> parts = new LinkedList<>(partitions);
+        List<MessageEmbed> embs = new ArrayList<>();
+        while (!parts.isEmpty()) {
+            EmbedBuilder eb = new EmbedBuilder(baseEmbed);
+            eb.setDescription(null);
+
+            int totalLength = parts.stream()
+                    .mapToInt(String::length)
+                    .sum() + (parts.size() - 1) * joiner.length();
+            if (totalLength <= maxDescriptionLength) {
+                eb.setDescription(String.join(joiner, parts));
+                embs.add(eb.build());
+                return Collections.unmodifiableList(embs);
+            }
+
+            addFieldsUntilFullNoCopy(eb, fieldTitle, parts);
+            embs.add(eb.build());
+        }
+        return Collections.unmodifiableList(embs);
+    }
+    private static int getMaxDescriptionLength(MessageEmbed baseEmbed) {
+        String description = baseEmbed.getDescription();
+        int descriptionLength = description == null ? 0 : description.length();
+        int remainingEmbedLength = MessageEmbed.EMBED_MAX_LENGTH_BOT + descriptionLength - baseEmbed.getLength();
+        return Math.min(MessageEmbed.TEXT_MAX_LENGTH, remainingEmbedLength);
     }
 
     /**
-     * Splits a list of lines into groups, making sure that none of them are over the max length.
-     * This takes into account the additional newline character.
-     * If a line is over the max length, it is split into multiple lines.
-     * Useful for getting past Discord's char limits.
-     * @param lines An ArrayList of String lines without newline characters.
-     * @param maxLength The maximum length allowed for a string in the returned list.
-     * @return A list of strings where every string length < maxLength - 1
+     * Add fields to an embed builder until it is full.
+     * @param eb The embed builder to add onto, <b>will be modified</b>
+     * @param fieldTitle The field title
+     * @param fieldValues A possibly-empty list of field values/descriptions, <b>must be mutable, used fields will be
+     *                    removed from the list</b>
+     * @return The embed with fields added
      */
-    public static ArrayList<String> splitLinesByLength(ArrayList<String> lines, int maxLength) {
-        ArrayList<String> split = new ArrayList<>();
-        String splitBuf = "";
-        for (int i = 0; i < lines.size(); i++) {
-            // Max line length check
-            if (lines.get(i).length() > maxLength - 1) {
-                lines.add(i + 1, lines.get(i).substring(maxLength - 1));
-                lines.set(i, lines.get(i).substring(0, maxLength - 1));
+    public static MessageEmbed addFieldsUntilFullNoCopy(EmbedBuilder eb, String fieldTitle, List<String> fieldValues) {
+        while (!fieldValues.isEmpty()) {
+            int lengthIfLineAdded = eb.length() + fieldTitle.length() + fieldValues.get(0).length();
+            if (lengthIfLineAdded > MessageEmbed.EMBED_MAX_LENGTH_BOT) {
+                return eb.build();
             }
-            String fieldTemp = splitBuf + lines.get(i) + "\n";
-            if (fieldTemp.length() > maxLength) {
-                i -= 1; // The line goes over the char limit, don't include!
-                split.add(splitBuf.substring(0, splitBuf.length() - 1));
-                splitBuf = "";
-            } else {
-                splitBuf = fieldTemp;
-            }
-            // Last line check
-            if (i == lines.size() - 1) {
-                split.add(fieldTemp);
-            }
+            String nextFieldValue = fieldValues.remove(0);
+            eb.addField(fieldTitle, nextFieldValue, false);
         }
-        return split;
-    }
-
-    /**
-     * Gets the total number of characters in a list of lines, adding 1 for each newline
-     * @param lines An ArrayList of String lines, without newline characters
-     * @return The total number of characters
-     */
-    public static int getTotalChars(ArrayList<String> lines) {
-        int chars = 0;
-        for (String line : lines) {
-            chars += line.length() + 1; // +1 for newline
-        }
-        return chars;
+        return eb.build();
     }
 
 }

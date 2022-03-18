@@ -3,8 +3,12 @@ package com.tisawesomeness.minecord;
 import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.VoteHandler;
-import com.tisawesomeness.minecord.item.Item;
-import com.tisawesomeness.minecord.item.Recipe;
+import com.tisawesomeness.minecord.mc.MCLibrary;
+import com.tisawesomeness.minecord.mc.StandardMCLibrary;
+import com.tisawesomeness.minecord.mc.item.Item;
+import com.tisawesomeness.minecord.mc.item.Recipe;
+import com.tisawesomeness.minecord.network.APIClient;
+import com.tisawesomeness.minecord.network.OkAPIClient;
 import com.tisawesomeness.minecord.util.*;
 
 import net.dv8tion.jda.api.JDA;
@@ -41,6 +45,8 @@ public class Bot {
     public static final Color color = Color.GREEN;
 
     public static ShardManager shardManager;
+    private static APIClient apiClient;
+    public static MCLibrary mcLibrary;
     private static Listener listener;
     private static ReactListener reactListener;
     public static long birth;
@@ -71,6 +77,8 @@ public class Bot {
         thread = Thread.currentThread();
         listener = new Listener();
         reactListener = new ReactListener();
+        apiClient = new OkAPIClient();
+        mcLibrary = new StandardMCLibrary(apiClient);
         try {
             Announcement.init(Config.getPath());
             ColorUtils.init(Config.getPath());
@@ -142,6 +150,7 @@ public class Bot {
                         .setActivity(Activity.playing("Loading..."))
                         .setMemberCachePolicy(MemberCachePolicy.NONE)
                         .disableCache(disabledCacheFlags)
+                        .setHttpClientBuilder(apiClient.getHttpClientBuilder())
                         .build();
 
                 //Update main class
@@ -186,6 +195,10 @@ public class Bot {
 
         return true;
 
+    }
+
+    public static void reloadMCLibrary() {
+        mcLibrary = new StandardMCLibrary(apiClient);
     }
 
     public static void shutdown(Message m, User u) {

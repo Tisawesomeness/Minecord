@@ -3,8 +3,8 @@ package com.tisawesomeness.minecord.command.utility;
 import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.ReactMenu.MenuStatus;
 import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.item.Item;
-import com.tisawesomeness.minecord.item.Recipe;
+import com.tisawesomeness.minecord.mc.item.Item;
+import com.tisawesomeness.minecord.mc.item.Recipe;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
