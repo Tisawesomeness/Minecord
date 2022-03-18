@@ -334,7 +334,7 @@
     "lang": {
       "en_US": {
         "search_names": [
-          "Minecraft Inferior Edition"
+          "Bugrock"
         ],
         "display_name": "Bedrock"
       }
@@ -1039,6 +1039,10 @@
     "lang": {
       "en_US": {
         "previuosly": "tile.null.name",
+        "search_names": [
+          "Block 36",
+          "b36"
+        ],
         "display_name": "Moving Piston"
       }
     },
