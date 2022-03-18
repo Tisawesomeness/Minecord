@@ -25,6 +25,9 @@ import java.util.UUID;
 
 public class RenderCommand extends AbstractPlayerCommand {
 
+    /** Whether render overlay is enabled by default */
+    public static final boolean DEFAULT_OVERLAY = true;
+
     private final @NonNull String id;
     private final RenderType type;
     public RenderCommand(RenderType type) {
@@ -154,7 +157,7 @@ public class RenderCommand extends AbstractPlayerCommand {
         }
 
         int scale = type.getDefaultScale();
-        boolean overlay = false;
+        boolean overlay = DEFAULT_OVERLAY;
         // Each argument type should only be processed once
         boolean scaleSet = false;
         boolean overlaySet = false;
@@ -170,7 +173,7 @@ public class RenderCommand extends AbstractPlayerCommand {
                     overlaySet = true;
                     continue;
                 } else if (lang.isFalsy(arg, BoolFormat.TRUE_OR_YES)) {
-                    // overlay is already false
+                    overlay = false;
                     overlaySet = true;
                     continue;
                 } else if (scaleSet) {

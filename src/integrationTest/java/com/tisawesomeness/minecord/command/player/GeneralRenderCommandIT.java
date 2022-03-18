@@ -97,7 +97,7 @@ public class GeneralRenderCommandIT {
     @DisplayName("Render command generates render correctly")
     public void testStandardRender() {
         String args = "head abc";
-        Render expectedRender = new Render(PlayerTests.TIS_STEVE_UUID, RenderType.HEAD, false);
+        Render expectedRender = new Render(PlayerTests.TIS_STEVE_UUID, RenderType.HEAD, RenderCommand.DEFAULT_OVERLAY);
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasTriggeredCooldown()
@@ -109,7 +109,7 @@ public class GeneralRenderCommandIT {
     @DisplayName("Render command handles quoted names correctly")
     public void testQuotedName() {
         String args = "head \"abc\"";
-        Render expectedRender = new Render(PlayerTests.TIS_STEVE_UUID, RenderType.HEAD, false);
+        Render expectedRender = new Render(PlayerTests.TIS_STEVE_UUID, RenderType.HEAD, RenderCommand.DEFAULT_OVERLAY);
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasTriggeredCooldown()
@@ -121,7 +121,7 @@ public class GeneralRenderCommandIT {
     @DisplayName("Render command generates render with scale correctly")
     public void testScaledRender() {
         String args = "body abc 5";
-        Render expectedRender = new Render(PlayerTests.TIS_STEVE_UUID, RenderType.BODY, false, 5);
+        Render expectedRender = new Render(PlayerTests.TIS_STEVE_UUID, RenderType.BODY, RenderCommand.DEFAULT_OVERLAY, 5);
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasTriggeredCooldown()
@@ -158,6 +158,42 @@ public class GeneralRenderCommandIT {
     public void testOverlayAndScaleRender() {
         String args = "body abc true 5";
         Render expectedRender = new Render(PlayerTests.TIS_STEVE_UUID, RenderType.BODY, true, 5);
+        assertThat(runner.run(args))
+                .awaitResult()
+                .hasTriggeredCooldown()
+                .isSuccess()
+                .asEmbedReply()
+                .imageLinksTo(expectedRender.render());
+    }
+    @Test
+    @DisplayName("Render command generates render with no overlay correctly")
+    public void testNoOverlayRender() {
+        String args = "avatar abc false";
+        Render expectedRender = new Render(PlayerTests.TIS_STEVE_UUID, RenderType.AVATAR, false);
+        assertThat(runner.run(args))
+                .awaitResult()
+                .hasTriggeredCooldown()
+                .isSuccess()
+                .asEmbedReply()
+                .imageLinksTo(expectedRender.render());
+    }
+    @Test
+    @DisplayName("Render command generates render with scale and no overlay correctly")
+    public void testScaleAndNoOverlayRender() {
+        String args = "head abc 5 false";
+        Render expectedRender = new Render(PlayerTests.TIS_STEVE_UUID, RenderType.HEAD, false, 5);
+        assertThat(runner.run(args))
+                .awaitResult()
+                .hasTriggeredCooldown()
+                .isSuccess()
+                .asEmbedReply()
+                .imageLinksTo(expectedRender.render());
+    }
+    @Test
+    @DisplayName("Render command generates render with no overlay and scale correctly")
+    public void testNoOverlayAndScaleRender() {
+        String args = "body abc false 5";
+        Render expectedRender = new Render(PlayerTests.TIS_STEVE_UUID, RenderType.BODY, false, 5);
         assertThat(runner.run(args))
                 .awaitResult()
                 .hasTriggeredCooldown()
