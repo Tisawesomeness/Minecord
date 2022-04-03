@@ -62,7 +62,7 @@ public class RolesCommand extends Command {
                 mem = e.getGuild().retrieveMemberById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_MEMBER::test, x -> null).complete();
             } else {
                 if (!User.USER_TAG.matcher(args[0]).matches()) {
-                    return new Result(Outcome.WARNING, ":warning: Not a valid user format. Use `name#1234`, a mention, or an 18-digit ID.");
+                    return new Result(Outcome.WARNING, ":warning: Not a valid user format. Use `name#1234`, a mention, or a user ID.");
                 }
                 mem = e.getGuild().getMemberByTag(args[0]);
             }
