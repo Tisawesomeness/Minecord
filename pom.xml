@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.tisawesomeness</groupId>
   <artifactId>minecord</artifactId>
-  <version>0.14.0</version>
+  <version>0.14.1</version>
 
   <repositories>
     <repository>
@@ -36,7 +36,7 @@
     <dependency>
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
-      <version>20211205</version>
+      <version>20220320</version>
     </dependency>
     <dependency>
       <groupId>mysql</groupId>
