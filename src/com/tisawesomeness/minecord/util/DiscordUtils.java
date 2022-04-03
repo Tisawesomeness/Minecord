@@ -6,6 +6,7 @@ import com.tisawesomeness.minecord.Config;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.requests.ErrorResponse;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -69,7 +70,13 @@ public class DiscordUtils {
             return Bot.shardManager.retrieveUserById(search).complete();
         }
         Matcher ma = USER_MENTION_PATTERN.matcher(search);
-        return ma.matches() ? Bot.shardManager.retrieveUserById(ma.group(2)).complete() : null;
+        if (!ma.matches()) {
+            return null;
+        }
+        return Bot.shardManager.retrieveUserById(ma.group(2))
+                .onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null)
+                .onErrorMap(ErrorResponse.UNKNOWN_MEMBER::test, x -> null)
+                .complete();
     }
 
     public static TextChannel findChannel(String search) {

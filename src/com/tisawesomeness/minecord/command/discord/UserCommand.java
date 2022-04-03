@@ -115,7 +115,10 @@ public class UserCommand extends Command {
             mem = mentioned.get(0);
         } else {
             if (DiscordUtils.isDiscordId(args[0])) {
-                mem = e.getGuild().retrieveMemberById(args[0]).onErrorMap(ErrorResponse.UNKNOWN_MEMBER::test, x -> null).complete();
+                mem = e.getGuild().retrieveMemberById(args[0])
+                        .onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null)
+                        .onErrorMap(ErrorResponse.UNKNOWN_MEMBER::test, x -> null)
+                        .complete();
             } else {
                 if (!User.USER_TAG.matcher(args[0]).matches()) {
                     return new Result(Outcome.WARNING, ":warning: Not a valid user format. Use `name#1234`, a mention, or a user ID.");

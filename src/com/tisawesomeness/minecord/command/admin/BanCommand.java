@@ -68,7 +68,9 @@ public class BanCommand extends Command {
             boolean banned = Database.isBanned(gid);
             Database.changeBannedUser(gid, !banned);
             //Format message
-            User user = Bot.shardManager.retrieveUserById(args[1]).onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null).complete();
+            User user = Bot.shardManager.retrieveUserById(args[1])
+                    .onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null)
+                    .complete();
             String msg = user == null ? args[1] : user.getAsTag();
             msg += banned ? " has been unbanned." : " was struck with the ban hammer!";
             MessageUtils.log(msg);
