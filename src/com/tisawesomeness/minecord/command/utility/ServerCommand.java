@@ -117,14 +117,19 @@ public class ServerCommand extends Command {
         String versionName = reply.getVersion().getName();
         String version = CHAT_CODE_PATTERN.matcher(versionName).replaceAll("");
         String playerInfo = reply.getPlayers().getOnline() + "/" + reply.getPlayers().getMax();
-        String motd = MarkdownSanitizer.escape(reply.getDescription().getStrippedText());
+        String motd = null;
+        if (reply.getDescription() != null) {
+            motd = MarkdownSanitizer.escape(reply.getDescription().getStrippedText());
+        }
         List<Player> sample = reply.getPlayers().getSample();
 
         // Build and format message
         m += "**Address:** " + address +
                 "\n" + "**Version:** " + version +
-                "\n" + "**Players:** " + playerInfo +
-                "\n" + "**MOTD:** " + motd;
+                "\n" + "**Players:** " + playerInfo;
+        if (motd != null) {
+            m += "\n" + "**MOTD:** " + motd;
+        }
         if (sample != null && sample.size() > 0) {
             String sampleStr = sample.stream()
                     .map(p -> MCPingUtil.stripColors(p.getName()))
