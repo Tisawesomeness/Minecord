@@ -118,7 +118,7 @@ public class ServerCommand extends Command {
         String version = CHAT_CODE_PATTERN.matcher(versionName).replaceAll("");
         String playerInfo = reply.getPlayers().getOnline() + "/" + reply.getPlayers().getMax();
         String motd = null;
-        if (reply.getDescription() != null) {
+        if (reply.getDescription() != null && reply.getDescription().getStrippedText() != null) {
             motd = MarkdownSanitizer.escape(reply.getDescription().getStrippedText());
         }
         List<Player> sample = reply.getPlayers().getSample();
