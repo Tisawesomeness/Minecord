@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.tisawesomeness</groupId>
   <artifactId>minecord</artifactId>
-  <version>0.14.3</version>
+  <version>0.14.4</version>
 
   <repositories>
     <repository>
@@ -56,13 +56,13 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.22</version>
+      <version>1.18.24</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>net.kyori</groupId>
-      <artifactId>text-serializer-gson</artifactId>
-      <version>3.0.4</version>
+      <artifactId>adventure-text-serializer-gson</artifactId>
+      <version>4.10.1</version>
     </dependency>
     <dependency>
       <groupId>com.github.ben-manes.caffeine</groupId>

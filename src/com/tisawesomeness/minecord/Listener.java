@@ -162,8 +162,11 @@ public class Listener extends ListenerAdapter {
                     StringBuilder errSb = new StringBuilder();
                     boolean seenMinecordCode = false;
                     for (StackTraceElement ste : exception.getStackTrace()) {
-                        errSb.append("\n").append(ste.toString());
                         String className = ste.getClassName();
+                        if (className.startsWith("com.google.gson") || className.startsWith("net.kyori")) {
+                            continue;
+                        }
+                        errSb.append("\n").append(ste);
                         if (className.startsWith("net.dv8tion") || className.startsWith("com.neovisionaries")) {
                             if (seenMinecordCode) {
                                 errSb.append("...");
@@ -180,7 +183,14 @@ public class Listener extends ListenerAdapter {
                     err = ":boom: There was an unexpected exception: " + MarkdownUtil.monospace(exception.toString());
                 }
             }
-            MessageUtils.log("EXCEPTION: " + MarkdownUtil.monospace(m.getContentRaw()) + "\n" + err);
+            String logMsg = "EXCEPTION: " + MarkdownUtil.monospace(m.getContentRaw()) + "\n" + err;
+            if (logMsg.length() > Message.MAX_CONTENT_LENGTH) {
+                logMsg = logMsg.substring(0, Message.MAX_CONTENT_LENGTH - 6) + "...```";
+            }
+            MessageUtils.log(logMsg);
+            if (err.length() > Message.MAX_CONTENT_LENGTH) {
+                err = err.substring(0, Message.MAX_CONTENT_LENGTH - 6) + "...```";
+            }
             c.sendMessage(err).queue();
             //If message is empty
         } else if (result.message == null) {
