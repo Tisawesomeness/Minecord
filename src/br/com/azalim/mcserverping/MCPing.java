@@ -32,9 +32,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import net.kyori.text.Component;
-import net.kyori.text.TextComponent;
-import net.kyori.text.serializer.gson.GsonComponentSerializer;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import org.xbill.DNS.*;
 
 import java.io.ByteArrayOutputStream;
@@ -50,6 +50,7 @@ public class MCPing {
     private static final Gson GSON = new Gson();
     private static final String SRV_QUERY_PREFIX = "_minecraft._tcp.%s";
     private static final Pattern PATTERN = Pattern.compile("\\.$");
+    private static final GsonComponentSerializer SERIALIZER = GsonComponentSerializer.builder().build();
 
     /**
      * Fetches a {@link MCPingResponse} for the supplied hostname.
@@ -199,7 +200,7 @@ public class MCPing {
     // Modification from tis
     // Handle nested extra json recursively and switch to adventure
     private static String getContent(JsonObject obj) {
-        Component c = GsonComponentSerializer.INSTANCE.deserialize(obj.toString());
+        Component c = SERIALIZER.deserialize(obj.toString());
         StringBuilder sb = new StringBuilder();
         addContent(c, sb);
         return sb.toString();
