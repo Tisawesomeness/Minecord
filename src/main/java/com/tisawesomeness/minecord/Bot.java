@@ -65,10 +65,10 @@ import java.util.concurrent.*;
 public class Bot {
 
     // Only use what's necessary
-    private static final List<GatewayIntent> gateways = Lists.of(
+    private static final List<GatewayIntent> GATEWAYS = Lists.of(
             GatewayIntent.DIRECT_MESSAGES, GatewayIntent.DIRECT_MESSAGE_REACTIONS,
             GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS);
-    private static final EnumSet<CacheFlag> disabledCacheFlags = EnumSet.of(
+    private static final EnumSet<CacheFlag> DISABLED_CACHE_FLAGS = EnumSet.of(
             CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOTE,
             CacheFlag.ONLINE_STATUS, CacheFlag.VOICE_STATE);
     private static final EnumSet<Message.MentionType> ALLOWED_MENTIONS = EnumSet.complementOf(EnumSet.of(
@@ -87,11 +87,11 @@ public class Bot {
     private Database database;
     private MCLibrary mcLibrary;
     @Getter private APIClient apiClient;
-    @Getter private ArgsHandler args;
+    private ArgsHandler args;
     @Getter private ShardManager shardManager;
     @Getter private SettingRegistry settings;
     private @Nullable AnnounceRegistry announceRegistry;
-    @Getter private VoteHandler voteHandler;
+    private VoteHandler voteHandler;
     private @Nullable Branding brandingConfig;
     @Getter private BotBranding branding;
     @Getter private Secrets secrets;
@@ -183,7 +183,7 @@ public class Bot {
         try {
             // Initialize JDA
             log.info("Logging in...");
-            shardManager = DefaultShardManagerBuilder.create(gateways)
+            shardManager = DefaultShardManagerBuilder.create(GATEWAYS)
                     .setToken(secrets.getToken())
                     .setAutoReconnect(true)
                     .addEventListeners(readyListener)
@@ -191,7 +191,7 @@ public class Bot {
                     .setStatus(OnlineStatus.IDLE)
                     .setActivity(activity)
                     .setMemberCachePolicy(MemberCachePolicy.NONE)
-                    .disableCache(disabledCacheFlags)
+                    .disableCache(DISABLED_CACHE_FLAGS)
                     .setHttpClientBuilder(apiClient.getHttpClientBuilder())
                     .build();
 
