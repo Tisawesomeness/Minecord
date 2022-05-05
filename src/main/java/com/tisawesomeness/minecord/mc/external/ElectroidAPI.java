@@ -107,8 +107,8 @@ public abstract class ElectroidAPI {
                 if (textures.optBoolean("slim")) {
                     skinType = SkinType.ALEX;
                 }
-            } catch (MalformedURLException ex) {
-                log.error("Electroid returned an invalid skin URL: " + link, ex);
+            } catch (MalformedURLException ignore) {
+                log.error("Electroid returned an invalid skin URL: " + link);
             }
         }
 
@@ -119,8 +119,8 @@ public abstract class ElectroidAPI {
             if (potentialCape != null) {
                 try {
                     capeUrl = new URL(URLs.httpToHttps(potentialCape));
-                } catch (MalformedURLException ex) {
-                    log.error("Electroid returned an invalid cape URL: ", ex);
+                } catch (MalformedURLException ignore) {
+                    log.error("Electroid returned an invalid cape URL: " + potentialCape);
                 }
             }
         }

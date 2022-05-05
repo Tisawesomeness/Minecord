@@ -130,8 +130,8 @@ public abstract class MojangAPI {
             try {
                 skinUrl = new URL(URLs.httpToHttps(link));
                 skinType = getSkinType(skinObj);
-            } catch (MalformedURLException ex) {
-                log.error("Mojang returned an invalid skin URL: " + link, ex);
+            } catch (MalformedURLException ignore) {
+                log.error("Mojang returned an invalid skin URL: " + link);
             }
         }
         URL capeUrl = null;
@@ -139,8 +139,8 @@ public abstract class MojangAPI {
             String link = textures.getJSONObject("CAPE").getString("url");
             try {
                 capeUrl = new URL(URLs.httpToHttps(link));
-            } catch (MalformedURLException ex) {
-                log.error("Mojang returned an invalid cape URL: " + link, ex);
+            } catch (MalformedURLException ignore) {
+                log.error("Mojang returned an invalid cape URL: " + link);
             }
         }
         return Optional.of(new Profile(legacy, demo, skinType, skinUrl, capeUrl));

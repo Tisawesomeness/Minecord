@@ -116,7 +116,7 @@ public class DualPlayerProvider implements PlayerProvider {
                 log.warn("Getting UUID from Mojang API failed with IOE, trying Electroid API", ex);
                 return tryUUIDFromElectroid(username);
             }
-            log.error("Getting UUID from Mojang API failed with IOE, backup not available", ex);
+            log.error("Getting UUID from Mojang API failed with IOE, backup not available");
             throw ex;
         }
     }
@@ -169,7 +169,7 @@ public class DualPlayerProvider implements PlayerProvider {
         try {
             return Objects.requireNonNull(gappleAPI).getAccountStatus(uuid);
         } catch (IOException ex) {
-            log.warn("Getting account status from Gapple API failed with IOE", ex);
+            log.warn("Getting account status from Gapple API failed with IOE");
             throw ex;
         }
     }
