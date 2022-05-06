@@ -1,0 +1,8 @@
+plugins {
+    id 'minecord.conventions'
+    id 'java'
+}
+
+dependencies {
+    implementation project(":shared")
+}

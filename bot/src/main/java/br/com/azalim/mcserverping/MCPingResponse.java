@@ -28,10 +28,11 @@
  */
 package br.com.azalim.mcserverping;
 
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.List;
 
 /**
  * References: http://wiki.vg/Server_List_Ping

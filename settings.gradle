@@ -3,3 +3,4 @@
  */
 
 rootProject.name = 'minecord'
+include 'shared', 'bot', 'bootstrap'
