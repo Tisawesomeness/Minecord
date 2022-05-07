@@ -6,6 +6,10 @@ plugins {
 
 repositories {
     mavenCentral()
+    maven {
+        name 'm2-dv8tion'
+        url 'https://m2.dv8tion.net/releases'
+    }
 }
 
 java {
@@ -15,6 +19,14 @@ java {
 }
 
 dependencies {
+    // JDA with no audio
+    // okhttp and apache-collections4 included
+    implementation ("net.dv8tion:JDA:$jdaVersion") {
+        exclude module: 'opus-java'
+    }
+    // Logging
+    implementation 'ch.qos.logback:logback-classic:1.2.11'
+    // Testing
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
     testImplementation 'org.assertj:assertj-core:3.22.0'
 }
