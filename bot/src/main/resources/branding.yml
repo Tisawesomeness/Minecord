@@ -54,12 +54,6 @@ presence:
       content: "@%bot_username% help | %guilds% guilds"
       url: "https://example.com/url-that-only-displays-when-type-is-STREAMING.php"
       weight: 1
-  # The presence (activity) that shows when the bot is loading
-  # Same format as presence but only type and content are allowed
-  # The %guilds%, %bot_username%, %bot_tag%, %bot_mention%, and %bot_id% placeholders are unavailable
-  loadingActivity:
-    type: PLAYING
-    content: "Loading..."
 
 announcements:
   # Turns on or off announcements in the embed footer

@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.config.branding;
 
-import com.tisawesomeness.minecord.util.discord.PresenceType;
-import com.tisawesomeness.minecord.util.type.Verification;
+import com.tisawesomeness.minecord.share.PresenceType;
+import com.tisawesomeness.minecord.share.util.Verification;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
@@ -21,8 +21,6 @@ import javax.annotation.Nullable;
 @Value
 @Slf4j
 public class Presence {
-    public static final int MAX_CONTENT_LENGTH = 128;
-
     @JsonProperty("status")
     OnlineStatus status;
     @JsonProperty("type") @JsonSetter(nulls = Nulls.SET)

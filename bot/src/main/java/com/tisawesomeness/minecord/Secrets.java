@@ -19,7 +19,6 @@ import java.util.OptionalInt;
 @Slf4j
 public class Secrets {
 
-    public static final String TOKEN_ENV_VAR = "MINECORD_TOKEN";
     public static final String PW_TOKEN_ENV_VAR = "MINECORD_PW_TOKEN";
     public static final String ORG_TOKEN_ENV_VAR = "MINECORD_ORG_TOKEN";
     public static final String WEBHOOK_URL_ENV_VAR = "MINECORD_WEBHOOK_URL";
@@ -40,10 +39,10 @@ public class Secrets {
      * Initializes the secrets registry
      * @param config The config to fall back to if environment variables are not present
      */
-    public Secrets(@NonNull Config config) {
+    public Secrets(@NonNull Config config, @NonNull String token) {
         BotListConfig blc = config.getBotListConfig();
 
-        token = from(TOKEN_ENV_VAR, config.getToken());
+        this.token = token;
         if (blc != null) {
             pwToken = from(PW_TOKEN_ENV_VAR, blc.getPwToken());
             orgToken = from(ORG_TOKEN_ENV_VAR, blc.getOrgToken());

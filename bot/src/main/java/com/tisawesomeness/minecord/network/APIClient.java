@@ -1,15 +1,12 @@
 package com.tisawesomeness.minecord.network;
 
 import lombok.NonNull;
-import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 import java.io.IOException;
 import java.net.URL;
 
 public interface APIClient {
-
-    OkHttpClient.Builder getHttpClientBuilder();
 
     /**
      * Performs a HEAD request.

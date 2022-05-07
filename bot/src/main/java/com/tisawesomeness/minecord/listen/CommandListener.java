@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.listen;
 
-import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Minecord;
 import com.tisawesomeness.minecord.command.CommandExecutor;
 import com.tisawesomeness.minecord.command.CommandRegistry;
 import com.tisawesomeness.minecord.command.meta.Command;
@@ -32,14 +32,14 @@ import java.util.Optional;
 
 public class CommandListener extends ListenerAdapter {
 
-    private final @NonNull Bot bot;
+    private final @NonNull Minecord bot;
     private final @NonNull Config config;
     private final @NonNull CommandRegistry registry;
     @Getter private final @NonNull CommandExecutor commandExecutor;
     private final ListValuedEnumMap<Lang, String> prefixQuestions;
 
-    public CommandListener(@NonNull Bot bot, @NonNull Config config,
-            @NonNull CommandRegistry registry, @NonNull CommandStats commandStats) {
+    public CommandListener(@NonNull Minecord bot, @NonNull Config config,
+                           @NonNull CommandRegistry registry, @NonNull CommandStats commandStats) {
         this.bot = bot;
         this.config = config;
         this.registry = registry;

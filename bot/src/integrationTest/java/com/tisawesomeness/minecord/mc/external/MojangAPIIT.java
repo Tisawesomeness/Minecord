@@ -1,17 +1,14 @@
 package com.tisawesomeness.minecord.mc.external;
 
-import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.mc.player.NameChange;
 import com.tisawesomeness.minecord.mc.player.Profile;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.network.APIClient;
-import com.tisawesomeness.minecord.network.OkAPIClient;
 import com.tisawesomeness.minecord.testutil.PlayerTests;
-import com.tisawesomeness.minecord.testutil.Resources;
 import com.tisawesomeness.minecord.testutil.annotation.MojangAPITest;
+import com.tisawesomeness.minecord.testutil.network.OkUtil;
 import com.tisawesomeness.minecord.util.Lists;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,9 +28,8 @@ public class MojangAPIIT {
     private static MojangAPI api;
 
     @BeforeAll
-    private static void initAPI() throws JsonProcessingException {
-        Config config = Resources.config();
-        APIClient client = new OkAPIClient(config.getAdvancedConfig().getHttpConfig());
+    private static void initAPI() {
+        APIClient client = OkUtil.buildSampleClient();
         api = new MojangAPIImpl(client);
     }
 

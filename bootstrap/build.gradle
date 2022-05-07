@@ -1,8 +1,32 @@
 plugins {
     id 'minecord.conventions'
-    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+repositories {
+    // Inherited from bot project for bot list dependency
+    maven {
+        name 'jitpack'
+        url 'https://jitpack.io'
+    }
 }
 
 dependencies {
     implementation project(":shared")
+    implementation project(":bot")
+    // Command-line arguments
+    implementation 'info.picocli:picocli:4.6.3'
+    annotationProcessor 'info.picocli:picocli-codegen:4.6.3'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'com.tisawesomeness.minecord.bootstrap.Bootstrap'
+        )
+    }
+}
+
+shadowJar {
+//    minimize()
 }

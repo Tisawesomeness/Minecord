@@ -1,12 +1,13 @@
 package com.tisawesomeness.minecord;
 
 import com.tisawesomeness.minecord.config.config.Config;
+import com.tisawesomeness.minecord.share.BuildInfo;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
-public class Placeholders {
+public final class Placeholders {
     // Branding
     public static final String AUTHOR = "%author%";
     public static final String AUTHOR_TAG = "%author_tag%";
@@ -38,11 +39,13 @@ public class Placeholders {
      * @return The string with resolved constants, though variables such as %guilds% are unresolved
      */
     public static @NonNull String parseConstants(@NonNull String str, @NonNull Config config,
-                                                 @NonNull BotBranding botBranding) {
-        return botBranding.parsePlaceholders(buildInfo.parsePlaceholders(str))
+                                                 @NonNull BotBranding botBranding, int shardCount) {
+        return botBranding.parsePlaceholders(str)
+                .replace(VERSION, buildInfo.version)
+                .replace(JDA_VERSION, buildInfo.jdaVersion)
                 .replace(JAVA_VERSION, System.getProperty("java.version"))
                 .replace(MC_VERSION, config.getSupportedMCVersion())
-                .replace(BOT_SHARDS, String.valueOf(config.getShardCount()))
+                .replace(BOT_SHARDS, String.valueOf(shardCount))
                 .replace(PREFIX, config.getSettingsConfig().getDefaultPrefix());
     }
     /**

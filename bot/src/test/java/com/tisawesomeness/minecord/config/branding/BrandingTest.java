@@ -1,9 +1,9 @@
 package com.tisawesomeness.minecord.config.branding;
 
 import com.tisawesomeness.minecord.BotBrandingTest;
+import com.tisawesomeness.minecord.share.util.Verification;
 import com.tisawesomeness.minecord.testutil.Resources;
 import com.tisawesomeness.minecord.util.discord.PresenceBehavior;
-import com.tisawesomeness.minecord.util.type.Verification;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.BeforeAll;
@@ -31,7 +31,7 @@ public class BrandingTest {
     }
 
     /**
-     * {@link com.tisawesomeness.minecord.util.discord.PresenceSwitcherTest#test(PresenceBehavior)}
+     * {@link com.tisawesomeness.minecord.util.discord.PresenceSwitcherTest#testOnePresence(PresenceBehavior)}
      */
     @Test
     @DisplayName("Default branding has one and only one presence")

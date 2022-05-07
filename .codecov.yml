@@ -19,4 +19,4 @@ comment:
   require_changes: false
 
 ignore:
-  - src/main/java/br/**/*
+  - bot/src/main/java/br/**/*

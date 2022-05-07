@@ -2,12 +2,12 @@ package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.command.meta.Result;
 import com.tisawesomeness.minecord.mc.player.*;
+import com.tisawesomeness.minecord.share.util.IO;
 import com.tisawesomeness.minecord.testutil.Resources;
 import com.tisawesomeness.minecord.testutil.mc.MockMojangAPI;
 import com.tisawesomeness.minecord.testutil.mc.TestMCLibrary;
 import com.tisawesomeness.minecord.testutil.mc.TestPlayerProvider;
 import com.tisawesomeness.minecord.testutil.runner.TestCommandRunner;
-import com.tisawesomeness.minecord.util.IO;
 import com.tisawesomeness.minecord.util.Lists;
 import com.tisawesomeness.minecord.util.Strings;
 

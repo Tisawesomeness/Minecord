@@ -1,10 +1,10 @@
 package com.tisawesomeness.minecord.command.core;
 
-import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.BotBranding;
-import com.tisawesomeness.minecord.BuildInfo;
+import com.tisawesomeness.minecord.Minecord;
 import com.tisawesomeness.minecord.command.meta.CommandContext;
 import com.tisawesomeness.minecord.config.config.Config;
+import com.tisawesomeness.minecord.share.BuildInfo;
 import com.tisawesomeness.minecord.util.DateUtils;
 
 import lombok.NonNull;
@@ -48,7 +48,7 @@ public class InfoCommand extends AbstractCoreCommand {
         eb.addField("Version", MarkdownUtil.monospace(buildInfo.version), true);
         eb.addField("MC Version", MarkdownUtil.monospace(config.getSupportedMCVersion()), true);
 
-        Bot bot = ctx.getBot();
+        Minecord bot = ctx.getBot();
         ShardManager sm = bot.getShardManager();
         String guilds = String.valueOf(sm.getGuilds().size());
         int shardTotal = bot.getShardManager().getShardsTotal();

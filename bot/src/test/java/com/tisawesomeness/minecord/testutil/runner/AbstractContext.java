@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.testutil.runner;
 
-import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Minecord;
 import com.tisawesomeness.minecord.command.CommandExecutor;
 import com.tisawesomeness.minecord.command.meta.Command;
 import com.tisawesomeness.minecord.command.meta.CommandContext;
@@ -33,7 +33,7 @@ public abstract class AbstractContext extends CommandContext {
         unsupported();
         return null;
     }
-    public @NonNull Bot getBot() {
+    public @NonNull Minecord getBot() {
         unsupported();
         return null;
     }

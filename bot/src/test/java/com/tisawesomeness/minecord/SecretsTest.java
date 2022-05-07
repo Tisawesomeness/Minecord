@@ -7,8 +7,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
-import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -20,30 +18,23 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SecretsTest {
-    private static Config config;
+
+    private static final String DUMMY_TOKEN = "dummyToken";
+
     private static Secrets secrets;
 
     @BeforeAll
     private static void initConfig() throws JsonProcessingException {
-        config = Resources.config();
-        secrets = new Secrets(config);
+        Config config = Resources.config();
+        secrets = new Secrets(config, DUMMY_TOKEN);
     }
 
     @Test
-    @DisplayName("Secrets takes token from config if env var is absent")
-    @DisabledIfEnvironmentVariable(named = Secrets.TOKEN_ENV_VAR, matches = ".+")
+    @DisplayName("Secrets takes token from constructor")
     public void testTokenConfig() {
         assertThat(secrets.getToken())
-                .withFailMessage("Secrets token did not match config token")
-                .isEqualTo(config.getToken());
-    }
-    @Test
-    @DisplayName("Secrets takes token from env var if present")
-    @EnabledIfEnvironmentVariable(named = Secrets.TOKEN_ENV_VAR, matches = ".+")
-    public void testTokenEnvVar() {
-        assertThat(secrets.getToken())
-                .withFailMessage("Secrets token did not match env var")
-                .isEqualTo(System.getenv(Secrets.TOKEN_ENV_VAR));
+                .withFailMessage("Secrets token did not match dummy")
+                .isEqualTo(DUMMY_TOKEN);
     }
 
     @ParameterizedTest(name = "{index} ==> Secret {index} is cleansed")

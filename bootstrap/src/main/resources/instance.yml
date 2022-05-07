@@ -1,0 +1,64 @@
+####################################################
+#       Welcome to the Minecord config file!       #
+####################################################
+
+
+# Hope you enjoy self-hosting.
+# To start the bot, all you need to edit is the token,
+# but of course you can also configure everything else.
+#
+# To get user/channel/guild IDs:
+# - Go to User Settings in Discord
+# - Click "Appearance"
+# - Turn on Developer Mode
+# - You can now right click to get IDs
+#
+# For help, check out these resources:
+# GitHub: https://github.com/Tisawesomeness/Minecord
+# Support Server: https://minecord.github.io/support
+# Remember to grab the self-hosting role in #self-roles in the support server!
+#
+# Pull requests are welcome!
+# If you make changes, we would love for you to contribute them
+# to the main bot so everyone else can enjoy them too.
+#
+# Remember that Minecord uses the GNU AGPL-3 license,
+# so if you make changes on a public self-hosted bot, you must make it open source.
+# You can link to the GitHub page in branding.yml.
+# https://github.com/Tisawesomeness/Minecord/blob/refactor/LICENSE
+#
+# Keeping the above in mind, run wild!
+# Let's make Minecord the ultimate Minecraft assistant.
+
+
+# Create a Discord application in the link below and put the token here
+# https://discord.com/developers/applications
+# ---> KEEP THIS TOKEN SECRET! <---
+# If your token leaks, other people can control the bot!
+token: "your token here"
+
+# The number of shards (separate connections) to Discord
+# Just 1 should be enough for self-hosters
+shardCount: 1
+
+# Possible log levels: OFF, ERROR, WARN, INFO, DEBUG, TRACE, ALL
+# Setting this to INFO or DEBUG is recommended
+# Log messages that print before the config is read cannot be changed
+logLevel: INFO
+
+# The presence (activity) that shows when the bot is loading
+loadingActivity:
+  # Type is optional, which can be PLAYING, STREAMING, LISTENING, or COMPETING
+  type: PLAYING
+  # If type is defined, content is the text that displays ("playing <content>")
+  # Content will be limited to 128 characters
+  content: "Loading..."
+
+# HTTP client settings (advanced)
+http:
+  # Max requests to one host (usually Discord)
+  maxRequestsPerHost: 25
+  # Max idling connections
+  maxIdleConnections: 5
+  # Keep alive duration in milliseconds
+  keepAlive: 10000

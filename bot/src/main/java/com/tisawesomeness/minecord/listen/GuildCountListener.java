@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.listen;
 
-import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Minecord;
 import com.tisawesomeness.minecord.config.branding.PresenceConfig;
 import com.tisawesomeness.minecord.config.config.BotListConfig;
 import com.tisawesomeness.minecord.service.BotListService;
@@ -21,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GuildCountListener extends ListenerAdapter {
 
-    private final @NonNull Bot bot;
+    private final @NonNull Minecord bot;
     private final @Nullable BotListConfig botListConfig;
     private final @Nullable PresenceConfig presenceConfig;
     private final @NonNull PresenceService presenceService;

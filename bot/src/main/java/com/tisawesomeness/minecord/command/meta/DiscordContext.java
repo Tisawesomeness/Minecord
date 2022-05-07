@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.command.meta;
 
-import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Minecord;
 import com.tisawesomeness.minecord.command.CommandExecutor;
 import com.tisawesomeness.minecord.config.branding.Branding;
 import com.tisawesomeness.minecord.config.config.Config;
@@ -30,7 +30,7 @@ public class DiscordContext extends CommandContext {
     @Getter private final String[] args;
     @Getter private final @NonNull MessageReceivedEvent e;
     @Getter private final @NonNull Config config;
-    @Getter private final @NonNull Bot bot;
+    @Getter private final @NonNull Minecord bot;
     @Getter private final @NonNull Command cmd;
     @Getter private final @NonNull CommandExecutor executor;
     @Getter private final boolean isElevated;
@@ -39,7 +39,7 @@ public class DiscordContext extends CommandContext {
     @Getter private final Lang lang;
 
     public DiscordContext(@NonNull String[] args, @NonNull MessageReceivedEvent e, @NonNull Config config,
-                          @NonNull Bot bot, @NonNull Command cmd, @NonNull CommandExecutor executor,
+                          @NonNull Minecord bot, @NonNull Command cmd, @NonNull CommandExecutor executor,
                           boolean isElevated, @NonNull String prefix, Lang lang) {
         this.args = args;
         this.e = e;

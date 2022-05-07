@@ -5,12 +5,12 @@ import com.tisawesomeness.minecord.mc.player.AccountStatus;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.network.APIClient;
-import com.tisawesomeness.minecord.network.OkAPIClient;
 import com.tisawesomeness.minecord.testutil.Futures;
 import com.tisawesomeness.minecord.testutil.PlayerTests;
 import com.tisawesomeness.minecord.testutil.Reflect;
 import com.tisawesomeness.minecord.testutil.Resources;
 import com.tisawesomeness.minecord.testutil.annotation.MojangAPITest;
+import com.tisawesomeness.minecord.testutil.network.OkUtil;
 import com.tisawesomeness.minecord.util.Lists;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -39,7 +39,7 @@ public class PlayerProviderIT {
     @BeforeAll
     private static void initAPI() throws JsonProcessingException {
         Config config = Resources.config();
-        client = new OkAPIClient(config.getAdvancedConfig().getHttpConfig());
+        client = OkUtil.buildSampleClient();
         provider = new DualPlayerProvider(client, config);
     }
 

@@ -5,7 +5,6 @@ import com.tisawesomeness.minecord.network.APIClient;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 import java.io.IOException;
@@ -22,10 +21,6 @@ import java.util.Collection;
 public class TestClient implements APIClient {
 
     private boolean isClosed;
-
-    public OkHttpClient.Builder getHttpClientBuilder() {
-        throw new UnsupportedOperationException("Unsupported");
-    }
 
     private final Collection<URI> throwingUris = new ArrayList<>();
     public void addThrowingUrl(@NonNull URL url) throws URISyntaxException {

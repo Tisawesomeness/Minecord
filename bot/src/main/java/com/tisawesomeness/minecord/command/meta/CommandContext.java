@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.command.meta;
 
-import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Minecord;
 import com.tisawesomeness.minecord.command.CommandExecutor;
 import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.database.DatabaseCache;
@@ -48,7 +48,7 @@ public abstract class CommandContext {
     /**
      * A link to the bot instance.
      */
-    public abstract @NonNull Bot getBot();
+    public abstract @NonNull Minecord getBot();
     /**
      * The original command that created this context
      */
@@ -449,7 +449,7 @@ public abstract class CommandContext {
     }
 
     /**
-     * Shortcut for {@link #getBot}.{@link Bot#getMCLibrary() getMCLibrary()}
+     * Shortcut for {@link #getBot}.{@link Minecord#getMCLibrary() getMCLibrary()}
      * @return The Minecraft library object
      */
     public @NonNull MCLibrary getMCLibrary() {
@@ -457,7 +457,7 @@ public abstract class CommandContext {
     }
 
     /**
-     * Shortcut for {@link #getBot}.{@link Bot#getDatabaseCache() getDatabase()}
+     * Shortcut for {@link #getBot}.{@link Minecord#getDatabaseCache() getDatabase()}
      * @return The guild, channel, and user cache associated with this bot
      */
     public @NonNull DatabaseCache getCache() {

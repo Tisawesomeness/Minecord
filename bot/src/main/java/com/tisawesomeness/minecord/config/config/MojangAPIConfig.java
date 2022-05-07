@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.config.config;
 
 import com.tisawesomeness.minecord.mc.external.MojangAPI;
-import com.tisawesomeness.minecord.util.type.Verification;
+import com.tisawesomeness.minecord.share.util.Verification;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;

@@ -1,40 +1,24 @@
 package com.tisawesomeness.minecord.network;
 
-import com.tisawesomeness.minecord.config.config.HttpConfig;
-
-import lombok.Getter;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import okhttp3.*;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.concurrent.TimeUnit;
 
 /**
  * A simplified HTTP client that can be used to communicate with web JSON APIs.
  */
+@RequiredArgsConstructor
 public class OkAPIClient implements APIClient {
 
     /**
      * The builder used to construct a {@link OkHttpClient} instance
      */
-    @Getter private final OkHttpClient.Builder httpClientBuilder;
-    private final Dispatcher dispatcher;
-    private final ConnectionPool connectionPool;
-
-    /**
-     * Creates a new API client with the default settings.
-     */
-    public OkAPIClient(@NonNull HttpConfig config) {
-        // client is set to JDA defaults
-        dispatcher = new Dispatcher();
-        dispatcher.setMaxRequestsPerHost(config.getMaxRequestsPerHost());
-        connectionPool = new ConnectionPool(config.getMaxIdleConnections(),
-                config.getKeepAlive(), TimeUnit.MILLISECONDS);
-        httpClientBuilder = new OkHttpClient.Builder()
-                .connectionPool(connectionPool)
-                .dispatcher(dispatcher);
-    }
+    private final @NonNull OkHttpClient.Builder httpClientBuilder;
+    private final @NonNull Dispatcher dispatcher;
+    private final @NonNull ConnectionPool connectionPool;
 
     @Override
     public @NonNull Response head(@NonNull URL url) throws IOException {

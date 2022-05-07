@@ -3,7 +3,7 @@ package com.tisawesomeness.minecord.setting.parse;
 import com.tisawesomeness.minecord.command.meta.CommandContext;
 import com.tisawesomeness.minecord.database.dao.SettingContainer;
 import com.tisawesomeness.minecord.setting.Setting;
-import com.tisawesomeness.minecord.util.type.Validation;
+import com.tisawesomeness.minecord.share.util.Validation;
 
 import lombok.NonNull;
 

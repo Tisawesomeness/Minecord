@@ -4,7 +4,7 @@ import com.tisawesomeness.minecord.config.config.SettingsConfig;
 import com.tisawesomeness.minecord.database.dao.SettingContainer;
 import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.setting.Setting;
-import com.tisawesomeness.minecord.util.type.Validation;
+import com.tisawesomeness.minecord.share.util.Validation;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

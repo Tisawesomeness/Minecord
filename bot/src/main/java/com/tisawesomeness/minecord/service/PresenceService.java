@@ -4,6 +4,7 @@ import com.tisawesomeness.minecord.Placeholders;
 import com.tisawesomeness.minecord.config.branding.Branding;
 import com.tisawesomeness.minecord.config.branding.Presence;
 import com.tisawesomeness.minecord.config.branding.PresenceConfig;
+import com.tisawesomeness.minecord.share.LoadingActivity;
 import com.tisawesomeness.minecord.util.Strings;
 import com.tisawesomeness.minecord.util.discord.PresenceSwitcher;
 
@@ -63,7 +64,7 @@ public class PresenceService extends Service {
             return;
         }
         String parsedContent = Placeholders.parseVariables(Objects.requireNonNull(presence.getContent()), sm);
-        String displayContent = Strings.safeSubstring(parsedContent, 0, Presence.MAX_CONTENT_LENGTH);
+        String displayContent = Strings.safeSubstring(parsedContent, 0, LoadingActivity.MAX_CONTENT_LENGTH);
         Activity.ActivityType activityType = Objects.requireNonNull(presence.getType()).getActivityType();
         Activity jdaActivity = Activity.of(activityType, displayContent, presence.getUrl());
         sm.setPresence(presence.getStatus(), jdaActivity);

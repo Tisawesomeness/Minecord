@@ -9,9 +9,9 @@ import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.Render;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.mc.player.Username;
+import com.tisawesomeness.minecord.share.util.Either;
 import com.tisawesomeness.minecord.util.Colors;
 import com.tisawesomeness.minecord.util.UUIDs;
-import com.tisawesomeness.minecord.util.type.Either;
 
 import lombok.NonNull;
 import lombok.Value;

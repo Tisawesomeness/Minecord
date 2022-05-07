@@ -29,20 +29,20 @@ public class AnnounceRegistry {
      * Reads announcements from file and parses their %constants%
      */
     public AnnounceRegistry(@NonNull Config config, @NonNull BotBranding branding,
-                            @NonNull AnnouncementConfig announceConf) {
+                            @NonNull AnnouncementConfig announceConf, int shardCount) {
         announcementsMap = new EnumMap<>(Lang.class);
         for (Map.Entry<Lang, List<Announcement>> entry : announceConf.getAnnouncements().entrySet()) {
             Lang lang = entry.getKey();
             List<Announcement> announcements = entry.getValue();
-            announcementsMap.put(lang, buildWeightedAnnouncements(announcements, config, branding));
+            announcementsMap.put(lang, buildWeightedAnnouncements(announcements, config, branding, shardCount));
         }
         fallbackToDefaultLang = announceConf.isFallbackToDefaultLang();
     }
-    private static MultiSet<String> buildWeightedAnnouncements(Iterable<Announcement> announcements,
-                                                               Config config, BotBranding branding) {
+    private static MultiSet<String> buildWeightedAnnouncements(Iterable<Announcement> announcements, Config config,
+                                                               BotBranding branding, int shardCount) {
         MultiSet<String> multiSet = new HashMultiSet<>();
         for (Announcement ann : announcements) {
-            String text = Placeholders.parseConstants(ann.getContent(), config, branding);
+            String text = Placeholders.parseConstants(ann.getContent(), config, branding, shardCount);
             multiSet.add(text, ann.getWeight());
         }
         return MultiSetUtils.unmodifiableMultiSet(multiSet);

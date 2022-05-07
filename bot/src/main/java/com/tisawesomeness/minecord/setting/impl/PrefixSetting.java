@@ -3,9 +3,9 @@ package com.tisawesomeness.minecord.setting.impl;
 import com.tisawesomeness.minecord.config.config.SettingsConfig;
 import com.tisawesomeness.minecord.database.dao.SettingContainer;
 import com.tisawesomeness.minecord.setting.Setting;
+import com.tisawesomeness.minecord.share.util.Validation;
+import com.tisawesomeness.minecord.share.util.Verification;
 import com.tisawesomeness.minecord.util.Discord;
-import com.tisawesomeness.minecord.util.type.Validation;
-import com.tisawesomeness.minecord.util.type.Verification;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

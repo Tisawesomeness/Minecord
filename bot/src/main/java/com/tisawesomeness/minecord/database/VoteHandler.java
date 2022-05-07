@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.database;
 
-import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Minecord;
 import com.tisawesomeness.minecord.Secrets;
 
 import com.sun.net.httpserver.HttpExchange;
@@ -21,7 +21,7 @@ public class VoteHandler {
 
     private HttpServer server;
 
-    public VoteHandler(Bot bot, Secrets secrets) throws IOException {
+    public VoteHandler(Minecord bot, Secrets secrets) throws IOException {
 
         server = HttpServer.create(new InetSocketAddress(secrets.getWebhookPort()), 0);
         server.createContext("/" + secrets.getWebhookUrl(), new HttpHandler() {

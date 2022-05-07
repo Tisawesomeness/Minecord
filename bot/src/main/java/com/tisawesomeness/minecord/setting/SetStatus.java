@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.setting;
 
 import com.tisawesomeness.minecord.database.dao.SettingContainer;
-import com.tisawesomeness.minecord.util.type.Validation;
+import com.tisawesomeness.minecord.share.util.Validation;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

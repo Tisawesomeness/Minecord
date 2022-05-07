@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord;
 import com.tisawesomeness.minecord.config.branding.Branding;
 import com.tisawesomeness.minecord.config.branding.BrandingConfig;
 import com.tisawesomeness.minecord.config.config.Config;
+import com.tisawesomeness.minecord.share.BuildInfo;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -76,7 +77,7 @@ public class BotBranding {
      * @return The string with resolved constants, though variables such as %guilds% are unresolved
      */
     public @NonNull String parsePlaceholders(@NonNull String str) {
-        return buildInfo.parsePlaceholders(str)
+        return str
                 .replace(Placeholders.AUTHOR, author)
                 .replace(Placeholders.AUTHOR_TAG, authorTag)
                 .replace(Placeholders.HELP_SERVER, helpServer)

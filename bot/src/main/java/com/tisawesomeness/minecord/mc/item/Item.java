@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.mc.item;
 
-import com.tisawesomeness.minecord.util.IO;
+import com.tisawesomeness.minecord.share.util.IO;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import org.json.JSONArray;

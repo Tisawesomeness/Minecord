@@ -1,45 +1,3 @@
-####################################################
-#       Welcome to the Minecord config file!       #
-####################################################
-
-
-# Hope you enjoy self-hosting.
-# To start the bot, all you need to edit is the token,
-# but of course you can also configure everything else.
-#
-# To get user/channel/guild IDs:
-# - Go to User Settings in Discord
-# - Click "Appearance"
-# - Turn on Developer Mode
-# - You can now right click to get IDs
-#
-# For help, check out these resources:
-# GitHub: https://github.com/Tisawesomeness/Minecord
-# Support Server: https://minecord.github.io/support
-# Remember to grab the self-hosting role in #self-roles in the support server!
-#
-# Pull requests are welcome!
-# If you make changes, we would love for you to contribute them
-# to the main bot so everyone else can enjoy them too.
-#
-# Remember that Minecord uses the GNU AGPL-3 license,
-# so if you make changes on a public self-hosted bot, you must make it open source.
-# You can link to the GitHub page in branding.yml.
-# https://github.com/Tisawesomeness/Minecord/blob/refactor/LICENSE
-#
-# Keeping the above in mind, run wild!
-# Let's make Minecord the ultimate Minecraft assistant.
-
-
-# Create a Discord application in the link below and put the token here
-# https://discord.com/developers/applications
-# ---> KEEP THIS TOKEN SECRET! <---
-# If your token leaks, other people can control the bot!
-token: "your token here"
-
-# The number of shards (separate connections) to Discord
-# Just 1 should be enough for self-hosters
-shardCount: 1
 # A list of user IDs that will be recognized as owners
 # Owners are elevated on startup, can't be demoted, and can't be banned
 # Only put people here you absolutely trust
@@ -47,14 +5,9 @@ owners:
 - 211261249386708992 # Tis_awesomeness#8617
 # Bot log messages will be sent to this channel
 logChannelId: 0
-# Possible log levels: OFF, ERROR, WARN, INFO, DEBUG, TRACE, ALL
-# Setting this to INFO or DEBUG is recommended
-# Log messages that print before the config is read cannot be changed
-logLevel: INFO
 # If you are self-hosting, leave this to true
 # Setting this to false is unsupported
 isSelfHosted: true
-
 # The latest Minecraft version that the bot supports (recipes, servers, etc.)
 # If a new version releases and no recipes change, you can update the version below.
 supportedMCVersion: "1.15.2"
@@ -191,14 +144,6 @@ commands:
 
 # Advanced config, edit with caution
 advanced:
-
-  http:
-    # Max requests to one host (usually Discord)
-    maxRequestsPerHost: 25
-    # Max idling connections
-    maxIdleConnections: 5
-    # Keep alive duration in milliseconds
-    keepAlive: 10000
 
   mojangAPI:
     # The amount of time in seconds a Username-->UUID mapping is kept in the cache, minimum 60 seconds

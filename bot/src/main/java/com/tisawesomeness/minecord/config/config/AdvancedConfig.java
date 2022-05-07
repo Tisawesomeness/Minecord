@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.config.config;
 
-import com.tisawesomeness.minecord.util.type.Verification;
+import com.tisawesomeness.minecord.share.util.Verification;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
@@ -12,8 +12,6 @@ import javax.annotation.Nullable;
 
 @Value
 public class AdvancedConfig {
-    @JsonProperty("http")
-    HttpConfig httpConfig;
     @JsonProperty("mojangAPI")
     MojangAPIConfig mojangAPIConfig;
     @JsonProperty("databaseCache")
@@ -25,7 +23,6 @@ public class AdvancedConfig {
 
     public Verification verify(FlagConfig flagConfig) {
         return Verification.combineAll(
-                httpConfig.verify(),
                 mojangAPIConfig.verify(flagConfig),
                 databaseCacheConfig.verify(),
                 advDiscordConfig.verify(),

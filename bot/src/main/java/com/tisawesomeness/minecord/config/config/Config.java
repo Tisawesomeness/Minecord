@@ -1,13 +1,11 @@
 package com.tisawesomeness.minecord.config.config;
 
-import com.tisawesomeness.minecord.config.VerifiableConfig;
-import com.tisawesomeness.minecord.util.type.Verification;
+import com.tisawesomeness.minecord.share.config.VerifiableConfig;
+import com.tisawesomeness.minecord.share.util.Verification;
 
-import ch.qos.logback.classic.Level;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
-import lombok.ToString;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,29 +14,18 @@ import java.util.List;
 
 /**
  * Contains all the values that changes how the bot functions, mirroring {@code config.yml}.
- * <br>This class assumes it is being parsed with nulls failing by default, which can be set with:
- * <pre>{@code
- *     ObjectMapper mapper = ...;
- *     mapper.setDefaultSetterInfo(JsonSetter.Value.forValueNulls(Nulls.FAIL))
- * }</pre>
- * Optional fields are annotated with {@code @JsonSetter(nulls = Nulls.SET)}.
+ * <br>This class assumes it is being parsed with the
+ * {@link com.tisawesomeness.minecord.share.config.ConfigReader} settings.
  */
 @Value
 @Slf4j
 public class Config implements VerifiableConfig {
-    @JsonProperty("token") @ToString.Exclude
-    String token;
-    @JsonProperty("shardCount")
-    int shardCount;
     @JsonProperty("owners")
     List<Long> owners;
     @JsonProperty("logChannelId")
     long logChannelId;
-    @JsonProperty("logLevel")
-    Level logLevel;
     @JsonProperty("isSelfHosted")
     boolean isSelfHosted;
-
     @JsonProperty("supportedMCVersion")
     String supportedMCVersion;
 
@@ -68,16 +55,12 @@ public class Config implements VerifiableConfig {
             log.warn("The list of owners in the config is empty. Add your user ID to get access to admin commands.");
         }
         return Verification.combineAll(
-                verifyShards(),
                 settingsConfig.verify(),
                 generalConfig.verify(),
                 verifyBotListConfig(),
                 commandConfig.verify(),
                 advancedConfig.verify(flagConfig)
         );
-    }
-    private Verification verifyShards() {
-        return Verification.verify(shardCount > 0, "The shard count must be positive!");
     }
     private Verification verifyBotListConfig() {
         if (botListConfig == null) {

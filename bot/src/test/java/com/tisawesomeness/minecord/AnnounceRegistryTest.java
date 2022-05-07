@@ -18,7 +18,7 @@ public class AnnounceRegistryTest {
         Config config = Resources.config();
         BotBranding branding = new BotBranding();
         AnnouncementConfig annConf = Resources.branding().getAnnouncementConfig();
-        assertThat(new AnnounceRegistry(config, branding, annConf)).isNotNull();
+        assertThat(new AnnounceRegistry(config, branding, annConf, 1)).isNotNull();
     }
 
 }
