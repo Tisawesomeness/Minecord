@@ -6,3 +6,5 @@ rootProject.name = 'minecord'
 include 'common'
 include 'bootstrap'
 include 'bot'
+include 'mcserverping'
+

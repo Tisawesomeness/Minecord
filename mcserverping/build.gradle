@@ -1,0 +1,10 @@
+plugins {
+    id 'minecord.conventions-all'
+}
+
+group = 'br.com.azalim'
+
+dependencies {
+    implementation 'dnsjava:dnsjava:3.5.0'
+    implementation 'net.kyori:text-serializer-gson:3.0.4'
+}

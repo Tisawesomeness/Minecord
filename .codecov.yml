@@ -19,4 +19,4 @@ comment:
   require_changes: false
 
 ignore:
-  - bot/src/main/java/br/**/*
+  - mcserverping/**/*

@@ -8,10 +8,6 @@ repositories {
         name 'jitpack'
         url 'https://jitpack.io'
     }
-    maven {
-        name 'sonatype'
-        url 'https://oss.sonatype.org/content/repositories/snapshots'
-    }
 }
 
 testSets {
@@ -20,6 +16,7 @@ testSets {
 
 dependencies {
     implementation project(":common")
+    implementation project(":mcserverping")
     // Top.gg bot site API wrapper
     implementation 'com.github.DiscordBotList:Java-Wrapper:v1.0'
     // Caching

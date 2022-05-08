@@ -1,0 +1,1 @@
+An implementation of [MCServerPing](https://github.com/lucaazalim/minecraft-server-ping) with some edits, check the repo for more information.
