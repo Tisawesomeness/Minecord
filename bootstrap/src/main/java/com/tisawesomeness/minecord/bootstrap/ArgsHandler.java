@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.bootstrap;
 
-import com.tisawesomeness.minecord.share.BuildInfo;
+import com.tisawesomeness.minecord.common.BuildInfo;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

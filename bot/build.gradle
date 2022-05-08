@@ -20,7 +20,7 @@ testSets {
 }
 
 dependencies {
-    implementation project(":shared")
+    implementation project(":common")
     // Top.gg bot site API wrapper
     implementation 'com.github.DiscordBotList:Java-Wrapper:v1.0'
     // Caching

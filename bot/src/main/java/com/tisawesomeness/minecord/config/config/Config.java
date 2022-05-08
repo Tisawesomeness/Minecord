@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.config.config;
 
-import com.tisawesomeness.minecord.share.config.VerifiableConfig;
-import com.tisawesomeness.minecord.share.util.Verification;
+import com.tisawesomeness.minecord.common.config.VerifiableConfig;
+import com.tisawesomeness.minecord.common.util.Verification;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Contains all the values that changes how the bot functions, mirroring {@code config.yml}.
  * <br>This class assumes it is being parsed with the
- * {@link com.tisawesomeness.minecord.share.config.ConfigReader} settings.
+ * {@link com.tisawesomeness.minecord.common.config.ConfigReader} settings.
  */
 @Value
 @Slf4j

@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord;
 
+import com.tisawesomeness.minecord.common.BuildInfo;
 import com.tisawesomeness.minecord.config.config.Config;
-import com.tisawesomeness.minecord.share.BuildInfo;
 import com.tisawesomeness.minecord.testutil.Resources;
 
 import com.fasterxml.jackson.core.JsonProcessingException;

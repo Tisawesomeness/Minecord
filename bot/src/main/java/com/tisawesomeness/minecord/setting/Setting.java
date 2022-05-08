@@ -1,9 +1,9 @@
 package com.tisawesomeness.minecord.setting;
 
 import com.tisawesomeness.minecord.command.meta.CommandContext;
+import com.tisawesomeness.minecord.common.util.Validation;
 import com.tisawesomeness.minecord.database.DatabaseCache;
 import com.tisawesomeness.minecord.database.dao.SettingContainer;
-import com.tisawesomeness.minecord.share.util.Validation;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;

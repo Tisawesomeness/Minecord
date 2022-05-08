@@ -1,8 +1,8 @@
 package com.tisawesomeness.minecord.util.discord;
 
+import com.tisawesomeness.minecord.common.PresenceType;
 import com.tisawesomeness.minecord.config.branding.Presence;
 import com.tisawesomeness.minecord.config.branding.PresenceConfig;
-import com.tisawesomeness.minecord.share.PresenceType;
 import com.tisawesomeness.minecord.testutil.Reflect;
 import com.tisawesomeness.minecord.testutil.Resources;
 import com.tisawesomeness.minecord.util.Lists;

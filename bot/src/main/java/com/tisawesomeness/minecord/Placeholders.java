@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord;
 
+import com.tisawesomeness.minecord.common.BuildInfo;
 import com.tisawesomeness.minecord.config.config.Config;
-import com.tisawesomeness.minecord.share.BuildInfo;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.entities.User;

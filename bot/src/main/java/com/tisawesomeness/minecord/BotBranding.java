@@ -1,9 +1,9 @@
 package com.tisawesomeness.minecord;
 
+import com.tisawesomeness.minecord.common.BuildInfo;
 import com.tisawesomeness.minecord.config.branding.Branding;
 import com.tisawesomeness.minecord.config.branding.BrandingConfig;
 import com.tisawesomeness.minecord.config.config.Config;
-import com.tisawesomeness.minecord.share.BuildInfo;
 
 import lombok.Getter;
 import lombok.NonNull;

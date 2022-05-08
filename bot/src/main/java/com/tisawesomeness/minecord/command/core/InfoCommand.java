@@ -3,8 +3,8 @@ package com.tisawesomeness.minecord.command.core;
 import com.tisawesomeness.minecord.BotBranding;
 import com.tisawesomeness.minecord.Minecord;
 import com.tisawesomeness.minecord.command.meta.CommandContext;
+import com.tisawesomeness.minecord.common.BuildInfo;
 import com.tisawesomeness.minecord.config.config.Config;
-import com.tisawesomeness.minecord.share.BuildInfo;
 import com.tisawesomeness.minecord.util.DateUtils;
 
 import lombok.NonNull;

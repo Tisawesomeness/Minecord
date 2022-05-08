@@ -1,10 +1,10 @@
 package com.tisawesomeness.minecord.testutil;
 
+import com.tisawesomeness.minecord.common.config.ConfigReader;
+import com.tisawesomeness.minecord.common.config.VerifiableConfig;
+import com.tisawesomeness.minecord.common.util.IO;
 import com.tisawesomeness.minecord.config.branding.Branding;
 import com.tisawesomeness.minecord.config.config.Config;
-import com.tisawesomeness.minecord.share.config.ConfigReader;
-import com.tisawesomeness.minecord.share.config.VerifiableConfig;
-import com.tisawesomeness.minecord.share.util.IO;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.NonNull;

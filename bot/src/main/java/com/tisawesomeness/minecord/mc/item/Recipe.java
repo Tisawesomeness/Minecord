@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.mc.item;
 
 import com.tisawesomeness.minecord.ReactMenu;
-import com.tisawesomeness.minecord.share.util.IO;
+import com.tisawesomeness.minecord.common.util.IO;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import org.json.JSONArray;

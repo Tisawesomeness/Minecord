@@ -1,8 +1,8 @@
 package com.tisawesomeness.minecord.config.config;
 
+import com.tisawesomeness.minecord.common.util.Verification;
 import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.setting.impl.PrefixSetting;
-import com.tisawesomeness.minecord.share.util.Verification;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Value;

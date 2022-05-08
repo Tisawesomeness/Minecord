@@ -1,9 +1,9 @@
 package com.tisawesomeness.minecord.bootstrap;
 
-import com.tisawesomeness.minecord.share.HttpConfig;
-import com.tisawesomeness.minecord.share.LoadingActivity;
-import com.tisawesomeness.minecord.share.config.VerifiableConfig;
-import com.tisawesomeness.minecord.share.util.Verification;
+import com.tisawesomeness.minecord.common.HttpConfig;
+import com.tisawesomeness.minecord.common.LoadingActivity;
+import com.tisawesomeness.minecord.common.config.VerifiableConfig;
+import com.tisawesomeness.minecord.common.util.Verification;
 
 import ch.qos.logback.classic.Level;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -18,7 +18,7 @@ import javax.annotation.Nullable;
 /**
  * Contains all the values needed to log into Discord, mirroring {@code instance.yml}
  * <br>This class assumes it is being parsed with the
- * {@link com.tisawesomeness.minecord.share.config.ConfigReader} settings.
+ * {@link com.tisawesomeness.minecord.common.config.ConfigReader} settings.
  */
 @Value
 public class InstanceConfig implements VerifiableConfig {

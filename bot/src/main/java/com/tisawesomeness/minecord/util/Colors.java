@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.util;
 
-import com.tisawesomeness.minecord.share.util.IO;
+import com.tisawesomeness.minecord.common.util.IO;
 
 import org.json.JSONObject;
 

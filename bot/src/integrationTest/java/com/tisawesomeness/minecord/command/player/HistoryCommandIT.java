@@ -1,8 +1,8 @@
 package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.command.meta.Result;
+import com.tisawesomeness.minecord.common.util.IO;
 import com.tisawesomeness.minecord.mc.player.*;
-import com.tisawesomeness.minecord.share.util.IO;
 import com.tisawesomeness.minecord.testutil.Resources;
 import com.tisawesomeness.minecord.testutil.mc.MockMojangAPI;
 import com.tisawesomeness.minecord.testutil.mc.TestMCLibrary;

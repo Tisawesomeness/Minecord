@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation project(":shared")
+    implementation project(":common")
     implementation project(":bot")
     // Command-line arguments
     implementation 'info.picocli:picocli:4.6.3'

@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.config.branding;
 
-import com.tisawesomeness.minecord.share.config.VerifiableConfig;
-import com.tisawesomeness.minecord.share.util.Verification;
+import com.tisawesomeness.minecord.common.config.VerifiableConfig;
+import com.tisawesomeness.minecord.common.util.Verification;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 /**
  * Contains all the values that change how the bot presents itself, mirroring {@code branding.yml}
  * <br>This class assumes it is being parsed with the
- * {@link com.tisawesomeness.minecord.share.config.ConfigReader} settings.
+ * {@link com.tisawesomeness.minecord.common.config.ConfigReader} settings.
  * @see com.tisawesomeness.minecord.config.config.Config Config
  */
 @Value

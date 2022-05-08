@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.config.config;
 
 import com.tisawesomeness.minecord.command.player.ProfileCommand;
-import com.tisawesomeness.minecord.share.util.Verification;
+import com.tisawesomeness.minecord.common.util.Verification;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Value;

@@ -1,9 +1,9 @@
 package com.tisawesomeness.minecord.database;
 
+import com.tisawesomeness.minecord.common.util.IO;
 import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.database.dao.CommandStats;
 import com.tisawesomeness.minecord.database.dao.CommandStatsImpl;
-import com.tisawesomeness.minecord.share.util.IO;
 
 import lombok.Cleanup;
 import lombok.Getter;

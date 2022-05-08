@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.config.config;
 
 import com.tisawesomeness.minecord.BotBrandingTest;
-import com.tisawesomeness.minecord.share.util.Verification;
+import com.tisawesomeness.minecord.common.util.Verification;
 import com.tisawesomeness.minecord.testutil.Resources;
 
 import com.fasterxml.jackson.core.JsonProcessingException;

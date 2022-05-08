@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.util;
 
-import com.tisawesomeness.minecord.share.util.Validation;
+import com.tisawesomeness.minecord.common.util.Validation;
 
 import lombok.NonNull;
 

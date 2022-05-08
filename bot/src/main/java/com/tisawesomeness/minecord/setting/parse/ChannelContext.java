@@ -2,8 +2,8 @@ package com.tisawesomeness.minecord.setting.parse;
 
 import com.tisawesomeness.minecord.command.meta.CommandContext;
 import com.tisawesomeness.minecord.command.meta.Result;
+import com.tisawesomeness.minecord.common.util.Either;
 import com.tisawesomeness.minecord.database.dao.DbChannel;
-import com.tisawesomeness.minecord.share.util.Either;
 import com.tisawesomeness.minecord.util.Discord;
 
 import lombok.Getter;

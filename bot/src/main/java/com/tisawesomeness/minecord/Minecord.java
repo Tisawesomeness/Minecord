@@ -1,6 +1,12 @@
 package com.tisawesomeness.minecord;
 
 import com.tisawesomeness.minecord.command.CommandRegistry;
+import com.tisawesomeness.minecord.common.BootContext;
+import com.tisawesomeness.minecord.common.Bot;
+import com.tisawesomeness.minecord.common.config.ConfigReader;
+import com.tisawesomeness.minecord.common.config.InvalidConfigException;
+import com.tisawesomeness.minecord.common.util.Either;
+import com.tisawesomeness.minecord.common.util.IO;
 import com.tisawesomeness.minecord.config.branding.Branding;
 import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.database.Database;
@@ -16,12 +22,6 @@ import com.tisawesomeness.minecord.network.APIClient;
 import com.tisawesomeness.minecord.network.OkAPIClient;
 import com.tisawesomeness.minecord.service.*;
 import com.tisawesomeness.minecord.setting.SettingRegistry;
-import com.tisawesomeness.minecord.share.BootContext;
-import com.tisawesomeness.minecord.share.Bot;
-import com.tisawesomeness.minecord.share.config.ConfigReader;
-import com.tisawesomeness.minecord.share.config.InvalidConfigException;
-import com.tisawesomeness.minecord.share.util.Either;
-import com.tisawesomeness.minecord.share.util.IO;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.concurrent.ACExecutorService;
 import com.tisawesomeness.minecord.util.concurrent.ShutdownBehavior;

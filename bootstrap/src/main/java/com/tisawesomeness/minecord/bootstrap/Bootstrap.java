@@ -1,14 +1,14 @@
 package com.tisawesomeness.minecord.bootstrap;
 
 import com.tisawesomeness.minecord.Minecord;
-import com.tisawesomeness.minecord.share.BootContext;
-import com.tisawesomeness.minecord.share.Bot;
-import com.tisawesomeness.minecord.share.HttpConfig;
-import com.tisawesomeness.minecord.share.LoadingActivity;
-import com.tisawesomeness.minecord.share.config.ConfigReader;
-import com.tisawesomeness.minecord.share.config.InvalidConfigException;
-import com.tisawesomeness.minecord.share.util.Either;
-import com.tisawesomeness.minecord.share.util.IO;
+import com.tisawesomeness.minecord.common.BootContext;
+import com.tisawesomeness.minecord.common.Bot;
+import com.tisawesomeness.minecord.common.HttpConfig;
+import com.tisawesomeness.minecord.common.LoadingActivity;
+import com.tisawesomeness.minecord.common.config.ConfigReader;
+import com.tisawesomeness.minecord.common.config.InvalidConfigException;
+import com.tisawesomeness.minecord.common.util.Either;
+import com.tisawesomeness.minecord.common.util.IO;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;

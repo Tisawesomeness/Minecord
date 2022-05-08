@@ -1,10 +1,10 @@
 package com.tisawesomeness.minecord.service;
 
 import com.tisawesomeness.minecord.Placeholders;
+import com.tisawesomeness.minecord.common.LoadingActivity;
 import com.tisawesomeness.minecord.config.branding.Branding;
 import com.tisawesomeness.minecord.config.branding.Presence;
 import com.tisawesomeness.minecord.config.branding.PresenceConfig;
-import com.tisawesomeness.minecord.share.LoadingActivity;
 import com.tisawesomeness.minecord.util.Strings;
 import com.tisawesomeness.minecord.util.discord.PresenceSwitcher;
 

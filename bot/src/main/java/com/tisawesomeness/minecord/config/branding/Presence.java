@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.config.branding;
 
-import com.tisawesomeness.minecord.share.PresenceType;
-import com.tisawesomeness.minecord.share.util.Verification;
+import com.tisawesomeness.minecord.common.PresenceType;
+import com.tisawesomeness.minecord.common.util.Verification;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
