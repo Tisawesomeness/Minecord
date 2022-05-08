@@ -1,6 +1,5 @@
 plugins {
     id 'minecord.conventions'
-    id 'jacoco'
     id 'org.unbroken-dome.test-sets' version '4.0.0'
 }
 
@@ -45,20 +44,8 @@ tasks.withType(Test) {
     }
 }
 
-jacoco {
-    toolVersion = "0.8.7"
-}
-
-tasks.withType(JacocoReport) {
-    reports {
-        xml.enabled true
-        html.enabled false
-    }
-}
-
 check.dependsOn integrationTest
 integrationTest.mustRunAfter test
-test.finalizedBy jacocoTestReport
 integrationTest.finalizedBy jacocoIntegrationTestReport
 jacocoIntegrationTestReport.mustRunAfter jacocoTestReport
 

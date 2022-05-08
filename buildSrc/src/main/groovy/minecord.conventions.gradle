@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'java-library'
+    id 'jacoco'
     id 'io.freefair.lombok'
 }
 
@@ -41,3 +42,15 @@ tasks.withType(Test) {
         }
     }
 }
+jacoco {
+    toolVersion = "0.8.7"
+}
+
+tasks.withType(JacocoReport) {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
+test.finalizedBy jacocoTestReport

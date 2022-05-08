@@ -40,3 +40,5 @@ jobs:
           MINECORD_MOJANG_API: "false"
         with:
           arguments: check
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
