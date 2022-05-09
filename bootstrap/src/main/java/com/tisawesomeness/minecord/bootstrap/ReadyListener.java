@@ -17,19 +17,27 @@ public class ReadyListener extends ListenerAdapter {
     private final int shardCount;
 
     /**
-     * Creates a ReadyListener that decrements the given latch when a shard is ready.
-     * @param readyLatch a latch initialized with the number of shards
+     * Creates a ReadyListener that can wait for the given number of shards to ready
+     * @param shardCount the number of shards
      */
-    public ReadyListener(@NonNull CountDownLatch readyLatch) {
-        this.readyLatch = readyLatch;
-        shardCount = (int) readyLatch.getCount();
+    public ReadyListener(int shardCount) {
+        this.shardCount = shardCount;
+        readyLatch = new CountDownLatch(shardCount);
     }
 
     @Override
     public void onReady(@NonNull ReadyEvent e) {
         readyLatch.countDown();
         int readyShards = shardCount - (int) readyLatch.getCount();
-        log.info(String.format("%d/%d shards ready", readyShards, shardCount));
+        log.info("{}/{} shards ready", readyShards, shardCount);
+    }
+
+    /**
+     * Waits for all shards to ready.
+     * @throws InterruptedException if interrupted
+     */
+    public void await() throws InterruptedException {
+        readyLatch.await();
     }
 
 }

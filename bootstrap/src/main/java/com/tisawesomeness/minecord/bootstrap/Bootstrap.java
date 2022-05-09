@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.hooks.EventListener;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.requests.restaction.MessageAction;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
@@ -38,7 +37,6 @@ import java.time.Instant;
 import java.util.EnumSet;
 import java.util.Objects;
 import java.util.concurrent.CompletionException;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -144,8 +142,7 @@ public final class Bootstrap {
     }
 
     private static int initStage(Bot bot, InstanceConfig instanceConfig, String token, Builder httpClientBuilder) {
-        CountDownLatch readyLatch = new CountDownLatch(instanceConfig.getShardCount());
-        EventListener readyListener = new ReadyListener(readyLatch);
+        ReadyListener readyListener = new ReadyListener(instanceConfig.getShardCount());
 
         ShardManager shardManager;
         try {
@@ -161,14 +158,17 @@ public final class Bootstrap {
                     .disableCache(DISABLED_CACHE_FLAGS)
                     .setHttpClientBuilder(httpClientBuilder)
                     .build();
-
-            readyLatch.await();
-            log.info("All shards ready!");
-
-        } catch (CompletionException | LoginException | InterruptedException ex) {
+        } catch (CompletionException | LoginException ex) {
             log.error("FATAL: There was an error logging in, check if your token is correct.", ex);
             return getLoginFailureExitCode(ex);
         }
+        try {
+            readyListener.await();
+        } catch (InterruptedException ex) {
+            log.error("FATAL: Interrupted while waiting for shards to ready.", ex);
+            return BootExitCodes.INTERRUPTED;
+        }
+        log.info("All shards ready!");
 
         MessageAction.setDefaultMentions(ALLOWED_MENTIONS);
 

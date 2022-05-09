@@ -16,4 +16,5 @@ public final class BootExitCodes {
     // init errors
     public static final int LOGIN_FAILURE = 7;
     public static final int LOGIN_IOE = 8;
+    public static final int INTERRUPTED = 9;
 }
