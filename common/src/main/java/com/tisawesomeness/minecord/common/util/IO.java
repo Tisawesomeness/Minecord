@@ -69,11 +69,22 @@ public final class IO {
         return prop;
     }
 
-    public static InputStream openResource(String name) {
+    /**
+     * Copies a file from the resources folder to the file system.
+     * @param name The filename with extension
+     * @param path The path to the file
+     * @throws IOException When an I/O error occurs
+     */
+    public static void copyResource(@NonNull String name, @NonNull Path path) throws IOException {
+        Files.copy(openResource(name), path);
+    }
+
+    private static InputStream openResource(String name) {
         InputStream is = IO.class.getClassLoader().getResourceAsStream(name);
         if (is == null) {
             throw new IllegalArgumentException("The resource was not found!");
         }
         return is;
     }
+
 }

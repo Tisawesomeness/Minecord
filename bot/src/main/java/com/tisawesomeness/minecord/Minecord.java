@@ -392,7 +392,7 @@ public class Minecord implements Bot {
         Path filePath = path.resolve(fileName);
         if (!filePath.toFile().exists()) {
             log.debug("{} does not exist, creating...", fileName);
-            IO.write(filePath, IO.loadResource(fileName));
+            IO.copyResource(fileName, filePath);
         }
         return filePath;
     }

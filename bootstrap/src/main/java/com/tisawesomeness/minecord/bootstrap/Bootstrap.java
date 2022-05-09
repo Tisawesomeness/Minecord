@@ -31,7 +31,6 @@ import picocli.CommandLine;
 
 import javax.security.auth.login.LoginException;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Instant;
 import java.util.EnumSet;
@@ -87,7 +86,7 @@ public final class Bootstrap {
         Path instancePath = path.resolve("instance.yml");
         if (!instancePath.toFile().exists()) {
             try {
-                Files.copy(IO.openResource("instance.yml"), instancePath);
+                IO.copyResource("instance.yml", instancePath);
             } catch (IOException ex) {
                 log.error("FATAL: Failed to create instance.yml", ex);
                 return BootExitCodes.INSTANCE_CONFIG_CREATION_IOE;
