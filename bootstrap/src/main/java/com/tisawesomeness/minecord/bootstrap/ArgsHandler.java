@@ -26,7 +26,14 @@ import java.util.concurrent.Callable;
         versionProvider = ArgsHandler.VersionProvider.class
 )
 @Slf4j
+@SuppressWarnings("unused") // Picocli automatically assigns parameters
 public final class ArgsHandler implements Callable<Integer>, Serializable {
+
+    @Option(names = { "-h", "--help" }, usageHelp = true)
+    private boolean helpRequested;
+
+    @Option(names = { "-v", "--version" }, versionHelp = true)
+    private boolean versionRequested;
 
     @Option(names = {"-p", "--path"}, description = "The path to the directory where config files are located.")
     @Getter private @Nullable Path path;
@@ -56,6 +63,13 @@ public final class ArgsHandler implements Callable<Integer>, Serializable {
             return BootExitCodes.INVALID_PATH;
         }
         return BootExitCodes.SUCCESS;
+    }
+
+    /**
+     * @return Whether the user requested usage or version help
+     */
+    public boolean requestedHelp() {
+        return helpRequested || versionRequested;
     }
 
     protected final static class VersionProvider implements CommandLine.IVersionProvider {

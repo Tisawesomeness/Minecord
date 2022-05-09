@@ -75,7 +75,7 @@ public final class Bootstrap {
 
         ArgsHandler handle = new ArgsHandler();
         int exitCode = new CommandLine(handle).execute(args);
-        if (exitCode != BootExitCodes.SUCCESS) {
+        if (handle.requestedHelp() || exitCode != BootExitCodes.SUCCESS) {
             return exitCode;
         }
         return configStage(Objects.requireNonNull(handle.getPath()), startTime);
