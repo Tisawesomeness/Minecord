@@ -63,7 +63,7 @@ public final class Bootstrap {
             if (exitCode != BootExitCodes.SUCCESS) {
                 System.exit(exitCode);
             }
-        } catch (Exception ex) {
+        } catch (Throwable ex) {
             log.error("FATAL: A fatal exception occurred on startup", ex);
             System.exit(BootExitCodes.GENERAL_FAILURE);
         }
