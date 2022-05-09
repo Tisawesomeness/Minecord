@@ -85,7 +85,7 @@ public class Minecord implements Bot {
      */
     public int createConfigs(@NonNull Path path) {
         Either<Integer, Config> configOrError = initConfig(path);
-        if (!configOrError.isRight()) {
+        if (configOrError.isLeft()) {
             return configOrError.getLeft();
         }
         config = configOrError.getRight();

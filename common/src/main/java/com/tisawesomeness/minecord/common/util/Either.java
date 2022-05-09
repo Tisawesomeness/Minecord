@@ -41,6 +41,12 @@ public final class Either<L, R> {
     }
 
     /**
+     * @return True if this is a Left, otherwise this is a Right
+     */
+    public boolean isLeft() {
+        return left != null;
+    }
+    /**
      * @return True if this is a Right, otherwise this is a Left
      */
     public boolean isRight() {
@@ -94,6 +100,7 @@ public final class Either<L, R> {
         if (isRight()) {
             return right(mapper.apply(right));
         }
+        assert left != null;
         return left(left);
     }
 
@@ -124,7 +131,11 @@ public final class Either<L, R> {
         if (isRight()) {
             return other.isRight() && right.equals(other.right);
         }
-        return !other.isRight() && left.equals(other.left);
+        if (other.isRight()) {
+            return false;
+        }
+        assert left != null;
+        return left.equals(other.left);
     }
     @Override
     public int hashCode() {
@@ -132,6 +143,7 @@ public final class Either<L, R> {
         if (isRight()) {
             return right.hashCode() << 1;
         }
+        assert left != null;
         return left.hashCode() << 1 + 1;
     }
 

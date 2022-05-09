@@ -15,6 +15,7 @@ public class EitherTest {
     public void testLeft() {
         Object o = new Object();
         Either<Object, Object> either = Either.left(o);
+        assertThat(either.isLeft()).isTrue();
         assertThat(either.isRight()).isFalse();
         assertThat(either.getLeft()).isEqualTo(o);
     }
@@ -23,6 +24,7 @@ public class EitherTest {
     public void testRight() {
         Object o = new Object();
         Either<Object, Object> either = Either.right(o);
+        assertThat(either.isLeft()).isFalse();
         assertThat(either.isRight()).isTrue();
         assertThat(either.getRight()).isEqualTo(o);
     }
@@ -47,6 +49,7 @@ public class EitherTest {
         int i = 2;
         Either<Integer, Integer> either = Either.left(i);
         Either<Integer, Integer> mappedEither = either.mapLeft(mapper);
+        assertThat(mappedEither.isLeft()).isTrue();
         assertThat(mappedEither.isRight()).isFalse();
         assertThat(mappedEither.getLeft()).isEqualTo(mapper.apply(i));
     }
@@ -57,6 +60,7 @@ public class EitherTest {
         int i = 2;
         Either<Integer, Integer> either = Either.right(i);
         Either<Integer, Integer> mappedEither = either.mapLeft(mapper);
+        assertThat(mappedEither.isLeft()).isFalse();
         assertThat(mappedEither.isRight()).isTrue();
         assertThat(mappedEither.getRight()).isEqualTo(i);
     }
@@ -67,6 +71,7 @@ public class EitherTest {
         int i = 2;
         Either<Integer, Integer> either = Either.right(i);
         Either<Integer, Integer> mappedEither = either.mapRight(mapper);
+        assertThat(mappedEither.isLeft()).isFalse();
         assertThat(mappedEither.isRight()).isTrue();
         assertThat(mappedEither.getRight()).isEqualTo(mapper.apply(i));
     }
@@ -77,6 +82,7 @@ public class EitherTest {
         int i = 2;
         Either<Integer, Integer> either = Either.left(i);
         Either<Integer, Integer> mappedEither = either.mapRight(mapper);
+        assertThat(mappedEither.isLeft()).isTrue();
         assertThat(mappedEither.isRight()).isFalse();
         assertThat(mappedEither.getLeft()).isEqualTo(i);
     }

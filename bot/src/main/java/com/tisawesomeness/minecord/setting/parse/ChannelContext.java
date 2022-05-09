@@ -75,7 +75,7 @@ public class ChannelContext extends SettingContext {
     private void displayOrParseChannel() {
         String channelArg = ctx.getArgs()[currentArg];
         Either<String, TextChannel> maybeChannel = getChannel(channelArg);
-        if (!maybeChannel.isRight()) {
+        if (maybeChannel.isLeft()) {
             String msg = maybeChannel.getLeft();
             if (msg.equals(INVALID_CHANNEL_ERROR)) {
                 ctx.invalidArgs(msg);
@@ -139,7 +139,7 @@ public class ChannelContext extends SettingContext {
     private void displayOrParseChannelId() {
         String channelArg = ctx.getArgs()[currentArg];
         Either<String, Long> maybeCid = getChannelId(channelArg);
-        if (!maybeCid.isRight()) {
+        if (maybeCid.isLeft()) {
             ctx.invalidArgs(maybeCid.getLeft());
             return;
         }

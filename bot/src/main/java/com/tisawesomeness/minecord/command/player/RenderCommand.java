@@ -72,7 +72,7 @@ public class RenderCommand extends AbstractPlayerCommand {
     private static void handleQuoted(@NonNull CommandContext ctx, RenderType type, int playerArgIndex) {
         String argsWithUsernameStart = ctx.joinArgsSlice(playerArgIndex);
         Either<String, Username> errorOrUsername = validateUsername(argsWithUsernameStart, ctx.getLang());
-        if (!errorOrUsername.isRight()) {
+        if (errorOrUsername.isLeft()) {
             ctx.warn(errorOrUsername.getLeft());
             return;
         }
@@ -82,7 +82,7 @@ public class RenderCommand extends AbstractPlayerCommand {
         // unnecessary Mojang API requests in case the render args are invalid
         int argsUsed = username.argsUsed() + playerArgIndex;
         Either<String, ImpersonalRender> errorOrRender = parseRenderFromArgs(ctx, type, argsUsed, playerArgIndex);
-        if (!errorOrRender.isRight()) {
+        if (errorOrRender.isLeft()) {
             ctx.invalidArgs(errorOrRender.getLeft());
             return;
         }
@@ -100,7 +100,7 @@ public class RenderCommand extends AbstractPlayerCommand {
         // unnecessary Mojang API requests in case the render args are invalid
         int argsUsed = playerArgIndex + 1;
         Either<String, ImpersonalRender> errorOrRender = parseRenderFromArgs(ctx, type, argsUsed, playerArgIndex);
-        if (!errorOrRender.isRight()) {
+        if (errorOrRender.isLeft()) {
             ctx.invalidArgs(errorOrRender.getLeft());
             return;
         }
@@ -121,7 +121,7 @@ public class RenderCommand extends AbstractPlayerCommand {
         }
 
         Either<String, Username> errorOrUsername = validateUsername(usernameArg, ctx.getLang());
-        if (!errorOrUsername.isRight()) {
+        if (errorOrUsername.isLeft()) {
             ctx.warn(errorOrUsername.getLeft());
             return;
         }

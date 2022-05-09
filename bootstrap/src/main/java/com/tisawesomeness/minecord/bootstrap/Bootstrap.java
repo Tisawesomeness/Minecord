@@ -100,7 +100,7 @@ public final class Bootstrap {
         }
 
         Either<Integer, InstanceConfig> instanceConfigOrError = loadConfig(instancePath);
-        if (!instanceConfigOrError.isRight()) {
+        if (instanceConfigOrError.isLeft()) {
             return instanceConfigOrError.getLeft();
         }
         InstanceConfig instanceConfig = instanceConfigOrError.getRight();
