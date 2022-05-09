@@ -11,7 +11,6 @@ import com.tisawesomeness.minecord.config.branding.Branding;
 import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.DatabaseCache;
-import com.tisawesomeness.minecord.database.VoteHandler;
 import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.listen.CommandListener;
 import com.tisawesomeness.minecord.listen.GuildCountListener;
@@ -64,7 +63,6 @@ public class Minecord implements Bot {
     private Config config;
     private EventListener guildCountListener;
     private Database database;
-    private VoteHandler voteHandler;
     private MCLibrary mcLibrary;
     @Getter private APIClient apiClient;
     @Getter private ShardManager shardManager;
@@ -190,14 +188,6 @@ public class Minecord implements Bot {
      * Exits unsuccessfully if the vote handler failed to start.
      */
     private int postInit() {
-        // Start web server
-        Future<VoteHandler> futureVH = null;
-        if (config.getBotListConfig().isReceiveVotes()) {
-            log.debug("Config enabled vote handler, starting...");
-            futureVH = exe.submit(() -> new VoteHandler(this, secrets));
-        }
-
-        // Post-init
         log.info("Boot Time: " + DateUtils.getBootTime(bootTime));
         log(":white_check_mark: **Bot started!**");
         shardManager.setStatus(OnlineStatus.ONLINE);
@@ -206,21 +196,6 @@ public class Minecord implements Bot {
         menuService = new MenuService();
         menuService.start();
         commandStatsService.start();
-
-        // Make sure vote handler finishes
-        if (futureVH != null) {
-            try {
-                voteHandler = futureVH.get();
-            } catch (ExecutionException ex) {
-                log.error("FATAL: There was an error starting the vote handler", ex);
-                return ExitCodes.VOTE_HANDLER_ERROR;
-            } catch (InterruptedException ignore) {
-                // It's possible to be interrupted if the shutdown command executes
-                // after the bot starts but before the vote handler starts
-                log.warn("Vote handler startup was interrupted. Did you use the shutdown command?");
-                return ExitCodes.SUCCESS;
-            }
-        }
 
         log.info("Post-init finished.");
         return ExitCodes.SUCCESS;

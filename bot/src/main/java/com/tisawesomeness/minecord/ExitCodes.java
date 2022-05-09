@@ -13,6 +13,4 @@ public final class ExitCodes {
     // init errors
     public static final int DATABASE_ERROR = 14;
     public static final int FAILED_TO_SET_OWNER = 15;
-    // post-init errors
-    public static final int VOTE_HANDLER_ERROR = 16;
 }
