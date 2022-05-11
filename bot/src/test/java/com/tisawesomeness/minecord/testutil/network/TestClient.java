@@ -20,8 +20,6 @@ import java.util.Collection;
 @Slf4j
 public class TestClient implements APIClient {
 
-    private boolean isClosed;
-
     private final Collection<URI> throwingUris = new ArrayList<>();
     public void addThrowingUrl(@NonNull URL url) throws URISyntaxException {
         throwingUris.add(url.toURI());
@@ -29,9 +27,6 @@ public class TestClient implements APIClient {
 
     @SneakyThrows
     public @NonNull Response head(@NonNull URL url) {
-        if (isClosed) {
-            throw new IllegalStateException("head() called when client closed!");
-        }
         if (throwingUris.contains(url.toURI())) {
             throw new IOException("Mocked IOE");
         }
@@ -40,9 +35,6 @@ public class TestClient implements APIClient {
 
     @SneakyThrows
     public @NonNull Response get(@NonNull URL url) {
-        if (isClosed) {
-            throw new IllegalStateException("get() called when client closed!");
-        }
         if (throwingUris.contains(url.toURI())) {
             throw new IOException("Mocked IOE");
         }
@@ -55,9 +47,6 @@ public class TestClient implements APIClient {
     }
     @SneakyThrows
     public boolean exists(@NonNull URL url) {
-        if (isClosed) {
-            throw new IllegalStateException("exists() called when client closed!");
-        }
         URI uri = url.toURI();
         if (throwingUris.contains(uri)) {
             throw new IOException("Mocked IOE");
@@ -76,10 +65,6 @@ public class TestClient implements APIClient {
     }
     public int getConnectionCount() {
         return 0;
-    }
-
-    public void close() {
-        isClosed = true;
     }
 
 }

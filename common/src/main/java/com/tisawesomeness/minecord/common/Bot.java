@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.common;
 
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
 import java.nio.file.Path;
@@ -22,16 +23,36 @@ import java.nio.file.Path;
  *         {@link #preInit(BootContext)}</li>
  *         <li>init stage: log into discord and start accepting commands,
  *         {@link #init(ShardManager)}</li>
- *         <li>postInit stage: any tasks that can be initialized after accepting commands</li>
+ *         <li>postInit stage: any tasks that can be initialized after accepting commands,
+ *         {@link #postInit()}</li>
  *     </ul>
- *     The bootstrapper process the args through init stages, and the bot processes the config through postInit stages.
+ *     Only the bootstrapper processes the args stage.
  * </p>
  * <p>
  *     Note that <b>the bootstrapper only runs the next stage once the previous setup method returns</b>.
  *     Consider making long processes asynchronous if possible.
  * </p>
  */
-public interface Bot {
+@RequiredArgsConstructor
+public abstract class Bot {
+
+    private final @NonNull BootstrapHook hook;
+
+    /**
+     * Reloads the bot by creating a new bot, moving over the listeners, and shutting down the current one.
+     * This bot should not be used after calling reload().
+     */
+    public void reload() {
+        hook.reload();
+    }
+    /**
+     * Shuts down the bot.
+     * This bot should not be used after calling reload().
+     */
+    public void shutdown() {
+        hook.shutdown();
+        onShutdown();
+    }
 
     /**
      * Create and read the bot-specific config files.
@@ -39,7 +60,7 @@ public interface Bot {
      * @param path the path to the folder containing the config files
      * @return an exit code, will continue to the next stage if 0, otherwise exit
      */
-    int createConfigs(@NonNull Path path);
+    public abstract int createConfigs(@NonNull Path path);
 
     /**
      * Initialize anything that can be started before logging into Discord.
@@ -49,7 +70,7 @@ public interface Bot {
      * @param context contains data used to start the bot such as the shard count and http client configuration
      * @return an exit code, will continue to the next stage if 0, otherwise exit
      */
-    int preInit(@NonNull BootContext context);
+    public abstract int preInit(@NonNull BootContext context);
 
     /**
      * Initialize the bot and start accepting commands.
@@ -57,6 +78,19 @@ public interface Bot {
      * @param shardManager an entry point for the Discord API library
      * @return an exit code, will exit if not 0
      */
-    int init(@NonNull ShardManager shardManager);
+    public abstract int init(@NonNull ShardManager shardManager);
+
+    /**
+     * Start any tasks that can be initialized after accepting commands.
+     * Called after the init stage finishes.
+     */
+    public abstract void postInit();
+
+    /**
+     * Closes any resources that need to be closed, such as databases or threads.
+     * Called when the bot is shutting down, either because {@link #shutdown()} was called or the old bot is
+     * being shut down after calling {@link #reload()}.
+     */
+    public abstract void onShutdown();
 
 }

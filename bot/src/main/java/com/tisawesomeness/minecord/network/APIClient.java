@@ -40,9 +40,4 @@ public interface APIClient {
     int getIdleConnectionCount();
     int getConnectionCount();
 
-    /**
-     * Closes this client and all current connections.
-     */
-    void close();
-
 }

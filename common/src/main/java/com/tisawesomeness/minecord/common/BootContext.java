@@ -3,9 +3,6 @@ package com.tisawesomeness.minecord.common;
 import lombok.NonNull;
 import lombok.ToString;
 import lombok.Value;
-import okhttp3.ConnectionPool;
-import okhttp3.Dispatcher;
-import okhttp3.OkHttpClient.Builder;
 
 import java.time.Instant;
 
@@ -21,10 +18,6 @@ public class BootContext {
     /** The token used to log into Discord. This is a sensitive secret! */
     @ToString.Exclude
     @NonNull String token;
-    /** Builder used to create the HTTP client */
-    @NonNull Builder httpClientBuilder;
-    /** Dispatcher used to deploy HTTP requests */
-    @NonNull Dispatcher dispatcher;
-    /** Pool used to manage HTTP connections */
-    @NonNull ConnectionPool connectionPool;
+    /** The OkHttp connection the shard manager will use */
+    @NonNull OkHttpConnection connection;
 }

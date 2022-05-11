@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord;
 
 import com.tisawesomeness.minecord.command.CommandRegistry;
 import com.tisawesomeness.minecord.common.BootContext;
+import com.tisawesomeness.minecord.common.BootstrapHook;
 import com.tisawesomeness.minecord.common.Bot;
 import com.tisawesomeness.minecord.common.config.ConfigReader;
 import com.tisawesomeness.minecord.common.config.InvalidConfigException;
@@ -26,7 +27,6 @@ import com.tisawesomeness.minecord.util.concurrent.ACExecutorService;
 import com.tisawesomeness.minecord.util.concurrent.ShutdownBehavior;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -52,8 +52,7 @@ import java.util.concurrent.Future;
  * The entry point and central point for the Minecord bot.
  */
 @Slf4j
-@NoArgsConstructor
-public class Minecord implements Bot {
+public class Minecord extends Bot {
 
     private PresenceService presenceService;
     private BotListService botListService;
@@ -77,11 +76,16 @@ public class Minecord implements Bot {
     private ACExecutorService exe;
     private Future<Database> futureDB;
 
+    public Minecord(@NonNull BootstrapHook hook) {
+        super(hook);
+    }
+
     /**
      * {@inheritDoc}
      * Exits unsuccessfully if there is an error creating or reading the config.
      */
     public int createConfigs(@NonNull Path path) {
+        log.debug("Reading config file");
         Either<Integer, Config> configOrError = initConfig(path);
         if (configOrError.isLeft()) {
             return configOrError.getLeft();
@@ -92,6 +96,7 @@ public class Minecord implements Bot {
             log.info("This bot is NOT self-hosted, support is unavailable");
         }
 
+        log.debug("Reading branding file");
         Optional<Branding> brandingOpt = initBranding(path);
         if (brandingOpt.isPresent()) {
             brandingConfig = brandingOpt.get();
@@ -121,10 +126,11 @@ public class Minecord implements Bot {
 
         secrets = new Secrets(config, context.getToken());
 
-        apiClient = new OkAPIClient(context.getHttpClientBuilder(), context.getDispatcher(), context.getConnectionPool());
+        apiClient = new OkAPIClient(context.getConnection());
         mcLibrary = new StandardMCLibrary(apiClient, config);
 
         // Start db connection early
+        log.debug("Starting database connection");
         exe = new ACExecutorService(Executors.newSingleThreadExecutor(), ShutdownBehavior.FORCE);
         futureDB = exe.submit(() -> new Database(config));
 
@@ -136,7 +142,7 @@ public class Minecord implements Bot {
      * Exits unsuccessfully if the database failed to start, or the bot failed to promote the owner.
      */
     public int init(@NonNull ShardManager shardManager) {
-        log.debug("Bot init stage reached");
+        log.debug("Starting bot init stage");
         this.shardManager = shardManager;
         EventListener reactListener = new ReactListener();
 
@@ -148,6 +154,7 @@ public class Minecord implements Bot {
         }
 
         try {
+            log.debug("Waiting for database");
             database = futureDB.get();
         } catch (ExecutionException ex) {
             log.error("FATAL: There was an error connecting to the database", ex);
@@ -172,6 +179,7 @@ public class Minecord implements Bot {
         settings = new SettingRegistry(config.getSettingsConfig());
 
         // Bot has started, start accepting messages
+        log.debug("Adding command listeners");
         shardManager.addEventListener(commandListener, reactListener);
         if (guildCountListener != null) {
             shardManager.addEventListener(guildCountListener);
@@ -180,14 +188,13 @@ public class Minecord implements Bot {
         bootTime = System.currentTimeMillis() - birth;
         log.info("Bot ready!");
 
-        return postInit();
+        return ExitCodes.SUCCESS;
     }
 
     /**
      * {@inheritDoc}
-     * Exits unsuccessfully if the vote handler failed to start.
      */
-    private int postInit() {
+    public void postInit() {
         log.info("Boot Time: " + DateUtils.getBootTime(bootTime));
         log(":white_check_mark: **Bot started!**");
         shardManager.setStatus(OnlineStatus.ONLINE);
@@ -198,126 +205,18 @@ public class Minecord implements Bot {
         commandStatsService.start();
 
         log.info("Post-init finished.");
-        return ExitCodes.SUCCESS;
     }
 
     /**
-     * Reloads the bot. The parts that get reloaded are:
-     * <ul>
-     *     <li>The config and announce files.</li>
-     *     <li>The database.</li>
-     *     <li>The vote server.</li>
-     *     <li>The internal item and recipe resource files (open the JAR as archive and replace them to reload these).</li>
-     * </ul>
-     * The config is loaded before everything else, so options like login details can change.
-     * @throws IOException If a file wasn't found, or there was an error starting the vote server.
-     * @throws ExecutionException If the database couldn't open, the initial read failed, or creating a missing table failed.
-     * If there is an exception, shut down the bot with &shutdown or do a hard reset.
+     * {@inheritDoc}
      */
-    public void reload() throws IOException, ExecutionException, InterruptedException {
-        log.info("Reloading...");
-        throw new UnsupportedOperationException("Not yet implemented"); // TODO reimplement
-
-        /*
-        // Closing everything down
-        if (config.getBotListConfig() != null && config.getBotListConfig().isReceiveVotes()) {
-            voteHandler.close();
-        }
-        presenceService.shutdown();
-        menuService.shutdown();
-        commandStatsService.shutdown();
-        shardManager.removeEventListener(commandListener, guildCountListener);
-
-        config = ConfigReader.read(args.getConfigPath(), Config.class);
-
-        Logger logger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
-        Level logLevel = config.getLogLevel();
-        log.info("Setting log level to " + logLevel);
-        logger.setLevel(logLevel);
-
-        // Database and vote handler need separate threads
-        ExecutorService exe = Executors.newSingleThreadExecutor();
-        Future<Database> futureDB = exe.submit(() -> new Database(config));
-        Future<VoteHandler> futureVH = null;
-        BotListConfig blc = config.getBotListConfig();
-        secrets = new Secrets(config);
-        if (blc != null && blc.isReceiveVotes()) {
-            futureVH = exe.submit(() -> new VoteHandler(this, secrets));
-        }
-
-        // These can be started before the database
-        if (!config.isSelfHosted()) {
-            log.info("This bot is NOT self-hosted, support is unavailable");
-        }
-        Optional<Path> brandingPathOpt = args.getBrandingPath();
-        if (brandingPathOpt.isPresent()) {
-            log.debug("Branding file detected, reading...");
-            brandingConfig = ConfigReader.read(brandingPathOpt.get(), Branding.class);
-            branding = new BotBranding(config, brandingConfig);
-            announceRegistry = new AnnounceRegistry(config, branding, brandingConfig.getAnnouncementConfig());
-        }
-        if (branding == null) {
-            branding = new BotBranding();
-            announceRegistry = null;
-        }
-        if (config.getFlagConfig().isLoadTranslationsFromFile()) {
-            log.debug("Config enabled external translations, reading...");
-            Lang.reloadFromFile(args.getPath().resolve("lang"));
-        } else {
-            log.debug("Config disabled external translations, reloading from resources...");
-            Lang.reloadFromResources();
-        }
-        settings = new SettingRegistry(config.getSettingsConfig());
-        presenceService = new PresenceService(shardManager, brandingConfig);
-        presenceService.start();
-        botListService = new BotListService(shardManager, blc, secrets);
-        botListService.start();
-        if (brandingConfig != null) {
-            guildCountListener = new GuildCountListener(this ,config.getBotListConfig(),
-                    brandingConfig.getPresenceConfig(), presenceService, botListService);
-        }
-        menuService = new MenuService();
-        menuService.start();
-
-        // Start everything up again
-        database = futureDB.get();
-        registry = new CommandRegistry();
-        commandListener = new CommandListener(this, config, registry, database.getCommandStats());
-        commandStatsService = new CommandStatsService(commandListener.getCommandExecutor(), config.getCommandConfig());
-        commandStatsService.start();
-        shardManager.addEventListener(commandListener);
-        if (guildCountListener != null) {
-            shardManager.addEventListener(guildCountListener);
-        }
-        if (futureVH != null) {
-            voteHandler = futureVH.get();
-        }
-        exe.shutdown();
-        */
-    }
-
-    /**
-     * Gracefully shuts down the bot.
-     * <br>Use this method instead of {@link System#exit(int)} except for emergencies.
-     */
-    public void shutdown() {
-        log.info("Shutting down...");
-        System.exit(0); // TODO reimplement
-        /*
+    public void onShutdown() {
+        log.info("Bot shutting down...");
         presenceService.shutdown();
         menuService.shutdown();
         botListService.shutdown();
         commandStatsService.shutdown();
-        shardManager.shutdown();
-        if (config.getBotListConfig().isReceiveVotes()) {
-            voteHandler.close();
-        }
-        apiClient.close();
-        for (JDA jda : shardManager.getShards()) {
-            jda.shutdown();
-        }
-        log.debug("Shutdown queued");
-        */
+        log.debug("Bot shutdown queued");
     }
 
     private static Either<Integer, Config> initConfig(Path path) {

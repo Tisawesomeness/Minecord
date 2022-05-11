@@ -6,9 +6,6 @@ import com.tisawesomeness.minecord.command.meta.Result;
 import lombok.NonNull;
 import net.dv8tion.jda.api.entities.Message;
 
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-
 public class ReloadCommand extends AbstractAdminCommand {
 
     public @NonNull String getId() {
@@ -16,19 +13,11 @@ public class ReloadCommand extends AbstractAdminCommand {
     }
 
     public void run(String[] args, CommandContext ctx) {
-
         Message m = ctx.getE().getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
-        try {
-            ctx.getBot().reload();
-        } catch (IOException | ExecutionException | InterruptedException ex) {
-            ex.printStackTrace();
-            ctx.sendResult(Result.EXCEPTION, "Could not reload!"); // A failed reload is REALLY severe
-            return;
-        }
+        ctx.log(":arrows_counterclockwise: **Bot reloaded by " + ctx.getE().getAuthor().getName() + "**");
+        ctx.getBot().reload();
         m.editMessage(":white_check_mark: Reloaded!").queue();
-
         ctx.commandResult(Result.SUCCESS);
-
     }
 
 }

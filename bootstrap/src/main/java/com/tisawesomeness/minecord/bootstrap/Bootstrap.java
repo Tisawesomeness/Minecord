@@ -1,10 +1,7 @@
 package com.tisawesomeness.minecord.bootstrap;
 
 import com.tisawesomeness.minecord.Minecord;
-import com.tisawesomeness.minecord.common.BootContext;
-import com.tisawesomeness.minecord.common.Bot;
-import com.tisawesomeness.minecord.common.HttpConfig;
-import com.tisawesomeness.minecord.common.LoadingActivity;
+import com.tisawesomeness.minecord.common.*;
 import com.tisawesomeness.minecord.common.config.ConfigReader;
 import com.tisawesomeness.minecord.common.config.InvalidConfigException;
 import com.tisawesomeness.minecord.common.util.Either;
@@ -13,6 +10,7 @@ import com.tisawesomeness.minecord.common.util.IO;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import lombok.extern.slf4j.Slf4j;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Message;
@@ -34,7 +32,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.time.Instant;
 import java.util.EnumSet;
-import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.TimeUnit;
 
@@ -42,7 +40,7 @@ import java.util.concurrent.TimeUnit;
  * Starts the bot. See {@link Bot} for details on the boot process.
  */
 @Slf4j
-public final class Bootstrap {
+public final class Bootstrap implements BootstrapHook {
 
     private static final String TOKEN_ENV_VAR = "MINECORD_TOKEN";
 
@@ -56,8 +54,22 @@ public final class Bootstrap {
             Message.MentionType.EVERYONE, Message.MentionType.HERE,
             Message.MentionType.USER, Message.MentionType.ROLE));
 
+    private Bot bot;
+
+    // Saved for reload/shutdown
+    private Path path;
+    private BootContext context;
+    private ShardManager shardManager;
+
+    // Must queue and promote during reload
+    private SwapEventManagerProvider swapEventManagers;
+
     public static void main(String[] args) {
         log.debug("Program started");
+        new Bootstrap().start(args);
+    }
+
+    private void start(String[] args) {
         try {
             int exitCode = argsStage(args);
             if (exitCode != BootExitCodes.SUCCESS) {
@@ -69,7 +81,7 @@ public final class Bootstrap {
         }
     }
 
-    private static int argsStage(String[] args) {
+    private int argsStage(String[] args) {
         Instant startTime = Instant.now();
         log.debug("Parsing command line arguments");
 
@@ -78,10 +90,12 @@ public final class Bootstrap {
         if (handle.requestedHelp() || exitCode != BootExitCodes.SUCCESS) {
             return exitCode;
         }
-        return configStage(Objects.requireNonNull(handle.getPath()), startTime);
+        path = handle.getPath();
+        assert path != null;
+        return configStage(startTime);
     }
 
-    private static int configStage(Path path, Instant startTime) {
+    private int configStage(Instant startTime) {
         log.debug("Reading instance config");
         Path instancePath = path.resolve("instance.yml");
         if (!instancePath.toFile().exists()) {
@@ -111,16 +125,17 @@ public final class Bootstrap {
         }
         String token = checkTokenOverride(instanceConfig.getToken());
 
-        Bot bot = new Minecord();
+        bot = new Minecord(this);
         int exitCode = bot.createConfigs(path);
         if (exitCode != BootExitCodes.SUCCESS) {
             return exitCode;
         }
 
-        return preInitStage(startTime, bot, instanceConfig, token);
+        return preInitStage(startTime, instanceConfig, token);
     }
 
-    private static int preInitStage(Instant startTime, Bot bot, InstanceConfig instanceConfig, String token) {
+    private int preInitStage(Instant startTime, InstanceConfig instanceConfig, String token) {
+        log.debug("Creating connection builder");
         HttpConfig httpConfig = instanceConfig.getHttpConfig();
         Dispatcher dispatcher = new Dispatcher();
         dispatcher.setMaxRequestsPerHost(httpConfig.getMaxRequestsPerHost());
@@ -129,33 +144,35 @@ public final class Bootstrap {
         Builder httpClientBuilder = new Builder()
                 .connectionPool(connectionPool)
                 .dispatcher(dispatcher);
+        OkHttpConnection connection = new OkHttpConnection(httpClientBuilder, dispatcher, connectionPool);
 
-        BootContext context = new BootContext(startTime, instanceConfig.getShardCount(), token,
-                httpClientBuilder, dispatcher, connectionPool);
+        context = new BootContext(startTime, instanceConfig.getShardCount(), token, connection);
         int exitCode = bot.preInit(context);
         if (exitCode != BootExitCodes.SUCCESS) {
             return exitCode;
         }
 
-        return initStage(bot, instanceConfig, token, httpClientBuilder);
+        return initStage(instanceConfig, token);
     }
 
-    private static int initStage(Bot bot, InstanceConfig instanceConfig, String token, Builder httpClientBuilder) {
-        ReadyListener readyListener = new ReadyListener(instanceConfig.getShardCount());
+    private int initStage(InstanceConfig instanceConfig, String token) {
+        int shardCount = instanceConfig.getShardCount();
+        ReadyListener readyListener = new ReadyListener(shardCount);
+        swapEventManagers = new SwapEventManagerProvider(shardCount);
 
-        ShardManager shardManager;
         try {
             log.info("Logging in...");
             shardManager = DefaultShardManagerBuilder.create(GATEWAYS)
                     .setToken(token)
                     .setAutoReconnect(true)
+                    .setEventManagerProvider(swapEventManagers)
                     .addEventListeners(readyListener)
-                    .setShardsTotal(instanceConfig.getShardCount())
+                    .setShardsTotal(shardCount)
                     .setStatus(OnlineStatus.IDLE)
                     .setActivity(getActivity(instanceConfig))
                     .setMemberCachePolicy(MemberCachePolicy.NONE)
                     .disableCache(DISABLED_CACHE_FLAGS)
-                    .setHttpClientBuilder(httpClientBuilder)
+                    .setHttpClientBuilder(context.getConnection().getHttpClientBuilder())
                     .build();
         } catch (CompletionException | LoginException ex) {
             log.error("FATAL: There was an error logging in, check if your token is correct.", ex);
@@ -168,10 +185,21 @@ public final class Bootstrap {
             return BootExitCodes.INTERRUPTED;
         }
         log.info("All shards ready!");
+        shardManager.removeEventListener(readyListener);
 
         MessageAction.setDefaultMentions(ALLOWED_MENTIONS);
 
-        return bot.init(shardManager);
+        int exitCode = bot.init(shardManager);
+        if (exitCode != BootExitCodes.SUCCESS) {
+            return exitCode;
+        }
+
+        postInitStage();
+        return BootExitCodes.SUCCESS;
+    }
+
+    private void postInitStage() {
+        bot.postInit();
     }
 
     private static Either<Integer, InstanceConfig> loadConfig(Path path) {
@@ -212,6 +240,34 @@ public final class Bootstrap {
             return BootExitCodes.LOGIN_FAILURE;
         }
         return BootExitCodes.LOGIN_IOE;
+    }
+
+    public void reload() {
+        log.debug("Reload requested");
+        Bot newBot = new Minecord(this);
+        newBot.createConfigs(path);
+        newBot.preInit(context);
+
+        log.debug("Queue staging event manager");
+        swapEventManagers.queueStaging();
+        newBot.init(shardManager);
+        log.debug("Promote staging event manager");
+        swapEventManagers.promoteStaging();
+
+        log.debug("Starting old bot shutdown");
+        CompletableFuture<Void> future = CompletableFuture.runAsync(bot::onShutdown);
+        newBot.postInit();
+        future.join();
+        bot = newBot;
+        log.debug("Reload complete");
+    }
+
+    public void shutdown() {
+        log.debug("Shutdown requested");
+        context.getConnection().close();
+        shardManager.shutdown();
+        shardManager.getShards().forEach(JDA::shutdown);
+        log.debug("Shutdown queued");
     }
 
 }

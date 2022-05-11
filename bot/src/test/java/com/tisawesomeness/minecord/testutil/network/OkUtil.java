@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.testutil.network;
 
+import com.tisawesomeness.minecord.common.OkHttpConnection;
 import com.tisawesomeness.minecord.network.OkAPIClient;
 
 import lombok.NonNull;
@@ -23,7 +24,8 @@ public final class OkUtil {
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder()
                 .connectionPool(connectionPool)
                 .dispatcher(dispatcher);
-        return new OkAPIClient(httpClientBuilder, dispatcher, connectionPool);
+        OkHttpConnection connection = new OkHttpConnection(httpClientBuilder, dispatcher, connectionPool);
+        return new OkAPIClient(connection);
     }
 
 }

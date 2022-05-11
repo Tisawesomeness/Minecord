@@ -1,8 +1,12 @@
 package com.tisawesomeness.minecord.network;
 
+import com.tisawesomeness.minecord.common.OkHttpConnection;
+
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import okhttp3.*;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import java.io.IOException;
 import java.net.URL;
@@ -13,12 +17,7 @@ import java.net.URL;
 @RequiredArgsConstructor
 public class OkAPIClient implements APIClient {
 
-    /**
-     * The builder used to construct a {@link OkHttpClient} instance
-     */
-    private final @NonNull OkHttpClient.Builder httpClientBuilder;
-    private final @NonNull Dispatcher dispatcher;
-    private final @NonNull ConnectionPool connectionPool;
+    private final OkHttpConnection connection;
 
     @Override
     public @NonNull Response head(@NonNull URL url) throws IOException {
@@ -39,36 +38,32 @@ public class OkAPIClient implements APIClient {
     }
 
     private @NonNull Response dispatch(@NonNull Request request) throws IOException {
-        OkHttpClient client = httpClientBuilder.build();
+        OkHttpClient client = connection.getHttpClientBuilder().build();
         return client.newCall(request).execute();
     }
 
     @Override
     public boolean exists(@NonNull URL url) throws IOException {
-        return head(url).code() == StatusCodes.OK;
+        try (Response response = head(url)) {
+            return response.code() == StatusCodes.OK;
+        }
     }
 
     @Override
     public int getQueuedCallsCount() {
-        return dispatcher.queuedCallsCount();
+        return connection.getDispatcher().queuedCallsCount();
     }
     @Override
     public int getRunningCallsCount() {
-        return dispatcher.runningCallsCount();
+        return connection.getDispatcher().runningCallsCount();
     }
     @Override
     public int getIdleConnectionCount() {
-        return connectionPool.idleConnectionCount();
+        return connection.getConnectionPool().idleConnectionCount();
     }
     @Override
     public int getConnectionCount() {
-        return connectionPool.connectionCount();
-    }
-
-    @Override
-    public void close() {
-        connectionPool.evictAll();
-        dispatcher.executorService().shutdown();
+        return connection.getConnectionPool().connectionCount();
     }
 
 }
