@@ -74,6 +74,8 @@
       <artifactId>failsafe</artifactId>
       <version>3.2.3</version>
     </dependency>
+    <!-- Part of the ColorMine Java library is included, licensed under the MIT license
+    https://github.com/colormine/colormine -->
   </dependencies>
 
   <build>

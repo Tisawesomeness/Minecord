@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.util;
 
+import lombok.Getter;
 import org.json.JSONObject;
 
 import java.awt.Color;
@@ -319,6 +320,110 @@ public class ColorUtils {
             comps[i] = Integer.parseInt(split[i]) / (float) divs[i];
         }
         return comps;
+    }
+
+    /**
+     * Finds the closest ANSI color to the given color.
+     * The distance is measured by converting to the CEILAB color space and finding the distance between the two points
+     * (CIE76 formula).
+     * @param color a color
+     * @return an ANSI color code that can be used in a terminal or a Discord ANSI codeblock
+     */
+    public static String nearestAnsiColorCode(Color color) {
+        return Arrays.stream(AnsiColor.values())
+                .min((c1, c2) -> compareDist(color, c1, c2))
+                .orElseThrow(AssertionError::new)
+                .getAnsiCode();
+    }
+    private static int compareDist(Color color, AnsiColor a, AnsiColor b) {
+        return Double.compare(distanceSqr(color, a.getColor()), distanceSqr(color, b.getColor()));
+    }
+    private static double distanceSqr(Color a, Color b) {
+        double[] xyzA = xyzToLab(colorToXyz(a));
+        double[] xyzB = xyzToLab(colorToXyz(b));
+        double ld = xyzA[0] - xyzB[0];
+        double ad = xyzA[1] - xyzB[1];
+        double bd = xyzA[2] - xyzB[2];
+        return ld * ld + ad * ad + bd * bd;
+    }
+
+    private enum AnsiColor {
+        BLACK(0x4f545c, 30),
+        RED(0xdc322f, 31),
+        GREEN(0x859900, 32),
+        YELLOW(0xb58900, 33),
+        BLUE(0x268bd2, 34),
+        PURPLE(0xd33682, 35),
+        CYAN(0x2aa198, 36),
+        WHITE(0xffffff, 37),
+        BACKGROUND_BLACK(0x002b36, 40),
+        BACKGROUND_RED(0xcb4b16, 41),
+        BACKGROUND_GREEN(0x586e75, 42),
+        BACKGROUND_YELLOW(0x657b83, 43),
+        BACKGROUND_BLUE(0x839496, 44),
+        BACKGROUND_PURPLE(0x6c71c4, 45),
+        BACKGROUND_CYAN(0x93a1a1, 46),
+        BACKGROUND_WHITE(0xfdf6e3, 47);
+
+        @Getter private final Color color;
+        private final int num;
+        AnsiColor(int rgb, int num) {
+            this.color = new Color(rgb);
+            this.num = num;
+        }
+
+        public String getAnsiCode() {
+            String displayChars = isBackground() ? "  " : "██";
+            return String.format("\u001b[%dm%s", num, displayChars);
+        }
+        private boolean isBackground() {
+            return num >= 40;
+        }
+    }
+
+    /*
+     * The code below is adapted from ColorMine with the license below.
+     * https://github.com/colormine/colormine/blob/master/colormine/src/main/org/colormine/colorspace/ColorSpaceConverter.java
+     *
+     * The MIT License (MIT)
+     * Copyright (c) 2012 ColorMine.org
+     *
+     * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+     *
+     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+     *
+     * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+     */
+
+    private static double[] colorToXyz(Color color) {
+        double r = pivotRgb(color.getRed() / 255.0);
+        double g = pivotRgb(color.getGreen() / 255.0);
+        double b = pivotRgb(color.getBlue() / 255.0);
+
+        // Observer = 2°, Illuminant = D65
+        return new double[]{
+                r * 0.4124 + g * 0.3576 + b * 0.1805,
+                r * 0.2126 + g * 0.7152 + b * 0.0722,
+                r * 0.0193 + g * 0.1192 + b * 0.9505
+        };
+    }
+    private static double pivotRgb(double n) {
+        return (n > 0.04045 ? Math.pow((n + 0.055) / 1.055, 2.4) : n / 12.92) * 100;
+    }
+    private static double[] xyzToLab(double[] xyz) {
+        // Observer = 2°, Illuminant = D65
+        double xp = pivotXyz(xyz[0] / 95.047);
+        double yp = pivotXyz(xyz[1] / 100.000);
+        double zp = pivotXyz(xyz[2] / 108.883);
+
+        return new double[]{
+                116 * yp - 16,
+                500 * (xp - yp),
+                200 * (yp - zp)
+        };
+    }
+    private static double pivotXyz(double n) {
+        return n > 0.008856 ? Math.cbrt(n) : 7.787 * n + 16.0 / 116.0;
     }
 
 }
