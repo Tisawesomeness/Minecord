@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.util;
 
-import lombok.Getter;
 import org.json.JSONObject;
 
 import java.awt.Color;
@@ -330,20 +329,19 @@ public class ColorUtils {
      * @return an ANSI color code that can be used in a terminal or a Discord ANSI codeblock
      */
     public static String nearestAnsiColorCode(Color color) {
+        double[] lab = xyzToLab(colorToXyz(color));
         return Arrays.stream(AnsiColor.values())
-                .min((c1, c2) -> compareDist(color, c1, c2))
+                .min((c1, c2) -> compareDist(lab, c1, c2))
                 .orElseThrow(AssertionError::new)
                 .getAnsiCode();
     }
-    private static int compareDist(Color color, AnsiColor a, AnsiColor b) {
-        return Double.compare(distanceSqr(color, a.getColor()), distanceSqr(color, b.getColor()));
+    private static int compareDist(double[] colorLab, AnsiColor a, AnsiColor b) {
+        return Double.compare(distanceSqr(colorLab, a), distanceSqr(colorLab, b));
     }
-    private static double distanceSqr(Color a, Color b) {
-        double[] xyzA = xyzToLab(colorToXyz(a));
-        double[] xyzB = xyzToLab(colorToXyz(b));
-        double ld = xyzA[0] - xyzB[0];
-        double ad = xyzA[1] - xyzB[1];
-        double bd = xyzA[2] - xyzB[2];
+    private static double distanceSqr(double[] aLab, AnsiColor b) {
+        double ld = aLab[0] - b.lab[0];
+        double ad = aLab[1] - b.lab[1];
+        double bd = aLab[2] - b.lab[2];
         return ld * ld + ad * ad + bd * bd;
     }
 
@@ -365,11 +363,11 @@ public class ColorUtils {
         BACKGROUND_CYAN(0x93a1a1, 46),
         BACKGROUND_WHITE(0xfdf6e3, 47);
 
-        @Getter private final Color color;
         private final int num;
+        private final double[] lab;
         AnsiColor(int rgb, int num) {
-            this.color = new Color(rgb);
             this.num = num;
+            lab = xyzToLab(colorToXyz(new Color(rgb)));
         }
 
         public String getAnsiCode() {
