@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command.player;
 
+import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.Render;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.mc.player.Username;
@@ -83,17 +84,18 @@ public class AnsiCommand extends BaseRenderCommand {
                 e.getChannel().sendMessage(":x: There was an error downloading the avatar.").queue();
                 return;
             }
-            e.getChannel().sendMessage(buildAnsiMessage(img)).queue();
+            e.getChannel().sendMessage(buildAnsiMessage(img, username)).queue();
         } catch (IOException ex) {
             e.getChannel().sendMessage(":x: There was an error downloading the avatar.").queue();
         }
     }
-    private static String buildAnsiMessage(BufferedImage img) {
+    private static String buildAnsiMessage(BufferedImage img, Username username) {
         StringJoiner sj = new StringJoiner("\n");
         for (int y = 0; y < IMAGE_SIZE; y++) {
             StringBuilder sb = new StringBuilder();
             for (int x = 0; x < IMAGE_SIZE; x++) {
-                Color color = new Color(img.getRGB(x, y));
+                int rgb = Player.isUpsideDown(username) ? img.getRGB(x, IMAGE_SIZE - y - 1) : img.getRGB(x, y);
+                Color color = new Color(rgb);
                 sb.append(ColorUtils.nearestAnsiColorCode(color));
             }
             sj.add(sb.toString());
