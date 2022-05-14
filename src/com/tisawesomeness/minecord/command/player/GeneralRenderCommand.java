@@ -1,12 +1,15 @@
 package com.tisawesomeness.minecord.command.player;
 
+import com.tisawesomeness.minecord.mc.player.Render;
 import com.tisawesomeness.minecord.mc.player.RenderType;
+import com.tisawesomeness.minecord.mc.player.Username;
+import com.tisawesomeness.minecord.util.type.Either;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.Optional;
 
-public class GeneralRenderCommand extends AbstractPlayerCommand {
+public class GeneralRenderCommand extends BaseRenderCommand {
 
     public CommandInfo getInfo() {
         return new CommandInfo(
@@ -54,7 +57,16 @@ public class GeneralRenderCommand extends AbstractPlayerCommand {
             return new Result(Outcome.WARNING, ":warning: The render type must be `avatar`, `head`, or `body`.");
         }
         RenderType type = typeOpt.get();
-        return RenderCommand.parseAndSendRender(e, type, "render", args, 1);
+        return parseAndSendRender(e, type, args, 1);
+    }
+
+    protected Either<String, ImpersonalRender> parseRender(RenderType type, String[] args,
+                                                           int argsUsed, int playerArgIndex) {
+        return RenderCommand.parseRenderFromArgs(type, args, argsUsed, playerArgIndex);
+    }
+
+    protected void onSuccessfulRender(MessageReceivedEvent e, Username username, Render render) {
+        RenderCommand.sendRenderEmbed(e, username, render);
     }
 
 }

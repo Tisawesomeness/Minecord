@@ -43,7 +43,8 @@ public class Registry {
                     new RenderCommand(RenderType.AVATAR),
                     new RenderCommand(RenderType.HEAD),
                     new RenderCommand(RenderType.BODY),
-                    new GeneralRenderCommand()
+                    new GeneralRenderCommand(),
+                    new AnsiCommand()
             ),
             new Module("Utility",
                     new StatusCommand(),
