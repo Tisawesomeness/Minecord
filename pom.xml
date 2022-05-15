@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.tisawesomeness</groupId>
   <artifactId>minecord</artifactId>
-  <version>0.14.4</version>
+  <version>0.15.0</version>
 
   <repositories>
     <repository>
@@ -41,7 +41,7 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.28</version>
+      <version>8.0.29</version>
     </dependency>
     <dependency>
       <groupId>org.xerial</groupId>
@@ -74,6 +74,8 @@
       <artifactId>failsafe</artifactId>
       <version>3.2.3</version>
     </dependency>
+    <!-- Part of the ColorMine Java library is included, licensed under the MIT license
+    https://github.com/colormine/colormine -->
   </dependencies>
 
   <build>

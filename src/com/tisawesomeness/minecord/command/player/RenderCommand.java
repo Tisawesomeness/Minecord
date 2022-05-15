@@ -1,25 +1,23 @@
 package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.mc.external.PlayerProvider;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.Render;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.mc.player.Username;
-import com.tisawesomeness.minecord.util.*;
+import com.tisawesomeness.minecord.util.ColorUtils;
+import com.tisawesomeness.minecord.util.MathUtils;
+import com.tisawesomeness.minecord.util.MessageUtils;
+import com.tisawesomeness.minecord.util.StringUtils;
 import com.tisawesomeness.minecord.util.type.Either;
 
-import lombok.Value;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import java.awt.Color;
-import java.util.Optional;
 import java.util.OptionalInt;
-import java.util.UUID;
 
-public class RenderCommand extends AbstractPlayerCommand {
+public class RenderCommand extends BaseRenderCommand {
 
     /** Whether render overlay is enabled by default */
     public static final boolean DEFAULT_OVERLAY = true;
@@ -62,108 +60,19 @@ public class RenderCommand extends AbstractPlayerCommand {
         if (args.length == 0) {
             return new Result(Outcome.WARNING, ":warning: You must specify a player.");
         }
-        return parseAndSendRender(e, type,  id, args,0);
+        return parseAndSendRender(e, type, args,0);
     }
 
-    /**
-     * Parses the username, scale, and overlay from args, then sends the render.
-     * @param e The received message event
-     * @param type The type of render to send
-     * @param commandId the id of the command
-     * @param args The command arguments
-     * @param playerArgIndex The index of the username/uuid argument (example: 1 for {@code &render body jeb_ 5})
-     */
-    protected static Result parseAndSendRender(MessageReceivedEvent e, RenderType type, String commandId, String[] args, int playerArgIndex) {
-        // If username is quoted, the location of the scale and overlay args changes
-        // and an unquoted string could also be a UUID
-        String playerArg = args[playerArgIndex];
-        if (Username.isQuoted(playerArg)) {
-            return handleQuoted(e, type, commandId, args, playerArgIndex);
-        } else {
-            return handleUnquoted(e, type, commandId, args, playerArgIndex);
-        }
+    protected Either<String, BaseRenderCommand.ImpersonalRender> parseRender(RenderType type, String[] args,
+                                                                             int argsUsed, int playerArgIndex) {
+        return parseRenderFromArgs(type, args, argsUsed, playerArgIndex);
     }
-
-    private static Result handleQuoted(MessageReceivedEvent e, RenderType type, String commandId, String[] args, int playerArgIndex) {
-        String argsWithUsernameStart = ArrayUtils.joinSlice(args, playerArgIndex, " ");
-        Either<String, Username> errorOrUsername = validateUsername(argsWithUsernameStart);
-        if (!errorOrUsername.isRight()) {
-            return new Result(Outcome.WARNING, errorOrUsername.getLeft());
-        }
-        Username username = errorOrUsername.getRight();
-
-        // render args are processed before the username to avoid
-        // unnecessary Mojang API requests in case the render args are invalid
-        int argsUsed = username.argsUsed() + playerArgIndex;
-        Either<String, ImpersonalRender> errorOrRender = parseRenderFromArgs(type, commandId, args, argsUsed, playerArgIndex);
-        if (!errorOrRender.isRight()) {
-            return new Result(Outcome.WARNING, errorOrRender.getLeft());
-        }
-        ImpersonalRender irender = errorOrRender.getRight();
-
-        PlayerProvider provider = Bot.mcLibrary.getPlayerProvider();
-        newCallbackBuilder(provider.getUUID(username), e)
-                .onFailure(ex -> handleIOE(ex, e, "IOE getting UUID from username " + username))
-                .onSuccess(uuidOpt -> processUuid(e, uuidOpt, username, irender))
-                .build();
-        return new Result(Outcome.SUCCESS);
-    }
-    private static Result handleUnquoted(MessageReceivedEvent e, RenderType type, String commandId, String[] args, int playerArgIndex) {
-        // render args are processed before the username or UUID to avoid
-        // unnecessary Mojang API requests in case the render args are invalid
-        int argsUsed = playerArgIndex + 1;
-        Either<String, ImpersonalRender> errorOrRender = parseRenderFromArgs(type, commandId, args, argsUsed, playerArgIndex);
-        if (!errorOrRender.isRight()) {
-            return new Result(Outcome.WARNING, errorOrRender.getLeft());
-        }
-        ImpersonalRender irender = errorOrRender.getRight();
-
-        String usernameArg = args[playerArgIndex];
-        Optional<UUID> parsedUuidOpt = UuidUtils.fromString(usernameArg);
-        if (parsedUuidOpt.isPresent()) {
-            UUID uuid = parsedUuidOpt.get();
-
-            PlayerProvider provider = Bot.mcLibrary.getPlayerProvider();
-            newCallbackBuilder(provider.getPlayer(uuid), e)
-                    .onFailure(ex -> handleIOE(ex, e, "IOE getting player from UUID " + uuid))
-                    .onSuccess(playerOpt -> processPlayer(e, playerOpt, irender))
-                    .build();
-            return new Result(Outcome.SUCCESS);
-        }
-
-        Either<String, Username> errorOrUsername = validateUsername(usernameArg);
-        if (!errorOrUsername.isRight()) {
-            return new Result(Outcome.WARNING, errorOrUsername.getLeft());
-        }
-        Username username = errorOrUsername.getRight();
-
-        PlayerProvider provider = Bot.mcLibrary.getPlayerProvider();
-        newCallbackBuilder(provider.getUUID(username), e)
-                .onFailure(ex -> handleIOE(ex, e, "IOE getting UUID from username " + username))
-                .onSuccess(uuidOpt -> processUuid(e, uuidOpt, username, irender))
-                .build();
-        return new Result(Outcome.SUCCESS);
-    }
-
-    private static Either<String, Username> validateUsername(String input) {
-        if (input.length() > Username.MAX_LENGTH) {
-            String msg = String.format("Usernames must be %d characters or less.", Username.MAX_LENGTH);
-            return Either.left(msg);
-        }
-        Username username = Username.parse(input);
-        if (!username.isSupportedByMojangAPI()) {
-            return Either.left("Unfortunately, the Mojang API does not support special characters " +
-                    "other than spaces and `_!@$-.?`");
-        }
-        return Either.right(username);
-    }
-
-    private static Either<String, ImpersonalRender> parseRenderFromArgs(RenderType type, String commandId,
-                                                                        String[] args, int argsUsed, int playerArgIndex) {
+    protected static Either<String, ImpersonalRender> parseRenderFromArgs(RenderType type, String[] args,
+                                                                          int argsUsed, int playerArgIndex) {
         int currentArg = argsUsed;
 
         if (currentArg + 2 < args.length) {
-            String msg = String.format("&%s takes up to %d arguments.", commandId, playerArgIndex + 3);
+            String msg = String.format("This command takes up to %d arguments.", playerArgIndex + 3);
             return Either.left(msg);
         }
 
@@ -213,33 +122,10 @@ public class RenderCommand extends AbstractPlayerCommand {
         return Either.right(new ImpersonalRender(type, overlay, scale));
     }
 
-    private static void processUuid(MessageReceivedEvent e, Optional<UUID> uuidOpt,
-                                    Username username, ImpersonalRender irender) {
-        if (uuidOpt.isPresent()) {
-            UUID uuid = uuidOpt.get();
-            Render render = irender.completeWith(uuid);
-            sendRenderEmbed(e, username, render);
-            return;
-        }
-        e.getChannel().sendMessage("That username does not currently exist.").queue();
+    protected void onSuccessfulRender(MessageReceivedEvent e, Username username, Render render) {
+        sendRenderEmbed(e, username, render);
     }
-    private static void processPlayer(MessageReceivedEvent e, Optional<Player> playerOpt, ImpersonalRender irender) {
-        if (playerOpt.isPresent()) {
-            Player player = playerOpt.get();
-            if (player.isPHD()) {
-                String msg = String.format("The account with UUID `%s` is pseudo hard-deleted (PHD), so no skin/cape is available.",
-                        MarkdownUtil.monospace(player.getUuid().toString()));
-                e.getChannel().sendMessage(msg).queue();
-                return;
-            }
-            Render render = irender.completeWith(player.getUuid());
-            sendRenderEmbed(e, player.getUsername(), render);
-            return;
-        }
-        e.getChannel().sendMessage("That UUID does not currently exist.").queue();
-    }
-
-    private static void sendRenderEmbed(MessageReceivedEvent e, Username username, Render render) {
+    protected static void sendRenderEmbed(MessageReceivedEvent e, Username username, Render render) {
         RenderType type = render.getType();
 
         Color color = Player.isRainbow(username) ? ColorUtils.randomColor() : Bot.color;
@@ -253,17 +139,6 @@ public class RenderCommand extends AbstractPlayerCommand {
             eb.setDescription(msg);
         }
         e.getChannel().sendMessageEmbeds(eb.build()).queue();
-    }
-
-    @Value
-    private static class ImpersonalRender {
-        RenderType type;
-        boolean overlay;
-        int scale;
-
-        public Render completeWith(UUID uuid) {
-            return new Render(uuid, type, overlay, scale);
-        }
     }
 
 }
