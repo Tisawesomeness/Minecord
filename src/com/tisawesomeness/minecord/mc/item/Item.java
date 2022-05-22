@@ -45,6 +45,7 @@ public class Item {
      */
     public static void init(String path) throws IOException {
         items = RequestUtils.loadJSON(path + "/items.json");
+        System.out.println("Loaded " + items.length() + " items");
         data = RequestUtils.loadJSON(path + "/data.json");
     }
 

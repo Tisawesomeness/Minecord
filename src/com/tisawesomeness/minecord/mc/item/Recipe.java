@@ -27,6 +27,7 @@ public class Recipe {
      */
     public static void init(String path) throws IOException {
         recipes = RequestUtils.loadJSON(path + "/recipes.json");
+        System.out.println("Loaded " + recipes.length() + " recipes");
         tags = RequestUtils.loadJSON(path + "/tags.json");
     }
 
