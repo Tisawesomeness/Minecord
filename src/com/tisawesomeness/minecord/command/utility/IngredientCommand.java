@@ -37,29 +37,34 @@ public class IngredientCommand extends Command {
 
     public Result run(String[] args, MessageReceivedEvent e) {
 
-        // Parse page number
-        int page = 0;
-        if (args.length > 1) {
-            try {
-                page = Integer.parseInt(args[args.length - 1]) - 1;
-                args = Arrays.copyOf(args, args.length - 1);
-            } catch (NumberFormatException ignored) {}
-        }
-
-        //Check for argument length
+        // Check for argument length
         if (args.length == 0) {
             return new Result(Outcome.WARNING, ":warning: You must specify an item!");
         }
 
-        // Search through the recipe database
+        // Search through the recipe database with full args first
         ArrayList<String> recipes = Recipe.searchIngredient(String.join(" ", args), "en_US");
+        int page = 0;
+        if (recipes == null) {
+            // Parse page number
+            if (args.length > 1) {
+                try {
+                    // Since full args failed, try searching without the page number
+                    page = Integer.parseInt(args[args.length - 1]) - 1;
+                    String[] args2 = Arrays.copyOf(args, args.length - 1);
+                    recipes = Recipe.searchIngredient(String.join(" ", args2), "en_US");
+                } catch (NumberFormatException ignored) {}
+            }
+        }
         if (recipes == null) {
             return new Result(Outcome.WARNING,
-                    ":warning: That item does not exist! " +
-                            "\n" + "Did you spell it correctly?");
+                    ":warning: That item does not exist! " + "\n" + "Did you spell it correctly?");
         }
         if (recipes.size() == 0) {
-            return new Result(Outcome.WARNING, ":warning: That item is not an ingredient for any recipes!");
+            return new Result(Outcome.WARNING, ":warning: That item does not have a recipe!");
+        }
+        if (page >= recipes.size()) {
+            return new Result(Outcome.WARNING, ":warning: That page does not exist!");
         }
 
         // Create menu

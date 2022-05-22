@@ -39,22 +39,25 @@ public class RecipeCommand extends Command {
 
     public Result run(String[] args, MessageReceivedEvent e) {
 
-        // Parse page number
-        int page = 0;
-        if (args.length > 1) {
-            try {
-                page = Integer.parseInt(args[args.length - 1]) - 1;
-                args = Arrays.copyOf(args, args.length - 1);
-            } catch (NumberFormatException ignored) {}
-        }
-
         // Check for argument length
         if (args.length == 0) {
             return new Result(Outcome.WARNING, ":warning: You must specify an item!");
         }
 
-        // Search through the recipe database
+        // Search through the recipe database with full args first
         ArrayList<String> recipes = Recipe.searchOutput(String.join(" ", args), "en_US");
+        int page = 0;
+        if (recipes == null) {
+            // Parse page number
+            if (args.length > 1) {
+                try {
+                    // Since full args failed, try searching without the page number
+                    page = Integer.parseInt(args[args.length - 1]) - 1;
+                    String[] args2 = Arrays.copyOf(args, args.length - 1);
+                    recipes = Recipe.searchOutput(String.join(" ", args2), "en_US");
+                } catch (NumberFormatException ignored) {}
+            }
+        }
         if (recipes == null) {
             return new Result(Outcome.WARNING,
                     ":warning: That item does not exist! " + "\n" + "Did you spell it correctly?");
