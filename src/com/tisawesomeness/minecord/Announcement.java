@@ -28,6 +28,7 @@ public class Announcement {
      */
     public static void init(String path) throws IOException {
         announcements = new ArrayList<>();
+        totalWeight = 0;
         JSONArray announceArr = RequestUtils.loadJSONArray(path + "/announce.json");
         for (int i = 0; i < announceArr.length(); i++) {
             JSONObject announceObj = announceArr.getJSONObject(i);
@@ -44,7 +45,7 @@ public class Announcement {
     public static String rollAnnouncement() {
         int rand = (int) (Math.random() * totalWeight);
         int i = -1;
-        while (rand > 0) {
+        while (rand >= 0) {
             i++;
             rand -= announcements.get(i).weight;
         }
