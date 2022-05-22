@@ -44,7 +44,7 @@ public class Announcement {
     public static String rollAnnouncement() {
         int rand = (int) (Math.random() * totalWeight);
         int i = -1;
-        while (rand >= 0) {
+        while (rand > 0) {
             i++;
             rand -= announcements.get(i).weight;
         }
