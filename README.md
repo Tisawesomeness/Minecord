@@ -95,6 +95,8 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Elevated Skip Cooldown:* Whether or not elevated users skip command cooldowns.
 - *Use Electroid API:* Whether to use the Electroid API to speed up player lookups. May cause slowdowns if the API is consistently down.
 - *Use Gapple API:* Whether to use the Gapple API to look up account types. May cause slowdowns if the API is consistently down.
+- *Item Image Host:* The website hosting item images.
+- *Recipe Image Host:* The website hosting recipe images.
 
 - *Send Server Count:* Whether or not the bot should send the guild count to bot list websites.
 - *Pw Token:* The token to use on bots.discord.pw.
@@ -146,7 +148,9 @@ A robust Discord bot using the JDA library for various Minecraft functions.
         "showMemory": false,
         "elevatedSkipCooldown": true,
         "useElectroidAPI": true,
-        "useGappleAPI": true
+        "useGappleAPI": true,
+        "itemImageHost": "https://minecord.github.io/item/",
+        "recipeImageHost": "https://minecord.github.io/recipe/"
     },
     "botLists": {
         "sendServerCount": false,

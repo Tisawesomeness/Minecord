@@ -35,6 +35,8 @@ public class Config {
     private static boolean elevatedSkipCooldown;
     private static boolean useElectroidAPI;
     private static boolean useGappleAPI;
+    private static String itemImageHost;
+    private static String recipeImageHost;
 
     private static boolean sendServerCount;
     private static String pwToken;
@@ -122,6 +124,8 @@ public class Config {
             elevatedSkipCooldown = settings.getBoolean("elevatedSkipCooldown");
             useElectroidAPI = settings.optBoolean("useElectroidAPI", true);
             useGappleAPI = settings.optBoolean("useGappleAPI", true);
+            itemImageHost = settings.optString("itemImageHost", "https://minecord.github.io/item/");
+            recipeImageHost = settings.optString("recipeImageHost", "https://minecord.github.io/recipe/");
 
             JSONObject botLists = config.getJSONObject("botLists");
             if (isSelfHosted) {
@@ -175,6 +179,8 @@ public class Config {
     public static boolean getElevatedSkipCooldown() { return elevatedSkipCooldown; }
     public static boolean getUseElectroidAPI() { return useElectroidAPI; }
     public static boolean getUseGappleAPI() { return useGappleAPI; }
+    public static String getItemImageHost() { return itemImageHost; }
+    public static String getRecipeImageHost() { return recipeImageHost; }
 
     public static boolean getSendServerCount() { return sendServerCount; }
     public static String getPwToken() { return pwToken; }

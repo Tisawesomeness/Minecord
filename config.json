@@ -23,7 +23,9 @@
         "showMemory": false,
         "elevatedSkipCooldown": true,
         "useElectroidAPI": true,
-        "useGappleAPI": true
+        "useGappleAPI": true,
+        "itemImageHost": "https://minecord.github.io/item/",
+        "recipeImageHost": "https://minecord.github.io/recipe/"
     },
     "botLists": {
         "sendServerCount": false,

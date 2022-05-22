@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.mc.item;
 
 import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
@@ -9,8 +10,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -42,11 +44,7 @@ public class Recipe {
         EmbedBuilder eb = new EmbedBuilder();
         String item = Item.search(getResult(recipe), lang);
         eb.setTitle(Item.getDisplayName(item, lang));
-        try {
-            eb.setImage(new URI("https", "minecord.github.io", String.format("/recipe/%s", getImage(recipe)), null).toASCIIString());
-        } catch (URISyntaxException ex) {
-            ex.printStackTrace();
-        }
+        eb.setImage(Config.getRecipeImageHost() + getImage(recipe));
         eb.setColor(Bot.color);
         return eb;
     }
