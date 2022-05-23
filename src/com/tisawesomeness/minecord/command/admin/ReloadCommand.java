@@ -8,6 +8,7 @@ import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.VoteHandler;
 import com.tisawesomeness.minecord.mc.item.Item;
 import com.tisawesomeness.minecord.mc.item.Recipe;
+import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -42,6 +43,7 @@ public class ReloadCommand extends Command {
 
     public Result run(String[] args, MessageReceivedEvent e) {
 
+        MessageUtils.log(":arrows_counterclockwise: **Bot reloaded by " + e.getAuthor().getAsTag() + "**");
         Message m = e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
         if (Config.getDevMode()) {
             Bot.shutdown(m, e.getAuthor());
