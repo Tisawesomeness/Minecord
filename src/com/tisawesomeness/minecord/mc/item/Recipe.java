@@ -596,7 +596,7 @@ public class Recipe {
                     }
                     i++;
                 }
-                boolean hasMore = c == 9 || startingIngredient > 0;
+                boolean hasMore = ingredients.length > 9 || startingIngredient > 0;
                 while (c < 9) {
                     Emote emote = Emote.valueOf(c + 1);
                     buttons.put(emote.getCodepoint(), null);
