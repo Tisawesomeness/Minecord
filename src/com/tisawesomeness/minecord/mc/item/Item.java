@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.mc.item;
 
 import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -8,8 +9,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Objects;
@@ -45,6 +48,7 @@ public class Item {
      */
     public static void init(String path) throws IOException {
         items = RequestUtils.loadJSON(path + "/items.json");
+        System.out.println("Loaded " + items.length() + " items");
         data = RequestUtils.loadJSON(path + "/data.json");
     }
 
@@ -144,9 +148,12 @@ public class Item {
 
         // Sprite
         try {
-            eb.setThumbnail(new URI("https", "minecord.github.io", String.format("/item/%s.png", getImageKey(item)), null).toASCIIString());
-        } catch (URISyntaxException ex) {
-            ex.printStackTrace();
+            URL url = new URL(Config.getItemImageHost());
+            String path = url.getPath() + getImageKey(item) + ".png";
+            URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), path, url.getQuery(), url.getRef());
+            eb.setThumbnail(uri.toASCIIString());
+        } catch (URISyntaxException | MalformedURLException ex) {
+            throw new AssertionError(ex);
         }
 
         // Get rid of trailing newline

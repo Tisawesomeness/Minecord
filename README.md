@@ -26,6 +26,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&avatar <player> [<scale>] [<overlay?>]` - Shows an image of the player's avatar.
 - `&head <player> [<scale>] [<overlay?>]` - Shows an image of the player's head.
 - `&body <player> [<scale>] [<overlay?>]` - Shows an image of the player's body.
+- `&ansi <player> [<overlay?>]` - Converts a player's avatar to a colored text message.
 
 #### Utility Commands
 - `&status` - Checks the status of Mojang servers.
@@ -47,6 +48,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&id <id>` - Gets the creation time of a Discord ID.
 - `&purge <number>` - Cleans the bot messages. Requires Manage Messages permissions.
 - `&perms [<channel>]` - Test the bot's permissions in a channel. Leave blank to test the current channel.
+- `&settings [setting] [value]` - Change the bot's settings, including prefix.
 
 #### Admin Commands
 - `&help <command> admin` - Displays admin help for a command.
@@ -95,6 +97,8 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Elevated Skip Cooldown:* Whether or not elevated users skip command cooldowns.
 - *Use Electroid API:* Whether to use the Electroid API to speed up player lookups. May cause slowdowns if the API is consistently down.
 - *Use Gapple API:* Whether to use the Gapple API to look up account types. May cause slowdowns if the API is consistently down.
+- *Item Image Host:* The website hosting item images.
+- *Recipe Image Host:* The website hosting recipe images.
 
 - *Send Server Count:* Whether or not the bot should send the guild count to bot list websites.
 - *Pw Token:* The token to use on bots.discord.pw.
@@ -146,7 +150,9 @@ A robust Discord bot using the JDA library for various Minecraft functions.
         "showMemory": false,
         "elevatedSkipCooldown": true,
         "useElectroidAPI": true,
-        "useGappleAPI": true
+        "useGappleAPI": true,
+        "itemImageHost": "https://minecord.github.io/item/",
+        "recipeImageHost": "https://minecord.github.io/recipe/"
     },
     "botLists": {
         "sendServerCount": false,

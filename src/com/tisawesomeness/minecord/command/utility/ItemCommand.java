@@ -24,7 +24,7 @@ public class ItemCommand extends Command {
 
     public String getHelp() {
         return "Searches for a Minecraft item.\n" +
-                "Items are from Java Edition 1.7 to 1.18.\n" +
+                "Items are from Java Edition 1.7 to 1.19.\n" +
                 "\n" +
                 Item.help + "\n";
     }

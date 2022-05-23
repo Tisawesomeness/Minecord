@@ -25,7 +25,7 @@ public class ShutdownCommand extends Command {
     }
 
     public Result run(String[] args, MessageReceivedEvent e) {
-        MessageUtils.log(":x: **Bot shut down by " + e.getAuthor().getName() + "**");
+        MessageUtils.log(":x: **Bot shut down by " + e.getAuthor().getAsTag() + "**");
         e.getChannel().sendMessage(":wave: Goodbye!").complete();
         e.getJDA().shutdown();
         System.exit(0);

@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.mc.item;
 
 import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
@@ -9,8 +10,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,6 +26,7 @@ public class Recipe {
      */
     public static void init(String path) throws IOException {
         recipes = RequestUtils.loadJSON(path + "/recipes.json");
+        System.out.println("Loaded " + recipes.length() + " recipes");
         tags = RequestUtils.loadJSON(path + "/tags.json");
     }
 
@@ -41,11 +41,7 @@ public class Recipe {
         EmbedBuilder eb = new EmbedBuilder();
         String item = Item.search(getResult(recipe), lang);
         eb.setTitle(Item.getDisplayName(item, lang));
-        try {
-            eb.setImage(new URI("https", "minecord.github.io", String.format("/recipe/%s", getImage(recipe)), null).toASCIIString());
-        } catch (URISyntaxException ex) {
-            ex.printStackTrace();
-        }
+        eb.setImage(Config.getRecipeImageHost() + getImage(recipe));
         eb.setColor(Bot.color);
         return eb;
     }
@@ -600,7 +596,7 @@ public class Recipe {
                     }
                     i++;
                 }
-                boolean hasMore = c == 9 || startingIngredient > 0;
+                boolean hasMore = ingredients.length > 9 || startingIngredient > 0;
                 while (c < 9) {
                     Emote emote = Emote.valueOf(c + 1);
                     buttons.put(emote.getCodepoint(), null);

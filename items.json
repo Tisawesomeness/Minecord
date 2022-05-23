@@ -1918,6 +1918,9 @@
   "minecraft.oak_fence": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Oak Wood Fence"
+        ],
         "display_name": "Oak Fence"
       }
     },
@@ -5472,17 +5475,17 @@
   "minecraft.dirt_path": {
     "lang": {
       "en_US": {
+        "previously": "Grass Path",
         "search_names": [
           "Path",
           "Path Block"
         ],
-        "previously": "Grass Path",
         "display_name": "Dirt Path"
       }
     },
     "properties": {
-      "id": 208,
       "previous_id": "minecraft.grass_path",
+      "id": 208,
       "version": "1.9"
     }
   },
@@ -7290,6 +7293,9 @@
     "lang": {
       "en_US": {
         "previously": "Sign",
+        "search_names": [
+          "Oak Wood Sign"
+        ],
         "display_name": "Oak Sign"
       }
     },
@@ -7303,6 +7309,9 @@
   "minecraft.oak_door": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Oak Wood Door"
+        ],
         "block_name": "Oak Door Block",
         "display_name": "Oak Door"
       }
@@ -7406,6 +7415,7 @@
     "lang": {
       "en_US": {
         "search_names": [
+          "Oak Wood Boat",
           "Discord Bot"
         ],
         "display_name": "Oak Boat"
@@ -8904,7 +8914,8 @@
     "lang": {
       "en_US": {
         "search_names": [
-          "Bottle of Enchanting"
+          "Bottle of Enchanting",
+          "Bottle o Enchanting"
         ],
         "display_name": "Bottle o' Enchanting"
       }
@@ -10227,7 +10238,12 @@
           "13 Disc",
           "Music Disc 13",
           "Disc 13",
-          "C418 - 13"
+          "C418 - 13",
+          "Thirteen Disc",
+          "Music Disc Thirteen",
+          "Disc Thirteen",
+          "C418 - Thirteen",
+          "Thirteen"
         ],
         "display_name": "Music Disc",
         "name_conflict": true
@@ -10429,7 +10445,12 @@
           "11 Disc",
           "Music Disc 11",
           "Disc 11",
-          "C418 - 11"
+          "C418 - 11",
+          "Eleven Disc",
+          "Music Disc Eleven",
+          "Disc Eleven",
+          "C418 - Eleven",
+          "Eleven"
         ],
         "display_name": "Music Disc",
         "name_conflict": true
@@ -10637,6 +10658,9 @@
   "minecraft.acacia_button": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Acacia Wood Button"
+        ],
         "display_name": "Acacia Button"
       }
     },
@@ -13766,7 +13790,7 @@
           "Music Disc Pigstep",
           "Disc Pigstep",
           "Lena Raine - Pigstep",
-          "Best Song"
+          "Pigstep"
         ],
         "display_name": "Music Disc",
         "name_conflict": true
@@ -15767,8 +15791,8 @@
       }
     },
     "properties": {
-      "version": "1.17",
-      "image_key": "Light Negative"
+      "image_key": "Light Negative",
+      "version": "1.17"
     }
   },
   "minecraft.light_blue_candle": {
@@ -16998,6 +17022,755 @@
     },
     "properties": {
       "version": "1.17"
+    }
+  },
+  "minecraft.music_disc_otherside": {
+    "lang": {
+      "en_US": {
+        "lore": "Lena Raine - otherside",
+        "search_names": [
+          "Otherside Disc",
+          "Music Disc Otherside",
+          "Disc Otherside",
+          "Lena Raine - otherside",
+          "otherside"
+        ],
+        "display_name": "Music Disc",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Music Disc Otherside",
+      "version": "1.18"
+    }
+  },
+  "minecraft.acacia_chest_boat": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Acacia Chest Boat"
+        ],
+        "display_name": "Acacia Boat with Chest"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.allay_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Spawn Allay",
+          "Allay Egg"
+        ],
+        "display_name": "Allay Spawn Egg"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.birch_chest_boat": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Birch Chest Boat",
+          "Birch Wood Boat with Chest",
+          "Birch Wood Chest Boat"
+        ],
+        "display_name": "Birch Boat with Chest"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.dark_oak_chest_boat": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Dark Oak Chest Boat",
+          "Dark Oak Wood Boat with Chest",
+          "Dark Oak Wood Chest Boat",
+          "Dark Boat with Chest",
+          "Dark Chest Boat"
+        ],
+        "display_name": "Dark Oak Boat with Chest"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.disc_fragment_5": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Music Disc Fragment",
+          "Fragment 5",
+          "Disc Shard",
+          "Music Disc Shard",
+          "Shard 5",
+          "Fragment Five",
+          "Shard Five"
+        ],
+        "display_name": "Disc Fragment"
+      }
+    },
+    "properties": {
+      "image_key": "Disc Fragment 5",
+      "version": "1.19"
+    }
+  },
+  "minecraft.echo_shard": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Soul Shard",
+          "Sculk Shard"
+        ],
+        "display_name": "Echo Shard"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.frog_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Frog Egg"
+        ],
+        "display_name": "Frog Spawn Egg"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.frogspawn": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Frog Spawn",
+          "Spawn Frog",
+          "Spawn Frogs",
+          "Spawn Tadpoles",
+          "Frog Eggs",
+          "Tadpole Eggs",
+          "Frog Spawn Eggs"
+        ],
+        "display_name": "Frogspawn"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.goat_horn": {
+    "lang": {
+      "en_US": {
+        "display_name": "Goat Horn"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.jungle_chest_boat": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Jungle Chest Boat",
+          "Jungle Wood Boat with Chest",
+          "Jungle Wood Chest Boat"
+        ],
+        "display_name": "Jungle Boat with Chest"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.mangrove_boat": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Mangrove Wood Boat"
+        ],
+        "display_name": "Mangrove Boat"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.mangrove_button": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Mangrove Wood Button"
+        ],
+        "display_name": "Mangrove Button"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.mangrove_chest_boat": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Mangrove Chest Boat",
+          "Mangrove Wood Boat with Chest",
+          "Mangrove Wood Chest Boat"
+        ],
+        "display_name": "Mangrove Boat with Chest"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.mangrove_door": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Mangrove Wood Door"
+        ],
+        "display_name": "Mangrove Door"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.mangrove_fence": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Mangrove Wood Fence"
+        ],
+        "display_name": "Mangrove Fence"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.mangrove_fence_gate": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Mangrove Wood Fence Gate",
+          "Mangrove Wood Gate",
+          "Mangrove Gate"
+        ],
+        "display_name": "Mangrove Fence Gate"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.mangrove_leaves": {
+    "lang": {
+      "en_US": {
+        "display_name": "Mangrove Leaves"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.mangrove_log": {
+    "lang": {
+      "en_US": {
+        "display_name": "Mangrove Log"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.mangrove_planks": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Mangrove Wood Planks",
+          "Mangrove Wood Plank",
+          "Mangrove Plank"
+        ],
+        "display_name": "Mangrove Planks"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.mangrove_pressure_plate": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Mangrove Wood Pressure Plate",
+          "Mangrove Wood Plate",
+          "Mangrove Plate"
+        ],
+        "display_name": "Mangrove Pressure Plate"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.mangrove_propagule": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Mangrove Sapling",
+          "Propagule"
+        ],
+        "display_name": "Mangrove Propagule"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.mangrove_roots": {
+    "lang": {
+      "en_US": {
+        "display_name": "Mangrove Roots"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.mangrove_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Mangrove Wood Sign"
+        ],
+        "display_name": "Mangrove Sign"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.mangrove_slab": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Mangrove Wood Slab"
+        ],
+        "display_name": "Mangrove Slab"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.mangrove_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Mangrove Wood Stairs",
+          "Mangrove Wood Stair",
+          "Mangrove Stair"
+        ],
+        "display_name": "Mangrove Stairs"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.mangrove_trapdoor": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Mangrove Wood Trapdoor",
+          "Mangrove Wood Trap Door",
+          "Mangrove Trap Door"
+        ],
+        "display_name": "Mangrove Trapdoor"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.mangrove_wall_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Mangrove Wood Wall Sign"
+        ],
+        "display_name": "Mangrove Wall Sign"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.mangrove_wood": {
+    "lang": {
+      "en_US": {
+        "display_name": "Mangrove Wood"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.mud": {
+    "lang": {
+      "en_US": {
+        "display_name": "Mud"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.mud_brick_slab": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Mud Bricks Slab"
+        ],
+        "display_name": "Mud Brick Slab"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.mud_brick_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Mud Bricks Stairs",
+          "Mud Bricks Stair",
+          "Mud Brick Stair"
+        ],
+        "display_name": "Mud Brick Stairs"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.mud_brick_wall": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Mud Bricks Wall"
+        ],
+        "display_name": "Mud Brick Wall"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.mud_bricks": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Mud Bricks"
+        ],
+        "display_name": "Mud Bricks"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.muddy_mangrove_roots": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Mud Mangrove Roots",
+          "Mangrove Mud Roots"
+        ],
+        "display_name": "Muddy Mangrove Roots"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.music_disc_5": {
+    "lang": {
+      "en_US": {
+        "lore": "C418 - 5",
+        "search_names": [
+          "5 Disc",
+          "Music Disc 5",
+          "Disc 5",
+          "C418 - 5",
+          "Five Disc",
+          "Music Disc Five",
+          "Disc Five",
+          "C418 - Five",
+          "Five"
+        ],
+        "display_name": "Music Disc",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Music Disc 5",
+      "version": "1.19"
+    }
+  },
+  "minecraft.oak_chest_boat": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Oak Chest Boat",
+          "Oak Wood Boat with Chest",
+          "Oak Wood Chest Boat"
+        ],
+        "display_name": "Oak Boat with Chest"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.ochre_froglight": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Ochre Frog Light",
+          "Yellow Froglight",
+          "Yellow Frog Light"
+        ],
+        "display_name": "Ochre Froglight"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.packed_mud": {
+    "lang": {
+      "en_US": {
+        "display_name": "Packed Mud"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.pearlescent_froglight": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pearlescent Frog Light",
+          "Purple Froglight",
+          "Purple Frog Light"
+        ],
+        "display_name": "Pearlescent Froglight"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.potted_mangrove_propagule": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Potted Mangrove Sapling",
+          "Potted Propagule"
+        ],
+        "display_name": "Potted Mangrove Propagule"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.recovery_compass": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Death Compass",
+          "Echo Compass",
+          "Sculk Compass"
+        ],
+        "display_name": "Recovery Compass"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.reinforced_deepslate": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Reinforced Grimstone",
+          "Reinforced Grim Stone"
+        ],
+        "display_name": "Reinforced Deepslate"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.sculk": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Sculk Block"
+        ],
+        "display_name": "Sculk"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.sculk_catalyst": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Sculk Spreader"
+        ],
+        "display_name": "Sculk Catalyst"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.sculk_shrieker": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Sculk Screamer"
+        ],
+        "display_name": "Sculk Shrieker"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.sculk_vein": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Sculk Vines"
+        ],
+        "display_name": "Sculk Vein"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.spruce_chest_boat": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Spruce Chest Boat",
+          "Spruce Wood Boat with Chest",
+          "Spruce Wood Chest Boat"
+        ],
+        "display_name": "Spruce Boat with Chest"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.stripped_mangrove_log": {
+    "lang": {
+      "en_US": {
+        "display_name": "Stripped Mangrove Log"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.stripped_mangrove_wood": {
+    "lang": {
+      "en_US": {
+        "display_name": "Stripped Mangrove Wood"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.tadpole_bucket": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Tadpole Bucket",
+          "Bucket of Tadpoles"
+        ],
+        "display_name": "Bucket of Tadpole"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.tadpole_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Spawn Tadpole",
+          "Tadpole Egg"
+        ],
+        "display_name": "Tadpole Spawn Egg"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.verdant_froglight": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Verdant Frog Light",
+          "Green Froglight",
+          "Green Frog Light"
+        ],
+        "display_name": "Verdant Froglight"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "minecraft.warden_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Spawn Warden",
+          "Warden Egg"
+        ],
+        "display_name": "Warden Spawn Egg"
+      }
+    },
+    "properties": {
+      "version": "1.19"
     }
   },
   "minecraft.lingering_potion.effect.awkward": {

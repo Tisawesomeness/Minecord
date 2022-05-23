@@ -73,7 +73,9 @@
     "minecraft:birch_boat",
     "minecraft:jungle_boat",
     "minecraft:acacia_boat",
-    "minecraft:dark_oak_boat"
+    "minecraft:dark_oak_boat",
+    "minecraft:mangrove_boat",
+    "#minecraft:chest_boats"
   ],
   "buttons": [
     "#minecraft:wooden_buttons",
@@ -99,23 +101,14 @@
     "minecraft:red_candle",
     "minecraft:black_candle"
   ],
-  "carpets": [
-    "minecraft:white_carpet",
-    "minecraft:orange_carpet",
-    "minecraft:magenta_carpet",
-    "minecraft:light_blue_carpet",
-    "minecraft:yellow_carpet",
-    "minecraft:lime_carpet",
-    "minecraft:pink_carpet",
-    "minecraft:gray_carpet",
-    "minecraft:light_gray_carpet",
-    "minecraft:cyan_carpet",
-    "minecraft:purple_carpet",
-    "minecraft:blue_carpet",
-    "minecraft:brown_carpet",
-    "minecraft:green_carpet",
-    "minecraft:red_carpet",
-    "minecraft:black_carpet"
+  "chest_boats": [
+    "minecraft:oak_chest_boat",
+    "minecraft:spruce_chest_boat",
+    "minecraft:birch_chest_boat",
+    "minecraft:jungle_chest_boat",
+    "minecraft:acacia_chest_boat",
+    "minecraft:dark_oak_chest_boat",
+    "minecraft:mangrove_chest_boat"
   ],
   "cluster_max_harvestables": [
     "minecraft:diamond_pickaxe",
@@ -132,6 +125,15 @@
   "coals": [
     "minecraft:coal",
     "minecraft:charcoal"
+  ],
+  "compasses": [
+    "minecraft:compass",
+    "minecraft:recovery_compass"
+  ],
+  "completes_find_tree_tutorial": [
+    "#minecraft:logs",
+    "#minecraft:leaves",
+    "#minecraft:wart_blocks"
   ],
   "copper_ores": [
     "minecraft:copper_ore",
@@ -152,10 +154,14 @@
     "minecraft:music_disc_wait"
   ],
   "crimson_stems": [
-    "minecraft:crimson_stem",
-    "minecraft:stripped_crimson_stem",
     "minecraft:crimson_hyphae",
-    "minecraft:stripped_crimson_hyphae"
+    "minecraft:crimson_stem",
+    "minecraft:stripped_crimson_hyphae",
+    "minecraft:stripped_crimson_stem"
+  ],
+  "dampens_vibrations": [
+    "#minecraft:wool",
+    "#minecraft:wool_carpets"
   ],
   "dark_oak_logs": [
     "minecraft:dark_oak_log",
@@ -166,6 +172,17 @@
   "diamond_ores": [
     "minecraft:diamond_ore",
     "minecraft:deepslate_diamond_ore"
+  ],
+  "dirt": [
+    "minecraft:dirt",
+    "minecraft:grass_block",
+    "minecraft:podzol",
+    "minecraft:coarse_dirt",
+    "minecraft:mycelium",
+    "minecraft:rooted_dirt",
+    "minecraft:moss_block",
+    "minecraft:mud",
+    "minecraft:muddy_mangrove_roots"
   ],
   "doors": [
     "#minecraft:wooden_doors",
@@ -188,9 +205,10 @@
     "minecraft:tropical_fish"
   ],
   "flowers": [
+    "minecraft:mangrove_propagule",
     "#minecraft:small_flowers",
     "#minecraft:tall_flowers",
-    "minecraft:azalea_leaves_flowers",
+    "minecraft:flowering_azalea_leaves",
     "minecraft:flowering_azalea"
   ],
   "fox_food": [
@@ -233,8 +251,9 @@
     "minecraft:jungle_leaves",
     "minecraft:acacia_leaves",
     "minecraft:dark_oak_leaves",
+    "minecraft:mangrove_leaves",
     "minecraft:azalea_leaves",
-    "minecraft:azalea_leaves_flowers"
+    "minecraft:flowering_azalea_leaves"
   ],
   "lectern_books": [
     "minecraft:written_book",
@@ -251,41 +270,50 @@
     "#minecraft:birch_logs",
     "#minecraft:jungle_logs",
     "#minecraft:acacia_logs",
+    "#minecraft:mangrove_logs",
     "#minecraft:dark_oak_logs"
+  ],
+  "mangrove_logs": [
+    "minecraft:mangrove_log",
+    "minecraft:mangrove_wood",
+    "minecraft:stripped_mangrove_log",
+    "minecraft:stripped_mangrove_wood"
   ],
   "music_discs": [
     "#minecraft:creeper_drop_music_discs",
-    "minecraft:music_disc_pigstep"
+    "minecraft:music_disc_pigstep",
+    "minecraft:music_disc_otherside",
+    "minecraft:music_disc_5"
   ],
   "non_flammable_wood": [
-    "minecraft:warped_stem",
-    "minecraft:stripped_warped_stem",
-    "minecraft:warped_hyphae",
-    "minecraft:stripped_warped_hyphae",
-    "minecraft:crimson_stem",
-    "minecraft:stripped_crimson_stem",
-    "minecraft:crimson_hyphae",
-    "minecraft:stripped_crimson_hyphae",
-    "minecraft:crimson_planks",
-    "minecraft:warped_planks",
-    "minecraft:crimson_slab",
-    "minecraft:warped_slab",
-    "minecraft:crimson_pressure_plate",
-    "minecraft:warped_pressure_plate",
-    "minecraft:crimson_fence",
-    "minecraft:warped_fence",
-    "minecraft:crimson_trapdoor",
-    "minecraft:warped_trapdoor",
-    "minecraft:crimson_fence_gate",
-    "minecraft:warped_fence_gate",
-    "minecraft:crimson_stairs",
-    "minecraft:warped_stairs",
     "minecraft:crimson_button",
-    "minecraft:warped_button",
     "minecraft:crimson_door",
-    "minecraft:warped_door",
+    "minecraft:crimson_fence",
+    "minecraft:crimson_fence_gate",
+    "minecraft:crimson_hyphae",
+    "minecraft:crimson_planks",
+    "minecraft:crimson_pressure_plate",
     "minecraft:crimson_sign",
-    "minecraft:warped_sign"
+    "minecraft:crimson_slab",
+    "minecraft:crimson_stairs",
+    "minecraft:crimson_stem",
+    "minecraft:crimson_trapdoor",
+    "minecraft:stripped_crimson_hyphae",
+    "minecraft:stripped_crimson_stem",
+    "minecraft:warped_button",
+    "minecraft:warped_door",
+    "minecraft:warped_fence",
+    "minecraft:warped_fence_gate",
+    "minecraft:warped_hyphae",
+    "minecraft:warped_planks",
+    "minecraft:warped_pressure_plate",
+    "minecraft:warped_sign",
+    "minecraft:warped_slab",
+    "minecraft:warped_stairs",
+    "minecraft:warped_stem",
+    "minecraft:warped_trapdoor",
+    "minecraft:stripped_warped_hyphae",
+    "minecraft:stripped_warped_stem"
   ],
   "oak_logs": [
     "minecraft:oak_log",
@@ -293,8 +321,14 @@
     "minecraft:stripped_oak_log",
     "minecraft:stripped_oak_wood"
   ],
-  "occludes_vibration_signals": [
-    "#minecraft:wool"
+  "overworld_natural_logs": [
+    "minecraft:oak_log",
+    "minecraft:spruce_log",
+    "minecraft:birch_log",
+    "minecraft:jungle_log",
+    "minecraft:acacia_log",
+    "minecraft:dark_oak_log",
+    "minecraft:mangrove_log"
   ],
   "piglin_food": [
     "minecraft:porkchop",
@@ -338,7 +372,8 @@
     "minecraft:acacia_planks",
     "minecraft:dark_oak_planks",
     "minecraft:crimson_planks",
-    "minecraft:warped_planks"
+    "minecraft:warped_planks",
+    "minecraft:mangrove_planks"
   ],
   "rails": [
     "minecraft:rail",
@@ -361,6 +396,7 @@
     "minecraft:jungle_sapling",
     "minecraft:acacia_sapling",
     "minecraft:dark_oak_sapling",
+    "minecraft:mangrove_propagule",
     "minecraft:azalea",
     "minecraft:flowering_azalea"
   ],
@@ -368,11 +404,12 @@
     "minecraft:oak_sign",
     "minecraft:spruce_sign",
     "minecraft:birch_sign",
-    "minecraft:acacia_sign",
     "minecraft:jungle_sign",
+    "minecraft:acacia_sign",
     "minecraft:dark_oak_sign",
     "minecraft:crimson_sign",
-    "minecraft:warped_sign"
+    "minecraft:warped_sign",
+    "minecraft:mangrove_sign"
   ],
   "slabs": [
     "#minecraft:wooden_slabs",
@@ -419,7 +456,8 @@
     "minecraft:weathered_cut_copper_slab",
     "minecraft:exposed_cut_copper_slab",
     "minecraft:cut_copper_slab",
-    "minecraft:waxed_oxidized_cut_copper_slab"
+    "minecraft:waxed_oxidized_cut_copper_slab",
+    "minecraft:mud_brick_slab"
   ],
   "small_flowers": [
     "minecraft:dandelion",
@@ -487,7 +525,8 @@
     "minecraft:waxed_weathered_cut_copper_stairs",
     "minecraft:waxed_exposed_cut_copper_stairs",
     "minecraft:waxed_cut_copper_stairs",
-    "minecraft:waxed_oxidized_cut_copper_stairs"
+    "minecraft:waxed_oxidized_cut_copper_stairs",
+    "minecraft:mud_brick_stairs"
   ],
   "stone_bricks": [
     "minecraft:stone_bricks",
@@ -510,6 +549,25 @@
     "minecraft:lilac",
     "minecraft:peony",
     "minecraft:rose_bush"
+  ],
+  "terracotta": [
+    "minecraft:terracotta",
+    "minecraft:white_terracotta",
+    "minecraft:orange_terracotta",
+    "minecraft:magenta_terracotta",
+    "minecraft:light_blue_terracotta",
+    "minecraft:yellow_terracotta",
+    "minecraft:lime_terracotta",
+    "minecraft:pink_terracotta",
+    "minecraft:gray_terracotta",
+    "minecraft:light_gray_terracotta",
+    "minecraft:cyan_terracotta",
+    "minecraft:purple_terracotta",
+    "minecraft:blue_terracotta",
+    "minecraft:brown_terracotta",
+    "minecraft:green_terracotta",
+    "minecraft:red_terracotta",
+    "minecraft:black_terracotta"
   ],
   "trapdoors": [
     "#minecraft:wooden_trapdoors",
@@ -536,13 +594,18 @@
     "minecraft:cobbled_deepslate_wall",
     "minecraft:polished_deepslate_wall",
     "minecraft:deepslate_tile_wall",
-    "minecraft:deepslate_brick_wall"
+    "minecraft:deepslate_brick_wall",
+    "minecraft:mud_brick_wall"
   ],
   "warped_stems": [
-    "minecraft:warped_stem",
-    "minecraft:stripped_warped_stem",
     "minecraft:warped_hyphae",
-    "minecraft:stripped_warped_hyphae"
+    "minecraft:warped_stem",
+    "minecraft:stripped_warped_hyphae",
+    "minecraft:stripped_warped_stem"
+  ],
+  "wart_blocks": [
+    "minecraft:warped_wart_block",
+    "minecraft:nether_wart_block"
   ],
   "wooden_buttons": [
     "minecraft:oak_button",
@@ -552,7 +615,8 @@
     "minecraft:acacia_button",
     "minecraft:dark_oak_button",
     "minecraft:crimson_button",
-    "minecraft:warped_button"
+    "minecraft:warped_button",
+    "minecraft:mangrove_button"
   ],
   "wooden_doors": [
     "minecraft:oak_door",
@@ -562,7 +626,8 @@
     "minecraft:acacia_door",
     "minecraft:dark_oak_door",
     "minecraft:crimson_door",
-    "minecraft:warped_door"
+    "minecraft:warped_door",
+    "minecraft:mangrove_door"
   ],
   "wooden_fences": [
     "minecraft:oak_fence",
@@ -572,7 +637,8 @@
     "minecraft:acacia_fence",
     "minecraft:dark_oak_fence",
     "minecraft:crimson_fence",
-    "minecraft:warped_fence"
+    "minecraft:warped_fence",
+    "minecraft:mangrove_fence"
   ],
   "wooden_pressure_plates": [
     "minecraft:oak_pressure_plate",
@@ -582,7 +648,8 @@
     "minecraft:acacia_pressure_plate",
     "minecraft:dark_oak_pressure_plate",
     "minecraft:crimson_pressure_plate",
-    "minecraft:warped_pressure_plate"
+    "minecraft:warped_pressure_plate",
+    "minecraft:mangrove_pressure_plate"
   ],
   "wooden_slabs": [
     "minecraft:oak_slab",
@@ -592,7 +659,8 @@
     "minecraft:acacia_slab",
     "minecraft:dark_oak_slab",
     "minecraft:crimson_slab",
-    "minecraft:warped_slab"
+    "minecraft:warped_slab",
+    "minecraft:mangrove_slab"
   ],
   "wooden_stairs": [
     "minecraft:oak_stairs",
@@ -602,7 +670,8 @@
     "minecraft:acacia_stairs",
     "minecraft:dark_oak_stairs",
     "minecraft:crimson_stairs",
-    "minecraft:warped_stairs"
+    "minecraft:warped_stairs",
+    "minecraft:mangrove_stairs"
   ],
   "wooden_trapdoors": [
     "minecraft:oak_trapdoor",
@@ -612,7 +681,8 @@
     "minecraft:acacia_trapdoor",
     "minecraft:dark_oak_trapdoor",
     "minecraft:crimson_trapdoor",
-    "minecraft:warped_trapdoor"
+    "minecraft:warped_trapdoor",
+    "minecraft:mangrove_trapdoor"
   ],
   "wool": [
     "minecraft:white_wool",
@@ -631,5 +701,23 @@
     "minecraft:green_wool",
     "minecraft:red_wool",
     "minecraft:black_wool"
+  ],
+  "wool_carpets": [
+    "minecraft:white_carpet",
+    "minecraft:orange_carpet",
+    "minecraft:magenta_carpet",
+    "minecraft:light_blue_carpet",
+    "minecraft:yellow_carpet",
+    "minecraft:lime_carpet",
+    "minecraft:pink_carpet",
+    "minecraft:gray_carpet",
+    "minecraft:light_gray_carpet",
+    "minecraft:cyan_carpet",
+    "minecraft:purple_carpet",
+    "minecraft:blue_carpet",
+    "minecraft:brown_carpet",
+    "minecraft:green_carpet",
+    "minecraft:red_carpet",
+    "minecraft:black_carpet"
   ]
 }

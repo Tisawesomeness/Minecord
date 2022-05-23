@@ -28,6 +28,7 @@ public class Announcement {
      */
     public static void init(String path) throws IOException {
         announcements = new ArrayList<>();
+        totalWeight = 0;
         JSONArray announceArr = RequestUtils.loadJSONArray(path + "/announce.json");
         for (int i = 0; i < announceArr.length(); i++) {
             JSONObject announceObj = announceArr.getJSONObject(i);

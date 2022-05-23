@@ -25,7 +25,7 @@ public class AnsiCommand extends BaseRenderCommand {
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "ansi",
-                "Converts a player's avatar to a colored text message",
+                "Converts a player's avatar to a colored text message.",
                 "<player> [<overlay?>]",
                 null,
                 3000,
