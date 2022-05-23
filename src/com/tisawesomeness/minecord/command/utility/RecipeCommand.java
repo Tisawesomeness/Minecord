@@ -31,7 +31,7 @@ public class RecipeCommand extends Command {
 
     public String getHelp() {
         return "Shows the recipes for an item.\n" +
-                "Items and recipes are from Java Edition 1.7 to 1.18.\n" +
+                "Items and recipes are from Java Edition 1.7 to 1.19.\n" +
                 "All recipe types are searchable, including brewing.\n" +
                 "\n" +
                 Item.help + "\n";

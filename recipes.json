@@ -33,6 +33,24 @@
     },
     "group": "wooden_button"
   },
+  "acacia_chest_boat": {
+    "result": {
+      "item": "minecraft:acacia_chest_boat"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:chest"
+      },
+      {
+        "item": "minecraft:acacia_boat"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.19"
+    },
+    "group": "chest_boat"
+  },
   "acacia_door": {
     "result": {
       "item": "minecraft:acacia_door",
@@ -1000,6 +1018,24 @@
       "version": "1.13"
     },
     "group": "wooden_button"
+  },
+  "birch_chest_boat": {
+    "result": {
+      "item": "minecraft:birch_chest_boat"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:chest"
+      },
+      {
+        "item": "minecraft:birch_boat"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.19"
+    },
+    "group": "chest_boat"
   },
   "birch_door": {
     "result": {
@@ -3033,12 +3069,15 @@
     }
   },
   "bundle": {
-    "type": "minecraft:crafting_shaped",
+    "result": {
+      "item": "minecraft:bundle"
+    },
     "pattern": [
       "-#-",
       "# #",
       "###"
     ],
+    "type": "minecraft:crafting_shaped",
     "key": {
       "#": {
         "item": "minecraft:rabbit_hide"
@@ -3046,9 +3085,6 @@
       "-": {
         "item": "minecraft:string"
       }
-    },
-    "result": {
-      "item": "minecraft:bundle"
     },
     "properties": {
       "version": "1.17 Datapack"
@@ -3095,11 +3131,11 @@
     ],
     "type": "minecraft:crafting_shaped",
     "key": {
-      "S": {
-        "item": "minecraft:stick"
-      },
       "C": {
         "tag": "minecraft:coals"
+      },
+      "S": {
+        "item": "minecraft:stick"
       },
       "L": {
         "tag": "minecraft:logs"
@@ -3319,17 +3355,18 @@
     "result": {
       "item": "minecraft:chest_minecart"
     },
-    "pattern": [
-      "A",
-      "B"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "A": {
+    "ingredients": [
+      {
         "item": "minecraft:chest"
       },
-      "B": {
+      {
         "item": "minecraft:minecart"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.19, recipe is shaped."
       }
     }
   },
@@ -3621,8 +3658,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "coal",
-    "cookingtime": 100
+    "cookingtime": 100,
+    "group": "coal"
   },
   "coal_from_blasting_deepslate_coal_ore": {
     "result": "minecraft:coal",
@@ -3634,8 +3671,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "coal",
-    "cookingtime": 100
+    "cookingtime": 100,
+    "group": "coal"
   },
   "coal_from_smelting_coal_ore": {
     "result": "minecraft:coal",
@@ -3644,8 +3681,8 @@
     },
     "type": "minecraft:smelting",
     "experience": 0.1,
-    "group": "coal",
-    "cookingtime": 200
+    "cookingtime": 200,
+    "group": "coal"
   },
   "coal_from_smelting_deepslate_coal_ore": {
     "result": "minecraft:coal",
@@ -3657,8 +3694,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "coal",
-    "cookingtime": 200
+    "cookingtime": 200,
+    "group": "coal"
   },
   "coarse_dirt": {
     "result": {
@@ -3928,12 +3965,46 @@
     ],
     "type": "minecraft:crafting_shaped",
     "key": {
-      "#": {
-        "tag": "minecraft:planks"
-      },
-      "X": {
-        "tag": "minecraft:wooden_fences"
-      }
+      "#": [
+        {
+          "item": "minecraft:oak_planks"
+        },
+        {
+          "item": "minecraft:spruce_planks"
+        },
+        {
+          "item": "minecraft:birch_planks"
+        },
+        {
+          "item": "minecraft:jungle_planks"
+        },
+        {
+          "item": "minecraft:acacia_planks"
+        },
+        {
+          "item": "minecraft:dark_oak_planks"
+        }
+      ],
+      "X": [
+        {
+          "item": "minecraft:oak_fence"
+        },
+        {
+          "item": "minecraft:spruce_fence"
+        },
+        {
+          "item": "minecraft:birch_fence"
+        },
+        {
+          "item": "minecraft:jungle_fence"
+        },
+        {
+          "item": "minecraft:acacia_fence"
+        },
+        {
+          "item": "minecraft:dark_oak_fence"
+        }
+      ]
     },
     "properties": {
       "removed": "1.15",
@@ -4221,8 +4292,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "copper_ingot",
-    "cookingtime": 100
+    "cookingtime": 100,
+    "group": "copper_ingot"
   },
   "copper_ingot_from_blasting_deepslate_copper_ore": {
     "result": "minecraft:copper_ingot",
@@ -4234,8 +4305,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "copper_ingot",
-    "cookingtime": 100
+    "cookingtime": 100,
+    "group": "copper_ingot"
   },
   "copper_ingot_from_blasting_raw_copper": {
     "result": "minecraft:copper_ingot",
@@ -4247,8 +4318,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "copper_ingot",
-    "cookingtime": 100
+    "cookingtime": 100,
+    "group": "copper_ingot"
   },
   "copper_ingot_from_smelting_copper_ore": {
     "result": "minecraft:copper_ingot",
@@ -4260,8 +4331,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "copper_ingot",
-    "cookingtime": 200
+    "cookingtime": 200,
+    "group": "copper_ingot"
   },
   "copper_ingot_from_smelting_deepslate_copper_ore": {
     "result": "minecraft:copper_ingot",
@@ -4273,8 +4344,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "copper_ingot",
-    "cookingtime": 200
+    "cookingtime": 200,
+    "group": "copper_ingot"
   },
   "copper_ingot_from_smelting_raw_copper": {
     "result": "minecraft:copper_ingot",
@@ -4286,8 +4357,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "copper_ingot",
-    "cookingtime": 200
+    "cookingtime": 200,
+    "group": "copper_ingot"
   },
   "copper_ingot_from_waxed_copper_block": {
     "result": {
@@ -4672,8 +4743,13 @@
     "ingredient": {
       "item": "minecraft:copper_block"
     },
-    "count": 1,
+    "count": 4,
     "type": "minecraft:stonecutting",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.18, recipe gives 1 block."
+      }
+    },
     "properties": {
       "version": "1.17"
     }
@@ -4701,8 +4777,13 @@
     "ingredient": {
       "item": "minecraft:copper_block"
     },
-    "count": 2,
+    "count": 8,
     "type": "minecraft:stonecutting",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.18, recipe gives 2 blocks."
+      }
+    },
     "properties": {
       "version": "1.17"
     }
@@ -4743,8 +4824,13 @@
     "ingredient": {
       "item": "minecraft:copper_block"
     },
-    "count": 1,
+    "count": 4,
     "type": "minecraft:stonecutting",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.18, recipe gives 1 block."
+      }
+    },
     "properties": {
       "version": "1.17"
     }
@@ -5235,6 +5321,24 @@
       "version": "1.13"
     },
     "group": "wooden_button"
+  },
+  "dark_oak_chest_boat": {
+    "result": {
+      "item": "minecraft:dark_oak_chest_boat"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:chest"
+      },
+      {
+        "item": "minecraft:dark_oak_boat"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.19"
+    },
+    "group": "chest_boat"
   },
   "dark_oak_door": {
     "result": {
@@ -6125,8 +6229,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "diamond",
-    "cookingtime": 100
+    "cookingtime": 100,
+    "group": "diamond"
   },
   "diamond_from_blasting_diamond_ore": {
     "result": "minecraft:diamond",
@@ -6135,8 +6239,8 @@
     },
     "type": "minecraft:blasting",
     "experience": 1,
-    "group": "diamond",
-    "cookingtime": 100
+    "cookingtime": 100,
+    "group": "diamond"
   },
   "diamond_from_smelting_deepslate_diamond_ore": {
     "result": "minecraft:diamond",
@@ -6148,8 +6252,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "diamond",
-    "cookingtime": 200
+    "cookingtime": 200,
+    "group": "diamond"
   },
   "diamond_from_smelting_diamond_ore": {
     "result": "minecraft:diamond",
@@ -6158,8 +6262,8 @@
     },
     "type": "minecraft:smelting",
     "experience": 1,
-    "group": "diamond",
-    "cookingtime": 200
+    "cookingtime": 200,
+    "group": "diamond"
   },
   "diamond_helmet": {
     "result": {
@@ -6548,8 +6652,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "emerald",
-    "cookingtime": 100
+    "cookingtime": 100,
+    "group": "emerald"
   },
   "emerald_from_blasting_emerald_ore": {
     "result": "minecraft:emerald",
@@ -6558,8 +6662,8 @@
     },
     "type": "minecraft:blasting",
     "experience": 1,
-    "group": "emerald",
-    "cookingtime": 100
+    "cookingtime": 100,
+    "group": "emerald"
   },
   "emerald_from_smelting_deepslate_emerald_ore": {
     "result": "minecraft:emerald",
@@ -6571,8 +6675,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "emerald",
-    "cookingtime": 200
+    "cookingtime": 200,
+    "group": "emerald"
   },
   "emerald_from_smelting_emerald_ore": {
     "result": "minecraft:emerald",
@@ -6581,8 +6685,8 @@
     },
     "type": "minecraft:smelting",
     "experience": 1,
-    "group": "emerald",
-    "cookingtime": 200
+    "cookingtime": 200,
+    "group": "emerald"
   },
   "empty_lingering_potion": {
     "result": "minecraft.lingering_potion.effect.empty",
@@ -6911,8 +7015,13 @@
     "ingredient": {
       "item": "minecraft:exposed_copper"
     },
-    "count": 1,
+    "count": 4,
     "type": "minecraft:stonecutting",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.18, recipe gives 1 block."
+      }
+    },
     "properties": {
       "version": "1.17"
     }
@@ -6940,8 +7049,13 @@
     "ingredient": {
       "item": "minecraft:exposed_copper"
     },
-    "count": 2,
+    "count": 8,
     "type": "minecraft:stonecutting",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.18, recipe gives 2 blocks."
+      }
+    },
     "properties": {
       "version": "1.17"
     }
@@ -6982,8 +7096,13 @@
     "ingredient": {
       "item": "minecraft:exposed_copper"
     },
-    "count": 1,
+    "count": 4,
     "type": "minecraft:stonecutting",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.18, recipe gives 1 block."
+      }
+    },
     "properties": {
       "version": "1.17"
     }
@@ -7635,7 +7754,7 @@
     "type": "minecraft:crafting_special_firework_rocket",
     "lang": {
       "en_US": {
-        "notes": "\nAdding gunpowder increases flight duration.\nUp to 7 firework stars can be used.\nGives 1 firework rocket before 1.10"
+        "notes": "\nAdding gunpowder increases flight duration.\nUp to 7 firework stars can be used.\nGives 1 firework rocket before 1.10."
       }
     },
     "properties": {
@@ -8103,17 +8222,18 @@
     "result": {
       "item": "minecraft:furnace_minecart"
     },
-    "pattern": [
-      "A",
-      "B"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "A": {
+    "ingredients": [
+      {
         "item": "minecraft:furnace"
       },
-      "B": {
+      {
         "item": "minecraft:minecart"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.19, recipe is shaped."
       }
     }
   },
@@ -8238,8 +8358,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "gold_ingot",
-    "cookingtime": 100
+    "cookingtime": 100,
+    "group": "gold_ingot"
   },
   "gold_ingot_from_blasting_gold_ore": {
     "result": "minecraft:gold_ingot",
@@ -8248,8 +8368,8 @@
     },
     "type": "minecraft:blasting",
     "experience": 1,
-    "group": "gold_ingot",
-    "cookingtime": 100
+    "cookingtime": 100,
+    "group": "gold_ingot"
   },
   "gold_ingot_from_blasting_nether_gold_ore": {
     "result": "minecraft:gold_ingot",
@@ -8261,8 +8381,8 @@
     "properties": {
       "version": "1.16"
     },
-    "group": "gold_ingot",
-    "cookingtime": 100
+    "cookingtime": 100,
+    "group": "gold_ingot"
   },
   "gold_ingot_from_blasting_raw_gold": {
     "result": "minecraft:gold_ingot",
@@ -8274,8 +8394,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "gold_ingot",
-    "cookingtime": 100
+    "cookingtime": 100,
+    "group": "gold_ingot"
   },
   "gold_ingot_from_gold_block": {
     "result": {
@@ -8317,8 +8437,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "gold_ingot",
-    "cookingtime": 200
+    "cookingtime": 200,
+    "group": "gold_ingot"
   },
   "gold_ingot_from_smelting_gold_ore": {
     "result": "minecraft:gold_ingot",
@@ -8327,8 +8447,8 @@
     },
     "type": "minecraft:smelting",
     "experience": 1,
-    "group": "gold_ingot",
-    "cookingtime": 200
+    "cookingtime": 200,
+    "group": "gold_ingot"
   },
   "gold_ingot_from_smelting_nether_gold_ore": {
     "result": "minecraft:gold_ingot",
@@ -8340,8 +8460,8 @@
     "properties": {
       "version": "1.16"
     },
-    "group": "gold_ingot",
-    "cookingtime": 200
+    "cookingtime": 200,
+    "group": "gold_ingot"
   },
   "gold_ingot_from_smelting_raw_gold": {
     "result": "minecraft:gold_ingot",
@@ -8353,8 +8473,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "gold_ingot",
-    "cookingtime": 200
+    "cookingtime": 200,
+    "group": "gold_ingot"
   },
   "gold_nugget": {
     "result": {
@@ -9557,17 +9677,18 @@
     "result": {
       "item": "minecraft:hopper_minecart"
     },
-    "pattern": [
-      "A",
-      "B"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "A": {
+    "ingredients": [
+      {
         "item": "minecraft:hopper"
       },
-      "B": {
+      {
         "item": "minecraft:minecart"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.19, recipe is shaped."
       }
     }
   },
@@ -9747,8 +9868,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "iron_ingot",
-    "cookingtime": 100
+    "cookingtime": 100,
+    "group": "iron_ingot"
   },
   "iron_ingot_from_blasting_iron_ore": {
     "result": "minecraft:iron_ingot",
@@ -9757,8 +9878,8 @@
     },
     "type": "minecraft:blasting",
     "experience": 0.7,
-    "group": "iron_ingot",
-    "cookingtime": 100
+    "cookingtime": 100,
+    "group": "iron_ingot"
   },
   "iron_ingot_from_blasting_raw_iron": {
     "result": "minecraft:iron_ingot",
@@ -9770,8 +9891,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "iron_ingot",
-    "cookingtime": 100
+    "cookingtime": 100,
+    "group": "iron_ingot"
   },
   "iron_ingot_from_iron_block": {
     "result": {
@@ -9816,8 +9937,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "iron_ingot",
-    "cookingtime": 200
+    "cookingtime": 200,
+    "group": "iron_ingot"
   },
   "iron_ingot_from_smelting_iron_ore": {
     "result": "minecraft:iron_ingot",
@@ -9826,8 +9947,8 @@
     },
     "type": "minecraft:smelting",
     "experience": 0.7,
-    "group": "iron_ingot",
-    "cookingtime": 200
+    "cookingtime": 200,
+    "group": "iron_ingot"
   },
   "iron_ingot_from_smelting_raw_iron": {
     "result": "minecraft:iron_ingot",
@@ -9839,8 +9960,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "iron_ingot",
-    "cookingtime": 200
+    "cookingtime": 200,
+    "group": "iron_ingot"
   },
   "iron_leggings": {
     "result": {
@@ -10148,6 +10269,24 @@
     },
     "group": "wooden_button"
   },
+  "jungle_chest_boat": {
+    "result": {
+      "item": "minecraft:jungle_chest_boat"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:chest"
+      },
+      {
+        "item": "minecraft:jungle_boat"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.19"
+    },
+    "group": "chest_boat"
+  },
   "jungle_door": {
     "result": {
       "item": "minecraft:jungle_door",
@@ -10423,8 +10562,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "lapis_lazuli",
-    "cookingtime": 100
+    "cookingtime": 100,
+    "group": "lapis_lazuli"
   },
   "lapis_lazuli_from_blasting_lapis_ore": {
     "result": "minecraft:lapis_lazuli",
@@ -10433,8 +10572,8 @@
     },
     "type": "minecraft:blasting",
     "experience": 0.2,
-    "group": "lapis_lazuli",
-    "cookingtime": 100
+    "cookingtime": 100,
+    "group": "lapis_lazuli"
   },
   "lapis_lazuli_from_smelting_deepslate_lapis_ore": {
     "result": "minecraft:lapis_lazuli",
@@ -10446,8 +10585,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "lapis_lazuli",
-    "cookingtime": 200
+    "cookingtime": 200,
+    "group": "lapis_lazuli"
   },
   "lapis_lazuli_from_smelting_lapis_ore": {
     "result": "minecraft:lapis_lazuli",
@@ -10456,8 +10595,8 @@
     },
     "type": "minecraft:smelting",
     "experience": 0.2,
-    "group": "lapis_lazuli",
-    "cookingtime": 200
+    "cookingtime": 200,
+    "group": "lapis_lazuli"
   },
   "lead": {
     "result": {
@@ -12433,11 +12572,11 @@
     ],
     "type": "minecraft:crafting_shaped",
     "key": {
-      "S": {
-        "item": "minecraft:chiseled_stone_bricks"
-      },
       "#": {
         "item": "minecraft:netherite_ingot"
+      },
+      "S": {
+        "item": "minecraft:chiseled_stone_bricks"
       }
     },
     "properties": {
@@ -12899,6 +13038,263 @@
     ],
     "type": "minecraft:crafting_shapeless"
   },
+  "mangrove_boat": {
+    "result": {
+      "item": "minecraft:mangrove_boat"
+    },
+    "pattern": [
+      "# #",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:mangrove_planks"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    },
+    "group": "boat"
+  },
+  "mangrove_button": {
+    "result": {
+      "item": "minecraft:mangrove_button"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:mangrove_planks"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.19"
+    },
+    "group": "wooden_button"
+  },
+  "mangrove_chest_boat": {
+    "result": {
+      "item": "minecraft:mangrove_chest_boat"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:chest"
+      },
+      {
+        "item": "minecraft:mangrove_boat"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.19"
+    },
+    "group": "chest_boat"
+  },
+  "mangrove_door": {
+    "result": {
+      "item": "minecraft:mangrove_door",
+      "count": 3
+    },
+    "pattern": [
+      "##",
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:mangrove_planks"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    },
+    "group": "wooden_door"
+  },
+  "mangrove_fence": {
+    "result": {
+      "item": "minecraft:mangrove_fence",
+      "count": 3
+    },
+    "pattern": [
+      "W#W",
+      "W#W"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:stick"
+      },
+      "W": {
+        "item": "minecraft:mangrove_planks"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    },
+    "group": "wooden_fence"
+  },
+  "mangrove_fence_gate": {
+    "result": {
+      "item": "minecraft:mangrove_fence_gate"
+    },
+    "pattern": [
+      "#W#",
+      "#W#"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:stick"
+      },
+      "W": {
+        "item": "minecraft:mangrove_planks"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    },
+    "group": "wooden_fence_gate"
+  },
+  "mangrove_planks": {
+    "result": {
+      "item": "minecraft:mangrove_planks",
+      "count": 4
+    },
+    "ingredients": [
+      {
+        "tag": "minecraft:mangrove_logs"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "1.19"
+    },
+    "group": "planks"
+  },
+  "mangrove_pressure_plate": {
+    "result": {
+      "item": "minecraft:mangrove_pressure_plate"
+    },
+    "pattern": [
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:mangrove_planks"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    },
+    "group": "wooden_pressure_plate"
+  },
+  "mangrove_sign": {
+    "result": {
+      "item": "minecraft:mangrove_sign",
+      "count": 3
+    },
+    "pattern": [
+      "###",
+      "###",
+      " X "
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:mangrove_planks"
+      },
+      "X": {
+        "item": "minecraft:stick"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    },
+    "group": "wooden_sign"
+  },
+  "mangrove_slab": {
+    "result": {
+      "item": "minecraft:mangrove_slab",
+      "count": 6
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:mangrove_planks"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    },
+    "group": "wooden_slab"
+  },
+  "mangrove_stairs": {
+    "result": {
+      "item": "minecraft:mangrove_stairs",
+      "count": 4
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:mangrove_planks"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    },
+    "group": "wooden_stairs"
+  },
+  "mangrove_trapdoor": {
+    "result": {
+      "item": "minecraft:mangrove_trapdoor",
+      "count": 2
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:mangrove_planks"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    },
+    "group": "wooden_trapdoor"
+  },
+  "mangrove_wood": {
+    "result": {
+      "item": "minecraft:mangrove_wood",
+      "count": 3
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:mangrove_log"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    },
+    "group": "bark"
+  },
   "map": {
     "result": {
       "item": "minecraft:map"
@@ -13254,6 +13650,132 @@
     },
     "group": "mossy_stone_bricks"
   },
+  "mud_brick_slab": {
+    "result": {
+      "item": "minecraft:mud_brick_slab",
+      "count": 6
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:mud_bricks"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "mud_brick_slab_from_mud_bricks_stonecutting": {
+    "result": "minecraft:mud_brick_slab",
+    "ingredient": {
+      "item": "minecraft:mud_bricks"
+    },
+    "count": 2,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "mud_brick_stairs": {
+    "result": {
+      "item": "minecraft:mud_brick_stairs",
+      "count": 4
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:mud_bricks"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "mud_brick_stairs_from_mud_bricks_stonecutting": {
+    "result": "minecraft:mud_brick_stairs",
+    "ingredient": {
+      "item": "minecraft:mud_bricks"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "mud_brick_wall": {
+    "result": {
+      "item": "minecraft:mud_brick_wall",
+      "count": 6
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:mud_bricks"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "mud_brick_wall_from_mud_bricks_stonecutting": {
+    "result": "minecraft:mud_brick_wall",
+    "ingredient": {
+      "item": "minecraft:mud_bricks"
+    },
+    "count": 1,
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "mud_bricks": {
+    "result": {
+      "item": "minecraft:mud_bricks",
+      "count": 4
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:packed_mud"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
+  "muddy_mangrove_roots": {
+    "result": {
+      "item": "minecraft:muddy_mangrove_roots"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:mud"
+      },
+      {
+        "item": "minecraft:mangrove_roots"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.19"
+    }
+  },
   "mundane_lingering_potion": {
     "result": "minecraft.lingering_potion.effect.mundane",
     "reagent": {
@@ -13332,6 +13854,25 @@
       }
     ],
     "type": "minecraft:crafting_shapeless"
+  },
+  "music_disc_5": {
+    "result": {
+      "item": "minecraft:music_disc_5"
+    },
+    "pattern": [
+      "SSS",
+      "SSS",
+      "SSS"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "S": {
+        "item": "minecraft:disc_fragment_5"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
   },
   "nether_brick": {
     "result": "minecraft:nether_brick",
@@ -13509,11 +14050,11 @@
     "properties": {
       "version": "1.16"
     },
-    "base": {
-      "item": "minecraft:diamond_axe"
-    },
     "addition": {
       "item": "minecraft:netherite_ingot"
+    },
+    "base": {
+      "item": "minecraft:diamond_axe"
     }
   },
   "netherite_block": {
@@ -13543,11 +14084,11 @@
     "properties": {
       "version": "1.16"
     },
-    "base": {
-      "item": "minecraft:diamond_boots"
-    },
     "addition": {
       "item": "minecraft:netherite_ingot"
+    },
+    "base": {
+      "item": "minecraft:diamond_boots"
     }
   },
   "netherite_chestplate_smithing": {
@@ -13558,11 +14099,11 @@
     "properties": {
       "version": "1.16"
     },
-    "base": {
-      "item": "minecraft:diamond_chestplate"
-    },
     "addition": {
       "item": "minecraft:netherite_ingot"
+    },
+    "base": {
+      "item": "minecraft:diamond_chestplate"
     }
   },
   "netherite_helmet_smithing": {
@@ -13573,11 +14114,11 @@
     "properties": {
       "version": "1.16"
     },
-    "base": {
-      "item": "minecraft:diamond_helmet"
-    },
     "addition": {
       "item": "minecraft:netherite_ingot"
+    },
+    "base": {
+      "item": "minecraft:diamond_helmet"
     }
   },
   "netherite_hoe_smithing": {
@@ -13588,11 +14129,11 @@
     "properties": {
       "version": "1.16"
     },
-    "base": {
-      "item": "minecraft:diamond_hoe"
-    },
     "addition": {
       "item": "minecraft:netherite_ingot"
+    },
+    "base": {
+      "item": "minecraft:diamond_hoe"
     }
   },
   "netherite_ingot": {
@@ -13655,11 +14196,11 @@
     "properties": {
       "version": "1.16"
     },
-    "base": {
-      "item": "minecraft:diamond_leggings"
-    },
     "addition": {
       "item": "minecraft:netherite_ingot"
+    },
+    "base": {
+      "item": "minecraft:diamond_leggings"
     }
   },
   "netherite_pickaxe_smithing": {
@@ -13670,11 +14211,11 @@
     "properties": {
       "version": "1.16"
     },
-    "base": {
-      "item": "minecraft:diamond_pickaxe"
-    },
     "addition": {
       "item": "minecraft:netherite_ingot"
+    },
+    "base": {
+      "item": "minecraft:diamond_pickaxe"
     }
   },
   "netherite_scrap": {
@@ -13709,11 +14250,11 @@
     "properties": {
       "version": "1.16"
     },
-    "base": {
-      "item": "minecraft:diamond_shovel"
-    },
     "addition": {
       "item": "minecraft:netherite_ingot"
+    },
+    "base": {
+      "item": "minecraft:diamond_shovel"
     }
   },
   "netherite_sword_smithing": {
@@ -13724,11 +14265,11 @@
     "properties": {
       "version": "1.16"
     },
-    "base": {
-      "item": "minecraft:diamond_sword"
-    },
     "addition": {
       "item": "minecraft:netherite_ingot"
+    },
+    "base": {
+      "item": "minecraft:diamond_sword"
     }
   },
   "night_vision_lingering_potion": {
@@ -13813,6 +14354,24 @@
     ],
     "type": "minecraft:crafting_shapeless",
     "group": "wooden_button"
+  },
+  "oak_chest_boat": {
+    "result": {
+      "item": "minecraft:oak_chest_boat"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:chest"
+      },
+      {
+        "item": "minecraft:oak_boat"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.19"
+    },
+    "group": "chest_boat"
   },
   "oak_door": {
     "result": {
@@ -14362,8 +14921,13 @@
     "ingredient": {
       "item": "minecraft:oxidized_copper"
     },
-    "count": 1,
+    "count": 4,
     "type": "minecraft:stonecutting",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.18, recipe gives 1 block."
+      }
+    },
     "properties": {
       "version": "1.17"
     }
@@ -14391,8 +14955,13 @@
     "ingredient": {
       "item": "minecraft:oxidized_copper"
     },
-    "count": 2,
+    "count": 8,
     "type": "minecraft:stonecutting",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.18, recipe gives 2 blocks."
+      }
+    },
     "properties": {
       "version": "1.17"
     }
@@ -14433,8 +15002,13 @@
     "ingredient": {
       "item": "minecraft:oxidized_copper"
     },
-    "count": 1,
+    "count": 4,
     "type": "minecraft:stonecutting",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.18, recipe gives 1 block."
+      }
+    },
     "properties": {
       "version": "1.17"
     }
@@ -14486,6 +15060,23 @@
     "type": "minecraft:crafting_shapeless",
     "properties": {
       "version": "1.13"
+    }
+  },
+  "packed_mud": {
+    "result": {
+      "item": "minecraft:packed_mud"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:mud"
+      },
+      {
+        "item": "minecraft:wheat"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.19"
     }
   },
   "painting": {
@@ -16855,6 +17446,28 @@
       "version": "1.17"
     }
   },
+  "recovery_compass": {
+    "result": {
+      "item": "minecraft:recovery_compass"
+    },
+    "pattern": [
+      "SSS",
+      "SCS",
+      "SSS"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "C": {
+        "item": "minecraft:compass"
+      },
+      "S": {
+        "item": "minecraft:echo_shard"
+      }
+    },
+    "properties": {
+      "version": "1.19"
+    }
+  },
   "red_banner": {
     "result": {
       "item": "minecraft:red_banner"
@@ -17443,8 +18056,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "redstone",
-    "cookingtime": 100
+    "cookingtime": 100,
+    "group": "redstone"
   },
   "redstone_from_blasting_redstone_ore": {
     "result": "minecraft:redstone",
@@ -17453,8 +18066,8 @@
     },
     "type": "minecraft:blasting",
     "experience": 0.7,
-    "group": "redstone",
-    "cookingtime": 100
+    "cookingtime": 100,
+    "group": "redstone"
   },
   "redstone_from_smelting_deepslate_redstone_ore": {
     "result": "minecraft:redstone",
@@ -17466,8 +18079,8 @@
     "properties": {
       "version": "1.17"
     },
-    "group": "redstone",
-    "cookingtime": 200
+    "cookingtime": 200,
+    "group": "redstone"
   },
   "redstone_from_smelting_redstone_ore": {
     "result": "minecraft:redstone",
@@ -17476,8 +18089,8 @@
     },
     "type": "minecraft:smelting",
     "experience": 0.7,
-    "group": "redstone",
-    "cookingtime": 200
+    "cookingtime": 200,
+    "group": "redstone"
   },
   "redstone_lamp": {
     "result": {
@@ -17747,11 +18360,11 @@
     ],
     "type": "minecraft:crafting_shaped",
     "key": {
-      "S": {
-        "item": "minecraft:prismarine_shard"
-      },
       "C": {
         "item": "minecraft:prismarine_crystals"
+      },
+      "S": {
+        "item": "minecraft:prismarine_shard"
       }
     },
     "properties": {
@@ -19616,11 +20229,11 @@
     ],
     "type": "minecraft:crafting_shaped",
     "key": {
-      "S": {
-        "item": "minecraft:stick"
-      },
       "#": {
         "tag": "minecraft:soul_fire_base_blocks"
+      },
+      "S": {
+        "item": "minecraft:stick"
       },
       "L": {
         "tag": "minecraft:logs"
@@ -20399,6 +21012,24 @@
     },
     "group": "wooden_button"
   },
+  "spruce_chest_boat": {
+    "result": {
+      "item": "minecraft:spruce_chest_boat"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:chest"
+      },
+      {
+        "item": "minecraft:spruce_boat"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.19"
+    },
+    "group": "chest_boat"
+  },
   "spruce_door": {
     "result": {
       "item": "minecraft:spruce_door",
@@ -21175,6 +21806,26 @@
     },
     "properties": {
       "version": "1.15"
+    },
+    "group": "bark"
+  },
+  "stripped_mangrove_wood": {
+    "result": {
+      "item": "minecraft:stripped_mangrove_wood",
+      "count": 3
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:stripped_mangrove_log"
+      }
+    },
+    "properties": {
+      "version": "1.19"
     },
     "group": "bark"
   },
@@ -22470,17 +23121,18 @@
     "result": {
       "item": "minecraft:tnt_minecart"
     },
-    "pattern": [
-      "A",
-      "B"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "A": {
+    "ingredients": [
+      {
         "item": "minecraft:tnt"
       },
-      "B": {
+      {
         "item": "minecraft:minecart"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.19, recipe is shaped."
       }
     }
   },
@@ -22974,8 +23626,13 @@
     "ingredient": {
       "item": "minecraft:waxed_copper_block"
     },
-    "count": 1,
+    "count": 4,
     "type": "minecraft:stonecutting",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.18, recipe gives 1 block."
+      }
+    },
     "properties": {
       "version": "1.17"
     }
@@ -23022,8 +23679,13 @@
     "ingredient": {
       "item": "minecraft:waxed_copper_block"
     },
-    "count": 2,
+    "count": 8,
     "type": "minecraft:stonecutting",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.18, recipe gives 2 blocks."
+      }
+    },
     "properties": {
       "version": "1.17"
     }
@@ -23083,8 +23745,13 @@
     "ingredient": {
       "item": "minecraft:waxed_copper_block"
     },
-    "count": 1,
+    "count": 4,
     "type": "minecraft:stonecutting",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.18, recipe gives 1 block."
+      }
+    },
     "properties": {
       "version": "1.17"
     }
@@ -23161,8 +23828,13 @@
     "ingredient": {
       "item": "minecraft:waxed_exposed_copper"
     },
-    "count": 1,
+    "count": 4,
     "type": "minecraft:stonecutting",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.18, recipe gives 1 block."
+      }
+    },
     "properties": {
       "version": "1.17"
     }
@@ -23209,8 +23881,13 @@
     "ingredient": {
       "item": "minecraft:waxed_exposed_copper"
     },
-    "count": 2,
+    "count": 8,
     "type": "minecraft:stonecutting",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.18, recipe gives 2 blocks."
+      }
+    },
     "properties": {
       "version": "1.17"
     }
@@ -23270,8 +23947,13 @@
     "ingredient": {
       "item": "minecraft:waxed_exposed_copper"
     },
-    "count": 1,
+    "count": 4,
     "type": "minecraft:stonecutting",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.18, recipe gives 1 block."
+      }
+    },
     "properties": {
       "version": "1.17"
     }
@@ -23348,8 +24030,13 @@
     "ingredient": {
       "item": "minecraft:waxed_oxidized_copper"
     },
-    "count": 1,
+    "count": 4,
     "type": "minecraft:stonecutting",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.18, recipe gives 1 block."
+      }
+    },
     "properties": {
       "version": "1.17"
     }
@@ -23396,8 +24083,13 @@
     "ingredient": {
       "item": "minecraft:waxed_oxidized_copper"
     },
-    "count": 2,
+    "count": 8,
     "type": "minecraft:stonecutting",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.18, recipe gives 2 blocks."
+      }
+    },
     "properties": {
       "version": "1.17"
     }
@@ -23457,8 +24149,13 @@
     "ingredient": {
       "item": "minecraft:waxed_oxidized_copper"
     },
-    "count": 1,
+    "count": 4,
     "type": "minecraft:stonecutting",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.18, recipe gives 1 block."
+      }
+    },
     "properties": {
       "version": "1.17"
     }
@@ -23535,8 +24232,13 @@
     "ingredient": {
       "item": "minecraft:waxed_weathered_copper"
     },
-    "count": 1,
+    "count": 4,
     "type": "minecraft:stonecutting",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.18, recipe gives 1 block."
+      }
+    },
     "properties": {
       "version": "1.17"
     }
@@ -23583,8 +24285,13 @@
     "ingredient": {
       "item": "minecraft:waxed_weathered_copper"
     },
-    "count": 2,
+    "count": 8,
     "type": "minecraft:stonecutting",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.18, recipe gives 2 blocks."
+      }
+    },
     "properties": {
       "version": "1.17"
     }
@@ -23644,8 +24351,13 @@
     "ingredient": {
       "item": "minecraft:waxed_weathered_copper"
     },
-    "count": 1,
+    "count": 4,
     "type": "minecraft:stonecutting",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.18, recipe gives 1 block."
+      }
+    },
     "properties": {
       "version": "1.17"
     }
@@ -23747,8 +24459,13 @@
     "ingredient": {
       "item": "minecraft:weathered_copper"
     },
-    "count": 1,
+    "count": 4,
     "type": "minecraft:stonecutting",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.18, recipe gives 1 block."
+      }
+    },
     "properties": {
       "version": "1.17"
     }
@@ -23776,8 +24493,13 @@
     "ingredient": {
       "item": "minecraft:weathered_copper"
     },
-    "count": 2,
+    "count": 8,
     "type": "minecraft:stonecutting",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.18, recipe gives 2 blocks."
+      }
+    },
     "properties": {
       "version": "1.17"
     }
@@ -23818,8 +24540,13 @@
     "ingredient": {
       "item": "minecraft:weathered_copper"
     },
-    "count": 1,
+    "count": 4,
     "type": "minecraft:stonecutting",
+    "lang": {
+      "en_US": {
+        "notes": "Before 1.18, recipe gives 1 block."
+      }
+    },
     "properties": {
       "version": "1.17"
     }
