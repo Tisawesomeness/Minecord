@@ -26,6 +26,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&avatar <player> [<scale>] [<overlay?>]` - Shows an image of the player's avatar.
 - `&head <player> [<scale>] [<overlay?>]` - Shows an image of the player's head.
 - `&body <player> [<scale>] [<overlay?>]` - Shows an image of the player's body.
+- `&ansi <player> [<overlay?>]` - Converts a player's avatar to a colored text message.
 
 #### Utility Commands
 - `&status` - Checks the status of Mojang servers.
@@ -47,6 +48,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&id <id>` - Gets the creation time of a Discord ID.
 - `&purge <number>` - Cleans the bot messages. Requires Manage Messages permissions.
 - `&perms [<channel>]` - Test the bot's permissions in a channel. Leave blank to test the current channel.
+- `&settings [setting] [value]` - Change the bot's settings, including prefix.
 
 #### Admin Commands
 - `&help <command> admin` - Displays admin help for a command.
