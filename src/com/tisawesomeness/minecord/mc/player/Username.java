@@ -82,6 +82,9 @@ public class Username implements CharSequence, Comparable<Username> {
      * @return Whether the string will be parsed like a quoted name
      */
     public static boolean isQuoted(@NonNull CharSequence input) {
+        if (input.length() == 0) {
+            return false;
+        }
         char ch = input.charAt(0);
         return ch == QUOTE || ch == BACKTICK;
     }
@@ -98,8 +101,12 @@ public class Username implements CharSequence, Comparable<Username> {
      * </p>
      * @param input The input string
      * @return The parsed username
+     * @throws IllegalArgumentException If the input is empty
      */
     public static @NonNull Username parse(@NonNull String input) {
+        if (input.isEmpty()) {
+            throw new IllegalArgumentException("Username cannot be empty");
+        }
         if (input.length() <= 2) {
             return new Username(input);
         }
