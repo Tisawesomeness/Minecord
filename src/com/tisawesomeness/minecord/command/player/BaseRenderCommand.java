@@ -118,6 +118,9 @@ public abstract class BaseRenderCommand extends AbstractPlayerCommand {
                                                                     int argsUsed, int playerArgIndex);
 
     private static Either<String, Username> validateUsername(String input) {
+        if (input.isEmpty()) {
+            return Either.left(":warning: You must specify a player.");
+        }
         if (input.length() > Username.MAX_LENGTH) {
             String msg = String.format("Usernames must be %d characters or less.", Username.MAX_LENGTH);
             return Either.left(msg);
