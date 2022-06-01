@@ -41,9 +41,10 @@ public abstract class Bot {
     /**
      * Reloads the bot by creating a new bot, moving over the listeners, and shutting down the current one.
      * This bot should not be used after calling reload().
+     * @return an exit code, 0 if success
      */
-    public void reload() {
-        hook.reload();
+    public int reload() {
+        return hook.reload();
     }
     /**
      * Shuts down the bot.
@@ -88,8 +89,10 @@ public abstract class Bot {
 
     /**
      * Closes any resources that need to be closed, such as databases or threads.
-     * Called when the bot is shutting down, either because {@link #shutdown()} was called or the old bot is
-     * being shut down after calling {@link #reload()}.
+     * Called when {@link #shutdown()} is called, the old bot is being shut down after a reload, or the new bot is
+     * being shut down after a reload failure.
+     * A reload failure can occur during the config, preInit, or init stages. This method must be able to handle a
+     * shutdown at each of those stages.
      */
     public abstract void onShutdown();
 

@@ -35,6 +35,12 @@ public class SwapEventManagerProvider implements IntFunction<IEventManager> {
         ems.forEach(SwapEventManager::queueStaging);
     }
     /**
+     * Runs {@link SwapEventManager#unqueueStaging()} for all shards.
+     */
+    public void unqueueStaging() {
+        ems.forEach(SwapEventManager::unqueueStaging);
+    }
+    /**
      * Runs {@link SwapEventManager#promoteStaging()} for all shards.
      */
     public void promoteStaging() {

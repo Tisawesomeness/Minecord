@@ -10,7 +10,6 @@ import com.tisawesomeness.minecord.common.util.IO;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import lombok.extern.slf4j.Slf4j;
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Message;
@@ -242,31 +241,66 @@ public final class Bootstrap implements BootstrapHook {
         return BootExitCodes.LOGIN_IOE;
     }
 
-    public void reload() {
+    public int reload() {
         log.debug("Reload requested");
         Bot newBot = new Minecord(this);
-        newBot.createConfigs(path);
-        newBot.preInit(context);
+        int exitCode = reload(newBot);
+        if (exitCode == BootExitCodes.SUCCESS) {
+            bot = newBot;
+            log.debug("Reload complete");
+        } else {
+            try {
+                newBot.onShutdown();
+            } catch (Exception ex) {
+                log.error("There was an exception shutting down the new bot on failed boot after reload, ignoring", ex);
+            }
+        }
+        return exitCode;
+    }
+    private int reload(Bot newBot) {
+        int configExitCode = newBot.createConfigs(path);
+        if (configExitCode != BootExitCodes.SUCCESS) {
+            log.error("Failed to reload during config stage with exit code {}", configExitCode);
+            return configExitCode;
+        }
+        int preInitExitCode = newBot.preInit(context);
+        if (preInitExitCode != BootExitCodes.SUCCESS) {
+            log.error("Failed to reload during pre-init stage with exit code {}", preInitExitCode);
+            return preInitExitCode;
+        }
 
         log.debug("Queue staging event manager");
         swapEventManagers.queueStaging();
-        newBot.init(shardManager);
+        // queueStaging() must be undone if there is an error to avoid ghost listeners leaking memory
+        try {
+            int initExitCode = newBot.init(shardManager);
+            if (initExitCode != BootExitCodes.SUCCESS) {
+                log.error("Failed to reload during init stage with exit code {}", initExitCode);
+                log.debug("Unqueue staging event manager");
+                swapEventManagers.unqueueStaging();
+                return initExitCode;
+            }
+        } catch (Throwable ex) {
+            log.error("Failed to reload during init stage due to exception");
+            log.debug("Unqueue staging event manager");
+            swapEventManagers.unqueueStaging();
+            throw ex; // Let reloader handle it
+        }
         log.debug("Promote staging event manager");
         swapEventManagers.promoteStaging();
 
         log.debug("Starting old bot shutdown");
         CompletableFuture<Void> future = CompletableFuture.runAsync(bot::onShutdown);
         newBot.postInit();
+        log.debug("Waiting for onShutdown to complete");
         future.join();
-        bot = newBot;
-        log.debug("Reload complete");
+        return BootExitCodes.SUCCESS;
     }
 
     public void shutdown() {
         log.debug("Shutdown requested");
         context.getConnection().close();
         shardManager.shutdown();
-        shardManager.getShards().forEach(JDA::shutdown);
         log.debug("Shutdown queued");
     }
 

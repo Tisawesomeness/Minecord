@@ -66,6 +66,21 @@ public class SwapEventManager implements IEventManager {
         staging = new InterfacedEventManager();
         writeRef.set(staging);
     }
+
+    /**
+     * Undoes the effects of {@link #queueStaging()}.
+     * Newly registered listeners will be added to the active event manager.
+     * @throws IllegalStateException if no staging event manager is queued
+     */
+    public void unqueueStaging() {
+        if (staging == null) {
+            throw new IllegalStateException("Must call queueStaging() before each unqueueStaging()");
+        }
+        writeRef.set(readRef.get());
+        staging.getRegisteredListeners().forEach(staging::unregister); // unregister to prevent leak
+        staging = null;
+    }
+
     /**
      * Promotes the staging event manager to the active event manager.
      * The old active event manager is discarded, and any listeners that were added to the old event manager
@@ -78,7 +93,7 @@ public class SwapEventManager implements IEventManager {
         }
         IEventManager temp = readRef.getAndSet(staging);
         staging = null;
-        temp.getRegisteredListeners().forEach(temp::unregister);
+        temp.getRegisteredListeners().forEach(temp::unregister); // unregister to prevent leak
     }
 
 }
