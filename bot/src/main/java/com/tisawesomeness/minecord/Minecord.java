@@ -23,8 +23,6 @@ import com.tisawesomeness.minecord.network.OkAPIClient;
 import com.tisawesomeness.minecord.service.*;
 import com.tisawesomeness.minecord.setting.SettingRegistry;
 import com.tisawesomeness.minecord.util.DateUtils;
-import com.tisawesomeness.minecord.util.concurrent.ACExecutorService;
-import com.tisawesomeness.minecord.util.concurrent.ShutdownBehavior;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -45,7 +43,7 @@ import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
 
 /**
@@ -73,7 +71,6 @@ public class Minecord extends Bot {
     @Getter private long birth;
     @Getter private long bootTime;
 
-    private ACExecutorService exe;
     private Future<Database> futureDB;
 
     public Minecord(@NonNull BootstrapHook hook) {
@@ -131,8 +128,7 @@ public class Minecord extends Bot {
 
         // Start db connection early
         log.debug("Starting database connection");
-        exe = new ACExecutorService(Executors.newSingleThreadExecutor(), ShutdownBehavior.FORCE);
-        futureDB = exe.submit(() -> new Database(config));
+        futureDB = ForkJoinPool.commonPool().submit(() -> new Database(config)); // Automatically terminates on shutdown
 
         return ExitCodes.SUCCESS;
     }
