@@ -61,7 +61,7 @@ public class RoleCommand extends Command {
         // Find role
         Role role = null;
         List<Role> roles = e.getGuild().getRoles();
-        List<Role> mentioned = e.getMessage().getMentionedRoles();
+        List<Role> mentioned = e.getMessage().getMentions().getRoles();
         // Search for any role if admin
         if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
             role = Bot.shardManager.getRoleById(args[0]);

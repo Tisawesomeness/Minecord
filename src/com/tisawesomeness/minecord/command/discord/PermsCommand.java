@@ -81,7 +81,7 @@ public class PermsCommand extends Command {
                 c = tc;
                 // Find by mention
             } else {
-                List<TextChannel> mentioned = e.getMessage().getMentionedChannels();
+                List<TextChannel> mentioned = e.getMessage().getMentions().getChannels(TextChannel.class);
                 if (mentioned.size() == 0) {
                     return new Result(Outcome.WARNING, ":warning: Not a valid channel format. Use a `#channel` mention or a channel ID.");
                 }
@@ -93,9 +93,9 @@ public class PermsCommand extends Command {
             }
 
             // Check for user permissions (prevent using this command to get unseen channel info)
-            if (!e.getMember().hasPermission(c, Permission.VIEW_CHANNEL, Permission.MESSAGE_READ)) {
+            if (!e.getMember().hasPermission(c, Permission.VIEW_CHANNEL, Permission.VIEW_CHANNEL)) {
                 return invalidChannel;
-            } else if (!e.getMember().hasPermission(c, Permission.MESSAGE_WRITE)) {
+            } else if (!e.getMember().hasPermission(c, Permission.MESSAGE_SEND)) {
                 return new Result(Outcome.WARNING, ":warning: You do not have permission to write in that channel.");
             }
 
@@ -107,9 +107,8 @@ public class PermsCommand extends Command {
         EnumSet<Permission> perms = c.getGuild().getSelfMember().getPermissions(c);
         String m = String.format("**Bot Permissions for %s:**", c.getAsMention()) +
                 "\nView channels: " + DiscordUtils.getBoolEmote(perms.contains(Permission.VIEW_CHANNEL)) +
-                "\nRead messages: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_READ)) +
                 "\nRead message history: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_HISTORY)) +
-                "\nWrite messages: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_WRITE)) +
+                "\nSend messages: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_SEND)) +
                 "\nEmbed links: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_EMBED_LINKS)) +
                 "\nAttach files: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_ATTACH_FILES)) +
                 "\nAdd reactions: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_ADD_REACTION)) +

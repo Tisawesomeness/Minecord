@@ -45,7 +45,7 @@ public class Listener extends ListenerAdapter {
         if (e.isFromType(ChannelType.TEXT)) {
             Member sm = e.getGuild().getSelfMember();
             TextChannel tc = e.getTextChannel();
-            if (!sm.hasPermission(e.getTextChannel(), Permission.MESSAGE_WRITE) || Database.isBanned(e.getGuild().getIdLong())) {
+            if (!sm.hasPermission(e.getTextChannel(), Permission.MESSAGE_SEND) || Database.isBanned(e.getGuild().getIdLong())) {
                 return;
             }
             deleteCommands = sm.hasPermission(tc, Permission.MESSAGE_MANAGE) &&
