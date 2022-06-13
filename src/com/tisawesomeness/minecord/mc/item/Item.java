@@ -15,8 +15,10 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Item {
 
@@ -240,7 +242,7 @@ public class Item {
         // Banners special case
         if (id == 176 || id == 425) {
             if (data < 0) {
-                return "legacy.banner";
+                return "minecraft.white_banner";
             }
             return String.format("minecraft.%s_banner", colorNames[data]);
         } else if (id == 177) {
@@ -324,11 +326,13 @@ public class Item {
                     }
                 } else {
                     String color = toParse.replace(coloredName, "").trim();
-                    int colorData = parseDataFromFile(color, lang);
-                    if (colorData == 0) {
-                        return coloredItem;
-                    } else if (colorData > 0) {
-                        return coloredItem.replace("white", colorNames[colorData]);
+                    if (!color.equals(toParse)) {
+                        int colorData = parseDataFromFile(color, lang);
+                        if (colorData == 0) {
+                            return coloredItem;
+                        } else if (colorData > 0) {
+                            return coloredItem.replace("white", colorNames[colorData]);
+                        }
                     }
                 }
             }
@@ -345,15 +349,17 @@ public class Item {
             }
         }
         String color = CANDLE_CAKE_PATTERN.matcher(toParse).replaceFirst("$1");
-        int colorData = parseDataFromFile(color, lang);
-        if (colorData == 0) {
-            return "minecraft.white_candle_cake";
-        } else if (colorData > 0) {
-            return "minecraft.white_candle_cake".replace("white", colorNames[colorData]);
+        if (!color.equals(toParse)) {
+            int colorData = parseDataFromFile(color, lang);
+            if (colorData == 0) {
+                return "minecraft.white_candle_cake";
+            } else if (colorData > 0) {
+                return "minecraft.white_candle_cake".replace("white", colorNames[colorData]);
+            }
         }
 
         // Banners special case
-        String banner = items.getJSONObject("legacy.banner").getJSONObject("lang").getJSONObject(lang).getString("display_name");
+        String banner = items.getJSONObject("minecraft.white_banner").getJSONObject("lang").getJSONObject(lang).getString("previously");
         String standingBanner = items.getJSONObject("legacy.standing_banner").getJSONObject("lang").getJSONObject(lang).getString("internal_name");
         String wallBanner = items.getJSONObject("legacy.wall_banner").getJSONObject("lang").getJSONObject(lang).getString("internal_name");
         if (toParse.equalsIgnoreCase(banner) || toParse.equalsIgnoreCase(standingBanner)) {
@@ -372,17 +378,18 @@ public class Item {
         if (toParse.equalsIgnoreCase(bannerPattern)) {
             return "minecraft.flower_banner_pattern";
         }
-        // Music discs special case
-        String musicDisc13 = items.getJSONObject("minecraft.music_disc_13").getJSONObject("lang").getJSONObject(lang).getString("display_name");
-        if (str.equalsIgnoreCase(musicDisc13)) {
-            return "minecraft.music_disc_13";
+
+        // Map special case
+        String map = items.getJSONObject("minecraft.filled_map").getJSONObject("lang").getJSONObject(lang).getString("display_name");
+        if (toParse.equalsIgnoreCase(map)) {
+            return "minecraft.filled_map";
         }
 
         // Loop through every item
         Iterator<String> iter = items.keys();
         while (iter.hasNext()) {
             String item = iter.next();
-            if (isMatch(item, toParse, -1, lang)) {
+            if (isMatch(item, toParse, data, lang)) {
                 if (data < 0) {
                     return item;
                 }
@@ -404,47 +411,64 @@ public class Item {
      */
     private static boolean isMatch(String item, String id, int data, String lang) {
         JSONObject itemObj = items.getJSONObject(item);
-        JSONObject langObj = itemObj.getJSONObject("lang").getJSONObject(lang);
         JSONObject properties = itemObj.optJSONObject("properties");
-        ArrayList<String> toCheck = new ArrayList<>();
         // Data must match or not matter
         if (data < 0 || (properties != null && properties.optInt("data", 0) == data)) {
-            // Display, block, and previous names (but don't match display name if another item has it)
-            if (!langObj.has("name_conflict")) {
-                toCheck.add(langObj.getString("display_name"));
-            }
-            toCheck.add(langObj.optString("block_name"));
-            if (!langObj.has("previous_conflict")) {
-                toCheck.add(langObj.optString("previously"));
-                toCheck.add(langObj.optString("previously2"));
-            }
-            // All the custom search names
-            if (langObj.has("search_names")) {
-                JSONArray names = langObj.getJSONArray("search_names");
-                for (int i = 0; i < names.length(); i++) {
-                    toCheck.add(names.getString(i));
-                }
-            }
-            // Actual, previous, and previous block namespaced ids
-            if (properties != null) {
-                if (properties.has("actual_id")) {
-                    toCheck.add(convertID(properties.getString("actual_id")));
-                } else {
-                    toCheck.add(convertID(item));
-                }
-                if (!properties.has("conflict")) {
-                    toCheck.add(convertID(properties.optString("previous_id")));
-                }
-                toCheck.add(convertID(properties.optString("previous_block_id")));
-
-            }
-            // Equals ignore case
-            toCheck.removeIf(Objects::isNull);
-            toCheck.replaceAll(String::toLowerCase);
-            return toCheck.contains(id);
+            return buildToCheckList(item, lang).contains(id);
         }
         return false;
     }
+    private static List<String> buildToCheckList(String item, String lang) {
+        JSONObject itemObj = items.getJSONObject(item);
+        JSONObject langObj = itemObj.getJSONObject("lang").getJSONObject(lang);
+        JSONObject properties = itemObj.optJSONObject("properties");
+        List<String> toCheck = new ArrayList<>();
+        // Display, block, and previous names (but don't match display name if another item has it)
+        if (!langObj.has("name_conflict")) {
+            toCheck.add(langObj.getString("display_name"));
+        }
+        toCheck.add(langObj.optString("block_name"));
+        if (!langObj.has("previous_conflict")) {
+            toCheck.add(langObj.optString("previously"));
+            toCheck.add(langObj.optString("previously2"));
+        }
+        // All the custom search names
+        if (langObj.has("search_names")) {
+            JSONArray names = langObj.getJSONArray("search_names");
+            for (int i = 0; i < names.length(); i++) {
+                toCheck.add(names.getString(i));
+            }
+        }
+        // Actual, previous, and previous block namespaced ids
+        if (properties != null) {
+            if (properties.has("actual_id")) {
+                if (properties.optBoolean("include_actual_in_search")) {
+                    toCheck.add(convertID(properties.getString("actual_id")));
+                }
+            } else {
+                String converted = convertID(item);
+                if (!converted.contains(".")) {
+                    toCheck.add(converted);
+                }
+            }
+            if (!properties.has("conflict")) {
+                toCheck.add(convertID(properties.optString("previous_id")));
+                toCheck.add(convertID(properties.optString("previous_block_id")));
+            }
+        } else {
+            String converted = convertID(item);
+            if (!converted.contains(".")) {
+                toCheck.add(converted);
+            }
+        }
+        // Equals ignore case
+        return toCheck.stream()
+                .filter(Objects::nonNull)
+                .filter(s -> !s.isEmpty())
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
+    }
+
     /**
      * Converts a string id to name searching format, with minecraft. removed and underscores replaced with spaces
      * @param id The id to convert
