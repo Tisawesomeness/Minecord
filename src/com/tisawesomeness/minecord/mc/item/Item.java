@@ -289,6 +289,9 @@ public class Item {
             return null;
         }
 
+        return searchNumerical(id, data);
+    }
+    private static String searchNumerical(int id, int data) {
         // Banners special case
         if (id == 176 || id == 425) {
             if (data < 0) {
@@ -335,9 +338,34 @@ public class Item {
      * @return The name of the item or null otherwise
      */
     private static String searchGeneral(String str, String lang) {
-        // TODO wool:red / wool:14 format
         // TODO also stuff like 6:orange for spruce saplings make no sense
-        return itemAliases.get(normalize(str));
+        String toParse = normalize(str);
+        if (!toParse.contains(":")) {
+            return itemAliases.get(toParse);
+        }
+        String[] split = toParse.split(":");
+        if (split.length != 2) {
+            return null;
+        }
+        String baseItem = itemAliases.get(split[0]);
+        if (baseItem == null) {
+            return null;
+        }
+        String dataStr = split[1];
+
+        int id = getID(baseItem);
+        if (id != -1) {
+            int foundData = getData(baseItem);
+            // data 0 not included in items.json, so it shows up as -1
+            if (foundData < 1) {
+                int data = parseData(dataStr, lang);
+                if (data < 0) {
+                    return null;
+                }
+                return searchNumerical(id, data);
+            }
+        }
+        return null;
     }
     private static String normalize(String name) {
         return name.toLowerCase().replace(" ", "");
@@ -347,7 +375,7 @@ public class Item {
      * Parses a string or numerical data value
      * @param data The string to parse
      * @param lang The language code to use, changing color names
-     * @return An integer data value from 0-69 or -1 otherwise
+     * @return An integer data value or -1 otherwise
      */
     private static int parseData(String data, String lang) {
         try {
@@ -401,6 +429,15 @@ public class Item {
     private static int getID(String item) {
         JSONObject properties = items.getJSONObject(item).optJSONObject("properties");
         return properties == null ? -1 : properties.optInt("id", -1);
+    }
+    /**
+     * Returns the numerical data of an item
+     * @param item The item key
+     * @return The numerical id, or -1 if there is no data
+     */
+    private static int getData(String item) {
+        JSONObject properties = items.getJSONObject(item).optJSONObject("properties");
+        return properties == null ? -1 : properties.optInt("data", -1);
     }
 
     /**
