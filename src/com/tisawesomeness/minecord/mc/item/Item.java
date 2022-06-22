@@ -19,11 +19,24 @@ import java.util.stream.Collectors;
 
 public class Item {
 
-    private static final String[] colorNames = new String[] { "white", "orange", "magenta", "light_blue", "yellow",
-            "lime", "pink", "gray", "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black" };
+    private static final String[] colorNames = new String[]{"white", "orange", "magenta", "light_blue", "yellow",
+            "lime", "pink", "gray", "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black"};
+    private static final List<String> coloredItems = Arrays.asList("minecraft.white_wool",
+            "minecraft.white_stained_glass", "minecraft.white_terracotta", "minecraft.white_stained_glass_pane",
+            "minecraft.shield.white", "minecraft.white_shulker_box", "minecraft.white_bed",
+            "minecraft.white_glazed_terracotta", "minecraft.white_concrete", "minecraft.white_concrete_powder",
+            "minecraft.white_dye", "minecraft.white_candle");
 
-    private static List<String> potionMaterials = Arrays.asList("POTION", "SPLASH_POTION", "LINGERING_POTION", "TIPPED_ARROW");
-    private static Map<String, String> spigotToVanillaPotionType = new HashMap<String, String>(){
+    private static final String[] woodNames = new String[]{"oak", "spruce", "birch", "jungle", "acacia", "dark_oak",
+            "crimson", "warped", "mangrove"}; // last 3 do not have data values
+    private static final List<String> woodItems = Arrays.asList("minecraft.oak_planks", "minecraft.oak_sapling",
+            "minecraft.oak_log", "minecraft.oak_leaves", "minecraft.oak_stairs", "minecraft.oak_wall_sign",
+            "minecraft.oak_pressure_plate", "minecraft.oak_fence", "minecraft.oak_trapdoor", "minecraft.oak_fence_gate",
+            "minecraft.oak_slab", "minecraft.oak_button", "minecraft.oak_sign", "minecraft.oak_door", "minecraft.oak_boat",
+            "minecraft.oak_wood", "minecraft.oak_chest_boat");
+
+    private static final List<String> potionMaterials = Arrays.asList("POTION", "SPLASH_POTION", "LINGERING_POTION", "TIPPED_ARROW");
+    private static final Map<String, String> spigotToVanillaPotionType = new HashMap<String, String>(){
         {
             put("awkward", "awkward");
             put("fire_resistance", "fire_resistance");
@@ -52,7 +65,7 @@ public class Item {
     public static JSONObject items;
     private static JSONObject data;
     // Maps item alias to internal id (key in items.json)
-    private static Map<String, String> itemAliases = new HashMap<>();
+    private static final Map<String, String> itemAliases = new HashMap<>();
 
     public static final String help = "Items can be:\n" +
             "- Namespaced IDs: `minecraft:iron_block`\n" +
@@ -270,17 +283,19 @@ public class Item {
      */
     private static String searchNumerical(String str, String lang) {
         // Convert to id:data format
-        String toParse = str.replace(".", ":").replace("-", ":").replace(" : ", ":");
+        String toParse = str.replace(" : ", ":");
         String idStr;
-        int data = -1;
+        String dataStr;
         // If there's an id:data split, get id and data
         if (toParse.contains(":")) {
             String[] split = toParse.split(":");
             idStr = split[0];
-            data = parseData(split[1], lang);
+            dataStr = split[1];
         } else {
             idStr = toParse;
+            dataStr = null;
         }
+
         // Id must be a nonnegative number
         int id;
         try {
@@ -288,8 +303,25 @@ public class Item {
         } catch (NumberFormatException ignored) {
             return null;
         }
+        if (!isValidID(id)) {
+            return null;
+        }
 
-        return searchNumerical(id, data);
+        if (dataStr == null) {
+            return searchNumerical(id, -1);
+        }
+        try {
+            int data = Integer.parseInt(dataStr);
+            return searchNumerical(id, data);
+        } catch (NumberFormatException ignored) {}
+        String baseItem = searchNumerical(id, -1);
+        return searchColorOrWood(baseItem, dataStr, lang);
+    }
+    private static boolean isValidID(int id) {
+        if (id == 253 || id == 254 || id == 451) {
+            return false;
+        }
+        return (0 <= id && id <= 453) || (2256 <= id && id <= 2267);
     }
     private static String searchNumerical(int id, int data) {
         // Banners special case
@@ -338,7 +370,6 @@ public class Item {
      * @return The name of the item or null otherwise
      */
     private static String searchGeneral(String str, String lang) {
-        // TODO also stuff like 6:orange for spruce saplings make no sense
         String toParse = normalize(str);
         if (!toParse.contains(":")) {
             return itemAliases.get(toParse);
@@ -358,11 +389,40 @@ public class Item {
             int foundData = getData(baseItem);
             // data 0 not included in items.json, so it shows up as -1
             if (foundData < 1) {
-                int data = parseData(dataStr, lang);
-                if (data < 0) {
-                    return null;
-                }
-                return searchNumerical(id, data);
+                try {
+                    int data = Integer.parseInt(dataStr);
+                    if (data < 0) {
+                        return null;
+                    }
+                    return searchNumerical(id, data);
+                } catch (NumberFormatException ignored) {}
+                return searchColorOrWood(baseItem, dataStr, lang);
+            }
+            return null;
+        }
+        try {
+            Integer.parseInt(dataStr); // check if number
+            return null;
+        } catch (NumberFormatException ignored) {}
+        return searchColorOrWood(baseItem, dataStr, lang);
+    }
+    private static String searchColorOrWood(String baseItem, String dataStr, String lang) {
+        int colorData = parseDataColor(dataStr, lang);
+        if (colorData >= 0) {
+            if (coloredItems.contains(baseItem)) {
+                return baseItem.replace("white", colorNames[colorData]);
+            }
+            if (baseItem.equals("minecraft.sand") && colorData == 14) {
+                return "minecraft.red_sand";
+            }
+            return null;
+        }
+        OptionalInt woodDataOpt = parseDataWood(dataStr, lang);
+        if (woodDataOpt.isPresent()) {
+            if (woodItems.contains(baseItem)) {
+                int woodData = woodDataOpt.getAsInt();
+                int idx = woodData >= 0 ? woodData : -woodData - 1 + 6;
+                return baseItem.replace("oak", woodNames[idx]);
             }
         }
         return null;
@@ -371,27 +431,21 @@ public class Item {
         return name.toLowerCase().replace(" ", "");
     }
 
-    /**
-     * Parses a string or numerical data value
-     * @param data The string to parse
-     * @param lang The language code to use, changing color names
-     * @return An integer data value or -1 otherwise
-     */
-    private static int parseData(String data, String lang) {
-        try {
-            return Integer.parseInt(data);
-        } catch (NumberFormatException ignored) {
-            return parseDataFromFile(data, lang);
-        }
+    // -1 if not found
+    private static int parseDataColor(String color, String lang) {
+        return data.getJSONObject(lang).getJSONObject("colors").optInt(normalizeData(color), -1);
     }
-    /**
-     * Looks up a data value in data.json
-     * @param color The string to look up
-     * @param lang The language code
-     * @return An integer from 0-15 representing the data value, or -1 if not found
-     */
-    private static int parseDataFromFile(String color, String lang) {
-        return data.getJSONObject(lang).optInt(color.toLowerCase().replace(" ", "_").replace("-", "_"), -1);
+    // empty if not found
+    private static OptionalInt parseDataWood(String color, String lang) {
+        JSONObject obj = data.getJSONObject(lang).getJSONObject("wood");
+        String key = normalizeData(color);
+        if (obj.has(key)) {
+            return OptionalInt.of(obj.getInt(key));
+        }
+        return OptionalInt.empty();
+    }
+    private static String normalizeData(String data) {
+        return normalize(data.replace("_", ""));
     }
 
     /**
