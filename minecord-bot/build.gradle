@@ -15,7 +15,7 @@ testSets {
 }
 
 dependencies {
-    implementation project(":common")
+    implementation project(":minecord-common")
     implementation project(":mcserverping")
     // Top.gg bot site API wrapper
     implementation 'com.github.DiscordBotList:Java-Wrapper:v1.0'
@@ -27,9 +27,6 @@ dependencies {
     implementation 'org.json:json:20220320'
     // SQLite driver
     implementation 'org.xerial:sqlite-jdbc:3.36.0.3'
-    // Used for MCServerPing
-    implementation 'dnsjava:dnsjava:3.5.0'
-    implementation 'net.kyori:text-serializer-gson:3.0.4'
     // Testing
     integrationTestImplementation sourceSets.test.output
 }

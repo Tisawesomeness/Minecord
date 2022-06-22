@@ -12,8 +12,8 @@ repositories {
 }
 
 dependencies {
-    implementation project(":common")
-    implementation project(":bot")
+    implementation project(":minecord-common")
+    implementation project(":minecord-bot")
     // Command-line arguments
     implementation 'info.picocli:picocli:4.6.3'
     annotationProcessor 'info.picocli:picocli-codegen:4.6.3'
