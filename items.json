@@ -28,7 +28,9 @@
     "properties": {
       "data": 1,
       "id": 1,
-      "version": "1.8"
+      "version": "1.8",
+      "previous_id": "minecraft.stone",
+      "conflict": true
     }
   },
   "minecraft.polished_granite": {
@@ -40,7 +42,9 @@
     "properties": {
       "data": 2,
       "id": 1,
-      "version": "1.8"
+      "version": "1.8",
+      "previous_id": "minecraft.stone",
+      "conflict": true
     }
   },
   "minecraft.diorite": {
@@ -57,7 +61,9 @@
     "properties": {
       "data": 3,
       "id": 1,
-      "version": "1.8"
+      "version": "1.8",
+      "previous_id": "minecraft.stone",
+      "conflict": true
     }
   },
   "minecraft.polished_diorite": {
@@ -69,7 +75,9 @@
     "properties": {
       "data": 4,
       "id": 1,
-      "version": "1.8"
+      "version": "1.8",
+      "previous_id": "minecraft.stone",
+      "conflict": true
     }
   },
   "minecraft.andesite": {
@@ -81,7 +89,9 @@
     "properties": {
       "data": 5,
       "id": 1,
-      "version": "1.8"
+      "version": "1.8",
+      "previous_id": "minecraft.stone",
+      "conflict": true
     }
   },
   "minecraft.polished_andesite": {
@@ -93,7 +103,9 @@
     "properties": {
       "data": 6,
       "id": 1,
-      "version": "1.8"
+      "version": "1.8",
+      "previous_id": "minecraft.stone",
+      "conflict": true
     }
   },
   "minecraft.grass_block": {
@@ -126,7 +138,9 @@
     },
     "properties": {
       "data": 1,
-      "id": 3
+      "id": 3,
+      "previous_id": "minecraft.dirt",
+      "conflict": true
     }
   },
   "minecraft.podzol": {
@@ -137,7 +151,9 @@
     },
     "properties": {
       "data": 2,
-      "id": 3
+      "id": 3,
+      "previous_id": "minecraft.dirt",
+      "conflict": true
     }
   },
   "minecraft.cobblestone": {
@@ -170,7 +186,9 @@
       }
     },
     "properties": {
-      "id": 5
+      "id": 5,
+      "previous_id": "minecraft.planks",
+      "conflict": true
     }
   },
   "minecraft.spruce_planks": {
@@ -187,7 +205,9 @@
     },
     "properties": {
       "data": 1,
-      "id": 5
+      "id": 5,
+      "previous_id": "minecraft.planks",
+      "conflict": true
     }
   },
   "minecraft.birch_planks": {
@@ -204,7 +224,9 @@
     },
     "properties": {
       "data": 2,
-      "id": 5
+      "id": 5,
+      "previous_id": "minecraft.planks",
+      "conflict": true
     }
   },
   "minecraft.jungle_planks": {
@@ -221,7 +243,9 @@
     },
     "properties": {
       "data": 3,
-      "id": 5
+      "id": 5,
+      "previous_id": "minecraft.planks",
+      "conflict": true
     }
   },
   "minecraft.acacia_planks": {
@@ -238,7 +262,9 @@
     },
     "properties": {
       "data": 4,
-      "id": 5
+      "id": 5,
+      "previous_id": "minecraft.planks",
+      "conflict": true
     }
   },
   "minecraft.dark_oak_planks": {
@@ -259,7 +285,9 @@
     },
     "properties": {
       "data": 5,
-      "id": 5
+      "id": 5,
+      "previous_id": "minecraft.planks",
+      "conflict": true
     }
   },
   "minecraft.oak_sapling": {
@@ -269,7 +297,9 @@
       }
     },
     "properties": {
-      "id": 6
+      "id": 6,
+      "previous_id": "minecraft.sapling",
+      "conflict": true
     }
   },
   "minecraft.spruce_sapling": {
@@ -280,7 +310,9 @@
     },
     "properties": {
       "data": 1,
-      "id": 6
+      "id": 6,
+      "previous_id": "minecraft.sapling",
+      "conflict": true
     }
   },
   "minecraft.birch_sapling": {
@@ -291,7 +323,9 @@
     },
     "properties": {
       "data": 2,
-      "id": 6
+      "id": 6,
+      "previous_id": "minecraft.sapling",
+      "conflict": true
     }
   },
   "minecraft.jungle_sapling": {
@@ -302,7 +336,9 @@
     },
     "properties": {
       "data": 3,
-      "id": 6
+      "id": 6,
+      "previous_id": "minecraft.sapling",
+      "conflict": true
     }
   },
   "minecraft.acacia_sapling": {
@@ -313,7 +349,9 @@
     },
     "properties": {
       "data": 4,
-      "id": 6
+      "id": 6,
+      "previous_id": "minecraft.sapling",
+      "conflict": true
     }
   },
   "minecraft.dark_oak_sapling": {
@@ -327,7 +365,9 @@
     },
     "properties": {
       "data": 5,
-      "id": 6
+      "id": 6,
+      "previous_id": "minecraft.sapling",
+      "conflict": true
     }
   },
   "minecraft.bedrock": {
@@ -403,7 +443,9 @@
     },
     "properties": {
       "data": 1,
-      "id": 12
+      "id": 12,
+      "previous_id": "minecraft.sand",
+      "conflict": true
     }
   },
   "minecraft.gravel": {
@@ -453,7 +495,9 @@
       }
     },
     "properties": {
-      "id": 17
+      "id": 17,
+      "previous_id": "minecraft.log",
+      "conflict": true
     }
   },
   "minecraft.spruce_log": {
@@ -464,7 +508,9 @@
     },
     "properties": {
       "data": 1,
-      "id": 17
+      "id": 17,
+      "previous_id": "minecraft.log",
+      "conflict": true
     }
   },
   "minecraft.birch_log": {
@@ -475,7 +521,9 @@
     },
     "properties": {
       "data": 2,
-      "id": 17
+      "id": 17,
+      "previous_id": "minecraft.log",
+      "conflict": true
     }
   },
   "minecraft.jungle_log": {
@@ -486,7 +534,9 @@
     },
     "properties": {
       "data": 2,
-      "id": 17
+      "id": 17,
+      "previous_id": "minecraft.log",
+      "conflict": true
     }
   },
   "minecraft.oak_leaves": {
@@ -496,7 +546,9 @@
       }
     },
     "properties": {
-      "id": 18
+      "id": 18,
+      "previous_id": "minecraft.leaves",
+      "conflict": true
     }
   },
   "minecraft.spruce_leaves": {
@@ -507,7 +559,9 @@
     },
     "properties": {
       "data": 1,
-      "id": 18
+      "id": 18,
+      "previous_id": "minecraft.leaves",
+      "conflict": true
     }
   },
   "minecraft.birch_leaves": {
@@ -518,7 +572,9 @@
     },
     "properties": {
       "data": 2,
-      "id": 18
+      "id": 18,
+      "previous_id": "minecraft.leaves",
+      "conflict": true
     }
   },
   "minecraft.jungle_leaves": {
@@ -529,7 +585,9 @@
     },
     "properties": {
       "data": 3,
-      "id": 18
+      "id": 18,
+      "previous_id": "minecraft.leaves",
+      "conflict": true
     }
   },
   "minecraft.sponge": {
@@ -551,7 +609,9 @@
     "properties": {
       "data": 1,
       "id": 19,
-      "version": "1.8"
+      "version": "1.8",
+      "previous_id": "minecraft.sponge",
+      "conflict": true
     }
   },
   "minecraft.glass": {
@@ -620,7 +680,9 @@
     },
     "properties": {
       "data": 1,
-      "id": 24
+      "id": 24,
+      "previous_id": "minecraft.sandstone",
+      "conflict": true
     }
   },
   "minecraft.smooth_sandstone": {
@@ -631,7 +693,9 @@
     },
     "properties": {
       "data": 2,
-      "id": 24
+      "id": 24,
+      "previous_id": "minecraft.sandstone",
+      "conflict": true
     }
   },
   "minecraft.note_block": {
@@ -717,7 +781,9 @@
     },
     "properties": {
       "data": 1,
-      "id": 31
+      "id": 31,
+      "previous_id": "minecraft.tallgrass",
+      "conflict": true
     }
   },
   "minecraft.fern": {
@@ -728,7 +794,9 @@
     },
     "properties": {
       "data": 2,
-      "id": 31
+      "id": 31,
+      "previous_id": "minecraft.tallgrass",
+      "conflict": true
     }
   },
   "minecraft.dead_bush": {
@@ -823,7 +891,9 @@
       }
     },
     "properties": {
-      "id": 35
+      "id": 35,
+      "previous_id": "minecraft.wool",
+      "conflict": true
     }
   },
   "minecraft.orange_wool": {
@@ -837,7 +907,9 @@
     },
     "properties": {
       "data": 1,
-      "id": 35
+      "id": 35,
+      "previous_id": "minecraft.wool",
+      "conflict": true
     }
   },
   "minecraft.magenta_wool": {
@@ -851,7 +923,9 @@
     },
     "properties": {
       "data": 2,
-      "id": 35
+      "id": 35,
+      "previous_id": "minecraft.wool",
+      "conflict": true
     }
   },
   "minecraft.light_blue_wool": {
@@ -865,7 +939,9 @@
     },
     "properties": {
       "data": 3,
-      "id": 35
+      "id": 35,
+      "previous_id": "minecraft.wool",
+      "conflict": true
     }
   },
   "minecraft.yellow_wool": {
@@ -879,7 +955,9 @@
     },
     "properties": {
       "data": 4,
-      "id": 35
+      "id": 35,
+      "previous_id": "minecraft.wool",
+      "conflict": true
     }
   },
   "minecraft.lime_wool": {
@@ -893,7 +971,9 @@
     },
     "properties": {
       "data": 5,
-      "id": 35
+      "id": 35,
+      "previous_id": "minecraft.wool",
+      "conflict": true
     }
   },
   "minecraft.pink_wool": {
@@ -907,7 +987,9 @@
     },
     "properties": {
       "data": 6,
-      "id": 35
+      "id": 35,
+      "previous_id": "minecraft.wool",
+      "conflict": true
     }
   },
   "minecraft.gray_wool": {
@@ -921,7 +1003,9 @@
     },
     "properties": {
       "data": 7,
-      "id": 35
+      "id": 35,
+      "previous_id": "minecraft.wool",
+      "conflict": true
     }
   },
   "minecraft.light_gray_wool": {
@@ -935,7 +1019,9 @@
     },
     "properties": {
       "data": 8,
-      "id": 35
+      "id": 35,
+      "previous_id": "minecraft.wool",
+      "conflict": true
     }
   },
   "minecraft.cyan_wool": {
@@ -949,7 +1035,9 @@
     },
     "properties": {
       "data": 9,
-      "id": 35
+      "id": 35,
+      "previous_id": "minecraft.wool",
+      "conflict": true
     }
   },
   "minecraft.purple_wool": {
@@ -963,7 +1051,9 @@
     },
     "properties": {
       "data": 10,
-      "id": 35
+      "id": 35,
+      "previous_id": "minecraft.wool",
+      "conflict": true
     }
   },
   "minecraft.blue_wool": {
@@ -977,7 +1067,9 @@
     },
     "properties": {
       "data": 11,
-      "id": 35
+      "id": 35,
+      "previous_id": "minecraft.wool",
+      "conflict": true
     }
   },
   "minecraft.brown_wool": {
@@ -991,7 +1083,9 @@
     },
     "properties": {
       "data": 12,
-      "id": 35
+      "id": 35,
+      "previous_id": "minecraft.wool",
+      "conflict": true
     }
   },
   "minecraft.green_wool": {
@@ -1005,7 +1099,9 @@
     },
     "properties": {
       "data": 13,
-      "id": 35
+      "id": 35,
+      "previous_id": "minecraft.wool",
+      "conflict": true
     }
   },
   "minecraft.red_wool": {
@@ -1019,7 +1115,9 @@
     },
     "properties": {
       "data": 14,
-      "id": 35
+      "id": 35,
+      "previous_id": "minecraft.wool",
+      "conflict": true
     }
   },
   "minecraft.black_wool": {
@@ -1033,7 +1131,9 @@
     },
     "properties": {
       "data": 15,
-      "id": 35
+      "id": 35,
+      "previous_id": "minecraft.wool",
+      "conflict": true
     }
   },
   "minecraft.moving_piston": {
@@ -1074,7 +1174,9 @@
       }
     },
     "properties": {
-      "id": 38
+      "id": 38,
+      "previous_id": "minecraft.red_flower",
+      "conflict": true
     }
   },
   "minecraft.blue_orchid": {
@@ -1089,7 +1191,9 @@
     },
     "properties": {
       "data": 1,
-      "id": 38
+      "id": 38,
+      "previous_id": "minecraft.red_flower",
+      "conflict": true
     }
   },
   "minecraft.allium": {
@@ -1100,7 +1204,9 @@
     },
     "properties": {
       "data": 2,
-      "id": 38
+      "id": 38,
+      "previous_id": "minecraft.red_flower",
+      "conflict": true
     }
   },
   "minecraft.azure_bluet": {
@@ -1117,7 +1223,9 @@
     },
     "properties": {
       "data": 3,
-      "id": 38
+      "id": 38,
+      "previous_id": "minecraft.red_flower",
+      "conflict": true
     }
   },
   "minecraft.red_tulip": {
@@ -1128,7 +1236,9 @@
     },
     "properties": {
       "data": 4,
-      "id": 38
+      "id": 38,
+      "previous_id": "minecraft.red_flower",
+      "conflict": true
     }
   },
   "minecraft.orange_tulip": {
@@ -1139,7 +1249,9 @@
     },
     "properties": {
       "data": 5,
-      "id": 38
+      "id": 38,
+      "previous_id": "minecraft.red_flower",
+      "conflict": true
     }
   },
   "minecraft.white_tulip": {
@@ -1150,7 +1262,9 @@
     },
     "properties": {
       "data": 6,
-      "id": 38
+      "id": 38,
+      "previous_id": "minecraft.red_flower",
+      "conflict": true
     }
   },
   "minecraft.pink_tulip": {
@@ -1161,7 +1275,9 @@
     },
     "properties": {
       "data": 7,
-      "id": 38
+      "id": 38,
+      "previous_id": "minecraft.red_flower",
+      "conflict": true
     }
   },
   "minecraft.oxeye_daisy": {
@@ -1176,7 +1292,9 @@
     },
     "properties": {
       "data": 8,
-      "id": 38
+      "id": 38,
+      "previous_id": "minecraft.red_flower",
+      "conflict": true
     }
   },
   "minecraft.brown_mushroom": {
@@ -1239,6 +1357,7 @@
     },
     "properties": {
       "actual_id": "minecraft.double_stone_slab",
+      "conflict": true,
       "id": 43
     }
   },
@@ -1254,6 +1373,7 @@
     "properties": {
       "data": 1,
       "actual_id": "minecraft.double_stone_slab",
+      "conflict": true,
       "id": 43
     }
   },
@@ -1272,6 +1392,7 @@
       "data": 2,
       "image_key": "Double Oak Wood Slab",
       "actual_id": "minecraft.double_wooden_slab",
+      "conflict": true,
       "id": 43
     }
   },
@@ -1289,6 +1410,7 @@
     "properties": {
       "data": 3,
       "actual_id": "minecraft.double_stone_slab",
+      "conflict": true,
       "id": 43
     }
   },
@@ -1305,6 +1427,7 @@
     "properties": {
       "data": 4,
       "actual_id": "minecraft.double_stone_slab",
+      "conflict": true,
       "id": 43
     }
   },
@@ -1321,6 +1444,7 @@
     "properties": {
       "data": 5,
       "actual_id": "minecraft.double_stone_slab",
+      "conflict": true,
       "id": 43
     }
   },
@@ -1336,6 +1460,7 @@
     "properties": {
       "data": 6,
       "actual_id": "minecraft.double_stone_slab",
+      "conflict": true,
       "id": 43
     }
   },
@@ -1351,6 +1476,7 @@
       "data": 7,
       "image_key": "Smooth Quartz",
       "actual_id": "minecraft.double_stone_slab",
+      "conflict": true,
       "id": 43
     }
   },
@@ -1364,8 +1490,8 @@
     },
     "properties": {
       "data": 8,
-      "conflict": true,
       "previous_block_id": "minecraft.double_stone_slab",
+      "conflict": true,
       "id": 43
     }
   },
@@ -1376,7 +1502,9 @@
       }
     },
     "properties": {
-      "id": 44
+      "id": 44,
+      "conflict": true,
+      "previous_id": "minecraft.stone_slab"
     }
   },
   "minecraft.sandstone_slab": {
@@ -1682,7 +1810,9 @@
       }
     },
     "properties": {
-      "id": 62
+      "id": 62,
+      "previous_id": "minecraft.furnace",
+      "conflict": true
     }
   },
   "minecraft.ladder": {
@@ -2042,7 +2172,9 @@
       }
     },
     "properties": {
-      "id": 95
+      "id": 95,
+      "previous_id": "minecraft.stained_glass",
+      "conflict": true
     }
   },
   "minecraft.orange_stained_glass": {
@@ -2059,7 +2191,9 @@
     },
     "properties": {
       "data": 1,
-      "id": 95
+      "id": 95,
+      "previous_id": "minecraft.stained_glass",
+      "conflict": true
     }
   },
   "minecraft.magenta_stained_glass": {
@@ -2076,7 +2210,9 @@
     },
     "properties": {
       "data": 2,
-      "id": 95
+      "id": 95,
+      "previous_id": "minecraft.stained_glass",
+      "conflict": true
     }
   },
   "minecraft.light_blue_stained_glass": {
@@ -2093,7 +2229,9 @@
     },
     "properties": {
       "data": 3,
-      "id": 95
+      "id": 95,
+      "previous_id": "minecraft.stained_glass",
+      "conflict": true
     }
   },
   "minecraft.yellow_stained_glass": {
@@ -2110,7 +2248,9 @@
     },
     "properties": {
       "data": 4,
-      "id": 95
+      "id": 95,
+      "previous_id": "minecraft.stained_glass",
+      "conflict": true
     }
   },
   "minecraft.lime_stained_glass": {
@@ -2127,7 +2267,9 @@
     },
     "properties": {
       "data": 5,
-      "id": 95
+      "id": 95,
+      "previous_id": "minecraft.stained_glass",
+      "conflict": true
     }
   },
   "minecraft.pink_stained_glass": {
@@ -2144,7 +2286,9 @@
     },
     "properties": {
       "data": 6,
-      "id": 95
+      "id": 95,
+      "previous_id": "minecraft.stained_glass",
+      "conflict": true
     }
   },
   "minecraft.gray_stained_glass": {
@@ -2161,7 +2305,9 @@
     },
     "properties": {
       "data": 7,
-      "id": 95
+      "id": 95,
+      "previous_id": "minecraft.stained_glass",
+      "conflict": true
     }
   },
   "minecraft.light_gray_stained_glass": {
@@ -2178,7 +2324,9 @@
     },
     "properties": {
       "data": 8,
-      "id": 95
+      "id": 95,
+      "previous_id": "minecraft.stained_glass",
+      "conflict": true
     }
   },
   "minecraft.cyan_stained_glass": {
@@ -2195,7 +2343,9 @@
     },
     "properties": {
       "data": 9,
-      "id": 95
+      "id": 95,
+      "previous_id": "minecraft.stained_glass",
+      "conflict": true
     }
   },
   "minecraft.purple_stained_glass": {
@@ -2212,7 +2362,9 @@
     },
     "properties": {
       "data": 10,
-      "id": 95
+      "id": 95,
+      "previous_id": "minecraft.stained_glass",
+      "conflict": true
     }
   },
   "minecraft.blue_stained_glass": {
@@ -2229,7 +2381,9 @@
     },
     "properties": {
       "data": 11,
-      "id": 95
+      "id": 95,
+      "previous_id": "minecraft.stained_glass",
+      "conflict": true
     }
   },
   "minecraft.brown_stained_glass": {
@@ -2246,7 +2400,9 @@
     },
     "properties": {
       "data": 12,
-      "id": 95
+      "id": 95,
+      "previous_id": "minecraft.stained_glass",
+      "conflict": true
     }
   },
   "minecraft.green_stained_glass": {
@@ -2263,7 +2419,9 @@
     },
     "properties": {
       "data": 13,
-      "id": 95
+      "id": 95,
+      "previous_id": "minecraft.stained_glass",
+      "conflict": true
     }
   },
   "minecraft.red_stained_glass": {
@@ -2280,7 +2438,9 @@
     },
     "properties": {
       "data": 14,
-      "id": 95
+      "id": 95,
+      "previous_id": "minecraft.stained_glass",
+      "conflict": true
     }
   },
   "minecraft.black_stained_glass": {
@@ -2297,7 +2457,9 @@
     },
     "properties": {
       "data": 15,
-      "id": 95
+      "id": 95,
+      "previous_id": "minecraft.stained_glass",
+      "conflict": true
     }
   },
   "minecraft.oak_trapdoor": {
@@ -2328,7 +2490,9 @@
       }
     },
     "properties": {
-      "id": 97
+      "id": 97,
+      "previous_id": "minecraft.monster_egg",
+      "conflict": true
     }
   },
   "minecraft.infested_cobblestone": {
@@ -2344,7 +2508,9 @@
     },
     "properties": {
       "data": 1,
-      "id": 97
+      "id": 97,
+      "previous_id": "minecraft.monster_egg",
+      "conflict": true
     }
   },
   "minecraft.infested_stone_bricks": {
@@ -2359,7 +2525,9 @@
     },
     "properties": {
       "data": 2,
-      "id": 97
+      "id": 97,
+      "previous_id": "minecraft.monster_egg",
+      "conflict": true
     }
   },
   "minecraft.infested_mossy_stone_bricks": {
@@ -2379,7 +2547,9 @@
     },
     "properties": {
       "data": 3,
-      "id": 97
+      "id": 97,
+      "previous_id": "minecraft.monster_egg",
+      "conflict": true
     }
   },
   "minecraft.infested_cracked_stone_bricks": {
@@ -2395,7 +2565,9 @@
     },
     "properties": {
       "data": 4,
-      "id": 97
+      "id": 97,
+      "previous_id": "minecraft.monster_egg",
+      "conflict": true
     }
   },
   "minecraft.infested_chiseled_stone_bricks": {
@@ -2411,7 +2583,9 @@
     },
     "properties": {
       "data": 5,
-      "id": 97
+      "id": 97,
+      "previous_id": "minecraft.monster_egg",
+      "conflict": true
     }
   },
   "minecraft.stone_bricks": {
@@ -2424,7 +2598,9 @@
       }
     },
     "properties": {
-      "id": 98
+      "id": 98,
+      "previous_id": "minecraft.stonebrick",
+      "conflict": true
     }
   },
   "minecraft.mossy_stone_bricks": {
@@ -2440,7 +2616,9 @@
     },
     "properties": {
       "data": 1,
-      "id": 98
+      "id": 98,
+      "previous_id": "minecraft.stonebrick",
+      "conflict": true
     }
   },
   "minecraft.cracked_stone_bricks": {
@@ -2454,7 +2632,9 @@
     },
     "properties": {
       "data": 2,
-      "id": 98
+      "id": 98,
+      "previous_id": "minecraft.stonebrick",
+      "conflict": true
     }
   },
   "minecraft.chiseled_stone_bricks": {
@@ -2468,7 +2648,9 @@
     },
     "properties": {
       "data": 3,
-      "id": 98
+      "id": 98,
+      "previous_id": "minecraft.stonebrick",
+      "conflict": true
     }
   },
   "minecraft.brown_mushroom_block": {
@@ -3115,7 +3297,9 @@
     "properties": {
       "data": 1,
       "id": 139,
-      "version": "1.14"
+      "version": "1.14",
+      "previous_id": "minecraft.cobblestone_wall",
+      "conflict": true
     }
   },
   "minecraft.potted_acacia_sapling": {
@@ -3125,7 +3309,9 @@
       }
     },
     "properties": {
-      "id": 140
+      "id": 140,
+      "previous_id": "minecraft.flower_pot",
+      "conflict": true
     }
   },
   "minecraft.potted_allium": {
@@ -3135,7 +3321,9 @@
       }
     },
     "properties": {
-      "id": 140
+      "id": 140,
+      "previous_id": "minecraft.flower_pot",
+      "conflict": true
     }
   },
   "minecraft.potted_azure_bluet": {
@@ -3151,7 +3339,9 @@
       }
     },
     "properties": {
-      "id": 140
+      "id": 140,
+      "previous_id": "minecraft.flower_pot",
+      "conflict": true
     }
   },
   "minecraft.potted_birch_sapling": {
@@ -3161,7 +3351,9 @@
       }
     },
     "properties": {
-      "id": 140
+      "id": 140,
+      "previous_id": "minecraft.flower_pot",
+      "conflict": true
     }
   },
   "minecraft.potted_blue_orchid": {
@@ -3175,7 +3367,9 @@
       }
     },
     "properties": {
-      "id": 140
+      "id": 140,
+      "previous_id": "minecraft.flower_pot",
+      "conflict": true
     }
   },
   "minecraft.potted_brown_mushroom": {
@@ -3185,7 +3379,9 @@
       }
     },
     "properties": {
-      "id": 140
+      "id": 140,
+      "previous_id": "minecraft.flower_pot",
+      "conflict": true
     }
   },
   "minecraft.potted_cactus": {
@@ -3198,7 +3394,9 @@
       }
     },
     "properties": {
-      "id": 140
+      "id": 140,
+      "previous_id": "minecraft.flower_pot",
+      "conflict": true
     }
   },
   "minecraft.potted_dandelion": {
@@ -3211,7 +3409,9 @@
       }
     },
     "properties": {
-      "id": 140
+      "id": 140,
+      "previous_id": "minecraft.flower_pot",
+      "conflict": true
     }
   },
   "minecraft.potted_dark_oak_sapling": {
@@ -3224,7 +3424,9 @@
       }
     },
     "properties": {
-      "id": 140
+      "id": 140,
+      "previous_id": "minecraft.flower_pot",
+      "conflict": true
     }
   },
   "minecraft.potted_dead_bush": {
@@ -3277,7 +3479,9 @@
       }
     },
     "properties": {
-      "id": 140
+      "id": 140,
+      "previous_id": "minecraft.flower_pot",
+      "conflict": true
     }
   },
   "minecraft.potted_fern": {
@@ -3287,7 +3491,9 @@
       }
     },
     "properties": {
-      "id": 140
+      "id": 140,
+      "previous_id": "minecraft.flower_pot",
+      "conflict": true
     }
   },
   "minecraft.potted_jungle_sapling": {
@@ -3297,7 +3503,9 @@
       }
     },
     "properties": {
-      "id": 140
+      "id": 140,
+      "previous_id": "minecraft.flower_pot",
+      "conflict": true
     }
   },
   "minecraft.potted_oak_sapling": {
@@ -3307,7 +3515,9 @@
       }
     },
     "properties": {
-      "id": 140
+      "id": 140,
+      "previous_id": "minecraft.flower_pot",
+      "conflict": true
     }
   },
   "minecraft.potted_orange_tulip": {
@@ -3317,7 +3527,9 @@
       }
     },
     "properties": {
-      "id": 140
+      "id": 140,
+      "previous_id": "minecraft.flower_pot",
+      "conflict": true
     }
   },
   "minecraft.potted_oxeye_daisy": {
@@ -3331,7 +3543,9 @@
       }
     },
     "properties": {
-      "id": 140
+      "id": 140,
+      "previous_id": "minecraft.flower_pot",
+      "conflict": true
     }
   },
   "minecraft.potted_pink_tulip": {
@@ -3341,7 +3555,9 @@
       }
     },
     "properties": {
-      "id": 140
+      "id": 140,
+      "previous_id": "minecraft.flower_pot",
+      "conflict": true
     }
   },
   "minecraft.potted_poppy": {
@@ -3355,7 +3571,9 @@
       }
     },
     "properties": {
-      "id": 140
+      "id": 140,
+      "previous_id": "minecraft.flower_pot",
+      "conflict": true
     }
   },
   "minecraft.potted_red_mushroom": {
@@ -3365,7 +3583,9 @@
       }
     },
     "properties": {
-      "id": 140
+      "id": 140,
+      "previous_id": "minecraft.flower_pot",
+      "conflict": true
     }
   },
   "minecraft.potted_red_tulip": {
@@ -3375,7 +3595,9 @@
       }
     },
     "properties": {
-      "id": 140
+      "id": 140,
+      "previous_id": "minecraft.flower_pot",
+      "conflict": true
     }
   },
   "minecraft.potted_spruce_sapling": {
@@ -3385,7 +3607,9 @@
       }
     },
     "properties": {
-      "id": 140
+      "id": 140,
+      "previous_id": "minecraft.flower_pot",
+      "conflict": true
     }
   },
   "minecraft.potted_white_tulip": {
@@ -3395,7 +3619,9 @@
       }
     },
     "properties": {
-      "id": 140
+      "id": 140,
+      "previous_id": "minecraft.flower_pot",
+      "conflict": true
     }
   },
   "minecraft.carrots": {
@@ -3751,7 +3977,9 @@
       }
     },
     "properties": {
-      "id": 159
+      "id": 159,
+      "previous_id": "minecraft.stained_hardened_clay",
+      "conflict": true
     }
   },
   "minecraft.orange_terracotta": {
@@ -3770,7 +3998,9 @@
     },
     "properties": {
       "data": 1,
-      "id": 159
+      "id": 159,
+      "previous_id": "minecraft.stained_hardened_clay",
+      "conflict": true
     }
   },
   "minecraft.magenta_terracotta": {
@@ -3789,7 +4019,9 @@
     },
     "properties": {
       "data": 2,
-      "id": 159
+      "id": 159,
+      "previous_id": "minecraft.stained_hardened_clay",
+      "conflict": true
     }
   },
   "minecraft.light_blue_terracotta": {
@@ -3808,7 +4040,9 @@
     },
     "properties": {
       "data": 3,
-      "id": 159
+      "id": 159,
+      "previous_id": "minecraft.stained_hardened_clay",
+      "conflict": true
     }
   },
   "minecraft.yellow_terracotta": {
@@ -3827,7 +4061,9 @@
     },
     "properties": {
       "data": 4,
-      "id": 159
+      "id": 159,
+      "previous_id": "minecraft.stained_hardened_clay",
+      "conflict": true
     }
   },
   "minecraft.lime_terracotta": {
@@ -3846,7 +4082,9 @@
     },
     "properties": {
       "data": 5,
-      "id": 159
+      "id": 159,
+      "previous_id": "minecraft.stained_hardened_clay",
+      "conflict": true
     }
   },
   "minecraft.pink_terracotta": {
@@ -3865,7 +4103,9 @@
     },
     "properties": {
       "data": 6,
-      "id": 159
+      "id": 159,
+      "previous_id": "minecraft.stained_hardened_clay",
+      "conflict": true
     }
   },
   "minecraft.gray_terracotta": {
@@ -3884,7 +4124,9 @@
     },
     "properties": {
       "data": 7,
-      "id": 159
+      "id": 159,
+      "previous_id": "minecraft.stained_hardened_clay",
+      "conflict": true
     }
   },
   "minecraft.light_gray_terracotta": {
@@ -3903,7 +4145,9 @@
     },
     "properties": {
       "data": 8,
-      "id": 159
+      "id": 159,
+      "previous_id": "minecraft.stained_hardened_clay",
+      "conflict": true
     }
   },
   "minecraft.cyan_terracotta": {
@@ -3922,7 +4166,9 @@
     },
     "properties": {
       "data": 9,
-      "id": 159
+      "id": 159,
+      "previous_id": "minecraft.stained_hardened_clay",
+      "conflict": true
     }
   },
   "minecraft.purple_terracotta": {
@@ -3941,7 +4187,9 @@
     },
     "properties": {
       "data": 10,
-      "id": 159
+      "id": 159,
+      "previous_id": "minecraft.stained_hardened_clay",
+      "conflict": true
     }
   },
   "minecraft.blue_terracotta": {
@@ -3960,7 +4208,9 @@
     },
     "properties": {
       "data": 11,
-      "id": 159
+      "id": 159,
+      "previous_id": "minecraft.stained_hardened_clay",
+      "conflict": true
     }
   },
   "minecraft.brown_terracotta": {
@@ -3979,7 +4229,9 @@
     },
     "properties": {
       "data": 12,
-      "id": 159
+      "id": 159,
+      "previous_id": "minecraft.stained_hardened_clay",
+      "conflict": true
     }
   },
   "minecraft.green_terracotta": {
@@ -3998,7 +4250,9 @@
     },
     "properties": {
       "data": 13,
-      "id": 159
+      "id": 159,
+      "previous_id": "minecraft.stained_hardened_clay",
+      "conflict": true
     }
   },
   "minecraft.red_terracotta": {
@@ -4017,7 +4271,9 @@
     },
     "properties": {
       "data": 14,
-      "id": 159
+      "id": 159,
+      "previous_id": "minecraft.stained_hardened_clay",
+      "conflict": true
     }
   },
   "minecraft.black_terracotta": {
@@ -4036,7 +4292,9 @@
     },
     "properties": {
       "data": 15,
-      "id": 159
+      "id": 159,
+      "previous_id": "minecraft.stained_hardened_clay",
+      "conflict": true
     }
   },
   "minecraft.white_stained_glass_pane": {
@@ -4058,7 +4316,9 @@
       }
     },
     "properties": {
-      "id": 160
+      "id": 160,
+      "previous_id": "minecraft.stained_glass_pane",
+      "conflict": true
     }
   },
   "minecraft.orange_stained_glass_pane": {
@@ -4075,7 +4335,9 @@
     },
     "properties": {
       "data": 1,
-      "id": 160
+      "id": 160,
+      "previous_id": "minecraft.stained_glass_pane",
+      "conflict": true
     }
   },
   "minecraft.magenta_stained_glass_pane": {
@@ -4092,7 +4354,9 @@
     },
     "properties": {
       "data": 2,
-      "id": 160
+      "id": 160,
+      "previous_id": "minecraft.stained_glass_pane",
+      "conflict": true
     }
   },
   "minecraft.light_blue_stained_glass_pane": {
@@ -4109,7 +4373,9 @@
     },
     "properties": {
       "data": 3,
-      "id": 160
+      "id": 160,
+      "previous_id": "minecraft.stained_glass_pane",
+      "conflict": true
     }
   },
   "minecraft.yellow_stained_glass_pane": {
@@ -4126,7 +4392,9 @@
     },
     "properties": {
       "data": 4,
-      "id": 160
+      "id": 160,
+      "previous_id": "minecraft.stained_glass_pane",
+      "conflict": true
     }
   },
   "minecraft.lime_stained_glass_pane": {
@@ -4143,7 +4411,9 @@
     },
     "properties": {
       "data": 5,
-      "id": 160
+      "id": 160,
+      "previous_id": "minecraft.stained_glass_pane",
+      "conflict": true
     }
   },
   "minecraft.pink_stained_glass_pane": {
@@ -4160,7 +4430,9 @@
     },
     "properties": {
       "data": 6,
-      "id": 160
+      "id": 160,
+      "previous_id": "minecraft.stained_glass_pane",
+      "conflict": true
     }
   },
   "minecraft.gray_stained_glass_pane": {
@@ -4177,7 +4449,9 @@
     },
     "properties": {
       "data": 7,
-      "id": 160
+      "id": 160,
+      "previous_id": "minecraft.stained_glass_pane",
+      "conflict": true
     }
   },
   "minecraft.light_gray_stained_glass_pane": {
@@ -4194,7 +4468,9 @@
     },
     "properties": {
       "data": 8,
-      "id": 160
+      "id": 160,
+      "previous_id": "minecraft.stained_glass_pane",
+      "conflict": true
     }
   },
   "minecraft.cyan_stained_glass_pane": {
@@ -4211,7 +4487,9 @@
     },
     "properties": {
       "data": 9,
-      "id": 160
+      "id": 160,
+      "previous_id": "minecraft.stained_glass_pane",
+      "conflict": true
     }
   },
   "minecraft.purple_stained_glass_pane": {
@@ -4228,7 +4506,9 @@
     },
     "properties": {
       "data": 10,
-      "id": 160
+      "id": 160,
+      "previous_id": "minecraft.stained_glass_pane",
+      "conflict": true
     }
   },
   "minecraft.blue_stained_glass_pane": {
@@ -4245,7 +4525,9 @@
     },
     "properties": {
       "data": 11,
-      "id": 160
+      "id": 160,
+      "previous_id": "minecraft.stained_glass_pane",
+      "conflict": true
     }
   },
   "minecraft.brown_stained_glass_pane": {
@@ -4262,7 +4544,9 @@
     },
     "properties": {
       "data": 12,
-      "id": 160
+      "id": 160,
+      "previous_id": "minecraft.stained_glass_pane",
+      "conflict": true
     }
   },
   "minecraft.green_stained_glass_pane": {
@@ -4279,7 +4563,9 @@
     },
     "properties": {
       "data": 13,
-      "id": 160
+      "id": 160,
+      "previous_id": "minecraft.stained_glass_pane",
+      "conflict": true
     }
   },
   "minecraft.red_stained_glass_pane": {
@@ -4296,7 +4582,9 @@
     },
     "properties": {
       "data": 14,
-      "id": 160
+      "id": 160,
+      "previous_id": "minecraft.stained_glass_pane",
+      "conflict": true
     }
   },
   "minecraft.black_stained_glass_pane": {
@@ -4313,7 +4601,9 @@
     },
     "properties": {
       "data": 15,
-      "id": 160
+      "id": 160,
+      "previous_id": "minecraft.stained_glass_pane",
+      "conflict": true
     }
   },
   "minecraft.acacia_leaves": {
@@ -4323,7 +4613,9 @@
       }
     },
     "properties": {
-      "id": 161
+      "id": 161,
+      "previous_id": "minecraft.leaves2",
+      "conflict": true
     }
   },
   "minecraft.dark_oak_leaves": {
@@ -4337,7 +4629,9 @@
     },
     "properties": {
       "data": 1,
-      "id": 161
+      "id": 161,
+      "previous_id": "minecraft.leaves2",
+      "conflict": true
     }
   },
   "minecraft.acacia_log": {
@@ -4457,7 +4751,9 @@
     "properties": {
       "data": 1,
       "id": 168,
-      "version": "1.8"
+      "version": "1.8",
+      "previous_id": "minecraft.prismarine",
+      "conflict": true
     }
   },
   "minecraft.dark_prismarine": {
@@ -4469,7 +4765,9 @@
     "properties": {
       "data": 2,
       "id": 168,
-      "version": "1.8"
+      "version": "1.8",
+      "previous_id": "minecraft.prismarine",
+      "conflict": true
     }
   },
   "minecraft.sea_lantern": {
@@ -4506,7 +4804,9 @@
       }
     },
     "properties": {
-      "id": 171
+      "id": 171,
+      "previous_id": "minecraft.carpet",
+      "conflict": true
     }
   },
   "minecraft.orange_carpet": {
@@ -4517,7 +4817,9 @@
     },
     "properties": {
       "data": 1,
-      "id": 171
+      "id": 171,
+      "previous_id": "minecraft.carpet",
+      "conflict": true
     }
   },
   "minecraft.magenta_carpet": {
@@ -4528,7 +4830,9 @@
     },
     "properties": {
       "data": 2,
-      "id": 171
+      "id": 171,
+      "previous_id": "minecraft.carpet",
+      "conflict": true
     }
   },
   "minecraft.light_blue_carpet": {
@@ -4539,7 +4843,9 @@
     },
     "properties": {
       "data": 3,
-      "id": 171
+      "id": 171,
+      "previous_id": "minecraft.carpet",
+      "conflict": true
     }
   },
   "minecraft.yellow_carpet": {
@@ -4550,7 +4856,9 @@
     },
     "properties": {
       "data": 4,
-      "id": 171
+      "id": 171,
+      "previous_id": "minecraft.carpet",
+      "conflict": true
     }
   },
   "minecraft.lime_carpet": {
@@ -4561,7 +4869,9 @@
     },
     "properties": {
       "data": 5,
-      "id": 171
+      "id": 171,
+      "previous_id": "minecraft.carpet",
+      "conflict": true
     }
   },
   "minecraft.pink_carpet": {
@@ -4572,7 +4882,9 @@
     },
     "properties": {
       "data": 6,
-      "id": 171
+      "id": 171,
+      "previous_id": "minecraft.carpet",
+      "conflict": true
     }
   },
   "minecraft.gray_carpet": {
@@ -4583,7 +4895,9 @@
     },
     "properties": {
       "data": 7,
-      "id": 171
+      "id": 171,
+      "previous_id": "minecraft.carpet",
+      "conflict": true
     }
   },
   "minecraft.light_gray_carpet": {
@@ -4594,7 +4908,9 @@
     },
     "properties": {
       "data": 8,
-      "id": 171
+      "id": 171,
+      "previous_id": "minecraft.carpet",
+      "conflict": true
     }
   },
   "minecraft.cyan_carpet": {
@@ -4605,7 +4921,9 @@
     },
     "properties": {
       "data": 9,
-      "id": 171
+      "id": 171,
+      "previous_id": "minecraft.carpet",
+      "conflict": true
     }
   },
   "minecraft.purple_carpet": {
@@ -4616,7 +4934,9 @@
     },
     "properties": {
       "data": 10,
-      "id": 171
+      "id": 171,
+      "previous_id": "minecraft.carpet",
+      "conflict": true
     }
   },
   "minecraft.blue_carpet": {
@@ -4627,7 +4947,9 @@
     },
     "properties": {
       "data": 11,
-      "id": 171
+      "id": 171,
+      "previous_id": "minecraft.carpet",
+      "conflict": true
     }
   },
   "minecraft.brown_carpet": {
@@ -4638,7 +4960,9 @@
     },
     "properties": {
       "data": 12,
-      "id": 171
+      "id": 171,
+      "previous_id": "minecraft.carpet",
+      "conflict": true
     }
   },
   "minecraft.green_carpet": {
@@ -4649,7 +4973,9 @@
     },
     "properties": {
       "data": 13,
-      "id": 171
+      "id": 171,
+      "previous_id": "minecraft.carpet",
+      "conflict": true
     }
   },
   "minecraft.red_carpet": {
@@ -4660,7 +4986,9 @@
     },
     "properties": {
       "data": 14,
-      "id": 171
+      "id": 171,
+      "previous_id": "minecraft.carpet",
+      "conflict": true
     }
   },
   "minecraft.black_carpet": {
@@ -4671,7 +4999,9 @@
     },
     "properties": {
       "data": 15,
-      "id": 171
+      "id": 171,
+      "previous_id": "minecraft.carpet",
+      "conflict": true
     }
   },
   "minecraft.terracotta": {
@@ -4716,7 +5046,9 @@
       }
     },
     "properties": {
-      "id": 175
+      "id": 175,
+      "previous_id": "minecraft.double_plant",
+      "conflict": true
     }
   },
   "minecraft.lilac": {
@@ -4727,7 +5059,9 @@
     },
     "properties": {
       "data": 1,
-      "id": 175
+      "id": 175,
+      "previous_id": "minecraft.double_plant",
+      "conflict": true
     }
   },
   "minecraft.tall_grass": {
@@ -4742,7 +5076,9 @@
     },
     "properties": {
       "data": 2,
-      "id": 175
+      "id": 175,
+      "previous_id": "minecraft.double_plant",
+      "conflict": true
     }
   },
   "minecraft.large_fern": {
@@ -4753,7 +5089,9 @@
     },
     "properties": {
       "data": 3,
-      "id": 175
+      "id": 175,
+      "previous_id": "minecraft.double_plant",
+      "conflict": true
     }
   },
   "minecraft.rose_bush": {
@@ -4767,7 +5105,9 @@
     },
     "properties": {
       "data": 4,
-      "id": 175
+      "id": 175,
+      "previous_id": "minecraft.double_plant",
+      "conflict": true
     }
   },
   "minecraft.peony": {
@@ -4778,7 +5118,9 @@
     },
     "properties": {
       "data": 5,
-      "id": 175
+      "id": 175,
+      "previous_id": "minecraft.double_plant",
+      "conflict": true
     }
   },
   "legacy.standing_banner": {
@@ -4807,202 +5149,23 @@
       "version": "1.8"
     }
   },
-  "minecraft.black_wall_banner": {
+  "minecraft.white_wall_banner": {
     "lang": {
       "en_US": {
         "previously": "Wall-mounted Banner",
         "previous_conflict": true,
         "search_names": [
-          "Black Wall Mounted Banner",
-          "Black Wall Banner",
-          "Wall Mounted Black Banner"
+          "White Wall Mounted Banner",
+          "White Wall Banner",
+          "Wall Mounted White Banner"
         ],
-        "display_name": "Black Wall Banner"
+        "display_name": "White Wall Banner"
       }
     },
     "properties": {
-      "image_key": "Black Banner",
+      "image_key": "White Banner",
       "previous_id": "minecraft.wall_banner",
-      "id": 177,
-      "version": "1.8"
-    }
-  },
-  "minecraft.blue_wall_banner": {
-    "lang": {
-      "en_US": {
-        "previously": "Wall-mounted Banner",
-        "previous_conflict": true,
-        "search_names": [
-          "Blue Wall Mounted Banner",
-          "Blue Wall Banner",
-          "Wall Mounted Blue Banner"
-        ],
-        "display_name": "Blue Wall Banner"
-      }
-    },
-    "properties": {
-      "image_key": "Blue Banner",
-      "previous_id": "minecraft.wall_banner",
-      "id": 177,
-      "version": "1.8"
-    }
-  },
-  "minecraft.brown_wall_banner": {
-    "lang": {
-      "en_US": {
-        "previously": "Wall-mounted Banner",
-        "previous_conflict": true,
-        "search_names": [
-          "Brown Wall Mounted Banner",
-          "Brown Wall Banner",
-          "Wall Mounted Brown Banner"
-        ],
-        "display_name": "Brown Wall Banner"
-      }
-    },
-    "properties": {
-      "image_key": "Brown Banner",
-      "previous_id": "minecraft.wall_banner",
-      "id": 177,
-      "version": "1.8"
-    }
-  },
-  "minecraft.cyan_wall_banner": {
-    "lang": {
-      "en_US": {
-        "previously": "Wall-mounted Banner",
-        "previous_conflict": true,
-        "search_names": [
-          "Cyan Wall Mounted Banner",
-          "Cyan Wall Banner",
-          "Wall Mounted Cyan Banner"
-        ],
-        "display_name": "Cyan Wall Banner"
-      }
-    },
-    "properties": {
-      "image_key": "Cyan Banner",
-      "previous_id": "minecraft.wall_banner",
-      "id": 177,
-      "version": "1.8"
-    }
-  },
-  "minecraft.gray_wall_banner": {
-    "lang": {
-      "en_US": {
-        "previously": "Wall-mounted Banner",
-        "previous_conflict": true,
-        "search_names": [
-          "Gray Wall Mounted Banner",
-          "Gray Wall Banner",
-          "Wall Mounted Gray Banner"
-        ],
-        "display_name": "Gray Wall Banner"
-      }
-    },
-    "properties": {
-      "image_key": "Gray Banner",
-      "previous_id": "minecraft.wall_banner",
-      "id": 177,
-      "version": "1.8"
-    }
-  },
-  "minecraft.green_wall_banner": {
-    "lang": {
-      "en_US": {
-        "previously": "Wall-mounted Banner",
-        "previous_conflict": true,
-        "search_names": [
-          "Green Wall Mounted Banner",
-          "Green Wall Banner",
-          "Wall Mounted Green Banner"
-        ],
-        "display_name": "Green Wall Banner"
-      }
-    },
-    "properties": {
-      "image_key": "Green Banner",
-      "previous_id": "minecraft.wall_banner",
-      "id": 177,
-      "version": "1.8"
-    }
-  },
-  "minecraft.light_blue_wall_banner": {
-    "lang": {
-      "en_US": {
-        "previously": "Wall-mounted Banner",
-        "previous_conflict": true,
-        "search_names": [
-          "Light Blue Wall Mounted Banner",
-          "Light Blue Wall Banner",
-          "Wall Mounted Light Blue Banner"
-        ],
-        "display_name": "Light Blue Wall Banner"
-      }
-    },
-    "properties": {
-      "image_key": "Light Blue Banner",
-      "previous_id": "minecraft.wall_banner",
-      "id": 177,
-      "version": "1.8"
-    }
-  },
-  "minecraft.light_gray_wall_banner": {
-    "lang": {
-      "en_US": {
-        "previously": "Wall-mounted Banner",
-        "previous_conflict": true,
-        "search_names": [
-          "Light Gray Wall Mounted Banner",
-          "Light Gray Wall Banner",
-          "Wall Mounted Light Gray Banner"
-        ],
-        "display_name": "Light Gray Wall Banner"
-      }
-    },
-    "properties": {
-      "image_key": "Light Gray Banner",
-      "previous_id": "minecraft.wall_banner",
-      "id": 177,
-      "version": "1.8"
-    }
-  },
-  "minecraft.lime_wall_banner": {
-    "lang": {
-      "en_US": {
-        "previously": "Wall-mounted Banner",
-        "previous_conflict": true,
-        "search_names": [
-          "Lime Wall Mounted Banner",
-          "Lime Wall Banner",
-          "Wall Mounted Lime Banner"
-        ],
-        "display_name": "Lime Wall Banner"
-      }
-    },
-    "properties": {
-      "image_key": "Lime Banner",
-      "previous_id": "minecraft.wall_banner",
-      "id": 177,
-      "version": "1.8"
-    }
-  },
-  "minecraft.magenta_wall_banner": {
-    "lang": {
-      "en_US": {
-        "previously": "Wall-mounted Banner",
-        "previous_conflict": true,
-        "search_names": [
-          "Magenta Wall Mounted Banner",
-          "Magenta Wall Banner",
-          "Wall Mounted Magenta Banner"
-        ],
-        "display_name": "Magenta Wall Banner"
-      }
-    },
-    "properties": {
-      "image_key": "Magenta Banner",
-      "previous_id": "minecraft.wall_banner",
+      "conflict": true,
       "id": 177,
       "version": "1.8"
     }
@@ -5023,88 +5186,54 @@
     "properties": {
       "image_key": "Orange Banner",
       "previous_id": "minecraft.wall_banner",
+      "conflict": true,
       "id": 177,
-      "version": "1.8"
+      "version": "1.8",
+      "data": 1
     }
   },
-  "minecraft.pink_wall_banner": {
+  "minecraft.magenta_wall_banner": {
     "lang": {
       "en_US": {
         "previously": "Wall-mounted Banner",
         "previous_conflict": true,
         "search_names": [
-          "Pink Wall Mounted Banner",
-          "Pink Wall Banner",
-          "Wall Mounted Pink Banner"
+          "Magenta Wall Mounted Banner",
+          "Magenta Wall Banner",
+          "Wall Mounted Magenta Banner"
         ],
-        "display_name": "Pink Wall Banner"
+        "display_name": "Magenta Wall Banner"
       }
     },
     "properties": {
-      "image_key": "Pink Banner",
+      "image_key": "Magenta Banner",
       "previous_id": "minecraft.wall_banner",
+      "conflict": true,
       "id": 177,
-      "version": "1.8"
+      "version": "1.8",
+      "data": 2
     }
   },
-  "minecraft.purple_wall_banner": {
+  "minecraft.light_blue_wall_banner": {
     "lang": {
       "en_US": {
         "previously": "Wall-mounted Banner",
         "previous_conflict": true,
         "search_names": [
-          "Purple Wall Mounted Banner",
-          "Purple Wall Banner",
-          "Wall Mounted Purple Banner"
+          "Light Blue Wall Mounted Banner",
+          "Light Blue Wall Banner",
+          "Wall Mounted Light Blue Banner"
         ],
-        "display_name": "Purple Wall Banner"
+        "display_name": "Light Blue Wall Banner"
       }
     },
     "properties": {
-      "image_key": "Purple Banner",
+      "image_key": "Light Blue Banner",
       "previous_id": "minecraft.wall_banner",
+      "conflict": true,
       "id": 177,
-      "version": "1.8"
-    }
-  },
-  "minecraft.red_wall_banner": {
-    "lang": {
-      "en_US": {
-        "previously": "Wall-mounted Banner",
-        "previous_conflict": true,
-        "search_names": [
-          "Red Wall Mounted Banner",
-          "Red Wall Banner",
-          "Wall Mounted Red Banner"
-        ],
-        "display_name": "Red Wall Banner"
-      }
-    },
-    "properties": {
-      "image_key": "Red Banner",
-      "previous_id": "minecraft.wall_banner",
-      "id": 177,
-      "version": "1.8"
-    }
-  },
-  "minecraft.white_wall_banner": {
-    "lang": {
-      "en_US": {
-        "previously": "Wall-mounted Banner",
-        "previous_conflict": true,
-        "search_names": [
-          "White Wall Mounted Banner",
-          "White Wall Banner",
-          "Wall Mounted White Banner"
-        ],
-        "display_name": "White Wall Banner"
-      }
-    },
-    "properties": {
-      "image_key": "White Banner",
-      "previous_id": "minecraft.wall_banner",
-      "id": 177,
-      "version": "1.8"
+      "version": "1.8",
+      "data": 3
     }
   },
   "minecraft.yellow_wall_banner": {
@@ -5123,8 +5252,252 @@
     "properties": {
       "image_key": "Yellow Banner",
       "previous_id": "minecraft.wall_banner",
+      "conflict": true,
       "id": 177,
-      "version": "1.8"
+      "version": "1.8",
+      "data": 4
+    }
+  },
+  "minecraft.lime_wall_banner": {
+    "lang": {
+      "en_US": {
+        "previously": "Wall-mounted Banner",
+        "previous_conflict": true,
+        "search_names": [
+          "Lime Wall Mounted Banner",
+          "Lime Wall Banner",
+          "Wall Mounted Lime Banner"
+        ],
+        "display_name": "Lime Wall Banner"
+      }
+    },
+    "properties": {
+      "image_key": "Lime Banner",
+      "previous_id": "minecraft.wall_banner",
+      "conflict": true,
+      "id": 177,
+      "version": "1.8",
+      "data": 5
+    }
+  },
+  "minecraft.pink_wall_banner": {
+    "lang": {
+      "en_US": {
+        "previously": "Wall-mounted Banner",
+        "previous_conflict": true,
+        "search_names": [
+          "Pink Wall Mounted Banner",
+          "Pink Wall Banner",
+          "Wall Mounted Pink Banner"
+        ],
+        "display_name": "Pink Wall Banner"
+      }
+    },
+    "properties": {
+      "image_key": "Pink Banner",
+      "previous_id": "minecraft.wall_banner",
+      "conflict": true,
+      "id": 177,
+      "version": "1.8",
+      "data": 6
+    }
+  },
+  "minecraft.gray_wall_banner": {
+    "lang": {
+      "en_US": {
+        "previously": "Wall-mounted Banner",
+        "previous_conflict": true,
+        "search_names": [
+          "Gray Wall Mounted Banner",
+          "Gray Wall Banner",
+          "Wall Mounted Gray Banner"
+        ],
+        "display_name": "Gray Wall Banner"
+      }
+    },
+    "properties": {
+      "image_key": "Gray Banner",
+      "previous_id": "minecraft.wall_banner",
+      "conflict": true,
+      "id": 177,
+      "version": "1.8",
+      "data": 7
+    }
+  },
+  "minecraft.light_gray_wall_banner": {
+    "lang": {
+      "en_US": {
+        "previously": "Wall-mounted Banner",
+        "previous_conflict": true,
+        "search_names": [
+          "Light Gray Wall Mounted Banner",
+          "Light Gray Wall Banner",
+          "Wall Mounted Light Gray Banner"
+        ],
+        "display_name": "Light Gray Wall Banner"
+      }
+    },
+    "properties": {
+      "image_key": "Light Gray Banner",
+      "previous_id": "minecraft.wall_banner",
+      "conflict": true,
+      "id": 177,
+      "version": "1.8",
+      "data": 8
+    }
+  },
+  "minecraft.cyan_wall_banner": {
+    "lang": {
+      "en_US": {
+        "previously": "Wall-mounted Banner",
+        "previous_conflict": true,
+        "search_names": [
+          "Cyan Wall Mounted Banner",
+          "Cyan Wall Banner",
+          "Wall Mounted Cyan Banner"
+        ],
+        "display_name": "Cyan Wall Banner"
+      }
+    },
+    "properties": {
+      "image_key": "Cyan Banner",
+      "previous_id": "minecraft.wall_banner",
+      "conflict": true,
+      "id": 177,
+      "version": "1.8",
+      "data": 9
+    }
+  },
+  "minecraft.purple_wall_banner": {
+    "lang": {
+      "en_US": {
+        "previously": "Wall-mounted Banner",
+        "previous_conflict": true,
+        "search_names": [
+          "Purple Wall Mounted Banner",
+          "Purple Wall Banner",
+          "Wall Mounted Purple Banner"
+        ],
+        "display_name": "Purple Wall Banner"
+      }
+    },
+    "properties": {
+      "image_key": "Purple Banner",
+      "previous_id": "minecraft.wall_banner",
+      "conflict": true,
+      "id": 177,
+      "version": "1.8",
+      "data": 10
+    }
+  },
+  "minecraft.blue_wall_banner": {
+    "lang": {
+      "en_US": {
+        "previously": "Wall-mounted Banner",
+        "previous_conflict": true,
+        "search_names": [
+          "Blue Wall Mounted Banner",
+          "Blue Wall Banner",
+          "Wall Mounted Blue Banner"
+        ],
+        "display_name": "Blue Wall Banner"
+      }
+    },
+    "properties": {
+      "image_key": "Blue Banner",
+      "previous_id": "minecraft.wall_banner",
+      "conflict": true,
+      "id": 177,
+      "version": "1.8",
+      "data": 11
+    }
+  },
+  "minecraft.brown_wall_banner": {
+    "lang": {
+      "en_US": {
+        "previously": "Wall-mounted Banner",
+        "previous_conflict": true,
+        "search_names": [
+          "Brown Wall Mounted Banner",
+          "Brown Wall Banner",
+          "Wall Mounted Brown Banner"
+        ],
+        "display_name": "Brown Wall Banner"
+      }
+    },
+    "properties": {
+      "image_key": "Brown Banner",
+      "previous_id": "minecraft.wall_banner",
+      "conflict": true,
+      "id": 177,
+      "version": "1.8",
+      "data": 12
+    }
+  },
+  "minecraft.green_wall_banner": {
+    "lang": {
+      "en_US": {
+        "previously": "Wall-mounted Banner",
+        "previous_conflict": true,
+        "search_names": [
+          "Green Wall Mounted Banner",
+          "Green Wall Banner",
+          "Wall Mounted Green Banner"
+        ],
+        "display_name": "Green Wall Banner"
+      }
+    },
+    "properties": {
+      "image_key": "Green Banner",
+      "previous_id": "minecraft.wall_banner",
+      "conflict": true,
+      "id": 177,
+      "version": "1.8",
+      "data": 13
+    }
+  },
+  "minecraft.red_wall_banner": {
+    "lang": {
+      "en_US": {
+        "previously": "Wall-mounted Banner",
+        "previous_conflict": true,
+        "search_names": [
+          "Red Wall Mounted Banner",
+          "Red Wall Banner",
+          "Wall Mounted Red Banner"
+        ],
+        "display_name": "Red Wall Banner"
+      }
+    },
+    "properties": {
+      "image_key": "Red Banner",
+      "previous_id": "minecraft.wall_banner",
+      "conflict": true,
+      "id": 177,
+      "version": "1.8",
+      "data": 14
+    }
+  },
+  "minecraft.black_wall_banner": {
+    "lang": {
+      "en_US": {
+        "previously": "Wall-mounted Banner",
+        "previous_conflict": true,
+        "search_names": [
+          "Black Wall Mounted Banner",
+          "Black Wall Banner",
+          "Wall Mounted Black Banner"
+        ],
+        "display_name": "Black Wall Banner"
+      }
+    },
+    "properties": {
+      "image_key": "Black Banner",
+      "previous_id": "minecraft.wall_banner",
+      "conflict": true,
+      "id": 177,
+      "version": "1.8",
+      "data": 15
     }
   },
   "legacy.daylight_detector_inverted": {
@@ -5163,7 +5536,9 @@
     "properties": {
       "data": 1,
       "id": 179,
-      "version": "1.8"
+      "version": "1.8",
+      "previous_id": "minecraft.red_sandstone",
+      "conflict": true
     }
   },
   "minecraft.smooth_red_sandstone": {
@@ -5175,7 +5550,9 @@
     "properties": {
       "data": 2,
       "id": 179,
-      "version": "1.8"
+      "version": "1.8",
+      "previous_id": "minecraft.red_sandstone",
+      "conflict": true
     }
   },
   "minecraft.red_sandstone_stairs": {
@@ -6075,7 +6452,9 @@
     },
     "properties": {
       "id": 251,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete",
+      "conflict": true
     }
   },
   "minecraft.orange_concrete": {
@@ -6087,7 +6466,9 @@
     "properties": {
       "data": 1,
       "id": 251,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete",
+      "conflict": true
     }
   },
   "minecraft.magenta_concrete": {
@@ -6099,7 +6480,9 @@
     "properties": {
       "data": 2,
       "id": 251,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete",
+      "conflict": true
     }
   },
   "minecraft.light_blue_concrete": {
@@ -6111,7 +6494,9 @@
     "properties": {
       "data": 3,
       "id": 251,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete",
+      "conflict": true
     }
   },
   "minecraft.yellow_concrete": {
@@ -6123,7 +6508,9 @@
     "properties": {
       "data": 4,
       "id": 251,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete",
+      "conflict": true
     }
   },
   "minecraft.lime_concrete": {
@@ -6135,7 +6522,9 @@
     "properties": {
       "data": 5,
       "id": 251,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete",
+      "conflict": true
     }
   },
   "minecraft.pink_concrete": {
@@ -6147,7 +6536,9 @@
     "properties": {
       "data": 6,
       "id": 251,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete",
+      "conflict": true
     }
   },
   "minecraft.gray_concrete": {
@@ -6159,7 +6550,9 @@
     "properties": {
       "data": 7,
       "id": 251,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete",
+      "conflict": true
     }
   },
   "minecraft.light_gray_concrete": {
@@ -6171,7 +6564,9 @@
     "properties": {
       "data": 8,
       "id": 251,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete",
+      "conflict": true
     }
   },
   "minecraft.cyan_concrete": {
@@ -6183,7 +6578,9 @@
     "properties": {
       "data": 9,
       "id": 251,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete",
+      "conflict": true
     }
   },
   "minecraft.purple_concrete": {
@@ -6195,7 +6592,9 @@
     "properties": {
       "data": 10,
       "id": 251,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete",
+      "conflict": true
     }
   },
   "minecraft.blue_concrete": {
@@ -6207,7 +6606,9 @@
     "properties": {
       "data": 11,
       "id": 251,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete",
+      "conflict": true
     }
   },
   "minecraft.brown_concrete": {
@@ -6219,7 +6620,9 @@
     "properties": {
       "data": 12,
       "id": 251,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete",
+      "conflict": true
     }
   },
   "minecraft.green_concrete": {
@@ -6231,7 +6634,9 @@
     "properties": {
       "data": 13,
       "id": 251,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete",
+      "conflict": true
     }
   },
   "minecraft.red_concrete": {
@@ -6243,7 +6648,9 @@
     "properties": {
       "data": 14,
       "id": 251,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete",
+      "conflict": true
     }
   },
   "minecraft.black_concrete": {
@@ -6255,7 +6662,9 @@
     "properties": {
       "data": 15,
       "id": 251,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete",
+      "conflict": true
     }
   },
   "minecraft.white_concrete_powder": {
@@ -6273,7 +6682,9 @@
     },
     "properties": {
       "id": 252,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete_powder",
+      "conflict": true
     }
   },
   "minecraft.orange_concrete_powder": {
@@ -6288,7 +6699,9 @@
     "properties": {
       "data": 1,
       "id": 252,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete_powder",
+      "conflict": true
     }
   },
   "minecraft.magenta_concrete_powder": {
@@ -6303,7 +6716,9 @@
     "properties": {
       "data": 2,
       "id": 252,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete_powder",
+      "conflict": true
     }
   },
   "minecraft.light_blue_concrete_powder": {
@@ -6318,7 +6733,9 @@
     "properties": {
       "data": 3,
       "id": 252,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete_powder",
+      "conflict": true
     }
   },
   "minecraft.yellow_concrete_powder": {
@@ -6333,7 +6750,9 @@
     "properties": {
       "data": 4,
       "id": 252,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete_powder",
+      "conflict": true
     }
   },
   "minecraft.lime_concrete_powder": {
@@ -6348,7 +6767,9 @@
     "properties": {
       "data": 5,
       "id": 252,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete_powder",
+      "conflict": true
     }
   },
   "minecraft.pink_concrete_powder": {
@@ -6363,7 +6784,9 @@
     "properties": {
       "data": 6,
       "id": 252,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete_powder",
+      "conflict": true
     }
   },
   "minecraft.gray_concrete_powder": {
@@ -6378,7 +6801,9 @@
     "properties": {
       "data": 7,
       "id": 252,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete_powder",
+      "conflict": true
     }
   },
   "minecraft.light_gray_concrete_powder": {
@@ -6393,7 +6818,9 @@
     "properties": {
       "data": 8,
       "id": 252,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete_powder",
+      "conflict": true
     }
   },
   "minecraft.cyan_concrete_powder": {
@@ -6408,7 +6835,9 @@
     "properties": {
       "data": 9,
       "id": 252,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete_powder",
+      "conflict": true
     }
   },
   "minecraft.purple_concrete_powder": {
@@ -6423,7 +6852,9 @@
     "properties": {
       "data": 10,
       "id": 252,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete_powder",
+      "conflict": true
     }
   },
   "minecraft.blue_concrete_powder": {
@@ -6438,7 +6869,9 @@
     "properties": {
       "data": 11,
       "id": 252,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete_powder",
+      "conflict": true
     }
   },
   "minecraft.brown_concrete_powder": {
@@ -6453,7 +6886,9 @@
     "properties": {
       "data": 12,
       "id": 252,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete_powder",
+      "conflict": true
     }
   },
   "minecraft.green_concrete_powder": {
@@ -6468,7 +6903,9 @@
     "properties": {
       "data": 13,
       "id": 252,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete_powder",
+      "conflict": true
     }
   },
   "minecraft.red_concrete_powder": {
@@ -6483,7 +6920,9 @@
     "properties": {
       "data": 14,
       "id": 252,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete_powder",
+      "conflict": true
     }
   },
   "minecraft.black_concrete_powder": {
@@ -6498,7 +6937,9 @@
     "properties": {
       "data": 15,
       "id": 252,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.concrete_powder",
+      "conflict": true
     }
   },
   "minecraft.structure_block": {
@@ -6607,7 +7048,9 @@
     },
     "properties": {
       "data": 1,
-      "id": 263
+      "id": 263,
+      "previous_id": "minecraft.coal",
+      "conflict": true
     }
   },
   "minecraft.diamond": {
@@ -7312,7 +7755,9 @@
     },
     "properties": {
       "data": 1,
-      "id": 322
+      "id": 322,
+      "previous_id": "minecraft.golden_apple",
+      "conflict": true
     }
   },
   "minecraft.oak_sign": {
@@ -7633,7 +8078,9 @@
       }
     },
     "properties": {
-      "id": 349
+      "id": 349,
+      "previous_id": "minecraft.fish",
+      "conflict": true
     }
   },
   "minecraft.salmon": {
@@ -7644,7 +8091,9 @@
     },
     "properties": {
       "data": 1,
-      "id": 349
+      "id": 349,
+      "previous_id": "minecraft.fish",
+      "conflict": true
     }
   },
   "minecraft.tropical_fish": {
@@ -7656,7 +8105,9 @@
     },
     "properties": {
       "data": 2,
-      "id": 349
+      "id": 349,
+      "previous_id": "minecraft.fish",
+      "conflict": true
     }
   },
   "minecraft.pufferfish": {
@@ -7667,7 +8118,9 @@
     },
     "properties": {
       "data": 3,
-      "id": 349
+      "id": 349,
+      "previous_id": "minecraft.fish",
+      "conflict": true
     }
   },
   "minecraft.cooked_cod": {
@@ -7678,7 +8131,9 @@
       }
     },
     "properties": {
-      "id": 350
+      "id": 350,
+      "previous_id": "minecraft.cooked_fish",
+      "conflict": true
     }
   },
   "minecraft.cooked_salmon": {
@@ -7689,7 +8144,9 @@
     },
     "properties": {
       "data": 1,
-      "id": 350
+      "id": 350,
+      "previous_id": "minecraft.cooked_fish",
+      "conflict": true
     }
   },
   "minecraft.ink_sac": {
@@ -7703,7 +8160,9 @@
       }
     },
     "properties": {
-      "id": 351
+      "id": 351,
+      "previous_id": "minecraft.dye",
+      "conflict": true
     }
   },
   "minecraft.red_dye": {
@@ -7718,7 +8177,9 @@
     },
     "properties": {
       "data": 1,
-      "id": 351
+      "id": 351,
+      "previous_id": "minecraft.dye",
+      "conflict": true
     }
   },
   "minecraft.green_dye": {
@@ -7733,7 +8194,9 @@
     },
     "properties": {
       "data": 2,
-      "id": 351
+      "id": 351,
+      "previous_id": "minecraft.dye",
+      "conflict": true
     }
   },
   "minecraft.cocoa_beans": {
@@ -7745,7 +8208,9 @@
     },
     "properties": {
       "data": 3,
-      "id": 351
+      "id": 351,
+      "previous_id": "minecraft.dye",
+      "conflict": true
     }
   },
   "minecraft.lapis_lazuli": {
@@ -7759,7 +8224,9 @@
     },
     "properties": {
       "data": 4,
-      "id": 351
+      "id": 351,
+      "previous_id": "minecraft.dye",
+      "conflict": true
     }
   },
   "minecraft.purple_dye": {
@@ -7774,7 +8241,9 @@
     },
     "properties": {
       "data": 5,
-      "id": 351
+      "id": 351,
+      "previous_id": "minecraft.dye",
+      "conflict": true
     }
   },
   "minecraft.cyan_dye": {
@@ -7785,7 +8254,9 @@
     },
     "properties": {
       "data": 6,
-      "id": 351
+      "id": 351,
+      "previous_id": "minecraft.dye",
+      "conflict": true
     }
   },
   "minecraft.light_gray_dye": {
@@ -7796,7 +8267,9 @@
     },
     "properties": {
       "data": 7,
-      "id": 351
+      "id": 351,
+      "previous_id": "minecraft.dye",
+      "conflict": true
     }
   },
   "minecraft.gray_dye": {
@@ -7807,7 +8280,9 @@
     },
     "properties": {
       "data": 8,
-      "id": 351
+      "id": 351,
+      "previous_id": "minecraft.dye",
+      "conflict": true
     }
   },
   "minecraft.pink_dye": {
@@ -7818,7 +8293,9 @@
     },
     "properties": {
       "data": 9,
-      "id": 351
+      "id": 351,
+      "previous_id": "minecraft.dye",
+      "conflict": true
     }
   },
   "minecraft.lime_dye": {
@@ -7829,7 +8306,9 @@
     },
     "properties": {
       "data": 10,
-      "id": 351
+      "id": 351,
+      "previous_id": "minecraft.dye",
+      "conflict": true
     }
   },
   "minecraft.yellow_dye": {
@@ -7844,7 +8323,9 @@
     },
     "properties": {
       "data": 11,
-      "id": 351
+      "id": 351,
+      "previous_id": "minecraft.dye",
+      "conflict": true
     }
   },
   "minecraft.light_blue_dye": {
@@ -7855,7 +8336,9 @@
     },
     "properties": {
       "data": 12,
-      "id": 351
+      "id": 351,
+      "previous_id": "minecraft.dye",
+      "conflict": true
     }
   },
   "minecraft.magenta_dye": {
@@ -7866,7 +8349,9 @@
     },
     "properties": {
       "data": 13,
-      "id": 351
+      "id": 351,
+      "previous_id": "minecraft.dye",
+      "conflict": true
     }
   },
   "minecraft.orange_dye": {
@@ -7877,7 +8362,9 @@
     },
     "properties": {
       "data": 14,
-      "id": 351
+      "id": 351,
+      "previous_id": "minecraft.dye",
+      "conflict": true
     }
   },
   "minecraft.bone_meal": {
@@ -7891,7 +8378,9 @@
     },
     "properties": {
       "data": 15,
-      "id": 351
+      "id": 351,
+      "previous_id": "minecraft.dye",
+      "conflict": true
     }
   },
   "minecraft.bone": {
@@ -7934,16 +8423,246 @@
       "block_id": 92
     }
   },
-  "minecraft.bed": {
+  "minecraft.white_bed": {
     "lang": {
       "en_US": {
-        "display_name": "Bed"
+        "uncolored": [
+          "Bed"
+        ],
+        "previously": "Bed",
+        "display_name": "White Bed"
       }
     },
     "properties": {
-      "image_key": "Red Bed",
       "id": 355,
-      "block_id": 26
+      "block_id": 26,
+      "previous_id": "minecraft.bed",
+      "conflict": true
+    }
+  },
+  "minecraft.orange_bed": {
+    "lang": {
+      "en_US": {
+        "display_name": "Orange Bed"
+      }
+    },
+    "properties": {
+      "version": "1.12",
+      "id": 355,
+      "data": 1,
+      "block_id": 26,
+      "previous_id": "minecraft.bed",
+      "conflict": true
+    }
+  },
+  "minecraft.magenta_bed": {
+    "lang": {
+      "en_US": {
+        "display_name": "Magenta Bed"
+      }
+    },
+    "properties": {
+      "version": "1.12",
+      "id": 355,
+      "data": 2,
+      "block_id": 26,
+      "previous_id": "minecraft.bed",
+      "conflict": true
+    }
+  },
+  "minecraft.light_blue_bed": {
+    "lang": {
+      "en_US": {
+        "display_name": "Light Blue Bed"
+      }
+    },
+    "properties": {
+      "version": "1.12",
+      "id": 355,
+      "data": 3,
+      "block_id": 26,
+      "previous_id": "minecraft.bed",
+      "conflict": true
+    }
+  },
+  "minecraft.yellow_bed": {
+    "lang": {
+      "en_US": {
+        "display_name": "Yellow Bed"
+      }
+    },
+    "properties": {
+      "version": "1.12",
+      "id": 355,
+      "data": 4,
+      "block_id": 26,
+      "previous_id": "minecraft.bed",
+      "conflict": true
+    }
+  },
+  "minecraft.lime_bed": {
+    "lang": {
+      "en_US": {
+        "display_name": "Lime Bed"
+      }
+    },
+    "properties": {
+      "version": "1.12",
+      "id": 355,
+      "data": 5,
+      "block_id": 26,
+      "previous_id": "minecraft.bed",
+      "conflict": true
+    }
+  },
+  "minecraft.pink_bed": {
+    "lang": {
+      "en_US": {
+        "display_name": "Pink Bed"
+      }
+    },
+    "properties": {
+      "version": "1.12",
+      "id": 355,
+      "data": 6,
+      "block_id": 26,
+      "previous_id": "minecraft.bed",
+      "conflict": true
+    }
+  },
+  "minecraft.gray_bed": {
+    "lang": {
+      "en_US": {
+        "display_name": "Gray Bed"
+      }
+    },
+    "properties": {
+      "version": "1.12",
+      "id": 355,
+      "data": 7,
+      "block_id": 26,
+      "previous_id": "minecraft.bed",
+      "conflict": true
+    }
+  },
+  "minecraft.light_gray_bed": {
+    "lang": {
+      "en_US": {
+        "display_name": "Light Gray Bed"
+      }
+    },
+    "properties": {
+      "version": "1.12",
+      "id": 355,
+      "data": 8,
+      "block_id": 26,
+      "previous_id": "minecraft.bed",
+      "conflict": true
+    }
+  },
+  "minecraft.cyan_bed": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cyan Bed"
+      }
+    },
+    "properties": {
+      "version": "1.12",
+      "id": 355,
+      "data": 9,
+      "block_id": 26,
+      "previous_id": "minecraft.bed",
+      "conflict": true
+    }
+  },
+  "minecraft.purple_bed": {
+    "lang": {
+      "en_US": {
+        "display_name": "Purple Bed"
+      }
+    },
+    "properties": {
+      "version": "1.12",
+      "id": 355,
+      "data": 10,
+      "block_id": 26,
+      "previous_id": "minecraft.bed",
+      "conflict": true
+    }
+  },
+  "minecraft.blue_bed": {
+    "lang": {
+      "en_US": {
+        "display_name": "Blue Bed"
+      }
+    },
+    "properties": {
+      "version": "1.12",
+      "id": 355,
+      "data": 11,
+      "block_id": 26,
+      "previous_id": "minecraft.bed",
+      "conflict": true
+    }
+  },
+  "minecraft.brown_bed": {
+    "lang": {
+      "en_US": {
+        "display_name": "Brown Bed"
+      }
+    },
+    "properties": {
+      "version": "1.12",
+      "id": 355,
+      "data": 12,
+      "block_id": 26,
+      "previous_id": "minecraft.bed",
+      "conflict": true
+    }
+  },
+  "minecraft.green_bed": {
+    "lang": {
+      "en_US": {
+        "display_name": "Green Bed"
+      }
+    },
+    "properties": {
+      "version": "1.12",
+      "id": 355,
+      "data": 13,
+      "block_id": 26,
+      "previous_id": "minecraft.bed",
+      "conflict": true
+    }
+  },
+  "minecraft.red_bed": {
+    "lang": {
+      "en_US": {
+        "display_name": "Red Bed"
+      }
+    },
+    "properties": {
+      "version": "1.12",
+      "id": 355,
+      "data": 14,
+      "block_id": 26,
+      "previous_id": "minecraft.bed",
+      "conflict": true
+    }
+  },
+  "minecraft.black_bed": {
+    "lang": {
+      "en_US": {
+        "display_name": "Black Bed"
+      }
+    },
+    "properties": {
+      "version": "1.12",
+      "id": 355,
+      "data": 15,
+      "block_id": 26,
+      "previous_id": "minecraft.bed",
+      "conflict": true
     }
   },
   "minecraft.repeater": {
@@ -8270,7 +8989,9 @@
     },
     "properties": {
       "data": 4,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.wither_skeleton_spawn_egg": {
@@ -8285,7 +9006,9 @@
     },
     "properties": {
       "data": 5,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.stray_spawn_egg": {
@@ -8301,7 +9024,9 @@
     "properties": {
       "data": 6,
       "id": 383,
-      "version": "1.10"
+      "version": "1.10",
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.husk_spawn_egg": {
@@ -8317,7 +9042,9 @@
     "properties": {
       "data": 23,
       "id": 383,
-      "version": "1.10"
+      "version": "1.10",
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.zombie_villager_spawn_egg": {
@@ -8332,7 +9059,9 @@
     },
     "properties": {
       "data": 27,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.skeleton_horse_spawn_egg": {
@@ -8347,7 +9076,9 @@
     },
     "properties": {
       "data": 28,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.zombie_horse_spawn_egg": {
@@ -8362,7 +9093,9 @@
     },
     "properties": {
       "data": 29,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.donkey_spawn_egg": {
@@ -8377,7 +9110,9 @@
     },
     "properties": {
       "data": 31,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.mule_spawn_egg": {
@@ -8392,7 +9127,9 @@
     },
     "properties": {
       "data": 32,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.evoker_spawn_egg": {
@@ -8411,7 +9148,9 @@
     "properties": {
       "data": 34,
       "id": 383,
-      "version": "1.11"
+      "version": "1.11",
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.vex_spawn_egg": {
@@ -8427,7 +9166,9 @@
     "properties": {
       "data": 35,
       "id": 383,
-      "version": "1.11"
+      "version": "1.11",
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.vindicator_spawn_egg": {
@@ -8446,7 +9187,9 @@
     "properties": {
       "data": 36,
       "id": 383,
-      "version": "1.11"
+      "version": "1.11",
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.creeper_spawn_egg": {
@@ -8463,7 +9206,9 @@
     },
     "properties": {
       "data": 50,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.skeleton_spawn_egg": {
@@ -8478,7 +9223,9 @@
     },
     "properties": {
       "data": 51,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.spider_spawn_egg": {
@@ -8493,7 +9240,9 @@
     },
     "properties": {
       "data": 52,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.zombie_spawn_egg": {
@@ -8508,7 +9257,9 @@
     },
     "properties": {
       "data": 54,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.slime_spawn_egg": {
@@ -8526,7 +9277,9 @@
     },
     "properties": {
       "data": 55,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.ghast_spawn_egg": {
@@ -8541,7 +9294,9 @@
     },
     "properties": {
       "data": 56,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.zombified_piglin_spawn_egg": {
@@ -8562,7 +9317,9 @@
     "properties": {
       "data": 57,
       "previous_id": "minecraft.zombie_pigman_spawn_egg",
-      "id": 383
+      "id": 383,
+      "previous_id2": "minecraft.spawn_egg",
+      "conflict2": true
     }
   },
   "minecraft.enderman_spawn_egg": {
@@ -8577,7 +9334,9 @@
     },
     "properties": {
       "data": 58,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.cave_spider_spawn_egg": {
@@ -8592,7 +9351,9 @@
     },
     "properties": {
       "data": 59,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.silverfish_spawn_egg": {
@@ -8607,7 +9368,9 @@
     },
     "properties": {
       "data": 60,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.blaze_spawn_egg": {
@@ -8622,7 +9385,9 @@
     },
     "properties": {
       "data": 61,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.magma_cube_spawn_egg": {
@@ -8637,7 +9402,9 @@
     },
     "properties": {
       "data": 62,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.bat_spawn_egg": {
@@ -8652,7 +9419,9 @@
     },
     "properties": {
       "data": 65,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.witch_spawn_egg": {
@@ -8667,7 +9436,9 @@
     },
     "properties": {
       "data": 66,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.endermite_spawn_egg": {
@@ -8683,7 +9454,9 @@
     "properties": {
       "data": 67,
       "id": 383,
-      "version": "1.8"
+      "version": "1.8",
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.guardian_spawn_egg": {
@@ -8699,7 +9472,9 @@
     "properties": {
       "data": 68,
       "id": 383,
-      "version": "1.8"
+      "version": "1.8",
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.shulker_spawn_egg": {
@@ -8715,7 +9490,9 @@
     "properties": {
       "data": 69,
       "id": 383,
-      "version": "1.9"
+      "version": "1.9",
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.pig_spawn_egg": {
@@ -8730,7 +9507,9 @@
     },
     "properties": {
       "data": 90,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.sheep_spawn_egg": {
@@ -8745,7 +9524,9 @@
     },
     "properties": {
       "data": 91,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.cow_spawn_egg": {
@@ -8760,7 +9541,9 @@
     },
     "properties": {
       "data": 92,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.chicken_spawn_egg": {
@@ -8772,7 +9555,9 @@
     },
     "properties": {
       "data": 93,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.squid_spawn_egg": {
@@ -8787,7 +9572,9 @@
     },
     "properties": {
       "data": 94,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.wolf_spawn_egg": {
@@ -8802,7 +9589,9 @@
     },
     "properties": {
       "data": 95,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.mooshroom_spawn_egg": {
@@ -8817,7 +9606,9 @@
     },
     "properties": {
       "data": 96,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.ocelot_spawn_egg": {
@@ -8835,7 +9626,9 @@
     },
     "properties": {
       "data": 98,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.horse_spawn_egg": {
@@ -8850,7 +9643,9 @@
     },
     "properties": {
       "data": 100,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.rabbit_spawn_egg": {
@@ -8866,7 +9661,9 @@
     "properties": {
       "data": 101,
       "id": 383,
-      "version": "1.8"
+      "version": "1.8",
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.polar_bear_spawn_egg": {
@@ -8882,7 +9679,9 @@
     "properties": {
       "data": 102,
       "id": 383,
-      "version": "1.10"
+      "version": "1.10",
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.llama_spawn_egg": {
@@ -8898,7 +9697,9 @@
     "properties": {
       "data": 103,
       "id": 383,
-      "version": "1.11"
+      "version": "1.11",
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.parrot_spawn_egg": {
@@ -8914,7 +9715,9 @@
     "properties": {
       "data": 105,
       "id": 383,
-      "version": "1.12"
+      "version": "1.12",
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.villager_spawn_egg": {
@@ -8929,7 +9732,9 @@
     },
     "properties": {
       "data": 120,
-      "id": 383
+      "id": 383,
+      "previous_id": "minecraft.spawn_egg",
+      "conflict": true
     }
   },
   "minecraft.experience_bottle": {
@@ -9544,174 +10349,22 @@
       "version": "1.8"
     }
   },
-  "minecraft.black_banner": {
+  "minecraft.white_banner": {
     "lang": {
       "en_US": {
         "previously": "Banner",
         "previous_conflict": true,
-        "display_name": "Black Banner"
+        "display_name": "White Banner"
       }
     },
     "properties": {
       "previous_id": "minecraft.banner",
       "previous_block_id": "minecraft.standing_banner",
+      "conflict": true,
+      "block_conflict": true,
       "id": 425,
       "version": "1.8",
       "block_id": 176
-    }
-  },
-  "minecraft.blue_banner": {
-    "lang": {
-      "en_US": {
-        "previously": "Banner",
-        "previous_conflict": true,
-        "display_name": "Blue Banner"
-      }
-    },
-    "properties": {
-      "previous_id": "minecraft.banner",
-      "previous_block_id": "minecraft.standing_banner",
-      "id": 425,
-      "version": "1.8",
-      "block_id": 176
-    }
-  },
-  "minecraft.brown_banner": {
-    "lang": {
-      "en_US": {
-        "previously": "Banner",
-        "previous_conflict": true,
-        "display_name": "Brown Banner"
-      }
-    },
-    "properties": {
-      "previous_id": "minecraft.banner",
-      "previous_block_id": "minecraft.standing_banner",
-      "id": 425,
-      "version": "1.8",
-      "block_id": 176
-    }
-  },
-  "minecraft.cyan_banner": {
-    "lang": {
-      "en_US": {
-        "previously": "Banner",
-        "previous_conflict": true,
-        "display_name": "Cyan Banner"
-      }
-    },
-    "properties": {
-      "previous_id": "minecraft.banner",
-      "previous_block_id": "minecraft.standing_banner",
-      "id": 425,
-      "version": "1.8",
-      "block_id": 176
-    }
-  },
-  "minecraft.gray_banner": {
-    "lang": {
-      "en_US": {
-        "previously": "Banner",
-        "previous_conflict": true,
-        "display_name": "Gray Banner"
-      }
-    },
-    "properties": {
-      "previous_id": "minecraft.banner",
-      "previous_block_id": "minecraft.standing_banner",
-      "id": 425,
-      "version": "1.8",
-      "block_id": 176
-    }
-  },
-  "minecraft.green_banner": {
-    "lang": {
-      "en_US": {
-        "previously": "Banner",
-        "previous_conflict": true,
-        "display_name": "Green Banner"
-      }
-    },
-    "properties": {
-      "previous_id": "minecraft.banner",
-      "previous_block_id": "minecraft.standing_banner",
-      "id": 425,
-      "version": "1.8",
-      "block_id": 176
-    }
-  },
-  "minecraft.light_blue_banner": {
-    "lang": {
-      "en_US": {
-        "previously": "Banner",
-        "previous_conflict": true,
-        "display_name": "Light Blue Banner"
-      }
-    },
-    "properties": {
-      "previous_id": "minecraft.banner",
-      "previous_block_id": "minecraft.standing_banner",
-      "id": 425,
-      "version": "1.8",
-      "block_id": 176
-    }
-  },
-  "minecraft.light_gray_banner": {
-    "lang": {
-      "en_US": {
-        "previously": "Banner",
-        "previous_conflict": true,
-        "display_name": "Light Gray Banner"
-      }
-    },
-    "properties": {
-      "previous_id": "minecraft.banner",
-      "previous_block_id": "minecraft.standing_banner",
-      "id": 425,
-      "version": "1.8",
-      "block_id": 176
-    }
-  },
-  "minecraft.lime_banner": {
-    "lang": {
-      "en_US": {
-        "previously": "Banner",
-        "previous_conflict": true,
-        "display_name": "Lime Banner"
-      }
-    },
-    "properties": {
-      "previous_id": "minecraft.banner",
-      "previous_block_id": "minecraft.standing_banner",
-      "id": 425,
-      "version": "1.8",
-      "block_id": 176
-    }
-  },
-  "minecraft.magenta_banner": {
-    "lang": {
-      "en_US": {
-        "previously": "Banner",
-        "previous_conflict": true,
-        "display_name": "Magenta Banner"
-      }
-    },
-    "properties": {
-      "previous_id": "minecraft.banner",
-      "previous_block_id": "minecraft.standing_banner",
-      "id": 425,
-      "version": "1.8",
-      "block_id": 176
-    }
-  },
-  "minecraft.ominous_banner": {
-    "lang": {
-      "en_US": {
-        "display_name": "Ominous Banner"
-      }
-    },
-    "properties": {
-      "version": "1.14"
     }
   },
   "minecraft.orange_banner": {
@@ -9725,73 +10378,53 @@
     "properties": {
       "previous_id": "minecraft.banner",
       "previous_block_id": "minecraft.standing_banner",
+      "conflict": true,
+      "block_conflict": true,
       "id": 425,
       "version": "1.8",
-      "block_id": 176
+      "block_id": 176,
+      "data": 1,
+      "block_data": 1
     }
   },
-  "minecraft.pink_banner": {
+  "minecraft.magenta_banner": {
     "lang": {
       "en_US": {
         "previously": "Banner",
         "previous_conflict": true,
-        "display_name": "Pink Banner"
+        "display_name": "Magenta Banner"
       }
     },
     "properties": {
       "previous_id": "minecraft.banner",
       "previous_block_id": "minecraft.standing_banner",
+      "conflict": true,
+      "block_conflict": true,
       "id": 425,
       "version": "1.8",
-      "block_id": 176
+      "block_id": 176,
+      "data": 2,
+      "block_data": 2
     }
   },
-  "minecraft.purple_banner": {
+  "minecraft.light_blue_banner": {
     "lang": {
       "en_US": {
         "previously": "Banner",
         "previous_conflict": true,
-        "display_name": "Purple Banner"
+        "display_name": "Light Blue Banner"
       }
     },
     "properties": {
       "previous_id": "minecraft.banner",
       "previous_block_id": "minecraft.standing_banner",
+      "conflict": true,
+      "block_conflict": true,
       "id": 425,
       "version": "1.8",
-      "block_id": 176
-    }
-  },
-  "minecraft.red_banner": {
-    "lang": {
-      "en_US": {
-        "previously": "Banner",
-        "previous_conflict": true,
-        "display_name": "Red Banner"
-      }
-    },
-    "properties": {
-      "previous_id": "minecraft.banner",
-      "previous_block_id": "minecraft.standing_banner",
-      "id": 425,
-      "version": "1.8",
-      "block_id": 176
-    }
-  },
-  "minecraft.white_banner": {
-    "lang": {
-      "en_US": {
-        "previously": "Banner",
-        "previous_conflict": true,
-        "display_name": "White Banner"
-      }
-    },
-    "properties": {
-      "previous_id": "minecraft.banner",
-      "previous_block_id": "minecraft.standing_banner",
-      "id": 425,
-      "version": "1.8",
-      "block_id": 176
+      "block_id": 176,
+      "data": 3,
+      "block_data": 3
     }
   },
   "minecraft.yellow_banner": {
@@ -9805,9 +10438,243 @@
     "properties": {
       "previous_id": "minecraft.banner",
       "previous_block_id": "minecraft.standing_banner",
+      "conflict": true,
+      "block_conflict": true,
       "id": 425,
       "version": "1.8",
-      "block_id": 176
+      "block_id": 176,
+      "data": 4,
+      "block_data": 4
+    }
+  },
+  "minecraft.lime_banner": {
+    "lang": {
+      "en_US": {
+        "previously": "Banner",
+        "previous_conflict": true,
+        "display_name": "Lime Banner"
+      }
+    },
+    "properties": {
+      "previous_id": "minecraft.banner",
+      "previous_block_id": "minecraft.standing_banner",
+      "conflict": true,
+      "block_conflict": true,
+      "id": 425,
+      "version": "1.8",
+      "block_id": 176,
+      "data": 5,
+      "block_data": 5
+    }
+  },
+  "minecraft.pink_banner": {
+    "lang": {
+      "en_US": {
+        "previously": "Banner",
+        "previous_conflict": true,
+        "display_name": "Pink Banner"
+      }
+    },
+    "properties": {
+      "previous_id": "minecraft.banner",
+      "previous_block_id": "minecraft.standing_banner",
+      "conflict": true,
+      "block_conflict": true,
+      "id": 425,
+      "version": "1.8",
+      "block_id": 176,
+      "data": 6,
+      "block_data": 6
+    }
+  },
+  "minecraft.gray_banner": {
+    "lang": {
+      "en_US": {
+        "previously": "Banner",
+        "previous_conflict": true,
+        "display_name": "Gray Banner"
+      }
+    },
+    "properties": {
+      "previous_id": "minecraft.banner",
+      "previous_block_id": "minecraft.standing_banner",
+      "conflict": true,
+      "block_conflict": true,
+      "id": 425,
+      "version": "1.8",
+      "block_id": 176,
+      "data": 7,
+      "block_data": 7
+    }
+  },
+  "minecraft.light_gray_banner": {
+    "lang": {
+      "en_US": {
+        "previously": "Banner",
+        "previous_conflict": true,
+        "display_name": "Light Gray Banner"
+      }
+    },
+    "properties": {
+      "previous_id": "minecraft.banner",
+      "previous_block_id": "minecraft.standing_banner",
+      "conflict": true,
+      "block_conflict": true,
+      "id": 425,
+      "version": "1.8",
+      "block_id": 176,
+      "data": 8,
+      "block_data": 8
+    }
+  },
+  "minecraft.cyan_banner": {
+    "lang": {
+      "en_US": {
+        "previously": "Banner",
+        "previous_conflict": true,
+        "display_name": "Cyan Banner"
+      }
+    },
+    "properties": {
+      "previous_id": "minecraft.banner",
+      "previous_block_id": "minecraft.standing_banner",
+      "conflict": true,
+      "block_conflict": true,
+      "id": 425,
+      "version": "1.8",
+      "block_id": 176,
+      "data": 9,
+      "block_data": 9
+    }
+  },
+  "minecraft.purple_banner": {
+    "lang": {
+      "en_US": {
+        "previously": "Banner",
+        "previous_conflict": true,
+        "display_name": "Purple Banner"
+      }
+    },
+    "properties": {
+      "previous_id": "minecraft.banner",
+      "previous_block_id": "minecraft.standing_banner",
+      "conflict": true,
+      "block_conflict": true,
+      "id": 425,
+      "version": "1.8",
+      "block_id": 176,
+      "data": 10,
+      "block_data": 10
+    }
+  },
+  "minecraft.blue_banner": {
+    "lang": {
+      "en_US": {
+        "previously": "Banner",
+        "previous_conflict": true,
+        "display_name": "Blue Banner"
+      }
+    },
+    "properties": {
+      "previous_id": "minecraft.banner",
+      "previous_block_id": "minecraft.standing_banner",
+      "conflict": true,
+      "block_conflict": true,
+      "id": 425,
+      "version": "1.8",
+      "block_id": 176,
+      "data": 11,
+      "block_data": 11
+    }
+  },
+  "minecraft.brown_banner": {
+    "lang": {
+      "en_US": {
+        "previously": "Banner",
+        "previous_conflict": true,
+        "display_name": "Brown Banner"
+      }
+    },
+    "properties": {
+      "previous_id": "minecraft.banner",
+      "previous_block_id": "minecraft.standing_banner",
+      "conflict": true,
+      "block_conflict": true,
+      "id": 425,
+      "version": "1.8",
+      "block_id": 176,
+      "data": 12,
+      "block_data": 12
+    }
+  },
+  "minecraft.green_banner": {
+    "lang": {
+      "en_US": {
+        "previously": "Banner",
+        "previous_conflict": true,
+        "display_name": "Green Banner"
+      }
+    },
+    "properties": {
+      "previous_id": "minecraft.banner",
+      "previous_block_id": "minecraft.standing_banner",
+      "conflict": true,
+      "block_conflict": true,
+      "id": 425,
+      "version": "1.8",
+      "block_id": 176,
+      "data": 13,
+      "block_data": 13
+    }
+  },
+  "minecraft.red_banner": {
+    "lang": {
+      "en_US": {
+        "previously": "Banner",
+        "previous_conflict": true,
+        "display_name": "Red Banner"
+      }
+    },
+    "properties": {
+      "previous_id": "minecraft.banner",
+      "previous_block_id": "minecraft.standing_banner",
+      "conflict": true,
+      "block_conflict": true,
+      "id": 425,
+      "version": "1.8",
+      "block_id": 176,
+      "data": 14,
+      "block_data": 14
+    }
+  },
+  "minecraft.black_banner": {
+    "lang": {
+      "en_US": {
+        "previously": "Banner",
+        "previous_conflict": true,
+        "display_name": "Black Banner"
+      }
+    },
+    "properties": {
+      "previous_id": "minecraft.banner",
+      "previous_block_id": "minecraft.standing_banner",
+      "conflict": true,
+      "block_conflict": true,
+      "id": 425,
+      "version": "1.8",
+      "block_id": 176,
+      "data": 15,
+      "block_data": 15
+    }
+  },
+  "minecraft.ominous_banner": {
+    "lang": {
+      "en_US": {
+        "display_name": "Ominous Banner"
+      }
+    },
+    "properties": {
+      "version": "1.14"
     }
   },
   "minecraft.end_crystal": {
@@ -10569,169 +11436,6 @@
     },
     "properties": {
       "version": "1.11"
-    }
-  },
-  "minecraft.black_bed": {
-    "lang": {
-      "en_US": {
-        "display_name": "Black Bed"
-      }
-    },
-    "properties": {
-      "version": "1.12"
-    }
-  },
-  "minecraft.blue_bed": {
-    "lang": {
-      "en_US": {
-        "display_name": "Blue Bed"
-      }
-    },
-    "properties": {
-      "version": "1.12"
-    }
-  },
-  "minecraft.brown_bed": {
-    "lang": {
-      "en_US": {
-        "display_name": "Brown Bed"
-      }
-    },
-    "properties": {
-      "version": "1.12"
-    }
-  },
-  "minecraft.cyan_bed": {
-    "lang": {
-      "en_US": {
-        "display_name": "Cyan Bed"
-      }
-    },
-    "properties": {
-      "version": "1.12"
-    }
-  },
-  "minecraft.gray_bed": {
-    "lang": {
-      "en_US": {
-        "display_name": "Gray Bed"
-      }
-    },
-    "properties": {
-      "version": "1.12"
-    }
-  },
-  "minecraft.green_bed": {
-    "lang": {
-      "en_US": {
-        "display_name": "Green Bed"
-      }
-    },
-    "properties": {
-      "version": "1.12"
-    }
-  },
-  "minecraft.light_blue_bed": {
-    "lang": {
-      "en_US": {
-        "display_name": "Light Blue Bed"
-      }
-    },
-    "properties": {
-      "version": "1.12"
-    }
-  },
-  "minecraft.light_gray_bed": {
-    "lang": {
-      "en_US": {
-        "display_name": "Light Gray Bed"
-      }
-    },
-    "properties": {
-      "version": "1.12"
-    }
-  },
-  "minecraft.lime_bed": {
-    "lang": {
-      "en_US": {
-        "display_name": "Lime Bed"
-      }
-    },
-    "properties": {
-      "version": "1.12"
-    }
-  },
-  "minecraft.magenta_bed": {
-    "lang": {
-      "en_US": {
-        "display_name": "Magenta Bed"
-      }
-    },
-    "properties": {
-      "version": "1.12"
-    }
-  },
-  "minecraft.orange_bed": {
-    "lang": {
-      "en_US": {
-        "display_name": "Orange Bed"
-      }
-    },
-    "properties": {
-      "version": "1.12"
-    }
-  },
-  "minecraft.pink_bed": {
-    "lang": {
-      "en_US": {
-        "display_name": "Pink Bed"
-      }
-    },
-    "properties": {
-      "version": "1.12"
-    }
-  },
-  "minecraft.purple_bed": {
-    "lang": {
-      "en_US": {
-        "display_name": "Purple Bed"
-      }
-    },
-    "properties": {
-      "version": "1.12"
-    }
-  },
-  "minecraft.red_bed": {
-    "lang": {
-      "en_US": {
-        "display_name": "Red Bed"
-      }
-    },
-    "properties": {
-      "version": "1.12"
-    }
-  },
-  "minecraft.white_bed": {
-    "lang": {
-      "en_US": {
-        "uncolored": [
-          "Bed"
-        ],
-        "display_name": "White Bed"
-      }
-    },
-    "properties": {
-      "version": "1.12"
-    }
-  },
-  "minecraft.yellow_bed": {
-    "lang": {
-      "en_US": {
-        "display_name": "Yellow Bed"
-      }
-    },
-    "properties": {
-      "version": "1.12"
     }
   },
   "minecraft.acacia_button": {

@@ -21,6 +21,7 @@ public class Item {
 
     private static final String[] colorNames = new String[]{"white", "orange", "magenta", "light_blue", "yellow",
             "lime", "pink", "gray", "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black"};
+    // beware: dye data values are reversed!
     private static final List<String> coloredItems = Arrays.asList("minecraft.white_wool",
             "minecraft.white_stained_glass", "minecraft.white_terracotta", "minecraft.white_stained_glass_pane",
             "minecraft.shield.white", "minecraft.white_shulker_box", "minecraft.white_bed",
@@ -177,9 +178,15 @@ public class Item {
         if (langObj.has("previously")) {
             prevString += " " + langObj.getString("previously");
             changed = true;
-            if (langObj.has("previously2")) {
-                prevString += ", " + langObj.getString("previously2");
-            }
+        }
+        boolean addedComma = false;
+        if (properties != null && properties.has("previous_id2")) {
+            String previousID2 = properties.getString("previous_id2").replace(".", ":");
+            prevString += ", " + String.format(" `%s`", previousID2);
+            addedComma = true;
+        }
+        if (langObj.has("previously2")) {
+            prevString += (addedComma ? " " : ", ") + langObj.getString("previously2");
         }
         if (changed) {
             sb.append(prevString).append("\n");
@@ -195,6 +202,9 @@ public class Item {
         if (properties != null && properties.has("block_id")) {
             blockForm += String.format("\n**Block ID:** `%d`", properties.getInt("block_id"));
             changed = true;
+            if (properties.has("block_data")) {
+                blockForm += String.format(", **Data:** `%d`", properties.getInt("block_data"));
+            }
         }
         // Previous block form
         boolean changed2 = false;
