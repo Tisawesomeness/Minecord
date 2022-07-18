@@ -168,7 +168,7 @@ public class Item {
      * @return The name of the item or null otherwise
      */
     public static String search(String str, String lang) {
-        String toMatch = str.trim().replace("block.", "").replace("item.", "");
+        String toMatch = str.trim();
         if (toMatch.startsWith("minecraft")) {
             return searchIDs(toMatch);
         } else if (Character.isDigit(toMatch.charAt(0))) {
