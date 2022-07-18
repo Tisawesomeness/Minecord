@@ -4,9 +4,9 @@ import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.database.Database;
 
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.GuildMessageChannel;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageHistory;
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.RateLimitedException;
 
@@ -50,7 +50,7 @@ public class PurgeCommand extends Command {
 
         //Check if user is elevated or has the manage messages permission
         if (!Database.isElevated(e.getAuthor().getIdLong())
-                && !e.getMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE)) {
+                && !e.getMember().hasPermission(e.getGuildChannel(), Permission.MESSAGE_MANAGE)) {
             return new Result(Outcome.WARNING, ":warning: You must have permission to manage messages in this channel!");
         }
 
@@ -65,7 +65,7 @@ public class PurgeCommand extends Command {
             }
 
             //Check for bot permissions
-            perms = e.getGuild().getSelfMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE);
+            perms = e.getGuild().getSelfMember().hasPermission(e.getGuildChannel(), Permission.MESSAGE_MANAGE);
             if (perms) {
                 if (num <= 0 || num > 1000) {
                     return new Result(Outcome.ERROR, ":x: The number must be between 1-1000.");
@@ -82,7 +82,7 @@ public class PurgeCommand extends Command {
         }
 
         //Repeat until either the amount of messages are found or 100 non-bot messages in a row
-        MessageHistory mh = new MessageHistory(e.getTextChannel());
+        MessageHistory mh = new MessageHistory(e.getGuildChannel());
         int empty = 0;
         ArrayList<Message> mine = new ArrayList<>();
         while (mine.size() < num) {
@@ -124,7 +124,7 @@ public class PurgeCommand extends Command {
         }
 
         //Delete messages
-        TextChannel c = e.getTextChannel();
+        GuildMessageChannel c = e.getGuildChannel();
         if (mine.size() == 1) {
             mine.get(0).delete().queue();
             c.sendMessage("1 message purged.").queue();
@@ -134,7 +134,7 @@ public class PurgeCommand extends Command {
             }
             c.sendMessage(mine.size() + " messages purged.").queue();
         } else {
-            e.getTextChannel().deleteMessages(mine).queue();
+            c.deleteMessages(mine).queue();
             c.sendMessage(mine.size() + " messages purged.").queue();
         }
 

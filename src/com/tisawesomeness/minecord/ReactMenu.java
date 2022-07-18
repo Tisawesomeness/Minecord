@@ -5,6 +5,9 @@ import com.tisawesomeness.minecord.database.Database;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
+import net.dv8tion.jda.api.entities.emoji.EmojiUnion;
+import net.dv8tion.jda.api.entities.emoji.UnicodeEmoji;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.HashMap;
@@ -59,14 +62,15 @@ public abstract class ReactMenu {
             message = message.editMessageEmbeds(getEmbed(page)).complete();
             if (updateButtons) {
                 List<String> currentButtons = message.getReactions().stream()
-                        .map(MessageReaction::getReactionEmote)
-                        .filter(MessageReaction.ReactionEmote::isEmoji)
-                        .map(MessageReaction.ReactionEmote::getAsCodepoints)
+                        .map(MessageReaction::getEmoji)
+                        .filter(em -> em.getType() == Emoji.Type.UNICODE)
+                        .map(EmojiUnion::asUnicode)
+                        .map(UnicodeEmoji::getAsCodepoints)
                         .collect(Collectors.toList());
                 for (Map.Entry<String, Runnable> entry : buttons.entrySet()) {
                     String button = entry.getKey();
                     if (entry.getValue() != null && !currentButtons.contains(button)) {
-                        message.addReaction(button).submit();
+                        message.addReaction(Emoji.fromUnicode(button)).submit();
                     }
                 }
             }
@@ -103,7 +107,7 @@ public abstract class ReactMenu {
         message = channel.sendMessageEmbeds(getEmbed(page)).complete();
         for (Map.Entry<String, Runnable> entry : buttons.entrySet()) {
             if (entry.getValue() != null) {
-                message.addReaction(entry.getKey()).submit();
+                message.addReaction(Emoji.fromUnicode(entry.getKey())).submit();
             }
         }
         keepAlive();
@@ -151,7 +155,7 @@ public abstract class ReactMenu {
         if (!message.isFromGuild()) {
             return true;
         }
-        return message.getGuild().getSelfMember().hasPermission(message.getTextChannel(), permissions);
+        return message.getGuild().getSelfMember().hasPermission(message.getGuildChannel(), permissions);
     }
 
     /**
@@ -169,7 +173,7 @@ public abstract class ReactMenu {
         if (!Database.getUseMenu(g.getIdLong())) {
             return MenuStatus.DISABLED;
         }
-        if (!g.getSelfMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_ADD_REACTION)) {
+        if (!g.getSelfMember().hasPermission(e.getGuildChannel(), Permission.MESSAGE_ADD_REACTION)) {
             return MenuStatus.NO_PERMISSION;
         }
         return MenuStatus.VALID;

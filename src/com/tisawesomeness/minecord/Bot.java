@@ -39,9 +39,9 @@ public class Bot {
     public static final String helpServer = "https://minecord.github.io/support";
     public static final String website = "https://minecord.github.io";
     public static final String github = "https://github.com/Tisawesomeness/Minecord";
-    private static final String version = "0.15.2";
+    private static final String version = "0.15.3";
     public static final String javaVersion = "1.8";
-    public static final String jdaVersion = "4.3.0_352";
+    public static final String jdaVersion = "5.0.0-alpha.15";
     public static final Color color = Color.GREEN;
 
     public static ShardManager shardManager;
@@ -56,10 +56,11 @@ public class Bot {
     public static Thread thread;
     public static volatile int readyShards = 0;
     private static final List<GatewayIntent> gateways = Arrays.asList(
+            GatewayIntent.MESSAGE_CONTENT, // going away soon!
             GatewayIntent.DIRECT_MESSAGES, GatewayIntent.DIRECT_MESSAGE_REACTIONS,
             GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS);
     private static final EnumSet<CacheFlag> disabledCacheFlags = EnumSet.of(
-            CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOTE, CacheFlag.ONLINE_STATUS, CacheFlag.VOICE_STATE);
+            CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOJI, CacheFlag.ONLINE_STATUS, CacheFlag.VOICE_STATE);
 
     public static boolean setup(String[] args, boolean devMode) {
         long startTime = System.currentTimeMillis();

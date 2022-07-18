@@ -54,7 +54,7 @@ public class RolesCommand extends Command {
 
         // Find user
         Member mem;
-        List<Member> mentioned = e.getMessage().getMentionedMembers();
+        List<Member> mentioned = e.getMessage().getMentions().getMembers();
         if (mentioned.size() > 0) {
             mem = mentioned.get(0);
         } else {

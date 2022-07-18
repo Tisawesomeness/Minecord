@@ -123,7 +123,7 @@ public class SettingsCommand extends Command {
         } else if (args.length > 1) {
 
             // Check if user is elevated or has the manage messages permission
-            if (elevated || !e.getMember().hasPermission(e.getTextChannel(), Permission.MANAGE_SERVER)) {
+            if (elevated || !e.getMember().hasPermission(e.getGuildChannel(), Permission.MANAGE_SERVER)) {
                 return new Result(Outcome.WARNING, ":warning: You must have manage server permissions!");
             }
 

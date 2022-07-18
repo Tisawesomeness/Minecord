@@ -42,10 +42,10 @@ public class Listener extends ListenerAdapter {
         String prefix = MessageUtils.getPrefix(e);
         boolean deleteCommands = false;
         boolean canEmbed = true;
-        if (e.isFromType(ChannelType.TEXT)) {
+        if (e.isFromType(ChannelType.TEXT) || e.isFromType(ChannelType.VOICE) || e.isFromType(ChannelType.NEWS) || e.isFromThread()) {
             Member sm = e.getGuild().getSelfMember();
-            TextChannel tc = e.getTextChannel();
-            if (!sm.hasPermission(e.getTextChannel(), Permission.MESSAGE_WRITE) || Database.isBanned(e.getGuild().getIdLong())) {
+            GuildChannel tc = e.getGuildChannel();
+            if (!sm.hasPermission(tc, Permission.MESSAGE_SEND) || Database.isBanned(e.getGuild().getIdLong())) {
                 return;
             }
             deleteCommands = sm.hasPermission(tc, Permission.MESSAGE_MANAGE) &&
