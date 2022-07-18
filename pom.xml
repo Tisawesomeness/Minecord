@@ -46,7 +46,7 @@
     <dependency>
       <groupId>dnsjava</groupId>
       <artifactId>dnsjava</artifactId>
-      <version>3.5.0</version>
+      <version>3.5.1</version>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -57,7 +57,7 @@
     <dependency>
       <groupId>net.kyori</groupId>
       <artifactId>adventure-text-serializer-gson</artifactId>
-      <version>4.10.1</version>
+      <version>4.11.0</version>
     </dependency>
     <dependency>
       <groupId>com.github.ben-manes.caffeine</groupId>
@@ -67,7 +67,7 @@
     <dependency>
       <groupId>dev.failsafe</groupId>
       <artifactId>failsafe</artifactId>
-      <version>3.2.3</version>
+      <version>3.2.4</version>
     </dependency>
     <!-- Part of the ColorMine Java library is included, licensed under the MIT license
     https://github.com/colormine/colormine -->
