@@ -110,6 +110,7 @@ public class PermsCommand extends Command {
                 "\nView channels: " + DiscordUtils.getBoolEmote(perms.contains(Permission.VIEW_CHANNEL)) +
                 "\nRead message history: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_HISTORY)) +
                 "\nSend messages: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_SEND)) +
+                "\nSend messages in threads: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_SEND_IN_THREADS)) +
                 "\nEmbed links: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_EMBED_LINKS)) +
                 "\nAttach files: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_ATTACH_FILES)) +
                 "\nAdd reactions: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_ADD_REACTION)) +
