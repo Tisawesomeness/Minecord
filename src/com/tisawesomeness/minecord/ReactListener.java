@@ -76,13 +76,10 @@ public class ReactListener extends ListenerAdapter {
         }
     }
     private static boolean hasManageMessagePerms(MessageReactionAddEvent e) {
-        if (!e.isFromGuild()) {
-            return false;
-        }
         return e.getGuild().getSelfMember().hasPermission(e.getGuildChannel(), Permission.MESSAGE_MANAGE);
     }
     private static boolean isRemovableEmoji(EmojiUnion re) {
-        return re.getType() != Emoji.Type.UNICODE || re.asUnicode().getAsCodepoints().equals(Emote.STAR.toString());
+        return re.getType() != Emoji.Type.UNICODE || !re.asUnicode().getAsCodepoints().equals(Emote.STAR.toString());
     }
 
 }
