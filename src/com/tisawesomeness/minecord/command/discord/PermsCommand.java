@@ -6,6 +6,7 @@ import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.GuildChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -56,7 +57,7 @@ public class PermsCommand extends Command {
 
     public Result run(String[] args, MessageReceivedEvent e) {
 
-        TextChannel c;
+        GuildChannel c;
         // Check any channel id if admin
         if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
             if (!DiscordUtils.isDiscordId(args[0])) {
@@ -101,7 +102,7 @@ public class PermsCommand extends Command {
 
             // Get current channel if no args, user clearly has permission to send messages
         } else {
-            c = e.getTextChannel();
+            c = e.getGuildChannel();
         }
 
         EnumSet<Permission> perms = c.getGuild().getSelfMember().getPermissions(c);

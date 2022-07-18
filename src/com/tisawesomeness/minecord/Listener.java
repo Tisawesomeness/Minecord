@@ -44,8 +44,8 @@ public class Listener extends ListenerAdapter {
         boolean canEmbed = true;
         if (e.isFromType(ChannelType.TEXT)) {
             Member sm = e.getGuild().getSelfMember();
-            TextChannel tc = e.getTextChannel();
-            if (!sm.hasPermission(e.getTextChannel(), Permission.MESSAGE_SEND) || Database.isBanned(e.getGuild().getIdLong())) {
+            GuildChannel tc = e.getGuildChannel();
+            if (!sm.hasPermission(tc, Permission.MESSAGE_SEND) || Database.isBanned(e.getGuild().getIdLong())) {
                 return;
             }
             deleteCommands = sm.hasPermission(tc, Permission.MESSAGE_MANAGE) &&

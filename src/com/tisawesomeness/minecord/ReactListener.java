@@ -4,8 +4,9 @@ import com.tisawesomeness.minecord.ReactMenu.Emote;
 
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.MessageReaction;
-import net.dv8tion.jda.api.entities.MessageReaction.ReactionEmote;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
+import net.dv8tion.jda.api.entities.emoji.EmojiUnion;
 import net.dv8tion.jda.api.events.message.MessageEmbedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -24,9 +25,9 @@ public class ReactListener extends ListenerAdapter {
             if (menu.getOwnerID() == e.getUserIdLong()) {
                 // Make sure emote matches
                 HashMap<String, Runnable> buttons = menu.getButtons();
-                ReactionEmote re = e.getReactionEmote();
-                if (e.getReactionEmote().isEmoji()) {
-                    String emote = re.getAsCodepoints();
+                EmojiUnion emoji = e.getReaction().getEmoji();
+                if (emoji.getType() == Emoji.Type.UNICODE) {
+                    String emote = e.getReaction().getEmoji().asUnicode().getAsCodepoints();
                     if (buttons.containsKey(emote)) {
                         // Run the code
                         removeEmote(e);
@@ -66,7 +67,7 @@ public class ReactListener extends ListenerAdapter {
             return;
         }
         MessageReaction r = e.getReaction();
-        if (!isRemovableEmoji(r.getReactionEmote())) {
+        if (!isRemovableEmoji(r.getEmoji())) {
             return;
         }
         User u = e.getUser();
@@ -75,10 +76,13 @@ public class ReactListener extends ListenerAdapter {
         }
     }
     private static boolean hasManageMessagePerms(MessageReactionAddEvent e) {
-        return e.getGuild().getSelfMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE);
+        if (!e.isFromGuild()) {
+            return false;
+        }
+        return e.getGuild().getSelfMember().hasPermission(e.getGuildChannel(), Permission.MESSAGE_MANAGE);
     }
-    private static boolean isRemovableEmoji(ReactionEmote re) {
-        return !re.isEmoji() || !re.getAsCodepoints().equals(Emote.STAR.toString());
+    private static boolean isRemovableEmoji(EmojiUnion re) {
+        return re.getType() != Emoji.Type.UNICODE || re.asUnicode().getAsCodepoints().equals(Emote.STAR.toString());
     }
 
 }
