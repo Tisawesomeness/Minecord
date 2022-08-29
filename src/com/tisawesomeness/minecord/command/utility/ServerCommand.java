@@ -14,6 +14,7 @@ import com.tisawesomeness.minecord.util.RequestUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.utils.FileUpload;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 
 import java.io.IOException;
@@ -147,7 +148,8 @@ public class ServerCommand extends Command {
                 if (!e.isFromGuild() || e.getGuild().getSelfMember().hasPermission(e.getGuildChannel(), Permission.MESSAGE_ATTACH_FILES)) {
                     try {
                         byte[] data = Base64.getDecoder().decode(favicon.split(",")[1]);
-                        e.getChannel().sendFile(data, "favicon.png").setEmbeds(eb.setDescription(m).setThumbnail("attachment://favicon.png").build()).queue();
+                        e.getChannel().sendFiles(FileUpload.fromData(data, "favicon.png"))
+                                .setEmbeds(eb.setDescription(m).setThumbnail("attachment://favicon.png").build()).queue();
                         return new Result(Outcome.SUCCESS);
                     } catch (IllegalArgumentException ex) {
                         ex.printStackTrace();

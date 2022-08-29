@@ -212,7 +212,7 @@ public class Listener extends ListenerAdapter {
                 //Catch errors
                 if (result.outcome == Outcome.ERROR) {
                     System.out.println("Command \"" + ci.name + "\" returned an error: " +
-                            result.message.getContentRaw());
+                            result.message.getContent());
                 }
                 c.sendMessage(result.message).queue();
             }

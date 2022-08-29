@@ -1,9 +1,9 @@
 package com.tisawesomeness.minecord.command;
 
-import net.dv8tion.jda.api.MessageBuilder;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
 import java.util.HashMap;
 
@@ -89,7 +89,7 @@ public abstract class Command implements ICommand {
      */
     public static class Result {
         public final Outcome outcome;
-        public final Message message;
+        public final MessageCreateData message;
 
         /**
          * Represents the result of a command.
@@ -107,7 +107,7 @@ public abstract class Command implements ICommand {
          */
         public Result(Outcome outcome, String message) {
             this.outcome = outcome;
-            this.message = new MessageBuilder().append(message).build();
+            this.message = new MessageCreateBuilder().setContent(message).build();
         }
 
         /**
@@ -117,7 +117,7 @@ public abstract class Command implements ICommand {
          */
         public Result(Outcome outcome, MessageEmbed message) {
             this.outcome = outcome;
-            this.message = new MessageBuilder().setEmbeds(message).build();
+            this.message = new MessageCreateBuilder().setEmbeds(message).build();
         }
     }
 
