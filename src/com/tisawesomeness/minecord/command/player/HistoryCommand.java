@@ -10,7 +10,7 @@ import com.tisawesomeness.minecord.util.StringUtils;
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 import java.awt.Color;
 import java.util.List;
@@ -22,14 +22,18 @@ public class HistoryCommand extends BasePlayerCommand {
                 "history",
                 "Shows a player's name history.",
                 "<player>",
-                new String[]{"h", "hist", "namehist", "namehistory"},
                 2000,
                 false,
-                false,
-                true
+                false
         );
     }
 
+    @Override
+    public String[] getLegacyAliases() {
+        return new String[]{"h", "hist", "namehist", "namehistory"};
+    }
+
+    @Override
     public String getHelp() {
         return "`{&}history <player>` - Shows a player''s name history.\n" +
                 "- `<player>` can be a username or UUID.\n" +
@@ -46,7 +50,7 @@ public class HistoryCommand extends BasePlayerCommand {
         return false;
     }
 
-    protected void onSuccessfulPlayer(MessageReceivedEvent e, Player player) {
+    protected void onSuccessfulPlayer(SlashCommandInteractionEvent e, Player player) {
         List<String> historyLines = buildHistoryLines(player.getNameHistory());
         if (player.isPHD()) {
             historyLines.add(0, "**This player is pseudo hard-deleted (PHD)!**");
@@ -56,9 +60,7 @@ public class HistoryCommand extends BasePlayerCommand {
 
         MessageEmbed baseEmbed = constructBaseEmbed(player);
         List<MessageEmbed> embeds = MessageUtils.splitEmbeds(baseEmbed, "Name History", historyPartitions, "\n");
-        for (MessageEmbed emb : embeds) {
-            e.getChannel().sendMessageEmbeds(emb).queue();
-        }
+        e.getHook().sendMessageEmbeds(embeds).queue();
     }
 
     private static @NonNull MessageEmbed constructBaseEmbed(Player player) {

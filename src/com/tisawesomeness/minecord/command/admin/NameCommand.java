@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.util.ArrayUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
@@ -10,22 +10,21 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-public class NameCommand extends Command {
+public class NameCommand extends LegacyCommand {
 
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "name",
                 "Changes the bot's nickname per-guild, enter nothing to reset.",
                 "<guild id> <name>",
-                new String[]{
-                        "nick",
-                        "nickname"
-                },
                 0,
                 true,
-                true,
-                false
+                true
         );
+    }
+
+    public String[] getAliases() {
+        return new String[]{"nick", "nickname"};
     }
 
     public String getHelp() {

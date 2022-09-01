@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command.core;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
@@ -13,7 +13,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import java.util.Arrays;
 import java.util.List;
 
-public class SettingsCommand extends Command {
+public class SettingsCommand extends LegacyCommand {
 
     @Override
     public CommandInfo getInfo() {
@@ -21,14 +21,18 @@ public class SettingsCommand extends Command {
                 "settings",
                 "Change the bot's settings, including prefix.",
                 "[<setting> <value>]",
-                new String[]{"config"},
-                0,
-                false,
-                false,
+                5000,
+                true,
                 false
         );
     }
 
+    @Override
+    public String[] getAliases() {
+        return new String[]{"config"};
+    }
+
+    @Override
     public String getHelp() {
         return "`{&}settings` - Show all current settings and their possible values.\n" +
                 "`{&}settings <setting> <value>` - Sets `<setting>` to `<value>`. The user must have **Manage Server** permissions.\n" +

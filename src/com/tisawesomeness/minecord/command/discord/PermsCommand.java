@@ -1,110 +1,70 @@
 package com.tisawesomeness.minecord.command.discord;
 
-import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.GuildChannel;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
 import java.util.EnumSet;
-import java.util.List;
 
-public class PermsCommand extends Command {
+public class PermsCommand extends SlashCommand {
 
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "perms",
                 "Test the bot's permissions in a channel.",
                 "[<channel>]",
-                new String[]{"permissions"},
                 0,
-                false,
                 false,
                 false
         );
     }
 
+    @Override
+    public SlashCommandData addCommandSyntax(SlashCommandData builder) {
+        return builder.addOption(OptionType.CHANNEL, "channel", "The channel to test permissions in", false);
+    }
+
+    @Override
+    public String[] getLegacyAliases() {
+        return new String[]{"permissions"};
+    }
+
+    @Override
     public String getHelp() {
         return "`{&}perms` - Test the bot's permissions for the current channel.\n" +
                 "`{&}perms <channel>` - Test the bot's permissions for a channel in the same guild.\n" +
                 "You must have permission to send messages in the channel being tested.\n" +
-                "`<channel>` can be a `#channel` mention or ID.\n" +
                 "\n" +
                 "Examples:\n" +
-                "- `{&}perms #bot-commands`\n" +
-                "- `{&}perms 347909541264097281`\n";
-    }
-
-    public String getAdminHelp() {
-        return "`{&}perms` - Test the bot's permissions for the current channel.\n" +
-                "`{&}perms <channel>` - Test the bot's permissions for a channel in the same guild.\n" +
-                "You must have permission to send messages in the channel being tested.\n" +
-                "`{&}perms <id> admin` - Test the bot's permissions for any channel.\n" +
-                "`<channel>` can be a `#channel` mention or ID.\n" +
-                "\n" +
-                "Examples:\n" +
-                "- `{&}perms #bot-commands`\n" +
-                "- `{&}perms 347909541264097281`\n" +
-                "- `{&}perms 399734453712191498 admin`\n";
+                "- `{&}perms #bot-commands`\n";
     }
 
     // Error message cannot be "you cannot see that channel" since it reveals the channel exists when the user couldn't have known that otherwise
     private static final Result invalidChannel = new Result(Outcome.WARNING, ":warning: That channel does not exist in the current guild or is not visible to you.");
 
-    public Result run(String[] args, MessageReceivedEvent e) {
-
-        GuildChannel c;
-        // Check any channel id if admin
-        if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
-            if (!DiscordUtils.isDiscordId(args[0])) {
-                return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
-            }
-            c = Bot.shardManager.getTextChannelById(args[0]);
-            if (c == null) {
-                return new Result(Outcome.WARNING, ":warning: That channel does not exist.");
-            }
-
-            // No admin = guild only
-        } else if (!e.isFromGuild()) {
+    public Result run(SlashCommandInteractionEvent e) {
+        if (!e.isFromGuild()) {
             return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
+        }
+        GuildChannel c = e.getOption("channel", e.getGuildChannel(), OptionMapping::getAsChannel);
 
-        } else if (args.length > 0) {
-            // Find by id
-            if (DiscordUtils.isDiscordId(args[0])) {
-                TextChannel tc = e.getGuild().getTextChannelById(args[0]);
-                if (tc == null || tc.getGuild().getIdLong() != e.getGuild().getIdLong()) {
-                    return invalidChannel;
-                }
-                c = tc;
-                // Find by mention
-            } else {
-                List<TextChannel> mentioned = e.getMessage().getMentions().getChannels(TextChannel.class);
-                if (mentioned.size() == 0) {
-                    return new Result(Outcome.WARNING, ":warning: Not a valid channel format. Use a `#channel` mention or a channel ID.");
-                }
-                TextChannel tc = mentioned.get(0);
-                if (tc.getGuild().getIdLong() != e.getGuild().getIdLong()) {
-                    return invalidChannel;
-                }
-                c = tc;
-            }
-
-            // Check for user permissions (prevent using this command to get unseen channel info)
-            if (!e.getMember().hasPermission(c, Permission.VIEW_CHANNEL, Permission.VIEW_CHANNEL)) {
-                return invalidChannel;
-            } else if (!e.getMember().hasPermission(c, Permission.MESSAGE_SEND)) {
-                return new Result(Outcome.WARNING, ":warning: You do not have permission to write in that channel.");
-            }
-
-            // Get current channel if no args, user clearly has permission to send messages
-        } else {
-            c = e.getGuildChannel();
+        // Check for user permissions (prevent using this command to get unseen channel info)
+        if (!e.getMember().hasPermission(c, Permission.VIEW_CHANNEL, Permission.VIEW_CHANNEL)) {
+            return invalidChannel;
+        } else if (!e.getMember().hasPermission(c, Permission.MESSAGE_SEND)) {
+            return new Result(Outcome.WARNING, ":warning: You do not have permission to write in that channel.");
         }
 
+        return run(c);
+    }
+
+    public static Result run(GuildChannel c) {
         EnumSet<Permission> perms = c.getGuild().getSelfMember().getPermissions(c);
         String m = String.format("**Bot Permissions for %s:**", c.getAsMention()) +
                 "\nView channels: " + DiscordUtils.getBoolEmote(perms.contains(Permission.VIEW_CHANNEL)) +

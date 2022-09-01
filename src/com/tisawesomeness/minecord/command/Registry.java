@@ -1,14 +1,24 @@
 package com.tisawesomeness.minecord.command;
 
-import com.tisawesomeness.minecord.command.Command.CommandInfo;
 import com.tisawesomeness.minecord.command.admin.*;
 import com.tisawesomeness.minecord.command.core.*;
 import com.tisawesomeness.minecord.command.discord.*;
 import com.tisawesomeness.minecord.command.player.*;
 import com.tisawesomeness.minecord.command.utility.*;
 import com.tisawesomeness.minecord.mc.player.RenderType;
+import com.tisawesomeness.minecord.util.type.Either;
 
-import java.util.LinkedHashMap;
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
+
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * The list of all commands the bot knows.
@@ -16,17 +26,18 @@ import java.util.LinkedHashMap;
 public class Registry {
 
     private static final String adminHelp = "**These commands require elevation to use.**\n\n" +
-            "`{&}info admin` - Displays bot info, including used memory and boot time.\n" +
+            "`{&}infoadmin` - Displays bot info, including used memory and boot time.\n" +
             "`{&}settings <guild id> admin [setting] [value]` - Change the bot's settings for another guild.\n" +
-            "`{&}perms <channel id> admin` - Test the bot's permissions in any channel.\n" +
-            "`{&}user <user id> admin [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include \"mutual\" to show mutual guilds.\n" +
-            "`{&}guild <guild id> admin` - Show info and ban status for another guild.\n";
+            "`{&}permsadmin <channel id>` - Test the bot's permissions in any channel.\n" +
+            "`{&}useradmin <user id> [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include \"mutual\" to show mutual guilds.\n" +
+            "`{&}guildadmin <guild id>` - Show info and ban status for another guild.\n" +
+            "`{&}roleadmin <role id>` - Shows the info of any role.\n";
 
-    private static final Command colorCmd = new ColorCommand();
     public static final Module[] modules = {
             new Module("Core",
                     new HelpCommand(),
                     new InfoCommand(),
+                    new InfoCommandAdmin(),
                     new PingCommand(),
                     new PrefixCommand(),
                     new SettingsCommand(),
@@ -43,33 +54,16 @@ public class Registry {
                     new RenderCommand(RenderType.AVATAR),
                     new RenderCommand(RenderType.HEAD),
                     new RenderCommand(RenderType.BODY),
-                    new GeneralRenderCommand(),
                     new AnsiCommand()
             ),
             new Module("Utility",
                     new StatusCommand(),
                     new ServerCommand(),
-                    new RecipeCommand(),
                     new ItemCommand(),
+                    new RecipeCommand(),
                     new IngredientCommand(),
                     new CodesCommand(),
-                    colorCmd,
-                    new ColorShortcut(colorCmd, "0"),
-                    new ColorShortcut(colorCmd, "1"),
-                    new ColorShortcut(colorCmd, "2"),
-                    new ColorShortcut(colorCmd, "3"),
-                    new ColorShortcut(colorCmd, "4"),
-                    new ColorShortcut(colorCmd, "5"),
-                    new ColorShortcut(colorCmd, "6"),
-                    new ColorShortcut(colorCmd, "7"),
-                    new ColorShortcut(colorCmd, "8"),
-                    new ColorShortcut(colorCmd, "9"),
-                    new ColorShortcut(colorCmd, "a"),
-                    new ColorShortcut(colorCmd, "b"),
-                    new ColorShortcut(colorCmd, "c"),
-                    new ColorShortcut(colorCmd, "d"),
-                    new ColorShortcut(colorCmd, "e"),
-                    new ColorShortcut(colorCmd, "f"),
+                    new ColorCommand(),
                     new SeedCommand(),
                     new ShadowCommand(),
                     new Sha1Command()
@@ -77,11 +71,14 @@ public class Registry {
             new Module("Discord",
                     new UserCommand(),
                     new GuildCommand(),
+                    new GuildCommandAdmin(),
                     new RoleCommand(),
+                    new RoleCommandAdmin(),
                     new RolesCommand(),
                     new IdCommand(),
                     new PurgeCommand(),
-                    new PermsCommand()
+                    new PermsCommand(),
+                    new PermsCommandAdmin()
             ),
             new Module("Admin", true, adminHelp,
                     new SayCommand(),
@@ -93,11 +90,14 @@ public class Registry {
                     new BanCommand(),
                     new ReloadCommand(),
                     new ShutdownCommand(),
+                    new DeployCommand(),
                     new EvalCommand(),
                     new TestCommand()
             )
     };
-    private static final LinkedHashMap<String, Command> commandMap = new LinkedHashMap<>();
+    // Map from name or alias user enters to either command or name of slash command to migrate to
+    private static final Map<String, Either<String, Command<?>>> commandMap = new HashMap<>();
+    private static final Map<Command<?>, CommandState> stateMap = new HashMap<>();
 
     /**
      * Adds every module to the registry and maps the possible aliases to the command to execute.
@@ -105,11 +105,31 @@ public class Registry {
      */
     public static void init() {
         for (Module m : modules) {
-            for (Command c : m.getCommands()) {
-                CommandInfo ci = c.getInfo();
-                commandMap.put(ci.name, c);
-                for (String alias : ci.aliases) commandMap.put(alias, c);
+            for (Command<?> c : m.getCommands()) {
+                initCommand(c);
             }
+        }
+    }
+    private static void initCommand(Command<?> c) {
+        Command.CommandInfo ci = c.getInfo();
+        insert(ci.name, Either.right(c));
+        if (c instanceof LegacyCommand) {
+            for (String alias : ((LegacyCommand) c).getAliases()) {
+                insert(alias, Either.right(c));
+            }
+        } else if (c instanceof SlashCommand) {
+            for (String alias : ((SlashCommand) c).getLegacyAliases()) {
+                insert(alias, Either.left(ci.name));
+            }
+        }
+        stateMap.put(c, new CommandState());
+    }
+    private static void insert(String input, Either<String, Command<?>> entry) {
+        Either<String, Command<?>> old = commandMap.put(input, entry);
+        if (old != null) {
+            String oldName = old.foldLeft(r -> r.getInfo().name);
+            String newName = entry.foldLeft(r -> r.getInfo().name);
+            System.err.println("Command " + oldName + " is being overwritten by " + newName + " for " + input);
         }
     }
 
@@ -131,7 +151,16 @@ public class Registry {
      * @param name The part of the command after "&" and before a space. For example, "&server hypixel.net" becomes "server".
      * @return The command which should be executed, or null if there is no command associated with the input.
      */
-    public static Command getCommand(String name) {
+    public static Command<?> getCommand(String name) {
+        return getCommandMapping(name).fold(l -> null, r -> r);
+    }
+    /**
+     * Gets a command, given its name or alias.
+     * @param name The part of the command after "&" and before a space. For example, "&server hypixel.net" becomes "server".
+     * @return The command which should be executed, the name of the slash command the user should use instead,
+     * or null if there is no command associated with the input.
+     */
+    public static Either<String, Command<?>> getCommandMapping(String name) {
         return commandMap.get(name);
     }
     /**
@@ -141,13 +170,46 @@ public class Registry {
      */
     public static String findModuleName(String cmdName) {
         for (Module m : modules) {
-            for (Command c : m.getCommands()) {
+            for (Command<?> c : m.getCommands()) {
                 if (c.getInfo().name.equals(cmdName)) {
                     return m.getName();
                 }
             }
         }
         return null;
+    }
+
+    public static List<CommandData> getSlashCommands() {
+        return Arrays.stream(modules)
+                .map(Module::getCommands)
+                .flatMap(Arrays::stream)
+                .filter(c -> c instanceof SlashCommand)
+                .map(c -> ((SlashCommand) c))
+                .map(SlashCommand::getCommandSyntax)
+                .collect(Collectors.toList());
+    }
+
+    private static class CommandState {
+        private int uses = 0;
+        private final Cache<Long, Long> lastUseTimesByUser = Caffeine.newBuilder()
+                .expireAfterWrite(Duration.ofMinutes(1))
+                .build();
+    }
+
+    public static void useCommand(Command<?> cmd, User user) {
+        CommandState state = stateMap.get(cmd);
+        state.uses++;
+        state.lastUseTimesByUser.put(user.getIdLong(), System.currentTimeMillis());
+    }
+    public static long getCooldownLeft(Command<?> cmd, User user) {
+        long lastUse = stateMap.get(cmd).lastUseTimesByUser.get(user.getIdLong(), k -> 0L);
+        if (lastUse == 0L) {
+            return 0L;
+        }
+        return cmd.getInfo().cooldown + lastUse - System.currentTimeMillis();
+    }
+    public static int getUses(Command<?> cmd) {
+        return stateMap.get(cmd).uses;
     }
 
 }

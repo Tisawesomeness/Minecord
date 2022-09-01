@@ -2,6 +2,8 @@
     "clientToken": "your token here",
     "shardCount": 1,
     "owner": "0",
+    "testServers": [
+    ],
     "settings": {
         "logChannel": "0",
         "joinLogChannel": "0",
@@ -13,7 +15,7 @@
         "website": "https://minecord.github.io",
         "github": "https://github.com/Tisawesomeness/Minecord",
         "prefix": "&",
-        "game": "@Minecord help | {guilds} guilds",
+        "game": "/help | {guilds} guilds",
         "devMode": false,
         "debugMode": false,
         "respondToMentions": true,

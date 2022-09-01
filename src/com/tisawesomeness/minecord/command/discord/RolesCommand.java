@@ -1,77 +1,55 @@
 package com.tisawesomeness.minecord.command.discord;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.util.DiscordUtils;
+import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.StringUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.IMentionable;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.requests.ErrorResponse;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
-public class RolesCommand extends Command {
+public class RolesCommand extends SlashCommand {
 
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "roles",
                 "List a user's roles.",
-                "<user|id>",
-                null,
+                "<user>",
                 0,
-                false,
                 false,
                 false
         );
     }
 
+    @Override
+    public SlashCommandData addCommandSyntax(SlashCommandData builder) {
+        return builder.addOption(OptionType.USER, "user", "The user to list roles for", true);
+    }
+
+    @Override
     public String getHelp() {
         return "List the roles of a user in the current guild.\n" +
                 "\n" +
                 "Examples:\n" +
-                "- `{&}roles @Tis_awesomeness`\n" +
-                "- `{&}roles 211261249386708992`\n";
+                "- `{&}roles @Tis_awesomeness`\n";
     }
 
-    public Result run(String[] args, MessageReceivedEvent e) {
-
-        // Guild-only command
+    public Result run(SlashCommandInteractionEvent e) {
         if (!e.isFromGuild()) {
             return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
         }
 
-        // Check for argument length
-        if (args.length == 0) {
-            return new Result(Outcome.WARNING, ":warning: You must specify a user!");
-        }
-
         // Find user
-        Member mem;
-        List<Member> mentioned = e.getMessage().getMentions().getMembers();
-        if (mentioned.size() > 0) {
-            mem = mentioned.get(0);
-        } else {
-            if (DiscordUtils.isDiscordId(args[0])) {
-                mem = e.getGuild().retrieveMemberById(args[0])
-                        .onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null)
-                        .onErrorMap(ErrorResponse.UNKNOWN_MEMBER::test, x -> null)
-                        .complete();
-            } else {
-                if (!User.USER_TAG.matcher(args[0]).matches()) {
-                    return new Result(Outcome.WARNING, ":warning: Not a valid user format. Use `name#1234`, a mention, or a user ID.");
-                }
-                mem = e.getGuild().getMemberByTag(args[0]);
-            }
-            if (mem == null) {
-                return new Result(Outcome.WARNING, ":warning: That user does not exist.");
-            }
+        Member mem = e.getOption("user").getAsMember();
+        if (mem == null) {
+            return new Result(Outcome.WARNING, ":warning: That user is not in this guild.");
         }
 
         EmbedBuilder eb = new EmbedBuilder()

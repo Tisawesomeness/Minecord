@@ -8,7 +8,7 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 import java.awt.Color;
 
@@ -19,11 +19,9 @@ public class SkinCommand extends BasePlayerCommand {
                 "skin",
                 "Shows an image of a player's skin.",
                 "<player>",
-                null,
                 2000,
                 false,
-                false,
-                true
+                false
         );
     }
 
@@ -43,7 +41,7 @@ public class SkinCommand extends BasePlayerCommand {
         return true;
     }
 
-    protected void onSuccessfulPlayer(MessageReceivedEvent e, Player player) {
+    protected void onSuccessfulPlayer(SlashCommandInteractionEvent e, Player player) {
         String title = "Skin for " + player.getUsername();
         String skinHistoryUrl = player.getMCSkinHistoryUrl().toString();
         String avatarUrl = player.createRender(RenderType.AVATAR, true).render().toString();
@@ -55,7 +53,7 @@ public class SkinCommand extends BasePlayerCommand {
                 .setColor(color)
                 .setDescription(description)
                 .setImage(player.getSkinUrl().toString());
-        e.getChannel().sendMessageEmbeds(eb.build()).queue();
+        e.getHook().sendMessageEmbeds(eb.build()).queue();
     }
     private static @NonNull String constructDescription(Player player) {
         String custom = "**Custom**: " + (player.hasCustomSkin() ? "True" : "False");

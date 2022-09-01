@@ -1,27 +1,38 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.mc.item.Item;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
-public class ItemCommand extends Command {
+public class ItemCommand extends SlashCommand {
 
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "item",
                 "Looks up an item.",
                 "<item name|id>",
-                new String[]{"i"},
                 2500,
                 false,
-                false,
-                true
+                false
         );
     }
 
+    @Override
+    public SlashCommandData addCommandSyntax(SlashCommandData builder) {
+        return builder.addOption(OptionType.STRING, "item", "The Minecraft item to look up", true);
+    }
+
+    @Override
+    public String[] getLegacyAliases() {
+        return new String[]{"i"};
+    }
+
+    @Override
     public String getHelp() {
         return "Searches for a Minecraft item.\n" +
                 "Items are from Java Edition 1.7 to 1.19.\n" +
@@ -29,14 +40,10 @@ public class ItemCommand extends Command {
                 Item.help + "\n";
     }
 
-    public Result run(String[] args, MessageReceivedEvent e) {
-        // Check for argument length
-        if (args.length == 0) {
-            return new Result(Outcome.WARNING, ":warning: You must specify an item!");
-        }
-
+    public Result run(SlashCommandInteractionEvent e) {
         // Search through the item database
-        String item = Item.search(String.join(" ", args), "en_US");
+        String search = e.getOption("item").getAsString();
+        String item = Item.search(search, "en_US");
 
         // If nothing is found
         if (item == null) {
@@ -46,7 +53,7 @@ public class ItemCommand extends Command {
         }
 
         // Build message
-        EmbedBuilder eb = Item.display(item, "en_US", MessageUtils.getPrefix(e));
+        EmbedBuilder eb = Item.display(item, "en_US", "/");
         eb = MessageUtils.addFooter(eb);
 
         return new Result(Outcome.SUCCESS, eb.build());

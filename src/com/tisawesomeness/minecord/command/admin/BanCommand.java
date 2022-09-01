@@ -2,7 +2,7 @@ package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
-import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
@@ -12,7 +12,7 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.requests.ErrorResponse;
 
-public class BanCommand extends Command {
+public class BanCommand extends LegacyCommand {
 
     @Override
     public CommandInfo getInfo() {
@@ -20,18 +20,14 @@ public class BanCommand extends Command {
                 "ban",
                 "Bans/unbans a user/guild from the bot. Omit user/guild to check for a ban.",
                 "[user|guild] <id>",
-                new String[]{
-                        "bean",
-                        "banne",
-                        "pingb1nzy",
-                        "strike",
-                        "smite"
-                },
                 0,
                 true,
-                true,
-                false
+                true
         );
+    }
+
+    public String[] getAliases() {
+        return new String[]{"bean", "banne", "pingb1nzy", "strike", "smite"};
     }
 
     public String getHelp() {

@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.Config;
-import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.StringUtils;
@@ -26,7 +26,7 @@ import java.util.Comparator;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class EvalCommand extends Command {
+public class EvalCommand extends LegacyCommand {
 
     @Override
     public CommandInfo getInfo() {
@@ -34,11 +34,9 @@ public class EvalCommand extends Command {
                 "eval",
                 "Evaluates some js code.",
                 "<js code>",
-                new String[]{},
                 0,
                 true,
-                true,
-                false
+                true
         );
     }
 

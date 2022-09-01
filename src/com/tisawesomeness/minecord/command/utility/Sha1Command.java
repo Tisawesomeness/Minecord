@@ -1,25 +1,36 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.util.MathUtils;
 
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
-public class Sha1Command extends Command {
+public class Sha1Command extends SlashCommand {
 
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "sha1",
                 "Computes the sha1 hash of some text.",
                 "<text>",
-                new String[]{"sha", "hash"},
                 500,
                 false,
-                false,
-                true
+                false
         );
     }
 
+    @Override
+    public SlashCommandData addCommandSyntax(SlashCommandData builder) {
+        return builder.addOption(OptionType.STRING, "text", "The text to hash", true);
+    }
+
+    @Override
+    public String[] getLegacyAliases() {
+        return new String[]{"sha", "hash"};
+    }
+
+    @Override
     public String getHelp() {
         return "`{&}sha1 <text>` - Computes the sha1 hash of some text.\n" +
                 "Useful for comparing a server against Mojang's blocked server list.\n" +
@@ -29,11 +40,8 @@ public class Sha1Command extends Command {
                 "- `{&}sha1 mc.hypixel.net`\n";
     }
 
-    public Result run(String[] args, MessageReceivedEvent e) {
-        if (args.length == 0) {
-            return new Result(Outcome.WARNING, ":warning: You must specify some text to hash.");
-        }
-        return new Result(Outcome.SUCCESS, MathUtils.sha1(String.join(" ", args)));
+    public Result run(SlashCommandInteractionEvent e) {
+        return new Result(Outcome.SUCCESS, MathUtils.sha1(e.getOption("text").getAsString()));
     }
 
 }

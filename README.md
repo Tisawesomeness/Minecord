@@ -1,63 +1,60 @@
 # Minecord [![Discord Bots](https://discordbots.org/api/widget/status/292279711034245130.png)](https://discordbots.org/bot/292279711034245130) [![Discord Bots](https://discordbots.org/api/widget/servers/292279711034245130.png)](https://discordbots.org/bot/292279711034245130) [![Discord Bots](https://discordbots.org/api/widget/upvotes/292279711034245130.png)](https://discordbots.org/bot/292279711034245130)
 A robust Discord bot using the JDA library for various Minecraft functions.
 
-- **Official Bot Invite: https://discordapp.com/oauth2/authorize?client_id=292279711034245130&scope=bot&permissions=93248**
+- **Official Bot Invite: https://minecord.github.io/invite**
 - Bot User: Minecord#1216
 - Support Server: https://discord.gg/hrfQaD7
 
 ### Command List
 
 #### Core Commands
-- `&help [<command>|<module>|extra]` - Displays help for the bot, a command, or a module.
-- `&info` - Shows the bot info.
-- `&ping` - Pings the bot.
-- `&prefix [<prefix>]` - A shortcut to change the prefix. Leave blank to show the current prefix. Requires Manage Server permissions.
-- `&settings [<setting> <value>]` - Change the bot's settings, including prefix. Requires Manage Server permissions.
-- `&invite` - Get the invite link for the bot.
-- `&vote` - Get all the vote links.
-- `&credits` - See who made the bot possible.
+- `/help [<command>|<module>|extra]` - Displays help for the bot, a command, or a module.
+- `/info` - Shows the bot info.
+- `/ping` - Pings the bot.
+- `/invite` - Get the invite link for the bot.
+- `/vote` - Get all the vote links.
+- `/credits` - See who made the bot possible.
 
 #### Player Commands
-- `&profile <player>` - Shows info for a Minecraft account.
-- `&history <player>` - Shows a player's name history.
-- `&history <uuid|username>` - Shows UUID info for a player or entity.
-- `&skin <player>` - Shows an image of a player's skin.
-- `&cape <player>` - Shows a player's Minecraft and Optifine capes.
-- `&avatar <player> [<scale>] [<overlay?>]` - Shows an image of the player's avatar.
-- `&head <player> [<scale>] [<overlay?>]` - Shows an image of the player's head.
-- `&body <player> [<scale>] [<overlay?>]` - Shows an image of the player's body.
-- `&ansi <player> [<overlay?>]` - Converts a player's avatar to a colored text message.
+- `/profile <player>` - Shows info for a Minecraft account.
+- `/history <player>` - Shows a player's name history.
+- `/history <uuid|username>` - Shows UUID info for a player or entity.
+- `/skin <player>` - Shows an image of a player's skin.
+- `/cape <player>` - Shows a player's Minecraft and Optifine capes.
+- `/avatar <player> [<scale>] [<overlay?>]` - Shows an image of the player's avatar.
+- `/head <player> [<scale>] [<overlay?>]` - Shows an image of the player's head.
+- `/body <player> [<scale>] [<overlay?>]` - Shows an image of the player's body.
+- `/ansi <player> [<overlay?>]` - Converts a player's avatar to a colored text message.
 
 #### Utility Commands
-- `&status` - Checks the status of Mojang servers.
-- `&server <address>[:<port>]` - Fetches the stats of a server.
-- `&recipe <item name|id>` - Look up recipes.
-- `&item <item name|id>` - Looks up an item.
-- `&ingredient <item name|id>` - Looks up the recipes an ingredient is used in.
-- `&codes` - Lists the available chat codes.
-- `&color` - Look up a color. Shows color code and background color for Minecraft colors.
-- `&seed <text>` - Converts some text to a seed number.
-- `&shadow <seed>` - Gets the shadow of a seed.
-- `&sha1 <text>` - Computes the sha1 hash of some text.
+- `/status` - Checks the status of Mojang servers.
+- `/server <address>[:<port>]` - Fetches the stats of a server.
+- `/recipe <item name|id>` - Look up recipes.
+- `/item <item name|id>` - Looks up an item.
+- `/ingredient <item name|id>` - Looks up the recipes an ingredient is used in.
+- `/codes` - Lists the available chat codes.
+- `/color` - Look up a color. Shows color code and background color for Minecraft colors.
+- `/seed <text>` - Converts some text to a seed number.
+- `/shadow <seed>` - Gets the shadow of a seed.
+- `/sha1 <text>` - Computes the sha1 hash of some text.
 
 #### General Commands
-- `&user <user|id>` - Shows user info.
-- `&guild` - Shows guild info.
-- `&role <role|id>` - Shows role info.
-- `&roles <user|id>` - List a user's roles.
-- `&id <id>` - Gets the creation time of a Discord ID.
-- `&purge <number>` - Cleans the bot messages. Requires Manage Messages permissions.
-- `&perms [<channel>]` - Test the bot's permissions in a channel. Leave blank to test the current channel.
-- `&settings [setting] [value]` - Change the bot's settings, including prefix.
+- `/user <user|id>` - Shows user info.
+- `/guild` - Shows guild info.
+- `/role <role|id>` - Shows role info.
+- `/roles <user|id>` - List a user's roles.
+- `/id <id>` - Gets the creation time of a Discord ID.
+- `/purge <number>` - Cleans the bot messages. Requires Manage Messages permissions.
+- `/perms [<channel>]` - Test the bot's permissions in a channel. Leave blank to test the current channel.
 
 #### Admin Commands
 - `&help <command> admin` - Displays admin help for a command.
-- `&info admin` - Displays bot info, including used memory and boot time.
-- `&guild <guild id> admin` - Show info and ban status for another guild.
-- `&role <role id> admin` - Show role info for any role.
-- `&user <user id> admin [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include `mutual` to show mutual guilds.
+- `&infoadmin` - Displays bot info, including used memory and boot time.
+- `&guildadmin <guild id>` - Show info and ban status for another guild.
+- `&roleadmin <role id>` - Show role info for any role.
+- `&useradmin <user id> [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include `mutual` to show mutual guilds.
 - `&settings <guild id> admin [<setting> <value>]` - Change the bot's settings for another guild.
-- `&perms <channel id> admin` - Test the bot's permissions in any channel.
+- `&permsadmin <channel id>` - Test the bot's permissions in any channel.
 - `&say <channel> <message>` - Say a message.
 - `&msg <mention> <message>` - Open the DMs.
 - `&name <guild id> <name>` - Changes the bot's nickname per-guild, enter nothing to reset.
@@ -67,6 +64,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&ban [user|guild] <id>` - Bans/unbans a user/guild from the bot. Omit user/guild to check for a ban.
 - `&reload` - Reloads the bot. In dev mode, this hot reloads all code. Otherwise, this reloads the config, item/recipe files, and restarts the database and vote server.
 - `&shutdown` - Shuts down the bot.
+- `&deploy` - Deploys slash commands globally.
 - `&eval` - Evaluates javascript code with variables `jda`, `config`, `event`, `guild`, `channel`, and `user`.
 - `&test` - Test command. This may change depending on what features are being developed.
 
@@ -75,6 +73,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Client Token:* Your unique bot token. **Do not upload it to GitHub, or people will be able to steal your bot!**
 - *Shard Count:* The amount of shards to use. Set to 1 if you don't need sharding.
 - *Owner:* The user ID of the bot owner. The bot will work when owner is 0, but it is *highly encouraged* to set this value.
+- *Test Servers:* A list of server IDs that will have guild slash commands updated on startup for testing.
 
 - *Log Channel:* The bot will send any logging messages to this channel. Set to 0 to disable.
 - *Join Log Channel:* The bot will send server join/leave messages to this channel. Set to 0 to disable.
@@ -126,51 +125,53 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 #### Default Config
 ```json
 {
-    "clientToken": "your token here",
-    "shardCount": 1,
-    "owner": "0",
-    "settings": {
-        "logChannel": "0",
-        "joinLogChannel": "0",
-        "isSelfHosted": true,
-        "author": "Tis_awesomeness",
-        "authorTag": "@Tis_awesomeness#8617",
-        "invite": "https://minecord.github.io/invite",
-        "helpServer": "https://minecord.github.io/support",
-        "website": "https://minecord.github.io",
-        "github": "https://github.com/Tisawesomeness/Minecord",
-        "prefix": "&",
-        "game": "@Minecord help | {guilds} guilds",
-        "devMode": false,
-        "debugMode": false,
-        "respondToMentions": true,
-        "deleteCommands": false,
-        "useMenus": true,
-        "sendTyping": false,
-        "showMemory": false,
-        "elevatedSkipCooldown": true,
-        "useElectroidAPI": true,
-        "useGappleAPI": true,
-        "itemImageHost": "https://minecord.github.io/item/",
-        "recipeImageHost": "https://minecord.github.io/recipe/"
-    },
-    "botLists": {
-        "sendServerCount": false,
-        "pwToken": "your token here",
-        "orgToken": "your token here",
-        "receiveVotes": false,
-        "webhookURL": "sample",
-        "webhookPort": 8000,
-        "webhookAuth": "auth here"
-    },
-    "database": {
-        "type": "sqlite",
-        "host": "./minecord.db",
-        "port": "3306",
-        "name": "minecord",
-        "user": "minecord",
-        "pass": "password here"
-    }
+  "clientToken": "your token here",
+  "shardCount": 1,
+  "owner": "0",
+  "testServers": [
+  ],
+  "settings": {
+    "logChannel": "0",
+    "joinLogChannel": "0",
+    "isSelfHosted": true,
+    "author": "Tis_awesomeness",
+    "authorTag": "@Tis_awesomeness#8617",
+    "invite": "https://minecord.github.io/invite",
+    "helpServer": "https://minecord.github.io/support",
+    "website": "https://minecord.github.io",
+    "github": "https://github.com/Tisawesomeness/Minecord",
+    "prefix": "&",
+    "game": "/help | {guilds} guilds",
+    "devMode": false,
+    "debugMode": false,
+    "respondToMentions": true,
+    "deleteCommands": false,
+    "useMenus": true,
+    "sendTyping": false,
+    "showMemory": false,
+    "elevatedSkipCooldown": true,
+    "useElectroidAPI": true,
+    "useGappleAPI": true,
+    "itemImageHost": "https://minecord.github.io/item/",
+    "recipeImageHost": "https://minecord.github.io/recipe/"
+  },
+  "botLists": {
+    "sendServerCount": false,
+    "pwToken": "your token here",
+    "orgToken": "your token here",
+    "receiveVotes": false,
+    "webhookURL": "sample",
+    "webhookPort": 8000,
+    "webhookAuth": "auth here"
+  },
+  "database": {
+    "type": "sqlite",
+    "host": "./minecord.db",
+    "port": "3306",
+    "name": "minecord",
+    "user": "minecord",
+    "pass": "password here"
+  }
 }
 ```
 

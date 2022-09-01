@@ -1,29 +1,28 @@
 package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.Config;
-import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-public class DemoteCommand extends Command {
+public class DemoteCommand extends LegacyCommand {
 
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "demote",
                 "De-elevate a user.",
                 "<user>",
-                new String[]{
-                        "delevate",
-                        "normie",
-                        "badboi"},
                 5000,
-                true,
                 true,
                 true
         );
+    }
+
+    public String[] getAliases() {
+        return new String[]{"delevate", "normie", "badboi"};
     }
 
     public Result run(String[] args, MessageReceivedEvent e) throws Exception {

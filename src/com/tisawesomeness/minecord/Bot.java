@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord;
 
+import com.tisawesomeness.minecord.command.CommandListener;
 import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.VoteHandler;
@@ -15,11 +16,11 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
-import net.dv8tion.jda.api.utils.MemberCachePolicy;
-import net.dv8tion.jda.api.utils.cache.CacheFlag;
+import net.dv8tion.jda.api.utils.messages.MessageRequest;
 import org.discordbots.api.client.DiscordBotListAPI;
 
 import java.awt.Color;
@@ -39,15 +40,16 @@ public class Bot {
     public static final String helpServer = "https://minecord.github.io/support";
     public static final String website = "https://minecord.github.io";
     public static final String github = "https://github.com/Tisawesomeness/Minecord";
-    private static final String version = "0.15.3";
+    private static final String version = "0.16.0";
     public static final String javaVersion = "1.8";
-    public static final String jdaVersion = "5.0.0-alpha.15";
+    public static final String jdaVersion = "5.0.0-alpha.18";
     public static final Color color = Color.GREEN;
 
     public static ShardManager shardManager;
     private static APIClient apiClient;
     public static MCLibrary mcLibrary;
     private static Listener listener;
+    private static CommandListener commandListener;
     private static ReactListener reactListener;
     public static long birth;
     public static long bootTime;
@@ -56,11 +58,9 @@ public class Bot {
     public static Thread thread;
     public static volatile int readyShards = 0;
     private static final List<GatewayIntent> gateways = Arrays.asList(
-            GatewayIntent.MESSAGE_CONTENT, // going away soon!
             GatewayIntent.DIRECT_MESSAGES, GatewayIntent.DIRECT_MESSAGE_REACTIONS,
-            GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS);
-    private static final EnumSet<CacheFlag> disabledCacheFlags = EnumSet.of(
-            CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOJI, CacheFlag.ONLINE_STATUS, CacheFlag.VOICE_STATE);
+            GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS
+    );
 
     public static boolean setup(String[] args, boolean devMode) {
         long startTime = System.currentTimeMillis();
@@ -77,6 +77,7 @@ public class Bot {
         //Pre-init
         thread = Thread.currentThread();
         listener = new Listener();
+        commandListener = new CommandListener();
         reactListener = new ReactListener();
         apiClient = new OkAPIClient();
         mcLibrary = new StandardMCLibrary(apiClient);
@@ -134,7 +135,7 @@ public class Bot {
                 birth = (long) MethodName.GET_BIRTH.method().invoke(null, "ignore");
                 //Prepare commands
                 for (JDA jda : shardManager.getShards()) {
-                    jda.addEventListener(listener, reactListener);
+                    jda.addEventListener(listener, commandListener, reactListener);
                 }
                 m.editMessage(":white_check_mark: **Bot reloaded!**").queue();
                 MessageUtils.log(":arrows_counterclockwise: **Bot reloaded by " + u.getName() + "**");
@@ -143,14 +144,11 @@ public class Bot {
             } else {
 
                 //Initialize JDA
-                shardManager = DefaultShardManagerBuilder.create(gateways)
-                        .setToken(Config.getClientToken())
+                shardManager = DefaultShardManagerBuilder.createLight(Config.getClientToken(), gateways)
                         .setAutoReconnect(true)
-                        .addEventListeners(listener, reactListener)
+                        .addEventListeners(listener, commandListener, reactListener)
                         .setShardsTotal(Config.getShardCount())
                         .setActivity(Activity.playing("Loading..."))
-                        .setMemberCachePolicy(MemberCachePolicy.NONE)
-                        .disableCache(disabledCacheFlags)
                         .setHttpClientBuilder(apiClient.getHttpClientBuilder())
                         .build();
 
@@ -172,6 +170,17 @@ public class Bot {
         } catch (Exception ex) {
             ex.printStackTrace();
             return false;
+        }
+
+        Message.suppressContentIntentWarning(); // Still process legacy commands when possible to ease transition
+        MessageRequest.setDefaultMentions(EnumSet.noneOf(Message.MentionType.class));
+
+        // The big one
+        List<CommandData> slashCommands = Registry.getSlashCommands();
+        for (String testServerId : Config.getTestServers()) {
+            shardManager.getGuildById(testServerId).updateCommands()
+                    .addCommands(slashCommands)
+                    .queue();
         }
 
         //Start discordbots.org API
@@ -207,7 +216,7 @@ public class Bot {
         //Disable JDA
         for (JDA jda : shardManager.getShards()) {
             jda.setAutoReconnect(false);
-            jda.removeEventListener(listener, reactListener);
+            jda.removeEventListener(listener, commandListener, reactListener);
         }
         try {
             //Reload this class using reflection

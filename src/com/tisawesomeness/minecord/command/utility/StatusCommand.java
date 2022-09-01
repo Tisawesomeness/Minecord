@@ -1,12 +1,12 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 import java.awt.Color;
 import java.util.Arrays;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-public class StatusCommand extends Command {
+public class StatusCommand extends SlashCommand {
 
     private static final List<String> URLS = Arrays.asList(
             "https://minecraft.net",
@@ -33,15 +33,13 @@ public class StatusCommand extends Command {
                 "status",
                 "Checks the status of Mojang servers.",
                 null,
-                null,
                 2000,
                 false,
-                false,
-                true
+                false
         );
     }
 
-    public Result run(String[] args, MessageReceivedEvent e) {
+    public Result run(SlashCommandInteractionEvent e) {
         // Command is cached to prevent slow requests
         if (System.currentTimeMillis() - CACHE_TIME > timestamp) {
             statusResponse = getStatusResponse();

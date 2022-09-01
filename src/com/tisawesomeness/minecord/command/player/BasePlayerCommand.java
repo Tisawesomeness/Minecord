@@ -7,7 +7,9 @@ import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.UuidUtils;
 
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import net.dv8tion.jda.api.utils.TimeFormat;
 
 import java.time.Instant;
@@ -33,20 +35,23 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
      * @param e The received event
      * @param player The player
      */
-    protected abstract void onSuccessfulPlayer(MessageReceivedEvent e, Player player);
+    protected abstract void onSuccessfulPlayer(SlashCommandInteractionEvent e, Player player);
 
-    public Result run(String[] args, MessageReceivedEvent e) {
-        if (args.length == 0) {
-            return new Result(Outcome.WARNING, ":warning: You must specify a player.");
-        }
+    @Override
+    public SlashCommandData addCommandSyntax(SlashCommandData builder) {
+        return builder.addOption(OptionType.STRING, "player", "The player", true);
+    }
+
+    public Result run(SlashCommandInteractionEvent e) {
         PlayerProvider provider = Bot.mcLibrary.getPlayerProvider();
 
-        String input = String.join(" ", args);
+        String input = String.join(" ", e.getOption("player").getAsString());
         Optional<UUID> parsedUuidOpt = UuidUtils.fromString(input);
         if (parsedUuidOpt.isPresent()) {
             UUID uuid = parsedUuidOpt.get();
 
             String msg = "That UUID does not currently exist.";
+            e.deferReply().queue();
             newCallbackBuilder(provider.getPlayer(uuid), e)
                     .onFailure(ex -> handleIOE(ex, e, "IOE getting player from UUID " + uuid))
                     .onSuccess(playerOpt -> processPlayer(playerOpt, e, msg))
@@ -65,6 +70,7 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
         }
 
         String msg = "That username does not currently exist.";
+        e.deferReply().queue();
         newCallbackBuilder(provider.getPlayer(username), e)
                 .onFailure(ex -> handleIOE(ex, e, "IOE getting player from username " + username))
                 .onSuccess(playerOpt -> processPlayer(playerOpt, e, msg))
@@ -72,16 +78,16 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
         return new Result(Outcome.SUCCESS);
     }
 
-    private void processPlayer(Optional<Player> playerOpt, MessageReceivedEvent e, String notFoundMessage) {
+    private void processPlayer(Optional<Player> playerOpt, SlashCommandInteractionEvent e, String notFoundMessage) {
         if (!playerOpt.isPresent()) {
-            e.getChannel().sendMessage(notFoundMessage).queue();
+            e.getHook().sendMessage(notFoundMessage).queue();
             return;
         }
         Player player = playerOpt.get();
         if (shouldRejectPHD() && player.isPHD()) {
             String msg = String.format("The account with UUID `%s` is pseudo hard-deleted (PHD), so no skin/cape is available.",
                     player.getUuid());
-            e.getChannel().sendMessage(msg).queue();
+            e.getHook().sendMessage(msg).queue();
             return;
         }
         onSuccessfulPlayer(e, player);

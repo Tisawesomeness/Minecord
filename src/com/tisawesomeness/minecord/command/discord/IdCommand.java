@@ -1,29 +1,39 @@
 package com.tisawesomeness.minecord.command.discord;
 
-import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.util.DiscordUtils;
+import com.tisawesomeness.minecord.command.SlashCommand;
 
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import net.dv8tion.jda.api.utils.TimeFormat;
 import net.dv8tion.jda.api.utils.TimeUtil;
 
 import java.time.OffsetDateTime;
 
-public class IdCommand extends Command {
+public class IdCommand extends SlashCommand {
 
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "id",
                 "Gets the creation time of a Discord ID.",
                 "<id>",
-                new String[]{"snowflake"},
                 0,
                 false,
-                false,
-                true
+                false
         );
     }
 
+    @Override
+    public SlashCommandData addCommandSyntax(SlashCommandData builder) {
+        return builder.addOption(OptionType.INTEGER, "id", "The Discord ID", true);
+    }
+
+    @Override
+    public String[] getLegacyAliases() {
+        return new String[]{"snowflake"};
+    }
+
+    @Override
     public String getHelp() {
         return "`{&}id <id>` - Gets the creation time of a Discord ID.\n" +
                 "This command does not check if an ID exists.\n" +
@@ -36,18 +46,10 @@ public class IdCommand extends Command {
     }
 
     @Override
-    public Result run(String[] args, MessageReceivedEvent e) throws Exception {
-        if (args.length == 0) {
-            return new Result(Outcome.WARNING, ":warning: You must specify an id.");
-        } else if (args.length > 1) {
-            return new Result(Outcome.WARNING, ":warning: Too many arguments.");
-        }
-        if (DiscordUtils.isDiscordId(args[0])) {
-            OffsetDateTime time = TimeUtil.getTimeCreated(Long.parseLong(args[0]));
-            return new Result(Outcome.SUCCESS, "Created " + TimeFormat.RELATIVE.format(time));
-        } else {
-            return new Result(Outcome.WARNING, ":warning: " + args[0] + " is not a valid id.");
-        }
+    public Result run(SlashCommandInteractionEvent e) throws Exception {
+        long id = e.getOption("id").getAsLong();
+        OffsetDateTime time = TimeUtil.getTimeCreated(id);
+        return new Result(Outcome.SUCCESS, "Created " + TimeFormat.RELATIVE.format(time));
     }
 
 }

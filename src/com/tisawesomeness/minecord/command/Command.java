@@ -1,24 +1,35 @@
 package com.tisawesomeness.minecord.command;
 
-import net.dv8tion.jda.api.MessageBuilder;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.Event;
+import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
-import java.util.HashMap;
-
-/**
- * Represents a command.
- */
-public abstract class Command implements ICommand {
-
-    public int uses = 0;
-    public final HashMap<User, Long> cooldowns = new HashMap<>();
+public interface Command<T extends Event> {
 
     /**
-     * Represents all of the data needed to register a command.
+     * @return The command info.
      */
-    public static class CommandInfo {
+    CommandInfo getInfo();
+
+    /**
+     * Defines the help text shown by &help <command>.
+     * Use {&} to substitute the current prefix, or {@literal @} to substitute the bot mention.
+     * @return Never-null help string
+     */
+    default String getHelp() {
+        return getInfo().description + "\n";
+    }
+
+    void sendSuccess(T e, MessageCreateData message);
+    void sendFailure(T e, MessageCreateData message);
+
+    String debugRunCommand(T e);
+
+    /**
+     * Represents all the data needed to register a command.
+     */
+    class CommandInfo {
 
         /**
          * The name needed to call the command, shown on the help menu.
@@ -33,53 +44,39 @@ public abstract class Command implements ICommand {
          */
         public final String usage;
         /**
-         * A list of aliases that will also call this command.
-         */
-        public final String[] aliases;
-        /**
          * The cooldown of the command in miliseconds. Enter anything less than 1 to disable the cooldown.
          */
-        public final int cooldown;
+        public final long cooldown;
         /**
-         * Whether or not to hide the command from the help menu.
+         * Whether the command is hidden from the help menu.
          */
         public final boolean hidden;
         /**
-         * Whether or not the user must be an elevated user to execute this command.
+         * Whether the user must be an elevated user to execute this command.
          */
         public final boolean elevated;
-        /**
-         * Whether or not the bot will send a typing message.
-         */
-        public final boolean typing;
 
         /**
-         * Represents all of the data needed to register a command.
+         * Represents all the data needed to register a command.
          * @param name The name needed to call the command, shown on the help menu.
          * @param description The description shown on the help menu.
-         * @param usage The command usage, such as "&lt;player&gt; [time]"
-         * @param aliases A list of aliases that will also call this command.
-         * @param cooldown The cooldown of the command in miliseconds. Enter anything less than 1 to disable the cooldown.
-         * @param hidden Whether or not to hide the command from the help menu.
-         * @param elevated Whether or not the user must be an elevated user to execute this command.
-         * @param typing Whether or not the bot will send a typing message.
+         * @param cooldown The cooldown of the command in milliseconds. Enter anything less than 1 to disable the cooldown.
+         * @param hidden Whether to hide the command from the help menu.
+         * @param elevated Whether the user must be an elevated user to execute this command.
          */
-        public CommandInfo(String name, String description, String usage, String[] aliases,
-                           int cooldown, boolean hidden, boolean elevated, boolean typing) {
-
+        public CommandInfo(String name, String description, String usage, long cooldown, boolean hidden, boolean elevated) {
             if (name == null) {
                 throw new IllegalArgumentException("Name cannot be null.");
-            } else {
-                this.name = name;
             }
+            this.name = name;
             this.description = description == null ? "A command." : description;
             this.usage = usage;
-            this.aliases = aliases == null ? new String[0] : aliases;
+            if (cooldown < 0) {
+                throw new IllegalArgumentException("Cooldown cannot be less than 0.");
+            }
             this.cooldown = cooldown;
             this.hidden = hidden;
             this.elevated = elevated;
-            this.typing = typing;
-
         }
 
     }
@@ -87,9 +84,9 @@ public abstract class Command implements ICommand {
     /**
      * Represents the result of a command.
      */
-    public static class Result {
+    class Result {
         public final Outcome outcome;
-        public final Message message;
+        public final MessageCreateData message;
 
         /**
          * Represents the result of a command.
@@ -107,7 +104,7 @@ public abstract class Command implements ICommand {
          */
         public Result(Outcome outcome, String message) {
             this.outcome = outcome;
-            this.message = new MessageBuilder().append(message).build();
+            this.message = new MessageCreateBuilder().setContent(message).build();
         }
 
         /**
@@ -117,7 +114,7 @@ public abstract class Command implements ICommand {
          */
         public Result(Outcome outcome, MessageEmbed message) {
             this.outcome = outcome;
-            this.message = new MessageBuilder().setEmbeds(message).build();
+            this.message = new MessageCreateBuilder().setEmbeds(message).build();
         }
     }
 
@@ -127,7 +124,7 @@ public abstract class Command implements ICommand {
      * WARNING - Message is sent temporarily.
      * ERROR - Message is sent temporarily and logged to console.
      */
-    public enum Outcome {
+    enum Outcome {
         SUCCESS("Success"), WARNING("Warning"), ERROR("Error");
 
         private final String s;

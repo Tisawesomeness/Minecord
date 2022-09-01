@@ -1,24 +1,30 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.SlashCommand;
 
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
-public class SeedCommand extends Command {
+public class SeedCommand extends SlashCommand {
 
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "seed",
                 "Converts some text to a seed number.",
                 "<text>",
-                null,
                 0,
                 false,
-                false,
-                true
+                false
         );
     }
 
+    @Override
+    public SlashCommandData addCommandSyntax(SlashCommandData builder) {
+        return builder.addOption(OptionType.STRING, "text", "The text to convert to a seed number", true);
+    }
+
+    @Override
     public String getHelp() {
         return "`{&}seed <text>` - Converts some text to a seed number.\n" +
                 "Spaces at the start and end are removed, and numbers are treated as strings.\n" +
@@ -30,11 +36,8 @@ public class SeedCommand extends Command {
     }
 
     @Override
-    public Result run(String[] args, MessageReceivedEvent e) throws Exception {
-        if (args.length == 0) {
-            return new Result(Outcome.WARNING, ":warning: You must specify a seed.");
-        }
-        long seed = String.join(" ", args).hashCode();
+    public Result run(SlashCommandInteractionEvent e) throws Exception {
+        long seed = e.getOption("text").getAsString().hashCode();
         return new Result(Outcome.SUCCESS, String.format("Seed: `%d`", seed));
     }
 

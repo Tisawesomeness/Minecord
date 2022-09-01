@@ -3,16 +3,20 @@ package com.tisawesomeness.minecord;
 import com.tisawesomeness.minecord.util.ArrayUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Config {
 
     private static String clientToken;
     private static int shardCount;
     private static String owner;
+    private static List<String> testServers;
 
     private static String logChannel;
     private static String joinLogChannel;
@@ -93,6 +97,12 @@ public class Config {
             if (shardCount < 1) shardCount = 1;
             owner = config.getString("owner");
 
+            testServers = new ArrayList<>();
+            JSONArray arr = config.optJSONArray("testServers");
+            if (arr != null) {
+                arr.forEach(id -> testServers.add((String) id));
+            }
+
             JSONObject settings = config.getJSONObject("settings");
             logChannel = settings.getString("logChannel");
             joinLogChannel = settings.optString("joinLogChannel", "0");
@@ -157,6 +167,7 @@ public class Config {
     public static String getClientToken() { return clientToken; }
     public static int getShardCount() { return shardCount; }
     public static String getOwner() { return owner; }
+    public static List<String> getTestServers() { return testServers; }
 
     public static String getLogChannel() { return logChannel; }
     public static String getJoinLogChannel() { return joinLogChannel; }

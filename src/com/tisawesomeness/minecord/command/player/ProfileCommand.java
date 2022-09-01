@@ -11,7 +11,7 @@ import com.tisawesomeness.minecord.util.UuidUtils;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import java.awt.Color;
@@ -29,14 +29,18 @@ public class ProfileCommand extends BasePlayerCommand {
                 "profile",
                 "Shows info for a Minecraft account.",
                 "<player>",
-                new String[]{"p", "player"},
                 2000,
                 false,
-                false,
-                true
+                false
         );
     }
 
+    @Override
+    public String[] getLegacyAliases() {
+        return new String[]{"p", "player"};
+    }
+
+    @Override
     public String getHelp() {
         return "`{&}profile <player>` - Shows info for a Minecraft account.\n" +
                 "- `<player>` can be a username or UUID.\n" +
@@ -54,7 +58,7 @@ public class ProfileCommand extends BasePlayerCommand {
     }
 
     @Override
-    protected void onSuccessfulPlayer(MessageReceivedEvent e, Player player) {
+    protected void onSuccessfulPlayer(SlashCommandInteractionEvent e, Player player) {
         PlayerProvider provider = Bot.mcLibrary.getPlayerProvider();
         if (provider.isStatusAPIEnabled()) {
             provider.getAccountStatus(player.getUuid())
@@ -65,7 +69,7 @@ public class ProfileCommand extends BasePlayerCommand {
         }
     }
 
-    private static void onSuccessfulStatus(MessageReceivedEvent e, Player player, Optional<AccountStatus> statusOpt) {
+    private static void onSuccessfulStatus(SlashCommandInteractionEvent e, Player player, Optional<AccountStatus> statusOpt) {
         String title = "Profile for " + player.getUsername();
         String nameMCUrl = player.getNameMCUrl().toString();
         String avatarUrl = player.createRender(RenderType.AVATAR, true).render().toString();
@@ -94,7 +98,7 @@ public class ProfileCommand extends BasePlayerCommand {
         List<String> nameHistoryLines = constructNameHistoryLines(player);
         String nameHistory = String.join("\n", nameHistoryLines);
         eb.addField("Name History", nameHistory, true);
-        e.getChannel().sendMessageEmbeds(eb.build()).queue();
+        e.getHook().sendMessageEmbeds(eb.build()).queue();
     }
 
     private static @NonNull String constructDescription(Player player) {

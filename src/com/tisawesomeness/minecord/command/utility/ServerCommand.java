@@ -6,14 +6,18 @@ import br.com.azalim.mcserverping.MCPingResponse;
 import br.com.azalim.mcserverping.MCPingResponse.Player;
 import br.com.azalim.mcserverping.MCPingUtil;
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.util.MathUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
+import net.dv8tion.jda.api.utils.FileUpload;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 
 import java.io.IOException;
@@ -21,7 +25,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class ServerCommand extends Command {
+public class ServerCommand extends SlashCommand {
 
     // modified from https://mkyong.com/regular-expressions/domain-name-regular-expression-example/
     private static final Pattern IP_PATTERN = Pattern.compile("((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])(:[0-9]{1,6})?");
@@ -36,14 +40,23 @@ public class ServerCommand extends Command {
                 "server",
                 "Fetches the stats of a server.",
                 "<address>[:<port>]",
-                new String[]{"s"},
                 2000,
                 false,
-                false,
-                true
+                false
         );
     }
 
+    @Override
+    public SlashCommandData addCommandSyntax(SlashCommandData builder) {
+        return builder.addOption(OptionType.STRING, "address", "The server address with optional port", true);
+    }
+
+    @Override
+    public String[] getLegacyAliases() {
+        return new String[]{"s"};
+    }
+
+    @Override
     public String getHelp() {
         return "`{&}server <address>[:<port>]` - Fetches the status of a server.\n" +
                 "\n" +
@@ -53,15 +66,10 @@ public class ServerCommand extends Command {
                 "- `{&}server mc.example.com:25566`\n";
     }
 
-    public Result run(String[] args, MessageReceivedEvent e) {
+    public Result run(SlashCommandInteractionEvent e) {
 
         // Parse arguments
-        if (args.length == 0) {
-            String m = ":warning: You must specify a server." +
-                    "\n" + MessageUtils.getPrefix(e) + "server <address>[:port]";
-            return new Result(Outcome.WARNING, m);
-        }
-        String arg = args[0];
+        String arg = e.getOption("address").getAsString();
         boolean ip = true;
         if (!IP_PATTERN.matcher(arg).matches()) {
             ip = false;
@@ -79,6 +87,8 @@ public class ServerCommand extends Command {
                 return new Result(Outcome.WARNING, ":warning: That is not a valid server address.");
             }
         }
+
+        e.deferReply().queue();
 
         // Query Mojang for blocked servers, cached by the hour
         if (System.currentTimeMillis() - 3600000 > timestamp) {
@@ -102,15 +112,19 @@ public class ServerCommand extends Command {
             MCPingOptions options = MCPingOptions.builder().hostname(hostname).port(port).build();
             reply = MCPing.getPing(options);
             if (reply == null) {
-                return new Result(Outcome.ERROR, m + ":x: The server gave a bad response. It might be just starting up, try again later.");
+                String msg = m + ":x: The server gave a bad response. It might be just starting up, try again later.";
+                e.getHook().sendMessage(msg).setEphemeral(true).queue();
+                return new Result(Outcome.ERROR);
             }
         } catch (IOException ignore) {
+            m += ":warning: The server `" + arg + "` is down or unreachable.\n";
             if (hostname.equals(hostname.toLowerCase())) {
-                m += ":warning: The server is down or unreachable.\nDid you spell it correctly?";
+                m += "Did you spell it correctly?";
             } else {
-                m += ":warning: The server is down or unreachable.\nTry using lowercase letters.";
+                m += "Try using lowercase letters.";
             }
-            return new Result(Outcome.WARNING, m);
+            e.getHook().sendMessage(m).queue();
+            return new Result(Outcome.SUCCESS);
         }
 
         String address = port == 25565 ? hostname : hostname + ":" + port;
@@ -147,7 +161,8 @@ public class ServerCommand extends Command {
                 if (!e.isFromGuild() || e.getGuild().getSelfMember().hasPermission(e.getGuildChannel(), Permission.MESSAGE_ATTACH_FILES)) {
                     try {
                         byte[] data = Base64.getDecoder().decode(favicon.split(",")[1]);
-                        e.getChannel().sendFile(data, "favicon.png").setEmbeds(eb.setDescription(m).setThumbnail("attachment://favicon.png").build()).queue();
+                        MessageEmbed embed = eb.setDescription(m).setThumbnail("attachment://favicon.png").build();
+                        e.getHook().sendFiles(FileUpload.fromData(data, "favicon.png")).setEmbeds(embed).queue();
                         return new Result(Outcome.SUCCESS);
                     } catch (IllegalArgumentException ex) {
                         ex.printStackTrace();
@@ -158,7 +173,8 @@ public class ServerCommand extends Command {
                 }
             }
         }
-        return new Result(Outcome.SUCCESS, eb.build());
+        e.getHook().sendMessageEmbeds(eb.build()).queue();
+        return new Result(Outcome.SUCCESS);
     }
 
     // Checks if a server is blocked by Mojang

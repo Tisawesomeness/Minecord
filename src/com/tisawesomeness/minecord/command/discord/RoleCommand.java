@@ -1,91 +1,62 @@
 package com.tisawesomeness.minecord.command.discord;
 
-import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.command.Command;
-import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.util.ColorUtils;
-import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.RoleIcon;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import net.dv8tion.jda.api.utils.TimeFormat;
 
 import java.util.List;
 
-public class RoleCommand extends Command {
+public class RoleCommand extends SlashCommand {
 
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "role",
                 "Shows role info.",
-                "<role|id>",
-                new String[]{"roleinfo"},
+                "<role>",
                 0,
-                false,
                 false,
                 false
         );
     }
 
+    @Override
+    public SlashCommandData addCommandSyntax(SlashCommandData builder) {
+        return builder.addOption(OptionType.ROLE, "role", "The role to look up", true);
+    }
+
+    @Override
+    public String[] getLegacyAliases() {
+        return new String[]{"roleinfo"};
+    }
+
+    @Override
     public String getHelp() {
         return "Shows the info of a role in the current guild.\n" +
                 "\n" +
                 "Examples:\n" +
-                "- `{&}role Moderator`\n" +
-                "- `{&}role @Bot`\n" +
-                "- `{&}role 347797250266628108`\n";
+                "- `{&}role Moderator`\n";
     }
 
-    public String getAdminHelp() {
-        return "`{&}role <role|id>` - Shows the info of a role in the current guild.\n" +
-                "`{&}role <role id> admin` - Shows the info of any role.\n" +
-                "\n" +
-                "Examples:\n" +
-                "- `{&}role Moderator`\n" +
-                "- `{&}role @Bot`\n" +
-                "- `{&}role 347797250266628108`\n" +
-                "- `{&}role 347797250266628108 admin`\n";
+    public Result run(SlashCommandInteractionEvent e) {
+        if (!e.isFromGuild()) {
+            return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
+        }
+        Role role = e.getOption("role").getAsRole();
+        return run(role, e.getGuild());
     }
 
-    public Result run(String[] args, MessageReceivedEvent e) {
-
-        // Check for argument length
-        if (args.length == 0) {
-            return new Result(Outcome.WARNING, ":warning: You must specify a role!");
-        }
-
-        // Find role
-        Role role = null;
-        List<Role> roles = e.getGuild().getRoles();
-        List<Role> mentioned = e.getMessage().getMentions().getRoles();
-        // Search for any role if admin
-        if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
-            role = Bot.shardManager.getRoleById(args[0]);
-            // Mentioned roles
-        } else if (mentioned.size() > 0) {
-            role = mentioned.get(0);
-            // Search by id
-        } else if (DiscordUtils.isDiscordId(args[0])) {
-            role = e.getGuild().getRoleById(args[0]);
-            // Search by name
-        } else {
-            String query = String.join(" ", args);
-            for (Role r : roles) {
-                if (r.getName().equalsIgnoreCase(query)) {
-                    role = r;
-                    break;
-                }
-            }
-        }
-        if (role == null) {
-            return new Result(Outcome.WARNING, ":warning: That role does not exist.");
-        }
-
-        Role.RoleTags tags = role.getTags();
+    public static Result run(Role role, Guild g) {
+        List<Role> roles = g.getRoles();
         EmbedBuilder eb = new EmbedBuilder()
                 .setTitle(role.getName().substring(0, Math.min(MessageEmbed.TITLE_MAX_LENGTH, role.getName().length())))
                 .setColor(role.getColorRaw())
@@ -94,15 +65,7 @@ public class RoleCommand extends Command {
                 .addField("Position", (role.getPosition() + 2) + "/" + roles.size(), true) // Position corrected so @everyone is pos 1
                 .addField("Mentionable?", role.isMentionable() ? "Yes" : "No", true)
                 .addField("Hoisted?", role.isHoisted() ? "Yes" : "No", true)
-                .addField("Integration?", tags.isIntegration() ? "Yes" : "No", true);
-        if (tags.isIntegration()) {
-            eb.addField("Integration ID", tags.getIntegrationId(), true);
-        }
-        eb.addField("Bot?", tags.isBot() ? "Yes" : "No", true);
-        if (tags.isBot()) {
-            eb.addField("Bot ID", tags.getBotId(), true);
-        }
-        eb.addField("Boost?", tags.isBoost() ? "Yes" : "No", true);
+                .addField("Managed?", role.isManaged() ? "Yes" : "No", true);
 
         RoleIcon icon = role.getIcon();
         if (icon != null) {

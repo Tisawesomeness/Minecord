@@ -1,67 +1,45 @@
 package com.tisawesomeness.minecord.command.discord;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Guild.BoostTier;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 import net.dv8tion.jda.api.utils.TimeFormat;
 import net.dv8tion.jda.api.utils.TimeUtil;
 
-public class GuildCommand extends Command {
+public class GuildCommand extends SlashCommand {
 
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "guild",
                 "Shows guild info.",
                 null,
-                new String[]{"guildinfo"},
                 0,
-                false,
                 false,
                 false
         );
     }
 
-    public String getAdminHelp() {
-        return "`{&}guild` - Shows current guild info.\n" +
-                "`{&}guild <guild id> admin` - Shows the info of another guild.\n" +
-                "\n" +
-                "Examples:\n" +
-                "- `{&}guild 347765748577468416 admin`\n";
+    @Override
+    public String[] getLegacyAliases() {
+        return new String[]{"guildinfo"};
     }
 
-    public Result run(String[] args, MessageReceivedEvent e) {
-
-        // If the author used the admin keyword and is an elevated user
-        boolean elevated = false;
-        Guild g;
-        if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
-            elevated = true;
-            if (!DiscordUtils.isDiscordId(args[0])) {
-                return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
-            }
-            g = Bot.shardManager.getGuildById(args[0]);
-            if (g == null) {
-                long gid = Long.parseLong(args[0]);
-                if (Database.isBanned(gid)) {
-                    return new Result(Outcome.SUCCESS, "__**GUILD BANNED FROM MINECORD**__\n" + getSettingsStr(gid));
-                }
-                return new Result(Outcome.SUCCESS, getSettingsStr(gid));
-            }
-        } else {
-            if (!e.isFromGuild()) {
-                return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
-            }
-            g = e.getGuild();
+    public Result run(SlashCommandInteractionEvent e) {
+        if (!e.isFromGuild()) {
+            return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
         }
+        return run(e.getGuild(), false);
+    }
+
+    public static Result run(Guild g, boolean elevated) {
         User owner = g.retrieveOwner().complete().getUser();
 
         // Generate guild info
@@ -100,7 +78,7 @@ public class GuildCommand extends Command {
         return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
     }
 
-    private static String getSettingsStr(long gid) {
+    public static String getSettingsStr(long gid) {
         return String.format("prefix: `%s`\ndeleteCommands: `%s`\nuseMenus: `%s`",
                 Database.getPrefix(gid), Database.getDeleteCommands(gid), Database.getUseMenu(gid));
     }
