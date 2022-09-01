@@ -8,7 +8,8 @@ import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.entities.emoji.EmojiUnion;
 import net.dv8tion.jda.api.entities.emoji.UnicodeEmoji;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.InteractionHook;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -53,7 +54,7 @@ public abstract class ReactMenu {
     /**
      * Moves the menu to a certain page by editing the message
      * @param page The page >= 0 to move to
-     * @param updateButtons Whether or not to remove and re-add buttons
+     * @param updateButtons Whether to remove and re-add buttons
      */
     public void setPage(int page, boolean updateButtons) {
         buttons = createButtons(page);
@@ -97,14 +98,15 @@ public abstract class ReactMenu {
     }
     /**
      * Posts the menu in chat
-     * @param channel The channel to post in
-     * @param owner The owner the menu is assigned to, only they can use buttons
+     * @param e the event
      */
-    public void post(MessageChannel channel, User owner) {
+    public void post(SlashCommandInteractionEvent e) {
+        User owner = e.getUser();
         this.ownerID = owner.getIdLong();
         this.ownerName = owner.getName();
         buttons = createButtons(page);
-        message = channel.sendMessageEmbeds(getEmbed(page)).complete();
+        InteractionHook hook = e.replyEmbeds(getEmbed(page)).complete();
+        message = hook.retrieveOriginal().complete();
         for (Map.Entry<String, Runnable> entry : buttons.entrySet()) {
             if (entry.getValue() != null) {
                 message.addReaction(Emoji.fromUnicode(entry.getKey())).submit();
@@ -162,7 +164,7 @@ public abstract class ReactMenu {
      * Checks if the bot is able to make a react menu in the specified channel
      * @return True if the guild has menus enabled and the bot has manage message and add reaction permissions
      */
-    public static MenuStatus getMenuStatus(MessageReceivedEvent e) {
+    public static MenuStatus getMenuStatus(SlashCommandInteractionEvent e) {
         if (!Config.getUseMenus()) {
             return MenuStatus.DISABLED;
         }

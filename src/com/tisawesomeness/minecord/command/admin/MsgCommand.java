@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.util.ArrayUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
@@ -12,22 +12,21 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.concurrent.ExecutionException;
 
-public class MsgCommand extends Command {
+public class MsgCommand extends LegacyCommand {
 
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "msg",
                 "Open the DMs.",
                 "<mention|id> <message>",
-                new String[]{
-                        "dm",
-                        "tell",
-                        "pm"},
                 0,
                 true,
-                true,
-                false
+                true
         );
+    }
+
+    public String[] getAliases() {
+        return new String[]{"dm", "tell", "pm"};
     }
 
     public Result run(String[] args, MessageReceivedEvent e) {

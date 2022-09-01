@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.util.ArrayUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
@@ -10,21 +10,21 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-public class SayCommand extends Command {
+public class SayCommand extends LegacyCommand {
 
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "say",
                 "Send a message.",
                 "<channel> <message>",
-                new String[]{
-                        "talk",
-                        "announce"},
                 0,
                 true,
-                true,
-                false
+                true
         );
+    }
+
+    public String[] getAliases() {
+        return new String[]{"talk", "announce"};
     }
 
     public String getHelp() {

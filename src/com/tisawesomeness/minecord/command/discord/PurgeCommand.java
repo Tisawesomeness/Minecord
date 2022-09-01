@@ -1,39 +1,46 @@
 package com.tisawesomeness.minecord.command.discord;
 
-import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.database.Database;
 
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.GuildMessageChannel;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageHistory;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.exceptions.RateLimitedException;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PurgeCommand extends Command {
+public class PurgeCommand extends SlashCommand {
 
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "purge",
                 "Cleans the bot messages.",
                 "<number>",
-                new String[]{
-                        "clear",
-                        "clean",
-                        "delete",
-                        "delet",
-                        "prune",
-                        "destroy"},
                 5000,
                 false,
-                false,
-                true
+                false
         );
     }
 
+    @Override
+    public SlashCommandData addCommandSyntax(SlashCommandData builder) {
+        return builder.addOptions(new OptionData(OptionType.INTEGER, "number", "The number of messages to delete", true)
+                .setRequiredRange(1, 1000));
+    }
+
+    @Override
+    public String[] getLegacyAliases() {
+        return new String[]{"clear", "clean", "delete", "delet", "prune", "destroy"};
+    }
+
+    @Override
     public String getHelp() {
         return "`{&}purge <number>` - Cleans messages in the current channel **sent by the bot**.\n" +
                 "The user must have *Manage Messages* permissions.\n" +
@@ -41,47 +48,28 @@ public class PurgeCommand extends Command {
                 "If deleting more than 50 messages, the bot must have *Manage Messages* permissions.\n";
     }
 
-    public Result run(String[] args, MessageReceivedEvent e) {
-
-        // Guild-only command
+    public Result run(SlashCommandInteractionEvent e) {
         if (!e.isFromGuild()) {
             return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
         }
 
         //Check if user is elevated or has the manage messages permission
-        if (!Database.isElevated(e.getAuthor().getIdLong())
+        if (!Database.isElevated(e.getUser().getIdLong())
                 && !e.getMember().hasPermission(e.getGuildChannel(), Permission.MESSAGE_MANAGE)) {
             return new Result(Outcome.WARNING, ":warning: You must have permission to manage messages in this channel!");
         }
 
         //Parse args
-        int num;
-        boolean perms;
-        if (args.length > 0) {
-            try {
-                num = Integer.parseInt(args[0]);
-            } catch (NumberFormatException ignored) {
-                return new Result(Outcome.WARNING, ":warning: Please specify a number!");
-            }
+        int num = e.getOption("number").getAsInt();
 
-            //Check for bot permissions
-            perms = e.getGuild().getSelfMember().hasPermission(e.getGuildChannel(), Permission.MESSAGE_MANAGE);
-            if (perms) {
-                if (num <= 0 || num > 1000) {
-                    return new Result(Outcome.ERROR, ":x: The number must be between 1-1000.");
-                }
-            } else {
-                if (num <= 0 || num > 50) {
-                    return new Result(Outcome.ERROR,
-                            ":x: The number must be between 1-50, I don't have permission to manage messages!");
-                }
-            }
-
-        } else {
-            return new Result(Outcome.WARNING, ":warning: Please specify a number!");
+        //Check for bot permissions
+        boolean perms = e.getGuild().getSelfMember().hasPermission(e.getGuildChannel(), Permission.MESSAGE_MANAGE);
+        if (!perms && (num <= 0 || num > 50)) {
+            return new Result(Outcome.ERROR,
+                    ":x: The number must be between 1-50, I don't have permission to manage messages!");
         }
 
-        //Repeat until either the amount of messages are found or 100 non-bot messages in a row
+        //Repeat until either the amount of messages is found or 100 non-bot messages in a row
         MessageHistory mh = new MessageHistory(e.getGuildChannel());
         int empty = 0;
         ArrayList<Message> mine = new ArrayList<>();

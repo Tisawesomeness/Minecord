@@ -7,14 +7,14 @@ public class Module {
     private final String name;
     private final boolean hidden;
     private final String moduleHelp;
-    private final Command[] commands;
+    private final Command<?>[] commands;
 
     /**
      * Creates a new user-facing module.
      * @param name The display name of the module
      * @param commands The list of commands it contains
      */
-    public Module(String name, Command... commands) {
+    public Module(String name, Command<?>... commands) {
         this(name, false, null, commands);
     }
     /**
@@ -24,7 +24,7 @@ public class Module {
      * @param moduleHelp Extra info displayed when using &help <module>. May be null. Use {&} to substitute in the current prefix.
      * @param commands The list of commands it contains
      */
-    public Module(String name, boolean hidden, String moduleHelp, Command... commands) {
+    public Module(String name, boolean hidden, String moduleHelp, Command<?>... commands) {
         this.name = name;
         this.hidden = hidden;
         this.moduleHelp = moduleHelp;
@@ -37,10 +37,10 @@ public class Module {
     public boolean isHidden() {
         return hidden;
     }
-    public String getHelp(String prefix) {
-        return moduleHelp == null ? null : moduleHelp.replace("{&}", prefix);
+    public String getHelp() {
+        return moduleHelp == null ? null : moduleHelp.replace("{&}", "/");
     }
-    public Command[] getCommands() {
+    public Command<?>[] getCommands() {
         return commands;
     }
 }

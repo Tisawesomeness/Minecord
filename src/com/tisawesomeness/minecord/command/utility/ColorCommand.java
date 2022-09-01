@@ -1,29 +1,40 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
 import java.awt.Color;
 
-public class ColorCommand extends Command {
+public class ColorCommand extends SlashCommand {
 
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "color",
-                "Look up a color.",
+                "Look up a color, color code, or get a random color.",
                 "<color>",
-                new String[]{"colour", "colorcode", "colourcode"},
                 1000,
                 false,
-                false,
-                true
+                false
         );
     }
 
+    @Override
+    public SlashCommandData addCommandSyntax(SlashCommandData builder) {
+        return builder.addOption(OptionType.STRING, "color", "A color", true);
+    }
+
+    @Override
+    public String[] getLegacyAliases() {
+        return new String[]{"colour", "colorcode", "colourcode"};
+    }
+
+    @Override
     public String getHelp() {
         return "`{&}color <color>` - Look up a color.\n" +
                 "`{&}color random` - Get a random Minecraft color.\n" +
@@ -41,13 +52,9 @@ public class ColorCommand extends Command {
                 "Use `{&}0` through `{&}f` as shortcuts.";
     }
 
-    public Result run(String[] args, MessageReceivedEvent e) {
+    public Result run(SlashCommandInteractionEvent e) {
 
-        if (args.length == 0) {
-            return new Result(Outcome.WARNING, ":warning: You must specify a color.");
-        }
-
-        Color c = ColorUtils.parseColor(String.join(" ", args), "en_US");
+        Color c = ColorUtils.parseColor(e.getOption("color").getAsString(), "en_US");
         if (c == null) {
             return new Result(Outcome.WARNING, ":warning: Not a valid color!");
         }

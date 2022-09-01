@@ -1,37 +1,37 @@
 package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.Config;
-import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.util.type.FutureCallback;
 
 import lombok.SneakyThrows;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
-public abstract class AbstractPlayerCommand extends Command {
+public abstract class AbstractPlayerCommand extends SlashCommand {
 
     @SneakyThrows
-    protected static void handleIOE(Throwable ex, MessageReceivedEvent e, String errorMessage) {
+    protected static void handleIOE(Throwable ex, SlashCommandInteractionEvent e, String errorMessage) {
         Throwable cause = ex.getCause();
         if (cause instanceof IOException) {
             System.err.println(errorMessage);
-            e.getChannel().sendMessage(":x: There was an error contacting the Mojang API.").queue();
+            e.getHook().sendMessage(":x: There was an error contacting the Mojang API.").setEphemeral(true).queue();
             return;
         }
         throw cause;
     }
 
-    protected static <T> FutureCallback.Builder<T> newCallbackBuilder(CompletableFuture<T> future, MessageReceivedEvent e) {
+    protected static <T> FutureCallback.Builder<T> newCallbackBuilder(CompletableFuture<T> future, SlashCommandInteractionEvent e) {
         return FutureCallback.builder(future).onUncaught(ex -> handleUncaught(ex, e));
     }
 
-    private static void handleUncaught(Throwable ex, MessageReceivedEvent e) {
+    private static void handleUncaught(Throwable ex, SlashCommandInteractionEvent e) {
         try {
-            System.err.println("Uncaught exception in command " + e.getMessage().getContentRaw());
+            System.err.println("Uncaught exception in command " + debugRunSlashCommand(e));
             String unexpected = "There was an unexpected exception: " + MarkdownUtil.monospace(ex.toString());
             String errorMessage = ":boom: " + unexpected;
             if (Config.getDebugMode()) {
@@ -41,7 +41,7 @@ public abstract class AbstractPlayerCommand extends Command {
                     errorMessage = errorMessage.substring(0, Message.MAX_CONTENT_LENGTH - 3) + "```";
                 }
             }
-            e.getChannel().sendMessage(errorMessage).queue();
+            e.getHook().sendMessage(errorMessage).setEphemeral(true).queue();
             System.err.println(errorMessage);
         } catch (Exception ex2) {
             System.err.println("Somehow, there was an exception processing an uncaught exception");

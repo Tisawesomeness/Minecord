@@ -59,8 +59,8 @@ public enum ExtraHelpPage {
     private final String[] aliases;
     private final String help;
 
-    public String getHelp(String prefix) {
-        return help.replace("{&}", prefix);
+    public String getHelp() {
+        return help.replace("{&}", "/");
     }
 
     public static ExtraHelpPage from(String name) {

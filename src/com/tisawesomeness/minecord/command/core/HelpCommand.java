@@ -7,31 +7,38 @@ import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class HelpCommand extends Command {
+public class HelpCommand extends SlashCommand {
 
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "help",
                 "Displays help for the bot, a command, or a module.",
                 "[<command>|<module>|extra]",
-                new String[]{
-                        "cmds",
-                        "commands",
-                        "module",
-                        "modules",
-                        "categories"},
                 0,
                 false,
-                false,
-                true
+                false
         );
     }
 
+    @Override
+    public SlashCommandData addCommandSyntax(SlashCommandData builder) {
+        return builder.addOption(OptionType.STRING, "command", "The command or page to show help for");
+    }
+
+    @Override
+    public String[] getLegacyAliases() {
+        return new String[]{"cmds", "commands", "module", "modules", "categories"};
+    }
+
+    @Override
     public String getHelp() {
         return "`{&}help` - Display help for the bot.\n" +
                 "`{&}help <module>` - Display help for a module.\n" +
@@ -45,34 +52,18 @@ public class HelpCommand extends Command {
                 "- `{&}help uuidInput`\n";
     }
 
-    public String getAdminHelp() {
-        return "`{&}help` - Display help for the bot.\n" +
-                "`{&}help <module>` - Display help for a module.\n" +
-                "`{&}help <command>` - Display help for a command.\n" +
-                "`{&}help <command> admin` - Include admin-only command usage.\n" +
-                "`{&}help extra` - Show more help.\n" +
-                "\n" +
-                "Examples:\n" +
-                "- `{&}help server`\n" +
-                "- `{&}help profile`\n" +
-                "- `{&}help utility`\n" +
-                "- `{&}help uuidInput`\n" +
-                "- `{&}help settings admin`\n";
-    }
-
-    public Result run(String[] args, MessageReceivedEvent e) {
-        String prefix = MessageUtils.getPrefix(e);
+    public Result run(SlashCommandInteractionEvent e) {
         EmbedBuilder eb = new EmbedBuilder().setColor(Bot.color);
         String url = e.getJDA().getSelfUser().getEffectiveAvatarUrl();
 
+        String page = e.getOption("command", OptionMapping::getAsString);
+
         // General help
-        if (args.length == 0) {
+        if (page == null) {
             // Help menu only contains names of commands, tell user how to get more help
-            String help = String.format(
-                    "Use `%shelp <command>` to get more information about a command.\n" +
-                            "Use `%shelp <module>` to get help for that module.\n" +
-                            "Use `%shelp extra` for more help.",
-                    prefix, prefix, prefix);
+            String help = "Use `/help <command>` to get more information about a command.\n" +
+                    "Use `/help <module>` to get help for that module.\n" +
+                    "Use `/help extra` for more help.";
             eb.setAuthor("Minecord Help", null, url).setDescription(help);
 
             // Hidden modules must be viewed directly
@@ -82,9 +73,9 @@ public class HelpCommand extends Command {
                 }
                 // Build that module's list of user-facing commands
                 String mHelp = Arrays.stream(m.getCommands())
-                        .map(ICommand::getInfo)
+                        .map(Command::getInfo)
                         .filter(ci -> !ci.hidden)
-                        .map(ci -> String.format("`%s%s`", prefix, ci.name))
+                        .map(ci -> String.format("`/%s`", ci.name))
                         .collect(Collectors.joining(", "));
                 eb.addField(m.getName(), mHelp, false);
             }
@@ -92,40 +83,40 @@ public class HelpCommand extends Command {
         }
 
         // Extra help
-        ExtraHelpPage ehp = ExtraHelpPage.from(args[0]);
+        ExtraHelpPage ehp = ExtraHelpPage.from(page);
         if (ehp != null) {
-            eb.setTitle(ehp.getTitle()).setDescription(ehp.getHelp(prefix));
+            eb.setTitle(ehp.getTitle()).setDescription(ehp.getHelp());
             return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
         }
 
         // General extra help
-        if (args[0].equalsIgnoreCase("extra")) {
+        if (page.equalsIgnoreCase("extra")) {
             String desc = Arrays.stream(ExtraHelpPage.values())
-                    .map(page -> extraHelpLine(page, prefix))
+                    .map(HelpCommand::extraHelpLine)
                     .collect(Collectors.joining("\n"));
             eb.setTitle("Extra Help").setDescription(desc);
             return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
         }
 
         // Module help
-        Module m = Registry.getModule(args[0]);
+        Module m = Registry.getModule(page);
         if (m != null) {
-            if (m.isHidden() && !Database.isElevated(e.getAuthor().getIdLong())) {
+            if (m.isHidden() && !Database.isElevated(e.getUser().getIdLong())) {
                 return new Result(Outcome.WARNING, ":warning: You do not have permission to view that module.");
             }
             String mUsage = Arrays.stream(m.getCommands())
-                    .map(ICommand::getInfo)
+                    .map(Command::getInfo)
                     .filter(ci -> !ci.hidden || m.isHidden()) // All admin commands are hidden
                     .map(ci -> {
                         // Formatting changes based on whether the command has arguments
                         if (ci.usage == null) {
-                            return String.format("`%s%s` - %s", prefix, ci.name, ci.description);
+                            return String.format("`/%s` - %s", ci.name, ci.description);
                         }
-                        return String.format("`%s%s %s` - %s", prefix, ci.name, ci.usage, ci.description);
+                        return String.format("`/%s %s` - %s", ci.name, ci.usage, ci.description);
                     })
                     .collect(Collectors.joining("\n"));
             // Add module-specific help if it exists
-            String mHelp = m.getHelp(prefix);
+            String mHelp = m.getHelp();
             if (mHelp != null) {
                 mUsage = mHelp + "\n" + mUsage;
             }
@@ -134,28 +125,24 @@ public class HelpCommand extends Command {
         }
 
         // Command help
-        Command c = Registry.getCommand(args[0]);
+        Command<?> c = Registry.getCommand(page);
         if (c != null) {
             // Elevation check
-            CommandInfo ci = c.getInfo();
-            if (ci.elevated && !Database.isElevated(e.getAuthor().getIdLong())) {
+            Command.CommandInfo ci = c.getInfo();
+            if (ci.elevated && !Database.isElevated(e.getUser().getIdLong())) {
                 return new Result(Outcome.WARNING, ":warning: You do not have permission to view that command.");
             }
-            // Admin check
-            String help;
-            if (args.length > 1 && args[1].equals("admin")) {
-                help = c.getAdminHelp();
-            } else {
-                help = c.getHelp();
-            }
             // {@} and {&} substitution
-            help = help.replace("{@}", e.getJDA().getSelfUser().getAsMention()).replace("{&}", prefix);
+            String help = c.getHelp().replace("{@}", e.getJDA().getSelfUser().getAsMention()).replace("{&}", "/");
             // Alias list formatted with prefix in code blocks
-            if (ci.aliases.length > 0) {
-                String aliases = Arrays.stream(ci.aliases)
-                        .map(s -> String.format("`%s%s`", prefix, s))
-                        .collect(Collectors.joining(", "));
-                help += "\nAliases: " + aliases;
+            if (c instanceof LegacyCommand) {
+                String[] aliases = ((LegacyCommand) c).getAliases();
+                if (aliases.length > 0) {
+                    String aliasesStr = Arrays.stream(aliases)
+                            .map(s -> String.format("`/%s`", s))
+                            .collect(Collectors.joining(", "));
+                    help += "\nAliases: " + aliasesStr;
+                }
             }
             // If the cooldown is exactly N seconds, treat as int
             if (ci.cooldown > 0) {
@@ -166,15 +153,15 @@ public class HelpCommand extends Command {
                 }
             }
             String desc = String.format("%s\nModule: `%s`", help, Registry.findModuleName(ci.name));
-            eb.setAuthor(prefix + ci.name + " Help").setDescription(desc);
+            eb.setAuthor("/" + ci.name + " Help").setDescription(desc);
             return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
         }
 
         return new Result(Outcome.WARNING, ":warning: That command or module does not exist.");
     }
 
-    private static String extraHelpLine(ExtraHelpPage ehp, String prefix) {
-        return String.format("`%shelp %s` - %s", prefix, ehp.getName(), ehp.getDescription());
+    private static String extraHelpLine(ExtraHelpPage ehp) {
+        return String.format("`/help %s` - %s", ehp.getName(), ehp.getDescription());
     }
 
 }

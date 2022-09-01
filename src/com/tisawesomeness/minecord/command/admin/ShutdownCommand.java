@@ -1,22 +1,20 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-public class ShutdownCommand extends Command {
+public class ShutdownCommand extends LegacyCommand {
 
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "shutdown",
                 "Shuts down the bot.",
                 null,
-                null,
                 0,
                 true,
-                true,
-                false
+                true
         );
     }
 

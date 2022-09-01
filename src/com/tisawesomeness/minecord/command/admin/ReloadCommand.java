@@ -3,7 +3,7 @@ package com.tisawesomeness.minecord.command.admin;
 import com.tisawesomeness.minecord.Announcement;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
-import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.VoteHandler;
 import com.tisawesomeness.minecord.mc.item.Item;
@@ -16,22 +16,21 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class ReloadCommand extends Command {
+public class ReloadCommand extends LegacyCommand {
 
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "reload",
                 "Reloads the bot.",
                 null,
-                new String[]{
-                        "restart",
-                        "reboot",
-                        "refresh"},
                 0,
                 true,
-                true,
-                false
+                true
         );
+    }
+
+    public String[] getAliases() {
+        return new String[]{"restart", "reboot", "refresh"};
     }
 
     public String getHelp() {

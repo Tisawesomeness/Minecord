@@ -1,28 +1,30 @@
 package com.tisawesomeness.minecord.command.core;
 
-import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.database.Database;
 
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-public class PrefixCommand extends Command {
+public class PrefixCommand extends LegacyCommand {
 
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "prefix",
                 "Change the prefix.",
                 "[<prefix>]",
-                new String[]{
-                        "resetprefix",
-                        "changeprefix"},
                 5000,
-                false,
-                false,
-                true
+                true,
+                false
         );
     }
 
+    @Override
+    public String[] getAliases() {
+        return new String[]{"resetprefix", "changeprefix"};
+    }
+
+    @Override
     public String getHelp() {
         return "`{&}prefix` - Show the current prefix.\n" +
                 "`{&}prefix <prefix>` - Change the prefix. The user must have **Manage Server** permissions.\n" +

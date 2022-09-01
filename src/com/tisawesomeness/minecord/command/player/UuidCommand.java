@@ -8,7 +8,9 @@ import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.UuidUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -21,14 +23,23 @@ public class UuidCommand extends AbstractPlayerCommand {
                 "uuid",
                 "Shows UUID info for a player or entity.",
                 "<uuid|username>",
-                new String[]{"u", "uu"},
                 2000,
                 false,
-                false,
-                true
+                false
         );
     }
 
+    @Override
+    public SlashCommandData addCommandSyntax(SlashCommandData builder) {
+        return builder.addOption(OptionType.STRING, "uuid_or_username", "The UUID or username of the player or entity.", true);
+    }
+
+    @Override
+    public String[] getLegacyAliases() {
+        return new String[]{"u", "uu"};
+    }
+
+    @Override
     public String getHelp() {
         return "`{&}uuid <uuid|username>` - Shows UUID info for a player or entity.\n" +
                 "- `<uuid>` can be any valid short or long UUID, including UUIDs that do not belong to a player.\n" +
@@ -42,15 +53,12 @@ public class UuidCommand extends AbstractPlayerCommand {
                 "- `{&}uuid 853c80ef3c3749fdaa49938b674adae6`\n";
     }
 
-    public Result run(String[] args, MessageReceivedEvent e) {
-        if (args.length == 0) {
-            return new Result(Outcome.WARNING, ":warning: You must specify a player.");
-        }
-
-        String input = String.join(" ", args);
+    public Result run(SlashCommandInteractionEvent e) {
+        String input = e.getOption("uuid_or_username").getAsString();
         Optional<UUID> parsedUuidOpt = UuidUtils.fromString(input);
         if (parsedUuidOpt.isPresent()) {
             UUID uuid = parsedUuidOpt.get();
+            e.deferReply().queue();
             processLiteralUUID(uuid, e);
             return new Result(Outcome.SUCCESS);
         }
@@ -65,10 +73,11 @@ public class UuidCommand extends AbstractPlayerCommand {
                     "special characters other than spaces and `_!@$-.?`");
         }
 
+        e.deferReply().queue();
         fireUUIDRequest(e, username);
         return new Result(Outcome.SUCCESS);
     }
-    private static void fireUUIDRequest(MessageReceivedEvent e, Username username) {
+    private static void fireUUIDRequest(SlashCommandInteractionEvent e, Username username) {
         CompletableFuture<Optional<UUID>> futureUUID = Bot.mcLibrary.getPlayerProvider().getUUID(username);
         String errorMessage = "IOE getting UUID from username " + username;
         newCallbackBuilder(futureUUID, e)
@@ -77,18 +86,18 @@ public class UuidCommand extends AbstractPlayerCommand {
                 .build();
     }
 
-    private static void processLiteralUUID(UUID uuid, MessageReceivedEvent e) {
+    private static void processLiteralUUID(UUID uuid, SlashCommandInteractionEvent e) {
         constructReply(e, uuid, "UUID for player/entity " + uuid);
     }
-    private static void processUUID(Optional<UUID> uuidOpt, MessageReceivedEvent e, Username username) {
+    private static void processUUID(Optional<UUID> uuidOpt, SlashCommandInteractionEvent e, Username username) {
         if (!uuidOpt.isPresent()) {
-            e.getChannel().sendMessage("That username does not currently exist.").queue();
+            e.getHook().sendMessage("That username does not currently exist.").queue();
             return;
         }
         String title = "UUID for " + username;
         constructReply(e, uuidOpt.get(), title);
     }
-    private static void constructReply(MessageReceivedEvent e, UUID uuid, String title) {
+    private static void constructReply(SlashCommandInteractionEvent e, UUID uuid, String title) {
         String shortUuid = String.format("**Short**: `%s`", UuidUtils.toShortString(uuid));
         String longUuid = String.format("**Long**: `%s`", UuidUtils.toLongString(uuid));
         String skinType = String.format("**Default Skin Model**: `%s`", Player.getDefaultSkinTypeFor(uuid));
@@ -101,7 +110,7 @@ public class UuidCommand extends AbstractPlayerCommand {
         EmbedBuilder eb = new EmbedBuilder()
                 .setAuthor(title, nameMCUrl, avatarUrl)
                 .setDescription(desc);
-        e.getChannel().sendMessageEmbeds(eb.build()).queue();
+        e.getHook().sendMessageEmbeds(eb.build()).queue();
     }
 
 }

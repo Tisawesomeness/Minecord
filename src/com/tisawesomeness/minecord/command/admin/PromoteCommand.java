@@ -1,6 +1,6 @@
 package com.tisawesomeness.minecord.command.admin;
 
-import com.tisawesomeness.minecord.command.Command;
+import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
@@ -8,21 +8,21 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-public class PromoteCommand extends Command {
+public class PromoteCommand extends LegacyCommand {
 
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "promote",
                 "Elevate a user.",
                 "<user>",
-                new String[]{
-                        "elevate",
-                        "rankup"},
                 5000,
-                true,
                 true,
                 true
         );
+    }
+
+    public String[] getAliases() {
+        return new String[]{"elevate", "rankup"};
     }
 
     public Result run(String[] args, MessageReceivedEvent e) throws Exception {

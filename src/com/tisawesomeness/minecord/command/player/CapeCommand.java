@@ -6,7 +6,7 @@ import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.ColorUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -20,14 +20,13 @@ public class CapeCommand extends BasePlayerCommand {
                 "cape",
                 "Shows a player's capes.",
                 "<player>",
-                null,
                 2000,
                 false,
-                false,
-                true
+                false
         );
     }
 
+    @Override
     public String getHelp() {
         return "`{&}cape <player>` - Shows an image of the player's Minecraft and Optifine capes.\n" +
                 "- `<player>` can be a username or UUID.\n" +
@@ -44,7 +43,7 @@ public class CapeCommand extends BasePlayerCommand {
         return true;
     }
 
-    protected void onSuccessfulPlayer(MessageReceivedEvent e, Player player) {
+    protected void onSuccessfulPlayer(SlashCommandInteractionEvent e, Player player) {
         boolean hasMojangCape = false;
         Optional<URL> capeUrlOpt = player.getProfile().getCapeUrl();
         if (capeUrlOpt.isPresent()) {
@@ -60,18 +59,18 @@ public class CapeCommand extends BasePlayerCommand {
         } catch (IOException ex) {
             System.err.println("IOE getting optifine cape for " + player);
             ex.printStackTrace();
-            e.getChannel().sendMessage("There was an error requesting the Optifine cape.").queue();
+            e.getHook().sendMessage("There was an error requesting the Optifine cape.").setEphemeral(true).queue();
         }
         if (hasOptifineCape) {
             sendCape(e, player, optifineCapeUrl, "Optifine");
         }
 
         if (!hasMojangCape && !hasOptifineCape) {
-            e.getChannel().sendMessage(player.getUsername() + " does not have a cape.").queue();
+            e.getHook().sendMessage(player.getUsername() + " does not have a cape.").queue();
         }
     }
 
-    private static void sendCape(MessageReceivedEvent e, Player player, URL capeUrl, String capeType) {
+    private static void sendCape(SlashCommandInteractionEvent e, Player player, URL capeUrl, String capeType) {
         String nameMcUrl = player.getNameMCUrl().toString();
         String avatarUrl = player.createRender(RenderType.AVATAR, true).render().toString();
         String title = capeType + " Cape for " + player.getUsername();
@@ -80,7 +79,7 @@ public class CapeCommand extends BasePlayerCommand {
                 .setAuthor(title, nameMcUrl, avatarUrl)
                 .setColor(color)
                 .setImage(capeUrl.toString());
-        e.getChannel().sendMessageEmbeds(eb.build()).queue();
+        e.getHook().sendMessageEmbeds(eb.build()).queue();
     }
 
 }

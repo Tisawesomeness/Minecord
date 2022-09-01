@@ -41,6 +41,13 @@ public final class Either<L, R> {
     }
 
     /**
+     * @return True if this is a Left, otherwise this is a Right
+     */
+    public boolean isLeft() {
+        return left != null;
+    }
+
+    /**
      * @return True if this is a Right, otherwise this is a Left
      */
     public boolean isRight() {
@@ -71,6 +78,58 @@ public final class Either<L, R> {
     }
 
     /**
+     * If this Either is a left, applies the mapper to the left value.
+     * @param mapper The mapper
+     * @param <T> The type of the mapped value
+     * @return The result of mapping the left value, or the same Either if this is a right
+     */
+    @SuppressWarnings("unchecked")
+    public <T> Either<T, R> mapLeft(@NonNull Function<? super L, ? extends T> mapper) {
+        if (left == null) {
+            return (Either<T, R>) this;
+        }
+        return new Either<>(mapper.apply(left), right);
+    }
+
+    /**
+     * If this Either is a right, applies the mapper to the right value.
+     * @param mapper The mapper
+     * @param <T> The type of the mapped value
+     * @return The result of mapping the right value, or the same Either if this is a left
+     */
+    @SuppressWarnings("unchecked")
+    public <T> Either<L, T> mapRight(@NonNull Function<? super R, ? extends T> mapper) {
+        if (right == null) {
+            return (Either<L, T>) this;
+        }
+        return new Either<>(left, mapper.apply(right));
+    }
+
+    /**
+     * Collapses this Either into the left value.
+     * @param mapper If this is a Right, maps the right value to the left
+     * @return The left value
+     */
+    public L foldLeft(@NonNull Function<? super R, ? extends L> mapper) {
+        if (right == null) {
+            return left;
+        }
+        return mapper.apply(right);
+    }
+
+    /**
+     * Collapses this Either into the right value.
+     * @param mapper If this is a Left, maps the left value to the right
+     * @return The right value
+     */
+    public R foldRight(@NonNull Function<? super L, ? extends R> mapper) {
+        if (left == null) {
+            return right;
+        }
+        return mapper.apply(left);
+    }
+
+    /**
      * Collapses this Either into a single value.
      * @param leftMapper If this is a Left, maps the value
      * @param rightMapper If this is a Right, maps the value
@@ -78,7 +137,7 @@ public final class Either<L, R> {
      * @return Either the result of mapping the left or right values
      */
     public <T> T fold(@NonNull Function<? super L, ? extends T> leftMapper,
-            @NonNull Function<? super R, ? extends T> rightMapper) {
+                      @NonNull Function<? super R, ? extends T> rightMapper) {
         if (isRight()) {
             return rightMapper.apply(right);
         }

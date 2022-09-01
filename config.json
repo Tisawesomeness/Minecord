@@ -2,6 +2,8 @@
     "clientToken": "your token here",
     "shardCount": 1,
     "owner": "0",
+    "testServers": [
+    ],
     "settings": {
         "logChannel": "0",
         "joinLogChannel": "0",
