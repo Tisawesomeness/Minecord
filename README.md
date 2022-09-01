@@ -141,7 +141,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
     "website": "https://minecord.github.io",
     "github": "https://github.com/Tisawesomeness/Minecord",
     "prefix": "&",
-    "game": "@Minecord help | {guilds} guilds",
+    "game": "/help | {guilds} guilds",
     "devMode": false,
     "debugMode": false,
     "respondToMentions": true,
