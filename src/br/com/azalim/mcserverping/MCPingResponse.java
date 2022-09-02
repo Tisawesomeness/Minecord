@@ -62,6 +62,13 @@ public class MCPingResponse {
      */
     private String favicon;
 
+    // modification from tis
+    /**
+     * whether the server is announcing that it prevents chat reports
+     * shows an icon in the NoChatReports mod
+     */
+    private boolean preventsChatReports;
+
     /**
      * Ping in ms.
      */

@@ -138,6 +138,9 @@ public class ServerCommand extends SlashCommand {
         List<Player> sample = reply.getPlayers().getSample();
 
         // Build and format message
+        if (reply.isPreventsChatReports()) {
+            m += ":white_check_mark: **Prevents chat reports**\n";
+        }
         m += "**Address:** " + address +
                 "\n" + "**Version:** " + version +
                 "\n" + "**Players:** " + playerInfo;
