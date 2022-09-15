@@ -3,7 +3,6 @@ package com.tisawesomeness.minecord.command.player;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.mc.external.PlayerProvider;
 import com.tisawesomeness.minecord.mc.player.AccountStatus;
-import com.tisawesomeness.minecord.mc.player.NameChange;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.ColorUtils;
@@ -16,7 +15,6 @@ import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import java.awt.Color;
 import java.net.URL;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -95,8 +93,7 @@ public class ProfileCommand extends BasePlayerCommand {
                     .addField("Account", accountInfo, true);
         }
 
-        List<String> nameHistoryLines = constructNameHistoryLines(player);
-        String nameHistory = String.join("\n", nameHistoryLines);
+        String nameHistory = "Mojang has removed the name history API, [read more here](https://help.minecraft.net/hc/en-us/articles/8969841895693). We are working on a different way to retrieve name history, stay tuned.";
         eb.addField("Name History", nameHistory, true);
         e.getHook().sendMessageEmbeds(eb.build()).queue();
     }
@@ -135,19 +132,6 @@ public class ProfileCommand extends BasePlayerCommand {
     }
     private static @NonNull String constructLegacyStr(Player player) {
         return "**Legacy**: " + displayBool(player.getProfile().isLegacy());
-    }
-
-    private static List<String> constructNameHistoryLines(Player player) {
-        List<NameChange> history = player.getNameHistory();
-        if (history.size() <= MAX_NAME_CHANGES) {
-            return buildHistoryLines(history);
-        }
-
-        List<String> nameHistoryLines = buildHistoryLines(history, MAX_NAME_CHANGES - 2);
-        nameHistoryLines.add("...");
-        NameChange original = history.get(history.size() - 1);
-        nameHistoryLines.add(buildHistoryLine(original, 1));
-        return nameHistoryLines;
     }
 
     private static String boldMaskedLink(String text, URL url) {

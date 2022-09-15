@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.mc.external.PlayerProvider;
-import com.tisawesomeness.minecord.mc.player.NameChange;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.UuidUtils;
@@ -10,11 +9,7 @@ import com.tisawesomeness.minecord.util.UuidUtils;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
-import net.dv8tion.jda.api.utils.TimeFormat;
 
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -91,54 +86,6 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
             return;
         }
         onSuccessfulPlayer(e, player);
-    }
-
-    /**
-     * Builds a list of lines from a player's name history
-     * @param history The player's name history
-     * @return A mutable list of strings, one line per name change
-     */
-    public static List<String> buildHistoryLines(List<NameChange> history) {
-        return buildHistoryLines(history, history.size());
-    }
-    /**
-     * Builds a list of lines from a player's name history
-     * @param history The player's name history
-     * @param limit Number of name changes to process
-     * @return A mutable list of strings, one line per name change
-     * @throws IndexOutOfBoundsException if limit is greater than the number of name changes
-     */
-    public static List<String> buildHistoryLines(List<NameChange> history, int limit) {
-        if (limit > history.size()) {
-            throw new IndexOutOfBoundsException("limit must be less than history.size()");
-        }
-        List<String> historyLines = new ArrayList<>();
-        for (int i = 0; i < limit; i++) {
-            NameChange nc = history.get(i);
-            int num = history.size() - i;
-            historyLines.add(buildHistoryLine(nc, num));
-        }
-        return historyLines;
-    }
-
-    /**
-     * Builds a line from a player's name history
-     * @param nc The name change
-     * @param num The name change number, starting with the original name as 1 and increasing
-     * @return A string with a formatted name change
-     */
-    public static String buildHistoryLine(NameChange nc, int num) {
-        String dateAgo = getDateAgo(nc);
-        return String.format("**%d.** `%s` | %s", num, nc.getUsername(), dateAgo);
-    }
-
-    private static String getDateAgo(NameChange nc) {
-        Optional<Instant> timeOpt = nc.getTime();
-        if (!timeOpt.isPresent()) {
-            return "**Original**";
-        }
-        Instant time = timeOpt.get();
-        return TimeFormat.RELATIVE.format(time);
     }
 
 }

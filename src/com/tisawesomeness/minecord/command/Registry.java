@@ -14,10 +14,7 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -149,19 +146,19 @@ public class Registry {
     /**
      * Gets a command, given its name or alias.
      * @param name The part of the command after "&" and before a space. For example, "&server hypixel.net" becomes "server".
-     * @return The command which should be executed, or null if there is no command associated with the input.
+     * @return The command which should be executed, or empty if there is no command associated with the input.
      */
-    public static Command<?> getCommand(String name) {
-        return getCommandMapping(name).fold(l -> null, r -> r);
+    public static Optional<Command<?>> getCommand(String name) {
+        return getCommandMapping(name).map(mapping -> mapping.fold(l -> null, r -> r));
     }
     /**
      * Gets a command, given its name or alias.
      * @param name The part of the command after "&" and before a space. For example, "&server hypixel.net" becomes "server".
      * @return The command which should be executed, the name of the slash command the user should use instead,
-     * or null if there is no command associated with the input.
+     * or empty if there is no command associated with the input.
      */
-    public static Either<String, Command<?>> getCommandMapping(String name) {
-        return commandMap.get(name);
+    public static Optional<Either<String, Command<?>>> getCommandMapping(String name) {
+        return Optional.ofNullable(commandMap.get(name));
     }
     /**
      * Gets the module a command belongs to
