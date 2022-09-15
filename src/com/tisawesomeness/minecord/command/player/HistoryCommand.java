@@ -5,7 +5,6 @@ import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
-import com.tisawesomeness.minecord.util.StringUtils;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -13,6 +12,8 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class HistoryCommand extends BasePlayerCommand {
@@ -51,12 +52,12 @@ public class HistoryCommand extends BasePlayerCommand {
     }
 
     protected void onSuccessfulPlayer(SlashCommandInteractionEvent e, Player player) {
-        List<String> historyLines = buildHistoryLines(player.getNameHistory());
+        List<String> historyLines = new ArrayList<>();
         if (player.isPHD()) {
             historyLines.add(0, "**This player is pseudo hard-deleted (PHD)!**");
         }
-        List<String> historyPartitions = StringUtils.partitionLinesByLength(
-                historyLines, MessageEmbed.VALUE_MAX_LENGTH);
+        historyLines.add("Mojang has removed the name history API, [read more here](https://help.minecraft.net/hc/en-us/articles/8969841895693). We are working on a different way to retrieve name history, stay tuned.");
+        List<String> historyPartitions = Collections.singletonList(String.join("\n", historyLines));
 
         MessageEmbed baseEmbed = constructBaseEmbed(player);
         List<MessageEmbed> embeds = MessageUtils.splitEmbeds(baseEmbed, "Name History", historyPartitions, "\n");
