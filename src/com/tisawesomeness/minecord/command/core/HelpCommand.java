@@ -13,6 +13,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class HelpCommand extends SlashCommand {
@@ -125,8 +126,9 @@ public class HelpCommand extends SlashCommand {
         }
 
         // Command help
-        Command<?> c = Registry.getCommand(page);
-        if (c != null) {
+        Optional<Command<?>> cOpt = Registry.getCommand(page);
+        if (cOpt.isPresent()) {
+            Command<?> c = cOpt.get();
             // Elevation check
             Command.CommandInfo ci = c.getInfo();
             if (ci.elevated && !Database.isElevated(e.getUser().getIdLong())) {

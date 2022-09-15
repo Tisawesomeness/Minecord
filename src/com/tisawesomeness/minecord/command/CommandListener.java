@@ -17,12 +17,17 @@ import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class CommandListener extends ListenerAdapter {
 
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent e) {
-        Either<String, Command<?>> mapping = Registry.getCommandMapping(e.getName());
+        Optional<Either<String, Command<?>>> mappingOpt = Registry.getCommandMapping(e.getName());
+        if (!mappingOpt.isPresent()) {
+            return;
+        }
+        Either<String, Command<?>> mapping = mappingOpt.get();
         if (mapping.isLeft()) {
             return;
         }
@@ -119,13 +124,17 @@ public class CommandListener extends ListenerAdapter {
             e.getChannel().sendMessage(delMessage).queue();
             return;
         }
-        Either<String, Command<?>> mapping = Registry.getCommandMapping(name);
+        Optional<Either<String, Command<?>>> mappingOpt = Registry.getCommandMapping(name);
+        if (!mappingOpt.isPresent()) {
+            return;
+        }
+        Either<String, Command<?>> mapping = mappingOpt.get();
         if (mapping.isLeft()) {
             String migrateTo = mapping.getLeft();
             e.getChannel().sendMessage(migrateMessage(migrateTo)).queue();
             return;
         }
-        Command<?> cmd = Registry.getCommand(name);
+        Command<?> cmd = mapping.getRight();
         if (!(cmd instanceof LegacyCommand)) {
             String migrateTo = cmd.getInfo().name;
             e.getChannel().sendMessage(migrateMessage(migrateTo)).queue();
