@@ -9,7 +9,9 @@ import lombok.Value;
 import javax.annotation.Nullable;
 import java.net.URL;
 import java.time.Instant;
-import java.util.*;
+import java.util.Comparator;
+import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Represents a single Minecraft player identified by a unique UUID.
@@ -33,10 +35,6 @@ public class Player implements Comparable<Player> {
      */
     @NonNull UUID uuid;
     /**
-     * A non-empty list of name changes, sorted from latest to earliest, including the original name at the end
-     */
-    List<NameChange> nameHistory;
-    /**
      * Contains additional profile information about the player, null if the player is PHD
      */
     @Nullable Profile profile;
@@ -48,13 +46,10 @@ public class Player implements Comparable<Player> {
     /**
      * Creates a new player representation.
      * @param uuid The unique ID of the player
-     * @param nameHistory A list of name changes, <b>assumed to be sorted</b> according to the natural ordering
-     *                    (see the {@link NameChange} docs)
      * @param profile Additional information about the player, null if PHD
      */
-    public Player(@NonNull UUID uuid, List<NameChange> nameHistory, @Nullable Profile profile) {
+    public Player(@NonNull UUID uuid, @Nullable Profile profile) {
         this.uuid = uuid;
-        this.nameHistory = Collections.unmodifiableList(nameHistory);
         this.profile = profile;
         requestTime = Instant.now();
     }
@@ -75,7 +70,10 @@ public class Player implements Comparable<Player> {
      * @return The player's current username
      */
     public @NonNull Username getUsername() {
-        return nameHistory.get(0).getUsername();
+        if (profile == null) {
+            throw new IllegalStateException("PHD accounts do not have a username");
+        }
+        return profile.getUsername();
     }
 
     /**

@@ -17,10 +17,9 @@ import java.awt.Color;
 import java.net.URL;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 public class ProfileCommand extends BasePlayerCommand {
-
-    private static final int MAX_NAME_CHANGES = 10;
 
     public CommandInfo getInfo() {
         return new CommandInfo(
@@ -51,17 +50,18 @@ public class ProfileCommand extends BasePlayerCommand {
                 "- `{&}profile 069a79f4-44e9-4726-a5be-fca90e38aaf5`\n";
     }
 
-    protected boolean shouldRejectPHD() {
-        return false;
-    }
-
     @Override
     protected void onSuccessfulPlayer(SlashCommandInteractionEvent e, Player player) {
         PlayerProvider provider = Bot.mcLibrary.getPlayerProvider();
         if (provider.isStatusAPIEnabled()) {
-            provider.getAccountStatus(player.getUuid())
-                    .exceptionally(ex -> Optional.empty())
-                    .thenAccept(statusOpt -> onSuccessfulStatus(e, player, statusOpt));
+            CompletableFuture<Optional<AccountStatus>> future = provider.getAccountStatus(player.getUuid())
+                    .exceptionally(ex -> {
+                        handleIOE(ex, e, "IOE getting account status for " + player.getUuid());
+                        return Optional.empty();
+                    });
+            newCallbackBuilder(future, e)
+                    .onSuccess(accountStatusOpt -> onSuccessfulStatus(e, player, accountStatusOpt))
+                    .build();
         } else {
             onSuccessfulStatus(e, player, Optional.empty());
         }

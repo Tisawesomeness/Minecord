@@ -20,12 +20,6 @@ import java.util.UUID;
 public abstract class BasePlayerCommand extends AbstractPlayerCommand {
 
     /**
-     * @return whether pseudo hard-deleted players should be automatically rejected with an error message
-     * before the command is run
-     */
-    protected abstract boolean shouldRejectPHD();
-
-    /**
      * Run when a player is found successfully.
      * @param e The received event
      * @param player The player
@@ -79,8 +73,8 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
             return;
         }
         Player player = playerOpt.get();
-        if (shouldRejectPHD() && player.isPHD()) {
-            String msg = String.format("The account with UUID `%s` is pseudo hard-deleted (PHD), so no skin/cape is available.",
+        if (player.isPHD()) {
+            String msg = String.format("The account with UUID `%s` is pseudo hard-deleted (PHD), so no information is available.",
                     player.getUuid());
             e.getHook().sendMessage(msg).queue();
             return;

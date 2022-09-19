@@ -44,10 +44,7 @@ public enum ExtraHelpPage {
             new String[0],
             "A **pseudo hard-deleted** account (or **PHD** for short) is an account that has been partially deleted from Mojang's account database.\n" +
                     "PHD accounts can be looked up by UUID, but not by name.\n" +
-                    "All player commands except `{&}uuid` will check if an account is PHD if you enter a UUID.\n" +
-                    "\n" +
-                    "PHD accounts still have their name history, but no accessible account type, skin, or cape.\n" +
-                    "`{&}skin`, `{&}cape`, and render commands will not work, but `{&}history` and `{&}profile` will."
+                    "All player commands except `{&}uuid` will check if an account is PHD if you enter a UUID."
     );
 
     /**

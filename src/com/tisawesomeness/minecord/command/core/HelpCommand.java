@@ -60,7 +60,7 @@ public class HelpCommand extends SlashCommand {
         String page = e.getOption("command", OptionMapping::getAsString);
 
         // General help
-        if (page == null) {
+        if (page == null || page.equals("all")) {
             // Help menu only contains names of commands, tell user how to get more help
             String help = "Use `/help <command>` to get more information about a command.\n" +
                     "Use `/help <module>` to get help for that module.\n" +
