@@ -56,7 +56,7 @@ public class HistoryCommand extends BasePlayerCommand {
         if (player.isPHD()) {
             historyLines.add(0, "**This player is pseudo hard-deleted (PHD)!**");
         }
-        historyLines.add("Mojang has removed the name history API, [read more here](https://help.minecraft.net/hc/en-us/articles/8969841895693). We are working on a different way to retrieve name history, stay tuned.");
+        historyLines.add("Mojang has removed the name history API, [read more here](https://help.minecraft.net/hc/en-us/articles/8969841895693). We are working on a different way to retrieve name history, stay tuned.\nUse `/profile` to look up a player's other information");
         List<String> historyPartitions = Collections.singletonList(String.join("\n", historyLines));
 
         MessageEmbed baseEmbed = constructBaseEmbed(player);
