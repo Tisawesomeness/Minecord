@@ -37,10 +37,6 @@ public class SkinCommand extends BasePlayerCommand {
                 "- `{&}skin 069a79f4-44e9-4726-a5be-fca90e38aaf5`\n";
     }
 
-    protected boolean shouldRejectPHD() {
-        return true;
-    }
-
     protected void onSuccessfulPlayer(SlashCommandInteractionEvent e, Player player) {
         String title = "Skin for " + player.getUsername();
         String skinHistoryUrl = player.getMCSkinHistoryUrl().toString();

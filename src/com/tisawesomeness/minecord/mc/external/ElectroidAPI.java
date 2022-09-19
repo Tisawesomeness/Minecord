@@ -1,18 +1,20 @@
 package com.tisawesomeness.minecord.mc.external;
 
-import com.tisawesomeness.minecord.mc.player.*;
+import com.tisawesomeness.minecord.mc.player.Player;
+import com.tisawesomeness.minecord.mc.player.Profile;
+import com.tisawesomeness.minecord.mc.player.SkinType;
+import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.UrlUtils;
 import com.tisawesomeness.minecord.util.UuidUtils;
 
 import lombok.NonNull;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.time.Instant;
-import java.util.*;
+import java.util.Optional;
+import java.util.UUID;
 
 /**
  * A wrapper for the Mojang API that bundles multiple requests into a single request. See
@@ -71,26 +73,11 @@ public abstract class ElectroidAPI {
         }
         UUID uuid = uuidOpt.get();
 
-        List<NameChange> history = parseNameHistory(obj.getJSONArray("username_history"));
         Profile profile = parseProfile(obj);
-        return Optional.of(new Player(uuid, history, profile));
-    }
-    private static List<NameChange> parseNameHistory(JSONArray json) {
-        List<NameChange> nameHistoryList = new ArrayList<>();
-        for (int i = 0; i < json.length(); i++) {
-            JSONObject nameChange = json.getJSONObject(i);
-            Username username = new Username(nameChange.getString("username"));
-            if (nameChange.has("changed_at") && !nameChange.isNull("changed_at")) {
-                Instant time = Instant.parse(nameChange.getString("changed_at"));
-                nameHistoryList.add(NameChange.withTime(username, time));
-            } else {
-                nameHistoryList.add(NameChange.original(username));
-            }
-        }
-        Collections.reverse(nameHistoryList);
-        return Collections.unmodifiableList(nameHistoryList);
+        return Optional.of(new Player(uuid, profile));
     }
     private static @NonNull Profile parseProfile(@NonNull JSONObject obj) {
+        Username username = new Username(obj.getString("username"));
         boolean legacy = obj.optBoolean("legacy");
         boolean demo = obj.optBoolean("demo");
         JSONObject textures = obj.getJSONObject("textures");
@@ -123,7 +110,7 @@ public abstract class ElectroidAPI {
             }
         }
 
-        return new Profile(legacy, demo, skinType, skinUrl, capeUrl);
+        return new Profile(username, legacy, demo, skinType, skinUrl, capeUrl);
     }
 
 }

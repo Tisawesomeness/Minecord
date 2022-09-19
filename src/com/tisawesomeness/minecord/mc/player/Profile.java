@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.mc.player;
 
 import com.tisawesomeness.minecord.util.UrlUtils;
 
+import lombok.NonNull;
 import lombok.Value;
 
 import javax.annotation.Nullable;
@@ -19,6 +20,10 @@ public class Profile {
     private static final URL FIXED_MOJANG_CAPE_URL = UrlUtils.createUrl("https://static.wikia.nocookie.net/" +
             "minecraft_gamepedia/images/5/59/Mojang_Cape_(texture).png");
 
+    /**
+     * The player's current username
+     */
+    @NonNull Username username;
     /**
      * Whether the player has not migrated to a Minecraft account (using email to log in)
      */

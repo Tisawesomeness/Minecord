@@ -39,10 +39,6 @@ public class CapeCommand extends BasePlayerCommand {
                 "- `{&}cape 069a79f4-44e9-4726-a5be-fca90e38aaf5`\n";
     }
 
-    protected boolean shouldRejectPHD() {
-        return true;
-    }
-
     protected void onSuccessfulPlayer(SlashCommandInteractionEvent e, Player player) {
         boolean hasMojangCape = false;
         Optional<URL> capeUrlOpt = player.getProfile().getCapeUrl();
