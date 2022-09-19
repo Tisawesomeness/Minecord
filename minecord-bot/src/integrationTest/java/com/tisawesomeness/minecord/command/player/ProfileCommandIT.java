@@ -1,15 +1,14 @@
 package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.command.meta.Result;
-import com.tisawesomeness.minecord.common.util.IO;
-import com.tisawesomeness.minecord.mc.player.*;
+import com.tisawesomeness.minecord.mc.player.AccountStatus;
+import com.tisawesomeness.minecord.mc.player.Player;
+import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.testutil.PlayerTests;
 import com.tisawesomeness.minecord.testutil.Resources;
-import com.tisawesomeness.minecord.testutil.mc.MockMojangAPI;
 import com.tisawesomeness.minecord.testutil.mc.TestMCLibrary;
 import com.tisawesomeness.minecord.testutil.mc.TestPlayerProvider;
 import com.tisawesomeness.minecord.testutil.runner.TestCommandRunner;
-import com.tisawesomeness.minecord.util.Lists;
 import com.tisawesomeness.minecord.util.Strings;
 import com.tisawesomeness.minecord.util.UUIDs;
 
@@ -18,7 +17,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.UUID;
 
 import static com.tisawesomeness.minecord.testutil.assertion.CustomAssertions.assertThat;
@@ -33,25 +31,17 @@ public class ProfileCommandIT {
 
     private static final Username SHORT_HISTORY_NAME = new Username("Tis_awesomeness");
     private static final UUID SHORT_HISTORY_UUID = UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3af");
-    private static final List<NameChange> SHORT_HISTORY = Lists.of(
-            NameChange.withTimestamp(SHORT_HISTORY_NAME, 1438695830000L),
-            NameChange.original(new Username("tis_awesomeness"))
-    );
 
+    private static final Username ACCOUNT_STATUS_NAME = new Username("SeeSaw");
     private static final UUID ACCOUNT_STATUS_UUID = UUID.fromString("c7b3d49c-580c-4af2-a824-ca07b37ff2f9");
-    private static final List<NameChange> ACCOUNT_STATUS_HISTORY = Lists.of(
-            NameChange.original(new Username("SeeSaw"))
-    );
     private static final AccountStatus ACCOUNT_STATUS = AccountStatus.MIGRATED_MICROSOFT;
 
     private static final Player PHD_PLAYER = PlayerTests.initPHDPlayer();
 
-    private static final Profile DUMMY_PROFILE = new Profile(false, false, SkinType.STEVE, null, null);
-
     private static TestCommandRunner runner;
 
     @BeforeAll
-    private static void initRunner() throws IOException {
+    public static void initRunner() throws IOException {
         runner = new TestCommandRunner(Resources.config(), new ProfileCommand());
         TestMCLibrary library = new TestMCLibrary();
         TestPlayerProvider playerProvider = library.getPlayerProvider();
@@ -59,28 +49,21 @@ public class ProfileCommandIT {
         playerProvider.throwOnUsername(THROWING_USERNAME);
         playerProvider.throwOnUuid(THROWING_UUID);
 
-        Player shortHistoryPlayer = new Player(SHORT_HISTORY_UUID, SHORT_HISTORY, DUMMY_PROFILE);
+        Player shortHistoryPlayer = PlayerTests.initPlayerWithDefaultSkin(SHORT_HISTORY_UUID, SHORT_HISTORY_NAME);
         playerProvider.mapUuid(SHORT_HISTORY_NAME, SHORT_HISTORY_UUID);
         playerProvider.mapPlayer(shortHistoryPlayer);
 
-        List<NameChange> longHistory = getLongHistory();
-        Player longHistoryPlayer = new Player(LONG_HISTORY_UUID, longHistory, DUMMY_PROFILE);
+        Player longHistoryPlayer = PlayerTests.initPlayerWithDefaultSkin(LONG_HISTORY_UUID, LONG_HISTORY_NAME);
         playerProvider.mapUuid(LONG_HISTORY_NAME, LONG_HISTORY_UUID);
         playerProvider.mapPlayer(longHistoryPlayer);
 
-        Player accountStatusPlayer = new Player(ACCOUNT_STATUS_UUID, ACCOUNT_STATUS_HISTORY, DUMMY_PROFILE);
+        Player accountStatusPlayer = PlayerTests.initPlayerWithDefaultSkin(ACCOUNT_STATUS_UUID, ACCOUNT_STATUS_NAME);
         playerProvider.mapPlayer(accountStatusPlayer);
         playerProvider.mapStatus(ACCOUNT_STATUS_UUID, ACCOUNT_STATUS);
 
         playerProvider.mapPlayer(PHD_PLAYER);
 
         runner.mcLibrary = library;
-    }
-    private static List<NameChange> getLongHistory() throws IOException {
-        MockMojangAPI api = new MockMojangAPI();
-        String response = IO.loadResource("TeraStellaHistory.json");
-        api.mapNameHistory(LONG_HISTORY_UUID, response);
-        return api.getNameHistory(LONG_HISTORY_UUID);
     }
 
     @Test
@@ -193,12 +176,12 @@ public class ProfileCommandIT {
     public void testPHD() {
         String args = UUIDs.toShortString(PHD_PLAYER.getUuid());
         assertThat(runner.run(args))
-                .awaitEmbedReply()
+                .awaitReply()
                 .hasTriggeredCooldown()
                 .isSuccess()
-                .asEmbedReply()
-                .descriptionContains("PHD")
-                .doesNotHaveFieldWithName("Account");
+                .embedRepliesIsEmpty()
+                .asReply()
+                .contains("PHD");
     }
 
 }

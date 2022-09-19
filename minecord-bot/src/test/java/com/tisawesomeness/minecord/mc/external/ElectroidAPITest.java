@@ -1,18 +1,18 @@
 package com.tisawesomeness.minecord.mc.external;
 
-import com.tisawesomeness.minecord.mc.player.*;
+import com.tisawesomeness.minecord.mc.player.Player;
+import com.tisawesomeness.minecord.mc.player.Profile;
+import com.tisawesomeness.minecord.mc.player.SkinType;
+import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.testutil.mc.MockElectroidAPI;
-import com.tisawesomeness.minecord.util.Lists;
 import com.tisawesomeness.minecord.util.URLs;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,11 +23,8 @@ public class ElectroidAPITest {
 
     private static final Player TESTING_PLAYER = new Player(
             UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3af"),
-            Lists.of(
-                    NameChange.withTimestamp(new Username("Tis_awesomeness"), 1438695830000L),
-                    NameChange.original(new Username("tis_awesomeness"))
-            ),
             new Profile(
+                    new Username("Tis_awesomeness"),
                     false,
                     false,
                     SkinType.STEVE,
@@ -91,7 +88,6 @@ public class ElectroidAPITest {
         JSONObject obj = new JSONObject();
         obj.put("uuid", player.getUuid().toString());
         obj.put("username", player.getUsername().toString());
-        obj.put("username_history", nameHistoryToJSON(player.getNameHistory()));
         Profile profile = player.getProfile();
         obj.put("textures", profileToTexturesJSON(profile));
         if (profile.isLegacy()) {
@@ -101,17 +97,6 @@ public class ElectroidAPITest {
             obj.put("demo", true);
         }
         return obj.toString();
-    }
-    private static JSONArray nameHistoryToJSON(List<NameChange> history) {
-        JSONArray arr = new JSONArray();
-        for (int i = history.size() - 1; i >= 0; i--) {
-            NameChange nc = history.get(i);
-            JSONObject obj = new JSONObject();
-            obj.put("username", nc.getUsername().toString());
-            nc.getTime().ifPresent(instant -> obj.put("changed_at", instant.toString()));
-            arr.put(obj);
-        }
-        return arr;
     }
     private static JSONObject profileToTexturesJSON(Profile profile) {
         JSONObject obj = new JSONObject();

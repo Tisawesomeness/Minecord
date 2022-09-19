@@ -1,13 +1,14 @@
 package com.tisawesomeness.minecord.testutil;
 
-import com.tisawesomeness.minecord.mc.player.*;
+import com.tisawesomeness.minecord.mc.player.Player;
+import com.tisawesomeness.minecord.mc.player.Profile;
+import com.tisawesomeness.minecord.mc.player.SkinType;
+import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.URLs;
 
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.net.URL;
-import java.util.Collections;
-import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -37,45 +38,39 @@ public class PlayerTests {
         return initPlayerWithDefaultSkin(uuid, SAMPLE);
     }
     public static Player initPlayerWithDefaultSkin(UUID uuid, Username name) {
-        List<NameChange> history = Collections.singletonList(NameChange.original(name));
         // skin type does not matter if both URLs are null
-        Profile profile = new Profile(false, false, SkinType.STEVE, null, null);
-        return new Player(uuid, history, profile);
+        Profile profile = new Profile(name, false, false, SkinType.STEVE, null, null);
+        return new Player(uuid, profile);
     }
 
     public static Player initPlayerWithSkinType(UUID uuid, SkinType skinType) {
         return initPlayerWithSkinType(uuid, SAMPLE, skinType);
     }
     public static Player initPlayerWithSkinType(UUID uuid, Username name, SkinType skinType) {
-        List<NameChange> history = Collections.singletonList(NameChange.original(name));
-        Profile profile = new Profile(false, false, skinType, CUSTOM_SKIN_URL, null);
-        return new Player(uuid, history, profile);
+        Profile profile = new Profile(name, false, false, skinType, CUSTOM_SKIN_URL, null);
+        return new Player(uuid, profile);
     }
 
     public static Player initPlayerWithDefaultSkinUrl(UUID uuid, SkinType skinType) {
         return initPlayerWithDefaultSkinUrl(uuid, SAMPLE, skinType);
     }
     public static Player initPlayerWithDefaultSkinUrl(UUID uuid, Username name, SkinType skinType) {
-        List<NameChange> history = Collections.singletonList(NameChange.original(name));
         URL skinUrl = skinType == SkinType.STEVE ? Player.STEVE_SKIN_URL : Player.ALEX_SKIN_URL;
-        Profile profile = new Profile(false, false, skinType, skinUrl, null);
-        return new Player(uuid, history, profile);
+        Profile profile = new Profile(name, false, false, skinType, skinUrl, null);
+        return new Player(uuid, profile);
     }
 
     public static Player initPlayerWithCape(UUID uuid, URL capeUrl) {
         return  initPlayerWithCape(uuid, SAMPLE, capeUrl);
     }
     public static Player initPlayerWithCape(UUID uuid, Username name, URL capeUrl) {
-        List<NameChange> history = Collections.singletonList(NameChange.original(name));
-        Profile profile =new Profile(false, false, SkinType.STEVE, null, capeUrl);
-        return new Player(uuid, history, profile);
+        Profile profile =new Profile(name, false, false, SkinType.STEVE, null, capeUrl);
+        return new Player(uuid, profile);
     }
 
     public static Player initPHDPlayer() {
-        UUID uuid = UUID.fromString("2b4c7e72-328d-4616-b27c-070bcfb257ea");
-        Username name = new Username("xxemilyy");
-        List<NameChange> history = Collections.singletonList(NameChange.original(name));
-        return new Player(uuid, history, null);
+        UUID uuid = UUID.fromString("2b4c7e72-328d-4616-b27c-070bcfb257ea"); // xxemilyy
+        return new Player(uuid, null);
     }
 
     public static Stream<UUID> uuidProvider() {

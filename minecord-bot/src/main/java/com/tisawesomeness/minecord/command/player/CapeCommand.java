@@ -22,10 +22,6 @@ public class CapeCommand extends BasePlayerCommand {
         return "cape";
     }
 
-    protected boolean shouldRejectPHD() {
-        return true;
-    }
-
     protected void onSuccessfulPlayer(CommandContext ctx, Player player) {
         APIClient client = ctx.getMCLibrary().getClient();
 

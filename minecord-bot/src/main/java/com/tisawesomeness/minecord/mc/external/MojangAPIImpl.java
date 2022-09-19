@@ -54,13 +54,6 @@ public class MojangAPIImpl extends MojangAPI {
         }
     }
 
-    protected Optional<String> requestNameHistory(@NonNull UUID uuid) throws IOException {
-        // UUID must have hyphens stripped
-        String link = String.format("https://api.mojang.com/user/profiles/%s/names", UUIDs.toShortString(uuid));
-        @Cleanup Response response = client.get(URLs.createUrl(link));
-        return getContentIfPresent(response);
-    }
-
     protected Optional<String> requestProfile(@NonNull UUID uuid) throws IOException {
         // UUID must have hyphens stripped
         String link = "https://sessionserver.mojang.com/session/minecraft/profile/" + UUIDs.toShortString(uuid);

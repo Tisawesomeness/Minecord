@@ -189,6 +189,7 @@ public class TestContext extends AbstractContext {
 
     @Override
     public void handleException(Throwable ex) {
+        ex.printStackTrace();
         Assertions.fail(ex);
     }
 

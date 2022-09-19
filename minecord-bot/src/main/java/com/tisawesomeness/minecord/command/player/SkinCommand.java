@@ -18,10 +18,6 @@ public class SkinCommand extends BasePlayerCommand {
         return "skin";
     }
 
-    protected boolean shouldRejectPHD() {
-        return true;
-    }
-
     protected void onSuccessfulPlayer(CommandContext ctx, Player player) {
         String title = ctx.i18nf("title", player.getUsername());
         String skinHistoryUrl = player.getMCSkinHistoryUrl().toString();

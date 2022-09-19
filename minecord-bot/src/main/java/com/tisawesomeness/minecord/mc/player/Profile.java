@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.mc.player;
 
+import lombok.NonNull;
 import lombok.Value;
 
 import javax.annotation.Nullable;
@@ -11,6 +12,10 @@ import java.util.Optional;
  */
 @Value
 public class Profile {
+    /**
+     * The player's current username
+     */
+    @NonNull Username username;
     /**
      * Whether the player has not migrated to a Minecraft account (using email to log in)
      */

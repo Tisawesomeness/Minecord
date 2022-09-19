@@ -1,11 +1,9 @@
 package com.tisawesomeness.minecord.mc.external;
 
-import com.tisawesomeness.minecord.mc.player.NameChange;
 import com.tisawesomeness.minecord.mc.player.Profile;
 import com.tisawesomeness.minecord.mc.player.SkinType;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.testutil.mc.MockMojangAPI;
-import com.tisawesomeness.minecord.util.Lists;
 import com.tisawesomeness.minecord.util.URLs;
 import com.tisawesomeness.minecord.util.UUIDs;
 
@@ -18,7 +16,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -28,12 +25,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class MojangAPITest {
 
     private static final Username TESTING_USERNAME = new Username("Tis_awesomeness");
-    private static final Username ORIGINAL_USERNAME = new Username("tis_awesomeness");
     private static final Username FAKE_USERNAME = new Username("DoesNotExist");
     private static final Username NON_ASCII_USERNAME = new Username("ooθoo");
     private static final UUID TESTING_UUID = UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3af");
     private static final UUID FAKE_UUID = UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3ae");
-    private static final long TESTING_TIMESTAMP = 1438695830000L;
 
     @Test
     @DisplayName("Username-->uuid endpoint is parsed correctly")
@@ -61,40 +56,11 @@ public class MojangAPITest {
     }
 
     @Test
-    @DisplayName("Name history endpoint is parsed correctly")
-    public void testNameHistory() throws IOException {
-        NameChange original = NameChange.original(ORIGINAL_USERNAME);
-        NameChange changed = NameChange.withTimestamp(TESTING_USERNAME, TESTING_TIMESTAMP);
-        List<NameChange> history = Lists.of(changed, original);
-        MockMojangAPI api = new MockMojangAPI();
-        api.mapNameHistory(TESTING_UUID, nameHistoryToJSON(history));
-        assertThat(api.getNameHistory(TESTING_UUID)).isEqualTo(history);
-    }
-    private static String nameHistoryToJSON(List<NameChange> history) {
-        JSONArray arr = new JSONArray();
-        for (int i = history.size() - 1; i >= 0; i--) {
-            NameChange nc = history.get(i);
-            JSONObject obj = new JSONObject();
-            obj.put("name", nc.getUsername().toString());
-            nc.getTime().ifPresent(instant -> obj.put("changedToAt", instant.toEpochMilli()));
-            arr.put(obj);
-        }
-        return arr.toString();
-    }
-
-    @Test
-    @DisplayName("Name history endpoint returns an empty list when the UUID doesn't exist")
-    public void testNonExistentNameHistory() throws IOException {
-        MojangAPI api = new MockMojangAPI();
-        assertThat(api.getNameHistory(FAKE_UUID)).isEmpty();
-    }
-
-    @Test
     @DisplayName("Profile endpoint is parsed correctly")
     public void testProfile() throws IOException {
         URL skinUrl = URLs.createUrl("https://textures.minecraft.net/texture/" +
                 "8c38fdb8e126e8416edf8864d6b5f69c072836abbc8d6ebc6b3d72644e48b1bd");
-        Profile profile = new Profile(false, false, SkinType.STEVE, skinUrl, null);
+        Profile profile = new Profile(TESTING_USERNAME, false, false, SkinType.STEVE, skinUrl, null);
         MockMojangAPI api = new MockMojangAPI();
         api.mapProfile(TESTING_UUID, profileToJSON(TESTING_UUID, TESTING_USERNAME, profile));
         assertThat(api.getProfile(TESTING_UUID)).contains(profile);

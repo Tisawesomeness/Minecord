@@ -3,18 +3,13 @@ package com.tisawesomeness.minecord.command.player;
 import com.tisawesomeness.minecord.command.meta.CommandContext;
 import com.tisawesomeness.minecord.lang.Lang;
 import com.tisawesomeness.minecord.mc.external.PlayerProvider;
-import com.tisawesomeness.minecord.mc.player.NameChange;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.UUIDs;
 
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
-import net.dv8tion.jda.api.utils.TimeFormat;
 
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -24,12 +19,6 @@ import java.util.UUID;
  */
 @Slf4j
 public abstract class BasePlayerCommand extends AbstractPlayerCommand {
-
-    /**
-     * @return whether pseudo hard-deleted players should be automatically rejected with an error message
-     * before the command is run
-     */
-    protected abstract boolean shouldRejectPHD();
 
     /**
      * Run when a player is found successfully.
@@ -83,63 +72,12 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
             return;
         }
         Player player = playerOpt.get();
-        if (shouldRejectPHD() && player.isPHD()) {
+        if (player.isPHD()) {
             Lang lang = ctx.getLang();
             ctx.reply(lang.i18nf("mc.player.phdMessage", MarkdownUtil.monospace(player.getUuid().toString())));
             return;
         }
         onSuccessfulPlayer(ctx, player);
-    }
-
-    /**
-     * Builds a list of lines from a player's name history
-     * @param ctx The context of the command
-     * @param history The player's name history
-     * @return A mutable list of strings, one line per name change
-     */
-    public static List<String> buildHistoryLines(CommandContext ctx, List<NameChange> history) {
-        return buildHistoryLines(ctx, history, history.size());
-    }
-    /**
-     * Builds a list of lines from a player's name history
-     * @param ctx The context of the command
-     * @param history The player's name history
-     * @param limit Number of name changes to process
-     * @return A mutable list of strings, one line per name change
-     * @throws IndexOutOfBoundsException if limit is greater than the number of name changes
-     */
-    public static List<String> buildHistoryLines(CommandContext ctx, List<NameChange> history, int limit) {
-        if (limit > history.size()) {
-            throw new IndexOutOfBoundsException("limit must be less than history.size()");
-        }
-        List<String> historyLines = new ArrayList<>();
-        for (int i = 0; i < limit; i++) {
-            NameChange nc = history.get(i);
-            int num = history.size() - i;
-            historyLines.add(buildHistoryLine(ctx, nc, num));
-        }
-        return historyLines;
-    }
-
-    /**
-     * Builds a line from a player's name history
-     * @param ctx The context of the command
-     * @param nc The name change
-     * @param num The name change number, starting with the original name as 1 and increasing
-     * @return A string with a formatted name change
-     */
-    public static String buildHistoryLine(CommandContext ctx, NameChange nc, int num) {
-        String dateAgo = getDateAgo(ctx, nc);
-        return String.format("**%d.** `%s` | %s", num, nc.getUsername(), dateAgo);
-    }
-
-    private static String getDateAgo(CommandContext ctx, NameChange nc) {
-        Optional<Instant> timeOpt = nc.getTime();
-        if (!timeOpt.isPresent()) {
-            return MarkdownUtil.bold(ctx.getLang().i18n("mc.player.history.original"));
-        }
-        Instant time = timeOpt.get();
-        return TimeFormat.RELATIVE.format(time);
     }
 
 }

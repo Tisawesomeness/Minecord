@@ -22,16 +22,6 @@ public class MockMojangAPI extends MojangAPI {
         return Optional.ofNullable(uuidMap.get(username));
     }
 
-    private final Map<UUID, String> nameHistoryMap = new HashMap<>();
-
-    public void mapNameHistory(@NonNull UUID uuid, @NonNull String response) {
-        nameHistoryMap.put(uuid, response);
-    }
-
-    protected Optional<String> requestNameHistory(@NonNull UUID uuid) {
-        return Optional.ofNullable(nameHistoryMap.get(uuid));
-    }
-
     private final Map<UUID, String> profileMap = new HashMap<>();
 
     public void mapProfile(@NonNull UUID uuid, @NonNull String response) {

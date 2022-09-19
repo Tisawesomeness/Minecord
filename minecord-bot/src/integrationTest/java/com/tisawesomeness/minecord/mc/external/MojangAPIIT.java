@@ -1,8 +1,6 @@
 package com.tisawesomeness.minecord.mc.external;
 
-import com.tisawesomeness.minecord.mc.player.NameChange;
 import com.tisawesomeness.minecord.mc.player.Profile;
-import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.network.APIClient;
 import com.tisawesomeness.minecord.testutil.PlayerTests;
 import com.tisawesomeness.minecord.testutil.annotation.MojangAPITest;
@@ -28,7 +26,7 @@ public class MojangAPIIT {
     private static MojangAPI api;
 
     @BeforeAll
-    private static void initAPI() {
+    public static void initAPI() {
         APIClient client = OkUtil.buildSampleClient();
         api = new MojangAPIImpl(client);
     }
@@ -52,19 +50,8 @@ public class MojangAPIIT {
         assertThat(asserts).contains(true);
     }
 
-    @ParameterizedTest(name = "{index} ==> UUID {0} has original name {1}")
-    @DisplayName("Mojang API UUID --> name history endpoint works")
-    @MethodSource("com.tisawesomeness.minecord.testutil.PlayerTests#originalNameTestCaseProvider")
-    public void testNameHistory(UUID uuid, Username username) throws IOException {
-        assertThat(api.getNameHistory(uuid))
-            .isNotEmpty()
-            .last()
-            .extracting(NameChange::getUsername)
-            .isEqualTo(username);
-    }
-
     @ParameterizedTest(name = "{index} ==> UUID {0} is not legacy")
-    @DisplayName("Mojang API UUID --> name history endpoint works")
+    @DisplayName("Mojang API UUID --> profile endpoint works")
     @MethodSource("com.tisawesomeness.minecord.testutil.PlayerTests#uuidProvider")
     public void testProfile(UUID uuid) throws IOException {
         assertThat(api.getProfile(uuid))

@@ -4,7 +4,10 @@ import com.tisawesomeness.minecord.config.config.CircuitBreakerConfig;
 import com.tisawesomeness.minecord.config.config.Config;
 import com.tisawesomeness.minecord.config.config.FlagConfig;
 import com.tisawesomeness.minecord.config.config.MojangAPIConfig;
-import com.tisawesomeness.minecord.mc.player.*;
+import com.tisawesomeness.minecord.mc.player.AccountStatus;
+import com.tisawesomeness.minecord.mc.player.Player;
+import com.tisawesomeness.minecord.mc.player.Profile;
+import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.network.APIClient;
 import com.tisawesomeness.minecord.util.type.ThrowingFunction;
 
@@ -22,7 +25,6 @@ import org.jetbrains.annotations.Contract;
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.time.Duration;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -153,16 +155,12 @@ public class DualPlayerProvider implements PlayerProvider {
     }
     private final ThrowingFunction<UUID, Optional<Player>, IOException> loadFromMojang = this::tryPlayerFromMojang;
     private Optional<Player> tryPlayerFromMojang(UUID uuid) throws IOException {
-        List<NameChange> nameHistory = mojangAPI.getNameHistory(uuid);
-        if (nameHistory.isEmpty()) {
-            return Optional.empty();
-        }
         Optional<Profile> profileOpt = mojangAPI.getProfile(uuid);
         if (!profileOpt.isPresent()) {
             log.info("Account {} has no profile, PHD account found", uuid);
         }
         Profile profile = profileOpt.orElse(null);
-        return Optional.of(new Player(uuid, nameHistory, profile));
+        return Optional.of(new Player(uuid, profile));
     }
 
     private Optional<AccountStatus> loadAccountStatus(UUID uuid) throws IOException {
