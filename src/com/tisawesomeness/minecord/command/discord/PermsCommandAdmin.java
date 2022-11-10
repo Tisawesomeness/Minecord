@@ -4,7 +4,7 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 
-import net.dv8tion.jda.api.entities.GuildChannel;
+import net.dv8tion.jda.api.entities.channel.middleman.GuildChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class PermsCommandAdmin extends LegacyCommand {

@@ -4,9 +4,9 @@ import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.database.Database;
 
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.GuildMessageChannel;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageHistory;
+import net.dv8tion.jda.api.entities.channel.middleman.GuildMessageChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.exceptions.RateLimitedException;
 import net.dv8tion.jda.api.interactions.commands.OptionType;

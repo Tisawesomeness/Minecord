@@ -7,7 +7,12 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.type.Either;
 
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.ChannelType;
+import net.dv8tion.jda.api.entities.channel.middleman.GuildChannel;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -80,7 +85,7 @@ public class CommandListener extends ListenerAdapter {
         String prefix = MessageUtils.getPrefix(e);
         boolean deleteCommands = false;
         boolean canEmbed = true;
-        if (e.isFromType(ChannelType.TEXT) || e.isFromType(ChannelType.VOICE) || e.isFromType(ChannelType.NEWS) || e.isFromThread()) {
+        if (e.isFromType(ChannelType.TEXT) || e.isFromType(ChannelType.VOICE) || e.isFromType(ChannelType.NEWS) || e.isFromType(ChannelType.FORUM) || e.isFromThread()) {
             Member sm = e.getGuild().getSelfMember();
             GuildChannel tc = e.getGuildChannel();
             if (!sm.hasPermission(tc, Permission.MESSAGE_SEND) || Database.isBanned(e.getGuild().getIdLong())) {
