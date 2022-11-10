@@ -24,6 +24,18 @@ import java.util.regex.Pattern;
 public class MessageUtils {
 
     /**
+     * If the message is over the content length limit, trim it down by ending it with an ellipsis.
+     * @param msg the message in a code block (ending in ```)
+     * @return the trimmed message
+     */
+    public static String trimCodeblock(String msg) {
+        if (msg.length() <= Message.MAX_CONTENT_LENGTH) {
+            return msg;
+        }
+        return msg.substring(0, Message.MAX_CONTENT_LENGTH - 6) + "...```";
+    }
+
+    /**
      * Formats a message to look more fancy using an embed. Pass null in any argument (except color) to remove that aspect of the message.
      * @param title The title or header of the message.
      * @param url A URL that the title goes to when clicked. Only works if title is not null.

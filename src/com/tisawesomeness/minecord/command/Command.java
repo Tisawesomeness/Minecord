@@ -1,7 +1,11 @@
 package com.tisawesomeness.minecord.command;
 
+import com.tisawesomeness.minecord.Config;
+import com.tisawesomeness.minecord.util.MessageUtils;
+
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.Event;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
 import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
 import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
@@ -25,6 +29,47 @@ public interface Command<T extends Event> {
     void sendFailure(T e, MessageCreateData message);
 
     String debugRunCommand(T e);
+
+    default void handleException(Throwable ex, T e) {
+        String err = buildErrorMessage(ex);
+        String logMsg = "EXCEPTION: " + MarkdownUtil.monospace(debugRunCommand(e)) + "\n" + err;
+        MessageUtils.log(MessageUtils.trimCodeblock(logMsg));
+        sendFailure(e, MessageCreateData.fromContent(MessageUtils.trimCodeblock(err)));
+    }
+
+    static String buildErrorMessage(Throwable ex) {
+        if (ex == null) {
+            return ":boom: There was a null exception";
+        } else if (Config.getDebugMode()) {
+            ex.printStackTrace();
+            String cleanedStackTrace = buildStackTrace(ex);
+            return ":boom: There was an unexpected exception: " + MarkdownUtil.monospace(ex.toString()) +
+                    "\n" + MarkdownUtil.codeblock("java", cleanedStackTrace);
+        } else {
+            return ":boom: There was an unexpected exception: " + MarkdownUtil.monospace(ex.toString());
+        }
+    }
+
+    static String buildStackTrace(Throwable ex) {
+        StringBuilder sb = new StringBuilder();
+        boolean seenMinecordCode = false;
+        for (StackTraceElement ste : ex.getStackTrace()) {
+            String className = ste.getClassName();
+            if (className.startsWith("com.google.gson") || className.startsWith("net.kyori")) {
+                continue;
+            }
+            sb.append("\n").append(ste);
+            if (className.startsWith("net.dv8tion") || className.startsWith("com.neovisionaries")) {
+                if (seenMinecordCode) {
+                    sb.append("...");
+                    break;
+                }
+            } else if (className.startsWith("com.tisawesomeness") || className.startsWith("br.com.azalim")) {
+                seenMinecordCode = true;
+            }
+        }
+        return sb.toString();
+    }
 
     /**
      * Represents all the data needed to register a command.

@@ -79,7 +79,7 @@ public class UuidCommand extends AbstractPlayerCommand {
         fireUUIDRequest(e, username);
         return new Result(Outcome.SUCCESS);
     }
-    private static void fireUUIDRequest(SlashCommandInteractionEvent e, Username username) {
+    private void fireUUIDRequest(SlashCommandInteractionEvent e, Username username) {
         CompletableFuture<Optional<UUID>> futureUUID = Bot.mcLibrary.getPlayerProvider().getUUID(username);
         String errorMessage = "IOE getting UUID from username " + username;
         newCallbackBuilder(futureUUID, e)
