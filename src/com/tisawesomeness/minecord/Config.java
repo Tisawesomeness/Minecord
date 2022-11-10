@@ -171,7 +171,7 @@ public class Config {
 
     public static String getLogChannel() { return logChannel; }
     public static String getJoinLogChannel() { return joinLogChannel; }
-    public static boolean isIsSelfHosted() { return isSelfHosted; }
+    public static boolean isSelfHosted() { return isSelfHosted; }
     public static String getAuthor() { return author; }
     public static String getAuthorTag() { return authorTag; }
     public static String getInvite() { return invite; }

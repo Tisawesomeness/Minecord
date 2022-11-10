@@ -53,7 +53,7 @@ public class CreditsCommand extends SlashCommand {
                 .addField("Developers", devs, true)
                 .addField("Contribute", contrib, true)
                 .addField("APIs Used", apis, false);
-        if (Config.isIsSelfHosted()) {
+        if (Config.isSelfHosted()) {
             String selfHost = "This bot is self-hosted by **" + Config.getAuthor() + "**\n" +
                     "Original Website - " + MarkdownUtil.maskedLink(Bot.website, Bot.website) + "\n" +
                     "Original Help Server - " + MarkdownUtil.maskedLink(Bot.helpServer, Bot.helpServer) + "\n" +

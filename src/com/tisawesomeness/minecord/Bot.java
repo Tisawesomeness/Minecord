@@ -40,6 +40,8 @@ public class Bot {
     public static final String helpServer = "https://minecord.github.io/support";
     public static final String website = "https://minecord.github.io";
     public static final String github = "https://github.com/Tisawesomeness/Minecord";
+    public static final String terms = "https://minecord.github.io/terms";
+    public static final String privacy = "https://minecord.github.io/privacy";
     private static final String version = "0.16.3";
     public static final String javaVersion = "1.8";
     public static final String jdaVersion = "5.0.0-alpha.18";
