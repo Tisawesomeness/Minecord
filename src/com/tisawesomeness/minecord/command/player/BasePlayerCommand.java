@@ -8,6 +8,7 @@ import com.tisawesomeness.minecord.util.UuidUtils;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
 import java.util.Optional;
@@ -28,7 +29,8 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
 
     @Override
     public SlashCommandData addCommandSyntax(SlashCommandData builder) {
-        return builder.addOption(OptionType.STRING, "player", "The player", true);
+        return builder.addOptions(new OptionData(OptionType.STRING, "player", "The player", true)
+                .setMaxLength(Username.MAX_LENGTH));
     }
 
     public Result run(SlashCommandInteractionEvent e) {

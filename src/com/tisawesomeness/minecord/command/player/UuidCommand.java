@@ -10,6 +10,7 @@ import com.tisawesomeness.minecord.util.UuidUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
 import java.util.Optional;
@@ -31,7 +32,8 @@ public class UuidCommand extends AbstractPlayerCommand {
 
     @Override
     public SlashCommandData addCommandSyntax(SlashCommandData builder) {
-        return builder.addOption(OptionType.STRING, "uuid_or_username", "The UUID or username of the player or entity.", true);
+        return builder.addOptions(new OptionData(OptionType.STRING, "uuid_or_username", "The UUID or username of the player or entity.", true)
+                .setMaxLength(Username.MAX_LENGTH));
     }
 
     @Override
