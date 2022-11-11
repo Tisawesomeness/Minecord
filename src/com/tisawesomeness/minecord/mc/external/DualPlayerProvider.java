@@ -49,7 +49,7 @@ public class DualPlayerProvider implements PlayerProvider {
      * @param client The API client to use for HTTP requests
      */
     public DualPlayerProvider(@NonNull APIClient client) {
-        boolean debugMode = Config.getDebugMode();
+        boolean debugMode = Config.getRecordCacheStats();
 
         mojangAPI = new MojangAPIImpl(client);
         electroidAPI = Config.getUseElectroidAPI() ? new ElectroidAPIImpl(client) : null;

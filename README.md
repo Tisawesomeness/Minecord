@@ -95,6 +95,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Elevated Skip Cooldown:* Whether elevated users skip command cooldowns.
 - *Use Electroid API:* Whether to use the Electroid API to speed up player lookups. May cause slowdowns if the API is consistently down.
 - *Use Gapple API:* Whether to use the Gapple API to look up account types. May cause slowdowns if the API is consistently down.
+- *Record Cache Stats:* Whether to record cache performance statistics. This will cause a slight performance hit.
 - *Item Image Host:* The website hosting item images.
 - *Recipe Image Host:* The website hosting recipe images.
 
@@ -149,6 +150,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
     "elevatedSkipCooldown": true,
     "useElectroidAPI": true,
     "useGappleAPI": true,
+    "recordCacheStats": false,
     "itemImageHost": "https://minecord.github.io/item/",
     "recipeImageHost": "https://minecord.github.io/recipe/"
   },

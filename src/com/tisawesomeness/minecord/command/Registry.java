@@ -196,7 +196,7 @@ public class Registry {
         public CommandState() {
             Caffeine<Object, Object> builder = Caffeine.newBuilder()
                 .expireAfterWrite(Duration.ofMinutes(1));
-            if (Config.getDebugMode()) {
+            if (Config.getRecordCacheStats()) {
                 builder.recordStats();
             }
             lastUseTimesByUser = builder.build();

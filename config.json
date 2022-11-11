@@ -24,6 +24,7 @@
         "elevatedSkipCooldown": true,
         "useElectroidAPI": true,
         "useGappleAPI": true,
+        "recordCacheStats": false,
         "itemImageHost": "https://minecord.github.io/item/",
         "recipeImageHost": "https://minecord.github.io/recipe/"
     },
