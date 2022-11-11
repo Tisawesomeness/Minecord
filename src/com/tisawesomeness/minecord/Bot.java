@@ -48,7 +48,7 @@ public class Bot {
     public static final Color color = Color.GREEN;
 
     public static ShardManager shardManager;
-    private static APIClient apiClient;
+    public static APIClient apiClient;
     public static MCLibrary mcLibrary;
     private static Listener listener;
     private static CommandListener commandListener;

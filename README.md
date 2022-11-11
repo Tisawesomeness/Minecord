@@ -59,6 +59,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `&msg <mention> <message>` - Open the DMs.
 - `&name <guild id> <name>` - Changes the bot's nickname per-guild, enter nothing to reset.
 - `&usage` - Shows how often commands are used.
+- `&debug [<option>|all]` - Prints out debug info.
 - `&promote <user>` - Elevate a user.
 - `&demote <user>` - De-elevate a user.
 - `&ban [user|guild] <id>` - Bans/unbans a user/guild from the bot. Omit user/guild to check for a ban.

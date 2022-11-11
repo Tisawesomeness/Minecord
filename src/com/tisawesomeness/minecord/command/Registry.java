@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command;
 
+import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.admin.*;
 import com.tisawesomeness.minecord.command.core.*;
 import com.tisawesomeness.minecord.command.discord.*;
@@ -10,6 +11,7 @@ import com.tisawesomeness.minecord.util.type.Either;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 
@@ -82,6 +84,7 @@ public class Registry {
                     new MsgCommand(),
                     new NameCommand(),
                     new UsageCommand(),
+                    new DebugCommand(),
                     new PromoteCommand(),
                     new DemoteCommand(),
                     new BanCommand(),
@@ -188,9 +191,16 @@ public class Registry {
 
     private static class CommandState {
         private int uses = 0;
-        private final Cache<Long, Long> lastUseTimesByUser = Caffeine.newBuilder()
-                .expireAfterWrite(Duration.ofMinutes(1))
-                .build();
+        private final Cache<Long, Long> lastUseTimesByUser;
+
+        public CommandState() {
+            Caffeine<Object, Object> builder = Caffeine.newBuilder()
+                .expireAfterWrite(Duration.ofMinutes(1));
+            if (Config.getDebugMode()) {
+                builder.recordStats();
+            }
+            lastUseTimesByUser = builder.build();
+        }
     }
 
     public static void useCommand(Command<?> cmd, User user) {
@@ -207,6 +217,20 @@ public class Registry {
     }
     public static int getUses(Command<?> cmd) {
         return stateMap.get(cmd).uses;
+    }
+
+    public static CacheStats cooldownStats() {
+        return stateMap.values().stream()
+                .map(state -> state.lastUseTimesByUser)
+                .map(Cache::stats)
+                .reduce(CacheStats::plus)
+                .orElse(CacheStats.empty());
+    }
+    public static Optional<CacheStats> cooldownStats(String command) {
+        return getCommand(command)
+                .map(stateMap::get)
+                .map(state -> state.lastUseTimesByUser)
+                .map(Cache::stats);
     }
 
 }

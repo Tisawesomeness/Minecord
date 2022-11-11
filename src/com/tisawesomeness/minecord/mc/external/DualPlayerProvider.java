@@ -10,6 +10,7 @@ import com.tisawesomeness.minecord.util.type.ThrowingFunction;
 
 import com.github.benmanes.caffeine.cache.AsyncLoadingCache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import dev.failsafe.CircuitBreaker;
 import dev.failsafe.Failsafe;
 import dev.failsafe.FailsafeException;
@@ -198,6 +199,16 @@ public class DualPlayerProvider implements PlayerProvider {
             throw ex.getCause(); // Usually IOE
         }
         throw ex;
+    }
+
+    public @NonNull CacheStats getUuidCacheStats() {
+        return uuidCache.synchronous().stats();
+    }
+    public @NonNull CacheStats getPlayerCacheStats() {
+        return playerCache.synchronous().stats();
+    }
+    public @Nullable CacheStats getStatusCacheStats() {
+        return statusCache == null ? null : statusCache.synchronous().stats();
     }
 
 }
