@@ -88,21 +88,19 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Game:* This is the game that the bot is playing, shown under the username. `{prefix}` and `{guilds}` are available variables.
 - *Dev Mode:* Turning this on will let you reload code using `&reload` on the fly. When hosting the bot, it's best to keep this off in order to decrease memory usage.
 - *Debug Mode:* Prints additional info to console.
-- *Respond To Mentions:* This option decides if the bot will respond to being mentioned at the beginning of a message, so you can use `@Minecord#1216 help` to execute `&help`.
 - *Delete Commands:* If true, the commands sent by players (like `&help`) will be deleted to clean up chat. Requires permission to manage messages.
 - *Use Menus:* If true, the bot will use a reaction menu for `&recipe` and `&ingredient` if possible.
-- *Send Typing:* If true, the bot will send typing packets.
-- *Show Memory:* Whether or not to show the memory in `&info`.
-- *Elevated Skip Cooldown:* Whether or not elevated users skip command cooldowns.
+- *Show Memory:* Whether to show the memory in `&info`.
+- *Elevated Skip Cooldown:* Whether elevated users skip command cooldowns.
 - *Use Electroid API:* Whether to use the Electroid API to speed up player lookups. May cause slowdowns if the API is consistently down.
 - *Use Gapple API:* Whether to use the Gapple API to look up account types. May cause slowdowns if the API is consistently down.
 - *Item Image Host:* The website hosting item images.
 - *Recipe Image Host:* The website hosting recipe images.
 
-- *Send Server Count:* Whether or not the bot should send the guild count to bot list websites.
+- *Send Server Count:* Whether the bot should send the guild count to bot list websites.
 - *Pw Token:* The token to use on bots.discord.pw.
-- *Org Token:* The token to use on discordbots.org.
-- *Receive Votes:* When true, the bot will receive votes from discordbots.org. **This will set up an HTTP server.**
+- *Org Token:* The token to use on discordbots.org (top.gg).
+- *Receive Votes:* When true, the bot will receive votes from discordbots.org (top.gg). **This will set up an HTTP server.**
 - *Webhook URL:* The URL used to receive votes. Keep this random and private, if it leaks, users will be able to fake votes. Set the discordbots.org webhook to http://`your ip`:`port`/`url`.
 - *Webhook Port:* The port used to receive votes.
 - *Webhook Auth:* All incoming vote requests must have this code in the "Authorization" header.
@@ -144,10 +142,8 @@ A robust Discord bot using the JDA library for various Minecraft functions.
     "game": "/help | {guilds} guilds",
     "devMode": false,
     "debugMode": false,
-    "respondToMentions": true,
     "deleteCommands": false,
     "useMenus": true,
-    "sendTyping": false,
     "showMemory": false,
     "elevatedSkipCooldown": true,
     "useElectroidAPI": true,

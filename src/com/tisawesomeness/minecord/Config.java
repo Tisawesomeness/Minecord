@@ -31,10 +31,8 @@ public class Config {
     private static String game;
     private static boolean devMode;
     private static boolean debugMode;
-    private static boolean respondToMentions;
     private static boolean deleteCommands;
     private static boolean useMenus;
-    private static boolean sendTyping;
     private static boolean showMemory;
     private static boolean elevatedSkipCooldown;
     private static boolean useElectroidAPI;
@@ -126,10 +124,8 @@ public class Config {
             game = settings.getString("game");
             devMode = settings.getBoolean("devMode");
             debugMode = settings.getBoolean("debugMode");
-            respondToMentions = settings.getBoolean("respondToMentions");
             deleteCommands = settings.getBoolean("deleteCommands");
             useMenus = settings.getBoolean("useMenus");
-            sendTyping = settings.getBoolean("sendTyping");
             showMemory = settings.getBoolean("showMemory");
             elevatedSkipCooldown = settings.getBoolean("elevatedSkipCooldown");
             useElectroidAPI = settings.optBoolean("useElectroidAPI", true);
@@ -182,10 +178,8 @@ public class Config {
     public static String getGame() { return game; }
     public static boolean getDevMode() { return devMode; }
     public static boolean getDebugMode() { return debugMode; }
-    public static boolean getRespondToMentions() { return respondToMentions; }
     public static boolean getDeleteCommands() { return deleteCommands; }
     public static boolean getUseMenus() { return useMenus; }
-    public static boolean getSendTyping() { return sendTyping; }
     public static boolean getShowMemory() { return showMemory; }
     public static boolean getElevatedSkipCooldown() { return elevatedSkipCooldown; }
     public static boolean getUseElectroidAPI() { return useElectroidAPI; }
