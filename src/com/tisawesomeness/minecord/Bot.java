@@ -56,6 +56,7 @@ public class Bot {
     private static Listener listener;
     private static CommandListener commandListener;
     private static ReactListener reactListener;
+    public static String ownerAvatarUrl;
     public static long birth;
     public static long bootTime;
     public static String[] args;
@@ -219,6 +220,7 @@ public class Bot {
         } catch (InterruptedException ignored) {}
 
         //Post-init
+        shardManager.retrieveUserById(Config.getOwner()).queue(u -> ownerAvatarUrl = u.getAvatarUrl());
         bootTime = System.currentTimeMillis() - birth;
         System.out.println("Boot Time: " + DateUtils.getBootTime());
         logger.log(":white_check_mark: **Bot started!**");

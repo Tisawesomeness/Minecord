@@ -9,7 +9,6 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.SelfUser;
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.awt.Color;
@@ -51,8 +50,7 @@ public class MessageUtils {
         if (Config.getOwner().equals("0")) {
             return eb.setFooter(announcement);
         }
-        User owner = Bot.shardManager.retrieveUserById(Config.getOwner()).complete();
-        return eb.setFooter(announcement, owner.getAvatarUrl());
+        return eb.setFooter(announcement, Bot.ownerAvatarUrl);
     }
 
     /**

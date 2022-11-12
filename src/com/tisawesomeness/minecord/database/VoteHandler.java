@@ -7,7 +7,6 @@ import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import net.dv8tion.jda.api.entities.User;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -43,12 +42,16 @@ public class VoteHandler {
                     JSONObject o = new JSONObject(body);
                     boolean upvote = "upvote".equals(o.getString("type"));
                     String msg = upvote ? "Thanks for voting!" : "y u do dis";
-                    User u = Bot.shardManager.getUserById(o.getString("user"));
-                    u.openPrivateChannel().complete().sendMessage(msg).queue();
-                    msg = upvote ? "upvoted!" : "downvoted ;(";
-                    msg = DiscordUtils.tagAndId(u) + " " + msg;
-                    Bot.logger.joinLog(msg);
-                    System.out.println(msg);
+                    Bot.shardManager.retrieveUserById(o.getString("user")).queue(u -> {
+
+                        u.openPrivateChannel().queue(c -> c.sendMessage(msg).queue());
+
+                        String logMsg = upvote ? "upvoted!" : "downvoted ;(";
+                        logMsg = DiscordUtils.tagAndId(u) + " " + logMsg;
+                        Bot.logger.joinLog(logMsg);
+                        System.out.println(logMsg);
+
+                    });
                 }
 
                 //Respond with "OK"
