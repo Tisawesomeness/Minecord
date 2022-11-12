@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
 import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
 public class SayCommand extends LegacyCommand {
@@ -51,10 +52,12 @@ public class SayCommand extends LegacyCommand {
         //Log it
         EmbedBuilder eb = new EmbedBuilder();
         Guild guild = channel.getGuild();
-        eb.setAuthor(e.getAuthor().getName() + " (" + e.getAuthor().getId() + ")",
-                null, e.getAuthor().getAvatarUrl());
-        eb.setDescription("**Sent a msg to `" + channel.getName() + "` (" + channel.getId() + ")**\non `" +
-                guild.getName() + "` (" + guild.getId() + "):\n" + msg);
+        String authorLogMsg = DiscordUtils.tagAndId(e.getAuthor());
+        String channelLogMsg = "sent a message to `#" + channel.getName() + "` (" + channel.getId() + ")";
+        String guildLogMsg = "on `" + guild.getName() + "` (" + guild.getId() + ")";
+        eb.setAuthor(authorLogMsg, null, e.getAuthor().getAvatarUrl());
+        eb.setDescription(MarkdownUtil.bold(channelLogMsg) + "\n" + guildLogMsg + ":\n" + msg);
+        System.out.println(authorLogMsg + " " + channelLogMsg + "\n" + guildLogMsg + ":\n" + msg);
         eb.setThumbnail(guild.getIconUrl());
         Bot.logger.log(MessageCreateData.fromEmbeds(eb.build()));
 

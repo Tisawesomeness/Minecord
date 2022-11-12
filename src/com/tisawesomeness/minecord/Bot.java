@@ -142,7 +142,8 @@ public class Bot {
                     jda.addEventListener(listener, commandListener, reactListener);
                 }
                 m.editMessage(":white_check_mark: **Bot reloaded!**").queue();
-                logger.log(":arrows_counterclockwise: **Bot reloaded by " + u.getName() + "**");
+                logger.log(":arrows_counterclockwise: **Bot reloaded by " + DiscordUtils.tagAndId(u) + "**");
+                System.out.println("Bot reloaded by " + DiscordUtils.tagAndId(u));
 
                 //If this is the first run
             } else {

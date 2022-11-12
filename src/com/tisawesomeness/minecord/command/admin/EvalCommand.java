@@ -4,6 +4,7 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.StringUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -105,10 +106,11 @@ public class EvalCommand extends LegacyCommand {
         }
         eb.setTimestamp(OffsetDateTime.now());
         User u = e.getAuthor();
-        eb.setFooter(String.format("Sent by %s (%s)", u.getAsTag(), u.getId()), u.getAvatarUrl());
+        eb.setFooter("Sent by " + DiscordUtils.tagAndId(u), u.getAvatarUrl());
 
         // Log embed with just input
         Bot.logger.log(MessageCreateData.fromEmbeds(eb.build()));
+        System.out.println(DiscordUtils.tagAndId(u) + " ran eval:\n" + in);
 
         // Exception check
         if (exMsg != null) {

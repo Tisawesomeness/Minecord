@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command.admin;
 
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.database.Database;
@@ -50,8 +51,10 @@ public class DemoteCommand extends LegacyCommand {
 
         //Demote user
         Database.changeElevated(id, false);
-        String msg = ":arrow_down: Demoted " + user.getName() + "#" + user.getDiscriminator();
-        return new Result(Outcome.SUCCESS, msg);
+        String msg = "Demoted " + DiscordUtils.tagAndId(user);
+        System.out.println(msg);
+        Bot.logger.log(":arrow_down: " + msg);
+        return new Result(Outcome.SUCCESS, ":arrow_down: " + msg);
 
     }
 

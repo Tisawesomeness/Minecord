@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.database;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -45,7 +46,9 @@ public class VoteHandler {
                     User u = Bot.shardManager.getUserById(o.getString("user"));
                     u.openPrivateChannel().complete().sendMessage(msg).queue();
                     msg = upvote ? "upvoted!" : "downvoted ;(";
-                    Bot.logger.log(u.getName() + "#" + u.getDiscriminator() + " (`" + u.getId() + "`) " + msg);
+                    msg = DiscordUtils.tagAndId(u) + " " + msg;
+                    Bot.logger.log(msg);
+                    System.out.println(msg);
                 }
 
                 //Respond with "OK"

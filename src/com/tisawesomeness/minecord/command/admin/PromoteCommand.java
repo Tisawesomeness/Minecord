@@ -42,9 +42,10 @@ public class PromoteCommand extends LegacyCommand {
 
         //Elevate user
         Database.changeElevated(user.getIdLong(), true);
-        String msg = ":arrow_up: Elevated " + user.getName() + "#" + user.getDiscriminator();
-        Bot.logger.log(msg);
-        return new Result(Outcome.SUCCESS, msg);
+        String msg = "Elevated " + DiscordUtils.tagAndId(user);
+        System.out.println(msg);
+        Bot.logger.log(":arrow_up: " + msg);
+        return new Result(Outcome.SUCCESS, ":arrow_up: " + msg);
 
     }
 

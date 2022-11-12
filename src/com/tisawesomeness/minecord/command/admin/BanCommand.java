@@ -69,6 +69,7 @@ public class BanCommand extends LegacyCommand {
             String msg = user == null ? args[1] : user.getAsTag();
             msg += banned ? " has been unbanned." : " was struck with the ban hammer!";
             Bot.logger.log(msg);
+            System.out.println(msg);
             return new Result(Outcome.SUCCESS, msg);
 
             //Guild part of command
@@ -89,6 +90,7 @@ public class BanCommand extends LegacyCommand {
             String msg = guild.getName() + " (`" + guild.getId() + "`) ";
             msg += banned ? "has been unbanned." : "was struck with the ban hammer!";
             Bot.logger.log(msg);
+            System.out.println(msg);
             return new Result(Outcome.SUCCESS, msg);
 
             //Query part of command

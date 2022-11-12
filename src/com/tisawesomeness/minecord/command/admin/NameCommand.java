@@ -3,11 +3,13 @@ package com.tisawesomeness.minecord.command.admin;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.util.ArrayUtils;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
 import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
 public class NameCommand extends LegacyCommand {
@@ -56,10 +58,12 @@ public class NameCommand extends LegacyCommand {
         EmbedBuilder eb = new EmbedBuilder();
         eb.setAuthor(e.getAuthor().getName() + " (" + e.getAuthor().getId() + ")",
                 null, e.getAuthor().getAvatarUrl());
-        String desc = args.length == 1 ? "**Reset" : "**Changed";
-        desc += " nickname on `" + guild.getName() + "` (" + guild.getId() + "):**";
-        if (args.length == 1) desc += "\n" + name;
-        eb.setDescription(desc);
+        String author = DiscordUtils.tagAndId(e.getAuthor());
+        String action = args.length == 1 ? "reset" : "changed";
+        String descName = args.length == 1 ? "\n" + name : "";
+        String desc = author + " " + action + " nickname on `" + guild.getName() + "` (" + guild.getId() + "):";
+        System.out.println(desc + "\n" + descName);
+        eb.setDescription(MarkdownUtil.bold(desc) + "\n" + descName);
         eb.setThumbnail(guild.getIconUrl());
         Bot.logger.log(MessageCreateData.fromEmbeds(eb.build()));
 

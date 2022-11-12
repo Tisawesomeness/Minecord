@@ -21,6 +21,10 @@ public class DiscordUtils {
         return ID_PATTERN.matcher(str).matches();
     }
 
+    public static String tagAndId(User u) {
+        return String.format("%#s (`%s`)", u, u.getId());
+    }
+
     public static void update() {
         Bot.shardManager.setActivity(Activity.playing(parseAll(Config.getGame())));
     }
