@@ -53,7 +53,8 @@ public class Bot {
     public static APIClient apiClient;
     public static DiscordLogger logger;
     public static MCLibrary mcLibrary;
-    private static Listener listener;
+    private static StatusListener statusListener;
+    private static GuildListener guildListener;
     private static CommandListener commandListener;
     private static ReactListener reactListener;
     public static String ownerAvatarUrl;
@@ -93,7 +94,8 @@ public class Bot {
 
         //Pre-init
         thread = Thread.currentThread();
-        listener = new Listener();
+        statusListener = new StatusListener();
+        guildListener = new GuildListener();
         commandListener = new CommandListener();
         reactListener = new ReactListener();
         apiClient = new OkAPIClient();
@@ -153,7 +155,7 @@ public class Bot {
                 birth = (long) MethodName.GET_BIRTH.method().invoke(null, "ignore");
                 //Prepare commands
                 for (JDA jda : shardManager.getShards()) {
-                    jda.addEventListener(listener, commandListener, reactListener);
+                    jda.addEventListener(statusListener, guildListener, commandListener, reactListener);
                 }
                 m.editMessage(":white_check_mark: **Bot reloaded!**").queue();
                 logger.log(":arrows_counterclockwise: **Bot reloaded by " + DiscordUtils.tagAndId(u) + "**");
@@ -165,7 +167,7 @@ public class Bot {
                 //Initialize JDA
                 shardManager = DefaultShardManagerBuilder.createLight(Config.getClientToken(), gateways)
                         .setAutoReconnect(true)
-                        .addEventListeners(listener, commandListener, reactListener)
+                        .addEventListeners(statusListener, guildListener, commandListener, reactListener)
                         .setShardsTotal(Config.getShardCount())
                         .setActivity(Activity.playing("Loading..."))
                         .setHttpClientBuilder(apiClient.getHttpClientBuilder())
@@ -240,7 +242,7 @@ public class Bot {
         //Disable JDA
         for (JDA jda : shardManager.getShards()) {
             jda.setAutoReconnect(false);
-            jda.removeEventListener(listener, commandListener, reactListener);
+            jda.removeEventListener(statusListener, guildListener, commandListener, reactListener);
         }
         try {
             //Reload this class using reflection

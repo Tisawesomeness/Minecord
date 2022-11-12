@@ -9,18 +9,12 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.guild.GenericGuildEvent;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
-import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
 import java.util.ArrayList;
 
-public class Listener extends ListenerAdapter {
-
-    @Override
-    public void onReady(ReadyEvent e) {
-        Bot.readyShards++;
-    }
+public class GuildListener extends ListenerAdapter {
 
     @Override
     public void onGenericGuild(GenericGuildEvent e) {
