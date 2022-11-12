@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord;
 import club.minnced.discord.webhook.WebhookClientBuilder;
 import club.minnced.discord.webhook.external.JDAWebhookClient;
 import club.minnced.discord.webhook.send.*;
+import dev.failsafe.RateLimiter;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
@@ -11,6 +12,7 @@ import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 import okhttp3.OkHttpClient;
 
 import javax.annotation.Nullable;
+import java.time.Duration;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,22 +20,27 @@ import java.util.stream.Collectors;
 public class DiscordLogger {
 
     private final @Nullable String debugLogChannelId;
+    private final RateLimiter<Object> debugRateLimiter;
     private final @Nullable String joinLogChannelId;
     private final @Nullable JDAWebhookClient webhookClient;
 
     public DiscordLogger(OkHttpClient httpClient) {
+
         if (Config.getLogChannel().equals("0")) {
             debugLogChannelId = null;
             System.out.println("Config missing log channel, some messages will be missed!");
         } else {
             debugLogChannelId = Config.getLogChannel();
         }
+        debugRateLimiter = RateLimiter.burstyBuilder(5, Duration.ofMinutes(1)).build();
+
         if (Config.getJoinLogChannel().equals("0")) {
             joinLogChannelId = null;
             System.out.println("Config missing join log channel");
         } else {
             joinLogChannelId = Config.getLogChannel();
         }
+
         if (Config.getLogWebhook().isEmpty()) {
             webhookClient = null;
             System.out.println("Config missing webhook URL, some messages will be missed!");
@@ -71,7 +78,11 @@ public class DiscordLogger {
         debugLog(MessageCreateData.fromContent(str));
     }
     public void debugLog(MessageCreateData message) {
-        channelLog(message, debugLogChannelId, "Log");
+        if (debugRateLimiter.tryAcquirePermit()) {
+            channelLog(message, debugLogChannelId, "Log");
+        } else {
+            System.err.println("Debug log rate limit exceeded, Discord message dropped");
+        }
     }
     public void joinLog(String str) {
         joinLog(MessageCreateData.fromContent(str));
