@@ -48,26 +48,26 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `/perms [<channel>]` - Test the bot's permissions in a channel. Leave blank to test the current channel.
 
 #### Admin Commands
-- `&help <command> admin` - Displays admin help for a command.
-- `&infoadmin` - Displays bot info, including used memory and boot time.
-- `&guildadmin <guild id>` - Show info and ban status for another guild.
-- `&roleadmin <role id>` - Show role info for any role.
-- `&useradmin <user id> [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include `mutual` to show mutual guilds.
-- `&settings <guild id> admin [<setting> <value>]` - Change the bot's settings for another guild.
-- `&permsadmin <channel id>` - Test the bot's permissions in any channel.
-- `&say <channel> <message>` - Say a message.
-- `&msg <mention> <message>` - Open the DMs.
-- `&name <guild id> <name>` - Changes the bot's nickname per-guild, enter nothing to reset.
-- `&usage` - Shows how often commands are used.
-- `&debug [<option>|all]` - Prints out debug info.
-- `&promote <user>` - Elevate a user.
-- `&demote <user>` - De-elevate a user.
-- `&ban [user|guild] <id>` - Bans/unbans a user/guild from the bot. Omit user/guild to check for a ban.
-- `&reload` - Reloads the bot. In dev mode, this hot reloads all code. Otherwise, this reloads the config, item/recipe files, and restarts the database and vote server.
-- `&shutdown` - Shuts down the bot.
-- `&deploy` - Deploys slash commands globally.
-- `&eval` - Evaluates javascript code with variables `jda`, `config`, `event`, `guild`, `channel`, and `user`.
-- `&test` - Test command. This may change depending on what features are being developed.
+- `@Minecord help <command> admin` - Displays admin help for a command.
+- `@Minecord infoadmin` - Displays bot info, including used memory and boot time.
+- `@Minecord guildadmin <guild id>` - Show info and ban status for another guild.
+- `@Minecord roleadmin <role id>` - Show role info for any role.
+- `@Minecord useradmin <user id> [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include `mutual` to show mutual guilds.
+- `@Minecord settings <guild id> admin [<setting> <value>]` - Change the bot's settings for another guild.
+- `@Minecord permsadmin <channel id>` - Test the bot's permissions in any channel.
+- `@Minecord say <channel> <message>` - Say a message.
+- `@Minecord msg <mention> <message>` - Open the DMs.
+- `@Minecord name <guild id> <name>` - Changes the bot's nickname per-guild, enter nothing to reset.
+- `@Minecord usage` - Shows how often commands are used.
+- `@Minecord debug [<option>|all]` - Prints out debug info.
+- `@Minecord promote <user>` - Elevate a user.
+- `@Minecord demote <user>` - De-elevate a user.
+- `@Minecord ban [user|guild] <id>` - Bans/unbans a user/guild from the bot. Omit user/guild to check for a ban.
+- `@Minecord reload` - Reloads the bot. In dev mode, this hot reloads all code. Otherwise, this reloads the config, item/recipe files, and restarts the database and vote server.
+- `@Minecord shutdown` - Shuts down the bot.
+- `@Minecord deploy` - Deploys slash commands globally.
+- `@Minecord eval` - Evaluates javascript code with variables `jda`, `config`, `event`, `guild`, `channel`, and `user`.
+- `@Minecord test` - Test command. This may change depending on what features are being developed.
 
 ### Config
 
