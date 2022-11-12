@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command.admin;
 
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.LegacyCommand;
-import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -23,7 +23,7 @@ public class ShutdownCommand extends LegacyCommand {
     }
 
     public Result run(String[] args, MessageReceivedEvent e) {
-        MessageUtils.log(":x: **Bot shut down by " + e.getAuthor().getAsTag() + "**");
+        Bot.logger.log(":x: **Bot shut down by " + e.getAuthor().getAsTag() + "**");
         e.getChannel().sendMessage(":wave: Goodbye!").complete();
         e.getJDA().shutdown();
         System.exit(0);

@@ -3,12 +3,12 @@ package com.tisawesomeness.minecord.command.admin;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.util.ArrayUtils;
-import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
 public class NameCommand extends LegacyCommand {
 
@@ -61,7 +61,7 @@ public class NameCommand extends LegacyCommand {
         if (args.length == 1) desc += "\n" + name;
         eb.setDescription(desc);
         eb.setThumbnail(guild.getIconUrl());
-        MessageUtils.log(eb.build());
+        Bot.logger.log(MessageCreateData.fromEmbeds(eb.build()));
 
         return new Result(Outcome.SUCCESS);
     }

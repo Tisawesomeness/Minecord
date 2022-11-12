@@ -47,6 +47,7 @@ public class Bot {
     public static final String jdaVersion = "5.0.0-alpha.18";
     public static final Color color = Color.GREEN;
 
+    public static DiscordLogger logger;
     public static ShardManager shardManager;
     public static APIClient apiClient;
     public static MCLibrary mcLibrary;
@@ -77,6 +78,7 @@ public class Bot {
         boolean reload = args.length > 0 && ArrayUtils.contains(args, "-r");
 
         //Pre-init
+        logger = new DiscordLogger();
         thread = Thread.currentThread();
         listener = new Listener();
         commandListener = new CommandListener();
@@ -140,7 +142,7 @@ public class Bot {
                     jda.addEventListener(listener, commandListener, reactListener);
                 }
                 m.editMessage(":white_check_mark: **Bot reloaded!**").queue();
-                MessageUtils.log(":arrows_counterclockwise: **Bot reloaded by " + u.getName() + "**");
+                logger.log(":arrows_counterclockwise: **Bot reloaded by " + u.getName() + "**");
 
                 //If this is the first run
             } else {
@@ -201,7 +203,7 @@ public class Bot {
         //Post-init
         bootTime = System.currentTimeMillis() - birth;
         System.out.println("Boot Time: " + DateUtils.getBootTime());
-        MessageUtils.log(":white_check_mark: **Bot started!**");
+        logger.log(":white_check_mark: **Bot started!**");
         DiscordUtils.update();
         RequestUtils.sendGuilds();
 

@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord;
 
 import com.tisawesomeness.minecord.util.DiscordUtils;
-import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -12,6 +11,7 @@ import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
 import java.util.ArrayList;
 
@@ -59,7 +59,7 @@ public class Listener extends ListenerAdapter {
         }
 
         eb.setThumbnail(guild.getIconUrl());
-        MessageUtils.logJoin(eb.build());
+        Bot.logger.joinLog(MessageCreateData.fromEmbeds(eb.build()));
         RequestUtils.sendGuilds();
         DiscordUtils.update(); //Update guild, channel, and user count
 

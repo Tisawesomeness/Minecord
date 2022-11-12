@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command;
 
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
@@ -39,7 +40,7 @@ public interface Command<T extends Event> {
         String logMsgTrimmed = MessageUtils.trimCodeblock(logMsg);
         System.err.println(uuid);
         ex.printStackTrace();
-        MessageUtils.log(logMsgTrimmed);
+        Bot.logger.log(logMsgTrimmed);
 
         if (Config.getDebugMode()) {
             sendFailure(e, MessageCreateData.fromContent(logMsgTrimmed));
