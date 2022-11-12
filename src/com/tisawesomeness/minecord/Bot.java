@@ -11,6 +11,7 @@ import com.tisawesomeness.minecord.mc.item.Recipe;
 import com.tisawesomeness.minecord.network.APIClient;
 import com.tisawesomeness.minecord.network.OkAPIClient;
 import com.tisawesomeness.minecord.util.*;
+import com.tisawesomeness.minecord.util.type.Switch;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Activity;
@@ -30,6 +31,7 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Bot {
 
@@ -64,6 +66,17 @@ public class Bot {
             GatewayIntent.DIRECT_MESSAGES, GatewayIntent.DIRECT_MESSAGE_REACTIONS,
             GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS
     );
+
+    private static final Switch readySwitch = new Switch();
+    public static void setReady() {
+        readySwitch.enable();
+    }
+    public static void setNotReady() {
+        readySwitch.disable();
+    }
+    public static boolean waitForReady(long l, TimeUnit timeUnit) throws InterruptedException {
+        return readySwitch.waitForEnable(l, timeUnit);
+    }
 
     public static boolean setup(String[] args, boolean devMode) {
         long startTime = System.currentTimeMillis();
@@ -197,8 +210,12 @@ public class Bot {
         //Wait for database and web server
         try {
             db.join();
+        } catch (InterruptedException ignored) {}
+        setReady();
+        System.out.println("Bot ready!");
+        try {
             if (ws != null) ws.join();
-            System.out.println("Bot ready!");
+            System.out.println("Web server started");
         } catch (InterruptedException ignored) {}
 
         //Post-init

@@ -50,6 +50,7 @@ public class ReloadCommand extends LegacyCommand {
         if (Config.getDevMode()) {
             Bot.shutdown(m, e.getAuthor());
         } else {
+            Bot.setNotReady();
             try {
                 Database.close();
                 Database.init();
@@ -67,6 +68,7 @@ public class ReloadCommand extends LegacyCommand {
             } catch (SQLException | IOException ex) {
                 ex.printStackTrace();
             }
+            Bot.setReady();
             m.editMessage(":white_check_mark: Reloaded!").queue();
         }
 

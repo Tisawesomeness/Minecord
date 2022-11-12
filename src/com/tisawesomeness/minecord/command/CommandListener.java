@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command;
 
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.ArrayUtils;
@@ -21,6 +22,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 public class CommandListener extends ListenerAdapter {
 
@@ -39,6 +41,17 @@ public class CommandListener extends ListenerAdapter {
             return;
         }
         SlashCommand cmd = (SlashCommand) c;
+
+        // 2 second grace period to respond to command before DB fully boots
+        try {
+            if (!Bot.waitForReady(2, TimeUnit.SECONDS)) {
+                e.reply(":hourglass: The bot is starting up, please try again in a few seconds.").setEphemeral(true).queue();
+                return;
+            }
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+            return;
+        }
 
         //Check for elevation
         if (cmd.getInfo().elevated && !Database.isElevated(e.getUser().getIdLong())) {
@@ -77,6 +90,17 @@ public class CommandListener extends ListenerAdapter {
         Message m = e.getMessage();
         if (m.getContentRaw().isEmpty()) {
             return; // MESSAGE_CONTENT got yoinked
+        }
+
+        // 2 second grace period to respond to command before DB fully boots
+        try {
+            if (!Bot.waitForReady(2, TimeUnit.SECONDS)) {
+                e.getChannel().sendMessage(":hourglass: The bot is starting up, please try again in a few seconds.").queue();
+                return;
+            }
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+            return;
         }
 
         // Get all values that change based on channel type
