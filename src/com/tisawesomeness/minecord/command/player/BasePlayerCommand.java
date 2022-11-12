@@ -30,7 +30,7 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
     @Override
     public SlashCommandData addCommandSyntax(SlashCommandData builder) {
         return builder.addOptions(new OptionData(OptionType.STRING, "player", "The player", true)
-                .setMaxLength(Username.MAX_LENGTH));
+                .setMaxLength(Player.MAX_PLAYER_ARGUMENT_LENGTH));
     }
 
     public Result run(SlashCommandInteractionEvent e) {

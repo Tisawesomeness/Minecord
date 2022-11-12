@@ -21,6 +21,9 @@ import java.util.UUID;
 public class Player implements Comparable<Player> {
     private static final Comparator<Player> COMPARATOR = initComparator();
 
+    // 37 is max length of a UUID with dashes
+    public static final int MAX_PLAYER_ARGUMENT_LENGTH = Math.max(37, Username.MAX_LENGTH);
+
     public static final URL STEVE_SKIN_URL = UrlUtils.createUrl("https://textures.minecraft.net/texture/" +
             "1a4af718455d4aab528e7a61f86fa25e6a369d1768dcb13f7df319a713eb810b");
     public static final URL ALEX_SKIN_URL = UrlUtils.createUrl("https://textures.minecraft.net/texture/" +
