@@ -9,6 +9,8 @@ import net.dv8tion.jda.api.utils.MarkdownUtil;
 import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
 import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
+import java.util.UUID;
+
 public interface Command<T extends Event> {
 
     /**
@@ -31,22 +33,30 @@ public interface Command<T extends Event> {
     String debugRunCommand(T e);
 
     default void handleException(Throwable ex, T e) {
-        String err = buildErrorMessage(ex);
-        String logMsg = "EXCEPTION: " + MarkdownUtil.monospace(debugRunCommand(e)) + "\n" + err;
-        MessageUtils.log(MessageUtils.trimCodeblock(logMsg));
-        sendFailure(e, MessageCreateData.fromContent(MessageUtils.trimCodeblock(err)));
+        UUID uuid = UUID.randomUUID();
+
+        String logMsg = String.format("EXCEPTION: `%s`\nID: `%s`\n%s", debugRunCommand(e), uuid, buildErrorMessage(ex));
+        String logMsgTrimmed = MessageUtils.trimCodeblock(logMsg);
+        System.err.println(uuid);
+        ex.printStackTrace();
+        MessageUtils.log(logMsgTrimmed);
+
+        if (Config.getDebugMode()) {
+            sendFailure(e, MessageCreateData.fromContent(logMsgTrimmed));
+        } else {
+            String userMsg = ":boom: An unexpected error occurred!\nID: " + MarkdownUtil.monospace(uuid.toString());
+            String userMsgTrimmed = MessageUtils.trimCodeblock(userMsg);
+            sendFailure(e, MessageCreateData.fromContent(userMsgTrimmed));
+        }
     }
 
     static String buildErrorMessage(Throwable ex) {
         if (ex == null) {
             return ":boom: There was a null exception";
-        } else if (Config.getDebugMode()) {
-            ex.printStackTrace();
+        } else {
             String cleanedStackTrace = buildStackTrace(ex);
             return ":boom: There was an unexpected exception: " + MarkdownUtil.monospace(ex.toString()) +
                     "\n" + MarkdownUtil.codeblock("java", cleanedStackTrace);
-        } else {
-            return ":boom: There was an unexpected exception: " + MarkdownUtil.monospace(ex.toString());
         }
     }
 

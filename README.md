@@ -88,7 +88,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Prefix:* The prefix of the bot. Use something else instead of `&` if you want to host your own bot alongside the main one.
 - *Game:* This is the game that the bot is playing, shown under the username. `{prefix}` and `{guilds}` are available variables.
 - *Dev Mode:* Turning this on will let you reload code using `&reload` on the fly. When hosting the bot, it's best to keep this off in order to decrease memory usage.
-- *Debug Mode:* Prints additional info to console.
+- *Debug Mode:* If true, exceptions during command execution will be sent to the user.
 - *Delete Commands:* If true, the commands sent by players (like `&help`) will be deleted to clean up chat. Requires permission to manage messages.
 - *Use Menus:* If true, the bot will use a reaction menu for `&recipe` and `&ingredient` if possible.
 - *Show Memory:* Whether to show the memory in `&info`.
