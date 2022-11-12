@@ -40,7 +40,7 @@ public interface Command<T extends Event> {
         String logMsgTrimmed = MessageUtils.trimCodeblock(logMsg);
         System.err.println(uuid);
         ex.printStackTrace();
-        Bot.logger.log(logMsgTrimmed);
+        Bot.logger.debugLog(logMsgTrimmed);
 
         if (Config.getDebugMode()) {
             sendFailure(e, MessageCreateData.fromContent(logMsgTrimmed));

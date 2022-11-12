@@ -7,6 +7,7 @@
     "settings": {
         "logChannel": "0",
         "joinLogChannel": "0",
+        "logWebhook": "",
         "isSelfHosted": true,
         "author": "Tis_awesomeness",
         "authorTag": "@Tis_awesomeness#8617",

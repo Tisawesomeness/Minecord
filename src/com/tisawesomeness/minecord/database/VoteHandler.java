@@ -47,7 +47,7 @@ public class VoteHandler {
                     u.openPrivateChannel().complete().sendMessage(msg).queue();
                     msg = upvote ? "upvoted!" : "downvoted ;(";
                     msg = DiscordUtils.tagAndId(u) + " " + msg;
-                    Bot.logger.log(msg);
+                    Bot.logger.joinLog(msg);
                     System.out.println(msg);
                 }
 

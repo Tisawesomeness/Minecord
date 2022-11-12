@@ -47,9 +47,9 @@ public class Bot {
     public static final String jdaVersion = "5.0.0-alpha.18";
     public static final Color color = Color.GREEN;
 
-    public static DiscordLogger logger;
     public static ShardManager shardManager;
     public static APIClient apiClient;
+    public static DiscordLogger logger;
     public static MCLibrary mcLibrary;
     private static Listener listener;
     private static CommandListener commandListener;
@@ -78,12 +78,12 @@ public class Bot {
         boolean reload = args.length > 0 && ArrayUtils.contains(args, "-r");
 
         //Pre-init
-        logger = new DiscordLogger();
         thread = Thread.currentThread();
         listener = new Listener();
         commandListener = new CommandListener();
         reactListener = new ReactListener();
         apiClient = new OkAPIClient();
+        logger = new DiscordLogger(apiClient.getHttpClientBuilder().build());
         mcLibrary = new StandardMCLibrary(apiClient);
         try {
             Announcement.init(Config.getPath());
