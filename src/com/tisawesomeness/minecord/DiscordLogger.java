@@ -38,7 +38,7 @@ public class DiscordLogger {
             joinLogChannelId = null;
             System.out.println("Config missing join log channel");
         } else {
-            joinLogChannelId = Config.getLogChannel();
+            joinLogChannelId = Config.getJoinLogChannel();
         }
 
         if (Config.getLogWebhook().isEmpty()) {
