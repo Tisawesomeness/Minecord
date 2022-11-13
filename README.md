@@ -72,7 +72,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 ### Config
 
 - *Client Token:* Your unique bot token. **Do not upload it to GitHub, or people will be able to steal your bot!**
-- *Shard Count:* The amount of shards to use. Set to 1 if you don't need sharding.
+- *Shard Count:* The amount of shards to use, or -1 for Discord recommended. If you don't know what sharding means, keep it at 1.
 - *Owner:* The user ID of the bot owner. The bot will work when owner is 0, but it is *highly encouraged* to set this value.
 - *Test Servers:* A list of server IDs that will have guild slash commands updated on startup for testing.
 

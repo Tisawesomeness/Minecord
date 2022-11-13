@@ -94,7 +94,11 @@ public class Config {
             JSONObject config = RequestUtils.loadJSON(path + "/config.json");
             if (clientToken == null) clientToken = config.getString("clientToken");
             shardCount = config.getInt("shardCount");
-            if (shardCount < 1) shardCount = 1;
+            if (shardCount < -1) {
+                shardCount = -1;
+            } else if (shardCount == 0) {
+                shardCount = 1;
+            }
             owner = config.getString("owner");
 
             testServers = new ArrayList<>();

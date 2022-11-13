@@ -181,6 +181,9 @@ public class Bot {
                 }
 
                 // Wait for shards to ready
+                if (Config.getShardCount() == -1) {
+                    System.out.println("Shard count: shardManager.getShardsTotal()");
+                }
                 while (readyShards < shardManager.getShardsTotal()) {
                     //System.out.println("Ready shards: " + readyShards + " / " + shardManager.getShardsTotal());
                     Thread.sleep(100);
