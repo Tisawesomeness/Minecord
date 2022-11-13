@@ -33,9 +33,9 @@ public class Profile {
      */
     boolean demo;
     /**
-     * The skin type of the skin URL (only valid if the skin url exists)
+     * The skin model of the skin URL (only valid if the skin url exists)
      */
-    SkinType skinType;
+    SkinModel skinModel;
     @Nullable URL skinUrl;
     @Nullable URL capeUrl;
 

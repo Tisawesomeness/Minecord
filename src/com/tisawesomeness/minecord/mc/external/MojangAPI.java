@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.mc.external;
 
 import com.tisawesomeness.minecord.mc.player.Profile;
-import com.tisawesomeness.minecord.mc.player.SkinType;
+import com.tisawesomeness.minecord.mc.player.SkinModel;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.UrlUtils;
 import com.tisawesomeness.minecord.util.UuidUtils;
@@ -86,14 +86,14 @@ public abstract class MojangAPI {
         Username username = new Username(valueJson.getString("profileName"));
 
         JSONObject textures = valueJson.getJSONObject("textures");
-        SkinType skinType = SkinType.STEVE;
+        SkinModel skinModel = SkinModel.WIDE;
         URL skinUrl = null;
         if (textures.has("SKIN")) {
             JSONObject skinObj = textures.getJSONObject("SKIN");
             String link = skinObj.getString("url");
             try {
                 skinUrl = new URL(UrlUtils.httpToHttps(link));
-                skinType = getSkinType(skinObj);
+                skinModel = getSkinModel(skinObj);
             } catch (MalformedURLException ignore) {
                 System.err.println("Mojang returned an invalid skin URL: " + link);
             }
@@ -108,17 +108,17 @@ public abstract class MojangAPI {
             }
         }
 
-        return Optional.of(new Profile(username, legacy, demo, skinType, skinUrl, capeUrl));
+        return Optional.of(new Profile(username, legacy, demo, skinModel, skinUrl, capeUrl));
     }
 
-    private static SkinType getSkinType(@NonNull JSONObject skinObj) {
+    private static SkinModel getSkinModel(@NonNull JSONObject skinObj) {
         if (skinObj.has("metadata")) {
             String model = skinObj.getJSONObject("metadata").getString("model");
             if ("slim".equalsIgnoreCase(model)) {
-                return SkinType.ALEX;
+                return SkinModel.SLIM;
             }
         }
-        return SkinType.STEVE;
+        return SkinModel.WIDE;
     }
 
     private static String decodeBase64(@NonNull String base64String) {

@@ -53,9 +53,10 @@ public class SkinCommand extends BasePlayerCommand {
     }
     private static @NonNull String constructDescription(Player player) {
         String custom = "**Custom**: " + (player.hasCustomSkin() ? "True" : "False");
-        String skinType = "**Skin Type**: " + player.getSkinType();
-        String defaultModel = "**Default Skin Model**: " + player.getDefaultSkinType();
-        return custom + "\n" + skinType + "\n" + defaultModel;
+        String skinModel = "**Skin Model**: " + player.getSkinModel().getDescription();
+        String defaultModel = "**Default Skin Model**: " + player.getDefaultSkinModel().getDescription();
+        String newDefaultModel = "**1.19.3+ Default Skin**: " + player.getNewDefaultSkin();
+        return custom + "\n" + skinModel + "\n" + defaultModel + "\n" + newDefaultModel;
     }
 
 }

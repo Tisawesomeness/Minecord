@@ -1,10 +1,7 @@
 package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.mc.player.Player;
-import com.tisawesomeness.minecord.mc.player.Render;
-import com.tisawesomeness.minecord.mc.player.RenderType;
-import com.tisawesomeness.minecord.mc.player.Username;
+import com.tisawesomeness.minecord.mc.player.*;
 import com.tisawesomeness.minecord.util.UuidUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -102,10 +99,11 @@ public class UuidCommand extends AbstractPlayerCommand {
     private static void constructReply(SlashCommandInteractionEvent e, UUID uuid, String title) {
         String shortUuid = String.format("**Short**: `%s`", UuidUtils.toShortString(uuid));
         String longUuid = String.format("**Long**: `%s`", UuidUtils.toLongString(uuid));
-        String skinType = String.format("**Default Skin Model**: `%s`", Player.getDefaultSkinTypeFor(uuid));
+        String skinModel = String.format("**Default Skin Model**: `%s`", Player.getDefaultSkinModelFor(uuid).getDescription());
+        String newSkinModel = String.format("**1.19.3+ Skin**: `%s`", DefaultSkin.defaultFor(uuid));
         String intArray = String.format("**Post-1.16 NBT**: `%s`", UuidUtils.toIntArrayString(uuid));
         String mostLeast = String.format("**Pre-1.16 NBT**: `%s`", UuidUtils.toMostLeastString(uuid));
-        String desc = shortUuid + "\n" + longUuid + "\n" + skinType + "\n" + intArray + "\n" + mostLeast;
+        String desc = shortUuid + "\n" + longUuid + "\n" + skinModel + "\n" + newSkinModel + "\n" + intArray + "\n" + mostLeast;
         String nameMCUrl = Player.getNameMCUrlFor(uuid).toString();
         String avatarUrl = new Render(uuid, RenderType.AVATAR, true).render().toString();
 
