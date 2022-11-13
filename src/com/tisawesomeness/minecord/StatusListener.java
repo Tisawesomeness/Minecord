@@ -46,7 +46,7 @@ public class StatusListener extends ListenerAdapter {
         String status;
         switch (e.getState()) {
             case READY:
-                Bot.readyShards++;
+                Bot.readyShard();
                 emote = ":ballot_box_with_check:";
                 status = "Ready";
                 break;
@@ -77,9 +77,10 @@ public class StatusListener extends ListenerAdapter {
 
         String time = FORMATTER.format(Instant.now());
         int shardId = e.getJDA().getShardInfo().getShardId();
-        System.out.printf("%s Shard %03d %s\n", time, shardId, status);
-        String logMsg = String.format("`%s` %s Shard %03d %s", time, emote, shardId, status);
-        Bot.logger.log(logMsg);
+        int shardCount = e.getJDA().getShardInfo().getShardTotal();
+        System.out.printf("%s Shard %03d/%03d %s\n", time, shardId, shardCount, status);
+        String logMsg = String.format("`%s` %s Shard `%03d/%03d` %s", time, emote, shardId, shardCount, status);
+        Bot.logger.statusLog(logMsg);
     }
 
 }

@@ -8,6 +8,7 @@
         "logChannel": "0",
         "joinLogChannel": "0",
         "logWebhook": "",
+        "statusWebhook": "",
         "isSelfHosted": true,
         "author": "Tis_awesomeness",
         "authorTag": "@Tis_awesomeness#8617",

@@ -11,6 +11,7 @@ import com.tisawesomeness.minecord.mc.item.Recipe;
 import com.tisawesomeness.minecord.network.APIClient;
 import com.tisawesomeness.minecord.network.OkAPIClient;
 import com.tisawesomeness.minecord.util.*;
+import com.tisawesomeness.minecord.util.type.DelayedCountDownLatch;
 import com.tisawesomeness.minecord.util.type.Switch;
 
 import net.dv8tion.jda.api.JDA;
@@ -44,7 +45,7 @@ public class Bot {
     public static final String github = "https://github.com/Tisawesomeness/Minecord";
     public static final String terms = "https://minecord.github.io/terms";
     public static final String privacy = "https://minecord.github.io/privacy";
-    private static final String version = "0.16.4";
+    private static final String version = "0.16.5";
     public static final String javaVersion = "1.8";
     public static final String jdaVersion = "5.0.0-alpha.22";
     public static final Color color = Color.GREEN;
@@ -63,7 +64,6 @@ public class Bot {
     public static String[] args;
 
     public static Thread thread;
-    public static volatile int readyShards = 0;
     private static final List<GatewayIntent> gateways = Arrays.asList(
             GatewayIntent.DIRECT_MESSAGES, GatewayIntent.DIRECT_MESSAGE_REACTIONS,
             GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS
@@ -78,6 +78,17 @@ public class Bot {
     }
     public static boolean waitForReady(long l, TimeUnit timeUnit) throws InterruptedException {
         return readySwitch.waitForEnable(l, timeUnit);
+    }
+
+    private static final DelayedCountDownLatch shardReadySwitch = new DelayedCountDownLatch();
+    private static void initShardLatch(int shardCount) {
+        shardReadySwitch.startCountDown(shardCount);
+    }
+    public static void readyShard() {
+        shardReadySwitch.countDown();
+    }
+    private static void waitForShards() throws InterruptedException {
+        shardReadySwitch.await();
     }
 
     public static boolean setup(String[] args, boolean devMode) {
@@ -181,10 +192,12 @@ public class Bot {
                 }
 
                 // Wait for shards to ready
-                while (readyShards < shardManager.getShardsTotal()) {
-                    //System.out.println("Ready shards: " + readyShards + " / " + shardManager.getShardsTotal());
-                    Thread.sleep(100);
+                int shardCount = shardManager.getShardsTotal();
+                initShardLatch(shardCount);
+                if (Config.getShardCount() == -1) {
+                    System.out.println("Shard count: " + shardCount);
                 }
+                waitForShards();
                 System.out.println("Shards ready");
 
             }
@@ -225,7 +238,7 @@ public class Bot {
         shardManager.retrieveUserById(Config.getOwner()).queue(u -> ownerAvatarUrl = u.getAvatarUrl());
         bootTime = System.currentTimeMillis() - birth;
         System.out.println("Boot Time: " + DateUtils.getBootTime());
-        logger.log(":white_check_mark: **Bot started!**");
+        logger.statusLog(":white_check_mark: **Bot started!**");
         DiscordUtils.update();
         RequestUtils.sendGuilds();
 

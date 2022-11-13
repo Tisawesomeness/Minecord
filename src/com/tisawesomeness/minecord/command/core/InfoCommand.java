@@ -51,15 +51,16 @@ public class InfoCommand extends SlashCommand {
         eb.addField("Version", Bot.getVersion(), true);
 
         String guilds = String.valueOf(Bot.shardManager.getGuilds().size());
-        if (Config.getShardCount() > 1) {
-            String shards = jda.getShardInfo().getShardId() + 1 + "/" + Config.getShardCount();
+        int shardCount = jda.getShardInfo().getShardTotal();
+        if (shardCount > 1) {
+            String shards = jda.getShardInfo().getShardId() + 1 + "/" + shardCount;
             eb.addField("Shard", shards, true);
             guilds += " {" + jda.getGuilds().size() + "}";
         }
         eb.addField("Guilds", guilds, true);
 
         eb.addField("Uptime", DateUtils.getUptime(), true);
-        eb.addField("Ping", String.format("%.3fms", Bot.shardManager.getAverageGatewayPing()), true);
+        eb.addField("Ping", String.valueOf((int) Math.ceil(Bot.shardManager.getAverageGatewayPing())), true);
         if (Config.getShowMemory() || elevated) {
             eb.addField("Memory", getMemoryString(), true);
             eb.addField("Boot Time", DateUtils.getBootTime(), true);
