@@ -2,12 +2,11 @@ package com.tisawesomeness.minecord.database;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
-import com.tisawesomeness.minecord.util.MessageUtils;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import net.dv8tion.jda.api.entities.User;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -43,10 +42,16 @@ public class VoteHandler {
                     JSONObject o = new JSONObject(body);
                     boolean upvote = "upvote".equals(o.getString("type"));
                     String msg = upvote ? "Thanks for voting!" : "y u do dis";
-                    User u = Bot.shardManager.getUserById(o.getString("user"));
-                    u.openPrivateChannel().complete().sendMessage(msg).queue();
-                    msg = upvote ? "upvoted!" : "downvoted ;(";
-                    MessageUtils.log(u.getName() + "#" + u.getDiscriminator() + " (`" + u.getId() + "`) " + msg);
+                    Bot.shardManager.retrieveUserById(o.getString("user")).queue(u -> {
+
+                        u.openPrivateChannel().queue(c -> c.sendMessage(msg).queue());
+
+                        String logMsg = upvote ? "upvoted!" : "downvoted ;(";
+                        logMsg = DiscordUtils.tagAndId(u) + " " + logMsg;
+                        Bot.logger.joinLog(logMsg);
+                        System.out.println(logMsg);
+
+                    });
                 }
 
                 //Respond with "OK"

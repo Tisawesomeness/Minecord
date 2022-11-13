@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command;
 
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.ArrayUtils;
@@ -7,17 +8,21 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.type.Either;
 
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.ChannelType;
+import net.dv8tion.jda.api.entities.channel.middleman.GuildChannel;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.utils.MarkdownUtil;
-import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 public class CommandListener extends ListenerAdapter {
 
@@ -36,6 +41,17 @@ public class CommandListener extends ListenerAdapter {
             return;
         }
         SlashCommand cmd = (SlashCommand) c;
+
+        // 2 second grace period to respond to command before DB fully boots
+        try {
+            if (!Bot.waitForReady(2, TimeUnit.SECONDS)) {
+                e.reply(":hourglass: The bot is starting up, please try again in a few seconds.").setEphemeral(true).queue();
+                return;
+            }
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+            return;
+        }
 
         //Check for elevation
         if (cmd.getInfo().elevated && !Database.isElevated(e.getUser().getIdLong())) {
@@ -76,11 +92,22 @@ public class CommandListener extends ListenerAdapter {
             return; // MESSAGE_CONTENT got yoinked
         }
 
+        // 2 second grace period to respond to command before DB fully boots
+        try {
+            if (!Bot.waitForReady(2, TimeUnit.SECONDS)) {
+                e.getChannel().sendMessage(":hourglass: The bot is starting up, please try again in a few seconds.").queue();
+                return;
+            }
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+            return;
+        }
+
         // Get all values that change based on channel type
         String prefix = MessageUtils.getPrefix(e);
         boolean deleteCommands = false;
         boolean canEmbed = true;
-        if (e.isFromType(ChannelType.TEXT) || e.isFromType(ChannelType.VOICE) || e.isFromType(ChannelType.NEWS) || e.isFromThread()) {
+        if (e.isFromType(ChannelType.TEXT) || e.isFromType(ChannelType.VOICE) || e.isFromType(ChannelType.NEWS) || e.isFromType(ChannelType.FORUM) || e.isFromThread()) {
             Member sm = e.getGuild().getSelfMember();
             GuildChannel tc = e.getGuildChannel();
             if (!sm.hasPermission(tc, Permission.MESSAGE_SEND) || Database.isBanned(e.getGuild().getIdLong())) {
@@ -185,67 +212,36 @@ public class CommandListener extends ListenerAdapter {
     }
 
     private static <T extends Event> void handleResult(Command<T> cmd, Command.Result result, Exception exception, T e) {
+
+        // If exception
         if (result == null) {
-            String err;
-            if (exception == null) {
-                err = ":boom: There was a null exception";
-            } else {
-                if (Config.getDebugMode()) {
-                    exception.printStackTrace();
 
-                    StringBuilder errSb = new StringBuilder();
-                    boolean seenMinecordCode = false;
-                    for (StackTraceElement ste : exception.getStackTrace()) {
-                        String className = ste.getClassName();
-                        if (className.startsWith("com.google.gson") || className.startsWith("net.kyori")) {
-                            continue;
-                        }
-                        errSb.append("\n").append(ste);
-                        if (className.startsWith("net.dv8tion") || className.startsWith("com.neovisionaries")) {
-                            if (seenMinecordCode) {
-                                errSb.append("...");
-                                break;
-                            }
-                        } else if (className.startsWith("com.tisawesomeness") || className.startsWith("br.com.azalim")) {
-                            seenMinecordCode = true;
-                        }
-                    }
+            cmd.handleException(exception, e);
 
-                    err = ":boom: There was an unexpected exception: " + MarkdownUtil.monospace(exception.toString()) +
-                            "\n" + MarkdownUtil.codeblock("java", errSb.toString());
-                } else {
-                    err = ":boom: There was an unexpected exception: " + MarkdownUtil.monospace(exception.toString());
-                }
-            }
-            String logMsg = "EXCEPTION: " + MarkdownUtil.monospace(cmd.debugRunCommand(e)) + "\n" + err;
-            if (logMsg.length() > Message.MAX_CONTENT_LENGTH) {
-                logMsg = logMsg.substring(0, Message.MAX_CONTENT_LENGTH - 6) + "...```";
-            }
-            MessageUtils.log(logMsg);
-            if (err.length() > Message.MAX_CONTENT_LENGTH) {
-                err = err.substring(0, Message.MAX_CONTENT_LENGTH - 6) + "...```";
-            }
-            cmd.sendFailure(e, MessageCreateData.fromContent(err));
-            //If message is empty
+        // If message is empty
         } else if (result.message == null) {
+
             if (result.outcome != null && result.outcome != Command.Outcome.SUCCESS) {
-                System.out.println("Command \"" + cmd.getInfo().name + "\" returned an empty " +
-                        result.outcome.toString().toLowerCase());
+                System.out.printf("Command `%s` returned an empty %s\n", cmd.getInfo().name, result.outcome.toString().toLowerCase());
             }
+
+        // Run completed normally
         } else {
+
             switch (result.outcome) {
                 case SUCCESS:
                     cmd.sendSuccess(e, result.message);
                     break;
                 case ERROR:
-                    System.out.println("Command \"" + cmd.getInfo().name + "\" returned an error: " +
-                            result.message.getContent());
+                    System.out.printf("Command `%s` returned an error: %s\n", cmd.getInfo().name, result.message.getContent());
                     // fallthrough
                 case WARNING:
                     cmd.sendFailure(e, result.message);
                     break;
             }
+
         }
+
     }
 
     private static String migrateMessage(String migrateTo) {

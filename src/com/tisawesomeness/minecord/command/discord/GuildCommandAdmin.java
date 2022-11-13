@@ -7,6 +7,7 @@ import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
 public class GuildCommandAdmin extends LegacyCommand {
 
@@ -44,7 +45,9 @@ public class GuildCommandAdmin extends LegacyCommand {
             }
             return new Result(Outcome.SUCCESS, GuildCommand.getSettingsStr(gid));
         }
-        return GuildCommand.run(g, true);
+        GuildCommand.buildReply(g, true)
+                .thenAccept(emb -> sendSuccess(e, MessageCreateData.fromEmbeds(emb)));
+        return new Result(Outcome.SUCCESS);
     }
 
 }

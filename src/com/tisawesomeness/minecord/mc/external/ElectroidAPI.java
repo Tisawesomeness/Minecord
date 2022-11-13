@@ -2,7 +2,7 @@ package com.tisawesomeness.minecord.mc.external;
 
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.Profile;
-import com.tisawesomeness.minecord.mc.player.SkinType;
+import com.tisawesomeness.minecord.mc.player.SkinModel;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.UrlUtils;
 import com.tisawesomeness.minecord.util.UuidUtils;
@@ -83,14 +83,14 @@ public abstract class ElectroidAPI {
         JSONObject textures = obj.getJSONObject("textures");
 
         URL skinUrl = null;
-        SkinType skinType = SkinType.STEVE;
+        SkinModel skinModel = SkinModel.WIDE;
         if (textures.has("skin")) {
             JSONObject skinObj = textures.getJSONObject("skin");
             String link = skinObj.getString("url");
             try {
                 skinUrl = new URL(UrlUtils.httpToHttps(link));
                 if (textures.optBoolean("slim")) {
-                    skinType = SkinType.ALEX;
+                    skinModel = SkinModel.SLIM;
                 }
             } catch (MalformedURLException ignore) {
                 System.err.println("Electroid returned an invalid skin URL: " + link);
@@ -110,7 +110,7 @@ public abstract class ElectroidAPI {
             }
         }
 
-        return new Profile(username, legacy, demo, skinType, skinUrl, capeUrl);
+        return new Profile(username, legacy, demo, skinModel, skinUrl, capeUrl);
     }
 
 }

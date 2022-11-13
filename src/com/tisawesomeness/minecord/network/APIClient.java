@@ -38,4 +38,9 @@ public interface APIClient {
      */
     boolean exists(@NonNull URL url) throws IOException;
 
+    int getQueuedCallsCount();
+    int getRunningCallsCount();
+    int getIdleConnectionCount();
+    int getConnectionCount();
+
 }

@@ -8,11 +8,15 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Guild.BoostTier;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 import net.dv8tion.jda.api.utils.TimeFormat;
 import net.dv8tion.jda.api.utils.TimeUtil;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
+
+import java.util.concurrent.CompletableFuture;
 
 public class GuildCommand extends SlashCommand {
 
@@ -36,12 +40,17 @@ public class GuildCommand extends SlashCommand {
         if (!e.isFromGuild()) {
             return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
         }
-        return run(e.getGuild(), false);
+        buildReply(e.getGuild(), false)
+                .thenAccept(emb -> sendSuccess(e, MessageCreateData.fromEmbeds(emb)));
+        return new Result(Outcome.SUCCESS);
     }
 
-    public static Result run(Guild g, boolean elevated) {
-        User owner = g.retrieveOwner().complete().getUser();
+    public static CompletableFuture<MessageEmbed> buildReply(Guild g, boolean elevated) {
+        return g.retrieveOwner().submit()
+                .thenApply(m -> buildReply(g, m.getUser(), elevated));
+    }
 
+    private static MessageEmbed buildReply(Guild g, User owner, boolean elevated) {
         // Generate guild info
         int textChannels = g.getTextChannels().size();
         int voiceChannels = g.getVoiceChannels().size();
@@ -75,7 +84,8 @@ public class GuildCommand extends SlashCommand {
                 eb.setDescription("__**GUILD BANNED FROM MINECORD**__");
             }
         }
-        return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+
+        return MessageUtils.addFooter(eb).build();
     }
 
     public static String getSettingsStr(long gid) {

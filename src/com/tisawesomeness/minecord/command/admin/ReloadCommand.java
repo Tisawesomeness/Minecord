@@ -8,10 +8,11 @@ import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.VoteHandler;
 import com.tisawesomeness.minecord.mc.item.Item;
 import com.tisawesomeness.minecord.mc.item.Recipe;
-import com.tisawesomeness.minecord.util.MessageUtils;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -42,11 +43,14 @@ public class ReloadCommand extends LegacyCommand {
 
     public Result run(String[] args, MessageReceivedEvent e) {
 
-        MessageUtils.log(":arrows_counterclockwise: **Bot reloaded by " + e.getAuthor().getAsTag() + "**");
+        String msg = "Bot reloaded by " + DiscordUtils.tagAndId(e.getAuthor());
+        System.out.println(msg);
+        Bot.logger.log(":arrows_counterclockwise: " + MarkdownUtil.bold(msg));
         Message m = e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
         if (Config.getDevMode()) {
             Bot.shutdown(m, e.getAuthor());
         } else {
+            Bot.setNotReady();
             try {
                 Database.close();
                 Database.init();
@@ -64,6 +68,7 @@ public class ReloadCommand extends LegacyCommand {
             } catch (SQLException | IOException ex) {
                 ex.printStackTrace();
             }
+            Bot.setReady();
             m.editMessage(":white_check_mark: Reloaded!").queue();
         }
 

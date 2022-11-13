@@ -20,6 +20,7 @@ public class Config {
 
     private static String logChannel;
     private static String joinLogChannel;
+    private static String logWebhook;
     private static boolean isSelfHosted;
     private static String author;
     private static String authorTag;
@@ -31,14 +32,13 @@ public class Config {
     private static String game;
     private static boolean devMode;
     private static boolean debugMode;
-    private static boolean respondToMentions;
     private static boolean deleteCommands;
     private static boolean useMenus;
-    private static boolean sendTyping;
     private static boolean showMemory;
     private static boolean elevatedSkipCooldown;
     private static boolean useElectroidAPI;
     private static boolean useGappleAPI;
+    private static boolean recordCacheStats;
     private static String itemImageHost;
     private static String recipeImageHost;
 
@@ -106,6 +106,7 @@ public class Config {
             JSONObject settings = config.getJSONObject("settings");
             logChannel = settings.getString("logChannel");
             joinLogChannel = settings.optString("joinLogChannel", "0");
+            logWebhook = settings.optString("logWebhook", "");
             isSelfHosted = settings.getBoolean("isSelfHosted");
             if (isSelfHosted) {
                 author = settings.getString("author");
@@ -126,14 +127,13 @@ public class Config {
             game = settings.getString("game");
             devMode = settings.getBoolean("devMode");
             debugMode = settings.getBoolean("debugMode");
-            respondToMentions = settings.getBoolean("respondToMentions");
             deleteCommands = settings.getBoolean("deleteCommands");
             useMenus = settings.getBoolean("useMenus");
-            sendTyping = settings.getBoolean("sendTyping");
             showMemory = settings.getBoolean("showMemory");
             elevatedSkipCooldown = settings.getBoolean("elevatedSkipCooldown");
             useElectroidAPI = settings.optBoolean("useElectroidAPI", true);
             useGappleAPI = settings.optBoolean("useGappleAPI", true);
+            recordCacheStats = settings.optBoolean("recordCacheStats", false);
             itemImageHost = settings.optString("itemImageHost", "https://minecord.github.io/item/");
             recipeImageHost = settings.optString("recipeImageHost", "https://minecord.github.io/recipe/");
 
@@ -171,7 +171,8 @@ public class Config {
 
     public static String getLogChannel() { return logChannel; }
     public static String getJoinLogChannel() { return joinLogChannel; }
-    public static boolean isIsSelfHosted() { return isSelfHosted; }
+    public static String getLogWebhook() { return logWebhook; }
+    public static boolean isSelfHosted() { return isSelfHosted; }
     public static String getAuthor() { return author; }
     public static String getAuthorTag() { return authorTag; }
     public static String getInvite() { return invite; }
@@ -182,14 +183,13 @@ public class Config {
     public static String getGame() { return game; }
     public static boolean getDevMode() { return devMode; }
     public static boolean getDebugMode() { return debugMode; }
-    public static boolean getRespondToMentions() { return respondToMentions; }
     public static boolean getDeleteCommands() { return deleteCommands; }
     public static boolean getUseMenus() { return useMenus; }
-    public static boolean getSendTyping() { return sendTyping; }
     public static boolean getShowMemory() { return showMemory; }
     public static boolean getElevatedSkipCooldown() { return elevatedSkipCooldown; }
     public static boolean getUseElectroidAPI() { return useElectroidAPI; }
     public static boolean getUseGappleAPI() { return useGappleAPI; }
+    public static boolean getRecordCacheStats() { return recordCacheStats; }
     public static String getItemImageHost() { return itemImageHost; }
     public static String getRecipeImageHost() { return recipeImageHost; }
 

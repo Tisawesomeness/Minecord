@@ -45,7 +45,7 @@ public class InfoCommand extends SlashCommand {
 
         eb.setColor(Bot.color);
         eb.addField("Author", Bot.author, true);
-        if (Config.isIsSelfHosted()) {
+        if (Config.isSelfHosted()) {
             eb.addField("Self-Hoster", Config.getAuthor(), true);
         }
         eb.addField("Version", Bot.getVersion(), true);
@@ -67,11 +67,17 @@ public class InfoCommand extends SlashCommand {
         eb.addField("Java Version", MarkdownUtil.monospace(Bot.javaVersion), true);
         eb.addField("JDA Version", MarkdownUtil.monospace(Bot.jdaVersion), true);
 
-        String links = MarkdownUtil.maskedLink("INVITE", Config.getInvite()) + " | " +
-                MarkdownUtil.maskedLink("SUPPORT", Config.getHelpServer()) + " | " +
-                MarkdownUtil.maskedLink("WEBSITE", Config.getWebsite()) + " | " +
-                MarkdownUtil.maskedLink("GITHUB", Config.getGithub());
-        eb.addField("Links", "**" + links + "**", false);
+        String links = MarkdownUtil.maskedLink("INVITE", Config.getInvite()) +
+                " | " + MarkdownUtil.maskedLink("SUPPORT", Config.getHelpServer()) +
+                " | " + MarkdownUtil.maskedLink("WEBSITE", Config.getWebsite()) +
+                " | " + MarkdownUtil.maskedLink("GITHUB", Config.getGithub());
+        eb.addField("Links", MarkdownUtil.bold(links), false);
+
+        if (!Config.isSelfHosted()) {
+            String legal = MarkdownUtil.maskedLink("TERMS", Bot.terms) +
+                    " | " + MarkdownUtil.maskedLink("PRIVACY", Bot.privacy);
+            eb.addField("Legal", MarkdownUtil.bold(legal), false);
+        }
 
         eb = MessageUtils.addFooter(eb);
         return new Result(Outcome.SUCCESS, eb.build());

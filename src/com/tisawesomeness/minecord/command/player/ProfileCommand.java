@@ -104,14 +104,16 @@ public class ProfileCommand extends BasePlayerCommand {
         String usernameLength = String.format("**Letters in Username**: `%d`", player.getUsername().length());
         String shortUuid = String.format("**Short UUID**: `%s`", UuidUtils.toShortString(uuid));
         String longUuid = String.format("**Long UUID**: `%s`", UuidUtils.toLongString(uuid));
-        String defaultModel = "**Default Skin Model**: " + player.getDefaultSkinType();
+        String defaultModel = "**Default Skin Model**: " + player.getDefaultSkinModel().getDescription();
+        String newDefaultModel = "**1.19.3+ Default Skin**: " + player.getNewDefaultSkin();
 
         String descriptionStart = usernameLength + "\n" + shortUuid + "\n" + longUuid + "\n";
+        String defaultModels = defaultModel + "\n" + newDefaultModel;
         if (player.isPHD()) {
-            return descriptionStart + defaultModel + "\n**This player is pseudo hard-deleted (PHD)!**";
+            return descriptionStart + defaultModels + "\n**This player is pseudo hard-deleted (PHD)!**";
         } else {
-            String skinType = "**Skin Model**: " + player.getSkinType();
-            return descriptionStart + skinType + "\n" + defaultModel;
+            String skinModel = "**Skin Model**: " + player.getSkinModel().getDescription();
+            return descriptionStart + skinModel + "\n" + defaultModels;
         }
     }
 

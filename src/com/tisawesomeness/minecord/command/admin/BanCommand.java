@@ -5,7 +5,6 @@ import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.DiscordUtils;
-import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;
@@ -69,7 +68,8 @@ public class BanCommand extends LegacyCommand {
                     .complete();
             String msg = user == null ? args[1] : user.getAsTag();
             msg += banned ? " has been unbanned." : " was struck with the ban hammer!";
-            MessageUtils.log(msg);
+            Bot.logger.log(msg);
+            System.out.println(msg);
             return new Result(Outcome.SUCCESS, msg);
 
             //Guild part of command
@@ -89,7 +89,8 @@ public class BanCommand extends LegacyCommand {
             //Format message
             String msg = guild.getName() + " (`" + guild.getId() + "`) ";
             msg += banned ? "has been unbanned." : "was struck with the ban hammer!";
-            MessageUtils.log(msg);
+            Bot.logger.log(msg);
+            System.out.println(msg);
             return new Result(Outcome.SUCCESS, msg);
 
             //Query part of command

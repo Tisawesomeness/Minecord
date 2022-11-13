@@ -48,25 +48,26 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `/perms [<channel>]` - Test the bot's permissions in a channel. Leave blank to test the current channel.
 
 #### Admin Commands
-- `&help <command> admin` - Displays admin help for a command.
-- `&infoadmin` - Displays bot info, including used memory and boot time.
-- `&guildadmin <guild id>` - Show info and ban status for another guild.
-- `&roleadmin <role id>` - Show role info for any role.
-- `&useradmin <user id> [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include `mutual` to show mutual guilds.
-- `&settings <guild id> admin [<setting> <value>]` - Change the bot's settings for another guild.
-- `&permsadmin <channel id>` - Test the bot's permissions in any channel.
-- `&say <channel> <message>` - Say a message.
-- `&msg <mention> <message>` - Open the DMs.
-- `&name <guild id> <name>` - Changes the bot's nickname per-guild, enter nothing to reset.
-- `&usage` - Shows how often commands are used.
-- `&promote <user>` - Elevate a user.
-- `&demote <user>` - De-elevate a user.
-- `&ban [user|guild] <id>` - Bans/unbans a user/guild from the bot. Omit user/guild to check for a ban.
-- `&reload` - Reloads the bot. In dev mode, this hot reloads all code. Otherwise, this reloads the config, item/recipe files, and restarts the database and vote server.
-- `&shutdown` - Shuts down the bot.
-- `&deploy` - Deploys slash commands globally.
-- `&eval` - Evaluates javascript code with variables `jda`, `config`, `event`, `guild`, `channel`, and `user`.
-- `&test` - Test command. This may change depending on what features are being developed.
+- `@Minecord help <command> admin` - Displays admin help for a command.
+- `@Minecord infoadmin` - Displays bot info, including used memory and boot time.
+- `@Minecord guildadmin <guild id>` - Show info and ban status for another guild.
+- `@Minecord roleadmin <role id>` - Show role info for any role.
+- `@Minecord useradmin <user id> [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include `mutual` to show mutual guilds.
+- `@Minecord settings <guild id> admin [<setting> <value>]` - Change the bot's settings for another guild.
+- `@Minecord permsadmin <channel id>` - Test the bot's permissions in any channel.
+- `@Minecord say <channel> <message>` - Say a message.
+- `@Minecord msg <mention> <message>` - Open the DMs.
+- `@Minecord name <guild id> <name>` - Changes the bot's nickname per-guild, enter nothing to reset.
+- `@Minecord usage` - Shows how often commands are used.
+- `@Minecord debug [<option>|all]` - Prints out debug info.
+- `@Minecord promote <user>` - Elevate a user.
+- `@Minecord demote <user>` - De-elevate a user.
+- `@Minecord ban [user|guild] <id>` - Bans/unbans a user/guild from the bot. Omit user/guild to check for a ban.
+- `@Minecord reload` - Reloads the bot. In dev mode, this hot reloads all code. Otherwise, this reloads the config, item/recipe files, and restarts the database and vote server.
+- `@Minecord shutdown` - Shuts down the bot.
+- `@Minecord deploy` - Deploys slash commands globally.
+- `@Minecord eval` - Evaluates javascript code with variables `jda`, `config`, `event`, `guild`, `channel`, and `user`.
+- `@Minecord test` - Test command. This may change depending on what features are being developed.
 
 ### Config
 
@@ -75,8 +76,9 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Owner:* The user ID of the bot owner. The bot will work when owner is 0, but it is *highly encouraged* to set this value.
 - *Test Servers:* A list of server IDs that will have guild slash commands updated on startup for testing.
 
-- *Log Channel:* The bot will send any logging messages to this channel. Set to 0 to disable.
+- *Log Channel:* The bot will send errors and debugging messages to this channel. Set to 0 to disable.
 - *Join Log Channel:* The bot will send server join/leave messages to this channel. Set to 0 to disable.
+- *Log Webhook:* The webhook URL to send log messages to. Set to blank to disable.
 - *Is Self Hosted:* Leave as `true` if you are self-hosting the bot.
 - *Author:* The name of the person hosting the bot.
 - *Author Tag:* The Discord tag of the person hosting the bot.
@@ -87,22 +89,21 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Prefix:* The prefix of the bot. Use something else instead of `&` if you want to host your own bot alongside the main one.
 - *Game:* This is the game that the bot is playing, shown under the username. `{prefix}` and `{guilds}` are available variables.
 - *Dev Mode:* Turning this on will let you reload code using `&reload` on the fly. When hosting the bot, it's best to keep this off in order to decrease memory usage.
-- *Debug Mode:* Prints additional info to console.
-- *Respond To Mentions:* This option decides if the bot will respond to being mentioned at the beginning of a message, so you can use `@Minecord#1216 help` to execute `&help`.
+- *Debug Mode:* If true, exceptions during command execution will be sent to the user.
 - *Delete Commands:* If true, the commands sent by players (like `&help`) will be deleted to clean up chat. Requires permission to manage messages.
 - *Use Menus:* If true, the bot will use a reaction menu for `&recipe` and `&ingredient` if possible.
-- *Send Typing:* If true, the bot will send typing packets.
-- *Show Memory:* Whether or not to show the memory in `&info`.
-- *Elevated Skip Cooldown:* Whether or not elevated users skip command cooldowns.
+- *Show Memory:* Whether to show the memory in `&info`.
+- *Elevated Skip Cooldown:* Whether elevated users skip command cooldowns.
 - *Use Electroid API:* Whether to use the Electroid API to speed up player lookups. May cause slowdowns if the API is consistently down.
 - *Use Gapple API:* Whether to use the Gapple API to look up account types. May cause slowdowns if the API is consistently down.
+- *Record Cache Stats:* Whether to record cache performance statistics. This will cause a slight performance hit.
 - *Item Image Host:* The website hosting item images.
 - *Recipe Image Host:* The website hosting recipe images.
 
-- *Send Server Count:* Whether or not the bot should send the guild count to bot list websites.
+- *Send Server Count:* Whether the bot should send the guild count to bot list websites.
 - *Pw Token:* The token to use on bots.discord.pw.
-- *Org Token:* The token to use on discordbots.org.
-- *Receive Votes:* When true, the bot will receive votes from discordbots.org. **This will set up an HTTP server.**
+- *Org Token:* The token to use on discordbots.org (top.gg).
+- *Receive Votes:* When true, the bot will receive votes from discordbots.org (top.gg). **This will set up an HTTP server.**
 - *Webhook URL:* The URL used to receive votes. Keep this random and private, if it leaks, users will be able to fake votes. Set the discordbots.org webhook to http://`your ip`:`port`/`url`.
 - *Webhook Port:* The port used to receive votes.
 - *Webhook Auth:* All incoming vote requests must have this code in the "Authorization" header.
@@ -133,6 +134,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
   "settings": {
     "logChannel": "0",
     "joinLogChannel": "0",
+    "logWebhook": "",
     "isSelfHosted": true,
     "author": "Tis_awesomeness",
     "authorTag": "@Tis_awesomeness#8617",
@@ -144,14 +146,13 @@ A robust Discord bot using the JDA library for various Minecraft functions.
     "game": "/help | {guilds} guilds",
     "devMode": false,
     "debugMode": false,
-    "respondToMentions": true,
     "deleteCommands": false,
     "useMenus": true,
-    "sendTyping": false,
     "showMemory": false,
     "elevatedSkipCooldown": true,
     "useElectroidAPI": true,
     "useGappleAPI": true,
+    "recordCacheStats": false,
     "itemImageHost": "https://minecord.github.io/item/",
     "recipeImageHost": "https://minecord.github.io/recipe/"
   },

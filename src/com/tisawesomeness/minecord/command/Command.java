@@ -1,9 +1,16 @@
 package com.tisawesomeness.minecord.command;
 
+import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Config;
+import com.tisawesomeness.minecord.util.MessageUtils;
+
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.Event;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
 import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
 import net.dv8tion.jda.api.utils.messages.MessageCreateData;
+
+import java.util.UUID;
 
 public interface Command<T extends Event> {
 
@@ -25,6 +32,55 @@ public interface Command<T extends Event> {
     void sendFailure(T e, MessageCreateData message);
 
     String debugRunCommand(T e);
+
+    default void handleException(Throwable ex, T e) {
+        UUID uuid = UUID.randomUUID();
+
+        String logMsg = String.format("EXCEPTION: `%s`\nID: `%s`\n%s", debugRunCommand(e), uuid, buildErrorMessage(ex));
+        String logMsgTrimmed = MessageUtils.trimCodeblock(logMsg);
+        System.err.println(uuid);
+        ex.printStackTrace();
+        Bot.logger.debugLog(logMsgTrimmed);
+
+        if (Config.getDebugMode()) {
+            sendFailure(e, MessageCreateData.fromContent(logMsgTrimmed));
+        } else {
+            String userMsg = ":boom: An unexpected error occurred!\nID: " + MarkdownUtil.monospace(uuid.toString());
+            String userMsgTrimmed = MessageUtils.trimCodeblock(userMsg);
+            sendFailure(e, MessageCreateData.fromContent(userMsgTrimmed));
+        }
+    }
+
+    static String buildErrorMessage(Throwable ex) {
+        if (ex == null) {
+            return ":boom: There was a null exception";
+        } else {
+            String cleanedStackTrace = buildStackTrace(ex);
+            return ":boom: There was an unexpected exception: " + MarkdownUtil.monospace(ex.toString()) +
+                    "\n" + MarkdownUtil.codeblock("java", cleanedStackTrace);
+        }
+    }
+
+    static String buildStackTrace(Throwable ex) {
+        StringBuilder sb = new StringBuilder();
+        boolean seenMinecordCode = false;
+        for (StackTraceElement ste : ex.getStackTrace()) {
+            String className = ste.getClassName();
+            if (className.startsWith("com.google.gson") || className.startsWith("net.kyori")) {
+                continue;
+            }
+            sb.append("\n").append(ste);
+            if (className.startsWith("net.dv8tion") || className.startsWith("com.neovisionaries")) {
+                if (seenMinecordCode) {
+                    sb.append("...");
+                    break;
+                }
+            } else if (className.startsWith("com.tisawesomeness") || className.startsWith("br.com.azalim")) {
+                seenMinecordCode = true;
+            }
+        }
+        return sb.toString();
+    }
 
     /**
      * Represents all the data needed to register a command.

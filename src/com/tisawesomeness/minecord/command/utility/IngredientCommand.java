@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
 import java.util.ArrayList;
@@ -30,7 +31,8 @@ public class IngredientCommand extends SlashCommand {
     @Override
     public SlashCommandData addCommandSyntax(SlashCommandData builder) {
         return builder.addOption(OptionType.STRING, "item", "A Minecraft item", true)
-                .addOption(OptionType.INTEGER, "page", "The page of recipes to show", false);
+                .addOptions(new OptionData(OptionType.INTEGER, "page", "The page of recipes to show", false)
+                        .setRequiredRange(1, Integer.MAX_VALUE));
     }
 
     @Override

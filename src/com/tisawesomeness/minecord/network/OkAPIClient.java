@@ -18,14 +18,17 @@ public class OkAPIClient implements APIClient {
      */
     @Getter private final OkHttpClient.Builder httpClientBuilder;
 
+    private final Dispatcher dispatcher;
+    private final ConnectionPool connectionPool;
+
     /**
      * Creates a new API client with the default settings.
      */
     public OkAPIClient() {
         // client is set to JDA defaults
-        Dispatcher dispatcher = new Dispatcher();
+        dispatcher = new Dispatcher();
         dispatcher.setMaxRequestsPerHost(25);
-        ConnectionPool connectionPool = new ConnectionPool(5, 10000, TimeUnit.MILLISECONDS);
+        connectionPool = new ConnectionPool(5, 10000, TimeUnit.MILLISECONDS);
         httpClientBuilder = new OkHttpClient.Builder()
                 .connectionPool(connectionPool)
                 .dispatcher(dispatcher);
@@ -57,6 +60,23 @@ public class OkAPIClient implements APIClient {
     @Override
     public boolean exists(@NonNull URL url) throws IOException {
         return head(url).code() == StatusCodes.OK;
+    }
+
+    @Override
+    public int getQueuedCallsCount() {
+        return dispatcher.queuedCallsCount();
+    }
+    @Override
+    public int getRunningCallsCount() {
+        return dispatcher.runningCallsCount();
+    }
+    @Override
+    public int getIdleConnectionCount() {
+        return connectionPool.idleConnectionCount();
+    }
+    @Override
+    public int getConnectionCount() {
+        return connectionPool.connectionCount();
     }
 
 }

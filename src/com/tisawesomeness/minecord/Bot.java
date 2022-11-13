@@ -11,6 +11,7 @@ import com.tisawesomeness.minecord.mc.item.Recipe;
 import com.tisawesomeness.minecord.network.APIClient;
 import com.tisawesomeness.minecord.network.OkAPIClient;
 import com.tisawesomeness.minecord.util.*;
+import com.tisawesomeness.minecord.util.type.Switch;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Activity;
@@ -30,6 +31,7 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Bot {
 
@@ -40,17 +42,22 @@ public class Bot {
     public static final String helpServer = "https://minecord.github.io/support";
     public static final String website = "https://minecord.github.io";
     public static final String github = "https://github.com/Tisawesomeness/Minecord";
-    private static final String version = "0.16.3";
+    public static final String terms = "https://minecord.github.io/terms";
+    public static final String privacy = "https://minecord.github.io/privacy";
+    private static final String version = "0.16.4";
     public static final String javaVersion = "1.8";
-    public static final String jdaVersion = "5.0.0-alpha.18";
+    public static final String jdaVersion = "5.0.0-alpha.22";
     public static final Color color = Color.GREEN;
 
     public static ShardManager shardManager;
-    private static APIClient apiClient;
+    public static APIClient apiClient;
+    public static DiscordLogger logger;
     public static MCLibrary mcLibrary;
-    private static Listener listener;
+    private static StatusListener statusListener;
+    private static GuildListener guildListener;
     private static CommandListener commandListener;
     private static ReactListener reactListener;
+    public static String ownerAvatarUrl;
     public static long birth;
     public static long bootTime;
     public static String[] args;
@@ -61,6 +68,17 @@ public class Bot {
             GatewayIntent.DIRECT_MESSAGES, GatewayIntent.DIRECT_MESSAGE_REACTIONS,
             GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS
     );
+
+    private static final Switch readySwitch = new Switch();
+    public static void setReady() {
+        readySwitch.enable();
+    }
+    public static void setNotReady() {
+        readySwitch.disable();
+    }
+    public static boolean waitForReady(long l, TimeUnit timeUnit) throws InterruptedException {
+        return readySwitch.waitForEnable(l, timeUnit);
+    }
 
     public static boolean setup(String[] args, boolean devMode) {
         long startTime = System.currentTimeMillis();
@@ -76,10 +94,12 @@ public class Bot {
 
         //Pre-init
         thread = Thread.currentThread();
-        listener = new Listener();
+        statusListener = new StatusListener();
+        guildListener = new GuildListener();
         commandListener = new CommandListener();
         reactListener = new ReactListener();
         apiClient = new OkAPIClient();
+        logger = new DiscordLogger(apiClient.getHttpClientBuilder().build());
         mcLibrary = new StandardMCLibrary(apiClient);
         try {
             Announcement.init(Config.getPath());
@@ -135,10 +155,11 @@ public class Bot {
                 birth = (long) MethodName.GET_BIRTH.method().invoke(null, "ignore");
                 //Prepare commands
                 for (JDA jda : shardManager.getShards()) {
-                    jda.addEventListener(listener, commandListener, reactListener);
+                    jda.addEventListener(statusListener, guildListener, commandListener, reactListener);
                 }
                 m.editMessage(":white_check_mark: **Bot reloaded!**").queue();
-                MessageUtils.log(":arrows_counterclockwise: **Bot reloaded by " + u.getName() + "**");
+                logger.log(":arrows_counterclockwise: **Bot reloaded by " + DiscordUtils.tagAndId(u) + "**");
+                System.out.println("Bot reloaded by " + DiscordUtils.tagAndId(u));
 
                 //If this is the first run
             } else {
@@ -146,7 +167,7 @@ public class Bot {
                 //Initialize JDA
                 shardManager = DefaultShardManagerBuilder.createLight(Config.getClientToken(), gateways)
                         .setAutoReconnect(true)
-                        .addEventListeners(listener, commandListener, reactListener)
+                        .addEventListeners(statusListener, guildListener, commandListener, reactListener)
                         .setShardsTotal(Config.getShardCount())
                         .setActivity(Activity.playing("Loading..."))
                         .setHttpClientBuilder(apiClient.getHttpClientBuilder())
@@ -192,14 +213,19 @@ public class Bot {
         //Wait for database and web server
         try {
             db.join();
+        } catch (InterruptedException ignored) {}
+        setReady();
+        System.out.println("Bot ready!");
+        try {
             if (ws != null) ws.join();
-            System.out.println("Bot ready!");
+            System.out.println("Web server started");
         } catch (InterruptedException ignored) {}
 
         //Post-init
+        shardManager.retrieveUserById(Config.getOwner()).queue(u -> ownerAvatarUrl = u.getAvatarUrl());
         bootTime = System.currentTimeMillis() - birth;
         System.out.println("Boot Time: " + DateUtils.getBootTime());
-        MessageUtils.log(":white_check_mark: **Bot started!**");
+        logger.log(":white_check_mark: **Bot started!**");
         DiscordUtils.update();
         RequestUtils.sendGuilds();
 
@@ -216,7 +242,7 @@ public class Bot {
         //Disable JDA
         for (JDA jda : shardManager.getShards()) {
             jda.setAutoReconnect(false);
-            jda.removeEventListener(listener, commandListener, reactListener);
+            jda.removeEventListener(statusListener, guildListener, commandListener, reactListener);
         }
         try {
             //Reload this class using reflection

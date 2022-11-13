@@ -4,8 +4,8 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.requests.ErrorResponse;
 
 import java.util.regex.Matcher;
@@ -19,6 +19,10 @@ public class DiscordUtils {
 
     public static boolean isDiscordId(String str) {
         return ID_PATTERN.matcher(str).matches();
+    }
+
+    public static String tagAndId(User u) {
+        return String.format("%#s (`%s`)", u, u.getId());
     }
 
     public static void update() {

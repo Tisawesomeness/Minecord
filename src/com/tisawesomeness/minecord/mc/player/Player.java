@@ -21,6 +21,9 @@ import java.util.UUID;
 public class Player implements Comparable<Player> {
     private static final Comparator<Player> COMPARATOR = initComparator();
 
+    // 37 is max length of a UUID with dashes
+    public static final int MAX_PLAYER_ARGUMENT_LENGTH = Math.max(37, Username.MAX_LENGTH);
+
     public static final URL STEVE_SKIN_URL = UrlUtils.createUrl("https://textures.minecraft.net/texture/" +
             "1a4af718455d4aab528e7a61f86fa25e6a369d1768dcb13f7df319a713eb810b");
     public static final URL ALEX_SKIN_URL = UrlUtils.createUrl("https://textures.minecraft.net/texture/" +
@@ -88,29 +91,36 @@ public class Player implements Comparable<Player> {
     }
 
     /**
-     * @return The skin type of the player's current skin
+     * @return The skin model of the player's current skin
      * @throws IllegalStateException If the player is PHD
      */
-    public SkinType getSkinType() {
+    public SkinModel getSkinModel() {
         if (profile == null) {
             throw new IllegalStateException("PHD accounts do not have a profile");
         }
         if (profile.getSkinUrl().isPresent()) {
-            return profile.getSkinType();
+            return profile.getSkinModel();
         }
-        return getDefaultSkinType();
+        return getDefaultSkinModel();
     }
     /**
-     * @return The default skin type according to the UUID
+     * @return The default skin model according to the UUID
      */
-    public SkinType getDefaultSkinType() {
-        return getDefaultSkinTypeFor(uuid);
+    public SkinModel getDefaultSkinModel() {
+        return getDefaultSkinModelFor(uuid);
     }
     /**
-     * @return The default skin type according to the UUID
+     * @return The default skin model according to the UUID
      */
-    public static SkinType getDefaultSkinTypeFor(UUID uuid) {
-        return uuid.hashCode() % 2 == 0 ? SkinType.STEVE : SkinType.ALEX;
+    public static SkinModel getDefaultSkinModelFor(UUID uuid) {
+        return uuid.hashCode() % 2 == 0 ? SkinModel.WIDE : SkinModel.SLIM;
+    }
+
+    /**
+     * @return The new 1.19.3+ default skin according to the UUID
+     */
+    public DefaultSkin getNewDefaultSkin() {
+        return DefaultSkin.defaultFor(uuid);
     }
 
     /**
@@ -126,7 +136,7 @@ public class Player implements Comparable<Player> {
             return false;
         }
         URL skinUrl = skinUrlOpt.get();
-        if (getDefaultSkinType() == SkinType.STEVE) {
+        if (getDefaultSkinModel() == SkinModel.WIDE) {
             return !skinUrl.sameFile(STEVE_SKIN_URL);
         }
         return !skinUrl.sameFile(ALEX_SKIN_URL);
@@ -144,7 +154,7 @@ public class Player implements Comparable<Player> {
         Optional<URL> skinUrl = profile.getSkinUrl();
         if (skinUrl.isPresent()) {
             return skinUrl.get();
-        } else if (getDefaultSkinType() == SkinType.STEVE) {
+        } else if (getDefaultSkinModel() == SkinModel.WIDE) {
             return STEVE_SKIN_URL;
         }
         return ALEX_SKIN_URL;

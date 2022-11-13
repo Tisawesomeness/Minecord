@@ -28,7 +28,7 @@ public class VoteCommand extends SlashCommand {
 
     public Result run(SlashCommandInteractionEvent e) {
         String m = "Top.gg: " + MarkdownUtil.maskedLink("VOTE", "https://top.gg/bot/292279711034245130/vote");
-        String title = Config.isIsSelfHosted() ? "Vote for the main bot!" : "Vote for Minecord!";
+        String title = Config.isSelfHosted() ? "Vote for the main bot!" : "Vote for Minecord!";
         return new Result(Outcome.SUCCESS, MessageUtils.embedMessage(title, null, m, Bot.color));
     }
 

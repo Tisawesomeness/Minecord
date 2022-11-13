@@ -7,6 +7,7 @@
     "settings": {
         "logChannel": "0",
         "joinLogChannel": "0",
+        "logWebhook": "",
         "isSelfHosted": true,
         "author": "Tis_awesomeness",
         "authorTag": "@Tis_awesomeness#8617",
@@ -18,14 +19,13 @@
         "game": "/help | {guilds} guilds",
         "devMode": false,
         "debugMode": false,
-        "respondToMentions": true,
         "deleteCommands": false,
         "useMenus": true,
-        "sendTyping": false,
         "showMemory": false,
         "elevatedSkipCooldown": true,
         "useElectroidAPI": true,
         "useGappleAPI": true,
+        "recordCacheStats": false,
         "itemImageHost": "https://minecord.github.io/item/",
         "recipeImageHost": "https://minecord.github.io/recipe/"
     },
