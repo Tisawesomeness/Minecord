@@ -11,6 +11,7 @@ import com.tisawesomeness.minecord.mc.item.Recipe;
 import com.tisawesomeness.minecord.network.APIClient;
 import com.tisawesomeness.minecord.network.OkAPIClient;
 import com.tisawesomeness.minecord.util.*;
+import com.tisawesomeness.minecord.util.type.DelayedCountDownLatch;
 import com.tisawesomeness.minecord.util.type.Switch;
 
 import net.dv8tion.jda.api.JDA;
@@ -63,7 +64,6 @@ public class Bot {
     public static String[] args;
 
     public static Thread thread;
-    public static volatile int readyShards = 0;
     private static final List<GatewayIntent> gateways = Arrays.asList(
             GatewayIntent.DIRECT_MESSAGES, GatewayIntent.DIRECT_MESSAGE_REACTIONS,
             GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS
@@ -78,6 +78,17 @@ public class Bot {
     }
     public static boolean waitForReady(long l, TimeUnit timeUnit) throws InterruptedException {
         return readySwitch.waitForEnable(l, timeUnit);
+    }
+
+    private static final DelayedCountDownLatch shardReadySwitch = new DelayedCountDownLatch();
+    private static void initShardLatch(int shardCount) {
+        shardReadySwitch.startCountDown(shardCount);
+    }
+    public static void readyShard() {
+        shardReadySwitch.countDown();
+    }
+    private static void waitForShards() throws InterruptedException {
+        shardReadySwitch.await();
     }
 
     public static boolean setup(String[] args, boolean devMode) {
@@ -181,13 +192,12 @@ public class Bot {
                 }
 
                 // Wait for shards to ready
+                int shardCount = shardManager.getShardsTotal();
+                initShardLatch(shardCount);
                 if (Config.getShardCount() == -1) {
-                    System.out.println("Shard count: shardManager.getShardsTotal()");
+                    System.out.println("Shard count: " + shardCount);
                 }
-                while (readyShards < shardManager.getShardsTotal()) {
-                    //System.out.println("Ready shards: " + readyShards + " / " + shardManager.getShardsTotal());
-                    Thread.sleep(100);
-                }
+                waitForShards();
                 System.out.println("Shards ready");
 
             }
