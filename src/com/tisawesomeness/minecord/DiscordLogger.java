@@ -22,7 +22,8 @@ public class DiscordLogger {
     private final @Nullable String debugLogChannelId;
     private final RateLimiter<Object> debugRateLimiter;
     private final @Nullable String joinLogChannelId;
-    private final @Nullable JDAWebhookClient webhookClient;
+    private final @Nullable JDAWebhookClient logWebhookClient;
+    private final @Nullable JDAWebhookClient statusWebhookClient;
 
     public DiscordLogger(OkHttpClient httpClient) {
 
@@ -42,25 +43,45 @@ public class DiscordLogger {
         }
 
         if (Config.getLogWebhook().isEmpty()) {
-            webhookClient = null;
+            logWebhookClient = null;
             System.out.println("Config missing webhook URL, some messages will be missed!");
         } else {
-            webhookClient = new WebhookClientBuilder(Config.getLogWebhook())
-                    .setHttpClient(httpClient)
-                    .setAllowedMentions(AllowedMentions.none())
-                    .setDaemon(true)
-                    .buildJDA();
+            logWebhookClient = buildWebhookClient(httpClient, Config.getLogWebhook());
         }
+
+        if (Config.getStatusWebhook().isEmpty()) {
+            statusWebhookClient = null;
+            System.out.println("Config missing status webhook URL, some messages will be missed!");
+        } else {
+            statusWebhookClient = buildWebhookClient(httpClient, Config.getStatusWebhook());
+        }
+
+    }
+
+    private static JDAWebhookClient buildWebhookClient(OkHttpClient httpClient, String url) {
+        return new WebhookClientBuilder(url)
+                .setHttpClient(httpClient)
+                .setAllowedMentions(AllowedMentions.none())
+                .setDaemon(true)
+                .buildJDA();
     }
 
     public void log(String str) {
-        log(MessageCreateData.fromContent(str));
-    }
-    public void log(MessageCreateData message) {
-        if (webhookClient != null) {
-            webhookClient.send(toWebhookMessage(message));
+        if (logWebhookClient != null) {
+            logWebhookClient.send(str);
         }
     }
+    public void log(MessageCreateData message) {
+        if (logWebhookClient != null) {
+            logWebhookClient.send(toWebhookMessage(message));
+        }
+    }
+    public void statusLog(String str) {
+        if (statusWebhookClient != null) {
+            statusWebhookClient.send(str);
+        }
+    }
+
     private static WebhookMessage toWebhookMessage(MessageCreateData message) {
         List<WebhookEmbed> embeds = message.getEmbeds().stream()
                 .map(WebhookEmbedBuilder::fromJDA)

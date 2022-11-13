@@ -238,7 +238,7 @@ public class Bot {
         shardManager.retrieveUserById(Config.getOwner()).queue(u -> ownerAvatarUrl = u.getAvatarUrl());
         bootTime = System.currentTimeMillis() - birth;
         System.out.println("Boot Time: " + DateUtils.getBootTime());
-        logger.log(":white_check_mark: **Bot started!**");
+        logger.statusLog(":white_check_mark: **Bot started!**");
         DiscordUtils.update();
         RequestUtils.sendGuilds();
 

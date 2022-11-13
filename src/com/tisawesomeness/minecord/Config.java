@@ -21,6 +21,7 @@ public class Config {
     private static String logChannel;
     private static String joinLogChannel;
     private static String logWebhook;
+    private static String statusWebhook;
     private static boolean isSelfHosted;
     private static String author;
     private static String authorTag;
@@ -111,6 +112,7 @@ public class Config {
             logChannel = settings.getString("logChannel");
             joinLogChannel = settings.optString("joinLogChannel", "0");
             logWebhook = settings.optString("logWebhook", "");
+            statusWebhook = settings.optString("statusWebhook", "");
             isSelfHosted = settings.getBoolean("isSelfHosted");
             if (isSelfHosted) {
                 author = settings.getString("author");
@@ -176,6 +178,7 @@ public class Config {
     public static String getLogChannel() { return logChannel; }
     public static String getJoinLogChannel() { return joinLogChannel; }
     public static String getLogWebhook() { return logWebhook; }
+    public static String getStatusWebhook() { return statusWebhook; }
     public static boolean isSelfHosted() { return isSelfHosted; }
     public static String getAuthor() { return author; }
     public static String getAuthorTag() { return authorTag; }
