@@ -83,6 +83,7 @@ public class IngredientCommand extends SlashCommand {
             new Recipe.RecipeMenu(recipes, page, "en_US").post(e);
             return new Result(Outcome.SUCCESS);
         }
+        recipes.sort(Recipe::compareRecipes);
         EmbedBuilder eb = Recipe.displayImg(recipes.get(page), "en_US");
         eb.setFooter(String.format("Page %s/%s%s", page + 1, recipes.size(), status.getReason()), null);
         return new Result(Outcome.SUCCESS, eb.build());

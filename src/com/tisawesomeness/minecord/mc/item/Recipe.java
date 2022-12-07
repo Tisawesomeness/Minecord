@@ -365,7 +365,7 @@ public class Recipe {
         return properties == null ? null : properties.optString("removed", null);
     }
 
-    private static int compareRecipes(String recipe1, String recipe2) {
+    public static int compareRecipes(String recipe1, String recipe2) {
         double removedVer1 = getVersionNum(getRemovedVersion(recipe1));
         double removedVer2 = getVersionNum(getRemovedVersion(recipe2));
         if (removedVer1 == 0 && removedVer2 != 0) {
