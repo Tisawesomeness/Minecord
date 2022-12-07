@@ -1565,12 +1565,13 @@
   "minecraft.spawner": {
     "lang": {
       "en_US": {
-        "previously": "Monster Spawner",
-        "display_name": "Spawner"
+        "previously": "Spawner",
+        "previously2": "Monster Spawner",
+        "display_name": "Monster Spawner"
       }
     },
     "properties": {
-      "previous_id": "minecraft.mob_spawner",
+      "previous_id2": "minecraft.mob_spawner",
       "id": 52
     }
   },
@@ -7309,10 +7310,10 @@
   "minecraft.oak_door": {
     "lang": {
       "en_US": {
+        "block_name": "Oak Door Block",
         "search_names": [
           "Oak Wood Door"
         ],
-        "block_name": "Oak Door Block",
         "display_name": "Oak Door"
       }
     },
@@ -14905,6 +14906,7 @@
       }
     },
     "properties": {
+      "feature_flag": "bundle",
       "version": "1.17"
     }
   },
@@ -17416,6 +17418,7 @@
       }
     },
     "properties": {
+      "image_key": "Mangrove Sign",
       "version": "1.19"
     }
   },
@@ -17771,6 +17774,520 @@
     },
     "properties": {
       "version": "1.19"
+    }
+  },
+  "minecraft.ender_dragon_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "display_name": "Ender Dragon Spawn Egg"
+      }
+    },
+    "properties": {
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.iron_golem_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "display_name": "Iron Golem Spawn Egg"
+      }
+    },
+    "properties": {
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.snow_golem_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "display_name": "Snow Golem Spawn Egg"
+      }
+    },
+    "properties": {
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.wither_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "display_name": "Wither Spawn Egg"
+      }
+    },
+    "properties": {
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.acacia_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Acacia Hanging Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.acacia_wall_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Acacia Wall Hanging Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Acacia Hanging Sign",
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_block": {
+    "lang": {
+      "en_US": {
+        "display_name": "Block of Bamboo"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_button": {
+    "lang": {
+      "en_US": {
+        "display_name": "Bamboo Button"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_chest_raft": {
+    "lang": {
+      "en_US": {
+        "display_name": "Bamboo Raft with Chest"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_door": {
+    "lang": {
+      "en_US": {
+        "display_name": "Bamboo Door"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_fence": {
+    "lang": {
+      "en_US": {
+        "display_name": "Bamboo Fence"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_fence_gate": {
+    "lang": {
+      "en_US": {
+        "display_name": "Bamboo Fence Gate"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Bamboo Hanging Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_mosaic": {
+    "lang": {
+      "en_US": {
+        "display_name": "Bamboo Mosaic"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_mosaic_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Bamboo Mosaic Slab"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_mosaic_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Bamboo Mosaic Stairs"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_planks": {
+    "lang": {
+      "en_US": {
+        "display_name": "Bamboo Planks"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_pressure_plate": {
+    "lang": {
+      "en_US": {
+        "display_name": "Bamboo Pressure Plate"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_raft": {
+    "lang": {
+      "en_US": {
+        "display_name": "Bamboo Raft"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Bamboo Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Bamboo Slab"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Bamboo Stairs"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_trapdoor": {
+    "lang": {
+      "en_US": {
+        "display_name": "Bamboo Trapdoor"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_wall_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Bamboo Wall Hanging Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Bamboo Hanging Sign",
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_wall_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Bamboo Wall Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Bamboo Sign",
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.birch_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Birch Hanging Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.birch_wall_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Birch Wall Hanging Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Birch Hanging Sign",
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.camel_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "display_name": "Camel Spawn Egg"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.chiseled_bookshelf": {
+    "lang": {
+      "en_US": {
+        "display_name": "Chiseled Bookshelf"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.crimson_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Crimson Hanging Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.crimson_wall_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Crimson Wall Hanging Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Crimson Hanging Sign",
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.dark_oak_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Dark Oak Hanging Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.dark_oak_wall_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Dark Oak Wall Hanging Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Dark Oak Hanging Sign",
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.jungle_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Jungle Hanging Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.jungle_wall_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Jungle Wall Hanging Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Jungle Hanging Sign",
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.mangrove_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Mangrove Hanging Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.mangrove_wall_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Mangrove Wall Hanging Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Mangrove Hanging Sign",
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.oak_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Oak Hanging Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.oak_wall_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Oak Wall Hanging Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Oak Hanging Sign",
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.piglin_head": {
+    "lang": {
+      "en_US": {
+        "display_name": "Piglin Head"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.piglin_wall_head": {
+    "lang": {
+      "en_US": {
+        "display_name": "Piglin Wall Head"
+      }
+    },
+    "properties": {
+      "image_key": "Piglin Head",
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.spruce_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Spruce Hanging Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.spruce_wall_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Spruce Wall Hanging Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Spruce Hanging Sign",
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.stripped_bamboo_block": {
+    "lang": {
+      "en_US": {
+        "display_name": "Block of Stripped Bamboo"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.warped_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Warped Hanging Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.warped_wall_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Warped Wall Hanging Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Warped Hanging Sign",
+      "feature_flag": "1.20",
+      "version": "1.19.3"
     }
   },
   "minecraft.lingering_potion.effect.awkward": {
