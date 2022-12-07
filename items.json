@@ -17050,7 +17050,9 @@
     "lang": {
       "en_US": {
         "search_names": [
-          "Acacia Chest Boat"
+          "Acacia Chest Boat",
+          "Acacia Wood Boat with Chest",
+          "Acacia Wood Chest Boat"
         ],
         "display_name": "Acacia Boat with Chest"
       }
@@ -17779,6 +17781,10 @@
   "minecraft.ender_dragon_spawn_egg": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Spawn Ender Dragon",
+          "Spawn Dragon"
+        ],
         "display_name": "Ender Dragon Spawn Egg"
       }
     },
@@ -17789,6 +17795,10 @@
   "minecraft.iron_golem_spawn_egg": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Spawn Iron Golem",
+          "Iron Golem Egg"
+        ],
         "display_name": "Iron Golem Spawn Egg"
       }
     },
@@ -17799,6 +17809,10 @@
   "minecraft.snow_golem_spawn_egg": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Spawn Snow Golem",
+          "Snow Golem Egg"
+        ],
         "display_name": "Snow Golem Spawn Egg"
       }
     },
@@ -17809,6 +17823,10 @@
   "minecraft.wither_spawn_egg": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Spawn Wither",
+          "Wither Egg"
+        ],
         "display_name": "Wither Spawn Egg"
       }
     },
@@ -17819,6 +17837,11 @@
   "minecraft.acacia_hanging_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Acacia Wood Hanging Sign",
+          "Hanging Acacia Sign",
+          "Hanging Acacia Wood Sign"
+        ],
         "display_name": "Acacia Hanging Sign"
       }
     },
@@ -17830,6 +17853,15 @@
   "minecraft.acacia_wall_hanging_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Acacia Wood Wall Hanging Sign",
+          "Wall Hanging Acacia Sign",
+          "Wall Hanging Acacia Wood Sign",
+          "Acacia Hanging Wall Sign",
+          "Acacia Wood Hanging Wall Sign",
+          "Hanging Acacia Wall Sign",
+          "Hanging Acacia Wood Wall Sign"
+        ],
         "display_name": "Acacia Wall Hanging Sign"
       }
     },
@@ -17842,6 +17874,9 @@
   "minecraft.bamboo_block": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Bamboo Block"
+        ],
         "display_name": "Block of Bamboo"
       }
     },
@@ -17853,6 +17888,9 @@
   "minecraft.bamboo_button": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Bamboo Wood Button"
+        ],
         "display_name": "Bamboo Button"
       }
     },
@@ -17864,6 +17902,15 @@
   "minecraft.bamboo_chest_raft": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Bamboo Chest Raft",
+          "Bamboo Wood Raft with Chest",
+          "Bamboo Wood Chest Raft",
+          "Bamboo Boat with Chest",
+          "Bamboo Chest Boat",
+          "Bamboo Wood Boat with Chest",
+          "Bamboo Wood Chest Boat"
+        ],
         "display_name": "Bamboo Raft with Chest"
       }
     },
@@ -17875,6 +17922,9 @@
   "minecraft.bamboo_door": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Bamboo Wood Door"
+        ],
         "display_name": "Bamboo Door"
       }
     },
@@ -17886,6 +17936,9 @@
   "minecraft.bamboo_fence": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Bamboo Wood Fence"
+        ],
         "display_name": "Bamboo Fence"
       }
     },
@@ -17897,6 +17950,11 @@
   "minecraft.bamboo_fence_gate": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Bamboo Wood Fence Gate",
+          "Bamboo Wood Gate",
+          "Bamboo Gate"
+        ],
         "display_name": "Bamboo Fence Gate"
       }
     },
@@ -17908,6 +17966,11 @@
   "minecraft.bamboo_hanging_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Bamboo Wood Hanging Sign",
+          "Hanging Bamboo Sign",
+          "Hanging Bamboo Wood Sign"
+        ],
         "display_name": "Bamboo Hanging Sign"
       }
     },
@@ -17919,6 +17982,9 @@
   "minecraft.bamboo_mosaic": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Chiseled Bamboo"
+        ],
         "display_name": "Bamboo Mosaic"
       }
     },
@@ -17930,6 +17996,9 @@
   "minecraft.bamboo_mosaic_slab": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Chiseled Bamboo Slab"
+        ],
         "display_name": "Bamboo Mosaic Slab"
       }
     },
@@ -17941,6 +18010,11 @@
   "minecraft.bamboo_mosaic_stairs": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Bamboo Mosaic Stair",
+          "Chiseled Bamboo Stairs",
+          "Chiseled Bamboo Stair"
+        ],
         "display_name": "Bamboo Mosaic Stairs"
       }
     },
@@ -17952,6 +18026,11 @@
   "minecraft.bamboo_planks": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Bamboo Wood Planks",
+          "Bamboo Wood Plank",
+          "Bamboo Plank"
+        ],
         "display_name": "Bamboo Planks"
       }
     },
@@ -17963,6 +18042,11 @@
   "minecraft.bamboo_pressure_plate": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Bamboo Wood Pressure Plate",
+          "Bamboo Wood Plate",
+          "Bamboo Plate"
+        ],
         "display_name": "Bamboo Pressure Plate"
       }
     },
@@ -17974,6 +18058,11 @@
   "minecraft.bamboo_raft": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Bamboo Boat",
+          "Bamboo Wood Raft",
+          "Bamboo Wood Boat"
+        ],
         "display_name": "Bamboo Raft"
       }
     },
@@ -17985,6 +18074,9 @@
   "minecraft.bamboo_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Bamboo Wood Sign"
+        ],
         "display_name": "Bamboo Sign"
       }
     },
@@ -17996,6 +18088,9 @@
   "minecraft.bamboo_slab": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Bamboo Wood Slab"
+        ],
         "display_name": "Bamboo Slab"
       }
     },
@@ -18007,6 +18102,11 @@
   "minecraft.bamboo_stairs": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Bamboo Wood Stairs",
+          "Bamboo Wood Stair",
+          "Bamboo Stair"
+        ],
         "display_name": "Bamboo Stairs"
       }
     },
@@ -18018,6 +18118,11 @@
   "minecraft.bamboo_trapdoor": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Bamboo Wood Trapdoor",
+          "Bamboo Wood Trap Door",
+          "Bamboo Trap Door"
+        ],
         "display_name": "Bamboo Trapdoor"
       }
     },
@@ -18029,6 +18134,15 @@
   "minecraft.bamboo_wall_hanging_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Bamboo Wood Wall Hanging Sign",
+          "Wall Hanging Bamboo Sign",
+          "Wall Hanging Bamboo Wood Sign",
+          "Bamboo Hanging Wall Sign",
+          "Bamboo Wood Hanging Wall Sign",
+          "Hanging Bamboo Wall Sign",
+          "Hanging Bamboo Wood Wall Sign"
+        ],
         "display_name": "Bamboo Wall Hanging Sign"
       }
     },
@@ -18041,6 +18155,9 @@
   "minecraft.bamboo_wall_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Bamboo Wood Wall Sign"
+        ],
         "display_name": "Bamboo Wall Sign"
       }
     },
@@ -18053,6 +18170,11 @@
   "minecraft.birch_hanging_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Birch Wood Hanging Sign",
+          "Hanging Birch Sign",
+          "Hanging Birch Wood Sign"
+        ],
         "display_name": "Birch Hanging Sign"
       }
     },
@@ -18064,6 +18186,15 @@
   "minecraft.birch_wall_hanging_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Birch Wood Wall Hanging Sign",
+          "Wall Hanging Birch Sign",
+          "Wall Hanging Birch Wood Sign",
+          "Birch Hanging Wall Sign",
+          "Birch Wood Hanging Wall Sign",
+          "Hanging Birch Wall Sign",
+          "Hanging Birch Wood Wall Sign"
+        ],
         "display_name": "Birch Wall Hanging Sign"
       }
     },
@@ -18076,6 +18207,10 @@
   "minecraft.camel_spawn_egg": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Spawn Camel",
+          "Camel Egg"
+        ],
         "display_name": "Camel Spawn Egg"
       }
     },
@@ -18087,6 +18222,9 @@
   "minecraft.chiseled_bookshelf": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Chiseled Book Shelf"
+        ],
         "display_name": "Chiseled Bookshelf"
       }
     },
@@ -18098,6 +18236,11 @@
   "minecraft.crimson_hanging_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Crimson Wood Hanging Sign",
+          "Hanging Crimson Sign",
+          "Hanging Crimson Wood Sign"
+        ],
         "display_name": "Crimson Hanging Sign"
       }
     },
@@ -18109,6 +18252,15 @@
   "minecraft.crimson_wall_hanging_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Crimson Wood Wall Hanging Sign",
+          "Wall Hanging Crimson Sign",
+          "Wall Hanging Crimson Wood Sign",
+          "Crimson Hanging Wall Sign",
+          "Crimson Wood Hanging Wall Sign",
+          "Hanging Crimson Wall Sign",
+          "Hanging Crimson Wood Wall Sign"
+        ],
         "display_name": "Crimson Wall Hanging Sign"
       }
     },
@@ -18121,6 +18273,15 @@
   "minecraft.dark_oak_hanging_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Dark Oak Wood Hanging Sign",
+          "Hanging Dark Oak Sign",
+          "Hanging Dark Oak Wood Sign",
+          "Dark Hanging Sign",
+          "Dark Wood Hanging Sign",
+          "Hanging Dark Sign",
+          "Hanging Dark Wood Sign"
+        ],
         "display_name": "Dark Oak Hanging Sign"
       }
     },
@@ -18132,6 +18293,23 @@
   "minecraft.dark_oak_wall_hanging_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Dark Oak Wood Wall Hanging Sign",
+          "Wall Hanging Dark Oak Sign",
+          "Wall Hanging Dark Oak Wood Sign",
+          "Dark Oak Hanging Wall Sign",
+          "Dark Oak Wood Hanging Wall Sign",
+          "Hanging Dark Oak Wall Sign",
+          "Hanging Dark Oak Wood Wall Sign",
+          "Dark Wall Hanging Sign",
+          "Dark Wood Wall Hanging Sign",
+          "Wall Hanging Dark Sign",
+          "Wall Hanging Dark Wood Sign",
+          "Dark Hanging Wall Sign",
+          "Dark Wood Hanging Wall Sign",
+          "Hanging Dark Wall Sign",
+          "Hanging Dark Wood Wall Sign"
+        ],
         "display_name": "Dark Oak Wall Hanging Sign"
       }
     },
@@ -18144,6 +18322,11 @@
   "minecraft.jungle_hanging_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Jungle Wood Hanging Sign",
+          "Hanging Jungle Sign",
+          "Hanging Jungle Wood Sign"
+        ],
         "display_name": "Jungle Hanging Sign"
       }
     },
@@ -18155,6 +18338,15 @@
   "minecraft.jungle_wall_hanging_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Jungle Wood Wall Hanging Sign",
+          "Wall Hanging Jungle Sign",
+          "Wall Hanging Jungle Wood Sign",
+          "Jungle Hanging Wall Sign",
+          "Jungle Wood Hanging Wall Sign",
+          "Hanging Jungle Wall Sign",
+          "Hanging Jungle Wood Wall Sign"
+        ],
         "display_name": "Jungle Wall Hanging Sign"
       }
     },
@@ -18167,6 +18359,11 @@
   "minecraft.mangrove_hanging_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Mangrove Wood Hanging Sign",
+          "Hanging Mangrove Sign",
+          "Hanging Mangrove Wood Sign"
+        ],
         "display_name": "Mangrove Hanging Sign"
       }
     },
@@ -18178,6 +18375,15 @@
   "minecraft.mangrove_wall_hanging_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Mangrove Wood Wall Hanging Sign",
+          "Wall Hanging Mangrove Sign",
+          "Wall Hanging Mangrove Wood Sign",
+          "Mangrove Hanging Wall Sign",
+          "Mangrove Wood Hanging Wall Sign",
+          "Hanging Mangrove Wall Sign",
+          "Hanging Mangrove Wood Wall Sign"
+        ],
         "display_name": "Mangrove Wall Hanging Sign"
       }
     },
@@ -18190,6 +18396,11 @@
   "minecraft.oak_hanging_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Oak Wood Hanging Sign",
+          "Hanging Oak Sign",
+          "Hanging Oak Wood Sign"
+        ],
         "display_name": "Oak Hanging Sign"
       }
     },
@@ -18201,6 +18412,15 @@
   "minecraft.oak_wall_hanging_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Oak Wood Wall Hanging Sign",
+          "Wall Hanging Oak Sign",
+          "Wall Hanging Oak Wood Sign",
+          "Oak Hanging Wall Sign",
+          "Oak Wood Hanging Wall Sign",
+          "Hanging Oak Wall Sign",
+          "Hanging Oak Wood Wall Sign"
+        ],
         "display_name": "Oak Wall Hanging Sign"
       }
     },
@@ -18213,6 +18433,9 @@
   "minecraft.piglin_head": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Piglin Skull"
+        ],
         "display_name": "Piglin Head"
       }
     },
@@ -18224,6 +18447,11 @@
   "minecraft.piglin_wall_head": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Piglin Wall Skull",
+          "Pigman Wall Head",
+          "Pigman Wall Skull"
+        ],
         "display_name": "Piglin Wall Head"
       }
     },
@@ -18236,6 +18464,11 @@
   "minecraft.spruce_hanging_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Spruce Wood Hanging Sign",
+          "Hanging Spruce Sign",
+          "Hanging Spruce Wood Sign"
+        ],
         "display_name": "Spruce Hanging Sign"
       }
     },
@@ -18247,6 +18480,15 @@
   "minecraft.spruce_wall_hanging_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Spruce Wood Wall Hanging Sign",
+          "Wall Hanging Spruce Sign",
+          "Wall Hanging Spruce Wood Sign",
+          "Spruce Hanging Wall Sign",
+          "Spruce Wood Hanging Wall Sign",
+          "Hanging Spruce Wall Sign",
+          "Hanging Spruce Wood Wall Sign"
+        ],
         "display_name": "Spruce Wall Hanging Sign"
       }
     },
@@ -18259,6 +18501,9 @@
   "minecraft.stripped_bamboo_block": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Stripped Bamboo Block"
+        ],
         "display_name": "Block of Stripped Bamboo"
       }
     },
@@ -18270,6 +18515,11 @@
   "minecraft.warped_hanging_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Warped Wood Hanging Sign",
+          "Hanging Warped Sign",
+          "Hanging Warped Wood Sign"
+        ],
         "display_name": "Warped Hanging Sign"
       }
     },
@@ -18281,6 +18531,15 @@
   "minecraft.warped_wall_hanging_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Warped Wood Wall Hanging Sign",
+          "Wall Hanging Warped Sign",
+          "Wall Hanging Warped Wood Sign",
+          "Warped Hanging Wall Sign",
+          "Warped Wood Hanging Wall Sign",
+          "Hanging Warped Wall Sign",
+          "Hanging Warped Wood Wall Sign"
+        ],
         "display_name": "Warped Wall Hanging Sign"
       }
     },
