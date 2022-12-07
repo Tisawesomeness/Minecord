@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.mc.item;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.ReactMenu;
+import com.tisawesomeness.minecord.util.ArrayUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -14,6 +15,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Recipe {
+
+    public static final String[] FEATURE_FLAGS = new String[] { "vanilla", "1.20", "bundle" };
 
     private static JSONObject recipes;
     private static JSONObject tags;
@@ -43,7 +46,33 @@ public class Recipe {
         eb.setTitle(Item.getDisplayName(item, lang));
         eb.setImage(Config.getRecipeImageHost() + getImage(recipe));
         eb.setColor(Bot.color);
+        eb.setDescription(getMetadata(recipe, lang));
         return eb;
+    }
+    private static String getMetadata(String recipe, String lang) {
+        StringJoiner lines = new StringJoiner("\n");
+        double xp = getXP(recipe);
+        if (xp > 0) {
+            lines.add(String.format("**XP:** %s", xp));
+        }
+        String version = getVersion(recipe);
+        String removed = getRemovedVersion(recipe);
+        if (version != null && removed != null) {
+            lines.add(String.format("**Version:** %s - %s", version, removed));
+        } else if (version != null) {
+            lines.add(String.format("**Version:** %s", version));
+        } else if (removed != null) {
+            lines.add(String.format("**Removed In:** %s", removed));
+        }
+        String feature = getFeature(recipe);
+        if (!feature.equals("vanilla")) {
+            lines.add(String.format("**Feature Toggle:** %s", feature));
+        }
+        String notes = getNotes(recipe, lang);
+        if (notes != null) {
+            lines.add(notes);
+        }
+        return lines.toString();
     }
 
     /**
@@ -279,15 +308,24 @@ public class Recipe {
      * @param tag The name of the tag, without "minecraft:"
      * @return A list of blocks, with "minecraft:"
      */
-    private static ArrayList<String> getTag(String tag) {
-        ArrayList<String> items = new ArrayList<>();
-        JSONArray tagArr = tags.getJSONArray(tag);
-        for (int i = 0; i < tagArr.length(); i++) {
-            String item = tagArr.getString(i);
-            if (item.startsWith("#")) {
-                items.addAll(getTag(item.substring(11)));
-            } else {
-                items.add(item);
+    private static LinkedHashSet<String> getTag(String tag) {
+        LinkedHashSet<String> items = new LinkedHashSet<>(); // remembers insertion order
+        for (String flag : FEATURE_FLAGS) {
+            JSONObject flagObj = tags.optJSONObject(flag);
+            if (flagObj == null) {
+                continue;
+            }
+            JSONArray tagArr = flagObj.optJSONArray(tag);
+            if (tagArr == null) {
+                continue;
+            }
+            for (int i = 0; i < tagArr.length(); i++) {
+                String item = tagArr.getString(i);
+                if (item.startsWith("#")) {
+                    items.addAll(getTag(item.substring(11)));
+                } else {
+                    items.add(item);
+                }
             }
         }
         return items;
@@ -312,6 +350,11 @@ public class Recipe {
         return properties == null ? null : properties.optString("version", null);
     }
 
+    private static String getFeature(String recipe) {
+        JSONObject properties = recipes.getJSONObject(recipe).optJSONObject("properties");
+        return properties == null ? "vanilla" : properties.optString("feature_flag", "vanilla");
+    }
+
     /**
      * Returns the version when the recipe was removed
      * @param recipe The recipe key
@@ -322,7 +365,7 @@ public class Recipe {
         return properties == null ? null : properties.optString("removed", null);
     }
 
-    private static int compareRecipes(String recipe1, String recipe2) {
+    public static int compareRecipes(String recipe1, String recipe2) {
         double removedVer1 = getVersionNum(getRemovedVersion(recipe1));
         double removedVer2 = getVersionNum(getRemovedVersion(recipe2));
         if (removedVer1 == 0 && removedVer2 != 0) {
@@ -334,6 +377,12 @@ public class Recipe {
         int removedVerCompare = Double.compare(removedVer1, removedVer2);
         if (removedVerCompare != 0) {
             return removedVerCompare;
+        }
+        int featureIdx1 = ArrayUtils.indexOf(FEATURE_FLAGS, getFeature(recipe1));
+        int featureIdx2 = ArrayUtils.indexOf(FEATURE_FLAGS, getFeature(recipe2));
+        int featureCompare = Integer.compare(featureIdx1, featureIdx2);
+        if (featureCompare != 0) {
+            return featureCompare;
         }
         int verCompare = Double.compare(getVersionNum(getVersion(recipe1)), getVersionNum(getVersion(recipe2)));
         if (verCompare != 0) {
@@ -398,27 +447,11 @@ public class Recipe {
         public EmbedBuilder getContent(int page) {
             String recipe = recipeList.get(page);
             EmbedBuilder eb = displayImg(recipe, "en_US");
-            double xp = getXP(recipe);
-            if (xp > 0) {
-                desc += String.format("\n**XP:** %s", xp);
+            if (eb.getDescriptionBuilder().length() > 0) {
+                eb.getDescriptionBuilder().insert(0, desc + "\n");
+            } else {
+                eb.setDescription(desc);
             }
-            String version = getVersion(recipe);
-            if (version != null) {
-                desc += String.format("\n**Version:** %s", version);
-            }
-            String removed = getRemovedVersion(recipe);
-            if (removed != null) {
-                if (version == null) {
-                    desc += String.format("\n**Removed In:** %s", removed);
-                } else {
-                    desc += String.format(" **Removed In:** %s", removed);
-                }
-            }
-            String notes = getNotes(recipe, getLang());
-            if (notes != null) {
-                desc += "\n" + notes;
-            }
-            eb.setDescription(desc);
             return eb;
         }
 
@@ -508,7 +541,7 @@ public class Recipe {
             String table = Item.getNamespacedID(item).substring(10);
             boolean needsTable = !recipe.equals(table);
             if (needsTable) {
-                desc += String.format("\n%s %s", Emote.T.getText(), Item.getDisplayName(item, getLang()));
+                desc += String.format("\n%s %s", Emote.T.getText(), Item.getDisplayNameWithFeature(item, getLang()));
             }
             buttons.put(Emote.T.getCodepoint(), () -> {
                 if (needsTable) {
@@ -526,11 +559,11 @@ public class Recipe {
                 boolean isBlasting = recipes.has(recipe.replace("from_smelting", "from_blasting"));
                 if (isSmoking) {
                     desc += String.format("\n%s %s\n%s %s",
-                            Emote.N1.getText(), Item.getDisplayName("minecraft.smoker", getLang()),
-                            Emote.N2.getText(), Item.getDisplayName("minecraft.campfire", getLang()));
+                            Emote.N1.getText(), Item.getDisplayNameWithFeature("minecraft.smoker", getLang()),
+                            Emote.N2.getText(), Item.getDisplayNameWithFeature("minecraft.campfire", getLang()));
                     c = 2;
                 } else if (isBlasting) {
-                    desc += String.format("\n%s %s", Emote.N1.getText(), Item.getDisplayName("minecraft.blast_furnace", getLang()));
+                    desc += String.format("\n%s %s", Emote.N1.getText(), Item.getDisplayNameWithFeature("minecraft.blast_furnace", getLang()));
                     c = 1;
                 }
                 buttons.put(Emote.N1.getCodepoint(), () -> {
@@ -591,7 +624,7 @@ public class Recipe {
                             startingIngredient = 0;
                             setPage(0);
                         });
-                        desc += String.format("\n%s %s", emote.getText(), Item.getDisplayName(ingredientItem, getLang()));
+                        desc += String.format("\n%s %s", emote.getText(), Item.getDisplayNameWithFeature(ingredientItem, getLang()));
                         c++;
                     }
                     i++;
@@ -621,7 +654,7 @@ public class Recipe {
             } else if (type.equals("minecraft:stonecutting")) {
                 String ingredient = getIngredients(recipeObj).toArray(new String[0])[0];
                 ArrayList<String> output = searchItemOutput(ingredient, getLang());
-                desc += String.format("\n%s %s", Emote.N1.getText(), Item.getDisplayName(Item.searchNoStats(ingredient, getLang()), getLang()));
+                desc += String.format("\n%s %s", Emote.N1.getText(), Item.getDisplayNameWithFeature(Item.searchNoStats(ingredient, getLang()), getLang()));
                 buttons.put(Emote.N1.getCodepoint(), () -> {
                     setRecipeList(output);
                     startingIngredient = 0;

@@ -1565,12 +1565,13 @@
   "minecraft.spawner": {
     "lang": {
       "en_US": {
-        "previously": "Monster Spawner",
-        "display_name": "Spawner"
+        "previously": "Spawner",
+        "previously2": "Monster Spawner",
+        "display_name": "Monster Spawner"
       }
     },
     "properties": {
-      "previous_id": "minecraft.mob_spawner",
+      "previous_id2": "minecraft.mob_spawner",
       "id": 52
     }
   },
@@ -7309,10 +7310,10 @@
   "minecraft.oak_door": {
     "lang": {
       "en_US": {
+        "block_name": "Oak Door Block",
         "search_names": [
           "Oak Wood Door"
         ],
-        "block_name": "Oak Door Block",
         "display_name": "Oak Door"
       }
     },
@@ -14905,6 +14906,7 @@
       }
     },
     "properties": {
+      "feature_flag": "bundle",
       "version": "1.17"
     }
   },
@@ -17048,7 +17050,9 @@
     "lang": {
       "en_US": {
         "search_names": [
-          "Acacia Chest Boat"
+          "Acacia Chest Boat",
+          "Acacia Wood Boat with Chest",
+          "Acacia Wood Chest Boat"
         ],
         "display_name": "Acacia Boat with Chest"
       }
@@ -17416,6 +17420,7 @@
       }
     },
     "properties": {
+      "image_key": "Mangrove Sign",
       "version": "1.19"
     }
   },
@@ -17771,6 +17776,777 @@
     },
     "properties": {
       "version": "1.19"
+    }
+  },
+  "minecraft.ender_dragon_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Spawn Ender Dragon",
+          "Spawn Dragon"
+        ],
+        "display_name": "Ender Dragon Spawn Egg"
+      }
+    },
+    "properties": {
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.iron_golem_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Spawn Iron Golem",
+          "Iron Golem Egg"
+        ],
+        "display_name": "Iron Golem Spawn Egg"
+      }
+    },
+    "properties": {
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.snow_golem_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Spawn Snow Golem",
+          "Snow Golem Egg"
+        ],
+        "display_name": "Snow Golem Spawn Egg"
+      }
+    },
+    "properties": {
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.wither_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Spawn Wither",
+          "Wither Egg"
+        ],
+        "display_name": "Wither Spawn Egg"
+      }
+    },
+    "properties": {
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.acacia_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Acacia Wood Hanging Sign",
+          "Hanging Acacia Sign",
+          "Hanging Acacia Wood Sign"
+        ],
+        "display_name": "Acacia Hanging Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.acacia_wall_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Acacia Wood Wall Hanging Sign",
+          "Wall Hanging Acacia Sign",
+          "Wall Hanging Acacia Wood Sign",
+          "Acacia Hanging Wall Sign",
+          "Acacia Wood Hanging Wall Sign",
+          "Hanging Acacia Wall Sign",
+          "Hanging Acacia Wood Wall Sign"
+        ],
+        "display_name": "Acacia Wall Hanging Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Acacia Hanging Sign",
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_block": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Bamboo Block"
+        ],
+        "display_name": "Block of Bamboo"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_button": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Bamboo Wood Button"
+        ],
+        "display_name": "Bamboo Button"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_chest_raft": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Bamboo Chest Raft",
+          "Bamboo Wood Raft with Chest",
+          "Bamboo Wood Chest Raft",
+          "Bamboo Boat with Chest",
+          "Bamboo Chest Boat",
+          "Bamboo Wood Boat with Chest",
+          "Bamboo Wood Chest Boat"
+        ],
+        "display_name": "Bamboo Raft with Chest"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_door": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Bamboo Wood Door"
+        ],
+        "display_name": "Bamboo Door"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_fence": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Bamboo Wood Fence"
+        ],
+        "display_name": "Bamboo Fence"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_fence_gate": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Bamboo Wood Fence Gate",
+          "Bamboo Wood Gate",
+          "Bamboo Gate"
+        ],
+        "display_name": "Bamboo Fence Gate"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Bamboo Wood Hanging Sign",
+          "Hanging Bamboo Sign",
+          "Hanging Bamboo Wood Sign"
+        ],
+        "display_name": "Bamboo Hanging Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_mosaic": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Chiseled Bamboo"
+        ],
+        "display_name": "Bamboo Mosaic"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_mosaic_slab": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Chiseled Bamboo Slab"
+        ],
+        "display_name": "Bamboo Mosaic Slab"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_mosaic_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Bamboo Mosaic Stair",
+          "Chiseled Bamboo Stairs",
+          "Chiseled Bamboo Stair"
+        ],
+        "display_name": "Bamboo Mosaic Stairs"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_planks": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Bamboo Wood Planks",
+          "Bamboo Wood Plank",
+          "Bamboo Plank"
+        ],
+        "display_name": "Bamboo Planks"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_pressure_plate": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Bamboo Wood Pressure Plate",
+          "Bamboo Wood Plate",
+          "Bamboo Plate"
+        ],
+        "display_name": "Bamboo Pressure Plate"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_raft": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Bamboo Boat",
+          "Bamboo Wood Raft",
+          "Bamboo Wood Boat"
+        ],
+        "display_name": "Bamboo Raft"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Bamboo Wood Sign"
+        ],
+        "display_name": "Bamboo Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_slab": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Bamboo Wood Slab"
+        ],
+        "display_name": "Bamboo Slab"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Bamboo Wood Stairs",
+          "Bamboo Wood Stair",
+          "Bamboo Stair"
+        ],
+        "display_name": "Bamboo Stairs"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_trapdoor": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Bamboo Wood Trapdoor",
+          "Bamboo Wood Trap Door",
+          "Bamboo Trap Door"
+        ],
+        "display_name": "Bamboo Trapdoor"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_wall_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Bamboo Wood Wall Hanging Sign",
+          "Wall Hanging Bamboo Sign",
+          "Wall Hanging Bamboo Wood Sign",
+          "Bamboo Hanging Wall Sign",
+          "Bamboo Wood Hanging Wall Sign",
+          "Hanging Bamboo Wall Sign",
+          "Hanging Bamboo Wood Wall Sign"
+        ],
+        "display_name": "Bamboo Wall Hanging Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Bamboo Hanging Sign",
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.bamboo_wall_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Bamboo Wood Wall Sign"
+        ],
+        "display_name": "Bamboo Wall Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Bamboo Sign",
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.birch_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Birch Wood Hanging Sign",
+          "Hanging Birch Sign",
+          "Hanging Birch Wood Sign"
+        ],
+        "display_name": "Birch Hanging Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.birch_wall_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Birch Wood Wall Hanging Sign",
+          "Wall Hanging Birch Sign",
+          "Wall Hanging Birch Wood Sign",
+          "Birch Hanging Wall Sign",
+          "Birch Wood Hanging Wall Sign",
+          "Hanging Birch Wall Sign",
+          "Hanging Birch Wood Wall Sign"
+        ],
+        "display_name": "Birch Wall Hanging Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Birch Hanging Sign",
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.camel_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Spawn Camel",
+          "Camel Egg"
+        ],
+        "display_name": "Camel Spawn Egg"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.chiseled_bookshelf": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Chiseled Book Shelf"
+        ],
+        "display_name": "Chiseled Bookshelf"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.crimson_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Crimson Wood Hanging Sign",
+          "Hanging Crimson Sign",
+          "Hanging Crimson Wood Sign"
+        ],
+        "display_name": "Crimson Hanging Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.crimson_wall_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Crimson Wood Wall Hanging Sign",
+          "Wall Hanging Crimson Sign",
+          "Wall Hanging Crimson Wood Sign",
+          "Crimson Hanging Wall Sign",
+          "Crimson Wood Hanging Wall Sign",
+          "Hanging Crimson Wall Sign",
+          "Hanging Crimson Wood Wall Sign"
+        ],
+        "display_name": "Crimson Wall Hanging Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Crimson Hanging Sign",
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.dark_oak_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Dark Oak Wood Hanging Sign",
+          "Hanging Dark Oak Sign",
+          "Hanging Dark Oak Wood Sign",
+          "Dark Hanging Sign",
+          "Dark Wood Hanging Sign",
+          "Hanging Dark Sign",
+          "Hanging Dark Wood Sign"
+        ],
+        "display_name": "Dark Oak Hanging Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.dark_oak_wall_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Dark Oak Wood Wall Hanging Sign",
+          "Wall Hanging Dark Oak Sign",
+          "Wall Hanging Dark Oak Wood Sign",
+          "Dark Oak Hanging Wall Sign",
+          "Dark Oak Wood Hanging Wall Sign",
+          "Hanging Dark Oak Wall Sign",
+          "Hanging Dark Oak Wood Wall Sign",
+          "Dark Wall Hanging Sign",
+          "Dark Wood Wall Hanging Sign",
+          "Wall Hanging Dark Sign",
+          "Wall Hanging Dark Wood Sign",
+          "Dark Hanging Wall Sign",
+          "Dark Wood Hanging Wall Sign",
+          "Hanging Dark Wall Sign",
+          "Hanging Dark Wood Wall Sign"
+        ],
+        "display_name": "Dark Oak Wall Hanging Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Dark Oak Hanging Sign",
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.jungle_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Jungle Wood Hanging Sign",
+          "Hanging Jungle Sign",
+          "Hanging Jungle Wood Sign"
+        ],
+        "display_name": "Jungle Hanging Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.jungle_wall_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Jungle Wood Wall Hanging Sign",
+          "Wall Hanging Jungle Sign",
+          "Wall Hanging Jungle Wood Sign",
+          "Jungle Hanging Wall Sign",
+          "Jungle Wood Hanging Wall Sign",
+          "Hanging Jungle Wall Sign",
+          "Hanging Jungle Wood Wall Sign"
+        ],
+        "display_name": "Jungle Wall Hanging Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Jungle Hanging Sign",
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.mangrove_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Mangrove Wood Hanging Sign",
+          "Hanging Mangrove Sign",
+          "Hanging Mangrove Wood Sign"
+        ],
+        "display_name": "Mangrove Hanging Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.mangrove_wall_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Mangrove Wood Wall Hanging Sign",
+          "Wall Hanging Mangrove Sign",
+          "Wall Hanging Mangrove Wood Sign",
+          "Mangrove Hanging Wall Sign",
+          "Mangrove Wood Hanging Wall Sign",
+          "Hanging Mangrove Wall Sign",
+          "Hanging Mangrove Wood Wall Sign"
+        ],
+        "display_name": "Mangrove Wall Hanging Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Mangrove Hanging Sign",
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.oak_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Oak Wood Hanging Sign",
+          "Hanging Oak Sign",
+          "Hanging Oak Wood Sign"
+        ],
+        "display_name": "Oak Hanging Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.oak_wall_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Oak Wood Wall Hanging Sign",
+          "Wall Hanging Oak Sign",
+          "Wall Hanging Oak Wood Sign",
+          "Oak Hanging Wall Sign",
+          "Oak Wood Hanging Wall Sign",
+          "Hanging Oak Wall Sign",
+          "Hanging Oak Wood Wall Sign"
+        ],
+        "display_name": "Oak Wall Hanging Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Oak Hanging Sign",
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.piglin_head": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Piglin Skull"
+        ],
+        "display_name": "Piglin Head"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.piglin_wall_head": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Piglin Wall Skull",
+          "Pigman Wall Head",
+          "Pigman Wall Skull"
+        ],
+        "display_name": "Piglin Wall Head"
+      }
+    },
+    "properties": {
+      "image_key": "Piglin Head",
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.spruce_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Spruce Wood Hanging Sign",
+          "Hanging Spruce Sign",
+          "Hanging Spruce Wood Sign"
+        ],
+        "display_name": "Spruce Hanging Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.spruce_wall_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Spruce Wood Wall Hanging Sign",
+          "Wall Hanging Spruce Sign",
+          "Wall Hanging Spruce Wood Sign",
+          "Spruce Hanging Wall Sign",
+          "Spruce Wood Hanging Wall Sign",
+          "Hanging Spruce Wall Sign",
+          "Hanging Spruce Wood Wall Sign"
+        ],
+        "display_name": "Spruce Wall Hanging Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Spruce Hanging Sign",
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.stripped_bamboo_block": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Stripped Bamboo Block"
+        ],
+        "display_name": "Block of Stripped Bamboo"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.warped_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Warped Wood Hanging Sign",
+          "Hanging Warped Sign",
+          "Hanging Warped Wood Sign"
+        ],
+        "display_name": "Warped Hanging Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.3"
+    }
+  },
+  "minecraft.warped_wall_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Warped Wood Wall Hanging Sign",
+          "Wall Hanging Warped Sign",
+          "Wall Hanging Warped Wood Sign",
+          "Warped Hanging Wall Sign",
+          "Warped Wood Hanging Wall Sign",
+          "Hanging Warped Wall Sign",
+          "Hanging Warped Wood Wall Sign"
+        ],
+        "display_name": "Warped Wall Hanging Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Warped Hanging Sign",
+      "feature_flag": "1.20",
+      "version": "1.19.3"
     }
   },
   "minecraft.lingering_potion.effect.awkward": {

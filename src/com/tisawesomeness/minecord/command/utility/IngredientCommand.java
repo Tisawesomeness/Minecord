@@ -43,7 +43,7 @@ public class IngredientCommand extends SlashCommand {
     @Override
     public String getHelp() {
         return "Searches for the recipes containing an ingredient.\n" +
-                "Items and recipes are from Java Edition 1.7 to 1.19.\n" +
+                "Items and recipes are from Java Edition 1.7 to 1.19.3.\n" +
                 "All recipe types are searchable, including brewing.\n" +
                 "\n" +
                 Item.help + "\n";
@@ -83,6 +83,7 @@ public class IngredientCommand extends SlashCommand {
             new Recipe.RecipeMenu(recipes, page, "en_US").post(e);
             return new Result(Outcome.SUCCESS);
         }
+        recipes.sort(Recipe::compareRecipes);
         EmbedBuilder eb = Recipe.displayImg(recipes.get(page), "en_US");
         eb.setFooter(String.format("Page %s/%s%s", page + 1, recipes.size(), status.getReason()), null);
         return new Result(Outcome.SUCCESS, eb.build());

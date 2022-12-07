@@ -5,6 +5,7 @@ import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.util.RequestUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -93,29 +94,20 @@ public class Item {
             sb.append(String.format("**Version:** %s\n", properties.getString("version")));
         }
 
+        // Feature flag
+        if (properties != null && properties.has("feature_flag")) {
+            sb.append(String.format("**Feature Toggle:** %s\n", properties.getString("feature_flag")));
+        }
+
         // Previous name and id
-        String prevString = "**Previously:**";
-        boolean changed = false;
-        String previousID = null;
-        if (properties != null && properties.has("previous_id")) {
-            previousID = properties.getString("previous_id").replace(".", ":");
-            prevString += String.format(" `%s`", previousID);
-            changed = true;
-        }
-        if (langObj.has("previously")) {
-            prevString += " " + langObj.getString("previously");
-            changed = true;
-            if (langObj.has("previously2")) {
-                prevString += ", " + langObj.getString("previously2");
-            }
-        }
-        if (changed) {
-            sb.append(prevString).append("\n");
+        String prevString = getPrevString(item, lang);
+        if (prevString != null) {
+            sb.append("**Previously:** ").append(prevString).append("\n");
         }
 
         // Block form
         String blockForm = "\n**__Block Form:__**";
-        changed = false;
+        boolean changed = false;
         if (langObj.has("block_name")) {
             blockForm += " " + langObj.getString("block_name");
             changed = true;
@@ -147,6 +139,7 @@ public class Item {
 
         // Reference old item
         if (properties != null && properties.has("reference")) {
+            String previousID = properties.getString("previous_id").replace(".", ":");
             sb.append(String.format("\nTo see the item for 1.12 and below, use `%sitem %s`\n", prefix, previousID));
         }
 
@@ -163,6 +156,35 @@ public class Item {
         // Get rid of trailing newline
         sb.delete(sb.length() - 1, sb.length());
         return eb.setColor(Bot.color);
+    }
+    private static String getPrevString(String item, String lang) {
+        JSONObject itemObj = items.getJSONObject(item);
+        JSONObject langObj = itemObj.getJSONObject("lang").getJSONObject(lang);
+        JSONObject properties = itemObj.optJSONObject("properties");
+
+        String previously1 = langObj.optString("previously", null);
+        String previously2 = langObj.optString("previously2", null);
+        String previousID1 = properties == null ? null : properties.optString("previous_id", null);
+        String previousID2 = properties == null ? null : properties.optString("previous_id2", null);
+
+        String prev1 = formatPrevString(previously1, previousID1);
+        if (prev1 == null) {
+            return null;
+        }
+        String prev2 = formatPrevString(previously2, previousID2);
+        if (prev2 != null) {
+            return prev1 + ", " + prev2;
+        } else {
+            return prev1;
+        }
+    }
+    private static String formatPrevString(String previously, String previousID) {
+        if (previousID != null) {
+            String formattedID = MarkdownUtil.monospace(previousID.replace(".", ":"));
+            return previously == null ? formattedID : formattedID + " " + previously;
+        } else {
+            return previously;
+        }
     }
 
     public static String search(String str, String lang) {
@@ -497,6 +519,17 @@ public class Item {
      */
     public static String getDisplayName(String item, String lang) {
         return items.getJSONObject(item).getJSONObject("lang").getJSONObject(lang).getString("display_name");
+    }
+    public static String getDisplayNameWithFeature(String item, String lang) {
+        String displayName = getDisplayName(item, lang);
+        JSONObject properties = items.getJSONObject(item).optJSONObject("properties");
+        if (properties != null) {
+            String feature = properties.optString("feature_flag", "vanilla");
+            if (!feature.equals("vanilla")) {
+                displayName += " (" + feature + ")";
+            }
+        }
+        return displayName;
     }
 
     /**
