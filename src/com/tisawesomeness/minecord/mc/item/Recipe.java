@@ -46,7 +46,33 @@ public class Recipe {
         eb.setTitle(Item.getDisplayName(item, lang));
         eb.setImage(Config.getRecipeImageHost() + getImage(recipe));
         eb.setColor(Bot.color);
+        eb.setDescription(getMetadata(recipe, lang));
         return eb;
+    }
+    private static String getMetadata(String recipe, String lang) {
+        StringJoiner lines = new StringJoiner("\n");
+        double xp = getXP(recipe);
+        if (xp > 0) {
+            lines.add(String.format("**XP:** %s", xp));
+        }
+        String version = getVersion(recipe);
+        String removed = getRemovedVersion(recipe);
+        if (version != null && removed != null) {
+            lines.add(String.format("**Version:** %s - %s", version, removed));
+        } else if (version != null) {
+            lines.add(String.format("**Version:** %s", version));
+        } else if (removed != null) {
+            lines.add(String.format("**Removed In:** %s", removed));
+        }
+        String feature = getFeature(recipe);
+        if (!feature.equals("vanilla")) {
+            lines.add(String.format("**Feature Toggle:** %s", feature));
+        }
+        String notes = getNotes(recipe, lang);
+        if (notes != null) {
+            lines.add(notes);
+        }
+        return lines.toString();
     }
 
     /**
@@ -421,31 +447,11 @@ public class Recipe {
         public EmbedBuilder getContent(int page) {
             String recipe = recipeList.get(page);
             EmbedBuilder eb = displayImg(recipe, "en_US");
-            double xp = getXP(recipe);
-            if (xp > 0) {
-                desc += String.format("\n**XP:** %s", xp);
+            if (eb.getDescriptionBuilder().length() > 0) {
+                eb.getDescriptionBuilder().insert(0, desc + "\n");
+            } else {
+                eb.setDescription(desc);
             }
-            String version = getVersion(recipe);
-            if (version != null) {
-                desc += String.format("\n**Version:** %s", version);
-            }
-            String feature = getFeature(recipe);
-            if (!feature.equals("vanilla")) {
-                desc += String.format("\n**Feature Toggle:** %s", feature);
-            }
-            String removed = getRemovedVersion(recipe);
-            if (removed != null) {
-                if (version == null) {
-                    desc += String.format("\n**Removed In:** %s", removed);
-                } else {
-                    desc += String.format(" **Removed In:** %s", removed);
-                }
-            }
-            String notes = getNotes(recipe, getLang());
-            if (notes != null) {
-                desc += "\n" + notes;
-            }
-            eb.setDescription(desc);
             return eb;
         }
 
