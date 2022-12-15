@@ -1,22 +1,46 @@
-// Adds JDA and logging to the base settings in conventions-all
+// The base settings for all minecord projects
 
 plugins {
-    id 'minecord.conventions-all'
+    id 'java'
+    id 'java-library'
+    id 'jacoco'
+    id 'io.freefair.lombok'
+}
+
+java {
+    sourceCompatibility = '1.8'
+    compileJava.options.encoding = 'UTF-8'
+    compileTestJava.options.encoding = "UTF-8"
 }
 
 repositories {
-    maven {
-        name 'm2-dv8tion'
-        url 'https://m2.dv8tion.net/releases'
-    }
+    mavenCentral()
 }
 
 dependencies {
-    // JDA with no audio
-    // okhttp and apache-collections4 included
-    implementation ("net.dv8tion:JDA:$jdaVersion") {
-        exclude module: 'opus-java'
-    }
-    // Logging
-    implementation 'ch.qos.logback:logback-classic:1.2.11'
+    // Testing
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+    testImplementation 'org.assertj:assertj-core:3.22.0'
 }
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform {
+        if (System.getProperty("includeTags")) {
+            includeTags System.getProperty("includeTags")
+        }
+        if (System.getProperty("excludeTags")) {
+            excludeTags System.getProperty("excludeTags")
+        }
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.8"
+}
+tasks.withType(JacocoReport).configureEach {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+test.finalizedBy jacocoTestReport

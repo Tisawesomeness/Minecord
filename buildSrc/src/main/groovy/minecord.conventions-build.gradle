@@ -1,5 +1,7 @@
+// Adds build logic for creating fat jars
+
 plugins {
-    id 'minecord.conventions'
+    id 'minecord.conventions-discord'
     id 'com.github.johnrengelman.shadow'
 }
 

@@ -27,12 +27,7 @@ import org.slf4j.LoggerFactory;
 import picocli.CommandLine;
 
 import javax.security.auth.login.LoginException;
-import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.nio.file.Path;
 import java.time.Instant;
 import java.util.EnumSet;
@@ -72,27 +67,8 @@ public final class Bootstrap implements BootstrapHook {
     // Must queue and promote during reload
     private SwapEventManagerProvider swapEventManagers;
 
-    public static void main(String[] args) {
+    public void start(String[] args) {
         log.debug("Program started");
-        new Bootstrap(Bootstrap::dynamicLoad).start(args);
-    }
-
-    private static Bot dynamicLoad(Bootstrap bootstrap) {
-        log.debug("Dynamic loading bot");
-        File f = new File("./bot.jar");
-        try {
-            ClassLoader cl = URLClassLoader.newInstance(new URL[]{f.toURI().toURL()});
-            Class<?> clazz = Class.forName("com.tisawesomeness.minecord.Minecord", true, cl);
-            Bot bot = (Bot) clazz.getConstructors()[0].newInstance(bootstrap);
-            log.info("Bot successfully loaded from file");
-            return bot;
-        } catch (MalformedURLException | ClassNotFoundException | InstantiationException | IllegalAccessException |
-                 InvocationTargetException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void start(String[] args) {
         try {
             int exitCode = argsStage(args);
             if (exitCode != BootExitCodes.SUCCESS) {

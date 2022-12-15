@@ -5,5 +5,8 @@
 rootProject.name = 'minecord'
 include 'minecord-common'
 include 'minecord-bootstrap'
+include 'minecord-bootstrap:common'
+include 'minecord-bootstrap:static'
+include 'minecord-bootstrap:dynamic'
 include 'minecord-bot'
 include 'mcserverping'

@@ -1,0 +1,10 @@
+plugins {
+    id 'minecord.conventions-discord'
+}
+
+dependencies {
+    implementation project(":minecord-common")
+    // Command-line arguments
+    implementation 'info.picocli:picocli:4.6.3'
+    annotationProcessor 'info.picocli:picocli-codegen:4.6.3'
+}

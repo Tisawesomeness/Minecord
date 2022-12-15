@@ -1,0 +1,26 @@
+// Adds JDA and logging to the base settings in conventions-all
+
+plugins {
+    id 'minecord.conventions'
+}
+
+repositories {
+    maven {
+        name 'm2-dv8tion'
+        url 'https://m2.dv8tion.net/releases'
+    }
+    maven {
+        name 'jitpack'
+        url 'https://jitpack.io'
+    }
+}
+
+dependencies {
+    // JDA with no audio
+    // okhttp and apache-collections4 included
+    implementation ("net.dv8tion:JDA:$jdaVersion") {
+        exclude module: 'opus-java'
+    }
+    // Logging
+    implementation 'ch.qos.logback:logback-classic:1.2.11'
+}

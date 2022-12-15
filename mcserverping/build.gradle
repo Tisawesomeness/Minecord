@@ -1,5 +1,5 @@
 plugins {
-    id 'minecord.conventions-all'
+    id 'minecord.conventions'
 }
 
 group = 'br.com.azalim'

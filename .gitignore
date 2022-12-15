@@ -1,6 +1,6 @@
 .gradle
 /build
-*/build
+**/build
 
 .idea
 .project

@@ -15,7 +15,7 @@ public class ArgsHandlerTest {
     public void testEmptyPath() {
         ArgsHandler handler = new ArgsHandler();
         int exitCode = new CommandLine(handler).execute();
-        assertThat(exitCode).isEqualTo(0);
+        assertThat(exitCode).isZero();
         assertThat(handler.getPath()).isDirectory();
         assertThat(handler.requestedHelp()).isFalse();
     }
@@ -28,7 +28,7 @@ public class ArgsHandlerTest {
         String[] args = getArgs(candidate, path);
         ArgsHandler handler = new ArgsHandler();
         int exitCode = new CommandLine(handler).execute(args);
-        assertThat(exitCode).isNotEqualTo(0);
+        assertThat(exitCode).isNotZero();
         assertThat(handler.requestedHelp()).isFalse();
     }
 
@@ -40,7 +40,7 @@ public class ArgsHandlerTest {
         String[] args = getArgs(candidate, path);
         ArgsHandler handler = new ArgsHandler();
         int exitCode = new CommandLine(handler).execute(args);
-        assertThat(exitCode).isNotEqualTo(0);
+        assertThat(exitCode).isNotZero();
         assertThat(handler.requestedHelp()).isFalse();
     }
 
@@ -50,7 +50,7 @@ public class ArgsHandlerTest {
     public void testVersion(String candidate) {
         ArgsHandler handler = new ArgsHandler();
         int exitCode = new CommandLine(handler).execute(candidate);
-        assertThat(exitCode).isEqualTo(0);
+        assertThat(exitCode).isZero();
         assertThat(handler.requestedHelp()).isTrue();
     }
 
