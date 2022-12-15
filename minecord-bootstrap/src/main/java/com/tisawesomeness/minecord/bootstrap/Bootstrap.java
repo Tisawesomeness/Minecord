@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord.bootstrap;
 
-import com.tisawesomeness.minecord.Minecord;
 import com.tisawesomeness.minecord.common.*;
 import com.tisawesomeness.minecord.common.config.ConfigReader;
 import com.tisawesomeness.minecord.common.config.InvalidConfigException;
@@ -9,6 +8,7 @@ import com.tisawesomeness.minecord.common.util.IO;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -27,18 +27,25 @@ import org.slf4j.LoggerFactory;
 import picocli.CommandLine;
 
 import javax.security.auth.login.LoginException;
+import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.nio.file.Path;
 import java.time.Instant;
 import java.util.EnumSet;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 /**
  * Starts the bot. See {@link Bot} for details on the boot process.
  */
 @Slf4j
+@RequiredArgsConstructor
 public final class Bootstrap implements BootstrapHook {
 
     private static final String TOKEN_ENV_VAR = "MINECORD_TOKEN";
@@ -53,6 +60,8 @@ public final class Bootstrap implements BootstrapHook {
             Message.MentionType.EVERYONE, Message.MentionType.HERE,
             Message.MentionType.USER, Message.MentionType.ROLE));
 
+    private final Function<Bootstrap, Bot> botLoader;
+
     private Bot bot;
 
     // Saved for reload/shutdown
@@ -65,7 +74,22 @@ public final class Bootstrap implements BootstrapHook {
 
     public static void main(String[] args) {
         log.debug("Program started");
-        new Bootstrap().start(args);
+        new Bootstrap(Bootstrap::dynamicLoad).start(args);
+    }
+
+    private static Bot dynamicLoad(Bootstrap bootstrap) {
+        log.debug("Dynamic loading bot");
+        File f = new File("./bot.jar");
+        try {
+            ClassLoader cl = URLClassLoader.newInstance(new URL[]{f.toURI().toURL()});
+            Class<?> clazz = Class.forName("com.tisawesomeness.minecord.Minecord", true, cl);
+            Bot bot = (Bot) clazz.getConstructors()[0].newInstance(bootstrap);
+            log.info("Bot successfully loaded from file");
+            return bot;
+        } catch (MalformedURLException | ClassNotFoundException | InstantiationException | IllegalAccessException |
+                 InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void start(String[] args) {
@@ -99,7 +123,7 @@ public final class Bootstrap implements BootstrapHook {
         Path instancePath = path.resolve("instance.yml");
         if (!instancePath.toFile().exists()) {
             try {
-                IO.copyResource("instance.yml", instancePath);
+                IO.copyResource("instance.yml", instancePath, Bootstrap.class);
             } catch (IOException ex) {
                 log.error("FATAL: Failed to create instance.yml", ex);
                 return BootExitCodes.INSTANCE_CONFIG_CREATION_IOE;
@@ -124,7 +148,7 @@ public final class Bootstrap implements BootstrapHook {
         }
         String token = checkTokenOverride(instanceConfig.getToken());
 
-        bot = new Minecord(this);
+        bot = botLoader.apply(this);
         int exitCode = bot.createConfigs(path);
         if (exitCode != BootExitCodes.SUCCESS) {
             return exitCode;
@@ -243,7 +267,7 @@ public final class Bootstrap implements BootstrapHook {
 
     public int reload() {
         log.debug("Reload requested");
-        Bot newBot = new Minecord(this);
+        Bot newBot = botLoader.apply(this);
         int exitCode = reload(newBot);
         if (exitCode == BootExitCodes.SUCCESS) {
             bot = newBot;

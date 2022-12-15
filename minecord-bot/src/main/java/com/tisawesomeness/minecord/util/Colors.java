@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public final class Colors {
     private Colors() {}
 
-    private static final JSONObject colors = new JSONObject(IO.loadResource("mc/colors.json"));
+    private static final JSONObject colors = new JSONObject(IO.loadResource("mc/colors.json", Colors.class));
 
     private static final List<Color> mcColors = Arrays.asList(
         new Color(0, 0, 0),

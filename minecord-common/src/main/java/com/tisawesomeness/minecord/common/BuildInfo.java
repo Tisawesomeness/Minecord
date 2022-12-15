@@ -19,7 +19,7 @@ public final class BuildInfo {
     public final @NonNull String jdaVersion;
 
     private BuildInfo() {
-        Properties prop = IO.loadPropertiesResource("build.properties");
+        Properties prop = IO.loadPropertiesResource("build.properties", BuildInfo.class);
         version = prop.getProperty("version");
         jdaVersion = prop.getProperty("jdaVersion");
     }

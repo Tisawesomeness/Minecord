@@ -20,7 +20,7 @@ public class Resources {
 
     private static <K extends VerifiableConfig> @NonNull K readFromResources(@NonNull String resource, Class<K> clazz)
             throws JsonProcessingException {
-        return ConfigReader.getMapper().readValue(IO.loadResource(resource), clazz);
+        return ConfigReader.getMapper().readValue(IO.loadResource(resource, Resources.class), clazz);
     }
 
 }

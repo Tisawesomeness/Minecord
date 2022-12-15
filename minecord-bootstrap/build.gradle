@@ -1,6 +1,5 @@
 plugins {
-    id 'minecord.conventions'
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'minecord.conventions-build'
 }
 
 repositories {
@@ -13,7 +12,6 @@ repositories {
 
 dependencies {
     implementation project(":minecord-common")
-    implementation project(":minecord-bot")
     // Command-line arguments
     implementation 'info.picocli:picocli:4.6.3'
     annotationProcessor 'info.picocli:picocli-codegen:4.6.3'
@@ -25,8 +23,4 @@ jar {
                 'Main-Class': 'com.tisawesomeness.minecord.bootstrap.Bootstrap'
         )
     }
-}
-
-shadowJar {
-//    minimize()
 }

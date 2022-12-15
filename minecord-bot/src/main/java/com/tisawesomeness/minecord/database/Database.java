@@ -100,7 +100,7 @@ public class Database {
      * @throws SQLException If there is an error executing the script.
      */
     private void runScript(String resourceName) throws SQLException {
-        String initScript = IO.loadResource(resourceName);
+        String initScript = IO.loadResource(resourceName, Database.class);
         @Cleanup Connection connect = getConnect();
         @Cleanup Statement statement = connect.createStatement();
         for (String query : initScript.split(",")) {

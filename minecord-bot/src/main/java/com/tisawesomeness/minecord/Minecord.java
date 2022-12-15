@@ -262,7 +262,7 @@ public class Minecord extends Bot {
         Path filePath = path.resolve(fileName);
         if (!filePath.toFile().exists()) {
             log.debug("{} does not exist, creating...", fileName);
-            IO.copyResource(fileName, filePath);
+            IO.copyResource(fileName, filePath, Minecord.class);
         }
         return filePath;
     }

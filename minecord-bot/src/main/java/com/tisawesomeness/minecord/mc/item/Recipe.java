@@ -13,8 +13,8 @@ import java.util.*;
 
 public class Recipe {
 
-    private static final JSONObject recipes = new JSONObject(IO.loadResource("mc/recipes.json"));
-    private static final JSONObject tags = new JSONObject(IO.loadResource("mc/tags.json"));
+    private static final JSONObject recipes = new JSONObject(IO.loadResource("mc/recipes.json", Recipe.class));
+    private static final JSONObject tags = new JSONObject(IO.loadResource("mc/tags.json", Recipe.class));
 
     /**
      * Creates an EmbedBuilder from a recipe

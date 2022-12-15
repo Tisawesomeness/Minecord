@@ -9,4 +9,5 @@ repositories {
 
 dependencies {
     implementation 'io.freefair.gradle:lombok-plugin:6.4.3'
+    implementation 'gradle.plugin.com.github.johnrengelman:shadow:7.1.2'
 }

@@ -41,10 +41,11 @@ public final class IO {
     /**
      * Loads a file from the resources folder.
      * @param name The filename with extension
+     * @param clazz The class whose class loader will load the file (this decides which resources folder to load from)
      * @return A string with the contents of the file
      */
-    public static @NonNull String loadResource(@NonNull String name) {
-        InputStream is = openResource(name);
+    public static @NonNull String loadResource(@NonNull String name, @NonNull Class<?> clazz) {
+        InputStream is = openResource(name, clazz);
         try (InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
              BufferedReader br = new BufferedReader(isr)) {
             return br.lines().collect(Collectors.joining("\n"));
@@ -56,10 +57,11 @@ public final class IO {
     /**
      * Loads a properties file from the resources folder.
      * @param name The filename with extension
+     * @param clazz The class whose class loader will load the file, generally use the calling class
      * @return A properties object with the contents of the file
      */
-    public static @NonNull Properties loadPropertiesResource(@NonNull String name) {
-        InputStream is = openResource(name);
+    public static @NonNull Properties loadPropertiesResource(@NonNull String name, @NonNull Class<?> clazz) {
+        InputStream is = openResource(name, clazz);
         Properties prop = new Properties();
         try {
             prop.load(is);
@@ -75,12 +77,12 @@ public final class IO {
      * @param path The path to the file
      * @throws IOException When an I/O error occurs
      */
-    public static void copyResource(@NonNull String name, @NonNull Path path) throws IOException {
-        Files.copy(openResource(name), path);
+    public static void copyResource(@NonNull String name, @NonNull Path path, @NonNull Class<?> clazz) throws IOException {
+        Files.copy(openResource(name, clazz), path);
     }
 
-    private static InputStream openResource(String name) {
-        InputStream is = IO.class.getClassLoader().getResourceAsStream(name);
+    private static InputStream openResource(String name, Class<?> clazz) {
+        InputStream is = clazz.getClassLoader().getResourceAsStream(name);
         if (is == null) {
             throw new IllegalArgumentException("The resource was not found!");
         }

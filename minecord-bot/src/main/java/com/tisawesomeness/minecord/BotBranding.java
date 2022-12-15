@@ -1,6 +1,5 @@
 package com.tisawesomeness.minecord;
 
-import com.tisawesomeness.minecord.common.BuildInfo;
 import com.tisawesomeness.minecord.config.branding.Branding;
 import com.tisawesomeness.minecord.config.branding.BrandingConfig;
 import com.tisawesomeness.minecord.config.config.Config;
@@ -15,8 +14,6 @@ import java.awt.Color;
  * Static constants are the original branding, instance methods change depending on whether the bot is self-hosted
  */
 public class BotBranding {
-
-    private static final BuildInfo buildInfo = BuildInfo.getInstance();
 
     public static final String AUTHOR = "Tis_awesomeness";
     public static final String AUTHOR_TAG = "@Tis_awesomeness#8617";
