@@ -19,26 +19,6 @@ public final class IO {
     private IO() {}
 
     /**
-     * Reads a string from a file.
-     * @param path The path to the file
-     * @return A string with the contents of the file
-     * @throws IOException When an I/O error occurs
-     */
-    public static @NonNull String read(@NonNull Path path) throws IOException {
-        return new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
-    }
-
-    /**
-     * Writes a string to a file. This will create the file if it does not exist and replace any existing contents.
-     * @param path The path to the file
-     * @param data The string to write
-     * @throws IOException When an I/O error occurs
-     */
-    public static void write(@NonNull Path path, @NonNull String data) throws IOException {
-        Files.write(path, data.getBytes(StandardCharsets.UTF_8));
-    }
-
-    /**
      * Loads a file from the resources folder.
      * @param name The filename with extension
      * @param clazz The class whose class loader will load the file (this decides which resources folder to load from)
