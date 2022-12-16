@@ -24,6 +24,10 @@ dependencies {
     integrationTestImplementation sourceSets.test.output
 }
 
+jar {
+    archivesBaseName = "MinecordBot"
+}
+
 tasks.withType(Test).configureEach {
     useJUnitPlatform {
         // Uncomment the line below to exclude tags from testing such as "MojangAPI"

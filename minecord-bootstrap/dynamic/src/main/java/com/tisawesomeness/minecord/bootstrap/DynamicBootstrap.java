@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.bootstrap;
 
 import com.tisawesomeness.minecord.common.Bot;
+import com.tisawesomeness.minecord.common.BuildInfo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,7 +22,7 @@ public final class DynamicBootstrap {
 
     private static Bot dynamicLoad(Bootstrap bootstrap) {
         log.debug("Dynamic loading bot");
-        File f = new File("./bot.jar");
+        File f = new File(String.format("./MinecordBot-%s.jar", BuildInfo.getInstance().version));
         try {
             ClassLoader cl = URLClassLoader.newInstance(new URL[]{f.toURI().toURL()});
             Class<?> clazz = Class.forName("com.tisawesomeness.minecord.Minecord", true, cl);

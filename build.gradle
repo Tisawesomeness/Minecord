@@ -5,3 +5,43 @@ allprojects {
         jdaVersion = '4.4.0_352'
     }
 }
+
+def outputDynamicTasks() {
+    [":minecord-bot:shadowJar", ":minecord-bootstrap:dynamic:shadowJar"].collect { tasks.findByPath(it) }
+}
+def outputTasks() {
+    def list = outputDynamicTasks()
+    list.addAll([":minecord-bootstrap:static:shadowJar"].collect { tasks.findByPath(it) })
+    list
+}
+
+task copyToOutput(type: Copy) {
+    group = "build"
+    outputTasks().forEach {
+        from(it)
+    }
+    rename '(.*)-all.jar', '$1.jar'
+    into 'build/libs'
+}
+task copyDynamicToOutput(type: Copy) {
+    group = "build"
+    outputTasks().forEach {
+        from(it)
+    }
+    rename '(.*)-all.jar', '$1.jar'
+    into 'build/libs'
+}
+
+task cleanOutput() {
+    group = "build"
+    delete 'build/libs'
+}
+
+task clean() {
+    group = "build"
+    dependsOn cleanOutput
+}
+task build() {
+    group = "build"
+    dependsOn copyToOutput
+}
