@@ -6,11 +6,10 @@ First, join the [support server](https://discord.gg/hrfQaD7) and request the "De
 
 To get started, clone the repository with `git clone https://github.com/Tisawesomeness/Minecord.git` and open in your favorite IDE
 ([IntelliJ](https://www.jetbrains.com/idea/) is recommended, though any proper IDE will work).
-Make sure to install the [Lombok](https://projectlombok.org/) plugin to add support for its annotations.
 
-Running can be done from your IDE. To build an executable JAR file, use `gradle shadowJar`.
+Running can be done from your IDE, in the `StaticBootstrap` class in the `minecord-bootstrap/static` project. To build the executable JAR files, use `gradle build` and run `Minecord.jar`.
 
-To contribute your changes, make a pull request to (usually) the `dev` branch. Note that all tests must pass before your changes can be accepted, use `gradle check` and `gradle integrationTest` to run the tests.
+To contribute your changes, make a pull request to (usually) the `dev` branch. Note that all tests must pass before your changes can be accepted, use `gradle check` to run the tests.
 
 ## Conventions
 
