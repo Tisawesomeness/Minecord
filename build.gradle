@@ -1,6 +1,6 @@
 allprojects {
     group = 'com.tisawesomeness'
-    version = '1.0.0-ALPHA-11'
+    version = '1.0.0-ALPHA-12'
     ext {
         jdaVersion = '4.4.0_352'
     }
