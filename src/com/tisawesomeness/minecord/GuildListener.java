@@ -12,8 +12,6 @@ import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
-import java.util.ArrayList;
-
 public class GuildListener extends ListenerAdapter {
 
     @Override
@@ -35,12 +33,6 @@ public class GuildListener extends ListenerAdapter {
                 eb.addField("Owner", owner.getEffectiveName(), true);
                 eb.addField("Owner ID", owner.getUser().getId(), true);
             }
-            eb.addField("Users", String.valueOf(guild.getMembers().size()), true);
-            ArrayList<Member> users = new ArrayList<>(guild.getMembers());
-            users.removeIf(u -> u.getUser().isBot());
-            eb.addField("Humans", String.valueOf(users.size()), true);
-            eb.addField("Bots", String.valueOf(guild.getMembers().size() - users.size()), true);
-            eb.addField("Channels", String.valueOf(guild.getTextChannels().size()), true);
 
         } else if (e instanceof GuildLeaveEvent) {
             if (owner != null) {
