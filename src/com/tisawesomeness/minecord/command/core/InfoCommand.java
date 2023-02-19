@@ -17,6 +17,8 @@ import java.text.StringCharacterIterator;
 
 public class InfoCommand extends SlashCommand {
 
+    private static final String JAVA_VERSION = System.getProperty("java.version");
+
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "info",
@@ -65,7 +67,7 @@ public class InfoCommand extends SlashCommand {
             eb.addField("Memory", getMemoryString(), true);
             eb.addField("Boot Time", DateUtils.getBootTime(), true);
         }
-        eb.addField("Java Version", MarkdownUtil.monospace(Bot.javaVersion), true);
+        eb.addField("Java Version", MarkdownUtil.monospace(JAVA_VERSION), true);
         eb.addField("JDA Version", MarkdownUtil.monospace(Bot.jdaVersion), true);
 
         String links = MarkdownUtil.maskedLink("INVITE", Config.getInvite()) +
