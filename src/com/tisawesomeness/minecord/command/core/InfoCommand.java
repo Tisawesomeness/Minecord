@@ -30,9 +30,12 @@ public class InfoCommand extends SlashCommand {
         );
     }
 
+    public static String[] legacyAliases() {
+        return new String[]{"about", "stats"};
+    }
     @Override
     public String[] getLegacyAliases() {
-        return new String[]{"about", "stats"};
+        return legacyAliases();
     }
 
     public Result run(SlashCommandInteractionEvent e) {

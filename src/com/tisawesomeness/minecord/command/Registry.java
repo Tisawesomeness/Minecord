@@ -38,14 +38,18 @@ public class Registry {
     public static final Module[] modules = {
             new Module("Core",
                     new HelpCommand(),
+                    new HelpCommandLegacy(),
                     new InfoCommand(),
+                    new InfoCommandLegacy(),
                     new InfoCommandAdmin(),
                     new PingCommand(),
+                    new PingCommandLegacy(),
                     new PrefixCommand(),
                     new SettingsCommand(),
                     new InviteCommand(),
                     new VoteCommand(),
-                    new CreditsCommand()
+                    new CreditsCommand(),
+                    new CreditsCommandLegacy()
             ),
             new Module("Player",
                     new ProfileCommand(),
