@@ -83,17 +83,17 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Is Self Hosted:* Leave as `true` if you are self-hosting the bot.
 - *Author:* The name of the person hosting the bot.
 - *Author Tag:* The Discord tag of the person hosting the bot.
-- *Invite:* The invite link to use in `&invite`.
-- *Help Server:* The help server link to use in `&invite`.
-- *Website:* The website to display in `&info`.
+- *Invite:* The invite link to use in `/invite`.
+- *Help Server:* The help server link to use in `/invite`.
+- *Website:* The website to display in `/info`.
 - *Github:* A link to the source code currently running on the bot.
-- *Prefix:* The prefix of the bot. Use something else instead of `&` if you want to host your own bot alongside the main one.
+- *Prefix:* The prefix (optionally) used for admin commands.
 - *Game:* This is the game that the bot is playing, shown under the username. `{prefix}` and `{guilds}` are available variables.
-- *Dev Mode:* Turning this on will let you reload code using `&reload` on the fly. When hosting the bot, it's best to keep this off in order to decrease memory usage.
+- *Dev Mode:* Turning this on will let you reload code using `@Minecord reload` on the fly. When hosting the bot, it's best to keep this off in order to decrease memory usage.
 - *Debug Mode:* If true, exceptions during command execution will be sent to the user.
-- *Delete Commands:* If true, the commands sent by players (like `&help`) will be deleted to clean up chat. Requires permission to manage messages.
-- *Use Menus:* If true, the bot will use a reaction menu for `&recipe` and `&ingredient` if possible.
-- *Show Memory:* Whether to show the memory in `&info`.
+- *Delete Commands:* If true, the commands sent by players (like `/help`) will be deleted to clean up chat. Requires permission to manage messages.
+- *Use Menus:* If true, the bot will use a reaction menu for `/recipe` and `/ingredient` if possible.
+- *Show Memory:* Whether to show the memory in `/info`.
 - *Elevated Skip Cooldown:* Whether elevated users skip command cooldowns.
 - *Use Electroid API:* Whether to use the Electroid API to speed up player lookups. May cause slowdowns if the API is consistently down.
 - *Use Gapple API:* Whether to use the Gapple API to look up account types. May cause slowdowns if the API is consistently down.
