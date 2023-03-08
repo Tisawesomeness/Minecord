@@ -1,4 +1,4 @@
-# Minecord ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Tisawesomeness/Minecord/Java%20CI%20with%20Gradle) [![GitHub](https://img.shields.io/github/license/Tisawesomeness/Minecord)](https://github.com/Tisawesomeness/Minecord/blob/refactor/LICENSE)
+# Minecord ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Tisawesomeness/Minecord/gradle.yml) [![GitHub](https://img.shields.io/github/license/Tisawesomeness/Minecord)](https://github.com/Tisawesomeness/Minecord/blob/refactor/LICENSE)
 
 A Discord bot with many Minecraft-related features, such as name history, skin renders, color codes, and recipe lookup! Pull Requests and issues are welcome.
 
