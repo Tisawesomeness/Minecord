@@ -327,13 +327,6 @@ public class Item {
      */
     private static String searchGeneral(String str, String lang) {
 
-        // Easter egg exceptions
-        if (str.equalsIgnoreCase("java")) {
-            throw new NullPointerException("Enjoy the RAM usage and NPEs lol");
-        } else if (str.equalsIgnoreCase("python")) {
-            throw new IndentationError("expected an indented block");
-        }
-
         // Extract ID and data
         String toParse = str.replace("_", " ").replace(".", " ").replace(" : ", ":").toLowerCase();
         int data = -1;
