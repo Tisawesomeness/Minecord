@@ -350,7 +350,7 @@ public class Item {
                     } else if (data > 0) {
                         return coloredItem.replace("white", colorNames[data]);
                     }
-                } else {
+                } else if (toParse.contains(coloredName)) {
                     String color = toParse.replace(coloredName, "").trim();
                     int colorData = parseDataFromFile(color, lang);
                     if (colorData == 0) {
@@ -373,11 +373,13 @@ public class Item {
             }
         }
         String color = CANDLE_CAKE_PATTERN.matcher(toParse).replaceFirst("$1");
-        int colorData = parseDataFromFile(color, lang);
-        if (colorData == 0) {
-            return "minecraft.white_candle_cake";
-        } else if (colorData > 0) {
-            return "minecraft.white_candle_cake".replace("white", colorNames[colorData]);
+        if (!color.equals(toParse)) {
+            int colorData = parseDataFromFile(color, lang);
+            if (colorData == 0) {
+                return "minecraft.white_candle_cake";
+            } else if (colorData > 0) {
+                return "minecraft.white_candle_cake".replace("white", colorNames[colorData]);
+            }
         }
 
         // Banners special case
