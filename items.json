@@ -10236,9 +10236,11 @@
         "lore": "C418 - 13",
         "search_names": [
           "13 Disc",
+          "13 Music Disc",
           "Disc 13",
           "C418 - 13",
           "Thirteen Disc",
+          "Thirteen Music Disc",
           "Music Disc Thirteen",
           "Disc Thirteen",
           "C418 - Thirteen",
@@ -10261,6 +10263,7 @@
         "lore": "C418 - Cat",
         "search_names": [
           "Cat Disc",
+          "Cat Music Disc",
           "Disc Cat",
           "C418 - Cat"
         ],
@@ -10281,6 +10284,7 @@
         "lore": "C418 - Blocks",
         "search_names": [
           "Blocks Disc",
+          "Blocks Music Disc",
           "Disc Blocks",
           "C418 - Blocks"
         ],
@@ -10301,6 +10305,7 @@
         "lore": "C418 - Chirp",
         "search_names": [
           "Chirp Disc",
+          "Chirp Music Disc",
           "Disc Chirp",
           "C418 - Chirp"
         ],
@@ -10321,6 +10326,7 @@
         "lore": "C418 - Far",
         "search_names": [
           "Far Disc",
+          "Far Music Disc",
           "Disc Far",
           "C418 - Far"
         ],
@@ -10341,6 +10347,7 @@
         "lore": "C418 - Mall",
         "search_names": [
           "Mall Disc",
+          "Mall Music Disc",
           "Disc Mall",
           "C418 - Mall"
         ],
@@ -10361,6 +10368,7 @@
         "lore": "C418 - Mellohi",
         "search_names": [
           "Mellohi Disc",
+          "Mellohi Music Disc",
           "Disc Mellohi",
           "C418 - Mellohi"
         ],
@@ -10381,6 +10389,7 @@
         "lore": "C418 - Stal",
         "search_names": [
           "Stal Disc",
+          "Stal Music Disc",
           "Disc Stal",
           "C418 - Stal",
           "Jschlatt"
@@ -10402,6 +10411,7 @@
         "lore": "C418 - Strad",
         "search_names": [
           "Strad Disc",
+          "Strad Music Disc",
           "Disc Strad",
           "C418 - Strad"
         ],
@@ -10422,6 +10432,7 @@
         "lore": "C418 - Ward",
         "search_names": [
           "Ward Disc",
+          "Ward Music Disc",
           "Disc Ward",
           "C418 - Ward",
           "Herobrine"
@@ -10443,10 +10454,12 @@
         "lore": "C418 - 11",
         "search_names": [
           "11 Disc",
+          "11 Music Disc",
           "Music Disc 11",
           "Disc 11",
           "C418 - 11",
           "Eleven Disc",
+          "Eleven Music Disc",
           "Disc Eleven",
           "C418 - Eleven",
           "Eleven"
@@ -10468,6 +10481,7 @@
         "lore": "C418 - Wait",
         "search_names": [
           "Wait Disc",
+          "Wait Music Disc",
           "Disc Wait",
           "C418 - Wait"
         ],
@@ -13787,6 +13801,7 @@
         "lore": "Lena Raine - Pigstep",
         "search_names": [
           "Pigstep Disc",
+          "Pigstep Music Disc",
           "Disc Pigstep",
           "Lena Raine - Pigstep",
           "Pigstep"
@@ -17031,6 +17046,7 @@
         "lore": "Lena Raine - otherside",
         "search_names": [
           "Otherside Disc",
+          "Otherside Music Disc",
           "Disc Otherside",
           "Lena Raine - otherside",
           "otherside"
@@ -17517,10 +17533,12 @@
         "lore": "Samuel Åberg - 5",
         "search_names": [
           "5 Disc",
+          "5 Music Disc",
           "Disc 5",
           "Samuel Aberg - 5",
           "Samuel Åberg - 5",
           "Five Disc",
+          "Five Music Disc",
           "Music Disc Five",
           "Disc Five",
           "Samuel Aberg - Five",
