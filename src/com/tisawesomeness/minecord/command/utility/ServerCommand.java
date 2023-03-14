@@ -41,7 +41,7 @@ public class ServerCommand extends SlashCommand {
                 "server",
                 "Fetches the stats of a server.",
                 "<address>[:<port>]",
-                2000,
+                3000,
                 false,
                 false
         );

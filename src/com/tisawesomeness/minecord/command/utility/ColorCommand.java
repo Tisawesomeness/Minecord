@@ -18,7 +18,7 @@ public class ColorCommand extends SlashCommand {
                 "color",
                 "Look up a color, color code, or get a random color.",
                 "<color>",
-                1000,
+                0,
                 false,
                 false
         );

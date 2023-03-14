@@ -20,7 +20,7 @@ public class CapeCommand extends BasePlayerCommand {
                 "cape",
                 "Shows a player's capes.",
                 "<player>",
-                2000,
+                1000,
                 false,
                 false
         );

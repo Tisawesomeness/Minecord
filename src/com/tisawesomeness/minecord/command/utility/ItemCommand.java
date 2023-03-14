@@ -16,7 +16,7 @@ public class ItemCommand extends SlashCommand {
                 "item",
                 "Looks up an item.",
                 "<item name|id>",
-                2500,
+                1000,
                 false,
                 false
         );

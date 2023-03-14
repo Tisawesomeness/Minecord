@@ -21,7 +21,7 @@ public class UuidCommand extends AbstractPlayerCommand {
                 "uuid",
                 "Shows UUID info for a player or entity.",
                 "<uuid|username>",
-                2000,
+                1000,
                 false,
                 false
         );

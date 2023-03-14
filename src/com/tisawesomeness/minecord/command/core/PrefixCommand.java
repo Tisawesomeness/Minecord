@@ -13,7 +13,7 @@ public class PrefixCommand extends LegacyCommand {
                 "prefix",
                 "Change the prefix.",
                 "[<prefix>]",
-                5000,
+                1000,
                 true,
                 false
         );

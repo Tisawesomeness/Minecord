@@ -22,7 +22,7 @@ public class IngredientCommand extends SlashCommand {
                 "ingredient",
                 "Looks up the recipes containing an ingredient.",
                 "<item name|id>",
-                2500,
+                1000,
                 false,
                 false
         );

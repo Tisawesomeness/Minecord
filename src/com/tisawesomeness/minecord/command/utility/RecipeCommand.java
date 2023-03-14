@@ -22,7 +22,7 @@ public class RecipeCommand extends SlashCommand {
                 "recipe",
                 "Look up recipes.",
                 "<item name|id> [page]",
-                2500,
+                1000,
                 false,
                 false
         );

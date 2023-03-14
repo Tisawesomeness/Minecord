@@ -34,7 +34,7 @@ public class RenderCommand extends BaseRenderCommand {
                 id,
                 String.format("Shows an image of the player's %s.", type.getId()),
                 "<player> [<scale>] [<overlay?>]",
-                2000,
+                1000,
                 false,
                 false
         );
