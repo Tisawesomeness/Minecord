@@ -66,7 +66,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - `@Minecord reload` - Reloads the bot. In dev mode, this hot reloads all code. Otherwise, this reloads the config, item/recipe files, and restarts the database and vote server.
 - `@Minecord shutdown` - Shuts down the bot.
 - `@Minecord deploy` - Deploys slash commands globally.
-- `@Minecord eval` - Evaluates javascript code with variables `jda`, `config`, `event`, `guild`, `channel`, and `user`.
+- `@Minecord eval` - Evaluates javascript code with variables `jda`, `config`, `event`, `guild`, `channel`, and `user`. Requires setting `evil: true` in the config since eval is a security risk.
 - `@Minecord test` - Test command. This may change depending on what features are being developed.
 
 ### Config

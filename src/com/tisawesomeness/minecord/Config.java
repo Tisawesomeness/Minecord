@@ -31,6 +31,7 @@ public class Config {
     private static String github;
     private static String prefix;
     private static String game;
+    private static boolean evil;
     private static boolean devMode;
     private static boolean debugMode;
     private static boolean deleteCommands;
@@ -131,6 +132,10 @@ public class Config {
             }
             prefix = settings.getString("prefix");
             game = settings.getString("game");
+            evil = settings.optBoolean("evil", false);
+            if (evil) {
+                System.err.println("WARNING: Eval is enabled!");
+            }
             devMode = settings.getBoolean("devMode");
             debugMode = settings.getBoolean("debugMode");
             deleteCommands = settings.getBoolean("deleteCommands");
@@ -188,6 +193,7 @@ public class Config {
     public static String getGithub() { return github; }
     public static String getPrefix() { return prefix; }
     public static String getGame() { return game; }
+    public static boolean getEvil() { return evil; }
     public static boolean getDevMode() { return devMode; }
     public static boolean getDebugMode() { return debugMode; }
     public static boolean getDeleteCommands() { return deleteCommands; }

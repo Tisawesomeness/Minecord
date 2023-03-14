@@ -57,6 +57,10 @@ public class EvalCommand extends LegacyCommand {
     @Override
     public Result run(String[] args, MessageReceivedEvent e) {
 
+        if (!Config.getEvil()) {
+            return new Result(Outcome.SUCCESS, "Eval is evil.");
+        }
+
         // Parse args
         if (args.length == 0) {
             return new Result(Outcome.WARNING, "Missing code argument.");
