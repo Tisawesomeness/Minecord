@@ -68,6 +68,11 @@ public class Recipe {
         if (!feature.equals("vanilla")) {
             lines.add(String.format("**Feature Toggle:** %s", feature));
         }
+        String flagRemovedVersion = getFlagRemovedVersion(recipe);
+        String removedInFlag = getRemovedInFlag(recipe);
+        if (flagRemovedVersion != null && removedInFlag != null) {
+            lines.add(String.format("Removed in feature toggle %s, version %s", removedInFlag, flagRemovedVersion));
+        }
         String notes = getNotes(recipe, lang);
         if (notes != null) {
             lines.add(notes);
@@ -129,8 +134,11 @@ public class Recipe {
             "minecraft:crafting_special_firework_star", "minecraft:crafting_special_firework_star_fade", "minecraft:crafting_special_firework_rocket",
             "minecraft:crafting_special_shulkerboxcoloring", "minecraft:crafting_special_suspiciousstew"
     );
+    private static final List<String> smithingTypes = Arrays.asList(
+            "minecraft:smithing", "minecraft:smithing_trim", "minecraft:smithing_transform"
+    );
     private static final List<String> otherTypes = Arrays.asList(
-            "minecraft:stonecutting", "minecraft.brewing", "minecraft:smithing"
+            "minecraft:stonecutting", "minecraft.brewing"
     );
     /**
      * Checks if a recipe type is crafting
@@ -147,11 +155,18 @@ public class Recipe {
         return type.equals("minecraft:smelting") || type.equals("minecraft.smelting_special_sponge");
     }
     /**
+     * Checks if a recipe type is smithing
+     * @param type The type string
+     */
+    private static boolean isSmithing(String type) {
+        return smithingTypes.contains(type);
+    }
+    /**
      * Checks if a recipe type is valid
      * @param type The type string
      */
     private static boolean isValidType(String type) {
-        return isCrafting(type) || isSmelting(type) || otherTypes.contains(type);
+        return isCrafting(type) || isSmelting(type) || isSmithing(type) || otherTypes.contains(type);
     }
 
     /**
@@ -227,14 +242,11 @@ public class Recipe {
                 if (symbolObj == null) {
                     JSONArray symbolArr = keyObj.getJSONArray(key);
                     for (int i = 0; i < symbolArr.length(); i++) {
-                        ingredients.add(symbolArr.getJSONObject(i).getString("item"));
+                        addItemsFromObj(ingredients, symbolArr.getJSONObject(i));
                     }
-                    // Ingredient is a single item
-                } else if (symbolObj.has("item")) {
-                    ingredients.add(symbolObj.getString("item"));
-                    // Ingredient is a tag
+                // Ingredient is a single item or tag
                 } else {
-                    ingredients.addAll(getTag(symbolObj.getString("tag").substring(10)));
+                    addItemsFromObj(ingredients, symbolObj);
                 }
             }
             // Shapeless recipes
@@ -246,14 +258,11 @@ public class Recipe {
                 if (symbolObj == null) {
                     JSONArray symbolArr = keyArr.getJSONArray(i);
                     for (int j = 0; j < symbolArr.length(); j++) {
-                        ingredients.add(symbolArr.getJSONObject(j).getString("item"));
+                        addItemsFromObj(ingredients, symbolArr.getJSONObject(j));
                     }
-                    // Ingredient is a single item
-                } else if (symbolObj.has("item")) {
-                    ingredients.add(symbolObj.getString("item"));
-                    // Ingredient is a tag
+                // Ingredient is a single item or tag
                 } else {
-                    ingredients.addAll(getTag(symbolObj.getString("tag").substring(10)));
+                    addItemsFromObj(ingredients, symbolObj);
                 }
             }
             // Smelting recipes
@@ -262,45 +271,56 @@ public class Recipe {
             if (ingredient == null) {
                 JSONArray variantsArr = recipe.getJSONArray("ingredient");
                 for (int i = 0; i < variantsArr.length(); i++) {
-                    ingredients.add(variantsArr.getJSONObject(i).getString("item"));
+                    addItemsFromObj(ingredients, variantsArr.getJSONObject(i));
                 }
-            } else if (ingredient.has("item")) {
-                ingredients.add(ingredient.getString("item"));
             } else {
-                ingredients.addAll(getTag(ingredient.getString("tag").substring(10)));
+                addItemsFromObj(ingredients, ingredient);
             }
             if (type.equals("minecraft.smelting_special_sponge")) {
                 ingredients.add("minecraft:bucket");
             }
             // Stonecutting recipes
         } else if (type.equals("minecraft:stonecutting")) {
-            ingredients.add(recipe.getJSONObject("ingredient").getString("item"));
+            addItemsFromObj(ingredients, recipe.getJSONObject("ingredient"));
             // Brewing recipes
         } else if (type.equals("minecraft.brewing")) {
             JSONObject reagent = recipe.optJSONObject("reagent");
             if (reagent == null) {
                 JSONArray reagents = recipe.getJSONArray("reagent");
                 for (int i = 0; i < reagents.length(); i++) {
-                    ingredients.add(reagents.getJSONObject(i).getString("item"));
+                    addItemsFromObj(ingredients, reagents.getJSONObject(i));
                 }
             } else {
-                ingredients.add(reagent.getString("item"));
+                addItemsFromObj(ingredients, reagent);
             }
             JSONObject base = recipe.optJSONObject("base");
             if (base == null) {
                 JSONArray bases = recipe.getJSONArray("base");
                 for (int i = 0; i < bases.length(); i++) {
-                    ingredients.add(bases.getJSONObject(i).getString("item"));
+                    addItemsFromObj(ingredients, bases.getJSONObject(i));
                 }
             } else {
-                ingredients.add(base.getString("item"));
+                addItemsFromObj(ingredients, base);
             }
             // Smithing recipes
-        } else if (type.equals("minecraft:smithing")) {
-            ingredients.add(recipe.getJSONObject("base").getString("item"));
-            ingredients.add(recipe.getJSONObject("addition").getString("item"));
+        } else if (isSmithing(type)) {
+            addItemsFromObj(ingredients, recipe.getJSONObject("base"));
+            JSONObject template = recipe.optJSONObject("template");
+            if (template != null) {
+                addItemsFromObj(ingredients, template);
+            }
+            addItemsFromObj(ingredients, recipe.getJSONObject("addition"));
         }
         return ingredients;
+    }
+    private static void addItemsFromObj(Collection<String> ingredients, JSONObject obj) {
+        if (obj.has("item")) {
+            ingredients.add(obj.getString("item"));
+        } else if (obj.has("tag")) {
+            ingredients.addAll(getTag(obj.getString("tag").substring(10)));
+        } else {
+            throw new IllegalArgumentException("Invalid ingredient: " + obj);
+        }
     }
 
     /**
@@ -363,6 +383,15 @@ public class Recipe {
     private static String getRemovedVersion(String recipe) {
         JSONObject properties = recipes.getJSONObject(recipe).optJSONObject("properties");
         return properties == null ? null : properties.optString("removed", null);
+    }
+
+    private static String getFlagRemovedVersion(String recipe) {
+        JSONObject properties = recipes.getJSONObject(recipe).optJSONObject("properties");
+        return properties == null ? null : properties.optString("flag_removed_version", null);
+    }
+    private static String getRemovedInFlag(String recipe) {
+        JSONObject properties = recipes.getJSONObject(recipe).optJSONObject("properties");
+        return properties == null ? null : properties.optString("removed_in_flag", null);
     }
 
     public static int compareRecipes(String recipe1, String recipe2) {
@@ -534,6 +563,8 @@ public class Recipe {
                 case "minecraft.brewing":
                     item = "minecraft.brewing_stand"; break;
                 case "minecraft:smithing":
+                case "minecraft:smithing_trim":
+                case "minecraft:smithing_transform":
                     item = "minecraft.smithing_table"; break;
                 default:
                     item = "minecraft.crafting_table";
@@ -594,7 +625,7 @@ public class Recipe {
                 c = 1;
             }
             // Find how to craft each ingredient
-            if (isCrafting(type) || isSmelting(type) || type.equals("minecraft.brewing") || type.equals("minecraft:smithing")) {
+            if (isCrafting(type) || isSmelting(type) || type.equals("minecraft.brewing") || isSmithing(type)) {
                 LinkedHashSet<String> ingredientsSet = getIngredients(recipeObj);
                 if (type.equals("minecraft.brewing")) {
                     if (ingredientsSet.contains("minecraft:blaze_powder")) {

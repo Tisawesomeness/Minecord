@@ -3619,6 +3619,33 @@
     },
     "group": "wool"
   },
+  "brush": {
+    "result": {
+      "item": "minecraft:brush"
+    },
+    "pattern": [
+      "X",
+      "#",
+      "I"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "equipment",
+    "key": {
+      "#": {
+        "item": "minecraft:copper_ingot"
+      },
+      "X": {
+        "item": "minecraft:feather"
+      },
+      "I": {
+        "item": "minecraft:stick"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
   "bucket": {
     "result": {
       "item": "minecraft:bucket"
@@ -3908,6 +3935,315 @@
       "animated": true
     },
     "cookingtime": 200
+  },
+  "cherry_boat": {
+    "result": {
+      "item": "minecraft:cherry_boat"
+    },
+    "pattern": [
+      "# #",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "#": {
+        "item": "minecraft:cherry_planks"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
+    "group": "boat"
+  },
+  "cherry_button": {
+    "result": {
+      "item": "minecraft:cherry_button"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:cherry_planks"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "category": "redstone",
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
+    "group": "wooden_button"
+  },
+  "cherry_chest_boat": {
+    "result": {
+      "item": "minecraft:cherry_chest_boat"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:chest"
+      },
+      {
+        "item": "minecraft:cherry_boat"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
+    "group": "chest_boat"
+  },
+  "cherry_door": {
+    "result": {
+      "item": "minecraft:cherry_door",
+      "count": 3
+    },
+    "pattern": [
+      "##",
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "redstone",
+    "key": {
+      "#": {
+        "item": "minecraft:cherry_planks"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
+    "group": "wooden_door"
+  },
+  "cherry_fence": {
+    "result": {
+      "item": "minecraft:cherry_fence",
+      "count": 3
+    },
+    "pattern": [
+      "W#W",
+      "W#W"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "#": {
+        "item": "minecraft:stick"
+      },
+      "W": {
+        "item": "minecraft:cherry_planks"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
+    "group": "wooden_fence"
+  },
+  "cherry_fence_gate": {
+    "result": {
+      "item": "minecraft:cherry_fence_gate"
+    },
+    "pattern": [
+      "#W#",
+      "#W#"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "redstone",
+    "key": {
+      "#": {
+        "item": "minecraft:stick"
+      },
+      "W": {
+        "item": "minecraft:cherry_planks"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
+    "group": "wooden_fence_gate"
+  },
+  "cherry_hanging_sign": {
+    "result": {
+      "item": "minecraft:cherry_hanging_sign",
+      "count": 6
+    },
+    "pattern": [
+      "X X",
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "#": {
+        "item": "minecraft:stripped_cherry_log"
+      },
+      "X": {
+        "item": "minecraft:chain"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
+    "group": "hanging_sign"
+  },
+  "cherry_planks": {
+    "result": {
+      "item": "minecraft:cherry_planks",
+      "count": 4
+    },
+    "ingredients": [
+      {
+        "tag": "minecraft:cherry_logs"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "category": "building",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "group": "planks"
+  },
+  "cherry_pressure_plate": {
+    "result": {
+      "item": "minecraft:cherry_pressure_plate"
+    },
+    "pattern": [
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "redstone",
+    "key": {
+      "#": {
+        "item": "minecraft:cherry_planks"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
+    "group": "wooden_pressure_plate"
+  },
+  "cherry_sign": {
+    "result": {
+      "item": "minecraft:cherry_sign",
+      "count": 3
+    },
+    "pattern": [
+      "###",
+      "###",
+      " X "
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "#": {
+        "item": "minecraft:cherry_planks"
+      },
+      "X": {
+        "item": "minecraft:stick"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
+    "group": "wooden_sign"
+  },
+  "cherry_slab": {
+    "result": {
+      "item": "minecraft:cherry_slab",
+      "count": 6
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "key": {
+      "#": {
+        "item": "minecraft:cherry_planks"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
+    "group": "wooden_slab"
+  },
+  "cherry_stairs": {
+    "result": {
+      "item": "minecraft:cherry_stairs",
+      "count": 4
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "key": {
+      "#": {
+        "item": "minecraft:cherry_planks"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
+    "group": "wooden_stairs"
+  },
+  "cherry_trapdoor": {
+    "result": {
+      "item": "minecraft:cherry_trapdoor",
+      "count": 2
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "redstone",
+    "key": {
+      "#": {
+        "item": "minecraft:cherry_planks"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
+    "group": "wooden_trapdoor"
+  },
+  "cherry_wood": {
+    "result": {
+      "item": "minecraft:cherry_wood",
+      "count": 3
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "key": {
+      "#": {
+        "item": "minecraft:cherry_log"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
+    "group": "bark"
   },
   "chest": {
     "result": {
@@ -4337,6 +4673,34 @@
     },
     "properties": {
       "version": "1.8"
+    }
+  },
+  "coast_armor_trim_smithing_template": {
+    "result": {
+      "item": "minecraft:coast_armor_trim_smithing_template",
+      "count": 2
+    },
+    "pattern": [
+      "#S#",
+      "#C#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "#": {
+        "item": "minecraft:diamond"
+      },
+      "C": {
+        "item": "minecraft:cobblestone"
+      },
+      "S": {
+        "item": "minecraft:coast_armor_trim_smithing_template"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
     }
   },
   "cobbled_deepslate_slab": {
@@ -6438,6 +6802,28 @@
       "animated": true
     }
   },
+  "decorated_pot": {
+    "result": {
+      "item": "minecraft:decorated_pot"
+    },
+    "pattern": [
+      " # ",
+      "# #",
+      " # "
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "#": {
+        "tag": "minecraft:decorated_pot_shards"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    }
+  },
   "deepslate": {
     "result": "minecraft:deepslate",
     "ingredient": {
@@ -7418,6 +7804,34 @@
       "#": {
         "item": "minecraft:cobblestone"
       }
+    }
+  },
+  "dune_armor_trim_smithing_template": {
+    "result": {
+      "item": "minecraft:dune_armor_trim_smithing_template",
+      "count": 2
+    },
+    "pattern": [
+      "#S#",
+      "#C#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "#": {
+        "item": "minecraft:diamond"
+      },
+      "C": {
+        "item": "minecraft:sandstone"
+      },
+      "S": {
+        "item": "minecraft:dune_armor_trim_smithing_template"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
     }
   },
   "emerald": {
@@ -8484,6 +8898,34 @@
       "item": "minecraft.potion.effect.weakness.extended"
     }
   },
+  "eye_armor_trim_smithing_template": {
+    "result": {
+      "item": "minecraft:eye_armor_trim_smithing_template",
+      "count": 2
+    },
+    "pattern": [
+      "#S#",
+      "#C#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "#": {
+        "item": "minecraft:diamond"
+      },
+      "C": {
+        "item": "minecraft:end_stone"
+      },
+      "S": {
+        "item": "minecraft:eye_armor_trim_smithing_template"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
   "fermented_spider_eye": {
     "result": {
       "item": "minecraft:fermented_spider_eye"
@@ -9076,7 +9518,7 @@
   "glass": {
     "result": "minecraft:glass",
     "ingredient": {
-      "tag": "minecraft:sand"
+      "tag": "minecraft:smelts_to_glass"
     },
     "type": "minecraft:smelting",
     "category": "blocks",
@@ -15253,8 +15695,29 @@
     "result": {
       "item": "minecraft:netherite_axe"
     },
+    "template": {
+      "item": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "type": "minecraft:smithing_transform",
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
+    "addition": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "base": {
+      "item": "minecraft:diamond_axe"
+    }
+  },
+  "netherite_axe_smithing_legacy": {
+    "result": {
+      "item": "minecraft:netherite_axe"
+    },
     "type": "minecraft:smithing",
     "properties": {
+      "flag_removed_version": "1.19.4",
+      "removed_in_flag": "1.20",
       "version": "1.16"
     },
     "addition": {
@@ -15288,8 +15751,29 @@
     "result": {
       "item": "minecraft:netherite_boots"
     },
+    "template": {
+      "item": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "type": "minecraft:smithing_transform",
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
+    "addition": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "base": {
+      "item": "minecraft:diamond_boots"
+    }
+  },
+  "netherite_boots_smithing_legacy": {
+    "result": {
+      "item": "minecraft:netherite_boots"
+    },
     "type": "minecraft:smithing",
     "properties": {
+      "flag_removed_version": "1.19.4",
+      "removed_in_flag": "1.20",
       "version": "1.16"
     },
     "addition": {
@@ -15303,8 +15787,29 @@
     "result": {
       "item": "minecraft:netherite_chestplate"
     },
+    "template": {
+      "item": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "type": "minecraft:smithing_transform",
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
+    "addition": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "base": {
+      "item": "minecraft:diamond_chestplate"
+    }
+  },
+  "netherite_chestplate_smithing_legacy": {
+    "result": {
+      "item": "minecraft:netherite_chestplate"
+    },
     "type": "minecraft:smithing",
     "properties": {
+      "flag_removed_version": "1.19.4",
+      "removed_in_flag": "1.20",
       "version": "1.16"
     },
     "addition": {
@@ -15318,8 +15823,29 @@
     "result": {
       "item": "minecraft:netherite_helmet"
     },
+    "template": {
+      "item": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "type": "minecraft:smithing_transform",
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
+    "addition": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "base": {
+      "item": "minecraft:diamond_helmet"
+    }
+  },
+  "netherite_helmet_smithing_legacy": {
+    "result": {
+      "item": "minecraft:netherite_helmet"
+    },
     "type": "minecraft:smithing",
     "properties": {
+      "flag_removed_version": "1.19.4",
+      "removed_in_flag": "1.20",
       "version": "1.16"
     },
     "addition": {
@@ -15333,8 +15859,29 @@
     "result": {
       "item": "minecraft:netherite_hoe"
     },
+    "template": {
+      "item": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "type": "minecraft:smithing_transform",
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
+    "addition": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "base": {
+      "item": "minecraft:diamond_hoe"
+    }
+  },
+  "netherite_hoe_smithing_legacy": {
+    "result": {
+      "item": "minecraft:netherite_hoe"
+    },
     "type": "minecraft:smithing",
     "properties": {
+      "flag_removed_version": "1.19.4",
+      "removed_in_flag": "1.20",
       "version": "1.16"
     },
     "addition": {
@@ -15402,8 +15949,29 @@
     "result": {
       "item": "minecraft:netherite_leggings"
     },
+    "template": {
+      "item": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "type": "minecraft:smithing_transform",
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
+    "addition": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "base": {
+      "item": "minecraft:diamond_leggings"
+    }
+  },
+  "netherite_leggings_smithing_legacy": {
+    "result": {
+      "item": "minecraft:netherite_leggings"
+    },
     "type": "minecraft:smithing",
     "properties": {
+      "flag_removed_version": "1.19.4",
+      "removed_in_flag": "1.20",
       "version": "1.16"
     },
     "addition": {
@@ -15417,8 +15985,29 @@
     "result": {
       "item": "minecraft:netherite_pickaxe"
     },
+    "template": {
+      "item": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "type": "minecraft:smithing_transform",
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
+    "addition": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "base": {
+      "item": "minecraft:diamond_pickaxe"
+    }
+  },
+  "netherite_pickaxe_smithing_legacy": {
+    "result": {
+      "item": "minecraft:netherite_pickaxe"
+    },
     "type": "minecraft:smithing",
     "properties": {
+      "flag_removed_version": "1.19.4",
+      "removed_in_flag": "1.20",
       "version": "1.16"
     },
     "addition": {
@@ -15458,8 +16047,29 @@
     "result": {
       "item": "minecraft:netherite_shovel"
     },
+    "template": {
+      "item": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "type": "minecraft:smithing_transform",
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
+    "addition": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "base": {
+      "item": "minecraft:diamond_shovel"
+    }
+  },
+  "netherite_shovel_smithing_legacy": {
+    "result": {
+      "item": "minecraft:netherite_shovel"
+    },
     "type": "minecraft:smithing",
     "properties": {
+      "flag_removed_version": "1.19.4",
+      "removed_in_flag": "1.20",
       "version": "1.16"
     },
     "addition": {
@@ -15473,8 +16083,29 @@
     "result": {
       "item": "minecraft:netherite_sword"
     },
+    "template": {
+      "item": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "type": "minecraft:smithing_transform",
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
+    "addition": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "base": {
+      "item": "minecraft:diamond_sword"
+    }
+  },
+  "netherite_sword_smithing_legacy": {
+    "result": {
+      "item": "minecraft:netherite_sword"
+    },
     "type": "minecraft:smithing",
     "properties": {
+      "flag_removed_version": "1.19.4",
+      "removed_in_flag": "1.20",
       "version": "1.16"
     },
     "addition": {
@@ -15482,6 +16113,34 @@
     },
     "base": {
       "item": "minecraft:diamond_sword"
+    }
+  },
+  "netherite_upgrade_smithing_template": {
+    "result": {
+      "item": "minecraft:netherite_upgrade_smithing_template",
+      "count": 2
+    },
+    "pattern": [
+      "#S#",
+      "#C#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "#": {
+        "item": "minecraft:diamond"
+      },
+      "C": {
+        "item": "minecraft:netherrack"
+      },
+      "S": {
+        "item": "minecraft:netherite_upgrade_smithing_template"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
     }
   },
   "night_vision_lingering_potion": {
@@ -16052,6 +16711,23 @@
     "category": "misc",
     "group": "orange_dye"
   },
+  "orange_dye_from_torchflower": {
+    "result": {
+      "item": "minecraft:orange_dye"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:torchflower"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
+    "group": "orange_dye"
+  },
   "orange_glazed_terracotta": {
     "result": "minecraft:orange_glazed_terracotta",
     "ingredient": {
@@ -16569,6 +17245,23 @@
     ],
     "type": "minecraft:crafting_shapeless",
     "category": "misc",
+    "group": "pink_dye"
+  },
+  "pink_dye_from_pink_petals": {
+    "result": {
+      "item": "minecraft:pink_dye"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:pink_petals"
+      }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
     "group": "pink_dye"
   },
   "pink_dye_from_pink_tulip": {
@@ -19624,6 +20317,34 @@
       "version": "1.16"
     }
   },
+  "rib_armor_trim_smithing_template": {
+    "result": {
+      "item": "minecraft:rib_armor_trim_smithing_template",
+      "count": 2
+    },
+    "pattern": [
+      "#S#",
+      "#C#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "#": {
+        "item": "minecraft:diamond"
+      },
+      "C": {
+        "item": "minecraft:netherrack"
+      },
+      "S": {
+        "item": "minecraft:rib_armor_trim_smithing_template"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
   "sandstone": {
     "result": {
       "item": "minecraft:sandstone"
@@ -19791,6 +20512,34 @@
     },
     "properties": {
       "version": "1.8"
+    }
+  },
+  "sentry_armor_trim_smithing_template": {
+    "result": {
+      "item": "minecraft:sentry_armor_trim_smithing_template",
+      "count": 2
+    },
+    "pattern": [
+      "#S#",
+      "#C#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "#": {
+        "item": "minecraft:diamond"
+      },
+      "C": {
+        "item": "minecraft:cobblestone"
+      },
+      "S": {
+        "item": "minecraft:sentry_armor_trim_smithing_template"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
     }
   },
   "shears": {
@@ -21331,6 +22080,506 @@
       "version": "1.14"
     }
   },
+  "smithing_template_smithing_trim_chainmail_boots": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:chainmail_boots"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:chainmail_boots"
+    }
+  },
+  "smithing_template_smithing_trim_chainmail_chestplate": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:chainmail_chestplate"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:chainmail_chestplate"
+    }
+  },
+  "smithing_template_smithing_trim_chainmail_helmet": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:chainmail_helmet"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:chainmail_helmet"
+    }
+  },
+  "smithing_template_smithing_trim_chainmail_leggings": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:chainmail_leggings"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:chainmail_leggings"
+    }
+  },
+  "smithing_template_smithing_trim_diamond_boots": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:diamond_boots"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:diamond_boots"
+    }
+  },
+  "smithing_template_smithing_trim_diamond_chestplate": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:diamond_chestplate"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:diamond_chestplate"
+    }
+  },
+  "smithing_template_smithing_trim_diamond_helmet": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:diamond_helmet"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:diamond_helmet"
+    }
+  },
+  "smithing_template_smithing_trim_diamond_leggings": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:diamond_leggings"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:diamond_leggings"
+    }
+  },
+  "smithing_template_smithing_trim_golden_boots": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:golden_boots"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:golden_boots"
+    }
+  },
+  "smithing_template_smithing_trim_golden_chestplate": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:golden_chestplate"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:golden_chestplate"
+    }
+  },
+  "smithing_template_smithing_trim_golden_helmet": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:golden_helmet"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:golden_helmet"
+    }
+  },
+  "smithing_template_smithing_trim_golden_leggings": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:golden_leggings"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:golden_leggings"
+    }
+  },
+  "smithing_template_smithing_trim_iron_boots": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:iron_boots"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:iron_boots"
+    }
+  },
+  "smithing_template_smithing_trim_iron_chestplate": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:iron_chestplate"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:iron_chestplate"
+    }
+  },
+  "smithing_template_smithing_trim_iron_helmet": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:iron_helmet"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:iron_helmet"
+    }
+  },
+  "smithing_template_smithing_trim_iron_leggings": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:iron_leggings"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:iron_leggings"
+    }
+  },
+  "smithing_template_smithing_trim_leather_boots": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:leather_boots"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:leather_boots"
+    }
+  },
+  "smithing_template_smithing_trim_leather_chestplate": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:leather_chestplate"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:leather_chestplate"
+    }
+  },
+  "smithing_template_smithing_trim_leather_helmet": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:leather_helmet"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:leather_helmet"
+    }
+  },
+  "smithing_template_smithing_trim_leather_leggings": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:leather_leggings"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:leather_leggings"
+    }
+  },
+  "smithing_template_smithing_trim_netherite_boots": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:netherite_boots"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:netherite_boots"
+    }
+  },
+  "smithing_template_smithing_trim_netherite_chestplate": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:netherite_chestplate"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:netherite_chestplate"
+    }
+  },
+  "smithing_template_smithing_trim_netherite_helmet": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:netherite_helmet"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:netherite_helmet"
+    }
+  },
+  "smithing_template_smithing_trim_netherite_leggings": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:netherite_leggings"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:netherite_leggings"
+    }
+  },
+  "smithing_template_smithing_trim_turtle_helmet": {
+    "template": {
+      "tag": "minecraft:trim_templates"
+    },
+    "result": {
+      "item": "minecraft:turtle_helmet"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "feature_flag": "1.20",
+      "animated": true,
+      "version": "1.19.4"
+    },
+    "addition": {
+      "tag": "minecraft:trim_materials"
+    },
+    "base": {
+      "item": "minecraft:turtle_helmet"
+    }
+  },
   "smoker": {
     "result": {
       "item": "minecraft:smoker"
@@ -21630,6 +22879,34 @@
       "version": "1.14"
     }
   },
+  "snout_armor_trim_smithing_template": {
+    "result": {
+      "item": "minecraft:snout_armor_trim_smithing_template",
+      "count": 2
+    },
+    "pattern": [
+      "#S#",
+      "#C#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "#": {
+        "item": "minecraft:diamond"
+      },
+      "C": {
+        "item": "minecraft:blackstone"
+      },
+      "S": {
+        "item": "minecraft:snout_armor_trim_smithing_template"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
   "snow": {
     "result": {
       "item": "minecraft:snow",
@@ -21767,6 +23044,34 @@
     },
     "properties": {
       "version": "1.9"
+    }
+  },
+  "spire_armor_trim_smithing_template": {
+    "result": {
+      "item": "minecraft:spire_armor_trim_smithing_template",
+      "count": 2
+    },
+    "pattern": [
+      "#S#",
+      "#C#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "#": {
+        "item": "minecraft:diamond"
+      },
+      "C": {
+        "item": "minecraft:purpur_block"
+      },
+      "S": {
+        "item": "minecraft:spire_armor_trim_smithing_template"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
     }
   },
   "splash_amplified_harming_potion": {
@@ -23258,6 +24563,28 @@
     },
     "group": "bark"
   },
+  "stripped_cherry_wood": {
+    "result": {
+      "item": "minecraft:stripped_cherry_wood",
+      "count": 3
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "key": {
+      "#": {
+        "item": "minecraft:stripped_cherry_log"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    },
+    "group": "bark"
+  },
   "stripped_crimson_hyphae": {
     "result": {
       "item": "minecraft:stripped_crimson_hyphae",
@@ -23599,6 +24926,34 @@
     },
     "base": {
       "item": "minecraft.potion.effect.thick"
+    }
+  },
+  "tide_armor_trim_smithing_template": {
+    "result": {
+      "item": "minecraft:tide_armor_trim_smithing_template",
+      "count": 2
+    },
+    "pattern": [
+      "#S#",
+      "#C#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "#": {
+        "item": "minecraft:diamond"
+      },
+      "C": {
+        "item": "minecraft:prismarine"
+      },
+      "S": {
+        "item": "minecraft:tide_armor_trim_smithing_template"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
     }
   },
   "tinted_glass": {
@@ -24790,6 +26145,62 @@
     },
     "base": {
       "item": "minecraft.potion.effect.turtle_master"
+    }
+  },
+  "vex_armor_trim_smithing_template": {
+    "result": {
+      "item": "minecraft:vex_armor_trim_smithing_template",
+      "count": 2
+    },
+    "pattern": [
+      "#S#",
+      "#C#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "#": {
+        "item": "minecraft:diamond"
+      },
+      "C": {
+        "item": "minecraft:cobblestone"
+      },
+      "S": {
+        "item": "minecraft:vex_armor_trim_smithing_template"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "ward_armor_trim_smithing_template": {
+    "result": {
+      "item": "minecraft:ward_armor_trim_smithing_template",
+      "count": 2
+    },
+    "pattern": [
+      "#S#",
+      "#C#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "#": {
+        "item": "minecraft:diamond"
+      },
+      "C": {
+        "item": "minecraft:cobbled_deepslate"
+      },
+      "S": {
+        "item": "minecraft:ward_armor_trim_smithing_template"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
     }
   },
   "warped_button": {
@@ -26561,6 +27972,34 @@
       "#": {
         "item": "minecraft:string"
       }
+    }
+  },
+  "wild_armor_trim_smithing_template": {
+    "result": {
+      "item": "minecraft:wild_armor_trim_smithing_template",
+      "count": 2
+    },
+    "pattern": [
+      "#S#",
+      "#C#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "#": {
+        "item": "minecraft:diamond"
+      },
+      "C": {
+        "item": "minecraft:mossy_cobblestone"
+      },
+      "S": {
+        "item": "minecraft:wild_armor_trim_smithing_template"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
     }
   },
   "wooden_axe": {

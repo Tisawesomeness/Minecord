@@ -14898,17 +14898,6 @@
       "version": "1.17"
     }
   },
-  "minecraft.bundle": {
-    "lang": {
-      "en_US": {
-        "display_name": "Bundle"
-      }
-    },
-    "properties": {
-      "feature_flag": "bundle",
-      "version": "1.17"
-    }
-  },
   "minecraft.calcite": {
     "lang": {
       "en_US": {
@@ -17025,6 +17014,17 @@
       "version": "1.17"
     }
   },
+  "minecraft.bundle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Bundle"
+      }
+    },
+    "properties": {
+      "feature_flag": "bundle",
+      "version": "1.17"
+    }
+  },
   "minecraft.music_disc_otherside": {
     "lang": {
       "en_US": {
@@ -18546,6 +18546,561 @@
       "image_key": "Warped Hanging Sign",
       "feature_flag": "1.20",
       "version": "1.19.3"
+    }
+  },
+  "minecraft.brush": {
+    "lang": {
+      "en_US": {
+        "display_name": "Brush"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.cherry_boat": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cherry Boat"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.cherry_button": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cherry Button"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.cherry_chest_boat": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cherry Boat with Chest"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.cherry_door": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cherry Door"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.cherry_fence": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cherry Fence"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.cherry_fence_gate": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cherry Fence Gate"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.cherry_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cherry Hanging Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.cherry_leaves": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cherry Leaves"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.cherry_log": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cherry Log"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.cherry_planks": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cherry Planks"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.cherry_pressure_plate": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cherry Pressure Plate"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.cherry_sapling": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cherry Sapling"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.cherry_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cherry Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.cherry_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cherry Slab"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.cherry_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cherry Stairs"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.cherry_trapdoor": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cherry Trapdoor"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.cherry_wall_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cherry Wall Hanging Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Cherry Hanging Sign",
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.cherry_wall_sign": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cherry Wall Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Cherry Sign",
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.cherry_wood": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cherry Wood"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.coast_armor_trim_smithing_template": {
+    "lang": {
+      "en_US": {
+        "lore": "Coast Armor Trim",
+        "display_name": "Smithing Template",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Coast Armor Trim",
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.decorated_pot": {
+    "lang": {
+      "en_US": {
+        "display_name": "Decorated Pot"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.dune_armor_trim_smithing_template": {
+    "lang": {
+      "en_US": {
+        "lore": "Dune Armor Trim",
+        "display_name": "Smithing Template",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Dune Armor Trim",
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.eye_armor_trim_smithing_template": {
+    "lang": {
+      "en_US": {
+        "lore": "Eye Armor Trim",
+        "display_name": "Smithing Template",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Eye Armor Trim",
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.netherite_upgrade_smithing_template": {
+    "lang": {
+      "en_US": {
+        "lore": "Netherite Upgrade",
+        "display_name": "Smithing Template",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Netherite Upgrade",
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.pink_petals": {
+    "lang": {
+      "en_US": {
+        "display_name": "Pink Petals"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.potted_cherry_sapling": {
+    "lang": {
+      "en_US": {
+        "display_name": "Potted Cherry Sapling"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.potted_torchflower": {
+    "lang": {
+      "en_US": {
+        "display_name": "Potted Torchflower"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.pottery_shard_archer": {
+    "lang": {
+      "en_US": {
+        "display_name": "Archer Pottery Shard"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.pottery_shard_arms_up": {
+    "lang": {
+      "en_US": {
+        "display_name": "Arms Up Pottery Shard"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.pottery_shard_prize": {
+    "lang": {
+      "en_US": {
+        "display_name": "Prize Pottery Shard"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.pottery_shard_skull": {
+    "lang": {
+      "en_US": {
+        "display_name": "Skull Pottery Shard"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.rib_armor_trim_smithing_template": {
+    "lang": {
+      "en_US": {
+        "lore": "Rib Armor Trim",
+        "display_name": "Smithing Template",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Rib Armor Trim",
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.sentry_armor_trim_smithing_template": {
+    "lang": {
+      "en_US": {
+        "lore": "Sentry Armor Trim",
+        "display_name": "Smithing Template",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Sentry Armor Trim",
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.sniffer_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "display_name": "Sniffer Spawn Egg"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.snout_armor_trim_smithing_template": {
+    "lang": {
+      "en_US": {
+        "lore": "Snout Armor Trim",
+        "display_name": "Smithing Template",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Snout Armor Trim",
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.spire_armor_trim_smithing_template": {
+    "lang": {
+      "en_US": {
+        "lore": "Spire Armor Trim",
+        "display_name": "Smithing Template",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Spire Armor Trim",
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.stripped_cherry_log": {
+    "lang": {
+      "en_US": {
+        "display_name": "Stripped Cherry Log"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.stripped_cherry_wood": {
+    "lang": {
+      "en_US": {
+        "display_name": "Stripped Cherry Wood"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.suspicious_sand": {
+    "lang": {
+      "en_US": {
+        "display_name": "Suspicious Sand"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.tide_armor_trim_smithing_template": {
+    "lang": {
+      "en_US": {
+        "lore": "Tide Armor Trim",
+        "display_name": "Smithing Template",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Tide Armor Trim",
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.torchflower": {
+    "lang": {
+      "en_US": {
+        "display_name": "Torchflower"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.torchflower_crop": {
+    "lang": {
+      "en_US": {
+        "display_name": "Torchflower Crop"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.torchflower_seeds": {
+    "lang": {
+      "en_US": {
+        "display_name": "Torchflower Seeds"
+      }
+    },
+    "properties": {
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.vex_armor_trim_smithing_template": {
+    "lang": {
+      "en_US": {
+        "lore": "Vex Armor Trim",
+        "display_name": "Smithing Template",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Vex Armor Trim",
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.ward_armor_trim_smithing_template": {
+    "lang": {
+      "en_US": {
+        "lore": "Ward Armor Trim",
+        "display_name": "Smithing Template",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Ward Armor Trim",
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.wild_armor_trim_smithing_template": {
+    "lang": {
+      "en_US": {
+        "lore": "Wild Armor Trim",
+        "display_name": "Smithing Template",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Wild Armor Trim",
+      "feature_flag": "1.20",
+      "version": "1.19.4"
     }
   },
   "minecraft.lingering_potion.effect.awkward": {
