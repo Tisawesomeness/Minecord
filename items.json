@@ -17514,15 +17514,17 @@
   "minecraft.music_disc_5": {
     "lang": {
       "en_US": {
-        "lore": "C418 - 5",
+        "lore": "Samuel Åberg - 5",
         "search_names": [
           "5 Disc",
           "Disc 5",
-          "C418 - 5",
+          "Samuel Aberg - 5",
+          "Samuel Åberg - 5",
           "Five Disc",
           "Music Disc Five",
           "Disc Five",
-          "C418 - Five",
+          "Samuel Aberg - Five",
+          "Samuel Åberg - Five",
           "Five"
         ],
         "display_name": "Music Disc",
