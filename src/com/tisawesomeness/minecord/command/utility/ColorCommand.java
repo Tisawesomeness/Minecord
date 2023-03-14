@@ -42,14 +42,12 @@ public class ColorCommand extends SlashCommand {
                 "Shows extra info if the color is one of the 16 Minecraft color codes.\n" +
                 "\n" +
                 "`<color>` can be:\n" +
-                "- A color name: `red`, `dark blue`\n" +
+                "- A Minecraft color name: `red`, `dark blue`\n" +
                 "- A color code: `&b`, `\u00A7b`, `b`\n" +
                 "- A hex code: `#55ffff`, `0x55ffff`\n" +
                 "- RGB format: `85 85 255`, `rgb(85,85,255)`\n" +
                 "- Other formats: `hsv(120,100,50)`, `hsl(120 100 25)`, `cmyk(100%,0%,100%,50%)`\n" +
-                "- An RGB int: `5635925`, `i8`\n" +
-                "\n" +
-                "Use `{&}0` through `{&}f` as shortcuts.";
+                "- An RGB int: `5635925`, `i8`\n";
     }
 
     public Result run(SlashCommandInteractionEvent e) {
