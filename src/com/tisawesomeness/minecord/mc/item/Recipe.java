@@ -572,7 +572,7 @@ public class Recipe {
             String table = Item.getNamespacedID(item).substring(10);
             boolean needsTable = !recipe.equals(table);
             if (needsTable) {
-                desc += String.format("\n%s %s", Emote.T.getText(), Item.getDisplayNameWithFeature(item, getLang()));
+                desc += String.format("\n%s %s", Emote.T.getText(), Item.getMenuDisplayNameWithFeature(item, getLang()));
             }
             buttons.put(Emote.T.getCodepoint(), () -> {
                 if (needsTable) {
@@ -590,11 +590,11 @@ public class Recipe {
                 boolean isBlasting = recipes.has(recipe.replace("from_smelting", "from_blasting"));
                 if (isSmoking) {
                     desc += String.format("\n%s %s\n%s %s",
-                            Emote.N1.getText(), Item.getDisplayNameWithFeature("minecraft.smoker", getLang()),
-                            Emote.N2.getText(), Item.getDisplayNameWithFeature("minecraft.campfire", getLang()));
+                            Emote.N1.getText(), Item.getMenuDisplayNameWithFeature("minecraft.smoker", getLang()),
+                            Emote.N2.getText(), Item.getMenuDisplayNameWithFeature("minecraft.campfire", getLang()));
                     c = 2;
                 } else if (isBlasting) {
-                    desc += String.format("\n%s %s", Emote.N1.getText(), Item.getDisplayNameWithFeature("minecraft.blast_furnace", getLang()));
+                    desc += String.format("\n%s %s", Emote.N1.getText(), Item.getMenuDisplayNameWithFeature("minecraft.blast_furnace", getLang()));
                     c = 1;
                 }
                 buttons.put(Emote.N1.getCodepoint(), () -> {
@@ -655,7 +655,7 @@ public class Recipe {
                             startingIngredient = 0;
                             setPage(0);
                         });
-                        desc += String.format("\n%s %s", emote.getText(), Item.getDisplayNameWithFeature(ingredientItem, getLang()));
+                        desc += String.format("\n%s %s", emote.getText(), Item.getMenuDisplayNameWithFeature(ingredientItem, getLang()));
                         c++;
                     }
                     i++;
@@ -685,7 +685,7 @@ public class Recipe {
             } else if (type.equals("minecraft:stonecutting")) {
                 String ingredient = getIngredients(recipeObj).toArray(new String[0])[0];
                 ArrayList<String> output = searchItemOutput(ingredient, getLang());
-                desc += String.format("\n%s %s", Emote.N1.getText(), Item.getDisplayNameWithFeature(Item.searchNoStats(ingredient, getLang()), getLang()));
+                desc += String.format("\n%s %s", Emote.N1.getText(), Item.getMenuDisplayNameWithFeature(Item.searchNoStats(ingredient, getLang()), getLang()));
                 buttons.put(Emote.N1.getCodepoint(), () -> {
                     setRecipeList(output);
                     startingIngredient = 0;

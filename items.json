@@ -10236,7 +10236,6 @@
         "lore": "C418 - 13",
         "search_names": [
           "13 Disc",
-          "Music Disc 13",
           "Disc 13",
           "C418 - 13",
           "Thirteen Disc",
@@ -10246,7 +10245,8 @@
           "Thirteen"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Music Disc 13"
       }
     },
     "properties": {
@@ -10261,12 +10261,12 @@
         "lore": "C418 - Cat",
         "search_names": [
           "Cat Disc",
-          "Music Disc Cat",
           "Disc Cat",
           "C418 - Cat"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Music Disc Cat"
       }
     },
     "properties": {
@@ -10281,12 +10281,12 @@
         "lore": "C418 - Blocks",
         "search_names": [
           "Blocks Disc",
-          "Music Disc Blocks",
           "Disc Blocks",
           "C418 - Blocks"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Music Disc Blocks"
       }
     },
     "properties": {
@@ -10301,12 +10301,12 @@
         "lore": "C418 - Chirp",
         "search_names": [
           "Chirp Disc",
-          "Music Disc Chirp",
           "Disc Chirp",
           "C418 - Chirp"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Music Disc Chirp"
       }
     },
     "properties": {
@@ -10321,12 +10321,12 @@
         "lore": "C418 - Far",
         "search_names": [
           "Far Disc",
-          "Music Disc Far",
           "Disc Far",
           "C418 - Far"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Music Disc Far"
       }
     },
     "properties": {
@@ -10341,12 +10341,12 @@
         "lore": "C418 - Mall",
         "search_names": [
           "Mall Disc",
-          "Music Disc Mall",
           "Disc Mall",
           "C418 - Mall"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Music Disc Mall"
       }
     },
     "properties": {
@@ -10361,12 +10361,12 @@
         "lore": "C418 - Mellohi",
         "search_names": [
           "Mellohi Disc",
-          "Music Disc Mellohi",
           "Disc Mellohi",
           "C418 - Mellohi"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Music Disc Mellohi"
       }
     },
     "properties": {
@@ -10381,13 +10381,13 @@
         "lore": "C418 - Stal",
         "search_names": [
           "Stal Disc",
-          "Music Disc Stal",
           "Disc Stal",
           "C418 - Stal",
           "Jschlatt"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Music Disc Stal"
       }
     },
     "properties": {
@@ -10402,12 +10402,12 @@
         "lore": "C418 - Strad",
         "search_names": [
           "Strad Disc",
-          "Music Disc Strad",
           "Disc Strad",
           "C418 - Strad"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Music Disc Strad"
       }
     },
     "properties": {
@@ -10422,13 +10422,13 @@
         "lore": "C418 - Ward",
         "search_names": [
           "Ward Disc",
-          "Music Disc Ward",
           "Disc Ward",
           "C418 - Ward",
           "Herobrine"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Music Disc Ward"
       }
     },
     "properties": {
@@ -10447,13 +10447,13 @@
           "Disc 11",
           "C418 - 11",
           "Eleven Disc",
-          "Music Disc Eleven",
           "Disc Eleven",
           "C418 - Eleven",
           "Eleven"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Music Disc Eleven"
       }
     },
     "properties": {
@@ -10468,12 +10468,12 @@
         "lore": "C418 - Wait",
         "search_names": [
           "Wait Disc",
-          "Music Disc Wait",
           "Disc Wait",
           "C418 - Wait"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Music Disc Wait"
       }
     },
     "properties": {
@@ -12327,13 +12327,13 @@
       "en_US": {
         "lore": "Creeper Charge",
         "search_names": [
-          "Creeper Banner Pattern",
           "Creeper Charge Banner Pattern",
           "Creeper Pattern",
           "Creeper Charge Pattern"
         ],
         "display_name": "Banner Pattern",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Creeper Banner Pattern"
       }
     },
     "properties": {
@@ -12472,13 +12472,13 @@
       "en_US": {
         "lore": "Flower Charge",
         "search_names": [
-          "Flower Banner Pattern",
           "Flower Charge Banner Pattern",
           "Flower Pattern",
           "Flower Charge Pattern"
         ],
         "display_name": "Banner Pattern",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Flower Banner Pattern"
       }
     },
     "properties": {
@@ -12504,13 +12504,13 @@
       "en_US": {
         "lore": "Globe",
         "search_names": [
-          "Globe Banner Pattern",
           "Globe Pattern",
           "Earth Banner Pattern",
           "Earth Pattern"
         ],
         "display_name": "Banner Pattern",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Globe Banner Pattern"
       }
     },
     "properties": {
@@ -12665,13 +12665,13 @@
       "en_US": {
         "lore": "Thing",
         "search_names": [
-          "Thing Banner Pattern",
           "Thing Pattern",
           "Mojang Banner Pattern",
           "Mojang Pattern"
         ],
         "display_name": "Banner Pattern",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Thing Banner Pattern"
       }
     },
     "properties": {
@@ -13004,13 +13004,13 @@
       "en_US": {
         "lore": "Skull Charge",
         "search_names": [
-          "Skull Charge Banner Pattern",
           "Skull Banner Pattern",
           "Skull Charge Pattern",
           "Skull Pattern"
         ],
         "display_name": "Banner Pattern",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Skull Charge Banner Pattern"
       }
     },
     "properties": {
@@ -13787,13 +13787,13 @@
         "lore": "Lena Raine - Pigstep",
         "search_names": [
           "Pigstep Disc",
-          "Music Disc Pigstep",
           "Disc Pigstep",
           "Lena Raine - Pigstep",
           "Pigstep"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Music Disc Pigstep"
       }
     },
     "properties": {
@@ -13958,13 +13958,13 @@
       "en_US": {
         "lore": "Snout",
         "search_names": [
-          "Snout Banner Pattern",
           "Piglin Banner Pattern",
           "Snout Pattern",
           "Piglin Pattern"
         ],
         "display_name": "Banner Pattern",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Snout Banner Pattern"
       }
     },
     "properties": {
@@ -17031,13 +17031,13 @@
         "lore": "Lena Raine - otherside",
         "search_names": [
           "Otherside Disc",
-          "Music Disc Otherside",
           "Disc Otherside",
           "Lena Raine - otherside",
           "otherside"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Music Disc otherside"
       }
     },
     "properties": {
@@ -17517,7 +17517,6 @@
         "lore": "C418 - 5",
         "search_names": [
           "5 Disc",
-          "Music Disc 5",
           "Disc 5",
           "C418 - 5",
           "Five Disc",
@@ -17527,7 +17526,8 @@
           "Five"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Music Disc 5"
       }
     },
     "properties": {
@@ -18775,7 +18775,8 @@
       "en_US": {
         "lore": "Coast Armor Trim",
         "display_name": "Smithing Template",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Coast Smithing Template"
       }
     },
     "properties": {
@@ -18800,7 +18801,8 @@
       "en_US": {
         "lore": "Dune Armor Trim",
         "display_name": "Smithing Template",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Dune Smithing Template"
       }
     },
     "properties": {
@@ -18814,7 +18816,8 @@
       "en_US": {
         "lore": "Eye Armor Trim",
         "display_name": "Smithing Template",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Eye Smithing Template"
       }
     },
     "properties": {
@@ -18828,7 +18831,8 @@
       "en_US": {
         "lore": "Netherite Upgrade",
         "display_name": "Smithing Template",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Netherite Upgrade Smithing Template"
       }
     },
     "properties": {
@@ -18919,7 +18923,8 @@
       "en_US": {
         "lore": "Rib Armor Trim",
         "display_name": "Smithing Template",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Rib Smithing Template"
       }
     },
     "properties": {
@@ -18933,7 +18938,8 @@
       "en_US": {
         "lore": "Sentry Armor Trim",
         "display_name": "Smithing Template",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Sentry Smithing Template"
       }
     },
     "properties": {
@@ -18958,7 +18964,8 @@
       "en_US": {
         "lore": "Snout Armor Trim",
         "display_name": "Smithing Template",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Snout Smithing Template"
       }
     },
     "properties": {
@@ -18972,7 +18979,8 @@
       "en_US": {
         "lore": "Spire Armor Trim",
         "display_name": "Smithing Template",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Spire Smithing Template"
       }
     },
     "properties": {
@@ -19019,7 +19027,8 @@
       "en_US": {
         "lore": "Tide Armor Trim",
         "display_name": "Smithing Template",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Tide Smithing Template"
       }
     },
     "properties": {
@@ -19066,7 +19075,8 @@
       "en_US": {
         "lore": "Vex Armor Trim",
         "display_name": "Smithing Template",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Vex Smithing Template"
       }
     },
     "properties": {
@@ -19080,7 +19090,8 @@
       "en_US": {
         "lore": "Ward Armor Trim",
         "display_name": "Smithing Template",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Ward Smithing Template"
       }
     },
     "properties": {
@@ -19094,7 +19105,8 @@
       "en_US": {
         "lore": "Wild Armor Trim",
         "display_name": "Smithing Template",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Wild Smithing Template"
       }
     },
     "properties": {
@@ -23189,12 +23201,12 @@
       "en_US": {
         "lore": "No effects",
         "search_names": [
-          "Awkward Tipped Arrow",
           "Tipped Awkward Arrow",
           "Awkward Arrow"
         ],
         "display_name": "Tipped Arrow",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Awkward Tipped Arrow"
       }
     },
     "properties": {
@@ -23713,12 +23725,12 @@
       "en_US": {
         "lore": "No effects",
         "search_names": [
-          "Mundane Tipped Arrow",
           "Mundane Arrow",
           "Tipped Mundane Arrow"
         ],
         "display_name": "Tipped Arrow",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Mundane Tipped Arrow"
       }
     },
     "properties": {
@@ -24495,12 +24507,12 @@
           "Thicc Tipped Arrow",
           "Thicc Arrow",
           "Tipped Thicc Arrow",
-          "Thick Tipped Arrow",
           "Thick Arrow",
           "Tipped Thick Arrow"
         ],
         "display_name": "Tipped Arrow",
-        "name_conflict": true
+        "name_conflict": true,
+        "distinct_display_name": "Thick Tipped Arrow"
       }
     },
     "properties": {

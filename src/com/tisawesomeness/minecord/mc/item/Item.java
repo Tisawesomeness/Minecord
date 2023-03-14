@@ -448,6 +448,9 @@ public class Item {
             if (!langObj.has("name_conflict")) {
                 toCheck.add(langObj.getString("display_name"));
             }
+            if (langObj.has("distinct_display_name")) {
+                toCheck.add(langObj.getString("distinct_display_name"));
+            }
             toCheck.add(langObj.optString("block_name"));
             if (!langObj.has("previous_conflict")) {
                 toCheck.add(langObj.optString("previously"));
@@ -520,8 +523,8 @@ public class Item {
     public static String getDisplayName(String item, String lang) {
         return items.getJSONObject(item).getJSONObject("lang").getJSONObject(lang).getString("display_name");
     }
-    public static String getDisplayNameWithFeature(String item, String lang) {
-        String displayName = getDisplayName(item, lang);
+    public static String getMenuDisplayNameWithFeature(String item, String lang) {
+        String displayName = getDistinctDisplayName(item, lang);
         JSONObject properties = items.getJSONObject(item).optJSONObject("properties");
         if (properties != null) {
             String feature = properties.optString("feature_flag", "vanilla");
@@ -530,6 +533,14 @@ public class Item {
             }
         }
         return displayName;
+    }
+    private static String getDistinctDisplayName(String item, String lang) {
+        JSONObject langObj = items.getJSONObject(item).getJSONObject("lang").getJSONObject(lang);
+        String distinctDisplayName = langObj.optString("distinct_display_name", null);
+        if (distinctDisplayName != null) {
+            return distinctDisplayName;
+        }
+        return langObj.getString("display_name");
     }
 
     /**
