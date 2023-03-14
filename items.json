@@ -18582,6 +18582,11 @@
   "minecraft.cherry_boat": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Cherry Wood Boat",
+          "Pink Boat",
+          "Pink Wood Boat"
+        ],
         "display_name": "Cherry Boat"
       }
     },
@@ -18593,6 +18598,11 @@
   "minecraft.cherry_button": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Cherry Wood Button",
+          "Pink Button",
+          "Pink Wood Button"
+        ],
         "display_name": "Cherry Button"
       }
     },
@@ -18604,6 +18614,15 @@
   "minecraft.cherry_chest_boat": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Cherry Chest Boat",
+          "Cherry Wood Boat with Chest",
+          "Cherry Wood Chest Boat",
+          "Pink Boat with Chest",
+          "Pink Chest Boat",
+          "Pink Wood Boat with Chest",
+          "Pink Wood CHest Boat"
+        ],
         "display_name": "Cherry Boat with Chest"
       }
     },
@@ -18615,6 +18634,11 @@
   "minecraft.cherry_door": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Cherry Wood Door",
+          "Pink Door",
+          "Pink Wood Door"
+        ],
         "display_name": "Cherry Door"
       }
     },
@@ -18626,6 +18650,11 @@
   "minecraft.cherry_fence": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Cherry Wood Fence",
+          "Pink Fence",
+          "Pink Wood Fence"
+        ],
         "display_name": "Cherry Fence"
       }
     },
@@ -18637,6 +18666,15 @@
   "minecraft.cherry_fence_gate": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Cherry Wood Fence Gate",
+          "Cherry Wood Gate",
+          "Cherry Gate",
+          "Pink Fence Gate",
+          "Pink Wood Fence Gate",
+          "Pink Wood Gate",
+          "Pink Gate"
+        ],
         "display_name": "Cherry Fence Gate"
       }
     },
@@ -18648,6 +18686,15 @@
   "minecraft.cherry_hanging_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Cherry Wood Hanging Sign",
+          "Hanging Cherry Sign",
+          "Hanging Cherry Wood Sign",
+          "Pink Hanging Sign",
+          "Pink Wood Hanging Sign",
+          "Hanging Pink Sign",
+          "Hanging Pink Wood Sign"
+        ],
         "display_name": "Cherry Hanging Sign"
       }
     },
@@ -18659,6 +18706,9 @@
   "minecraft.cherry_leaves": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Pink Leaves"
+        ],
         "display_name": "Cherry Leaves"
       }
     },
@@ -18670,6 +18720,9 @@
   "minecraft.cherry_log": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Pink Log"
+        ],
         "display_name": "Cherry Log"
       }
     },
@@ -18681,6 +18734,15 @@
   "minecraft.cherry_planks": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Cherry Wood Planks",
+          "Cherry Wood Plank",
+          "Cherry Plank",
+          "Pink Planks",
+          "Pink Wood Planks",
+          "Pink Wood Plank",
+          "Pink Plank"
+        ],
         "display_name": "Cherry Planks"
       }
     },
@@ -18692,6 +18754,15 @@
   "minecraft.cherry_pressure_plate": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Cherry Wood Pressure Plate",
+          "Cherry Wood Plate",
+          "Cherry Plate",
+          "Pink Pressure Plate",
+          "Pink Wood Pressure Plate",
+          "Pink Wood Plate",
+          "Pink Plate"
+        ],
         "display_name": "Cherry Pressure Plate"
       }
     },
@@ -18703,6 +18774,9 @@
   "minecraft.cherry_sapling": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Pink Sapling"
+        ],
         "display_name": "Cherry Sapling"
       }
     },
@@ -18714,6 +18788,11 @@
   "minecraft.cherry_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Cherry Wood Sign",
+          "Pink Sign",
+          "Pink Wood Sign"
+        ],
         "display_name": "Cherry Sign"
       }
     },
@@ -18725,6 +18804,11 @@
   "minecraft.cherry_slab": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Cherry Wood Slab",
+          "Pink Slab",
+          "Pink Wood Slab"
+        ],
         "display_name": "Cherry Slab"
       }
     },
@@ -18736,6 +18820,15 @@
   "minecraft.cherry_stairs": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Cherry Wood Stairs",
+          "Cherry Wood Stair",
+          "Cherry Stair",
+          "Pink Stairs",
+          "Pink Wood Stairs",
+          "Pink Wood Stair",
+          "Pink Stair"
+        ],
         "display_name": "Cherry Stairs"
       }
     },
@@ -18747,6 +18840,15 @@
   "minecraft.cherry_trapdoor": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Cherry Wood Trapdoor",
+          "Cherry Wood Trap Door",
+          "Cherry Trap Door",
+          "Pink Trapdoor",
+          "Pink Wood Trapdoor",
+          "Pink Wood Trap Door",
+          "Pink Trap Door"
+        ],
         "display_name": "Cherry Trapdoor"
       }
     },
@@ -18758,6 +18860,23 @@
   "minecraft.cherry_wall_hanging_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Cherry Wood Wall Hanging Sign",
+          "Wall Hanging Cherry Sign",
+          "Wall Hanging Cherry Wood Sign",
+          "Cherry Hanging Wall Sign",
+          "Cherry Wood Hanging Wall Sign",
+          "Hanging Cherry Wall Sign",
+          "Hanging Cherry Wood Wall Sign",
+          "Pink Wall Hanging Sign",
+          "Pink Wood Wall Hanging Sign",
+          "Wall Hanging Pink Sign",
+          "Wall Hanging Pink Wood Sign",
+          "Pink Hanging Wall Sign",
+          "Pink Wood Hanging Wall Sign",
+          "Hanging Pink Wall Sign",
+          "Hanging Pink Wood Wall Sign"
+        ],
         "display_name": "Cherry Wall Hanging Sign"
       }
     },
@@ -18770,6 +18889,11 @@
   "minecraft.cherry_wall_sign": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Cherry Wood Wall Sign",
+          "Pink Wall Sign",
+          "Pink Wood Wall Sign"
+        ],
         "display_name": "Cherry Wall Sign"
       }
     },
@@ -18782,6 +18906,9 @@
   "minecraft.cherry_wood": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Pink Wood"
+        ],
         "display_name": "Cherry Wood"
       }
     },
@@ -18793,6 +18920,23 @@
   "minecraft.coast_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Coast Armor Trim Smithing Template",
+          "Coast Armor Trim Template",
+          "Coast Armor Trim",
+          "Coast Trim Smithing Template",
+          "Coast Trim Template",
+          "Coast Trim",
+          "Coast Template",
+          "Shipwreck Armor Trim Smithing Template",
+          "Shipwreck Armor Trim Template",
+          "Shipwreck Armor Trim",
+          "Shipwreck Trim Smithing Template",
+          "Shipwreck Trim Template",
+          "Shipwreck Trim",
+          "Shipwreck Smithing Template",
+          "Shipwreck Template"
+        ],
         "lore": "Coast Armor Trim",
         "display_name": "Smithing Template",
         "name_conflict": true,
@@ -18808,6 +18952,10 @@
   "minecraft.decorated_pot": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Undecorated Pot",
+          "Undecorated Decorated Pot"
+        ],
         "display_name": "Decorated Pot"
       }
     },
@@ -18819,6 +18967,39 @@
   "minecraft.dune_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Dune Armor Trim Smithing Template",
+          "Dune Armor Trim Template",
+          "Dune Armor Trim",
+          "Dune Trim Smithing Template",
+          "Dune Trim Template",
+          "Dune Trim",
+          "Dune Template",
+          "Desert Pyramid Armor Trim Smithing Template",
+          "Desert Pyramid Armor Trim Template",
+          "Desert Pyramid Armor Trim",
+          "Desert Pyramid Trim Smithing Template",
+          "Desert Pyramid Trim Template",
+          "Desert Pyramid Trim",
+          "Desert Pyramid Smithing Template",
+          "Desert Pyramid Template",
+          "Pyramid Armor Trim Smithing Template",
+          "Pyramid Armor Trim Template",
+          "Pyramid Armor Trim",
+          "Pyramid Trim Smithing Template",
+          "Pyramid Trim Template",
+          "Pyramid Trim",
+          "Pyramid Smithing Template",
+          "Pyramid Template",
+          "Desert Temple Armor Trim Smithing Template",
+          "Desert Temple Armor Trim Template",
+          "Desert Temple Armor Trim",
+          "Desert Temple Trim Smithing Template",
+          "Desert Temple Trim Template",
+          "Desert Temple Trim",
+          "Desert Temple Smithing Template",
+          "Desert Temple Template"
+        ],
         "lore": "Dune Armor Trim",
         "display_name": "Smithing Template",
         "name_conflict": true,
@@ -18834,6 +19015,23 @@
   "minecraft.eye_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Eye Armor Trim Smithing Template",
+          "Eye Armor Trim Template",
+          "Eye Armor Trim",
+          "Eye Trim Smithing Template",
+          "Eye Trim Template",
+          "Eye Trim",
+          "Eye Template",
+          "Stronghold Armor Trim Smithing Template",
+          "Stronghold Armor Trim Template",
+          "Stronghold Armor Trim",
+          "Stronghold Trim Smithing Template",
+          "Stronghold Trim Template",
+          "Stronghold Trim",
+          "Stronghold Smithing Template",
+          "Stronghold Template"
+        ],
         "lore": "Eye Armor Trim",
         "display_name": "Smithing Template",
         "name_conflict": true,
@@ -18849,6 +19047,12 @@
   "minecraft.netherite_upgrade_smithing_template": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Netherite Upgrade Template",
+          "Netherite Smithing Template",
+          "Netherite Template",
+          "Netherite Upgrade"
+        ],
         "lore": "Netherite Upgrade",
         "display_name": "Smithing Template",
         "name_conflict": true,
@@ -18864,6 +19068,11 @@
   "minecraft.pink_petals": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Pink Flowers",
+          "Cherry Petals",
+          "Cherry Flowers"
+        ],
         "display_name": "Pink Petals"
       }
     },
@@ -18875,6 +19084,9 @@
   "minecraft.potted_cherry_sapling": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Potted Pink Sapling"
+        ],
         "display_name": "Potted Cherry Sapling"
       }
     },
@@ -18886,6 +19098,9 @@
   "minecraft.potted_torchflower": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Potted Torch Flower"
+        ],
         "display_name": "Potted Torchflower"
       }
     },
@@ -18897,6 +19112,12 @@
   "minecraft.pottery_shard_archer": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Archer Shard",
+          "Bow Pottery Shard",
+          "Pottery Shard Bow",
+          "Bow Shard"
+        ],
         "display_name": "Archer Pottery Shard"
       }
     },
@@ -18908,6 +19129,9 @@
   "minecraft.pottery_shard_arms_up": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Arms Up Shard"
+        ],
         "display_name": "Arms Up Pottery Shard"
       }
     },
@@ -18919,6 +19143,12 @@
   "minecraft.pottery_shard_prize": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Prize Shard",
+          "Diamond Pottery Shard",
+          "Pottery Shard Diamond",
+          "Diamond Shard"
+        ],
         "display_name": "Prize Pottery Shard"
       }
     },
@@ -18930,6 +19160,9 @@
   "minecraft.pottery_shard_skull": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Skull Shard"
+        ],
         "display_name": "Skull Pottery Shard"
       }
     },
@@ -18941,6 +19174,31 @@
   "minecraft.rib_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Rib Armor Trim Smithing Template",
+          "Rib Armor Trim Template",
+          "Rib Armor Trim",
+          "Rib Trim Smithing Template",
+          "Rib Trim Template",
+          "Rib Trim",
+          "Rib Template",
+          "Nether Fortress Armor Trim Smithing Template",
+          "Nether Fortress Armor Trim Template",
+          "Nether Fortress Armor Trim",
+          "Nether Fortress Trim Smithing Template",
+          "Nether Fortress Trim Template",
+          "Nether Fortress Trim",
+          "Nether Fortress Smithing Template",
+          "Nether Fortress Template",
+          "Fortress Armor Trim Smithing Template",
+          "Fortress Armor Trim Template",
+          "Fortress Armor Trim",
+          "Fortress Trim Smithing Template",
+          "Fortress Trim Template",
+          "Fortress Trim",
+          "Fortress Smithing Template",
+          "Fortress Template"
+        ],
         "lore": "Rib Armor Trim",
         "display_name": "Smithing Template",
         "name_conflict": true,
@@ -18956,6 +19214,39 @@
   "minecraft.sentry_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Sentry Armor Trim Smithing Template",
+          "Sentry Armor Trim Template",
+          "Sentry Armor Trim",
+          "Sentry Trim Smithing Template",
+          "Sentry Trim Template",
+          "Sentry Trim",
+          "Sentry Template",
+          "Pillager Outpost Armor Trim Smithing Template",
+          "Pillager Outpost Armor Trim Template",
+          "Pillager Outpost Armor Trim",
+          "Pillager Outpost Trim Smithing Template",
+          "Pillager Outpost Trim Template",
+          "Pillager Outpost Trim",
+          "Pillager Outpost Smithing Template",
+          "Pillager Outpost Template",
+          "Pillager Armor Trim Smithing Template",
+          "Pillager Armor Trim Template",
+          "Pillager Armor Trim",
+          "Pillager Trim Smithing Template",
+          "Pillager Trim Template",
+          "Pillager Trim",
+          "Pillager Smithing Template",
+          "Pillager Template",
+          "Outpost Armor Trim Smithing Template",
+          "Outpost Armor Trim Template",
+          "Outpost Armor Trim",
+          "Outpost Trim Smithing Template",
+          "Outpost Trim Template",
+          "Outpost Trim",
+          "Outpost Smithing Template",
+          "Outpost Template"
+        ],
         "lore": "Sentry Armor Trim",
         "display_name": "Smithing Template",
         "name_conflict": true,
@@ -18971,6 +19262,10 @@
   "minecraft.sniffer_spawn_egg": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Spawn Sniffer",
+          "Sniffer Egg"
+        ],
         "display_name": "Sniffer Spawn Egg"
       }
     },
@@ -18982,6 +19277,47 @@
   "minecraft.snout_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Snout Armor Trim Smithing Template",
+          "Snout Armor Trim Template",
+          "Snout Armor Trim",
+          "Snout Trim Smithing Template",
+          "Snout Trim Template",
+          "Snout Trim",
+          "Snout Template",
+          "Bastion Remnant Armor Trim Smithing Template",
+          "Bastion Remnant Armor Trim Template",
+          "Bastion Remnant Armor Trim",
+          "Bastion Remnant Trim Smithing Template",
+          "Bastion Remnant Trim Template",
+          "Bastion Remnant Trim",
+          "Bastion Remnant Smithing Template",
+          "Bastion Remnant Template",
+          "Bastion Armor Trim Smithing Template",
+          "Bastion Armor Trim Template",
+          "Bastion Armor Trim",
+          "Bastion Trim Smithing Template",
+          "Bastion Trim Template",
+          "Bastion Trim",
+          "Bastion Smithing Template",
+          "Bastion Template",
+          "Remnant Armor Trim Smithing Template",
+          "Remnant Armor Trim Template",
+          "Remnant Armor Trim",
+          "Remnant Trim Smithing Template",
+          "Remnant Trim Template",
+          "Remnant Trim",
+          "Remnant Smithing Template",
+          "Remnant Template",
+          "Piglin Armor Trim Smithing Template",
+          "Piglin Armor Trim Template",
+          "Piglin Armor Trim",
+          "Piglin Trim Smithing Template",
+          "Piglin Trim Template",
+          "Piglin Trim",
+          "Piglin Smithing Template",
+          "Piglin Template"
+        ],
         "lore": "Snout Armor Trim",
         "display_name": "Smithing Template",
         "name_conflict": true,
@@ -18997,6 +19333,31 @@
   "minecraft.spire_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Spire Armor Trim Smithing Template",
+          "Spire Armor Trim Template",
+          "Spire Armor Trim",
+          "Spire Trim Smithing Template",
+          "Spire Trim Template",
+          "Spire Trim",
+          "Spire Template",
+          "End City Armor Trim Smithing Template",
+          "End City Armor Trim Template",
+          "End City Armor Trim",
+          "End City Trim Smithing Template",
+          "End City Trim Template",
+          "End City Trim",
+          "End City Smithing Template",
+          "End City Template",
+          "End Armor Trim Smithing Template",
+          "End Armor Trim Template",
+          "End Armor Trim",
+          "End Trim Smithing Template",
+          "End Trim Template",
+          "End Trim",
+          "End Smithing Template",
+          "End Template"
+        ],
         "lore": "Spire Armor Trim",
         "display_name": "Smithing Template",
         "name_conflict": true,
@@ -19012,6 +19373,9 @@
   "minecraft.stripped_cherry_log": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Stripped Pink Log"
+        ],
         "display_name": "Stripped Cherry Log"
       }
     },
@@ -19023,6 +19387,9 @@
   "minecraft.stripped_cherry_wood": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Stripped Pink Wood"
+        ],
         "display_name": "Stripped Cherry Wood"
       }
     },
@@ -19034,6 +19401,9 @@
   "minecraft.suspicious_sand": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Sus Sand"
+        ],
         "display_name": "Suspicious Sand"
       }
     },
@@ -19045,6 +19415,47 @@
   "minecraft.tide_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Tide Armor Trim Smithing Template",
+          "Tide Armor Trim Template",
+          "Tide Armor Trim",
+          "Tide Trim Smithing Template",
+          "Tide Trim Template",
+          "Tide Trim",
+          "Tide Template",
+          "Elder Guardian Armor Trim Smithing Template",
+          "Elder Guardian Armor Trim Template",
+          "Elder Guardian Armor Trim",
+          "Elder Guardian Trim Smithing Template",
+          "Elder Guardian Trim Template",
+          "Elder Guardian Trim",
+          "Elder Guardian Smithing Template",
+          "Elder Guardian Template",
+          "Guardian Armor Trim Smithing Template",
+          "Guardian Armor Trim Template",
+          "Guardian Armor Trim",
+          "Guardian Trim Smithing Template",
+          "Guardian Trim Template",
+          "Guardian Trim",
+          "Guardian Smithing Template",
+          "Guardian Template",
+          "Ocean Monument Armor Trim Smithing Template",
+          "Ocean Monument Armor Trim Template",
+          "Ocean Monument Armor Trim",
+          "Ocean Monument Trim Smithing Template",
+          "Ocean Monument Trim Template",
+          "Ocean Monument Trim",
+          "Ocean Monument Smithing Template",
+          "Ocean Monument Template",
+          "Monument Armor Trim Smithing Template",
+          "Monument Armor Trim Template",
+          "Monument Armor Trim",
+          "Monument Trim Smithing Template",
+          "Monument Trim Template",
+          "Monument Trim",
+          "Monument Smithing Template",
+          "Monument Template"
+        ],
         "lore": "Tide Armor Trim",
         "display_name": "Smithing Template",
         "name_conflict": true,
@@ -19060,6 +19471,9 @@
   "minecraft.torchflower": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Torch Flower"
+        ],
         "display_name": "Torchflower"
       }
     },
@@ -19071,6 +19485,11 @@
   "minecraft.torchflower_crop": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Torch Flower Crop",
+          "Torchflower Crops",
+          "Torch Flower Crops"
+        ],
         "display_name": "Torchflower Crop"
       }
     },
@@ -19082,6 +19501,9 @@
   "minecraft.torchflower_seeds": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Torch Flower Seeds"
+        ],
         "display_name": "Torchflower Seeds"
       }
     },
@@ -19093,6 +19515,31 @@
   "minecraft.vex_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Vex Armor Trim Smithing Template",
+          "Vex Armor Trim Template",
+          "Vex Armor Trim",
+          "Vex Trim Smithing Template",
+          "Vex Trim Template",
+          "Vex Trim",
+          "Vex Template",
+          "Woodland Mansion Armor Trim Smithing Template",
+          "Woodland Mansion Armor Trim Template",
+          "Woodland Mansion Armor Trim",
+          "Woodland Mansion Trim Smithing Template",
+          "Woodland Mansion Trim Template",
+          "Woodland Mansion Trim",
+          "Woodland Mansion Smithing Template",
+          "Woodland Mansion Template",
+          "Mansion Armor Trim Smithing Template",
+          "Mansion Armor Trim Template",
+          "Mansion Armor Trim",
+          "Mansion Trim Smithing Template",
+          "Mansion Trim Template",
+          "Mansion Trim",
+          "Mansion Smithing Template",
+          "Mansion Template"
+        ],
         "lore": "Vex Armor Trim",
         "display_name": "Smithing Template",
         "name_conflict": true,
@@ -19108,6 +19555,39 @@
   "minecraft.ward_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Ward Armor Trim Smithing Template",
+          "Ward Armor Trim Template",
+          "Ward Armor Trim",
+          "Ward Trim Smithing Template",
+          "Ward Trim Template",
+          "Ward Trim",
+          "Ward Template",
+          "Warden Armor Trim Smithing Template",
+          "Warden Armor Trim Template",
+          "Warden Armor Trim",
+          "Warden Trim Smithing Template",
+          "Warden Trim Template",
+          "Warden Trim",
+          "Warden Smithing Template",
+          "Warden Template",
+          "Ancient City Armor Trim Smithing Template",
+          "Ancient City Armor Trim Template",
+          "Ancient City Armor Trim",
+          "Ancient City Trim Smithing Template",
+          "Ancient City Trim Template",
+          "Ancient City Trim",
+          "Ancient City Smithing Template",
+          "Ancient City Template",
+          "Deep Dark Armor Trim Smithing Template",
+          "Deep Dark Armor Trim Template",
+          "Deep Dark Armor Trim",
+          "Deep Dark Trim Smithing Template",
+          "Deep Dark Trim Template",
+          "Deep Dark Trim",
+          "Deep Dark Smithing Template",
+          "Deep Dark Template"
+        ],
         "lore": "Ward Armor Trim",
         "display_name": "Smithing Template",
         "name_conflict": true,
@@ -19123,6 +19603,31 @@
   "minecraft.wild_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Wild Armor Trim Smithing Template",
+          "Wild Armor Trim Template",
+          "Wild Armor Trim",
+          "Wild Trim Smithing Template",
+          "Wild Trim Template",
+          "Wild Trim",
+          "Wild Template",
+          "Jungle Temple Armor Trim Smithing Template",
+          "Jungle Temple Armor Trim Template",
+          "Jungle Temple Armor Trim",
+          "Jungle Temple Trim Smithing Template",
+          "Jungle Temple Trim Template",
+          "Jungle Temple Trim",
+          "Jungle Temple Smithing Template",
+          "Jungle Temple Template",
+          "Jungle Armor Trim Smithing Template",
+          "Jungle Armor Trim Template",
+          "Jungle Armor Trim",
+          "Jungle Trim Smithing Template",
+          "Jungle Trim Template",
+          "Jungle Trim",
+          "Jungle Smithing Template",
+          "Jungle Template"
+        ],
         "lore": "Wild Armor Trim",
         "display_name": "Smithing Template",
         "name_conflict": true,
