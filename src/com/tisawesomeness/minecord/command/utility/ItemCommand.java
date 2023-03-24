@@ -16,7 +16,7 @@ public class ItemCommand extends SlashCommand {
                 "item",
                 "Looks up an item.",
                 "<item name|id>",
-                2500,
+                1000,
                 false,
                 false
         );
@@ -35,7 +35,7 @@ public class ItemCommand extends SlashCommand {
     @Override
     public String getHelp() {
         return "Searches for a Minecraft item.\n" +
-                "Items are from Java Edition 1.7 to 1.19.3.\n" +
+                "Items are from Java Edition 1.7 to 1.19.4.\n" +
                 "\n" +
                 Item.help + "\n";
     }

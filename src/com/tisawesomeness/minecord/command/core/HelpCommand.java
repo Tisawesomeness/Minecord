@@ -7,6 +7,8 @@ import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -34,30 +36,37 @@ public class HelpCommand extends SlashCommand {
         return builder.addOption(OptionType.STRING, "command", "The command or page to show help for");
     }
 
-    @Override
-    public String[] getLegacyAliases() {
+    public static String[] legacyAliases() {
         return new String[]{"cmds", "commands", "module", "modules", "categories"};
     }
+    @Override
+    public String[] getLegacyAliases() {
+        return legacyAliases();
+    }
 
+    public static final String help = "`{&}help` - Display help for the bot.\n" +
+            "`{&}help <module>` - Display help for a module.\n" +
+            "`{&}help <command>` - Display help for a command.\n" +
+            "`{&}help extra` - Show more help.\n" +
+            "\n" +
+            "Examples:\n" +
+            "- `{&}help server`\n" +
+            "- `{&}help profile`\n" +
+            "- `{&}help utility`\n" +
+            "- `{&}help uuidInput`\n";
     @Override
     public String getHelp() {
-        return "`{&}help` - Display help for the bot.\n" +
-                "`{&}help <module>` - Display help for a module.\n" +
-                "`{&}help <command>` - Display help for a command.\n" +
-                "`{&}help extra` - Show more help.\n" +
-                "\n" +
-                "Examples:\n" +
-                "- `{&}help server`\n" +
-                "- `{&}help profile`\n" +
-                "- `{&}help utility`\n" +
-                "- `{&}help uuidInput`\n";
+        return help;
     }
 
     public Result run(SlashCommandInteractionEvent e) {
-        EmbedBuilder eb = new EmbedBuilder().setColor(Bot.color);
-        String url = e.getJDA().getSelfUser().getEffectiveAvatarUrl();
-
         String page = e.getOption("command", OptionMapping::getAsString);
+        return run(page, e.getUser(), e.getJDA());
+    }
+
+    public static Result run(String page, User user, JDA jda) {
+        EmbedBuilder eb = new EmbedBuilder().setColor(Bot.color);
+        String url = jda.getSelfUser().getEffectiveAvatarUrl();
 
         // General help
         if (page == null || page.equals("all")) {
@@ -102,7 +111,7 @@ public class HelpCommand extends SlashCommand {
         // Module help
         Module m = Registry.getModule(page);
         if (m != null) {
-            if (m.isHidden() && !Database.isElevated(e.getUser().getIdLong())) {
+            if (m.isHidden() && !Database.isElevated(user.getIdLong())) {
                 return new Result(Outcome.WARNING, ":warning: You do not have permission to view that module.");
             }
             String mUsage = Arrays.stream(m.getCommands())
@@ -131,11 +140,11 @@ public class HelpCommand extends SlashCommand {
             Command<?> c = cOpt.get();
             // Elevation check
             Command.CommandInfo ci = c.getInfo();
-            if (ci.elevated && !Database.isElevated(e.getUser().getIdLong())) {
+            if (ci.elevated && !Database.isElevated(user.getIdLong())) {
                 return new Result(Outcome.WARNING, ":warning: You do not have permission to view that command.");
             }
             // {@} and {&} substitution
-            String help = c.getHelp().replace("{@}", e.getJDA().getSelfUser().getAsMention()).replace("{&}", "/");
+            String help = c.getHelp().replace("{@}", jda.getSelfUser().getAsMention()).replace("{&}", "/");
             // Alias list formatted with prefix in code blocks
             if (c instanceof LegacyCommand) {
                 String[] aliases = ((LegacyCommand) c).getAliases();

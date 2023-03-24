@@ -22,7 +22,7 @@ public class IngredientCommand extends SlashCommand {
                 "ingredient",
                 "Looks up the recipes containing an ingredient.",
                 "<item name|id>",
-                2500,
+                1000,
                 false,
                 false
         );
@@ -43,7 +43,7 @@ public class IngredientCommand extends SlashCommand {
     @Override
     public String getHelp() {
         return "Searches for the recipes containing an ingredient.\n" +
-                "Items and recipes are from Java Edition 1.7 to 1.19.3.\n" +
+                "Items and recipes are from Java Edition 1.7 to 1.19.4.\n" +
                 "All recipe types are searchable, including brewing.\n" +
                 "\n" +
                 Item.help + "\n";

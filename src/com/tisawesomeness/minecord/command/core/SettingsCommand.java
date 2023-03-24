@@ -21,7 +21,7 @@ public class SettingsCommand extends LegacyCommand {
                 "settings",
                 "Change the bot's settings, including prefix.",
                 "[<setting> <value>]",
-                5000,
+                1000,
                 true,
                 false
         );

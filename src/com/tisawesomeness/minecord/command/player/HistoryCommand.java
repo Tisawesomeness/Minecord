@@ -18,7 +18,7 @@ public class HistoryCommand extends BasePlayerCommand {
                 "history",
                 "Shows a player's name history.",
                 "<player>",
-                2000,
+                1000,
                 false,
                 false
         );

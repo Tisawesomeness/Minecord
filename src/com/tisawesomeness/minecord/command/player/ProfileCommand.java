@@ -26,7 +26,7 @@ public class ProfileCommand extends BasePlayerCommand {
                 "profile",
                 "Shows info for a Minecraft account.",
                 "<player>",
-                2000,
+                1000,
                 false,
                 false
         );

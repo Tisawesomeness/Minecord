@@ -327,13 +327,6 @@ public class Item {
      */
     private static String searchGeneral(String str, String lang) {
 
-        // Easter egg exceptions
-        if (str.equalsIgnoreCase("java")) {
-            throw new NullPointerException("Enjoy the RAM usage and NPEs lol");
-        } else if (str.equalsIgnoreCase("python")) {
-            throw new IndentationError("expected an indented block");
-        }
-
         // Extract ID and data
         String toParse = str.replace("_", " ").replace(".", " ").replace(" : ", ":").toLowerCase();
         int data = -1;
@@ -357,7 +350,7 @@ public class Item {
                     } else if (data > 0) {
                         return coloredItem.replace("white", colorNames[data]);
                     }
-                } else {
+                } else if (toParse.contains(coloredName)) {
                     String color = toParse.replace(coloredName, "").trim();
                     int colorData = parseDataFromFile(color, lang);
                     if (colorData == 0) {
@@ -380,11 +373,13 @@ public class Item {
             }
         }
         String color = CANDLE_CAKE_PATTERN.matcher(toParse).replaceFirst("$1");
-        int colorData = parseDataFromFile(color, lang);
-        if (colorData == 0) {
-            return "minecraft.white_candle_cake";
-        } else if (colorData > 0) {
-            return "minecraft.white_candle_cake".replace("white", colorNames[colorData]);
+        if (!color.equals(toParse)) {
+            int colorData = parseDataFromFile(color, lang);
+            if (colorData == 0) {
+                return "minecraft.white_candle_cake";
+            } else if (colorData > 0) {
+                return "minecraft.white_candle_cake".replace("white", colorNames[colorData]);
+            }
         }
 
         // Banners special case
@@ -447,6 +442,9 @@ public class Item {
             // Display, block, and previous names (but don't match display name if another item has it)
             if (!langObj.has("name_conflict")) {
                 toCheck.add(langObj.getString("display_name"));
+            }
+            if (langObj.has("distinct_display_name")) {
+                toCheck.add(langObj.getString("distinct_display_name"));
             }
             toCheck.add(langObj.optString("block_name"));
             if (!langObj.has("previous_conflict")) {
@@ -520,8 +518,8 @@ public class Item {
     public static String getDisplayName(String item, String lang) {
         return items.getJSONObject(item).getJSONObject("lang").getJSONObject(lang).getString("display_name");
     }
-    public static String getDisplayNameWithFeature(String item, String lang) {
-        String displayName = getDisplayName(item, lang);
+    public static String getMenuDisplayNameWithFeature(String item, String lang) {
+        String displayName = getDistinctDisplayName(item, lang);
         JSONObject properties = items.getJSONObject(item).optJSONObject("properties");
         if (properties != null) {
             String feature = properties.optString("feature_flag", "vanilla");
@@ -530,6 +528,14 @@ public class Item {
             }
         }
         return displayName;
+    }
+    private static String getDistinctDisplayName(String item, String lang) {
+        JSONObject langObj = items.getJSONObject(item).getJSONObject("lang").getJSONObject(lang);
+        String distinctDisplayName = langObj.optString("distinct_display_name", null);
+        if (distinctDisplayName != null) {
+            return distinctDisplayName;
+        }
+        return langObj.getString("display_name");
     }
 
     /**

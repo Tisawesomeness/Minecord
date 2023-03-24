@@ -14,7 +14,7 @@ public class Sha1Command extends SlashCommand {
                 "sha1",
                 "Computes the sha1 hash of some text.",
                 "<text>",
-                500,
+                0,
                 false,
                 false
         );

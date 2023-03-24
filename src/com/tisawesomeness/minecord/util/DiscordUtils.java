@@ -42,7 +42,6 @@ public class DiscordUtils {
                 .replace("{help_server}", Config.getHelpServer())
                 .replace("{website}", Config.getWebsite())
                 .replace("{github}", Config.getGithub())
-                .replace("{java_ver}", Bot.javaVersion)
                 .replace("{jda_ver}", Bot.jdaVersion)
                 .replace("{version}", Bot.getVersion())
                 .replace("{invite}", Config.getInvite())

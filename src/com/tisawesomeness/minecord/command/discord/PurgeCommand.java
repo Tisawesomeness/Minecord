@@ -23,7 +23,7 @@ public class PurgeCommand extends SlashCommand {
                 "purge",
                 "Cleans the bot messages.",
                 "<number>",
-                5000,
+                1000,
                 false,
                 false
         );

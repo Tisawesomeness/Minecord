@@ -19,7 +19,7 @@ public class SkinCommand extends BasePlayerCommand {
                 "skin",
                 "Shows an image of a player's skin.",
                 "<player>",
-                2000,
+                1000,
                 false,
                 false
         );

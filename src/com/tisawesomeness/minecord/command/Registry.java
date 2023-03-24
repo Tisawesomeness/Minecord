@@ -16,7 +16,10 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 
 import java.time.Duration;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -35,14 +38,18 @@ public class Registry {
     public static final Module[] modules = {
             new Module("Core",
                     new HelpCommand(),
+                    new HelpCommandLegacy(),
                     new InfoCommand(),
+                    new InfoCommandLegacy(),
                     new InfoCommandAdmin(),
                     new PingCommand(),
+                    new PingCommandLegacy(),
                     new PrefixCommand(),
                     new SettingsCommand(),
                     new InviteCommand(),
                     new VoteCommand(),
-                    new CreditsCommand()
+                    new CreditsCommand(),
+                    new CreditsCommandLegacy()
             ),
             new Module("Player",
                     new ProfileCommand(),
@@ -96,7 +103,8 @@ public class Registry {
             )
     };
     // Map from name or alias user enters to either command or name of slash command to migrate to
-    private static final Map<String, Either<String, Command<?>>> commandMap = new HashMap<>();
+    private static final Map<String, SlashCommand> slashCommandMap = new HashMap<>();
+    private static final Map<String, Either<String, LegacyCommand>> legacyCommandMap = new HashMap<>();
     private static final Map<Command<?>, CommandState> stateMap = new HashMap<>();
 
     /**
@@ -112,25 +120,64 @@ public class Registry {
     }
     private static void initCommand(Command<?> c) {
         Command.CommandInfo ci = c.getInfo();
-        insert(ci.name, Either.right(c));
         if (c instanceof LegacyCommand) {
-            for (String alias : ((LegacyCommand) c).getAliases()) {
-                insert(alias, Either.right(c));
+            LegacyCommand lc = (LegacyCommand) c;
+            insert(ci.name, lc);
+            for (String alias : lc.getAliases()) {
+                insert(alias, lc);
             }
         } else if (c instanceof SlashCommand) {
-            for (String alias : ((SlashCommand) c).getLegacyAliases()) {
-                insert(alias, Either.left(ci.name));
+            SlashCommand sc = (SlashCommand) c;
+            insert(ci.name, sc);
+            insert(ci.name, ci.name);
+            for (String alias : sc.getLegacyAliases()) {
+                insert(alias, ci.name);
             }
+        } else {
+            throw new AssertionError("Command " + ci.name + " is not a legacy or slash command.");
         }
         stateMap.put(c, new CommandState());
     }
-    private static void insert(String input, Either<String, Command<?>> entry) {
-        Either<String, Command<?>> old = commandMap.put(input, entry);
+    private static void insert(String input, SlashCommand cmd) {
+        SlashCommand old = slashCommandMap.put(input, cmd);
         if (old != null) {
-            String oldName = old.foldLeft(r -> r.getInfo().name);
-            String newName = entry.foldLeft(r -> r.getInfo().name);
-            System.err.println("Command " + oldName + " is being overwritten by " + newName + " for " + input);
+            String oldName = old.getInfo().name;
+            String newName = cmd.getInfo().name;
+            System.err.println("Slash command " + oldName + " is being overwritten by " + newName + " for " + input);
         }
+    }
+    private static void insert(String input, LegacyCommand cmd) {
+        insert(input, Either.right(cmd));
+    }
+    private static void insert(String input, String migrateTo) {
+        insert(input, Either.left(migrateTo));
+    }
+    private static void insert(String input, Either<String, LegacyCommand> entry) {
+        Either<String, LegacyCommand> old = legacyCommandMap.get(input);
+
+        // legacy command registered for the first time
+        if (old == null) {
+            legacyCommandMap.put(input, entry);
+
+        // legacy command is being replaced with another legacy command
+        } else if (old.isRight() && entry.isRight()) {
+            legacyCommandMap.put(input, entry);
+            String oldName = old.getRight().getInfo().name;
+            String newName = entry.getRight().getInfo().name;
+            System.err.println("Command " + oldName + " is being overwritten by " + newName + " for " + input);
+
+        // slash command redirection is being replaced with another redirection
+        } else if (old.isLeft() && entry.isLeft()) {
+            legacyCommandMap.put(input, entry);
+            String oldName = old.getLeft();
+            String newName = entry.getLeft();
+            System.err.println("Slash command redirection " + oldName + " is being overwritten by " + newName + " for " + input);
+
+        // slash command redirection is being replaced with a legacy command, legacy command takes priority
+        } else if (old.isLeft() && entry.isRight()) {
+            legacyCommandMap.put(input, entry);
+        }
+
     }
 
     /**
@@ -146,23 +193,38 @@ public class Registry {
         }
         return null;
     }
+
     /**
      * Gets a command, given its name or alias.
-     * @param name The part of the command after "&" and before a space. For example, "&server hypixel.net" becomes "server".
+     * @param name The part of the command after "/" and before a space. For example, "/server hypixel.net" becomes "server".
      * @return The command which should be executed, or empty if there is no command associated with the input.
      */
     public static Optional<Command<?>> getCommand(String name) {
-        return getCommandMapping(name).map(mapping -> mapping.fold(l -> null, r -> r));
+        Optional<SlashCommand> sc = getSlashCommand(name);
+        // thank you java type system
+        if (sc.isPresent()) {
+            return Optional.of(sc.get());
+        }
+        return getLegacyCommand(name).map(mapping -> mapping.fold(l -> null, r -> r));
     }
     /**
-     * Gets a command, given its name or alias.
-     * @param name The part of the command after "&" and before a space. For example, "&server hypixel.net" becomes "server".
-     * @return The command which should be executed, the name of the slash command the user should use instead,
-     * or empty if there is no command associated with the input.
+     * Gets a slash command, given its name or alias.
+     * @param name The part of the command after "/" and before a space. For example, "/server hypixel.net" becomes "server".
+     * @return The command which should be executed, or empty if there is no command associated with the input.
      */
-    public static Optional<Either<String, Command<?>>> getCommandMapping(String name) {
-        return Optional.ofNullable(commandMap.get(name));
+    public static Optional<SlashCommand> getSlashCommand(String name) {
+        return Optional.ofNullable(slashCommandMap.get(name));
     }
+    /**
+     * Gets a legacy command, given its name or alias.
+     * @param name The part of the command after "/" and before a space. For example, "/server hypixel.net" becomes "server".
+     * @return The command which should be executed (Right), the name of the slash command the user should use instead (Left),
+     * or empty if there is no command associated with the input (Empty).
+     */
+    public static Optional<Either<String, LegacyCommand>> getLegacyCommand(String name) {
+        return Optional.ofNullable(legacyCommandMap.get(name));
+    }
+
     /**
      * Gets the module a command belongs to
      * @param cmdName Case-sensitive name of the command
@@ -180,11 +242,7 @@ public class Registry {
     }
 
     public static List<CommandData> getSlashCommands() {
-        return Arrays.stream(modules)
-                .map(Module::getCommands)
-                .flatMap(Arrays::stream)
-                .filter(c -> c instanceof SlashCommand)
-                .map(c -> ((SlashCommand) c))
+        return slashCommandMap.values().stream()
                 .map(SlashCommand::getCommandSyntax)
                 .collect(Collectors.toList());
     }

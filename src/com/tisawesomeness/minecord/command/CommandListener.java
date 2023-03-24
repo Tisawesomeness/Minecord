@@ -28,19 +28,11 @@ public class CommandListener extends ListenerAdapter {
 
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent e) {
-        Optional<Either<String, Command<?>>> mappingOpt = Registry.getCommandMapping(e.getName());
+        Optional<SlashCommand> mappingOpt = Registry.getSlashCommand(e.getName());
         if (!mappingOpt.isPresent()) {
             return;
         }
-        Either<String, Command<?>> mapping = mappingOpt.get();
-        if (mapping.isLeft()) {
-            return;
-        }
-        Command<?> c = mapping.getRight();
-        if (!(c instanceof SlashCommand)) {
-            return;
-        }
-        SlashCommand cmd = (SlashCommand) c;
+        SlashCommand cmd = mappingOpt.get();
 
         // 2 second grace period to respond to command before DB fully boots
         try {
@@ -151,22 +143,17 @@ public class CommandListener extends ListenerAdapter {
             e.getChannel().sendMessage(delMessage).queue();
             return;
         }
-        Optional<Either<String, Command<?>>> mappingOpt = Registry.getCommandMapping(name);
+        Optional<Either<String, LegacyCommand>> mappingOpt = Registry.getLegacyCommand(name);
         if (!mappingOpt.isPresent()) {
             return;
         }
-        Either<String, Command<?>> mapping = mappingOpt.get();
+        Either<String, LegacyCommand> mapping = mappingOpt.get();
         if (mapping.isLeft()) {
             String migrateTo = mapping.getLeft();
             e.getChannel().sendMessage(migrateMessage(migrateTo)).queue();
             return;
         }
-        Command<?> cmd = mapping.getRight();
-        if (!(cmd instanceof LegacyCommand)) {
-            String migrateTo = cmd.getInfo().name;
-            e.getChannel().sendMessage(migrateMessage(migrateTo)).queue();
-            return;
-        }
+        LegacyCommand cmd = mapping.getRight();
         Command.CommandInfo ci = cmd.getInfo();
 
         //Delete message if enabled in the config and the bot has permissions
@@ -202,13 +189,13 @@ public class CommandListener extends ListenerAdapter {
         Exception exception = null;
         Registry.useCommand(cmd, a);
         try {
-            result = ((LegacyCommand) cmd).run(args, e);
+            result = cmd.run(args, e);
         } catch (Exception ex) {
             exception = ex;
         }
 
         //Catch exceptions
-        handleResult((LegacyCommand) cmd, result, exception, e);
+        handleResult(cmd, result, exception, e);
     }
 
     private static <T extends Event> void handleResult(Command<T> cmd, Command.Result result, Exception exception, T e) {

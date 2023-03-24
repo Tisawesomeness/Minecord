@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.admin;
 
 import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.command.Command;
 import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.command.Module;
 import com.tisawesomeness.minecord.command.Registry;
@@ -27,8 +28,6 @@ public class UsageCommand extends LegacyCommand {
     }
 
     public Result run(String[] args, MessageReceivedEvent e) {
-        String prefix = MessageUtils.getPrefix(e);
-
         // Build usage message
         EmbedBuilder eb = new EmbedBuilder()
             .setTitle("Command usage for " + DateUtils.getUptime())
@@ -36,12 +35,19 @@ public class UsageCommand extends LegacyCommand {
         for (Module m : Registry.modules) {
             String field = Arrays.stream(m.getCommands())
                 .filter(c -> !c.getInfo().name.isEmpty() && !c.getInfo().description.equals("Look up a color code."))
-                .map(c -> String.format("`%s%s` **-** %d", prefix, c.getInfo().name, Registry.getUses(c)))
+                .map(c -> String.format("`%s%s` **-** %d", getPrefix(c, e), c.getInfo().name, Registry.getUses(c)))
                 .collect(Collectors.joining("\n"));
             eb.addField(String.format("**%s**", m.getName()), field, true);
         }
 
         return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+    }
+
+    private static String getPrefix(Command<?> c, MessageReceivedEvent e) {
+        if (c instanceof LegacyCommand) {
+            return MessageUtils.getPrefix(e);
+        }
+        return "/";
     }
 
 }

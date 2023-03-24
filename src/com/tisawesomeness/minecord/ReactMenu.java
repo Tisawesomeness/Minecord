@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord;
 
 import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -88,7 +89,7 @@ public abstract class ReactMenu {
         if (delete) {
             message.delete().queue();
         } else {
-            message = message.editMessageEmbeds( new EmbedBuilder(emb).setFooter(emb.getFooter().getText() + " (expired)").build()).complete();
+            message = message.editMessageEmbeds(new EmbedBuilder(emb).setTitle("(expired) " + emb.getTitle()).build()).complete();
             if (hasPerms(Permission.MESSAGE_MANAGE)) {
                 message.getReactions().stream()
                         .filter(MessageReaction::isSelf)
@@ -126,12 +127,19 @@ public abstract class ReactMenu {
     /**
      * Adds a page display to the footer
      * @param page The current page number
-     * @param error True if the bot does not have correct permissoins
+     * @param error True if the bot does not have correct permissions
      * @return The built MessageEmbed
      */
     private MessageEmbed getEmbed(int page, boolean error) {
-        String err = error ? " | Give the bot manage messages and add reactions permissions to use an interactive menu!" : " | Requested by " + ownerName;
-        return getContent(page).setFooter(String.format("**Page %d/%d**%s", page + 1, getLength(), err)).build();
+        EmbedBuilder eb = getContent(page);
+        String title = String.format("(%d/%d) %s", page + 1, getLength(), eb.build().getTitle());
+        eb.setTitle(title);
+        if (error) {
+            eb.setFooter("Give the bot manage messages and add reactions permissions to use an interactive menu!");
+        } else {
+            eb = MessageUtils.addFooter(eb);
+        }
+        return eb.build();
     }
     /**
      * Resets the expiration timer

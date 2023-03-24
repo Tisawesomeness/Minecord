@@ -18,12 +18,16 @@ public class PingCommand extends SlashCommand {
         );
     }
 
+    public static final String help = "Pings the bot.\nUse `/server` to ping a server.\n";
     @Override
     public String getHelp() {
-        return "Pings the bot.\nUse {&}server to ping a server.\n";
+        return help;
     }
 
     public Result run(SlashCommandInteractionEvent e) {
+        return run();
+    }
+    public static Result run() {
         double ping = Bot.shardManager.getAverageGatewayPing();
         String msg = String.format(":ping_pong: **Pong!** `%.3f ms`\nUse `/server` to ping a server.", ping);
         return new Result(Outcome.SUCCESS, msg);

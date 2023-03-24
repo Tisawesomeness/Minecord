@@ -16,7 +16,7 @@ public class InviteCommand extends SlashCommand {
                 "invite",
                 "Invite the bot!",
                 null,
-                2000,
+                0,
                 false,
                 false
         );
