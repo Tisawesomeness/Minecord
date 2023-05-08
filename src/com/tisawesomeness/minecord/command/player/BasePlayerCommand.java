@@ -44,7 +44,7 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
             String msg = "That UUID does not currently exist.";
             e.deferReply().queue();
             newCallbackBuilder(provider.getPlayer(uuid), e)
-                    .onFailure(ex -> handleIOE(ex, e, "IOE getting player from UUID " + uuid))
+                    .onFailure(ex -> handleMojangIOE(ex, e, "IOE getting player from UUID " + uuid))
                     .onSuccess(playerOpt -> processPlayer(playerOpt, e, msg))
                     .build();
             return new Result(Outcome.SUCCESS);
@@ -63,7 +63,7 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
         String msg = "That username does not currently exist.";
         e.deferReply().queue();
         newCallbackBuilder(provider.getPlayer(username), e)
-                .onFailure(ex -> handleIOE(ex, e, "IOE getting player from username " + username))
+                .onFailure(ex -> handleMojangIOE(ex, e, "IOE getting player from username " + username))
                 .onSuccess(playerOpt -> processPlayer(playerOpt, e, msg))
                 .build();
         return new Result(Outcome.SUCCESS);

@@ -80,7 +80,7 @@ public class UuidCommand extends AbstractPlayerCommand {
         CompletableFuture<Optional<UUID>> futureUUID = Bot.mcLibrary.getPlayerProvider().getUUID(username);
         String errorMessage = "IOE getting UUID from username " + username;
         newCallbackBuilder(futureUUID, e)
-                .onFailure(ex -> handleIOE(ex, e, errorMessage))
+                .onFailure(ex -> handleMojangIOE(ex, e, errorMessage))
                 .onSuccess(uuidOpt -> processUUID(uuidOpt, e, username))
                 .build();
     }
