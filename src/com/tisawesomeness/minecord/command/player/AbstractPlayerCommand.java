@@ -11,12 +11,20 @@ import java.util.concurrent.CompletableFuture;
 
 public abstract class AbstractPlayerCommand extends SlashCommand {
 
-    @SneakyThrows
+    protected static void handleMojangIOE(Throwable ex, SlashCommandInteractionEvent e, String errorMessage) {
+        handleIOE(ex, e, errorMessage, true);
+    }
     protected static void handleIOE(Throwable ex, SlashCommandInteractionEvent e, String errorMessage) {
+        handleIOE(ex, e, errorMessage, false);
+    }
+    @SneakyThrows
+    private static void handleIOE(Throwable ex, SlashCommandInteractionEvent e, String errorMessage, boolean sendError) {
         Throwable cause = ex.getCause();
         if (cause instanceof IOException) {
             System.err.println(errorMessage);
-            e.getHook().sendMessage(":x: There was an error contacting the Mojang API.").setEphemeral(true).queue();
+            if (sendError) {
+                e.getHook().sendMessage(":x: There was an error contacting the Mojang API.").setEphemeral(true).queue();
+            }
             return;
         }
         throw cause;

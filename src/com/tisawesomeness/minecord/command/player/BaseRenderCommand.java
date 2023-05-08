@@ -51,7 +51,7 @@ public abstract class BaseRenderCommand extends AbstractPlayerCommand {
             PlayerProvider provider = Bot.mcLibrary.getPlayerProvider();
             e.deferReply().queue();
             newCallbackBuilder(provider.getPlayer(uuid), e)
-                    .onFailure(ex -> handleIOE(ex, e, "IOE getting player from UUID " + uuid))
+                    .onFailure(ex -> handleMojangIOE(ex, e, "IOE getting player from UUID " + uuid))
                     .onSuccess(playerOpt -> processPlayer(e, playerOpt, irender))
                     .build();
             return new Result(Outcome.SUCCESS);
@@ -66,7 +66,7 @@ public abstract class BaseRenderCommand extends AbstractPlayerCommand {
         PlayerProvider provider = Bot.mcLibrary.getPlayerProvider();
         e.deferReply().queue();
         newCallbackBuilder(provider.getUUID(username), e)
-                .onFailure(ex -> handleIOE(ex, e, "IOE getting UUID from username " + username))
+                .onFailure(ex -> handleMojangIOE(ex, e, "IOE getting UUID from username " + username))
                 .onSuccess(uuidOpt -> processUuid(e, uuidOpt, username, irender))
                 .build();
         return new Result(Outcome.SUCCESS);
