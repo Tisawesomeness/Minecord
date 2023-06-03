@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command.utility;
 
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.ReactMenu.MenuStatus;
 import com.tisawesomeness.minecord.command.SlashCommand;
@@ -43,7 +44,7 @@ public class RecipeCommand extends SlashCommand {
     @Override
     public String getHelp() {
         return "Shows the recipes for an item.\n" +
-                "Items and recipes are from Java Edition 1.7 to 1.19.4.\n" +
+                "Items and recipes are from Java Edition 1.7 to " + Bot.mcVersion + ".\n" +
                 "All recipe types are searchable, including brewing.\n" +
                 "\n" +
                 Item.help + "\n";
