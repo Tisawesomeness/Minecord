@@ -134,8 +134,10 @@ public abstract class ReactMenu {
      */
     private MessageEmbed getEmbed(int page, boolean error) {
         EmbedBuilder eb = getContent(page);
-        String title = String.format("(%d/%d) %s", page + 1, getLength(), eb.build().getTitle());
-        eb.setTitle(title);
+        int length = getLength();
+        if (length > 1) {
+            eb.setTitle(String.format("(%d/%d) %s", page + 1, getLength(), eb.build().getTitle()));
+        }
         if (error) {
             eb.setFooter("Give the bot manage messages and add reactions permissions to use an interactive menu!");
         } else {
