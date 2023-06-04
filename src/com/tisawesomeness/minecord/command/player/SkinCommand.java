@@ -5,12 +5,15 @@ import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
+import com.tisawesomeness.minecord.util.RequestUtils;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.utils.FileUpload;
 
 import java.awt.Color;
+import java.io.IOException;
 
 public class SkinCommand extends BasePlayerCommand {
 
@@ -41,15 +44,24 @@ public class SkinCommand extends BasePlayerCommand {
         String title = "Skin for " + player.getUsername();
         String skinHistoryUrl = player.getMCSkinHistoryUrl().toString();
         String avatarUrl = player.createRender(RenderType.AVATAR, true).render().toString();
+        String skinUrl = player.getSkinUrl().toString();
         String description = constructDescription(player);
 
         Color color = player.isRainbow() ? ColorUtils.randomColor() : Bot.color;
+
         EmbedBuilder eb = MessageUtils.addFooter(new EmbedBuilder())
                 .setAuthor(title, skinHistoryUrl, avatarUrl)
                 .setColor(color)
-                .setDescription(description)
-                .setImage(player.getSkinUrl().toString());
-        e.getHook().sendMessageEmbeds(eb.build()).queue();
+                .setDescription(description);
+        try {
+            System.out.println(skinUrl);
+            byte[] data = RequestUtils.download(skinUrl);
+            e.getHook().sendMessageEmbeds(eb.setImage("attachment://skin.png").build())
+                    .addFiles(FileUpload.fromData(data, "skin.png")).queue();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            e.getHook().sendMessageEmbeds(eb.setImage(skinUrl).build()).queue();
+        }
     }
     private static @NonNull String constructDescription(Player player) {
         String custom = "**Custom**: " + (player.hasCustomSkin() ? "True" : "False");

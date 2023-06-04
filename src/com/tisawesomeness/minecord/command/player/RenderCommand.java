@@ -7,6 +7,7 @@ import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
+import com.tisawesomeness.minecord.util.RequestUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -14,8 +15,11 @@ import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
+import net.dv8tion.jda.api.utils.FileUpload;
 
 import java.awt.Color;
+import java.io.IOException;
+import java.net.URL;
 
 public class RenderCommand extends BaseRenderCommand {
 
@@ -86,13 +90,21 @@ public class RenderCommand extends BaseRenderCommand {
         String title = type + " for " + username;
         EmbedBuilder eb = MessageUtils.addFooter(new EmbedBuilder())
                 .setTitle(title)
-                .setImage(render.render().toString())
                 .setColor(color);
         if (render.getProvidedScale() > type.getMaxScale()) {
             String msg = String.format("The scale was too high, so it was set to the max, %d.", type.getMaxScale());
             eb.setDescription(msg);
         }
-        e.getHook().sendMessageEmbeds(eb.build()).queue();
+        URL renderUrl = render.render();
+        try {
+            System.out.println(renderUrl);
+            byte[] data = RequestUtils.download(renderUrl);
+            e.getHook().sendMessageEmbeds(eb.setImage("attachment://render.png").build())
+                    .addFiles(FileUpload.fromData(data, "render.png")).queue();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            e.getHook().sendMessageEmbeds(eb.setImage(renderUrl.toString()).build()).queue();
+        }
     }
 
 }

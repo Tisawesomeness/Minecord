@@ -4,9 +4,11 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.ColorUtils;
+import com.tisawesomeness.minecord.util.RequestUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.utils.FileUpload;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -71,11 +73,19 @@ public class CapeCommand extends BasePlayerCommand {
         String avatarUrl = player.createRender(RenderType.AVATAR, true).render().toString();
         String title = capeType + " Cape for " + player.getUsername();
         Color color = player.isRainbow() ? ColorUtils.randomColor() : Bot.color;
+
         EmbedBuilder eb = new EmbedBuilder()
                 .setAuthor(title, nameMcUrl, avatarUrl)
-                .setColor(color)
-                .setImage(capeUrl.toString());
-        e.getHook().sendMessageEmbeds(eb.build()).queue();
+                .setColor(color);
+        try {
+            System.out.println(capeUrl);
+            byte[] data = RequestUtils.download(capeUrl);
+            e.getHook().sendMessageEmbeds(eb.setImage("attachment://cape.png").build())
+                    .addFiles(FileUpload.fromData(data, "cape.png")).queue();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            e.getHook().sendMessageEmbeds(eb.setImage(capeUrl.toString()).build()).queue();
+        }
     }
 
 }
