@@ -28,7 +28,8 @@
         "useGappleAPI": true,
         "recordCacheStats": false,
         "itemImageHost": "https://minecord.github.io/item/",
-        "recipeImageHost": "https://minecord.github.io/recipe/"
+        "recipeImageHost": "https://minecord.github.io/recipe/",
+        "crafatarHost": "https://crafatar.com/"
     },
     "botLists": {
         "sendServerCount": false,
