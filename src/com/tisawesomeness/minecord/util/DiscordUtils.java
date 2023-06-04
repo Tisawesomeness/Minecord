@@ -3,11 +3,23 @@ package com.tisawesomeness.minecord.util;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.requests.ErrorResponse;
+import net.dv8tion.jda.api.requests.restaction.WebhookMessageCreateAction;
+import net.dv8tion.jda.api.requests.restaction.WebhookMessageEditAction;
+import net.dv8tion.jda.api.utils.FileUpload;
+import net.dv8tion.jda.api.utils.ImageProxy;
+import net.dv8tion.jda.internal.utils.IOUtil;
 
+import javax.annotation.CheckReturnValue;
+import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -95,6 +107,67 @@ public class DiscordUtils {
      */
     public static String getBoolEmote(boolean bool) {
         return bool ? ":white_check_mark:" : ":x:";
+    }
+
+    public static CompletableFuture<byte[]> retrieveImage(ImageProxy img) {
+        if (img == null) {
+            return CompletableFuture.completedFuture(null);
+        }
+        return img.download().thenApply(is -> {
+            try {
+                return IOUtil.readFully(is);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                return null;
+            }
+        });
+    }
+
+    @CheckReturnValue
+    public static WebhookMessageCreateAction<Message> sendImageAsAttachment(SlashCommandInteractionEvent e,
+            MessageEmbed emb, String attachmentName) {
+        return sendAsAttachment(e, emb, attachmentName, emb.getImage().getUrl(), false);
+    }
+    @CheckReturnValue
+    public static WebhookMessageCreateAction<Message> sendThumbnailAsAttachment(SlashCommandInteractionEvent e,
+            MessageEmbed emb, String attachmentName) {
+        return sendAsAttachment(e, emb, attachmentName, emb.getThumbnail().getUrl(), true);
+    }
+    @CheckReturnValue
+    private static WebhookMessageCreateAction<Message> sendAsAttachment(SlashCommandInteractionEvent e,
+            MessageEmbed emb, String attachmentName, String url, boolean isThumbnail) {
+        String attachment = buildAttachmentFilename(attachmentName, url);
+        try {
+            byte[] data = RequestUtils.download(url);
+            MessageEmbed edited = isThumbnail
+                    ? new EmbedBuilder(emb).setThumbnail("attachment://" + attachment).build()
+                    : new EmbedBuilder(emb).setImage("attachment://" + attachment).build();
+            return e.getHook().sendMessageEmbeds(edited).addFiles(FileUpload.fromData(data, attachment));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return e.getHook().sendMessageEmbeds(emb);
+        }
+    }
+    @CheckReturnValue
+    public static WebhookMessageEditAction<Message> editImageAsAttachment(SlashCommandInteractionEvent e,
+            MessageEmbed emb, String attachmentName) {
+        String url = emb.getImage().getUrl();
+        String attachment = buildAttachmentFilename(attachmentName, url);
+        try {
+            byte[] data = RequestUtils.download(url);
+            return e.getHook().editOriginalEmbeds(new EmbedBuilder(emb).setImage("attachment://" + attachment).build())
+                    .setAttachments(FileUpload.fromData(data, attachment));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return e.getHook().editOriginalEmbeds(emb);
+        }
+    }
+    private static String buildAttachmentFilename(String attachmentName, String url) {
+        if (attachmentName.contains(".")) {
+            return attachmentName;
+        }
+        String urlExtension = url.substring(url.lastIndexOf('.'));
+        return attachmentName + urlExtension;
     }
 
 }

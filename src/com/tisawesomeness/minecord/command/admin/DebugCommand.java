@@ -85,7 +85,7 @@ public class DebugCommand extends LegacyCommand {
     }
 
     private static void printToConsole(String debugInfo, User author) {
-        String requestedBy = String.format("Requested By %s (%s)%n", author.getAsTag(), author.getId());
+        String requestedBy = String.format("Requested By %s (%s)%n", author.getEffectiveName(), author.getId());
         System.out.println("\n" + requestedBy + MarkdownSanitizer.sanitize(debugInfo) + "\n");
     }
 

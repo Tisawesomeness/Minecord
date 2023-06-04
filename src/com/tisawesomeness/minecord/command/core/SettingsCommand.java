@@ -97,7 +97,7 @@ public class SettingsCommand extends LegacyCommand {
                                             "`@%s command` will work regardless of prefix.\n" +
                                             "Possible values: Any text between 1-16 characters.\n" +
                                             "Current: **`%s`**",
-                                    e.getJDA().getSelfUser().getAsTag(), targetPrefix),
+                                    e.getJDA().getSelfUser().getEffectiveName(), targetPrefix),
                             false)
                     .addField("deleteCommands",
                             String.format(

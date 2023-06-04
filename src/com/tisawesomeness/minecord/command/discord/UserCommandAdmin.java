@@ -59,7 +59,7 @@ public class UserCommandAdmin extends LegacyCommand {
         }
 
         EmbedBuilder eb = new EmbedBuilder()
-                .setTitle(MarkdownSanitizer.escape(u.getAsTag()))
+                .setTitle(MarkdownSanitizer.escape(u.getEffectiveName()))
                 .setColor(Bot.color)
                 .addField("ID", u.getId(), true)
                 .addField("Bot?", u.isBot() ? "Yes" : "No", true)

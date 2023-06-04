@@ -46,7 +46,7 @@ public class GuildCommandAdmin extends LegacyCommand {
             return new Result(Outcome.SUCCESS, GuildCommand.getSettingsStr(gid));
         }
         GuildCommand.buildReply(g, true)
-                .thenAccept(emb -> sendSuccess(e, MessageCreateData.fromEmbeds(emb)));
+                .thenAccept(eb -> sendSuccess(e, MessageCreateData.fromEmbeds(eb.build())));
         return new Result(Outcome.SUCCESS);
     }
 

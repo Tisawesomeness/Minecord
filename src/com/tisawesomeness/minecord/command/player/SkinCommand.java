@@ -4,6 +4,7 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.ColorUtils;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import lombok.NonNull;
@@ -41,6 +42,7 @@ public class SkinCommand extends BasePlayerCommand {
         String title = "Skin for " + player.getUsername();
         String skinHistoryUrl = player.getMCSkinHistoryUrl().toString();
         String avatarUrl = player.createRender(RenderType.AVATAR, true).render().toString();
+        String skinUrl = player.getSkinUrl().toString();
         String description = constructDescription(player);
 
         Color color = player.isRainbow() ? ColorUtils.randomColor() : Bot.color;
@@ -48,8 +50,8 @@ public class SkinCommand extends BasePlayerCommand {
                 .setAuthor(title, skinHistoryUrl, avatarUrl)
                 .setColor(color)
                 .setDescription(description)
-                .setImage(player.getSkinUrl().toString());
-        e.getHook().sendMessageEmbeds(eb.build()).queue();
+                .setImage(skinUrl);
+        DiscordUtils.sendImageAsAttachment(e, eb.build(), "skin.png").queue();
     }
     private static @NonNull String constructDescription(Player player) {
         String custom = "**Custom**: " + (player.hasCustomSkin() ? "True" : "False");

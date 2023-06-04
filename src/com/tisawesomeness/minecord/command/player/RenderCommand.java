@@ -6,6 +6,7 @@ import com.tisawesomeness.minecord.mc.player.Render;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.ColorUtils;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -79,7 +80,7 @@ public class RenderCommand extends BaseRenderCommand {
     protected void onSuccessfulRender(SlashCommandInteractionEvent e, Username username, Render render) {
         sendRenderEmbed(e, username, render);
     }
-    protected static void sendRenderEmbed(SlashCommandInteractionEvent e, Username username, Render render) {
+    protected void sendRenderEmbed(SlashCommandInteractionEvent e, Username username, Render render) {
         RenderType type = render.getType();
 
         Color color = Player.isRainbow(username) ? ColorUtils.randomColor() : Bot.color;
@@ -92,7 +93,7 @@ public class RenderCommand extends BaseRenderCommand {
             String msg = String.format("The scale was too high, so it was set to the max, %d.", type.getMaxScale());
             eb.setDescription(msg);
         }
-        e.getHook().sendMessageEmbeds(eb.build()).queue();
+        DiscordUtils.sendImageAsAttachment(e, eb.build(), "render.png").queue();
     }
 
 }

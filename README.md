@@ -100,6 +100,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Record Cache Stats:* Whether to record cache performance statistics. This will cause a slight performance hit.
 - *Item Image Host:* The website hosting item images.
 - *Recipe Image Host:* The website hosting recipe images.
+- *Crafatar Host:* The URL for the Crafatar API.
 
 - *Send Server Count:* Whether the bot should send the guild count to bot list websites.
 - *Pw Token:* The token to use on bots.discord.pw.
@@ -156,7 +157,8 @@ A robust Discord bot using the JDA library for various Minecraft functions.
     "useGappleAPI": true,
     "recordCacheStats": false,
     "itemImageHost": "https://minecord.github.io/item/",
-    "recipeImageHost": "https://minecord.github.io/recipe/"
+    "recipeImageHost": "https://minecord.github.io/recipe/",
+    "crafatarHost": "https://crafatar.com/"
   },
   "botLists": {
     "sendServerCount": false,

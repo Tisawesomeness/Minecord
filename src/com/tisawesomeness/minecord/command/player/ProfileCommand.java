@@ -6,6 +6,7 @@ import com.tisawesomeness.minecord.mc.player.AccountStatus;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.ColorUtils;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.UuidUtils;
 
 import lombok.NonNull;
@@ -67,7 +68,7 @@ public class ProfileCommand extends BasePlayerCommand {
         }
     }
 
-    private static void onSuccessfulStatus(SlashCommandInteractionEvent e, Player player, Optional<AccountStatus> statusOpt) {
+    private void onSuccessfulStatus(SlashCommandInteractionEvent e, Player player, Optional<AccountStatus> statusOpt) {
         String title = "Profile for " + player.getUsername();
         String nameMCUrl = player.getNameMCUrl().toString();
         String avatarUrl = player.createRender(RenderType.AVATAR, true).render().toString();
@@ -95,7 +96,7 @@ public class ProfileCommand extends BasePlayerCommand {
 
         String nameHistory = "Mojang has removed the name history API, [read more here](https://help.minecraft.net/hc/en-us/articles/8969841895693). We are working on a different way to retrieve name history, stay tuned.";
         eb.addField("Name History", nameHistory, true);
-        e.getHook().sendMessageEmbeds(eb.build()).queue();
+        DiscordUtils.sendThumbnailAsAttachment(e, eb.build(), "body.png").queue();
     }
 
     private static @NonNull String constructDescription(Player player) {
