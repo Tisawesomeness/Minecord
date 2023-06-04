@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord;
 
 import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -10,7 +11,6 @@ import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.entities.emoji.EmojiUnion;
 import net.dv8tion.jda.api.entities.emoji.UnicodeEmoji;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.InteractionHook;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -27,6 +27,7 @@ public abstract class ReactMenu {
 
     private final static long timeout = 10 * 60 * 1000;
     private static final HashMap<Long, ReactMenu> menus = new HashMap<>();
+    private SlashCommandInteractionEvent e;
     private Message message;
     private int page;
     private long expire;
@@ -61,7 +62,7 @@ public abstract class ReactMenu {
         buttons = createButtons(page);
         this.page = page;
         if (hasPerms(Permission.MESSAGE_ADD_REACTION)) {
-            message = message.editMessageEmbeds(getEmbed(page)).complete();
+            DiscordUtils.editImageAsAttachment(e, getEmbed(page), "attach").complete();
             if (updateButtons) {
                 List<String> currentButtons = message.getReactions().stream()
                         .map(MessageReaction::getEmoji)
@@ -77,7 +78,7 @@ public abstract class ReactMenu {
                 }
             }
         } else {
-            message = message.editMessageEmbeds(getEmbed(page, true)).complete();
+            DiscordUtils.editImageAsAttachment(e, getEmbed(page, true), "attach").complete();
         }
     }
     /**
@@ -87,9 +88,10 @@ public abstract class ReactMenu {
         MessageEmbed emb = message.getEmbeds().get(0);
         menus.remove(getMessageID());
         if (delete) {
-            message.delete().queue();
+            e.getHook().deleteOriginal().queue();
         } else {
-            message = message.editMessageEmbeds(new EmbedBuilder(emb).setTitle("(expired) " + emb.getTitle()).build()).complete();
+            MessageEmbed edited = new EmbedBuilder(emb).setTitle("(expired) " + emb.getTitle()).build();
+            DiscordUtils.editImageAsAttachment(e, edited, "attach").queue();
             if (hasPerms(Permission.MESSAGE_MANAGE)) {
                 message.getReactions().stream()
                         .filter(MessageReaction::isSelf)
@@ -102,12 +104,12 @@ public abstract class ReactMenu {
      * @param e the event
      */
     public void post(SlashCommandInteractionEvent e) {
+        this.e = e;
         User owner = e.getUser();
         this.ownerID = owner.getIdLong();
         this.ownerName = owner.getName();
         buttons = createButtons(page);
-        InteractionHook hook = e.replyEmbeds(getEmbed(page)).complete();
-        message = hook.retrieveOriginal().complete();
+        message = DiscordUtils.sendImageAsAttachment(e, getEmbed(page), "attach").complete();
         for (Map.Entry<String, Runnable> entry : buttons.entrySet()) {
             if (entry.getValue() != null) {
                 message.addReaction(Emoji.fromUnicode(entry.getKey())).submit();

@@ -4,16 +4,14 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.ColorUtils;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
-import com.tisawesomeness.minecord.util.RequestUtils;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.utils.FileUpload;
 
 import java.awt.Color;
-import java.io.IOException;
 
 public class SkinCommand extends BasePlayerCommand {
 
@@ -48,19 +46,12 @@ public class SkinCommand extends BasePlayerCommand {
         String description = constructDescription(player);
 
         Color color = player.isRainbow() ? ColorUtils.randomColor() : Bot.color;
-
         EmbedBuilder eb = MessageUtils.addFooter(new EmbedBuilder())
                 .setAuthor(title, skinHistoryUrl, avatarUrl)
                 .setColor(color)
-                .setDescription(description);
-        try {
-            byte[] data = RequestUtils.download(skinUrl);
-            e.getHook().sendMessageEmbeds(eb.setImage("attachment://skin.png").build())
-                    .addFiles(FileUpload.fromData(data, "skin.png")).queue();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            e.getHook().sendMessageEmbeds(eb.setImage(skinUrl).build()).queue();
-        }
+                .setDescription(description)
+                .setImage(skinUrl);
+        DiscordUtils.sendImageAsAttachment(e, eb.build(), "skin.png").queue();
     }
     private static @NonNull String constructDescription(Player player) {
         String custom = "**Custom**: " + (player.hasCustomSkin() ? "True" : "False");

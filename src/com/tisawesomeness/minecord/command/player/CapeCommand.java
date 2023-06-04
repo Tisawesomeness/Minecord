@@ -4,11 +4,10 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.ColorUtils;
-import com.tisawesomeness.minecord.util.RequestUtils;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.utils.FileUpload;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -68,23 +67,16 @@ public class CapeCommand extends BasePlayerCommand {
         }
     }
 
-    private static void sendCape(SlashCommandInteractionEvent e, Player player, URL capeUrl, String capeType) {
+    private void sendCape(SlashCommandInteractionEvent e, Player player, URL capeUrl, String capeType) {
         String nameMcUrl = player.getNameMCUrl().toString();
         String avatarUrl = player.createRender(RenderType.AVATAR, true).render().toString();
         String title = capeType + " Cape for " + player.getUsername();
         Color color = player.isRainbow() ? ColorUtils.randomColor() : Bot.color;
-
         EmbedBuilder eb = new EmbedBuilder()
                 .setAuthor(title, nameMcUrl, avatarUrl)
-                .setColor(color);
-        try {
-            byte[] data = RequestUtils.download(capeUrl);
-            e.getHook().sendMessageEmbeds(eb.setImage("attachment://cape.png").build())
-                    .addFiles(FileUpload.fromData(data, "cape.png")).queue();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            e.getHook().sendMessageEmbeds(eb.setImage(capeUrl.toString()).build()).queue();
-        }
+                .setColor(color)
+                .setImage(capeUrl.toString());
+        DiscordUtils.sendImageAsAttachment(e, eb.build(), "cape.png").queue();
     }
 
 }

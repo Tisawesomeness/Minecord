@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.command.utility;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.mc.item.Item;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -54,10 +55,12 @@ public class ItemCommand extends SlashCommand {
         }
 
         // Build message
+        e.deferReply().queue();
         EmbedBuilder eb = Item.display(item, "en_US", "/");
         eb = MessageUtils.addFooter(eb);
 
-        return new Result(Outcome.SUCCESS, eb.build());
+        DiscordUtils.sendThumbnailAsAttachment(e, eb.build(), "item").queue();
+        return new Result(Outcome.SUCCESS);
     }
 
 }

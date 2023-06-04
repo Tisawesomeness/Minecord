@@ -6,17 +6,15 @@ import com.tisawesomeness.minecord.mc.player.AccountStatus;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.ColorUtils;
-import com.tisawesomeness.minecord.util.RequestUtils;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.UuidUtils;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.utils.FileUpload;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import java.awt.Color;
-import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.UUID;
@@ -70,7 +68,7 @@ public class ProfileCommand extends BasePlayerCommand {
         }
     }
 
-    private static void onSuccessfulStatus(SlashCommandInteractionEvent e, Player player, Optional<AccountStatus> statusOpt) {
+    private void onSuccessfulStatus(SlashCommandInteractionEvent e, Player player, Optional<AccountStatus> statusOpt) {
         String title = "Profile for " + player.getUsername();
         String nameMCUrl = player.getNameMCUrl().toString();
         String avatarUrl = player.createRender(RenderType.AVATAR, true).render().toString();
@@ -82,6 +80,7 @@ public class ProfileCommand extends BasePlayerCommand {
         EmbedBuilder eb = new EmbedBuilder()
                 .setColor(color)
                 .setAuthor(title, nameMCUrl, avatarUrl)
+                .setThumbnail(bodyUrl)
                 .setDescription(desc);
 
         if (!player.isPHD()) {
@@ -97,15 +96,7 @@ public class ProfileCommand extends BasePlayerCommand {
 
         String nameHistory = "Mojang has removed the name history API, [read more here](https://help.minecraft.net/hc/en-us/articles/8969841895693). We are working on a different way to retrieve name history, stay tuned.";
         eb.addField("Name History", nameHistory, true);
-
-        try {
-            byte[] data = RequestUtils.download(bodyUrl);
-            e.getHook().sendMessageEmbeds(eb.setThumbnail("attachment://body.png").build())
-                    .addFiles(FileUpload.fromData(data, "body.png")).queue();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            e.getHook().sendMessageEmbeds(eb.setThumbnail(bodyUrl).build()).queue();
-        }
+        DiscordUtils.sendThumbnailAsAttachment(e, eb.build(), "body.png").queue();
     }
 
     private static @NonNull String constructDescription(Player player) {
