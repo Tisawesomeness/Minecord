@@ -99,7 +99,6 @@ public class ProfileCommand extends BasePlayerCommand {
         eb.addField("Name History", nameHistory, true);
 
         try {
-            System.out.println(bodyUrl);
             byte[] data = RequestUtils.download(bodyUrl);
             e.getHook().sendMessageEmbeds(eb.setThumbnail("attachment://body.png").build())
                     .addFiles(FileUpload.fromData(data, "body.png")).queue();

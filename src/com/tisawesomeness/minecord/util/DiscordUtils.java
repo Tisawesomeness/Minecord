@@ -7,7 +7,11 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.requests.ErrorResponse;
+import net.dv8tion.jda.api.utils.ImageProxy;
+import net.dv8tion.jda.internal.utils.IOUtil;
 
+import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -95,6 +99,20 @@ public class DiscordUtils {
      */
     public static String getBoolEmote(boolean bool) {
         return bool ? ":white_check_mark:" : ":x:";
+    }
+
+    public static CompletableFuture<byte[]> retrieveImage(ImageProxy img) {
+        if (img == null) {
+            return CompletableFuture.completedFuture(null);
+        }
+        return img.download().thenApply(is -> {
+            try {
+                return IOUtil.readFully(is);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                return null;
+            }
+        });
     }
 
 }

@@ -54,7 +54,6 @@ public class SkinCommand extends BasePlayerCommand {
                 .setColor(color)
                 .setDescription(description);
         try {
-            System.out.println(skinUrl);
             byte[] data = RequestUtils.download(skinUrl);
             e.getHook().sendMessageEmbeds(eb.setImage("attachment://skin.png").build())
                     .addFiles(FileUpload.fromData(data, "skin.png")).queue();

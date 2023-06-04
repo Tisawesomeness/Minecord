@@ -3,18 +3,18 @@ package com.tisawesomeness.minecord.command.discord;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Guild.BoostTier;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.utils.FileUpload;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 import net.dv8tion.jda.api.utils.TimeFormat;
 import net.dv8tion.jda.api.utils.TimeUtil;
-import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -40,24 +40,32 @@ public class GuildCommand extends SlashCommand {
         if (!e.isFromGuild()) {
             return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
         }
-        buildReply(e.getGuild(), false)
-                .thenAccept(emb -> sendSuccess(e, MessageCreateData.fromEmbeds(emb)));
+        e.deferReply().queue();
+        Guild g = e.getGuild();
+        buildReply(g, false)
+                .thenAcceptBoth(DiscordUtils.retrieveImage(g.getIcon()), (eb, icon) -> {
+                    if (icon != null) {
+                        e.getHook().sendMessageEmbeds(eb.setImage("attachment://icon.png").build())
+                                .addFiles(FileUpload.fromData(icon, "icon.png")).queue();
+                    } else {
+                        e.getHook().sendMessageEmbeds(eb.setImage(g.getIconUrl()).build()).queue();
+                    }
+                });
         return new Result(Outcome.SUCCESS);
     }
 
-    public static CompletableFuture<MessageEmbed> buildReply(Guild g, boolean elevated) {
+    public static CompletableFuture<EmbedBuilder> buildReply(Guild g, boolean elevated) {
         return g.retrieveOwner().submit()
                 .thenApply(m -> buildReply(g, m.getUser(), elevated));
     }
 
-    private static MessageEmbed buildReply(Guild g, User owner, boolean elevated) {
+    private static EmbedBuilder buildReply(Guild g, User owner, boolean elevated) {
         // Generate guild info
         int textChannels = g.getTextChannels().size();
         int voiceChannels = g.getVoiceChannels().size();
         EmbedBuilder eb = new EmbedBuilder()
                 .setTitle(MarkdownSanitizer.escape(g.getName()))
                 .setColor(Bot.color)
-                .setImage(g.getIconUrl())
                 .addField("ID", g.getId(), true)
                 .addField("Users", String.valueOf(g.getMemberCount()), true)
                 .addField("Roles", String.valueOf(g.getRoles().size()), true)
@@ -85,7 +93,7 @@ public class GuildCommand extends SlashCommand {
             }
         }
 
-        return MessageUtils.addFooter(eb).build();
+        return MessageUtils.addFooter(eb);
     }
 
     public static String getSettingsStr(long gid) {

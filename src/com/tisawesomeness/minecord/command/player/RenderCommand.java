@@ -97,7 +97,6 @@ public class RenderCommand extends BaseRenderCommand {
         }
         URL renderUrl = render.render();
         try {
-            System.out.println(renderUrl);
             byte[] data = RequestUtils.download(renderUrl);
             e.getHook().sendMessageEmbeds(eb.setImage("attachment://render.png").build())
                     .addFiles(FileUpload.fromData(data, "render.png")).queue();

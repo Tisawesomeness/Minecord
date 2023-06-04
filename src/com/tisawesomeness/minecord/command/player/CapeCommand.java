@@ -78,7 +78,6 @@ public class CapeCommand extends BasePlayerCommand {
                 .setAuthor(title, nameMcUrl, avatarUrl)
                 .setColor(color);
         try {
-            System.out.println(capeUrl);
             byte[] data = RequestUtils.download(capeUrl);
             e.getHook().sendMessageEmbeds(eb.setImage("attachment://cape.png").build())
                     .addFiles(FileUpload.fromData(data, "cape.png")).queue();
