@@ -66,7 +66,7 @@ public class BanCommand extends LegacyCommand {
             User user = Bot.shardManager.retrieveUserById(args[1])
                     .onErrorMap(ErrorResponse.UNKNOWN_USER::test, x -> null)
                     .complete();
-            String msg = user == null ? args[1] : user.getAsTag();
+            String msg = user == null ? args[1] : user.getEffectiveName();
             msg += banned ? " has been unbanned." : " was struck with the ban hammer!";
             Bot.logger.log(msg);
             System.out.println(msg);

@@ -53,7 +53,7 @@ public class RolesCommand extends SlashCommand {
         }
 
         EmbedBuilder eb = new EmbedBuilder()
-                .setTitle("Roles for " + mem.getUser().getAsTag())
+                .setTitle("Roles for " + mem.getUser().getEffectiveName())
                 .setColor(Bot.color);
 
         // Truncate role list until 6000 chars reached

@@ -72,7 +72,7 @@ public class GuildCommand extends SlashCommand {
                 .addField("Categories", String.valueOf(g.getCategories().size()), true)
                 .addField("Channels", String.format("%d (%d text, %d voice)", textChannels + voiceChannels, textChannels, voiceChannels), true)
                 .addField("Verification Level", g.getVerificationLevel().toString(), true)
-                .addField("Owner", MarkdownSanitizer.escape(owner.getAsTag()), true)
+                .addField("Owner", MarkdownSanitizer.escape(owner.getEffectiveName()), true)
                 .addField("Owner ID", owner.getId(), true)
                 .addField("Created", TimeFormat.RELATIVE.format(TimeUtil.getTimeCreated(g)), true);
         if (g.getBoostTier() == BoostTier.UNKNOWN) {

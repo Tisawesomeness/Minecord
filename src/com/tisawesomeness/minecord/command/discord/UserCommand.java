@@ -76,7 +76,7 @@ public class UserCommand extends SlashCommand {
 
         // Generate user info
         EmbedBuilder eb = MessageUtils.addFooter(new EmbedBuilder())
-                .setTitle(MarkdownSanitizer.escape(u.getAsTag()))
+                .setTitle(MarkdownSanitizer.escape(u.getEffectiveName()))
                 .setColor(mem.getColor())
                 .addField("ID", u.getId(), true)
                 .addField("Nickname", mem.getNickname() == null ? "None" : MarkdownSanitizer.escape(mem.getNickname()), true)
