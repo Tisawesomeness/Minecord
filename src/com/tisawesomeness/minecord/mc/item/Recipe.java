@@ -43,7 +43,7 @@ public class Recipe {
     public static EmbedBuilder displayImg(String recipe, String lang) {
         EmbedBuilder eb = new EmbedBuilder();
         String item = Item.searchNoStats(getResult(recipe), lang);
-        eb.setTitle(Item.getDisplayName(item, lang));
+        eb.setTitle(Item.getDistinctDisplayName(item, lang));
         eb.setImage(Config.getRecipeImageHost() + getImage(recipe));
         eb.setColor(Bot.color);
         eb.setDescription(getMetadata(recipe, lang));
@@ -82,16 +82,11 @@ public class Recipe {
 
     /**
      * Searches the database for all recipes with an item as the output
-     * @param str The string to search with
+     * @param item The item to search for
      * @param lang The language code to pull names from
      * @return Null if the item cannot be found, otherwise a list of recipe names that may be empty
      */
-    public static ArrayList<String> searchOutput(String str, String lang) {
-        // Search for an item
-        String item = Item.search(str, lang);
-        if (item == null) {
-            return null;
-        }
+    public static ArrayList<String> searchOutput(String item, String lang) {
         if (item.contains("potion") || item.contains("tipped_arrow")) {
             return searchItemOutput(item, lang);
         }
@@ -171,16 +166,11 @@ public class Recipe {
 
     /**
      * Searches the database for all recipes with an item as an input
-     * @param str The string to search with
+     * @param item The item to search for
      * @param lang The language code to pull names from
      * @return Null if the item cannot be found, otherwise a list of recipe names that may be empty
      */
-    public static ArrayList<String> searchIngredient(String str, String lang) {
-        // Search for an item
-        String item = Item.search(str, lang);
-        if (item == null) {
-            return null;
-        }
+    public static ArrayList<String> searchIngredient(String item, String lang) {
         if (item.contains("potion") || item.contains("tipped_arrow")) {
             return searchItemIngredient(item, lang);
         }
@@ -516,7 +506,7 @@ public class Recipe {
                 }
             });
             // See what the output can craft
-            ArrayList<String> outputMore = searchIngredient(getResult(recipe), getLang());
+            ArrayList<String> outputMore = searchIngredient(Item.searchNoStats(getResult(recipe), getLang()), getLang());
             boolean hasOutput = outputMore != null && outputMore.size() > 0;
             buttons.put(Emote.UP.getCodepoint(), () -> {
                 if (hasOutput) {

@@ -55,7 +55,11 @@ public class IngredientCommand extends SlashCommand {
 
         // Search through the recipe database with full args first
         String search = e.getOption("item").getAsString();
-        ArrayList<String> recipes = Recipe.searchIngredient(search, "en_US");
+        String item = Item.search(search, "en_US");
+        if (item == null) {
+            return new Result(Outcome.WARNING,
+                    ":warning: That item does not exist! " + "\n" + "Did you spell it correctly?");
+        }
 
         OptionMapping option = e.getOption("page");
         int page;
@@ -68,15 +72,16 @@ public class IngredientCommand extends SlashCommand {
             }
         }
 
-        if (recipes == null) {
-            return new Result(Outcome.WARNING,
-                    ":warning: That item does not exist! " + "\n" + "Did you spell it correctly?");
-        }
+        ArrayList<String> recipes = Recipe.searchIngredient(item, "en_US");
         if (recipes.size() == 0) {
-            return new Result(Outcome.WARNING, ":warning: That item does not have a recipe!");
+            String displayName = Item.getDistinctDisplayName(item, "en_US");
+            return new Result(Outcome.WARNING, ":warning: " + displayName + " is not the ingredient of any recipe!");
         }
         if (page >= recipes.size()) {
-            return new Result(Outcome.WARNING, ":warning: That page does not exist!");
+            if (recipes.size() == 1) {
+                return new Result(Outcome.WARNING, ":warning: There is only 1 page.");
+            }
+            return new Result(Outcome.WARNING, ":warning: Choose a page 1-" + recipes.size() + ".");
         }
 
         // Create menu
