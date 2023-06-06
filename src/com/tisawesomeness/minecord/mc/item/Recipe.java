@@ -583,7 +583,7 @@ public class Recipe {
             });
             // Reserved ingredients
             String type = recipeObj.getString("type");
-            int c = 0;
+            int ingredientButtonCount = 0; // 0 for no buttons, 9 for buttons 1-9, and 10 for buttons 1-9 plus More...
             if (type.equals("minecraft:smelting")) {
                 // Blast furnace, Smoker, Campfire
                 boolean isSmoking = recipes.has(recipe + "_from_smoking");
@@ -592,10 +592,10 @@ public class Recipe {
                     desc += String.format("\n%s %s\n%s %s",
                             Emote.N1.getText(), Item.getMenuDisplayNameWithFeature("minecraft.smoker", getLang()),
                             Emote.N2.getText(), Item.getMenuDisplayNameWithFeature("minecraft.campfire", getLang()));
-                    c = 2;
+                    ingredientButtonCount = 2;
                 } else if (isBlasting) {
                     desc += String.format("\n%s %s", Emote.N1.getText(), Item.getMenuDisplayNameWithFeature("minecraft.blast_furnace", getLang()));
-                    c = 1;
+                    ingredientButtonCount = 1;
                 }
                 buttons.put(Emote.N1.getCodepoint(), () -> {
                     if (isSmoking || isBlasting) {
@@ -622,7 +622,7 @@ public class Recipe {
                     startingIngredient = 0;
                     setPage(0);
                 });
-                c = 1;
+                ingredientButtonCount = 1;
             }
             // Find how to craft each ingredient
             if (isCrafting(type) || isSmelting(type) || type.equals("minecraft.brewing") || isSmithing(type)) {
@@ -641,7 +641,7 @@ public class Recipe {
                 String[] ingredients = new String[ingredientsSet.size()];
                 ingredientsSet.toArray(ingredients);
                 int i = startingIngredient;
-                while (i < ingredients.length && c < 9) {
+                while (i < ingredients.length && ingredientButtonCount <= 9) {
                     String ingredientItem = Item.searchNoStats(ingredients[i], getLang());
                     String toSearch = ingredientItem;
                     if (!ingredientItem.contains("potion") && !ingredientItem.contains("tipped_arrow")) {
@@ -649,22 +649,26 @@ public class Recipe {
                     }
                     ArrayList<String> ingredientMore = searchItemOutput(toSearch, getLang());
                     if (ingredientMore.size() > 0) {
-                        Emote emote = Emote.valueOf(c + 1);
+                        if (ingredientButtonCount == 9) {
+                            ingredientButtonCount++;
+                            break;
+                        }
+                        Emote emote = Emote.valueOf(ingredientButtonCount + 1);
                         buttons.put(emote.getCodepoint(), () -> {
                             setRecipeList(ingredientMore);
                             startingIngredient = 0;
                             setPage(0);
                         });
                         desc += String.format("\n%s %s", emote.getText(), Item.getMenuDisplayNameWithFeature(ingredientItem, getLang()));
-                        c++;
+                        ingredientButtonCount++;
                     }
                     i++;
                 }
-                boolean hasMore = ingredients.length > 9 || startingIngredient > 0;
-                while (c < 9) {
-                    Emote emote = Emote.valueOf(c + 1);
+                boolean hasMore = ingredientButtonCount > 9 || startingIngredient > 0;
+                while (ingredientButtonCount < 9) {
+                    Emote emote = Emote.valueOf(ingredientButtonCount + 1);
                     buttons.put(emote.getCodepoint(), null);
-                    c++;
+                    ingredientButtonCount++;
                 }
                 // Cycle through ingredients if there's more than 9
                 if (hasMore) {
