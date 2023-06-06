@@ -122,7 +122,7 @@ public class Recipe {
     }
 
     private static final List<String> shapedTypes = Arrays.asList(
-            "minecraft:crafting_shaped", "minecraft:crafting_special_tippedarrow"
+            "minecraft:crafting_shaped", "minecraft:crafting_special_tippedarrow", "minecraft:crafting_decorated_pot"
     );
     private static final List<String> shapelessTypes = Arrays.asList(
             "minecraft:crafting_shapeless",
