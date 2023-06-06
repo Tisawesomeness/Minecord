@@ -6,7 +6,6 @@ import com.tisawesomeness.minecord.ReactMenu.MenuStatus;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.mc.item.Item;
 import com.tisawesomeness.minecord.mc.item.Recipe;
-import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -85,17 +84,16 @@ public class RecipeCommand extends SlashCommand {
         }
 
         // Create menu
-        e.deferReply().queue();
         MenuStatus status = ReactMenu.getMenuStatus(e);
         if (status.isValid()) {
+            e.deferReply().queue();
             new Recipe.RecipeMenu(recipes, page, "en_US").post(e);
             return new Result(Outcome.SUCCESS);
         }
         recipes.sort(Recipe::compareRecipes);
         EmbedBuilder eb = Recipe.displayImg(recipes.get(page), "en_US");
         eb.setFooter(String.format("Page %s/%s%s", page + 1, recipes.size(), status.getReason()), null);
-        DiscordUtils.sendImageAsAttachment(e, eb.build(), "recipe").queue();
-        return new Result(Outcome.SUCCESS);
+        return new Result(Outcome.SUCCESS, eb.build());
 
     }
 

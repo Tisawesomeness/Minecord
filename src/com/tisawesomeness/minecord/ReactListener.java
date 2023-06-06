@@ -7,7 +7,6 @@ import net.dv8tion.jda.api.entities.MessageReaction;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.entities.emoji.EmojiUnion;
-import net.dv8tion.jda.api.events.message.MessageEmbedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -42,18 +41,6 @@ public class ReactListener extends ListenerAdapter {
             }
             if (!e.getUser().isBot() && !removed) {
                 removeEmote(e);
-            }
-        }
-    }
-
-    @Override
-    public void onMessageEmbed(MessageEmbedEvent e) {
-        // If embed was removed
-        if (e.getMessageEmbeds().size() == 0) {
-            HashMap<Long, ReactMenu> menus = ReactMenu.getMenus();
-            // If valid menu, delete
-            if (menus.containsKey(e.getMessageIdLong())) {
-                menus.get(e.getMessageIdLong()).disable(true);
             }
         }
     }

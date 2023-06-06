@@ -3,7 +3,6 @@ package com.tisawesomeness.minecord.command.discord;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -11,10 +10,10 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Guild.BoostTier;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.utils.FileUpload;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 import net.dv8tion.jda.api.utils.TimeFormat;
 import net.dv8tion.jda.api.utils.TimeUtil;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -40,17 +39,8 @@ public class GuildCommand extends SlashCommand {
         if (!e.isFromGuild()) {
             return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
         }
-        e.deferReply().queue();
-        Guild g = e.getGuild();
-        buildReply(g, false)
-                .thenAcceptBoth(DiscordUtils.retrieveImage(g.getIcon()), (eb, icon) -> {
-                    if (icon != null) {
-                        e.getHook().sendMessageEmbeds(eb.setImage("attachment://icon.png").build())
-                                .addFiles(FileUpload.fromData(icon, "icon.png")).queue();
-                    } else {
-                        e.getHook().sendMessageEmbeds(eb.setImage(g.getIconUrl()).build()).queue();
-                    }
-                });
+        buildReply(e.getGuild(), false)
+                .thenAccept(eb -> sendSuccess(e, MessageCreateData.fromEmbeds(eb.build())));
         return new Result(Outcome.SUCCESS);
     }
 

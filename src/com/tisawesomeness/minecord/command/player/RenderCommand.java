@@ -6,7 +6,6 @@ import com.tisawesomeness.minecord.mc.player.Render;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.ColorUtils;
-import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -93,7 +92,7 @@ public class RenderCommand extends BaseRenderCommand {
             String msg = String.format("The scale was too high, so it was set to the max, %d.", type.getMaxScale());
             eb.setDescription(msg);
         }
-        DiscordUtils.sendImageAsAttachment(e, eb.build(), "render.png").queue();
+        e.getHook().sendMessageEmbeds(eb.build()).queue();
     }
 
 }
