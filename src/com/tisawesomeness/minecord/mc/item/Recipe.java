@@ -17,6 +17,22 @@ import java.util.stream.Collectors;
 public class Recipe {
 
     public static final String[] FEATURE_FLAGS = new String[] { "vanilla", "1.20", "bundle" };
+    private static final String[] VERSIONS = new String[] {
+            "1.7.10",
+            "1.8", "1.8.1", "1.8.2", "1.8.3", "1.8.4", "1.8.5", "1.8.6", "1.8.7", "1.8.8", "1.8.9",
+            "1.9", "1.9.1", "1.9.2", "1.9.3", "1.9.4",
+            "1.10", "1.10.1", "1.10.2",
+            "1.11", "1.11.1", "1.11.2",
+            "1.12", "1.12.1", "1.12.2",
+            "1.13", "1.13.1", "1.13.2",
+            "1.14", "1.14.1", "1.14.2", "1.14.3", "1.14.4",
+            "1.15", "1.15.1", "1.15.2",
+            "1.16", "1.16.1", "1.16.2", "1.16.3", "1.16.4", "1.16.5",
+            "1.17", "1.17.1",
+            "1.18", "1.18.1", "1.18.2",
+            "1.19", "1.19.1", "1.19.2", "1.19.3", "1.19.4",
+            "1.20"
+    };
 
     private static JSONObject recipes;
     private static JSONObject tags;
@@ -43,7 +59,7 @@ public class Recipe {
     public static EmbedBuilder displayImg(String recipe, String lang) {
         EmbedBuilder eb = new EmbedBuilder();
         String item = Item.searchNoStats(getResult(recipe), lang);
-        eb.setTitle(Item.getDisplayName(item, lang));
+        eb.setTitle(Item.getDistinctDisplayName(item, lang));
         eb.setImage(Config.getRecipeImageHost() + getImage(recipe));
         eb.setColor(Bot.color);
         eb.setDescription(getMetadata(recipe, lang));
@@ -58,7 +74,7 @@ public class Recipe {
         String version = getVersion(recipe);
         String removed = getRemovedVersion(recipe);
         if (version != null && removed != null) {
-            lines.add(String.format("**Version:** %s - %s", version, removed));
+            lines.add(String.format("**Version:** %s - %s", version, getPreviousVersion(removed)));
         } else if (version != null) {
             lines.add(String.format("**Version:** %s", version));
         } else if (removed != null) {
@@ -79,19 +95,17 @@ public class Recipe {
         }
         return lines.toString();
     }
+    private static String getPreviousVersion(String version) {
+        return VERSIONS[ArrayUtils.indexOf(VERSIONS, version) - 1];
+    }
 
     /**
      * Searches the database for all recipes with an item as the output
-     * @param str The string to search with
+     * @param item The item to search for
      * @param lang The language code to pull names from
      * @return Null if the item cannot be found, otherwise a list of recipe names that may be empty
      */
-    public static ArrayList<String> searchOutput(String str, String lang) {
-        // Search for an item
-        String item = Item.search(str, lang);
-        if (item == null) {
-            return null;
-        }
+    public static ArrayList<String> searchOutput(String item, String lang) {
         if (item.contains("potion") || item.contains("tipped_arrow")) {
             return searchItemOutput(item, lang);
         }
@@ -127,7 +141,7 @@ public class Recipe {
     }
 
     private static final List<String> shapedTypes = Arrays.asList(
-            "minecraft:crafting_shaped", "minecraft:crafting_special_tippedarrow"
+            "minecraft:crafting_shaped", "minecraft:crafting_special_tippedarrow", "minecraft:crafting_decorated_pot"
     );
     private static final List<String> shapelessTypes = Arrays.asList(
             "minecraft:crafting_shapeless",
@@ -171,16 +185,11 @@ public class Recipe {
 
     /**
      * Searches the database for all recipes with an item as an input
-     * @param str The string to search with
+     * @param item The item to search for
      * @param lang The language code to pull names from
      * @return Null if the item cannot be found, otherwise a list of recipe names that may be empty
      */
-    public static ArrayList<String> searchIngredient(String str, String lang) {
-        // Search for an item
-        String item = Item.search(str, lang);
-        if (item == null) {
-            return null;
-        }
+    public static ArrayList<String> searchIngredient(String item, String lang) {
         if (item.contains("potion") || item.contains("tipped_arrow")) {
             return searchItemIngredient(item, lang);
         }
@@ -516,7 +525,7 @@ public class Recipe {
                 }
             });
             // See what the output can craft
-            ArrayList<String> outputMore = searchIngredient(getResult(recipe), getLang());
+            ArrayList<String> outputMore = searchIngredient(Item.searchNoStats(getResult(recipe), getLang()), getLang());
             boolean hasOutput = outputMore != null && outputMore.size() > 0;
             buttons.put(Emote.UP.getCodepoint(), () -> {
                 if (hasOutput) {
@@ -583,7 +592,7 @@ public class Recipe {
             });
             // Reserved ingredients
             String type = recipeObj.getString("type");
-            int c = 0;
+            int ingredientButtonCount = 0; // 0 for no buttons, 9 for buttons 1-9, and 10 for buttons 1-9 plus More...
             if (type.equals("minecraft:smelting")) {
                 // Blast furnace, Smoker, Campfire
                 boolean isSmoking = recipes.has(recipe + "_from_smoking");
@@ -592,10 +601,10 @@ public class Recipe {
                     desc += String.format("\n%s %s\n%s %s",
                             Emote.N1.getText(), Item.getMenuDisplayNameWithFeature("minecraft.smoker", getLang()),
                             Emote.N2.getText(), Item.getMenuDisplayNameWithFeature("minecraft.campfire", getLang()));
-                    c = 2;
+                    ingredientButtonCount = 2;
                 } else if (isBlasting) {
                     desc += String.format("\n%s %s", Emote.N1.getText(), Item.getMenuDisplayNameWithFeature("minecraft.blast_furnace", getLang()));
-                    c = 1;
+                    ingredientButtonCount = 1;
                 }
                 buttons.put(Emote.N1.getCodepoint(), () -> {
                     if (isSmoking || isBlasting) {
@@ -622,7 +631,7 @@ public class Recipe {
                     startingIngredient = 0;
                     setPage(0);
                 });
-                c = 1;
+                ingredientButtonCount = 1;
             }
             // Find how to craft each ingredient
             if (isCrafting(type) || isSmelting(type) || type.equals("minecraft.brewing") || isSmithing(type)) {
@@ -641,7 +650,7 @@ public class Recipe {
                 String[] ingredients = new String[ingredientsSet.size()];
                 ingredientsSet.toArray(ingredients);
                 int i = startingIngredient;
-                while (i < ingredients.length && c < 9) {
+                while (i < ingredients.length && ingredientButtonCount <= 9) {
                     String ingredientItem = Item.searchNoStats(ingredients[i], getLang());
                     String toSearch = ingredientItem;
                     if (!ingredientItem.contains("potion") && !ingredientItem.contains("tipped_arrow")) {
@@ -649,22 +658,26 @@ public class Recipe {
                     }
                     ArrayList<String> ingredientMore = searchItemOutput(toSearch, getLang());
                     if (ingredientMore.size() > 0) {
-                        Emote emote = Emote.valueOf(c + 1);
+                        if (ingredientButtonCount == 9) {
+                            ingredientButtonCount++;
+                            break;
+                        }
+                        Emote emote = Emote.valueOf(ingredientButtonCount + 1);
                         buttons.put(emote.getCodepoint(), () -> {
                             setRecipeList(ingredientMore);
                             startingIngredient = 0;
                             setPage(0);
                         });
                         desc += String.format("\n%s %s", emote.getText(), Item.getMenuDisplayNameWithFeature(ingredientItem, getLang()));
-                        c++;
+                        ingredientButtonCount++;
                     }
                     i++;
                 }
-                boolean hasMore = ingredients.length > 9 || startingIngredient > 0;
-                while (c < 9) {
-                    Emote emote = Emote.valueOf(c + 1);
+                boolean hasMore = ingredientButtonCount > 9 || startingIngredient > 0;
+                while (ingredientButtonCount < 9) {
+                    Emote emote = Emote.valueOf(ingredientButtonCount + 1);
                     buttons.put(emote.getCodepoint(), null);
-                    c++;
+                    ingredientButtonCount++;
                 }
                 // Cycle through ingredients if there's more than 9
                 if (hasMore) {

@@ -311,14 +311,6 @@ public class Item {
         return null;
     }
 
-    // Easter egg error
-    static class IndentationError extends RuntimeException {
-        private static final long serialVersionUID = -7502746416663829075L;
-        public IndentationError(String message) {
-            super(message);
-        }
-    }
-
     /**
      * Searches the item database assuming the query is not id-based or numerical
      * @param str The string to search
@@ -510,14 +502,6 @@ public class Item {
         return data.getJSONObject(lang).optInt(color.toLowerCase().replace(" ", "_").replace("-", "_"), -1);
     }
 
-    /**
-     * Returns the display name of an item
-     * @param item The item key
-     * @param lang The language code
-     */
-    public static String getDisplayName(String item, String lang) {
-        return items.getJSONObject(item).getJSONObject("lang").getJSONObject(lang).getString("display_name");
-    }
     public static String getMenuDisplayNameWithFeature(String item, String lang) {
         String displayName = getDistinctDisplayName(item, lang);
         JSONObject properties = items.getJSONObject(item).optJSONObject("properties");
@@ -529,7 +513,7 @@ public class Item {
         }
         return displayName;
     }
-    private static String getDistinctDisplayName(String item, String lang) {
+    public static String getDistinctDisplayName(String item, String lang) {
         JSONObject langObj = items.getJSONObject(item).getJSONObject("lang").getJSONObject(lang);
         String distinctDisplayName = langObj.optString("distinct_display_name", null);
         if (distinctDisplayName != null) {
@@ -576,7 +560,7 @@ public class Item {
         if (properties != null && properties.has("image_key")) {
             return properties.getString("image_key");
         }
-        return getDisplayName(item, "en_US");
+        return items.getJSONObject(item).getJSONObject("lang").getJSONObject("en_US").getString("display_name");
     }
 
     /**

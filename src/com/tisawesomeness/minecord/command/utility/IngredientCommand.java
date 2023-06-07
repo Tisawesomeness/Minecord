@@ -6,7 +6,6 @@ import com.tisawesomeness.minecord.ReactMenu.MenuStatus;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.mc.item.Item;
 import com.tisawesomeness.minecord.mc.item.Recipe;
-import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -55,7 +54,11 @@ public class IngredientCommand extends SlashCommand {
 
         // Search through the recipe database with full args first
         String search = e.getOption("item").getAsString();
-        ArrayList<String> recipes = Recipe.searchIngredient(search, "en_US");
+        String item = Item.search(search, "en_US");
+        if (item == null) {
+            return new Result(Outcome.WARNING,
+                    ":warning: That item does not exist! " + "\n" + "Did you spell it correctly?");
+        }
 
         OptionMapping option = e.getOption("page");
         int page;
@@ -68,29 +71,29 @@ public class IngredientCommand extends SlashCommand {
             }
         }
 
-        if (recipes == null) {
-            return new Result(Outcome.WARNING,
-                    ":warning: That item does not exist! " + "\n" + "Did you spell it correctly?");
-        }
+        ArrayList<String> recipes = Recipe.searchIngredient(item, "en_US");
         if (recipes.size() == 0) {
-            return new Result(Outcome.WARNING, ":warning: That item does not have a recipe!");
+            String displayName = Item.getDistinctDisplayName(item, "en_US");
+            return new Result(Outcome.WARNING, ":warning: " + displayName + " is not the ingredient of any recipe!");
         }
         if (page >= recipes.size()) {
-            return new Result(Outcome.WARNING, ":warning: That page does not exist!");
+            if (recipes.size() == 1) {
+                return new Result(Outcome.WARNING, ":warning: There is only 1 page.");
+            }
+            return new Result(Outcome.WARNING, ":warning: Choose a page 1-" + recipes.size() + ".");
         }
 
         // Create menu
-        e.deferReply().queue();
         MenuStatus status = ReactMenu.getMenuStatus(e);
         if (status.isValid()) {
+            e.deferReply().queue();
             new Recipe.RecipeMenu(recipes, page, "en_US").post(e);
             return new Result(Outcome.SUCCESS);
         }
         recipes.sort(Recipe::compareRecipes);
         EmbedBuilder eb = Recipe.displayImg(recipes.get(page), "en_US");
         eb.setFooter(String.format("Page %s/%s%s", page + 1, recipes.size(), status.getReason()), null);
-        DiscordUtils.sendImageAsAttachment(e, eb.build(), "recipe").queue();
-        return new Result(Outcome.SUCCESS);
+        return new Result(Outcome.SUCCESS, eb.build());
     }
 
 }

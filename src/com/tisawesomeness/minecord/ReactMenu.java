@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord;
 
 import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -33,7 +32,6 @@ public abstract class ReactMenu {
     private long expire;
     private HashMap<String, Runnable> buttons;
     private long ownerID;
-    private String ownerName;
     private final String lang;
 
     /**
@@ -62,7 +60,7 @@ public abstract class ReactMenu {
         buttons = createButtons(page);
         this.page = page;
         if (hasPerms(Permission.MESSAGE_ADD_REACTION)) {
-            DiscordUtils.editImageAsAttachment(e, getEmbed(page), "attach").complete();
+            e.getHook().editOriginalEmbeds(getEmbed(page)).complete();
             if (updateButtons) {
                 List<String> currentButtons = message.getReactions().stream()
                         .map(MessageReaction::getEmoji)
@@ -78,25 +76,21 @@ public abstract class ReactMenu {
                 }
             }
         } else {
-            DiscordUtils.editImageAsAttachment(e, getEmbed(page, true), "attach").complete();
+            e.getHook().editOriginalEmbeds(getEmbed(page, true)).complete();
         }
     }
     /**
      * Removes this menu from the registry, meaning nobody can react to it
      */
-    public void disable(boolean delete) {
+    public void disable() {
         MessageEmbed emb = message.getEmbeds().get(0);
         menus.remove(getMessageID());
-        if (delete) {
-            e.getHook().deleteOriginal().queue();
-        } else {
-            MessageEmbed edited = new EmbedBuilder(emb).setTitle("(expired) " + emb.getTitle()).build();
-            DiscordUtils.editImageAsAttachment(e, edited, "attach").queue();
-            if (hasPerms(Permission.MESSAGE_MANAGE)) {
-                message.getReactions().stream()
-                        .filter(MessageReaction::isSelf)
-                        .forEach(r -> r.removeReaction().queue());
-            }
+        MessageEmbed edited = new EmbedBuilder(emb).setTitle("(expired) " + emb.getTitle()).build();
+        e.getHook().editOriginalEmbeds(edited).queue();
+        if (hasPerms(Permission.MESSAGE_MANAGE)) {
+            message.getReactions().stream()
+                    .filter(MessageReaction::isSelf)
+                    .forEach(r -> r.removeReaction().queue());
         }
     }
     /**
@@ -107,9 +101,8 @@ public abstract class ReactMenu {
         this.e = e;
         User owner = e.getUser();
         this.ownerID = owner.getIdLong();
-        this.ownerName = owner.getName();
         buttons = createButtons(page);
-        message = DiscordUtils.sendImageAsAttachment(e, getEmbed(page), "attach").complete();
+        message = e.getHook().sendMessageEmbeds(getEmbed(page)).complete();
         for (Map.Entry<String, Runnable> entry : buttons.entrySet()) {
             if (entry.getValue() != null) {
                 message.addReaction(Emoji.fromUnicode(entry.getKey())).submit();
@@ -160,7 +153,7 @@ public abstract class ReactMenu {
     private static void purge() {
         menus.values().stream()
                 .filter(m -> m.expire < System.currentTimeMillis())
-                .forEach(m -> m.disable(false));
+                .forEach(ReactMenu::disable);
     }
     /**
      * Check for permissions with less typing

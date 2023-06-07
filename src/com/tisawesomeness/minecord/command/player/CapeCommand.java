@@ -4,7 +4,6 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.ColorUtils;
-import com.tisawesomeness.minecord.util.DiscordUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -76,7 +75,7 @@ public class CapeCommand extends BasePlayerCommand {
                 .setAuthor(title, nameMcUrl, avatarUrl)
                 .setColor(color)
                 .setImage(capeUrl.toString());
-        DiscordUtils.sendImageAsAttachment(e, eb.build(), "cape.png").queue();
+        e.getHook().sendMessageEmbeds(eb.build()).queue();
     }
 
 }

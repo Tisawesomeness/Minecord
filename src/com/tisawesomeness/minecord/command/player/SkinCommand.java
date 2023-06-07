@@ -4,7 +4,6 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.ColorUtils;
-import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import lombok.NonNull;
@@ -51,7 +50,7 @@ public class SkinCommand extends BasePlayerCommand {
                 .setColor(color)
                 .setDescription(description)
                 .setImage(skinUrl);
-        DiscordUtils.sendImageAsAttachment(e, eb.build(), "skin.png").queue();
+        e.getHook().sendMessageEmbeds(eb.build()).queue();
     }
     private static @NonNull String constructDescription(Player player) {
         String custom = "**Custom**: " + (player.hasCustomSkin() ? "True" : "False");

@@ -10233,6 +10233,7 @@
   "minecraft.music_disc_13": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Music Disc 13",
         "lore": "C418 - 13",
         "search_names": [
           "13 Disc",
@@ -10247,8 +10248,7 @@
           "Thirteen"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true,
-        "distinct_display_name": "Music Disc 13"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -10260,6 +10260,7 @@
   "minecraft.music_disc_cat": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Music Disc Cat",
         "lore": "C418 - Cat",
         "search_names": [
           "Cat Disc",
@@ -10268,8 +10269,7 @@
           "C418 - Cat"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true,
-        "distinct_display_name": "Music Disc Cat"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -10281,6 +10281,7 @@
   "minecraft.music_disc_blocks": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Music Disc Blocks",
         "lore": "C418 - Blocks",
         "search_names": [
           "Blocks Disc",
@@ -10289,8 +10290,7 @@
           "C418 - Blocks"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true,
-        "distinct_display_name": "Music Disc Blocks"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -10302,6 +10302,7 @@
   "minecraft.music_disc_chirp": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Music Disc Chirp",
         "lore": "C418 - Chirp",
         "search_names": [
           "Chirp Disc",
@@ -10310,8 +10311,7 @@
           "C418 - Chirp"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true,
-        "distinct_display_name": "Music Disc Chirp"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -10323,6 +10323,7 @@
   "minecraft.music_disc_far": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Music Disc Far",
         "lore": "C418 - Far",
         "search_names": [
           "Far Disc",
@@ -10331,8 +10332,7 @@
           "C418 - Far"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true,
-        "distinct_display_name": "Music Disc Far"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -10344,6 +10344,7 @@
   "minecraft.music_disc_mall": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Music Disc Mall",
         "lore": "C418 - Mall",
         "search_names": [
           "Mall Disc",
@@ -10352,8 +10353,7 @@
           "C418 - Mall"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true,
-        "distinct_display_name": "Music Disc Mall"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -10365,6 +10365,7 @@
   "minecraft.music_disc_mellohi": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Music Disc Mellohi",
         "lore": "C418 - Mellohi",
         "search_names": [
           "Mellohi Disc",
@@ -10373,8 +10374,7 @@
           "C418 - Mellohi"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true,
-        "distinct_display_name": "Music Disc Mellohi"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -10386,6 +10386,7 @@
   "minecraft.music_disc_stal": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Music Disc Stal",
         "lore": "C418 - Stal",
         "search_names": [
           "Stal Disc",
@@ -10395,8 +10396,7 @@
           "Jschlatt"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true,
-        "distinct_display_name": "Music Disc Stal"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -10408,6 +10408,7 @@
   "minecraft.music_disc_strad": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Music Disc Strad",
         "lore": "C418 - Strad",
         "search_names": [
           "Strad Disc",
@@ -10416,8 +10417,7 @@
           "C418 - Strad"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true,
-        "distinct_display_name": "Music Disc Strad"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -10429,6 +10429,7 @@
   "minecraft.music_disc_ward": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Music Disc Ward",
         "lore": "C418 - Ward",
         "search_names": [
           "Ward Disc",
@@ -10438,8 +10439,7 @@
           "Herobrine"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true,
-        "distinct_display_name": "Music Disc Ward"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -10451,6 +10451,7 @@
   "minecraft.music_disc_11": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Music Disc Eleven",
         "lore": "C418 - 11",
         "search_names": [
           "11 Disc",
@@ -10465,8 +10466,7 @@
           "Eleven"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true,
-        "distinct_display_name": "Music Disc Eleven"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -10478,6 +10478,7 @@
   "minecraft.music_disc_wait": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Music Disc Wait",
         "lore": "C418 - Wait",
         "search_names": [
           "Wait Disc",
@@ -10486,8 +10487,7 @@
           "C418 - Wait"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true,
-        "distinct_display_name": "Music Disc Wait"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -12339,6 +12339,7 @@
   "minecraft.creeper_banner_pattern": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Creeper Banner Pattern",
         "lore": "Creeper Charge",
         "search_names": [
           "Creeper Charge Banner Pattern",
@@ -12346,8 +12347,7 @@
           "Creeper Charge Pattern"
         ],
         "display_name": "Banner Pattern",
-        "name_conflict": true,
-        "distinct_display_name": "Creeper Banner Pattern"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -12484,6 +12484,7 @@
   "minecraft.flower_banner_pattern": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Flower Banner Pattern",
         "lore": "Flower Charge",
         "search_names": [
           "Flower Charge Banner Pattern",
@@ -12491,8 +12492,7 @@
           "Flower Charge Pattern"
         ],
         "display_name": "Banner Pattern",
-        "name_conflict": true,
-        "distinct_display_name": "Flower Banner Pattern"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -12516,6 +12516,7 @@
   "minecraft.globe_banner_pattern": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Globe Banner Pattern",
         "lore": "Globe",
         "search_names": [
           "Globe Pattern",
@@ -12523,8 +12524,7 @@
           "Earth Pattern"
         ],
         "display_name": "Banner Pattern",
-        "name_conflict": true,
-        "distinct_display_name": "Globe Banner Pattern"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -12677,6 +12677,7 @@
   "minecraft.mojang_banner_pattern": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Thing Banner Pattern",
         "lore": "Thing",
         "search_names": [
           "Thing Pattern",
@@ -12684,8 +12685,7 @@
           "Mojang Pattern"
         ],
         "display_name": "Banner Pattern",
-        "name_conflict": true,
-        "distinct_display_name": "Thing Banner Pattern"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -13016,6 +13016,7 @@
   "minecraft.skull_banner_pattern": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Skull Charge Banner Pattern",
         "lore": "Skull Charge",
         "search_names": [
           "Skull Banner Pattern",
@@ -13023,8 +13024,7 @@
           "Skull Pattern"
         ],
         "display_name": "Banner Pattern",
-        "name_conflict": true,
-        "distinct_display_name": "Skull Charge Banner Pattern"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -13798,6 +13798,7 @@
   "minecraft.music_disc_pigstep": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Music Disc Pigstep",
         "lore": "Lena Raine - Pigstep",
         "search_names": [
           "Pigstep Disc",
@@ -13807,8 +13808,7 @@
           "Pigstep"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true,
-        "distinct_display_name": "Music Disc Pigstep"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -13971,6 +13971,7 @@
   "minecraft.piglin_banner_pattern": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Snout Banner Pattern",
         "lore": "Snout",
         "search_names": [
           "Piglin Banner Pattern",
@@ -13978,8 +13979,7 @@
           "Piglin Pattern"
         ],
         "display_name": "Banner Pattern",
-        "name_conflict": true,
-        "distinct_display_name": "Snout Banner Pattern"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -17043,6 +17043,7 @@
   "minecraft.music_disc_otherside": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Music Disc otherside",
         "lore": "Lena Raine - otherside",
         "search_names": [
           "Otherside Disc",
@@ -17052,8 +17053,7 @@
           "otherside"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true,
-        "distinct_display_name": "Music Disc otherside"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -17530,6 +17530,7 @@
   "minecraft.music_disc_5": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Music Disc 5",
         "lore": "Samuel Åberg - 5",
         "search_names": [
           "5 Disc",
@@ -17546,8 +17547,7 @@
           "Five"
         ],
         "display_name": "Music Disc",
-        "name_conflict": true,
-        "distinct_display_name": "Music Disc 5"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -18568,6 +18568,48 @@
       "version": "1.19.3"
     }
   },
+  "minecraft.archer_pottery_sherd": {
+    "lang": {
+      "en_US": {
+        "previously": "Archer Pottery Shard",
+        "search_names": [
+          "Archer Sherd",
+          "Pottery Sherd Archer",
+          "Bow Pottery Sherd",
+          "Pottery Sherd Bow",
+          "Bow Sherd",
+          "Archer Shard",
+          "Bow Pottery Shard",
+          "Pottery Shard Bow",
+          "Bow Shard"
+        ],
+        "display_name": "Archer Pottery Sherd"
+      }
+    },
+    "properties": {
+      "previous_id": "minecraft.pottery_shard_archer",
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
+  "minecraft.arms_up_pottery_sherd": {
+    "lang": {
+      "en_US": {
+        "prevoiusly": "Arms Up Pottery Shard",
+        "search_names": [
+          "Arms Up Sherd",
+          "Pottery Sherd Arms Up",
+          "Arms Up Shard"
+        ],
+        "display_name": "Arms Up Pottery Sherd"
+      }
+    },
+    "properties": {
+      "previous_id": "minecraft.pottery_shard_arms_up",
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
   "minecraft.brush": {
     "lang": {
       "en_US": {
@@ -18585,7 +18627,9 @@
         "search_names": [
           "Cherry Wood Boat",
           "Pink Boat",
-          "Pink Wood Boat"
+          "Pink Wood Boat",
+          "Sakura Boat",
+          "Sakura Wood Boat"
         ],
         "display_name": "Cherry Boat"
       }
@@ -18601,7 +18645,9 @@
         "search_names": [
           "Cherry Wood Button",
           "Pink Button",
-          "Pink Wood Button"
+          "Pink Wood Button",
+          "Sakura Button",
+          "Sakura Wood Button"
         ],
         "display_name": "Cherry Button"
       }
@@ -18621,7 +18667,11 @@
           "Pink Boat with Chest",
           "Pink Chest Boat",
           "Pink Wood Boat with Chest",
-          "Pink Wood CHest Boat"
+          "Pink Wood Chest Boat",
+          "Sakura Boat with Chest",
+          "Sakura Chest Boat",
+          "Sakura Wood Boat with Chest",
+          "Sakura Wood Chest Boat"
         ],
         "display_name": "Cherry Boat with Chest"
       }
@@ -18637,7 +18687,9 @@
         "search_names": [
           "Cherry Wood Door",
           "Pink Door",
-          "Pink Wood Door"
+          "Pink Wood Door",
+          "Sakura Door",
+          "Sakura Wood Door"
         ],
         "display_name": "Cherry Door"
       }
@@ -18653,7 +18705,9 @@
         "search_names": [
           "Cherry Wood Fence",
           "Pink Fence",
-          "Pink Wood Fence"
+          "Pink Wood Fence",
+          "Sakura Fence",
+          "Sakura Wood Fence"
         ],
         "display_name": "Cherry Fence"
       }
@@ -18673,7 +18727,11 @@
           "Pink Fence Gate",
           "Pink Wood Fence Gate",
           "Pink Wood Gate",
-          "Pink Gate"
+          "Pink Gate",
+          "Sakura Fence Gate",
+          "Sakura Wood Fence Gate",
+          "Sakura Wood Gate",
+          "Sakura Gate"
         ],
         "display_name": "Cherry Fence Gate"
       }
@@ -18693,7 +18751,11 @@
           "Pink Hanging Sign",
           "Pink Wood Hanging Sign",
           "Hanging Pink Sign",
-          "Hanging Pink Wood Sign"
+          "Hanging Pink Wood Sign",
+          "Sakura Hanging Sign",
+          "Sakura Wood Hanging Sign",
+          "Hanging Sakura Sign",
+          "Hanging Sakura Wood Sign"
         ],
         "display_name": "Cherry Hanging Sign"
       }
@@ -18707,7 +18769,8 @@
     "lang": {
       "en_US": {
         "search_names": [
-          "Pink Leaves"
+          "Pink Leaves",
+          "Sakura Leaves"
         ],
         "display_name": "Cherry Leaves"
       }
@@ -18721,7 +18784,8 @@
     "lang": {
       "en_US": {
         "search_names": [
-          "Pink Log"
+          "Pink Log",
+          "Sakura Log"
         ],
         "display_name": "Cherry Log"
       }
@@ -18741,7 +18805,11 @@
           "Pink Planks",
           "Pink Wood Planks",
           "Pink Wood Plank",
-          "Pink Plank"
+          "Pink Plank",
+          "Sakura Planks",
+          "Sakura Wood Planks",
+          "Sakura Wood Plank",
+          "Sakura Plank"
         ],
         "display_name": "Cherry Planks"
       }
@@ -18761,7 +18829,11 @@
           "Pink Pressure Plate",
           "Pink Wood Pressure Plate",
           "Pink Wood Plate",
-          "Pink Plate"
+          "Pink Plate",
+          "Sakura Pressure Plate",
+          "Sakura Wood Pressure Plate",
+          "Sakura Wood Plate",
+          "Sakura Plate"
         ],
         "display_name": "Cherry Pressure Plate"
       }
@@ -18775,7 +18847,8 @@
     "lang": {
       "en_US": {
         "search_names": [
-          "Pink Sapling"
+          "Pink Sapling",
+          "Sakura Sapling"
         ],
         "display_name": "Cherry Sapling"
       }
@@ -18791,7 +18864,9 @@
         "search_names": [
           "Cherry Wood Sign",
           "Pink Sign",
-          "Pink Wood Sign"
+          "Pink Wood Sign",
+          "Sakura Sign",
+          "Sakura Wood Sign"
         ],
         "display_name": "Cherry Sign"
       }
@@ -18807,7 +18882,9 @@
         "search_names": [
           "Cherry Wood Slab",
           "Pink Slab",
-          "Pink Wood Slab"
+          "Pink Wood Slab",
+          "Sakura Slab",
+          "Sakura Wood Slab"
         ],
         "display_name": "Cherry Slab"
       }
@@ -18827,7 +18904,11 @@
           "Pink Stairs",
           "Pink Wood Stairs",
           "Pink Wood Stair",
-          "Pink Stair"
+          "Pink Stair",
+          "Sakura Stairs",
+          "Sakura Wood Stairs",
+          "Sakura Wood Stair",
+          "Sakura Stair"
         ],
         "display_name": "Cherry Stairs"
       }
@@ -18847,7 +18928,11 @@
           "Pink Trapdoor",
           "Pink Wood Trapdoor",
           "Pink Wood Trap Door",
-          "Pink Trap Door"
+          "Pink Trap Door",
+          "Sakura Trapdoor",
+          "Sakura Wood Trapdoor",
+          "Sakura Wood Trap Door",
+          "Sakura Trap Door"
         ],
         "display_name": "Cherry Trapdoor"
       }
@@ -18875,7 +18960,15 @@
           "Pink Hanging Wall Sign",
           "Pink Wood Hanging Wall Sign",
           "Hanging Pink Wall Sign",
-          "Hanging Pink Wood Wall Sign"
+          "Hanging Pink Wood Wall Sign",
+          "Sakura Wall Hanging Sign",
+          "Sakura Wood Wall Hanging Sign",
+          "Wall Hanging Sakura Sign",
+          "Wall Hanging Sakura Wood Sign",
+          "Sakura Hanging Wall Sign",
+          "Sakura Wood Hanging Wall Sign",
+          "Hanging Sakura Wall Sign",
+          "Hanging Sakura Wood Wall Sign"
         ],
         "display_name": "Cherry Wall Hanging Sign"
       }
@@ -18892,7 +18985,9 @@
         "search_names": [
           "Cherry Wood Wall Sign",
           "Pink Wall Sign",
-          "Pink Wood Wall Sign"
+          "Pink Wood Wall Sign",
+          "Sakura Wall Sign",
+          "Sakura Wood Wall Sign"
         ],
         "display_name": "Cherry Wall Sign"
       }
@@ -18907,7 +19002,8 @@
     "lang": {
       "en_US": {
         "search_names": [
-          "Pink Wood"
+          "Pink Wood",
+          "Sakura Wood"
         ],
         "display_name": "Cherry Wood"
       }
@@ -18920,6 +19016,8 @@
   "minecraft.coast_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Coast Smithing Template",
+        "lore": "Coast Armor Trim",
         "search_names": [
           "Coast Armor Trim Smithing Template",
           "Coast Armor Trim Template",
@@ -18937,10 +19035,8 @@
           "Shipwreck Smithing Template",
           "Shipwreck Template"
         ],
-        "lore": "Coast Armor Trim",
         "display_name": "Smithing Template",
-        "name_conflict": true,
-        "distinct_display_name": "Coast Smithing Template"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -18967,6 +19063,8 @@
   "minecraft.dune_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Dune Smithing Template",
+        "lore": "Dune Armor Trim",
         "search_names": [
           "Dune Armor Trim Smithing Template",
           "Dune Armor Trim Template",
@@ -19000,10 +19098,8 @@
           "Desert Temple Smithing Template",
           "Desert Temple Template"
         ],
-        "lore": "Dune Armor Trim",
         "display_name": "Smithing Template",
-        "name_conflict": true,
-        "distinct_display_name": "Dune Smithing Template"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -19015,6 +19111,8 @@
   "minecraft.eye_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Eye Smithing Template",
+        "lore": "Eye Armor Trim",
         "search_names": [
           "Eye Armor Trim Smithing Template",
           "Eye Armor Trim Template",
@@ -19032,10 +19130,8 @@
           "Stronghold Smithing Template",
           "Stronghold Template"
         ],
-        "lore": "Eye Armor Trim",
         "display_name": "Smithing Template",
-        "name_conflict": true,
-        "distinct_display_name": "Eye Smithing Template"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -19047,16 +19143,16 @@
   "minecraft.netherite_upgrade_smithing_template": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Netherite Upgrade Smithing Template",
+        "lore": "Netherite Upgrade",
         "search_names": [
           "Netherite Upgrade Template",
           "Netherite Smithing Template",
           "Netherite Template",
           "Netherite Upgrade"
         ],
-        "lore": "Netherite Upgrade",
         "display_name": "Smithing Template",
-        "name_conflict": true,
-        "distinct_display_name": "Netherite Upgrade Smithing Template"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -19071,7 +19167,9 @@
         "search_names": [
           "Pink Flowers",
           "Cherry Petals",
-          "Cherry Flowers"
+          "Cherry Flowers",
+          "Sakura Petals",
+          "Sakura Flowers"
         ],
         "display_name": "Pink Petals"
       }
@@ -19085,7 +19183,8 @@
     "lang": {
       "en_US": {
         "search_names": [
-          "Potted Pink Sapling"
+          "Potted Pink Sapling",
+          "Potted Sakura Sapling"
         ],
         "display_name": "Potted Cherry Sapling"
       }
@@ -19109,64 +19208,26 @@
       "version": "1.19.4"
     }
   },
-  "minecraft.pottery_shard_archer": {
+  "minecraft.prize_pottery_sherd": {
     "lang": {
       "en_US": {
+        "previously": "Prize Pottery Shard",
         "search_names": [
-          "Archer Shard",
-          "Bow Pottery Shard",
-          "Pottery Shard Bow",
-          "Bow Shard"
-        ],
-        "display_name": "Archer Pottery Shard"
-      }
-    },
-    "properties": {
-      "feature_flag": "1.20",
-      "version": "1.19.4"
-    }
-  },
-  "minecraft.pottery_shard_arms_up": {
-    "lang": {
-      "en_US": {
-        "search_names": [
-          "Arms Up Shard"
-        ],
-        "display_name": "Arms Up Pottery Shard"
-      }
-    },
-    "properties": {
-      "feature_flag": "1.20",
-      "version": "1.19.4"
-    }
-  },
-  "minecraft.pottery_shard_prize": {
-    "lang": {
-      "en_US": {
-        "search_names": [
+          "Prize Sherd",
+          "Pottery Sherd Prize",
+          "Diamond Pottery Sherd",
+          "Pottery Sherd Diamond",
+          "Diamond Sherd",
           "Prize Shard",
           "Diamond Pottery Shard",
           "Pottery Shard Diamond",
           "Diamond Shard"
         ],
-        "display_name": "Prize Pottery Shard"
+        "display_name": "Prize Pottery Sherd"
       }
     },
     "properties": {
-      "feature_flag": "1.20",
-      "version": "1.19.4"
-    }
-  },
-  "minecraft.pottery_shard_skull": {
-    "lang": {
-      "en_US": {
-        "search_names": [
-          "Skull Shard"
-        ],
-        "display_name": "Skull Pottery Shard"
-      }
-    },
-    "properties": {
+      "previous_id": "minecraft.pottery_shard_prize",
       "feature_flag": "1.20",
       "version": "1.19.4"
     }
@@ -19174,6 +19235,8 @@
   "minecraft.rib_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Rib Smithing Template",
+        "lore": "Rib Armor Trim",
         "search_names": [
           "Rib Armor Trim Smithing Template",
           "Rib Armor Trim Template",
@@ -19199,10 +19262,8 @@
           "Fortress Smithing Template",
           "Fortress Template"
         ],
-        "lore": "Rib Armor Trim",
         "display_name": "Smithing Template",
-        "name_conflict": true,
-        "distinct_display_name": "Rib Smithing Template"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -19214,6 +19275,8 @@
   "minecraft.sentry_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Sentry Smithing Template",
+        "lore": "Sentry Armor Trim",
         "search_names": [
           "Sentry Armor Trim Smithing Template",
           "Sentry Armor Trim Template",
@@ -19247,10 +19310,8 @@
           "Outpost Smithing Template",
           "Outpost Template"
         ],
-        "lore": "Sentry Armor Trim",
         "display_name": "Smithing Template",
-        "name_conflict": true,
-        "distinct_display_name": "Sentry Smithing Template"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -19259,12 +19320,29 @@
       "version": "1.19.4"
     }
   },
+  "minecraft.skull_pottery_sherd": {
+    "lang": {
+      "en_US": {
+        "previously": "Skull Pottery Shard",
+        "search_names": [
+          "Skull Sherd",
+          "Pottery Sherd Skull",
+          "Skull Shard"
+        ],
+        "display_name": "Skull Pottery Sherd"
+      }
+    },
+    "properties": {
+      "previous_id": "minecraft.pottery_shard_skull",
+      "feature_flag": "1.20",
+      "version": "1.19.4"
+    }
+  },
   "minecraft.sniffer_spawn_egg": {
     "lang": {
       "en_US": {
         "search_names": [
-          "Spawn Sniffer",
-          "Sniffer Egg"
+          "Spawn Sniffer"
         ],
         "display_name": "Sniffer Spawn Egg"
       }
@@ -19277,6 +19355,8 @@
   "minecraft.snout_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Snout Smithing Template",
+        "lore": "Snout Armor Trim",
         "search_names": [
           "Snout Armor Trim Smithing Template",
           "Snout Armor Trim Template",
@@ -19318,10 +19398,8 @@
           "Piglin Smithing Template",
           "Piglin Template"
         ],
-        "lore": "Snout Armor Trim",
         "display_name": "Smithing Template",
-        "name_conflict": true,
-        "distinct_display_name": "Snout Smithing Template"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -19333,6 +19411,8 @@
   "minecraft.spire_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Spire Smithing Template",
+        "lore": "Spire Armor Trim",
         "search_names": [
           "Spire Armor Trim Smithing Template",
           "Spire Armor Trim Template",
@@ -19358,10 +19438,8 @@
           "End Smithing Template",
           "End Template"
         ],
-        "lore": "Spire Armor Trim",
         "display_name": "Smithing Template",
-        "name_conflict": true,
-        "distinct_display_name": "Spire Smithing Template"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -19374,7 +19452,8 @@
     "lang": {
       "en_US": {
         "search_names": [
-          "Stripped Pink Log"
+          "Stripped Pink Log",
+          "Stripped Sakura Log"
         ],
         "display_name": "Stripped Cherry Log"
       }
@@ -19388,7 +19467,8 @@
     "lang": {
       "en_US": {
         "search_names": [
-          "Stripped Pink Wood"
+          "Stripped Pink Wood",
+          "Stripped Sakura Wood"
         ],
         "display_name": "Stripped Cherry Wood"
       }
@@ -19415,6 +19495,8 @@
   "minecraft.tide_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Tide Smithing Template",
+        "lore": "Tide Armor Trim",
         "search_names": [
           "Tide Armor Trim Smithing Template",
           "Tide Armor Trim Template",
@@ -19456,10 +19538,8 @@
           "Monument Smithing Template",
           "Monument Template"
         ],
-        "lore": "Tide Armor Trim",
         "display_name": "Smithing Template",
-        "name_conflict": true,
-        "distinct_display_name": "Tide Smithing Template"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -19515,6 +19595,8 @@
   "minecraft.vex_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Vex Smithing Template",
+        "lore": "Vex Armor Trim",
         "search_names": [
           "Vex Armor Trim Smithing Template",
           "Vex Armor Trim Template",
@@ -19540,10 +19622,8 @@
           "Mansion Smithing Template",
           "Mansion Template"
         ],
-        "lore": "Vex Armor Trim",
         "display_name": "Smithing Template",
-        "name_conflict": true,
-        "distinct_display_name": "Vex Smithing Template"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -19555,6 +19635,8 @@
   "minecraft.ward_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Ward Smithing Template",
+        "lore": "Ward Armor Trim",
         "search_names": [
           "Ward Armor Trim Smithing Template",
           "Ward Armor Trim Template",
@@ -19570,28 +19652,10 @@
           "Warden Trim Template",
           "Warden Trim",
           "Warden Smithing Template",
-          "Warden Template",
-          "Ancient City Armor Trim Smithing Template",
-          "Ancient City Armor Trim Template",
-          "Ancient City Armor Trim",
-          "Ancient City Trim Smithing Template",
-          "Ancient City Trim Template",
-          "Ancient City Trim",
-          "Ancient City Smithing Template",
-          "Ancient City Template",
-          "Deep Dark Armor Trim Smithing Template",
-          "Deep Dark Armor Trim Template",
-          "Deep Dark Armor Trim",
-          "Deep Dark Trim Smithing Template",
-          "Deep Dark Trim Template",
-          "Deep Dark Trim",
-          "Deep Dark Smithing Template",
-          "Deep Dark Template"
+          "Warden Template"
         ],
-        "lore": "Ward Armor Trim",
         "display_name": "Smithing Template",
-        "name_conflict": true,
-        "distinct_display_name": "Ward Smithing Template"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -19603,6 +19667,8 @@
   "minecraft.wild_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Wild Smithing Template",
+        "lore": "Wild Armor Trim",
         "search_names": [
           "Wild Armor Trim Smithing Template",
           "Wild Armor Trim Template",
@@ -19628,16 +19694,645 @@
           "Jungle Smithing Template",
           "Jungle Template"
         ],
-        "lore": "Wild Armor Trim",
         "display_name": "Smithing Template",
-        "name_conflict": true,
-        "distinct_display_name": "Wild Smithing Template"
+        "name_conflict": true
       }
     },
     "properties": {
       "image_key": "Wild Armor Trim",
       "feature_flag": "1.20",
       "version": "1.19.4"
+    }
+  },
+  "minecraft.angler_pottery_sherd": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Angler Sherd",
+          "Pottery Sherd Angler",
+          "Angler Pottery Shard",
+          "Angler Shard",
+          "Pottery Shard Angler",
+          "Fishing Pottery Sherd",
+          "Fishing Sherd",
+          "Pottery Sherd Fishing",
+          "Fishing Pottery Shard",
+          "Fishing Shard",
+          "Pottery Shard Fishing",
+          "Fishing Rod Pottery Sherd",
+          "Fishing Rod Sherd",
+          "Pottery Sherd Fishing Rod",
+          "Fishing Rod Pottery Shard",
+          "Fishing Rod Shard",
+          "Pottery Shard Fishing Rod"
+        ],
+        "display_name": "Angler Pottery Sherd"
+      }
+    },
+    "properties": {
+      "version": "1.20"
+    }
+  },
+  "minecraft.blade_pottery_sherd": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Blade Sherd",
+          "Pottery Sherd Blade",
+          "Blade Pottery Shard",
+          "Blade Shard",
+          "Pottery Shard Blade",
+          "Sword Pottery Sherd",
+          "Sword Sherd",
+          "Pottery Sherd Sword",
+          "Sword Pottery Shard",
+          "Sword Shard",
+          "Pottery Shard Sword",
+          "Dagger Pottery Sherd",
+          "Dagger Sherd",
+          "Pottery Sherd Dagger",
+          "Dagger Pottery Shard",
+          "Dagger Shard",
+          "Pottery Shard Dagger"
+        ],
+        "display_name": "Blade Pottery Sherd"
+      }
+    },
+    "properties": {
+      "version": "1.20"
+    }
+  },
+  "minecraft.brewer_pottery_sherd": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Brewer Sherd",
+          "Pottery Sherd Brewer",
+          "Brewer Pottery Shard",
+          "Brewer Shard",
+          "Pottery Shard Brewer",
+          "Potion Pottery Sherd",
+          "Potion Sherd",
+          "Pottery Sherd Potion",
+          "Potion Pottery Shard",
+          "Potion Shard",
+          "Pottery Shard Potion",
+          "Bottle Pottery Sherd",
+          "Bottle Sherd",
+          "Pottery Sherd Bottle",
+          "Bottle Pottery Shard",
+          "Bottle Shard",
+          "Pottery Shard Bottle",
+          "Glass Pottery Sherd",
+          "Glass Sherd",
+          "Pottery Sherd Glass",
+          "Glass Pottery Shard",
+          "Glass Shard",
+          "Pottery Shard Glass"
+        ],
+        "display_name": "Brewer Pottery Sherd"
+      }
+    },
+    "properties": {
+      "version": "1.20"
+    }
+  },
+  "minecraft.burn_pottery_sherd": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Burn Sherd",
+          "Pottery Sherd Burn",
+          "Burn Pottery Shard",
+          "Burn Shard",
+          "Pottery Shard Burn",
+          "Fire Pottery Sherd",
+          "Fire Sherd",
+          "Pottery Sherd Fire",
+          "Fire Pottery Shard",
+          "Fire Shard",
+          "Pottery Shard Fire",
+          "Flame Pottery Sherd",
+          "Flame Sherd",
+          "Pottery Sherd Flame",
+          "Flame Pottery Shard",
+          "Flame Shard",
+          "Pottery Shard Flame"
+        ],
+        "display_name": "Burn Pottery Sherd"
+      }
+    },
+    "properties": {
+      "version": "1.20"
+    }
+  },
+  "minecraft.calibrated_sculk_sensor": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Amethyst Sculk Sensor"
+        ],
+        "display_name": "Calibrated Sculk Sensor"
+      }
+    },
+    "properties": {
+      "version": "1.20"
+    }
+  },
+  "minecraft.danger_pottery_sherd": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Danger Sherd",
+          "Pottery Sherd Danger",
+          "Danger Pottery Shard",
+          "Danger Shard",
+          "Pottery Shard Danger",
+          "Creeper Pottery Sherd",
+          "Creeper Sherd",
+          "Pottery Sherd Creeper",
+          "Creeper Pottery Shard",
+          "Creeper Shard",
+          "Pottery Shard Creeper"
+        ],
+        "display_name": "Danger Pottery Sherd"
+      }
+    },
+    "properties": {
+      "version": "1.20"
+    }
+  },
+  "minecraft.explorer_pottery_sherd": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Explorer Sherd",
+          "Pottery Sherd Explorer",
+          "Explorer Pottery Shard",
+          "Explorer Shard",
+          "Pottery Shard Explorer",
+          "Map Pottery Sherd",
+          "Map Sherd",
+          "Pottery Sherd Map",
+          "Map Pottery Shard",
+          "Map Shard",
+          "Pottery Shard Map",
+          "Treasure Map Pottery Sherd",
+          "Treasure Map Sherd",
+          "Pottery Sherd Treasure Map",
+          "Treasure Map Pottery Shard",
+          "Treasure Map Shard",
+          "Pottery Shard Treasure Map"
+        ],
+        "display_name": "Explorer Pottery Sherd"
+      }
+    },
+    "properties": {
+      "version": "1.20"
+    }
+  },
+  "minecraft.friend_pottery_sherd": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Friend Sherd",
+          "Pottery Sherd Friend",
+          "Friend Pottery Shard",
+          "Friend Shard",
+          "Pottery Shard Friend",
+          "Villager Pottery Sherd",
+          "Villager Sherd",
+          "Pottery Sherd Villager",
+          "Villager Pottery Shard",
+          "Villager Shard",
+          "Pottery Shard Villager",
+          "Iron Golem Pottery Sherd",
+          "Iron Golem Sherd",
+          "Pottery Sherd Iron Golem",
+          "Iron Golem Pottery Shard",
+          "Iron Golem Shard",
+          "Pottery Shard Iron Golem"
+        ],
+        "display_name": "Friend Pottery Sherd"
+      }
+    },
+    "properties": {
+      "version": "1.20"
+    }
+  },
+  "minecraft.heart_pottery_sherd": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Heart Sherd",
+          "Pottery Sherd Heart",
+          "Heart Pottery Shard",
+          "Heart Shard",
+          "Pottery Shard Heart"
+        ],
+        "display_name": "Heart Pottery Sherd"
+      }
+    },
+    "properties": {
+      "version": "1.20"
+    }
+  },
+  "minecraft.heartbreak_pottery_sherd": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Heartbreak Sherd",
+          "Pottery Sherd Heartbreak",
+          "Heartbreak Pottery Shard",
+          "Heartbreak Shard",
+          "Pottery Shard Heartbreak",
+          "Broken Heart Pottery Sherd",
+          "Broken Heart Sherd",
+          "Pottery Sherd Broken Heart",
+          "Broken Heart Pottery Shard",
+          "Broken Heart Shard",
+          "Pottery Shard Broken Heart"
+        ],
+        "display_name": "Heartbreak Pottery Sherd"
+      }
+    },
+    "properties": {
+      "version": "1.20"
+    }
+  },
+  "minecraft.host_armor_trim_smithing_template": {
+    "lang": {
+      "en_US": {
+        "distinct_display_name": "Host Smithing Template",
+        "lore": "Host Armor Trim",
+        "search_names": [
+          "Host Armor Trim Smithing Template",
+          "Host Armor Trim Template",
+          "Host Armor Trim",
+          "Host Trim Smithing Template",
+          "Host Trim Template",
+          "Host Trim",
+          "Host Template"
+        ],
+        "display_name": "Smithing Template",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Host Armor Trim",
+      "version": "1.20"
+    }
+  },
+  "minecraft.howl_pottery_sherd": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Howl Sherd",
+          "Pottery Sherd Howl",
+          "Howl Pottery Shard",
+          "Howl Shard",
+          "Pottery Shard Howl",
+          "Wolf Pottery Sherd",
+          "Wolf Sherd",
+          "Pottery Sherd Wolf",
+          "Wolf Pottery Shard",
+          "Wolf Shard",
+          "Pottery Shard Wolf",
+          "Dog Pottery Sherd",
+          "Dog Sherd",
+          "Pottery Sherd Dog",
+          "Dog Pottery Shard",
+          "Dog Shard",
+          "Pottery Shard Dog"
+        ],
+        "display_name": "Howl Pottery Sherd"
+      }
+    },
+    "properties": {
+      "version": "1.20"
+    }
+  },
+  "minecraft.miner_pottery_sherd": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Miner Sherd",
+          "Pottery Sherd Miner",
+          "Miner Pottery Shard",
+          "Miner Shard",
+          "Pottery Shard Miner",
+          "Pickaxe Pottery Sherd",
+          "Pickaxe Sherd",
+          "Pottery Sherd Pickaxe",
+          "Pickaxe Pottery Shard",
+          "Pickaxe Shard",
+          "Pottery Shard Pickaxe"
+        ],
+        "display_name": "Miner Pottery Sherd"
+      }
+    },
+    "properties": {
+      "version": "1.20"
+    }
+  },
+  "minecraft.mourner_pottery_sherd": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Mourner Sherd",
+          "Pottery Sherd Mourner",
+          "Mourner Pottery Shard",
+          "Mourner Shard",
+          "Pottery Shard Mourner",
+          "Warden Pottery Sherd",
+          "Warden Sherd",
+          "Pottery Sherd Warden",
+          "Warden Pottery Shard",
+          "Warden Shard",
+          "Pottery Shard Warden"
+        ],
+        "display_name": "Mourner Pottery Sherd"
+      }
+    },
+    "properties": {
+      "version": "1.20"
+    }
+  },
+  "minecraft.music_disc_relic": {
+    "lang": {
+      "en_US": {
+        "lore": "Aaron Cherof - Relic",
+        "search_names": [
+          "Relic Disc",
+          "Relic Music Disc",
+          "Disc Relic",
+          "Aaron Cherof - Relic",
+          "Relic"
+        ],
+        "display_name": "Music Disc",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Music Disc Relic",
+      "version": "1.20"
+    }
+  },
+  "minecraft.pitcher_crop": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pitcher Crops"
+        ],
+        "display_name": "Pitcher Crop"
+      }
+    },
+    "properties": {
+      "version": "1.20"
+    }
+  },
+  "minecraft.pitcher_plant": {
+    "lang": {
+      "en_US": {
+        "display_name": "Pitcher Plant"
+      }
+    },
+    "properties": {
+      "version": "1.20"
+    }
+  },
+  "minecraft.pitcher_pod": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pitcher Seeds"
+        ],
+        "display_name": "Pitcher Pod"
+      }
+    },
+    "properties": {
+      "version": "1.20"
+    }
+  },
+  "minecraft.plenty_pottery_sherd": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Plenty Sherd",
+          "Pottery Sherd Plenty",
+          "Plenty Pottery Shard",
+          "Plenty Shard",
+          "Pottery Shard Plenty",
+          "Chest Pottery Sherd",
+          "Chest Sherd",
+          "Pottery Sherd Chest",
+          "Chest Pottery Shard",
+          "Chest Shard",
+          "Pottery Shard Chest"
+        ],
+        "display_name": "Plenty Pottery Sherd"
+      }
+    },
+    "properties": {
+      "version": "1.20"
+    }
+  },
+  "minecraft.raiser_armor_trim_smithing_template": {
+    "lang": {
+      "en_US": {
+        "distinct_display_name": "Raiser Smithing Template",
+        "lore": "Raiser Armor Trim",
+        "search_names": [
+          "Raiser Armor Trim Smithing Template",
+          "Raiser Armor Trim Template",
+          "Raiser Armor Trim",
+          "Raiser Trim Smithing Template",
+          "Raiser Trim Template",
+          "Raiser Trim",
+          "Raiser Template"
+        ],
+        "display_name": "Smithing Template",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Raiser Armor Trim",
+      "version": "1.20"
+    }
+  },
+  "minecraft.shaper_armor_trim_smithing_template": {
+    "lang": {
+      "en_US": {
+        "distinct_display_name": "Shaper Smithing Template",
+        "lore": "Shaper Armor Trim",
+        "search_names": [
+          "Shaper Armor Trim Smithing Template",
+          "Shaper Armor Trim Template",
+          "Shaper Armor Trim",
+          "Shaper Trim Smithing Template",
+          "Shaper Trim Template",
+          "Shaper Trim",
+          "Shaper Template"
+        ],
+        "display_name": "Smithing Template",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Shaper Armor Trim",
+      "version": "1.20"
+    }
+  },
+  "minecraft.sheaf_pottery_sherd": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Sheaf Sherd",
+          "Pottery Sherd Sheaf",
+          "Sheaf Pottery Shard",
+          "Sheaf Shard",
+          "Pottery Shard Sheaf",
+          "Wheat Pottery Sherd",
+          "Wheat Sherd",
+          "Pottery Sherd Wheat",
+          "Wheat Pottery Shard",
+          "Wheat Shard",
+          "Pottery Shard Wheat"
+        ],
+        "display_name": "Sheaf Pottery Sherd"
+      }
+    },
+    "properties": {
+      "version": "1.20"
+    }
+  },
+  "minecraft.shelter_pottery_sherd": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Shelter Sherd",
+          "Pottery Sherd Shelter",
+          "Shelter Pottery Shard",
+          "Shelter Shard",
+          "Pottery Shard Shelter",
+          "Tree Pottery Sherd",
+          "Tree Sherd",
+          "Pottery Sherd Tree",
+          "Tree Pottery Shard",
+          "Tree Shard",
+          "Pottery Shard Tree",
+          "Savanna Pottery Sherd",
+          "Savanna Sherd",
+          "Pottery Sherd Savanna",
+          "Savanna Pottery Shard",
+          "Savanna Shard",
+          "Pottery Shard Savanna"
+        ],
+        "display_name": "Shelter Pottery Sherd"
+      }
+    },
+    "properties": {
+      "version": "1.20"
+    }
+  },
+  "minecraft.silence_armor_trim_smithing_template": {
+    "lang": {
+      "en_US": {
+        "distinct_display_name": "Silence Smithing Template",
+        "lore": "Silence Armor Trim",
+        "search_names": [
+          "Silence Armor Trim Smithing Template",
+          "Silence Armor Trim Template",
+          "Silence Armor Trim",
+          "Silence Trim Smithing Template",
+          "Silence Trim Template",
+          "Silence Trim",
+          "Silence Template",
+          "Silenced Smithing Template",
+          "Silenced Armor Trim Smithing Template",
+          "Silenced Armor Trim Template",
+          "Silenced Armor Trim",
+          "Silenced Trim Smithing Template",
+          "Silenced Trim Template",
+          "Silenced Trim",
+          "Silenced Template"
+        ],
+        "display_name": "Smithing Template",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Silence Armor Trim",
+      "version": "1.20"
+    }
+  },
+  "minecraft.sniffer_egg": {
+    "lang": {
+      "en_US": {
+        "display_name": "Sniffer Egg"
+      }
+    },
+    "properties": {
+      "version": "1.20"
+    }
+  },
+  "minecraft.snort_pottery_sherd": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Snort Sherd",
+          "Pottery Sherd Snort",
+          "Snort Pottery Shard",
+          "Snort Shard",
+          "Pottery Shard Snort",
+          "Sniffer Pottery Sherd",
+          "Sniffer Sherd",
+          "Pottery Sherd Sniffer",
+          "Sniffer Pottery Shard",
+          "Sniffer Shard",
+          "Pottery Shard Sniffer"
+        ],
+        "display_name": "Snort Pottery Sherd"
+      }
+    },
+    "properties": {
+      "version": "1.20"
+    }
+  },
+  "minecraft.suspicious_gravel": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Sus Gravel"
+        ],
+        "display_name": "Suspicious Gravel"
+      }
+    },
+    "properties": {
+      "version": "1.20"
+    }
+  },
+  "minecraft.wayfinder_armor_trim_smithing_template": {
+    "lang": {
+      "en_US": {
+        "distinct_display_name": "Wayfinder Smithing Template",
+        "lore": "Wayfinder Armor Trim",
+        "search_names": [
+          "Wayfinder Armor Trim Smithing Template",
+          "Wayfinder Armor Trim Template",
+          "Wayfinder Armor Trim",
+          "Wayfinder Trim Smithing Template",
+          "Wayfinder Trim Template",
+          "Wayfinder Trim",
+          "Wayfinder Template"
+        ],
+        "display_name": "Smithing Template",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Wayfinder Armor Trim",
+      "version": "1.20"
     }
   },
   "minecraft.lingering_potion.effect.awkward": {
@@ -23724,14 +24419,14 @@
   "minecraft.tipped_arrow.effect.awkward": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Awkward Tipped Arrow",
         "lore": "No effects",
         "search_names": [
           "Tipped Awkward Arrow",
           "Awkward Arrow"
         ],
         "display_name": "Tipped Arrow",
-        "name_conflict": true,
-        "distinct_display_name": "Awkward Tipped Arrow"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -24248,14 +24943,14 @@
   "minecraft.tipped_arrow.effect.mundane": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Mundane Tipped Arrow",
         "lore": "No effects",
         "search_names": [
           "Mundane Arrow",
           "Tipped Mundane Arrow"
         ],
         "display_name": "Tipped Arrow",
-        "name_conflict": true,
-        "distinct_display_name": "Mundane Tipped Arrow"
+        "name_conflict": true
       }
     },
     "properties": {
@@ -25027,6 +25722,7 @@
   "minecraft.tipped_arrow.effect.thick": {
     "lang": {
       "en_US": {
+        "distinct_display_name": "Thick Tipped Arrow",
         "lore": "No effects",
         "search_names": [
           "Thicc Tipped Arrow",
@@ -25036,8 +25732,7 @@
           "Tipped Thick Arrow"
         ],
         "display_name": "Tipped Arrow",
-        "name_conflict": true,
-        "distinct_display_name": "Thick Tipped Arrow"
+        "name_conflict": true
       }
     },
     "properties": {

@@ -6,7 +6,6 @@ import com.tisawesomeness.minecord.mc.player.AccountStatus;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.ColorUtils;
-import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.UuidUtils;
 
 import lombok.NonNull;
@@ -96,7 +95,7 @@ public class ProfileCommand extends BasePlayerCommand {
 
         String nameHistory = "Mojang has removed the name history API, [read more here](https://help.minecraft.net/hc/en-us/articles/8969841895693). We are working on a different way to retrieve name history, stay tuned.";
         eb.addField("Name History", nameHistory, true);
-        DiscordUtils.sendThumbnailAsAttachment(e, eb.build(), "body.png").queue();
+        e.getHook().sendMessageEmbeds(eb.build()).queue();
     }
 
     private static @NonNull String constructDescription(Player player) {

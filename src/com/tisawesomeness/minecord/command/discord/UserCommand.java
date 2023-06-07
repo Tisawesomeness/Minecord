@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command.discord;
 
 import com.tisawesomeness.minecord.command.SlashCommand;
-import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -11,11 +10,8 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
-import net.dv8tion.jda.api.utils.FileUpload;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 import net.dv8tion.jda.api.utils.TimeFormat;
-
-import java.util.concurrent.CompletableFuture;
 
 public class UserCommand extends SlashCommand {
 
@@ -59,8 +55,6 @@ public class UserCommand extends SlashCommand {
         }
 
         User u = mem.getUser();
-        e.deferReply().queue();
-        CompletableFuture<byte[]> avatar = DiscordUtils.retrieveImage(u.getAvatar());
 
         // Build role string
         StringBuilder roles = new StringBuilder();
@@ -78,6 +72,7 @@ public class UserCommand extends SlashCommand {
         EmbedBuilder eb = MessageUtils.addFooter(new EmbedBuilder())
                 .setTitle(MarkdownSanitizer.escape(u.getEffectiveName()))
                 .setColor(mem.getColor())
+                .setImage(u.getAvatarUrl())
                 .addField("ID", u.getId(), true)
                 .addField("Nickname", mem.getNickname() == null ? "None" : MarkdownSanitizer.escape(mem.getNickname()), true)
                 .addField("Bot?", u.isBot() ? "Yes" : "No", true)
@@ -88,16 +83,7 @@ public class UserCommand extends SlashCommand {
         }
         eb.addField("Roles", roles.toString(), false);
 
-        avatar.whenComplete((data, ex) -> {
-            if (ex == null) {
-                e.getHook().sendMessageEmbeds(eb.setImage("attachment://avatar.png").build())
-                        .addFiles(FileUpload.fromData(data, "avatar.png")).queue();
-            } else {
-                ex.printStackTrace();
-                e.getHook().sendMessageEmbeds(eb.setImage(u.getAvatarUrl()).build()).queue();
-            }
-        });
-        return new Result(Outcome.SUCCESS);
+        return new Result(Outcome.SUCCESS, eb.build());
     }
 
 }
