@@ -29,9 +29,9 @@ public class Registry {
 
     private static final String adminHelp = "**These commands require elevation to use.**\n\n" +
             "`{&}infoadmin` - Displays bot info, including used memory and boot time.\n" +
-            "`{&}settings <guild id> admin [setting] [value]` - Change the bot's settings for another guild.\n" +
+            "`{&}settingsadmin <guild id> [<setting> <value>]` - Change the bot's settings for another guild.\n" +
             "`{&}permsadmin <channel id>` - Test the bot's permissions in any channel.\n" +
-            "`{&}useradmin <user id> [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include \"mutual\" to show mutual guilds.\n" +
+            "`{&}useradmin <user id> [mutual?]` - Show info, ban status, and elevation for a user outside of the current guild. Include \"mutual\" to show mutual guilds.\n" +
             "`{&}guildadmin <guild id>` - Show info and ban status for another guild.\n" +
             "`{&}roleadmin <role id>` - Shows the info of any role.\n";
 
@@ -46,6 +46,7 @@ public class Registry {
                     new PingCommandLegacy(),
                     new PrefixCommand(),
                     new SettingsCommand(),
+                    new SettingsCommandAdmin(),
                     new InviteCommand(),
                     new VoteCommand(),
                     new CreditsCommand(),
@@ -76,6 +77,7 @@ public class Registry {
             ),
             new Module("Discord",
                     new UserCommand(),
+                    new UserCommandAdmin(),
                     new GuildCommand(),
                     new GuildCommandAdmin(),
                     new RoleCommand(),

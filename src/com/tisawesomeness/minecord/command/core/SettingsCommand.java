@@ -3,13 +3,13 @@ package com.tisawesomeness.minecord.command.core;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,47 +44,13 @@ public class SettingsCommand extends LegacyCommand {
                 "- `{&}settings useMenus enabled`\n";
     }
 
-    public String getAdminHelp() {
-        return "`{&}settings` - Show all current settings and their possible values.\n" +
-                "`{&}settings <setting> <value>` - Sets <setting> to <value>. The user must have **Manage Server** permissions.\n" +
-                "`{&}settings <guild id> admin` - View settings for another guild.\n" +
-                "`{&}settings <guild id> admin <setting> <value>` - Changes settings in another guild.\n" +
-                "\n" +
-                "Examples:\n" +
-                "- `{&}settings prefix mc!`\n" +
-                "- {@}` settings prefix &`\n" +
-                "- `{&}settings deleteCommands disabled`\n" +
-                "- `{&}settings useMenus enabled`\n" +
-                "- `{&}settings 347765748577468416 admin`\n" +
-                "- `{&}settings 347765748577468416 admin prefix mc!`\n";
-    }
-
     @Override
     public Result run(String[] args, MessageReceivedEvent e) throws Exception {
+        String prefix = MessageUtils.getPrefix(e);
+        return run(args, e, prefix, prefix, e.getGuild().getIdLong(), false);
+    }
 
-        // If the author used the admin keyword and is an elevated user
-        String sourcePrefix = MessageUtils.getPrefix(e);
-        String targetPrefix;
-        long gid;
-        boolean elevated = false;
-        if (args.length > 1 && args[1].equals("admin") && Database.isElevated(e.getAuthor().getIdLong())) {
-            if (!DiscordUtils.isDiscordId(args[0])) {
-                return new Result(Outcome.WARNING, ":warning: Not a valid ID!");
-            }
-            if (Bot.shardManager.getGuildById(args[0]) == null) {
-                return new Result(Outcome.WARNING, ":warning: Minecord does not know that guild ID!");
-            }
-            gid = Long.parseLong(args[0]);
-            args = Arrays.copyOfRange(args, 2, args.length);
-            targetPrefix = Database.getPrefix(gid);
-            elevated = true;
-        } else {
-            if (!e.isFromGuild()) {
-                return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
-            }
-            gid = e.getGuild().getIdLong();
-            targetPrefix = sourcePrefix;
-        }
+    public static Result run(String[] args, MessageReceivedEvent e, String sourcePrefix, String targetPrefix, long gid, boolean elevated) throws SQLException {
 
         // Build embed with list of settings
         if (args.length == 0) {
