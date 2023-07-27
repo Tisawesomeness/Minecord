@@ -159,7 +159,7 @@ public class MCPing {
 
         }
 
-        JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
+        JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
         // Modification from tis
         // Fix for NPE when description field is missing
         if (!jsonObject.has("description")) {
