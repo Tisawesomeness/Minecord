@@ -39,7 +39,7 @@ public class ListValuedEnumMap<K extends Enum<K>, V> extends AbstractListValuedM
      * @param initialListCapacity the initial capacity used for value collections
      */
     public ListValuedEnumMap(Class<K> clazz, int initialListCapacity) {
-        super(new EnumMap<K, ArrayList<V>>(clazz));
+        super(new EnumMap<>(clazz));
         this.initialListCapacity = initialListCapacity;
     }
 

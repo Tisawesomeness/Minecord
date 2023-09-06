@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.testutil.assertion;
 
 import com.tisawesomeness.minecord.util.type.OptionalBool;
-
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.error.BasicErrorMessageFactory;
 import org.assertj.core.internal.Failures;
@@ -11,7 +10,7 @@ import static org.assertj.core.error.OptionalShouldBePresent.shouldBePresent;
 // Adapted from AssertJ OptionalIntAssert implementation
 public class OptionalBoolAssert extends AbstractAssert<OptionalBoolAssert, OptionalBool> {
 
-    public OptionalBoolAssert(OptionalBool actual) {
+    protected OptionalBoolAssert(OptionalBool actual) {
         super(actual, OptionalBoolAssert.class);
     }
     public static OptionalBoolAssert assertThat(OptionalBool actual) {

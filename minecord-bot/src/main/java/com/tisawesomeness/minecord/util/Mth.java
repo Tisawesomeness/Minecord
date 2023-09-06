@@ -5,6 +5,7 @@ import lombok.SneakyThrows;
 import org.apache.commons.collections4.MultiSet;
 
 import javax.annotation.Nullable;
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -14,6 +15,12 @@ import java.util.OptionalLong;
 import java.util.concurrent.ThreadLocalRandom;
 
 public final class Mth {
+
+    /** Small number for checking if floating-point numbers are "close enough" to be equal */
+    public static final double EPSILON = 1.0E-5;
+
+    public static final BigInteger LONG_MAX_VALUE = BigInteger.valueOf(Long.MAX_VALUE);
+    public static final BigInteger LONG_MIN_VALUE = BigInteger.valueOf(Long.MIN_VALUE);
 
     private static final long LOWER_FOUR_BYTES = 0x0000_0000_FFFF_FFFFL;
 
@@ -36,6 +43,46 @@ public final class Mth {
         }
         return Math.max(low, Math.min(val, high));
     }
+    /**
+     * Clamps a value between a low and high bound.
+     * If the value is lower than the low bound, the low bound is returned.
+     * If the value is higher than the high bound, the high bound is returned.
+     * Otherwise, the value itself is returned.
+     * @param val The input number
+     * @param low The low bound, inclusive
+     * @param high The high bound, inclusive
+     * @return A number guaranteed to be between the low and high bounds inclusive
+     * @throws IllegalArgumentException If the low bound is not less than or equal to the high bound
+     */
+    public static long clamp(long val, long low, long high) {
+        if (low > high) {
+            throw new IllegalArgumentException(String.format("low=%d must be <= high=%d", low, high));
+        }
+        return Math.max(low, Math.min(val, high));
+    }
+
+    /**
+     * Checks if an addition operation will overflow
+     * @param a first number
+     * @param b second number
+     * @return whether an overflow will occur
+     */
+    public static boolean additionOverflows(long a, long b) {
+        long result = a + b;
+        return ((a ^ result) & (b ^ result)) < 0;
+    }
+
+    // https://stackoverflow.com/a/6195065
+    /**
+     * Checks if a multiplication operation will overflow
+     * @param a first number
+     * @param b second number
+     * @return whether an overflow will occur
+     */
+    public static boolean multiplicationOverflows(long a, long b) {
+        long result = a * b;
+        return (Long.signum(a) * Long.signum(b) != Long.signum(result)) || (a != 0L && result / a != b);
+    }
 
     /**
      * Casts an int to a long without sign extension.
@@ -45,6 +92,16 @@ public final class Mth {
      */
     public static long castWithoutSignExtension(int n) {
         return n & LOWER_FOUR_BYTES;
+    }
+
+    /**
+     * Generates a pseudorandom Gaussian distributed value, using {@link ThreadLocalRandom#nextGaussian()}.
+     * @param mean the mean of the distribution
+     * @param standardDeviation the standard deviation (square root of variance) of the distribution
+     * @return a randomly generated value
+     */
+    public static double randomGaussian(double mean, double standardDeviation) {
+        return ThreadLocalRandom.current().nextGaussian() * standardDeviation + mean;
     }
 
     /**
