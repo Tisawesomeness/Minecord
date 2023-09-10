@@ -1,21 +1,20 @@
 package com.tisawesomeness.minecord.mc.external;
 
 import com.tisawesomeness.minecord.mc.player.Profile;
+import com.tisawesomeness.minecord.mc.player.ProfileAction;
 import com.tisawesomeness.minecord.mc.player.SkinModel;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.UrlUtils;
 import com.tisawesomeness.minecord.util.UuidUtils;
-
 import lombok.NonNull;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * A wrapper for the Mojang API. See <a href="https://wiki.vg/Mojang_API">the docs</a>
@@ -108,7 +107,10 @@ public abstract class MojangAPI {
             }
         }
 
-        return Optional.of(new Profile(username, legacy, demo, skinModel, skinUrl, capeUrl));
+        JSONArray profileActionsArr = json.optJSONArray("profileActions");
+        Set<ProfileAction> profileActions = parseProfileActions(profileActionsArr);
+
+        return Optional.of(new Profile(username, legacy, demo, skinModel, skinUrl, capeUrl, profileActions));
     }
 
     private static SkinModel getSkinModel(@NonNull JSONObject skinObj) {
@@ -123,6 +125,18 @@ public abstract class MojangAPI {
 
     private static String decodeBase64(@NonNull String base64String) {
         return new String(Base64.getDecoder().decode(base64String), StandardCharsets.UTF_8);
+    }
+
+    private static Set<ProfileAction> parseProfileActions(JSONArray arr) {
+        if (arr == null) {
+            return Collections.emptySet();
+        }
+        Set<ProfileAction> profileActions = EnumSet.noneOf(ProfileAction.class);
+        for (int i = 0; i < arr.length(); i++) {
+            String actionStr = arr.getString(i);
+            ProfileAction.from(actionStr.toUpperCase(Locale.ROOT)).ifPresent(profileActions::add);
+        }
+        return profileActions;
     }
 
 }
