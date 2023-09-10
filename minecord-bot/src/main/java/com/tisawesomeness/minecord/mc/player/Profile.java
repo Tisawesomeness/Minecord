@@ -1,16 +1,20 @@
 package com.tisawesomeness.minecord.mc.player;
 
+import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.Value;
 
 import javax.annotation.Nullable;
 import java.net.URL;
+import java.util.Collections;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Provides additional account information about a player.
  */
 @Value
+@AllArgsConstructor
 public class Profile {
     /**
      * The player's current username
@@ -30,6 +34,12 @@ public class Profile {
     SkinType skinType;
     @Nullable URL skinUrl;
     @Nullable URL capeUrl;
+    Set<ProfileAction> profileActions;
+
+    public Profile(@NonNull Username username, boolean legacy, boolean demo, SkinType skinType, @Nullable URL skinUrl,
+            @Nullable URL capeUrl) {
+        this(username, legacy, demo, skinType, skinUrl, capeUrl, Collections.emptySet());
+    }
 
     /**
      * @return The skin URL, or empty if the player has no <b>custom</b> skin

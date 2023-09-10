@@ -1,12 +1,13 @@
 package com.tisawesomeness.minecord.mc.external;
 
+import com.tisawesomeness.minecord.common.util.IO;
 import com.tisawesomeness.minecord.mc.player.Profile;
+import com.tisawesomeness.minecord.mc.player.ProfileAction;
 import com.tisawesomeness.minecord.mc.player.SkinType;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.testutil.mc.MockMojangAPI;
 import com.tisawesomeness.minecord.util.URLs;
 import com.tisawesomeness.minecord.util.UUIDs;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.DisplayName;
@@ -15,9 +16,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -29,6 +28,7 @@ public class MojangAPITest {
     private static final Username NON_ASCII_USERNAME = new Username("ooθoo");
     private static final UUID TESTING_UUID = UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3af");
     private static final UUID FAKE_UUID = UUID.fromString("f6489b79-7a9f-49e2-980e-265a05dbc3ae");
+    private static final String PROFILE_ACTIONS_RESPONSE = IO.loadResource("profileActionsTestResponse.json", MojangAPITest.class);
 
     @Test
     @DisplayName("Username-->uuid endpoint is parsed correctly")
@@ -124,6 +124,17 @@ public class MojangAPITest {
     public void testNonExistentProfile() throws IOException {
         MojangAPI api = new MockMojangAPI();
         assertThat(api.getProfile(FAKE_UUID)).isEmpty();
+    }
+
+    @Test
+    @DisplayName("Profile actions are correctly parsed")
+    public void testProfileActions() throws IOException {
+        MockMojangAPI api = new MockMojangAPI();
+        api.mapProfile(TESTING_UUID, PROFILE_ACTIONS_RESPONSE);
+        URL skinUrl = URLs.createUrl("https://textures.minecraft.net/texture/3196c893f1a6131ad5ba78fec26185bc424f408419e237f7b15f8a3bc69a90a0");
+        Set<ProfileAction> profileActions = EnumSet.of(ProfileAction.FORCED_NAME_CHANGE, ProfileAction.USING_BANNED_SKIN);
+        Profile profile = new Profile(TESTING_USERNAME, false, false, SkinType.STEVE, skinUrl, null, profileActions);
+        assertThat(api.getProfile(TESTING_UUID)).contains(profile);
     }
 
 }
