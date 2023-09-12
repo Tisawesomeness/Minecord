@@ -3,7 +3,6 @@ package com.tisawesomeness.minecord.command.player;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.mc.player.*;
 import com.tisawesomeness.minecord.util.UuidUtils;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -99,7 +98,7 @@ public class UuidCommand extends AbstractPlayerCommand {
     private static void constructReply(SlashCommandInteractionEvent e, UUID uuid, String title) {
         String shortUuid = String.format("**Short**: `%s`", UuidUtils.toShortString(uuid));
         String longUuid = String.format("**Long**: `%s`", UuidUtils.toLongString(uuid));
-        String skinModel = String.format("**Default Skin Model**: `%s`", Player.getDefaultSkinModelFor(uuid).getDescription());
+        String skinModel = String.format("**Default Skin Model**: `%s`", SkinModel.defaultFor(uuid).getDescription());
         String newSkinModel = String.format("**1.19.3+ Skin**: `%s`", DefaultSkin.defaultFor(uuid));
         String intArray = String.format("**Post-1.16 NBT**: `%s`", UuidUtils.toIntArrayString(uuid));
         String mostLeast = String.format("**Pre-1.16 NBT**: `%s`", UuidUtils.toMostLeastString(uuid));

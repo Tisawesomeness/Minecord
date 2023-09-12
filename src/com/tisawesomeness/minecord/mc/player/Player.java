@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.mc.player;
 
 import com.tisawesomeness.minecord.util.UrlUtils;
 import com.tisawesomeness.minecord.util.UuidUtils;
-
 import lombok.NonNull;
 import lombok.Value;
 
@@ -24,10 +23,6 @@ public class Player implements Comparable<Player> {
     // 37 is max length of a UUID with dashes
     public static final int MAX_PLAYER_ARGUMENT_LENGTH = Math.max(37, Username.MAX_LENGTH);
 
-    public static final URL STEVE_SKIN_URL = UrlUtils.createUrl("https://textures.minecraft.net/texture/" +
-            "1a4af718455d4aab528e7a61f86fa25e6a369d1768dcb13f7df319a713eb810b");
-    public static final URL ALEX_SKIN_URL = UrlUtils.createUrl("https://textures.minecraft.net/texture/" +
-            "3b60a1f6d562f52aaebbf1434f1de147933a3affe0e764fa49ea057536623cd3");
     private static final Username DINNERBONE = new Username("Dinnerbone");
     private static final Username GRUMM = new Username("Grumm");
     private static final Username JEB = new Username("jeb_");
@@ -107,13 +102,7 @@ public class Player implements Comparable<Player> {
      * @return The default skin model according to the UUID
      */
     public SkinModel getDefaultSkinModel() {
-        return getDefaultSkinModelFor(uuid);
-    }
-    /**
-     * @return The default skin model according to the UUID
-     */
-    public static SkinModel getDefaultSkinModelFor(UUID uuid) {
-        return uuid.hashCode() % 2 == 0 ? SkinModel.WIDE : SkinModel.SLIM;
+        return SkinModel.defaultFor(uuid);
     }
 
     /**
@@ -124,6 +113,8 @@ public class Player implements Comparable<Player> {
     }
 
     /**
+     * Checks if the player has a custom skin. Players who equip a default skin different from the one assigned to
+     * their UUID count as having a custom skin.
      * @return True if the player has a custom skin
      * @throws IllegalStateException If the player is PHD
      */
@@ -136,10 +127,12 @@ public class Player implements Comparable<Player> {
             return false;
         }
         URL skinUrl = skinUrlOpt.get();
-        if (getDefaultSkinModel() == SkinModel.WIDE) {
-            return !skinUrl.sameFile(STEVE_SKIN_URL);
+        Optional<DefaultSkin> defaultSkinOpt = DefaultSkin.fromUrl(skinUrl);
+        if (defaultSkinOpt.isPresent()) {
+            DefaultSkin defaultSkin = defaultSkinOpt.get();
+            return !getNewDefaultSkin().equals(defaultSkin);
         }
-        return !skinUrl.sameFile(ALEX_SKIN_URL);
+        return true;
     }
 
     /**
@@ -151,13 +144,7 @@ public class Player implements Comparable<Player> {
         if (profile == null) {
             throw new IllegalStateException("PHD accounts do not have a profile");
         }
-        Optional<URL> skinUrl = profile.getSkinUrl();
-        if (skinUrl.isPresent()) {
-            return skinUrl.get();
-        } else if (getDefaultSkinModel() == SkinModel.WIDE) {
-            return STEVE_SKIN_URL;
-        }
-        return ALEX_SKIN_URL;
+        return profile.getSkinUrl().orElseGet(() -> getNewDefaultSkin().getURL());
     }
 
     /**

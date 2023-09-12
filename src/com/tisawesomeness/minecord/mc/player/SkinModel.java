@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import java.util.UUID;
+
 /**
  * An enum with every possible skin model type.
  */
@@ -20,6 +22,13 @@ public enum SkinModel {
 
     @Getter private final @NonNull String description;
     private final @NonNull String label;
+
+    /**
+     * @return The default skin model according to the UUID
+     */
+    public static SkinModel defaultFor(UUID uuid) {
+        return uuid.hashCode() % 2 == 0 ? WIDE : SLIM;
+    }
 
     @Override
     public String toString() {
