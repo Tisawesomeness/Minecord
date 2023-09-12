@@ -2,15 +2,15 @@ package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.mc.player.Player;
+import com.tisawesomeness.minecord.mc.player.ProfileAction;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
-
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
-import java.awt.Color;
+import java.awt.*;
 
 public class SkinCommand extends BasePlayerCommand {
 
@@ -57,7 +57,15 @@ public class SkinCommand extends BasePlayerCommand {
         String skinModel = "**Skin Model**: " + player.getSkinModel().getDescription();
         String defaultModel = "**Default Skin Model**: " + player.getDefaultSkinModel().getDescription();
         String newDefaultModel = "**1.19.3+ Default Skin**: " + player.getNewDefaultSkin();
-        return custom + "\n" + skinModel + "\n" + defaultModel + "\n" + newDefaultModel;
+
+        String description = custom + "\n" + skinModel + "\n" + defaultModel + "\n" + newDefaultModel;
+        if (player.getProfile().getProfileActions().contains(ProfileAction.USING_BANNED_SKIN)) {
+            String banNotice = player.hasCustomSkin() ?
+                    "__Cannot play multiplayer due to banned skin.__" :
+                    "__Cannot play multiplayer due to banned skin__ (skin has been reset).";
+            return banNotice + "\n\n" + description;
+        }
+        return description;
     }
 
 }
