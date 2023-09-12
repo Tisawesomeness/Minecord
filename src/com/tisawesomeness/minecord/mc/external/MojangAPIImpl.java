@@ -6,7 +6,6 @@ import com.tisawesomeness.minecord.network.NetUtil;
 import com.tisawesomeness.minecord.network.StatusCodes;
 import com.tisawesomeness.minecord.util.UrlUtils;
 import com.tisawesomeness.minecord.util.UuidUtils;
-
 import lombok.Cleanup;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -62,6 +61,9 @@ public class MojangAPIImpl extends MojangAPI {
     }
 
     private static Optional<String> getContentIfPresent(@NonNull Response response) throws IOException {
+        if (response.code() == StatusCodes.NOT_FOUND) {
+            return Optional.empty();
+        }
         NetUtil.throwIfError(response, "Mojang API");
         if (response.code() == StatusCodes.NO_CONTENT) {
             return Optional.empty();
