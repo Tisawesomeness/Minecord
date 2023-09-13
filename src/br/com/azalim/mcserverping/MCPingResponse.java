@@ -62,10 +62,23 @@ public class MCPingResponse {
      */
     private String favicon;
 
-    // modification from tis
+    // below 3 are modifications from tis
     /**
-     * whether the server is announcing that it prevents chat reports
-     * shows an icon in the NoChatReports mod
+     * Whether the server is announcing that it requires players to send public keys to join.
+     * These servers enforce chat reports.
+     */
+    private boolean enforcesSecureChat;
+
+    /**
+     * Whether the server is announcing that it enables chat previews. Chat messages are sent to the server while
+     * typing so the server can send a formatted preview.
+     * Chat preview was added in 1.19 and removed in 1.19.3 due to privacy concerns.
+     */
+    private boolean previewsChat;
+
+    /**
+     * Whether the server is announcing that it prevents chat reports.
+     * This is a custom response used to show an icon in the NoChatReports mod.
      */
     private boolean preventsChatReports;
 

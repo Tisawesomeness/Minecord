@@ -10,7 +10,6 @@ import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.util.MathUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -140,8 +139,16 @@ public class ServerCommand extends SlashCommand {
         List<Player> sample = reply.getPlayers().getSample();
 
         // Build and format message
-        if (reply.isPreventsChatReports()) {
+        if (reply.isPreventsChatReports() && reply.isEnforcesSecureChat()) {
+            m += ":interrobang: **Enforces and prevents chat reports at the same time? " +
+                    "Server is sending contradictory messages.\n";
+        } else if (reply.isPreventsChatReports()) {
             m += ":white_check_mark: **Prevents chat reports**\n";
+        } else if (reply.isEnforcesSecureChat()) {
+            m += ":shield: **Enforces chat reports**\n";
+        }
+        if (reply.isPreviewsChat()) {
+            m += ":speech_balloon: Enables chat preview\n";
         }
         m += "**Address:** " + address +
                 "\n" + "**Version:** " + version +
@@ -149,7 +156,7 @@ public class ServerCommand extends SlashCommand {
         if (motd != null) {
             m += "\n" + "**MOTD:** " + motd;
         }
-        if (sample != null && sample.size() > 0) {
+        if (sample != null && !sample.isEmpty()) {
             String sampleStr = sample.stream()
                     .map(p -> MCPingUtil.stripColors(p.getName()))
                     .collect(Collectors.joining("\n"));
