@@ -2,6 +2,8 @@ package com.tisawesomeness.minecord.util;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -89,6 +91,19 @@ public class StringsTest {
     @DisplayName("A substring starting at 2 and ending at 1 is empty")
     public void testSafeSubstring2to1() {
         assertThat(Strings.safeSubstring("abc", 2, 1)).isEmpty();
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "abcd, 0, !, !bcd",
+            "abcd, 1, !, a!cd",
+            "abcd, 2, !, ab!d",
+            "abcd, 3, !, abc!",
+            "x, 0, !, !",
+    })
+    public void testReplaceCharAt(String str, int idx, char replacement, String expected) {
+        assertThat(Strings.replaceCharAt(str, idx, replacement))
+                .isEqualTo(expected);
     }
 
     @Test

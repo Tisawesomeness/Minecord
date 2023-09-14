@@ -60,6 +60,17 @@ public final class Strings {
     }
 
     /**
+     * Creates a new string with the character at the given index replaced with the replacement character.
+     * @param str input string
+     * @param idx index of character to replace
+     * @param replacement character to replace with
+     * @return new string
+     */
+    public static String replaceCharAt(String str, int idx, char replacement) {
+        return str.substring(0, idx) + replacement + str.substring(idx + 1);
+    }
+
+    /**
      * Joins a list of lines into a series of partitions, ensuring that no line in the returned list
      * has a length over the max length (as long as every input line is no longer than the max length).
      * This is useful for transforming a single message (split into inseparable pieces) into multiple message that

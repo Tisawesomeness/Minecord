@@ -48,7 +48,7 @@ public class EitherAssert<L, R> extends AbstractAssert<EitherAssert<L, R>, Eithe
         return new ObjectAssert<>(actual.getRight());
     }
     @CheckReturnValue
-    public <ASSERT extends AbstractAssert<ASSERT, L>> ASSERT asRight(InstanceOfAssertFactory<?, ASSERT> assertFactory) {
+    public <ASSERT extends AbstractAssert<ASSERT, R>> ASSERT asRight(InstanceOfAssertFactory<?, ASSERT> assertFactory) {
         return asRight().asInstanceOf(assertFactory);
     }
 
