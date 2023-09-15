@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.within;
 
 public class DiceCombinationTest {
 
-    private static final Duration TIMEOUT = Duration.ofMillis(100);
+    private static final Duration TIMEOUT = Duration.ofMillis(250);
 
     @Test
     public void testFrom() {

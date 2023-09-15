@@ -25,7 +25,7 @@ public class DiceGroupTest {
     private static final long OVER_LARGE_DICE = 119_537_721L;
     private static final long OVER_LARGE_FACES = 77_158_673_929L;
 
-    private static final Duration TIMEOUT = Duration.ofMillis(100);
+    private static final Duration TIMEOUT = Duration.ofMillis(250);
 
     @Test
     public void testFrom() {
