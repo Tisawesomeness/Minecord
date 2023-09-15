@@ -28,6 +28,18 @@ public class FaviconTest {
         Optional<Favicon> iconOpt = Favicon.parse(HYPIXEL_FAVICON);
         assertThat(iconOpt).isNotEmpty();
         Favicon icon = iconOpt.get();
+        assertThat(icon.usesNewlines()).isFalse();
+        assertThat(icon.validate())
+                .asRight(InstanceOfAssertFactories.type(Dimensions.class))
+                .extracting(Dimensions::getWidth, Dimensions::getHeight)
+                .containsExactly(Favicon.EXPECTED_SIZE, Favicon.EXPECTED_SIZE);
+    }
+    @Test
+    public void testParseNewline() {
+        Optional<Favicon> iconOpt = Favicon.parse(HYPIXEL_FAVICON + "\n");
+        assertThat(iconOpt).isNotEmpty();
+        Favicon icon = iconOpt.get();
+        assertThat(icon.usesNewlines()).isTrue();
         assertThat(icon.validate())
                 .asRight(InstanceOfAssertFactories.type(Dimensions.class))
                 .extracting(Dimensions::getWidth, Dimensions::getHeight)

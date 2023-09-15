@@ -50,7 +50,7 @@ public class Favicon {
         }
         String imageData = str.substring(PREAMBLE.length());
         boolean usesNewlines = false;
-        if (imageData.indexOf('\r') == -1 || imageData.indexOf('\n') == -1) {
+        if (imageData.indexOf('\r') != -1 || imageData.indexOf('\n') != -1) {
             imageData = NEWLINES_PATTERN.matcher(imageData).replaceAll("");
             usesNewlines = true;
         }
