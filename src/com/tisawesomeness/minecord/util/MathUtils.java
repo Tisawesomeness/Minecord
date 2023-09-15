@@ -7,6 +7,9 @@ import javax.annotation.Nullable;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.OptionalInt;
 import java.util.OptionalLong;
 
@@ -24,6 +27,47 @@ public final class MathUtils {
      */
     public static long castWithoutSignExtension(int n) {
         return n & LOWER_FOUR_BYTES;
+    }
+
+    /**
+     * Formats a decimal into a human-readable string, such as "2.7" or "3.72e-8". If the number's scientific notation
+     * has an exponent between the provided min and max, then the number will be formatted exactly. Otherwise, the
+     * number will be formatted in scientific notation. Numbers that cannot be expressed with the given fraction digits
+     * will start with a '~'.
+     * @param d the value to format
+     * @param maxFractionDigits the maximum number of fraction digits to be shown
+     * @param minExactExponent the minimum exponent to show exact values
+     * @param maxExactExponent the maximum exponent to show exact values
+     * @return the formatted number
+     * @throws IllegalArgumentException if {@code minExactExponent > maxExactExponent}
+     */
+    public static String formatHumanReadable(double d, int maxFractionDigits, int minExactExponent, int maxExactExponent) {
+        if (minExactExponent > maxExactExponent) {
+            throw new IllegalArgumentException(String.format("minExactExponent %d cannot be greater than maxExactExponent %d",
+                    minExactExponent, maxExactExponent));
+        }
+
+        NumberFormat scientificNotationFormat = new DecimalFormat("0.#E0");
+        scientificNotationFormat.setMaximumFractionDigits(maxFractionDigits);
+        String formattedScientific = scientificNotationFormat.format(d);
+
+        String exponentStr = formattedScientific.substring(formattedScientific.indexOf('E') + 1);
+        int exponent = Integer.parseInt(exponentStr); // always succeeds
+        if (exponent < minExactExponent || maxExactExponent < exponent) {
+            return addApproxSymbolIfNotExact(scientificNotationFormat, d).toLowerCase(Locale.ROOT);
+        }
+
+        NumberFormat decimalFormat = new DecimalFormat("0.#");
+        decimalFormat.setMinimumFractionDigits(1);
+        decimalFormat.setMaximumFractionDigits(maxFractionDigits);
+        return addApproxSymbolIfNotExact(decimalFormat, d);
+    }
+    // Modifies format
+    private static String addApproxSymbolIfNotExact(NumberFormat format, double d) {
+        String original = format.format(d);
+        format.setMaximumFractionDigits(format.getMaximumFractionDigits() + 1);
+        String withOneMoreDigit = format.format(d);
+        return original.equals(withOneMoreDigit) ? original : "~" + original;
     }
 
     /**
