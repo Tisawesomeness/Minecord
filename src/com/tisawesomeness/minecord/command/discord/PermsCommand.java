@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.command.discord;
 
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.util.DiscordUtils;
-
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.channel.middleman.GuildChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -75,7 +74,7 @@ public class PermsCommand extends SlashCommand {
                 "\nAttach files: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_ATTACH_FILES)) +
                 "\nAdd reactions: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_ADD_REACTION)) +
                 "\nManage messages: " + DiscordUtils.getBoolEmote(perms.contains(Permission.MESSAGE_MANAGE)) +
-                "\nCan upload favicons: " + getFaviconEmote(perms) +
+                "\nCan upload server icons: " + getFaviconEmote(perms) +
                 "\nCan use reaction menus: " + getMenuEmote(perms);
 
         return new Result(Outcome.SUCCESS, m);
@@ -89,13 +88,13 @@ public class PermsCommand extends SlashCommand {
     }
 
     private static String getMenuEmote(EnumSet<Permission> perms) {
-        if (perms.contains(Permission.MESSAGE_EMBED_LINKS) && perms.contains(Permission.MESSAGE_ADD_REACTION)) {
+        if (perms.containsAll(EnumSet.of(Permission.MESSAGE_EMBED_LINKS, Permission.MESSAGE_ADD_REACTION, Permission.MESSAGE_HISTORY))) {
             if (perms.contains(Permission.MESSAGE_MANAGE)) {
                 return ":white_check_mark:";
             }
             return ":warning: Partial, users must remove reactions manually, give manage messages permissions to fix";
         }
-        return ":x: Give embed links and add reactions permissions to fix";
+        return ":x: Give embed links, add reactions, and message history permissions to fix";
     }
 
 }

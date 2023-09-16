@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord;
 
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.MessageUtils;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
@@ -167,7 +166,7 @@ public abstract class ReactMenu {
 
     /**
      * Checks if the bot is able to make a react menu in the specified channel
-     * @return True if the guild has menus enabled and the bot has manage message and add reaction permissions
+     * @return Whether menus are valid, disabled, or the bot has no permission
      */
     public static MenuStatus getMenuStatus(SlashCommandInteractionEvent e) {
         if (!Config.getUseMenus()) {
@@ -180,7 +179,7 @@ public abstract class ReactMenu {
         if (!Database.getUseMenu(g.getIdLong())) {
             return MenuStatus.DISABLED;
         }
-        if (!g.getSelfMember().hasPermission(e.getGuildChannel(), Permission.MESSAGE_ADD_REACTION)) {
+        if (!g.getSelfMember().hasPermission(e.getGuildChannel(), Permission.MESSAGE_ADD_REACTION) || !g.getSelfMember().hasPermission(e.getGuildChannel(), Permission.MESSAGE_HISTORY)) {
             return MenuStatus.NO_PERMISSION;
         }
         return MenuStatus.VALID;
@@ -304,7 +303,7 @@ public abstract class ReactMenu {
     public enum MenuStatus {
         VALID(),
         DISABLED(),
-        NO_PERMISSION("Give the bot manage messages permissions to use an interactive menu!");
+        NO_PERMISSION("Give the bot add reactions and message history permissions to use an interactive menu!");
 
         private final String reason;
         private boolean useSpacer;
