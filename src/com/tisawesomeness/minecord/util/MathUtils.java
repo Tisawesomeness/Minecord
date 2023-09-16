@@ -74,6 +74,16 @@ public final class MathUtils {
     }
 
     /**
+     * Chooses a random element from the array.
+     * @param arr input array
+     * @return random element
+     * @param <T> type of array
+     */
+    public static <T> T choose(T[] arr) {
+        return arr[ThreadLocalRandom.current().nextInt(arr.length)];
+    }
+
+    /**
      * Shuffles a collection into a new list.
      * @param collection input collection, remains unmodified
      * @return new list with shuffled elements

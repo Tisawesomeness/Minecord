@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class RandomCommand extends SlashCommand {
@@ -26,6 +27,8 @@ public class RandomCommand extends SlashCommand {
     private static final int MAX_FORMAT_EXPONENT = 10;
     private static final int ROLL_FRACTION_DIGITS = 20;
     private static final int BOUNDS_FRACTION_DIGITS = 15;
+
+    private static final Pattern COMMA_PATTERN = Pattern.compile(",");
 
     private static final BigInteger SHOW_ROLLS_LIMIT = BigInteger.valueOf(25);
     private static final int DICE_GROUP_ROLL_EXACT_LIMIT = 50;
@@ -54,6 +57,9 @@ public class RandomCommand extends SlashCommand {
                 new SubcommandData("uniform", "Generates a random decimal between a minimum and maximum")
                         .addOption(OptionType.NUMBER, "min", "Minimum value, inclusive")
                         .addOption(OptionType.NUMBER, "max", "Maximum value, exclusive"),
+                new SubcommandData("choose", "Chooses randomly from a list")
+                        .addOptions(new OptionData(OptionType.STRING, "choices", "List of choices, separated by comma `,`", true)
+                                .setMinLength(1)),
                 new SubcommandData("dice", "Roll multiple dice and sum the result")
                         .addOptions(new OptionData(OptionType.STRING, "dice", DICE_DESCRIPTION, true)
                                 .setMinLength(1))
@@ -67,6 +73,8 @@ public class RandomCommand extends SlashCommand {
                 return valueSubcommand(e);
             case "uniform":
                 return uniformSubcommand(e);
+            case "choose":
+                return chooseSubcommand(e);
             case "dice":
                 return diceSubcommand(e);
             default:
@@ -100,6 +108,31 @@ public class RandomCommand extends SlashCommand {
     }
     private static String format(double d, int maxFractionDigits) {
         return MathUtils.formatHumanReadable(d, maxFractionDigits, MIN_FORMAT_EXPONENT, MAX_FORMAT_EXPONENT);
+    }
+
+    private static Result chooseSubcommand(SlashCommandInteractionEvent e) {
+        String choices = e.getOption("choices", OptionMapping::getAsString);
+        assert choices != null;
+
+        String trimmed = trimLeadingCommas(choices); // split() ignores trailing commas, ignore leading to be consistent
+        System.out.println(trimmed);
+        if (trimmed.isEmpty()) {
+            return new Result(Outcome.WARNING, "Must specify at least one choice.");
+        }
+        String choice = MathUtils.choose(COMMA_PATTERN.split(trimmed));
+        if (choice.isEmpty()) {
+            choice = "(empty)";
+        }
+        return new Result(Outcome.SUCCESS, "Chose: " + choice);
+    }
+    private static String trimLeadingCommas(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c != ',') {
+                return s.substring(i);
+            }
+        }
+        return "";
     }
 
     private static Result diceSubcommand(SlashCommandInteractionEvent e) {
