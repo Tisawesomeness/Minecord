@@ -122,7 +122,7 @@ public class HumanDecimalFormat {
         return addApproxSymbolIfNotExact(scientificNotationFormat, d).toLowerCase(Locale.ROOT);
     }
     private String createPattern(boolean scientificNotation) {
-        String integralPart = includeGroupingCommas ? "0,000" : "0";
+        String integralPart = includeGroupingCommas ? "#,##0" : "0";
         String mantissaPart = scientificNotation ? "E0" : "";
         return String.format("%s.0%s", integralPart, mantissaPart);
     }

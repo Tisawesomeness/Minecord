@@ -90,7 +90,10 @@ public class HumanDecimalFormatTest {
     @ParameterizedTest
     @CsvSource({
             "1234567.0, '1,234,567'",
-            "1234567.89012, '1,234,567.89012'"
+            "1234567.89012, '1,234,567.89012'",
+            "12.0, '12'",
+            "1000000, '1,000,000'",
+            "0.0, '0'"
     })
     public void testFormatGrouping(double input, String expected) {
         HumanDecimalFormat format = HumanDecimalFormat.builder()
