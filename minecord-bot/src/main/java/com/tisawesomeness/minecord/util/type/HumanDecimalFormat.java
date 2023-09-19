@@ -139,9 +139,9 @@ public class HumanDecimalFormat {
         if (!includeApproximationSymbol || format.getMaximumFractionDigits() > -Double.MIN_EXPONENT) {
             return original;
         }
-        format.setMaximumFractionDigits(format.getMaximumFractionDigits() + 1);
-        String withOneMoreDigit = format.format(d);
-        return original.equals(withOneMoreDigit) ? original : "~" + original;
+        format.setMaximumFractionDigits(-Double.MIN_EXPONENT);
+        String withAllDigits = format.format(d);
+        return original.equals(withAllDigits) ? original : "~" + original;
     }
 
 }

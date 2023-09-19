@@ -38,6 +38,7 @@ public class MthTest {
 
     @ParameterizedTest
     @CsvSource({
+            "0.0, 0",
             "0.000001, -6",
             "0.01, -2",
             "0.1, -1",
@@ -46,7 +47,17 @@ public class MthTest {
             "1.1, 0",
             "10.0, 1",
             "100.0, 2",
-            "1000000.0, 6"
+            "1000000.0, 6",
+            "-0.0, 0",
+            "-0.000001, -6",
+            "-0.01, -2",
+            "-0.1, -1",
+            "-0.9, -1",
+            "-1.0, 0",
+            "-1.1, 0",
+            "-10.0, 1",
+            "-100.0, 2",
+            "-1000000.0, 6"
     })
     public void testMantissa(double input, int expected) {
         assertThat(Mth.mantissa(input))

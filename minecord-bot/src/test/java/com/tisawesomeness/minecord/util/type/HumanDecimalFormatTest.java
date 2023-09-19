@@ -42,7 +42,8 @@ public class HumanDecimalFormatTest {
     @CsvSource({
             "123.456, '123.456'",
             "0.1, '0.1'",
-            "2.0, '2'"
+            "2.0, '2'",
+            "0.0, '0'"
     })
     public void testFormat(double input, String expected) {
         HumanDecimalFormat format = HumanDecimalFormat.builder().build();
@@ -56,7 +57,8 @@ public class HumanDecimalFormatTest {
             "-4, 2, 0.000123, '0.000123'",
             "-10, 10, 123000.0, '123000'",
             "-4, 4, 123000.0, '1.23e5'",
-            "-2, 5, 123000.0, '123000'"
+            "-2, 5, 123000.0, '123000'",
+            "0, 0, 0.0, '0'"
     })
     public void testFormatScientific(int minDigits, int maxDigits, double input, String expected) {
         HumanDecimalFormat format = HumanDecimalFormat.builder()
@@ -74,7 +76,8 @@ public class HumanDecimalFormatTest {
             "0, 0, 123.4567, '123'",
             "3, 5, 123.4567, '123.4567'",
             "5, 5, 123.4567, '123.45670'",
-            "8, 10, 123.4567, '123.45670000'"
+            "8, 10, 123.4567, '123.45670000'",
+            "2, 10, 0.0, '0.00'"
     })
     public void testFormatFractionDigits(int minDigits, int maxDigits, double input, String expected) {
         HumanDecimalFormat format = HumanDecimalFormat.builder()
@@ -100,7 +103,8 @@ public class HumanDecimalFormatTest {
     @CsvSource({
             "4, 12.3456, '12.3456'",
             "3, 12.3456, '~12.345'",
-            "0, 12.3456, '~12'"
+            "0, 12.3456, '~12'",
+            "1, 0.00001, '~0'"
     })
     public void testFormatApprox(int minDigits, double input, String expected) {
         HumanDecimalFormat format = HumanDecimalFormat.builder()
