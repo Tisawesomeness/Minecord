@@ -62,6 +62,16 @@ public final class Mth {
     }
 
     /**
+     * Computes the largest mantissa {@code n} such that {@code d = x * 10^n} for some {@code 1 <= x < 10}.
+     * <br>In other words, computes the largest exponent {@code n} such that {@code 10^n < d}.
+     * @param d input number
+     * @return {@code n}
+     */
+    public static int mantissa(double d) {
+        return (int) Math.floor(StrictMath.log10(d));
+    }
+
+    /**
      * Checks if an addition operation will overflow
      * @param a first number
      * @param b second number

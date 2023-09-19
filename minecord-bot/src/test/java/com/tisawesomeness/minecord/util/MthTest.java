@@ -5,6 +5,7 @@ import org.apache.commons.collections4.multiset.HashMultiSet;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -33,6 +34,23 @@ public class MthTest {
     public void testClampBad() {
         assertThatThrownBy(() -> Mth.clamp(2, 3, 1))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "0.000001, -6",
+            "0.01, -2",
+            "0.1, -1",
+            "0.9, -1",
+            "1.0, 0",
+            "1.1, 0",
+            "10.0, 1",
+            "100.0, 2",
+            "1000000.0, 6"
+    })
+    public void testMantissa(double input, int expected) {
+        assertThat(Mth.mantissa(input))
+                .isEqualTo(expected);
     }
 
     @ParameterizedTest
