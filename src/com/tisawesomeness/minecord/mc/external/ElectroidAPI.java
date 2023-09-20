@@ -1,19 +1,17 @@
 package com.tisawesomeness.minecord.mc.external;
 
-import com.tisawesomeness.minecord.mc.player.Player;
-import com.tisawesomeness.minecord.mc.player.Profile;
-import com.tisawesomeness.minecord.mc.player.SkinModel;
-import com.tisawesomeness.minecord.mc.player.Username;
+import com.tisawesomeness.minecord.mc.player.*;
 import com.tisawesomeness.minecord.util.UrlUtils;
 import com.tisawesomeness.minecord.util.UuidUtils;
-
 import lombok.NonNull;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -110,7 +108,10 @@ public abstract class ElectroidAPI {
             }
         }
 
-        return new Profile(username, legacy, demo, skinModel, skinUrl, capeUrl);
+        JSONArray profileActionsArr = obj.optJSONArray("profile_actions");
+        Set<ProfileAction> profileActions = ProfileAction.parseProfileActions(profileActionsArr);
+
+        return new Profile(username, legacy, demo, skinModel, skinUrl, capeUrl, profileActions);
     }
 
 }

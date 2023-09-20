@@ -14,7 +14,10 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.Base64;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 
 /**
  * A wrapper for the Mojang API. See <a href="https://wiki.vg/Mojang_API">the docs</a>
@@ -108,7 +111,7 @@ public abstract class MojangAPI {
         }
 
         JSONArray profileActionsArr = json.optJSONArray("profileActions");
-        Set<ProfileAction> profileActions = parseProfileActions(profileActionsArr);
+        Set<ProfileAction> profileActions = ProfileAction.parseProfileActions(profileActionsArr);
 
         return Optional.of(new Profile(username, legacy, demo, skinModel, skinUrl, capeUrl, profileActions));
     }
@@ -125,18 +128,6 @@ public abstract class MojangAPI {
 
     private static String decodeBase64(@NonNull String base64String) {
         return new String(Base64.getDecoder().decode(base64String), StandardCharsets.UTF_8);
-    }
-
-    private static Set<ProfileAction> parseProfileActions(JSONArray arr) {
-        if (arr == null) {
-            return Collections.emptySet();
-        }
-        Set<ProfileAction> profileActions = EnumSet.noneOf(ProfileAction.class);
-        for (int i = 0; i < arr.length(); i++) {
-            String actionStr = arr.getString(i);
-            ProfileAction.from(actionStr.toUpperCase(Locale.ROOT)).ifPresent(profileActions::add);
-        }
-        return profileActions;
     }
 
 }
