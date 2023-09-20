@@ -68,6 +68,7 @@ public class Registry {
                        new ItemCommand(),
                        new RecipeCommand(),
                        new IngredientCommand(),
+                       new StackCommand(),
                        new CodesCommand(),
                        new ColorCommand(),
                        new SeedCommand(),

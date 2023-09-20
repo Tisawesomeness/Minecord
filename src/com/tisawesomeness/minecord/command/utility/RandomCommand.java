@@ -6,6 +6,7 @@ import com.tisawesomeness.minecord.util.dice.DiceCombination;
 import com.tisawesomeness.minecord.util.dice.DiceError;
 import com.tisawesomeness.minecord.util.dice.DiceGroup;
 import com.tisawesomeness.minecord.util.type.Either;
+import com.tisawesomeness.minecord.util.type.HumanDecimalFormat;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -23,10 +24,18 @@ import java.util.stream.Collectors;
 
 public class RandomCommand extends SlashCommand {
 
-    private static final int MIN_FORMAT_EXPONENT = -5;
-    private static final int MAX_FORMAT_EXPONENT = 10;
-    private static final int ROLL_FRACTION_DIGITS = 20;
-    private static final int BOUNDS_FRACTION_DIGITS = 15;
+    private static final HumanDecimalFormat ROLL_FORMAT = HumanDecimalFormat.builder()
+            .minimumExponentForExactValues(-5)
+            .maximumExponentForExactValues(10)
+            .minimumFractionDigits(1)
+            .maximumFractionDigits(20)
+            .build();
+    private static final HumanDecimalFormat BOUNDS_FORMAT = HumanDecimalFormat.builder()
+            .minimumExponentForExactValues(-5)
+            .maximumExponentForExactValues(10)
+            .minimumFractionDigits(1)
+            .maximumFractionDigits(10)
+            .build();
 
     private static final Pattern COMMA_PATTERN = Pattern.compile(",");
 
@@ -38,7 +47,7 @@ public class RandomCommand extends SlashCommand {
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "random",
-                "Looks up the recipes containing an ingredient.",
+                "Generate random numbers",
                 "<type> <arguments...>",
                 0,
                 false,
@@ -97,17 +106,14 @@ public class RandomCommand extends SlashCommand {
 
     private static Result uniformSubcommand(SlashCommandInteractionEvent e) {
         double min = e.getOption("min", 0.0, OptionMapping::getAsDouble);
-        String minStr = format(min, BOUNDS_FRACTION_DIGITS);
+        String minStr = BOUNDS_FORMAT.format(min);
         double max = e.getOption("max", 1.0, OptionMapping::getAsDouble);
-        String maxStr = format(max, BOUNDS_FRACTION_DIGITS);
+        String maxStr = BOUNDS_FORMAT.format(max);
 
         double value = ThreadLocalRandom.current().nextDouble(min, max);
-        String valueStr = format(value, ROLL_FRACTION_DIGITS);
+        String valueStr = ROLL_FORMAT.format(value);
         return new Result(Outcome.SUCCESS, String.format("Rolled **`%s`** (uniform random, from %s to %s)",
                 valueStr, minStr, maxStr));
-    }
-    private static String format(double d, int maxFractionDigits) {
-        return MathUtils.formatHumanReadable(d, maxFractionDigits, MIN_FORMAT_EXPONENT, MAX_FORMAT_EXPONENT);
     }
 
     private static Result chooseSubcommand(SlashCommandInteractionEvent e) {
