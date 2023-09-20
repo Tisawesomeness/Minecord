@@ -153,7 +153,9 @@ public class RandomCommand extends SlashCommand {
         DiceCombination dc = errorOrDice.getRight();
 
         BigInteger numDice = dc.getNumberOfDice();
-        if (numDice.compareTo(SHOW_ROLLS_LIMIT) <= 0) {
+        if (numDice.equals(BigInteger.ZERO)) {
+            return new Result(Outcome.WARNING, "No dice specified (example: `d6`)");
+        } else if (numDice.compareTo(SHOW_ROLLS_LIMIT) <= 0) {
             String msg = buildMessageFromRollEach(dc);
             return new Result(Outcome.SUCCESS, msg);
         } else if (numDice.compareTo(ROLL_EXACT_LIMIT) <= 0) {
@@ -203,13 +205,13 @@ public class RandomCommand extends SlashCommand {
     private static String buildMessageFromRollEach(DiceCombination dc) {
         List<Map<Long, Long>> rollCountsByGroup = dc.rollEach();
 
-        if (rollCountsByGroup.size() == 1) {
+        if (rollCountsByGroup.size() == 1 && dc.getConstant() == 0) {
             Map<Long, Long> rollCounts = rollCountsByGroup.get(0);
             if (rollCounts.size() == 1) {
                 long roll = rollCounts.entrySet().iterator().next().getKey();
                 return String.format("Rolled **%d**", roll);
             }
-            long roll = sumRolls(rollCounts);
+            long roll = sumRolls(rollCounts, dc.getConstant());
             String rolledValuesStr = buildRolledValuesString(rollCounts);
             return String.format("Rolled **%d**: `[%s]`", roll, rolledValuesStr);
         }
@@ -220,17 +222,20 @@ public class RandomCommand extends SlashCommand {
         for (int i = 0; i < rollCountsByGroup.size(); i++) {
             DiceGroup diceGroup = dice.get(i);
             Map<Long, Long> rollCounts = rollCountsByGroup.get(i);
-            total += sumRolls(rollCounts);
+            total += sumRolls(rollCounts, dc.getConstant());
             String rolledValuesStr = buildRolledValuesString(rollCounts);
             diceGroupJoiner.add(String.format("%s: `[%s]`", diceGroup, rolledValuesStr));
         }
+        if (dc.getConstant() != 0) {
+            diceGroupJoiner.add(String.format("`%+d`", dc.getConstant()));
+        }
         return String.format("Rolled **%d**\n%s", total, diceGroupJoiner);
     }
-    private static long sumRolls(Map<Long, Long> rollCounts) {
+    private static long sumRolls(Map<Long, Long> rollCounts, long constant) {
         return rollCounts.entrySet().stream()
                 .mapToLong(en -> en.getKey() * en.getValue())
                 .reduce(Long::sum)
-                .orElse(0);
+                .orElse(0) + constant;
     }
     private static String buildRolledValuesString(Map<Long, Long> rollCounts) {
         // returned map may have patterns, simulate random order by shuffling
