@@ -66,6 +66,17 @@ public class BlockPosTest {
     }
 
     @Test
+    public void testInBounds() {
+        assertThat(new BlockPos(29_999_900, 64, 29_999_900).isInBounds())
+                .isTrue();
+    }
+    @Test
+    public void testOutOfBounds() {
+        assertThat(new BlockPos(30_000_000, 64, 29_999_900).isInBounds())
+                .isFalse();
+    }
+
+    @Test
     public void testToString() {
         assertThat(new BlockPos(27, 95, -205))
                 .hasToString("27, 95, -205");
