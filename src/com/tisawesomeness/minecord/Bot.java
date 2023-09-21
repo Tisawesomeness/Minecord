@@ -13,7 +13,6 @@ import com.tisawesomeness.minecord.network.OkAPIClient;
 import com.tisawesomeness.minecord.util.*;
 import com.tisawesomeness.minecord.util.type.DelayedCountDownLatch;
 import com.tisawesomeness.minecord.util.type.Switch;
-
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Message;
@@ -25,7 +24,7 @@ import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.messages.MessageRequest;
 import org.discordbots.api.client.DiscordBotListAPI;
 
-import java.awt.Color;
+import java.awt.*;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
@@ -46,7 +45,7 @@ public class Bot {
     public static final String terms = "https://minecord.github.io/terms";
     public static final String privacy = "https://minecord.github.io/privacy";
     private static final String version = "0.16.12";
-    public static final String jdaVersion = "5.0.0-beta.12";
+    public static final String jdaVersion = "5.0.0-beta.13";
     public static final String mcVersion = "1.20";
     public static final Color color = Color.GREEN;
 

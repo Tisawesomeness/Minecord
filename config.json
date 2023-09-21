@@ -24,7 +24,7 @@
         "useMenus": true,
         "showMemory": false,
         "elevatedSkipCooldown": true,
-        "useElectroidAPI": true,
+        "useElectroidAPI": false,
         "useGappleAPI": true,
         "recordCacheStats": false,
         "itemImageHost": "https://minecord.github.io/item/",
