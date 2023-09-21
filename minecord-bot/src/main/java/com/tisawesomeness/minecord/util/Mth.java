@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Iterator;
+import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import java.util.OptionalLong;
 import java.util.concurrent.ThreadLocalRandom;
@@ -242,6 +243,22 @@ public final class Mth {
     @SneakyThrows(NoSuchAlgorithmException.class) // not possible
     private static MessageDigest getDigest() {
         return MessageDigest.getInstance("SHA-1");
+    }
+
+    /**
+     * Parses a double from a string.
+     * @param str The string to parse, may or may not be a double
+     * @return The double if present, empty if null
+     */
+    public static OptionalDouble safeParseDouble(@Nullable String str) {
+        if (str == null) {
+            return OptionalDouble.empty();
+        }
+        try {
+            return OptionalDouble.of(Double.parseDouble(str));
+        } catch (NumberFormatException ignore) {
+            return OptionalDouble.empty();
+        }
     }
 
 
