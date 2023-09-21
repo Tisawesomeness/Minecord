@@ -31,6 +31,24 @@ public final class MathUtils {
      * @return A number guaranteed to be between the low and high bounds inclusive
      * @throws IllegalArgumentException If the low bound is not less than or equal to the high bound
      */
+    public static int clamp(int val, int low, int high) {
+        if (low > high) {
+            throw new IllegalArgumentException(String.format("low=%d must be <= high=%d", low, high));
+        }
+        return Math.max(low, Math.min(val, high));
+    }
+
+    /**
+     * Clamps a value between a low and high bound.
+     * If the value is lower than the low bound, the low bound is returned.
+     * If the value is higher than the high bound, the high bound is returned.
+     * Otherwise, the value itself is returned.
+     * @param val The input number
+     * @param low The low bound, inclusive
+     * @param high The high bound, inclusive
+     * @return A number guaranteed to be between the low and high bounds inclusive
+     * @throws IllegalArgumentException If the low bound is not less than or equal to the high bound
+     */
     public static long clamp(long val, long low, long high) {
         if (low > high) {
             throw new IllegalArgumentException(String.format("low=%d must be <= high=%d", low, high));
@@ -133,6 +151,22 @@ public final class MathUtils {
     @SneakyThrows(NoSuchAlgorithmException.class) // not possible
     private static MessageDigest getDigest() {
         return MessageDigest.getInstance("SHA-1");
+    }
+
+    /**
+     * Parses a double from a string.
+     * @param str The string to parse, may or may not be a double
+     * @return The double if present, empty if null
+     */
+    public static OptionalDouble safeParseDouble(@Nullable String str) {
+        if (str == null) {
+            return OptionalDouble.empty();
+        }
+        try {
+            return OptionalDouble.of(Double.parseDouble(str));
+        } catch (NumberFormatException ignore) {
+            return OptionalDouble.empty();
+        }
     }
 
 
