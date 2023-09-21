@@ -39,8 +39,13 @@ public class BlockPosTest {
     }
     @Test
     public void testNetherToOverworldLimit() {
-        assertThat(new BlockPos(10_000_000, 64, -10_000_000).netherToOverworld())
-                .isEqualTo(new BlockPos(BlockPos.MAX_PORTAL_DISTANCE, 64, -BlockPos.MAX_PORTAL_DISTANCE));
+        assertThat(new BlockPos(10_000_000, 999, -10_000_000).netherToOverworld())
+                .isEqualTo(new BlockPos(BlockPos.MAX_PORTAL_DISTANCE, 319, -BlockPos.MAX_PORTAL_DISTANCE));
+    }
+    @Test
+    public void testNetherToOverworldLimit2() {
+        assertThat(new BlockPos(10_000_000, -100, -10_000_000).netherToOverworld())
+                .isEqualTo(new BlockPos(BlockPos.MAX_PORTAL_DISTANCE, -64, -BlockPos.MAX_PORTAL_DISTANCE));
     }
 
     @Test

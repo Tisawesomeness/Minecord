@@ -28,13 +28,14 @@ public class BlockPos extends Vec3i {
         return new BlockPos(horizontal().floorDiv(8).withY(netherY));
     }
     /**
-     * Converts nether to overworld coordinates. X/Z values are clamped to world border.
+     * Converts nether to overworld coordinates, clamped to world border/height.
      * @return overworld block pos
      */
     public BlockPos netherToOverworld() {
         int overworldX = Mth.clamp(x * 8, -MAX_PORTAL_DISTANCE, MAX_PORTAL_DISTANCE);
+        int overworldY = Mth.clamp(y, -64, 319);
         int overworldZ = Mth.clamp(z * 8, -MAX_PORTAL_DISTANCE, MAX_PORTAL_DISTANCE);
-        return new BlockPos(overworldX, y, overworldZ);
+        return new BlockPos(overworldX, overworldY, overworldZ);
     }
 
     public SectionPos getSection() {
@@ -44,6 +45,10 @@ public class BlockPos extends Vec3i {
         return floorMod(16);
     }
 
+    /**
+     * @return true if the X/Z (not Y!) coordinates are within the world border
+     * @see #MAX_BORDER_DISTANCE
+     */
     public boolean isInBounds() {
         return -MAX_BORDER_DISTANCE <= x && x <= MAX_BORDER_DISTANCE &&
                 -MAX_BORDER_DISTANCE <= z && z <= MAX_BORDER_DISTANCE;
