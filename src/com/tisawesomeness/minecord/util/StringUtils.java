@@ -1,17 +1,8 @@
 package com.tisawesomeness.minecord.util;
 
-import lombok.NonNull;
-
 import java.util.*;
 
 public class StringUtils {
-
-    public static boolean isTruthy(String s) {
-        return s != null && (s.equalsIgnoreCase("true") || s.equalsIgnoreCase("yes"));
-    }
-    public static boolean isFalsy(String s) {
-        return s != null && (s.equalsIgnoreCase("false") || s.equalsIgnoreCase("no"));
-    }
 
     /**
      * Splits a string with newlines into groups, making sure that every group is a whole number of lines and at most the max length.
@@ -71,23 +62,6 @@ public class StringUtils {
             chars += line.length() + 1; // +1 for newline
         }
         return chars;
-    }
-
-    /**
-     * Joins a list of lines into a series of partitions, ensuring that no line in the returned list
-     * has a length over the max length (as long as every input line is no longer than the max length).
-     * This is useful for transforming a single message (split into inseparable pieces) into multiple message that
-     * satisfy all length limits.
-     * <br>If the input list contains any line that is over the max length, it will appear in the output list
-     * unmodified. Therefore, you should ensure that the input list has strings with the correct length.
-     * @param lines The list of lines to partition
-     * @param maxLength The max length of any string in the output list
-     * @return A list of strings, where no string has a length over the max length
-     * @throws IllegalArgumentException if the max length is negative
-     * @throws NullPointerException if the list contains null
-     */
-    public static List<String> partitionLinesByLength(List<@NonNull String> lines, int maxLength) {
-        return partitionByLength(lines, "\n", maxLength);
     }
 
     /**

@@ -7,10 +7,13 @@ import br.com.azalim.mcserverping.MCPingResponse.Player;
 import br.com.azalim.mcserverping.MCPingUtil;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.SlashCommand;
+import com.tisawesomeness.minecord.mc.Favicon;
 import com.tisawesomeness.minecord.util.MathUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
-
+import com.tisawesomeness.minecord.util.type.Dimensions;
+import com.tisawesomeness.minecord.util.type.Either;
+import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -140,8 +143,16 @@ public class ServerCommand extends SlashCommand {
         List<Player> sample = reply.getPlayers().getSample();
 
         // Build and format message
-        if (reply.isPreventsChatReports()) {
+        if (reply.isPreventsChatReports() && reply.isEnforcesSecureChat()) {
+            m += ":interrobang: **Enforces and prevents chat reports at the same time? " +
+                    "Server is sending contradictory messages.\n";
+        } else if (reply.isPreventsChatReports()) {
             m += ":white_check_mark: **Prevents chat reports**\n";
+        } else if (reply.isEnforcesSecureChat()) {
+            m += ":shield: **Enforces chat reports**\n";
+        }
+        if (reply.isPreviewsChat()) {
+            m += ":speech_balloon: Enables chat preview\n";
         }
         m += "**Address:** " + address +
                 "\n" + "**Version:** " + version +
@@ -149,7 +160,7 @@ public class ServerCommand extends SlashCommand {
         if (motd != null) {
             m += "\n" + "**MOTD:** " + motd;
         }
-        if (sample != null && sample.size() > 0) {
+        if (sample != null && !sample.isEmpty()) {
             String sampleStr = sample.stream()
                     .map(p -> MCPingUtil.stripColors(p.getName()))
                     .collect(Collectors.joining("\n"));
@@ -161,21 +172,32 @@ public class ServerCommand extends SlashCommand {
         if (reply.getFavicon() == null) {
             eb.setDescription(m);
         } else {
-            String favicon = reply.getFavicon().replace("\n", "");
-            if (favicon.contains(",")) {
-                if (!e.isFromGuild() || e.getGuild().getSelfMember().hasPermission(e.getGuildChannel(), Permission.MESSAGE_ATTACH_FILES)) {
-                    try {
-                        byte[] data = Base64.getDecoder().decode(favicon.split(",")[1]);
-                        MessageEmbed embed = eb.setDescription(m).setThumbnail("attachment://favicon.png").build();
-                        e.getHook().sendFiles(FileUpload.fromData(data, "favicon.png")).setEmbeds(embed).queue();
-                        return new Result(Outcome.SUCCESS);
-                    } catch (IllegalArgumentException ex) {
-                        ex.printStackTrace();
-                        eb.setDescription(m + "\n:x: Server returned an invalid icon.");
-                    }
+            Optional<Favicon> iconOpt = Favicon.parse(reply.getFavicon());
+            if (iconOpt.isPresent()) {
+                Favicon icon = iconOpt.get();
+                Either<Favicon.PngError, Dimensions> errorOrDimensions = icon.validate();
+                if (errorOrDimensions.isLeft()) {
+                    Favicon.PngError error = errorOrDimensions.getLeft();
+                    m += "\n" + getMessage(error);
                 } else {
-                    eb.setDescription(m + "\n:warning: Give Minecord permission to attach files to see server icons.");
+                    Dimensions dimensions = errorOrDimensions.getRight();
+                    if (dimensions.getWidth() != Favicon.EXPECTED_SIZE || dimensions.getHeight() != Favicon.EXPECTED_SIZE) {
+                        m += String.format("\n:information_source: Icon is %dx%d, only %dx%d icons may display properly.",
+                                dimensions.getWidth(), dimensions.getHeight(), Favicon.EXPECTED_SIZE, Favicon.EXPECTED_SIZE);
+                    }
                 }
+                if (icon.usesNewlines()) {
+                    m += "\n:information_source: Icon data not on one line, will not work on 1.13 or later.";
+                }
+                if (!e.isFromGuild() || e.getGuild().getSelfMember().hasPermission(e.getGuildChannel(), Permission.MESSAGE_ATTACH_FILES)) {
+                    MessageEmbed embed = eb.setDescription(m).setThumbnail("attachment://favicon.png").build();
+                    e.getHook().sendFiles(FileUpload.fromData(icon.getData(), "favicon.png")).setEmbeds(embed).queue();
+                    return new Result(Outcome.SUCCESS);
+                } else {
+                    eb.setDescription(m + "\n:warning: Give Minecord attach files permissions to see server icons.");
+                }
+            } else {
+                eb.setDescription(m + "\n:x: Server returned an invalid icon.");
             }
         }
         e.getHook().sendMessageEmbeds(eb.build()).queue();
@@ -200,6 +222,21 @@ public class ServerCommand extends SlashCommand {
             }
         }
         return false;
+    }
+
+    private static String getMessage(@NonNull Favicon.PngError error) {
+        switch (error) {
+            case TOO_SHORT:
+                return "Icon data is too short to be a valid PNG image.";
+            case BAD_SIGNATURE:
+            case BAD_IHDR_LENGTH:
+            case BAD_IHDR_TYPE:
+            case NEGATIVE_WIDTH:
+            case NEGATIVE_HEIGHT:
+                return "Icon is not a valid PNG image.";
+            default:
+                throw new AssertionError("unreachable");
+        }
     }
 
 }

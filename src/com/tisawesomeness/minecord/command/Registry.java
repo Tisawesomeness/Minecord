@@ -1,5 +1,8 @@
 package com.tisawesomeness.minecord.command;
 
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.admin.*;
 import com.tisawesomeness.minecord.command.core.*;
@@ -8,10 +11,6 @@ import com.tisawesomeness.minecord.command.player.*;
 import com.tisawesomeness.minecord.command.utility.*;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.type.Either;
-
-import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
-import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 
@@ -29,77 +28,82 @@ public class Registry {
 
     private static final String adminHelp = "**These commands require elevation to use.**\n\n" +
             "`{&}infoadmin` - Displays bot info, including used memory and boot time.\n" +
-            "`{&}settings <guild id> admin [setting] [value]` - Change the bot's settings for another guild.\n" +
+            "`{&}settingsadmin <guild id> [<setting> <value>]` - Change the bot's settings for another guild.\n" +
             "`{&}permsadmin <channel id>` - Test the bot's permissions in any channel.\n" +
-            "`{&}useradmin <user id> [mutual]` - Show info, ban status, and elevation for a user outside of the current guild. Include \"mutual\" to show mutual guilds.\n" +
+            "`{&}useradmin <user id> [mutual?]` - Show info, ban status, and elevation for a user outside of the current guild. Include \"mutual\" to show mutual guilds.\n" +
             "`{&}guildadmin <guild id>` - Show info and ban status for another guild.\n" +
             "`{&}roleadmin <role id>` - Shows the info of any role.\n";
 
     public static final Module[] modules = {
             new Module("Core",
-                    new HelpCommand(),
-                    new HelpCommandLegacy(),
-                    new InfoCommand(),
-                    new InfoCommandLegacy(),
-                    new InfoCommandAdmin(),
-                    new PingCommand(),
-                    new PingCommandLegacy(),
-                    new PrefixCommand(),
-                    new SettingsCommand(),
-                    new InviteCommand(),
-                    new VoteCommand(),
-                    new CreditsCommand(),
-                    new CreditsCommandLegacy()
+                       new HelpCommand(),
+                       new HelpCommandLegacy(),
+                       new InfoCommand(),
+                       new InfoCommandLegacy(),
+                       new InfoCommandAdmin(),
+                       new PingCommand(),
+                       new PingCommandLegacy(),
+                       new PrefixCommand(),
+                       new SettingsCommand(),
+                       new SettingsCommandAdmin(),
+                       new InviteCommand(),
+                       new VoteCommand(),
+                       new CreditsCommand(),
+                       new CreditsCommandLegacy()
             ),
             new Module("Player",
-                    new ProfileCommand(),
-                    new HistoryCommand(),
-                    new UuidCommand(),
-                    new SkinCommand(),
-                    new CapeCommand(),
-                    new RenderCommand(RenderType.AVATAR),
-                    new RenderCommand(RenderType.HEAD),
-                    new RenderCommand(RenderType.BODY),
-                    new AnsiCommand()
+                       new ProfileCommand(),
+                       new HistoryCommand(),
+                       new UuidCommand(),
+                       new SkinCommand(),
+                       new CapeCommand(),
+                       new RenderCommand(RenderType.AVATAR),
+                       new RenderCommand(RenderType.HEAD),
+                       new RenderCommand(RenderType.BODY),
+                       new AnsiCommand()
             ),
             new Module("Utility",
-                    new StatusCommand(),
-                    new ServerCommand(),
-                    new ItemCommand(),
-                    new RecipeCommand(),
-                    new IngredientCommand(),
-                    new CodesCommand(),
-                    new ColorCommand(),
-                    new SeedCommand(),
-                    new ShadowCommand(),
-                    new Sha1Command()
+                       new StatusCommand(),
+                       new ServerCommand(),
+                       new ItemCommand(),
+                       new RecipeCommand(),
+                       new IngredientCommand(),
+                       new StackCommand(),
+                       new CoordsCommand(),
+                       new CodesCommand(),
+                       new ColorCommand(),
+                       new SeedCommand(),
+                       new ShadowCommand(),
+                       new Sha1Command(),
+                       new RandomCommand()
             ),
             new Module("Discord",
-                    new UserCommand(),
-                    new GuildCommand(),
-                    new GuildCommandAdmin(),
-                    new RoleCommand(),
-                    new RoleCommandAdmin(),
-                    new RolesCommand(),
-                    new IdCommand(),
-                    new PurgeCommand(),
-                    new PermsCommand(),
-                    new PermsCommandAdmin()
+                       new UserCommand(),
+                       new UserCommandAdmin(),
+                       new GuildCommand(),
+                       new GuildCommandAdmin(),
+                       new RoleCommand(),
+                       new RoleCommandAdmin(),
+                       new RolesCommand(),
+                       new IdCommand(),
+                       new PurgeCommand(),
+                       new PermsCommand(),
+                       new PermsCommandAdmin()
             ),
             new Module("Admin", true, adminHelp,
-                    new SayCommand(),
-                    new MsgCommand(),
-                    new NameCommand(),
-                    new UsageCommand(),
-                    new DebugCommand(),
-                    new PromoteCommand(),
-                    new DemoteCommand(),
-                    new BanCommand(),
-                    new ReloadCommand(),
-                    new ShutdownCommand(),
-                    new DeployCommand(),
-                    new EvalCommand(),
-                    new TestCommand()
+                       new SayCommand(),
+                       new MsgCommand(),
+                       new NameCommand(),
+                       new UsageCommand(),
+                       new DebugCommand(),
+                       new PromoteCommand(),
+                       new DemoteCommand(),
+                       new BanCommand(),
+                       new ReloadCommand(),
+                       new ShutdownCommand(),
+                       new DeployCommand(),
+                       new EvalCommand(),
+                       new TestCommand()
             )
     };
     // Map from name or alias user enters to either command or name of slash command to migrate to
@@ -159,21 +163,21 @@ public class Registry {
         if (old == null) {
             legacyCommandMap.put(input, entry);
 
-        // legacy command is being replaced with another legacy command
+            // legacy command is being replaced with another legacy command
         } else if (old.isRight() && entry.isRight()) {
             legacyCommandMap.put(input, entry);
             String oldName = old.getRight().getInfo().name;
             String newName = entry.getRight().getInfo().name;
             System.err.println("Command " + oldName + " is being overwritten by " + newName + " for " + input);
 
-        // slash command redirection is being replaced with another redirection
+            // slash command redirection is being replaced with another redirection
         } else if (old.isLeft() && entry.isLeft()) {
             legacyCommandMap.put(input, entry);
             String oldName = old.getLeft();
             String newName = entry.getLeft();
             System.err.println("Slash command redirection " + oldName + " is being overwritten by " + newName + " for " + input);
 
-        // slash command redirection is being replaced with a legacy command, legacy command takes priority
+            // slash command redirection is being replaced with a legacy command, legacy command takes priority
         } else if (old.isLeft() && entry.isRight()) {
             legacyCommandMap.put(input, entry);
         }
@@ -253,7 +257,7 @@ public class Registry {
 
         public CommandState() {
             Caffeine<Object, Object> builder = Caffeine.newBuilder()
-                .expireAfterWrite(Duration.ofMinutes(1));
+                    .expireAfterWrite(Duration.ofMinutes(1));
             if (Config.getRecordCacheStats()) {
                 builder.recordStats();
             }

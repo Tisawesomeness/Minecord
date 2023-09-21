@@ -4,17 +4,93 @@ import lombok.NonNull;
 import lombok.SneakyThrows;
 
 import javax.annotation.Nullable;
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.OptionalInt;
-import java.util.OptionalLong;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public final class MathUtils {
+
+    public static final BigInteger LONG_MAX_VALUE = BigInteger.valueOf(Long.MAX_VALUE);
+    public static final BigInteger LONG_MIN_VALUE = BigInteger.valueOf(Long.MIN_VALUE);
 
     private static final long LOWER_FOUR_BYTES = 0x0000_0000_FFFF_FFFFL;
 
     private MathUtils() {}
+
+    /**
+     * Clamps a value between a low and high bound.
+     * If the value is lower than the low bound, the low bound is returned.
+     * If the value is higher than the high bound, the high bound is returned.
+     * Otherwise, the value itself is returned.
+     * @param val The input number
+     * @param low The low bound, inclusive
+     * @param high The high bound, inclusive
+     * @return A number guaranteed to be between the low and high bounds inclusive
+     * @throws IllegalArgumentException If the low bound is not less than or equal to the high bound
+     */
+    public static int clamp(int val, int low, int high) {
+        if (low > high) {
+            throw new IllegalArgumentException(String.format("low=%d must be <= high=%d", low, high));
+        }
+        return Math.max(low, Math.min(val, high));
+    }
+
+    /**
+     * Clamps a value between a low and high bound.
+     * If the value is lower than the low bound, the low bound is returned.
+     * If the value is higher than the high bound, the high bound is returned.
+     * Otherwise, the value itself is returned.
+     * @param val The input number
+     * @param low The low bound, inclusive
+     * @param high The high bound, inclusive
+     * @return A number guaranteed to be between the low and high bounds inclusive
+     * @throws IllegalArgumentException If the low bound is not less than or equal to the high bound
+     */
+    public static long clamp(long val, long low, long high) {
+        if (low > high) {
+            throw new IllegalArgumentException(String.format("low=%d must be <= high=%d", low, high));
+        }
+        return Math.max(low, Math.min(val, high));
+    }
+
+    /**
+     * Computes the largest mantissa {@code n} such that {@code d = x * 10^n} for some {@code 1 <= abs(x) < 10}.
+     * <br>In other words, computes the largest exponent {@code n} such that {@code 10^n < abs(d)}.
+     * @param d input number
+     * @return {@code n}, or 0 if the input is 0
+     */
+    public static int mantissa(double d) {
+        if (d == 0.0) {
+            return 0;
+        }
+        return (int) Math.floor(StrictMath.log10(Math.abs(d)));
+    }
+
+    /**
+     * Checks if an addition operation will overflow
+     * @param a first number
+     * @param b second number
+     * @return whether an overflow will occur
+     */
+    public static boolean additionOverflows(long a, long b) {
+        long result = a + b;
+        return ((a ^ result) & (b ^ result)) < 0;
+    }
+
+    // https://stackoverflow.com/a/6195065
+    /**
+     * Checks if a multiplication operation will overflow
+     * @param a first number
+     * @param b second number
+     * @return whether an overflow will occur
+     */
+    public static boolean multiplicationOverflows(long a, long b) {
+        long result = a * b;
+        return (Long.signum(a) * Long.signum(b) != Long.signum(result)) || (a != 0L && result / a != b);
+    }
 
     /**
      * Casts an int to a long without sign extension.
@@ -24,6 +100,38 @@ public final class MathUtils {
      */
     public static long castWithoutSignExtension(int n) {
         return n & LOWER_FOUR_BYTES;
+    }
+
+    /**
+     * Chooses a random element from the array.
+     * @param arr input array
+     * @return random element
+     * @param <T> type of array
+     */
+    public static <T> T choose(T[] arr) {
+        return arr[ThreadLocalRandom.current().nextInt(arr.length)];
+    }
+
+    /**
+     * Shuffles a collection into a new list.
+     * @param collection input collection, remains unmodified
+     * @return new list with shuffled elements
+     * @param <T> type of list
+     */
+    public static <T> List<T> shuffle(Collection<T> collection) {
+        List<T> list = new ArrayList<>(collection);
+        Collections.shuffle(list);
+        return list;
+    }
+
+    /**
+     * Generates a pseudorandom Gaussian distributed value, using {@link ThreadLocalRandom#nextGaussian()}.
+     * @param mean the mean of the distribution
+     * @param standardDeviation the standard deviation (square root of variance) of the distribution
+     * @return a randomly generated value
+     */
+    public static double randomGaussian(double mean, double standardDeviation) {
+        return ThreadLocalRandom.current().nextGaussian() * standardDeviation + mean;
     }
 
     /**
@@ -43,6 +151,22 @@ public final class MathUtils {
     @SneakyThrows(NoSuchAlgorithmException.class) // not possible
     private static MessageDigest getDigest() {
         return MessageDigest.getInstance("SHA-1");
+    }
+
+    /**
+     * Parses a double from a string.
+     * @param str The string to parse, may or may not be a double
+     * @return The double if present, empty if null
+     */
+    public static OptionalDouble safeParseDouble(@Nullable String str) {
+        if (str == null) {
+            return OptionalDouble.empty();
+        }
+        try {
+            return OptionalDouble.of(Double.parseDouble(str));
+        } catch (NumberFormatException ignore) {
+            return OptionalDouble.empty();
+        }
     }
 
 

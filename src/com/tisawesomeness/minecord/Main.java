@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
+@SuppressWarnings("unused")
 public class Main {
 
     protected static ClassLoader cl;

@@ -1,12 +1,13 @@
 package com.tisawesomeness.minecord.mc.external;
 
 import com.tisawesomeness.minecord.mc.player.Profile;
+import com.tisawesomeness.minecord.mc.player.ProfileAction;
 import com.tisawesomeness.minecord.mc.player.SkinModel;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.UrlUtils;
 import com.tisawesomeness.minecord.util.UuidUtils;
-
 import lombok.NonNull;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -108,7 +110,10 @@ public abstract class MojangAPI {
             }
         }
 
-        return Optional.of(new Profile(username, legacy, demo, skinModel, skinUrl, capeUrl));
+        JSONArray profileActionsArr = json.optJSONArray("profileActions");
+        Set<ProfileAction> profileActions = ProfileAction.parseProfileActions(profileActionsArr);
+
+        return Optional.of(new Profile(username, legacy, demo, skinModel, skinUrl, capeUrl, profileActions));
     }
 
     private static SkinModel getSkinModel(@NonNull JSONObject skinObj) {

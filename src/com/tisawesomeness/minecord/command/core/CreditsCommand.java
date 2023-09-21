@@ -3,7 +3,6 @@ package com.tisawesomeness.minecord.command.core;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.SlashCommand;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -30,10 +29,10 @@ public class CreditsCommand extends SlashCommand {
         return legacyAliases();
     }
 
-    private static final String devs = MarkdownUtil.maskedLink("Tis_awesomeness#8617", "https://github.com/Tisawesomeness") + " - Main Dev\n" +
-            MarkdownUtil.maskedLink("jbs#6969", "https://github.com/lordjbs") + " - Developer\n" +
-            MarkdownUtil.maskedLink("samueldcs#4675", "https://github.com/samueldcs") + " - Made the Website\n" +
-            MarkdownUtil.maskedLink("DJ Electro#1677", "https://github.com/Electromaster232") + " - Supplied Hosting";
+    private static final String devs = MarkdownUtil.maskedLink("tis_awesomeness", "https://github.com/Tisawesomeness") + " - Main Dev\n" +
+            MarkdownUtil.maskedLink("jbs", "https://github.com/lordjbs") + " - Developer\n" +
+            MarkdownUtil.maskedLink("samueldcs", "https://github.com/samueldcs") + " - Made the Website\n" +
+            MarkdownUtil.maskedLink("DJ Electro", "https://github.com/Electromaster232") + " - Supplied Hosting";
 
     private static final String apis = "Discord API Wrapper - " + MarkdownUtil.maskedLink("JDA", "https://github.com/DV8FromTheWorld/JDA") + "\n" +
             "MC Account Info - " +

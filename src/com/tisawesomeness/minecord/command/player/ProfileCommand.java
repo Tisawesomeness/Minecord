@@ -4,16 +4,16 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.mc.external.PlayerProvider;
 import com.tisawesomeness.minecord.mc.player.AccountStatus;
 import com.tisawesomeness.minecord.mc.player.Player;
+import com.tisawesomeness.minecord.mc.player.ProfileAction;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.UuidUtils;
-
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
-import java.awt.Color;
+import java.awt.*;
 import java.net.URL;
 import java.util.Optional;
 import java.util.UUID;
@@ -110,18 +110,26 @@ public class ProfileCommand extends BasePlayerCommand {
         String descriptionStart = usernameLength + "\n" + shortUuid + "\n" + longUuid + "\n";
         String defaultModels = defaultModel + "\n" + newDefaultModel;
         if (player.isPHD()) {
-            return descriptionStart + defaultModels + "\n**This player is pseudo hard-deleted (PHD)!**";
-        } else {
-            String skinModel = "**Skin Model**: " + player.getSkinModel().getDescription();
-            return descriptionStart + skinModel + "\n" + defaultModels;
+            return "__This player is pseudo hard-deleted (PHD)!__\n\n" + descriptionStart + defaultModels;
         }
+        String skinModel = "**Skin Model**: " + player.getSkinModel().getDescription();
+        String description = descriptionStart + skinModel + "\n" + defaultModels;
+        if (player.getProfile().getProfileActions().contains(ProfileAction.FORCED_NAME_CHANGE)) {
+            return "__Cannot play multiplayer due to banned name.__\n\n" + description;
+        }
+        return description;
     }
 
     private static @NonNull String constructSkinInfo(Player player) {
         String skinLink = boldMaskedLink("View Skin", player.getSkinUrl());
         String custom = "**Custom**: " + displayBool(player.hasCustomSkin());
         String skinHistoryLink = boldMaskedLink("Skin History", player.getMCSkinHistoryUrl());
-        return skinLink + "\n" + custom + "\n" + skinHistoryLink;
+        String skinInfo = skinLink + "\n" + custom + "\n" + skinHistoryLink;
+        if (player.getProfile().getProfileActions().contains(ProfileAction.USING_BANNED_SKIN)) {
+            String banNotice = player.hasCustomSkin() ? "__Banned Skin__" : "__Banned Skin__ (reset)";
+            return banNotice + "\n" + skinInfo;
+        }
+        return skinInfo;
     }
     private static @NonNull String constructAccountInfo(Player player, Optional<AccountStatus> statusOpt) {
         String accountType = statusOpt

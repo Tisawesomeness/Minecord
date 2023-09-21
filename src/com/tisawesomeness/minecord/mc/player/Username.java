@@ -54,15 +54,6 @@ public class Username implements CharSequence, Comparable<Username> {
     }
 
     /**
-     * If this username was parsed from a command, determines the number of arguments (separated by spaces) this
-     * username takes up.
-     * @return A number greater than or equal to 1
-     */
-    public int argsUsed() {
-        return (int) name.chars().filter(c -> c == ' ').count() + 1;
-    }
-
-    /**
      * Checks if a username can be sent to the Mojang API.
      * Some characters (such as {@code -} or {@code $} are not valid but Mojang will process them.
      * Others (such as {@code #} and all non-ASCII) have appeared in usernames before but make Mojang freak out.
@@ -76,18 +67,6 @@ public class Username implements CharSequence, Comparable<Username> {
         return name.contains(s);
     }
 
-    /**
-     * Determines if a string will be treated as quoted. Both the starting and ending quote are necessary.
-     * @param input The string
-     * @return Whether the string will be parsed like a quoted name
-     */
-    public static boolean isQuoted(@NonNull CharSequence input) {
-        if (input.length() == 0) {
-            return false;
-        }
-        char ch = input.charAt(0);
-        return ch == QUOTE || ch == BACKTICK;
-    }
 
     /**
      * <p>

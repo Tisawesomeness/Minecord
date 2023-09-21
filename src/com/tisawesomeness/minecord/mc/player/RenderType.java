@@ -3,9 +3,6 @@ package com.tisawesomeness.minecord.mc.player;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Arrays;
-import java.util.Optional;
-
 /**
  * An enum of renders supported by {@link Render}.
  * See <a href="https://crafatar.com/">https://crafatar.com/</a>
@@ -51,12 +48,6 @@ public enum RenderType {
     @Override
     public String toString() {
         return name;
-    }
-
-    public static Optional<RenderType> from(String id) {
-        return Arrays.stream(values())
-                .filter(type -> type.getId().equalsIgnoreCase(id))
-                .findFirst();
     }
 
 }
