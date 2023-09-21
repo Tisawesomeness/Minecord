@@ -15,6 +15,7 @@ public class Vec3Test {
             "37 / -5 / 1056",
             "37 -5 1056",
             "37  -5  1056",
+            "+37, -5, +1056",
             "x = 37, y = -5, z = 1056",
             "x=37, y=-5, z=1056",
             "x=37,y=-5,z=1056",
@@ -60,7 +61,9 @@ public class Vec3Test {
             "(invalid37, -5, 1056)",
             "37,,-5,1056",
             "x:37 ,-5.0 / 1056 ",
-            "37, y=-5, z=1056"
+            "37, y=-5, z=1056",
+            "NaN, NaN, NaN",
+            "Infinity, Infinity, Infinity"
     })
     public void testParseInvalid(String input) {
         assertThat(Vec3.parse(input))

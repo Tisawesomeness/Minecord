@@ -4,6 +4,7 @@ import com.tisawesomeness.minecord.util.Mth;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -34,7 +35,27 @@ public class Vec3 {
     private final double y;
     private final double z;
 
-    public static Optional<Vec3> parse(String str) {
+    /**
+     * Parses a Vec3 from a string. The string must contain three <strong>numbers</strong>, each number optionally
+     * starting with a <strong>prefix</strong>, separated by a <strong>separator</strong>. Optionally, the input can be
+     * surrounded by one matching pair of <strong>brackets</strong>.
+     * <h4>Number</h4>
+     * A decimal number that can be parsed by {@link Double#parseDouble(String)}.
+     * Leading periods (".9") are allowed, but trailing periods ("9.") are not. A leading plus sign is allowed.
+     * <h4>Prefix</h4>
+     * One of "x=", "x:", or "x" for any of x, y, or z, case-insensitive. Spaces are ignored.
+     * Prefixes may be used to specify numbers in any order, such as "y=1, z=2, x=7".
+     * However, coordinates must be used for all numbers, or none at all.
+     * If no prefixes are used, then the coordinate is specified in x, y, z order.
+     * <h4>Separator</h4>
+     * Numbers can be separated by spaces, commas, or forward slashes. Extra spaces are ignored.
+     * If all numbers have a prefix, then a separator is not needed, such as in "x5y2z-3".
+     * <h4>Brackets</h4>
+     * The input string may start and end with one pair of matching brackets: "()", "[]", "{}", or "<>".
+     * @param str input string
+     * @return parsed vec, or empty if the string could not be parsed
+     */
+    public static Optional<Vec3> parse(@NonNull String str) {
         // Shortest possible input is "1 2 3", reject shorter strings
         if (str.length() < 5) {
             return Optional.empty();
