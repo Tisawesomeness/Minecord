@@ -29,7 +29,7 @@ public enum ExtraHelpPage {
             "UUID Input Help",
             "Show help for NBT formats for UUIDs",
             new String[0],
-            "A [UUID](https://minecraft.gamepedia.com/Universally_unique_identifier) (Universally Unique IDentifier) is a player's unique ID.\n" +
+            "A [UUID](https://minecraft.wiki/w/Universally_unique_identifier) (Universally Unique IDentifier) is a player's unique ID.\n" +
                     "UUIDs can be in any format shown in `{&}uuid`.\n" +
                     "\n" +
                     "**Short**: `f6489b797a9f49e2980e265a05dbc3af`\n" +
