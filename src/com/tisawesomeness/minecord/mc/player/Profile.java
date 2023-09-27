@@ -18,10 +18,8 @@ import java.util.Set;
 @AllArgsConstructor
 public class Profile {
 
-    private static final String MOJANG_STUDIOS_CAPE_URL = "https://textures.minecraft.net/texture/" +
-            "9e507afc56359978a3eb3e32367042b853cddd0995d17d0da995662913fb00f7";
-    private static final URL FIXED_MOJANG_CAPE_URL = UrlUtils.createUrl("https://static.wikia.nocookie.net/" +
-            "minecraft_gamepedia/images/5/59/Mojang_Cape_(texture).png");
+    private static final String MOJANG_STUDIOS_CAPE_URL = "https://minecraft.wiki/images/Mojang_Studios_Cape_%28Texture%29.png?7450c";
+    private static final URL FIXED_MOJANG_CAPE_URL = UrlUtils.createUrl("https://static.wikia.nocookie.net/minecraft_gamepedia/images/5/59/Mojang_Cape_(texture).png");
 
     /**
      * The player's current username
