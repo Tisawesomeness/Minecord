@@ -12,7 +12,7 @@ public class CodesCommand extends AbstractUtilityCommand {
         return "codes";
     }
 
-    private String img = "https://minecraft.gamepedia.com/media/minecraft.gamepedia.com/7/7e/Minecraft_Formatting.gif";
+    private String img = "https://minecraft.wiki/images/Minecraft_Formatting.gif?2311f";
 
     public void run(String[] args, CommandContext ctx) {
 
