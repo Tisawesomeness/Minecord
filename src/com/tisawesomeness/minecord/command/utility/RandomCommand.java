@@ -95,7 +95,7 @@ public class RandomCommand extends SlashCommand {
         long min = e.getOption("min", (long) Integer.MIN_VALUE, OptionMapping::getAsLong);
         long max = e.getOption("max", (long) Integer.MAX_VALUE, OptionMapping::getAsLong);
         if (min > max) {
-            return new Result(Outcome.WARNING, "Minimum cannot be greater than maximum");
+            return new Result(Outcome.WARNING, String.format("Minimum (%d) cannot be greater than maximum (%d)", min, max));
         }
         // nextLong upper bound is exclusive, so need to assert that max+1 bound won't overflow
         assert OptionData.MAX_POSITIVE_NUMBER < Long.MAX_VALUE;
@@ -109,6 +109,9 @@ public class RandomCommand extends SlashCommand {
         String minStr = BOUNDS_FORMAT.format(min);
         double max = e.getOption("max", 1.0, OptionMapping::getAsDouble);
         String maxStr = BOUNDS_FORMAT.format(max);
+        if (min >= max) {
+            return new Result(Outcome.WARNING, String.format("Minimum (%s) cannot be greater than or equal to maximum (%s)", minStr, maxStr));
+        }
 
         double value = ThreadLocalRandom.current().nextDouble(min, max);
         String valueStr = ROLL_FORMAT.format(value);
