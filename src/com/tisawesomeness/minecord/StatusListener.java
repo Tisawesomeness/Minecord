@@ -36,10 +36,6 @@ public class StatusListener extends ListenerAdapter {
     public void onShutdown(ShutdownEvent e) {
         processStatus(e);
     }
-    @Override
-    public void onGenericSessionEvent(GenericSessionEvent e) {
-        processStatus(e);
-    }
 
     private static void processStatus(GenericSessionEvent e) {
         String emote;
