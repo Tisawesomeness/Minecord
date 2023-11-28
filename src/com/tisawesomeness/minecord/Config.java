@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord;
 
 import com.tisawesomeness.minecord.util.ArrayUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,6 +21,7 @@ public class Config {
     private static String joinLogChannel;
     private static String logWebhook;
     private static String statusWebhook;
+    private static String supportedMCVersion;
     private static boolean isSelfHosted;
     private static String author;
     private static String authorTag;
@@ -115,6 +115,7 @@ public class Config {
             joinLogChannel = settings.optString("joinLogChannel", "0");
             logWebhook = settings.optString("logWebhook", "");
             statusWebhook = settings.optString("statusWebhook", "");
+            supportedMCVersion = settings.optString("supportedMCVersion", "1.20.3");
             isSelfHosted = settings.getBoolean("isSelfHosted");
             if (isSelfHosted) {
                 author = settings.getString("author");
@@ -186,6 +187,7 @@ public class Config {
     public static String getJoinLogChannel() { return joinLogChannel; }
     public static String getLogWebhook() { return logWebhook; }
     public static String getStatusWebhook() { return statusWebhook; }
+    public static String getSupportedMCVersion() { return supportedMCVersion; }
     public static boolean isSelfHosted() { return isSelfHosted; }
     public static String getAuthor() { return author; }
     public static String getAuthorTag() { return authorTag; }

@@ -1,12 +1,11 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.ReactMenu.MenuStatus;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.mc.item.Item;
 import com.tisawesomeness.minecord.mc.item.Recipe;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
@@ -44,7 +43,7 @@ public class IngredientCommand extends SlashCommand {
     @Override
     public String getHelp() {
         return "Searches for the recipes containing an ingredient.\n" +
-                "Items and recipes are from Java Edition 1.7 to " + Bot.mcVersion + ".\n" +
+                "Items and recipes are from Java Edition 1.7 to " + Config.getSupportedMCVersion() + ".\n" +
                 "All recipe types are searchable, including brewing.\n" +
                 "\n" +
                 Item.help + "\n";
@@ -72,7 +71,7 @@ public class IngredientCommand extends SlashCommand {
         }
 
         ArrayList<String> recipes = Recipe.searchIngredient(item, "en_US");
-        if (recipes.size() == 0) {
+        if (recipes.isEmpty()) {
             String displayName = Item.getDistinctDisplayName(item, "en_US");
             return new Result(Outcome.WARNING, ":warning: " + displayName + " is not the ingredient of any recipe!");
         }

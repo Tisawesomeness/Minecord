@@ -1,10 +1,9 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.mc.item.Item;
 import com.tisawesomeness.minecord.util.MessageUtils;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -36,7 +35,7 @@ public class ItemCommand extends SlashCommand {
     @Override
     public String getHelp() {
         return "Searches for a Minecraft item.\n" +
-                "Items are from Java Edition 1.7 to " + Bot.mcVersion + ".\n" +
+                "Items are from Java Edition 1.7 to " + Config.getSupportedMCVersion() + ".\n" +
                 "\n" +
                 Item.help + "\n";
     }

@@ -9,6 +9,7 @@
         "joinLogChannel": "0",
         "logWebhook": "",
         "statusWebhook": "",
+        "supportedMCVersion": "1.20.3",
         "isSelfHosted": true,
         "author": "Tis_awesomeness",
         "authorTag": "@Tis_awesomeness#8617",
