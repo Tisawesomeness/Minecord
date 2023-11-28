@@ -142,7 +142,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
     "supportedMCVersion":  "1.20.3",
     "isSelfHosted": true,
     "author": "Tis_awesomeness",
-    "authorTag": "@Tis_awesomeness#8617",
+    "authorTag": "@tis_awesomeness",
     "invite": "https://minecord.github.io/invite",
     "helpServer": "https://minecord.github.io/support",
     "website": "https://minecord.github.io",
