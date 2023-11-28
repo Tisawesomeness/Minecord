@@ -28,7 +28,7 @@ public class StackCommand extends SlashCommand {
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "stack",
-                "Convert item counts to stacks, chests, shulkers, and back",
+                "Convert item counts to stacks, chests, shulkers, and back.",
                 "<arguments...>",
                 0,
                 false,

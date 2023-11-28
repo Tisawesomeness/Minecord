@@ -47,8 +47,8 @@ public class RandomCommand extends SlashCommand {
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "random",
-                "Generate random numbers",
-                "<type> <arguments...>",
+                "Generate random numbers.",
+                "<type> [<arguments...>]",
                 0,
                 false,
                 false

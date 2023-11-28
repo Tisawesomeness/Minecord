@@ -18,7 +18,7 @@ public class CoordsCommand extends SlashCommand {
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "coords",
-                "Convert Overworld <-> Nether coordinates and compute chunk positions",
+                "Convert Overworld <-> Nether coordinates and compute chunk positions.",
                 "<coordinate> [<dimension>]",
                 0,
                 false,
