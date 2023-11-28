@@ -109,7 +109,7 @@ public class Registry {
     // Map from name or alias user enters to either command or name of slash command to migrate to
     private static final Map<String, SlashCommand> slashCommandMap = new HashMap<>();
     private static final Map<String, Either<String, LegacyCommand>> legacyCommandMap = new HashMap<>();
-    private static final Map<Command<?>, CommandState> stateMap = new HashMap<>();
+    private static final Map<String, CommandState> stateMap = new HashMap<>();
 
     /**
      * Adds every module to the registry and maps the possible aliases to the command to execute.
@@ -140,7 +140,7 @@ public class Registry {
         } else {
             throw new AssertionError("Command " + ci.name + " is not a legacy or slash command.");
         }
-        stateMap.put(c, new CommandState());
+        stateMap.putIfAbsent(ci.name, new CommandState());
     }
     private static void insert(String input, SlashCommand cmd) {
         SlashCommand old = slashCommandMap.put(input, cmd);
@@ -265,20 +265,24 @@ public class Registry {
         }
     }
 
+    private static CommandState getState(Command<?> cmd) {
+        return stateMap.get(cmd.getInfo().name);
+    }
+
     public static void useCommand(Command<?> cmd, User user) {
-        CommandState state = stateMap.get(cmd);
+        CommandState state = getState(cmd);
         state.uses++;
         state.lastUseTimesByUser.put(user.getIdLong(), System.currentTimeMillis());
     }
     public static long getCooldownLeft(Command<?> cmd, User user) {
-        long lastUse = stateMap.get(cmd).lastUseTimesByUser.get(user.getIdLong(), k -> 0L);
+        long lastUse = getState(cmd).lastUseTimesByUser.get(user.getIdLong(), k -> 0L);
         if (lastUse == 0L) {
             return 0L;
         }
         return cmd.getInfo().cooldown + lastUse - System.currentTimeMillis();
     }
     public static int getUses(Command<?> cmd) {
-        return stateMap.get(cmd).uses;
+        return getState(cmd).uses;
     }
 
     public static CacheStats cooldownStats() {
@@ -290,7 +294,7 @@ public class Registry {
     }
     public static Optional<CacheStats> cooldownStats(String command) {
         return getCommand(command)
-                .map(stateMap::get)
+                .map(Registry::getState)
                 .map(state -> state.lastUseTimesByUser)
                 .map(Cache::stats);
     }
