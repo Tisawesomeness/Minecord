@@ -3,7 +3,6 @@ package com.tisawesomeness.minecord.mc.item;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.util.RequestUtils;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 import org.json.JSONArray;
@@ -14,9 +13,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 
@@ -30,6 +27,7 @@ public class Item {
             "minecraft.shield.white", "minecraft.white_shulker_box", "minecraft.white_bed",
             "minecraft.white_glazed_terracotta", "minecraft.white_concrete", "minecraft.white_concrete_powder",
             "minecraft.white_dye", "minecraft.white_candle" };
+    private static final List<String> FEATURE_FLAGS_FUTURE = Arrays.asList("1.21", "bundle");
 
     private static JSONObject items;
     private static JSONObject data;
@@ -64,7 +62,7 @@ public class Item {
      * @return An EmbedBuilder containing properties of the item
      */
     public static EmbedBuilder display(String item, String lang, String prefix) {
-        // All objects guarenteed to be there (except properties)
+        // All objects guaranteed to be there (except properties)
         JSONObject itemObj = items.getJSONObject(item);
         JSONObject langObj = itemObj.getJSONObject("lang").getJSONObject(lang);
         JSONObject properties = itemObj.optJSONObject("properties");
@@ -91,12 +89,15 @@ public class Item {
 
         // Version
         if (properties != null && properties.has("version")) {
-            sb.append(String.format("**Version:** %s\n", properties.getString("version")));
-        }
-
-        // Feature flag
-        if (properties != null && properties.has("feature_flag")) {
-            sb.append(String.format("**Feature Toggle:** %s\n", properties.getString("feature_flag")));
+            if (properties.has("feature_flag")) {
+                FeatureFlag flag = FeatureFlag.from(properties.getString("feature_flag")).get();
+                sb.append(String.format("**Version:** %s (%s experiment)\n", properties.getString("version"), flag.getDisplayName()));
+                if (flag.getReleaseVersion() != null) {
+                    sb.append(String.format("**Released:** %s\n", flag.getReleaseVersion()));
+                }
+            } else {
+                sb.append(String.format("**Version:** %s\n", properties.getString("version")));
+            }
         }
 
         // Previous name and id
@@ -439,7 +440,7 @@ public class Item {
                 toCheck.add(langObj.getString("distinct_display_name"));
             }
             toCheck.add(langObj.optString("block_name"));
-            if (!langObj.has("previous_conflict")) {
+            if (!langObj.has("previous_conflict") || langObj.has("skip_previous")) {
                 toCheck.add(langObj.optString("previously"));
                 toCheck.add(langObj.optString("previously2"));
             }
@@ -507,7 +508,7 @@ public class Item {
         JSONObject properties = items.getJSONObject(item).optJSONObject("properties");
         if (properties != null) {
             String feature = properties.optString("feature_flag", "vanilla");
-            if (!feature.equals("vanilla")) {
+            if (FEATURE_FLAGS_FUTURE.contains(feature)) {
                 displayName += " (" + feature + ")";
             }
         }

@@ -5,7 +5,6 @@ import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.util.ArrayUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -16,7 +15,8 @@ import java.util.stream.Collectors;
 
 public class Recipe {
 
-    public static final String[] FEATURE_FLAGS = new String[] { "vanilla", "1.20", "bundle" };
+    public static final String[] FEATURE_FLAGS = new String[] { "vanilla", "1.20", "1.21", "bundle" };
+    public static final String[] FEATURE_FLAGS_ORDER = new String[] { "1.20", "vanilla", "1.21", "bundle" };
     private static final String[] VERSIONS = new String[] {
             "1.7.10",
             "1.8", "1.8.1", "1.8.2", "1.8.3", "1.8.4", "1.8.5", "1.8.6", "1.8.7", "1.8.8", "1.8.9",
@@ -73,21 +73,35 @@ public class Recipe {
         }
         String version = getVersion(recipe);
         String removed = getRemovedVersion(recipe);
+        String feature = getFeature(recipe);
         if (version != null && removed != null) {
-            lines.add(String.format("**Version:** %s - %s", version, getPreviousVersion(removed)));
+            if (!feature.equals("vanilla")) {
+                FeatureFlag flag = FeatureFlag.from(feature).get();
+                lines.add(String.format("**Version:** %s (%s experiment) - %s", version, flag.getDisplayName(), getPreviousVersion(removed)));
+                if (flag.getReleaseVersion() != null) {
+                    lines.add(String.format("**Released:** %s", flag.getReleaseVersion()));
+                }
+            } else {
+                lines.add(String.format("**Version:** %s - %s", version, getPreviousVersion(removed)));
+            }
         } else if (version != null) {
-            lines.add(String.format("**Version:** %s", version));
+            if (!feature.equals("vanilla")) {
+                FeatureFlag flag = FeatureFlag.from(feature).get();
+                lines.add(String.format("**Version:** %s (%s experiment)", version, flag.getDisplayName()));
+                if (flag.getReleaseVersion() != null) {
+                    lines.add(String.format("**Released:** %s", flag.getReleaseVersion()));
+                }
+            } else {
+                lines.add(String.format("**Version:** %s", version));
+            }
         } else if (removed != null) {
             lines.add(String.format("**Removed In:** %s", removed));
-        }
-        String feature = getFeature(recipe);
-        if (!feature.equals("vanilla")) {
-            lines.add(String.format("**Feature Toggle:** %s", feature));
         }
         String flagRemovedVersion = getFlagRemovedVersion(recipe);
         String removedInFlag = getRemovedInFlag(recipe);
         if (flagRemovedVersion != null && removedInFlag != null) {
-            lines.add(String.format("Removed in feature toggle %s, version %s", removedInFlag, flagRemovedVersion));
+            FeatureFlag flag = FeatureFlag.from(removedInFlag).get();
+            lines.add(String.format("Removed in %s experiment, version %s", flag.getDisplayName(), flagRemovedVersion));
         }
         String notes = getNotes(recipe, lang);
         if (notes != null) {
@@ -135,7 +149,7 @@ public class Recipe {
         }
         // Wet sponge into bucket special case
         if (namespacedID.equals("minecraft:water_bucket")) {
-            recipesFound.add("sponge_bucket");
+            recipesFound.add("sponge");
         }
         return recipesFound;
     }
@@ -416,8 +430,8 @@ public class Recipe {
         if (removedVerCompare != 0) {
             return removedVerCompare;
         }
-        int featureIdx1 = ArrayUtils.indexOf(FEATURE_FLAGS, getFeature(recipe1));
-        int featureIdx2 = ArrayUtils.indexOf(FEATURE_FLAGS, getFeature(recipe2));
+        int featureIdx1 = ArrayUtils.indexOf(FEATURE_FLAGS_ORDER, getFeature(recipe1));
+        int featureIdx2 = ArrayUtils.indexOf(FEATURE_FLAGS_ORDER, getFeature(recipe2));
         int featureCompare = Integer.compare(featureIdx1, featureIdx2);
         if (featureCompare != 0) {
             return featureCompare;
@@ -698,12 +712,16 @@ public class Recipe {
             } else if (type.equals("minecraft:stonecutting")) {
                 String ingredient = getIngredients(recipeObj).toArray(new String[0])[0];
                 ArrayList<String> output = searchItemOutput(ingredient, getLang());
-                desc += String.format("\n%s %s", Emote.N1.getText(), Item.getMenuDisplayNameWithFeature(Item.searchNoStats(ingredient, getLang()), getLang()));
-                buttons.put(Emote.N1.getCodepoint(), () -> {
-                    setRecipeList(output);
-                    startingIngredient = 0;
-                    setPage(0);
-                });
+                if (!output.isEmpty()) {
+                    desc += String.format("\n%s %s", Emote.N1.getText(), Item.getMenuDisplayNameWithFeature(Item.searchNoStats(ingredient, getLang()), getLang()));
+                    buttons.put(Emote.N1.getCodepoint(), () -> {
+                        setRecipeList(output);
+                        startingIngredient = 0;
+                        setPage(0);
+                    });
+                } else {
+                    buttons.put(Emote.N1.getCodepoint(), null);
+                }
                 for (int i = 1; i < 9; i++) {
                     buttons.put(Emote.valueOf(i + 1).getCodepoint(), null);
                 }
