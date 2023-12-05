@@ -37,16 +37,15 @@ public class Bot {
 
     private static final String mainClass = "com.tisawesomeness.minecord.Main";
     public static final String author = "Tis_awesomeness";
-    public static final String authorTag = "@Tis_awesomeness#8617";
+    public static final String authorTag = "@tis_awesomeness";
     public static final String invite = "https://minecord.github.io/invite";
     public static final String helpServer = "https://minecord.github.io/support";
     public static final String website = "https://minecord.github.io";
     public static final String github = "https://github.com/Tisawesomeness/Minecord";
     public static final String terms = "https://minecord.github.io/terms";
     public static final String privacy = "https://minecord.github.io/privacy";
-    private static final String version = "0.17.3";
-    public static final String jdaVersion = "5.0.0-beta.17";
-    public static final String mcVersion = "1.20";
+    private static final String version = "0.17.4";
+    public static final String jdaVersion = "5.0.0-beta.18";
     public static final Color color = Color.GREEN;
 
     public static ShardManager shardManager;
@@ -237,7 +236,7 @@ public class Bot {
         shardManager.retrieveUserById(Config.getOwner()).queue(u -> ownerAvatarUrl = u.getAvatarUrl());
         bootTime = System.currentTimeMillis() - birth;
         System.out.println("Boot Time: " + DateUtils.getBootTime());
-        logger.statusLog(":white_check_mark: **Bot started!**");
+        logger.log(":white_check_mark: **Bot started!**");
         DiscordUtils.update();
         RequestUtils.sendGuilds();
 
