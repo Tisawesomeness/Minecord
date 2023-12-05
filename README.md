@@ -9,4 +9,4 @@ A Discord bot with many Minecraft-related features, such as name history, skin r
 ### Self Hosting
 
 - If you only want to use commands, simply [invite the public bot](https://discordapp.com/oauth2/authorize?client_id=292279711034245130&scope=bot&permissions=93248).
-- If you want to customize it for your server, add new features, or just hack on it, see the instructions on the [master](https://github.com/Tisawesomeness/Minecord/tree/master) branch.
+- If you want to host it locally, customize it for your server, add new features, or just hack on it, download the [latest release](https://github.com/Tisawesomeness/Minecord/releases/latest) from the master branch and follow the instructions in `README.txt`.
