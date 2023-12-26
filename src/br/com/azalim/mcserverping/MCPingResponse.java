@@ -136,7 +136,9 @@ public class MCPingResponse {
         /**
          * Unknown
          */
-        private String id;
+        private Object id;
+        // Modification from tis: UUID can be in multiple formats, so change to Object
+        // currently unused
 
     }
 

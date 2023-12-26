@@ -121,14 +121,6 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Database User:* The username used to connect to the database.
 - *Database Pass:* The password used to connect to the database.
 
-### Self Hosting
-- Download the [latest release](https://github.com/Tisawesomeness/Minecord/releases/latest).
-- Download all the `.json` files from this repo and place them in the same folder as `minecord.jar`. You can either clone/download the entire repository or download the files individually.
-- Create a Discord bot and put the token in `config.json`.
-- Customize `config.json` as much as you like.
-- Run the bot with `java -jar minecord.jar`.
-- Join the support server [here](https://discord.gg/hrfQaD7) for any extra help or enquiries.
-
 #### Default Config
 ```json
 {
