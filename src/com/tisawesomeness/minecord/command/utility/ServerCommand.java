@@ -186,9 +186,6 @@ public class ServerCommand extends SlashCommand {
                                 dimensions.getWidth(), dimensions.getHeight(), Favicon.EXPECTED_SIZE, Favicon.EXPECTED_SIZE);
                     }
                 }
-                if (icon.usesNewlines()) {
-                    m += "\n:information_source: Icon data not on one line, will not work on 1.13 or later.";
-                }
                 if (!e.isFromGuild() || e.getGuild().getSelfMember().hasPermission(e.getGuildChannel(), Permission.MESSAGE_ATTACH_FILES)) {
                     MessageEmbed embed = eb.setDescription(m).setThumbnail("attachment://favicon.png").build();
                     e.getHook().sendFiles(FileUpload.fromData(icon.getData(), "favicon.png")).setEmbeds(embed).queue();
