@@ -3,13 +3,15 @@ package com.tisawesomeness.minecord.command;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.util.MessageUtils;
-
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.Event;
+import net.dv8tion.jda.api.exceptions.InteractionFailureException;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
 import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.UUID;
 
 public interface Command<T extends Event> {
@@ -34,18 +36,25 @@ public interface Command<T extends Event> {
     String debugRunCommand(T e);
 
     default void handleException(Throwable ex, T e) {
-        UUID uuid = UUID.randomUUID();
+        // Discord sometimes fails to respond, causing this exception
+        // not much we can do about it
+        if (ex instanceof InteractionFailureException) {
+            System.err.println("InteractionFailureException");
+            return;
+        }
 
-        String logMsg = String.format("EXCEPTION: `%s`\nID: `%s`\n%s", debugRunCommand(e), uuid, buildErrorMessage(ex));
+        UUID exceptionId = UUID.randomUUID();
+        String consoleLogMsg = String.format("EXCEPTION: `%s`\nID: `%s`\n%s", debugRunCommand(e), exceptionId, getStackTrace(ex));
+        System.err.println(consoleLogMsg);
+
+        String logMsg = String.format("EXCEPTION: `%s`\nID: `%s`\n%s", debugRunCommand(e), exceptionId, buildErrorMessage(ex));
         String logMsgTrimmed = MessageUtils.trimCodeblock(logMsg);
-        System.err.println(uuid);
-        ex.printStackTrace();
         Bot.logger.debugLog(logMsgTrimmed);
 
         if (Config.getDebugMode()) {
             sendFailure(e, MessageCreateData.fromContent(logMsgTrimmed));
         } else {
-            String userMsg = ":boom: An unexpected error occurred!\nID: " + MarkdownUtil.monospace(uuid.toString());
+            String userMsg = ":boom: An unexpected error occurred!\nID: " + MarkdownUtil.monospace(exceptionId.toString());
             String userMsgTrimmed = MessageUtils.trimCodeblock(userMsg);
             sendFailure(e, MessageCreateData.fromContent(userMsgTrimmed));
         }
@@ -80,6 +89,13 @@ public interface Command<T extends Event> {
             }
         }
         return sb.toString();
+    }
+
+    static String getStackTrace(Throwable ex) {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        ex.printStackTrace(pw);
+        return sw.toString();
     }
 
     /**
