@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.util;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
-
 import net.dv8tion.jda.api.JDA;
 import org.discordbots.api.client.DiscordBotListAPI;
 import org.json.JSONArray;
@@ -10,6 +9,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.Socket;
 import java.net.URL;
@@ -81,6 +81,34 @@ public class RequestUtils {
      */
     public static String getPlain(String url, String auth) throws IOException {
         URLConnection conn = open(url, auth, plainType);
+        return get(conn);
+    }
+
+    /**
+     * Performs an HTTP POST request.
+     * @param url The request URL.
+     * @param query The request payload, in string form.
+     * @return The response of the request in string form.
+     */
+    public static String post(String url, String query) throws IOException {
+        return post(url, query, null);
+    }
+
+    /**
+     * Performs an HTTP POST request.
+     * @param url The request URL.
+     * @param query The request payload, in string form.
+     * @param auth The content of the Authorization header.
+     * @return The response of the request in string form.
+     */
+    public static String post(String url, String query, String auth) throws IOException {
+        URLConnection conn = open(url, auth, jsonType);
+        ((HttpURLConnection) conn).setRequestMethod("POST");
+
+        OutputStream output = conn.getOutputStream();
+        output.write(query.getBytes(charset));
+        output.close();
+
         return get(conn);
     }
 

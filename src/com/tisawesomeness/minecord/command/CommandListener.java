@@ -6,7 +6,6 @@ import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.ArrayUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.type.Either;
-
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
@@ -46,13 +45,18 @@ public class CommandListener extends ListenerAdapter {
         }
 
         //Check for elevation
-        if (cmd.getInfo().elevated && !Database.isElevated(e.getUser().getIdLong())) {
-            e.reply(":warning: Insufficient permissions!").setEphemeral(true).queue();
-            return;
+        Boolean elevated = null;
+        if (cmd.getInfo().elevated) {
+            elevated = Database.isElevated(e.getUser().getIdLong());
+            if (!elevated) {
+                e.reply(":warning: Insufficient permissions!").setEphemeral(true).queue();
+                return;
+            }
         }
 
         //Check for cooldowns, skipping if user is elevated
-        if (!(Config.getElevatedSkipCooldown() && Database.isElevated(e.getUser().getIdLong())) && cmd.getInfo().cooldown > 0) {
+        if (cmd.getInfo().cooldown > 0 &&
+                (!Config.getElevatedSkipCooldown() || Boolean.TRUE.equals(elevated) || !Database.isElevated(e.getUser().getIdLong()))) {
             long cooldownLeft = Registry.getCooldownLeft(cmd, e.getUser());
             if (cooldownLeft > 0) {
                 //Format warning message
@@ -164,13 +168,18 @@ public class CommandListener extends ListenerAdapter {
         MessageChannel c = e.getChannel();
 
         //Check for elevation
-        if (ci.elevated && !Database.isElevated(a.getIdLong())) {
-            c.sendMessage(":warning: Insufficient permissions!").queue();
-            return;
+        Boolean elevated = null;
+        if (ci.elevated) {
+            elevated = Database.isElevated(a.getIdLong());
+            if (!elevated) {
+                c.sendMessage(":warning: Insufficient permissions!").queue();
+                return;
+            }
         }
 
         //Check for cooldowns, skipping if user is elevated
-        if (!(Config.getElevatedSkipCooldown() && Database.isElevated(a.getIdLong())) && ci.cooldown > 0) {
+        if (ci.cooldown > 0 &&
+                (!Config.getElevatedSkipCooldown() || Boolean.TRUE.equals(elevated) || !Database.isElevated(a.getIdLong()))) {
             long cooldownLeft = Registry.getCooldownLeft(cmd, a);
             if (cooldownLeft > 0) {
                 //Format warning message
