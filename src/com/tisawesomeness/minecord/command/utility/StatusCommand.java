@@ -4,11 +4,12 @@ import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
-
+import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
-import java.awt.Color;
+import java.awt.*;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -16,12 +17,12 @@ import java.util.stream.Collectors;
 
 public class StatusCommand extends SlashCommand {
 
-    private static final List<String> URLS = Arrays.asList(
-            "https://minecraft.net",
-            "https://account.mojang.com",
-            "https://authserver.mojang.com",
-            "https://textures.minecraft.net",
-            "https://api.mojang.com"
+    private static final List<MinecraftService> SERVICES = Arrays.asList(
+            new UrlMinecraftService("https://minecraft.net", true),
+            new AccountsService(),
+            new UrlMinecraftService("https://sessionserver.mojang.com/session/minecraft/profile/853c80ef3c3749fdaa49938b674adae6"),
+            new UrlMinecraftService("https://textures.minecraft.net/texture/7fd9ba42a7c81eeea22f1524271ae85a8e045ce0af5a6ae16c6406ae917e68b5"),
+            new UrlMinecraftService("https://api.mojang.com")
     );
     private static final int CACHE_TIME = 1000 * 60;
 
@@ -50,10 +51,10 @@ public class StatusCommand extends SlashCommand {
 
     private static MessageEmbed getStatusResponse() {
         // Pings done in separate threads to speed up in case some URLs timeout
-        List<CompletableFuture<Boolean>> statusRequests = URLS.stream()
-                .map(StatusCommand::checkUrl)
+        List<CompletableFuture<Boolean>> statusRequests = SERVICES.stream()
+                .map(StatusCommand::check)
                 .collect(Collectors.toList());
-        CompletableFuture.allOf(statusRequests.toArray(new CompletableFuture[URLS.size()])).join();
+        CompletableFuture.allOf(statusRequests.toArray(new CompletableFuture[SERVICES.size()])).join();
         List<Boolean> statuses = statusRequests.stream()
                 .map(CompletableFuture::join)
                 .collect(Collectors.toList());
@@ -65,7 +66,7 @@ public class StatusCommand extends SlashCommand {
 
         String m = "**Minecraft:** " + statusEmotes.get(0) +
                 "\n" + "**Accounts:** " + statusEmotes.get(1) +
-                "\n" + "**Auth Server:** " + statusEmotes.get(2) +
+                "\n" + "**Session Server:** " + statusEmotes.get(2) +
                 "\n" + "**Textures:** " + statusEmotes.get(3) +
                 "\n" + "**Mojang API:** " + statusEmotes.get(4);
 
@@ -73,15 +74,8 @@ public class StatusCommand extends SlashCommand {
         return MessageUtils.embedMessage("Minecraft Status", null, m, color);
     }
 
-    private static CompletableFuture<Boolean> checkUrl(String url) {
-        return CompletableFuture.supplyAsync(() -> check(url));
-    }
-    private static boolean check(String url) {
-        // The Minecraft website likes to bug out for some reason, regular GET request sometimes breaks
-        if (url.equals("https://minecraft.net")) {
-            return RequestUtils.checkWithSocket("minecraft.net");
-        }
-        return RequestUtils.checkURLWithGet(url);
+    private static CompletableFuture<Boolean> check(MinecraftService service) {
+        return CompletableFuture.supplyAsync(service::check);
     }
 
     private static Color getColor(List<Boolean> statuses) {
@@ -94,6 +88,43 @@ public class StatusCommand extends SlashCommand {
             return Color.RED;
         }
         return Color.YELLOW;
+    }
+
+    private interface MinecraftService {
+        boolean check();
+    }
+
+    @RequiredArgsConstructor
+    private static class UrlMinecraftService implements MinecraftService {
+        private final String url;
+        private final boolean useSocket;
+
+        public UrlMinecraftService(String url) {
+            this(url, false);
+        }
+
+        public boolean check() {
+            if (useSocket) {
+                if (url.startsWith("https://")) {
+                    return RequestUtils.checkWithSocket(url.substring(8));
+                }
+                return RequestUtils.checkWithSocket(url);
+            }
+            return RequestUtils.checkURLWithGet(url);
+        }
+    }
+
+    private static class AccountsService implements MinecraftService {
+        @Override
+        public boolean check() {
+            try {
+                RequestUtils.post("https://api.minecraftservices.com/minecraft/profile/lookup/bulk/byname", "[\"jeb_\"]");
+                return true;
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                return false;
+            }
+        }
     }
 
 }
