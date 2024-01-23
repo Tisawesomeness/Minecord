@@ -124,7 +124,6 @@ public class RandomCommand extends SlashCommand {
         assert choices != null;
 
         String trimmed = trimLeadingCommas(choices); // split() ignores trailing commas, ignore leading to be consistent
-        System.out.println(trimmed);
         if (trimmed.isEmpty()) {
             return new Result(Outcome.WARNING, "Must specify at least one choice.");
         }
