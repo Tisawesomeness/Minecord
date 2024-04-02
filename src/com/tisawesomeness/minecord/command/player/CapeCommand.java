@@ -4,11 +4,10 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.ColorUtils;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
-import java.awt.Color;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -75,7 +74,7 @@ public class CapeCommand extends BasePlayerCommand {
                 .setAuthor(title, nameMcUrl, avatarUrl)
                 .setColor(color)
                 .setImage(capeUrl.toString());
-        e.getHook().sendMessageEmbeds(eb.build()).queue();
+        uploadOrEmbedImages(e, eb.build());
     }
 
 }

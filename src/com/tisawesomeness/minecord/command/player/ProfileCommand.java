@@ -95,7 +95,7 @@ public class ProfileCommand extends BasePlayerCommand {
 
         String nameHistory = "Mojang has removed the name history API, [read more here](https://help.minecraft.net/hc/en-us/articles/8969841895693). We are working on a different way to retrieve name history, stay tuned.";
         eb.addField("Name History", nameHistory, true);
-        e.getHook().sendMessageEmbeds(eb.build()).queue();
+        uploadOrEmbedImages(e, eb.build());
     }
 
     private static @NonNull String constructDescription(Player player) {

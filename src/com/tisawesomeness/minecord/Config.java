@@ -44,6 +44,7 @@ public class Config {
     private static String itemImageHost;
     private static String recipeImageHost;
     private static String crafatarHost;
+    private static boolean reuploadCrafatarImages;
 
     private static boolean sendServerCount;
     private static String pwToken;
@@ -150,6 +151,7 @@ public class Config {
             itemImageHost = settings.optString("itemImageHost", "https://minecord.github.io/item/");
             recipeImageHost = settings.optString("recipeImageHost", "https://minecord.github.io/recipe/");
             crafatarHost = settings.optString("crafatarHost", "https://crafatar.com/");
+            reuploadCrafatarImages = settings.optBoolean("reuploadCrafatarImages", false);
 
             JSONObject botLists = config.getJSONObject("botLists");
             if (isSelfHosted) {
@@ -210,6 +212,7 @@ public class Config {
     public static String getItemImageHost() { return itemImageHost; }
     public static String getRecipeImageHost() { return recipeImageHost; }
     public static String getCrafatarHost() { return crafatarHost; }
+    public static boolean getReuploadCrafatarImages() { return reuploadCrafatarImages; }
 
     public static boolean getSendServerCount() { return sendServerCount; }
     public static String getPwToken() { return pwToken; }
