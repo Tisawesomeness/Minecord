@@ -21,6 +21,7 @@ public class Config {
     private static String joinLogChannel;
     private static String logWebhook;
     private static String statusWebhook;
+    private static boolean includeSpamStatuses;
     private static String supportedMCVersion;
     private static boolean isSelfHosted;
     private static String author;
@@ -116,6 +117,7 @@ public class Config {
             joinLogChannel = settings.optString("joinLogChannel", "0");
             logWebhook = settings.optString("logWebhook", "");
             statusWebhook = settings.optString("statusWebhook", "");
+            includeSpamStatuses = settings.optBoolean("includeSpamStatuses", false);
             supportedMCVersion = settings.optString("supportedMCVersion", "1.20.3");
             isSelfHosted = settings.getBoolean("isSelfHosted");
             if (isSelfHosted) {
@@ -189,6 +191,7 @@ public class Config {
     public static String getJoinLogChannel() { return joinLogChannel; }
     public static String getLogWebhook() { return logWebhook; }
     public static String getStatusWebhook() { return statusWebhook; }
+    public static boolean getIncludeSpamStatuses() { return includeSpamStatuses; }
     public static String getSupportedMCVersion() { return supportedMCVersion; }
     public static boolean isSelfHosted() { return isSelfHosted; }
     public static String getAuthor() { return author; }

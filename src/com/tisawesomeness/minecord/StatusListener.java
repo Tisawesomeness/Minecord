@@ -51,10 +51,16 @@ public class StatusListener extends ListenerAdapter {
                 status = "Invalidated";
                 break;
             case DISCONNECTED:
+                if (!Config.getIncludeSpamStatuses()) {
+                    return;
+                }
                 emote = ":no_mobile_phones:";
                 status = "Disconnected";
                 break;
             case RESUMED:
+                if (!Config.getIncludeSpamStatuses()) {
+                    return;
+                }
                 emote = ":arrow_forward:";
                 status = "Resumed";
                 break;
