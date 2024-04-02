@@ -83,14 +83,15 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Join Log Channel:* The bot will send server join/leave messages to this channel. Set to 0 to disable.
 - *Log Webhook:* The webhook URL to send log messages to. Set to blank to disable.
 - *Status Webhook:* The webhook URL to send status messages to. Set to blank to disable.
-- *Supported MC Version:* The latest MC version that the bot supports. This only changes the version shown in `/help recipe` and other commands, and does not change behavior. Update if a new Minecraft version releases that does not change items or recipes.
+- *Include Spam Statuses:* Whether to include the "Disconnected" and "Resumed" statuses in the status webhook. These statuses happen very often.
+- *Supported MC Version:* The latest MC version that the bot supports. This only changes the version shown in `/help recipe` and other commands, and does not change behavior. Update this field if a new Minecraft version releases that does not change items or recipes.
 - *Is Self Hosted:* Leave as `true` if you are self-hosting the bot.
 - *Author:* The name of the person hosting the bot.
 - *Author Tag:* The Discord tag of the person hosting the bot.
 - *Invite:* The invite link to use in `/invite`.
 - *Help Server:* The help server link to use in `/invite`.
 - *Website:* The website to display in `/info`.
-- *Github:* A link to the source code currently running on the bot.
+- *GitHub:* A link to the source code currently running on the bot.
 - *Prefix:* The prefix (optionally) used for admin commands.
 - *Game:* This is the game that the bot is playing, shown under the username. `{prefix}` and `{guilds}` are available variables.
 - *Dev Mode:* Turning this on will let you reload code using `@Minecord reload` on the fly. When hosting the bot, it's best to keep this off in order to decrease memory usage.
@@ -105,6 +106,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Item Image Host:* The website hosting item images.
 - *Recipe Image Host:* The website hosting recipe images.
 - *Crafatar Host:* The URL for the Crafatar API.
+- *Reupload Crafatar Images:* Whether to download and re-upload Crafatar images as attachments as a workaround for Discord refusing to embed Crafatar images.
 
 - *Send Server Count:* Whether the bot should send the guild count to bot list websites.
 - *Pw Token:* The token to use on bots.discord.pw.
@@ -134,7 +136,8 @@ A robust Discord bot using the JDA library for various Minecraft functions.
     "joinLogChannel": "0",
     "logWebhook": "",
     "statusWebhook": "",
-    "supportedMCVersion":  "1.20.3",
+    "includeSpamStatuses" true,
+    "supportedMCVersion":  "1.20.4",
     "isSelfHosted": true,
     "author": "Tis_awesomeness",
     "authorTag": "@tis_awesomeness",
@@ -155,7 +158,8 @@ A robust Discord bot using the JDA library for various Minecraft functions.
     "recordCacheStats": false,
     "itemImageHost": "https://minecord.github.io/item/",
     "recipeImageHost": "https://minecord.github.io/recipe/",
-    "crafatarHost": "https://crafatar.com/"
+    "crafatarHost": "https://crafatar.com/",
+    "reuploadCrafatarImages": false
   },
   "botLists": {
     "sendServerCount": false,
