@@ -50,7 +50,7 @@ public class SkinCommand extends BasePlayerCommand {
                 .setColor(color)
                 .setDescription(description)
                 .setImage(skinUrl);
-        e.getHook().sendMessageEmbeds(eb.build()).queue();
+        uploadOrEmbedImages(e, eb.build());
     }
     private static @NonNull String constructDescription(Player player) {
         String custom = "**Custom**: " + (player.hasCustomSkin() ? "True" : "False");

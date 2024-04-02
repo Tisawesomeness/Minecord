@@ -326,9 +326,11 @@ public class Item {
         if (toParse.contains(":")) {
             String[] split = toParse.split(":");
             toParse = split[0];
-            data = parseData(split[1], lang);
-            if (data < 0) {
-                return null;
+            if (split.length > 1) {
+                data = parseData(split[1], lang);
+                if (data < 0) {
+                    return null;
+                }
             }
         }
 

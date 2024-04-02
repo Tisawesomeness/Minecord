@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.util;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.internal.utils.IOUtil;
 import org.discordbots.api.client.DiscordBotListAPI;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -123,6 +124,25 @@ public class RequestUtils {
             conn.setRequestProperty("Authorization", auth);
         }
         return conn;
+    }
+
+    /**
+     * Downloads a file from a URL.
+     * @param url The URL to download from.
+     * @return The file contents.
+     */
+    public static byte[] download(String url) throws IOException {
+        return download(new URL(url));
+    }
+    /**
+     * Downloads a file from a URL.
+     * @param url The URL to download from.
+     * @return The file contents.
+     */
+    public static byte[] download(URL url) throws IOException {
+        try (InputStream is = url.openStream()) {
+            return IOUtil.readFully(is);
+        }
     }
 
     /**

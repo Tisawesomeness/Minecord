@@ -7,7 +7,6 @@ import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
@@ -15,7 +14,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
-import java.awt.Color;
+import java.awt.*;
 
 public class RenderCommand extends BaseRenderCommand {
 
@@ -92,7 +91,7 @@ public class RenderCommand extends BaseRenderCommand {
             String msg = String.format("The scale was too high, so it was set to the max, %d.", type.getMaxScale());
             eb.setDescription(msg);
         }
-        e.getHook().sendMessageEmbeds(eb.build()).queue();
+        uploadOrEmbedImages(e, eb.build());
     }
 
 }
