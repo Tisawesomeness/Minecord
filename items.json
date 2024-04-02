@@ -20653,7 +20653,11 @@
           "Autocrafting Table",
           "Auto Crafting Table",
           "Auto Workbench",
-          "Auto Crafting Bench"
+          "Auto Crafting Bench",
+          "Mumbo Block",
+          "Mumbo Table",
+          "Mumbo Workbench",
+          "Mumbo Crafting Bench"
         ],
         "display_name": "Crafter"
       }
