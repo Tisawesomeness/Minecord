@@ -11,6 +11,8 @@ import java.util.List;
  */
 public class ItemCount {
 
+    public static final int MAX_STACK_SIZE = 99;
+
     private final long itemCount;
     @Getter private final int stackSize;
 
@@ -22,8 +24,8 @@ public class ItemCount {
      */
     public ItemCount(long itemCount, int stackSize) {
         this.itemCount = itemCount;
-        if (stackSize < 1 || 64 < stackSize) {
-            throw new IllegalArgumentException("stackSize must be between 1 and 64 but was " + stackSize);
+        if (stackSize < 1 || MAX_STACK_SIZE < stackSize) {
+            throw new IllegalArgumentException("stackSize must be between 1 and " + MAX_STACK_SIZE + " but was " + stackSize);
         }
         this.stackSize = stackSize;
 

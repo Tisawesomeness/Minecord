@@ -45,8 +45,7 @@ public class StackCommand extends SlashCommand {
                 new OptionData(OptionType.INTEGER, "double-chests", "Number of double chests full of items").setMinValue(0),
                 new OptionData(OptionType.INTEGER, "chest-shulkers", "Number of chests full of shulkers").setMinValue(0),
                 new OptionData(OptionType.INTEGER, "double-chest-shulkers", "Number of double chests full of shulkers").setMinValue(0),
-                new OptionData(OptionType.INTEGER, "stack-size", "Stack size of the item")
-                        .addChoice("1", 1).addChoice("16", 16).addChoice("64", 64)
+                new OptionData(OptionType.INTEGER, "stack-size", "Stack size of the item").setRequiredRange(1, ItemCount.MAX_STACK_SIZE)
         );
     }
 
