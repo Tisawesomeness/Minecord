@@ -26,6 +26,8 @@
         "useMenus": true,
         "showMemory": false,
         "elevatedSkipCooldown": true,
+        "serverTimeout": 5000,
+        "serverReadTimeout": 5000,
         "useElectroidAPI": false,
         "useGappleAPI": true,
         "recordCacheStats": false,

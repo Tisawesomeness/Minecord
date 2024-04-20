@@ -56,4 +56,9 @@ public class MCPingOptions {
     @Builder.Default
     private int timeout = 5000;
 
+    // Modification from tis
+    @Getter
+    @Builder.Default
+    private int readTimeout = 5000;
+
 }

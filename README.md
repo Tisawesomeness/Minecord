@@ -100,6 +100,8 @@ A robust Discord bot using the JDA library for various Minecraft functions.
 - *Use Menus:* If true, the bot will use a reaction menu for `/recipe` and `/ingredient` if possible.
 - *Show Memory:* Whether to show the memory in `/info`.
 - *Elevated Skip Cooldown:* Whether elevated users skip command cooldowns.
+- *Server Timeout:* The time in milliseconds a `/server` ping waits for a response.
+- *Server Read Timeout:* The time in milliseconds a `/server` ping waits for additional responses after the server has already replied.
 - *Use Electroid API:* Whether to use the Electroid API to speed up player lookups. May cause slowdowns if the API is consistently down.
 - *Use Gapple API:* Whether to use the Gapple API to look up account types. May cause slowdowns if the API is consistently down.
 - *Record Cache Stats:* Whether to record cache performance statistics. This will cause a slight performance hit.
@@ -136,7 +138,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
     "joinLogChannel": "0",
     "logWebhook": "",
     "statusWebhook": "",
-    "includeSpamStatuses" true,
+    "includeSpamStatuses": true,
     "supportedMCVersion":  "1.20.4",
     "isSelfHosted": true,
     "author": "Tis_awesomeness",
@@ -153,6 +155,8 @@ A robust Discord bot using the JDA library for various Minecraft functions.
     "useMenus": true,
     "showMemory": false,
     "elevatedSkipCooldown": true,
+    "serverTimeout": 5000,
+    "serverReadTimeout": 5000,
     "useElectroidAPI": true,
     "useGappleAPI": true,
     "recordCacheStats": false,

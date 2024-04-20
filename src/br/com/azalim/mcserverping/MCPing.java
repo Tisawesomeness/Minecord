@@ -104,6 +104,8 @@ public class MCPing {
         long ping;
 
         try (final Socket socket = new Socket()) {
+            // Modification from tis
+            socket.setSoTimeout(options.getReadTimeout());
 
             long start = System.currentTimeMillis();
             socket.connect(new InetSocketAddress(hostname, port), options.getTimeout());
