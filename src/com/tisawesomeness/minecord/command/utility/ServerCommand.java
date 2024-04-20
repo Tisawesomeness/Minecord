@@ -6,6 +6,7 @@ import br.com.azalim.mcserverping.MCPingResponse;
 import br.com.azalim.mcserverping.MCPingResponse.Player;
 import br.com.azalim.mcserverping.MCPingUtil;
 import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.mc.Favicon;
 import com.tisawesomeness.minecord.util.MathUtils;
@@ -114,7 +115,12 @@ public class ServerCommand extends SlashCommand {
 
         MCPingResponse reply;
         try {
-            MCPingOptions options = MCPingOptions.builder().hostname(hostname).port(port).build();
+            MCPingOptions options = MCPingOptions.builder()
+                    .hostname(hostname)
+                    .port(port)
+                    .timeout(Config.getServerTimeout())
+                    .readTimeout(Config.getServerReadTimeout())
+                    .build();
             reply = MCPing.getPing(options);
             if (reply == null) {
                 String msg = m + ":x: The server gave a bad response. It might be just starting up, try again later.";

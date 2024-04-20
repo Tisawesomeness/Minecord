@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord;
 
 import com.tisawesomeness.minecord.util.ArrayUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
+import lombok.Getter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,26 +13,26 @@ import java.util.List;
 
 public class Config {
 
-    private static String clientToken;
-    private static int shardCount;
-    private static String owner;
-    private static List<String> testServers;
+    @Getter private static String clientToken;
+    @Getter private static int shardCount;
+    @Getter private static String owner;
+    @Getter private static List<String> testServers;
 
-    private static String logChannel;
-    private static String joinLogChannel;
-    private static String logWebhook;
-    private static String statusWebhook;
+    @Getter private static String logChannel;
+    @Getter private static String joinLogChannel;
+    @Getter private static String logWebhook;
+    @Getter private static String statusWebhook;
     private static boolean includeSpamStatuses;
-    private static String supportedMCVersion;
+    @Getter private static String supportedMCVersion;
     private static boolean isSelfHosted;
-    private static String author;
-    private static String authorTag;
-    private static String invite;
-    private static String helpServer;
-    private static String website;
-    private static String github;
-    private static String prefix;
-    private static String game;
+    @Getter private static String author;
+    @Getter private static String authorTag;
+    @Getter private static String invite;
+    @Getter private static String helpServer;
+    @Getter private static String website;
+    @Getter private static String github;
+    @Getter private static String prefix;
+    @Getter private static String game;
     private static boolean evil;
     private static boolean devMode;
     private static boolean debugMode;
@@ -39,30 +40,32 @@ public class Config {
     private static boolean useMenus;
     private static boolean showMemory;
     private static boolean elevatedSkipCooldown;
+    @Getter private static int serverTimeout;
+    @Getter private static int serverReadTimeout;
     private static boolean useElectroidAPI;
     private static boolean useGappleAPI;
     private static boolean recordCacheStats;
-    private static String itemImageHost;
-    private static String recipeImageHost;
-    private static String crafatarHost;
+    @Getter private static String itemImageHost;
+    @Getter private static String recipeImageHost;
+    @Getter private static String crafatarHost;
     private static boolean reuploadCrafatarImages;
 
     private static boolean sendServerCount;
-    private static String pwToken;
-    private static String orgToken;
+    @Getter private static String pwToken;
+    @Getter private static String orgToken;
     private static boolean receiveVotes;
-    private static String webhookURL;
-    private static int webhookPort;
-    private static String webhookAuth;
+    @Getter private static String webhookURL;
+    @Getter private static int webhookPort;
+    @Getter private static String webhookAuth;
 
-    private static String type;
-    private static String host;
-    private static int port;
-    private static String dbName;
-    private static String user;
-    private static String pass;
+    @Getter private static String type;
+    @Getter private static String host;
+    @Getter private static int port;
+    @Getter private static String dbName;
+    @Getter private static String user;
+    @Getter private static String pass;
 
-    private static String path;
+    @Getter private static String path;
 
     public static void read(boolean reload) {
 
@@ -147,6 +150,8 @@ public class Config {
             useMenus = settings.getBoolean("useMenus");
             showMemory = settings.getBoolean("showMemory");
             elevatedSkipCooldown = settings.getBoolean("elevatedSkipCooldown");
+            serverTimeout = settings.optInt("serverTimeout", 5000);
+            serverReadTimeout = settings.optInt("serverReadTimeout", 5000);
             useElectroidAPI = settings.optBoolean("useElectroidAPI", true);
             useGappleAPI = settings.optBoolean("useGappleAPI", true);
             recordCacheStats = settings.optBoolean("recordCacheStats", false);
@@ -182,26 +187,8 @@ public class Config {
 
     }
 
-    public static String getClientToken() { return clientToken; }
-    public static int getShardCount() { return shardCount; }
-    public static String getOwner() { return owner; }
-    public static List<String> getTestServers() { return testServers; }
-
-    public static String getLogChannel() { return logChannel; }
-    public static String getJoinLogChannel() { return joinLogChannel; }
-    public static String getLogWebhook() { return logWebhook; }
-    public static String getStatusWebhook() { return statusWebhook; }
     public static boolean getIncludeSpamStatuses() { return includeSpamStatuses; }
-    public static String getSupportedMCVersion() { return supportedMCVersion; }
     public static boolean isSelfHosted() { return isSelfHosted; }
-    public static String getAuthor() { return author; }
-    public static String getAuthorTag() { return authorTag; }
-    public static String getInvite() { return invite; }
-    public static String getHelpServer() { return helpServer; }
-    public static String getWebsite() { return website; }
-    public static String getGithub() { return github; }
-    public static String getPrefix() { return prefix; }
-    public static String getGame() { return game; }
     public static boolean getEvil() { return evil; }
     public static boolean getDevMode() { return devMode; }
     public static boolean getDebugMode() { return debugMode; }
@@ -212,26 +199,8 @@ public class Config {
     public static boolean getUseElectroidAPI() { return useElectroidAPI; }
     public static boolean getUseGappleAPI() { return useGappleAPI; }
     public static boolean getRecordCacheStats() { return recordCacheStats; }
-    public static String getItemImageHost() { return itemImageHost; }
-    public static String getRecipeImageHost() { return recipeImageHost; }
-    public static String getCrafatarHost() { return crafatarHost; }
     public static boolean getReuploadCrafatarImages() { return reuploadCrafatarImages; }
-
     public static boolean getSendServerCount() { return sendServerCount; }
-    public static String getPwToken() { return pwToken; }
-    public static String getOrgToken() { return orgToken; }
     public static boolean getReceiveVotes() { return receiveVotes; }
-    public static String getWebhookURL() { return webhookURL; }
-    public static int getWebhookPort() { return webhookPort; }
-    public static String getWebhookAuth() { return webhookAuth; }
-
-    public static String getType() { return type; }
-    public static String getHost() { return host; }
-    public static int getPort() { return port; }
-    public static String getDbName() { return dbName; }
-    public static String getUser() { return user; }
-    public static String getPass() { return pass; }
-
-    public static String getPath() { return path; }
 
 }
