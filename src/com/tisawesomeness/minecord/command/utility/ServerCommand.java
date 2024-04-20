@@ -27,7 +27,7 @@ import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.CompletableFuture;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -36,7 +36,7 @@ public class ServerCommand extends SlashCommand {
     // modified from https://mkyong.com/regular-expressions/domain-name-regular-expression-example/
     private static final Pattern IP_PATTERN = Pattern.compile("((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|0?[1-9]?[0-9])(:[0-9]{1,6})?");
     private static final Pattern SERVER_PATTERN = Pattern.compile("((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,24}(:[0-9]{1,6})?");
-    private static final Pattern CHAT_CODE_PATTERN = Pattern.compile("\u00A7[a-fA-Fklmnor0-9]"); //§
+    private static final Pattern CHAT_CODE_PATTERN = Pattern.compile("§[a-fA-Fklmnor0-9]"); //§
 
     private static Set<String> blockedServers = new HashSet<>();
     private static long timestamp = 0;
@@ -77,12 +77,14 @@ public class ServerCommand extends SlashCommand {
 
         // Parse arguments
         String arg = e.getOption("address").getAsString();
-        boolean ip = true;
+        boolean ip;
         if (!IP_PATTERN.matcher(arg).matches()) {
             ip = false;
             if (!SERVER_PATTERN.matcher(arg).matches()) {
                 return new Result(Outcome.WARNING, ":warning: That is not a valid server address.");
             }
+        } else {
+            ip = true;
         }
 
         String hostname;
@@ -99,12 +101,16 @@ public class ServerCommand extends SlashCommand {
         }
 
         e.deferReply().queue();
+        CompletableFuture.runAsync(ServerCommand::refreshBlockedServers)
+                .thenRun(() -> ping(e, hostname, port, arg, isBlocked(arg, ip)));
+        return new Result(Outcome.SUCCESS);
+    }
 
-        // Query Mojang for blocked servers, cached by the hour
+    // Query Mojang for blocked servers, cached by the hour
+    private static void refreshBlockedServers() {
         if (System.currentTimeMillis() - 3600000 > timestamp) {
-            String request;
             try {
-                request = RequestUtils.getPlain("https://sessionserver.mojang.com/blockedservers");
+                String request = RequestUtils.getPlain("https://sessionserver.mojang.com/blockedservers");
                 if (request != null) {
                     blockedServers = new HashSet<>(Arrays.asList(request.split("\n")));
                 }
@@ -114,10 +120,26 @@ public class ServerCommand extends SlashCommand {
             }
             timestamp = System.currentTimeMillis();
         }
-        boolean blocked = isBlocked(arg, ip);
+    }
 
-        ForkJoinPool.commonPool().execute(() -> ping(e, hostname, port, arg, blocked));
-        return new Result(Outcome.SUCCESS);
+    // Checks if a server is blocked by Mojang
+    private static boolean isBlocked(String server, boolean ip) {
+        server = server.toLowerCase();
+        if (blockedServers.contains(MathUtils.sha1(server))) return true;
+        if (ip) {
+            int i = server.lastIndexOf('.');
+            while (i >= 0) {
+                if (blockedServers.contains(MathUtils.sha1(server.substring(0, i + 1) + ".*"))) return true;
+                i = server.lastIndexOf('.', i) - 1;
+            }
+        } else {
+            int i = 0;
+            while (i != server.lastIndexOf('.') + 1) {
+                i = server.indexOf('.', i) + 1;
+                if (blockedServers.contains(MathUtils.sha1("*." + server.substring(i)))) return true;
+            }
+        }
+        return false;
     }
 
     private static void ping(SlashCommandInteractionEvent e, String hostname, int port, String inputHostname, boolean blocked) {
@@ -214,26 +236,6 @@ public class ServerCommand extends SlashCommand {
             }
         }
         e.getHook().sendMessageEmbeds(eb.build()).queue();
-    }
-
-    // Checks if a server is blocked by Mojang
-    private static boolean isBlocked(String server, boolean ip) {
-        server = server.toLowerCase();
-        if (blockedServers.contains(MathUtils.sha1(server))) return true;
-        if (ip) {
-            int i = server.lastIndexOf('.');
-            while (i >= 0) {
-                if (blockedServers.contains(MathUtils.sha1(server.substring(0, i + 1) + ".*"))) return true;
-                i = server.lastIndexOf('.', i) - 1;
-            }
-        } else {
-            int i = 0;
-            while (i != server.lastIndexOf('.') + 1) {
-                i = server.indexOf('.', i) + 1;
-                if (blockedServers.contains(MathUtils.sha1("*." + server.substring(i)))) return true;
-            }
-        }
-        return false;
     }
 
     private static String getMessage(@NonNull Favicon.PngError error) {
