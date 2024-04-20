@@ -27,6 +27,7 @@ import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ForkJoinPool;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -84,14 +85,17 @@ public class ServerCommand extends SlashCommand {
             }
         }
 
-        String hostname = arg;
-        int port = 25565;
+        String hostname;
+        int port;
         if (arg.contains(":")) {
             hostname = arg.substring(0, arg.indexOf(':'));
             port = Integer.parseInt(arg.substring(arg.indexOf(':') + 1));
             if (port > 65535) {
                 return new Result(Outcome.WARNING, ":warning: That is not a valid server address.");
             }
+        } else {
+            port = 25565;
+            hostname = arg;
         }
 
         e.deferReply().queue();
@@ -111,6 +115,12 @@ public class ServerCommand extends SlashCommand {
             timestamp = System.currentTimeMillis();
         }
         boolean blocked = isBlocked(arg, ip);
+
+        ForkJoinPool.commonPool().execute(() -> ping(e, hostname, port, arg, blocked));
+        return new Result(Outcome.SUCCESS);
+    }
+
+    private static void ping(SlashCommandInteractionEvent e, String hostname, int port, String inputHostname, boolean blocked) {
         String m = blocked ? "**BLOCKED BY MOJANG**\n" : "";
 
         MCPingResponse reply;
@@ -125,17 +135,17 @@ public class ServerCommand extends SlashCommand {
             if (reply == null) {
                 String msg = m + ":x: The server gave a bad response. It might be just starting up, try again later.";
                 e.getHook().sendMessage(msg).setEphemeral(true).queue();
-                return new Result(Outcome.ERROR);
+                return;
             }
         } catch (IOException ignore) {
-            m += ":warning: The server `" + arg + "` is down or unreachable.\n";
+            m += ":warning: The server `" + inputHostname + "` is down or unreachable.\n";
             if (hostname.equals(hostname.toLowerCase())) {
                 m += "Did you spell it correctly?";
             } else {
                 m += "Try using lowercase letters.";
             }
             e.getHook().sendMessage(m).queue();
-            return new Result(Outcome.SUCCESS);
+            return;
         }
 
         String address = port == 25565 ? hostname : hostname + ":" + port;
@@ -195,7 +205,7 @@ public class ServerCommand extends SlashCommand {
                 if (!e.isFromGuild() || e.getGuild().getSelfMember().hasPermission(e.getGuildChannel(), Permission.MESSAGE_ATTACH_FILES)) {
                     MessageEmbed embed = eb.setDescription(m).setThumbnail("attachment://favicon.png").build();
                     e.getHook().sendFiles(FileUpload.fromData(icon.getData(), "favicon.png")).setEmbeds(embed).queue();
-                    return new Result(Outcome.SUCCESS);
+                    return;
                 } else {
                     eb.setDescription(m + "\n:warning: Give Minecord attach files permissions to see server icons.");
                 }
@@ -204,7 +214,6 @@ public class ServerCommand extends SlashCommand {
             }
         }
         e.getHook().sendMessageEmbeds(eb.build()).queue();
-        return new Result(Outcome.SUCCESS);
     }
 
     // Checks if a server is blocked by Mojang
