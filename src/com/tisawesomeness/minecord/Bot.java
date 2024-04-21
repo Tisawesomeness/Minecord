@@ -6,8 +6,8 @@ import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.VoteHandler;
 import com.tisawesomeness.minecord.mc.MCLibrary;
 import com.tisawesomeness.minecord.mc.StandardMCLibrary;
-import com.tisawesomeness.minecord.mc.item.Item;
-import com.tisawesomeness.minecord.mc.item.Recipe;
+import com.tisawesomeness.minecord.mc.item.ItemRegistry;
+import com.tisawesomeness.minecord.mc.item.RecipeRegistry;
 import com.tisawesomeness.minecord.network.APIClient;
 import com.tisawesomeness.minecord.network.OkAPIClient;
 import com.tisawesomeness.minecord.util.*;
@@ -113,8 +113,8 @@ public class Bot {
         try {
             Announcement.init(Config.getPath());
             ColorUtils.init(Config.getPath());
-            Item.init(Config.getPath());
-            Recipe.init(Config.getPath());
+            ItemRegistry.init(Config.getPath());
+            RecipeRegistry.init(Config.getPath());
         } catch (IOException ex) {
             ex.printStackTrace();
             return false;

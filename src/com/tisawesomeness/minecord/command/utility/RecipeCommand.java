@@ -4,8 +4,8 @@ import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.ReactMenu.MenuStatus;
 import com.tisawesomeness.minecord.command.SlashCommand;
-import com.tisawesomeness.minecord.mc.item.Item;
-import com.tisawesomeness.minecord.mc.item.Recipe;
+import com.tisawesomeness.minecord.mc.item.ItemRegistry;
+import com.tisawesomeness.minecord.mc.item.RecipeRegistry;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
@@ -46,14 +46,14 @@ public class RecipeCommand extends SlashCommand {
                 "Items and recipes are from Java Edition 1.7 to " + Config.getSupportedMCVersion() + ".\n" +
                 "All recipe types are searchable, including brewing.\n" +
                 "\n" +
-                Item.help + "\n";
+                ItemRegistry.help + "\n";
     }
 
     public Result run(SlashCommandInteractionEvent e) {
 
         // Search through the recipe database with full args first
         String search = e.getOption("item").getAsString();
-        String item = Item.search(search, "en_US");
+        String item = ItemRegistry.search(search, "en_US");
         if (item == null) {
             return new Result(Outcome.WARNING,
                     ":warning: That item does not exist! " + "\n" + "Did you spell it correctly?");
@@ -70,9 +70,9 @@ public class RecipeCommand extends SlashCommand {
             }
         }
 
-        ArrayList<String> recipes = Recipe.searchOutput(item, "en_US");
+        ArrayList<String> recipes = RecipeRegistry.searchOutput(item, "en_US");
         if (recipes.isEmpty()) {
-            String displayName = Item.getDistinctDisplayName(item, "en_US");
+            String displayName = ItemRegistry.getDistinctDisplayName(item, "en_US");
             return new Result(Outcome.SUCCESS, ":warning: " + displayName + " does not have any recipes.");
         }
         if (page >= recipes.size()) {
@@ -86,11 +86,11 @@ public class RecipeCommand extends SlashCommand {
         MenuStatus status = ReactMenu.getMenuStatus(e);
         if (status.isValid()) {
             e.deferReply().queue();
-            new Recipe.RecipeMenu(recipes, page, "en_US").post(e);
+            new RecipeRegistry.RecipeMenu(recipes, page, "en_US").post(e);
             return new Result(Outcome.SUCCESS);
         }
-        recipes.sort(Recipe::compareRecipes);
-        EmbedBuilder eb = Recipe.displayImg(recipes.get(page), "en_US");
+        recipes.sort(RecipeRegistry::compareRecipes);
+        EmbedBuilder eb = RecipeRegistry.displayImg(recipes.get(page), "en_US");
         eb.setFooter(String.format("Page %s/%s%s", page + 1, recipes.size(), status.getReason()), null);
         return new Result(Outcome.SUCCESS, eb.build());
 

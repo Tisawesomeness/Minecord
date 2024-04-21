@@ -17,7 +17,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 
-public class Item {
+public class ItemRegistry {
 
     private static final Pattern CANDLE_CAKE_PATTERN = Pattern.compile("cake with (.+) candle");
     private static final String[] colorNames = new String[] { "white", "orange", "magenta", "light_blue", "yellow",

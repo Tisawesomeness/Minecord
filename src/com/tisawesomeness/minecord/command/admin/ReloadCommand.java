@@ -6,10 +6,9 @@ import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.VoteHandler;
-import com.tisawesomeness.minecord.mc.item.Item;
-import com.tisawesomeness.minecord.mc.item.Recipe;
+import com.tisawesomeness.minecord.mc.item.ItemRegistry;
+import com.tisawesomeness.minecord.mc.item.RecipeRegistry;
 import com.tisawesomeness.minecord.util.DiscordUtils;
-
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
@@ -62,8 +61,8 @@ public class ReloadCommand extends LegacyCommand {
                     VoteHandler.init();
                 }
                 Announcement.init(Config.getPath());
-                Item.init(Config.getPath());
-                Recipe.init(Config.getPath());
+                ItemRegistry.init(Config.getPath());
+                RecipeRegistry.init(Config.getPath());
                 Bot.reloadMCLibrary();
             } catch (SQLException | IOException ex) {
                 ex.printStackTrace();
