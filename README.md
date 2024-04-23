@@ -139,7 +139,7 @@ A robust Discord bot using the JDA library for various Minecraft functions.
     "logWebhook": "",
     "statusWebhook": "",
     "includeSpamStatuses": true,
-    "supportedMCVersion":  "1.20.4",
+    "supportedMCVersion":  "1.20.5",
     "isSelfHosted": true,
     "author": "Tis_awesomeness",
     "authorTag": "@tis_awesomeness",

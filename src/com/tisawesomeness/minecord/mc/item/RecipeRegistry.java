@@ -31,7 +31,7 @@ public class RecipeRegistry {
             "1.17", "1.17.1",
             "1.18", "1.18.1", "1.18.2",
             "1.19", "1.19.1", "1.19.2", "1.19.3", "1.19.4",
-            "1.20"
+            "1.20", "1.20.1", "1.20.2", "1.20.3", "1.20.4", "1.20.5"
     };
 
     private static JSONObject recipes;
@@ -110,7 +110,11 @@ public class RecipeRegistry {
         return lines.toString();
     }
     private static String getPreviousVersion(String version) {
-        return VERSIONS[ArrayUtils.indexOf(VERSIONS, version) - 1];
+        int idx = ArrayUtils.indexOf(VERSIONS, version);
+        if (idx <= 0) {
+            return "(none)";
+        }
+        return VERSIONS[idx - 1];
     }
 
     /**
@@ -241,7 +245,7 @@ public class RecipeRegistry {
             if (resultObj == null) {
                 return recipeObj.getString("result");
             }
-            return resultObj.getString("item");
+            return resultObj.getString("id");
         }
         return null;
     }
