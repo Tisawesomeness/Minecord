@@ -1,4 +1,58 @@
 {
+  "1.21": {
+    "breaks_decorated_pots": [
+      "minecraft:mace"
+    ],
+    "decorated_pot_ingredients": [
+      "minecraft:flow_pottery_sherd",
+      "minecraft:guster_pottery_sherd",
+      "minecraft:scrape_pottery_sherd"
+    ],
+    "decorated_pot_sherds": [
+      "minecraft:flow_pottery_sherd",
+      "minecraft:guster_pottery_sherd",
+      "minecraft:scrape_pottery_sherd"
+    ],
+    "doors": [
+      "minecraft:copper_door",
+      "minecraft:exposed_copper_door",
+      "minecraft:weathered_copper_door",
+      "minecraft:oxidized_copper_door",
+      "minecraft:waxed_copper_door",
+      "minecraft:waxed_exposed_copper_door",
+      "minecraft:waxed_weathered_copper_door",
+      "minecraft:waxed_oxidized_copper_door"
+    ],
+    "slabs": [
+      "minecraft:tuff_slab",
+      "minecraft:polished_tuff_slab",
+      "minecraft:tuff_brick_slab"
+    ],
+    "stairs": [
+      "minecraft:tuff_stairs",
+      "minecraft:polished_tuff_stairs",
+      "minecraft:tuff_brick_stairs"
+    ],
+    "trapdoors": [
+      "minecraft:copper_trapdoor",
+      "minecraft:exposed_copper_trapdoor",
+      "minecraft:weathered_copper_trapdoor",
+      "minecraft:oxidized_copper_trapdoor",
+      "minecraft:waxed_copper_trapdoor",
+      "minecraft:waxed_exposed_copper_trapdoor",
+      "minecraft:waxed_weathered_copper_trapdoor",
+      "minecraft:waxed_oxidized_copper_trapdoor"
+    ],
+    "trim_templates": [
+      "minecraft:flow_armor_trim_smithing_template",
+      "minecraft:bolt_armor_trim_smithing_template"
+    ],
+    "walls": [
+      "minecraft:tuff_wall",
+      "minecraft:polished_tuff_wall",
+      "minecraft:tuff_brick_wall"
+    ]
+  },
   "vanilla": {
     "acacia_logs": [
       "minecraft:acacia_log",
@@ -10,6 +64,9 @@
       "minecraft:anvil",
       "minecraft:chipped_anvil",
       "minecraft:damaged_anvil"
+    ],
+    "armadillo_food": [
+      "minecraft:spider_eye"
     ],
     "arrows": [
       "minecraft:arrow",
@@ -24,7 +81,7 @@
       "minecraft:wooden_axe",
       "minecraft:iron_axe"
     ],
-    "axolotl_tempt_items": [
+    "axolotl_food": [
       "minecraft:tropical_fish_bucket"
     ],
     "bamboo_blocks": [
@@ -74,6 +131,9 @@
       "minecraft:white_bed",
       "minecraft:yellow_bed"
     ],
+    "bee_food": [
+      "#minecraft:flowers"
+    ],
     "birch_logs": [
       "minecraft:birch_log",
       "minecraft:birch_wood",
@@ -100,11 +160,19 @@
       "minecraft:knowledge_book"
     ],
     "breaks_decorated_pots": [
-      "#minecraft:tools"
+      "#minecraft:swords",
+      "#minecraft:axes",
+      "#minecraft:pickaxes",
+      "#minecraft:shovels",
+      "#minecraft:hoes",
+      "minecraft:trident"
     ],
     "buttons": [
       "#minecraft:wooden_buttons",
       "#minecraft:stone_buttons"
+    ],
+    "camel_food": [
+      "minecraft:cactus"
     ],
     "candles": [
       "minecraft:candle",
@@ -125,11 +193,23 @@
       "minecraft:red_candle",
       "minecraft:black_candle"
     ],
+    "cat_food": [
+      "minecraft:cod",
+      "minecraft:salmon"
+    ],
     "cherry_logs": [
       "minecraft:cherry_log",
       "minecraft:cherry_wood",
       "minecraft:stripped_cherry_log",
       "minecraft:stripped_cherry_wood"
+    ],
+    "chest_armor": [
+      "minecraft:leather_chestplate",
+      "minecraft:chainmail_chestplate",
+      "minecraft:golden_chestplate",
+      "minecraft:iron_chestplate",
+      "minecraft:diamond_chestplate",
+      "minecraft:netherite_chestplate"
     ],
     "chest_boats": [
       "minecraft:oak_chest_boat",
@@ -141,6 +221,14 @@
       "minecraft:mangrove_chest_boat",
       "minecraft:bamboo_chest_raft",
       "minecraft:cherry_chest_boat"
+    ],
+    "chicken_food": [
+      "minecraft:wheat_seeds",
+      "minecraft:melon_seeds",
+      "minecraft:pumpkin_seeds",
+      "minecraft:beetroot_seeds",
+      "minecraft:torchflower_seeds",
+      "minecraft:pitcher_pod"
     ],
     "cluster_max_harvestables": [
       "minecraft:diamond_pickaxe",
@@ -170,6 +258,9 @@
     "copper_ores": [
       "minecraft:copper_ore",
       "minecraft:deepslate_copper_ore"
+    ],
+    "cow_food": [
+      "minecraft:wheat"
     ],
     "creeper_drop_music_discs": [
       "minecraft:music_disc_13",
@@ -250,6 +341,14 @@
       "#minecraft:wooden_doors",
       "minecraft:iron_door"
     ],
+    "dyeable": [
+      "minecraft:leather_helmet",
+      "minecraft:leather_chestplate",
+      "minecraft:leather_leggings",
+      "minecraft:leather_boots",
+      "minecraft:leather_horse_armor",
+      "minecraft:wolf_armor"
+    ],
     "emerald_ores": [
       "minecraft:emerald_ore",
       "minecraft:deepslate_emerald_ore"
@@ -281,12 +380,22 @@
     ],
     "flowers": [
       "minecraft:mangrove_propagule",
+      "minecraft:cherry_leaves",
       "#minecraft:small_flowers",
       "#minecraft:tall_flowers",
       "minecraft:flowering_azalea_leaves",
       "minecraft:flowering_azalea",
-      "minecraft:cherry_leaves",
-      "minecraft:pink_petals"
+      "minecraft:pink_petals",
+      "minecraft:chorus_flower",
+      "minecraft:spore_blossom"
+    ],
+    "foot_armor": [
+      "minecraft:leather_boots",
+      "minecraft:chainmail_boots",
+      "minecraft:golden_boots",
+      "minecraft:iron_boots",
+      "minecraft:diamond_boots",
+      "minecraft:netherite_boots"
     ],
     "fox_food": [
       "minecraft:sweet_berries",
@@ -298,6 +407,12 @@
       "minecraft:leather_chestplate",
       "minecraft:leather_helmet",
       "minecraft:leather_horse_armor"
+    ],
+    "frog_food": [
+      "minecraft:slime_ball"
+    ],
+    "goat_food": [
+      "minecraft:wheat"
     ],
     "gold_ores": [
       "minecraft:gold_ore",
@@ -314,8 +429,17 @@
       "minecraft:crimson_hanging_sign",
       "minecraft:warped_hanging_sign",
       "minecraft:mangrove_hanging_sign",
-      "minecraft:cherry_hanging_sign",
-      "minecraft:bamboo_hanging_sign"
+      "minecraft:bamboo_hanging_sign",
+      "minecraft:cherry_hanging_sign"
+    ],
+    "head_armor": [
+      "minecraft:leather_helmet",
+      "minecraft:chainmail_helmet",
+      "minecraft:golden_helmet",
+      "minecraft:iron_helmet",
+      "minecraft:diamond_helmet",
+      "minecraft:netherite_helmet",
+      "minecraft:turtle_helmet"
     ],
     "hoes": [
       "minecraft:diamond_hoe",
@@ -324,6 +448,23 @@
       "minecraft:netherite_hoe",
       "minecraft:wooden_hoe",
       "minecraft:iron_hoe"
+    ],
+    "hoglin_food": [
+      "minecraft:crimson_fungus"
+    ],
+    "horse_food": [
+      "minecraft:wheat",
+      "minecraft:sugar",
+      "minecraft:hay_block",
+      "minecraft:apple",
+      "minecraft:golden_carrot",
+      "minecraft:golden_apple",
+      "minecraft:enchanted_golden_apple"
+    ],
+    "horse_tempt_items": [
+      "minecraft:golden_carrot",
+      "minecraft:golden_apple",
+      "minecraft:enchanted_golden_apple"
     ],
     "ignored_by_piglin_babies": [
       "minecraft:leather"
@@ -350,13 +491,28 @@
       "minecraft:acacia_leaves",
       "minecraft:dark_oak_leaves",
       "minecraft:mangrove_leaves",
+      "minecraft:cherry_leaves",
       "minecraft:azalea_leaves",
-      "minecraft:flowering_azalea_leaves",
-      "minecraft:cherry_leaves"
+      "minecraft:flowering_azalea_leaves"
     ],
     "lectern_books": [
       "minecraft:written_book",
       "minecraft:writable_book"
+    ],
+    "leg_armor": [
+      "minecraft:leather_leggings",
+      "minecraft:chainmail_leggings",
+      "minecraft:golden_leggings",
+      "minecraft:iron_leggings",
+      "minecraft:diamond_leggings",
+      "minecraft:netherite_leggings"
+    ],
+    "llama_food": [
+      "minecraft:wheat",
+      "minecraft:hay_block"
+    ],
+    "llama_tempt_items": [
+      "minecraft:hay_block"
     ],
     "logs": [
       "#minecraft:crimson_stems",
@@ -370,14 +526,27 @@
       "#minecraft:jungle_logs",
       "#minecraft:acacia_logs",
       "#minecraft:mangrove_logs",
-      "#minecraft:dark_oak_logs",
-      "#minecraft:cherry_logs"
+      "#minecraft:cherry_logs",
+      "#minecraft:dark_oak_logs"
     ],
     "mangrove_logs": [
       "minecraft:mangrove_log",
       "minecraft:mangrove_wood",
       "minecraft:stripped_mangrove_log",
       "minecraft:stripped_mangrove_wood"
+    ],
+    "meat": [
+      "minecraft:beef",
+      "minecraft:chicken",
+      "minecraft:cooked_beef",
+      "minecraft:cooked_chicken",
+      "minecraft:cooked_mutton",
+      "minecraft:cooked_porkchop",
+      "minecraft:cooked_rabbit",
+      "minecraft:mutton",
+      "minecraft:porkchop",
+      "minecraft:rabbit",
+      "minecraft:rotten_flesh"
     ],
     "music_discs": [
       "#minecraft:creeper_drop_music_discs",
@@ -433,6 +602,24 @@
       "minecraft:stripped_oak_log",
       "minecraft:stripped_oak_wood"
     ],
+    "ocelot_food": [
+      "minecraft:cod",
+      "minecraft:salmon"
+    ],
+    "panda_food": [
+      "minecraft:bamboo"
+    ],
+    "parrot_food": [
+      "minecraft:wheat_seeds",
+      "minecraft:melon_seeds",
+      "minecraft:pumpkin_seeds",
+      "minecraft:beetroot_seeds",
+      "minecraft:torchflower_seeds",
+      "minecraft:pitcher_pod"
+    ],
+    "parrot_poisonous_food": [
+      "minecraft:cookie"
+    ],
     "pickaxes": [
       "minecraft:diamond_pickaxe",
       "minecraft:stone_pickaxe",
@@ -440,6 +627,11 @@
       "minecraft:netherite_pickaxe",
       "minecraft:wooden_pickaxe",
       "minecraft:iron_pickaxe"
+    ],
+    "pig_food": [
+      "minecraft:carrot",
+      "minecraft:potato",
+      "minecraft:beetroot"
     ],
     "piglin_food": [
       "minecraft:porkchop",
@@ -488,6 +680,11 @@
       "minecraft:bamboo_planks",
       "minecraft:cherry_planks"
     ],
+    "rabbit_food": [
+      "minecraft:carrot",
+      "minecraft:golden_carrot",
+      "minecraft:dandelion"
+    ],
     "rails": [
       "minecraft:rail",
       "minecraft:powered_rail",
@@ -512,9 +709,12 @@
       "minecraft:acacia_sapling",
       "minecraft:dark_oak_sapling",
       "minecraft:mangrove_propagule",
+      "minecraft:cherry_sapling",
       "minecraft:azalea",
-      "minecraft:flowering_azalea",
-      "minecraft:cherry_sapling"
+      "minecraft:flowering_azalea"
+    ],
+    "sheep_food": [
+      "minecraft:wheat"
     ],
     "shovels": [
       "minecraft:diamond_shovel",
@@ -537,9 +737,18 @@
       "minecraft:bamboo_sign",
       "minecraft:cherry_sign"
     ],
+    "skulls": [
+      "minecraft:player_head",
+      "minecraft:creeper_head",
+      "minecraft:zombie_head",
+      "minecraft:skeleton_skull",
+      "minecraft:wither_skeleton_skull",
+      "minecraft:dragon_head",
+      "minecraft:piglin_head"
+    ],
     "slabs": [
-      "#minecraft:wooden_slabs",
       "minecraft:bamboo_mosaic_slab",
+      "#minecraft:wooden_slabs",
       "minecraft:stone_slab",
       "minecraft:smooth_stone_slab",
       "minecraft:stone_brick_slab",
@@ -620,8 +829,8 @@
       "minecraft:stripped_spruce_wood"
     ],
     "stairs": [
-      "#minecraft:wooden_stairs",
       "minecraft:bamboo_mosaic_stairs",
+      "#minecraft:wooden_stairs",
       "minecraft:cobblestone_stairs",
       "minecraft:sandstone_stairs",
       "minecraft:nether_brick_stairs",
@@ -684,6 +893,13 @@
       "minecraft:blackstone",
       "minecraft:cobbled_deepslate"
     ],
+    "strider_food": [
+      "minecraft:warped_fungus"
+    ],
+    "strider_tempt_items": [
+      "minecraft:warped_fungus_on_a_stick",
+      "#minecraft:strider_food"
+    ],
     "swords": [
       "minecraft:diamond_sword",
       "minecraft:stone_sword",
@@ -717,14 +933,6 @@
       "minecraft:green_terracotta",
       "minecraft:red_terracotta",
       "minecraft:black_terracotta"
-    ],
-    "tools": [
-      "#minecraft:swords",
-      "#minecraft:axes",
-      "#minecraft:pickaxes",
-      "#minecraft:shovels",
-      "#minecraft:hoes",
-      "minecraft:trident"
     ],
     "trapdoors": [
       "#minecraft:wooden_trapdoors",
@@ -761,31 +969,13 @@
       "minecraft:host_armor_trim_smithing_template"
     ],
     "trimmable_armor": [
-      "minecraft:netherite_helmet",
-      "minecraft:netherite_chestplate",
-      "minecraft:netherite_leggings",
-      "minecraft:netherite_boots",
-      "minecraft:diamond_helmet",
-      "minecraft:diamond_chestplate",
-      "minecraft:diamond_leggings",
-      "minecraft:diamond_boots",
-      "minecraft:golden_helmet",
-      "minecraft:golden_chestplate",
-      "minecraft:golden_leggings",
-      "minecraft:golden_boots",
-      "minecraft:iron_helmet",
-      "minecraft:iron_chestplate",
-      "minecraft:iron_leggings",
-      "minecraft:iron_boots",
-      "minecraft:chainmail_helmet",
-      "minecraft:chainmail_chestplate",
-      "minecraft:chainmail_leggings",
-      "minecraft:chainmail_boots",
-      "minecraft:leather_helmet",
-      "minecraft:leather_chestplate",
-      "minecraft:leather_leggings",
-      "minecraft:leather_boots",
-      "minecraft:turtle_helmet"
+      "#minecraft:foot_armor",
+      "#minecraft:leg_armor",
+      "#minecraft:chest_armor",
+      "#minecraft:head_armor"
+    ],
+    "turtle_food": [
+      "minecraft:seagrass"
     ],
     "villager_plantable_seeds": [
       "minecraft:wheat_seeds",
@@ -828,6 +1018,9 @@
     "wart_blocks": [
       "minecraft:warped_wart_block",
       "minecraft:nether_wart_block"
+    ],
+    "wolf_food": [
+      "#minecraft:meat"
     ],
     "wooden_buttons": [
       "minecraft:oak_button",

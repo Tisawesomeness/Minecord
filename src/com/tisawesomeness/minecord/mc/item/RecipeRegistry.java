@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Recipe {
+public class RecipeRegistry {
 
     public static final String[] FEATURE_FLAGS = new String[] { "vanilla", "1.20", "1.21", "bundle" };
     public static final String[] FEATURE_FLAGS_ORDER = new String[] { "1.20", "vanilla", "1.21", "bundle" };
@@ -31,7 +31,7 @@ public class Recipe {
             "1.17", "1.17.1",
             "1.18", "1.18.1", "1.18.2",
             "1.19", "1.19.1", "1.19.2", "1.19.3", "1.19.4",
-            "1.20"
+            "1.20", "1.20.1", "1.20.2", "1.20.3", "1.20.4", "1.20.5"
     };
 
     private static JSONObject recipes;
@@ -58,8 +58,8 @@ public class Recipe {
      */
     public static EmbedBuilder displayImg(String recipe, String lang) {
         EmbedBuilder eb = new EmbedBuilder();
-        String item = Item.searchNoStats(getResult(recipe), lang);
-        eb.setTitle(Item.getDistinctDisplayName(item, lang));
+        String item = ItemRegistry.searchNoStats(getResult(recipe), lang);
+        eb.setTitle(ItemRegistry.getDistinctDisplayName(item, lang));
         eb.setImage(Config.getRecipeImageHost() + getImage(recipe));
         eb.setColor(Bot.color);
         eb.setDescription(getMetadata(recipe, lang));
@@ -110,7 +110,11 @@ public class Recipe {
         return lines.toString();
     }
     private static String getPreviousVersion(String version) {
-        return VERSIONS[ArrayUtils.indexOf(VERSIONS, version) - 1];
+        int idx = ArrayUtils.indexOf(VERSIONS, version);
+        if (idx <= 0) {
+            return "(none)";
+        }
+        return VERSIONS[idx - 1];
     }
 
     /**
@@ -123,7 +127,7 @@ public class Recipe {
         if (item.contains("potion") || item.contains("tipped_arrow")) {
             return searchItemOutput(item, lang);
         }
-        return searchItemOutput(Item.getNamespacedID(item), lang);
+        return searchItemOutput(ItemRegistry.getNamespacedID(item), lang);
     }
 
     /**
@@ -207,7 +211,7 @@ public class Recipe {
         if (item.contains("potion") || item.contains("tipped_arrow")) {
             return searchItemIngredient(item, lang);
         }
-        return searchItemIngredient(Item.getNamespacedID(item), lang);
+        return searchItemIngredient(ItemRegistry.getNamespacedID(item), lang);
     }
 
     /**
@@ -241,7 +245,7 @@ public class Recipe {
             if (resultObj == null) {
                 return recipeObj.getString("result");
             }
-            return resultObj.getString("item");
+            return resultObj.getString("id");
         }
         return null;
     }
@@ -492,7 +496,7 @@ public class Recipe {
         private void setRecipeList(List<String> recipeList) {
             this.recipeList = recipeList.stream()
                     .sequential()
-                    .sorted(Recipe::compareRecipes)
+                    .sorted(RecipeRegistry::compareRecipes)
                     .collect(Collectors.toList());
         }
 
@@ -539,7 +543,7 @@ public class Recipe {
                 }
             });
             // See what the output can craft
-            ArrayList<String> outputMore = searchIngredient(Item.searchNoStats(getResult(recipe), getLang()), getLang());
+            ArrayList<String> outputMore = searchIngredient(ItemRegistry.searchNoStats(getResult(recipe), getLang()), getLang());
             boolean hasOutput = outputMore != null && outputMore.size() > 0;
             buttons.put(Emote.UP.getCodepoint(), () -> {
                 if (hasOutput) {
@@ -592,10 +596,10 @@ public class Recipe {
                 default:
                     item = "minecraft.crafting_table";
             }
-            String table = Item.getNamespacedID(item).substring(10);
+            String table = ItemRegistry.getNamespacedID(item).substring(10);
             boolean needsTable = !recipe.equals(table);
             if (needsTable) {
-                desc += String.format("\n%s %s", Emote.T.getText(), Item.getMenuDisplayNameWithFeature(item, getLang()));
+                desc += String.format("\n%s %s", Emote.T.getText(), ItemRegistry.getMenuDisplayNameWithFeature(item, getLang()));
             }
             buttons.put(Emote.T.getCodepoint(), () -> {
                 if (needsTable) {
@@ -613,19 +617,19 @@ public class Recipe {
                 boolean isBlasting = recipes.has(recipe.replace("from_smelting", "from_blasting"));
                 if (isSmoking) {
                     desc += String.format("\n%s %s\n%s %s",
-                            Emote.N1.getText(), Item.getMenuDisplayNameWithFeature("minecraft.smoker", getLang()),
-                            Emote.N2.getText(), Item.getMenuDisplayNameWithFeature("minecraft.campfire", getLang()));
+                            Emote.N1.getText(), ItemRegistry.getMenuDisplayNameWithFeature("minecraft.smoker", getLang()),
+                            Emote.N2.getText(), ItemRegistry.getMenuDisplayNameWithFeature("minecraft.campfire", getLang()));
                     ingredientButtonCount = 2;
                 } else if (isBlasting) {
-                    desc += String.format("\n%s %s", Emote.N1.getText(), Item.getMenuDisplayNameWithFeature("minecraft.blast_furnace", getLang()));
+                    desc += String.format("\n%s %s", Emote.N1.getText(), ItemRegistry.getMenuDisplayNameWithFeature("minecraft.blast_furnace", getLang()));
                     ingredientButtonCount = 1;
                 }
                 buttons.put(Emote.N1.getCodepoint(), () -> {
                     if (isSmoking || isBlasting) {
                         if (isSmoking) {
-                            recipeList = Collections.singletonList(Item.getNamespacedID("minecraft.smoker").substring(10));
+                            recipeList = Collections.singletonList(ItemRegistry.getNamespacedID("minecraft.smoker").substring(10));
                         } else {
-                            recipeList = Collections.singletonList(Item.getNamespacedID("minecraft.blast_furnace").substring(10));
+                            recipeList = Collections.singletonList(ItemRegistry.getNamespacedID("minecraft.blast_furnace").substring(10));
                         }
                         startingIngredient = 0;
                         setPage(0);
@@ -633,7 +637,7 @@ public class Recipe {
                 });
                 buttons.put(Emote.N2.getCodepoint(), () -> {
                     if (isSmoking) {
-                        recipeList = Collections.singletonList(Item.getNamespacedID("minecraft.campfire").substring(10));
+                        recipeList = Collections.singletonList(ItemRegistry.getNamespacedID("minecraft.campfire").substring(10));
                         startingIngredient = 0;
                         setPage(0);
                     }
@@ -641,7 +645,7 @@ public class Recipe {
             } else if (type.equals("minecraft.brewing")) {
                 // Blaze powder
                 buttons.put(Emote.N1.getCodepoint(), () -> {
-                    recipeList = Collections.singletonList(Item.getNamespacedID("minecraft.blaze_powder").substring(10));
+                    recipeList = Collections.singletonList(ItemRegistry.getNamespacedID("minecraft.blaze_powder").substring(10));
                     startingIngredient = 0;
                     setPage(0);
                 });
@@ -665,10 +669,10 @@ public class Recipe {
                 ingredientsSet.toArray(ingredients);
                 int i = startingIngredient;
                 while (i < ingredients.length && ingredientButtonCount <= 9) {
-                    String ingredientItem = Item.searchNoStats(ingredients[i], getLang());
+                    String ingredientItem = ItemRegistry.searchNoStats(ingredients[i], getLang());
                     String toSearch = ingredientItem;
                     if (!ingredientItem.contains("potion") && !ingredientItem.contains("tipped_arrow")) {
-                        toSearch = Item.getNamespacedID(ingredientItem);
+                        toSearch = ItemRegistry.getNamespacedID(ingredientItem);
                     }
                     ArrayList<String> ingredientMore = searchItemOutput(toSearch, getLang());
                     if (ingredientMore.size() > 0) {
@@ -682,7 +686,7 @@ public class Recipe {
                             startingIngredient = 0;
                             setPage(0);
                         });
-                        desc += String.format("\n%s %s", emote.getText(), Item.getMenuDisplayNameWithFeature(ingredientItem, getLang()));
+                        desc += String.format("\n%s %s", emote.getText(), ItemRegistry.getMenuDisplayNameWithFeature(ingredientItem, getLang()));
                         ingredientButtonCount++;
                     }
                     i++;
@@ -713,7 +717,7 @@ public class Recipe {
                 String ingredient = getIngredients(recipeObj).toArray(new String[0])[0];
                 ArrayList<String> output = searchItemOutput(ingredient, getLang());
                 if (!output.isEmpty()) {
-                    desc += String.format("\n%s %s", Emote.N1.getText(), Item.getMenuDisplayNameWithFeature(Item.searchNoStats(ingredient, getLang()), getLang()));
+                    desc += String.format("\n%s %s", Emote.N1.getText(), ItemRegistry.getMenuDisplayNameWithFeature(ItemRegistry.searchNoStats(ingredient, getLang()), getLang()));
                     buttons.put(Emote.N1.getCodepoint(), () -> {
                         setRecipeList(output);
                         startingIngredient = 0;
