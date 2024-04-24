@@ -543,8 +543,9 @@ public class RecipeRegistry {
                 }
             });
             // See what the output can craft
-            ArrayList<String> outputMore = searchIngredient(ItemRegistry.searchNoStats(getResult(recipe), getLang()), getLang());
-            boolean hasOutput = outputMore != null && outputMore.size() > 0;
+            String result = getResult(recipe);
+            ArrayList<String> outputMore = searchIngredient(ItemRegistry.searchNoStats(result, getLang()), getLang());
+            boolean hasOutput = !outputMore.isEmpty();
             buttons.put(Emote.UP.getCodepoint(), () -> {
                 if (hasOutput) {
                     setRecipeList(outputMore);
@@ -580,26 +581,26 @@ public class RecipeRegistry {
                 }
             });
             // Craft table
-            String item;
+            String tableItem;
             switch (recipes.getJSONObject(recipe).getString("type")) {
                 case "minecraft:smelting":
                 case "minecraft.smelting_special_sponge":
-                    item = "minecraft.furnace"; break;
+                    tableItem = "minecraft.furnace"; break;
                 case "minecraft:stonecutting":
-                    item = "minecraft.stonecutter"; break;
+                    tableItem = "minecraft.stonecutter"; break;
                 case "minecraft.brewing":
-                    item = "minecraft.brewing_stand"; break;
+                    tableItem = "minecraft.brewing_stand"; break;
                 case "minecraft:smithing":
                 case "minecraft:smithing_trim":
                 case "minecraft:smithing_transform":
-                    item = "minecraft.smithing_table"; break;
+                    tableItem = "minecraft.smithing_table"; break;
                 default:
-                    item = "minecraft.crafting_table";
+                    tableItem = "minecraft.crafting_table";
             }
-            String table = ItemRegistry.getNamespacedID(item).substring(10);
+            String table = ItemRegistry.getNamespacedID(tableItem).substring(10);
             boolean needsTable = !recipe.equals(table);
             if (needsTable) {
-                desc += String.format("\n%s %s", Emote.T.getText(), ItemRegistry.getMenuDisplayNameWithFeature(item, getLang()));
+                desc += String.format("\n%s %s", Emote.T.getText(), ItemRegistry.getMenuDisplayNameWithFeature(tableItem, getLang()));
             }
             buttons.put(Emote.T.getCodepoint(), () -> {
                 if (needsTable) {
@@ -654,6 +655,7 @@ public class RecipeRegistry {
             // Find how to craft each ingredient
             if (isCrafting(type) || isSmelting(type) || type.equals("minecraft.brewing") || isSmithing(type)) {
                 LinkedHashSet<String> ingredientsSet = getIngredients(recipeObj);
+                ingredientsSet.remove(result);
                 if (type.equals("minecraft.brewing")) {
                     if (ingredientsSet.contains("minecraft:blaze_powder")) {
                         ingredientsSet.remove("minecraft:blaze_powder");
@@ -680,7 +682,7 @@ public class RecipeRegistry {
                         toSearch = ItemRegistry.getNamespacedID(ingredientItem);
                     }
                     ArrayList<String> ingredientMore = searchItemOutput(toSearch, getLang());
-                    if (ingredientMore.size() > 0) {
+                    if (!ingredientMore.isEmpty()) {
                         if (ingredientButtonCount == 9) {
                             ingredientButtonCount++;
                             break;
