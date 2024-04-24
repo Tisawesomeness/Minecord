@@ -78,9 +78,9 @@ public class RecipeRegistry {
             if (!feature.equals("vanilla")) {
                 FeatureFlag flag = FeatureFlag.from(feature).get();
                 lines.add(String.format("**Version:** %s (%s experiment) - %s", version, flag.getDisplayName(), getPreviousVersion(removed)));
-                if (flag.getReleaseVersion() != null) {
-                    lines.add(String.format("**Released:** %s", flag.getReleaseVersion()));
-                }
+                flag.getReleaseVersion().ifPresent(releaseVersion -> {
+                    lines.add(String.format("**Released:** %s", releaseVersion));
+                });
             } else {
                 lines.add(String.format("**Version:** %s - %s", version, getPreviousVersion(removed)));
             }
@@ -88,9 +88,9 @@ public class RecipeRegistry {
             if (!feature.equals("vanilla")) {
                 FeatureFlag flag = FeatureFlag.from(feature).get();
                 lines.add(String.format("**Version:** %s (%s experiment)", version, flag.getDisplayName()));
-                if (flag.getReleaseVersion() != null) {
-                    lines.add(String.format("**Released:** %s", flag.getReleaseVersion()));
-                }
+                flag.getReleaseVersion().ifPresent(releaseVersion -> {
+                    lines.add(String.format("**Released:** %s", releaseVersion));
+                });
             } else {
                 lines.add(String.format("**Version:** %s", version));
             }
@@ -659,7 +659,12 @@ public class RecipeRegistry {
                         ingredientsSet.remove("minecraft:blaze_powder");
                         desc += String.format("\n%s Blaze Powder", Emote.N1.getText());
                     } else {
-                        desc += String.format("\n%s Blaze Powder (required for 1.9+)", Emote.N1.getText());
+                        String version = getVersion(recipe);
+                        if (version == null || version.equals("1.8")) {
+                            desc += String.format("\n%s Blaze Powder (required for 1.9+)", Emote.N1.getText());
+                        } else {
+                            desc += String.format("\n%s Blaze Powder", Emote.N1.getText());
+                        }
                     }
                     if (ingredientsSet.contains("minecraft.potion.effect.water")) {
                         ingredientsSet.add("minecraft:glass_bottle");

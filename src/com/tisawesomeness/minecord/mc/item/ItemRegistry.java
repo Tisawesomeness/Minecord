@@ -13,7 +13,9 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 
@@ -27,7 +29,6 @@ public class ItemRegistry {
             "minecraft.shield.white", "minecraft.white_shulker_box", "minecraft.white_bed",
             "minecraft.white_glazed_terracotta", "minecraft.white_concrete", "minecraft.white_concrete_powder",
             "minecraft.white_dye", "minecraft.white_candle" };
-    private static final List<String> FEATURE_FLAGS_FUTURE = Arrays.asList("1.21", "bundle");
 
     private static JSONObject items;
     private static JSONObject data;
@@ -92,9 +93,9 @@ public class ItemRegistry {
             if (properties.has("feature_flag")) {
                 FeatureFlag flag = FeatureFlag.from(properties.getString("feature_flag")).get();
                 sb.append(String.format("**Version:** %s (%s experiment)\n", properties.getString("version"), flag.getDisplayName()));
-                if (flag.getReleaseVersion() != null) {
-                    sb.append(String.format("**Released:** %s\n", flag.getReleaseVersion()));
-                }
+                flag.getReleaseVersion().ifPresent(releaseVersion -> {
+                    sb.append(String.format("**Released:** %s\n", releaseVersion));
+                });
             } else {
                 sb.append(String.format("**Version:** %s\n", properties.getString("version")));
             }
@@ -510,7 +511,7 @@ public class ItemRegistry {
         JSONObject properties = items.getJSONObject(item).optJSONObject("properties");
         if (properties != null) {
             String feature = properties.optString("feature_flag", "vanilla");
-            if (FEATURE_FLAGS_FUTURE.contains(feature)) {
+            if (!FeatureFlag.from(feature).map(FeatureFlag::isReleased).orElse(true)) {
                 displayName += " (" + feature + ")";
             }
         }

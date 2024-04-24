@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.mc.item;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -15,10 +16,17 @@ public enum FeatureFlag {
 
     private final String id;
     private final String displayName;
-    private final String releaseVersion;
+    private final @Nullable String releaseVersion;
 
     FeatureFlag(String version) {
         this(version, version, version);
+    }
+
+    public Optional<String> getReleaseVersion() {
+        return Optional.ofNullable(releaseVersion);
+    }
+    public boolean isReleased() {
+        return releaseVersion != null;
     }
 
     public static Optional<FeatureFlag> from(String str) {
