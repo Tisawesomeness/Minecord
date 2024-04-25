@@ -32,7 +32,8 @@ public class CreditsCommand extends SlashCommand {
     private static final String devs = MarkdownUtil.maskedLink("tis_awesomeness", "https://github.com/Tisawesomeness") + " - Main Dev\n" +
             MarkdownUtil.maskedLink("jbs", "https://github.com/lordjbs") + " - Developer\n" +
             MarkdownUtil.maskedLink("samueldcs", "https://github.com/samueldcs") + " - Made the Website\n" +
-            MarkdownUtil.maskedLink("DJ Electro", "https://github.com/Electromaster232") + " - Supplied Hosting";
+            MarkdownUtil.maskedLink("DJ Electro", "https://github.com/Electromaster232") + " - Supplied Hosting\n" +
+            MarkdownUtil.maskedLink("and others", "https://github.com/Tisawesomeness/Minecord/graphs/contributors");
 
     private static final String apis = "Discord API Wrapper - " + MarkdownUtil.maskedLink("JDA", "https://github.com/DV8FromTheWorld/JDA") + "\n" +
             "MC Account Info - " +
