@@ -5,6 +5,7 @@ import br.com.azalim.mcserverping.MCPingOptions;
 import br.com.azalim.mcserverping.MCPingResponse;
 import br.com.azalim.mcserverping.MCPingResponse.Player;
 import br.com.azalim.mcserverping.MCPingUtil;
+import com.google.gson.JsonSyntaxException;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.SlashCommand;
@@ -14,6 +15,7 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 import com.tisawesomeness.minecord.util.type.Dimensions;
 import com.tisawesomeness.minecord.util.type.Either;
+import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -26,6 +28,9 @@ import net.dv8tion.jda.api.utils.FileUpload;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 
 import java.io.IOException;
+import java.net.PortUnreachableException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.regex.Pattern;
@@ -145,27 +150,22 @@ public class ServerCommand extends SlashCommand {
     private static void ping(SlashCommandInteractionEvent e, String hostname, int port, String inputHostname, boolean blocked) {
         String m = blocked ? "**BLOCKED BY MOJANG**\n" : "";
 
+        MCPingOptions options = MCPingOptions.builder()
+                .hostname(hostname)
+                .port(port)
+                .timeout(Config.getServerTimeout())
+                .readTimeout(Config.getServerReadTimeout())
+                .build();
         MCPingResponse reply;
         try {
-            MCPingOptions options = MCPingOptions.builder()
-                    .hostname(hostname)
-                    .port(port)
-                    .timeout(Config.getServerTimeout())
-                    .readTimeout(Config.getServerReadTimeout())
-                    .build();
             reply = MCPing.getPing(options);
             if (reply == null) {
                 String msg = m + ":x: The server gave a bad response. It might be just starting up, try again later.";
-                e.getHook().sendMessage(msg).setEphemeral(true).queue();
+                e.getHook().sendMessage(msg).queue();
                 return;
             }
-        } catch (IOException ignore) {
-            m += ":warning: The server `" + inputHostname + "` is down or unreachable.\n";
-            if (hostname.equals(hostname.toLowerCase())) {
-                m += "Did you spell it correctly?";
-            } else {
-                m += "Try using lowercase letters.";
-            }
+        } catch (IOException | JsonSyntaxException ex) {
+            m += ":x: " + getPingErrorType(ex).getErrorMessage(hostname, port, inputHostname);
             e.getHook().sendMessage(m).queue();
             return;
         }
@@ -236,6 +236,60 @@ public class ServerCommand extends SlashCommand {
             }
         }
         e.getHook().sendMessageEmbeds(eb.build()).queue();
+    }
+
+    private static PingError getPingErrorType(Exception ex) {
+        if (ex instanceof UnknownHostException) {
+            return PingError.UNKNOWN_HOST;
+        }
+        if (ex instanceof PortUnreachableException) {
+            return PingError.PORT_UNREACHABLE;
+        }
+        String msg = ex.getMessage();
+        if (ex instanceof SocketTimeoutException) {
+            if (msg.contains("Read")) {
+                return PingError.READ_TIMEOUT;
+            } else {
+                return PingError.TIMEOUT;
+            }
+        }
+        if (msg.equals("Server prematurely ended stream.")) {
+            return PingError.END_OF_STREAM;
+        }
+        if (ex instanceof JsonSyntaxException ||
+                msg.equals("Server returned invalid packet.") ||
+                msg.equals("Server returned unexpected value.")) {
+            return PingError.INVALID_DATA;
+        }
+        return PingError.GENERIC;
+    }
+
+    @AllArgsConstructor
+    private enum PingError {
+        GENERIC, UNKNOWN_HOST, PORT_UNREACHABLE, TIMEOUT, READ_TIMEOUT, END_OF_STREAM, INVALID_DATA;
+
+        public String getErrorMessage(String host, int port, String input) {
+            boolean isLowercase = host.equals(host.toLowerCase());
+            String hint = isLowercase ? "Did you spell it correctly?" : "Try using lowercase letters.";
+            switch (this) {
+                case GENERIC:
+                    return String.format("An error occurred trying to ping `%s`.", input);
+                case UNKNOWN_HOST:
+                    return String.format("The server `%s` is down or unreachable.\n%s", input, hint);
+                case PORT_UNREACHABLE:
+                    return String.format("The server `%s` cannot be reached on port `%d`.\n%s", host, port, hint);
+                case TIMEOUT:
+                    return String.format("The connection timed out while trying to ping `%s`.\n%s", input, hint);
+                case READ_TIMEOUT:
+                    return String.format("The server `%s` took too long to respond.", input);
+                case END_OF_STREAM:
+                    return String.format("The server `%s` stopped responding.", input);
+                case INVALID_DATA:
+                    return String.format("The server `%s` returned invalid data.", input);
+                default:
+                    throw new AssertionError("unreachable");
+            }
+        }
     }
 
     private static String getMessage(@NonNull Favicon.PngError error) {

@@ -37,6 +37,7 @@ import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import org.xbill.DNS.*;
 
+import javax.annotation.Nullable;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -54,13 +55,13 @@ public class MCPing {
 
     /**
      * Fetches a {@link MCPingResponse} for the supplied hostname.
-     * <b>Assumed timeout of 2s and port of 25565.</b>
+     * <b>Assumed timeout of 5s and port of 25565.</b>
      *
      * @param address - a valid String hostname
      * @return {@link MCPingResponse}
      * @throws IOException on IO error
      */
-    public static MCPingResponse getPing(final String address) throws IOException {
+    public static @Nullable MCPingResponse getPing(final String address) throws IOException {
         return getPing(MCPingOptions.builder().hostname(address).build());
     }
 
@@ -71,7 +72,7 @@ public class MCPing {
      * @return {@link MCPingResponse}
      * @throws IOException on IO error
      */
-    public static MCPingResponse getPing(final MCPingOptions options) throws IOException {
+    public static @Nullable MCPingResponse getPing(final MCPingOptions options) throws IOException {
 
         // modification from tis
         // remove guava
