@@ -6,7 +6,6 @@ import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -18,6 +17,11 @@ import java.text.StringCharacterIterator;
 public class InfoCommand extends SlashCommand {
 
     private static final String JAVA_VERSION = System.getProperty("java.version");
+
+    private static final String LEGAL = MarkdownUtil.maskedLink("TERMS", Bot.terms) +
+            " | " + MarkdownUtil.maskedLink("PRIVACY", Bot.privacy);
+    private static final String DONATE = ":sparkles: " + MarkdownUtil.bold(MarkdownUtil.maskedLink("Donate", Bot.donate)) +
+            " :sparkles: to support development!";
 
     public CommandInfo getInfo() {
         return new CommandInfo(
@@ -80,9 +84,8 @@ public class InfoCommand extends SlashCommand {
         eb.addField("Links", MarkdownUtil.bold(links), false);
 
         if (!Config.isSelfHosted()) {
-            String legal = MarkdownUtil.maskedLink("TERMS", Bot.terms) +
-                    " | " + MarkdownUtil.maskedLink("PRIVACY", Bot.privacy);
-            eb.addField("Legal", MarkdownUtil.bold(legal), false);
+            eb.addField("Legal", MarkdownUtil.bold(LEGAL), false);
+            eb.addField("Donate", DONATE, false);
         }
 
         eb = MessageUtils.addFooter(eb);

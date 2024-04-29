@@ -122,7 +122,7 @@ public class Config {
             statusWebhook = settings.optString("statusWebhook", "");
             includeSpamStatuses = settings.optBoolean("includeSpamStatuses", false);
             supportedMCVersion = settings.optString("supportedMCVersion", "1.20.3");
-            isSelfHosted = settings.getBoolean("isSelfHosted");
+            isSelfHosted = settings.optBoolean("isSelfHosted", true);
             if (isSelfHosted) {
                 author = settings.getString("author");
                 authorTag = settings.getString("authorTag");
