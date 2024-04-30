@@ -1,11 +1,7 @@
 [
     {
-        "text": "Minecord {version} | Made with \u2764 by {author}",
+        "text": "Minecord {version} | Self-hosted by {author}",
         "weight": 16
-    },
-    {
-        "text": "Proudly hosted by Endless Hosting.",
-        "weight": 5
     },
     {
         "text": "Join the help server at {help_server}",
