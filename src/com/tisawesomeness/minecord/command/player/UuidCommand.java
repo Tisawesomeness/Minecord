@@ -95,21 +95,24 @@ public class UuidCommand extends AbstractPlayerCommand {
         String title = "UUID for " + username;
         constructReply(e, uuidOpt.get(), title);
     }
+
     private static void constructReply(SlashCommandInteractionEvent e, UUID uuid, String title) {
+        String nameMCUrl = Player.getNameMCUrlFor(uuid).toString();
+        String avatarUrl = new Render(uuid, RenderType.AVATAR, true).render().toString();
+        EmbedBuilder eb = new EmbedBuilder()
+                .setAuthor(title, nameMCUrl, avatarUrl)
+                .setDescription(constructDescription(uuid));
+        e.getHook().sendMessageEmbeds(eb.build()).queue();
+    }
+
+    public static String constructDescription(UUID uuid) {
         String shortUuid = String.format("**Short**: `%s`", UuidUtils.toShortString(uuid));
         String longUuid = String.format("**Long**: `%s`", UuidUtils.toLongString(uuid));
         String skinModel = String.format("**Default Skin Model**: `%s`", SkinModel.defaultFor(uuid).getDescription());
         String newSkinModel = String.format("**1.19.3+ Skin**: `%s`", DefaultSkin.defaultFor(uuid));
         String intArray = String.format("**Post-1.16 NBT**: `%s`", UuidUtils.toIntArrayString(uuid));
         String mostLeast = String.format("**Pre-1.16 NBT**: `%s`", UuidUtils.toMostLeastString(uuid));
-        String desc = shortUuid + "\n" + longUuid + "\n" + skinModel + "\n" + newSkinModel + "\n" + intArray + "\n" + mostLeast;
-        String nameMCUrl = Player.getNameMCUrlFor(uuid).toString();
-        String avatarUrl = new Render(uuid, RenderType.AVATAR, true).render().toString();
-
-        EmbedBuilder eb = new EmbedBuilder()
-                .setAuthor(title, nameMCUrl, avatarUrl)
-                .setDescription(desc);
-        e.getHook().sendMessageEmbeds(eb.build()).queue();
+        return shortUuid + "\n" + longUuid + "\n" + skinModel + "\n" + newSkinModel + "\n" + intArray + "\n" + mostLeast;
     }
 
 }

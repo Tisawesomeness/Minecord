@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.OptionalLong;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,6 +28,18 @@ public final class UuidUtils {
     private static final Pattern INT_ARRAY_STRING = Pattern.compile(
             "\\[?(I;)?(-?\\d{1,10}),(-?\\d{1,10}),(-?\\d{1,10}),(-?\\d{1,10})]?", Pattern.CASE_INSENSITIVE);
     private static final Pattern MOST_LEAST_STRING = Pattern.compile("(-?\\d{1,19}),(-?\\d{1,19})");
+
+    /**
+     * Generates a random Java UUID. Use {@link UUID#randomUUID()} if security is needed.
+     * @return a random UUID
+     */
+    public static UUID randomUuidInsecure() {
+        // Set version 4
+        long upper = ThreadLocalRandom.current().nextLong() & 0xFFFFFFFFFFFF0FFFL | 0x4000L;
+        // Set variant 1 (variant 2 in java)
+        long lower = ThreadLocalRandom.current().nextLong() & 0x3FFFFFFFFFFFFFFFL | 0x8000000000000000L;
+        return new UUID(upper, lower);
+    }
 
     /**
      * <p>

@@ -1,7 +1,9 @@
 package com.tisawesomeness.minecord.command.utility;
 
 import com.tisawesomeness.minecord.command.SlashCommand;
+import com.tisawesomeness.minecord.command.player.UuidCommand;
 import com.tisawesomeness.minecord.util.MathUtils;
+import com.tisawesomeness.minecord.util.UuidUtils;
 import com.tisawesomeness.minecord.util.dice.DiceCombination;
 import com.tisawesomeness.minecord.util.dice.DiceError;
 import com.tisawesomeness.minecord.util.dice.DiceGroup;
@@ -66,6 +68,7 @@ public class RandomCommand extends SlashCommand {
                 new SubcommandData("uniform", "Generates a random decimal between a minimum and maximum")
                         .addOption(OptionType.NUMBER, "min", "Minimum value, inclusive")
                         .addOption(OptionType.NUMBER, "max", "Maximum value, exclusive"),
+                new SubcommandData("uuid", "Generates a random UUID"),
                 new SubcommandData("choose", "Chooses randomly from a list")
                         .addOptions(new OptionData(OptionType.STRING, "choices", "List of choices, separated by comma `,`", true)
                                 .setMinLength(1)),
@@ -82,6 +85,8 @@ public class RandomCommand extends SlashCommand {
                 return valueSubcommand(e);
             case "uniform":
                 return uniformSubcommand(e);
+            case "uuid":
+                return uuidSubcommand(e);
             case "choose":
                 return chooseSubcommand(e);
             case "dice":
@@ -117,6 +122,10 @@ public class RandomCommand extends SlashCommand {
         String valueStr = ROLL_FORMAT.format(value);
         return new Result(Outcome.SUCCESS, String.format("Rolled **`%s`** (uniform random, from %s to %s)",
                 valueStr, minStr, maxStr));
+    }
+
+    private static Result uuidSubcommand(SlashCommandInteractionEvent e) {
+        return new Result(Outcome.SUCCESS, UuidCommand.constructDescription(UuidUtils.randomUuidInsecure()));
     }
 
     private static Result chooseSubcommand(SlashCommandInteractionEvent e) {
