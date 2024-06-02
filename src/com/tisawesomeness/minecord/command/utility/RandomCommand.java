@@ -2,13 +2,17 @@ package com.tisawesomeness.minecord.command.utility;
 
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.command.player.UuidCommand;
+import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.MathUtils;
+import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.UuidUtils;
 import com.tisawesomeness.minecord.util.dice.DiceCombination;
 import com.tisawesomeness.minecord.util.dice.DiceError;
 import com.tisawesomeness.minecord.util.dice.DiceGroup;
 import com.tisawesomeness.minecord.util.type.Either;
 import com.tisawesomeness.minecord.util.type.HumanDecimalFormat;
+import lombok.AllArgsConstructor;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -16,11 +20,12 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 
+import java.awt.*;
 import java.math.BigInteger;
 import java.util.List;
-import java.util.Map;
-import java.util.StringJoiner;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -74,7 +79,11 @@ public class RandomCommand extends SlashCommand {
                                 .setMinLength(1)),
                 new SubcommandData("dice", "Roll multiple dice and sum the result")
                         .addOptions(new OptionData(OptionType.STRING, "dice", DICE_DESCRIPTION, true)
-                                .setMinLength(1))
+                                .setMinLength(1)),
+                new SubcommandData("color", "Generates a random color")
+                        .addOptions(new OptionData(OptionType.INTEGER, "type", "desc", true)
+                                .addChoice("minecraft", ColorType.MINECRAFT.id)
+                                .addChoice("hex", ColorType.HEX.id))
         );
     }
 
@@ -86,11 +95,13 @@ public class RandomCommand extends SlashCommand {
             case "uniform":
                 return uniformSubcommand(e);
             case "uuid":
-                return uuidSubcommand(e);
+                return uuidSubcommand();
             case "choose":
                 return chooseSubcommand(e);
             case "dice":
                 return diceSubcommand(e);
+            case "color":
+                return colorSubcommand(e);
             default:
                 throw new RuntimeException("Invalid subcommand " + e.getSubcommandName());
         }
@@ -124,7 +135,7 @@ public class RandomCommand extends SlashCommand {
                 valueStr, minStr, maxStr));
     }
 
-    private static Result uuidSubcommand(SlashCommandInteractionEvent e) {
+    private static Result uuidSubcommand() {
         return new Result(Outcome.SUCCESS, UuidCommand.constructDescription(UuidUtils.randomUuidInsecure()));
     }
 
@@ -254,6 +265,32 @@ public class RandomCommand extends SlashCommand {
         return rolledValues.stream()
                 .map(String::valueOf)
                 .collect(Collectors.joining(", "));
+    }
+
+    private static Result colorSubcommand(SlashCommandInteractionEvent e) {
+        int colorTypeId = e.getOption("type", OptionMapping::getAsInt);
+        Optional<ColorType> colorTypeOpt = ColorType.of(colorTypeId);
+        if (!colorTypeOpt.isPresent()) {
+            return new Result(Outcome.ERROR, "Invalid argument in /random color");
+        }
+        Color randomColor = colorTypeOpt.get().colorGenerator.get();
+        EmbedBuilder eb = ColorCommand.buildEmbed(randomColor);
+        return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+    }
+
+    @AllArgsConstructor
+    private enum ColorType {
+        MINECRAFT(0, ColorUtils::randomColor),
+        HEX(1, ColorUtils::veryRandomColor);
+
+        public final int id;
+        public final Supplier<Color> colorGenerator;
+
+        public static Optional<ColorType> of(int id) {
+            return Arrays.stream(values())
+                    .filter(ct -> ct.id == id)
+                    .findFirst();
+        }
     }
 
 }
