@@ -28009,5 +28009,70 @@
       "feature_flag": "1.21",
       "version": "1.20.5"
     }
+  },
+  "minecraft.music_disc_creator": {
+    "lang": {
+      "en_US": {
+        "lore": "Lena Raine - Creator",
+        "search_names": [
+          "Creator Disc",
+          "Creator Music Disc",
+          "Disc Creator",
+          "Lena Raine - Creator",
+          "Creator"
+        ],
+        "display_name": "Music Disc",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Music Disc Creator",
+      "version": "1.21"
+    }
+  },
+  "minecraft.music_disc_creator_music_box": {
+    "lang": {
+      "en_US": {
+        "lore": "Lena Raine - Creator (Music Box)",
+        "search_names": [
+          "Creator (Music Box) Disc",
+          "Creator (Music Box) Music Disc",
+          "Disc Creator (Music Box)",
+          "Lena Raine - Creator (Music Box)",
+          "Creator (Music Box)",
+          "Creator Music Box Disc",
+          "Creator Music Box Music Disc",
+          "Disc Creator Music Box",
+          "Lena Raine - Creator Music Box",
+          "Creator Music Box"
+        ],
+        "display_name": "Music Disc",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Music Disc Creator Music Box",
+      "version": "1.21"
+    }
+  },
+  "minecraft.music_disc_precipice": {
+    "lang": {
+      "en_US": {
+        "lore": "Aaron Cherof - Precipice",
+        "search_names": [
+          "Precipice Disc",
+          "Precipice Music Disc",
+          "Disc Precipice",
+          "Lena Raine - Precipice",
+          "Precipice"
+        ],
+        "display_name": "Music Disc",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Music Disc Precipice",
+      "version": "1.21"
+    }
   }
 }

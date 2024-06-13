@@ -2,7 +2,7 @@ package com.tisawesomeness.minecord.util;
 
 import org.json.JSONObject;
 
-import java.awt.Color;
+import java.awt.*;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -243,13 +243,6 @@ public class ColorUtils {
      */
     public static Color parseColor(String str, String lang) {
         String query = str;
-
-        // Random colors
-        if (query.equalsIgnoreCase("rand") || query.equalsIgnoreCase("random")) {
-            return ColorUtils.randomColor();
-        } else if (query.equalsIgnoreCase("very rand") || query.equalsIgnoreCase("very random")) {
-            return ColorUtils.veryRandomColor();
-        }
 
         // Parse &2 as 2
         char start = query.charAt(0);

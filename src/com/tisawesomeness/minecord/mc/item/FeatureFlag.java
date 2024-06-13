@@ -12,7 +12,7 @@ import java.util.Optional;
 public enum FeatureFlag {
     BUNDLE("bundle", "Bundle", null),
     UPDATE_1_20("1.20"),
-    UPDATE_1_21("1.21", "1.21", null);
+    UPDATE_1_21("1.21");
 
     private final String id;
     private final String displayName;

@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.util;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
-
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
@@ -39,13 +38,16 @@ public class DiscordUtils {
         return input
                 .replace("{author}", Config.getAuthor())
                 .replace("{author_tag}", Config.getAuthorTag())
+                .replace("{invite}", Config.getInvite())
                 .replace("{help_server}", Config.getHelpServer())
                 .replace("{website}", Config.getWebsite())
                 .replace("{github}", Config.getGithub())
+                .replace("{donate}", Bot.donate)
+                .replace("{terms}", Bot.terms)
+                .replace("{privacy}", Bot.privacy)
+                .replace("{prefix}", Config.getPrefix())
                 .replace("{jda_ver}", Bot.jdaVersion)
-                .replace("{version}", Bot.getVersion())
-                .replace("{invite}", Config.getInvite())
-                .replace("{prefix}", Config.getPrefix());
+                .replace("{version}", Bot.getVersion());
     }
 
     /**

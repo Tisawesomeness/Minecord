@@ -3,20 +3,19 @@ package com.tisawesomeness.minecord.command.utility;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
-import java.awt.Color;
+import java.awt.*;
 
 public class ColorCommand extends SlashCommand {
 
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "color",
-                "Look up a color, color code, or get a random color.",
+                "Look up a color or Minecraft color code.",
                 "<color>",
                 0,
                 false,
@@ -37,8 +36,6 @@ public class ColorCommand extends SlashCommand {
     @Override
     public String getHelp() {
         return "`{&}color <color>` - Look up a color.\n" +
-                "`{&}color random` - Get a random Minecraft color.\n" +
-                "`{&}color very random` - Get any random color.\n" +
                 "Shows extra info if the color is one of the 16 Minecraft color codes.\n" +
                 "\n" +
                 "`<color>` can be:\n" +
@@ -51,12 +48,15 @@ public class ColorCommand extends SlashCommand {
     }
 
     public Result run(SlashCommandInteractionEvent e) {
-
         Color c = ColorUtils.parseColor(e.getOption("color").getAsString(), "en_US");
         if (c == null) {
             return new Result(Outcome.WARNING, ":warning: Not a valid color!");
         }
+        EmbedBuilder eb = buildEmbed(c);
+        return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+    }
 
+    public static EmbedBuilder buildEmbed(Color c) {
         String formats = ColorUtils.getRGB(c) + "\n" +
                 ColorUtils.getHSV(c) + "\n" +
                 ColorUtils.getHSL(c) + "\n" +
@@ -74,8 +74,7 @@ public class ColorCommand extends SlashCommand {
                     .addField("Chat Code", ColorUtils.getColorCode(colorID), true)
                     .addField("Background Color", ColorUtils.getBackgroundHex(colorID), true);
         }
-
-        return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
+        return eb;
     }
 
 }
