@@ -10,13 +10,18 @@
       <id>jitpack.io</id>
       <url>https://jitpack.io</url>
     </repository>
+    <repository>
+      <id>maven_central</id>
+      <name>Maven Central</name>
+      <url>https://repo.maven.apache.org/maven2/</url>
+    </repository>
   </repositories>
 
   <dependencies>
     <dependency>
       <groupId>net.dv8tion</groupId>
       <artifactId>JDA</artifactId>
-      <version>5.0.0-beta.24</version>
+      <version>5.0.1</version>
       <exclusions>
         <exclusion>
           <groupId>club.minnced</groupId>
@@ -53,7 +58,7 @@
     <dependency>
       <groupId>com.mysql</groupId>
       <artifactId>mysql-connector-j</artifactId>
-      <version>8.4.0</version>
+      <version>9.0.0</version>
     </dependency>
     <dependency>
       <groupId>org.xerial</groupId>
@@ -63,12 +68,12 @@
     <dependency>
       <groupId>dnsjava</groupId>
       <artifactId>dnsjava</artifactId>
-      <version>3.5.3</version>
+      <version>3.6.0</version>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.32</version>
+      <version>1.18.34</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
