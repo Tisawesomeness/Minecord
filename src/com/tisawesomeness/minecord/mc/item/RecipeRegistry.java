@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 
 public class RecipeRegistry {
 
-    public static final String[] FEATURE_FLAGS = new String[] { "vanilla", "1.20", "1.21", "bundle" };
-    public static final String[] FEATURE_FLAGS_ORDER = new String[] { "1.20", "vanilla", "1.21", "bundle" };
+    public static final String[] FEATURE_FLAGS = new String[] { "vanilla", "1.20", "1.21", "bundle", "winter_drop" };
+    public static final String[] FEATURE_FLAGS_ORDER = new String[] { "1.20", "1.21", "bundle", "vanilla", "winter_drop" };
     private static final String[] VERSIONS = new String[] {
             "1.7.10",
             "1.8", "1.8.1", "1.8.2", "1.8.3", "1.8.4", "1.8.5", "1.8.6", "1.8.7", "1.8.8", "1.8.9",
@@ -31,7 +31,8 @@ public class RecipeRegistry {
             "1.17", "1.17.1",
             "1.18", "1.18.1", "1.18.2",
             "1.19", "1.19.1", "1.19.2", "1.19.3", "1.19.4",
-            "1.20", "1.20.1", "1.20.2", "1.20.3", "1.20.4", "1.20.5"
+            "1.20", "1.20.1", "1.20.2", "1.20.3", "1.20.4", "1.20.5", "1.20.6",
+            "1.21", "1.21.1", "1.21.2", "1.21.3"
     };
 
     private static JSONObject recipes;
@@ -166,6 +167,9 @@ public class RecipeRegistry {
             "minecraft:crafting_special_firework_star", "minecraft:crafting_special_firework_star_fade", "minecraft:crafting_special_firework_rocket",
             "minecraft:crafting_special_shulkerboxcoloring", "minecraft:crafting_special_suspiciousstew"
     );
+    private static final List<String> smeltingTypes = Arrays.asList(
+            "minecraft:smelting", "minecraft.smelting_special_sponge"
+    );
     private static final List<String> smithingTypes = Arrays.asList(
             "minecraft:smithing", "minecraft:smithing_trim", "minecraft:smithing_transform"
     );
@@ -184,7 +188,7 @@ public class RecipeRegistry {
      * @param type The type string
      */
     private static boolean isSmelting(String type) {
-        return type.equals("minecraft:smelting") || type.equals("minecraft.smelting_special_sponge");
+        return smeltingTypes.contains(type);
     }
     /**
      * Checks if a recipe type is smithing

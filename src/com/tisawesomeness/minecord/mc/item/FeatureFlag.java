@@ -10,9 +10,10 @@ import java.util.Optional;
 @Getter
 @AllArgsConstructor
 public enum FeatureFlag {
-    BUNDLE("bundle", "Bundle", null),
+    BUNDLE("bundle", "Bundle", "1.21.2"),
     UPDATE_1_20("1.20"),
-    UPDATE_1_21("1.21");
+    UPDATE_1_21("1.21"),
+    WINTER_DROP("winter_drop", "Winter Drop", null);
 
     private final String id;
     private final String displayName;
