@@ -53,7 +53,7 @@ public class RecipeCommand extends SlashCommand {
 
         // Search through the recipe database with full args first
         String search = e.getOption("item").getAsString();
-        String item = ItemRegistry.search(search, "en_US");
+        String item = ItemRegistry.search(search);
         if (item == null) {
             return new Result(Outcome.WARNING,
                     ":warning: That item does not exist! " + "\n" + "Did you spell it correctly?");
@@ -70,9 +70,9 @@ public class RecipeCommand extends SlashCommand {
             }
         }
 
-        ArrayList<String> recipes = RecipeRegistry.searchOutput(item, "en_US");
+        ArrayList<String> recipes = RecipeRegistry.searchOutput(item);
         if (recipes.isEmpty()) {
-            String displayName = ItemRegistry.getDistinctDisplayName(item, "en_US");
+            String displayName = ItemRegistry.getDistinctDisplayName(item);
             return new Result(Outcome.SUCCESS, ":warning: " + displayName + " does not have any recipes.");
         }
         if (page >= recipes.size()) {
@@ -86,11 +86,11 @@ public class RecipeCommand extends SlashCommand {
         MenuStatus status = ReactMenu.getMenuStatus(e);
         if (status.isValid()) {
             e.deferReply().queue();
-            new RecipeRegistry.RecipeMenu(recipes, page, "en_US").post(e);
+            new RecipeRegistry.RecipeMenu(recipes, page).post(e);
             return new Result(Outcome.SUCCESS);
         }
         recipes.sort(RecipeRegistry::compareRecipes);
-        EmbedBuilder eb = RecipeRegistry.displayImg(recipes.get(page), "en_US");
+        EmbedBuilder eb = RecipeRegistry.displayImg(recipes.get(page));
         eb.setFooter(String.format("Page %s/%s%s", page + 1, recipes.size(), status.getReason()), null);
         return new Result(Outcome.SUCCESS, eb.build());
 

@@ -54,19 +54,18 @@ public class RecipeRegistry {
      * Creates an EmbedBuilder from a recipe
      *
      * @param recipe The name of the recipe
-     * @param lang The language code to pull names from
      * @return An EmbedBuilder containing properties of the item
      */
-    public static EmbedBuilder displayImg(String recipe, String lang) {
+    public static EmbedBuilder displayImg(String recipe) {
         EmbedBuilder eb = new EmbedBuilder();
-        String item = ItemRegistry.searchNoStats(getResult(recipe), lang);
-        eb.setTitle(ItemRegistry.getDistinctDisplayName(item, lang));
+        String item = ItemRegistry.searchNoStats(getResult(recipe));
+        eb.setTitle(ItemRegistry.getDistinctDisplayName(item));
         eb.setImage(Config.getRecipeImageHost() + getImage(recipe));
         eb.setColor(Bot.color);
-        eb.setDescription(getMetadata(recipe, lang));
+        eb.setDescription(getMetadata(recipe));
         return eb;
     }
-    private static String getMetadata(String recipe, String lang) {
+    private static String getMetadata(String recipe) {
         StringJoiner lines = new StringJoiner("\n");
         double xp = getXP(recipe);
         if (xp > 0) {
@@ -104,7 +103,7 @@ public class RecipeRegistry {
             FeatureFlag flag = FeatureFlag.from(removedInFlag).get();
             lines.add(String.format("Removed in %s experiment, version %s", flag.getDisplayName(), flagRemovedVersion));
         }
-        String notes = getNotes(recipe, lang);
+        String notes = getNotes(recipe);
         if (notes != null) {
             lines.add(notes);
         }
@@ -120,24 +119,24 @@ public class RecipeRegistry {
 
     /**
      * Searches the database for all recipes with an item as the output
+     *
      * @param item The item to search for
-     * @param lang The language code to pull names from
      * @return Null if the item cannot be found, otherwise a list of recipe names that may be empty
      */
-    public static ArrayList<String> searchOutput(String item, String lang) {
+    public static ArrayList<String> searchOutput(String item) {
         if (item.contains("potion") || item.contains("tipped_arrow")) {
-            return searchItemOutput(item, lang);
+            return searchItemOutput(item);
         }
-        return searchItemOutput(ItemRegistry.getNamespacedID(item), lang);
+        return searchItemOutput(ItemRegistry.getNamespacedID(item));
     }
 
     /**
      * Searches the database for all recipes with an item as the output
+     *
      * @param namespacedID The namespaced ID of the item to search with
-     * @param lang The language code to pull names from
      * @return A list of recipe names that may be empty
      */
-    private static ArrayList<String> searchItemOutput(String namespacedID, String lang) {
+    private static ArrayList<String> searchItemOutput(String namespacedID) {
         // Loop through all recipes
         ArrayList<String> recipesFound = new ArrayList<>();
         Iterator<String> iter = recipes.keys();
@@ -207,24 +206,24 @@ public class RecipeRegistry {
 
     /**
      * Searches the database for all recipes with an item as an input
+     *
      * @param item The item to search for
-     * @param lang The language code to pull names from
      * @return Null if the item cannot be found, otherwise a list of recipe names that may be empty
      */
-    public static ArrayList<String> searchIngredient(String item, String lang) {
+    public static ArrayList<String> searchIngredient(String item) {
         if (item.contains("potion") || item.contains("tipped_arrow")) {
-            return searchItemIngredient(item, lang);
+            return searchItemIngredient(item);
         }
-        return searchItemIngredient(ItemRegistry.getNamespacedID(item), lang);
+        return searchItemIngredient(ItemRegistry.getNamespacedID(item));
     }
 
     /**
      * Searches the database for all recipes with an item as an input
+     *
      * @param namespacedID The namespaced ID of the item to search with
-     * @param lang The language code to pull names from
      * @return Null if the item cannot be found, otherwise a list of recipe names that may be empty
      */
-    private static ArrayList<String> searchItemIngredient(String namespacedID, String lang) {
+    private static ArrayList<String> searchItemIngredient(String namespacedID) {
         // Loop through all recipes
         ArrayList<String> recipesFound = new ArrayList<>();
         Iterator<String> iter = recipes.keys();
@@ -462,12 +461,12 @@ public class RecipeRegistry {
 
     /**
      * Returns the notes that should be displayed when a recipe is viewed
+     *
      * @param recipe The recipe key
-     * @param lang The language code
      */
-    private static String getNotes(String recipe, String lang) {
+    private static String getNotes(String recipe) {
         JSONObject langObj = recipes.getJSONObject(recipe).optJSONObject("lang");
-        return langObj == null ? null : langObj.getJSONObject(lang).optString("notes", null);
+        return langObj == null ? null : langObj.getJSONObject(ItemRegistry.LANG).optString("notes", null);
     }
 
     /**
@@ -488,12 +487,12 @@ public class RecipeRegistry {
         private int startingIngredient = 0;
         /**
          * Creates a new recipe menu with a list of recipes
+         *
          * @param recipeList A non-empty list of string recipe keys
-         * @param page The page to start on
-         * @param lang The language code
+         * @param page       The page to start on
          */
-        public RecipeMenu(List<String> recipeList, int page, String lang) {
-            super(page, lang);
+        public RecipeMenu(List<String> recipeList, int page) {
+            super(page);
             setRecipeList(recipeList);
         }
 
@@ -506,7 +505,7 @@ public class RecipeRegistry {
 
         public EmbedBuilder getContent(int page) {
             String recipe = recipeList.get(page);
-            EmbedBuilder eb = displayImg(recipe, "en_US");
+            EmbedBuilder eb = displayImg(recipe);
             if (eb.getDescriptionBuilder().length() > 0) {
                 eb.getDescriptionBuilder().insert(0, desc + "\n");
             } else {
@@ -548,7 +547,7 @@ public class RecipeRegistry {
             });
             // See what the output can craft
             String result = getResult(recipe);
-            ArrayList<String> outputMore = searchIngredient(ItemRegistry.searchNoStats(result, getLang()), getLang());
+            ArrayList<String> outputMore = searchIngredient(ItemRegistry.searchNoStats(result));
             boolean hasOutput = !outputMore.isEmpty();
             buttons.put(Emote.UP.getCodepoint(), () -> {
                 if (hasOutput) {
@@ -604,7 +603,7 @@ public class RecipeRegistry {
             String table = ItemRegistry.getNamespacedID(tableItem).substring(10);
             boolean needsTable = !recipe.equals(table);
             if (needsTable) {
-                desc += String.format("\n%s %s", Emote.T.getText(), ItemRegistry.getMenuDisplayNameWithFeature(tableItem, getLang()));
+                desc += String.format("\n%s %s", Emote.T.getText(), ItemRegistry.getMenuDisplayNameWithFeature(tableItem));
             }
             buttons.put(Emote.T.getCodepoint(), () -> {
                 if (needsTable) {
@@ -622,11 +621,11 @@ public class RecipeRegistry {
                 boolean isBlasting = recipes.has(recipe.replace("from_smelting", "from_blasting"));
                 if (isSmoking) {
                     desc += String.format("\n%s %s\n%s %s",
-                            Emote.N1.getText(), ItemRegistry.getMenuDisplayNameWithFeature("minecraft.smoker", getLang()),
-                            Emote.N2.getText(), ItemRegistry.getMenuDisplayNameWithFeature("minecraft.campfire", getLang()));
+                            Emote.N1.getText(), ItemRegistry.getMenuDisplayNameWithFeature("minecraft.smoker"),
+                            Emote.N2.getText(), ItemRegistry.getMenuDisplayNameWithFeature("minecraft.campfire"));
                     ingredientButtonCount = 2;
                 } else if (isBlasting) {
-                    desc += String.format("\n%s %s", Emote.N1.getText(), ItemRegistry.getMenuDisplayNameWithFeature("minecraft.blast_furnace", getLang()));
+                    desc += String.format("\n%s %s", Emote.N1.getText(), ItemRegistry.getMenuDisplayNameWithFeature("minecraft.blast_furnace"));
                     ingredientButtonCount = 1;
                 }
                 buttons.put(Emote.N1.getCodepoint(), () -> {
@@ -680,12 +679,12 @@ public class RecipeRegistry {
                 ingredientsSet.toArray(ingredients);
                 int i = startingIngredient;
                 while (i < ingredients.length && ingredientButtonCount <= 9) {
-                    String ingredientItem = ItemRegistry.searchNoStats(ingredients[i], getLang());
+                    String ingredientItem = ItemRegistry.searchNoStats(ingredients[i]);
                     String toSearch = ingredientItem;
                     if (!ingredientItem.contains("potion") && !ingredientItem.contains("tipped_arrow")) {
                         toSearch = ItemRegistry.getNamespacedID(ingredientItem);
                     }
-                    ArrayList<String> ingredientMore = searchItemOutput(toSearch, getLang());
+                    ArrayList<String> ingredientMore = searchItemOutput(toSearch);
                     if (!ingredientMore.isEmpty()) {
                         if (ingredientButtonCount == 9) {
                             ingredientButtonCount++;
@@ -697,7 +696,7 @@ public class RecipeRegistry {
                             startingIngredient = 0;
                             setPage(0);
                         });
-                        desc += String.format("\n%s %s", emote.getText(), ItemRegistry.getMenuDisplayNameWithFeature(ingredientItem, getLang()));
+                        desc += String.format("\n%s %s", emote.getText(), ItemRegistry.getMenuDisplayNameWithFeature(ingredientItem));
                         ingredientButtonCount++;
                     }
                     i++;
@@ -726,9 +725,9 @@ public class RecipeRegistry {
                 }
             } else if (type.equals("minecraft:stonecutting")) {
                 String ingredient = getIngredients(recipeObj).toArray(new String[0])[0];
-                ArrayList<String> output = searchItemOutput(ingredient, getLang());
+                ArrayList<String> output = searchItemOutput(ingredient);
                 if (!output.isEmpty()) {
-                    desc += String.format("\n%s %s", Emote.N1.getText(), ItemRegistry.getMenuDisplayNameWithFeature(ItemRegistry.searchNoStats(ingredient, getLang()), getLang()));
+                    desc += String.format("\n%s %s", Emote.N1.getText(), ItemRegistry.getMenuDisplayNameWithFeature(ItemRegistry.searchNoStats(ingredient)));
                     buttons.put(Emote.N1.getCodepoint(), () -> {
                         setRecipeList(output);
                         startingIngredient = 0;
