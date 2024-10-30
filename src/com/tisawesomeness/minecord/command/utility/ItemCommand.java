@@ -43,7 +43,7 @@ public class ItemCommand extends SlashCommand {
     public Result run(SlashCommandInteractionEvent e) {
         // Search through the item database
         String search = e.getOption("item").getAsString();
-        String item = ItemRegistry.search(search, "en_US");
+        String item = ItemRegistry.search(search);
 
         // If nothing is found
         if (item == null) {
@@ -53,7 +53,7 @@ public class ItemCommand extends SlashCommand {
         }
 
         // Build message
-        EmbedBuilder eb = ItemRegistry.display(item, "en_US", "/");
+        EmbedBuilder eb = ItemRegistry.display(item, "/");
         eb = MessageUtils.addFooter(eb);
 
         return new Result(Outcome.SUCCESS, eb.build());

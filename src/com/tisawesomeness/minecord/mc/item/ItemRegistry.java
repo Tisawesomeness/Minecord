@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.mc.item;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
+import com.tisawesomeness.minecord.mc.FeatureFlag;
 import com.tisawesomeness.minecord.util.RequestUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
@@ -16,6 +17,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 
@@ -33,6 +35,7 @@ public class ItemRegistry {
     private static JSONObject items;
     private static JSONObject data;
 
+    public static final String LANG = "en_US";
     public static final String help = "Items can be:\n" +
             "- Namespaced IDs: `minecraft:iron_block`\n" +
             "- Numeric IDs: `50`\n" +
@@ -59,13 +62,12 @@ public class ItemRegistry {
     /**
      * Creates an EmbedBuilder from an item
      * @param item The name of the item
-     * @param lang The language code to pull names from
      * @return An EmbedBuilder containing properties of the item
      */
-    public static EmbedBuilder display(String item, String lang, String prefix) {
+    public static EmbedBuilder display(String item, String prefix) {
         // All objects guaranteed to be there (except properties)
         JSONObject itemObj = items.getJSONObject(item);
-        JSONObject langObj = itemObj.getJSONObject("lang").getJSONObject(lang);
+        JSONObject langObj = itemObj.getJSONObject("lang").getJSONObject(LANG);
         JSONObject properties = itemObj.optJSONObject("properties");
         EmbedBuilder eb = new EmbedBuilder();
         StringBuilder sb = eb.getDescriptionBuilder();
@@ -102,7 +104,7 @@ public class ItemRegistry {
         }
 
         // Previous name and id
-        String prevString = getPrevString(item, lang);
+        String prevString = getPrevString(item);
         if (prevString != null) {
             sb.append("**Previously:** ").append(prevString).append("\n");
         }
@@ -159,9 +161,9 @@ public class ItemRegistry {
         sb.delete(sb.length() - 1, sb.length());
         return eb.setColor(Bot.color);
     }
-    private static String getPrevString(String item, String lang) {
+    private static String getPrevString(String item) {
         JSONObject itemObj = items.getJSONObject(item);
-        JSONObject langObj = itemObj.getJSONObject("lang").getJSONObject(lang);
+        JSONObject langObj = itemObj.getJSONObject("lang").getJSONObject(LANG);
         JSONObject properties = itemObj.optJSONObject("properties");
 
         String previously1 = langObj.optString("previously", null);
@@ -189,8 +191,8 @@ public class ItemRegistry {
         }
     }
 
-    public static String search(String str, String lang) {
-        String item = searchNoStats(str, lang);
+    public static String search(String str) {
+        String item = searchNoStats(str);
         if (item == null) {
             misses.incrementAndGet();
         } else {
@@ -201,15 +203,14 @@ public class ItemRegistry {
     /**
      * Searches the database for an item
      * @param str The query
-     * @param lang The language code to search through, changing display, previous, block, and color names
      * @return The name of the item or null otherwise
      */
-    public static String searchNoStats(String str, String lang) {
+    public static String searchNoStats(String str) {
         String toMatch = str.trim();
         if (toMatch.startsWith("minecraft")) {
             return searchIDs(toMatch);
         } else if (Character.isDigit(toMatch.charAt(0))) {
-            String search = searchNumerical(toMatch, lang);
+            String search = searchNumerical(toMatch);
             if (search != null) {
                 return search;
             }
@@ -225,7 +226,7 @@ public class ItemRegistry {
         } else if (prepped.equalsIgnoreCase("tipped arrow")) {
             return "minecraft.tipped_arrow.effect.water";
         }
-        return searchGeneral(toMatch, lang);
+        return searchGeneral(toMatch);
     }
 
     /**
@@ -250,10 +251,9 @@ public class ItemRegistry {
     /**
      * Searches the item database assuming id or id:data numerical format
      * @param str The string to search
-     * @param lang The language code to search through
      * @return The name of the item or null otherwise
      */
-    private static String searchNumerical(String str, String lang) {
+    private static String searchNumerical(String str) {
         // Convert to id:data format
         String toParse = str.replace(".", ":").replace("-", ":").replace(" : ", ":");
         String idStr;
@@ -262,7 +262,7 @@ public class ItemRegistry {
         if (toParse.contains(":")) {
             String[] split = toParse.split(":");
             idStr = split[0];
-            data = parseData(split[1], lang);
+            data = parseData(split[1]);
         } else {
             idStr = toParse;
         }
@@ -316,10 +316,9 @@ public class ItemRegistry {
     /**
      * Searches the item database assuming the query is not id-based or numerical
      * @param str The string to search
-     * @param lang The language code to search through
      * @return The name of the item or null otherwise
      */
-    private static String searchGeneral(String str, String lang) {
+    private static String searchGeneral(String str) {
 
         // Extract ID and data
         String toParse = str.replace("_", " ").replace(".", " ").replace(" : ", ":").toLowerCase();
@@ -328,7 +327,7 @@ public class ItemRegistry {
             String[] split = toParse.split(":");
             toParse = split[0];
             if (split.length > 1) {
-                data = parseData(split[1], lang);
+                data = parseData(split[1]);
                 if (data < 0) {
                     return null;
                 }
@@ -337,7 +336,7 @@ public class ItemRegistry {
 
         // Colored items special case
         for (String coloredItem : coloredEdgeCases) {
-            JSONArray coloredNames = items.getJSONObject(coloredItem).getJSONObject("lang").getJSONObject(lang).getJSONArray("uncolored");
+            JSONArray coloredNames = items.getJSONObject(coloredItem).getJSONObject("lang").getJSONObject(LANG).getJSONArray("uncolored");
             for (int i = 0; i < coloredNames.length(); i++) {
                 String coloredName = coloredNames.getString(i).toLowerCase();
                 if (toParse.equals(coloredName)) {
@@ -348,7 +347,7 @@ public class ItemRegistry {
                     }
                 } else if (toParse.contains(coloredName)) {
                     String color = toParse.replace(coloredName, "").trim();
-                    int colorData = parseDataFromFile(color, lang);
+                    int colorData = parseDataFromFile(color);
                     if (colorData == 0) {
                         return coloredItem;
                     } else if (colorData > 0) {
@@ -361,7 +360,7 @@ public class ItemRegistry {
         // Colored cake candles special case
         if (toParse.endsWith(" cake candle") || toParse.endsWith(" candle cake")) {
             String color = toParse.substring(0, toParse.length() - 12).trim();
-            int colorData = parseDataFromFile(color, lang);
+            int colorData = parseDataFromFile(color);
             if (colorData == 0) {
                 return "minecraft.white_candle_cake";
             } else if (colorData > 0) {
@@ -370,7 +369,7 @@ public class ItemRegistry {
         }
         String color = CANDLE_CAKE_PATTERN.matcher(toParse).replaceFirst("$1");
         if (!color.equals(toParse)) {
-            int colorData = parseDataFromFile(color, lang);
+            int colorData = parseDataFromFile(color);
             if (colorData == 0) {
                 return "minecraft.white_candle_cake";
             } else if (colorData > 0) {
@@ -379,9 +378,9 @@ public class ItemRegistry {
         }
 
         // Banners special case
-        String banner = items.getJSONObject("legacy.banner").getJSONObject("lang").getJSONObject(lang).getString("display_name");
-        String standingBanner = items.getJSONObject("legacy.standing_banner").getJSONObject("lang").getJSONObject(lang).getString("internal_name");
-        String wallBanner = items.getJSONObject("legacy.wall_banner").getJSONObject("lang").getJSONObject(lang).getString("internal_name");
+        String banner = items.getJSONObject("legacy.banner").getJSONObject("lang").getJSONObject(LANG).getString("display_name");
+        String standingBanner = items.getJSONObject("legacy.standing_banner").getJSONObject("lang").getJSONObject(LANG).getString("internal_name");
+        String wallBanner = items.getJSONObject("legacy.wall_banner").getJSONObject("lang").getJSONObject(LANG).getString("internal_name");
         if (toParse.equalsIgnoreCase(banner) || toParse.equalsIgnoreCase(standingBanner)) {
             if (data < 0) {
                 return "minecraft.white_banner";
@@ -394,12 +393,12 @@ public class ItemRegistry {
             return String.format("minecraft.%s_wall_banner", colorNames[data]);
         }
         // Banner patterns special case
-        String bannerPattern = items.getJSONObject("minecraft.flower_banner_pattern").getJSONObject("lang").getJSONObject(lang).getString("display_name");
+        String bannerPattern = items.getJSONObject("minecraft.flower_banner_pattern").getJSONObject("lang").getJSONObject(LANG).getString("display_name");
         if (toParse.equalsIgnoreCase(bannerPattern)) {
             return "minecraft.flower_banner_pattern";
         }
         // Music discs special case
-        String musicDisc13 = items.getJSONObject("minecraft.music_disc_13").getJSONObject("lang").getJSONObject(lang).getString("display_name");
+        String musicDisc13 = items.getJSONObject("minecraft.music_disc_13").getJSONObject("lang").getJSONObject(LANG).getString("display_name");
         if (str.equalsIgnoreCase(musicDisc13)) {
             return "minecraft.music_disc_13";
         }
@@ -408,13 +407,13 @@ public class ItemRegistry {
         Iterator<String> iter = items.keys();
         while (iter.hasNext()) {
             String item = iter.next();
-            if (isMatch(item, toParse, -1, lang)) {
+            if (isMatch(item, toParse, -1)) {
                 if (data < 0) {
                     return item;
                 }
                 int id = getID(item);
                 if (id >= 0) {
-                    return searchNumerical(id + ":" + data, lang);
+                    return searchNumerical(id + ":" + data);
                 }
             }
         }
@@ -423,14 +422,13 @@ public class ItemRegistry {
     /**
      * Determines if a non-id, non-numerical search string matches an item
      * @param item The item key to check
-     * @param id The id to use
+     * @param id   The id to use
      * @param data The data value to use
-     * @param lang The language code to use
      * @return Whether the item matched
      */
-    private static boolean isMatch(String item, String id, int data, String lang) {
+    private static boolean isMatch(String item, String id, int data) {
         JSONObject itemObj = items.getJSONObject(item);
-        JSONObject langObj = itemObj.getJSONObject("lang").getJSONObject(lang);
+        JSONObject langObj = itemObj.getJSONObject("lang").getJSONObject(LANG);
         JSONObject properties = itemObj.optJSONObject("properties");
         ArrayList<String> toCheck = new ArrayList<>();
         // Data must match or not matter
@@ -486,39 +484,41 @@ public class ItemRegistry {
     /**
      * Parses a string or numerical data value
      * @param data The string to parse
-     * @param lang The language code to use, changing color names
      * @return An integer data value from 0-69 or -1 otherwise
      */
-    private static int parseData(String data, String lang) {
+    private static int parseData(String data) {
         try {
             return Integer.parseInt(data);
         } catch (NumberFormatException ignored) {
-            return parseDataFromFile(data, lang);
+            return parseDataFromFile(data);
         }
     }
     /**
      * Looks up a data value in data.json
      * @param color The string to look up
-     * @param lang The language code
      * @return An integer from 0-15 representing the data value, or -1 if not found
      */
-    private static int parseDataFromFile(String color, String lang) {
-        return data.getJSONObject(lang).optInt(color.toLowerCase().replace(" ", "_").replace("-", "_"), -1);
+    private static int parseDataFromFile(String color) {
+        return data.getJSONObject(LANG).optInt(color.toLowerCase().replace(" ", "_").replace("-", "_"), -1);
     }
 
-    public static String getMenuDisplayNameWithFeature(String item, String lang) {
-        String displayName = getDistinctDisplayName(item, lang);
+    public static String getMenuDisplayNameWithFeature(String item) {
+        String displayName = getDistinctDisplayName(item);
         JSONObject properties = items.getJSONObject(item).optJSONObject("properties");
         if (properties != null) {
             String feature = properties.optString("feature_flag", "vanilla");
-            if (!FeatureFlag.from(feature).map(FeatureFlag::isReleased).orElse(true)) {
-                displayName += " (" + feature + ")";
+            Optional<FeatureFlag> flagOpt = FeatureFlag.from(feature);
+            if (flagOpt.isPresent()) {
+                FeatureFlag flag = flagOpt.get();
+                if (!flag.isReleased()) {
+                    displayName += " (" + flag.getDisplayName() + ")";
+                }
             }
         }
         return displayName;
     }
-    public static String getDistinctDisplayName(String item, String lang) {
-        JSONObject langObj = items.getJSONObject(item).getJSONObject("lang").getJSONObject(lang);
+    public static String getDistinctDisplayName(String item) {
+        JSONObject langObj = items.getJSONObject(item).getJSONObject("lang").getJSONObject(LANG);
         String distinctDisplayName = langObj.optString("distinct_display_name", null);
         if (distinctDisplayName != null) {
             return distinctDisplayName;

@@ -1,56 +1,61 @@
 {
-  "1.21": {
-    "breaks_decorated_pots": [
-      "minecraft:mace"
+  "winter_drop": {
+    "boats": [
+      "minecraft:pale_oak_boat"
     ],
-    "decorated_pot_ingredients": [
-      "minecraft:flow_pottery_sherd",
-      "minecraft:guster_pottery_sherd",
-      "minecraft:scrape_pottery_sherd"
+    "chest_boats": [
+      "minecraft:pale_oak_chest_boat"
     ],
-    "decorated_pot_sherds": [
-      "minecraft:flow_pottery_sherd",
-      "minecraft:guster_pottery_sherd",
-      "minecraft:scrape_pottery_sherd"
+    "dirt": [
+      "minecraft:pale_moss_block"
     ],
-    "doors": [
-      "minecraft:copper_door",
-      "minecraft:exposed_copper_door",
-      "minecraft:weathered_copper_door",
-      "minecraft:oxidized_copper_door",
-      "minecraft:waxed_copper_door",
-      "minecraft:waxed_exposed_copper_door",
-      "minecraft:waxed_weathered_copper_door",
-      "minecraft:waxed_oxidized_copper_door"
+    "fence_gates": [
+      "minecraft:pale_oak_fence_gate"
     ],
-    "slabs": [
-      "minecraft:tuff_slab",
-      "minecraft:polished_tuff_slab",
-      "minecraft:tuff_brick_slab"
+    "hanging_signs": [
+      "minecraft:pale_oak_hanging_sign"
     ],
-    "stairs": [
-      "minecraft:tuff_stairs",
-      "minecraft:polished_tuff_stairs",
-      "minecraft:tuff_brick_stairs"
+    "leaves": [
+      "minecraft:pale_oak_leaves"
     ],
-    "trapdoors": [
-      "minecraft:copper_trapdoor",
-      "minecraft:exposed_copper_trapdoor",
-      "minecraft:weathered_copper_trapdoor",
-      "minecraft:oxidized_copper_trapdoor",
-      "minecraft:waxed_copper_trapdoor",
-      "minecraft:waxed_exposed_copper_trapdoor",
-      "minecraft:waxed_weathered_copper_trapdoor",
-      "minecraft:waxed_oxidized_copper_trapdoor"
+    "logs_that_burn": [
+      "#minecraft:pale_oak_logs"
     ],
-    "trim_templates": [
-      "minecraft:flow_armor_trim_smithing_template",
-      "minecraft:bolt_armor_trim_smithing_template"
+    "pale_oak_logs": [
+      "minecraft:pale_oak_log",
+      "minecraft:pale_oak_wood",
+      "minecraft:stripped_pale_oak_log",
+      "minecraft:stripped_pale_oak_wood"
     ],
-    "walls": [
-      "minecraft:tuff_wall",
-      "minecraft:polished_tuff_wall",
-      "minecraft:tuff_brick_wall"
+    "planks": [
+      "minecraft:pale_oak_planks"
+    ],
+    "saplings": [
+      "minecraft:pale_oak_sapling"
+    ],
+    "signs": [
+      "minecraft:pale_oak_sign"
+    ],
+    "wooden_buttons": [
+      "minecraft:pale_oak_button"
+    ],
+    "wooden_doors": [
+      "minecraft:pale_oak_door"
+    ],
+    "wooden_fences": [
+      "minecraft:pale_oak_fence"
+    ],
+    "wooden_pressure_plates": [
+      "minecraft:pale_oak_pressure_plate"
+    ],
+    "wooden_slabs": [
+      "minecraft:pale_oak_slab"
+    ],
+    "wooden_stairs": [
+      "minecraft:pale_oak_stairs"
+    ],
+    "wooden_trapdoors": [
+      "minecraft:pale_oak_trapdoor"
     ]
   },
   "vanilla": {
@@ -114,22 +119,22 @@
       "minecraft:iron_ingot"
     ],
     "beds": [
-      "minecraft:red_bed",
-      "minecraft:black_bed",
+      "minecraft:white_bed",
+      "minecraft:orange_bed",
+      "minecraft:magenta_bed",
+      "minecraft:light_blue_bed",
+      "minecraft:yellow_bed",
+      "minecraft:lime_bed",
+      "minecraft:pink_bed",
+      "minecraft:gray_bed",
+      "minecraft:light_gray_bed",
+      "minecraft:cyan_bed",
+      "minecraft:purple_bed",
       "minecraft:blue_bed",
       "minecraft:brown_bed",
-      "minecraft:cyan_bed",
-      "minecraft:gray_bed",
       "minecraft:green_bed",
-      "minecraft:light_blue_bed",
-      "minecraft:light_gray_bed",
-      "minecraft:lime_bed",
-      "minecraft:magenta_bed",
-      "minecraft:orange_bed",
-      "minecraft:pink_bed",
-      "minecraft:purple_bed",
-      "minecraft:white_bed",
-      "minecraft:yellow_bed"
+      "minecraft:red_bed",
+      "minecraft:black_bed"
     ],
     "bee_food": [
       "#minecraft:flowers"
@@ -165,7 +170,30 @@
       "#minecraft:pickaxes",
       "#minecraft:shovels",
       "#minecraft:hoes",
-      "minecraft:trident"
+      "minecraft:trident",
+      "minecraft:mace"
+    ],
+    "brewing_fuel": [
+      "minecraft:blaze_powder"
+    ],
+    "bundles": [
+      "minecraft:bundle",
+      "minecraft:white_bundle",
+      "minecraft:orange_bundle",
+      "minecraft:magenta_bundle",
+      "minecraft:light_blue_bundle",
+      "minecraft:yellow_bundle",
+      "minecraft:lime_bundle",
+      "minecraft:pink_bundle",
+      "minecraft:gray_bundle",
+      "minecraft:light_gray_bundle",
+      "minecraft:cyan_bundle",
+      "minecraft:purple_bundle",
+      "minecraft:blue_bundle",
+      "minecraft:brown_bundle",
+      "minecraft:green_bundle",
+      "minecraft:red_bundle",
+      "minecraft:black_bundle"
     ],
     "buttons": [
       "#minecraft:wooden_buttons",
@@ -320,11 +348,17 @@
       "minecraft:sheaf_pottery_sherd",
       "minecraft:shelter_pottery_sherd",
       "minecraft:skull_pottery_sherd",
-      "minecraft:snort_pottery_sherd"
+      "minecraft:snort_pottery_sherd",
+      "minecraft:flow_pottery_sherd",
+      "minecraft:guster_pottery_sherd",
+      "minecraft:scrape_pottery_sherd"
     ],
     "diamond_ores": [
       "minecraft:diamond_ore",
       "minecraft:deepslate_diamond_ore"
+    ],
+    "diamond_tool_materials": [
+      "minecraft:diamond"
     ],
     "dirt": [
       "minecraft:dirt",
@@ -339,7 +373,18 @@
     ],
     "doors": [
       "#minecraft:wooden_doors",
+      "minecraft:copper_door",
+      "minecraft:exposed_copper_door",
+      "minecraft:weathered_copper_door",
+      "minecraft:oxidized_copper_door",
+      "minecraft:waxed_copper_door",
+      "minecraft:waxed_exposed_copper_door",
+      "minecraft:waxed_weathered_copper_door",
+      "minecraft:waxed_oxidized_copper_door",
       "minecraft:iron_door"
+    ],
+    "duplicates_allays": [
+      "minecraft:amethyst_shard"
     ],
     "dyeable": [
       "minecraft:leather_helmet",
@@ -411,6 +456,13 @@
     "frog_food": [
       "minecraft:slime_ball"
     ],
+    "furnace_minecart_fuel": [
+      "minecraft:coal",
+      "minecraft:charcoal"
+    ],
+    "gaze_disguise_equipment": [
+      "minecraft:carved_pumpkin"
+    ],
     "goat_food": [
       "minecraft:wheat"
     ],
@@ -418,6 +470,9 @@
       "minecraft:gold_ore",
       "minecraft:nether_gold_ore",
       "minecraft:deepslate_gold_ore"
+    ],
+    "gold_tool_materials": [
+      "minecraft:gold_ingot"
     ],
     "hanging_signs": [
       "minecraft:oak_hanging_sign",
@@ -473,6 +528,9 @@
       "minecraft:iron_ore",
       "minecraft:deepslate_iron_ore"
     ],
+    "iron_tool_materials": [
+      "minecraft:iron_ingot"
+    ],
     "jungle_logs": [
       "minecraft:jungle_log",
       "minecraft:jungle_wood",
@@ -515,9 +573,16 @@
       "minecraft:hay_block"
     ],
     "logs": [
+      "#minecraft:oak_logs",
+      "#minecraft:spruce_logs",
+      "#minecraft:birch_logs",
+      "#minecraft:jungle_logs",
+      "#minecraft:acacia_logs",
+      "#minecraft:dark_oak_logs",
       "#minecraft:crimson_stems",
       "#minecraft:warped_stems",
-      "#minecraft:logs_that_burn"
+      "#minecraft:mangrove_logs",
+      "#minecraft:cherry_logs"
     ],
     "logs_that_burn": [
       "#minecraft:oak_logs",
@@ -525,15 +590,18 @@
       "#minecraft:birch_logs",
       "#minecraft:jungle_logs",
       "#minecraft:acacia_logs",
+      "#minecraft:dark_oak_logs",
       "#minecraft:mangrove_logs",
-      "#minecraft:cherry_logs",
-      "#minecraft:dark_oak_logs"
+      "#minecraft:cherry_logs"
     ],
     "mangrove_logs": [
       "minecraft:mangrove_log",
       "minecraft:mangrove_wood",
       "minecraft:stripped_mangrove_log",
       "minecraft:stripped_mangrove_wood"
+    ],
+    "map_invisibility_equipment": [
+      "minecraft:carved_pumpkin"
     ],
     "meat": [
       "minecraft:beef",
@@ -548,12 +616,8 @@
       "minecraft:rabbit",
       "minecraft:rotten_flesh"
     ],
-    "music_discs": [
-      "#minecraft:creeper_drop_music_discs",
-      "minecraft:music_disc_pigstep",
-      "minecraft:music_disc_otherside",
-      "minecraft:music_disc_5",
-      "minecraft:music_disc_relic"
+    "netherite_tool_materials": [
+      "minecraft:netherite_ingot"
     ],
     "non_flammable_wood": [
       "minecraft:crimson_button",
@@ -605,6 +669,10 @@
     "ocelot_food": [
       "minecraft:cod",
       "minecraft:salmon"
+    ],
+    "panda_eats_from_ground": [
+      "#minecraft:panda_food",
+      "minecraft:cake"
     ],
     "panda_food": [
       "minecraft:bamboo"
@@ -667,6 +735,12 @@
       "minecraft:soul_lantern",
       "minecraft:soul_campfire"
     ],
+    "piglin_safe_armor": [
+      "minecraft:golden_helmet",
+      "minecraft:golden_chestplate",
+      "minecraft:golden_leggings",
+      "minecraft:golden_boots"
+    ],
     "planks": [
       "minecraft:oak_planks",
       "minecraft:spruce_planks",
@@ -694,6 +768,30 @@
     "redstone_ores": [
       "minecraft:redstone_ore",
       "minecraft:deepslate_redstone_ore"
+    ],
+    "repairs_chain_armor": [
+      "minecraft:iron_ingot"
+    ],
+    "repairs_diamond_armor": [
+      "minecraft:diamond"
+    ],
+    "repairs_gold_armor": [
+      "minecraft:gold_ingot"
+    ],
+    "repairs_iron_armor": [
+      "minecraft:iron_ingot"
+    ],
+    "repairs_leather_armor": [
+      "minecraft:leather"
+    ],
+    "repairs_netherite_armor": [
+      "minecraft:netherite_ingot"
+    ],
+    "repairs_turtle_helmet": [
+      "minecraft:turtle_scute"
+    ],
+    "repairs_wolf_armor": [
+      "minecraft:armadillo_scute"
     ],
     "sand": [
       "minecraft:sand",
@@ -723,6 +821,25 @@
       "minecraft:netherite_shovel",
       "minecraft:wooden_shovel",
       "minecraft:iron_shovel"
+    ],
+    "shulker_boxes": [
+      "minecraft:shulker_box",
+      "minecraft:white_shulker_box",
+      "minecraft:orange_shulker_box",
+      "minecraft:magenta_shulker_box",
+      "minecraft:light_blue_shulker_box",
+      "minecraft:yellow_shulker_box",
+      "minecraft:lime_shulker_box",
+      "minecraft:pink_shulker_box",
+      "minecraft:gray_shulker_box",
+      "minecraft:light_gray_shulker_box",
+      "minecraft:cyan_shulker_box",
+      "minecraft:purple_shulker_box",
+      "minecraft:blue_shulker_box",
+      "minecraft:brown_shulker_box",
+      "minecraft:green_shulker_box",
+      "minecraft:red_shulker_box",
+      "minecraft:black_shulker_box"
     ],
     "signs": [
       "minecraft:oak_sign",
@@ -793,7 +910,10 @@
       "minecraft:exposed_cut_copper_slab",
       "minecraft:cut_copper_slab",
       "minecraft:waxed_oxidized_cut_copper_slab",
-      "minecraft:mud_brick_slab"
+      "minecraft:mud_brick_slab",
+      "minecraft:tuff_slab",
+      "minecraft:polished_tuff_slab",
+      "minecraft:tuff_brick_slab"
     ],
     "small_flowers": [
       "minecraft:dandelion",
@@ -871,7 +991,10 @@
       "minecraft:waxed_exposed_cut_copper_stairs",
       "minecraft:waxed_cut_copper_stairs",
       "minecraft:waxed_oxidized_cut_copper_stairs",
-      "minecraft:mud_brick_stairs"
+      "minecraft:mud_brick_stairs",
+      "minecraft:tuff_stairs",
+      "minecraft:polished_tuff_stairs",
+      "minecraft:tuff_brick_stairs"
     ],
     "stone_bricks": [
       "minecraft:stone_bricks",
@@ -936,7 +1059,15 @@
     ],
     "trapdoors": [
       "#minecraft:wooden_trapdoors",
-      "minecraft:iron_trapdoor"
+      "minecraft:iron_trapdoor",
+      "minecraft:copper_trapdoor",
+      "minecraft:exposed_copper_trapdoor",
+      "minecraft:weathered_copper_trapdoor",
+      "minecraft:oxidized_copper_trapdoor",
+      "minecraft:waxed_copper_trapdoor",
+      "minecraft:waxed_exposed_copper_trapdoor",
+      "minecraft:waxed_weathered_copper_trapdoor",
+      "minecraft:waxed_oxidized_copper_trapdoor"
     ],
     "trim_materials": [
       "minecraft:iron_ingot",
@@ -966,7 +1097,9 @@
       "minecraft:shaper_armor_trim_smithing_template",
       "minecraft:silence_armor_trim_smithing_template",
       "minecraft:raiser_armor_trim_smithing_template",
-      "minecraft:host_armor_trim_smithing_template"
+      "minecraft:host_armor_trim_smithing_template",
+      "minecraft:flow_armor_trim_smithing_template",
+      "minecraft:bolt_armor_trim_smithing_template"
     ],
     "trimmable_armor": [
       "#minecraft:foot_armor",
@@ -976,6 +1109,12 @@
     ],
     "turtle_food": [
       "minecraft:seagrass"
+    ],
+    "villager_picks_up": [
+      "#minecraft:villager_plantable_seeds",
+      "minecraft:bread",
+      "minecraft:wheat",
+      "minecraft:beetroot"
     ],
     "villager_plantable_seeds": [
       "minecraft:wheat_seeds",
@@ -1007,7 +1146,10 @@
       "minecraft:polished_deepslate_wall",
       "minecraft:deepslate_tile_wall",
       "minecraft:deepslate_brick_wall",
-      "minecraft:mud_brick_wall"
+      "minecraft:mud_brick_wall",
+      "minecraft:tuff_wall",
+      "minecraft:polished_tuff_wall",
+      "minecraft:tuff_brick_wall"
     ],
     "warped_stems": [
       "minecraft:warped_hyphae",
@@ -1020,7 +1162,14 @@
       "minecraft:nether_wart_block"
     ],
     "wolf_food": [
-      "#minecraft:meat"
+      "#minecraft:meat",
+      "minecraft:cod",
+      "minecraft:cooked_cod",
+      "minecraft:salmon",
+      "minecraft:cooked_salmon",
+      "minecraft:tropical_fish",
+      "minecraft:pufferfish",
+      "minecraft:rabbit_stew"
     ],
     "wooden_buttons": [
       "minecraft:oak_button",
@@ -1099,6 +1248,9 @@
       "minecraft:mangrove_stairs",
       "minecraft:bamboo_stairs",
       "minecraft:cherry_stairs"
+    ],
+    "wooden_tool_materials": [
+      "#minecraft:planks"
     ],
     "wooden_trapdoors": [
       "minecraft:oak_trapdoor",

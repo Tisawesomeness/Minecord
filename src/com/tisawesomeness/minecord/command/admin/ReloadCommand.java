@@ -7,7 +7,7 @@ import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.VoteHandler;
 import com.tisawesomeness.minecord.mc.item.ItemRegistry;
-import com.tisawesomeness.minecord.mc.item.RecipeRegistry;
+import com.tisawesomeness.minecord.mc.recipe.RecipeRegistry;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;

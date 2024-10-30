@@ -31,15 +31,12 @@ public abstract class ReactMenu {
     private long expire;
     private HashMap<String, Runnable> buttons;
     private long ownerID;
-    private final String lang;
 
     /**
      * Creates, but does not activate a reaction menu object that users can interact with
-     * @param lang The language code to use
      * @param startPage The page to start on
      */
-    public ReactMenu(int startPage, String lang) {
-        this.lang = lang;
+    public ReactMenu(int startPage) {
         this.page = startPage;
     }
 
@@ -208,12 +205,6 @@ public abstract class ReactMenu {
      */
     public HashMap<String, Runnable> getButtons() {
         return buttons;
-    }
-    /**
-     * @return The language code
-     */
-    public String getLang() {
-        return lang;
     }
 
     /**
