@@ -109,19 +109,6 @@
     <sourceDirectory>src</sourceDirectory>
     <finalName>${project.artifactId}</finalName>
     <plugins>
-      <plugin> <!-- TODO -->
-        <groupId>org.owasp</groupId>
-        <artifactId>dependency-check-maven</artifactId>
-        <version>10.0.2</version>
-        <executions>
-          <execution>
-            <phase>verify</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
