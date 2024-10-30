@@ -7,7 +7,7 @@ import com.tisawesomeness.minecord.database.VoteHandler;
 import com.tisawesomeness.minecord.mc.MCLibrary;
 import com.tisawesomeness.minecord.mc.StandardMCLibrary;
 import com.tisawesomeness.minecord.mc.item.ItemRegistry;
-import com.tisawesomeness.minecord.mc.item.RecipeRegistry;
+import com.tisawesomeness.minecord.mc.recipe.RecipeRegistry;
 import com.tisawesomeness.minecord.network.APIClient;
 import com.tisawesomeness.minecord.network.OkAPIClient;
 import com.tisawesomeness.minecord.util.*;

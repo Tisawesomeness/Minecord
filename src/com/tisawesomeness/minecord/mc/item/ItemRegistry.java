@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.mc.item;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
+import com.tisawesomeness.minecord.mc.FeatureFlag;
 import com.tisawesomeness.minecord.util.RequestUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
@@ -16,6 +17,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 
@@ -505,8 +507,12 @@ public class ItemRegistry {
         JSONObject properties = items.getJSONObject(item).optJSONObject("properties");
         if (properties != null) {
             String feature = properties.optString("feature_flag", "vanilla");
-            if (!FeatureFlag.from(feature).map(FeatureFlag::isReleased).orElse(true)) {
-                displayName += " (" + feature + ")";
+            Optional<FeatureFlag> flagOpt = FeatureFlag.from(feature);
+            if (flagOpt.isPresent()) {
+                FeatureFlag flag = flagOpt.get();
+                if (!flag.isReleased()) {
+                    displayName += " (" + flag.getDisplayName() + ")";
+                }
             }
         }
         return displayName;

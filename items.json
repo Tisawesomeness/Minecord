@@ -2914,6 +2914,10 @@
     "lang": {
       "en_US": {
         "previously": "Dark Oak Wood Slab",
+        "search_names": [
+          "Dark Wood Slab",
+          "Dark Slab"
+        ],
         "display_name": "Dark Oak Slab"
       }
     },
@@ -12393,15 +12397,14 @@
   "minecraft.creeper_banner_pattern": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Creeper Banner Pattern",
-        "lore": "Creeper Charge",
+        "previously": "Banner Pattern",
+        "previous_conflict": true,
         "search_names": [
-          "Creeper Charge Banner Pattern",
+          "Creeper Banner Pattern",
           "Creeper Pattern",
           "Creeper Charge Pattern"
         ],
-        "display_name": "Banner Pattern",
-        "name_conflict": true
+        "display_name": "Creeper Charge Banner Pattern"
       }
     },
     "properties": {
@@ -12538,15 +12541,14 @@
   "minecraft.flower_banner_pattern": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Flower Banner Pattern",
-        "lore": "Flower Charge",
+        "previously": "Banner Pattern",
+        "previous_conflict": true,
         "search_names": [
-          "Flower Charge Banner Pattern",
+          "Flower Banner Pattern",
           "Flower Pattern",
           "Flower Charge Pattern"
         ],
-        "display_name": "Banner Pattern",
-        "name_conflict": true
+        "display_name": "Flower Charge Banner Pattern"
       }
     },
     "properties": {
@@ -12570,15 +12572,14 @@
   "minecraft.globe_banner_pattern": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Globe Banner Pattern",
-        "lore": "Globe",
+        "previously": "Banner Pattern",
+        "previous_conflict": true,
         "search_names": [
           "Globe Pattern",
           "Earth Banner Pattern",
           "Earth Pattern"
         ],
-        "display_name": "Banner Pattern",
-        "name_conflict": true
+        "display_name": "Globe Banner Pattern"
       }
     },
     "properties": {
@@ -12731,15 +12732,14 @@
   "minecraft.mojang_banner_pattern": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Thing Banner Pattern",
-        "lore": "Thing",
+        "previously": "Banner Pattern",
+        "previous_conflict": true,
         "search_names": [
           "Thing Pattern",
           "Mojang Banner Pattern",
           "Mojang Pattern"
         ],
-        "display_name": "Banner Pattern",
-        "name_conflict": true
+        "display_name": "Thing Banner Pattern"
       }
     },
     "properties": {
@@ -13081,15 +13081,14 @@
   "minecraft.skull_banner_pattern": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Skull Charge Banner Pattern",
-        "lore": "Skull Charge",
+        "previously": "Banner Pattern",
+        "previous_conflict": true,
         "search_names": [
           "Skull Banner Pattern",
           "Skull Charge Pattern",
           "Skull Pattern"
         ],
-        "display_name": "Banner Pattern",
-        "name_conflict": true
+        "display_name": "Skull Charge Banner Pattern"
       }
     },
     "properties": {
@@ -14040,15 +14039,14 @@
   "minecraft.piglin_banner_pattern": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Snout Banner Pattern",
-        "lore": "Snout",
+        "previously": "Banner Pattern",
+        "previous_conflict": true,
         "search_names": [
           "Piglin Banner Pattern",
           "Snout Pattern",
           "Piglin Pattern"
         ],
-        "display_name": "Banner Pattern",
-        "name_conflict": true
+        "display_name": "Snout Banner Pattern"
       }
     },
     "properties": {
@@ -16016,7 +16014,8 @@
     "lang": {
       "en_US": {
         "search_names": [
-          "Block of Moss"
+          "Block of Moss",
+          "Moss"
         ],
         "display_name": "Moss Block"
       }
@@ -19208,9 +19207,11 @@
   "minecraft.coast_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Coast Smithing Template",
-        "lore": "Coast Armor Trim",
+        "lore": "Smithing Template",
+        "previously": "Smithing Template",
+        "previous_conflict": true,
         "search_names": [
+          "Coast Smithing Template",
           "Coast Armor Trim Smithing Template",
           "Coast Armor Trim Template",
           "Coast Armor Trim",
@@ -19227,8 +19228,7 @@
           "Shipwreck Smithing Template",
           "Shipwreck Template"
         ],
-        "display_name": "Smithing Template",
-        "name_conflict": true
+        "display_name": "Coast Armor Trim"
       }
     },
     "properties": {
@@ -19255,9 +19255,11 @@
   "minecraft.dune_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Dune Smithing Template",
-        "lore": "Dune Armor Trim",
+        "lore": "Smithing Template",
+        "previously": "Smithing Template",
+        "previous_conflict": true,
         "search_names": [
+          "Dune Smithing Template",
           "Dune Armor Trim Smithing Template",
           "Dune Armor Trim Template",
           "Dune Armor Trim",
@@ -19290,8 +19292,7 @@
           "Desert Temple Smithing Template",
           "Desert Temple Template"
         ],
-        "display_name": "Smithing Template",
-        "name_conflict": true
+        "display_name": "Dune Armor Trim"
       }
     },
     "properties": {
@@ -19303,9 +19304,11 @@
   "minecraft.eye_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Eye Smithing Template",
-        "lore": "Eye Armor Trim",
+        "lore": "Smithing Template",
+        "previously": "Smithing Template",
+        "previous_conflict": true,
         "search_names": [
+          "Eye Smithing Template",
           "Eye Armor Trim Smithing Template",
           "Eye Armor Trim Template",
           "Eye Armor Trim",
@@ -19322,8 +19325,7 @@
           "Stronghold Smithing Template",
           "Stronghold Template"
         ],
-        "display_name": "Smithing Template",
-        "name_conflict": true
+        "display_name": "Eye Armor Trim"
       }
     },
     "properties": {
@@ -19335,16 +19337,17 @@
   "minecraft.netherite_upgrade_smithing_template": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Netherite Upgrade Smithing Template",
-        "lore": "Netherite Upgrade",
+        "lore": "Smithing Template",
+        "previously": "Smithing Template",
+        "previous_conflict": true,
         "search_names": [
+          "Netherite Upgrade Smithing Template",
           "Netherite Upgrade Template",
           "Netherite Smithing Template",
           "Netherite Template",
           "Netherite Upgrade"
         ],
-        "display_name": "Smithing Template",
-        "name_conflict": true
+        "display_name": "Netherite Upgrade"
       }
     },
     "properties": {
@@ -19436,9 +19439,11 @@
   "minecraft.rib_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Rib Smithing Template",
-        "lore": "Rib Armor Trim",
+        "lore": "Smithing Template",
+        "previously": "Smithing Template",
+        "previous_conflict": true,
         "search_names": [
+          "Rib Smithing Template",
           "Rib Armor Trim Smithing Template",
           "Rib Armor Trim Template",
           "Rib Armor Trim",
@@ -19463,8 +19468,7 @@
           "Fortress Smithing Template",
           "Fortress Template"
         ],
-        "display_name": "Smithing Template",
-        "name_conflict": true
+        "display_name": "Rib Armor Trim"
       }
     },
     "properties": {
@@ -19476,9 +19480,11 @@
   "minecraft.sentry_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Sentry Smithing Template",
-        "lore": "Sentry Armor Trim",
+        "lore": "Smithing Template",
+        "previously": "Smithing Template",
+        "previous_conflict": true,
         "search_names": [
+          "Sentry Smithing Template",
           "Sentry Armor Trim Smithing Template",
           "Sentry Armor Trim Template",
           "Sentry Armor Trim",
@@ -19511,8 +19517,7 @@
           "Outpost Smithing Template",
           "Outpost Template"
         ],
-        "display_name": "Smithing Template",
-        "name_conflict": true
+        "display_name": "Sentry Armor Trim"
       }
     },
     "properties": {
@@ -19556,9 +19561,11 @@
   "minecraft.snout_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Snout Smithing Template",
-        "lore": "Snout Armor Trim",
+        "lore": "Smithing Template",
+        "previously": "Smithing Template",
+        "previous_conflict": true,
         "search_names": [
+          "Snout Smithing Template",
           "Snout Armor Trim Smithing Template",
           "Snout Armor Trim Template",
           "Snout Armor Trim",
@@ -19599,8 +19606,7 @@
           "Piglin Smithing Template",
           "Piglin Template"
         ],
-        "display_name": "Smithing Template",
-        "name_conflict": true
+        "display_name": "Snout Armor Trim"
       }
     },
     "properties": {
@@ -19612,9 +19618,11 @@
   "minecraft.spire_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Spire Smithing Template",
-        "lore": "Spire Armor Trim",
+        "lore": "Smithing Template",
+        "previously": "Smithing Template",
+        "previous_conflict": true,
         "search_names": [
+          "Spire Smithing Template",
           "Spire Armor Trim Smithing Template",
           "Spire Armor Trim Template",
           "Spire Armor Trim",
@@ -19639,8 +19647,7 @@
           "End Smithing Template",
           "End Template"
         ],
-        "display_name": "Smithing Template",
-        "name_conflict": true
+        "display_name": "Spire Armor Trim"
       }
     },
     "properties": {
@@ -19697,9 +19704,11 @@
   "minecraft.tide_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Tide Smithing Template",
-        "lore": "Tide Armor Trim",
+        "lore": "Smithing Template",
+        "previously": "Smithing Template",
+        "previous_conflict": true,
         "search_names": [
+          "Tide Smithing Template",
           "Tide Armor Trim Smithing Template",
           "Tide Armor Trim Template",
           "Tide Armor Trim",
@@ -19740,8 +19749,7 @@
           "Monument Smithing Template",
           "Monument Template"
         ],
-        "display_name": "Smithing Template",
-        "name_conflict": true
+        "display_name": "Tide Armor Trim"
       }
     },
     "properties": {
@@ -19797,9 +19805,11 @@
   "minecraft.vex_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Vex Smithing Template",
-        "lore": "Vex Armor Trim",
+        "lore": "Smithing Template",
+        "previously": "Smithing Template",
+        "previous_conflict": true,
         "search_names": [
+          "Vex Smithing Template",
           "Vex Armor Trim Smithing Template",
           "Vex Armor Trim Template",
           "Vex Armor Trim",
@@ -19824,8 +19834,7 @@
           "Mansion Smithing Template",
           "Mansion Template"
         ],
-        "display_name": "Smithing Template",
-        "name_conflict": true
+        "display_name": "Vex Armor Trim"
       }
     },
     "properties": {
@@ -19837,9 +19846,11 @@
   "minecraft.ward_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Ward Smithing Template",
-        "lore": "Ward Armor Trim",
+        "lore": "Smithing Template",
+        "previously": "Smithing Template",
+        "previous_conflict": true,
         "search_names": [
+          "Ward Smithing Template",
           "Ward Armor Trim Smithing Template",
           "Ward Armor Trim Template",
           "Ward Armor Trim",
@@ -19856,8 +19867,7 @@
           "Warden Smithing Template",
           "Warden Template"
         ],
-        "display_name": "Smithing Template",
-        "name_conflict": true
+        "display_name": "Ward Armor Trim"
       }
     },
     "properties": {
@@ -19869,9 +19879,11 @@
   "minecraft.wild_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Wild Smithing Template",
-        "lore": "Wild Armor Trim",
+        "lore": "Smithing Template",
+        "previously": "Smithing Template",
+        "previous_conflict": true,
         "search_names": [
+          "Wild Smithing Template",
           "Wild Armor Trim Smithing Template",
           "Wild Armor Trim Template",
           "Wild Armor Trim",
@@ -19896,8 +19908,7 @@
           "Jungle Smithing Template",
           "Jungle Template"
         ],
-        "display_name": "Smithing Template",
-        "name_conflict": true
+        "display_name": "Wild Armor Trim"
       }
     },
     "properties": {
@@ -20165,9 +20176,11 @@
   "minecraft.host_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Host Smithing Template",
-        "lore": "Host Armor Trim",
+        "lore": "Smithing Template",
+        "previously": "Smithing Template",
+        "previous_conflict": true,
         "search_names": [
+          "Host Smithing Template",
           "Host Armor Trim Smithing Template",
           "Host Armor Trim Template",
           "Host Armor Trim",
@@ -20176,8 +20189,7 @@
           "Host Trim",
           "Host Template"
         ],
-        "display_name": "Smithing Template",
-        "name_conflict": true
+        "display_name": "Host Armor Trim"
       }
     },
     "properties": {
@@ -20342,9 +20354,11 @@
   "minecraft.raiser_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Raiser Smithing Template",
-        "lore": "Raiser Armor Trim",
+        "lore": "Smithing Template",
+        "previously": "Smithing Template",
+        "previous_conflict": true,
         "search_names": [
+          "Raiser Smithing Template",
           "Raiser Armor Trim Smithing Template",
           "Raiser Armor Trim Template",
           "Raiser Armor Trim",
@@ -20353,8 +20367,7 @@
           "Raiser Trim",
           "Raiser Template"
         ],
-        "display_name": "Smithing Template",
-        "name_conflict": true
+        "display_name": "Raiser Armor Trim"
       }
     },
     "properties": {
@@ -20365,9 +20378,11 @@
   "minecraft.shaper_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Shaper Smithing Template",
-        "lore": "Shaper Armor Trim",
+        "lore": "Smithing Template",
+        "previously": "Smithing Template",
+        "previous_conflict": true,
         "search_names": [
+          "Shaper Smithing Template",
           "Shaper Armor Trim Smithing Template",
           "Shaper Armor Trim Template",
           "Shaper Armor Trim",
@@ -20376,8 +20391,7 @@
           "Shaper Trim",
           "Shaper Template"
         ],
-        "display_name": "Smithing Template",
-        "name_conflict": true
+        "display_name": "Shaper Armor Trim"
       }
     },
     "properties": {
@@ -20440,9 +20454,11 @@
   "minecraft.silence_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Silence Smithing Template",
-        "lore": "Silence Armor Trim",
+        "lore": "Smithing Template",
+        "previously": "Smithing Template",
+        "previous_conflict": true,
         "search_names": [
+          "Silence Smithing Template",
           "Silence Armor Trim Smithing Template",
           "Silence Armor Trim Template",
           "Silence Armor Trim",
@@ -20459,8 +20475,7 @@
           "Silenced Trim",
           "Silenced Template"
         ],
-        "display_name": "Smithing Template",
-        "name_conflict": true
+        "display_name": "Silence Armor Trim"
       }
     },
     "properties": {
@@ -20518,9 +20533,11 @@
   "minecraft.wayfinder_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Wayfinder Smithing Template",
-        "lore": "Wayfinder Armor Trim",
+        "lore": "Smithing Template",
+        "previously": "Smithing Template",
+        "previous_conflict": true,
         "search_names": [
+          "Wayfinder Smithing Template",
           "Wayfinder Armor Trim Smithing Template",
           "Wayfinder Armor Trim Template",
           "Wayfinder Armor Trim",
@@ -20529,8 +20546,7 @@
           "Wayfinder Trim",
           "Wayfinder Template"
         ],
-        "display_name": "Smithing Template",
-        "name_conflict": true
+        "display_name": "Wayfinder Armor Trim"
       }
     },
     "properties": {
@@ -21653,9 +21669,11 @@
   "minecraft.bolt_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Bolt Smithing Template",
-        "lore": "Bolt Armor Trim",
+        "lore": "Smithing Template",
+        "previously": "Smithing Template",
+        "previous_conflict": true,
         "search_names": [
+          "Bolt Smithing Template",
           "Bolt Armor Trim Smithing Template",
           "Bolt Armor Trim Template",
           "Bolt Armor Trim",
@@ -21672,8 +21690,7 @@
           "Vault Smithing Template",
           "Vault Template"
         ],
-        "display_name": "Smithing Template",
-        "name_conflict": true
+        "display_name": "Bolt Armor Trim"
       }
     },
     "properties": {
@@ -21699,9 +21716,11 @@
   "minecraft.flow_armor_trim_smithing_template": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Flow Smithing Template",
-        "lore": "Flow Armor Trim",
+        "lore": "Smithing Template",
+        "previously": "Smithing Template",
+        "previous_conflict": true,
         "search_names": [
+          "Flow Smithing Template",
           "Flow Armor Trim Smithing Template",
           "Flow Armor Trim Template",
           "Flow Armor Trim",
@@ -21726,8 +21745,7 @@
           "Ominous Smithing Template",
           "Ominous Template"
         ],
-        "display_name": "Smithing Template",
-        "name_conflict": true
+        "display_name": "Flow Armor Trim"
       }
     },
     "properties": {
@@ -21739,8 +21757,8 @@
   "minecraft.flow_banner_pattern": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Flow Banner Pattern",
-        "lore": "Flow",
+        "previously": "Banner Pattern",
+        "previous_conflict": true,
         "search_names": [
           "Wind Banner Pattern",
           "Air Banner Pattern",
@@ -21748,8 +21766,7 @@
           "Wind Pattern",
           "Air Pattern"
         ],
-        "display_name": "Banner Pattern",
-        "name_conflict": true
+        "display_name": "Flow Banner Pattern"
       }
     },
     "properties": {
@@ -21790,15 +21807,14 @@
   "minecraft.guster_banner_pattern": {
     "lang": {
       "en_US": {
-        "distinct_display_name": "Guster Banner Pattern",
-        "lore": "Guster",
+        "previously": "Banner Pattern",
+        "previous_conflict": true,
         "search_names": [
           "Breeze Banner Pattern",
           "Guster Pattern",
           "Breeze Pattern"
         ],
-        "display_name": "Banner Pattern",
-        "name_conflict": true
+        "display_name": "Guster Banner Pattern"
       }
     },
     "properties": {
@@ -21944,6 +21960,848 @@
     "properties": {
       "feature_flag": "1.21",
       "version": "1.20.5"
+    }
+  },
+  "minecraft.music_disc_creator": {
+    "lang": {
+      "en_US": {
+        "lore": "Lena Raine - Creator",
+        "search_names": [
+          "Creator Disc",
+          "Creator Music Disc",
+          "Disc Creator",
+          "Lena Raine - Creator",
+          "Creator"
+        ],
+        "display_name": "Music Disc",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Music Disc Creator",
+      "version": "1.21"
+    }
+  },
+  "minecraft.music_disc_creator_music_box": {
+    "lang": {
+      "en_US": {
+        "lore": "Lena Raine - Creator (Music Box)",
+        "search_names": [
+          "Creator (Music Box) Disc",
+          "Creator (Music Box) Music Disc",
+          "Disc Creator (Music Box)",
+          "Lena Raine - Creator (Music Box)",
+          "Creator (Music Box)",
+          "Creator Music Box Disc",
+          "Creator Music Box Music Disc",
+          "Disc Creator Music Box",
+          "Lena Raine - Creator Music Box",
+          "Creator Music Box"
+        ],
+        "display_name": "Music Disc",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Music Disc Creator Music Box",
+      "version": "1.21"
+    }
+  },
+  "minecraft.music_disc_precipice": {
+    "lang": {
+      "en_US": {
+        "lore": "Aaron Cherof - Precipice",
+        "search_names": [
+          "Precipice Disc",
+          "Precipice Music Disc",
+          "Disc Precipice",
+          "Lena Raine - Precipice",
+          "Precipice"
+        ],
+        "display_name": "Music Disc",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Music Disc Precipice",
+      "version": "1.21"
+    }
+  },
+  "minecraft.black_bundle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Black Bundle"
+      }
+    },
+    "properties": {
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.blue_bundle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Blue Bundle"
+      }
+    },
+    "properties": {
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.bordure_indented_banner_pattern": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Bordure Indent Banner Pattern",
+          "Bordure Banner Pattern",
+          "Border Indented Banner Pattern",
+          "Border Indent Banner Pattern",
+          "Border Banner Pattern",
+          "Vines Banner Pattern",
+          "Vine Banner Pattern",
+          "Bordure Indented Pattern",
+          "Bordure Indent Pattern",
+          "Bordure Pattern",
+          "Border Indented Pattern",
+          "Border Indent Pattern",
+          "Border Pattern",
+          "Vines Pattern",
+          "Vine Pattern"
+        ],	
+        "display_name": "Bordure Indented Banner Pattern"
+      }
+    },
+    "properties": {
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.brown_bundle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Brown Bundle"
+      }
+    },
+    "properties": {
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.cyan_bundle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cyan Bundle"
+      }
+    },
+    "properties": {
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.field_masoned_banner_pattern": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Field Mason Banner Pattern",
+          "Field Banner Pattern",
+          "Masoned Banner Pattern",
+          "Mason Banner Pattern",
+          "Bricks Banner Pattern",
+          "Brick Banner Pattern",
+          "Field Masoned Pattern",
+          "Field Mason Pattern",
+          "Field Pattern",
+          "Masoned Pattern",
+          "Mason Pattern",
+          "Bricks Pattern",
+          "Brick Pattern"
+        ],
+        "display_name": "Field Masoned Banner Pattern"
+      }
+    },
+    "properties": {
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.gray_bundle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Gray Bundle"
+      }
+    },
+    "properties": {
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.green_bundle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Green Bundle"
+      }
+    },
+    "properties": {
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.light_blue_bundle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Light Blue Bundle"
+      }
+    },
+    "properties": {
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.light_gray_bundle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Light Gray Bundle"
+      }
+    },
+    "properties": {
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.lime_bundle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Lime Bundle"
+      }
+    },
+    "properties": {
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.magenta_bundle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Magenta Bundle"
+      }
+    },
+    "properties": {
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.orange_bundle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Orange Bundle"
+      }
+    },
+    "properties": {
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.pink_bundle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Pink Bundle"
+      }
+    },
+    "properties": {
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.purple_bundle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Purple Bundle"
+      }
+    },
+    "properties": {
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.red_bundle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Red Bundle"
+      }
+    },
+    "properties": {
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.white_bundle": {
+    "lang": {
+      "en_US": {
+        "uncolored": [
+          "Bundle"
+        ],
+        "display_name": "White Bundle"
+      }
+    },
+    "properties": {
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.yellow_bundle": {
+    "lang": {
+      "en_US": {
+        "display_name": "Yellow Bundle"
+      }
+    },
+    "properties": {
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.creaking_heart": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pale Heart"
+        ],
+        "display_name": "Creaking Heart"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.creaking_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Spawn Creaking",
+          "Creaking Egg"
+        ],
+        "display_name": "Creaking Spawn Egg"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.pale_hanging_moss": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "White Hanging Moss",
+          "Hanging Moss"
+        ],
+        "display_name": "Pale Hanging Moss"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.pale_moss_block": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "White Moss Block",
+          "Pale Moss",
+          "White Moss",
+          "Block of Pale Moss",
+          "Block of White Moss"
+        ],
+        "display_name": "Pale Moss Block"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.pale_moss_carpet": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "White Moss Carpet"
+        ],
+        "display_name": "Pale Moss Carpet"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.pale_oak_boat": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pale Oak Wood Boat",
+          "Pale Wood Boat",
+          "Pale Boat",
+          "White Oak Boat",
+          "White Oak Wood Boat",
+          "White Wood Boat",
+          "White Boat"
+        ],
+        "display_name": "Pale Oak Boat"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.pale_oak_button": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pale Oak Wood Button",
+          "Pale Wood Button",
+          "Pale Button",
+          "White Oak Button",
+          "White Oak Wood Button",
+          "White Wood Button",
+          "White Button"
+        ],
+        "display_name": "Pale Oak Button"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.pale_oak_chest_boat": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pale Oak Chest Boat",
+          "Pale Oak Wood Boat with Chest",
+          "Pale Oak Wood Chest Boat",
+          "Pale Boat with Chest",
+          "Pale Chest Boat",
+          "White Oak Boat with Chest",
+          "White Oak Chest Boat",
+          "White Oak Wood Boat with Chest",
+          "White Oak Wood Chest Boat",
+          "White Boat with Chest",
+          "White Chest Boat"
+        ],
+        "display_name": "Pale Oak Boat with Chest"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.pale_oak_door": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pale Oak Wood Door",
+          "Pale Wood Door",
+          "Pale Door",
+          "White Oak Door",
+          "White Oak Wood Door",
+          "White Wood Door",
+          "White Door"
+        ],
+        "display_name": "Pale Oak Door"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.pale_oak_fence": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pale Oak Wood Fence",
+          "Pale Wood Fence",
+          "Pale Fence",
+          "White Oak Fence",
+          "White Oak Wood Fence",
+          "White Wood Fence",
+          "White Fence"
+        ],
+        "display_name": "Pale Oak Fence"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.pale_oak_fence_gate": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pale Oak Wood Fence Gate",
+          "Pale Oak Wood Gate",
+          "Pale Oak Gate",
+          "Pale Wood Fence Gate",
+          "Pale Wood Gate",
+          "Pale Gate",
+          "White Oak Fence Gate",
+          "White Oak Wood Fence Gate",
+          "White Oak Wood Gate",
+          "White Oak Gate",
+          "White Wood Fence Gate",
+          "White Wood Gate",
+          "White Gate"
+        ],
+        "display_name": "Pale Oak Fence Gate"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.pale_oak_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pale Oak Wood Hanging Sign",
+          "Hanging Pale Oak Sign",
+          "Hanging Pale Oak Wood Sign",
+          "Pale Hanging Sign",
+          "Pale Wood Hanging Sign",
+          "Hanging Pale Sign",
+          "Hanging Pale Wood Sign",
+          "White Oak Hanging Sign",
+          "White Oak Wood Hanging Sign",
+          "Hanging White Oak Sign",
+          "Hanging White Oak Wood Sign",
+          "White Hanging Sign",
+          "White Wood Hanging Sign",
+          "Hanging White Sign",
+          "Hanging White Wood Sign"
+        ],
+        "display_name": "Pale Oak Hanging Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.pale_oak_leaves": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pale Leaves",
+          "White Oak Leaves",
+          "White Leaves"
+        ],
+        "display_name": "Pale Oak Leaves"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.pale_oak_log": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pale Log",
+          "White Oak Log",
+          "White Log"
+        ],
+        "display_name": "Pale Oak Log"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.pale_oak_planks": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pale Oak Wood Planks",
+          "Pale Oak Wood Plank",
+          "Pale Oak Plank",
+          "Pale Wood Planks",
+          "Pale Wood Plank",
+          "Pale Planks",
+          "Pale Plank",
+          "White Oak Planks",
+          "White Oak Wood Planks",
+          "White Oak Wood Plank",
+          "White Oak Plank",
+          "White Wood Planks",
+          "White Wood Plank",
+          "White Planks",
+          "White Plank"
+        ],
+        "display_name": "Pale Oak Planks"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.pale_oak_pressure_plate": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pale Oak Wood Pressure Plate",
+          "Pale Oak Wood Plate",
+          "Pale Oak Plate",
+          "Pale Wood Pressure Plate",
+          "Pale Wood Plate",
+          "Pale Pressure Plate",
+          "Pale Plate",
+          "White Oak Pressure Plate",
+          "White Oak Wood Pressure Plate",
+          "White Oak Wood Plate",
+          "White Oak Plate",
+          "White Wood Pressure Plate",
+          "White Wood Plate",
+          "White Pressure Plate",
+          "White Plate"
+        ],
+        "display_name": "Pale Oak Pressure Plate"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.pale_oak_sapling": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pale Sapling",
+          "White Oak Sapling",
+          "White Sapling"
+        ],
+        "display_name": "Pale Oak Sapling"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.pale_oak_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pale Oak Wood Sign",
+          "Pale Wood Sign",
+          "Pale Sign",
+          "White Oak Sign",
+          "White Oak Wood Sign",
+          "White Wood Sign",
+          "White Sign"
+        ],
+        "display_name": "Pale Oak Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.pale_oak_slab": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pale Wood Slab",
+          "White Slab",
+          "White Wood Slab"
+        ],
+        "display_name": "Pale Oak Slab"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.pale_oak_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pale Wood Stairs",
+          "Pale Wood Stair",
+          "Pale Oak Wood Stairs",
+          "Pale Oak Wood Stair",
+          "Pale Oak Stair",
+          "White Oak Stairs",
+          "White Wood Stairs",
+          "White Wood Stair",
+          "White Oak Wood Stairs",
+          "White Oak Wood Stair",
+          "White Oak Stair"
+        ],
+        "display_name": "Pale Oak Stairs"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.pale_oak_trapdoor": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pale Oak Wood Trapdoor",
+          "Pale Oak Wood Trap Door",
+          "Pale Oak Trap Door",
+          "Pale Wood Trapdoor",
+          "Pale Wood Trap Door",
+          "Pale Trapdoor",
+          "Pale Trap Door",
+          "White Oak Trapdoor",
+          "White Oak Wood Trapdoor",
+          "White Oak Wood Trap Door",
+          "White Oak Trap Door",
+          "White Wood Trapdoor",
+          "White Wood Trap Door",
+          "White Trapdoor",
+          "White Trap Door"
+        ],
+        "display_name": "Pale Oak Trapdoor"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.pale_oak_wall_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pale Oak Wood Wall Hanging Sign",
+          "Wall Hanging Pale Oak Sign",
+          "Wall Hanging Pale Oak Wood Sign",
+          "Pale Oak Hanging Wall Sign",
+          "Pale Oak Wood Hanging Wall Sign",
+          "Hanging Pale Oak Wall Sign",
+          "Hanging Pale Oak Wood Wall Sign",
+          "Pale Wall Hanging Sign",
+          "Pale Wood Wall Hanging Sign",
+          "Wall Hanging Pale Sign",
+          "Wall Hanging Pale Wood Sign",
+          "Pale Hanging Wall Sign",
+          "Pale Wood Hanging Wall Sign",
+          "Hanging Pale Wall Sign",
+          "Hanging Pale Wood Wall Sign",
+          "White Oak Wall Hanging Sign",
+          "White Oak Wood Wall Hanging Sign",
+          "Wall Hanging White Oak Sign",
+          "Wall Hanging White Oak Wood Sign",
+          "White Oak Hanging Wall Sign",
+          "White Oak Wood Hanging Wall Sign",
+          "Hanging White Oak Wall Sign",
+          "Hanging White Oak Wood Wall Sign",
+          "White Wall Hanging Sign",
+          "White Wood Wall Hanging Sign",
+          "Wall Hanging White Sign",
+          "Wall Hanging White Wood Sign",
+          "White Hanging Wall Sign",
+          "White Wood Hanging Wall Sign",
+          "Hanging White Wall Sign",
+          "Hanging White Wood Wall Sign"
+        ],
+        "display_name": "Pale Oak Wall Hanging Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.pale_oak_wall_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pale Oak Wood Wall Sign",
+          "Pale Wood Wall Sign",
+          "Pale Wall Sign",
+          "White Oak Wall Sign",
+          "White Oak Wood Wall Sign",
+          "White Wood Wall Sign",
+          "White Wall Sign"
+        ],
+        "display_name": "Pale Oak Wall Sign"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.pale_oak_wood": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pale Wood",
+          "White Oak Wood",
+          "White Wood"
+        ],
+        "display_name": "Pale Oak Wood"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.potted_pale_oak_sapling": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Potted Pale Sapling",
+          "Potted Pale Oak",
+          "Pale Oak Sapling Pot",
+          "Pale Sapling Pot",
+          "Pale Oak Pot",
+          "Potted White Oak Sapling",
+          "Potted White Sapling",
+          "Potted White Oak",
+          "White Oak Sapling Pot",
+          "White Sapling Pot",
+          "White Oak Pot"
+        ],
+        "display_name": "Potted Pale Oak Sapling"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.stripped_pale_oak_log": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Stripped Pale Log",
+          "Stripped White Oak Log",
+          "Stripped White Log"
+        ],
+        "display_name": "Stripped Pale Oak Log"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "minecraft.stripped_pale_oak_wood": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Stripped Pale Wood",
+          "Stripped White Oak Wood",
+          "Stripped White Wood"
+        ],
+        "display_name": "Stripped Pale Oak Wood"
+      }
+    },
+    "properties": {
+      "feature_flag": "winter_drop",
+      "version": "1.21.2"
     }
   },
   "minecraft.lingering_potion.effect.thick": {
@@ -28008,71 +28866,6 @@
       "actual_id": "minecraft.tipped_arrow",
       "feature_flag": "1.21",
       "version": "1.20.5"
-    }
-  },
-  "minecraft.music_disc_creator": {
-    "lang": {
-      "en_US": {
-        "lore": "Lena Raine - Creator",
-        "search_names": [
-          "Creator Disc",
-          "Creator Music Disc",
-          "Disc Creator",
-          "Lena Raine - Creator",
-          "Creator"
-        ],
-        "display_name": "Music Disc",
-        "name_conflict": true
-      }
-    },
-    "properties": {
-      "image_key": "Music Disc Creator",
-      "version": "1.21"
-    }
-  },
-  "minecraft.music_disc_creator_music_box": {
-    "lang": {
-      "en_US": {
-        "lore": "Lena Raine - Creator (Music Box)",
-        "search_names": [
-          "Creator (Music Box) Disc",
-          "Creator (Music Box) Music Disc",
-          "Disc Creator (Music Box)",
-          "Lena Raine - Creator (Music Box)",
-          "Creator (Music Box)",
-          "Creator Music Box Disc",
-          "Creator Music Box Music Disc",
-          "Disc Creator Music Box",
-          "Lena Raine - Creator Music Box",
-          "Creator Music Box"
-        ],
-        "display_name": "Music Disc",
-        "name_conflict": true
-      }
-    },
-    "properties": {
-      "image_key": "Music Disc Creator Music Box",
-      "version": "1.21"
-    }
-  },
-  "minecraft.music_disc_precipice": {
-    "lang": {
-      "en_US": {
-        "lore": "Aaron Cherof - Precipice",
-        "search_names": [
-          "Precipice Disc",
-          "Precipice Music Disc",
-          "Disc Precipice",
-          "Lena Raine - Precipice",
-          "Precipice"
-        ],
-        "display_name": "Music Disc",
-        "name_conflict": true
-      }
-    },
-    "properties": {
-      "image_key": "Music Disc Precipice",
-      "version": "1.21"
     }
   }
 }

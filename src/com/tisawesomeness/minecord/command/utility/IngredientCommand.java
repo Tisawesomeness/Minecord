@@ -5,7 +5,8 @@ import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.ReactMenu.MenuStatus;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.mc.item.ItemRegistry;
-import com.tisawesomeness.minecord.mc.item.RecipeRegistry;
+import com.tisawesomeness.minecord.mc.recipe.Recipe;
+import com.tisawesomeness.minecord.mc.recipe.RecipeRegistry;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
@@ -13,7 +14,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class IngredientCommand extends SlashCommand {
 
@@ -70,7 +71,7 @@ public class IngredientCommand extends SlashCommand {
             }
         }
 
-        ArrayList<String> recipes = RecipeRegistry.searchIngredient(item);
+        List<Recipe> recipes = RecipeRegistry.searchIngredient(item);
         if (recipes.isEmpty()) {
             String displayName = ItemRegistry.getDistinctDisplayName(item);
             return new Result(Outcome.WARNING, ":warning: " + displayName + " is not the ingredient of any recipe!");
