@@ -45,7 +45,7 @@ public class Bot {
     public static final String donate = "https://ko-fi.com/tis_awesomeness";
     public static final String terms = "https://minecord.github.io/terms";
     public static final String privacy = "https://minecord.github.io/privacy";
-    private static final String version = "0.17.14";
+    private static final String version = "0.17.15";
     public static final String jdaVersion = "5.1.2";
     public static final Color color = Color.GREEN;
 
