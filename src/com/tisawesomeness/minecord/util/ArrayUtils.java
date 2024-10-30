@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.util;
 
 import java.lang.reflect.Array;
+import java.util.Objects;
 
 // Adapted from apache lang3
 public class ArrayUtils {
@@ -63,7 +64,7 @@ public class ArrayUtils {
      */
     public static <T> int indexOf(T[] arr, T val) {
         for (int i = 0; i < arr.length; i++) {
-            if (val.equals(arr[i])) {
+            if (Objects.equals(arr[i], val)) {
                 return i;
             }
         }
