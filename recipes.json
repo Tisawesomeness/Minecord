@@ -15260,7 +15260,7 @@
       "version": "1.14"
     }
   },
-  "suspicious_stew": {
+  "suspicious_stew_legacy": {
     "result": {
       "id": "minecraft:suspicious_stew"
     },
@@ -15272,26 +15272,27 @@
         "minecraft:allium",
         "minecraft:azure_bluet",
         "minecraft:blue_orchid",
-        "minecraft:cornflower",
         "minecraft:dandelion",
+        "minecraft:cornflower",
         "minecraft:lily_of_the_valley",
         "minecraft:oxeye_daisy",
         "minecraft:poppy",
+        "minecraft:torchflower",
         "minecraft:orange_tulip",
         "minecraft:pink_tulip",
         "minecraft:red_tulip",
         "minecraft:white_tulip",
-        "minecraft:wither_rose",
-        "minecraft:torchflower"
+        "minecraft:wither_rose"
       ]
     ],
     "type": "minecraft:crafting_special_suspiciousstew",
     "lang": {
       "en_US": {
-        "notes": "\nAllium - Fire Resistance 4s\nAzure Bluet - Blindness 8s\nBlue Orchid - Saturation 0.35s\nCornflower - Jump Boost 6s\nDandelion - Saturation 0.35s\nLily of the Valley - Poison 12s\nOxeye Daisy - Regeneration 8s\nPoppy - Night Vision 5s\nTulips - Weakness 9s\nWither Rose - Wither 8s\nTorchflower - Night Vision 5s"
+        "notes": "\nAllium - Fire Resistance 3s\nAzure Bluet - Blindness 11s\nBlue Orchid - Saturation 0.35s\nDandelion - Saturation 0.35s\nCornflower - Jump Boost 5s\nLily of the Valley - Poison 11s\nOxeye Daisy - Regeneration 7s\nPoppy - Night Vision 5s\nTorchflower - Night Vision 5s\nTulips - Weakness 97\nWither Rose - Wither 7s"
       }
     },
     "properties": {
+      "removed": "1.21.4",
       "animated": true,
       "version": "1.14"
     }
@@ -26215,6 +26216,260 @@
     "properties": {
       "feature_flag": "winter_drop",
       "version": "1.21.2"
+    }
+  },
+  "chiseled_resin_bricks": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:chiseled_resin_bricks"
+    },
+    "pattern": [
+      "#",
+      "#"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:resin_brick_slab"
+    },
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "chiseled_resin_bricks_from_resin_bricks_stonecutting": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:chiseled_resin_bricks"
+    },
+    "ingredient": "minecraft:resin_bricks",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "creaking_heart": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:creaking_heart"
+    },
+    "pattern": [
+      " L ",
+      " R ",
+      " L "
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "R": "minecraft:resin_block",
+      "L": "minecraft:pale_oak_log"
+    },
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "gray_dye_from_closed_eyeblossom": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:gray_dye"
+    },
+    "ingredients": [
+      "minecraft:closed_eyeblossom"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "orange_dye_from_open_eyeblossom": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:orange_dye"
+    },
+    "ingredients": [
+      "minecraft:open_eyeblossom"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "resin_block": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:resin_block"
+    },
+    "pattern": [
+      "###",
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:resin_clump"
+    },
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "resin_brick": {
+    "result": {
+      "id": "minecraft:resin_brick"
+    },
+    "ingredient": "minecraft:resin_clump",
+    "type": "minecraft:smelting",
+    "experience": 0.1,
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "resin_brick_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:resin_brick_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:resin_bricks"
+    },
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "resin_brick_slab_from_resin_bricks_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:resin_brick_slab"
+    },
+    "ingredient": "minecraft:resin_bricks",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "resin_brick_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:resin_brick_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:resin_bricks"
+    },
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "resin_brick_stairs_from_resin_bricks_stonecutting": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:resin_brick_stairs"
+    },
+    "ingredient": "minecraft:resin_bricks",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "resin_brick_wall": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:resin_brick_wall"
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:resin_bricks"
+    },
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "resin_brick_wall_from_resin_bricks_stonecutting": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:resin_brick_wall"
+    },
+    "ingredient": "minecraft:resin_bricks",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "resin_bricks": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:resin_bricks"
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:resin_brick"
+    },
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "resin_clump": {
+    "result": {
+      "count": 9,
+      "id": "minecraft:resin_clump"
+    },
+    "ingredients": [
+      "minecraft:resin_block"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "suspicious_stew": {
+    "result": {
+      "id": "minecraft:suspicious_stew"
+    },
+    "ingredients": [
+      "minecraft:brown_mushroom",
+      "minecraft:red_mushroom",
+      "minecraft:bowl",
+      [
+        "minecraft:allium",
+        "minecraft:azure_bluet",
+        "minecraft:open_eyeblossom",
+        "minecraft:blue_orchid",
+        "minecraft:dandelion",
+        "minecraft:closed_eyeblossom",
+        "minecraft:cornflower",
+        "minecraft:lily_of_the_valley",
+        "minecraft:oxeye_daisy",
+        "minecraft:poppy",
+        "minecraft:torchflower",
+        "minecraft:orange_tulip",
+        "minecraft:pink_tulip",
+        "minecraft:red_tulip",
+        "minecraft:white_tulip",
+        "minecraft:wither_rose"
+      ]
+    ],
+    "type": "minecraft:crafting_special_suspiciousstew",
+    "lang": {
+      "en_US": {
+        "notes": "\nAllium - Fire Resistance 3s\nAzure Bluet - Blindness 11s\nOpen Eyeblossom - Blindness 11s\nBlue Orchid - Saturation 0.35s\nDandelion - Saturation 0.35s\nClosed Eyeblossom - Nausea 7s\nCornflower - Jump Boost 5s\nLily of the Valley - Poison 11s\nOxeye Daisy - Regeneration 7s\nPoppy - Night Vision 5s\nTorchflower - Night Vision 5s\nTulips - Weakness 97\nWither Rose - Wither 7s"
+      }
+    },
+    "properties": {
+      "animated": true,
+      "version": "1.21.4"
     }
   }
 }
