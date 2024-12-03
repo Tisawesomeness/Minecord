@@ -310,9 +310,11 @@ public class RecipeRegistry {
         if (removedVerCompare != 0) {
             return removedVerCompare;
         }
-        int featureCompare = FeatureFlag.RELEASE_ORDER_COMPARATOR.compare(recipe1.getFeatureFlag(), recipe2.getFeatureFlag());
-        if (featureCompare != 0) {
-            return featureCompare;
+        if (!recipe1.isReleased() || !recipe2.isReleased()) {
+            int featureCompare = FeatureFlag.RELEASE_ORDER_COMPARATOR.compare(recipe1.getFeatureFlag(), recipe2.getFeatureFlag());
+            if (featureCompare != 0) {
+                return featureCompare;
+            }
         }
         int verCompare = compareVersions(recipe1.getVersion(), recipe2.getVersion());
         if (verCompare != 0) {

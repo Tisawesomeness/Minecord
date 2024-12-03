@@ -133,6 +133,13 @@ public abstract class Recipe {
         return FeatureFlag.from(flag).orElse(null);
     }
     /**
+     * @return whether this recipes has been released, and is no longer experimental
+     */
+    public boolean isReleased() {
+        FeatureFlag flag = getFeatureFlag();
+        return flag == null || flag.isReleased();
+    }
+    /**
      * @return the feature flag that removes this recipe
      */
     public @Nullable FeatureFlag getRemovedInFlag() {
