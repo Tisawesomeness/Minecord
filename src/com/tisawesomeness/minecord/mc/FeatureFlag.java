@@ -15,7 +15,7 @@ public enum FeatureFlag {
     BUNDLE("bundle", "Bundle", "1.21.2"),
     UPDATE_1_20("1.20"),
     UPDATE_1_21("1.21"),
-    WINTER_DROP("winter_drop", "Winter Drop", null);
+    WINTER_DROP("winter_drop", "Winter Drop", "1.21.4");
 
     public static final FeatureFlag[] RELEASE_ORDER = new FeatureFlag[]{
             UPDATE_1_20, UPDATE_1_21, BUNDLE, null, WINTER_DROP

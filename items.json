@@ -47,8 +47,6 @@
     "lang": {
       "en_US": {
         "search_names": [
-          "Iskall",
-          "Iskall85",
           "DIO"
         ],
         "display_name": "Diorite"
@@ -4463,6 +4461,9 @@
   "minecraft.prismarine_bricks": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Prismarine Brick"
+        ],
         "display_name": "Prismarine Bricks"
       }
     },
@@ -13523,6 +13524,9 @@
   "minecraft.chiseled_nether_bricks": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Chiseled Nether Brick"
+        ],
         "display_name": "Chiseled Nether Bricks"
       }
     },
@@ -13548,6 +13552,9 @@
   "minecraft.cracked_nether_bricks": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Cracked Nether Brick"
+        ],
         "display_name": "Cracked Nether Bricks"
       }
     },
@@ -17690,7 +17697,7 @@
     "lang": {
       "en_US": {
         "search_names": [
-          "Mud Bricks"
+          "Mud Brick"
         ],
         "display_name": "Mud Bricks"
       }
@@ -20977,7 +20984,7 @@
     "lang": {
       "en_US": {
         "search_names": [
-          "Tuff Bricks"
+          "Tuff Brick"
         ],
         "display_name": "Tuff Bricks"
       }
@@ -22802,6 +22809,165 @@
     "properties": {
       "feature_flag": "winter_drop",
       "version": "1.21.2"
+    }
+  },
+  "minecraft.chiseled_resin_bricks": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Chiseled Resin Brick"
+        ],
+        "display_name": "Chiseled Resin Bricks"
+      }
+    },
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "minecraft.closed_eyeblossom": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Closed Eye Blossom",
+          "Closed Eye Flower"
+        ],
+        "display_name": "Closed Eyeblossom"
+      }
+    },
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "minecraft.open_eyeblossom": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Open Eye Blossom",
+          "Open Eye Flower"
+        ],
+        "display_name": "Open Eyeblossom"
+      }
+    },
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "minecraft.potted_closed_eyeblossom": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Potted Closed Eye Blossom",
+          "Potted Closed Eye Flower",
+          "Closed Eyeblossom Pot",
+          "Closed Eye Blossom Pot",
+          "Closed Eye Flower Pot"
+        ],
+        "display_name": "Potted Closed Eyeblossom"
+      }
+    },
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "minecraft.potted_open_eyeblossom": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Potted Open Eye Blossom",
+          "Potted Open Eye Flower",
+          "Open Eyeblossom Pot",
+          "Open Eye Blossom Pot",
+          "Open Eye Flower Pot"
+        ],
+        "display_name": "Potted Open Eyeblossom"
+      }
+    },
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "minecraft.resin_block": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Resin Block",
+        ],
+        "display_name": "Block of Resin"
+      }
+    },
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "minecraft.resin_brick": {
+    "lang": {
+      "en_US": {
+        "display_name": "Resin Brick"
+      }
+    },
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "minecraft.resin_brick_slab": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Resin Bricks Slab"
+        ],
+        "display_name": "Resin Brick Slab"
+      }
+    },
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "minecraft.resin_brick_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Resin Brick Stair",
+          "Resin Bricks Stairs",
+          "Resin Bricks Stair"
+        ],
+        "display_name": "Resin Brick Stairs"
+      }
+    },
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "minecraft.resin_brick_wall": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Resin Bricks Wall"
+        ],
+        "display_name": "Resin Brick Wall"
+      }
+    },
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "minecraft.resin_bricks": {
+    "lang": {
+      "en_US": {
+        "display_name": "Resin Bricks"
+      }
+    },
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "minecraft.resin_clump": {
+    "lang": {
+      "en_US": {
+        "display_name": "Resin Clump"
+      }
+    },
+    "properties": {
+      "version": "1.21.4"
     }
   },
   "minecraft.lingering_potion.effect.thick": {

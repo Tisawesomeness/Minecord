@@ -6,6 +6,7 @@ import com.tisawesomeness.minecord.ReactMenu.MenuStatus;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.mc.item.ItemRegistry;
 import com.tisawesomeness.minecord.mc.recipe.Recipe;
+import com.tisawesomeness.minecord.mc.recipe.RecipeMenu;
 import com.tisawesomeness.minecord.mc.recipe.RecipeRegistry;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -87,7 +88,7 @@ public class RecipeCommand extends SlashCommand {
         MenuStatus status = ReactMenu.getMenuStatus(e);
         if (status.isValid()) {
             e.deferReply().queue();
-            new RecipeRegistry.RecipeMenu(recipes, page).post(e);
+            new RecipeMenu(recipes, page).post(e);
             return new Result(Outcome.SUCCESS);
         }
         recipes.sort(RecipeRegistry::compareRecipes);

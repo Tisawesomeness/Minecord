@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.mc.recipe;
 
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
-import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.mc.FeatureFlag;
 import com.tisawesomeness.minecord.mc.item.ItemRegistry;
 import com.tisawesomeness.minecord.util.ArrayUtils;
@@ -10,12 +9,16 @@ import com.tisawesomeness.minecord.util.RequestUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import org.apache.commons.collections4.OrderedMap;
 import org.apache.commons.collections4.map.LinkedMap;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.VisibleForTesting;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 public class RecipeRegistry {
@@ -35,7 +38,7 @@ public class RecipeRegistry {
             "1.18", "1.18.1", "1.18.2",
             "1.19", "1.19.1", "1.19.2", "1.19.3", "1.19.4",
             "1.20", "1.20.1", "1.20.2", "1.20.3", "1.20.4", "1.20.5", "1.20.6",
-            "1.21", "1.21.1", "1.21.2", "1.21.3"
+            "1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4"
     };
     private static final List<Class<? extends Recipe>> RECIPE_TYPE_ORDER = Arrays.asList(
             ShapedRecipe.class, ShapelessRecipe.class, TransmuteRecipe.class, StonecuttingRecipe.class,
@@ -48,6 +51,12 @@ public class RecipeRegistry {
     @VisibleForTesting
     public static OrderedMap<String, Recipe> getRecipes() {
         return recipes;
+    }
+    public static @Nullable Recipe get(String key) {
+        return recipes.get(key);
+    }
+    public static boolean contains(String key) {
+        return recipes.containsKey(key);
     }
 
     /**
@@ -81,7 +90,9 @@ public class RecipeRegistry {
         EmbedBuilder eb = new EmbedBuilder();
         String item = ItemRegistry.searchNoStats(recipe.getResult().getItem());
         eb.setTitle(ItemRegistry.getDistinctDisplayName(item));
-        eb.setImage(Config.getRecipeImageHost() + getImage(recipe));
+        String img = Config.getRecipeImageHost() + getImage(recipe);
+        eb.setImage(img);
+        System.out.println(img);
         eb.setColor(Bot.color);
         eb.setDescription(getMetadata(recipe));
         return eb;
@@ -156,7 +167,7 @@ public class RecipeRegistry {
      * @param namespacedID The namespaced ID of the item to search with
      * @return A list of recipe names that may be empty
      */
-    private static List<Recipe> searchItemOutput(String namespacedID) {
+    public static List<Recipe> searchItemOutput(String namespacedID) {
         // Loop through all recipes
         List<Recipe> recipesFound = new ArrayList<>();
         for (Recipe recipe : recipes.values()) {
@@ -214,7 +225,7 @@ public class RecipeRegistry {
      * @param recipe The recipe key
      * @return A set of namespaced item ids that may be empty
      */
-    private static List<String> getIngredientItems(Recipe recipe) {
+    public static List<String> getIngredientItems(Recipe recipe) {
         List<String> items = expandIngredients(recipe.getIngredients());
         if (recipe instanceof TransmuteRecipe && !((TransmuteRecipe) recipe).shouldIngredientsIncludeResult()) {
             items.remove(recipe.getResult().getItem());
@@ -299,9 +310,11 @@ public class RecipeRegistry {
         if (removedVerCompare != 0) {
             return removedVerCompare;
         }
-        int featureCompare = FeatureFlag.RELEASE_ORDER_COMPARATOR.compare(recipe1.getFeatureFlag(), recipe2.getFeatureFlag());
-        if (featureCompare != 0) {
-            return featureCompare;
+        if (!recipe1.isReleased() || !recipe2.isReleased()) {
+            int featureCompare = FeatureFlag.RELEASE_ORDER_COMPARATOR.compare(recipe1.getFeatureFlag(), recipe2.getFeatureFlag());
+            if (featureCompare != 0) {
+                return featureCompare;
+            }
         }
         int verCompare = compareVersions(recipe1.getVersion(), recipe2.getVersion());
         if (verCompare != 0) {
@@ -336,261 +349,6 @@ public class RecipeRegistry {
             return 99;
         }
         return Double.parseDouble(version.substring(2));
-    }
-
-    /**
-     * A class representing the reaction menu for displaying lists of recipes
-     */
-    public static class RecipeMenu extends ReactMenu {
-        private List<Recipe> recipeList;
-        private String desc;
-        private int startingIngredient = 0;
-        /**
-         * Creates a new recipe menu with a list of recipes
-         *
-         * @param recipeList A non-empty list of string recipe keys
-         * @param page       The page to start on
-         */
-        public RecipeMenu(List<Recipe> recipeList, int page) {
-            super(page);
-            setRecipeList(recipeList);
-        }
-
-        private void setRecipeList(List<Recipe> recipeList) {
-            this.recipeList = recipeList.stream()
-                    .sorted(RecipeRegistry::compareRecipes)
-                    .collect(Collectors.toList());
-        }
-
-        public EmbedBuilder getContent(int page) {
-            Recipe recipe = recipeList.get(page);
-            EmbedBuilder eb = displayImg(recipe);
-            if (eb.getDescriptionBuilder().length() > 0) {
-                eb.getDescriptionBuilder().insert(0, desc + "\n");
-            } else {
-                eb.setDescription(desc);
-            }
-            return eb;
-        }
-
-        public LinkedHashMap<String, Runnable> createButtons(int page) {
-            Recipe recipe = recipeList.get(page);
-            LinkedHashMap<String, Runnable> buttons = new LinkedHashMap<>();
-            desc = ":track_previous: / :track_next: Go to beginning/end"
-                    + "\n:rewind: / :fast_forward: Go back/forward 10"
-                    + "\n:arrow_backward: / :arrow_forward: Go back/forward 1";
-            // Go to first page
-            buttons.put(Emote.FULL_BACK.getCodepoint(), () -> {
-                if (page > 0) {
-                    startingIngredient = 0;
-                    setPage(0);
-                }
-            });
-            // Go back 10
-            buttons.put(Emote.SKIP_BACK.getCodepoint(), () -> {
-                if (page >= 10) {
-                    startingIngredient = 0;
-                    setPage(page - 10);
-                } else if (page > 0) {
-                    startingIngredient = 0;
-                    setPage(0);
-                }
-            });
-            // Go back
-            buttons.put(Emote.BACK.getCodepoint(), () -> {
-                if (page > 0) {
-                    startingIngredient = 0;
-                    setPage(page - 1);
-                }
-            });
-            // See what the output can craft
-            String result = recipe.getResult().getItem();
-            List<Recipe> outputMore = searchIngredient(ItemRegistry.searchNoStats(result));
-            boolean hasOutput = !outputMore.isEmpty();
-            buttons.put(Emote.UP.getCodepoint(), () -> {
-                if (hasOutput) {
-                    setRecipeList(outputMore);
-                    startingIngredient = 0;
-                    setPage(0);
-                }
-            });
-            if (hasOutput) {
-                desc += String.format("\n%s See what the output of this recipe can make", Emote.UP.getText());
-            }
-            // Go forward
-            buttons.put(Emote.FORWARD.getCodepoint(), () -> {
-                if (page < getLength() - 1) {
-                    startingIngredient = 0;
-                    setPage(page + 1);
-                }
-            });
-            // Go forward 10
-            buttons.put(Emote.SKIP_FORWARD.getCodepoint(), () -> {
-                if (page <= getLength() - 11) {
-                    startingIngredient = 0;
-                    setPage(page + 10);
-                } else if (page < getLength() - 1) {
-                    startingIngredient = 0;
-                    setPage(getLength() - 1);
-                }
-            });
-            // Go to last page
-            buttons.put(Emote.FULL_FORWARD.getCodepoint(), () -> {
-                if (page < getLength() - 1) {
-                    startingIngredient = 0;
-                    setPage(getLength() - 1);
-                }
-            });
-            // Craft table
-            String tableItem = recipe.getTableItem().replace(':', '.');
-            String table = ItemRegistry.getNamespacedID(tableItem).substring(10);
-            boolean needsTable = !recipe.getKey().equals(table);
-            if (needsTable) {
-                desc += String.format("\n%s %s", Emote.T.getText(), ItemRegistry.getMenuDisplayNameWithFeature(tableItem));
-            }
-            buttons.put(Emote.T.getCodepoint(), () -> {
-                if (needsTable) {
-                    recipeList = Collections.singletonList(recipes.get(table));
-                    startingIngredient = 0;
-                    setPage(0);
-                }
-            });
-            // Reserved ingredients
-            int ingredientButtonCount = 0; // 0 for no buttons, 9 for buttons 1-9, and 10 for buttons 1-9 plus More...
-            if (recipe instanceof SmeltingRecipe) {
-                // Blast furnace, Smoker, Campfire
-                boolean isSmoking = recipes.containsKey(recipe + "_from_smoking");
-                boolean isBlasting = recipe.getKey().contains("from_smelting") &&
-                        recipes.containsKey(recipe.getKey().replace("from_smelting", "from_blasting"));
-                if (isSmoking) {
-                    desc += String.format("\n%s %s\n%s %s",
-                            Emote.N1.getText(), ItemRegistry.getMenuDisplayNameWithFeature("minecraft.smoker"),
-                            Emote.N2.getText(), ItemRegistry.getMenuDisplayNameWithFeature("minecraft.campfire"));
-                    ingredientButtonCount = 2;
-                } else if (isBlasting) {
-                    desc += String.format("\n%s %s", Emote.N1.getText(), ItemRegistry.getMenuDisplayNameWithFeature("minecraft.blast_furnace"));
-                    ingredientButtonCount = 1;
-                }
-                buttons.put(Emote.N1.getCodepoint(), () -> {
-                    if (isSmoking || isBlasting) {
-                        if (isSmoking) {
-                            recipeList = searchOutput("minecraft.smoker");
-                        } else {
-                            recipeList = searchOutput("minecraft.blast_furnace");
-                        }
-                        startingIngredient = 0;
-                        setPage(0);
-                    }
-                });
-                buttons.put(Emote.N2.getCodepoint(), () -> {
-                    if (isSmoking) {
-                        recipeList = searchOutput("minecraft.campfire");
-                        startingIngredient = 0;
-                        setPage(0);
-                    }
-                });
-            } else if (recipe instanceof BrewingRecipe) {
-                // Blaze powder
-                buttons.put(Emote.N1.getCodepoint(), () -> {
-                    recipeList = searchOutput("minecraft.blaze_powder");
-                    startingIngredient = 0;
-                    setPage(0);
-                });
-                ingredientButtonCount = 1;
-            }
-            // Find how to craft each ingredient
-            if (!(recipe instanceof StonecuttingRecipe)) {
-                List<String> ingredientsList = getIngredientItems(recipe);
-                ingredientsList.remove(result);
-                if (recipe instanceof BrewingRecipe) {
-                    if (ingredientsList.contains("minecraft:blaze_powder")) {
-                        ingredientsList.remove("minecraft:blaze_powder");
-                        desc += String.format("\n%s Blaze Powder", Emote.N1.getText());
-                    } else {
-                        String version = recipe.getVersion();
-                        if (version == null || version.equals("1.8")) {
-                            desc += String.format("\n%s Blaze Powder (required for 1.9+)", Emote.N1.getText());
-                        } else {
-                            desc += String.format("\n%s Blaze Powder", Emote.N1.getText());
-                        }
-                    }
-                    if (ingredientsList.contains("minecraft.potion.effect.water")) {
-                        ingredientsList.add("minecraft:glass_bottle");
-                    }
-                }
-                String[] ingredients = new String[ingredientsList.size()];
-                ingredientsList.toArray(ingredients);
-                int i = startingIngredient;
-                while (i < ingredients.length && ingredientButtonCount <= 9) {
-                    String ingredientItem = ItemRegistry.searchNoStats(ingredients[i]);
-                    String toSearch = ingredientItem;
-                    if (!ingredientItem.contains("potion") && !ingredientItem.contains("tipped_arrow")) {
-                        toSearch = ItemRegistry.getNamespacedID(ingredientItem);
-                    }
-                    List<Recipe> ingredientMore = searchItemOutput(toSearch);
-                    if (!ingredientMore.isEmpty()) {
-                        if (ingredientButtonCount == 9) {
-                            ingredientButtonCount++;
-                            break;
-                        }
-                        Emote emote = Emote.valueOf(ingredientButtonCount + 1);
-                        buttons.put(emote.getCodepoint(), () -> {
-                            setRecipeList(ingredientMore);
-                            startingIngredient = 0;
-                            setPage(0);
-                        });
-                        desc += String.format("\n%s %s", emote.getText(), ItemRegistry.getMenuDisplayNameWithFeature(ingredientItem));
-                        ingredientButtonCount++;
-                    }
-                    i++;
-                }
-                boolean hasMore = ingredientButtonCount > 9 || startingIngredient > 0;
-                while (ingredientButtonCount < 9) {
-                    Emote emote = Emote.valueOf(ingredientButtonCount + 1);
-                    buttons.put(emote.getCodepoint(), null);
-                    ingredientButtonCount++;
-                }
-                // Cycle through ingredients if there's more than 9
-                if (hasMore) {
-                    desc += String.format("\n%s More...", Emote.MORE.getText());
-                }
-                int iFinal = i;
-                if (hasMore) {
-                    buttons.put(Emote.MORE.getCodepoint(), () -> {
-                        startingIngredient = iFinal;
-                        if (startingIngredient >= ingredients.length) {
-                            startingIngredient = 0;
-                        }
-                        setPage(page);
-                    });
-                } else {
-                    buttons.put(Emote.MORE.getCodepoint(), null);
-                }
-            } else {
-                String ingredient = getIngredientItems(recipe).toArray(new String[0])[0];
-                List<Recipe> output = searchItemOutput(ingredient);
-                if (!output.isEmpty()) {
-                    desc += String.format("\n%s %s", Emote.N1.getText(), ItemRegistry.getMenuDisplayNameWithFeature(ItemRegistry.searchNoStats(ingredient)));
-                    buttons.put(Emote.N1.getCodepoint(), () -> {
-                        setRecipeList(output);
-                        startingIngredient = 0;
-                        setPage(0);
-                    });
-                } else {
-                    buttons.put(Emote.N1.getCodepoint(), null);
-                }
-                for (int i = 1; i < 9; i++) {
-                    buttons.put(Emote.valueOf(i + 1).getCodepoint(), null);
-                }
-                buttons.put(Emote.MORE.getCodepoint(), null);
-            }
-            return buttons;
-        }
-
-        public int getLength() {
-            return recipeList.size();
-        }
-
     }
 
 }

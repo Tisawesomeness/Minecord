@@ -1,63 +1,4 @@
 {
-  "winter_drop": {
-    "boats": [
-      "minecraft:pale_oak_boat"
-    ],
-    "chest_boats": [
-      "minecraft:pale_oak_chest_boat"
-    ],
-    "dirt": [
-      "minecraft:pale_moss_block"
-    ],
-    "fence_gates": [
-      "minecraft:pale_oak_fence_gate"
-    ],
-    "hanging_signs": [
-      "minecraft:pale_oak_hanging_sign"
-    ],
-    "leaves": [
-      "minecraft:pale_oak_leaves"
-    ],
-    "logs_that_burn": [
-      "#minecraft:pale_oak_logs"
-    ],
-    "pale_oak_logs": [
-      "minecraft:pale_oak_log",
-      "minecraft:pale_oak_wood",
-      "minecraft:stripped_pale_oak_log",
-      "minecraft:stripped_pale_oak_wood"
-    ],
-    "planks": [
-      "minecraft:pale_oak_planks"
-    ],
-    "saplings": [
-      "minecraft:pale_oak_sapling"
-    ],
-    "signs": [
-      "minecraft:pale_oak_sign"
-    ],
-    "wooden_buttons": [
-      "minecraft:pale_oak_button"
-    ],
-    "wooden_doors": [
-      "minecraft:pale_oak_door"
-    ],
-    "wooden_fences": [
-      "minecraft:pale_oak_fence"
-    ],
-    "wooden_pressure_plates": [
-      "minecraft:pale_oak_pressure_plate"
-    ],
-    "wooden_slabs": [
-      "minecraft:pale_oak_slab"
-    ],
-    "wooden_stairs": [
-      "minecraft:pale_oak_stairs"
-    ],
-    "wooden_trapdoors": [
-      "minecraft:pale_oak_trapdoor"
-    ]
-  },
   "vanilla": {
     "acacia_logs": [
       "minecraft:acacia_log",
@@ -137,7 +78,33 @@
       "minecraft:black_bed"
     ],
     "bee_food": [
-      "#minecraft:flowers"
+      "minecraft:mangrove_propagule",
+      "minecraft:cherry_leaves",
+      "minecraft:dandelion",
+      "minecraft:open_eyeblossom",
+      "minecraft:poppy",
+      "minecraft:blue_orchid",
+      "minecraft:allium",
+      "minecraft:azure_bluet",
+      "minecraft:red_tulip",
+      "minecraft:orange_tulip",
+      "minecraft:white_tulip",
+      "minecraft:pink_tulip",
+      "minecraft:oxeye_daisy",
+      "minecraft:cornflower",
+      "minecraft:lily_of_the_valley",
+      "minecraft:wither_rose",
+      "minecraft:torchflower",
+      "minecraft:sunflower",
+      "minecraft:lilac",
+      "minecraft:peony",
+      "minecraft:rose_bush",
+      "minecraft:pitcher_plant",
+      "minecraft:flowering_azalea_leaves",
+      "minecraft:flowering_azalea",
+      "minecraft:pink_petals",
+      "minecraft:chorus_flower",
+      "minecraft:spore_blossom"
     ],
     "birch_logs": [
       "minecraft:birch_log",
@@ -155,6 +122,7 @@
       "minecraft:mangrove_boat",
       "minecraft:bamboo_raft",
       "minecraft:cherry_boat",
+      "minecraft:pale_oak_boat",
       "#minecraft:chest_boats"
     ],
     "bookshelf_books": [
@@ -248,7 +216,8 @@
       "minecraft:dark_oak_chest_boat",
       "minecraft:mangrove_chest_boat",
       "minecraft:bamboo_chest_raft",
-      "minecraft:cherry_chest_boat"
+      "minecraft:cherry_chest_boat",
+      "minecraft:pale_oak_chest_boat"
     ],
     "chicken_food": [
       "minecraft:wheat_seeds",
@@ -368,6 +337,7 @@
       "minecraft:mycelium",
       "minecraft:rooted_dirt",
       "minecraft:moss_block",
+      "minecraft:pale_moss_block",
       "minecraft:mud",
       "minecraft:muddy_mangrove_roots"
     ],
@@ -382,6 +352,9 @@
       "minecraft:waxed_weathered_copper_door",
       "minecraft:waxed_oxidized_copper_door",
       "minecraft:iron_door"
+    ],
+    "drowned_preferred_weapons": [
+      "minecraft:trident"
     ],
     "duplicates_allays": [
       "minecraft:amethyst_shard"
@@ -409,7 +382,8 @@
       "minecraft:warped_fence_gate",
       "minecraft:mangrove_fence_gate",
       "minecraft:bamboo_fence_gate",
-      "minecraft:cherry_fence_gate"
+      "minecraft:cherry_fence_gate",
+      "minecraft:pale_oak_fence_gate"
     ],
     "fences": [
       "#minecraft:wooden_fences",
@@ -422,17 +396,6 @@
       "minecraft:cooked_salmon",
       "minecraft:pufferfish",
       "minecraft:tropical_fish"
-    ],
-    "flowers": [
-      "minecraft:mangrove_propagule",
-      "minecraft:cherry_leaves",
-      "#minecraft:small_flowers",
-      "#minecraft:tall_flowers",
-      "minecraft:flowering_azalea_leaves",
-      "minecraft:flowering_azalea",
-      "minecraft:pink_petals",
-      "minecraft:chorus_flower",
-      "minecraft:spore_blossom"
     ],
     "foot_armor": [
       "minecraft:leather_boots",
@@ -485,7 +448,8 @@
       "minecraft:warped_hanging_sign",
       "minecraft:mangrove_hanging_sign",
       "minecraft:bamboo_hanging_sign",
-      "minecraft:cherry_hanging_sign"
+      "minecraft:cherry_hanging_sign",
+      "minecraft:pale_oak_hanging_sign"
     ],
     "head_armor": [
       "minecraft:leather_helmet",
@@ -550,6 +514,7 @@
       "minecraft:dark_oak_leaves",
       "minecraft:mangrove_leaves",
       "minecraft:cherry_leaves",
+      "minecraft:pale_oak_leaves",
       "minecraft:azalea_leaves",
       "minecraft:flowering_azalea_leaves"
     ],
@@ -573,16 +538,9 @@
       "minecraft:hay_block"
     ],
     "logs": [
-      "#minecraft:oak_logs",
-      "#minecraft:spruce_logs",
-      "#minecraft:birch_logs",
-      "#minecraft:jungle_logs",
-      "#minecraft:acacia_logs",
-      "#minecraft:dark_oak_logs",
+      "#minecraft:logs_that_burn",
       "#minecraft:crimson_stems",
-      "#minecraft:warped_stems",
-      "#minecraft:mangrove_logs",
-      "#minecraft:cherry_logs"
+      "#minecraft:warped_stems"
     ],
     "logs_that_burn": [
       "#minecraft:oak_logs",
@@ -592,7 +550,8 @@
       "#minecraft:acacia_logs",
       "#minecraft:dark_oak_logs",
       "#minecraft:mangrove_logs",
-      "#minecraft:cherry_logs"
+      "#minecraft:cherry_logs",
+      "#minecraft:pale_oak_logs"
     ],
     "mangrove_logs": [
       "minecraft:mangrove_log",
@@ -670,6 +629,12 @@
       "minecraft:cod",
       "minecraft:salmon"
     ],
+    "pale_oak_logs": [
+      "minecraft:pale_oak_log",
+      "minecraft:pale_oak_wood",
+      "minecraft:stripped_pale_oak_log",
+      "minecraft:stripped_pale_oak_wood"
+    ],
     "panda_eats_from_ground": [
       "#minecraft:panda_food",
       "minecraft:cake"
@@ -730,6 +695,9 @@
       "minecraft:raw_gold",
       "minecraft:raw_gold_block"
     ],
+    "piglin_preferred_weapons": [
+      "minecraft:crossbow"
+    ],
     "piglin_repellents": [
       "minecraft:soul_torch",
       "minecraft:soul_lantern",
@@ -740,6 +708,9 @@
       "minecraft:golden_chestplate",
       "minecraft:golden_leggings",
       "minecraft:golden_boots"
+    ],
+    "pillager_preferred_weapons": [
+      "minecraft:crossbow"
     ],
     "planks": [
       "minecraft:oak_planks",
@@ -752,7 +723,8 @@
       "minecraft:warped_planks",
       "minecraft:mangrove_planks",
       "minecraft:bamboo_planks",
-      "minecraft:cherry_planks"
+      "minecraft:cherry_planks",
+      "minecraft:pale_oak_planks"
     ],
     "rabbit_food": [
       "minecraft:carrot",
@@ -808,6 +780,7 @@
       "minecraft:dark_oak_sapling",
       "minecraft:mangrove_propagule",
       "minecraft:cherry_sapling",
+      "minecraft:pale_oak_sapling",
       "minecraft:azalea",
       "minecraft:flowering_azalea"
     ],
@@ -852,7 +825,11 @@
       "minecraft:warped_sign",
       "minecraft:mangrove_sign",
       "minecraft:bamboo_sign",
-      "minecraft:cherry_sign"
+      "minecraft:cherry_sign",
+      "minecraft:pale_oak_sign"
+    ],
+    "skeleton_preferred_weapons": [
+      "minecraft:bow"
     ],
     "skulls": [
       "minecraft:player_head",
@@ -913,10 +890,12 @@
       "minecraft:mud_brick_slab",
       "minecraft:tuff_slab",
       "minecraft:polished_tuff_slab",
-      "minecraft:tuff_brick_slab"
+      "minecraft:tuff_brick_slab",
+      "minecraft:resin_brick_slab"
     ],
     "small_flowers": [
       "minecraft:dandelion",
+      "minecraft:open_eyeblossom",
       "minecraft:poppy",
       "minecraft:blue_orchid",
       "minecraft:allium",
@@ -929,7 +908,8 @@
       "minecraft:cornflower",
       "minecraft:lily_of_the_valley",
       "minecraft:wither_rose",
-      "minecraft:torchflower"
+      "minecraft:torchflower",
+      "minecraft:closed_eyeblossom"
     ],
     "smelts_to_glass": [
       "minecraft:sand",
@@ -994,7 +974,8 @@
       "minecraft:mud_brick_stairs",
       "minecraft:tuff_stairs",
       "minecraft:polished_tuff_stairs",
-      "minecraft:tuff_brick_stairs"
+      "minecraft:tuff_brick_stairs",
+      "minecraft:resin_brick_stairs"
     ],
     "stone_bricks": [
       "minecraft:stone_bricks",
@@ -1031,13 +1012,6 @@
       "minecraft:wooden_sword",
       "minecraft:iron_sword"
     ],
-    "tall_flowers": [
-      "minecraft:sunflower",
-      "minecraft:lilac",
-      "minecraft:peony",
-      "minecraft:rose_bush",
-      "minecraft:pitcher_plant"
-    ],
     "terracotta": [
       "minecraft:terracotta",
       "minecraft:white_terracotta",
@@ -1070,36 +1044,17 @@
       "minecraft:waxed_oxidized_copper_trapdoor"
     ],
     "trim_materials": [
-      "minecraft:iron_ingot",
+      "minecraft:amethyst_shard",
       "minecraft:copper_ingot",
-      "minecraft:gold_ingot",
-      "minecraft:lapis_lazuli",
-      "minecraft:emerald",
       "minecraft:diamond",
+      "minecraft:emerald",
+      "minecraft:gold_ingot",
+      "minecraft:iron_ingot",
+      "minecraft:lapis_lazuli",
       "minecraft:netherite_ingot",
-      "minecraft:redstone",
       "minecraft:quartz",
-      "minecraft:amethyst_shard"
-    ],
-    "trim_templates": [
-      "minecraft:ward_armor_trim_smithing_template",
-      "minecraft:spire_armor_trim_smithing_template",
-      "minecraft:coast_armor_trim_smithing_template",
-      "minecraft:eye_armor_trim_smithing_template",
-      "minecraft:dune_armor_trim_smithing_template",
-      "minecraft:wild_armor_trim_smithing_template",
-      "minecraft:rib_armor_trim_smithing_template",
-      "minecraft:tide_armor_trim_smithing_template",
-      "minecraft:sentry_armor_trim_smithing_template",
-      "minecraft:vex_armor_trim_smithing_template",
-      "minecraft:snout_armor_trim_smithing_template",
-      "minecraft:wayfinder_armor_trim_smithing_template",
-      "minecraft:shaper_armor_trim_smithing_template",
-      "minecraft:silence_armor_trim_smithing_template",
-      "minecraft:raiser_armor_trim_smithing_template",
-      "minecraft:host_armor_trim_smithing_template",
-      "minecraft:flow_armor_trim_smithing_template",
-      "minecraft:bolt_armor_trim_smithing_template"
+      "minecraft:redstone",
+      "minecraft:resin_brick"
     ],
     "trimmable_armor": [
       "#minecraft:foot_armor",
@@ -1149,7 +1104,8 @@
       "minecraft:mud_brick_wall",
       "minecraft:tuff_wall",
       "minecraft:polished_tuff_wall",
-      "minecraft:tuff_brick_wall"
+      "minecraft:tuff_brick_wall",
+      "minecraft:resin_brick_wall"
     ],
     "warped_stems": [
       "minecraft:warped_hyphae",
@@ -1160,6 +1116,10 @@
     "wart_blocks": [
       "minecraft:warped_wart_block",
       "minecraft:nether_wart_block"
+    ],
+    "wither_skeleton_disliked_weapons": [
+      "minecraft:bow",
+      "minecraft:crossbow"
     ],
     "wolf_food": [
       "#minecraft:meat",
@@ -1182,7 +1142,8 @@
       "minecraft:warped_button",
       "minecraft:mangrove_button",
       "minecraft:bamboo_button",
-      "minecraft:cherry_button"
+      "minecraft:cherry_button",
+      "minecraft:pale_oak_button"
     ],
     "wooden_doors": [
       "minecraft:oak_door",
@@ -1195,7 +1156,8 @@
       "minecraft:warped_door",
       "minecraft:mangrove_door",
       "minecraft:bamboo_door",
-      "minecraft:cherry_door"
+      "minecraft:cherry_door",
+      "minecraft:pale_oak_door"
     ],
     "wooden_fences": [
       "minecraft:oak_fence",
@@ -1208,7 +1170,8 @@
       "minecraft:warped_fence",
       "minecraft:mangrove_fence",
       "minecraft:bamboo_fence",
-      "minecraft:cherry_fence"
+      "minecraft:cherry_fence",
+      "minecraft:pale_oak_fence"
     ],
     "wooden_pressure_plates": [
       "minecraft:oak_pressure_plate",
@@ -1221,7 +1184,8 @@
       "minecraft:warped_pressure_plate",
       "minecraft:mangrove_pressure_plate",
       "minecraft:bamboo_pressure_plate",
-      "minecraft:cherry_pressure_plate"
+      "minecraft:cherry_pressure_plate",
+      "minecraft:pale_oak_pressure_plate"
     ],
     "wooden_slabs": [
       "minecraft:oak_slab",
@@ -1234,7 +1198,8 @@
       "minecraft:warped_slab",
       "minecraft:mangrove_slab",
       "minecraft:bamboo_slab",
-      "minecraft:cherry_slab"
+      "minecraft:cherry_slab",
+      "minecraft:pale_oak_slab"
     ],
     "wooden_stairs": [
       "minecraft:oak_stairs",
@@ -1247,7 +1212,8 @@
       "minecraft:warped_stairs",
       "minecraft:mangrove_stairs",
       "minecraft:bamboo_stairs",
-      "minecraft:cherry_stairs"
+      "minecraft:cherry_stairs",
+      "minecraft:pale_oak_stairs"
     ],
     "wooden_tool_materials": [
       "#minecraft:planks"
@@ -1263,7 +1229,8 @@
       "minecraft:warped_trapdoor",
       "minecraft:mangrove_trapdoor",
       "minecraft:bamboo_trapdoor",
-      "minecraft:cherry_trapdoor"
+      "minecraft:cherry_trapdoor",
+      "minecraft:pale_oak_trapdoor"
     ],
     "wool": [
       "minecraft:white_wool",
