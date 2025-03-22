@@ -7593,6 +7593,9 @@
   "minecraft.egg": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Temperate Egg"
+        ],
         "display_name": "Egg"
       }
     },
@@ -22890,7 +22893,7 @@
     "lang": {
       "en_US": {
         "search_names": [
-          "Resin Block",
+          "Resin Block"
         ],
         "display_name": "Block of Resin"
       }
@@ -22968,6 +22971,146 @@
     },
     "properties": {
       "version": "1.21.4"
+    }
+  },
+  "minecraft.blue_egg": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Cool Egg",
+          "Cold Egg"
+        ],
+        "display_name": "Blue Egg"
+      }
+    },
+    "properties": {
+      "version": "1.21.5"
+    }
+  },
+  "minecraft.brown_egg": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Warm Egg",
+          "Hot Egg"
+        ],
+        "display_name": "Brown Egg"
+      }
+    },
+    "properties": {
+      "version": "1.21.5"
+    }
+  },
+  "minecraft.bush": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Alive Bush"
+        ],
+        "display_name": "Bush"
+      }
+    },
+    "properties": {
+      "version": "1.21.5"
+    }
+  },
+  "minecraft.cactus_flower": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cactus Flower"
+      }
+    },
+    "properties": {
+      "version": "1.21.5"
+    }
+  },
+  "minecraft.firefly_bush": {
+    "lang": {
+      "en_US": {
+        "display_name": "Firefly Bush"
+      }
+    },
+    "properties": {
+      "version": "1.21.5"
+    }
+  },
+  "minecraft.leaf_litter": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Fallen Leaves"
+        ],
+        "display_name": "Leaf Litter"
+      }
+    },
+    "properties": {
+      "version": "1.21.5"
+    }
+  },
+  "minecraft.short_dry_grass": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Dry Short Grass"
+        ],
+        "display_name": "Short Dry Grass"
+      }
+    },
+    "properties": {
+      "version": "1.21.5"
+    }
+  },
+  "minecraft.tall_dry_grass": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Dry Tall Grass"
+        ],
+        "display_name": "Tall Dry Grass"
+      }
+    },
+    "properties": {
+      "version": "1.21.5"
+    }
+  },
+  "minecraft.test_block": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Test"
+        ],
+        "display_name": "Test Block"
+      }
+    },
+    "properties": {
+      "version": "1.21.5"
+    }
+  },
+  "minecraft.test_instance_block": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Test Instance",
+          "Instance Block"
+        ],
+        "display_name": "Test Instance Block"
+      }
+    },
+    "properties": {
+      "version": "1.21.5"
+    }
+  },
+  "minecraft.wildflowers": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Wild Flowers"
+        ],
+        "display_name": "Wildflowers"
+      }
+    },
+    "properties": {
+      "version": "1.21.5"
     }
   },
   "minecraft.lingering_potion.effect.thick": {
