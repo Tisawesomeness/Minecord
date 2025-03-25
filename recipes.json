@@ -822,7 +822,10 @@
       "A": "minecraft:milk_bucket",
       "B": "minecraft:sugar",
       "C": "minecraft:wheat",
-      "E": "minecraft:egg"
+      "E": "#minecraft:eggs"
+    },
+    "properties": {
+      "animated": true
     }
   },
   "carrot_on_a_stick": {
@@ -9432,7 +9435,9 @@
     }
   },
   "black_shulker_box": {
-    "result": "minecraft:black_shulker_box",
+    "result": {
+      "id": "minecraft:black_shulker_box"
+    },
     "input": "#minecraft:shulker_boxes",
     "material": "minecraft:black_dye",
     "type": "minecraft:crafting_transmute",
@@ -9448,7 +9453,9 @@
     }
   },
   "blue_shulker_box": {
-    "result": "minecraft:blue_shulker_box",
+    "result": {
+      "id": "minecraft:blue_shulker_box"
+    },
     "input": "#minecraft:shulker_boxes",
     "material": "minecraft:blue_dye",
     "type": "minecraft:crafting_transmute",
@@ -9464,7 +9471,9 @@
     }
   },
   "brown_shulker_box": {
-    "result": "minecraft:brown_shulker_box",
+    "result": {
+      "id": "minecraft:brown_shulker_box"
+    },
     "input": "#minecraft:shulker_boxes",
     "material": "minecraft:brown_dye",
     "type": "minecraft:crafting_transmute",
@@ -9480,7 +9489,9 @@
     }
   },
   "cyan_shulker_box": {
-    "result": "minecraft:cyan_shulker_box",
+    "result": {
+      "id": "minecraft:cyan_shulker_box"
+    },
     "input": "#minecraft:shulker_boxes",
     "material": "minecraft:cyan_dye",
     "type": "minecraft:crafting_transmute",
@@ -9518,7 +9529,9 @@
     }
   },
   "gray_shulker_box": {
-    "result": "minecraft:gray_shulker_box",
+    "result": {
+      "id": "minecraft:gray_shulker_box"
+    },
     "input": "#minecraft:shulker_boxes",
     "material": "minecraft:gray_dye",
     "type": "minecraft:crafting_transmute",
@@ -9534,7 +9547,9 @@
     }
   },
   "green_shulker_box": {
-    "result": "minecraft:green_shulker_box",
+    "result": {
+      "id": "minecraft:green_shulker_box"
+    },
     "input": "#minecraft:shulker_boxes",
     "material": "minecraft:green_dye",
     "type": "minecraft:crafting_transmute",
@@ -9634,7 +9649,9 @@
     }
   },
   "light_blue_shulker_box": {
-    "result": "minecraft:light_blue_shulker_box",
+    "result": {
+      "id": "minecraft:light_blue_shulker_box"
+    },
     "input": "#minecraft:shulker_boxes",
     "material": "minecraft:light_blue_dye",
     "type": "minecraft:crafting_transmute",
@@ -9650,7 +9667,9 @@
     }
   },
   "light_gray_shulker_box": {
-    "result": "minecraft:light_gray_shulker_box",
+    "result": {
+      "id": "minecraft:light_gray_shulker_box"
+    },
     "input": "#minecraft:shulker_boxes",
     "material": "minecraft:light_gray_dye",
     "type": "minecraft:crafting_transmute",
@@ -9666,7 +9685,9 @@
     }
   },
   "lime_shulker_box": {
-    "result": "minecraft:lime_shulker_box",
+    "result": {
+      "id": "minecraft:lime_shulker_box"
+    },
     "input": "#minecraft:shulker_boxes",
     "material": "minecraft:lime_dye",
     "type": "minecraft:crafting_transmute",
@@ -9682,7 +9703,9 @@
     }
   },
   "magenta_shulker_box": {
-    "result": "minecraft:magenta_shulker_box",
+    "result": {
+      "id": "minecraft:magenta_shulker_box"
+    },
     "input": "#minecraft:shulker_boxes",
     "material": "minecraft:magenta_dye",
     "type": "minecraft:crafting_transmute",
@@ -9718,7 +9741,9 @@
     }
   },
   "orange_shulker_box": {
-    "result": "minecraft:orange_shulker_box",
+    "result": {
+      "id": "minecraft:orange_shulker_box"
+    },
     "input": "#minecraft:shulker_boxes",
     "material": "minecraft:orange_dye",
     "type": "minecraft:crafting_transmute",
@@ -9734,7 +9759,9 @@
     }
   },
   "pink_shulker_box": {
-    "result": "minecraft:pink_shulker_box",
+    "result": {
+      "id": "minecraft:pink_shulker_box"
+    },
     "input": "#minecraft:shulker_boxes",
     "material": "minecraft:pink_dye",
     "type": "minecraft:crafting_transmute",
@@ -9750,7 +9777,9 @@
     }
   },
   "purple_shulker_box": {
-    "result": "minecraft:purple_shulker_box",
+    "result": {
+      "id": "minecraft:purple_shulker_box"
+    },
     "input": "#minecraft:shulker_boxes",
     "material": "minecraft:purple_dye",
     "type": "minecraft:crafting_transmute",
@@ -9766,7 +9795,9 @@
     }
   },
   "red_shulker_box": {
-    "result": "minecraft:red_shulker_box",
+    "result": {
+      "id": "minecraft:red_shulker_box"
+    },
     "input": "#minecraft:shulker_boxes",
     "material": "minecraft:red_dye",
     "type": "minecraft:crafting_transmute",
@@ -9861,7 +9892,9 @@
     }
   },
   "white_shulker_box": {
-    "result": "minecraft:white_shulker_box",
+    "result": {
+      "id": "minecraft:white_shulker_box"
+    },
     "input": "#minecraft:shulker_boxes",
     "material": "minecraft:white_dye",
     "type": "minecraft:crafting_transmute",
@@ -9877,7 +9910,9 @@
     }
   },
   "yellow_shulker_box": {
-    "result": "minecraft:yellow_shulker_box",
+    "result": {
+      "id": "minecraft:yellow_shulker_box"
+    },
     "input": "#minecraft:shulker_boxes",
     "material": "minecraft:yellow_dye",
     "type": "minecraft:crafting_transmute",
@@ -11730,10 +11765,11 @@
     "ingredients": [
       "minecraft:pumpkin",
       "minecraft:sugar",
-      "minecraft:egg"
+      "#minecraft:eggs"
     ],
     "type": "minecraft:crafting_shapeless",
     "properties": {
+      "animated": true,
       "version": "1.13"
     }
   },
@@ -16048,7 +16084,7 @@
       "version": "1.16"
     }
   },
-  "lodestone": {
+  "lodestone_legacy": {
     "result": {
       "count": 1,
       "id": "minecraft:lodestone"
@@ -16064,6 +16100,7 @@
       "S": "minecraft:chiseled_stone_bricks"
     },
     "properties": {
+      "removed": "1.21.5",
       "version": "1.16"
     }
   },
@@ -21140,7 +21177,6 @@
   },
   "netherite_axe_smithing": {
     "result": {
-      "count": 1,
       "id": "minecraft:netherite_axe"
     },
     "template": "minecraft:netherite_upgrade_smithing_template",
@@ -21154,7 +21190,6 @@
   },
   "netherite_boots_smithing": {
     "result": {
-      "count": 1,
       "id": "minecraft:netherite_boots"
     },
     "template": "minecraft:netherite_upgrade_smithing_template",
@@ -21168,7 +21203,6 @@
   },
   "netherite_chestplate_smithing": {
     "result": {
-      "count": 1,
       "id": "minecraft:netherite_chestplate"
     },
     "template": "minecraft:netherite_upgrade_smithing_template",
@@ -21182,7 +21216,6 @@
   },
   "netherite_helmet_smithing": {
     "result": {
-      "count": 1,
       "id": "minecraft:netherite_helmet"
     },
     "template": "minecraft:netherite_upgrade_smithing_template",
@@ -21196,7 +21229,6 @@
   },
   "netherite_hoe_smithing": {
     "result": {
-      "count": 1,
       "id": "minecraft:netherite_hoe"
     },
     "template": "minecraft:netherite_upgrade_smithing_template",
@@ -21210,7 +21242,6 @@
   },
   "netherite_leggings_smithing": {
     "result": {
-      "count": 1,
       "id": "minecraft:netherite_leggings"
     },
     "template": "minecraft:netherite_upgrade_smithing_template",
@@ -21224,7 +21255,6 @@
   },
   "netherite_pickaxe_smithing": {
     "result": {
-      "count": 1,
       "id": "minecraft:netherite_pickaxe"
     },
     "template": "minecraft:netherite_upgrade_smithing_template",
@@ -21238,7 +21268,6 @@
   },
   "netherite_shovel_smithing": {
     "result": {
-      "count": 1,
       "id": "minecraft:netherite_shovel"
     },
     "template": "minecraft:netherite_upgrade_smithing_template",
@@ -21252,7 +21281,6 @@
   },
   "netherite_sword_smithing": {
     "result": {
-      "count": 1,
       "id": "minecraft:netherite_sword"
     },
     "template": "minecraft:netherite_upgrade_smithing_template",
@@ -25730,7 +25758,9 @@
     "base": "minecraft.potion.effect.wind_charged"
   },
   "black_bundle": {
-    "result": "minecraft:black_bundle",
+    "result": {
+      "id": "minecraft:black_bundle"
+    },
     "input": "#minecraft:bundles",
     "material": "minecraft:black_dye",
     "type": "minecraft:crafting_transmute",
@@ -25740,7 +25770,9 @@
     }
   },
   "blue_bundle": {
-    "result": "minecraft:blue_bundle",
+    "result": {
+      "id": "minecraft:blue_bundle"
+    },
     "input": "#minecraft:bundles",
     "material": "minecraft:blue_dye",
     "type": "minecraft:crafting_transmute",
@@ -25764,7 +25796,9 @@
     }
   },
   "brown_bundle": {
-    "result": "minecraft:brown_bundle",
+    "result": {
+      "id": "minecraft:brown_bundle"
+    },
     "input": "#minecraft:bundles",
     "material": "minecraft:brown_dye",
     "type": "minecraft:crafting_transmute",
@@ -25792,7 +25826,9 @@
     }
   },
   "cyan_bundle": {
-    "result": "minecraft:cyan_bundle",
+    "result": {
+      "id": "minecraft:cyan_bundle"
+    },
     "input": "#minecraft:bundles",
     "material": "minecraft:cyan_dye",
     "type": "minecraft:crafting_transmute",
@@ -25816,7 +25852,9 @@
     }
   },
   "gray_bundle": {
-    "result": "minecraft:gray_bundle",
+    "result": {
+      "id": "minecraft:gray_bundle"
+    },
     "input": "#minecraft:bundles",
     "material": "minecraft:gray_dye",
     "type": "minecraft:crafting_transmute",
@@ -25826,7 +25864,9 @@
     }
   },
   "green_bundle": {
-    "result": "minecraft:green_bundle",
+    "result": {
+      "id": "minecraft:green_bundle"
+    },
     "input": "#minecraft:bundles",
     "material": "minecraft:green_dye",
     "type": "minecraft:crafting_transmute",
@@ -25836,7 +25876,9 @@
     }
   },
   "light_blue_bundle": {
-    "result": "minecraft:light_blue_bundle",
+    "result": {
+      "id": "minecraft:light_blue_bundle"
+    },
     "input": "#minecraft:bundles",
     "material": "minecraft:light_blue_dye",
     "type": "minecraft:crafting_transmute",
@@ -25846,7 +25888,9 @@
     }
   },
   "light_gray_bundle": {
-    "result": "minecraft:light_gray_bundle",
+    "result": {
+      "id": "minecraft:light_gray_bundle"
+    },
     "input": "#minecraft:bundles",
     "material": "minecraft:light_gray_dye",
     "type": "minecraft:crafting_transmute",
@@ -25856,7 +25900,9 @@
     }
   },
   "lime_bundle": {
-    "result": "minecraft:lime_bundle",
+    "result": {
+      "id": "minecraft:lime_bundle"
+    },
     "input": "#minecraft:bundles",
     "material": "minecraft:lime_dye",
     "type": "minecraft:crafting_transmute",
@@ -25866,7 +25912,9 @@
     }
   },
   "magenta_bundle": {
-    "result": "minecraft:magenta_bundle",
+    "result": {
+      "id": "minecraft:magenta_bundle"
+    },
     "input": "#minecraft:bundles",
     "material": "minecraft:magenta_dye",
     "type": "minecraft:crafting_transmute",
@@ -25876,7 +25924,9 @@
     }
   },
   "orange_bundle": {
-    "result": "minecraft:orange_bundle",
+    "result": {
+      "id": "minecraft:orange_bundle"
+    },
     "input": "#minecraft:bundles",
     "material": "minecraft:orange_dye",
     "type": "minecraft:crafting_transmute",
@@ -25886,7 +25936,9 @@
     }
   },
   "pink_bundle": {
-    "result": "minecraft:pink_bundle",
+    "result": {
+      "id": "minecraft:pink_bundle"
+    },
     "input": "#minecraft:bundles",
     "material": "minecraft:pink_dye",
     "type": "minecraft:crafting_transmute",
@@ -25896,7 +25948,9 @@
     }
   },
   "purple_bundle": {
-    "result": "minecraft:purple_bundle",
+    "result": {
+      "id": "minecraft:purple_bundle"
+    },
     "input": "#minecraft:bundles",
     "material": "minecraft:purple_dye",
     "type": "minecraft:crafting_transmute",
@@ -25906,7 +25960,9 @@
     }
   },
   "red_bundle": {
-    "result": "minecraft:red_bundle",
+    "result": {
+      "id": "minecraft:red_bundle"
+    },
     "input": "#minecraft:bundles",
     "material": "minecraft:red_dye",
     "type": "minecraft:crafting_transmute",
@@ -25916,7 +25972,9 @@
     }
   },
   "white_bundle": {
-    "result": "minecraft:white_bundle",
+    "result": {
+      "id": "minecraft:white_bundle"
+    },
     "input": "#minecraft:bundles",
     "material": "minecraft:white_dye",
     "type": "minecraft:crafting_transmute",
@@ -25926,7 +25984,9 @@
     }
   },
   "yellow_bundle": {
-    "result": "minecraft:yellow_bundle",
+    "result": {
+      "id": "minecraft:yellow_bundle"
+    },
     "input": "#minecraft:bundles",
     "material": "minecraft:yellow_dye",
     "type": "minecraft:crafting_transmute",
@@ -26291,6 +26351,19 @@
       "version": "1.21.4"
     }
   },
+  "pink_dye_from_cactus_flower": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:pink_dye"
+    },
+    "ingredients": [
+      "minecraft:cactus_flower"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
   "resin_block": {
     "result": {
       "count": 1,
@@ -26470,6 +26543,50 @@
     "properties": {
       "animated": true,
       "version": "1.21.4"
+    }
+  },
+  "yellow_dye_from_wildflowers": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:yellow_dye"
+    },
+    "ingredients": [
+      "minecraft:wildflowers"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.4"
+    }
+  },
+  "leaf_litter": {
+    "result": {
+      "id": "minecraft:leaf_litter"
+    },
+    "ingredient": "#minecraft:leaves",
+    "type": "minecraft:smelting",
+    "experience": 0.1,
+    "properties": {
+      "animated": true,
+      "version": "1.21.5"
+    }
+  },
+  "lodestone": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:lodestone"
+    },
+    "pattern": [
+      "SSS",
+      "S#S",
+      "SSS"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:iron_ingot",
+      "S": "minecraft:chiseled_stone_bricks"
+    },
+    "properties": {
+      "version": "1.21.5"
     }
   }
 }
