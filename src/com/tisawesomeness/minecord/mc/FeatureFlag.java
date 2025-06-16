@@ -18,7 +18,7 @@ public enum FeatureFlag {
     WINTER_DROP("winter_drop", "Winter Drop", "1.21.4");
 
     public static final FeatureFlag[] RELEASE_ORDER = new FeatureFlag[]{
-            UPDATE_1_20, UPDATE_1_21, BUNDLE, null, WINTER_DROP
+            UPDATE_1_20, UPDATE_1_21, BUNDLE, WINTER_DROP, null
     };
     public static final Comparator<FeatureFlag> RELEASE_ORDER_COMPARATOR = (f1, f2) -> {
         int i1 = ArrayUtils.indexOf(RELEASE_ORDER, f1);

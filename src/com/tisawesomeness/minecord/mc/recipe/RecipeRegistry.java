@@ -38,7 +38,7 @@ public class RecipeRegistry {
             "1.18", "1.18.1", "1.18.2",
             "1.19", "1.19.1", "1.19.2", "1.19.3", "1.19.4",
             "1.20", "1.20.1", "1.20.2", "1.20.3", "1.20.4", "1.20.5", "1.20.6",
-            "1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5"
+            "1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.6"
     };
     private static final List<Class<? extends Recipe>> RECIPE_TYPE_ORDER = Arrays.asList(
             ShapedRecipe.class, ShapelessRecipe.class, TransmuteRecipe.class, StonecuttingRecipe.class,
@@ -92,7 +92,6 @@ public class RecipeRegistry {
         eb.setTitle(ItemRegistry.getDistinctDisplayName(item));
         String img = Config.getRecipeImageHost() + getImage(recipe);
         eb.setImage(img);
-        System.out.println(img);
         eb.setColor(Bot.color);
         eb.setDescription(getMetadata(recipe));
         return eb;

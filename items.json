@@ -7961,14 +7961,17 @@
       "block_id": 92
     }
   },
-  "minecraft.bed": {
+  "minecraft.red_bed": {
     "lang": {
       "en_US": {
-        "display_name": "Bed"
+        "previously": "Bed",
+        "search_names": [
+          "Red Home"
+        ],
+        "display_name": "Red Bed"
       }
     },
     "properties": {
-      "image_key": "Red Bed",
       "id": 355,
       "block_id": 26
     }
@@ -8238,6 +8241,18 @@
   "minecraft.brewing_stand": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Cleric",
+          "Cleric Station",
+          "Cleric Table",
+          "Cleric Site",
+          "Cleric Job Site",
+          "Priest",
+          "Priest Station",
+          "Priest Table",
+          "Priest Site",
+          "Priest Job Site"
+        ],
         "display_name": "Brewing Stand"
       }
     },
@@ -8249,6 +8264,18 @@
   "minecraft.cauldron": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Leatherworker",
+          "Leatherworker Station",
+          "Leatherworker Table",
+          "Leatherworker Site",
+          "Leatherworker Job Site",
+          "Leather Worker",
+          "Leather Worker Station",
+          "Leather Worker Table",
+          "Leather Worker Site",
+          "Leather Worker Job Site"
+        ],
         "display_name": "Cauldron"
       }
     },
@@ -10297,11 +10324,13 @@
           "13 Music Disc",
           "Disc 13",
           "C418 - 13",
+          "C418 13",
           "Thirteen Disc",
           "Thirteen Music Disc",
           "Music Disc Thirteen",
           "Disc Thirteen",
           "C418 - Thirteen",
+          "C418 Thirteen",
           "Thirteen"
         ],
         "display_name": "Music Disc",
@@ -10323,7 +10352,8 @@
           "Cat Disc",
           "Cat Music Disc",
           "Disc Cat",
-          "C418 - Cat"
+          "C418 - Cat",
+          "C418 Cat"
         ],
         "display_name": "Music Disc",
         "name_conflict": true
@@ -10344,7 +10374,8 @@
           "Blocks Disc",
           "Blocks Music Disc",
           "Disc Blocks",
-          "C418 - Blocks"
+          "C418 - Blocks",
+          "C418 Blocks"
         ],
         "display_name": "Music Disc",
         "name_conflict": true
@@ -10365,7 +10396,8 @@
           "Chirp Disc",
           "Chirp Music Disc",
           "Disc Chirp",
-          "C418 - Chirp"
+          "C418 - Chirp",
+          "C418 Chirp"
         ],
         "display_name": "Music Disc",
         "name_conflict": true
@@ -10386,7 +10418,8 @@
           "Far Disc",
           "Far Music Disc",
           "Disc Far",
-          "C418 - Far"
+          "C418 - Far",
+          "C418 Far"
         ],
         "display_name": "Music Disc",
         "name_conflict": true
@@ -10407,7 +10440,8 @@
           "Mall Disc",
           "Mall Music Disc",
           "Disc Mall",
-          "C418 - Mall"
+          "C418 - Mall",
+          "C418 Mall"
         ],
         "display_name": "Music Disc",
         "name_conflict": true
@@ -10428,7 +10462,8 @@
           "Mellohi Disc",
           "Mellohi Music Disc",
           "Disc Mellohi",
-          "C418 - Mellohi"
+          "C418 - Mellohi",
+          "C418 Mellohi"
         ],
         "display_name": "Music Disc",
         "name_conflict": true
@@ -10450,6 +10485,7 @@
           "Stal Music Disc",
           "Disc Stal",
           "C418 - Stal",
+          "C418 Stal",
           "Jschlatt"
         ],
         "display_name": "Music Disc",
@@ -10471,7 +10507,8 @@
           "Strad Disc",
           "Strad Music Disc",
           "Disc Strad",
-          "C418 - Strad"
+          "C418 - Strad",
+          "C418 Strad"
         ],
         "display_name": "Music Disc",
         "name_conflict": true
@@ -10493,6 +10530,7 @@
           "Ward Music Disc",
           "Disc Ward",
           "C418 - Ward",
+          "C418 Ward",
           "Herobrine"
         ],
         "display_name": "Music Disc",
@@ -10516,10 +10554,12 @@
           "Music Disc 11",
           "Disc 11",
           "C418 - 11",
+          "C418 11",
           "Eleven Disc",
           "Eleven Music Disc",
           "Disc Eleven",
           "C418 - Eleven",
+          "C418 Eleven",
           "Eleven"
         ],
         "display_name": "Music Disc",
@@ -10541,7 +10581,8 @@
           "Wait Disc",
           "Wait Music Disc",
           "Disc Wait",
-          "C418 - Wait"
+          "C418 - Wait",
+          "C418 Wait"
         ],
         "display_name": "Music Disc",
         "name_conflict": true
@@ -10566,6 +10607,9 @@
   "minecraft.black_bed": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Black Home"
+        ],
         "display_name": "Black Bed"
       }
     },
@@ -10576,6 +10620,9 @@
   "minecraft.blue_bed": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Blue Home"
+        ],
         "display_name": "Blue Bed"
       }
     },
@@ -10586,6 +10633,9 @@
   "minecraft.brown_bed": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Brown Home"
+        ],
         "display_name": "Brown Bed"
       }
     },
@@ -10596,6 +10646,9 @@
   "minecraft.cyan_bed": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Cyan Home"
+        ],
         "display_name": "Cyan Bed"
       }
     },
@@ -10606,6 +10659,9 @@
   "minecraft.gray_bed": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Gray Home"
+        ],
         "display_name": "Gray Bed"
       }
     },
@@ -10616,6 +10672,9 @@
   "minecraft.green_bed": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Green Home"
+        ],
         "display_name": "Green Bed"
       }
     },
@@ -10626,6 +10685,9 @@
   "minecraft.light_blue_bed": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Light Blue Home"
+        ],
         "display_name": "Light Blue Bed"
       }
     },
@@ -10636,6 +10698,9 @@
   "minecraft.light_gray_bed": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Light Gray Home"
+        ],
         "display_name": "Light Gray Bed"
       }
     },
@@ -10646,6 +10711,9 @@
   "minecraft.lime_bed": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Lime Home"
+        ],
         "display_name": "Lime Bed"
       }
     },
@@ -10656,6 +10724,9 @@
   "minecraft.magenta_bed": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Magenta Home"
+        ],
         "display_name": "Magenta Bed"
       }
     },
@@ -10666,6 +10737,9 @@
   "minecraft.orange_bed": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Orange Home"
+        ],
         "display_name": "Orange Bed"
       }
     },
@@ -10676,6 +10750,9 @@
   "minecraft.pink_bed": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Pink Home"
+        ],
         "display_name": "Pink Bed"
       }
     },
@@ -10686,17 +10763,10 @@
   "minecraft.purple_bed": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Purple Home"
+        ],
         "display_name": "Purple Bed"
-      }
-    },
-    "properties": {
-      "version": "1.12"
-    }
-  },
-  "minecraft.red_bed": {
-    "lang": {
-      "en_US": {
-        "display_name": "Red Bed"
       }
     },
     "properties": {
@@ -10706,8 +10776,12 @@
   "minecraft.white_bed": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "White Home"
+        ],
         "uncolored": [
-          "Bed"
+          "Bed",
+          "Home"
         ],
         "display_name": "White Bed"
       }
@@ -10719,6 +10793,9 @@
   "minecraft.yellow_bed": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Yellow Home"
+        ],
         "display_name": "Yellow Bed"
       }
     },
@@ -12247,6 +12324,13 @@
   "minecraft.barrel": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Fisherman",
+          "Fisherman Station",
+          "Fisherman Table",
+          "Fisherman Site",
+          "Fisherman Job Site"
+        ],
         "display_name": "Barrel"
       }
     },
@@ -12257,6 +12341,9 @@
   "minecraft.bell": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Meeting"
+        ],
         "display_name": "Bell"
       }
     },
@@ -12304,6 +12391,18 @@
   "minecraft.blast_furnace": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Armorer",
+          "Armorer Station",
+          "Armorer Table",
+          "Armorer Site",
+          "Armorer Job Site",
+          "Armourer",
+          "Armourer Station",
+          "Armourer Table",
+          "Armourer Site",
+          "Armourer Job Site"
+        ],
         "display_name": "Blast Furnace"
       }
     },
@@ -12357,6 +12456,13 @@
   "minecraft.cartography_table": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Cartographer",
+          "Cartographer Station",
+          "Cartographer Table",
+          "Cartographer Site",
+          "Cartographer Job Site"
+        ],
         "display_name": "Cartography Table"
       }
     },
@@ -12381,6 +12487,13 @@
   "minecraft.composter": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Farmer",
+          "Farmer Station",
+          "Farmer Table",
+          "Farmer Site",
+          "Farmer Job Site"
+        ],
         "display_name": "Composter"
       }
     },
@@ -12535,6 +12648,13 @@
   "minecraft.fletching_table": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Fletcher",
+          "Fletcher Station",
+          "Fletcher Table",
+          "Fletcher Site",
+          "Fletcher Job Site"
+        ],
         "display_name": "Fletching Table"
       }
     },
@@ -12628,7 +12748,12 @@
       "en_US": {
         "search_names": [
           "Grind Stone",
-          "Grinding Stone"
+          "Grinding Stone",
+          "Weaponsmith",
+          "Weaponsmith Station",
+          "Weaponsmith Table",
+          "Weaponsmith Site",
+          "Weaponsmith Job Site"
         ],
         "display_name": "Grindstone"
       }
@@ -12703,6 +12828,13 @@
   "minecraft.lectern": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Librarian",
+          "Librarian Station",
+          "Librarian Table",
+          "Librarian Site",
+          "Librarian Job Site"
+        ],
         "display_name": "Lectern"
       }
     },
@@ -12726,6 +12858,13 @@
   "minecraft.loom": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Shepherd",
+          "Shepherd Station",
+          "Shepherd Table",
+          "Shepherd Site",
+          "Shepherd Job Site"
+        ],
         "display_name": "Loom"
       }
     },
@@ -13102,6 +13241,13 @@
   "minecraft.smithing_table": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Toolsmith",
+          "Toolsmith Station",
+          "Toolsmith Table",
+          "Toolsmith Site",
+          "Toolsmith Job Site"
+        ],
         "display_name": "Smithing Table"
       }
     },
@@ -13112,6 +13258,13 @@
   "minecraft.smoker": {
     "lang": {
       "en_US": {
+        "search_names": [
+          "Butcher",
+          "Butcher Station",
+          "Butcher Table",
+          "Butcher Site",
+          "Butcher Job Site"
+        ],
         "display_name": "Smoker"
       }
     },
@@ -13245,7 +13398,12 @@
     "lang": {
       "en_US": {
         "search_names": [
-          "Stone Cutter"
+          "Stone Cutter",
+          "Mason",
+          "Mason Station",
+          "Mason Table",
+          "Mason Site",
+          "Mason Job Site"
         ],
         "display_name": "Stonecutter"
       }
@@ -13883,6 +14041,7 @@
           "Pigstep Music Disc",
           "Disc Pigstep",
           "Lena Raine - Pigstep",
+          "Lena Raine Pigstep",
           "Pigstep"
         ],
         "display_name": "Music Disc",
@@ -17246,6 +17405,7 @@
           "Otherside Music Disc",
           "Disc Otherside",
           "Lena Raine - otherside",
+          "Lena Raine otherside",
           "otherside"
         ],
         "display_name": "Music Disc",
@@ -17734,12 +17894,16 @@
           "Disc 5",
           "Samuel Aberg - 5",
           "Samuel Åberg - 5",
+          "Samuel Aberg 5",
+          "Samuel Åberg 5",
           "Five Disc",
           "Five Music Disc",
           "Music Disc Five",
           "Disc Five",
           "Samuel Aberg - Five",
           "Samuel Åberg - Five",
+          "Samuel Aberg Five",
+          "Samuel Åberg Five",
           "Five"
         ],
         "display_name": "Music Disc",
@@ -20291,6 +20455,7 @@
           "Relic Music Disc",
           "Disc Relic",
           "Aaron Cherof - Relic",
+          "Aaron Cherof Relic",
           "Relic"
         ],
         "display_name": "Music Disc",
@@ -21981,6 +22146,7 @@
           "Creator Music Disc",
           "Disc Creator",
           "Lena Raine - Creator",
+          "Lena Raine Creator",
           "Creator"
         ],
         "display_name": "Music Disc",
@@ -22001,11 +22167,13 @@
           "Creator (Music Box) Music Disc",
           "Disc Creator (Music Box)",
           "Lena Raine - Creator (Music Box)",
+          "Lena Raine Creator (Music Box)",
           "Creator (Music Box)",
           "Creator Music Box Disc",
           "Creator Music Box Music Disc",
           "Disc Creator Music Box",
           "Lena Raine - Creator Music Box",
+          "Lena Raine Creator Music Box",
           "Creator Music Box"
         ],
         "display_name": "Music Disc",
@@ -22026,6 +22194,7 @@
           "Precipice Music Disc",
           "Disc Precipice",
           "Lena Raine - Precipice",
+          "Lena Raine Precipice",
           "Precipice"
         ],
         "display_name": "Music Disc",
@@ -22076,7 +22245,7 @@
           "Border Pattern",
           "Vines Pattern",
           "Vine Pattern"
-        ],	
+        ],
         "display_name": "Bordure Indented Banner Pattern"
       }
     },
@@ -23111,6 +23280,272 @@
     },
     "properties": {
       "version": "1.21.5"
+    }
+  },
+  "minecraft.black_harness": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Black Ghast Saddle"
+        ],
+        "display_name": "Black Harness"
+      }
+    },
+    "properties": {
+      "version": "1.21.6"
+    }
+  },
+  "minecraft.blue_harness": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Blue Ghast Saddle"
+        ],
+        "display_name": "Blue Harness"
+      }
+    },
+    "properties": {
+      "version": "1.21.6"
+    }
+  },
+  "minecraft.brown_harness": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Brown Ghast Saddle"
+        ],
+        "display_name": "Brown Harness"
+      }
+    },
+    "properties": {
+      "version": "1.21.6"
+    }
+  },
+  "minecraft.cyan_harness": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Cyan Ghast Saddle"
+        ],
+        "display_name": "Cyan Harness"
+      }
+    },
+    "properties": {
+      "version": "1.21.6"
+    }
+  },
+  "minecraft.dried_ghast": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Dry Ghast",
+          "Dried Ghastling",
+          "Dry Ghastling"
+        ],
+        "display_name": "Dried Ghast"
+      }
+    },
+    "properties": {
+      "version": "1.21.6"
+    }
+  },
+  "minecraft.gray_harness": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Gray Ghast Saddle"
+        ],
+        "display_name": "Gray Harness"
+      }
+    },
+    "properties": {
+      "version": "1.21.6"
+    }
+  },
+  "minecraft.green_harness": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Green Ghast Saddle"
+        ],
+        "display_name": "Green Harness"
+      }
+    },
+    "properties": {
+      "version": "1.21.6"
+    }
+  },
+  "minecraft.happy_ghast_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Spawn Happy Ghast",
+          "Happy Ghast Egg",
+          "Ghastling Spawn Egg",
+          "Spawn Ghastling",
+          "Ghastling Egg"
+        ],
+        "display_name": "Happy Ghast Spawn Egg"
+      }
+    },
+    "properties": {
+      "version": "1.21.6"
+    }
+  },
+  "minecraft.light_blue_harness": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Light Blue Ghast Saddle"
+        ],
+        "display_name": "Light Blue Harness"
+      }
+    },
+    "properties": {
+      "version": "1.21.6"
+    }
+  },
+  "minecraft.light_gray_harness": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Light Gray Ghast Saddle"
+        ],
+        "display_name": "Light Gray Harness"
+      }
+    },
+    "properties": {
+      "version": "1.21.6"
+    }
+  },
+  "minecraft.lime_harness": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Lime Ghast Saddle"
+        ],
+        "display_name": "Lime Harness"
+      }
+    },
+    "properties": {
+      "version": "1.21.6"
+    }
+  },
+  "minecraft.magenta_harness": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Magenta Ghast Saddle"
+        ],
+        "display_name": "Magenta Harness"
+      }
+    },
+    "properties": {
+      "version": "1.21.6"
+    }
+  },
+  "minecraft.music_disc_tears": {
+    "lang": {
+      "en_US": {
+        "distinct_display_name": "Music Disc Tears",
+        "lore": "Amos Roddy - Tears",
+        "search_names": [
+          "Tears Disc",
+          "Tears Music Disc",
+          "Disc Tears",
+          "Amos Roddy - Tears",
+          "Amos Roddy Tears",
+          "Tears"
+        ],
+        "display_name": "Music Disc",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Music Disc Tears",
+      "version": "1.21.6"
+    }
+  },
+  "minecraft.orange_harness": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Orange Ghast Saddle"
+        ],
+        "display_name": "Orange Harness"
+      }
+    },
+    "properties": {
+      "version": "1.21.6"
+    }
+  },
+  "minecraft.pink_harness": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pink Ghast Saddle"
+        ],
+        "display_name": "Pink Harness"
+      }
+    },
+    "properties": {
+      "version": "1.21.6"
+    }
+  },
+  "minecraft.purple_harness": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Purple Ghast Saddle"
+        ],
+        "display_name": "Purple Harness"
+      }
+    },
+    "properties": {
+      "version": "1.21.6"
+    }
+  },
+  "minecraft.red_harness": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Red Ghast Saddle"
+        ],
+        "display_name": "Red Harness"
+      }
+    },
+    "properties": {
+      "version": "1.21.6"
+    }
+  },
+  "minecraft.white_harness": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "White Ghast Saddle"
+        ],
+        "uncolored": [
+          "Harness",
+          "Ghast Saddle"
+        ],
+        "display_name": "White Harness"
+      }
+    },
+    "properties": {
+      "version": "1.21.6"
+    }
+  },
+  "minecraft.yellow_harness": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Yellow Ghast Saddle"
+        ],
+        "display_name": "Yellow Harness"
+      }
+    },
+    "properties": {
+      "version": "1.21.6"
     }
   },
   "minecraft.lingering_potion.effect.thick": {
