@@ -234,7 +234,9 @@ public class Bot {
         } catch (InterruptedException ignored) {}
 
         //Post-init
-        shardManager.retrieveUserById(Config.getOwner()).queue(u -> ownerAvatarUrl = u.getAvatarUrl());
+        if (!Config.getOwner().equals("0")) {
+            shardManager.retrieveUserById(Config.getOwner()).queue(u -> ownerAvatarUrl = u.getAvatarUrl());
+        }
         bootTime = System.currentTimeMillis() - birth;
         System.out.println("Boot Time: " + DateUtils.getBootTime());
         logger.log(":white_check_mark: **Bot started!**");
