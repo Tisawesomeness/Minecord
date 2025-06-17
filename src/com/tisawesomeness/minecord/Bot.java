@@ -102,6 +102,11 @@ public class Bot {
         if (Config.getDevMode() && !devMode) return false;
         boolean reload = args.length > 0 && ArrayUtils.contains(args, "-r");
 
+        if (!reload && Config.getClientToken().equals("your token here")) {
+            System.err.println("Enter your Discord bot token in config.json, then start the bot again.");
+            System.exit(0);
+        }
+
         //Pre-init
         thread = Thread.currentThread();
         statusListener = new StatusListener();
