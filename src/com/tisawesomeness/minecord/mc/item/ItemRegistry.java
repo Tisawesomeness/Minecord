@@ -30,7 +30,7 @@ public class ItemRegistry {
             "minecraft.white_stained_glass", "minecraft.white_terracotta", "minecraft.white_stained_glass_pane",
             "minecraft.shield.white", "minecraft.white_shulker_box", "minecraft.white_bed",
             "minecraft.white_glazed_terracotta", "minecraft.white_concrete", "minecraft.white_concrete_powder",
-            "minecraft.white_dye", "minecraft.white_candle" };
+            "minecraft.white_dye", "minecraft.white_candle", "minecraft.white_bundle", "minecraft.white_harness" };
 
     private static JSONObject items;
     private static JSONObject data;
