@@ -57,7 +57,7 @@ public class InfoCommand extends SlashCommand {
         if (Config.isSelfHosted()) {
             eb.addField("Self-Hoster", Config.getAuthor(), true);
         }
-        eb.addField("Version", Bot.getVersion(), true);
+        eb.addField("Version", MarkdownUtil.monospace(Bot.getVersion()), true);
 
         String guilds = String.valueOf(Bot.shardManager.getGuilds().size());
         int shardCount = jda.getShardInfo().getShardTotal();
