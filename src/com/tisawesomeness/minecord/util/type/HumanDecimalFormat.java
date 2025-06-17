@@ -48,7 +48,7 @@ public class HumanDecimalFormat {
     @Builder.Default
     private final boolean includeGroupingCommas = false;
     /**
-     * Whether to prefix the number with '~' when the formatter rounds the number before formatting. This ONLY accounts
+     * Whether to prefix the number with '≈' when the formatter rounds the number before formatting. This ONLY accounts
      * for rounding due to the maximum fractional digits, not roundoff error.
      * <br>Default false.
      */
@@ -140,7 +140,7 @@ public class HumanDecimalFormat {
         }
         format.setMaximumFractionDigits(-Double.MIN_EXPONENT);
         String withAllDigits = format.format(d);
-        return original.equals(withAllDigits) ? original : "~" + original;
+        return original.equals(withAllDigits) ? original : "≈" + original;
     }
 
 }
