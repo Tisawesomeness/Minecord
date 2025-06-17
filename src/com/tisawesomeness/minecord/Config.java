@@ -160,18 +160,18 @@ public class Config {
             crafatarHost = settings.optString("crafatarHost", "https://crafatar.com/");
             reuploadCrafatarImages = settings.optBoolean("reuploadCrafatarImages", false);
 
-            JSONObject botLists = config.getJSONObject("botLists");
-            if (isSelfHosted) {
+            JSONObject botLists = config.optJSONObject("botLists");
+            if (botLists == null || isSelfHosted) {
                 sendServerCount = false;
             } else {
                 sendServerCount = botLists.getBoolean("sendServerCount");
+                pwToken = botLists.getString("pwToken");
+                orgToken = botLists.getString("orgToken");
+                receiveVotes = botLists.getBoolean("receiveVotes");
+                webhookURL = botLists.getString("webhookURL");
+                webhookPort = botLists.getInt("webhookPort");
+                webhookAuth = botLists.getString("webhookAuth");
             }
-            pwToken = botLists.getString("pwToken");
-            orgToken = botLists.getString("orgToken");
-            receiveVotes = botLists.getBoolean("receiveVotes");
-            webhookURL = botLists.getString("webhookURL");
-            webhookPort = botLists.getInt("webhookPort");
-            webhookAuth = botLists.getString("webhookAuth");
 
             JSONObject database = config.getJSONObject("database");
             type = database.getString("type");
