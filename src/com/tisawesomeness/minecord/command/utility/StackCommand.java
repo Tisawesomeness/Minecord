@@ -133,7 +133,7 @@ public class StackCommand extends SlashCommand {
     }
     private static String itemCountExactLine(ItemCount itemCount, Container container) {
         double value = itemCount.getExact(container);
-        return String.format("- **%s** %s\n", FORMAT.format(value), container.getDescription((int) value));
+        return String.format("- **%s** %s\n", FORMAT.format(value), container.getDescription(value));
     }
 
 }

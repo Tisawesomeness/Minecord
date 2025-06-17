@@ -45,8 +45,8 @@ public class Bot {
     public static final String donate = "https://ko-fi.com/tis_awesomeness";
     public static final String terms = "https://minecord.github.io/terms";
     public static final String privacy = "https://minecord.github.io/privacy";
-    private static final String version = "0.17.17";
-    public static final String jdaVersion = "5.3.0";
+    private static final String version = "0.17.18";
+    public static final String jdaVersion = "5.6.1";
     public static final Color color = Color.GREEN;
 
     public static ShardManager shardManager;
@@ -101,6 +101,11 @@ public class Bot {
         Config.read(false);
         if (Config.getDevMode() && !devMode) return false;
         boolean reload = args.length > 0 && ArrayUtils.contains(args, "-r");
+
+        if (!reload && Config.getClientToken().equals("your token here")) {
+            System.err.println("Enter your Discord bot token in config.json, then start the bot again.");
+            System.exit(0);
+        }
 
         //Pre-init
         thread = Thread.currentThread();
@@ -234,7 +239,9 @@ public class Bot {
         } catch (InterruptedException ignored) {}
 
         //Post-init
-        shardManager.retrieveUserById(Config.getOwner()).queue(u -> ownerAvatarUrl = u.getAvatarUrl());
+        if (!Config.getOwner().equals("0")) {
+            shardManager.retrieveUserById(Config.getOwner()).queue(u -> ownerAvatarUrl = u.getAvatarUrl());
+        }
         bootTime = System.currentTimeMillis() - birth;
         System.out.println("Boot Time: " + DateUtils.getBootTime());
         logger.log(":white_check_mark: **Bot started!**");
@@ -269,6 +276,11 @@ public class Bot {
         //Stop the thread
         thread.interrupt();
 
+    }
+
+    public static double getPing() {
+        // yes, getAverageGatewayPing() really can return negative
+        return Math.max(0, Bot.shardManager.getAverageGatewayPing());
     }
 
     public static String getVersion() {

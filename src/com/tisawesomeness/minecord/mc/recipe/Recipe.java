@@ -37,7 +37,7 @@ public abstract class Recipe {
     );
 
     /**
-     * The id/key/name of this recipe. Usually the same as the filename in data/minecraft,
+     * The id/key/name of this recipe. Usually the same as the filename in data/minecraft/recipe,
      * but recipes defined in recipes.json do not need to have an in-game equivalent.
      */
     @Getter protected final String key;

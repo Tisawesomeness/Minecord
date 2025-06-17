@@ -20,9 +20,6 @@ import java.util.UUID;
 public class Player implements Comparable<Player> {
     private static final Comparator<Player> COMPARATOR = initComparator();
 
-    // 37 is max length of a UUID with dashes
-    public static final int MAX_PLAYER_ARGUMENT_LENGTH = Math.max(37, Username.MAX_LENGTH);
-
     private static final Username DINNERBONE = new Username("Dinnerbone");
     private static final Username GRUMM = new Username("Grumm");
     private static final Username JEB = new Username("jeb_");

@@ -57,7 +57,7 @@ public class InfoCommand extends SlashCommand {
         if (Config.isSelfHosted()) {
             eb.addField("Self-Hoster", Config.getAuthor(), true);
         }
-        eb.addField("Version", Bot.getVersion(), true);
+        eb.addField("Version", MarkdownUtil.monospace(Bot.getVersion()), true);
 
         String guilds = String.valueOf(Bot.shardManager.getGuilds().size());
         int shardCount = jda.getShardInfo().getShardTotal();
@@ -69,7 +69,7 @@ public class InfoCommand extends SlashCommand {
         eb.addField("Guilds", guilds, true);
 
         eb.addField("Uptime", DateUtils.getUptime(), true);
-        eb.addField("Ping", (int) Math.ceil(Bot.shardManager.getAverageGatewayPing()) + "ms", true);
+        eb.addField("Ping", (int) Math.ceil(Bot.getPing()) + "ms", true);
         if (Config.getShowMemory() || elevated) {
             eb.addField("Memory", getMemoryString(), true);
             eb.addField("Boot Time", DateUtils.getBootTime(), true);

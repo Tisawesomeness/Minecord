@@ -103,8 +103,10 @@
       "minecraft:flowering_azalea_leaves",
       "minecraft:flowering_azalea",
       "minecraft:pink_petals",
+      "minecraft:wildflowers",
       "minecraft:chorus_flower",
-      "minecraft:spore_blossom"
+      "minecraft:spore_blossom",
+      "minecraft:cactus_flower"
     ],
     "birch_logs": [
       "minecraft:birch_log",
@@ -124,6 +126,9 @@
       "minecraft:cherry_boat",
       "minecraft:pale_oak_boat",
       "#minecraft:chest_boats"
+    ],
+    "book_cloning_target": [
+      "minecraft:writable_book"
     ],
     "bookshelf_books": [
       "minecraft:book",
@@ -367,6 +372,11 @@
       "minecraft:leather_horse_armor",
       "minecraft:wolf_armor"
     ],
+    "eggs": [
+      "minecraft:egg",
+      "minecraft:blue_egg",
+      "minecraft:brown_egg"
+    ],
     "emerald_ores": [
       "minecraft:emerald_ore",
       "minecraft:deepslate_emerald_ore"
@@ -396,6 +406,23 @@
       "minecraft:cooked_salmon",
       "minecraft:pufferfish",
       "minecraft:tropical_fish"
+    ],
+    "flowers": [
+      "minecraft:mangrove_propagule",
+      "minecraft:cherry_leaves",
+      "#minecraft:small_flowers",
+      "minecraft:sunflower",
+      "minecraft:lilac",
+      "minecraft:peony",
+      "minecraft:rose_bush",
+      "minecraft:pitcher_plant",
+      "minecraft:flowering_azalea_leaves",
+      "minecraft:flowering_azalea",
+      "minecraft:pink_petals",
+      "minecraft:wildflowers",
+      "minecraft:chorus_flower",
+      "minecraft:spore_blossom",
+      "minecraft:cactus_flower"
     ],
     "foot_armor": [
       "minecraft:leather_boots",
@@ -451,6 +478,31 @@
       "minecraft:cherry_hanging_sign",
       "minecraft:pale_oak_hanging_sign"
     ],
+    "happy_ghast_food": [
+      "minecraft:snowball"
+    ],
+    "happy_ghast_tempt_items": [
+      "#minecraft:happy_ghast_food",
+      "#minecraft:harnesses"
+    ],
+    "harnesses": [
+      "minecraft:white_harness",
+      "minecraft:orange_harness",
+      "minecraft:magenta_harness",
+      "minecraft:light_blue_harness",
+      "minecraft:yellow_harness",
+      "minecraft:lime_harness",
+      "minecraft:pink_harness",
+      "minecraft:gray_harness",
+      "minecraft:light_gray_harness",
+      "minecraft:cyan_harness",
+      "minecraft:purple_harness",
+      "minecraft:blue_harness",
+      "minecraft:brown_harness",
+      "minecraft:green_harness",
+      "minecraft:red_harness",
+      "minecraft:black_harness"
+    ],
     "head_armor": [
       "minecraft:leather_helmet",
       "minecraft:chainmail_helmet",
@@ -476,6 +528,7 @@
       "minecraft:sugar",
       "minecraft:hay_block",
       "minecraft:apple",
+      "minecraft:carrot",
       "minecraft:golden_carrot",
       "minecraft:golden_apple",
       "minecraft:enchanted_golden_apple"
@@ -768,7 +821,6 @@
     "sand": [
       "minecraft:sand",
       "minecraft:red_sand",
-      "minecraft:suspicious_sand",
       "minecraft:suspicious_sand"
     ],
     "saplings": [
