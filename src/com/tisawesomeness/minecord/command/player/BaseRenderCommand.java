@@ -8,7 +8,6 @@ import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.UuidUtils;
 import com.tisawesomeness.minecord.util.type.Either;
-
 import lombok.Value;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -27,8 +26,7 @@ public abstract class BaseRenderCommand extends AbstractPlayerCommand {
 
     @Override
     public SlashCommandData addCommandSyntax(SlashCommandData builder) {
-        return builder.addOptions(new OptionData(OptionType.STRING, "player", "The player", true)
-                .setMaxLength(Player.MAX_PLAYER_ARGUMENT_LENGTH));
+        return builder.addOptions(new OptionData(OptionType.STRING, "player", "The player", true));
     }
 
     /**
