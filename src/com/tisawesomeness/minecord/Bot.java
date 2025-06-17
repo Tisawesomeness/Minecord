@@ -273,6 +273,11 @@ public class Bot {
 
     }
 
+    public static double getPing() {
+        // yes, getAverageGatewayPing() really can return negative
+        return Math.max(0, Bot.shardManager.getAverageGatewayPing());
+    }
+
     public static String getVersion() {
         return version;
     }
