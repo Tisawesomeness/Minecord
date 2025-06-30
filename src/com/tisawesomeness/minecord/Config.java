@@ -121,7 +121,7 @@ public class Config {
             logWebhook = settings.optString("logWebhook", "");
             statusWebhook = settings.optString("statusWebhook", "");
             includeSpamStatuses = settings.optBoolean("includeSpamStatuses", false);
-            supportedMCVersion = settings.optString("supportedMCVersion", "1.21.6");
+            supportedMCVersion = settings.optString("supportedMCVersion", "1.21.7");
             isSelfHosted = settings.optBoolean("isSelfHosted", true);
             if (isSelfHosted) {
                 author = settings.getString("author");

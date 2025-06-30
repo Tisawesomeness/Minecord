@@ -11,7 +11,7 @@
         "logWebhook": "",
         "statusWebhook": "",
         "includeSpamStatuses": true,
-        "supportedMCVersion": "1.21.6",
+        "supportedMCVersion": "1.21.7",
         "author": "Tis_awesomeness",
         "authorTag": "@tis_awesomeness",
         "invite": "https://minecord.github.io/invite",
