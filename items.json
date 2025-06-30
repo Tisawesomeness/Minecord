@@ -23780,6 +23780,28 @@
       "version": "1.21.6"
     }
   },
+  "minecraft.music_disc_lava_chicken": {
+    "lang": {
+      "en_US": {
+        "distinct_display_name": "Music Disc Lava Chicken",
+        "lore": "Hyper Potions - Lava Chicken",
+        "search_names": [
+          "Lava Chicken Disc",
+          "Lava Chicken Music Disc",
+          "Disc Lava Chicken",
+          "Hyper Potions - Lava Chicken",
+          "Hyper Potions Lava Chicken",
+          "Lava Chicken"
+        ],
+        "display_name": "Music Disc",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Music Disc Lava Chicken",
+      "version": "1.21.7"
+    }
+  },
   "minecraft.lingering_potion.effect.thick": {
     "lang": {
       "en_US": {
