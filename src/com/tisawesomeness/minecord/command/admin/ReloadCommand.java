@@ -9,6 +9,7 @@ import com.tisawesomeness.minecord.database.VoteHandler;
 import com.tisawesomeness.minecord.mc.VersionRegistry;
 import com.tisawesomeness.minecord.mc.item.ItemRegistry;
 import com.tisawesomeness.minecord.mc.recipe.RecipeRegistry;
+import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -62,6 +63,7 @@ public class ReloadCommand extends LegacyCommand {
                     VoteHandler.init();
                 }
                 Announcement.init(Config.getPath());
+                ColorUtils.init(Config.getPath());
                 VersionRegistry.init(Config.getPath());
                 ItemRegistry.init(Config.getPath());
                 RecipeRegistry.init(Config.getPath());
