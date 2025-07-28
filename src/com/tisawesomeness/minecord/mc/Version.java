@@ -28,15 +28,15 @@ public class Version implements Comparable<Version> {
             return null;
         }
         String[] parts = version.split("\\.");
-        if (parts.length != 3) {
+        if (parts.length != 2 && parts.length != 3) {
             return null;
         }
         try {
             int major = Integer.parseInt(parts[0]);
             int minor = Integer.parseInt(parts[1]);
-            int patch = Integer.parseInt(parts[2]);
+            int patch = parts.length == 3 ? Integer.parseInt(parts[2]) : 0;
             return new Version(major, minor, patch);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException ignored) {
             return null;
         }
     }
