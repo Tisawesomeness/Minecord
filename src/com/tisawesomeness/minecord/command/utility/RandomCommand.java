@@ -22,8 +22,8 @@ import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 
 import java.awt.*;
 import java.math.BigInteger;
-import java.util.List;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
@@ -260,11 +260,21 @@ public class RandomCommand extends SlashCommand {
                 .orElse(0) + constant;
     }
     private static String buildRolledValuesString(Map<Long, Long> rollCounts) {
-        // returned map may have patterns, simulate random order by shuffling
-        List<Long> rolledValues = MathUtils.shuffle(rollCounts.keySet());
-        return rolledValues.stream()
+        return buildRollList(rollCounts).stream()
                 .map(String::valueOf)
                 .collect(Collectors.joining(", "));
+    }
+    private static List<Long> buildRollList(Map<Long, Long> rollCounts) {
+        List<Long> rolls = new ArrayList<>();
+        for (Map.Entry<Long, Long> entry : rollCounts.entrySet()) {
+            long rolledValue = entry.getKey();
+            long count = entry.getValue();
+            for (long i = 0; i < count; i++) {
+                rolls.add(rolledValue);
+            }
+        }
+        // returned map may have patterns, simulate random order by shuffling
+        return MathUtils.shuffle(rolls);
     }
 
     private static Result colorSubcommand(SlashCommandInteractionEvent e) {
