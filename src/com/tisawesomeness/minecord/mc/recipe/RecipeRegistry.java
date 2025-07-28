@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.mc.recipe;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.mc.FeatureFlag;
+import com.tisawesomeness.minecord.mc.FeatureFlagRegistry;
 import com.tisawesomeness.minecord.mc.Version;
 import com.tisawesomeness.minecord.mc.VersionRegistry;
 import com.tisawesomeness.minecord.mc.item.ItemRegistry;
@@ -250,7 +251,7 @@ public class RecipeRegistry {
         String tagName = parts[1];
 
         List<String> items = new ArrayList<>(); // remembers insertion order
-        for (FeatureFlag flag : FeatureFlag.RELEASE_ORDER) {
+        for (FeatureFlag flag : FeatureFlagRegistry.getFlags()) {
             String id = flag == null ? "vanilla" : flag.getId();
             JSONObject flagObj = tags.optJSONObject(id);
             if (flagObj == null) {
@@ -294,7 +295,7 @@ public class RecipeRegistry {
             return removedVerCompare;
         }
         if (!recipe1.isReleased() || !recipe2.isReleased()) {
-            int featureCompare = FeatureFlag.RELEASE_ORDER_COMPARATOR.compare(recipe1.getFeatureFlag(), recipe2.getFeatureFlag());
+            int featureCompare = FeatureFlagRegistry.RELEASE_ORDER_COMPARATOR.compare(recipe1.getFeatureFlag(), recipe2.getFeatureFlag());
             if (featureCompare != 0) {
                 return featureCompare;
             }

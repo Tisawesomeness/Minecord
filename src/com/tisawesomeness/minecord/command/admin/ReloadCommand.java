@@ -6,6 +6,7 @@ import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.VoteHandler;
+import com.tisawesomeness.minecord.mc.FeatureFlagRegistry;
 import com.tisawesomeness.minecord.mc.VersionRegistry;
 import com.tisawesomeness.minecord.mc.item.ItemRegistry;
 import com.tisawesomeness.minecord.mc.recipe.RecipeRegistry;
@@ -65,6 +66,7 @@ public class ReloadCommand extends LegacyCommand {
                 Announcement.init(Config.getPath());
                 ColorUtils.init(Config.getPath());
                 VersionRegistry.init(Config.getPath());
+                FeatureFlagRegistry.init(Config.getPath());
                 ItemRegistry.init(Config.getPath());
                 RecipeRegistry.init(Config.getPath());
                 Bot.reloadMCLibrary();

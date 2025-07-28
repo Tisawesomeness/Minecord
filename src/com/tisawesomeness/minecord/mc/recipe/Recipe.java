@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.mc.recipe;
 
 import com.tisawesomeness.minecord.mc.FeatureFlag;
+import com.tisawesomeness.minecord.mc.FeatureFlagRegistry;
 import com.tisawesomeness.minecord.mc.Version;
 import com.tisawesomeness.minecord.util.Utils;
 import lombok.AccessLevel;
@@ -144,7 +145,7 @@ public abstract class Recipe {
     public @Nullable FeatureFlag getFeatureFlag() {
         String flag = Utils.mapNullable(recipe.optJSONObject("properties"),
                 prop -> prop.optString("feature_flag", null));
-        return FeatureFlag.from(flag).orElse(null);
+        return FeatureFlagRegistry.get(flag).orElse(null);
     }
     /**
      * @return whether this recipes has been released, and is no longer experimental
@@ -159,7 +160,7 @@ public abstract class Recipe {
     public @Nullable FeatureFlag getRemovedInFlag() {
         String flag = Utils.mapNullable(recipe.optJSONObject("properties"),
                 prop -> prop.optString("removed_in_flag", null));
-        return FeatureFlag.from(flag).orElse(null);
+        return FeatureFlagRegistry.get(flag).orElse(null);
     }
     /**
      * @return the version this recipe's feature flag was removed in, but only if that version is different from the flag's release version

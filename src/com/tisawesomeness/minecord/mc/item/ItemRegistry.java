@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.mc.item;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.mc.FeatureFlag;
+import com.tisawesomeness.minecord.mc.FeatureFlagRegistry;
 import com.tisawesomeness.minecord.util.RequestUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
@@ -93,7 +94,7 @@ public class ItemRegistry {
         // Version
         if (properties != null && properties.has("version")) {
             if (properties.has("feature_flag")) {
-                FeatureFlag flag = FeatureFlag.from(properties.getString("feature_flag")).get();
+                FeatureFlag flag = FeatureFlagRegistry.get(properties.getString("feature_flag")).get();
                 sb.append(String.format("**Version:** %s (%s experiment)\n", properties.getString("version"), flag.getDisplayName()));
                 flag.getReleaseVersion().ifPresent(releaseVersion -> {
                     sb.append(String.format("**Released:** %s\n", releaseVersion));
@@ -507,7 +508,7 @@ public class ItemRegistry {
         JSONObject properties = items.getJSONObject(item).optJSONObject("properties");
         if (properties != null) {
             String feature = properties.optString("feature_flag", "vanilla");
-            Optional<FeatureFlag> flagOpt = FeatureFlag.from(feature);
+            Optional<FeatureFlag> flagOpt = FeatureFlagRegistry.get(feature);
             if (flagOpt.isPresent()) {
                 FeatureFlag flag = flagOpt.get();
                 if (!flag.isReleased()) {

@@ -4,6 +4,7 @@ import com.tisawesomeness.minecord.command.CommandListener;
 import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.VoteHandler;
+import com.tisawesomeness.minecord.mc.FeatureFlagRegistry;
 import com.tisawesomeness.minecord.mc.MCLibrary;
 import com.tisawesomeness.minecord.mc.StandardMCLibrary;
 import com.tisawesomeness.minecord.mc.VersionRegistry;
@@ -121,6 +122,7 @@ public class Bot {
             Announcement.init(Config.getPath());
             ColorUtils.init(Config.getPath());
             VersionRegistry.init(Config.getPath());
+            FeatureFlagRegistry.init(Config.getPath());
             ItemRegistry.init(Config.getPath());
             RecipeRegistry.init(Config.getPath());
         } catch (IOException ex) {
