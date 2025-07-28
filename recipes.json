@@ -20321,7 +20321,8 @@
     "properties": {
       "removed": "1.21.2",
       "feature_flag": "bundle",
-      "version": "1.17 Datapack or 1.19.3"
+      "version": "1.19.3",
+      "datapack_version": "1.17"
     }
   },
   "acacia_hanging_sign": {

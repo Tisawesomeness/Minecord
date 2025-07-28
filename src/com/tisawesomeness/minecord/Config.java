@@ -23,7 +23,6 @@ public class Config {
     @Getter private static String logWebhook;
     @Getter private static String statusWebhook;
     private static boolean includeSpamStatuses;
-    @Getter private static String supportedMCVersion;
     private static boolean isSelfHosted;
     @Getter private static String author;
     @Getter private static String authorTag;
@@ -121,7 +120,6 @@ public class Config {
             logWebhook = settings.optString("logWebhook", "");
             statusWebhook = settings.optString("statusWebhook", "");
             includeSpamStatuses = settings.optBoolean("includeSpamStatuses", false);
-            supportedMCVersion = settings.optString("supportedMCVersion", "1.21.7");
             isSelfHosted = settings.optBoolean("isSelfHosted", true);
             if (isSelfHosted) {
                 author = settings.getString("author");

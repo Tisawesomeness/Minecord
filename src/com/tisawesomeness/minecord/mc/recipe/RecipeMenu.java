@@ -2,6 +2,7 @@ package com.tisawesomeness.minecord.mc.recipe;
 
 import com.tisawesomeness.minecord.Emote;
 import com.tisawesomeness.minecord.ReactMenu;
+import com.tisawesomeness.minecord.mc.Version;
 import com.tisawesomeness.minecord.mc.item.ItemRegistry;
 import net.dv8tion.jda.api.EmbedBuilder;
 
@@ -179,8 +180,8 @@ public class RecipeMenu extends ReactMenu {
                     ingredientsList.remove("minecraft:blaze_powder");
                     desc += String.format("\n%s Blaze Powder", Emote.N1.getText());
                 } else {
-                    String version = recipe.getVersion();
-                    if (version == null || version.equals("1.8")) {
+                    Version version = recipe.getVersion();
+                    if (version == null || version.getMinor() < 9) {
                         desc += String.format("\n%s Blaze Powder (required for 1.9+)", Emote.N1.getText());
                     } else {
                         desc += String.format("\n%s Blaze Powder", Emote.N1.getText());

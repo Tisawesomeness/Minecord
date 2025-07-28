@@ -3,8 +3,9 @@ package com.tisawesomeness.minecord.mc.recipe;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.mc.FeatureFlag;
+import com.tisawesomeness.minecord.mc.Version;
+import com.tisawesomeness.minecord.mc.VersionRegistry;
 import com.tisawesomeness.minecord.mc.item.ItemRegistry;
-import com.tisawesomeness.minecord.util.ArrayUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import org.apache.commons.collections4.OrderedMap;
@@ -23,23 +24,6 @@ import java.util.stream.Collectors;
 
 public class RecipeRegistry {
 
-    private static final String[] VERSIONS = new String[] {
-            "1.7.10",
-            "1.8", "1.8.1", "1.8.2", "1.8.3", "1.8.4", "1.8.5", "1.8.6", "1.8.7", "1.8.8", "1.8.9",
-            "1.9", "1.9.1", "1.9.2", "1.9.3", "1.9.4",
-            "1.10", "1.10.1", "1.10.2",
-            "1.11", "1.11.1", "1.11.2",
-            "1.12", "1.12.1", "1.12.2",
-            "1.13", "1.13.1", "1.13.2",
-            "1.14", "1.14.1", "1.14.2", "1.14.3", "1.14.4",
-            "1.15", "1.15.1", "1.15.2",
-            "1.16", "1.16.1", "1.16.2", "1.16.3", "1.16.4", "1.16.5",
-            "1.17", "1.17.1",
-            "1.18", "1.18.1", "1.18.2",
-            "1.19", "1.19.1", "1.19.2", "1.19.3", "1.19.4",
-            "1.20", "1.20.1", "1.20.2", "1.20.3", "1.20.4", "1.20.5", "1.20.6",
-            "1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.6", "1.21.7"
-    };
     private static final List<Class<? extends Recipe>> RECIPE_TYPE_ORDER = Arrays.asList(
             ShapedRecipe.class, ShapelessRecipe.class, TransmuteRecipe.class, StonecuttingRecipe.class,
             SmeltingRecipe.class, SmithingRecipe.class, LegacySmithingRecipe.class, BrewingRecipe.class
@@ -102,33 +86,40 @@ public class RecipeRegistry {
         if (xp > 0) {
             lines.add(String.format("**XP:** %s", xp));
         }
-        String version = recipe.getVersion();
-        String removed = recipe.getRemovedVersion();
+        Version version = recipe.getVersion();
+        Version datapackVersion = recipe.getDatapackVersion();
+        String versionStr = datapackVersion == null
+                ? (version == null ? null : version.toString())
+                : String.format("%s Datapack or %s", version, datapackVersion);
+        Version removed = recipe.getRemovedVersion();
         FeatureFlag feature = recipe.getFeatureFlag();
         if (version != null && removed != null) {
+            String lastVersion = VersionRegistry.getPreviousVersion(removed)
+                    .map(Version::toString)
+                    .orElse("???");
             if (feature != null) {
-                lines.add(String.format("**Version:** %s (%s experiment) - %s", version, feature.getDisplayName(), getPreviousVersion(removed)));
+                lines.add(String.format("**Version:** %s (%s experiment) - %s", versionStr, feature.getDisplayName(), lastVersion));
                 feature.getReleaseVersion().ifPresent(releaseVersion -> {
-                    if (compareVersions(releaseVersion, removed) < 0) {
+                    if (releaseVersion.compareTo(removed) < 0) {
                         lines.add(String.format("**Released:** %s", releaseVersion));
                     }
                 });
             } else {
-                lines.add(String.format("**Version:** %s - %s", version, getPreviousVersion(removed)));
+                lines.add(String.format("**Version:** %s - %s", versionStr, lastVersion));
             }
         } else if (version != null) {
             if (feature != null) {
-                lines.add(String.format("**Version:** %s (%s experiment)", version, feature.getDisplayName()));
+                lines.add(String.format("**Version:** %s (%s experiment)", versionStr, feature.getDisplayName()));
                 feature.getReleaseVersion().ifPresent(releaseVersion -> {
                     lines.add(String.format("**Released:** %s", releaseVersion));
                 });
             } else {
-                lines.add(String.format("**Version:** %s", version));
+                lines.add(String.format("**Version:** %s", versionStr));
             }
         } else if (removed != null) {
             lines.add(String.format("**Removed In:** %s", removed));
         }
-        String flagRemovedVersion = recipe.getFlagRemovedVersion();
+        Version flagRemovedVersion = recipe.getFlagRemovedVersion();
         FeatureFlag removedInFlag = recipe.getRemovedInFlag();
         if (flagRemovedVersion != null && removedInFlag != null) {
             lines.add(String.format("Removed in %s experiment, version %s", removedInFlag.getDisplayName(), flagRemovedVersion));
@@ -138,13 +129,6 @@ public class RecipeRegistry {
             lines.add(notes);
         }
         return lines.toString();
-    }
-    private static String getPreviousVersion(String version) {
-        int idx = ArrayUtils.indexOf(VERSIONS, version);
-        if (idx <= 0) {
-            return "(none)";
-        }
-        return VERSIONS[idx - 1];
     }
 
     /**
@@ -297,15 +281,15 @@ public class RecipeRegistry {
     }
 
     public static int compareRecipes(Recipe recipe1, Recipe recipe2) {
-        double removedVer1 = getVersionNum(recipe1.getRemovedVersion());
-        double removedVer2 = getVersionNum(recipe2.getRemovedVersion());
-        if (removedVer1 == 0 && removedVer2 != 0) {
+        Version removedVer1 = recipe1.getRemovedVersion();
+        Version removedVer2 = recipe2.getRemovedVersion();
+        if (removedVer1 == null && removedVer2 != null) {
             return -1;
         }
-        if (removedVer1 != 0 && removedVer2 == 0) {
+        if (removedVer1 != null && removedVer2 == null) {
             return 1;
         }
-        int removedVerCompare = Double.compare(removedVer1, removedVer2);
+        int removedVerCompare = Version.NULLS_FIRST_COMPARATOR.compare(removedVer1, removedVer2);
         if (removedVerCompare != 0) {
             return removedVerCompare;
         }
@@ -315,9 +299,13 @@ public class RecipeRegistry {
                 return featureCompare;
             }
         }
-        int verCompare = compareVersions(recipe1.getVersion(), recipe2.getVersion());
+        int verCompare = Version.NULLS_FIRST_COMPARATOR.compare(recipe1.getVersion(), recipe2.getVersion());
         if (verCompare != 0) {
             return verCompare;
+        }
+        int datapackVerCompare = Version.NULLS_FIRST_COMPARATOR.compare(recipe1.getDatapackVersion(), recipe2.getDatapackVersion());
+        if (datapackVerCompare != 0) {
+            return -datapackVerCompare;
         }
         int typeIdx1 = RECIPE_TYPE_ORDER.indexOf(recipe1.getClass());
         int typeIdx2 = RECIPE_TYPE_ORDER.indexOf(recipe2.getClass());
@@ -334,20 +322,6 @@ public class RecipeRegistry {
             }
         }
         return recipe1.getKey().compareTo(recipe2.getKey());
-    }
-    private static int compareVersions(String version1, String version2) {
-        double ver1 = getVersionNum(version1);
-        double ver2 = getVersionNum(version2);
-        return Double.compare(ver1, ver2);
-    }
-    private static double getVersionNum(String version) {
-        if (version == null) {
-            return 0;
-        }
-        if (version.equals("1.17 Datapack")) {
-            return 99;
-        }
-        return Double.parseDouble(version.substring(2));
     }
 
 }

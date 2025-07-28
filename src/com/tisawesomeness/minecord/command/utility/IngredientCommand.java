@@ -1,9 +1,9 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.ReactMenu;
 import com.tisawesomeness.minecord.ReactMenu.MenuStatus;
 import com.tisawesomeness.minecord.command.SlashCommand;
+import com.tisawesomeness.minecord.mc.VersionRegistry;
 import com.tisawesomeness.minecord.mc.item.ItemRegistry;
 import com.tisawesomeness.minecord.mc.recipe.Recipe;
 import com.tisawesomeness.minecord.mc.recipe.RecipeMenu;
@@ -45,7 +45,7 @@ public class IngredientCommand extends SlashCommand {
     @Override
     public String getHelp() {
         return "Searches for the recipes containing an ingredient.\n" +
-                "Items and recipes are from Java Edition 1.7 to " + Config.getSupportedMCVersion() + ".\n" +
+                "Items and recipes are from Java Edition 1.7 to " + VersionRegistry.getLatestVersion() + ".\n" +
                 "All recipe types are searchable, including brewing.\n" +
                 "\n" +
                 ItemRegistry.help + "\n";

@@ -34,8 +34,8 @@ public enum FeatureFlag {
         this(version, version, version);
     }
 
-    public Optional<String> getReleaseVersion() {
-        return Optional.ofNullable(releaseVersion);
+    public Optional<Version> getReleaseVersion() {
+        return Optional.ofNullable(releaseVersion).map(Version::parse);
     }
     public boolean isReleased() {
         return releaseVersion != null;

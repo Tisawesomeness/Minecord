@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.mc.recipe;
 
 import com.tisawesomeness.minecord.mc.FeatureFlag;
+import com.tisawesomeness.minecord.mc.Version;
 import com.tisawesomeness.minecord.util.Utils;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -116,20 +117,33 @@ public abstract class Recipe {
     /**
      * @return the version this recipe was added
      */
-    public @Nullable String getVersion() {
-        return Utils.mapNullable(recipe.optJSONObject("properties"), prop -> prop.optString("version", null));
+    public @Nullable Version getVersion() {
+        return Utils.mapNullable(recipe.optJSONObject("properties"),
+                prop -> prop.optString("version", null),
+                Version::parse);
+    }
+    /**
+     * @return the version this recipe was added to an experimental datapack
+     */
+    public @Nullable Version getDatapackVersion() {
+        return Utils.mapNullable(recipe.optJSONObject("properties"),
+                prop -> prop.optString("datapack_version", null),
+                Version::parse);
     }
     /**
      * @return the version this recipe was removed
      */
-    public @Nullable String getRemovedVersion() {
-        return Utils.mapNullable(recipe.optJSONObject("properties"), prop -> prop.optString("removed", null));
+    public @Nullable Version getRemovedVersion() {
+        return Utils.mapNullable(recipe.optJSONObject("properties"),
+                prop -> prop.optString("removed", null),
+                Version::parse);
     }
     /**
      * @return the feature flag required to use this recipe in its introduction version
      */
     public @Nullable FeatureFlag getFeatureFlag() {
-        String flag = Utils.mapNullable(recipe.optJSONObject("properties"), prop -> prop.optString("feature_flag", null));
+        String flag = Utils.mapNullable(recipe.optJSONObject("properties"),
+                prop -> prop.optString("feature_flag", null));
         return FeatureFlag.from(flag).orElse(null);
     }
     /**
@@ -143,14 +157,17 @@ public abstract class Recipe {
      * @return the feature flag that removes this recipe
      */
     public @Nullable FeatureFlag getRemovedInFlag() {
-        String flag = Utils.mapNullable(recipe.optJSONObject("properties"), prop -> prop.optString("removed_in_flag", null));
+        String flag = Utils.mapNullable(recipe.optJSONObject("properties"),
+                prop -> prop.optString("removed_in_flag", null));
         return FeatureFlag.from(flag).orElse(null);
     }
     /**
      * @return the version this recipe's feature flag was removed in, but only if that version is different from the flag's release version
      */
-    public @Nullable String getFlagRemovedVersion() {
-        return Utils.mapNullable(recipe.optJSONObject("properties"), prop -> prop.optString("flag_removed_version", null));
+    public @Nullable Version getFlagRemovedVersion() {
+        return Utils.mapNullable(recipe.optJSONObject("properties"),
+                prop -> prop.optString("flag_removed_version", null),
+                Version::parse);
     }
 
     /**
