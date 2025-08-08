@@ -41,6 +41,7 @@ public class Config {
     private static boolean elevatedSkipCooldown;
     @Getter private static int serverTimeout;
     @Getter private static int serverReadTimeout;
+    private static boolean warnOnLocalPing;
     private static boolean useElectroidAPI;
     private static boolean useGappleAPI;
     private static boolean recordCacheStats;
@@ -150,6 +151,7 @@ public class Config {
             elevatedSkipCooldown = settings.getBoolean("elevatedSkipCooldown");
             serverTimeout = settings.optInt("serverTimeout", 5000);
             serverReadTimeout = settings.optInt("serverReadTimeout", 5000);
+            warnOnLocalPing = settings.optBoolean("warnOnLocalPing", true);
             useElectroidAPI = settings.optBoolean("useElectroidAPI", true);
             useGappleAPI = settings.optBoolean("useGappleAPI", true);
             recordCacheStats = settings.optBoolean("recordCacheStats", false);
@@ -194,6 +196,7 @@ public class Config {
     public static boolean getUseMenus() { return useMenus; }
     public static boolean getShowMemory() { return showMemory; }
     public static boolean getElevatedSkipCooldown() { return elevatedSkipCooldown; }
+    public static boolean getWarnOnLocalPing() { return warnOnLocalPing; }
     public static boolean getUseElectroidAPI() { return useElectroidAPI; }
     public static boolean getUseGappleAPI() { return useGappleAPI; }
     public static boolean getRecordCacheStats() { return recordCacheStats; }
