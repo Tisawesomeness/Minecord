@@ -8,9 +8,13 @@ import lombok.Getter;
 @AllArgsConstructor
 @EqualsAndHashCode
 public class Vec2i {
+
     protected final int x;
     protected final int z;
 
+    public Vec2i scale(int n) {
+        return new Vec2i(x * n, z * n);
+    }
     public Vec2i floorDiv(int n) {
         return new Vec2i(Math.floorDiv(x, n), Math.floorDiv(z, n));
     }

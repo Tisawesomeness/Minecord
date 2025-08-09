@@ -12,9 +12,11 @@ public class SectionPos extends Vec3i {
         super(vec.getX(), vec.getY(), vec.getZ());
     }
 
-    public String getRegionFileName() {
-        Vec2i regionVec = horizontal().floorDiv(32);
-        return String.format("r.%d.%d.mca", regionVec.getX(), regionVec.getZ());
+    public BlockPos getBlockPos() {
+        return new BlockPos(scale(16));
+    }
+    public RegionPos getRegionPos() {
+        return new RegionPos(horizontal().floorDiv(32));
     }
     public Vec2i getPosWithinRegion() {
         return horizontal().floorMod(32);
