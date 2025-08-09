@@ -183,13 +183,13 @@ public class ServerCommand extends SlashCommand {
         List<Player> sample = reply.getPlayers().getSample();
 
         // Build and format message
-        if (reply.isPreventsChatReports() && reply.isEnforcesSecureChat()) {
-            m += ":interrobang: **Enforces and prevents chat reports at the same time? " +
-                    "Server is sending contradictory messages.\n";
-        } else if (reply.isPreventsChatReports()) {
-            m += ":white_check_mark: **Prevents chat reports**\n";
-        } else if (reply.isEnforcesSecureChat()) {
-            m += ":shield: **Enforces chat reports**\n";
+        if (reply.isEnforcesSecureChat()) {
+            if (reply.isPreventsChatReports()) {
+                m += ":interrobang: **Enforces and prevents chat reports at the same time? " +
+                        "Server is sending contradictory messages.\n";
+            } else {
+                m += ":shield: **Enforces chat reports**\n";
+            }
         }
         if (reply.isPreviewsChat()) {
             m += ":speech_balloon: Enables chat preview\n";
