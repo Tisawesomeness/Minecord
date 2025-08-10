@@ -188,6 +188,16 @@ public interface Command<T extends Event> {
             this.outcome = outcome;
             this.message = new MessageCreateBuilder().setEmbeds(message).build();
         }
+
+        /**
+         * Represents the result of a command.
+         * @param outcome Represents the outcome of the command, either SUCCESS, WARNING, or ERROR.
+         * @param message The message to send.
+         */
+        public Result(Outcome outcome, MessageCreateData message) {
+            this.outcome = outcome;
+            this.message = message;
+        }
     }
 
     /**

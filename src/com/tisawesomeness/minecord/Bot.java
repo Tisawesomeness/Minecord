@@ -4,6 +4,8 @@ import com.tisawesomeness.minecord.command.CommandListener;
 import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.VoteHandler;
+import com.tisawesomeness.minecord.interaction.InteractionListener;
+import com.tisawesomeness.minecord.interaction.InteractionTracker;
 import com.tisawesomeness.minecord.mc.FeatureFlagRegistry;
 import com.tisawesomeness.minecord.mc.MCLibrary;
 import com.tisawesomeness.minecord.mc.StandardMCLibrary;
@@ -58,7 +60,7 @@ public class Bot {
     private static StatusListener statusListener;
     private static GuildListener guildListener;
     private static CommandListener commandListener;
-    private static ReactListener reactListener;
+    private static InteractionListener interactionListener;
     public static String ownerAvatarUrl;
     public static long birth;
     public static long bootTime;
@@ -114,7 +116,7 @@ public class Bot {
         statusListener = new StatusListener();
         guildListener = new GuildListener();
         commandListener = new CommandListener();
-        reactListener = new ReactListener();
+        interactionListener = new InteractionListener();
         apiClient = new OkAPIClient();
         logger = new DiscordLogger(apiClient.getHttpClientBuilder().build());
         mcLibrary = new StandardMCLibrary(apiClient);
@@ -129,7 +131,7 @@ public class Bot {
             ex.printStackTrace();
             return false;
         }
-        ReactMenu.startPurgeThread();
+        InteractionTracker.startPurgeThread();
         Registry.init();
 
         //Connect to database
@@ -174,7 +176,7 @@ public class Bot {
                 birth = (long) MethodName.GET_BIRTH.method().invoke(null, "ignore");
                 //Prepare commands
                 for (JDA jda : shardManager.getShards()) {
-                    jda.addEventListener(statusListener, guildListener, commandListener, reactListener);
+                    jda.addEventListener(statusListener, guildListener, commandListener, interactionListener);
                 }
                 m.editMessage(":white_check_mark: **Bot reloaded!**").queue();
                 logger.log(":arrows_counterclockwise: **Bot reloaded by " + DiscordUtils.tagAndId(u) + "**");
@@ -186,7 +188,7 @@ public class Bot {
                 //Initialize JDA
                 shardManager = DefaultShardManagerBuilder.createLight(Config.getClientToken(), gateways)
                         .setAutoReconnect(true)
-                        .addEventListeners(statusListener, guildListener, commandListener, reactListener)
+                        .addEventListeners(statusListener, guildListener, commandListener, interactionListener)
                         .setShardsTotal(Config.getShardCount())
                         .setActivity(Activity.playing("Loading..."))
                         .setHttpClientBuilder(apiClient.getHttpClientBuilder())
@@ -265,7 +267,7 @@ public class Bot {
         //Disable JDA
         for (JDA jda : shardManager.getShards()) {
             jda.setAutoReconnect(false);
-            jda.removeEventListener(statusListener, guildListener, commandListener, reactListener);
+            jda.removeEventListener(statusListener, guildListener, commandListener, interactionListener);
         }
         try {
             //Reload this class using reflection
