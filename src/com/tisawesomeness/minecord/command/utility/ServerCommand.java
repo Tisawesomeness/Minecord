@@ -51,7 +51,7 @@ public class ServerCommand extends SlashCommand {
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "server",
-                "Fetches the stats of a server.",
+                "Fetches the status of a server.",
                 "<address>[:<port>]",
                 3000,
                 false,
