@@ -3,7 +3,6 @@ package com.tisawesomeness.minecord.interaction;
 import com.tisawesomeness.minecord.mc.item.ItemRegistry;
 import com.tisawesomeness.minecord.mc.recipe.*;
 import com.tisawesomeness.minecord.util.MathUtils;
-import lombok.AllArgsConstructor;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.GenericComponentInteractionCreateEvent;
 import net.dv8tion.jda.api.events.interaction.component.StringSelectInteractionEvent;
@@ -23,20 +22,20 @@ import java.util.stream.Collectors;
 
 public class RecipeMenu implements UpdatingMessage {
 
-    private static final String BACK_ID = "recipelist.back";
-    private static final String NEXT_ID = "recipelist.next";
-    private static final String JUMP_ID = "recipelist.jump";
-    private static final String OUTPUT_ID = "recipelist.output";
-    private static final String INGREDIENT_ID = "recipelist.ingredient";
+    private static final String BACK_ID = "recipemenu.back";
+    private static final String NEXT_ID = "recipemenu.next";
+    private static final String JUMP_ID = "recipemenu.jump";
+    private static final String OUTPUT_ID = "recipemenu.output";
+    private static final String INGREDIENT_ID = "recipemenu.ingredient";
 
-    private static final String MORE_INDICATOR = "recipelist.more";
+    private static final String MORE_INDICATOR = "recipemenu.more";
 
-    private static final String JUMP_MODAL_ID = "recipelist.jump_modal";
-    private static final String PAGE_SELECT_ID = "recipelist.page_select";
+    private static final String JUMP_MODAL_ID = "recipemenu.jump_modal";
+    private static final String PAGE_SELECT_ID = "recipemenu.page_select";
 
     private List<Recipe> recipes;
     private int page;
-    private int ingredientIndex;
+    private int ingredientsPage;
 
     public RecipeMenu(List<Recipe> recipes, int page) {
         if (recipes.isEmpty()) {
@@ -56,7 +55,7 @@ public class RecipeMenu implements UpdatingMessage {
     }
     private void setPage(int page) {
         this.page = page;
-        ingredientIndex = 0;
+        ingredientsPage = 0;
     }
 
     @Override
@@ -103,9 +102,9 @@ public class RecipeMenu implements UpdatingMessage {
         }
         String ingredientMinecordId = values.get(0);
         if (ingredientMinecordId.equals(MORE_INDICATOR)) {
-            ingredientIndex += buildIngredientsList().numCraftable;
-            if (ingredientIndex >= craftableIngredients().size()) {
-                ingredientIndex = 0;
+            ingredientsPage++;
+            if (ingredientsPage >= buildIngredientPages().size()) {
+                ingredientsPage = 0;
             }
             return true;
         }
@@ -181,57 +180,52 @@ public class RecipeMenu implements UpdatingMessage {
         StringSelectMenu.Builder builder = StringSelectMenu.create(INGREDIENT_ID)
                 .setPlaceholder("Select Ingredient...");
 
-        IngredientsResult result = buildIngredientsList();
-        for (String ingredient : result.ingredients) {
+        List<List<String>> pages = buildIngredientPages();
+        List<String> currentPage = pages.get(Math.min(ingredientsPage, pages.size() - 1));
+        for (String ingredient : currentPage) {
             String displayName = ItemRegistry.getMenuDisplayNameWithFeature(ingredient);
             builder.addOption(displayName, ingredient);
         }
-        if (result.hasMore) {
-            builder.addOption("More...", MORE_INDICATOR);
+        if (pages.size() > 1) {
+            String label = String.format("More... (%d/%d)", ingredientsPage + 1, pages.size());
+            builder.addOption(label, MORE_INDICATOR);
         }
 
-        if (builder.getOptions().isEmpty()) {
-            builder.addOption("dummy", "dummy"); // at least one option required
-            builder.setDisabled(true);
-        }
         return builder.build();
     }
 
     /**
-     * Builds the list of ingredients, starting with craftable ingredients, then auxiliary ingredients.
-     * Crafting ingredients start at {@link #ingredientIndex}, then are added to the output list until there is no more space.
-     * The max size is {@link StringSelectMenu#OPTIONS_MAX_AMOUNT}. If there are too many craftable ingredients to fit
-     * (or we are on another page and "More..." is needed anyway), then one extra space is left for "More...".
+     * Builds a list of ingredient pages. Each page is a list of craftable ingredients, then auxiliary ingredients,
+     * up to {@link StringSelectMenu#OPTIONS_MAX_AMOUNT}. If there must be more than one page, the max size is one
+     * shorter to make room for a "More..." option.
+     * @return A list of at least one page, each with at least one ingredient
      */
-    private IngredientsResult buildIngredientsList() {
+    private List<List<String>> buildIngredientPages() {
+        List<List<String>> pages = new ArrayList<>();
         List<String> craftable = craftableIngredients();
-        List<String> ingredients = auxiliaryIngredients();
-        ingredients.removeAll(craftable);
 
-        int ingredientsAdded = 0;
-        for (int i = ingredientIndex; i < craftable.size(); i++) {
+        List<String> currentPage = new ArrayList<>();
+        List<String> currentAuxiliary = auxiliaryIngredients();
+        for (int i = 0; i < craftable.size(); i++) {
             String ingredientMinecordId = craftable.get(i);
-            if (!ingredients.contains(ingredientMinecordId)) {
-                // ...until we run out of space
-                boolean isAboutToRunOutOfOptions = ingredients.size() == StringSelectMenu.OPTIONS_MAX_AMOUNT - 1;
-                int craftableIngredientsLeft = craftable.size() - i;
-                if (isAboutToRunOutOfOptions && (ingredientIndex != 0 || craftableIngredientsLeft > 1)) {
-                    return new IngredientsResult(ingredients, ingredientsAdded, true);
-                }
-                // grow list from the front...
-                ingredients.add(ingredientsAdded, ingredientMinecordId);
-                ingredientsAdded++;
+            // prevents duplicate ingredient showing up in the same page
+            currentAuxiliary.remove(ingredientMinecordId);
+
+            int craftableIngredientsLeft = craftable.size() - i;
+            int effectiveSize = currentPage.size() + currentAuxiliary.size();
+            boolean isAboutToRunOutOfOptions = effectiveSize == StringSelectMenu.OPTIONS_MAX_AMOUNT - 1;
+            if (isAboutToRunOutOfOptions && (pages.size() > 1 || craftableIngredientsLeft > 1)) {
+                currentPage.addAll(currentAuxiliary);
+                pages.add(currentPage);
+                currentPage = new ArrayList<>();
             }
+
+            currentPage.add(ingredientMinecordId);
         }
 
-        return new IngredientsResult(ingredients, ingredientsAdded, ingredientIndex != 0);
-    }
-
-    @AllArgsConstructor
-    private static class IngredientsResult {
-        private final List<String> ingredients;
-        private final int numCraftable;
-        private final boolean hasMore;
+        currentPage.addAll(currentAuxiliary);
+        pages.add(currentPage);
+        return pages;
     }
 
     private Recipe currentRecipe() {
@@ -262,7 +256,7 @@ public class RecipeMenu implements UpdatingMessage {
             list.add("minecraft:blaze_powder");
         }
 
-        list.add(recipe.getTableItem());
+        list.add(recipe.getTableItem()); // always at least one item!
         if (recipe instanceof CraftingRecipe) {
             list.add("minecraft:crafter");
         }
@@ -284,7 +278,7 @@ public class RecipeMenu implements UpdatingMessage {
                 .collect(Collectors.toList());
     }
 
-    private List<Recipe> craftableFromIngredient(String ingredientMinecordId) {
+    private static List<Recipe> craftableFromIngredient(String ingredientMinecordId) {
         String toSearch;
         if (!ingredientMinecordId.contains("potion") && !ingredientMinecordId.contains("tipped_arrow")) {
             toSearch = ItemRegistry.getNamespacedID(ingredientMinecordId);
