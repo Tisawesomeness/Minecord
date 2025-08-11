@@ -228,7 +228,7 @@ public class Bot {
         CompletableFuture<Void> commandFuture = deployCommands();
 
         //Start discordbots.org API
-        String id = shardManager.getShardById(0).getSelfUser().getId();
+        String id = shardManager.getShards().get(0).getSelfUser().getId();
         if (Config.getSendServerCount() || Config.getReceiveVotes()) {
             RequestUtils.api = new DiscordBotListAPI.Builder().token(Config.getOrgToken()).botId(id).build();
         }
@@ -261,7 +261,7 @@ public class Bot {
 
     public static CompletableFuture<Void> deployCommands() {
         List<CommandData> slashCommands = Registry.getSlashCommands();
-        CompletableFuture<Void> future = shardManager.getShardById(0)
+        CompletableFuture<Void> future = shardManager.getShards().get(0)
                 .updateCommands()
                 .addCommands(slashCommands)
                 .submit()
@@ -270,6 +270,7 @@ public class Bot {
         for (String testServerId : Config.getTestServers()) {
             Guild g = shardManager.getGuildById(testServerId);
             if (g != null) {
+                slashCommands.forEach(c -> c.setName("test-" + c.getName()));
                 g.updateCommands().addCommands(slashCommands).queue();
             }
         }

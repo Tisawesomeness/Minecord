@@ -40,7 +40,7 @@ public class Module {
         return hidden;
     }
     public String getHelp() {
-        String username = Bot.shardManager.getShardById(0).getSelfUser().getName();
+        String username = Bot.shardManager.getShards().get(0).getSelfUser().getName();
         return moduleHelp == null ? null : moduleHelp.replace("{&}", "@" + username + " ");
     }
     public Command<?>[] getCommands() {
