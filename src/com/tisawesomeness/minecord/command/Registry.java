@@ -215,7 +215,8 @@ public class Registry {
      * @return The command which should be executed, or empty if there is no command associated with the input.
      */
     public static Optional<SlashCommand> getSlashCommand(String name) {
-        return Optional.ofNullable(slashCommandMap.get(name));
+        String id = name.startsWith("test-") ? name.substring(5) : name;
+        return Optional.ofNullable(slashCommandMap.get(id));
     }
     /**
      * Gets a legacy command, given its name or alias.
