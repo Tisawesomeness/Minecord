@@ -19,7 +19,6 @@ import com.tisawesomeness.minecord.util.type.Either;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -226,13 +225,9 @@ public class ServerCommand extends SlashCommand {
                                 dimensions.getWidth(), dimensions.getHeight(), Favicon.EXPECTED_SIZE, Favicon.EXPECTED_SIZE);
                     }
                 }
-                if (!e.isFromGuild() || e.getGuild().getSelfMember().hasPermission(e.getGuildChannel(), Permission.MESSAGE_ATTACH_FILES)) {
-                    MessageEmbed embed = eb.setDescription(m).setThumbnail("attachment://favicon.png").build();
-                    e.getHook().sendFiles(FileUpload.fromData(icon.getData(), "favicon.png")).setEmbeds(embed).queue();
-                    return;
-                } else {
-                    eb.setDescription(m + "\n:warning: Give Minecord attach files permissions to see server icons.");
-                }
+                MessageEmbed embed = eb.setDescription(m).setThumbnail("attachment://favicon.png").build();
+                e.getHook().sendFiles(FileUpload.fromData(icon.getData(), "favicon.png")).setEmbeds(embed).queue();
+                return;
             } else {
                 eb.setDescription(m + "\n:x: Server returned an invalid icon.");
             }
