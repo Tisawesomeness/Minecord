@@ -4,14 +4,16 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.MessageUtils;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.interactions.IntegrationType;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
 
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 public class SettingsCommand extends LegacyCommand {
 
@@ -42,6 +44,11 @@ public class SettingsCommand extends LegacyCommand {
                 "- {@}` settings prefix &`\n" +
                 "- `{&}settings deleteCommands disabled`\n" +
                 "- `{&}settings useMenus enabled`\n";
+    }
+
+    @Override
+    public boolean supportsContext(Set<IntegrationType> install, InteractionContextType context) {
+        return context == InteractionContextType.GUILD;
     }
 
     @Override

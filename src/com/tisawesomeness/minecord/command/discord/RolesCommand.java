@@ -4,11 +4,12 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.StringUtils;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.IMentionable;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.IntegrationType;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
@@ -30,7 +31,9 @@ public class RolesCommand extends SlashCommand {
 
     @Override
     public SlashCommandData addCommandSyntax(SlashCommandData builder) {
-        return builder.addOption(OptionType.USER, "user", "The user to list roles for", true);
+        return builder.setIntegrationTypes(IntegrationType.GUILD_INSTALL)
+                .setContexts(InteractionContextType.GUILD)
+                .addOption(OptionType.USER, "user", "The user to list roles for", true);
     }
 
     @Override
@@ -42,10 +45,6 @@ public class RolesCommand extends SlashCommand {
     }
 
     public Result run(SlashCommandInteractionEvent e) {
-        if (!e.isFromGuild()) {
-            return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
-        }
-
         // Find user
         Member mem = e.getOption("user").getAsMember();
         if (mem == null) {

@@ -5,8 +5,13 @@ import com.tisawesomeness.minecord.Config;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.interactions.IntegrationOwners;
+import net.dv8tion.jda.api.interactions.IntegrationType;
+import net.dv8tion.jda.api.interactions.Interaction;
 import net.dv8tion.jda.api.requests.ErrorResponse;
 
+import java.util.EnumSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -68,6 +73,18 @@ public class DiscordUtils {
      */
     public static String parseAll(String input) {
         return parseVariables(parseConstants(input));
+    }
+
+    public static Set<IntegrationType> getInstallTypes(Interaction e) {
+        Set<IntegrationType> types = EnumSet.noneOf(IntegrationType.class);
+        IntegrationOwners owners = e.getIntegrationOwners();
+        if (owners.getAuthorizingGuildId() != null) {
+            types.add(IntegrationType.GUILD_INSTALL);
+        }
+        if (owners.getAuthorizingUserId() != null) {
+            types.add(IntegrationType.USER_INSTALL);
+        }
+        return types;
     }
 
     public static User findUser(String search) {

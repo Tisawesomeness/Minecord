@@ -3,17 +3,21 @@ package com.tisawesomeness.minecord.command.core;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.*;
 import com.tisawesomeness.minecord.database.Database;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.IntegrationType;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class HelpCommand extends SlashCommand {
@@ -59,10 +63,10 @@ public class HelpCommand extends SlashCommand {
 
     public Result run(SlashCommandInteractionEvent e) {
         String page = e.getOption("command", OptionMapping::getAsString);
-        return run(page, e.getUser(), e.getJDA());
+        return run(page, e.getUser(), e.getJDA(), DiscordUtils.getInstallTypes(e), e.getContext());
     }
 
-    public static Result run(String page, User user, JDA jda) {
+    public static Result run(String page, User user, JDA jda, Set<IntegrationType> install, InteractionContextType context) {
         EmbedBuilder eb = new EmbedBuilder().setColor(Bot.color);
         String url = jda.getSelfUser().getEffectiveAvatarUrl();
 
@@ -82,6 +86,7 @@ public class HelpCommand extends SlashCommand {
                 // Build that module's list of user-facing commands
                 String mHelp = Arrays.stream(m.getCommands())
                         .filter(c -> !c.getInfo().hidden)
+                        .filter(c -> c.supportsContext(install, context))
                         .map(Command::getMention)
                         .collect(Collectors.joining(", "));
                 eb.addField(m.getName(), mHelp, false);
@@ -113,6 +118,7 @@ public class HelpCommand extends SlashCommand {
             }
             String mUsage = Arrays.stream(m.getCommands())
                     .filter(c -> !c.getInfo().hidden || m.isHidden()) // All admin commands are hidden
+                    .filter(c -> c.supportsContext(install, context))
                     .map(c -> String.format("%s - %s", c.getMentionWithUsage(), c.getInfo().description))
                     .collect(Collectors.joining("\n"));
             // Add module-specific help if it exists

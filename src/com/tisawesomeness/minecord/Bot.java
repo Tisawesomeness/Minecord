@@ -23,6 +23,7 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -40,6 +41,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class Bot {
 
@@ -267,11 +269,15 @@ public class Bot {
                 .submit()
                 .thenAccept(commands -> Bot.slashCommands = commands);
 
+        List<CommandData> guildSlashCommands = Registry.getSlashCommands()
+                .stream()
+                .map(c -> c.setName("test-" + c.getName()))
+                .filter(c -> c.getContexts().contains(InteractionContextType.GUILD))
+                .collect(Collectors.toList());
         for (String testServerId : Config.getTestServers()) {
             Guild g = shardManager.getGuildById(testServerId);
             if (g != null) {
-                slashCommands.forEach(c -> c.setName("test-" + c.getName()));
-                g.updateCommands().addCommands(slashCommands).queue();
+                g.updateCommands().addCommands(guildSlashCommands).queue();
             }
         }
 

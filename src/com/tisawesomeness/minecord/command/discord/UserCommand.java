@@ -1,17 +1,20 @@
 package com.tisawesomeness.minecord.command.discord;
 
+import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.util.MessageUtils;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 import net.dv8tion.jda.api.utils.TimeFormat;
+
+import javax.annotation.Nullable;
 
 public class UserCommand extends SlashCommand {
 
@@ -28,7 +31,8 @@ public class UserCommand extends SlashCommand {
 
     @Override
     public SlashCommandData addCommandSyntax(SlashCommandData builder) {
-        return builder.addOption(OptionType.USER, "user", "The user to look up", true);
+        return builder.setContexts(InteractionContextType.GUILD)
+                .addOption(OptionType.USER, "user", "The user to look up", true);
     }
 
     @Override
@@ -45,10 +49,6 @@ public class UserCommand extends SlashCommand {
     }
 
     public Result run(SlashCommandInteractionEvent e) {
-        if (!e.isFromGuild()) {
-            return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
-        }
-
         Member mem = e.getOption("user").getAsMember();
         if (mem == null) {
             return new Result(Outcome.WARNING, ":warning: That user is not in this guild.");
@@ -57,6 +57,32 @@ public class UserCommand extends SlashCommand {
         User u = mem.getUser();
 
         // Build role string
+        String roles = getRoleString(mem);
+
+        // Generate user info
+        EmbedBuilder eb = MessageUtils.addFooter(new EmbedBuilder())
+                .setTitle(MarkdownSanitizer.escape(u.getEffectiveName()))
+                .setColor(mem.isDetached() ? Bot.color : mem.getColor())
+                .setImage(u.getAvatarUrl())
+                .addField("ID", u.getId(), true)
+                .addField("Nickname", mem.getNickname() == null ? "None" : MarkdownSanitizer.escape(mem.getNickname()), true)
+                .addField("Bot?", u.isBot() ? "Yes" : "No", true)
+                .addField("Joined Server", TimeFormat.RELATIVE.format(mem.getTimeJoined()), false)
+                .addField("Created Account", TimeFormat.RELATIVE.format(u.getTimeCreated()), false);
+        if (mem.getTimeBoosted() != null) {
+            eb.addField("Boosted", TimeFormat.RELATIVE.format(mem.getTimeBoosted()), false);
+        }
+        if (roles != null) {
+            eb.addField("Roles", roles, false);
+        }
+
+        return new Result(Outcome.SUCCESS, eb.build());
+    }
+
+    private static @Nullable String getRoleString(Member mem) {
+        if (mem.isDetached()) {
+            return null;
+        }
         StringBuilder roles = new StringBuilder();
         int c = 0;
         for (Role r : mem.getRoles()) {
@@ -67,23 +93,7 @@ public class UserCommand extends SlashCommand {
                 break;
             }
         }
-
-        // Generate user info
-        EmbedBuilder eb = MessageUtils.addFooter(new EmbedBuilder())
-                .setTitle(MarkdownSanitizer.escape(u.getEffectiveName()))
-                .setColor(mem.getColor())
-                .setImage(u.getAvatarUrl())
-                .addField("ID", u.getId(), true)
-                .addField("Nickname", mem.getNickname() == null ? "None" : MarkdownSanitizer.escape(mem.getNickname()), true)
-                .addField("Bot?", u.isBot() ? "Yes" : "No", true)
-                .addField("Joined Server", TimeFormat.RELATIVE.format(mem.getTimeJoined()), false)
-                .addField("Created Account", TimeFormat.RELATIVE.format(u.getTimeCreated()), false);
-        if (mem.getTimeBoosted() != null) {
-            eb.addField("Boosted", TimeFormat.RELATIVE.format(mem.getTimeBoosted()), false);
-        }
-        eb.addField("Roles", roles.toString(), false);
-
-        return new Result(Outcome.SUCCESS, eb.build());
+        return roles.toString();
     }
 
 }

@@ -6,6 +6,8 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.api.exceptions.InteractionFailureException;
+import net.dv8tion.jda.api.interactions.IntegrationType;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
@@ -13,6 +15,7 @@ import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Set;
 import java.util.UUID;
 
 public interface Command<T extends Event> {
@@ -33,6 +36,14 @@ public interface Command<T extends Event> {
 
     void sendSuccess(T e, MessageCreateData message);
     void sendFailure(T e, MessageCreateData message);
+
+    /**
+     * Checks if this command can be used in the given context.
+     * @param install How the bot was installed, may be empty if accessed from direct bot DMs
+     * @param context Where the command was used
+     * @return True if the command can be used
+     */
+    boolean supportsContext(Set<IntegrationType> install, InteractionContextType context);
 
     String getMention();
 

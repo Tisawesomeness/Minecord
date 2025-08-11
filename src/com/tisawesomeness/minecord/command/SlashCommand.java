@@ -2,19 +2,26 @@ package com.tisawesomeness.minecord.command;
 
 import com.tisawesomeness.minecord.Bot;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.IntegrationType;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
 import net.dv8tion.jda.api.interactions.commands.ICommandReference;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public abstract class SlashCommand implements Command<SlashCommandInteractionEvent> {
 
     public final SlashCommandData getCommandSyntax() {
         CommandInfo info = getInfo();
-        return addCommandSyntax(Commands.slash(info.name, info.description));
+        SlashCommandData builder = Commands.slash(info.name, info.description)
+                .setContexts(InteractionContextType.ALL)
+                .setIntegrationTypes(IntegrationType.ALL);
+        return addCommandSyntax(builder);
     }
     public SlashCommandData addCommandSyntax(SlashCommandData builder) {
         return builder;
@@ -45,12 +52,27 @@ public abstract class SlashCommand implements Command<SlashCommandInteractionEve
     }
 
     @Override
+    public boolean supportsContext(Set<IntegrationType> install, InteractionContextType context) {
+        Optional<net.dv8tion.jda.api.interactions.commands.Command> commandOpt = getDiscordCommand();
+        if (!commandOpt.isPresent()) {
+            return LegacyCommand.CONTEXTS.contains(context);
+        }
+        net.dv8tion.jda.api.interactions.commands.Command command = commandOpt.get();
+        return install.stream().anyMatch(i -> command.getIntegrationTypes().contains(i))
+                && command.getContexts().contains(context);
+    }
+
+    @Override
     public final String getMention() {
-        return Bot.getSlashCommands().stream()
-                .filter(c -> c.getName().equals(getInfo().name))
-                .findFirst()
+        return getDiscordCommand()
                 .map(ICommandReference::getAsMention)
                 .orElse(MarkdownUtil.monospace("/" + getInfo().name));
+    }
+
+    private Optional<net.dv8tion.jda.api.interactions.commands.Command> getDiscordCommand() {
+        return Bot.getSlashCommands().stream()
+                .filter(c -> c.getName().equals(getInfo().name))
+                .findFirst();
     }
 
     @Override

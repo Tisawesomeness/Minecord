@@ -2,9 +2,9 @@ package com.tisawesomeness.minecord.command.core;
 
 import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.database.Database;
-
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 public class PrefixCommand extends LegacyCommand {
 
@@ -37,15 +37,9 @@ public class PrefixCommand extends LegacyCommand {
 
     public Result run(String[] args, MessageReceivedEvent e) throws Exception {
 
-        // Guild-only command
         if (!e.isFromGuild()) {
-            return new Result(Outcome.WARNING, ":warning: This command is not available in DMs.");
-        }
-
-        //Check if user is elevated or has the manage messages permission
-        if (!Database.isElevated(e.getAuthor().getIdLong())
-                && !e.getMember().hasPermission(e.getGuildChannel(), Permission.MANAGE_SERVER)) {
-            return new Result(Outcome.WARNING, ":warning: You must have manage server permissions!");
+            String username = e.getJDA().getSelfUser().getName();
+            return new Result(Outcome.SUCCESS, "The current prefix is " + MarkdownUtil.monospace(username));
         }
 
         if (args.length == 0) {
@@ -56,6 +50,12 @@ public class PrefixCommand extends LegacyCommand {
             );
 
         } else {
+
+            //Check if user is elevated or has the manage messages permission
+            if (!Database.isElevated(e.getAuthor().getIdLong())
+                    && !e.getMember().hasPermission(e.getGuildChannel(), Permission.MANAGE_SERVER)) {
+                return new Result(Outcome.WARNING, ":warning: You must have manage server permissions!");
+            }
 
             //No prefixes longer than 16 characters
             if (args[0].length() > 16) {
