@@ -15331,7 +15331,7 @@
     "type": "minecraft:crafting_special_suspiciousstew",
     "lang": {
       "en_US": {
-        "notes": "\nAllium - Fire Resistance 3s\nAzure Bluet - Blindness 11s\nBlue Orchid - Saturation 0.35s\nDandelion - Saturation 0.35s\nCornflower - Jump Boost 5s\nLily of the Valley - Poison 11s\nOxeye Daisy - Regeneration 7s\nPoppy - Night Vision 5s\nTorchflower - Night Vision 5s\nTulips - Weakness 97\nWither Rose - Wither 7s"
+        "notes": "\nAllium - Fire Resistance 3s\nAzure Bluet - Blindness 11s\nBlue Orchid - Saturation 0.35s\nDandelion - Saturation 0.35s\nCornflower - Jump Boost 5s\nLily of the Valley - Poison 11s\nOxeye Daisy - Regeneration 7s\nPoppy - Night Vision 5s\nTorchflower - Night Vision 5s\nTulips - Weakness 9s\nWither Rose - Wither 7s"
       }
     },
     "properties": {
@@ -27038,7 +27038,7 @@
     "type": "minecraft:crafting_special_suspiciousstew",
     "lang": {
       "en_US": {
-        "notes": "\nAllium - Fire Resistance 3s\nAzure Bluet - Blindness 11s\nOpen Eyeblossom - Blindness 11s\nBlue Orchid - Saturation 0.35s\nDandelion - Saturation 0.35s\nClosed Eyeblossom - Nausea 7s\nCornflower - Jump Boost 5s\nLily of the Valley - Poison 11s\nOxeye Daisy - Regeneration 7s\nPoppy - Night Vision 5s\nTorchflower - Night Vision 5s\nTulips - Weakness 97\nWither Rose - Wither 7s"
+        "notes": "\nAllium - Fire Resistance 3s\nAzure Bluet - Blindness 11s\nOpen Eyeblossom - Blindness 11s\nBlue Orchid - Saturation 0.35s\nDandelion - Saturation 0.35s\nClosed Eyeblossom - Nausea 7s\nCornflower - Jump Boost 5s\nLily of the Valley - Poison 11s\nOxeye Daisy - Regeneration 7s\nPoppy - Night Vision 5s\nTorchflower - Night Vision 5s\nTulips - Weakness 9s\nWither Rose - Wither 7s"
       }
     },
     "properties": {
