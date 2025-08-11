@@ -4,6 +4,7 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.util.ArrayUtils;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.type.Either;
 import net.dv8tion.jda.api.Permission;
@@ -17,10 +18,10 @@ import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.IntegrationType;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class CommandListener extends ListenerAdapter {
@@ -32,6 +33,11 @@ public class CommandListener extends ListenerAdapter {
             return;
         }
         SlashCommand cmd = mappingOpt.get();
+
+        // Should never happen, but Discord has failed to validate before...
+        if (!cmd.supportsContext(DiscordUtils.getInstallTypes(e), e.getContext())) {
+            return;
+        }
 
         // 2 second grace period to respond to command before DB fully boots
         try {
@@ -166,6 +172,15 @@ public class CommandListener extends ListenerAdapter {
         }
 
         MessageChannel c = e.getChannel();
+
+        //Check if guild/DM supports command
+        Set<IntegrationType> install = e.isFromGuild() ? EnumSet.of(IntegrationType.GUILD_INSTALL) : EnumSet.noneOf(IntegrationType.class);
+        InteractionContextType context = e.isFromGuild() ? InteractionContextType.GUILD : InteractionContextType.BOT_DM;
+        if (!cmd.supportsContext(install, context)) {
+            String contextName = e.isFromGuild() ? "guild" : "DM";
+            c.sendMessage(":warning: This command is not available in " + contextName + "s.").queue();
+            return;
+        }
 
         //Check for elevation
         Boolean elevated = null;

@@ -7,19 +7,18 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 @EqualsAndHashCode
-public class Vec3 extends Vec {
+public class Vec2 extends Vec {
 
     private final double x;
-    private final double y;
     private final double z;
 
-    public Vec3i round() {
-        return new Vec3i((int) Math.round(x), (int) Math.round(y), (int) Math.round(z));
+    public Vec2i round() {
+        return new Vec2i((int) Math.round(x), (int) Math.round(z));
     }
 
     @Override
     public String toString() {
-        return x + ", " + y + ", " + z;
+        return x + ", " + z;
     }
 
 }

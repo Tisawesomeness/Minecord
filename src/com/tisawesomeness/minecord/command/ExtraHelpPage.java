@@ -10,7 +10,7 @@ public enum ExtraHelpPage {
     USERNAME_INPUT(
             "usernameInput",
             "Username Input Help",
-            "Show help for invalid names and names with spaces",
+            "Invalid/duplicate names and names with spaces",
             new String[]{"nameInput"},
             "Valid usernames are 3-16 characters long and only contain letters, numbers, and underscores.\n" +
                     "However, invalid usernames such as `8`, `Cool.J`, and `Will Wall` have existed.\n" +
@@ -27,7 +27,7 @@ public enum ExtraHelpPage {
     UUID_INPUT(
             "uuidInput",
             "UUID Input Help",
-            "Show help for NBT formats for UUIDs",
+            "NBT formats for UUIDs",
             new String[0],
             "A [UUID](https://minecraft.wiki/w/Universally_unique_identifier) (Universally Unique IDentifier) is a player's unique ID.\n" +
                     "UUIDs can be in any format shown in `{&}uuid`.\n" +
@@ -40,7 +40,7 @@ public enum ExtraHelpPage {
     PHD(
             "phd",
             "Pseudo Hard-Deletion",
-            "Show help for pseudo hard-deleted accounts",
+            "What are pseudo hard-deleted accounts?",
             new String[0],
             "A **pseudo hard-deleted** account (or **PHD** for short) is an account that has been partially deleted from Mojang's account database.\n" +
                     "PHD accounts can be looked up by UUID, but not by name.\n" +

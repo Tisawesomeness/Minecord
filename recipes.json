@@ -15331,7 +15331,7 @@
     "type": "minecraft:crafting_special_suspiciousstew",
     "lang": {
       "en_US": {
-        "notes": "\nAllium - Fire Resistance 3s\nAzure Bluet - Blindness 11s\nBlue Orchid - Saturation 0.35s\nDandelion - Saturation 0.35s\nCornflower - Jump Boost 5s\nLily of the Valley - Poison 11s\nOxeye Daisy - Regeneration 7s\nPoppy - Night Vision 5s\nTorchflower - Night Vision 5s\nTulips - Weakness 97\nWither Rose - Wither 7s"
+        "notes": "\nAllium - Fire Resistance 3s\nAzure Bluet - Blindness 11s\nBlue Orchid - Saturation 0.35s\nDandelion - Saturation 0.35s\nCornflower - Jump Boost 5s\nLily of the Valley - Poison 11s\nOxeye Daisy - Regeneration 7s\nPoppy - Night Vision 5s\nTorchflower - Night Vision 5s\nTulips - Weakness 9s\nWither Rose - Wither 7s"
       }
     },
     "properties": {
@@ -20321,7 +20321,8 @@
     "properties": {
       "removed": "1.21.2",
       "feature_flag": "bundle",
-      "version": "1.17 Datapack or 1.19.3"
+      "version": "1.19.3",
+      "datapack_version": "1.17"
     }
   },
   "acacia_hanging_sign": {
@@ -21391,7 +21392,26 @@
     }
   },
   "smithing_template_smithing_trim_chainmail_boots": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:chainmail_boots"
     },
@@ -21405,7 +21425,26 @@
     "base": "minecraft:chainmail_boots"
   },
   "smithing_template_smithing_trim_chainmail_chestplate": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:chainmail_chestplate"
     },
@@ -21419,7 +21458,26 @@
     "base": "minecraft:chainmail_chestplate"
   },
   "smithing_template_smithing_trim_chainmail_helmet": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:chainmail_helmet"
     },
@@ -21433,7 +21491,26 @@
     "base": "minecraft:chainmail_helmet"
   },
   "smithing_template_smithing_trim_chainmail_leggings": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:chainmail_leggings"
     },
@@ -21447,7 +21524,26 @@
     "base": "minecraft:chainmail_leggings"
   },
   "smithing_template_smithing_trim_diamond_boots": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:diamond_boots"
     },
@@ -21461,7 +21557,26 @@
     "base": "minecraft:diamond_boots"
   },
   "smithing_template_smithing_trim_diamond_chestplate": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:diamond_chestplate"
     },
@@ -21475,7 +21590,26 @@
     "base": "minecraft:diamond_chestplate"
   },
   "smithing_template_smithing_trim_diamond_helmet": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:diamond_helmet"
     },
@@ -21489,7 +21623,26 @@
     "base": "minecraft:diamond_helmet"
   },
   "smithing_template_smithing_trim_diamond_leggings": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:diamond_leggings"
     },
@@ -21503,7 +21656,26 @@
     "base": "minecraft:diamond_leggings"
   },
   "smithing_template_smithing_trim_golden_boots": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:golden_boots"
     },
@@ -21517,7 +21689,26 @@
     "base": "minecraft:golden_boots"
   },
   "smithing_template_smithing_trim_golden_chestplate": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:golden_chestplate"
     },
@@ -21531,7 +21722,26 @@
     "base": "minecraft:golden_chestplate"
   },
   "smithing_template_smithing_trim_golden_helmet": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:golden_helmet"
     },
@@ -21545,7 +21755,26 @@
     "base": "minecraft:golden_helmet"
   },
   "smithing_template_smithing_trim_golden_leggings": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:golden_leggings"
     },
@@ -21559,7 +21788,26 @@
     "base": "minecraft:golden_leggings"
   },
   "smithing_template_smithing_trim_iron_boots": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:iron_boots"
     },
@@ -21573,7 +21821,26 @@
     "base": "minecraft:iron_boots"
   },
   "smithing_template_smithing_trim_iron_chestplate": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:iron_chestplate"
     },
@@ -21587,7 +21854,26 @@
     "base": "minecraft:iron_chestplate"
   },
   "smithing_template_smithing_trim_iron_helmet": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:iron_helmet"
     },
@@ -21601,7 +21887,26 @@
     "base": "minecraft:iron_helmet"
   },
   "smithing_template_smithing_trim_iron_leggings": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:iron_leggings"
     },
@@ -21615,7 +21920,26 @@
     "base": "minecraft:iron_leggings"
   },
   "smithing_template_smithing_trim_leather_boots": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:leather_boots"
     },
@@ -21629,7 +21953,26 @@
     "base": "minecraft:leather_boots"
   },
   "smithing_template_smithing_trim_leather_chestplate": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:leather_chestplate"
     },
@@ -21643,7 +21986,26 @@
     "base": "minecraft:leather_chestplate"
   },
   "smithing_template_smithing_trim_leather_helmet": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:leather_helmet"
     },
@@ -21657,7 +22019,26 @@
     "base": "minecraft:leather_helmet"
   },
   "smithing_template_smithing_trim_leather_leggings": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:leather_leggings"
     },
@@ -21671,7 +22052,26 @@
     "base": "minecraft:leather_leggings"
   },
   "smithing_template_smithing_trim_netherite_boots": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:netherite_boots"
     },
@@ -21685,7 +22085,26 @@
     "base": "minecraft:netherite_boots"
   },
   "smithing_template_smithing_trim_netherite_chestplate": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:netherite_chestplate"
     },
@@ -21699,7 +22118,26 @@
     "base": "minecraft:netherite_chestplate"
   },
   "smithing_template_smithing_trim_netherite_helmet": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:netherite_helmet"
     },
@@ -21713,7 +22151,26 @@
     "base": "minecraft:netherite_helmet"
   },
   "smithing_template_smithing_trim_netherite_leggings": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:netherite_leggings"
     },
@@ -21727,7 +22184,26 @@
     "base": "minecraft:netherite_leggings"
   },
   "smithing_template_smithing_trim_turtle_helmet": {
-    "template": "#minecraft:trim_templates",
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
     "result": {
       "id": "minecraft:turtle_helmet"
     },
@@ -26562,7 +27038,7 @@
     "type": "minecraft:crafting_special_suspiciousstew",
     "lang": {
       "en_US": {
-        "notes": "\nAllium - Fire Resistance 3s\nAzure Bluet - Blindness 11s\nOpen Eyeblossom - Blindness 11s\nBlue Orchid - Saturation 0.35s\nDandelion - Saturation 0.35s\nClosed Eyeblossom - Nausea 7s\nCornflower - Jump Boost 5s\nLily of the Valley - Poison 11s\nOxeye Daisy - Regeneration 7s\nPoppy - Night Vision 5s\nTorchflower - Night Vision 5s\nTulips - Weakness 97\nWither Rose - Wither 7s"
+        "notes": "\nAllium - Fire Resistance 3s\nAzure Bluet - Blindness 11s\nOpen Eyeblossom - Blindness 11s\nBlue Orchid - Saturation 0.35s\nDandelion - Saturation 0.35s\nClosed Eyeblossom - Nausea 7s\nCornflower - Jump Boost 5s\nLily of the Valley - Poison 11s\nOxeye Daisy - Regeneration 7s\nPoppy - Night Vision 5s\nTorchflower - Night Vision 5s\nTulips - Weakness 9s\nWither Rose - Wither 7s"
       }
     },
     "properties": {

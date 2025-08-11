@@ -4,8 +4,12 @@ import com.tisawesomeness.minecord.command.CommandListener;
 import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.database.VoteHandler;
+import com.tisawesomeness.minecord.interaction.InteractionListener;
+import com.tisawesomeness.minecord.interaction.InteractionTracker;
+import com.tisawesomeness.minecord.mc.FeatureFlagRegistry;
 import com.tisawesomeness.minecord.mc.MCLibrary;
 import com.tisawesomeness.minecord.mc.StandardMCLibrary;
+import com.tisawesomeness.minecord.mc.VersionRegistry;
 import com.tisawesomeness.minecord.mc.item.ItemRegistry;
 import com.tisawesomeness.minecord.mc.recipe.RecipeRegistry;
 import com.tisawesomeness.minecord.network.APIClient;
@@ -13,10 +17,14 @@ import com.tisawesomeness.minecord.network.OkAPIClient;
 import com.tisawesomeness.minecord.util.*;
 import com.tisawesomeness.minecord.util.type.DelayedCountDownLatch;
 import com.tisawesomeness.minecord.util.type.Switch;
+import lombok.Getter;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
+import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
@@ -31,7 +39,9 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class Bot {
 
@@ -45,7 +55,7 @@ public class Bot {
     public static final String donate = "https://ko-fi.com/tis_awesomeness";
     public static final String terms = "https://minecord.github.io/terms";
     public static final String privacy = "https://minecord.github.io/privacy";
-    private static final String version = "0.17.19";
+    public static final String version = "0.18.0";
     public static final String jdaVersion = "5.6.1";
     public static final Color color = Color.GREEN;
 
@@ -56,7 +66,8 @@ public class Bot {
     private static StatusListener statusListener;
     private static GuildListener guildListener;
     private static CommandListener commandListener;
-    private static ReactListener reactListener;
+    private static InteractionListener interactionListener;
+    @Getter private static List<Command> slashCommands;
     public static String ownerAvatarUrl;
     public static long birth;
     public static long bootTime;
@@ -112,20 +123,22 @@ public class Bot {
         statusListener = new StatusListener();
         guildListener = new GuildListener();
         commandListener = new CommandListener();
-        reactListener = new ReactListener();
+        interactionListener = new InteractionListener();
         apiClient = new OkAPIClient();
         logger = new DiscordLogger(apiClient.getHttpClientBuilder().build());
         mcLibrary = new StandardMCLibrary(apiClient);
         try {
             Announcement.init(Config.getPath());
             ColorUtils.init(Config.getPath());
+            VersionRegistry.init(Config.getPath());
+            FeatureFlagRegistry.init(Config.getPath());
             ItemRegistry.init(Config.getPath());
             RecipeRegistry.init(Config.getPath());
         } catch (IOException ex) {
             ex.printStackTrace();
             return false;
         }
-        ReactMenu.startPurgeThread();
+        InteractionTracker.startPurgeThread();
         Registry.init();
 
         //Connect to database
@@ -170,7 +183,7 @@ public class Bot {
                 birth = (long) MethodName.GET_BIRTH.method().invoke(null, "ignore");
                 //Prepare commands
                 for (JDA jda : shardManager.getShards()) {
-                    jda.addEventListener(statusListener, guildListener, commandListener, reactListener);
+                    jda.addEventListener(statusListener, guildListener, commandListener, interactionListener);
                 }
                 m.editMessage(":white_check_mark: **Bot reloaded!**").queue();
                 logger.log(":arrows_counterclockwise: **Bot reloaded by " + DiscordUtils.tagAndId(u) + "**");
@@ -182,7 +195,7 @@ public class Bot {
                 //Initialize JDA
                 shardManager = DefaultShardManagerBuilder.createLight(Config.getClientToken(), gateways)
                         .setAutoReconnect(true)
-                        .addEventListeners(statusListener, guildListener, commandListener, reactListener)
+                        .addEventListeners(statusListener, guildListener, commandListener, interactionListener)
                         .setShardsTotal(Config.getShardCount())
                         .setActivity(Activity.playing("Loading..."))
                         .setHttpClientBuilder(apiClient.getHttpClientBuilder())
@@ -213,22 +226,18 @@ public class Bot {
         Message.suppressContentIntentWarning(); // Still process legacy commands when possible to ease transition
         MessageRequest.setDefaultMentions(EnumSet.noneOf(Message.MentionType.class));
 
-        // The big one
-        List<CommandData> slashCommands = Registry.getSlashCommands();
-        for (String testServerId : Config.getTestServers()) {
-            shardManager.getGuildById(testServerId).updateCommands()
-                    .addCommands(slashCommands)
-                    .queue();
-        }
+        // Update global and test server commands
+        CompletableFuture<Void> commandFuture = deployCommands();
 
         //Start discordbots.org API
-        String id = shardManager.getShardById(0).getSelfUser().getId();
+        String id = shardManager.getShards().get(0).getSelfUser().getId();
         if (Config.getSendServerCount() || Config.getReceiveVotes()) {
             RequestUtils.api = new DiscordBotListAPI.Builder().token(Config.getOrgToken()).botId(id).build();
         }
 
-        //Wait for database and web server
+        //Wait for commands, database and web server
         try {
+            commandFuture.join();
             db.join();
         } catch (InterruptedException ignored) {}
         setReady();
@@ -252,6 +261,29 @@ public class Bot {
 
     }
 
+    public static CompletableFuture<Void> deployCommands() {
+        List<CommandData> slashCommands = Registry.getSlashCommands();
+        CompletableFuture<Void> future = shardManager.getShards().get(0)
+                .updateCommands()
+                .addCommands(slashCommands)
+                .submit()
+                .thenAccept(commands -> Bot.slashCommands = commands);
+
+        List<CommandData> guildSlashCommands = Registry.getSlashCommands()
+                .stream()
+                .map(c -> c.setName("test-" + c.getName()))
+                .filter(c -> c.getContexts().contains(InteractionContextType.GUILD))
+                .collect(Collectors.toList());
+        for (String testServerId : Config.getTestServers()) {
+            Guild g = shardManager.getGuildById(testServerId);
+            if (g != null) {
+                g.updateCommands().addCommands(guildSlashCommands).queue();
+            }
+        }
+
+        return future;
+    }
+
     public static void reloadMCLibrary() {
         mcLibrary = new StandardMCLibrary(apiClient);
     }
@@ -261,7 +293,7 @@ public class Bot {
         //Disable JDA
         for (JDA jda : shardManager.getShards()) {
             jda.setAutoReconnect(false);
-            jda.removeEventListener(statusListener, guildListener, commandListener, reactListener);
+            jda.removeEventListener(statusListener, guildListener, commandListener, interactionListener);
         }
         try {
             //Reload this class using reflection
@@ -281,10 +313,6 @@ public class Bot {
     public static double getPing() {
         // yes, getAverageGatewayPing() really can return negative
         return Math.max(0, Bot.shardManager.getAverageGatewayPing());
-    }
-
-    public static String getVersion() {
-        return version;
     }
 
     //Helps with reflection

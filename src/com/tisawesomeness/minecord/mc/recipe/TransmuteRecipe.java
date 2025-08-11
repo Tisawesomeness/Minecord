@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class TransmuteRecipe extends Recipe {
+public class TransmuteRecipe extends CraftingRecipe {
 
     protected TransmuteRecipe(String key, JSONObject recipe) {
         super(key, recipe);
@@ -33,11 +33,6 @@ public class TransmuteRecipe extends Recipe {
         Boolean includeResult = Utils.mapNullable(recipe.optJSONObject("properties"),
                 prop -> prop.optBoolean("include_result", false));
         return Boolean.TRUE.equals(includeResult);
-    }
-
-    @Override
-    public String getTableItem() {
-        return "minecraft:crafting_table";
     }
 
 }

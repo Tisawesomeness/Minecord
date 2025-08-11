@@ -57,6 +57,21 @@ public final class MathUtils {
     }
 
     /**
+     * Computes the length of the string representation of {@code n}.
+     * @param n input number
+     * @return the length
+     */
+    public static int stringLength(int n) {
+        if (n < 0) {
+            return 1 + stringLength(-n);
+        } else if (n == 0) {
+            return 1;
+        } else {
+            return (int) Math.log10(n) + 1;
+        }
+    }
+
+    /**
      * Computes the largest mantissa {@code n} such that {@code d = x * 10^n} for some {@code 1 <= abs(x) < 10}.
      * <br>In other words, computes the largest exponent {@code n} such that {@code 10^n < abs(d)}.
      * @param d input number

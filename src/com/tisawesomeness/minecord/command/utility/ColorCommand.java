@@ -40,10 +40,11 @@ public class ColorCommand extends SlashCommand {
                 "\n" +
                 "`<color>` can be:\n" +
                 "- A Minecraft color name: `red`, `dark blue`\n" +
-                "- A color code: `&b`, `\u00A7b`, `b`\n" +
-                "- A hex code: `#55ffff`, `0x55ffff`\n" +
-                "- RGB format: `85 85 255`, `rgb(85,85,255)`\n" +
-                "- Other formats: `hsv(120,100,50)`, `hsl(120 100 25)`, `cmyk(100%,0%,100%,50%)`\n" +
+                "- A color code: `&b`, `\u00A7b`, `b`, `8`\n" +
+                "- A hex code: `#55ffff`, `0x55ffff`, `#8855ffff`\n" +
+                "- RGB format: `85 85 255`, `rgb(85,85,255)`, `rgb(50%,50%,100%)`\n" +
+                "- RGBA format: `85 85 255 0.5`, `rgba(85,85,255,0.5)`\n" +
+                "- Other formats: `hsv(120,100%,50%)`, `hsl(120 100% 25%)`, `hsla(120 100% 25% 0.5)`, `cmyk(100%,0%,100%,50%)`\n" +
                 "- An RGB int: `5635925`, `i8`\n";
     }
 
@@ -58,15 +59,19 @@ public class ColorCommand extends SlashCommand {
 
     public static EmbedBuilder buildEmbed(Color c) {
         String formats = ColorUtils.getRGB(c) + "\n" +
-                ColorUtils.getHSV(c) + "\n" +
+                ColorUtils.getRGBA(c) + "\n" +
                 ColorUtils.getHSL(c) + "\n" +
+                ColorUtils.getHSLA(c) + "\n" +
+                ColorUtils.getHSV(c) + "\n" +
                 ColorUtils.getCMYK(c);
+        String hexCode = String.format("%s (w/o alpha)\n%s (w/ alpha)", ColorUtils.getHexCode(c), ColorUtils.getHexCodeWithAlpha(c));
+        String integer = String.format("%d (w/o alpha)\n%d (w/ alpha)", ColorUtils.getInt(c), ColorUtils.getIntWithAlpha(c));
         EmbedBuilder eb = new EmbedBuilder()
                 .setTitle("Color Info")
                 .setColor(c)
                 .addField("Other formats", formats, true)
-                .addField("Hex Code", ColorUtils.getHexCode(c), true)
-                .addField("Integer", String.valueOf(ColorUtils.getInt(c)), true);
+                .addField("Hex Code", hexCode, true)
+                .addField("Integer", integer, true);
         // Test for Minecraft color
         int colorID = ColorUtils.getMCIndex(c);
         if (colorID >= 0) {

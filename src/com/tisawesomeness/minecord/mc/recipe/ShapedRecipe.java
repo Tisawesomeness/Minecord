@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class ShapedRecipe extends Recipe {
+public class ShapedRecipe extends CraftingRecipe {
 
     protected ShapedRecipe(String key, JSONObject recipe) {
         super(key, recipe);
@@ -37,11 +37,6 @@ public class ShapedRecipe extends Recipe {
         JSONObject keyObj = recipe.getJSONObject("key");
         keyObj.keys().forEachRemaining(k -> map.put(k.charAt(0), parseIngredients(keyObj.get(k))));
         return map;
-    }
-
-    @Override
-    public String getTableItem() {
-        return "minecraft:crafting_table";
     }
 
 }

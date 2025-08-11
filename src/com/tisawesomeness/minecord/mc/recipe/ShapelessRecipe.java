@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShapelessRecipe extends Recipe {
+public class ShapelessRecipe extends CraftingRecipe {
 
     protected ShapelessRecipe(String key, JSONObject recipe) {
         super(key, recipe);
@@ -24,11 +24,6 @@ public class ShapelessRecipe extends Recipe {
             slots.add(parseIngredients(ingredients.get(i)));
         }
         return slots;
-    }
-
-    @Override
-    public String getTableItem() {
-        return "minecraft:crafting_table";
     }
 
 }

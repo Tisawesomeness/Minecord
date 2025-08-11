@@ -1,13 +1,22 @@
 package com.tisawesomeness.minecord.util;
 
+import com.tisawesomeness.minecord.util.type.HumanDecimalFormat;
+import lombok.Value;
 import org.json.JSONObject;
 
 import java.awt.*;
 import java.io.IOException;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 
 public class ColorUtils {
+
+    private static final HumanDecimalFormat FRACTIONAL_PART_FORMAT = HumanDecimalFormat.builder()
+            .minimumFractionDigits(0)
+            .maximumFractionDigits(3)
+            .roundingMode(RoundingMode.HALF_UP)
+            .build();
 
     private static JSONObject colors;
 
@@ -104,6 +113,15 @@ public class ColorUtils {
         return String.format("#%06x", getInt(c));
     }
     /**
+     * Gets the hex code for a color, with alpha
+     * @param c The color
+     * @return The hex code in #ffffffff format
+     */
+    public static String getHexCodeWithAlpha(Color c) {
+        return String.format("#%08x", getIntWithAlpha(c));
+    }
+
+    /**
      * Gets the integer RGB value representing a color
      * @param c The color
      * @return The integer, from 0 to 2^24 - 1, or 0x000000 to 0xFFFFFF
@@ -112,13 +130,32 @@ public class ColorUtils {
         return c.getRGB() & 0x00FFFFFF;
     }
     /**
+     * Gets the integer RGB value representing a color, with alpha
+     * @param c The color
+     * @return The integer
+     */
+    public static int getIntWithAlpha(Color c) {
+        return c.getRGB();
+    }
+
+    /**
      * Gets the RGB string for the color
      * @param c The color
      * @return A string in rgb(r,g,b) format, where 0 <= r,g,b < 256
      */
     public static String getRGB(Color c) {
-        return String.format("`rgb(%s,%s,%s)`", c.getRed(), c.getGreen(), c.getBlue());
+        return String.format("`rgb(%d,%d,%d)`", c.getRed(), c.getGreen(), c.getBlue());
     }
+    /**
+     * Gets the RGBA string for the color
+     * @param c The color
+     * @return A string in rgba(r,g,b,a) format, where 0 <= r,g,b < 256 and 0 <= a <= 1
+     */
+    public static String getRGBA(Color c) {
+        String alpha = FRACTIONAL_PART_FORMAT.format(c.getAlpha() / 255.0);
+        return String.format("`rgba(%d,%d,%d,%s)`", c.getRed(), c.getGreen(), c.getBlue(), alpha);
+    }
+
     /**
      * Gets the HSV string for the color
      * @param c The color
@@ -128,12 +165,8 @@ public class ColorUtils {
         float[] hsv = Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(), null);
         return String.format("`hsv(%d,%d%%,%d%%)`", (int) (360*hsv[0]), Math.round(100*hsv[1]), Math.round(100*hsv[2]));
     }
-    /**
-     * Gets the HSL string for the color
-     * @param c The color
-     * @return A string in hsl(h,s%,l%) format, where 0 <= h < 360 and 0% <= s,l <= 100%
-     */
-    public static String getHSL(Color c) {
+
+    private static HSLA computeHSL(Color c) {
         float[] rgb = c.getColorComponents(null);
         float max = Math.max(rgb[0], Math.max(rgb[1], rgb[2]));
         float min = Math.min(rgb[0], Math.min(rgb[1], rgb[2]));
@@ -154,8 +187,36 @@ public class ColorUtils {
         }
         int s = L % 1 == 0 ? 0 : Math.round(100 * (max - L) / Math.min(L, 1 - L));
         int l = Math.round(100 * L);
-        return String.format("`hsl(%d,%d%%,%d%%)`", h, s, l);
+        float a = c.getAlpha() / 255.0f;
+        return new HSLA(h, s, l, a);
     }
+    /**
+     * Gets the HSL string for the color
+     * @param c The color
+     * @return A string in hsl(h,s%,l%) format, where 0 <= h < 360 and 0% <= s,l <= 100%
+     */
+    public static String getHSL(Color c) {
+        HSLA hsla = computeHSL(c);
+        return String.format("`hsl(%d,%d%%,%d%%)`", hsla.getH(), hsla.getS(), hsla.getL());
+    }
+    /**
+     * Gets the HSLA string for the color
+     * @param c The color
+     * @return A string in hsla(h,s%,l%,a) format, where 0 <= h < 360 and 0% <= s,l <= 100% and 0 <= a <= 1
+     */
+    public static String getHSLA(Color c) {
+        HSLA hsla = computeHSL(c);
+        String alpha = FRACTIONAL_PART_FORMAT.format(hsla.getA());
+        return String.format("`hsla(%d,%d%%,%d%%,%s)`", hsla.getH(), hsla.getS(), hsla.getL(), alpha);
+    }
+    @Value
+    private static class HSLA {
+        int h;
+        int s;
+        int l;
+        float a;
+    }
+
     /**
      * Gets the CMYK string for the color
      * @param c The color
@@ -191,6 +252,13 @@ public class ColorUtils {
         float V = l + s * Math.min(l, 1 - l);
         float S = V == 0 ? 0 : 2 * (1 - l / V);
         return fromHSV(h, S, V);
+    }
+    /**
+     * Converts HSLA floats 0-1 to an RGB color
+     */
+    public static Color fromHSLA(float h, float s, float l, float a) {
+        Color c = fromHSL(h, s, l);
+        return new Color(c.getRed(), c.getGreen(), c.getBlue(), (int) (a * 255f));
     }
     /**
      * Converts CMYK floats 0-1 to an RGB color
@@ -256,7 +324,7 @@ public class ColorUtils {
         }
 
         // 3 or 4 numbers in a color format
-        String[] split = query.replace(", ", ",").replace(" ", ",").replace("%", "").split(",");
+        String[] split = query.replace(", ", ",").replace(" ", ",").split(",");
         try {
             // RGB, HSL, HSV
             if (split.length == 3) {
@@ -267,30 +335,78 @@ public class ColorUtils {
                     split[2] = split[2].substring(0, split[2].length() - 1);
                     // rgb(r,g,b)
                     if (prefix.equalsIgnoreCase("rgb(")) {
-                        return new Color(Integer.parseInt(split[0]), Integer.parseInt(split[1]), Integer.parseInt(split[2]));
+                        return new Color(
+                                parseIntOrPercent(split[0], 255),
+                                parseIntOrPercent(split[1], 255),
+                                parseIntOrPercent(split[2], 255)
+                        );
                         // hsv(h,s,v)
                     } else if (prefix.equalsIgnoreCase("hsv(")) {
-                        float[] comps = parseSplit(split, 360, 100, 100);
-                        return fromHSV(comps[0], comps[1], comps[2]);
-                        // hsv(h,s,v)
+                        return fromHSV(
+                                Integer.parseInt(split[0]) / 360f,
+                                parseFloatOrPercent(split[1]),
+                                parseFloatOrPercent(split[2])
+                        );
+                        // hsl(h,s,l)
                     } else if (prefix.equalsIgnoreCase("hsl(")) {
-                        float[] comps = parseSplit(split, 360, 100, 100);
-                        return fromHSL(comps[0], comps[1], comps[2]);
+                        return fromHSL(
+                                Integer.parseInt(split[0]) / 360f,
+                                parseFloatOrPercent(split[1]),
+                                parseFloatOrPercent(split[2])
+                        );
                     }
                 }
                 // R G B
                 if (Character.isDigit(split[0].charAt(0))) {
-                    return new Color(Integer.parseInt(split[0]), Integer.parseInt(split[1]), Integer.parseInt(split[2]));
+                    return new Color(
+                            parseIntOrPercent(split[0], 255),
+                            parseIntOrPercent(split[1], 255),
+                            parseIntOrPercent(split[2], 255)
+                    );
                 }
-                // CMYK
-            } else if (split.length == 4 && split[0].length() > 5 && split[3].endsWith(")")) {
-                String prefix = split[0].substring(0, 5);
-                split[0] = split[0].substring(5);
-                split[3] = split[3].substring(0, split[3].length() - 1);
-                // cmyk(c,m,y,k)
-                if (prefix.equalsIgnoreCase("cmyk(")) {
-                    float[] comps = parseSplit(split, 100, 100, 100, 100);
-                    return fromCMYK(comps[0], comps[1], comps[2], comps[3]);
+                // RGBA, HSLA, CMYK
+            } else if (split.length == 4) {
+                // format(a, b, c, d)
+                if (split[0].length() > 5 && split[3].endsWith(")")) {
+                    String prefix = split[0].substring(0, 5);
+                    split[0] = split[0].substring(5);
+                    split[3] = split[3].substring(0, split[3].length() - 1);
+                    // rgba(r,g,b,a)
+                    if (prefix.equalsIgnoreCase("rgba(")) {
+                        return new Color(
+                                parseIntOrPercent(split[0], 255),
+                                parseIntOrPercent(split[1], 255),
+                                parseIntOrPercent(split[2], 255),
+                                (int) (parseFloatOrPercent(split[3]) * 255f)
+                        );
+                    }
+                    // hsla(h,s,l,a)
+                    if (prefix.equalsIgnoreCase("hsla(")) {
+                        return fromHSLA(
+                                Integer.parseInt(split[0]) / 360f,
+                                parseFloatOrPercent(split[1]),
+                                parseFloatOrPercent(split[2]),
+                                parseFloatOrPercent(split[3])
+                        );
+                    }
+                    // cmyk(c,m,y,k)
+                    if (prefix.equalsIgnoreCase("cmyk(")) {
+                        return fromCMYK(
+                                parseFloatOrPercent(split[0]),
+                                parseFloatOrPercent(split[1]),
+                                parseFloatOrPercent(split[2]),
+                                parseFloatOrPercent(split[3])
+                        );
+                    }
+                }
+                // R G B A
+                if (Character.isDigit(split[0].charAt(0))) {
+                    return new Color(
+                            parseIntOrPercent(split[0], 255),
+                            parseIntOrPercent(split[1], 255),
+                            parseIntOrPercent(split[2], 255),
+                            (int) (parseFloatOrPercent(split[3]) * 255f)
+                    );
                 }
             }
         } catch (NumberFormatException ignore) {}
@@ -306,12 +422,35 @@ public class ColorUtils {
 
         return null;
     }
-    private static float[] parseSplit(String[] split, int... divs) throws NumberFormatException {
-        float[] comps = new float[split.length];
-        for (int i = 0; i < split.length; i++) {
-            comps[i] = Integer.parseInt(split[i]) / (float) divs[i];
+    private static int parseIntOrPercent(String str, int max) throws NumberFormatException {
+        int i = parseIntOrPercentInner(str, max);
+        if (i < 0 || i > max) {
+            throw new NumberFormatException("Value must be between 0 and " + max);
         }
-        return comps;
+        return i;
+    }
+    private static int parseIntOrPercentInner(String str, int max) {
+        if (str.endsWith("%")) {
+            str = str.substring(0, str.length() - 1);
+            return (int) (Float.parseFloat(str) * max / 100f);
+        } else {
+            return Integer.parseInt(str);
+        }
+    }
+    private static float parseFloatOrPercent(String str) throws NumberFormatException {
+        float f = parseFloatOrPercentInner(str);
+        if (f < 0 || f > 1) {
+            throw new NumberFormatException("Value must be between 0 and 1");
+        }
+        return f;
+    }
+    private static float parseFloatOrPercentInner(String str) {
+        if (str.endsWith("%")) {
+            str = str.substring(0, str.length() - 1);
+            return Float.parseFloat(str) / 100f;
+        } else {
+            return Float.parseFloat(str);
+        }
     }
 
     /**

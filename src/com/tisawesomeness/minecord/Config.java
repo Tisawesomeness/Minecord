@@ -23,7 +23,6 @@ public class Config {
     @Getter private static String logWebhook;
     @Getter private static String statusWebhook;
     private static boolean includeSpamStatuses;
-    @Getter private static String supportedMCVersion;
     private static boolean isSelfHosted;
     @Getter private static String author;
     @Getter private static String authorTag;
@@ -42,6 +41,7 @@ public class Config {
     private static boolean elevatedSkipCooldown;
     @Getter private static int serverTimeout;
     @Getter private static int serverReadTimeout;
+    private static boolean warnOnLocalPing;
     private static boolean useElectroidAPI;
     private static boolean useGappleAPI;
     private static boolean recordCacheStats;
@@ -121,7 +121,6 @@ public class Config {
             logWebhook = settings.optString("logWebhook", "");
             statusWebhook = settings.optString("statusWebhook", "");
             includeSpamStatuses = settings.optBoolean("includeSpamStatuses", false);
-            supportedMCVersion = settings.optString("supportedMCVersion", "1.21.7");
             isSelfHosted = settings.optBoolean("isSelfHosted", true);
             if (isSelfHosted) {
                 author = settings.getString("author");
@@ -152,6 +151,7 @@ public class Config {
             elevatedSkipCooldown = settings.getBoolean("elevatedSkipCooldown");
             serverTimeout = settings.optInt("serverTimeout", 5000);
             serverReadTimeout = settings.optInt("serverReadTimeout", 5000);
+            warnOnLocalPing = settings.optBoolean("warnOnLocalPing", true);
             useElectroidAPI = settings.optBoolean("useElectroidAPI", true);
             useGappleAPI = settings.optBoolean("useGappleAPI", true);
             recordCacheStats = settings.optBoolean("recordCacheStats", false);
@@ -196,6 +196,7 @@ public class Config {
     public static boolean getUseMenus() { return useMenus; }
     public static boolean getShowMemory() { return showMemory; }
     public static boolean getElevatedSkipCooldown() { return elevatedSkipCooldown; }
+    public static boolean getWarnOnLocalPing() { return warnOnLocalPing; }
     public static boolean getUseElectroidAPI() { return useElectroidAPI; }
     public static boolean getUseGappleAPI() { return useGappleAPI; }
     public static boolean getRecordCacheStats() { return recordCacheStats; }

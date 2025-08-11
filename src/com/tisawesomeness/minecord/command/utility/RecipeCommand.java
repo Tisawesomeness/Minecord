@@ -1,14 +1,12 @@
 package com.tisawesomeness.minecord.command.utility;
 
-import com.tisawesomeness.minecord.Config;
-import com.tisawesomeness.minecord.ReactMenu;
-import com.tisawesomeness.minecord.ReactMenu.MenuStatus;
 import com.tisawesomeness.minecord.command.SlashCommand;
+import com.tisawesomeness.minecord.interaction.InteractionTracker;
+import com.tisawesomeness.minecord.interaction.RecipeMenu;
+import com.tisawesomeness.minecord.mc.VersionRegistry;
 import com.tisawesomeness.minecord.mc.item.ItemRegistry;
 import com.tisawesomeness.minecord.mc.recipe.Recipe;
-import com.tisawesomeness.minecord.mc.recipe.RecipeMenu;
 import com.tisawesomeness.minecord.mc.recipe.RecipeRegistry;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -45,7 +43,7 @@ public class RecipeCommand extends SlashCommand {
     @Override
     public String getHelp() {
         return "Shows the recipes for an item.\n" +
-                "Items and recipes are from Java Edition 1.7 to " + Config.getSupportedMCVersion() + ".\n" +
+                "Items and recipes are from Java Edition 1.7 to " + VersionRegistry.getLatestVersion() + ".\n" +
                 "All recipe types are searchable, including brewing.\n" +
                 "\n" +
                 ItemRegistry.help + "\n";
@@ -84,17 +82,13 @@ public class RecipeCommand extends SlashCommand {
             return new Result(Outcome.WARNING, ":warning: Choose a page 1-" + recipes.size() + ".");
         }
 
-        // Create menu
-        MenuStatus status = ReactMenu.getMenuStatus(e);
-        if (status.isValid()) {
+        RecipeMenu menu = new RecipeMenu(recipes, page);
+        if (InteractionTracker.shouldUseMenus(e)) {
             e.deferReply().queue();
-            new RecipeMenu(recipes, page).post(e);
+            InteractionTracker.post(e.getHook(), menu);
             return new Result(Outcome.SUCCESS);
         }
-        recipes.sort(RecipeRegistry::compareRecipes);
-        EmbedBuilder eb = RecipeRegistry.displayImg(recipes.get(page));
-        eb.setFooter(String.format("Page %s/%s%s", page + 1, recipes.size(), status.getReason()), null);
-        return new Result(Outcome.SUCCESS, eb.build());
+        return new Result(Outcome.SUCCESS, menu.render(false));
 
     }
 
