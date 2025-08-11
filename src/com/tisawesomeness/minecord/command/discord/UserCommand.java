@@ -8,7 +8,6 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.InteractionContextType;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
@@ -31,8 +30,7 @@ public class UserCommand extends SlashCommand {
 
     @Override
     public SlashCommandData addCommandSyntax(SlashCommandData builder) {
-        return builder.setContexts(InteractionContextType.GUILD)
-                .addOption(OptionType.USER, "user", "The user to look up", true);
+        return builder.addOption(OptionType.USER, "user", "The user to look up", true);
     }
 
     @Override
@@ -50,11 +48,12 @@ public class UserCommand extends SlashCommand {
 
     public Result run(SlashCommandInteractionEvent e) {
         Member mem = e.getOption("user").getAsMember();
-        if (mem == null) {
-            return new Result(Outcome.WARNING, ":warning: That user is not in this guild.");
+        User u;
+        if (mem != null) {
+            u = mem.getUser();
+        } else {
+            u = e.getOption("user").getAsUser();
         }
-
-        User u = mem.getUser();
 
         // Build role string
         String roles = getRoleString(mem);
@@ -62,14 +61,18 @@ public class UserCommand extends SlashCommand {
         // Generate user info
         EmbedBuilder eb = MessageUtils.addFooter(new EmbedBuilder())
                 .setTitle(MarkdownSanitizer.escape(u.getEffectiveName()))
-                .setColor(mem.isDetached() ? Bot.color : mem.getColor())
+                .setColor(mem == null || mem.isDetached() ? Bot.color : mem.getColor())
                 .setImage(u.getAvatarUrl())
-                .addField("ID", u.getId(), true)
-                .addField("Nickname", mem.getNickname() == null ? "None" : MarkdownSanitizer.escape(mem.getNickname()), true)
-                .addField("Bot?", u.isBot() ? "Yes" : "No", true)
-                .addField("Joined Server", TimeFormat.RELATIVE.format(mem.getTimeJoined()), false)
-                .addField("Created Account", TimeFormat.RELATIVE.format(u.getTimeCreated()), false);
-        if (mem.getTimeBoosted() != null) {
+                .addField("ID", u.getId(), true);
+        if (mem != null) {
+            eb.addField("Nickname", mem.getNickname() == null ? "None" : MarkdownSanitizer.escape(mem.getNickname()), true);
+        }
+        eb.addField("Bot?", u.isBot() ? "Yes" : "No", true);
+        if (mem != null && mem.hasTimeJoined()) {
+            eb.addField("Joined Server", TimeFormat.RELATIVE.format(mem.getTimeJoined()), false);
+        }
+        eb.addField("Created Account", TimeFormat.RELATIVE.format(u.getTimeCreated()), false);
+        if (mem != null && mem.getTimeBoosted() != null) {
             eb.addField("Boosted", TimeFormat.RELATIVE.format(mem.getTimeBoosted()), false);
         }
         if (roles != null) {
@@ -79,8 +82,8 @@ public class UserCommand extends SlashCommand {
         return new Result(Outcome.SUCCESS, eb.build());
     }
 
-    private static @Nullable String getRoleString(Member mem) {
-        if (mem.isDetached()) {
+    private static @Nullable String getRoleString(@Nullable Member mem) {
+        if (mem == null || mem.isDetached()) {
             return null;
         }
         StringBuilder roles = new StringBuilder();
