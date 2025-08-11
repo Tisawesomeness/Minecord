@@ -47,7 +47,7 @@ public class DiscordUtils {
                 .replace("{privacy}", Bot.privacy)
                 .replace("{prefix}", Config.getPrefix())
                 .replace("{jda_ver}", Bot.jdaVersion)
-                .replace("{version}", Bot.getVersion());
+                .replace("{version}", Bot.version);
     }
 
     /**

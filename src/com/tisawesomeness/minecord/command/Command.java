@@ -6,6 +6,7 @@ import com.tisawesomeness.minecord.util.MessageUtils;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.api.exceptions.InteractionFailureException;
+import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
 import net.dv8tion.jda.api.utils.messages.MessageCreateData;
@@ -32,6 +33,20 @@ public interface Command<T extends Event> {
 
     void sendSuccess(T e, MessageCreateData message);
     void sendFailure(T e, MessageCreateData message);
+
+    String getMention();
+
+    default String getMentionWithUsage() {
+        String mention = getMention();
+        String usage = getInfo().usage;
+        if (usage == null) {
+            return mention;
+        } else if (mention.endsWith("`")) {
+            return MarkdownUtil.monospace(MarkdownSanitizer.sanitize(mention) + " " + usage);
+        } else {
+            return mention + " " + MarkdownUtil.monospace(usage);
+        }
+    }
 
     String debugRunCommand(T e);
 

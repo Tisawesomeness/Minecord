@@ -1,8 +1,11 @@
 package com.tisawesomeness.minecord.command;
 
+import com.tisawesomeness.minecord.Bot;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.ICommandReference;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
 import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
 import java.util.stream.Collectors;
@@ -39,6 +42,15 @@ public abstract class SlashCommand implements Command<SlashCommandInteractionEve
         } else {
             e.reply(message).setEphemeral(true).queue();
         }
+    }
+
+    @Override
+    public final String getMention() {
+        return Bot.getSlashCommands().stream()
+                .filter(c -> c.getName().equals(getInfo().name))
+                .findFirst()
+                .map(ICommandReference::getAsMention)
+                .orElse(MarkdownUtil.monospace("/" + getInfo().name));
     }
 
     @Override

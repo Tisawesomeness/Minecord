@@ -17,10 +17,13 @@ import com.tisawesomeness.minecord.network.OkAPIClient;
 import com.tisawesomeness.minecord.util.*;
 import com.tisawesomeness.minecord.util.type.DelayedCountDownLatch;
 import com.tisawesomeness.minecord.util.type.Switch;
+import lombok.Getter;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
@@ -35,6 +38,7 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 public class Bot {
@@ -49,7 +53,7 @@ public class Bot {
     public static final String donate = "https://ko-fi.com/tis_awesomeness";
     public static final String terms = "https://minecord.github.io/terms";
     public static final String privacy = "https://minecord.github.io/privacy";
-    private static final String version = "0.17.19";
+    public static final String version = "0.17.19";
     public static final String jdaVersion = "5.6.1";
     public static final Color color = Color.GREEN;
 
@@ -61,6 +65,7 @@ public class Bot {
     private static GuildListener guildListener;
     private static CommandListener commandListener;
     private static InteractionListener interactionListener;
+    @Getter private static List<Command> slashCommands;
     public static String ownerAvatarUrl;
     public static long birth;
     public static long bootTime;
@@ -219,13 +224,8 @@ public class Bot {
         Message.suppressContentIntentWarning(); // Still process legacy commands when possible to ease transition
         MessageRequest.setDefaultMentions(EnumSet.noneOf(Message.MentionType.class));
 
-        // The big one
-        List<CommandData> slashCommands = Registry.getSlashCommands();
-        for (String testServerId : Config.getTestServers()) {
-            shardManager.getGuildById(testServerId).updateCommands()
-                    .addCommands(slashCommands)
-                    .queue();
-        }
+        // Update global and test server commands
+        CompletableFuture<Void> commandFuture = deployCommands();
 
         //Start discordbots.org API
         String id = shardManager.getShardById(0).getSelfUser().getId();
@@ -233,8 +233,9 @@ public class Bot {
             RequestUtils.api = new DiscordBotListAPI.Builder().token(Config.getOrgToken()).botId(id).build();
         }
 
-        //Wait for database and web server
+        //Wait for commands, database and web server
         try {
+            commandFuture.join();
             db.join();
         } catch (InterruptedException ignored) {}
         setReady();
@@ -256,6 +257,24 @@ public class Bot {
 
         return true;
 
+    }
+
+    public static CompletableFuture<Void> deployCommands() {
+        List<CommandData> slashCommands = Registry.getSlashCommands();
+        CompletableFuture<Void> future = shardManager.getShardById(0)
+                .updateCommands()
+                .addCommands(slashCommands)
+                .submit()
+                .thenAccept(commands -> Bot.slashCommands = commands);
+
+        for (String testServerId : Config.getTestServers()) {
+            Guild g = shardManager.getGuildById(testServerId);
+            if (g != null) {
+                g.updateCommands().addCommands(slashCommands).queue();
+            }
+        }
+
+        return future;
     }
 
     public static void reloadMCLibrary() {
@@ -287,10 +306,6 @@ public class Bot {
     public static double getPing() {
         // yes, getAverageGatewayPing() really can return negative
         return Math.max(0, Bot.shardManager.getAverageGatewayPing());
-    }
-
-    public static String getVersion() {
-        return version;
     }
 
     //Helps with reflection

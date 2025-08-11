@@ -1,5 +1,7 @@
 package com.tisawesomeness.minecord.command;
 
+import com.tisawesomeness.minecord.Bot;
+
 /**
  * A category of commands grouped together.
  */
@@ -38,7 +40,8 @@ public class Module {
         return hidden;
     }
     public String getHelp() {
-        return moduleHelp == null ? null : moduleHelp.replace("{&}", "/");
+        String username = Bot.shardManager.getShardById(0).getSelfUser().getName();
+        return moduleHelp == null ? null : moduleHelp.replace("{&}", "@" + username + " ");
     }
     public Command<?>[] getCommands() {
         return commands;
