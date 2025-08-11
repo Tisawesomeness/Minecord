@@ -86,7 +86,6 @@ public class Registry {
                        new RoleCommandAdmin(),
                        new RolesCommand(),
                        new IdCommand(),
-                       new PurgeCommand(),
                        new PermsCommand(),
                        new PermsCommandAdmin()
             ),
