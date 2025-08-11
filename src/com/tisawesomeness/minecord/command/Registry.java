@@ -85,15 +85,14 @@ public class Registry {
                        new RoleCommand(),
                        new RoleCommandAdmin(),
                        new RolesCommand(),
-                       new IdCommand(),
-                       new PermsCommand(),
-                       new PermsCommandAdmin()
+                       new IdCommand()
             ),
             new Module("Admin", true, adminHelp,
                        new SayCommand(),
                        new MsgCommand(),
                        new NameCommand(),
                        new UsageCommand(),
+                       new PermsCommand(),
                        new DebugCommand(),
                        new PromoteCommand(),
                        new DemoteCommand(),
