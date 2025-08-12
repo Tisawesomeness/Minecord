@@ -55,7 +55,7 @@ public class Bot {
     public static final String donate = "https://ko-fi.com/tis_awesomeness";
     public static final String terms = "https://minecord.github.io/terms";
     public static final String privacy = "https://minecord.github.io/privacy";
-    public static final String version = "0.18.0";
+    public static final String version = "0.18.1";
     public static final String jdaVersion = "5.6.1";
     public static final Color color = Color.GREEN;
 
@@ -227,7 +227,10 @@ public class Bot {
         MessageRequest.setDefaultMentions(EnumSet.noneOf(Message.MentionType.class));
 
         // Update global and test server commands
-        CompletableFuture<Void> commandFuture = deployCommands();
+        CompletableFuture<Void> commandFuture = null;
+        if (Config.getAutoDeploy()) {
+            commandFuture = deployCommands();
+        }
 
         //Start discordbots.org API
         String id = shardManager.getShards().get(0).getSelfUser().getId();
@@ -237,7 +240,9 @@ public class Bot {
 
         //Wait for commands, database and web server
         try {
-            commandFuture.join();
+            if (commandFuture != null) {
+                commandFuture.join();
+            }
             db.join();
         } catch (InterruptedException ignored) {}
         setReady();

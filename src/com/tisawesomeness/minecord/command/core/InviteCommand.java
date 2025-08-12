@@ -4,7 +4,6 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.util.MessageUtils;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
@@ -24,9 +23,11 @@ public class InviteCommand extends SlashCommand {
 
     public Result run(SlashCommandInteractionEvent e) {
         EmbedBuilder eb = new EmbedBuilder();
-        eb.addField("Invite me!", MarkdownUtil.maskedLink(Config.getInvite(), Config.getInvite()), false);
-        eb.addField("Help server", MarkdownUtil.maskedLink(Config.getHelpServer(), Config.getHelpServer()), false);
-        eb.addField("Website", MarkdownUtil.maskedLink(Config.getWebsite(), Config.getWebsite()), true);
+        eb.setTitle("Invite Minecord");
+        String links = MarkdownUtil.maskedLink("INVITE", Config.getInvite()) +
+                " | " + MarkdownUtil.maskedLink("SUPPORT", Config.getHelpServer()) +
+                " | " + MarkdownUtil.maskedLink("WEBSITE", Config.getWebsite());
+        eb.setDescription(links);
         eb.setColor(Bot.color);
         eb = MessageUtils.addFooter(eb);
         return new Result(Outcome.SUCCESS, eb.build());
