@@ -2,6 +2,7 @@
     "_comment": "Check the wiki for more information: https://github.com/Tisawesomeness/Minecord/wiki/Config",
     "clientToken": "your token here",
     "shardCount": 1,
+    "autoDeploy": true,
     "owner": "0",
     "testServers": [
     ],

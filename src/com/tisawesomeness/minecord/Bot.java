@@ -227,7 +227,10 @@ public class Bot {
         MessageRequest.setDefaultMentions(EnumSet.noneOf(Message.MentionType.class));
 
         // Update global and test server commands
-        CompletableFuture<Void> commandFuture = deployCommands();
+        CompletableFuture<Void> commandFuture = null;
+        if (Config.getAutoDeploy()) {
+            commandFuture = deployCommands();
+        }
 
         //Start discordbots.org API
         String id = shardManager.getShards().get(0).getSelfUser().getId();
@@ -237,7 +240,9 @@ public class Bot {
 
         //Wait for commands, database and web server
         try {
-            commandFuture.join();
+            if (commandFuture != null) {
+                commandFuture.join();
+            }
             db.join();
         } catch (InterruptedException ignored) {}
         setReady();

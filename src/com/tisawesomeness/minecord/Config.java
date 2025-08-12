@@ -15,6 +15,7 @@ public class Config {
 
     @Getter private static String clientToken;
     @Getter private static int shardCount;
+    private static boolean autoDeploy;
     @Getter private static String owner;
     @Getter private static List<String> testServers;
 
@@ -107,6 +108,7 @@ public class Config {
             } else if (shardCount == 0) {
                 shardCount = 1;
             }
+            autoDeploy = config.optBoolean("autoDeploy", true);
             owner = config.getString("owner");
 
             testServers = new ArrayList<>();
@@ -187,6 +189,7 @@ public class Config {
 
     }
 
+    public static boolean getAutoDeploy() { return autoDeploy; }
     public static boolean getIncludeSpamStatuses() { return includeSpamStatuses; }
     public static boolean isSelfHosted() { return isSelfHosted; }
     public static boolean getEvil() { return evil; }
