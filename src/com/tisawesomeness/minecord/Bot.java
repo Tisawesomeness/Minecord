@@ -205,7 +205,7 @@ public class Bot {
                 birth = startTime;
                 if (Config.getDevMode()) {
                     MethodName.SET_SHARDS.method().invoke(null, shardManager);
-                    MethodName.SET_BIRTH.method().invoke(null, birth);
+                    MethodName.SET_BIRTH.method().invoke(null, (Object) birth);
                 }
 
                 // Wait for shards to ready
@@ -227,10 +227,7 @@ public class Bot {
         MessageRequest.setDefaultMentions(EnumSet.noneOf(Message.MentionType.class));
 
         // Update global and test server commands
-        CompletableFuture<Void> commandFuture = null;
-        if (Config.getAutoDeploy()) {
-            commandFuture = deployCommands();
-        }
+        CompletableFuture<?> commandFuture = deployCommands();
 
         //Start discordbots.org API
         String id = shardManager.getShards().get(0).getSelfUser().getId();
@@ -240,9 +237,7 @@ public class Bot {
 
         //Wait for commands, database and web server
         try {
-            if (commandFuture != null) {
-                commandFuture.join();
-            }
+            commandFuture.join();
             db.join();
         } catch (InterruptedException ignored) {}
         setReady();
@@ -267,6 +262,11 @@ public class Bot {
     }
 
     public static CompletableFuture<Void> deployCommands() {
+        if (!Config.getAutoDeploy()) {
+            return shardManager.getShards().get(0).retrieveCommands().submit()
+                .thenAccept(commands -> Bot.slashCommands = commands);
+        }
+
         List<CommandData> slashCommands = Registry.getSlashCommands();
         CompletableFuture<Void> future = shardManager.getShards().get(0)
                 .updateCommands()

@@ -26,7 +26,7 @@ public class Loader implements Runnable {
         if (propagate) Thread.currentThread().setContextClassLoader(dl);
         Class<?> clazz = dl.loadClass(botClass);
         try {
-            clazz.getMethods()[1].invoke(null, args, true);
+            clazz.getMethods()[1].invoke(null, args, (Object) true);
         } catch (ClassCastException ex) {
             //Do nothing
         } catch (Exception ex) {
