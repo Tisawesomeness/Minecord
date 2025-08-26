@@ -29,6 +29,7 @@ import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
 import net.dv8tion.jda.api.utils.messages.MessageRequest;
 import org.discordbots.api.client.DiscordBotListAPI;
 
@@ -55,7 +56,7 @@ public class Bot {
     public static final String donate = "https://ko-fi.com/tis_awesomeness";
     public static final String terms = "https://minecord.github.io/terms";
     public static final String privacy = "https://minecord.github.io/privacy";
-    public static final String version = "0.18.1";
+    public static final String version = "0.18.2";
     public static final String jdaVersion = "5.6.1";
     public static final Color color = Color.GREEN;
 
@@ -80,10 +81,10 @@ public class Bot {
     );
 
     private static final Switch readySwitch = new Switch();
-    public static void setReady() {
+    private static void setReady() {
         readySwitch.enable();
     }
-    public static void setNotReady() {
+    private static void setNotReady() {
         readySwitch.disable();
     }
     public static boolean waitForReady(long l, TimeUnit timeUnit) throws InterruptedException {
@@ -109,8 +110,15 @@ public class Bot {
 
         //Parse arguments
         Bot.args = args;
-        Config.read(false);
-        if (Config.getDevMode() && !devMode) return false;
+        try {
+            Config.read(false);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        if (Config.getDevMode() && !devMode) {
+            return false;
+        }
         boolean reload = args.length > 0 && ArrayUtils.contains(args, "-r");
 
         if (!reload && Config.getClientToken().equals("your token here")) {
@@ -205,7 +213,7 @@ public class Bot {
                 birth = startTime;
                 if (Config.getDevMode()) {
                     MethodName.SET_SHARDS.method().invoke(null, shardManager);
-                    MethodName.SET_BIRTH.method().invoke(null, birth);
+                    MethodName.SET_BIRTH.method().invoke(null, (Object) birth);
                 }
 
                 // Wait for shards to ready
@@ -227,10 +235,7 @@ public class Bot {
         MessageRequest.setDefaultMentions(EnumSet.noneOf(Message.MentionType.class));
 
         // Update global and test server commands
-        CompletableFuture<Void> commandFuture = null;
-        if (Config.getAutoDeploy()) {
-            commandFuture = deployCommands();
-        }
+        CompletableFuture<?> commandFuture = deployCommands();
 
         //Start discordbots.org API
         String id = shardManager.getShards().get(0).getSelfUser().getId();
@@ -240,9 +245,7 @@ public class Bot {
 
         //Wait for commands, database and web server
         try {
-            if (commandFuture != null) {
-                commandFuture.join();
-            }
+            commandFuture.join();
             db.join();
         } catch (InterruptedException ignored) {}
         setReady();
@@ -267,6 +270,11 @@ public class Bot {
     }
 
     public static CompletableFuture<Void> deployCommands() {
+        if (!Config.getAutoDeploy()) {
+            return shardManager.getShards().get(0).retrieveCommands().submit()
+                .thenAccept(commands -> Bot.slashCommands = commands);
+        }
+
         List<CommandData> slashCommands = Registry.getSlashCommands();
         CompletableFuture<Void> future = shardManager.getShards().get(0)
                 .updateCommands()
@@ -289,8 +297,52 @@ public class Bot {
         return future;
     }
 
-    public static void reloadMCLibrary() {
-        mcLibrary = new StandardMCLibrary(apiClient);
+    public static boolean reload(User user) {
+        boolean error = false;
+        String oldLogWebhook = Config.getLogWebhook();
+        setNotReady();
+        try {
+
+            try {
+                Database.close();
+                Database.init();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                error = true;
+            }
+
+            if (Config.getReceiveVotes()) {
+                VoteHandler.close();
+            }
+            try {
+                Config.read(true);
+                if (Config.getReceiveVotes()) {
+                    VoteHandler.init();
+                }
+                if (!oldLogWebhook.isEmpty() && !Config.getLogWebhook().equals(oldLogWebhook)) {
+                    logger.log(":rotating_light: Log webhook changed by " + DiscordUtils.tagAndId(user));
+                }
+                Announcement.init(Config.getPath());
+                ColorUtils.init(Config.getPath());
+                VersionRegistry.init(Config.getPath());
+                FeatureFlagRegistry.init(Config.getPath());
+                ItemRegistry.init(Config.getPath());
+                RecipeRegistry.init(Config.getPath());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                error = true;
+            }
+
+            mcLibrary = new StandardMCLibrary(apiClient);
+            logger = new DiscordLogger(apiClient.getHttpClientBuilder().build());
+
+        } finally {
+            setReady();
+            String msg = "Bot reloaded by " + DiscordUtils.tagAndId(user);
+            System.out.println(msg);
+            logger.log(":arrows_counterclockwise: " + MarkdownUtil.bold(msg));
+        }
+        return !error;
     }
 
     public static void shutdown(Message m, User u) {
