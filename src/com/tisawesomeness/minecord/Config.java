@@ -4,7 +4,6 @@ import com.tisawesomeness.minecord.util.ArrayUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
 import lombok.Getter;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -68,7 +67,7 @@ public class Config {
 
     @Getter private static String path;
 
-    public static void read(boolean reload) {
+    public static void read(boolean reload) throws IOException {
 
         //Look for client token
         if (!reload) {
@@ -99,93 +98,88 @@ public class Config {
         }
 
         //Parse config JSON
-        try {
-            JSONObject config = RequestUtils.loadJSON(path + "/config.json");
-            if (clientToken == null) clientToken = config.getString("clientToken");
-            shardCount = config.getInt("shardCount");
-            if (shardCount < -1) {
-                shardCount = -1;
-            } else if (shardCount == 0) {
-                shardCount = 1;
-            }
-            autoDeploy = config.optBoolean("autoDeploy", true);
-            owner = config.getString("owner");
-
-            testServers = new ArrayList<>();
-            JSONArray arr = config.optJSONArray("testServers");
-            if (arr != null) {
-                arr.forEach(id -> testServers.add((String) id));
-            }
-
-            JSONObject settings = config.getJSONObject("settings");
-            logChannel = settings.getString("logChannel");
-            joinLogChannel = settings.optString("joinLogChannel", "0");
-            logWebhook = settings.optString("logWebhook", "");
-            statusWebhook = settings.optString("statusWebhook", "");
-            includeSpamStatuses = settings.optBoolean("includeSpamStatuses", false);
-            isSelfHosted = settings.optBoolean("isSelfHosted", true);
-            if (isSelfHosted) {
-                author = settings.getString("author");
-                authorTag = settings.getString("authorTag");
-                invite = settings.getString("invite");
-                helpServer = settings.getString("helpServer");
-                website = settings.getString("website");
-                github = settings.getString("github");
-            } else {
-                author = Bot.author;
-                authorTag = Bot.authorTag;
-                invite = Bot.invite;
-                helpServer = Bot.helpServer;
-                website = Bot.website;
-                github = Bot.github;
-            }
-            prefix = settings.getString("prefix");
-            game = settings.getString("game");
-            evil = settings.optBoolean("evil", false);
-            if (evil) {
-                System.err.println("WARNING: Eval is enabled!");
-            }
-            devMode = settings.getBoolean("devMode");
-            debugMode = settings.getBoolean("debugMode");
-            deleteCommands = settings.getBoolean("deleteCommands");
-            useMenus = settings.getBoolean("useMenus");
-            showMemory = settings.getBoolean("showMemory");
-            elevatedSkipCooldown = settings.getBoolean("elevatedSkipCooldown");
-            serverTimeout = settings.optInt("serverTimeout", 5000);
-            serverReadTimeout = settings.optInt("serverReadTimeout", 5000);
-            warnOnLocalPing = settings.optBoolean("warnOnLocalPing", true);
-            useElectroidAPI = settings.optBoolean("useElectroidAPI", true);
-            useGappleAPI = settings.optBoolean("useGappleAPI", true);
-            recordCacheStats = settings.optBoolean("recordCacheStats", false);
-            itemImageHost = settings.optString("itemImageHost", "https://minecord.github.io/item/");
-            recipeImageHost = settings.optString("recipeImageHost", "https://minecord.github.io/recipe/");
-            crafatarHost = settings.optString("crafatarHost", "https://crafatar.com/");
-            reuploadCrafatarImages = settings.optBoolean("reuploadCrafatarImages", false);
-
-            JSONObject botLists = config.optJSONObject("botLists");
-            if (botLists == null || isSelfHosted) {
-                sendServerCount = false;
-            } else {
-                sendServerCount = botLists.getBoolean("sendServerCount");
-                pwToken = botLists.getString("pwToken");
-                orgToken = botLists.getString("orgToken");
-                receiveVotes = botLists.getBoolean("receiveVotes");
-                webhookURL = botLists.getString("webhookURL");
-                webhookPort = botLists.getInt("webhookPort");
-                webhookAuth = botLists.getString("webhookAuth");
-            }
-
-            JSONObject database = config.getJSONObject("database");
-            type = database.getString("type");
-            host = database.getString("host");
-            port = database.getInt("port");
-            dbName = database.getString("name");
-            user = database.getString("user");
-            pass = database.getString("pass");
-
-        } catch (JSONException | IOException ex) {
-            ex.printStackTrace();
+        JSONObject config = RequestUtils.loadJSON(path + "/config.json");
+        if (clientToken == null) clientToken = config.getString("clientToken");
+        shardCount = config.getInt("shardCount");
+        if (shardCount < -1) {
+            shardCount = -1;
+        } else if (shardCount == 0) {
+            shardCount = 1;
         }
+        autoDeploy = config.optBoolean("autoDeploy", true);
+        owner = config.getString("owner");
+
+        testServers = new ArrayList<>();
+        JSONArray arr = config.optJSONArray("testServers");
+        if (arr != null) {
+            arr.forEach(id -> testServers.add((String) id));
+        }
+
+        JSONObject settings = config.getJSONObject("settings");
+        logChannel = settings.getString("logChannel");
+        joinLogChannel = settings.optString("joinLogChannel", "0");
+        logWebhook = settings.optString("logWebhook", "");
+        statusWebhook = settings.optString("statusWebhook", "");
+        includeSpamStatuses = settings.optBoolean("includeSpamStatuses", false);
+        isSelfHosted = settings.optBoolean("isSelfHosted", true);
+        if (isSelfHosted) {
+            author = settings.getString("author");
+            authorTag = settings.getString("authorTag");
+            invite = settings.getString("invite");
+            helpServer = settings.getString("helpServer");
+            website = settings.getString("website");
+            github = settings.getString("github");
+        } else {
+            author = Bot.author;
+            authorTag = Bot.authorTag;
+            invite = Bot.invite;
+            helpServer = Bot.helpServer;
+            website = Bot.website;
+            github = Bot.github;
+        }
+        prefix = settings.getString("prefix");
+        game = settings.getString("game");
+        evil = settings.optBoolean("evil", false);
+        if (evil) {
+            System.err.println("WARNING: Eval is enabled!");
+        }
+        devMode = settings.getBoolean("devMode");
+        debugMode = settings.getBoolean("debugMode");
+        deleteCommands = settings.getBoolean("deleteCommands");
+        useMenus = settings.getBoolean("useMenus");
+        showMemory = settings.getBoolean("showMemory");
+        elevatedSkipCooldown = settings.getBoolean("elevatedSkipCooldown");
+        serverTimeout = settings.optInt("serverTimeout", 5000);
+        serverReadTimeout = settings.optInt("serverReadTimeout", 5000);
+        warnOnLocalPing = settings.optBoolean("warnOnLocalPing", true);
+        useElectroidAPI = settings.optBoolean("useElectroidAPI", true);
+        useGappleAPI = settings.optBoolean("useGappleAPI", true);
+        recordCacheStats = settings.optBoolean("recordCacheStats", false);
+        itemImageHost = settings.optString("itemImageHost", "https://minecord.github.io/item/");
+        recipeImageHost = settings.optString("recipeImageHost", "https://minecord.github.io/recipe/");
+        crafatarHost = settings.optString("crafatarHost", "https://crafatar.com/");
+        reuploadCrafatarImages = settings.optBoolean("reuploadCrafatarImages", false);
+
+        JSONObject botLists = config.optJSONObject("botLists");
+        if (botLists == null || isSelfHosted) {
+            sendServerCount = false;
+        } else {
+            sendServerCount = botLists.getBoolean("sendServerCount");
+            pwToken = botLists.getString("pwToken");
+            orgToken = botLists.getString("orgToken");
+            receiveVotes = botLists.getBoolean("receiveVotes");
+            webhookURL = botLists.getString("webhookURL");
+            webhookPort = botLists.getInt("webhookPort");
+            webhookAuth = botLists.getString("webhookAuth");
+        }
+
+        JSONObject database = config.getJSONObject("database");
+        type = database.getString("type");
+        host = database.getString("host");
+        port = database.getInt("port");
+        dbName = database.getString("name");
+        user = database.getString("user");
+        pass = database.getString("pass");
 
     }
 
