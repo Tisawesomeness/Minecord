@@ -200,7 +200,7 @@ public class RecipeRegistry {
      */
     private static List<Recipe> searchItemIngredient(String namespacedID) {
         return recipes.values().stream()
-                .filter(r -> getIngredientItems(r).contains(namespacedID))
+                .filter(r -> !isIgnoredRecipe(r) && getIngredientItems(r).contains(namespacedID))
                 .collect(Collectors.toList());
     }
 
@@ -292,7 +292,7 @@ public class RecipeRegistry {
         }
         int removedVerCompare = Version.NULLS_FIRST_COMPARATOR.compare(removedVer1, removedVer2);
         if (removedVerCompare != 0) {
-            return removedVerCompare;
+            return -removedVerCompare;
         }
         if (!recipe1.isReleased() || !recipe2.isReleased()) {
             int featureCompare = FeatureFlagRegistry.RELEASE_ORDER_COMPARATOR.compare(recipe1.getFeatureFlag(), recipe2.getFeatureFlag());
