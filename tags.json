@@ -25,7 +25,8 @@
       "minecraft:golden_axe",
       "minecraft:netherite_axe",
       "minecraft:wooden_axe",
-      "minecraft:iron_axe"
+      "minecraft:iron_axe",
+      "minecraft:copper_axe"
     ],
     "axolotl_food": [
       "minecraft:tropical_fish_bucket"
@@ -51,6 +52,17 @@
       "minecraft:green_banner",
       "minecraft:red_banner",
       "minecraft:black_banner"
+    ],
+    "bars": [
+      "minecraft:iron_bars",
+      "minecraft:copper_bars",
+      "minecraft:waxed_copper_bars",
+      "minecraft:exposed_copper_bars",
+      "minecraft:waxed_exposed_copper_bars",
+      "minecraft:weathered_copper_bars",
+      "minecraft:waxed_weathered_copper_bars",
+      "minecraft:oxidized_copper_bars",
+      "minecraft:waxed_oxidized_copper_bars"
     ],
     "beacon_payment_items": [
       "minecraft:netherite_ingot",
@@ -198,6 +210,17 @@
       "minecraft:cod",
       "minecraft:salmon"
     ],
+    "chains": [
+      "minecraft:iron_chain",
+      "minecraft:copper_chain",
+      "minecraft:waxed_copper_chain",
+      "minecraft:exposed_copper_chain",
+      "minecraft:waxed_exposed_copper_chain",
+      "minecraft:weathered_copper_chain",
+      "minecraft:waxed_weathered_copper_chain",
+      "minecraft:oxidized_copper_chain",
+      "minecraft:waxed_oxidized_copper_chain"
+    ],
     "cherry_logs": [
       "minecraft:cherry_log",
       "minecraft:cherry_wood",
@@ -206,6 +229,7 @@
     ],
     "chest_armor": [
       "minecraft:leather_chestplate",
+      "minecraft:copper_chestplate",
       "minecraft:chainmail_chestplate",
       "minecraft:golden_chestplate",
       "minecraft:iron_chestplate",
@@ -238,7 +262,8 @@
       "minecraft:iron_pickaxe",
       "minecraft:netherite_pickaxe",
       "minecraft:stone_pickaxe",
-      "minecraft:wooden_pickaxe"
+      "minecraft:wooden_pickaxe",
+      "minecraft:copper_pickaxe"
     ],
     "coal_ores": [
       "minecraft:coal_ore",
@@ -257,9 +282,42 @@
       "#minecraft:leaves",
       "#minecraft:wart_blocks"
     ],
+    "copper": [
+      "minecraft:copper_block",
+      "minecraft:exposed_copper",
+      "minecraft:weathered_copper",
+      "minecraft:oxidized_copper",
+      "minecraft:waxed_copper_block",
+      "minecraft:waxed_exposed_copper",
+      "minecraft:waxed_weathered_copper",
+      "minecraft:waxed_oxidized_copper"
+    ],
+    "copper_chests": [
+      "minecraft:copper_chest",
+      "minecraft:exposed_copper_chest",
+      "minecraft:weathered_copper_chest",
+      "minecraft:oxidized_copper_chest",
+      "minecraft:waxed_copper_chest",
+      "minecraft:waxed_exposed_copper_chest",
+      "minecraft:waxed_weathered_copper_chest",
+      "minecraft:waxed_oxidized_copper_chest"
+    ],
+    "copper_golem_statues": [
+      "minecraft:copper_golem_statue",
+      "minecraft:exposed_copper_golem_statue",
+      "minecraft:weathered_copper_golem_statue",
+      "minecraft:oxidized_copper_golem_statue",
+      "minecraft:waxed_copper_golem_statue",
+      "minecraft:waxed_exposed_copper_golem_statue",
+      "minecraft:waxed_weathered_copper_golem_statue",
+      "minecraft:waxed_oxidized_copper_golem_statue"
+    ],
     "copper_ores": [
       "minecraft:copper_ore",
       "minecraft:deepslate_copper_ore"
+    ],
+    "copper_tool_materials": [
+      "minecraft:copper_ingot"
     ],
     "cow_food": [
       "minecraft:wheat"
@@ -426,6 +484,7 @@
     ],
     "foot_armor": [
       "minecraft:leather_boots",
+      "minecraft:copper_boots",
       "minecraft:chainmail_boots",
       "minecraft:golden_boots",
       "minecraft:iron_boots",
@@ -505,6 +564,7 @@
     ],
     "head_armor": [
       "minecraft:leather_helmet",
+      "minecraft:copper_helmet",
       "minecraft:chainmail_helmet",
       "minecraft:golden_helmet",
       "minecraft:iron_helmet",
@@ -518,7 +578,8 @@
       "minecraft:golden_hoe",
       "minecraft:netherite_hoe",
       "minecraft:wooden_hoe",
-      "minecraft:iron_hoe"
+      "minecraft:iron_hoe",
+      "minecraft:copper_hoe"
     ],
     "hoglin_food": [
       "minecraft:crimson_fungus"
@@ -554,6 +615,18 @@
       "minecraft:stripped_jungle_log",
       "minecraft:stripped_jungle_wood"
     ],
+    "lanterns": [
+      "minecraft:lantern",
+      "minecraft:soul_lantern",
+      "minecraft:copper_lantern",
+      "minecraft:waxed_copper_lantern",
+      "minecraft:exposed_copper_lantern",
+      "minecraft:waxed_exposed_copper_lantern",
+      "minecraft:weathered_copper_lantern",
+      "minecraft:waxed_weathered_copper_lantern",
+      "minecraft:oxidized_copper_lantern",
+      "minecraft:waxed_oxidized_copper_lantern"
+    ],
     "lapis_ores": [
       "minecraft:lapis_ore",
       "minecraft:deepslate_lapis_ore"
@@ -577,11 +650,22 @@
     ],
     "leg_armor": [
       "minecraft:leather_leggings",
+      "minecraft:copper_leggings",
       "minecraft:chainmail_leggings",
       "minecraft:golden_leggings",
       "minecraft:iron_leggings",
       "minecraft:diamond_leggings",
       "minecraft:netherite_leggings"
+    ],
+    "lightning_rods": [
+      "minecraft:lightning_rod",
+      "minecraft:exposed_lightning_rod",
+      "minecraft:weathered_lightning_rod",
+      "minecraft:oxidized_lightning_rod",
+      "minecraft:waxed_lightning_rod",
+      "minecraft:waxed_exposed_lightning_rod",
+      "minecraft:waxed_weathered_lightning_rod",
+      "minecraft:waxed_oxidized_lightning_rod"
     ],
     "llama_food": [
       "minecraft:wheat",
@@ -640,6 +724,7 @@
       "minecraft:crimson_hyphae",
       "minecraft:crimson_planks",
       "minecraft:crimson_pressure_plate",
+      "minecraft:crimson_shelf",
       "minecraft:crimson_sign",
       "minecraft:crimson_slab",
       "minecraft:crimson_stairs",
@@ -655,6 +740,7 @@
       "minecraft:warped_hyphae",
       "minecraft:warped_planks",
       "minecraft:warped_pressure_plate",
+      "minecraft:warped_shelf",
       "minecraft:warped_sign",
       "minecraft:warped_slab",
       "minecraft:warped_stairs",
@@ -712,7 +798,8 @@
       "minecraft:golden_pickaxe",
       "minecraft:netherite_pickaxe",
       "minecraft:wooden_pickaxe",
-      "minecraft:iron_pickaxe"
+      "minecraft:iron_pickaxe",
+      "minecraft:copper_pickaxe"
     ],
     "pig_food": [
       "minecraft:carrot",
@@ -797,6 +884,9 @@
     "repairs_chain_armor": [
       "minecraft:iron_ingot"
     ],
+    "repairs_copper_armor": [
+      "minecraft:copper_ingot"
+    ],
     "repairs_diamond_armor": [
       "minecraft:diamond"
     ],
@@ -836,6 +926,9 @@
       "minecraft:azalea",
       "minecraft:flowering_azalea"
     ],
+    "shearable_from_copper_golem": [
+      "minecraft:poppy"
+    ],
     "sheep_food": [
       "minecraft:wheat"
     ],
@@ -845,7 +938,8 @@
       "minecraft:golden_shovel",
       "minecraft:netherite_shovel",
       "minecraft:wooden_shovel",
-      "minecraft:iron_shovel"
+      "minecraft:iron_shovel",
+      "minecraft:copper_shovel"
     ],
     "shulker_boxes": [
       "minecraft:shulker_box",
@@ -1062,7 +1156,8 @@
       "minecraft:golden_sword",
       "minecraft:netherite_sword",
       "minecraft:wooden_sword",
-      "minecraft:iron_sword"
+      "minecraft:iron_sword",
+      "minecraft:copper_sword"
     ],
     "terracotta": [
       "minecraft:terracotta",
@@ -1238,6 +1333,20 @@
       "minecraft:bamboo_pressure_plate",
       "minecraft:cherry_pressure_plate",
       "minecraft:pale_oak_pressure_plate"
+    ],
+    "wooden_shelves": [
+      "minecraft:oak_shelf",
+      "minecraft:spruce_shelf",
+      "minecraft:birch_shelf",
+      "minecraft:jungle_shelf",
+      "minecraft:acacia_shelf",
+      "minecraft:dark_oak_shelf",
+      "minecraft:crimson_shelf",
+      "minecraft:warped_shelf",
+      "minecraft:mangrove_shelf",
+      "minecraft:bamboo_shelf",
+      "minecraft:cherry_shelf",
+      "minecraft:pale_oak_shelf"
     ],
     "wooden_slabs": [
       "minecraft:oak_slab",

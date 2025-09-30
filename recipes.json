@@ -15777,25 +15777,6 @@
       "version": "1.16"
     }
   },
-  "chain": {
-    "result": {
-      "count": 1,
-      "id": "minecraft:chain"
-    },
-    "pattern": [
-      "N",
-      "I",
-      "N"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "I": "minecraft:iron_ingot",
-      "N": "minecraft:iron_nugget"
-    },
-    "properties": {
-      "version": "1.16"
-    }
-  },
   "chiseled_nether_bricks": {
     "result": {
       "count": 1,
@@ -16087,6 +16068,25 @@
     "ingredient": "minecraft:nether_gold_ore",
     "type": "minecraft:smelting",
     "experience": 1,
+    "properties": {
+      "version": "1.16"
+    }
+  },
+  "iron_chain": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:iron_chain"
+    },
+    "pattern": [
+      "N",
+      "I",
+      "N"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "I": "minecraft:iron_ingot",
+      "N": "minecraft:iron_nugget"
+    },
     "properties": {
       "version": "1.16"
     }
@@ -20320,9 +20320,9 @@
     },
     "properties": {
       "removed": "1.21.2",
+      "datapack_version": "1.17",
       "feature_flag": "bundle",
-      "version": "1.19.3",
-      "datapack_version": "1.17"
+      "version": "1.19.3"
     }
   },
   "acacia_hanging_sign": {
@@ -20338,7 +20338,7 @@
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": "minecraft:stripped_acacia_log",
-      "X": "minecraft:chain"
+      "X": "minecraft:iron_chain"
     },
     "properties": {
       "feature_flag": "1.20",
@@ -20466,7 +20466,7 @@
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": "minecraft:stripped_bamboo_block",
-      "X": "minecraft:chain"
+      "X": "minecraft:iron_chain"
     },
     "properties": {
       "feature_flag": "1.20",
@@ -20664,7 +20664,7 @@
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": "minecraft:stripped_birch_log",
-      "X": "minecraft:chain"
+      "X": "minecraft:iron_chain"
     },
     "properties": {
       "feature_flag": "1.20",
@@ -20705,7 +20705,7 @@
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": "minecraft:stripped_crimson_stem",
-      "X": "minecraft:chain"
+      "X": "minecraft:iron_chain"
     },
     "properties": {
       "feature_flag": "1.20",
@@ -20725,7 +20725,7 @@
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": "minecraft:stripped_dark_oak_log",
-      "X": "minecraft:chain"
+      "X": "minecraft:iron_chain"
     },
     "properties": {
       "feature_flag": "1.20",
@@ -20745,7 +20745,7 @@
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": "minecraft:stripped_jungle_log",
-      "X": "minecraft:chain"
+      "X": "minecraft:iron_chain"
     },
     "properties": {
       "feature_flag": "1.20",
@@ -20765,7 +20765,7 @@
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": "minecraft:stripped_mangrove_log",
-      "X": "minecraft:chain"
+      "X": "minecraft:iron_chain"
     },
     "properties": {
       "feature_flag": "1.20",
@@ -20785,7 +20785,7 @@
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": "minecraft:stripped_oak_log",
-      "X": "minecraft:chain"
+      "X": "minecraft:iron_chain"
     },
     "properties": {
       "feature_flag": "1.20",
@@ -20805,7 +20805,7 @@
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": "minecraft:stripped_spruce_log",
-      "X": "minecraft:chain"
+      "X": "minecraft:iron_chain"
     },
     "properties": {
       "feature_flag": "1.20",
@@ -20825,7 +20825,7 @@
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": "minecraft:stripped_warped_stem",
-      "X": "minecraft:chain"
+      "X": "minecraft:iron_chain"
     },
     "properties": {
       "feature_flag": "1.20",
@@ -20970,7 +20970,7 @@
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": "minecraft:stripped_cherry_log",
-      "X": "minecraft:chain"
+      "X": "minecraft:iron_chain"
     },
     "properties": {
       "feature_flag": "1.20",
@@ -24176,9 +24176,9 @@
       "version": "1.20.3"
     }
   },
-  "copper_trapdoor": {
+  "copper_trapdoor_legacy_legacy": {
     "result": {
-      "count": 2,
+      "count": 1,
       "id": "minecraft:copper_trapdoor"
     },
     "pattern": [
@@ -24187,9 +24187,10 @@
     ],
     "type": "minecraft:crafting_shaped",
     "key": {
-      "#": "minecraft:copper_ingot"
+      "#": "minecraft:copper_block"
     },
     "properties": {
+      "removed": "1.21",
       "feature_flag": "1.21",
       "version": "1.20.3"
     }
@@ -24343,6 +24344,7 @@
       "#": "minecraft:exposed_copper"
     },
     "properties": {
+      "removed": "1.21",
       "feature_flag": "1.21",
       "version": "1.20.3"
     }
@@ -24474,6 +24476,7 @@
       "#": "minecraft:oxidized_copper"
     },
     "properties": {
+      "removed": "1.21",
       "feature_flag": "1.21",
       "version": "1.20.3"
     }
@@ -25115,6 +25118,7 @@
       "#": "minecraft:waxed_copper_block"
     },
     "properties": {
+      "removed": "1.21",
       "feature_flag": "1.21",
       "version": "1.20.3"
     }
@@ -25321,6 +25325,7 @@
       "#": "minecraft:waxed_exposed_copper"
     },
     "properties": {
+      "removed": "1.21",
       "feature_flag": "1.21",
       "version": "1.20.3"
     }
@@ -25527,6 +25532,7 @@
       "#": "minecraft:waxed_oxidized_copper"
     },
     "properties": {
+      "removed": "1.21",
       "feature_flag": "1.21",
       "version": "1.20.3"
     }
@@ -25733,6 +25739,7 @@
       "#": "minecraft:waxed_weathered_copper"
     },
     "properties": {
+      "removed": "1.21",
       "feature_flag": "1.21",
       "version": "1.20.3"
     }
@@ -25879,6 +25886,7 @@
       "#": "minecraft:weathered_copper"
     },
     "properties": {
+      "removed": "1.21",
       "feature_flag": "1.21",
       "version": "1.20.3"
     }
@@ -26258,6 +26266,24 @@
       "version": "1.20.6"
     }
   },
+  "copper_trapdoor_legacy": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:copper_trapdoor"
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:copper_ingot"
+    },
+    "properties": {
+      "removed": "1.21.9",
+      "version": "1.21"
+    }
+  },
   "black_bundle": {
     "result": {
       "id": "minecraft:black_bundle"
@@ -26630,7 +26656,7 @@
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": "minecraft:stripped_pale_oak_log",
-      "X": "minecraft:chain"
+      "X": "minecraft:iron_chain"
     },
     "properties": {
       "feature_flag": "winter_drop",
@@ -27193,21 +27219,21 @@
     "ingredients": [
       "minecraft:black_dye",
       [
-        "minecraft:white_harness",
-        "minecraft:orange_harness",
-        "minecraft:magenta_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:yellow_harness",
-        "minecraft:lime_harness",
-        "minecraft:pink_harness",
-        "minecraft:gray_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:cyan_harness",
-        "minecraft:purple_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
+        "minecraft:cyan_harness",
+        "minecraft:gray_harness",
         "minecraft:green_harness",
-        "minecraft:red_harness"
+        "minecraft:light_blue_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:lime_harness",
+        "minecraft:magenta_harness",
+        "minecraft:orange_harness",
+        "minecraft:pink_harness",
+        "minecraft:purple_harness",
+        "minecraft:red_harness",
+        "minecraft:yellow_harness",
+        "minecraft:white_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27224,21 +27250,21 @@
     "ingredients": [
       "minecraft:blue_dye",
       [
-        "minecraft:white_harness",
-        "minecraft:orange_harness",
-        "minecraft:magenta_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:yellow_harness",
-        "minecraft:lime_harness",
-        "minecraft:pink_harness",
-        "minecraft:gray_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:cyan_harness",
-        "minecraft:purple_harness",
+        "minecraft:black_harness",
         "minecraft:brown_harness",
+        "minecraft:cyan_harness",
+        "minecraft:gray_harness",
         "minecraft:green_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:lime_harness",
+        "minecraft:magenta_harness",
+        "minecraft:orange_harness",
+        "minecraft:pink_harness",
+        "minecraft:purple_harness",
         "minecraft:red_harness",
-        "minecraft:black_harness"
+        "minecraft:yellow_harness",
+        "minecraft:white_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27255,21 +27281,21 @@
     "ingredients": [
       "minecraft:brown_dye",
       [
-        "minecraft:white_harness",
-        "minecraft:orange_harness",
-        "minecraft:magenta_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:yellow_harness",
-        "minecraft:lime_harness",
-        "minecraft:pink_harness",
-        "minecraft:gray_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:cyan_harness",
-        "minecraft:purple_harness",
+        "minecraft:black_harness",
         "minecraft:blue_harness",
+        "minecraft:cyan_harness",
+        "minecraft:gray_harness",
         "minecraft:green_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:lime_harness",
+        "minecraft:magenta_harness",
+        "minecraft:orange_harness",
+        "minecraft:pink_harness",
+        "minecraft:purple_harness",
         "minecraft:red_harness",
-        "minecraft:black_harness"
+        "minecraft:yellow_harness",
+        "minecraft:white_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27286,21 +27312,21 @@
     "ingredients": [
       "minecraft:cyan_dye",
       [
-        "minecraft:white_harness",
-        "minecraft:orange_harness",
-        "minecraft:magenta_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:yellow_harness",
-        "minecraft:lime_harness",
-        "minecraft:pink_harness",
-        "minecraft:gray_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:purple_harness",
+        "minecraft:black_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
+        "minecraft:gray_harness",
         "minecraft:green_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:lime_harness",
+        "minecraft:magenta_harness",
+        "minecraft:orange_harness",
+        "minecraft:pink_harness",
+        "minecraft:purple_harness",
         "minecraft:red_harness",
-        "minecraft:black_harness"
+        "minecraft:yellow_harness",
+        "minecraft:white_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27317,21 +27343,21 @@
     "ingredients": [
       "minecraft:gray_dye",
       [
-        "minecraft:white_harness",
-        "minecraft:orange_harness",
-        "minecraft:magenta_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:yellow_harness",
-        "minecraft:lime_harness",
-        "minecraft:pink_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:cyan_harness",
-        "minecraft:purple_harness",
+        "minecraft:black_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
+        "minecraft:cyan_harness",
         "minecraft:green_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:lime_harness",
+        "minecraft:magenta_harness",
+        "minecraft:orange_harness",
+        "minecraft:pink_harness",
+        "minecraft:purple_harness",
         "minecraft:red_harness",
-        "minecraft:black_harness"
+        "minecraft:yellow_harness",
+        "minecraft:white_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27348,21 +27374,21 @@
     "ingredients": [
       "minecraft:green_dye",
       [
-        "minecraft:white_harness",
-        "minecraft:orange_harness",
-        "minecraft:magenta_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:yellow_harness",
-        "minecraft:lime_harness",
-        "minecraft:pink_harness",
-        "minecraft:gray_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:cyan_harness",
-        "minecraft:purple_harness",
+        "minecraft:black_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
+        "minecraft:cyan_harness",
+        "minecraft:gray_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:lime_harness",
+        "minecraft:magenta_harness",
+        "minecraft:orange_harness",
+        "minecraft:pink_harness",
+        "minecraft:purple_harness",
         "minecraft:red_harness",
-        "minecraft:black_harness"
+        "minecraft:yellow_harness",
+        "minecraft:white_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27379,21 +27405,21 @@
     "ingredients": [
       "minecraft:light_blue_dye",
       [
-        "minecraft:white_harness",
-        "minecraft:orange_harness",
-        "minecraft:magenta_harness",
-        "minecraft:yellow_harness",
-        "minecraft:lime_harness",
-        "minecraft:pink_harness",
-        "minecraft:gray_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:cyan_harness",
-        "minecraft:purple_harness",
+        "minecraft:black_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
+        "minecraft:cyan_harness",
+        "minecraft:gray_harness",
         "minecraft:green_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:lime_harness",
+        "minecraft:magenta_harness",
+        "minecraft:orange_harness",
+        "minecraft:pink_harness",
+        "minecraft:purple_harness",
         "minecraft:red_harness",
-        "minecraft:black_harness"
+        "minecraft:yellow_harness",
+        "minecraft:white_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27410,21 +27436,21 @@
     "ingredients": [
       "minecraft:light_gray_dye",
       [
-        "minecraft:white_harness",
-        "minecraft:orange_harness",
-        "minecraft:magenta_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:yellow_harness",
-        "minecraft:lime_harness",
-        "minecraft:pink_harness",
-        "minecraft:gray_harness",
-        "minecraft:cyan_harness",
-        "minecraft:purple_harness",
+        "minecraft:black_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
+        "minecraft:cyan_harness",
+        "minecraft:gray_harness",
         "minecraft:green_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:lime_harness",
+        "minecraft:magenta_harness",
+        "minecraft:orange_harness",
+        "minecraft:pink_harness",
+        "minecraft:purple_harness",
         "minecraft:red_harness",
-        "minecraft:black_harness"
+        "minecraft:yellow_harness",
+        "minecraft:white_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27441,21 +27467,21 @@
     "ingredients": [
       "minecraft:lime_dye",
       [
-        "minecraft:white_harness",
-        "minecraft:orange_harness",
-        "minecraft:magenta_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:yellow_harness",
-        "minecraft:pink_harness",
-        "minecraft:gray_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:cyan_harness",
-        "minecraft:purple_harness",
+        "minecraft:black_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
+        "minecraft:cyan_harness",
+        "minecraft:gray_harness",
         "minecraft:green_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:magenta_harness",
+        "minecraft:orange_harness",
+        "minecraft:pink_harness",
+        "minecraft:purple_harness",
         "minecraft:red_harness",
-        "minecraft:black_harness"
+        "minecraft:yellow_harness",
+        "minecraft:white_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27472,21 +27498,21 @@
     "ingredients": [
       "minecraft:magenta_dye",
       [
-        "minecraft:white_harness",
-        "minecraft:orange_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:yellow_harness",
-        "minecraft:lime_harness",
-        "minecraft:pink_harness",
-        "minecraft:gray_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:cyan_harness",
-        "minecraft:purple_harness",
+        "minecraft:black_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
+        "minecraft:cyan_harness",
+        "minecraft:gray_harness",
         "minecraft:green_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:lime_harness",
+        "minecraft:orange_harness",
+        "minecraft:pink_harness",
+        "minecraft:purple_harness",
         "minecraft:red_harness",
-        "minecraft:black_harness"
+        "minecraft:yellow_harness",
+        "minecraft:white_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27503,21 +27529,21 @@
     "ingredients": [
       "minecraft:orange_dye",
       [
-        "minecraft:white_harness",
-        "minecraft:magenta_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:yellow_harness",
-        "minecraft:lime_harness",
-        "minecraft:pink_harness",
-        "minecraft:gray_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:cyan_harness",
-        "minecraft:purple_harness",
+        "minecraft:black_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
+        "minecraft:cyan_harness",
+        "minecraft:gray_harness",
         "minecraft:green_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:lime_harness",
+        "minecraft:magenta_harness",
+        "minecraft:pink_harness",
+        "minecraft:purple_harness",
         "minecraft:red_harness",
-        "minecraft:black_harness"
+        "minecraft:yellow_harness",
+        "minecraft:white_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27534,21 +27560,21 @@
     "ingredients": [
       "minecraft:pink_dye",
       [
-        "minecraft:white_harness",
-        "minecraft:orange_harness",
-        "minecraft:magenta_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:yellow_harness",
-        "minecraft:lime_harness",
-        "minecraft:gray_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:cyan_harness",
-        "minecraft:purple_harness",
+        "minecraft:black_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
+        "minecraft:cyan_harness",
+        "minecraft:gray_harness",
         "minecraft:green_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:lime_harness",
+        "minecraft:magenta_harness",
+        "minecraft:orange_harness",
+        "minecraft:purple_harness",
         "minecraft:red_harness",
-        "minecraft:black_harness"
+        "minecraft:yellow_harness",
+        "minecraft:white_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27565,21 +27591,21 @@
     "ingredients": [
       "minecraft:purple_dye",
       [
-        "minecraft:white_harness",
-        "minecraft:orange_harness",
-        "minecraft:magenta_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:yellow_harness",
-        "minecraft:lime_harness",
-        "minecraft:pink_harness",
-        "minecraft:gray_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:cyan_harness",
+        "minecraft:black_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
+        "minecraft:cyan_harness",
+        "minecraft:gray_harness",
         "minecraft:green_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:lime_harness",
+        "minecraft:magenta_harness",
+        "minecraft:orange_harness",
+        "minecraft:pink_harness",
         "minecraft:red_harness",
-        "minecraft:black_harness"
+        "minecraft:yellow_harness",
+        "minecraft:white_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27596,21 +27622,21 @@
     "ingredients": [
       "minecraft:red_dye",
       [
-        "minecraft:white_harness",
-        "minecraft:orange_harness",
-        "minecraft:magenta_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:yellow_harness",
-        "minecraft:lime_harness",
-        "minecraft:pink_harness",
-        "minecraft:gray_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:cyan_harness",
-        "minecraft:purple_harness",
+        "minecraft:black_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
+        "minecraft:cyan_harness",
+        "minecraft:gray_harness",
         "minecraft:green_harness",
-        "minecraft:black_harness"
+        "minecraft:light_blue_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:lime_harness",
+        "minecraft:magenta_harness",
+        "minecraft:orange_harness",
+        "minecraft:pink_harness",
+        "minecraft:purple_harness",
+        "minecraft:yellow_harness",
+        "minecraft:white_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27627,21 +27653,21 @@
     "ingredients": [
       "minecraft:white_dye",
       [
-        "minecraft:orange_harness",
-        "minecraft:magenta_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:yellow_harness",
-        "minecraft:lime_harness",
-        "minecraft:pink_harness",
-        "minecraft:gray_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:cyan_harness",
-        "minecraft:purple_harness",
+        "minecraft:black_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
+        "minecraft:cyan_harness",
+        "minecraft:gray_harness",
         "minecraft:green_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:lime_harness",
+        "minecraft:magenta_harness",
+        "minecraft:orange_harness",
+        "minecraft:pink_harness",
+        "minecraft:purple_harness",
         "minecraft:red_harness",
-        "minecraft:black_harness"
+        "minecraft:yellow_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27658,21 +27684,21 @@
     "ingredients": [
       "minecraft:yellow_dye",
       [
-        "minecraft:white_harness",
-        "minecraft:orange_harness",
-        "minecraft:magenta_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:lime_harness",
-        "minecraft:pink_harness",
-        "minecraft:gray_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:cyan_harness",
-        "minecraft:purple_harness",
+        "minecraft:black_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
+        "minecraft:cyan_harness",
+        "minecraft:gray_harness",
         "minecraft:green_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:lime_harness",
+        "minecraft:magenta_harness",
+        "minecraft:orange_harness",
+        "minecraft:pink_harness",
+        "minecraft:purple_harness",
         "minecraft:red_harness",
-        "minecraft:black_harness"
+        "minecraft:white_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27925,6 +27951,1042 @@
     },
     "properties": {
       "version": "1.21.6"
+    }
+  },
+  "acacia_shelf": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:acacia_shelf"
+    },
+    "pattern": [
+      "###",
+      "   ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stripped_acacia_log"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "bamboo_shelf": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:bamboo_shelf"
+    },
+    "pattern": [
+      "###",
+      "   ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stripped_bamboo_block"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "birch_shelf": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:birch_shelf"
+    },
+    "pattern": [
+      "###",
+      "   ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stripped_birch_log"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "cherry_shelf": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:cherry_shelf"
+    },
+    "pattern": [
+      "###",
+      "   ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stripped_cherry_log"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "copper_axe": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:copper_axe"
+    },
+    "pattern": [
+      "XX",
+      "X#",
+      " #"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stick",
+      "X": "#minecraft:copper_tool_materials"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "copper_bars": {
+    "result": {
+      "count": 16,
+      "id": "minecraft:copper_bars"
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:copper_ingot"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "copper_boots": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:copper_boots"
+    },
+    "pattern": [
+      "X X",
+      "X X"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "X": "minecraft:copper_ingot"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "copper_chain": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:copper_chain"
+    },
+    "pattern": [
+      "N",
+      "I",
+      "N"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "I": "minecraft:copper_ingot",
+      "N": "minecraft:copper_nugget"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "copper_chest": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:copper_chest"
+    },
+    "pattern": [
+      "###",
+      "#X#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:copper_ingot",
+      "X": "minecraft:chest"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "copper_chestplate": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:copper_chestplate"
+    },
+    "pattern": [
+      "X X",
+      "XXX",
+      "XXX"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "X": "minecraft:copper_ingot"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "copper_helmet": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:copper_helmet"
+    },
+    "pattern": [
+      "XXX",
+      "X X"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "X": "minecraft:copper_ingot"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "copper_hoe": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:copper_hoe"
+    },
+    "pattern": [
+      "XX",
+      " #",
+      " #"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stick",
+      "X": "#minecraft:copper_tool_materials"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "copper_ingot_from_nuggets": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:copper_ingot"
+    },
+    "pattern": [
+      "###",
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:copper_nugget"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "copper_lantern": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:copper_lantern"
+    },
+    "pattern": [
+      "XXX",
+      "X#X",
+      "XXX"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:copper_torch",
+      "X": "minecraft:copper_nugget"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "copper_leggings": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:copper_leggings"
+    },
+    "pattern": [
+      "XXX",
+      "X X",
+      "X X"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "X": "minecraft:copper_ingot"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "copper_nugget": {
+    "result": {
+      "count": 9,
+      "id": "minecraft:copper_nugget"
+    },
+    "ingredients": [
+      "minecraft:copper_ingot"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "copper_nugget_from_blasting": {
+    "result": {
+      "id": "minecraft:copper_nugget"
+    },
+    "ingredient": [
+      "minecraft:copper_pickaxe",
+      "minecraft:copper_shovel",
+      "minecraft:copper_axe",
+      "minecraft:copper_hoe",
+      "minecraft:copper_sword",
+      "minecraft:copper_helmet",
+      "minecraft:copper_chestplate",
+      "minecraft:copper_leggings",
+      "minecraft:copper_boots",
+      "minecraft:copper_horse_armor"
+    ],
+    "type": "minecraft:blasting",
+    "experience": 0.1,
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "copper_nugget_from_smelting": {
+    "result": {
+      "id": "minecraft:copper_nugget"
+    },
+    "ingredient": [
+      "minecraft:copper_pickaxe",
+      "minecraft:copper_shovel",
+      "minecraft:copper_axe",
+      "minecraft:copper_hoe",
+      "minecraft:copper_sword",
+      "minecraft:copper_helmet",
+      "minecraft:copper_chestplate",
+      "minecraft:copper_leggings",
+      "minecraft:copper_boots",
+      "minecraft:copper_horse_armor"
+    ],
+    "type": "minecraft:smelting",
+    "experience": 0.1,
+    "properties": {
+      "animated": true,
+      "version": "1.21.9"
+    }
+  },
+  "copper_pickaxe": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:copper_pickaxe"
+    },
+    "pattern": [
+      "XXX",
+      " # ",
+      " # "
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stick",
+      "X": "#minecraft:copper_tool_materials"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "copper_shovel": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:copper_shovel"
+    },
+    "pattern": [
+      "X",
+      "#",
+      "#"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stick",
+      "X": "#minecraft:copper_tool_materials"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "copper_sword": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:copper_sword"
+    },
+    "pattern": [
+      "X",
+      "X",
+      "#"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stick",
+      "X": "#minecraft:copper_tool_materials"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "copper_torch": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:copper_torch"
+    },
+    "pattern": [
+      "C",
+      "X",
+      "#"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stick",
+      "C": "minecraft:copper_nugget",
+      "X": [
+        "minecraft:coal",
+        "minecraft:charcoal"
+      ]
+    },
+    "properties": {
+      "animated": true,
+      "version": "1.21.9"
+    }
+  },
+  "copper_trapdoor": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:copper_trapdoor"
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:copper_ingot"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "crimson_shelf": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:crimson_shelf"
+    },
+    "pattern": [
+      "###",
+      "   ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stripped_crimson_stem"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "dark_oak_shelf": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:dark_oak_shelf"
+    },
+    "pattern": [
+      "###",
+      "   ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stripped_dark_oak_log"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "jungle_shelf": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:jungle_shelf"
+    },
+    "pattern": [
+      "###",
+      "   ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stripped_jungle_log"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "mangrove_shelf": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:mangrove_shelf"
+    },
+    "pattern": [
+      "###",
+      "   ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stripped_mangrove_log"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "oak_shelf": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:oak_shelf"
+    },
+    "pattern": [
+      "###",
+      "   ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stripped_oak_log"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "pale_oak_shelf": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:pale_oak_shelf"
+    },
+    "pattern": [
+      "###",
+      "   ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stripped_pale_oak_log"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "smithing_template_smithing_trim_copper_boots": {
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
+    "result": {
+      "id": "minecraft:copper_boots"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "animated": true,
+      "version": "1.21.9"
+    },
+    "addition": "#minecraft:trim_materials",
+    "base": "minecraft:copper_boots"
+  },
+  "smithing_template_smithing_trim_copper_chestplate": {
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
+    "result": {
+      "id": "minecraft:copper_chestplate"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "animated": true,
+      "version": "1.21.9"
+    },
+    "addition": "#minecraft:trim_materials",
+    "base": "minecraft:copper_chestplate"
+  },
+  "smithing_template_smithing_trim_copper_helmet": {
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
+    "result": {
+      "id": "minecraft:copper_helmet"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "animated": true,
+      "version": "1.21.9"
+    },
+    "addition": "#minecraft:trim_materials",
+    "base": "minecraft:copper_helmet"
+  },
+  "smithing_template_smithing_trim_copper_leggings": {
+    "template": [
+      "ward_armor_trim_smithing_template",
+      "spire_armor_trim_smithing_template",
+      "coast_armor_trim_smithing_template",
+      "eye_armor_trim_smithing_template",
+      "dune_armor_trim_smithing_template",
+      "wild_armor_trim_smithing_template",
+      "rib_armor_trim_smithing_template",
+      "tide_armor_trim_smithing_template",
+      "sentry_armor_trim_smithing_template",
+      "vex_armor_trim_smithing_template",
+      "snout_armor_trim_smithing_template",
+      "wayfinder_armor_trim_smithing_template",
+      "shaper_armor_trim_smithing_template",
+      "silence_armor_trim_smithing_template",
+      "raiser_armor_trim_smithing_template",
+      "host_armor_trim_smithing_template",
+      "flow_armor_trim_smithing_template",
+      "bolt_armor_trim_smithing_template"
+    ],
+    "result": {
+      "id": "minecraft:copper_leggings"
+    },
+    "type": "minecraft:smithing_trim",
+    "properties": {
+      "animated": true,
+      "version": "1.21.9"
+    },
+    "addition": "#minecraft:trim_materials",
+    "base": "minecraft:copper_leggings"
+  },
+  "spruce_shelf": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:spruce_shelf"
+    },
+    "pattern": [
+      "###",
+      "   ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stripped_spruce_log"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "warped_shelf": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:warped_shelf"
+    },
+    "pattern": [
+      "###",
+      "   ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stripped_warped_stem"
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "waxed_copper_bars_from_honeycomb": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:waxed_copper_bars"
+    },
+    "ingredients": [
+      "minecraft:copper_bars",
+      "minecraft:honeycomb"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "waxed_copper_chain_from_honeycomb": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:waxed_copper_chain"
+    },
+    "ingredients": [
+      "minecraft:copper_chain",
+      "minecraft:honeycomb"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "waxed_copper_chest_from_honeycomb": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:waxed_copper_chest"
+    },
+    "ingredients": [
+      "minecraft:copper_chest",
+      "minecraft:honeycomb"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "waxed_copper_golem_statue_from_honeycomb": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:waxed_copper_golem_statue"
+    },
+    "ingredients": [
+      "minecraft:copper_golem_statue",
+      "minecraft:honeycomb"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "waxed_copper_lantern_from_honeycomb": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:waxed_copper_lantern"
+    },
+    "ingredients": [
+      "minecraft:copper_lantern",
+      "minecraft:honeycomb"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "waxed_exposed_copper_bars_from_honeycomb": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:waxed_exposed_copper_bars"
+    },
+    "ingredients": [
+      "minecraft:exposed_copper_bars",
+      "minecraft:honeycomb"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "waxed_exposed_copper_chain_from_honeycomb": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:waxed_exposed_copper_chain"
+    },
+    "ingredients": [
+      "minecraft:exposed_copper_chain",
+      "minecraft:honeycomb"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "waxed_exposed_copper_chest_from_honeycomb": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:waxed_exposed_copper_chest"
+    },
+    "ingredients": [
+      "minecraft:exposed_copper_chest",
+      "minecraft:honeycomb"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "waxed_exposed_copper_golem_statue_from_honeycomb": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:waxed_exposed_copper_golem_statue"
+    },
+    "ingredients": [
+      "minecraft:exposed_copper_golem_statue",
+      "minecraft:honeycomb"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "waxed_exposed_copper_lantern_from_honeycomb": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:waxed_exposed_copper_lantern"
+    },
+    "ingredients": [
+      "minecraft:exposed_copper_lantern",
+      "minecraft:honeycomb"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "waxed_exposed_lightning_rod_from_honeycomb": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:waxed_exposed_lightning_rod"
+    },
+    "ingredients": [
+      "minecraft:exposed_lightning_rod",
+      "minecraft:honeycomb"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "waxed_lightning_rod_from_honeycomb": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:waxed_lightning_rod"
+    },
+    "ingredients": [
+      "minecraft:lightning_rod",
+      "minecraft:honeycomb"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "waxed_oxidized_copper_bars_from_honeycomb": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:waxed_oxidized_copper_bars"
+    },
+    "ingredients": [
+      "minecraft:oxidized_copper_bars",
+      "minecraft:honeycomb"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "waxed_oxidized_copper_chain_from_honeycomb": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:waxed_oxidized_copper_chain"
+    },
+    "ingredients": [
+      "minecraft:oxidized_copper_chain",
+      "minecraft:honeycomb"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "waxed_oxidized_copper_chest_from_honeycomb": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:waxed_oxidized_copper_chest"
+    },
+    "ingredients": [
+      "minecraft:oxidized_copper_chest",
+      "minecraft:honeycomb"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "waxed_oxidized_copper_golem_statue_from_honeycomb": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:waxed_oxidized_copper_golem_statue"
+    },
+    "ingredients": [
+      "minecraft:oxidized_copper_golem_statue",
+      "minecraft:honeycomb"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "waxed_oxidized_copper_lantern_from_honeycomb": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:waxed_oxidized_copper_lantern"
+    },
+    "ingredients": [
+      "minecraft:oxidized_copper_lantern",
+      "minecraft:honeycomb"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "waxed_oxidized_lightning_rod_from_honeycomb": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:waxed_oxidized_lightning_rod"
+    },
+    "ingredients": [
+      "minecraft:oxidized_lightning_rod",
+      "minecraft:honeycomb"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "waxed_weathered_copper_bars_from_honeycomb": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:waxed_weathered_copper_bars"
+    },
+    "ingredients": [
+      "minecraft:weathered_copper_bars",
+      "minecraft:honeycomb"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "waxed_weathered_copper_chain_from_honeycomb": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:waxed_weathered_copper_chain"
+    },
+    "ingredients": [
+      "minecraft:weathered_copper_chain",
+      "minecraft:honeycomb"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "waxed_weathered_copper_chest_from_honeycomb": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:waxed_weathered_copper_chest"
+    },
+    "ingredients": [
+      "minecraft:weathered_copper_chest",
+      "minecraft:honeycomb"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "waxed_weathered_copper_golem_statue_from_honeycomb": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:waxed_weathered_copper_golem_statue"
+    },
+    "ingredients": [
+      "minecraft:weathered_copper_golem_statue",
+      "minecraft:honeycomb"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "waxed_weathered_copper_lantern_from_honeycomb": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:waxed_weathered_copper_lantern"
+    },
+    "ingredients": [
+      "minecraft:weathered_copper_lantern",
+      "minecraft:honeycomb"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "waxed_weathered_lightning_rod_from_honeycomb": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:waxed_weathered_lightning_rod"
+    },
+    "ingredients": [
+      "minecraft:weathered_lightning_rod",
+      "minecraft:honeycomb"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.21.9"
     }
   }
 }
