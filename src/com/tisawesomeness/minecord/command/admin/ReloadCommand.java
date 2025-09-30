@@ -12,7 +12,7 @@ public class ReloadCommand extends LegacyCommand {
         return new CommandInfo(
                 "reload",
                 "Reloads the bot.",
-                null,
+                "[<reason>]",
                 0,
                 true,
                 true
@@ -32,11 +32,18 @@ public class ReloadCommand extends LegacyCommand {
 
     public Result run(String[] args, MessageReceivedEvent e) {
 
+        String reason;
+        if (args.length > 0) {
+            reason = String.join(" ", args);
+        } else {
+            reason = null;
+        }
+
         Message m = e.getChannel().sendMessage(":arrows_counterclockwise: Reloading...").complete();
         if (Config.getDevMode()) {
             Bot.shutdown(m, e.getAuthor());
         } else {
-            if (Bot.reload(e.getAuthor())) {
+            if (Bot.reload(e.getAuthor(), reason)) {
                 m.editMessage(":white_check_mark: Reloaded!").queue();
             } else {
                 m.editMessage(":x: An Error occurred while reloading, check logs").queue();

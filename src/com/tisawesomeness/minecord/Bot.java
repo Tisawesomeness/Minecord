@@ -297,7 +297,7 @@ public class Bot {
         return future;
     }
 
-    public static boolean reload(User user) {
+    public static boolean reload(User user, String reason) {
         boolean error = false;
         String oldLogWebhook = Config.getLogWebhook();
         setNotReady();
@@ -338,7 +338,8 @@ public class Bot {
 
         } finally {
             setReady();
-            String msg = "Bot reloaded by " + DiscordUtils.tagAndId(user);
+            String reasonMsg = reason == null ? "" : ": " + reason;
+            String msg = "Bot reloaded by " + DiscordUtils.tagAndId(user) + reasonMsg;
             System.out.println(msg);
             logger.log(":arrows_counterclockwise: " + MarkdownUtil.bold(msg));
         }
