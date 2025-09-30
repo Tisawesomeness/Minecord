@@ -148,7 +148,7 @@ public abstract class Recipe {
         return FeatureFlagRegistry.get(flag).orElse(null);
     }
     /**
-     * @return whether this recipes has been released, and is no longer experimental
+     * @return whether this recipe has been released, and is no longer experimental
      */
     public boolean isReleased() {
         FeatureFlag flag = getFeatureFlag();

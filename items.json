@@ -13894,21 +13894,6 @@
       "version": "1.16"
     }
   },
-  "minecraft.chain": {
-    "lang": {
-      "en_US": {
-        "search_names": [
-          "Kunai",
-          "Kunai with",
-          "Kunai with Chain"
-        ],
-        "display_name": "Chain"
-      }
-    },
-    "properties": {
-      "version": "1.16"
-    }
-  },
   "minecraft.chiseled_nether_bricks": {
     "lang": {
       "en_US": {
@@ -14228,6 +14213,26 @@
       }
     },
     "properties": {
+      "version": "1.16"
+    }
+  },
+  "minecraft.iron_chain": {
+    "lang": {
+      "en_US": {
+        "previously": "Chain",
+        "search_names": [
+          "Iron Chains",
+          "Chains",
+          "Kunai",
+          "Kunai with",
+          "Kunai with Chain",
+          "Kunai with Iron Chain"
+        ],
+        "display_name": "Iron Chain"
+      }
+    },
+    "properties": {
+      "previous_id": "minecraft.chain",
       "version": "1.16"
     }
   },
@@ -23800,6 +23805,1022 @@
     "properties": {
       "image_key": "Music Disc Lava Chicken",
       "version": "1.21.7"
+    }
+  },
+  "minecraft.acacia_shelf": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Acacia Wood Shelf"
+        ],
+        "display_name": "Acacia Shelf"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.bamboo_shelf": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Bamboo Wood Shelf"
+        ],
+        "display_name": "Bamboo Shelf"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.birch_shelf": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Birch Wood Shelf"
+        ],
+        "display_name": "Birch Shelf"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.cherry_shelf": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Cherry Wood Shelf"
+        ],
+        "display_name": "Cherry Shelf"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.copper_axe": {
+    "lang": {
+      "en_US": {
+        "display_name": "Copper Axe"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.copper_bars": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Copper Bar"
+        ],
+        "display_name": "Copper Bars"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.copper_boots": {
+    "lang": {
+      "en_US": {
+        "display_name": "Copper Boots"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.copper_chain": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Copper Chains"
+        ],
+        "display_name": "Copper Chain"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.copper_chest": {
+    "lang": {
+      "en_US": {
+        "display_name": "Copper Chest"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.copper_chestplate": {
+    "lang": {
+      "en_US": {
+        "display_name": "Copper Chestplate"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.copper_golem_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Spawn Copper Golem",
+          "Copper Golem Egg"
+        ],
+        "display_name": "Copper Golem Spawn Egg"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.copper_golem_statue": {
+    "lang": {
+      "en_US": {
+        "display_name": "Copper Golem Statue"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.copper_helmet": {
+    "lang": {
+      "en_US": {
+        "display_name": "Copper Helmet"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.copper_hoe": {
+    "lang": {
+      "en_US": {
+        "display_name": "Copper Hoe"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.copper_horse_armor": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Copper Horse Armour"
+        ],
+        "display_name": "Copper Horse Armor"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.copper_lantern": {
+    "lang": {
+      "en_US": {
+        "display_name": "Copper Lantern"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.copper_leggings": {
+    "lang": {
+      "en_US": {
+        "display_name": "Copper Leggings"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.copper_nugget": {
+    "lang": {
+      "en_US": {
+        "display_name": "Copper Nugget"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.copper_pickaxe": {
+    "lang": {
+      "en_US": {
+        "display_name": "Copper Pickaxe"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.copper_shovel": {
+    "lang": {
+      "en_US": {
+        "display_name": "Copper Shovel"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.copper_sword": {
+    "lang": {
+      "en_US": {
+        "display_name": "Copper Sword"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.copper_torch": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Green Torch"
+        ],
+        "display_name": "Copper Torch"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.copper_wall_torch": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Green Wall Torch"
+        ],
+        "display_name": "Copper Wall Torch"
+      }
+    },
+    "properties": {
+      "image_key": "Copper Torch",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.crimson_shelf": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Crimson Wood Shelf"
+        ],
+        "display_name": "Crimson Shelf"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.dark_oak_shelf": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Dark Oak Wood Shelf",
+          "Dark Shelf",
+          "Dark Wood Shelf"
+        ],
+        "display_name": "Dark Oak Shelf"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.exposed_copper_bars": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Lightly-Weathered Copper Bars",
+          "Lightly Weathered Copper Bars",
+          "Exposed Copper Bar",
+          "Lightly-Weathered Copper Bar",
+          "Lightly Weathered Copper Bar"
+        ],
+        "display_name": "Exposed Copper Bars"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.exposed_copper_chain": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Lightly-Weathered Copper Chain",
+          "Lightly Weathered Copper Chain",
+          "Exposed Copper Chains",
+          "Lightly-Weathered Copper Chains",
+          "Lightly Weathered Copper Chains"
+        ],
+        "display_name": "Exposed Copper Chain"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.exposed_copper_chest": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Lightly-Weathered Copper Chest",
+          "Lightly Weathered Copper Chest"
+        ],
+        "display_name": "Exposed Copper Chest"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.exposed_copper_golem_statue": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Lightly-Weathered Copper Golem Statue",
+          "Lightly Weathered Copper Golem Statue"
+        ],
+        "display_name": "Exposed Copper Golem Statue"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.exposed_copper_lantern": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Lightly-Weathered Copper Lantern",
+          "Lightly Weathered Copper Lantern"
+        ],
+        "display_name": "Exposed Copper Lantern"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.exposed_lightning_rod": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Lightly-Weathered Lightning Rod",
+          "Lightly Weathered Lightning Rod"
+        ],
+        "display_name": "Exposed Lightning Rod"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.jungle_shelf": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Jungle Wood Shelf"
+        ],
+        "display_name": "Jungle Shelf"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.mangrove_shelf": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Mangrove Wood Shelf"
+        ],
+        "display_name": "Mangrove Shelf"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.oak_shelf": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Oak Wood Shelf"
+        ],
+        "display_name": "Oak Shelf"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.oxidized_copper_bars": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Oxidized Copper Bar"
+        ],
+        "display_name": "Oxidized Copper Bars"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.oxidized_copper_chain": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Oxidized Copper Chains"
+        ],
+        "display_name": "Oxidized Copper Chain"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.oxidized_copper_chest": {
+    "lang": {
+      "en_US": {
+        "display_name": "Oxidized Copper Chest"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.oxidized_copper_golem_statue": {
+    "lang": {
+      "en_US": {
+        "display_name": "Oxidized Copper Golem Statue"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.oxidized_copper_lantern": {
+    "lang": {
+      "en_US": {
+        "display_name": "Oxidized Copper Lantern"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.oxidized_lightning_rod": {
+    "lang": {
+      "en_US": {
+        "display_name": "Oxidized Lightning Rod"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.pale_oak_shelf": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Pale Oak Wood Shelf",
+          "Pale Shelf",
+          "Pale Wood Shelf"
+        ],
+        "display_name": "Pale Oak Shelf"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.spruce_shelf": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Spruce Wood Shelf"
+        ],
+        "display_name": "Spruce Shelf"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.warped_shelf": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Warped Wood Shelf"
+        ],
+        "display_name": "Warped Shelf"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.waxed_copper_bars": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Waxed Copper Bar"
+        ],
+        "display_name": "Waxed Copper Bars"
+      }
+    },
+    "properties": {
+      "image_key": "Copper Bars",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.waxed_copper_chain": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Waxed Copper Chains"
+        ],
+        "display_name": "Waxed Copper Chain"
+      }
+    },
+    "properties": {
+      "image_key": "Copper Chain",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.waxed_copper_chest": {
+    "lang": {
+      "en_US": {
+        "display_name": "Waxed Copper Chest"
+      }
+    },
+    "properties": {
+      "image_key": "Copper Chest",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.waxed_copper_golem_statue": {
+    "lang": {
+      "en_US": {
+        "display_name": "Waxed Copper Golem Statue"
+      }
+    },
+    "properties": {
+      "image_key": "Copper Golem Statue",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.waxed_copper_lantern": {
+    "lang": {
+      "en_US": {
+        "display_name": "Waxed Copper Lantern"
+      }
+    },
+    "properties": {
+      "image_key": "Copper Lantern",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.waxed_exposed_copper_bars": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Waxed Lightly-Weathered Copper Bars",
+          "Waxed Lightly Weathered Copper Bars",
+          "Waxed Exposed Copper Bar",
+          "Waxed Lightly-Weathered Copper Bar",
+          "Waxed Lightly Weathered Copper Bar",
+          "Exposed Waxed Copper Bars",
+          "Lightly-Weathered Waxed Copper Bars",
+          "Lightly Weathered Waxed Copper Bars",
+          "Exposed Waxed Copper Bar",
+          "Lightly-Weathered Waxed Copper Bar",
+          "Lightly Weathered Waxed Copper Bar"
+        ],
+        "display_name": "Waxed Exposed Copper Bars"
+      }
+    },
+    "properties": {
+      "image_key": "Exposed Copper Bars",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.waxed_exposed_copper_chain": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Waxed Lightly-Weathered Copper Chain",
+          "Waxed Lightly Weathered Copper Chain",
+          "Exposed Waxed Copper Chain",
+          "Lightly-Weathered Waxed Copper Chain",
+          "Lightly Weathered Waxed Copper Chain",
+          "Waxed Exposed Copper Chains",
+          "Waxed Lightly-Weathered Copper Chains",
+          "Waxed Lightly Weathered Copper Chains",
+          "Exposed Waxed Copper Chains",
+          "Lightly-Weathered Waxed Copper Chains",
+          "Lightly Weathered Waxed Copper Chains"
+        ],
+        "display_name": "Waxed Exposed Copper Chain"
+      }
+    },
+    "properties": {
+      "image_key": "Exposed Copper Chain",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.waxed_exposed_copper_chest": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Waxed Lightly-Weathered Copper Chest",
+          "Waxed Lightly Weathered Copper Chest",
+          "Exposed Waxed Copper Chest",
+          "Lightly-Weathered Waxed Copper Chest",
+          "Lightly Weathered Waxed Copper Chest"
+        ],
+        "display_name": "Waxed Exposed Copper Chest"
+      }
+    },
+    "properties": {
+      "image_key": "Exposed Copper Chest",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.waxed_exposed_copper_golem_statue": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Waxed Lightly-Weathered Copper Golem Statue",
+          "Waxed Lightly Weathered Copper Golem Statue",
+          "Exposed Waxed Copper Golem Statue",
+          "Lightly-Weathered Waxed Copper Golem Statue",
+          "Lightly Weathered Waxed Copper Golem Statue"
+        ],
+        "display_name": "Waxed Exposed Copper Golem Statue"
+      }
+    },
+    "properties": {
+      "image_key": "Exposed Copper Golem Statue",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.waxed_exposed_copper_lantern": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Waxed Lightly-Weathered Copper Lantern",
+          "Waxed Lightly Weathered Copper Lantern",
+          "Exposed Waxed Copper Lantern",
+          "Lightly-Weathered Waxed Copper Lantern",
+          "Lightly Weathered Waxed Copper Lantern"
+        ],
+        "display_name": "Waxed Exposed Copper Lantern"
+      }
+    },
+    "properties": {
+      "image_key": "Exposed Copper Lantern",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.waxed_exposed_lightning_rod": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Waxed Lightly-Weathered Lightning Rod",
+          "Waxed Lightly Weathered Lightning Rod",
+          "Exposed Waxed Lightning Rod",
+          "Lightly-Weathered Waxed Lightning Rod",
+          "Lightly Weathered Waxed Lightning Rod"
+        ],
+        "display_name": "Waxed Exposed Lightning Rod"
+      }
+    },
+    "properties": {
+      "image_key": "Exposed Lightning Rod",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.waxed_lightning_rod": {
+    "lang": {
+      "en_US": {
+        "display_name": "Waxed Lightning Rod"
+      }
+    },
+    "properties": {
+      "image_key": "Lightning Rod",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.waxed_oxidized_copper_bars": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Waxed Oxidized Copper Bar",
+          "Oxidized Waxed Copper Bars",
+          "Oxidized Waxed Copper Bar"
+        ],
+        "display_name": "Waxed Oxidized Copper Bars"
+      }
+    },
+    "properties": {
+      "image_key": "Oxidized Copper Bars",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.waxed_oxidized_copper_chain": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Oxidized Waxed Copper Chain",
+          "Waxed Oxidized Copper Chains",
+          "Oxidized Waxed Copper Chains"
+        ],
+        "display_name": "Waxed Oxidized Copper Chain"
+      }
+    },
+    "properties": {
+      "image_key": "Oxidized Copper Chain",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.waxed_oxidized_copper_chest": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Oxidized Waxed Copper Chest"
+        ],
+        "display_name": "Waxed Oxidized Copper Chest"
+      }
+    },
+    "properties": {
+      "image_key": "Oxidized Copper Chest",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.waxed_oxidized_copper_golem_statue": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Oxidized Waxed Copper Golem Statue"
+        ],
+        "display_name": "Waxed Oxidized Copper Golem Statue"
+      }
+    },
+    "properties": {
+      "image_key": "Oxidized Copper Golem Statue",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.waxed_oxidized_copper_lantern": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Oxidized Waxed Copper Lantern"
+        ],
+        "display_name": "Waxed Oxidized Copper Lantern"
+      }
+    },
+    "properties": {
+      "image_key": "Oxidized Copper Lantern",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.waxed_oxidized_lightning_rod": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Oxidized Waxed Lightning Rod"
+        ],
+        "display_name": "Waxed Oxidized Lightning Rod"
+      }
+    },
+    "properties": {
+      "image_key": "Oxidized Lightning Rod",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.waxed_weathered_copper_bars": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Waxed Semi-Weathered Copper Bars",
+          "Waxed Semi Weathered Copper Bars",
+          "Waxed Weathered Copper Bar",
+          "Waxed Semi-Weathered Copper Bar",
+          "Waxed Semi Weathered Copper Bar",
+          "Weathered Waxed Copper Bars",
+          "Semi-Weathered Waxed Copper Bars",
+          "Semi Weathered Waxed Copper Bars",
+          "Weathered Waxed Copper Bar",
+          "Semi-Weathered Waxed Copper Bar",
+          "Semi Weathered Waxed Copper Bar"
+        ],
+        "display_name": "Waxed Weathered Copper Bars"
+      }
+    },
+    "properties": {
+      "image_key": "Weathered Copper Bars",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.waxed_weathered_copper_chain": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Waxed Semi-Weathered Copper Chain",
+          "Waxed Semi Weathered Copper Chain",
+          "Weathered Waxed Copper Chain",
+          "Semi-Weathered Waxed Copper Chain",
+          "Semi Weathered Waxed Copper Chain",
+          "Waxed Weathered Copper Chains",
+          "Waxed Semi-Weathered Copper Chains",
+          "Waxed Semi Weathered Copper Chains",
+          "Weathered Waxed Copper Chains",
+          "Semi-Weathered Waxed Copper Chains",
+          "Semi Weathered Waxed Copper Chains"
+        ],
+        "display_name": "Waxed Weathered Copper Chain"
+      }
+    },
+    "properties": {
+      "image_key": "Weathered Copper Chain",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.waxed_weathered_copper_chest": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Waxed Semi-Weathered Copper Chest",
+          "Waxed Semi Weathered Copper Chest",
+          "Weathered Waxed Copper Chest",
+          "Semi-Weathered Waxed Copper Chest",
+          "Semi Weathered Waxed Copper Chest"
+        ],
+        "display_name": "Waxed Weathered Copper Chest"
+      }
+    },
+    "properties": {
+      "image_key": "Weathered Copper Chest",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.waxed_weathered_copper_golem_statue": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Waxed Semi-Weathered Copper Golem Statue",
+          "Waxed Semi Weathered Copper Golem Statue",
+          "Weathered Waxed Copper Golem Statue",
+          "Semi-Weathered Waxed Copper Golem Statue",
+          "Semi Weathered Waxed Copper Golem Statue"
+        ],
+        "display_name": "Waxed Weathered Copper Golem Statue"
+      }
+    },
+    "properties": {
+      "image_key": "Weathered Copper Golem Statue",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.waxed_weathered_copper_lantern": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Waxed Semi-Weathered Copper Lantern",
+          "Waxed Semi Weathered Copper Lantern",
+          "Weathered Waxed Copper Lantern",
+          "Semi-Weathered Waxed Copper Lantern",
+          "Semi Weathered Waxed Copper Lantern"
+        ],
+        "display_name": "Waxed Weathered Copper Lantern"
+      }
+    },
+    "properties": {
+      "image_key": "Weathered Copper Lantern",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.waxed_weathered_lightning_rod": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Waxed Semi-Weathered Lightning Rod",
+          "Waxed Semi Weathered Lightning Rod",
+          "Weathered Waxed Lightning Rod",
+          "Semi-Weathered Waxed Lightning Rod",
+          "Semi Weathered Waxed Lightning Rod"
+        ],
+        "display_name": "Waxed Weathered Lightning Rod"
+      }
+    },
+    "properties": {
+      "image_key": "Weathered Lightning Rod",
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.weathered_copper_bars": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Semi-Weathered Copper Bars",
+          "Semi Weathered Copper Bars",
+          "Weathered Copper Bar",
+          "Semi-Weathered Copper Bar",
+          "Semi Weathered Copper Bar"
+        ],
+        "display_name": "Weathered Copper Bars"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.weathered_copper_chain": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Semi-Weathered Copper Chain",
+          "Semi Weathered Copper Chain",
+          "Weathered Copper Chains",
+          "Semi-Weathered Copper Chains",
+          "Semi Weathered Copper Chains"
+        ],
+        "display_name": "Weathered Copper Chain"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.weathered_copper_chest": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Semi-Weathered Copper Chest",
+          "Semi Weathered Copper Chest"
+        ],
+        "display_name": "Weathered Copper Chest"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.weathered_copper_golem_statue": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Semi-Weathered Copper Golem Statue",
+          "Semi Weathered Copper Golem Statue"
+        ],
+        "display_name": "Weathered Copper Golem Statue"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.weathered_copper_lantern": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Semi-Weathered Copper Lantern",
+          "Semi Weathered Copper Lantern"
+        ],
+        "display_name": "Weathered Copper Lantern"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
+    }
+  },
+  "minecraft.weathered_lightning_rod": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Semi-Weathered Lightning Rod",
+          "Semi Weathered Lightning Rod"
+        ],
+        "display_name": "Weathered Lightning Rod"
+      }
+    },
+    "properties": {
+      "version": "1.21.9"
     }
   },
   "minecraft.lingering_potion.effect.thick": {

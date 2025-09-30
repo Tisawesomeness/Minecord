@@ -56,7 +56,7 @@ public class Bot {
     public static final String donate = "https://ko-fi.com/tis_awesomeness";
     public static final String terms = "https://minecord.github.io/terms";
     public static final String privacy = "https://minecord.github.io/privacy";
-    public static final String version = "0.18.2";
+    public static final String version = "0.18.3";
     public static final String jdaVersion = "5.6.1";
     public static final Color color = Color.GREEN;
 
@@ -297,7 +297,7 @@ public class Bot {
         return future;
     }
 
-    public static boolean reload(User user) {
+    public static boolean reload(User user, String reason) {
         boolean error = false;
         String oldLogWebhook = Config.getLogWebhook();
         setNotReady();
@@ -338,7 +338,8 @@ public class Bot {
 
         } finally {
             setReady();
-            String msg = "Bot reloaded by " + DiscordUtils.tagAndId(user);
+            String reasonMsg = reason == null ? "" : ": " + reason;
+            String msg = "Bot reloaded by " + DiscordUtils.tagAndId(user) + reasonMsg;
             System.out.println(msg);
             logger.log(":arrows_counterclockwise: " + MarkdownUtil.bold(msg));
         }
