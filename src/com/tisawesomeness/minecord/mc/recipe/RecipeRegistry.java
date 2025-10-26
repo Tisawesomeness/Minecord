@@ -17,10 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.StringJoiner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class RecipeRegistry {
@@ -218,7 +215,8 @@ public class RecipeRegistry {
     }
     @VisibleForTesting
     public static List<String> expandIngredients(List<Ingredient> ingredients) {
-        List<String> items = new ArrayList<>();
+        // LinkedHashSet required to de-duplicate items in shapeless recipes while preserving consistent ordering
+        LinkedHashSet<String> items = new LinkedHashSet<>();
         for (Ingredient ingredient : ingredients) {
             if (ingredient instanceof Ingredient.Item) {
                 items.add(((Ingredient.Item) ingredient).getItem());
@@ -227,7 +225,7 @@ public class RecipeRegistry {
                 items.addAll(getTag(tag));
             }
         }
-        return items;
+        return new ArrayList<>(items);
     }
 
     /**
