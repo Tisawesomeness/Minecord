@@ -3,7 +3,6 @@ package com.tisawesomeness.minecord;
 import com.tisawesomeness.minecord.command.CommandListener;
 import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.database.VoteHandler;
 import com.tisawesomeness.minecord.interaction.InteractionListener;
 import com.tisawesomeness.minecord.interaction.InteractionTracker;
 import com.tisawesomeness.minecord.mc.FeatureFlagRegistry;
