@@ -3,6 +3,8 @@ package com.tisawesomeness.minecord.network;
 import lombok.NonNull;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,6 +30,28 @@ public interface APIClient {
      * @throws IOException If an I/O error occurs
      */
     @NonNull Response get(@NonNull URL url) throws IOException;
+
+    /**
+     * Performs a POST request.
+     *
+     * @param url The URL to send a POST request to
+     * @param payload The payload of the request
+     * @param auth The authorization header
+     * @return The response of the request, which may be successful or unsuccessful
+     * @throws IOException If an I/O error occurs
+     */
+    @NonNull Response post(@NonNull URL url, @NonNull JSONObject payload, @NonNull String auth) throws IOException;
+
+    /**
+     * Performs a POST request.
+     *
+     * @param url The URL to send a POST request to
+     * @param payload The payload of the request
+     * @param auth The authorization header
+     * @return The response of the request, which may be successful or unsuccessful
+     * @throws IOException If an I/O error occurs
+     */
+    @NonNull Response post(@NonNull URL url, @NonNull JSONArray payload, @NonNull String auth) throws IOException;
 
     /**
      * Checks if a URL exists and is responsive.

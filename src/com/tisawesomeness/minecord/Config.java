@@ -51,6 +51,7 @@ public class Config {
     private static boolean reuploadCrafatarImages;
 
     private static boolean sendServerCount;
+    private static boolean sendSlashCommands;
     @Getter private static String pwToken;
     @Getter private static String orgToken;
     private static boolean receiveVotes;
@@ -163,8 +164,10 @@ public class Config {
         JSONObject botLists = config.optJSONObject("botLists");
         if (botLists == null || isSelfHosted) {
             sendServerCount = false;
+            sendSlashCommands = false;
         } else {
             sendServerCount = botLists.getBoolean("sendServerCount");
+            sendSlashCommands = botLists.optBoolean("sendSlashCommands", false);
             pwToken = botLists.getString("pwToken");
             orgToken = botLists.getString("orgToken");
             receiveVotes = botLists.getBoolean("receiveVotes");
@@ -199,6 +202,7 @@ public class Config {
     public static boolean getRecordCacheStats() { return recordCacheStats; }
     public static boolean getReuploadCrafatarImages() { return reuploadCrafatarImages; }
     public static boolean getSendServerCount() { return sendServerCount; }
+    public static boolean getSendSlashCommands() { return sendSlashCommands; }
     public static boolean getReceiveVotes() { return receiveVotes; }
 
 }

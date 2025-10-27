@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.tisawesomeness</groupId>
   <artifactId>minecord</artifactId>
-  <version>0.18.3</version>
+  <version>0.18.4</version>
 
   <repositories>
     <repository>
@@ -21,7 +21,7 @@
     <dependency>
       <groupId>net.dv8tion</groupId>
       <artifactId>JDA</artifactId>
-      <version>5.6.1</version>
+      <version>6.1.0</version>
       <exclusions>
         <exclusion>
           <groupId>club.minnced</groupId>
@@ -33,17 +33,6 @@
       <groupId>com.google.code.findbugs</groupId>
       <artifactId>jsr305</artifactId>
       <version>3.0.2</version>
-    </dependency>
-    <dependency>
-      <groupId>com.github.top-gg</groupId>
-      <artifactId>java-sdk</artifactId>
-      <version>2.1.2</version>
-    </dependency>
-    <!-- Used in top-gg -->
-    <dependency>
-      <groupId>com.google.code.gson</groupId>
-      <artifactId>gson</artifactId>
-      <version>2.13.2</version>
     </dependency>
     <dependency>
       <groupId>org.json</groupId>
@@ -80,6 +69,12 @@
       <groupId>net.kyori</groupId>
       <artifactId>adventure-text-serializer-gson</artifactId>
       <version>4.13.0</version>
+    </dependency>
+    <!-- Used in adventure -->
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.13.2</version>
     </dependency>
     <dependency>
       <groupId>com.github.ben-manes.caffeine</groupId>

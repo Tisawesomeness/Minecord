@@ -3,15 +3,17 @@ package com.tisawesomeness.minecord.interaction;
 import com.tisawesomeness.minecord.mc.item.ItemRegistry;
 import com.tisawesomeness.minecord.mc.recipe.*;
 import com.tisawesomeness.minecord.util.MathUtils;
+import net.dv8tion.jda.api.components.actionrow.ActionRow;
+import net.dv8tion.jda.api.components.buttons.Button;
+import net.dv8tion.jda.api.components.label.Label;
+import net.dv8tion.jda.api.components.selections.StringSelectMenu;
+import net.dv8tion.jda.api.components.textinput.TextInput;
+import net.dv8tion.jda.api.components.textinput.TextInputStyle;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.GenericComponentInteractionCreateEvent;
 import net.dv8tion.jda.api.events.interaction.component.StringSelectInteractionEvent;
-import net.dv8tion.jda.api.interactions.components.buttons.Button;
-import net.dv8tion.jda.api.interactions.components.selections.StringSelectMenu;
-import net.dv8tion.jda.api.interactions.components.text.TextInput;
-import net.dv8tion.jda.api.interactions.components.text.TextInputStyle;
-import net.dv8tion.jda.api.interactions.modals.Modal;
 import net.dv8tion.jda.api.interactions.modals.ModalMapping;
+import net.dv8tion.jda.api.modals.Modal;
 import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
 import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
@@ -119,9 +121,10 @@ public class RecipeMenu implements UpdatingMessage {
     private Modal jumpModal() {
         String label = String.format("Page Number (1-%d)", recipes.size());
         return Modal.create(JUMP_MODAL_ID, "Go to page")
-                .addActionRow(TextInput.create(PAGE_SELECT_ID, label, TextInputStyle.SHORT)
-                        .setMaxLength(MathUtils.stringLength(recipes.size()))
-                        .build()
+                .addComponents(Label.of(label,
+                        TextInput.create(PAGE_SELECT_ID, TextInputStyle.SHORT)
+                                .setMaxLength(MathUtils.stringLength(recipes.size()))
+                                .build())
                 )
                 .build();
     }
@@ -159,13 +162,13 @@ public class RecipeMenu implements UpdatingMessage {
         if (supportsInteractions) {
             return new MessageCreateBuilder()
                     .setEmbeds(RecipeRegistry.displayImg(currentRecipe()).build())
-                    .addActionRow(
+                    .addComponents(ActionRow.of(
                             Button.primary(BACK_ID, "Back").withDisabled(page == 0),
                             Button.secondary(JUMP_ID, pageText).withDisabled(recipes.size() < 2),
                             Button.primary(NEXT_ID, "Next").withDisabled(page == recipes.size() - 1),
                             Button.primary(OUTPUT_ID, "Output").withDisabled(craftableFromOutput().isEmpty())
-                    )
-                    .addActionRow(ingredientSelect())
+                    ))
+                    .addComponents(ActionRow.of(ingredientSelect()))
                     .build();
         } else {
             return new MessageCreateBuilder()

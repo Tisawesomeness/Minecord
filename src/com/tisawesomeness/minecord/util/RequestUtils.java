@@ -1,10 +1,6 @@
 package com.tisawesomeness.minecord.util;
 
-import com.tisawesomeness.minecord.Bot;
-import com.tisawesomeness.minecord.Config;
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.internal.utils.IOUtil;
-import org.discordbots.api.client.DiscordBotListAPI;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -18,8 +14,6 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class RequestUtils {
@@ -29,7 +23,6 @@ public class RequestUtils {
     private static final String plainType = "text/plain";
     private static final String browserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
     private static final int TIMEOUT = 5000;
-    public static DiscordBotListAPI api = null;
 
     private static String get(URLConnection conn) throws IOException {
         InputStream response = conn.getInputStream();
@@ -209,17 +202,6 @@ public class RequestUtils {
         } catch (IOException ex) {
             ex.printStackTrace();
             return false;
-        }
-    }
-
-    /**
-     * Sends the guild count
-     */
-    public static void sendGuilds() {
-        if (Config.getSendServerCount()) {
-            List<Integer> serverCounts = new ArrayList<>();
-            for (JDA jda : Bot.shardManager.getShards()) serverCounts.add(jda.getGuilds().size());
-            api.setStats(serverCounts);
         }
     }
 

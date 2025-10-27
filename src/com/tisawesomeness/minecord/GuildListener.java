@@ -1,8 +1,8 @@
 package com.tisawesomeness.minecord;
 
+import com.tisawesomeness.minecord.listing.TopGGClient;
 import com.tisawesomeness.minecord.util.DiscordUtils;
-import com.tisawesomeness.minecord.util.RequestUtils;
-
+import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -12,7 +12,12 @@ import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
+import java.util.concurrent.CompletableFuture;
+
+@RequiredArgsConstructor
 public class GuildListener extends ListenerAdapter {
+
+    private final TopGGClient topGGClient;
 
     @Override
     public void onGenericGuild(GenericGuildEvent e) {
@@ -46,7 +51,7 @@ public class GuildListener extends ListenerAdapter {
 
         eb.setThumbnail(guild.getIconUrl());
         Bot.logger.joinLog(MessageCreateData.fromEmbeds(eb.build()));
-        RequestUtils.sendGuilds();
+        CompletableFuture.runAsync(topGGClient::sendGuilds);
         DiscordUtils.update(); //Update guild, channel, and user count
 
     }

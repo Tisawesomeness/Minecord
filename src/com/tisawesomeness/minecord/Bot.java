@@ -3,9 +3,10 @@ package com.tisawesomeness.minecord;
 import com.tisawesomeness.minecord.command.CommandListener;
 import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.database.VoteHandler;
 import com.tisawesomeness.minecord.interaction.InteractionListener;
 import com.tisawesomeness.minecord.interaction.InteractionTracker;
+import com.tisawesomeness.minecord.listing.TopGGClient;
+import com.tisawesomeness.minecord.listing.VoteHandler;
 import com.tisawesomeness.minecord.mc.FeatureFlagRegistry;
 import com.tisawesomeness.minecord.mc.MCLibrary;
 import com.tisawesomeness.minecord.mc.StandardMCLibrary;
@@ -14,7 +15,10 @@ import com.tisawesomeness.minecord.mc.item.ItemRegistry;
 import com.tisawesomeness.minecord.mc.recipe.RecipeRegistry;
 import com.tisawesomeness.minecord.network.APIClient;
 import com.tisawesomeness.minecord.network.OkAPIClient;
-import com.tisawesomeness.minecord.util.*;
+import com.tisawesomeness.minecord.util.ArrayUtils;
+import com.tisawesomeness.minecord.util.ColorUtils;
+import com.tisawesomeness.minecord.util.DateUtils;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.type.DelayedCountDownLatch;
 import com.tisawesomeness.minecord.util.type.Switch;
 import lombok.Getter;
@@ -31,7 +35,6 @@ import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 import net.dv8tion.jda.api.utils.messages.MessageRequest;
-import org.discordbots.api.client.DiscordBotListAPI;
 
 import java.awt.*;
 import java.io.IOException;
@@ -56,14 +59,15 @@ public class Bot {
     public static final String donate = "https://ko-fi.com/tis_awesomeness";
     public static final String terms = "https://minecord.github.io/terms";
     public static final String privacy = "https://minecord.github.io/privacy";
-    public static final String version = "0.18.3";
-    public static final String jdaVersion = "5.6.1";
+    public static final String version = "0.18.4";
+    public static final String jdaVersion = "6.1.0";
     public static final Color color = Color.GREEN;
 
     public static ShardManager shardManager;
     public static APIClient apiClient;
     public static DiscordLogger logger;
     public static MCLibrary mcLibrary;
+    private static TopGGClient topGGClient;
     private static StatusListener statusListener;
     private static GuildListener guildListener;
     private static CommandListener commandListener;
@@ -128,13 +132,16 @@ public class Bot {
 
         //Pre-init
         thread = Thread.currentThread();
-        statusListener = new StatusListener();
-        guildListener = new GuildListener();
-        commandListener = new CommandListener();
-        interactionListener = new InteractionListener();
         apiClient = new OkAPIClient();
+        topGGClient = new TopGGClient(apiClient);
         logger = new DiscordLogger(apiClient.getHttpClientBuilder().build());
         mcLibrary = new StandardMCLibrary(apiClient);
+
+        statusListener = new StatusListener();
+        guildListener = new GuildListener(topGGClient);
+        commandListener = new CommandListener();
+        interactionListener = new InteractionListener();
+
         try {
             Announcement.init(Config.getPath());
             ColorUtils.init(Config.getPath());
@@ -235,12 +242,12 @@ public class Bot {
         MessageRequest.setDefaultMentions(EnumSet.noneOf(Message.MentionType.class));
 
         // Update global and test server commands
-        CompletableFuture<?> commandFuture = deployCommands();
-
-        //Start discordbots.org API
-        String id = shardManager.getShards().get(0).getSelfUser().getId();
-        if (Config.getSendServerCount() || Config.getReceiveVotes()) {
-            RequestUtils.api = new DiscordBotListAPI.Builder().token(Config.getOrgToken()).botId(id).build();
+        CompletableFuture<?> commandFuture;
+        if (Config.getAutoDeploy()) {
+            commandFuture = deployCommands();
+        } else {
+            commandFuture = shardManager.getShards().get(0).retrieveCommands().submit()
+                    .thenAccept(commands -> Bot.slashCommands = commands);
         }
 
         //Wait for commands, database and web server
@@ -263,24 +270,20 @@ public class Bot {
         System.out.println("Boot Time: " + DateUtils.getBootTime());
         logger.log(":white_check_mark: **Bot started!**");
         DiscordUtils.update();
-        RequestUtils.sendGuilds();
+        CompletableFuture.runAsync(() -> topGGClient.sendGuilds());
 
         return true;
 
     }
 
     public static CompletableFuture<Void> deployCommands() {
-        if (!Config.getAutoDeploy()) {
-            return shardManager.getShards().get(0).retrieveCommands().submit()
-                .thenAccept(commands -> Bot.slashCommands = commands);
-        }
-
         List<CommandData> slashCommands = Registry.getSlashCommands();
         CompletableFuture<Void> future = shardManager.getShards().get(0)
                 .updateCommands()
                 .addCommands(slashCommands)
                 .submit()
-                .thenAccept(commands -> Bot.slashCommands = commands);
+                .thenAccept(commands -> Bot.slashCommands = commands)
+                .thenRun(() -> topGGClient.sendSlashCommands());
 
         List<CommandData> guildSlashCommands = Registry.getSlashCommands()
                 .stream()
@@ -368,9 +371,19 @@ public class Bot {
 
     }
 
+    public static User getSelfUser() {
+        return Bot.shardManager.getShards().get(0).getSelfUser();
+    }
+
     public static double getPing() {
         // yes, getAverageGatewayPing() really can return negative
         return Math.max(0, Bot.shardManager.getAverageGatewayPing());
+    }
+
+    public static int getGuildCount() {
+        return shardManager.getShards().stream()
+                .mapToInt(jda -> jda.getGuilds().size())
+                .sum();
     }
 
     //Helps with reflection
