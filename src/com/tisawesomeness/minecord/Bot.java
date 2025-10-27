@@ -241,7 +241,13 @@ public class Bot {
         MessageRequest.setDefaultMentions(EnumSet.noneOf(Message.MentionType.class));
 
         // Update global and test server commands
-        CompletableFuture<?> commandFuture = deployCommands();
+        CompletableFuture<?> commandFuture;
+        if (Config.getAutoDeploy()) {
+            commandFuture = deployCommands();
+        } else {
+            commandFuture = shardManager.getShards().get(0).retrieveCommands().submit()
+                    .thenAccept(commands -> Bot.slashCommands = commands);
+        }
 
         //Wait for commands, database and web server
         try {
@@ -270,11 +276,6 @@ public class Bot {
     }
 
     public static CompletableFuture<Void> deployCommands() {
-        if (!Config.getAutoDeploy()) {
-            return shardManager.getShards().get(0).retrieveCommands().submit()
-                .thenAccept(commands -> Bot.slashCommands = commands);
-        }
-
         List<CommandData> slashCommands = Registry.getSlashCommands();
         CompletableFuture<Void> future = shardManager.getShards().get(0)
                 .updateCommands()
