@@ -36,7 +36,7 @@ public abstract class LegacyCommand implements Command<MessageReceivedEvent> {
 
     @Override
     public final String getMention() {
-        String username = Bot.shardManager.getShards().get(0).getSelfUser().getName();
+        String username = Bot.getSelfUser().getName();
         return MarkdownUtil.monospace(String.format("@%s %s", username, getInfo().name));
     }
 

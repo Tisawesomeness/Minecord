@@ -5,6 +5,8 @@ import com.tisawesomeness.minecord.command.Registry;
 import com.tisawesomeness.minecord.database.Database;
 import com.tisawesomeness.minecord.interaction.InteractionListener;
 import com.tisawesomeness.minecord.interaction.InteractionTracker;
+import com.tisawesomeness.minecord.listing.TopGGClient;
+import com.tisawesomeness.minecord.listing.VoteHandler;
 import com.tisawesomeness.minecord.mc.FeatureFlagRegistry;
 import com.tisawesomeness.minecord.mc.MCLibrary;
 import com.tisawesomeness.minecord.mc.StandardMCLibrary;
@@ -12,7 +14,6 @@ import com.tisawesomeness.minecord.mc.VersionRegistry;
 import com.tisawesomeness.minecord.mc.item.ItemRegistry;
 import com.tisawesomeness.minecord.mc.recipe.RecipeRegistry;
 import com.tisawesomeness.minecord.network.APIClient;
-import com.tisawesomeness.minecord.network.NetUtil;
 import com.tisawesomeness.minecord.network.OkAPIClient;
 import com.tisawesomeness.minecord.util.ArrayUtils;
 import com.tisawesomeness.minecord.util.ColorUtils;
@@ -20,7 +21,6 @@ import com.tisawesomeness.minecord.util.DateUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.type.DelayedCountDownLatch;
 import com.tisawesomeness.minecord.util.type.Switch;
-import lombok.Cleanup;
 import lombok.Getter;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Activity;
@@ -35,13 +35,10 @@ import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 import net.dv8tion.jda.api.utils.messages.MessageRequest;
-import okhttp3.Response;
-import org.json.JSONObject;
 
 import java.awt.*;
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.net.URL;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.EnumSet;
@@ -70,6 +67,7 @@ public class Bot {
     public static APIClient apiClient;
     public static DiscordLogger logger;
     public static MCLibrary mcLibrary;
+    private static TopGGClient topGGClient;
     private static StatusListener statusListener;
     private static GuildListener guildListener;
     private static CommandListener commandListener;
@@ -134,13 +132,16 @@ public class Bot {
 
         //Pre-init
         thread = Thread.currentThread();
-        statusListener = new StatusListener();
-        guildListener = new GuildListener();
-        commandListener = new CommandListener();
-        interactionListener = new InteractionListener();
         apiClient = new OkAPIClient();
+        topGGClient = new TopGGClient(apiClient);
         logger = new DiscordLogger(apiClient.getHttpClientBuilder().build());
         mcLibrary = new StandardMCLibrary(apiClient);
+
+        statusListener = new StatusListener();
+        guildListener = new GuildListener(topGGClient);
+        commandListener = new CommandListener();
+        interactionListener = new InteractionListener();
+
         try {
             Announcement.init(Config.getPath());
             ColorUtils.init(Config.getPath());
@@ -269,7 +270,7 @@ public class Bot {
         System.out.println("Boot Time: " + DateUtils.getBootTime());
         logger.log(":white_check_mark: **Bot started!**");
         DiscordUtils.update();
-        sendGuilds();
+        CompletableFuture.runAsync(() -> topGGClient.sendGuilds());
 
         return true;
 
@@ -281,7 +282,8 @@ public class Bot {
                 .updateCommands()
                 .addCommands(slashCommands)
                 .submit()
-                .thenAccept(commands -> Bot.slashCommands = commands);
+                .thenAccept(commands -> Bot.slashCommands = commands)
+                .thenRun(() -> topGGClient.sendSlashCommands());
 
         List<CommandData> guildSlashCommands = Registry.getSlashCommands()
                 .stream()
@@ -369,6 +371,10 @@ public class Bot {
 
     }
 
+    public static User getSelfUser() {
+        return Bot.shardManager.getShards().get(0).getSelfUser();
+    }
+
     public static double getPing() {
         // yes, getAverageGatewayPing() really can return negative
         return Math.max(0, Bot.shardManager.getAverageGatewayPing());
@@ -378,27 +384,6 @@ public class Bot {
         return shardManager.getShards().stream()
                 .mapToInt(jda -> jda.getGuilds().size())
                 .sum();
-    }
-
-    public static void sendGuilds() {
-        if (!Config.getSendServerCount() || Config.getOrgToken().isEmpty()) {
-            return;
-        }
-        CompletableFuture.runAsync(Bot::sendToTopGG);
-    }
-    private static void sendToTopGG() {
-        try {
-            String id = shardManager.getShards().get(0).getSelfUser().getId();
-            URL url = new URL(String.format("https://top.gg/api/bots/%s/stats", id));
-
-            JSONObject payload = new JSONObject();
-            payload.put("server_count", getGuildCount());
-
-            @Cleanup Response response = apiClient.post(url, payload, "Bearer " + Config.getOrgToken());
-            NetUtil.throwIfError(response, "top.gg");
-        } catch (IOException ex) {
-            throw new RuntimeException("Sending guilds to top.gg failed", ex);
-        }
     }
 
     //Helps with reflection

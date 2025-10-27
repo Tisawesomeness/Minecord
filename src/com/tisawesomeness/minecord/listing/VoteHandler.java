@@ -1,8 +1,10 @@
-package com.tisawesomeness.minecord;
+package com.tisawesomeness.minecord.listing;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.network.StatusCodes;
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import lombok.Cleanup;
