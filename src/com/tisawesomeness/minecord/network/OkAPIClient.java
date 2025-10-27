@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.network;
 import lombok.Getter;
 import lombok.NonNull;
 import okhttp3.*;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -48,6 +49,16 @@ public class OkAPIClient implements APIClient {
         Request request = new Request.Builder()
                 .url(url)
                 .header("Content-Type", "application/json")
+                .build();
+        return dispatch(request);
+    }
+
+    @Override
+    public @NonNull Response post(@NonNull URL url, @NonNull JSONObject payload, @NonNull String auth) throws IOException {
+        Request request = new Request.Builder()
+                .url(url)
+                .post(RequestBody.create(MediaType.get("application/json"), payload.toString()))
+                .header("Authorization", auth)
                 .build();
         return dispatch(request);
     }

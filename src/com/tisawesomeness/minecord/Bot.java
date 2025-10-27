@@ -13,10 +13,15 @@ import com.tisawesomeness.minecord.mc.VersionRegistry;
 import com.tisawesomeness.minecord.mc.item.ItemRegistry;
 import com.tisawesomeness.minecord.mc.recipe.RecipeRegistry;
 import com.tisawesomeness.minecord.network.APIClient;
+import com.tisawesomeness.minecord.network.NetUtil;
 import com.tisawesomeness.minecord.network.OkAPIClient;
-import com.tisawesomeness.minecord.util.*;
+import com.tisawesomeness.minecord.util.ArrayUtils;
+import com.tisawesomeness.minecord.util.ColorUtils;
+import com.tisawesomeness.minecord.util.DateUtils;
+import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.type.DelayedCountDownLatch;
 import com.tisawesomeness.minecord.util.type.Switch;
+import lombok.Cleanup;
 import lombok.Getter;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Activity;
@@ -31,11 +36,13 @@ import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 import net.dv8tion.jda.api.utils.messages.MessageRequest;
-import org.discordbots.api.client.DiscordBotListAPI;
+import okhttp3.Response;
+import org.json.JSONObject;
 
 import java.awt.*;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.EnumSet;
@@ -237,12 +244,6 @@ public class Bot {
         // Update global and test server commands
         CompletableFuture<?> commandFuture = deployCommands();
 
-        //Start discordbots.org API
-        String id = shardManager.getShards().get(0).getSelfUser().getId();
-        if (Config.getSendServerCount() || Config.getReceiveVotes()) {
-            RequestUtils.api = new DiscordBotListAPI.Builder().token(Config.getOrgToken()).botId(id).build();
-        }
-
         //Wait for commands, database and web server
         try {
             commandFuture.join();
@@ -263,7 +264,7 @@ public class Bot {
         System.out.println("Boot Time: " + DateUtils.getBootTime());
         logger.log(":white_check_mark: **Bot started!**");
         DiscordUtils.update();
-        RequestUtils.sendGuilds();
+        sendGuilds();
 
         return true;
 
@@ -371,6 +372,33 @@ public class Bot {
     public static double getPing() {
         // yes, getAverageGatewayPing() really can return negative
         return Math.max(0, Bot.shardManager.getAverageGatewayPing());
+    }
+
+    public static int getGuildCount() {
+        return shardManager.getShards().stream()
+                .mapToInt(jda -> jda.getGuilds().size())
+                .sum();
+    }
+
+    public static void sendGuilds() {
+        if (!Config.getSendServerCount() || Config.getOrgToken().isEmpty()) {
+            return;
+        }
+        CompletableFuture.runAsync(Bot::sendToTopGG);
+    }
+    private static void sendToTopGG() {
+        try {
+            String id = shardManager.getShards().get(0).getSelfUser().getId();
+            URL url = new URL(String.format("https://top.gg/api/bots/%s/stats", id));
+
+            JSONObject payload = new JSONObject();
+            payload.put("server_count", getGuildCount());
+
+            @Cleanup Response response = apiClient.post(url, payload, "Bearer " + Config.getOrgToken());
+            NetUtil.throwIfError(response, "top.gg");
+        } catch (IOException ex) {
+            throw new RuntimeException("Sending guilds to top.gg failed", ex);
+        }
     }
 
     //Helps with reflection

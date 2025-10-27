@@ -59,7 +59,7 @@ public class InfoCommand extends SlashCommand {
         }
         eb.addField("Version", MarkdownUtil.monospace(Bot.version), true);
 
-        String guilds = String.valueOf(Bot.shardManager.getGuilds().size());
+        String guilds = String.valueOf(Bot.getGuildCount());
         int shardCount = jda.getShardInfo().getShardTotal();
         if (shardCount > 1) {
             String shards = jda.getShardInfo().getShardId() + 1 + "/" + shardCount;

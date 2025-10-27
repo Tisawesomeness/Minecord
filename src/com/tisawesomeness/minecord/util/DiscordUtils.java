@@ -62,7 +62,7 @@ public class DiscordUtils {
      * @return The string with resolved variables, though constants such as {version} are unresolved
      */
     public static String parseVariables(String input) {
-        return input.replace("{guilds}", String.valueOf(Bot.shardManager.getGuilds().size()));
+        return input.replace("{guilds}", String.valueOf(Bot.getGuildCount()));
     }
 
     /**
