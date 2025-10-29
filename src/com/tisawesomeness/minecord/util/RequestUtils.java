@@ -165,8 +165,7 @@ public class RequestUtils {
             }
             int code = con.getResponseCode();
             return code == HttpURLConnection.HTTP_OK;
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception ignore) {
             return false;
         }
     }
@@ -184,8 +183,7 @@ public class RequestUtils {
             con.setInstanceFollowRedirects(false);
             int code = con.getResponseCode();
             return code == HttpURLConnection.HTTP_OK;
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (IOException ignore) {
             return false;
         }
     }
@@ -199,8 +197,7 @@ public class RequestUtils {
         try (Socket s = new Socket(url, 443)) {
             s.setSoTimeout(TIMEOUT);
             return s.isConnected();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (IOException ignore) {
             return false;
         }
     }
