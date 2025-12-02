@@ -13,12 +13,12 @@ import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.util.type.Either;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -94,6 +94,7 @@ public class Registry {
                        new UsageCommand(),
                        new PermsCommand(),
                        new DebugCommand(),
+                       new DebugSlashCommand(),
                        new PromoteCommand(),
                        new DemoteCommand(),
                        new BanCommand(),
@@ -249,6 +250,16 @@ public class Registry {
         return slashCommandMap.values().stream()
                 .map(SlashCommand::getCommandSyntax)
                 .collect(Collectors.toList());
+    }
+
+    public static JSONArray commandsJson() {
+        Collection<JSONObject> jsonObjects = getSlashCommands().stream()
+                .map(Registry::convertToJson)
+                .collect(Collectors.toList());
+        return new JSONArray(jsonObjects);
+    }
+    public static JSONObject convertToJson(CommandData cmd) {
+        return new JSONObject(new String(cmd.toData().toJson(), StandardCharsets.UTF_8));
     }
 
     private static class CommandState {

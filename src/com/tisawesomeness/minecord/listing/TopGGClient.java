@@ -7,16 +7,11 @@ import com.tisawesomeness.minecord.network.APIClient;
 import com.tisawesomeness.minecord.network.NetUtil;
 import lombok.Cleanup;
 import lombok.RequiredArgsConstructor;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import okhttp3.Response;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.Collection;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class TopGGClient {
@@ -49,21 +44,11 @@ public class TopGGClient {
 
         try {
             URL url = new URL("https://top.gg/api/v1/projects/@me/commands");
-            @Cleanup Response response = apiClient.post(url, commandsJson(), "Bearer " + Config.getOrgToken());
+            @Cleanup Response response = apiClient.post(url, Registry.commandsJson(), "Bearer " + Config.getOrgToken());
             NetUtil.throwIfError(response, "top.gg");
         } catch (IOException ex) {
             throw new RuntimeException("Sending guilds to top.gg failed", ex);
         }
-    }
-
-    private JSONArray commandsJson() {
-        Collection<JSONObject> jsonObjects = Registry.getSlashCommands().stream()
-                .map(this::convertToJson)
-                .collect(Collectors.toList());
-        return new JSONArray(jsonObjects);
-    }
-    private JSONObject convertToJson(CommandData cmd) {
-        return new JSONObject(new String(cmd.toData().toJson(), StandardCharsets.UTF_8));
     }
 
 }
