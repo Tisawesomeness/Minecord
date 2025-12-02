@@ -101,6 +101,7 @@ public class Registry {
                        new ShutdownCommand(),
                        new DeployCommand(),
                        new EvalCommand(),
+                       new LogCommand(),
                        new TestCommand()
             )
     };
