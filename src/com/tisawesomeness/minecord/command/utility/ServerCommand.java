@@ -60,8 +60,11 @@ public class ServerCommand extends SlashCommand {
 
     @Override
     public SlashCommandData addCommandSyntax(SlashCommandData builder) {
-        return builder.addOptions(new OptionData(OptionType.STRING, "address", "The server address with optional port", true)
-                .setMinLength(4));
+        return builder.addOptions(
+                new OptionData(OptionType.STRING, "address", "The server address with optional port", true)
+                        .setMinLength(4),
+                new OptionData(OptionType.BOOLEAN, "show-report-status", "Show whether the server enforces/prevents chat reports, may not be 100% accurate")
+        );
     }
 
     @Override
@@ -106,9 +109,11 @@ public class ServerCommand extends SlashCommand {
             hostname = arg;
         }
 
+        boolean showReportStatus = e.getOption("show-report-status").getAsBoolean();
+
         e.deferReply().queue();
         CompletableFuture.runAsync(ServerCommand::refreshBlockedServers)
-                .thenRun(() -> ping(e, hostname, port, arg, isBlocked(arg, ip)));
+                .thenRun(() -> ping(e, hostname, port, arg, showReportStatus, isBlocked(arg, ip)));
         return new Result(Outcome.SUCCESS);
     }
 
@@ -148,7 +153,7 @@ public class ServerCommand extends SlashCommand {
         return false;
     }
 
-    private static void ping(SlashCommandInteractionEvent e, String hostname, int port, String inputHostname, boolean blocked) {
+    private static void ping(SlashCommandInteractionEvent e, String hostname, int port, String inputHostname, boolean showReportStatus, boolean blocked) {
         String m = blocked ? "**BLOCKED BY MOJANG**\n" : "";
 
         MCPingOptions options = MCPingOptions.builder()
@@ -182,16 +187,18 @@ public class ServerCommand extends SlashCommand {
         List<Player> sample = reply.getPlayers().getSample();
 
         // Build and format message
-        if (reply.isEnforcesSecureChat()) {
-            if (reply.isPreventsChatReports()) {
+        if (showReportStatus) {
+            if (reply.isPreventsChatReports() && reply.isEnforcesSecureChat()) {
                 m += ":interrobang: **Enforces and prevents chat reports at the same time? " +
                         "Server is sending contradictory messages.\n";
-            } else {
+            } else if (reply.isPreventsChatReports()) {
+                m += ":white_check_mark: **Prevents chat reports**\n";
+            } else if (reply.isEnforcesSecureChat()) {
                 m += ":shield: **Enforces chat reports**\n";
             }
-        }
-        if (reply.isPreviewsChat()) {
-            m += ":speech_balloon: Enables chat preview\n";
+            if (reply.isPreviewsChat()) {
+                m += ":speech_balloon: Enables chat preview\n";
+            }
         }
         m += "**Address:** " + address +
                 "\n" + "**Version:** " + version +
