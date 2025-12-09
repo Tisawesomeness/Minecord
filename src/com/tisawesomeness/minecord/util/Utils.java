@@ -1,5 +1,12 @@
 package com.tisawesomeness.minecord.util;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.List;
@@ -8,6 +15,8 @@ import java.util.stream.Collectors;
 
 public final class Utils {
     private Utils() {}
+
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     public static <T, R> @Nullable R mapNullable(@Nullable T obj, Function<? super T, ? extends R> mapper) {
         return obj == null ? null : mapper.apply(obj);
@@ -21,6 +30,17 @@ public final class Utils {
         return list.stream()
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
+    }
+
+    public static String prettify(JSONObject json) {
+        return prettify(json.toString());
+    }
+    public static String prettify(JSONArray json) {
+        return prettify(json.toString());
+    }
+    private static String prettify(String json) {
+        JsonElement je = JsonParser.parseString(json);
+        return GSON.toJson(je);
     }
 
 }
