@@ -316,25 +316,6 @@
       "#": "minecraft:black_wool"
     }
   },
-  "black_stained_glass_legacy": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:black_stained_glass"
-    },
-    "pattern": [
-      "###",
-      "#X#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:glass",
-      "X": "minecraft:ink_sac"
-    },
-    "properties": {
-      "removed": "1.14"
-    }
-  },
   "black_stained_glass_pane": {
     "result": {
       "count": 16,
@@ -347,57 +328,6 @@
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": "minecraft:black_stained_glass"
-    }
-  },
-  "black_stained_glass_pane_from_glass_pane_legacy": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:black_stained_glass_pane"
-    },
-    "pattern": [
-      "###",
-      "#X#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:glass_pane",
-      "X": "minecraft:ink_sac"
-    },
-    "properties": {
-      "removed": "1.14"
-    }
-  },
-  "black_terracotta_legacy": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:black_terracotta"
-    },
-    "pattern": [
-      "###",
-      "#X#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:terracotta",
-      "X": "minecraft:ink_sac"
-    },
-    "properties": {
-      "removed": "1.14"
-    }
-  },
-  "black_wool_legacy": {
-    "result": {
-      "id": "minecraft:black_wool"
-    },
-    "ingredients": [
-      "minecraft:ink_sac",
-      "minecraft:white_wool"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.14"
     }
   },
   "blaze_powder": {
@@ -439,25 +369,6 @@
       "#": "minecraft:blue_wool"
     }
   },
-  "blue_stained_glass_legacy": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:blue_stained_glass"
-    },
-    "pattern": [
-      "###",
-      "#X#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:glass",
-      "X": "minecraft:lapis_lazuli"
-    },
-    "properties": {
-      "removed": "1.14"
-    }
-  },
   "blue_stained_glass_pane": {
     "result": {
       "count": 16,
@@ -470,57 +381,6 @@
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": "minecraft:blue_stained_glass"
-    }
-  },
-  "blue_stained_glass_pane_from_glass_pane_legacy": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:blue_stained_glass_pane"
-    },
-    "pattern": [
-      "###",
-      "#X#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:glass_pane",
-      "X": "minecraft:lapis_lazuli"
-    },
-    "properties": {
-      "removed": "1.14"
-    }
-  },
-  "blue_terracotta_legacy": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:blue_terracotta"
-    },
-    "pattern": [
-      "###",
-      "#X#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:terracotta",
-      "X": "minecraft:lapis_lazuli"
-    },
-    "properties": {
-      "removed": "1.14"
-    }
-  },
-  "blue_wool_legacy": {
-    "result": {
-      "id": "minecraft:blue_wool"
-    },
-    "ingredients": [
-      "minecraft:lapis_lazuli",
-      "minecraft:white_wool"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.14"
     }
   },
   "bone_meal": {
@@ -704,25 +564,6 @@
       "#": "minecraft:brown_wool"
     }
   },
-  "brown_stained_glass_legacy": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:brown_stained_glass"
-    },
-    "pattern": [
-      "###",
-      "#X#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:glass",
-      "X": "minecraft:cocoa_beans"
-    },
-    "properties": {
-      "removed": "1.14"
-    }
-  },
   "brown_stained_glass_pane": {
     "result": {
       "count": 16,
@@ -735,57 +576,6 @@
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": "minecraft:brown_stained_glass"
-    }
-  },
-  "brown_stained_glass_pane_from_glass_pane_legacy": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:brown_stained_glass_pane"
-    },
-    "pattern": [
-      "###",
-      "#X#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:glass_pane",
-      "X": "minecraft:cocoa_beans"
-    },
-    "properties": {
-      "removed": "1.14"
-    }
-  },
-  "brown_terracotta_legacy": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:brown_terracotta"
-    },
-    "pattern": [
-      "###",
-      "#X#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:terracotta",
-      "X": "minecraft:cocoa_beans"
-    },
-    "properties": {
-      "removed": "1.14"
-    }
-  },
-  "brown_wool_legacy": {
-    "result": {
-      "id": "minecraft:brown_wool"
-    },
-    "ingredients": [
-      "minecraft:cocoa_beans",
-      "minecraft:white_wool"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.14"
     }
   },
   "bucket": {
@@ -856,72 +646,6 @@
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": "minecraft:iron_ingot"
-    }
-  },
-  "chainmail_boots": {
-    "result": {
-      "id": "minecraft:chainmail_boots"
-    },
-    "pattern": [
-      "X X",
-      "X X"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "X": "minecraft:fire"
-    },
-    "properties": {
-      "removed": "1.8"
-    }
-  },
-  "chainmail_chestplate": {
-    "result": {
-      "id": "minecraft:chainmail_chestplate"
-    },
-    "pattern": [
-      "X X",
-      "XXX",
-      "XXX"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "X": "minecraft:fire"
-    },
-    "properties": {
-      "removed": "1.8"
-    }
-  },
-  "chainmail_helmet": {
-    "result": {
-      "id": "minecraft:chainmail_helmet"
-    },
-    "pattern": [
-      "XXX",
-      "X X"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "X": "minecraft:fire"
-    },
-    "properties": {
-      "removed": "1.8"
-    }
-  },
-  "chainmail_leggings": {
-    "result": {
-      "id": "minecraft:chainmail_leggings"
-    },
-    "pattern": [
-      "XXX",
-      "X X",
-      "X X"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "X": "minecraft:fire"
-    },
-    "properties": {
-      "removed": "1.8"
     }
   },
   "charcoal": {
@@ -1348,20 +1072,6 @@
       "#": "minecraft:cyan_wool"
     }
   },
-  "cyan_dye_legacy": {
-    "result": {
-      "count": 2,
-      "id": "minecraft:cyan_dye"
-    },
-    "ingredients": [
-      "minecraft:lapis_lazuli",
-      "minecraft:green_dye"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.14"
-    }
-  },
   "cyan_stained_glass": {
     "result": {
       "count": 8,
@@ -1422,19 +1132,6 @@
     "key": {
       "#": "minecraft:terracotta",
       "X": "minecraft:cyan_dye"
-    }
-  },
-  "cyan_wool": {
-    "result": {
-      "id": "minecraft:cyan_wool"
-    },
-    "ingredients": [
-      "minecraft:cyan_dye",
-      "minecraft:white_wool"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20"
     }
   },
   "dark_oak_planks": {
@@ -1768,24 +1465,6 @@
     "type": "minecraft:smelting",
     "experience": 1
   },
-  "enchanted_golden_apple": {
-    "result": {
-      "id": "minecraft:enchanted_golden_apple"
-    },
-    "pattern": [
-      "###",
-      "#X#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:gold_block",
-      "X": "minecraft:apple"
-    },
-    "properties": {
-      "removed": "1.9"
-    }
-  },
   "enchanting_table": {
     "result": {
       "count": 1,
@@ -1937,17 +1616,6 @@
       "minecraft.potion.effect.leaping.extended"
     ]
   },
-  "extended_slowness_potion_from_corrupt_legacy": {
-    "result": {
-      "id": "minecraft.potion.effect.slowness.extended"
-    },
-    "reagent": "minecraft:fermented_spider_eye",
-    "type": "minecraft.brewing",
-    "properties": {
-      "removed": "1.9"
-    },
-    "base": "minecraft.potion.effect.fire_resistance.extended"
-  },
   "extended_slowness_splash_potion": {
     "result": {
       "id": "minecraft.splash_potion.effect.slowness.extended"
@@ -2011,31 +1679,6 @@
     "reagent": "minecraft:redstone",
     "type": "minecraft.brewing",
     "base": "minecraft.potion.effect.weakness"
-  },
-  "extended_weakness_potion_from_corrupt": {
-    "result": {
-      "id": "minecraft.potion.effect.weakness.extended"
-    },
-    "reagent": "minecraft:fermented_spider_eye",
-    "type": "minecraft.brewing",
-    "properties": {
-      "removed": "1.9"
-    },
-    "base": [
-      "minecraft.potion.effect.strength.extended",
-      "minecraft.potion.effect.regeneration.extended"
-    ]
-  },
-  "extended_weakness_potion_legacy": {
-    "result": {
-      "id": "minecraft.potion.effect.weakness.extended"
-    },
-    "reagent": "minecraft:fermented_spider_eye",
-    "type": "minecraft.brewing",
-    "properties": {
-      "removed": "1.9"
-    },
-    "base": "minecraft.potion.effect.mundane.extended"
   },
   "extended_weakness_splash_potion": {
     "result": {
@@ -2107,91 +1750,6 @@
       }
     },
     "properties": {
-      "animated": true
-    }
-  },
-  "firework_star_fade_legacy": {
-    "result": {
-      "id": "minecraft:firework_star"
-    },
-    "ingredients": [
-      "minecraft:firework_star",
-      [
-        "minecraft:bone_meal",
-        "minecraft:orange_dye",
-        "minecraft:magenta_dye",
-        "minecraft:light_blue_dye",
-        "minecraft:yellow_dye",
-        "minecraft:lime_dye",
-        "minecraft:pink_dye",
-        "minecraft:gray_dye",
-        "minecraft:light_gray_dye",
-        "minecraft:cyan_dye",
-        "minecraft:purple_dye",
-        "minecraft:lapis_lazuli",
-        "minecraft:cocoa_beans",
-        "minecraft:green_dye",
-        "minecraft:red_dye",
-        "minecraft:ink_sac"
-      ]
-    ],
-    "type": "minecraft:crafting_special_firework_star_fade",
-    "lang": {
-      "en_US": {
-        "notes": "Adds a fade effect to the firework."
-      }
-    },
-    "properties": {
-      "removed": "1.14",
-      "animated": true
-    }
-  },
-  "firework_star_legacy": {
-    "result": {
-      "id": "minecraft:firework_star"
-    },
-    "ingredients": [
-      "minecraft:gunpowder",
-      [
-        "minecraft:bone_meal",
-        "minecraft:orange_dye",
-        "minecraft:magenta_dye",
-        "minecraft:light_blue_dye",
-        "minecraft:yellow_dye",
-        "minecraft:lime_dye",
-        "minecraft:pink_dye",
-        "minecraft:gray_dye",
-        "minecraft:light_gray_dye",
-        "minecraft:cyan_dye",
-        "minecraft:purple_dye",
-        "minecraft:lapis_lazuli",
-        "minecraft:cocoa_beans",
-        "minecraft:green_dye",
-        "minecraft:red_dye",
-        "minecraft:ink_sac"
-      ],
-      [
-        "minecraft:fire_charge",
-        "minecraft:gold_nugget",
-        "minecraft:skeleton_skull",
-        "minecraft:wither_skeleton_skull",
-        "minecraft:zombie_head",
-        "minecraft:player_head",
-        "minecraft:creeper_head",
-        "minecraft:dragon_head",
-        "minecraft:feather"
-      ],
-      "minecraft:glowstone_dust",
-      "minecraft:diamond"
-    ],
-    "type": "minecraft:crafting_special_firework_star",
-    "lang": {
-      "en_US": {
-        "notes": "\nUp to 8 dyes can be added.\nFire Charge - Large Ball explosion\nGold Nugget - Star-Shaped explosion\nHead - Creeper-Shaped explosion\nFeather - Burst explosion\nGlowstune Dust - Twinkle effect\nDiamond - Trail effect"
-      }
-    },
-    "properties": {
-      "removed": "1.14",
       "animated": true
     }
   },
@@ -2415,11 +1973,13 @@
       "minecraft:golden_axe",
       "minecraft:golden_hoe",
       "minecraft:golden_sword",
+      "minecraft:golden_spear",
       "minecraft:golden_helmet",
       "minecraft:golden_chestplate",
       "minecraft:golden_leggings",
       "minecraft:golden_boots",
-      "minecraft:golden_horse_armor"
+      "minecraft:golden_horse_armor",
+      "minecraft:golden_nautilus_armor"
     ],
     "type": "minecraft:blasting",
     "experience": 0.1
@@ -2623,20 +2183,6 @@
       "#": "minecraft:gray_wool"
     }
   },
-  "gray_dye_legacy": {
-    "result": {
-      "count": 2,
-      "id": "minecraft:gray_dye"
-    },
-    "ingredients": [
-      "minecraft:ink_sac",
-      "minecraft:bone_meal"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.14"
-    }
-  },
   "gray_stained_glass": {
     "result": {
       "count": 8,
@@ -2697,19 +2243,6 @@
     "key": {
       "#": "minecraft:terracotta",
       "X": "minecraft:gray_dye"
-    }
-  },
-  "gray_wool": {
-    "result": {
-      "id": "minecraft:gray_wool"
-    },
-    "ingredients": [
-      "minecraft:gray_dye",
-      "minecraft:white_wool"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20"
     }
   },
   "green_banner": {
@@ -2811,19 +2344,6 @@
       "X": "minecraft:green_dye"
     }
   },
-  "green_wool": {
-    "result": {
-      "id": "minecraft:green_wool"
-    },
-    "ingredients": [
-      "minecraft:green_dye",
-      "minecraft:white_wool"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20"
-    }
-  },
   "harming_potion": {
     "result": {
       "id": "minecraft.potion.effect.harming"
@@ -2834,17 +2354,6 @@
       "minecraft.potion.effect.healing",
       "minecraft.potion.effect.poison"
     ]
-  },
-  "harming_potion_from_corrupt_legacy": {
-    "result": {
-      "id": "minecraft.potion.effect.harming"
-    },
-    "reagent": "minecraft:fermented_spider_eye",
-    "type": "minecraft.brewing",
-    "properties": {
-      "removed": "1.9"
-    },
-    "base": "minecraft.potion.effect.water_breathing"
   },
   "harming_splash_potion": {
     "result": {
@@ -3304,25 +2813,6 @@
     "type": "minecraft:smelting",
     "experience": 0.2
   },
-  "lead_legacy": {
-    "result": {
-      "count": 2,
-      "id": "minecraft:lead"
-    },
-    "pattern": [
-      "~~ ",
-      "~O ",
-      "  ~"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "~": "minecraft:string",
-      "O": "minecraft:slime_ball"
-    },
-    "properties": {
-      "removed": "1.20.6"
-    }
-  },
   "leather_boots": {
     "result": {
       "count": 1,
@@ -3435,20 +2925,6 @@
     ],
     "type": "minecraft:crafting_shapeless"
   },
-  "light_blue_dye_from_blue_white_dye_legacy": {
-    "result": {
-      "count": 2,
-      "id": "minecraft:light_blue_dye"
-    },
-    "ingredients": [
-      "minecraft:lapis_lazuli",
-      "minecraft:bone_meal"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.14"
-    }
-  },
   "light_blue_stained_glass": {
     "result": {
       "count": 8,
@@ -3511,19 +2987,6 @@
       "X": "minecraft:light_blue_dye"
     }
   },
-  "light_blue_wool": {
-    "result": {
-      "id": "minecraft:light_blue_wool"
-    },
-    "ingredients": [
-      "minecraft:light_blue_dye",
-      "minecraft:white_wool"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20"
-    }
-  },
   "light_gray_banner": {
     "result": {
       "count": 1,
@@ -3562,35 +3025,6 @@
       "minecraft:azure_bluet"
     ],
     "type": "minecraft:crafting_shapeless"
-  },
-  "light_gray_dye_from_black_white_dye_legacy": {
-    "result": {
-      "count": 3,
-      "id": "minecraft:light_gray_dye"
-    },
-    "ingredients": [
-      "minecraft:ink_sac",
-      "minecraft:bone_meal",
-      "minecraft:bone_meal"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.14"
-    }
-  },
-  "light_gray_dye_from_gray_white_dye_legacy": {
-    "result": {
-      "count": 2,
-      "id": "minecraft:light_gray_dye"
-    },
-    "ingredients": [
-      "minecraft:gray_dye",
-      "minecraft:bone_meal"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.14"
-    }
   },
   "light_gray_dye_from_oxeye_daisy": {
     "result": {
@@ -3674,19 +3108,6 @@
       "X": "minecraft:light_gray_dye"
     }
   },
-  "light_gray_wool": {
-    "result": {
-      "id": "minecraft:light_gray_wool"
-    },
-    "ingredients": [
-      "minecraft:light_gray_dye",
-      "minecraft:white_wool"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20"
-    }
-  },
   "light_weighted_pressure_plate": {
     "result": {
       "count": 1,
@@ -3727,20 +3148,6 @@
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": "minecraft:lime_wool"
-    }
-  },
-  "lime_dye_legacy": {
-    "result": {
-      "count": 2,
-      "id": "minecraft:lime_dye"
-    },
-    "ingredients": [
-      "minecraft:green_dye",
-      "minecraft:bone_meal"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.14"
     }
   },
   "lime_stained_glass": {
@@ -3805,19 +3212,6 @@
       "X": "minecraft:lime_dye"
     }
   },
-  "lime_wool": {
-    "result": {
-      "id": "minecraft:lime_wool"
-    },
-    "ingredients": [
-      "minecraft:lime_dye",
-      "minecraft:white_wool"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20"
-    }
-  },
   "lingering_thick_potion": {
     "result": {
       "id": "minecraft.lingering_potion.effect.thick"
@@ -3864,37 +3258,6 @@
       "minecraft:allium"
     ],
     "type": "minecraft:crafting_shapeless"
-  },
-  "magenta_dye_from_blue_red_pink_legacy": {
-    "result": {
-      "count": 3,
-      "id": "minecraft:magenta_dye"
-    },
-    "ingredients": [
-      "minecraft:lapis_lazuli",
-      "minecraft:red_dye",
-      "minecraft:pink_dye"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.14"
-    }
-  },
-  "magenta_dye_from_blue_red_white_dye_legacy": {
-    "result": {
-      "count": 4,
-      "id": "minecraft:magenta_dye"
-    },
-    "ingredients": [
-      "minecraft:lapis_lazuli",
-      "minecraft:red_dye",
-      "minecraft:red_dye",
-      "minecraft:bone_meal"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.14"
-    }
   },
   "magenta_dye_from_lilac": {
     "result": {
@@ -3977,19 +3340,6 @@
     "key": {
       "#": "minecraft:terracotta",
       "X": "minecraft:magenta_dye"
-    }
-  },
-  "magenta_wool": {
-    "result": {
-      "id": "minecraft:magenta_wool"
-    },
-    "ingredients": [
-      "minecraft:magenta_dye",
-      "minecraft:white_wool"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20"
     }
   },
   "magma_cream": {
@@ -4100,23 +3450,6 @@
     "ingredient": "minecraft:netherrack",
     "type": "minecraft:smelting",
     "experience": 0.1
-  },
-  "nether_brick_fence_legacy": {
-    "result": {
-      "count": 6,
-      "id": "minecraft:nether_brick_fence"
-    },
-    "pattern": [
-      "###",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:nether_bricks"
-    },
-    "properties": {
-      "removed": "1.14"
-    }
   },
   "nether_brick_slab": {
     "result": {
@@ -4267,23 +3600,6 @@
     "key": {
       "#": "minecraft:stick",
       "W": "minecraft:oak_planks"
-    }
-  },
-  "oak_fence_legacy": {
-    "result": {
-      "count": 2,
-      "id": "minecraft:oak_fence"
-    },
-    "pattern": [
-      "###",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:stick"
-    },
-    "properties": {
-      "removed": "1.8"
     }
   },
   "oak_planks": {
@@ -4482,19 +3798,6 @@
       "X": "minecraft:orange_dye"
     }
   },
-  "orange_wool": {
-    "result": {
-      "id": "minecraft:orange_wool"
-    },
-    "ingredients": [
-      "minecraft:orange_dye",
-      "minecraft:white_wool"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20"
-    }
-  },
   "painting": {
     "result": {
       "count": 1,
@@ -4576,20 +3879,6 @@
     ],
     "type": "minecraft:crafting_shapeless"
   },
-  "pink_dye_from_red_white_dye_legacy": {
-    "result": {
-      "count": 2,
-      "id": "minecraft:pink_dye"
-    },
-    "ingredients": [
-      "minecraft:red_dye",
-      "minecraft:bone_meal"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.14"
-    }
-  },
   "pink_stained_glass": {
     "result": {
       "count": 8,
@@ -4650,19 +3939,6 @@
     "key": {
       "#": "minecraft:terracotta",
       "X": "minecraft:pink_dye"
-    }
-  },
-  "pink_wool": {
-    "result": {
-      "id": "minecraft:pink_wool"
-    },
-    "ingredients": [
-      "minecraft:pink_dye",
-      "minecraft:white_wool"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20"
     }
   },
   "piston": {
@@ -4748,20 +4024,6 @@
       "#": "minecraft:purple_wool"
     }
   },
-  "purple_dye_legacy": {
-    "result": {
-      "count": 2,
-      "id": "minecraft:purple_dye"
-    },
-    "ingredients": [
-      "minecraft:lapis_lazuli",
-      "minecraft:red_dye"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.14"
-    }
-  },
   "purple_stained_glass": {
     "result": {
       "count": 8,
@@ -4822,19 +4084,6 @@
     "key": {
       "#": "minecraft:terracotta",
       "X": "minecraft:purple_dye"
-    }
-  },
-  "purple_wool": {
-    "result": {
-      "id": "minecraft:purple_wool"
-    },
-    "ingredients": [
-      "minecraft:purple_dye",
-      "minecraft:white_wool"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20"
     }
   },
   "quartz": {
@@ -5109,19 +4358,6 @@
       "X": "minecraft:red_dye"
     }
   },
-  "red_wool": {
-    "result": {
-      "id": "minecraft:red_wool"
-    },
-    "ingredients": [
-      "minecraft:red_dye",
-      "minecraft:white_wool"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20"
-    }
-  },
   "redstone": {
     "result": {
       "count": 9,
@@ -5306,17 +4542,6 @@
       "minecraft.potion.effect.leaping"
     ]
   },
-  "slowness_potion_from_corrupt_legacy": {
-    "result": {
-      "id": "minecraft.potion.effect.slowness"
-    },
-    "reagent": "minecraft:fermented_spider_eye",
-    "type": "minecraft.brewing",
-    "properties": {
-      "removed": "1.9"
-    },
-    "base": "minecraft.potion.effect.fire_resistance"
-  },
   "slowness_splash_potion": {
     "result": {
       "id": "minecraft.splash_potion.effect.slowness"
@@ -5499,17 +4724,6 @@
       "minecraft.splash_potion.effect.leaping.extended"
     ]
   },
-  "splash_extended_slowness_potion_from_corrupt_legacy": {
-    "result": {
-      "id": "minecraft.splash_potion.effect.slowness.extended"
-    },
-    "reagent": "minecraft:fermented_spider_eye",
-    "type": "minecraft.brewing",
-    "properties": {
-      "removed": "1.9"
-    },
-    "base": "minecraft.splash_potion.effect.fire_resistance.extended"
-  },
   "splash_extended_strength_potion": {
     "result": {
       "id": "minecraft.splash_potion.effect.strength.extended"
@@ -5542,31 +4756,6 @@
     "type": "minecraft.brewing",
     "base": "minecraft.splash_potion.effect.weakness"
   },
-  "splash_extended_weakness_potion_from_corrupt": {
-    "result": {
-      "id": "minecraft.splash_potion.effect.weakness.extended"
-    },
-    "reagent": "minecraft:fermented_spider_eye",
-    "type": "minecraft.brewing",
-    "properties": {
-      "removed": "1.9"
-    },
-    "base": [
-      "minecraft.splash_potion.effect.strength.extended",
-      "minecraft.splash_potion.effect.regeneration.extended"
-    ]
-  },
-  "splash_extended_weakness_potion_legacy": {
-    "result": {
-      "id": "minecraft.splash_potion.effect.weakness.extended"
-    },
-    "reagent": "minecraft:fermented_spider_eye",
-    "type": "minecraft.brewing",
-    "properties": {
-      "removed": "1.9"
-    },
-    "base": "minecraft.splash_potion.effect.mundane.extended"
-  },
   "splash_fire_resistance_potion": {
     "result": {
       "id": "minecraft.splash_potion.effect.fire_resistance"
@@ -5585,17 +4774,6 @@
       "minecraft.splash_potion.effect.healing",
       "minecraft.splash_potion.effect.poison"
     ]
-  },
-  "splash_harming_potion_from_corrupt_legacy": {
-    "result": {
-      "id": "minecraft.splash_potion.effect.harming"
-    },
-    "reagent": "minecraft:fermented_spider_eye",
-    "type": "minecraft.brewing",
-    "properties": {
-      "removed": "1.9"
-    },
-    "base": "minecraft.splash_potion.effect.water_breathing"
   },
   "splash_healing_potion": {
     "result": {
@@ -5648,17 +4826,6 @@
       "minecraft.splash_potion.effect.leaping"
     ]
   },
-  "splash_slowness_potion_from_corrupt_legacy": {
-    "result": {
-      "id": "minecraft.splash_potion.effect.slowness"
-    },
-    "reagent": "minecraft:fermented_spider_eye",
-    "type": "minecraft.brewing",
-    "properties": {
-      "removed": "1.9"
-    },
-    "base": "minecraft.splash_potion.effect.fire_resistance"
-  },
   "splash_strength_potion": {
     "result": {
       "id": "minecraft.splash_potion.effect.strength"
@@ -5693,21 +4860,6 @@
       "minecraft.splash_potion.effect.healing",
       "minecraft.splash_potion.effect.poison",
       "minecraft.splash_potion.effect.water"
-    ]
-  },
-  "splash_weakness_potion_legacy": {
-    "result": {
-      "id": "minecraft.splash_potion.effect.weakness"
-    },
-    "reagent": "minecraft:fermented_spider_eye",
-    "type": "minecraft.brewing",
-    "properties": {
-      "removed": "1.9"
-    },
-    "base": [
-      "minecraft.splash_potion.effect.mundane",
-      "minecraft.splash_potion.effect.thick",
-      "minecraft.splash_potion.effect.awkward"
     ]
   },
   "spruce_planks": {
@@ -6156,21 +5308,6 @@
       "minecraft.potion.effect.water"
     ]
   },
-  "weakness_potion_legacy": {
-    "result": {
-      "id": "minecraft.potion.effect.weakness"
-    },
-    "reagent": "minecraft:fermented_spider_eye",
-    "type": "minecraft.brewing",
-    "properties": {
-      "removed": "1.9"
-    },
-    "base": [
-      "minecraft.potion.effect.mundane",
-      "minecraft.potion.effect.thick",
-      "minecraft.potion.effect.awkward"
-    ]
-  },
   "weakness_splash_potion": {
     "result": {
       "id": "minecraft.splash_potion.effect.weakness"
@@ -6202,25 +5339,6 @@
       "#": "minecraft:white_wool"
     }
   },
-  "white_stained_glass_legacy": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:white_stained_glass"
-    },
-    "pattern": [
-      "###",
-      "#X#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:glass",
-      "X": "minecraft:bone_meal"
-    },
-    "properties": {
-      "removed": "1.14"
-    }
-  },
   "white_stained_glass_pane": {
     "result": {
       "count": 16,
@@ -6233,44 +5351,6 @@
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": "minecraft:white_stained_glass"
-    }
-  },
-  "white_stained_glass_pane_from_glass_pane_legacy": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:white_stained_glass_pane"
-    },
-    "pattern": [
-      "###",
-      "#X#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:glass_pane",
-      "X": "minecraft:bone_meal"
-    },
-    "properties": {
-      "removed": "1.14"
-    }
-  },
-  "white_terracotta_legacy": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:white_terracotta"
-    },
-    "pattern": [
-      "###",
-      "#X#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:terracotta",
-      "X": "minecraft:bone_meal"
-    },
-    "properties": {
-      "removed": "1.14"
     }
   },
   "white_wool_from_string": {
@@ -6503,19 +5583,6 @@
     "key": {
       "#": "minecraft:terracotta",
       "X": "minecraft:yellow_dye"
-    }
-  },
-  "yellow_wool": {
-    "result": {
-      "id": "minecraft:yellow_wool"
-    },
-    "ingredients": [
-      "minecraft:yellow_dye",
-      "minecraft:white_wool"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20"
     }
   },
   "acacia_door": {
@@ -6800,25 +5867,6 @@
       "W": "minecraft:dark_oak_planks"
     },
     "properties": {
-      "version": "1.8"
-    }
-  },
-  "dark_prismarine_legacy": {
-    "result": {
-      "id": "minecraft:dark_prismarine"
-    },
-    "pattern": [
-      "SSS",
-      "SIS",
-      "SSS"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "S": "minecraft:prismarine_shard",
-      "I": "minecraft:ink_sac"
-    },
-    "properties": {
-      "removed": "1.15",
       "version": "1.8"
     }
   },
@@ -9522,11 +8570,13 @@
       "minecraft:golden_axe",
       "minecraft:golden_hoe",
       "minecraft:golden_sword",
+      "minecraft:golden_spear",
       "minecraft:golden_helmet",
       "minecraft:golden_chestplate",
       "minecraft:golden_leggings",
       "minecraft:golden_boots",
-      "minecraft:golden_horse_armor"
+      "minecraft:golden_horse_armor",
+      "minecraft:golden_nautilus_armor"
     ],
     "type": "minecraft:smelting",
     "experience": 0.1,
@@ -9612,11 +8662,13 @@
       "minecraft:iron_axe",
       "minecraft:iron_hoe",
       "minecraft:iron_sword",
+      "minecraft:iron_spear",
       "minecraft:iron_helmet",
       "minecraft:iron_chestplate",
       "minecraft:iron_leggings",
       "minecraft:iron_boots",
       "minecraft:iron_horse_armor",
+      "minecraft:iron_nautilus_armor",
       "minecraft:chainmail_helmet",
       "minecraft:chainmail_chestplate",
       "minecraft:chainmail_leggings",
@@ -9638,6 +8690,7 @@
       "minecraft:iron_axe",
       "minecraft:iron_hoe",
       "minecraft:iron_sword",
+      "minecraft:iron_spear",
       "minecraft:iron_helmet",
       "minecraft:iron_chestplate",
       "minecraft:iron_leggings",
@@ -9646,7 +8699,8 @@
       "minecraft:chainmail_helmet",
       "minecraft:chainmail_chestplate",
       "minecraft:chainmail_leggings",
-      "minecraft:chainmail_boots"
+      "minecraft:chainmail_boots",
+      "minecraft:iron_nautilus_armor"
     ],
     "type": "minecraft:smelting",
     "experience": 0.1,
@@ -9838,66 +8892,6 @@
       "version": "1.11"
     }
   },
-  "shulker_box_coloring_black_legacy": {
-    "result": {
-      "id": "minecraft:black_shulker_box"
-    },
-    "ingredients": [
-      "minecraft:ink_sac",
-      "#minecraft:shulker_boxes"
-    ],
-    "type": "minecraft:crafting_special_shulkerboxcoloring",
-    "properties": {
-      "removed": "1.14",
-      "animated": true,
-      "version": "1.11"
-    }
-  },
-  "shulker_box_coloring_blue_legacy": {
-    "result": {
-      "id": "minecraft:blue_shulker_box"
-    },
-    "ingredients": [
-      "minecraft:lapis_lazuli",
-      "#minecraft:shulker_boxes"
-    ],
-    "type": "minecraft:crafting_special_shulkerboxcoloring",
-    "properties": {
-      "removed": "1.14",
-      "animated": true,
-      "version": "1.11"
-    }
-  },
-  "shulker_box_coloring_brown_legacy": {
-    "result": {
-      "id": "minecraft:brown_shulker_box"
-    },
-    "ingredients": [
-      "minecraft:cocoa_beans",
-      "#minecraft:shulker_boxes"
-    ],
-    "type": "minecraft:crafting_special_shulkerboxcoloring",
-    "properties": {
-      "removed": "1.14",
-      "animated": true,
-      "version": "1.11"
-    }
-  },
-  "shulker_box_coloring_white_legacy": {
-    "result": {
-      "id": "minecraft:white_shulker_box"
-    },
-    "ingredients": [
-      "minecraft:bone_meal",
-      "#minecraft:shulker_boxes"
-    ],
-    "type": "minecraft:crafting_special_shulkerboxcoloring",
-    "properties": {
-      "removed": "1.14",
-      "animated": true,
-      "version": "1.11"
-    }
-  },
   "white_shulker_box": {
     "result": {
       "id": "minecraft:white_shulker_box"
@@ -9953,42 +8947,6 @@
       "version": "1.12"
     }
   },
-  "black_bed_from_white_bed_legacy": {
-    "result": {
-      "id": "minecraft:black_bed"
-    },
-    "ingredients": [
-      "minecraft:white_bed",
-      "minecraft:ink_sac"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.14",
-      "version": "1.12"
-    }
-  },
-  "black_concrete_powder_legacy": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:black_concrete_powder"
-    },
-    "ingredients": [
-      "minecraft:ink_sac",
-      "minecraft:sand",
-      "minecraft:sand",
-      "minecraft:sand",
-      "minecraft:sand",
-      "minecraft:gravel",
-      "minecraft:gravel",
-      "minecraft:gravel",
-      "minecraft:gravel"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.14",
-      "version": "1.12"
-    }
-  },
   "black_glazed_terracotta": {
     "result": {
       "id": "minecraft:black_glazed_terracotta"
@@ -10016,42 +8974,6 @@
     },
     "properties": {
       "animated": true,
-      "version": "1.12"
-    }
-  },
-  "blue_bed_from_white_bed_legacy": {
-    "result": {
-      "id": "minecraft:blue_bed"
-    },
-    "ingredients": [
-      "minecraft:white_bed",
-      "minecraft:lapis_lazuli"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.14",
-      "version": "1.12"
-    }
-  },
-  "blue_concrete_powder_legacy": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:blue_concrete_powder"
-    },
-    "ingredients": [
-      "minecraft:lapis_lazuli",
-      "minecraft:sand",
-      "minecraft:sand",
-      "minecraft:sand",
-      "minecraft:sand",
-      "minecraft:gravel",
-      "minecraft:gravel",
-      "minecraft:gravel",
-      "minecraft:gravel"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.14",
       "version": "1.12"
     }
   },
@@ -10085,42 +9007,6 @@
       "version": "1.12"
     }
   },
-  "brown_bed_from_white_bed_legacy": {
-    "result": {
-      "id": "minecraft:brown_bed"
-    },
-    "ingredients": [
-      "minecraft:white_bed",
-      "minecraft:cocoa_beans"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.14",
-      "version": "1.12"
-    }
-  },
-  "brown_concrete_powder_legacy": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:brown_concrete_powder"
-    },
-    "ingredients": [
-      "minecraft:cocoa_beans",
-      "minecraft:sand",
-      "minecraft:sand",
-      "minecraft:sand",
-      "minecraft:sand",
-      "minecraft:gravel",
-      "minecraft:gravel",
-      "minecraft:gravel",
-      "minecraft:gravel"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.14",
-      "version": "1.12"
-    }
-  },
   "brown_glazed_terracotta": {
     "result": {
       "id": "minecraft:brown_glazed_terracotta"
@@ -10148,20 +9034,6 @@
     },
     "properties": {
       "animated": true,
-      "version": "1.12"
-    }
-  },
-  "cyan_bed_from_white_bed": {
-    "result": {
-      "id": "minecraft:cyan_bed"
-    },
-    "ingredients": [
-      "minecraft:white_bed",
-      "minecraft:cyan_dye"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20",
       "version": "1.12"
     }
   },
@@ -10216,20 +9088,6 @@
       "version": "1.12"
     }
   },
-  "gray_bed_from_white_bed": {
-    "result": {
-      "id": "minecraft:gray_bed"
-    },
-    "ingredients": [
-      "minecraft:white_bed",
-      "minecraft:gray_dye"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20",
-      "version": "1.12"
-    }
-  },
   "gray_concrete_powder": {
     "result": {
       "count": 8,
@@ -10278,20 +9136,6 @@
     },
     "properties": {
       "animated": true,
-      "version": "1.12"
-    }
-  },
-  "green_bed_from_white_bed": {
-    "result": {
-      "id": "minecraft:green_bed"
-    },
-    "ingredients": [
-      "minecraft:white_bed",
-      "minecraft:green_dye"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20",
       "version": "1.12"
     }
   },
@@ -10346,20 +9190,6 @@
       "version": "1.12"
     }
   },
-  "light_blue_bed_from_white_bed": {
-    "result": {
-      "id": "minecraft:light_blue_bed"
-    },
-    "ingredients": [
-      "minecraft:white_bed",
-      "minecraft:light_blue_dye"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20",
-      "version": "1.12"
-    }
-  },
   "light_blue_concrete_powder": {
     "result": {
       "count": 8,
@@ -10408,20 +9238,6 @@
     },
     "properties": {
       "animated": true,
-      "version": "1.12"
-    }
-  },
-  "light_gray_bed_from_white_bed": {
-    "result": {
-      "id": "minecraft:light_gray_bed"
-    },
-    "ingredients": [
-      "minecraft:white_bed",
-      "minecraft:light_gray_dye"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20",
       "version": "1.12"
     }
   },
@@ -10476,20 +9292,6 @@
       "version": "1.12"
     }
   },
-  "lime_bed_from_white_bed": {
-    "result": {
-      "id": "minecraft:lime_bed"
-    },
-    "ingredients": [
-      "minecraft:white_bed",
-      "minecraft:lime_dye"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20",
-      "version": "1.12"
-    }
-  },
   "lime_concrete_powder": {
     "result": {
       "count": 8,
@@ -10538,20 +9340,6 @@
     },
     "properties": {
       "animated": true,
-      "version": "1.12"
-    }
-  },
-  "magenta_bed_from_white_bed": {
-    "result": {
-      "id": "minecraft:magenta_bed"
-    },
-    "ingredients": [
-      "minecraft:white_bed",
-      "minecraft:magenta_dye"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20",
       "version": "1.12"
     }
   },
@@ -10606,20 +9394,6 @@
       "version": "1.12"
     }
   },
-  "orange_bed_from_white_bed": {
-    "result": {
-      "id": "minecraft:orange_bed"
-    },
-    "ingredients": [
-      "minecraft:white_bed",
-      "minecraft:orange_dye"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20",
-      "version": "1.12"
-    }
-  },
   "orange_concrete_powder": {
     "result": {
       "count": 8,
@@ -10668,20 +9442,6 @@
     },
     "properties": {
       "animated": true,
-      "version": "1.12"
-    }
-  },
-  "pink_bed_from_white_bed": {
-    "result": {
-      "id": "minecraft:pink_bed"
-    },
-    "ingredients": [
-      "minecraft:white_bed",
-      "minecraft:pink_dye"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20",
       "version": "1.12"
     }
   },
@@ -10736,20 +9496,6 @@
       "version": "1.12"
     }
   },
-  "purple_bed_from_white_bed": {
-    "result": {
-      "id": "minecraft:purple_bed"
-    },
-    "ingredients": [
-      "minecraft:white_bed",
-      "minecraft:purple_dye"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20",
-      "version": "1.12"
-    }
-  },
   "purple_concrete_powder": {
     "result": {
       "count": 8,
@@ -10798,20 +9544,6 @@
     },
     "properties": {
       "animated": true,
-      "version": "1.12"
-    }
-  },
-  "red_bed_from_white_bed": {
-    "result": {
-      "id": "minecraft:red_bed"
-    },
-    "ingredients": [
-      "minecraft:white_bed",
-      "minecraft:red_dye"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20",
       "version": "1.12"
     }
   },
@@ -10866,28 +9598,6 @@
       "version": "1.12"
     }
   },
-  "white_concrete_powder_legacy": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:white_concrete_powder"
-    },
-    "ingredients": [
-      "minecraft:bone_meal",
-      "minecraft:sand",
-      "minecraft:sand",
-      "minecraft:sand",
-      "minecraft:sand",
-      "minecraft:gravel",
-      "minecraft:gravel",
-      "minecraft:gravel",
-      "minecraft:gravel"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.14",
-      "version": "1.12"
-    }
-  },
   "white_glazed_terracotta": {
     "result": {
       "id": "minecraft:white_glazed_terracotta"
@@ -10915,20 +9625,6 @@
     },
     "properties": {
       "animated": true,
-      "version": "1.12"
-    }
-  },
-  "yellow_bed_from_white_bed": {
-    "result": {
-      "id": "minecraft:yellow_bed"
-    },
-    "ingredients": [
-      "minecraft:white_bed",
-      "minecraft:yellow_dye"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20",
       "version": "1.12"
     }
   },
@@ -11048,21 +9744,6 @@
       "version": "1.13"
     },
     "base": "minecraft.potion.effect.slowness"
-  },
-  "amplified_slowness_potion_from_corrupt": {
-    "result": {
-      "id": "minecraft.potion.effect.slowness.iv"
-    },
-    "reagent": "minecraft:fermented_spider_eye",
-    "type": "minecraft.brewing",
-    "properties": {
-      "removed": "1.9",
-      "version": "1.13"
-    },
-    "base": [
-      "minecraft.potion.effect.swiftness.ii",
-      "minecraft.potion.effect.leaping.ii"
-    ]
   },
   "amplified_slowness_splash_potion": {
     "result": {
@@ -11837,21 +10518,6 @@
     },
     "base": "minecraft.splash_potion.effect.slowness"
   },
-  "splash_amplified_slowness_potion_from_corrupt": {
-    "result": {
-      "id": "minecraft.splash_potion.effect.slowness.iv"
-    },
-    "reagent": "minecraft:fermented_spider_eye",
-    "type": "minecraft.brewing",
-    "properties": {
-      "removed": "1.9",
-      "version": "1.13"
-    },
-    "base": [
-      "minecraft.splash_potion.effect.swiftness.ii",
-      "minecraft.splash_potion.effect.leaping.ii"
-    ]
-  },
   "splash_amplified_turtle_master_potion": {
     "result": {
       "id": "minecraft.splash_potion.effect.turtle_master.ii"
@@ -12273,40 +10939,6 @@
       "version": "1.14"
     }
   },
-  "black_bed_from_white_bed": {
-    "result": {
-      "id": "minecraft:black_bed"
-    },
-    "ingredients": [
-      "minecraft:white_bed",
-      "minecraft:black_dye"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20",
-      "version": "1.14"
-    }
-  },
-  "black_carpet_from_white_carpet": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:black_carpet"
-    },
-    "pattern": [
-      "###",
-      "#$#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:white_carpet",
-      "$": "minecraft:black_dye"
-    },
-    "properties": {
-      "removed": "1.20",
-      "version": "1.14"
-    }
-  },
   "black_concrete_powder": {
     "result": {
       "count": 8,
@@ -12411,20 +11043,6 @@
       "version": "1.14"
     }
   },
-  "black_wool": {
-    "result": {
-      "id": "minecraft:black_wool"
-    },
-    "ingredients": [
-      "minecraft:black_dye",
-      "minecraft:white_wool"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20",
-      "version": "1.14"
-    }
-  },
   "blast_furnace": {
     "result": {
       "count": 1,
@@ -12442,40 +11060,6 @@
       "I": "minecraft:iron_ingot"
     },
     "properties": {
-      "version": "1.14"
-    }
-  },
-  "blue_bed_from_white_bed": {
-    "result": {
-      "id": "minecraft:blue_bed"
-    },
-    "ingredients": [
-      "minecraft:white_bed",
-      "minecraft:blue_dye"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20",
-      "version": "1.14"
-    }
-  },
-  "blue_carpet_from_white_carpet": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:blue_carpet"
-    },
-    "pattern": [
-      "###",
-      "#$#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:white_carpet",
-      "$": "minecraft:blue_dye"
-    },
-    "properties": {
-      "removed": "1.20",
       "version": "1.14"
     }
   },
@@ -12583,20 +11167,6 @@
       "version": "1.14"
     }
   },
-  "blue_wool": {
-    "result": {
-      "id": "minecraft:blue_wool"
-    },
-    "ingredients": [
-      "minecraft:blue_dye",
-      "minecraft:white_wool"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20",
-      "version": "1.14"
-    }
-  },
   "brick_slab_from_bricks_stonecutting": {
     "result": {
       "count": 2,
@@ -12644,40 +11214,6 @@
     "ingredient": "minecraft:bricks",
     "type": "minecraft:stonecutting",
     "properties": {
-      "version": "1.14"
-    }
-  },
-  "brown_bed_from_white_bed": {
-    "result": {
-      "id": "minecraft:brown_bed"
-    },
-    "ingredients": [
-      "minecraft:white_bed",
-      "minecraft:brown_dye"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20",
-      "version": "1.14"
-    }
-  },
-  "brown_carpet_from_white_carpet": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:brown_carpet"
-    },
-    "pattern": [
-      "###",
-      "#$#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:white_carpet",
-      "$": "minecraft:brown_dye"
-    },
-    "properties": {
-      "removed": "1.20",
       "version": "1.14"
     }
   },
@@ -12769,20 +11305,6 @@
       "X": "minecraft:brown_dye"
     },
     "properties": {
-      "version": "1.14"
-    }
-  },
-  "brown_wool": {
-    "result": {
-      "id": "minecraft:brown_wool"
-    },
-    "ingredients": [
-      "minecraft:brown_dye",
-      "minecraft:white_wool"
-    ],
-    "type": "minecraft:crafting_shapeless",
-    "properties": {
-      "removed": "1.20",
       "version": "1.14"
     }
   },
@@ -12931,40 +11453,6 @@
       "version": "1.14"
     }
   },
-  "composter_legacy": {
-    "result": {
-      "id": "minecraft:composter"
-    },
-    "pattern": [
-      "X X",
-      "X X",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": [
-        "minecraft:oak_planks",
-        "minecraft:spruce_planks",
-        "minecraft:birch_planks",
-        "minecraft:jungle_planks",
-        "minecraft:acacia_planks",
-        "minecraft:dark_oak_planks"
-      ],
-      "X": [
-        "minecraft:oak_fence",
-        "minecraft:spruce_fence",
-        "minecraft:birch_fence",
-        "minecraft:jungle_fence",
-        "minecraft:acacia_fence",
-        "minecraft:dark_oak_fence"
-      ]
-    },
-    "properties": {
-      "removed": "1.15",
-      "animated": true,
-      "version": "1.14"
-    }
-  },
   "creeper_banner_pattern": {
     "result": {
       "count": 1,
@@ -13063,26 +11551,6 @@
     "ingredient": "minecraft:sandstone",
     "type": "minecraft:stonecutting",
     "properties": {
-      "version": "1.14"
-    }
-  },
-  "cyan_carpet_from_white_carpet": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:cyan_carpet"
-    },
-    "pattern": [
-      "###",
-      "#$#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:white_carpet",
-      "$": "minecraft:cyan_dye"
-    },
-    "properties": {
-      "removed": "1.20",
       "version": "1.14"
     }
   },
@@ -13557,26 +12025,6 @@
       "version": "1.14"
     }
   },
-  "gray_carpet_from_white_carpet": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:gray_carpet"
-    },
-    "pattern": [
-      "###",
-      "#$#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:white_carpet",
-      "$": "minecraft:gray_dye"
-    },
-    "properties": {
-      "removed": "1.20",
-      "version": "1.14"
-    }
-  },
   "gray_dye": {
     "result": {
       "count": 2,
@@ -13588,26 +12036,6 @@
     ],
     "type": "minecraft:crafting_shapeless",
     "properties": {
-      "version": "1.14"
-    }
-  },
-  "green_carpet_from_white_carpet": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:green_carpet"
-    },
-    "pattern": [
-      "###",
-      "#$#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:white_carpet",
-      "$": "minecraft:green_dye"
-    },
-    "properties": {
-      "removed": "1.20",
       "version": "1.14"
     }
   },
@@ -13707,26 +12135,6 @@
       "version": "1.14"
     }
   },
-  "light_blue_carpet_from_white_carpet": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:light_blue_carpet"
-    },
-    "pattern": [
-      "###",
-      "#$#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:white_carpet",
-      "$": "minecraft:light_blue_dye"
-    },
-    "properties": {
-      "removed": "1.20",
-      "version": "1.14"
-    }
-  },
   "light_blue_dye_from_blue_white_dye": {
     "result": {
       "count": 2,
@@ -13738,26 +12146,6 @@
     ],
     "type": "minecraft:crafting_shapeless",
     "properties": {
-      "version": "1.14"
-    }
-  },
-  "light_gray_carpet_from_white_carpet": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:light_gray_carpet"
-    },
-    "pattern": [
-      "###",
-      "#$#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:white_carpet",
-      "$": "minecraft:light_gray_dye"
-    },
-    "properties": {
-      "removed": "1.20",
       "version": "1.14"
     }
   },
@@ -13787,26 +12175,6 @@
     ],
     "type": "minecraft:crafting_shapeless",
     "properties": {
-      "version": "1.14"
-    }
-  },
-  "lime_carpet_from_white_carpet": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:lime_carpet"
-    },
-    "pattern": [
-      "###",
-      "#$#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:white_carpet",
-      "$": "minecraft:lime_dye"
-    },
-    "properties": {
-      "removed": "1.20",
       "version": "1.14"
     }
   },
@@ -13840,26 +12208,6 @@
     },
     "properties": {
       "animated": true,
-      "version": "1.14"
-    }
-  },
-  "magenta_carpet_from_white_carpet": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:magenta_carpet"
-    },
-    "pattern": [
-      "###",
-      "#$#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:white_carpet",
-      "$": "minecraft:magenta_dye"
-    },
-    "properties": {
-      "removed": "1.20",
       "version": "1.14"
     }
   },
@@ -14141,46 +12489,6 @@
     "ingredient": "minecraft:nether_bricks",
     "type": "minecraft:stonecutting",
     "properties": {
-      "version": "1.14"
-    }
-  },
-  "orange_carpet_from_white_carpet": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:orange_carpet"
-    },
-    "pattern": [
-      "###",
-      "#$#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:white_carpet",
-      "$": "minecraft:orange_dye"
-    },
-    "properties": {
-      "removed": "1.20",
-      "version": "1.14"
-    }
-  },
-  "pink_carpet_from_white_carpet": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:pink_carpet"
-    },
-    "pattern": [
-      "###",
-      "#$#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:white_carpet",
-      "$": "minecraft:pink_dye"
-    },
-    "properties": {
-      "removed": "1.20",
       "version": "1.14"
     }
   },
@@ -14537,26 +12845,6 @@
       "version": "1.14"
     }
   },
-  "purple_carpet_from_white_carpet": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:purple_carpet"
-    },
-    "pattern": [
-      "###",
-      "#$#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:white_carpet",
-      "$": "minecraft:purple_dye"
-    },
-    "properties": {
-      "removed": "1.20",
-      "version": "1.14"
-    }
-  },
   "purple_dye": {
     "result": {
       "count": 2,
@@ -14634,26 +12922,6 @@
     "ingredient": "minecraft:quartz_block",
     "type": "minecraft:stonecutting",
     "properties": {
-      "version": "1.14"
-    }
-  },
-  "red_carpet_from_white_carpet": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:red_carpet"
-    },
-    "pattern": [
-      "###",
-      "#$#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:white_carpet",
-      "$": "minecraft:red_dye"
-    },
-    "properties": {
-      "removed": "1.20",
       "version": "1.14"
     }
   },
@@ -15303,43 +13571,6 @@
       "version": "1.14"
     }
   },
-  "suspicious_stew_legacy": {
-    "result": {
-      "id": "minecraft:suspicious_stew"
-    },
-    "ingredients": [
-      "minecraft:brown_mushroom",
-      "minecraft:red_mushroom",
-      "minecraft:bowl",
-      [
-        "minecraft:allium",
-        "minecraft:azure_bluet",
-        "minecraft:blue_orchid",
-        "minecraft:dandelion",
-        "minecraft:cornflower",
-        "minecraft:lily_of_the_valley",
-        "minecraft:oxeye_daisy",
-        "minecraft:poppy",
-        "minecraft:torchflower",
-        "minecraft:orange_tulip",
-        "minecraft:pink_tulip",
-        "minecraft:red_tulip",
-        "minecraft:white_tulip",
-        "minecraft:wither_rose"
-      ]
-    ],
-    "type": "minecraft:crafting_special_suspiciousstew",
-    "lang": {
-      "en_US": {
-        "notes": "\nAllium - Fire Resistance 3s\nAzure Bluet - Blindness 11s\nBlue Orchid - Saturation 0.35s\nDandelion - Saturation 0.35s\nCornflower - Jump Boost 5s\nLily of the Valley - Poison 11s\nOxeye Daisy - Regeneration 7s\nPoppy - Night Vision 5s\nTorchflower - Night Vision 5s\nTulips - Weakness 9s\nWither Rose - Wither 7s"
-      }
-    },
-    "properties": {
-      "removed": "1.21.4",
-      "animated": true,
-      "version": "1.14"
-    }
-  },
   "white_concrete_powder": {
     "result": {
       "count": 8,
@@ -15441,26 +13672,6 @@
       "X": "minecraft:white_dye"
     },
     "properties": {
-      "version": "1.14"
-    }
-  },
-  "yellow_carpet_from_white_carpet": {
-    "result": {
-      "count": 8,
-      "id": "minecraft:yellow_carpet"
-    },
-    "pattern": [
-      "###",
-      "#$#",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:white_carpet",
-      "$": "minecraft:yellow_dye"
-    },
-    "properties": {
-      "removed": "1.20",
       "version": "1.14"
     }
   },
@@ -16091,40 +14302,6 @@
       "version": "1.16"
     }
   },
-  "lodestone_legacy": {
-    "result": {
-      "count": 1,
-      "id": "minecraft:lodestone"
-    },
-    "pattern": [
-      "SSS",
-      "S#S",
-      "SSS"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:netherite_ingot",
-      "S": "minecraft:chiseled_stone_bricks"
-    },
-    "properties": {
-      "removed": "1.21.5",
-      "version": "1.16"
-    }
-  },
-  "netherite_axe_smithing_legacy": {
-    "result": {
-      "id": "minecraft:netherite_axe"
-    },
-    "type": "minecraft:smithing",
-    "properties": {
-      "flag_removed_version": "1.19.4",
-      "removed_in_flag": "1.20",
-      "removed": "1.20",
-      "version": "1.16"
-    },
-    "addition": "minecraft:netherite_ingot",
-    "base": "minecraft:diamond_axe"
-  },
   "netherite_block": {
     "result": {
       "count": 1,
@@ -16142,62 +14319,6 @@
     "properties": {
       "version": "1.16"
     }
-  },
-  "netherite_boots_smithing_legacy": {
-    "result": {
-      "id": "minecraft:netherite_boots"
-    },
-    "type": "minecraft:smithing",
-    "properties": {
-      "flag_removed_version": "1.19.4",
-      "removed_in_flag": "1.20",
-      "removed": "1.20",
-      "version": "1.16"
-    },
-    "addition": "minecraft:netherite_ingot",
-    "base": "minecraft:diamond_boots"
-  },
-  "netherite_chestplate_smithing_legacy": {
-    "result": {
-      "id": "minecraft:netherite_chestplate"
-    },
-    "type": "minecraft:smithing",
-    "properties": {
-      "flag_removed_version": "1.19.4",
-      "removed_in_flag": "1.20",
-      "removed": "1.20",
-      "version": "1.16"
-    },
-    "addition": "minecraft:netherite_ingot",
-    "base": "minecraft:diamond_chestplate"
-  },
-  "netherite_helmet_smithing_legacy": {
-    "result": {
-      "id": "minecraft:netherite_helmet"
-    },
-    "type": "minecraft:smithing",
-    "properties": {
-      "flag_removed_version": "1.19.4",
-      "removed_in_flag": "1.20",
-      "removed": "1.20",
-      "version": "1.16"
-    },
-    "addition": "minecraft:netherite_ingot",
-    "base": "minecraft:diamond_helmet"
-  },
-  "netherite_hoe_smithing_legacy": {
-    "result": {
-      "id": "minecraft:netherite_hoe"
-    },
-    "type": "minecraft:smithing",
-    "properties": {
-      "flag_removed_version": "1.19.4",
-      "removed_in_flag": "1.20",
-      "removed": "1.20",
-      "version": "1.16"
-    },
-    "addition": "minecraft:netherite_ingot",
-    "base": "minecraft:diamond_hoe"
   },
   "netherite_ingot": {
     "result": {
@@ -16232,34 +14353,6 @@
       "version": "1.16"
     }
   },
-  "netherite_leggings_smithing_legacy": {
-    "result": {
-      "id": "minecraft:netherite_leggings"
-    },
-    "type": "minecraft:smithing",
-    "properties": {
-      "flag_removed_version": "1.19.4",
-      "removed_in_flag": "1.20",
-      "removed": "1.20",
-      "version": "1.16"
-    },
-    "addition": "minecraft:netherite_ingot",
-    "base": "minecraft:diamond_leggings"
-  },
-  "netherite_pickaxe_smithing_legacy": {
-    "result": {
-      "id": "minecraft:netherite_pickaxe"
-    },
-    "type": "minecraft:smithing",
-    "properties": {
-      "flag_removed_version": "1.19.4",
-      "removed_in_flag": "1.20",
-      "removed": "1.20",
-      "version": "1.16"
-    },
-    "addition": "minecraft:netherite_ingot",
-    "base": "minecraft:diamond_pickaxe"
-  },
   "netherite_scrap": {
     "result": {
       "id": "minecraft:netherite_scrap"
@@ -16281,34 +14374,6 @@
     "properties": {
       "version": "1.16"
     }
-  },
-  "netherite_shovel_smithing_legacy": {
-    "result": {
-      "id": "minecraft:netherite_shovel"
-    },
-    "type": "minecraft:smithing",
-    "properties": {
-      "flag_removed_version": "1.19.4",
-      "removed_in_flag": "1.20",
-      "removed": "1.20",
-      "version": "1.16"
-    },
-    "addition": "minecraft:netherite_ingot",
-    "base": "minecraft:diamond_shovel"
-  },
-  "netherite_sword_smithing_legacy": {
-    "result": {
-      "id": "minecraft:netherite_sword"
-    },
-    "type": "minecraft:smithing",
-    "properties": {
-      "flag_removed_version": "1.19.4",
-      "removed_in_flag": "1.20",
-      "removed": "1.20",
-      "version": "1.16"
-    },
-    "addition": "minecraft:netherite_ingot",
-    "base": "minecraft:diamond_sword"
   },
   "polished_basalt": {
     "result": {
@@ -20303,28 +18368,6 @@
       "version": "1.19"
     }
   },
-  "bundle_legacy": {
-    "result": {
-      "count": 1,
-      "id": "minecraft:bundle"
-    },
-    "pattern": [
-      "-#-",
-      "# #",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:rabbit_hide",
-      "-": "minecraft:string"
-    },
-    "properties": {
-      "removed": "1.21.2",
-      "datapack_version": "1.17",
-      "feature_flag": "bundle",
-      "version": "1.19.3"
-    }
-  },
   "acacia_hanging_sign": {
     "result": {
       "count": 6,
@@ -24176,25 +22219,6 @@
       "version": "1.20.3"
     }
   },
-  "copper_trapdoor_legacy_legacy": {
-    "result": {
-      "count": 1,
-      "id": "minecraft:copper_trapdoor"
-    },
-    "pattern": [
-      "###",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:copper_block"
-    },
-    "properties": {
-      "removed": "1.21",
-      "feature_flag": "1.21",
-      "version": "1.20.3"
-    }
-  },
   "crafter": {
     "result": {
       "count": 1,
@@ -24330,25 +22354,6 @@
       "version": "1.20.3"
     }
   },
-  "exposed_copper_trapdoor": {
-    "result": {
-      "count": 2,
-      "id": "minecraft:exposed_copper_trapdoor"
-    },
-    "pattern": [
-      "###",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:exposed_copper"
-    },
-    "properties": {
-      "removed": "1.21",
-      "feature_flag": "1.21",
-      "version": "1.20.3"
-    }
-  },
   "oxidized_chiseled_copper": {
     "result": {
       "count": 1,
@@ -24458,25 +22463,6 @@
     "ingredient": "minecraft:oxidized_copper",
     "type": "minecraft:stonecutting",
     "properties": {
-      "feature_flag": "1.21",
-      "version": "1.20.3"
-    }
-  },
-  "oxidized_copper_trapdoor": {
-    "result": {
-      "count": 2,
-      "id": "minecraft:oxidized_copper_trapdoor"
-    },
-    "pattern": [
-      "###",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:oxidized_copper"
-    },
-    "properties": {
-      "removed": "1.21",
       "feature_flag": "1.21",
       "version": "1.20.3"
     }
@@ -24937,12 +22923,12 @@
       "id": "minecraft:waxed_chiseled_copper"
     },
     "pattern": [
-      "#",
-      "#"
+      " M ",
+      " M "
     ],
     "type": "minecraft:crafting_shaped",
     "key": {
-      "#": "minecraft:waxed_cut_copper_slab"
+      "M": "minecraft:waxed_cut_copper_slab"
     },
     "properties": {
       "feature_flag": "1.21",
@@ -25104,25 +23090,6 @@
       "version": "1.20.3"
     }
   },
-  "waxed_copper_trapdoor": {
-    "result": {
-      "count": 2,
-      "id": "minecraft:waxed_copper_trapdoor"
-    },
-    "pattern": [
-      "###",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:waxed_copper_block"
-    },
-    "properties": {
-      "removed": "1.21",
-      "feature_flag": "1.21",
-      "version": "1.20.3"
-    }
-  },
   "waxed_copper_trapdoor_from_honeycomb": {
     "result": {
       "count": 1,
@@ -25144,12 +23111,12 @@
       "id": "minecraft:waxed_exposed_chiseled_copper"
     },
     "pattern": [
-      "#",
-      "#"
+      " M ",
+      " M "
     ],
     "type": "minecraft:crafting_shaped",
     "key": {
-      "#": "minecraft:waxed_exposed_cut_copper_slab"
+      "M": "minecraft:waxed_exposed_cut_copper_slab"
     },
     "properties": {
       "feature_flag": "1.21",
@@ -25311,25 +23278,6 @@
       "version": "1.20.3"
     }
   },
-  "waxed_exposed_copper_trapdoor": {
-    "result": {
-      "count": 2,
-      "id": "minecraft:waxed_exposed_copper_trapdoor"
-    },
-    "pattern": [
-      "###",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:waxed_exposed_copper"
-    },
-    "properties": {
-      "removed": "1.21",
-      "feature_flag": "1.21",
-      "version": "1.20.3"
-    }
-  },
   "waxed_exposed_copper_trapdoor_from_honeycomb": {
     "result": {
       "count": 1,
@@ -25351,12 +23299,12 @@
       "id": "minecraft:waxed_oxidized_chiseled_copper"
     },
     "pattern": [
-      "#",
-      "#"
+      " M ",
+      " M "
     ],
     "type": "minecraft:crafting_shaped",
     "key": {
-      "#": "minecraft:waxed_oxidized_cut_copper_slab"
+      "M": "minecraft:waxed_oxidized_cut_copper_slab"
     },
     "properties": {
       "feature_flag": "1.21",
@@ -25518,25 +23466,6 @@
       "version": "1.20.3"
     }
   },
-  "waxed_oxidized_copper_trapdoor": {
-    "result": {
-      "count": 2,
-      "id": "minecraft:waxed_oxidized_copper_trapdoor"
-    },
-    "pattern": [
-      "###",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:waxed_oxidized_copper"
-    },
-    "properties": {
-      "removed": "1.21",
-      "feature_flag": "1.21",
-      "version": "1.20.3"
-    }
-  },
   "waxed_oxidized_copper_trapdoor_from_honeycomb": {
     "result": {
       "count": 1,
@@ -25558,12 +23487,12 @@
       "id": "minecraft:waxed_weathered_chiseled_copper"
     },
     "pattern": [
-      "#",
-      "#"
+      " M ",
+      " M "
     ],
     "type": "minecraft:crafting_shaped",
     "key": {
-      "#": "minecraft:waxed_weathered_cut_copper_slab"
+      "M": "minecraft:waxed_weathered_cut_copper_slab"
     },
     "properties": {
       "feature_flag": "1.21",
@@ -25725,25 +23654,6 @@
       "version": "1.20.3"
     }
   },
-  "waxed_weathered_copper_trapdoor": {
-    "result": {
-      "count": 2,
-      "id": "minecraft:waxed_weathered_copper_trapdoor"
-    },
-    "pattern": [
-      "###",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:waxed_weathered_copper"
-    },
-    "properties": {
-      "removed": "1.21",
-      "feature_flag": "1.21",
-      "version": "1.20.3"
-    }
-  },
   "waxed_weathered_copper_trapdoor_from_honeycomb": {
     "result": {
       "count": 1,
@@ -25870,43 +23780,6 @@
     "properties": {
       "feature_flag": "1.21",
       "version": "1.20.3"
-    }
-  },
-  "weathered_copper_trapdoor": {
-    "result": {
-      "count": 2,
-      "id": "minecraft:weathered_copper_trapdoor"
-    },
-    "pattern": [
-      "###",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:weathered_copper"
-    },
-    "properties": {
-      "removed": "1.21",
-      "feature_flag": "1.21",
-      "version": "1.20.3"
-    }
-  },
-  "wolf_armor": {
-    "result": {
-      "count": 1,
-      "id": "minecraft:wolf_armor"
-    },
-    "pattern": [
-      "X  ",
-      "XXX",
-      "X X"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "X": "minecraft:armadillo_scute"
-    },
-    "properties": {
-      "version": "1.20.5"
     }
   },
   "bolt_armor_trim_smithing_template": {
@@ -26248,6 +24121,24 @@
     },
     "base": "minecraft.potion.effect.wind_charged"
   },
+  "wolf_armor": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:wolf_armor"
+    },
+    "pattern": [
+      "X  ",
+      "XXX",
+      "X X"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "X": "minecraft:armadillo_scute"
+    },
+    "properties": {
+      "version": "1.20.5"
+    }
+  },
   "lead": {
     "result": {
       "count": 2,
@@ -26264,24 +24155,6 @@
     },
     "properties": {
       "version": "1.20.6"
-    }
-  },
-  "copper_trapdoor_legacy": {
-    "result": {
-      "count": 1,
-      "id": "minecraft:copper_trapdoor"
-    },
-    "pattern": [
-      "###",
-      "###"
-    ],
-    "type": "minecraft:crafting_shaped",
-    "key": {
-      "#": "minecraft:copper_ingot"
-    },
-    "properties": {
-      "removed": "1.21.9",
-      "version": "1.21"
     }
   },
   "black_bundle": {
@@ -26456,66 +24329,6 @@
     },
     "input": "#minecraft:bundles",
     "material": "minecraft:orange_dye",
-    "type": "minecraft:crafting_transmute",
-    "properties": {
-      "animated": true,
-      "version": "1.21.2"
-    }
-  },
-  "pink_bundle": {
-    "result": {
-      "id": "minecraft:pink_bundle"
-    },
-    "input": "#minecraft:bundles",
-    "material": "minecraft:pink_dye",
-    "type": "minecraft:crafting_transmute",
-    "properties": {
-      "animated": true,
-      "version": "1.21.2"
-    }
-  },
-  "purple_bundle": {
-    "result": {
-      "id": "minecraft:purple_bundle"
-    },
-    "input": "#minecraft:bundles",
-    "material": "minecraft:purple_dye",
-    "type": "minecraft:crafting_transmute",
-    "properties": {
-      "animated": true,
-      "version": "1.21.2"
-    }
-  },
-  "red_bundle": {
-    "result": {
-      "id": "minecraft:red_bundle"
-    },
-    "input": "#minecraft:bundles",
-    "material": "minecraft:red_dye",
-    "type": "minecraft:crafting_transmute",
-    "properties": {
-      "animated": true,
-      "version": "1.21.2"
-    }
-  },
-  "white_bundle": {
-    "result": {
-      "id": "minecraft:white_bundle"
-    },
-    "input": "#minecraft:bundles",
-    "material": "minecraft:white_dye",
-    "type": "minecraft:crafting_transmute",
-    "properties": {
-      "animated": true,
-      "version": "1.21.2"
-    }
-  },
-  "yellow_bundle": {
-    "result": {
-      "id": "minecraft:yellow_bundle"
-    },
-    "input": "#minecraft:bundles",
-    "material": "minecraft:yellow_dye",
     "type": "minecraft:crafting_transmute",
     "properties": {
       "animated": true,
@@ -26787,6 +24600,42 @@
       "version": "1.21.2"
     }
   },
+  "pink_bundle": {
+    "result": {
+      "id": "minecraft:pink_bundle"
+    },
+    "input": "#minecraft:bundles",
+    "material": "minecraft:pink_dye",
+    "type": "minecraft:crafting_transmute",
+    "properties": {
+      "animated": true,
+      "version": "1.21.2"
+    }
+  },
+  "purple_bundle": {
+    "result": {
+      "id": "minecraft:purple_bundle"
+    },
+    "input": "#minecraft:bundles",
+    "material": "minecraft:purple_dye",
+    "type": "minecraft:crafting_transmute",
+    "properties": {
+      "animated": true,
+      "version": "1.21.2"
+    }
+  },
+  "red_bundle": {
+    "result": {
+      "id": "minecraft:red_bundle"
+    },
+    "input": "#minecraft:bundles",
+    "material": "minecraft:red_dye",
+    "type": "minecraft:crafting_transmute",
+    "properties": {
+      "animated": true,
+      "version": "1.21.2"
+    }
+  },
   "stripped_pale_oak_wood": {
     "result": {
       "count": 3,
@@ -26802,6 +24651,30 @@
     },
     "properties": {
       "feature_flag": "winter_drop",
+      "version": "1.21.2"
+    }
+  },
+  "white_bundle": {
+    "result": {
+      "id": "minecraft:white_bundle"
+    },
+    "input": "#minecraft:bundles",
+    "material": "minecraft:white_dye",
+    "type": "minecraft:crafting_transmute",
+    "properties": {
+      "animated": true,
+      "version": "1.21.2"
+    }
+  },
+  "yellow_bundle": {
+    "result": {
+      "id": "minecraft:yellow_bundle"
+    },
+    "input": "#minecraft:bundles",
+    "material": "minecraft:yellow_dye",
+    "type": "minecraft:crafting_transmute",
+    "properties": {
+      "animated": true,
       "version": "1.21.2"
     }
   },
@@ -27219,21 +25092,21 @@
     "ingredients": [
       "minecraft:black_dye",
       [
+        "minecraft:white_harness",
+        "minecraft:orange_harness",
+        "minecraft:magenta_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:yellow_harness",
+        "minecraft:lime_harness",
+        "minecraft:pink_harness",
+        "minecraft:gray_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:cyan_harness",
+        "minecraft:purple_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
-        "minecraft:cyan_harness",
-        "minecraft:gray_harness",
         "minecraft:green_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:lime_harness",
-        "minecraft:magenta_harness",
-        "minecraft:orange_harness",
-        "minecraft:pink_harness",
-        "minecraft:purple_harness",
-        "minecraft:red_harness",
-        "minecraft:yellow_harness",
-        "minecraft:white_harness"
+        "minecraft:red_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27250,21 +25123,21 @@
     "ingredients": [
       "minecraft:blue_dye",
       [
-        "minecraft:black_harness",
-        "minecraft:brown_harness",
-        "minecraft:cyan_harness",
-        "minecraft:gray_harness",
-        "minecraft:green_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:lime_harness",
-        "minecraft:magenta_harness",
+        "minecraft:white_harness",
         "minecraft:orange_harness",
-        "minecraft:pink_harness",
-        "minecraft:purple_harness",
-        "minecraft:red_harness",
+        "minecraft:magenta_harness",
+        "minecraft:light_blue_harness",
         "minecraft:yellow_harness",
-        "minecraft:white_harness"
+        "minecraft:lime_harness",
+        "minecraft:pink_harness",
+        "minecraft:gray_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:cyan_harness",
+        "minecraft:purple_harness",
+        "minecraft:brown_harness",
+        "minecraft:green_harness",
+        "minecraft:red_harness",
+        "minecraft:black_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27281,21 +25154,21 @@
     "ingredients": [
       "minecraft:brown_dye",
       [
-        "minecraft:black_harness",
-        "minecraft:blue_harness",
-        "minecraft:cyan_harness",
-        "minecraft:gray_harness",
-        "minecraft:green_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:lime_harness",
-        "minecraft:magenta_harness",
+        "minecraft:white_harness",
         "minecraft:orange_harness",
-        "minecraft:pink_harness",
-        "minecraft:purple_harness",
-        "minecraft:red_harness",
+        "minecraft:magenta_harness",
+        "minecraft:light_blue_harness",
         "minecraft:yellow_harness",
-        "minecraft:white_harness"
+        "minecraft:lime_harness",
+        "minecraft:pink_harness",
+        "minecraft:gray_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:cyan_harness",
+        "minecraft:purple_harness",
+        "minecraft:blue_harness",
+        "minecraft:green_harness",
+        "minecraft:red_harness",
+        "minecraft:black_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27312,21 +25185,21 @@
     "ingredients": [
       "minecraft:cyan_dye",
       [
-        "minecraft:black_harness",
+        "minecraft:white_harness",
+        "minecraft:orange_harness",
+        "minecraft:magenta_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:yellow_harness",
+        "minecraft:lime_harness",
+        "minecraft:pink_harness",
+        "minecraft:gray_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:purple_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
-        "minecraft:gray_harness",
         "minecraft:green_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:lime_harness",
-        "minecraft:magenta_harness",
-        "minecraft:orange_harness",
-        "minecraft:pink_harness",
-        "minecraft:purple_harness",
         "minecraft:red_harness",
-        "minecraft:yellow_harness",
-        "minecraft:white_harness"
+        "minecraft:black_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27343,21 +25216,21 @@
     "ingredients": [
       "minecraft:gray_dye",
       [
-        "minecraft:black_harness",
+        "minecraft:white_harness",
+        "minecraft:orange_harness",
+        "minecraft:magenta_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:yellow_harness",
+        "minecraft:lime_harness",
+        "minecraft:pink_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:cyan_harness",
+        "minecraft:purple_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
-        "minecraft:cyan_harness",
         "minecraft:green_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:lime_harness",
-        "minecraft:magenta_harness",
-        "minecraft:orange_harness",
-        "minecraft:pink_harness",
-        "minecraft:purple_harness",
         "minecraft:red_harness",
-        "minecraft:yellow_harness",
-        "minecraft:white_harness"
+        "minecraft:black_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27374,21 +25247,21 @@
     "ingredients": [
       "minecraft:green_dye",
       [
-        "minecraft:black_harness",
+        "minecraft:white_harness",
+        "minecraft:orange_harness",
+        "minecraft:magenta_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:yellow_harness",
+        "minecraft:lime_harness",
+        "minecraft:pink_harness",
+        "minecraft:gray_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:cyan_harness",
+        "minecraft:purple_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
-        "minecraft:cyan_harness",
-        "minecraft:gray_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:lime_harness",
-        "minecraft:magenta_harness",
-        "minecraft:orange_harness",
-        "minecraft:pink_harness",
-        "minecraft:purple_harness",
         "minecraft:red_harness",
-        "minecraft:yellow_harness",
-        "minecraft:white_harness"
+        "minecraft:black_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27405,21 +25278,21 @@
     "ingredients": [
       "minecraft:light_blue_dye",
       [
-        "minecraft:black_harness",
+        "minecraft:white_harness",
+        "minecraft:orange_harness",
+        "minecraft:magenta_harness",
+        "minecraft:yellow_harness",
+        "minecraft:lime_harness",
+        "minecraft:pink_harness",
+        "minecraft:gray_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:cyan_harness",
+        "minecraft:purple_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
-        "minecraft:cyan_harness",
-        "minecraft:gray_harness",
         "minecraft:green_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:lime_harness",
-        "minecraft:magenta_harness",
-        "minecraft:orange_harness",
-        "minecraft:pink_harness",
-        "minecraft:purple_harness",
         "minecraft:red_harness",
-        "minecraft:yellow_harness",
-        "minecraft:white_harness"
+        "minecraft:black_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27436,21 +25309,21 @@
     "ingredients": [
       "minecraft:light_gray_dye",
       [
-        "minecraft:black_harness",
+        "minecraft:white_harness",
+        "minecraft:orange_harness",
+        "minecraft:magenta_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:yellow_harness",
+        "minecraft:lime_harness",
+        "minecraft:pink_harness",
+        "minecraft:gray_harness",
+        "minecraft:cyan_harness",
+        "minecraft:purple_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
-        "minecraft:cyan_harness",
-        "minecraft:gray_harness",
         "minecraft:green_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:lime_harness",
-        "minecraft:magenta_harness",
-        "minecraft:orange_harness",
-        "minecraft:pink_harness",
-        "minecraft:purple_harness",
         "minecraft:red_harness",
-        "minecraft:yellow_harness",
-        "minecraft:white_harness"
+        "minecraft:black_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27467,21 +25340,21 @@
     "ingredients": [
       "minecraft:lime_dye",
       [
-        "minecraft:black_harness",
+        "minecraft:white_harness",
+        "minecraft:orange_harness",
+        "minecraft:magenta_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:yellow_harness",
+        "minecraft:pink_harness",
+        "minecraft:gray_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:cyan_harness",
+        "minecraft:purple_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
-        "minecraft:cyan_harness",
-        "minecraft:gray_harness",
         "minecraft:green_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:magenta_harness",
-        "minecraft:orange_harness",
-        "minecraft:pink_harness",
-        "minecraft:purple_harness",
         "minecraft:red_harness",
-        "minecraft:yellow_harness",
-        "minecraft:white_harness"
+        "minecraft:black_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27498,21 +25371,21 @@
     "ingredients": [
       "minecraft:magenta_dye",
       [
-        "minecraft:black_harness",
+        "minecraft:white_harness",
+        "minecraft:orange_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:yellow_harness",
+        "minecraft:lime_harness",
+        "minecraft:pink_harness",
+        "minecraft:gray_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:cyan_harness",
+        "minecraft:purple_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
-        "minecraft:cyan_harness",
-        "minecraft:gray_harness",
         "minecraft:green_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:lime_harness",
-        "minecraft:orange_harness",
-        "minecraft:pink_harness",
-        "minecraft:purple_harness",
         "minecraft:red_harness",
-        "minecraft:yellow_harness",
-        "minecraft:white_harness"
+        "minecraft:black_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27529,21 +25402,21 @@
     "ingredients": [
       "minecraft:orange_dye",
       [
-        "minecraft:black_harness",
+        "minecraft:white_harness",
+        "minecraft:magenta_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:yellow_harness",
+        "minecraft:lime_harness",
+        "minecraft:pink_harness",
+        "minecraft:gray_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:cyan_harness",
+        "minecraft:purple_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
-        "minecraft:cyan_harness",
-        "minecraft:gray_harness",
         "minecraft:green_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:lime_harness",
-        "minecraft:magenta_harness",
-        "minecraft:pink_harness",
-        "minecraft:purple_harness",
         "minecraft:red_harness",
-        "minecraft:yellow_harness",
-        "minecraft:white_harness"
+        "minecraft:black_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27560,21 +25433,21 @@
     "ingredients": [
       "minecraft:pink_dye",
       [
-        "minecraft:black_harness",
+        "minecraft:white_harness",
+        "minecraft:orange_harness",
+        "minecraft:magenta_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:yellow_harness",
+        "minecraft:lime_harness",
+        "minecraft:gray_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:cyan_harness",
+        "minecraft:purple_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
-        "minecraft:cyan_harness",
-        "minecraft:gray_harness",
         "minecraft:green_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:lime_harness",
-        "minecraft:magenta_harness",
-        "minecraft:orange_harness",
-        "minecraft:purple_harness",
         "minecraft:red_harness",
-        "minecraft:yellow_harness",
-        "minecraft:white_harness"
+        "minecraft:black_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27591,21 +25464,21 @@
     "ingredients": [
       "minecraft:purple_dye",
       [
-        "minecraft:black_harness",
+        "minecraft:white_harness",
+        "minecraft:orange_harness",
+        "minecraft:magenta_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:yellow_harness",
+        "minecraft:lime_harness",
+        "minecraft:pink_harness",
+        "minecraft:gray_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:cyan_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
-        "minecraft:cyan_harness",
-        "minecraft:gray_harness",
         "minecraft:green_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:lime_harness",
-        "minecraft:magenta_harness",
-        "minecraft:orange_harness",
-        "minecraft:pink_harness",
         "minecraft:red_harness",
-        "minecraft:yellow_harness",
-        "minecraft:white_harness"
+        "minecraft:black_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27622,21 +25495,21 @@
     "ingredients": [
       "minecraft:red_dye",
       [
-        "minecraft:black_harness",
+        "minecraft:white_harness",
+        "minecraft:orange_harness",
+        "minecraft:magenta_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:yellow_harness",
+        "minecraft:lime_harness",
+        "minecraft:pink_harness",
+        "minecraft:gray_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:cyan_harness",
+        "minecraft:purple_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
-        "minecraft:cyan_harness",
-        "minecraft:gray_harness",
         "minecraft:green_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:lime_harness",
-        "minecraft:magenta_harness",
-        "minecraft:orange_harness",
-        "minecraft:pink_harness",
-        "minecraft:purple_harness",
-        "minecraft:yellow_harness",
-        "minecraft:white_harness"
+        "minecraft:black_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27653,21 +25526,21 @@
     "ingredients": [
       "minecraft:white_dye",
       [
-        "minecraft:black_harness",
+        "minecraft:orange_harness",
+        "minecraft:magenta_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:yellow_harness",
+        "minecraft:lime_harness",
+        "minecraft:pink_harness",
+        "minecraft:gray_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:cyan_harness",
+        "minecraft:purple_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
-        "minecraft:cyan_harness",
-        "minecraft:gray_harness",
         "minecraft:green_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:lime_harness",
-        "minecraft:magenta_harness",
-        "minecraft:orange_harness",
-        "minecraft:pink_harness",
-        "minecraft:purple_harness",
         "minecraft:red_harness",
-        "minecraft:yellow_harness"
+        "minecraft:black_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -27684,21 +25557,21 @@
     "ingredients": [
       "minecraft:yellow_dye",
       [
-        "minecraft:black_harness",
+        "minecraft:white_harness",
+        "minecraft:orange_harness",
+        "minecraft:magenta_harness",
+        "minecraft:light_blue_harness",
+        "minecraft:lime_harness",
+        "minecraft:pink_harness",
+        "minecraft:gray_harness",
+        "minecraft:light_gray_harness",
+        "minecraft:cyan_harness",
+        "minecraft:purple_harness",
         "minecraft:blue_harness",
         "minecraft:brown_harness",
-        "minecraft:cyan_harness",
-        "minecraft:gray_harness",
         "minecraft:green_harness",
-        "minecraft:light_blue_harness",
-        "minecraft:light_gray_harness",
-        "minecraft:lime_harness",
-        "minecraft:magenta_harness",
-        "minecraft:orange_harness",
-        "minecraft:pink_harness",
-        "minecraft:purple_harness",
         "minecraft:red_harness",
-        "minecraft:white_harness"
+        "minecraft:black_harness"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -28248,11 +26121,13 @@
       "minecraft:copper_axe",
       "minecraft:copper_hoe",
       "minecraft:copper_sword",
+      "minecraft:copper_spear",
       "minecraft:copper_helmet",
       "minecraft:copper_chestplate",
       "minecraft:copper_leggings",
       "minecraft:copper_boots",
-      "minecraft:copper_horse_armor"
+      "minecraft:copper_horse_armor",
+      "minecraft:copper_nautilus_armor"
     ],
     "type": "minecraft:blasting",
     "experience": 0.1,
@@ -28270,11 +26145,13 @@
       "minecraft:copper_axe",
       "minecraft:copper_hoe",
       "minecraft:copper_sword",
+      "minecraft:copper_spear",
       "minecraft:copper_helmet",
       "minecraft:copper_chestplate",
       "minecraft:copper_leggings",
       "minecraft:copper_boots",
-      "minecraft:copper_horse_armor"
+      "minecraft:copper_horse_armor",
+      "minecraft:copper_nautilus_armor"
     ],
     "type": "minecraft:smelting",
     "experience": 0.1,
@@ -28987,6 +26864,2293 @@
     "type": "minecraft:crafting_shapeless",
     "properties": {
       "version": "1.21.9"
+    }
+  },
+  "copper_spear": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:copper_spear"
+    },
+    "pattern": [
+      "  X",
+      " # ",
+      "#  "
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stick",
+      "X": "#minecraft:copper_tool_materials"
+    },
+    "properties": {
+      "version": "1.21.11"
+    }
+  },
+  "diamond_spear": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:diamond_spear"
+    },
+    "pattern": [
+      "  X",
+      " # ",
+      "#  "
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stick",
+      "X": "#minecraft:diamond_tool_materials"
+    },
+    "properties": {
+      "version": "1.21.11"
+    }
+  },
+  "golden_spear": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:golden_spear"
+    },
+    "pattern": [
+      "  X",
+      " # ",
+      "#  "
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stick",
+      "X": "#minecraft:gold_tool_materials"
+    },
+    "properties": {
+      "version": "1.21.11"
+    }
+  },
+  "iron_spear": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:iron_spear"
+    },
+    "pattern": [
+      "  X",
+      " # ",
+      "#  "
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stick",
+      "X": "#minecraft:iron_tool_materials"
+    },
+    "properties": {
+      "version": "1.21.11"
+    }
+  },
+  "netherite_horse_armor_smithing": {
+    "result": {
+      "id": "minecraft:netherite_horse_armor"
+    },
+    "template": "minecraft:netherite_upgrade_smithing_template",
+    "type": "minecraft:smithing_transform",
+    "properties": {
+      "version": "1.21.11"
+    },
+    "addition": "#minecraft:netherite_tool_materials",
+    "base": "minecraft:diamond_horse_armor"
+  },
+  "netherite_nautilus_armor_smithing": {
+    "result": {
+      "id": "minecraft:netherite_nautilus_armor"
+    },
+    "template": "minecraft:netherite_upgrade_smithing_template",
+    "type": "minecraft:smithing_transform",
+    "properties": {
+      "version": "1.21.11"
+    },
+    "addition": "#minecraft:netherite_tool_materials",
+    "base": "minecraft:diamond_nautilus_armor"
+  },
+  "netherite_spear_smithing": {
+    "result": {
+      "id": "minecraft:netherite_spear"
+    },
+    "template": "minecraft:netherite_upgrade_smithing_template",
+    "type": "minecraft:smithing_transform",
+    "properties": {
+      "version": "1.21.11"
+    },
+    "addition": "#minecraft:netherite_tool_materials",
+    "base": "minecraft:diamond_spear"
+  },
+  "stone_spear": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:stone_spear"
+    },
+    "pattern": [
+      "  X",
+      " # ",
+      "#  "
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stick",
+      "X": "#minecraft:stone_tool_materials"
+    },
+    "properties": {
+      "animated": true,
+      "version": "1.21.11"
+    }
+  },
+  "wooden_spear": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:wooden_spear"
+    },
+    "pattern": [
+      "  X",
+      " # ",
+      "#  "
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stick",
+      "X": "#minecraft:wooden_tool_materials"
+    },
+    "properties": {
+      "animated": true,
+      "version": "1.21.11"
+    }
+  },
+  "copper_trapdoor_legacy": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:copper_trapdoor"
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:copper_ingot"
+    },
+    "properties": {
+      "removed": "1.21.9",
+      "version": "1.21"
+    }
+  },
+  "lodestone_legacy": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:lodestone"
+    },
+    "pattern": [
+      "SSS",
+      "S#S",
+      "SSS"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:netherite_ingot",
+      "S": "minecraft:chiseled_stone_bricks"
+    },
+    "properties": {
+      "removed": "1.21.5",
+      "version": "1.16"
+    }
+  },
+  "suspicious_stew_legacy": {
+    "result": {
+      "id": "minecraft:suspicious_stew"
+    },
+    "ingredients": [
+      "minecraft:brown_mushroom",
+      "minecraft:red_mushroom",
+      "minecraft:bowl",
+      [
+        "minecraft:allium",
+        "minecraft:azure_bluet",
+        "minecraft:blue_orchid",
+        "minecraft:dandelion",
+        "minecraft:cornflower",
+        "minecraft:lily_of_the_valley",
+        "minecraft:oxeye_daisy",
+        "minecraft:poppy",
+        "minecraft:torchflower",
+        "minecraft:orange_tulip",
+        "minecraft:pink_tulip",
+        "minecraft:red_tulip",
+        "minecraft:white_tulip",
+        "minecraft:wither_rose"
+      ]
+    ],
+    "type": "minecraft:crafting_special_suspiciousstew",
+    "lang": {
+      "en_US": {
+        "notes": "\nAllium - Fire Resistance 3s\nAzure Bluet - Blindness 11s\nBlue Orchid - Saturation 0.35s\nDandelion - Saturation 0.35s\nCornflower - Jump Boost 5s\nLily of the Valley - Poison 11s\nOxeye Daisy - Regeneration 7s\nPoppy - Night Vision 5s\nTorchflower - Night Vision 5s\nTulips - Weakness 9s\nWither Rose - Wither 7s"
+      }
+    },
+    "properties": {
+      "removed": "1.21.4",
+      "animated": true,
+      "version": "1.14"
+    }
+  },
+  "bundle_legacy": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:bundle"
+    },
+    "pattern": [
+      "-#-",
+      "# #",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:rabbit_hide",
+      "-": "minecraft:string"
+    },
+    "properties": {
+      "removed": "1.21.2",
+      "datapack_version": "1.17",
+      "feature_flag": "bundle",
+      "version": "1.19.3"
+    }
+  },
+  "copper_trapdoor_legacy_legacy": {
+    "result": {
+      "count": 1,
+      "id": "minecraft:copper_trapdoor"
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:copper_block"
+    },
+    "properties": {
+      "removed": "1.21",
+      "feature_flag": "1.21",
+      "version": "1.20.3"
+    }
+  },
+  "exposed_copper_trapdoor": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:exposed_copper_trapdoor"
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:exposed_copper"
+    },
+    "properties": {
+      "removed": "1.21",
+      "feature_flag": "1.21",
+      "version": "1.20.3"
+    }
+  },
+  "oxidized_copper_trapdoor": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:oxidized_copper_trapdoor"
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:oxidized_copper"
+    },
+    "properties": {
+      "removed": "1.21",
+      "feature_flag": "1.21",
+      "version": "1.20.3"
+    }
+  },
+  "waxed_copper_trapdoor": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:waxed_copper_trapdoor"
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:waxed_copper_block"
+    },
+    "properties": {
+      "removed": "1.21",
+      "feature_flag": "1.21",
+      "version": "1.20.3"
+    }
+  },
+  "waxed_exposed_copper_trapdoor": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:waxed_exposed_copper_trapdoor"
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:waxed_exposed_copper"
+    },
+    "properties": {
+      "removed": "1.21",
+      "feature_flag": "1.21",
+      "version": "1.20.3"
+    }
+  },
+  "waxed_oxidized_copper_trapdoor": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:waxed_oxidized_copper_trapdoor"
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:waxed_oxidized_copper"
+    },
+    "properties": {
+      "removed": "1.21",
+      "feature_flag": "1.21",
+      "version": "1.20.3"
+    }
+  },
+  "waxed_weathered_copper_trapdoor": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:waxed_weathered_copper_trapdoor"
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:waxed_weathered_copper"
+    },
+    "properties": {
+      "removed": "1.21",
+      "feature_flag": "1.21",
+      "version": "1.20.3"
+    }
+  },
+  "weathered_copper_trapdoor": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:weathered_copper_trapdoor"
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:weathered_copper"
+    },
+    "properties": {
+      "removed": "1.21",
+      "feature_flag": "1.21",
+      "version": "1.20.3"
+    }
+  },
+  "lead_legacy": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:lead"
+    },
+    "pattern": [
+      "~~ ",
+      "~O ",
+      "  ~"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "~": "minecraft:string",
+      "O": "minecraft:slime_ball"
+    },
+    "properties": {
+      "removed": "1.20.6"
+    }
+  },
+  "cyan_wool": {
+    "result": {
+      "id": "minecraft:cyan_wool"
+    },
+    "ingredients": [
+      "minecraft:cyan_dye",
+      "minecraft:white_wool"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20"
+    }
+  },
+  "gray_wool": {
+    "result": {
+      "id": "minecraft:gray_wool"
+    },
+    "ingredients": [
+      "minecraft:gray_dye",
+      "minecraft:white_wool"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20"
+    }
+  },
+  "green_wool": {
+    "result": {
+      "id": "minecraft:green_wool"
+    },
+    "ingredients": [
+      "minecraft:green_dye",
+      "minecraft:white_wool"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20"
+    }
+  },
+  "light_blue_wool": {
+    "result": {
+      "id": "minecraft:light_blue_wool"
+    },
+    "ingredients": [
+      "minecraft:light_blue_dye",
+      "minecraft:white_wool"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20"
+    }
+  },
+  "light_gray_wool": {
+    "result": {
+      "id": "minecraft:light_gray_wool"
+    },
+    "ingredients": [
+      "minecraft:light_gray_dye",
+      "minecraft:white_wool"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20"
+    }
+  },
+  "lime_wool": {
+    "result": {
+      "id": "minecraft:lime_wool"
+    },
+    "ingredients": [
+      "minecraft:lime_dye",
+      "minecraft:white_wool"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20"
+    }
+  },
+  "magenta_wool": {
+    "result": {
+      "id": "minecraft:magenta_wool"
+    },
+    "ingredients": [
+      "minecraft:magenta_dye",
+      "minecraft:white_wool"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20"
+    }
+  },
+  "orange_wool": {
+    "result": {
+      "id": "minecraft:orange_wool"
+    },
+    "ingredients": [
+      "minecraft:orange_dye",
+      "minecraft:white_wool"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20"
+    }
+  },
+  "pink_wool": {
+    "result": {
+      "id": "minecraft:pink_wool"
+    },
+    "ingredients": [
+      "minecraft:pink_dye",
+      "minecraft:white_wool"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20"
+    }
+  },
+  "purple_wool": {
+    "result": {
+      "id": "minecraft:purple_wool"
+    },
+    "ingredients": [
+      "minecraft:purple_dye",
+      "minecraft:white_wool"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20"
+    }
+  },
+  "red_wool": {
+    "result": {
+      "id": "minecraft:red_wool"
+    },
+    "ingredients": [
+      "minecraft:red_dye",
+      "minecraft:white_wool"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20"
+    }
+  },
+  "yellow_wool": {
+    "result": {
+      "id": "minecraft:yellow_wool"
+    },
+    "ingredients": [
+      "minecraft:yellow_dye",
+      "minecraft:white_wool"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20"
+    }
+  },
+  "cyan_bed_from_white_bed": {
+    "result": {
+      "id": "minecraft:cyan_bed"
+    },
+    "ingredients": [
+      "minecraft:white_bed",
+      "minecraft:cyan_dye"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20",
+      "version": "1.12"
+    }
+  },
+  "gray_bed_from_white_bed": {
+    "result": {
+      "id": "minecraft:gray_bed"
+    },
+    "ingredients": [
+      "minecraft:white_bed",
+      "minecraft:gray_dye"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20",
+      "version": "1.12"
+    }
+  },
+  "green_bed_from_white_bed": {
+    "result": {
+      "id": "minecraft:green_bed"
+    },
+    "ingredients": [
+      "minecraft:white_bed",
+      "minecraft:green_dye"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20",
+      "version": "1.12"
+    }
+  },
+  "light_blue_bed_from_white_bed": {
+    "result": {
+      "id": "minecraft:light_blue_bed"
+    },
+    "ingredients": [
+      "minecraft:white_bed",
+      "minecraft:light_blue_dye"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20",
+      "version": "1.12"
+    }
+  },
+  "light_gray_bed_from_white_bed": {
+    "result": {
+      "id": "minecraft:light_gray_bed"
+    },
+    "ingredients": [
+      "minecraft:white_bed",
+      "minecraft:light_gray_dye"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20",
+      "version": "1.12"
+    }
+  },
+  "lime_bed_from_white_bed": {
+    "result": {
+      "id": "minecraft:lime_bed"
+    },
+    "ingredients": [
+      "minecraft:white_bed",
+      "minecraft:lime_dye"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20",
+      "version": "1.12"
+    }
+  },
+  "magenta_bed_from_white_bed": {
+    "result": {
+      "id": "minecraft:magenta_bed"
+    },
+    "ingredients": [
+      "minecraft:white_bed",
+      "minecraft:magenta_dye"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20",
+      "version": "1.12"
+    }
+  },
+  "orange_bed_from_white_bed": {
+    "result": {
+      "id": "minecraft:orange_bed"
+    },
+    "ingredients": [
+      "minecraft:white_bed",
+      "minecraft:orange_dye"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20",
+      "version": "1.12"
+    }
+  },
+  "pink_bed_from_white_bed": {
+    "result": {
+      "id": "minecraft:pink_bed"
+    },
+    "ingredients": [
+      "minecraft:white_bed",
+      "minecraft:pink_dye"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20",
+      "version": "1.12"
+    }
+  },
+  "purple_bed_from_white_bed": {
+    "result": {
+      "id": "minecraft:purple_bed"
+    },
+    "ingredients": [
+      "minecraft:white_bed",
+      "minecraft:purple_dye"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20",
+      "version": "1.12"
+    }
+  },
+  "red_bed_from_white_bed": {
+    "result": {
+      "id": "minecraft:red_bed"
+    },
+    "ingredients": [
+      "minecraft:white_bed",
+      "minecraft:red_dye"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20",
+      "version": "1.12"
+    }
+  },
+  "yellow_bed_from_white_bed": {
+    "result": {
+      "id": "minecraft:yellow_bed"
+    },
+    "ingredients": [
+      "minecraft:white_bed",
+      "minecraft:yellow_dye"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20",
+      "version": "1.12"
+    }
+  },
+  "black_bed_from_white_bed": {
+    "result": {
+      "id": "minecraft:black_bed"
+    },
+    "ingredients": [
+      "minecraft:white_bed",
+      "minecraft:black_dye"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20",
+      "version": "1.14"
+    }
+  },
+  "black_carpet_from_white_carpet": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:black_carpet"
+    },
+    "pattern": [
+      "###",
+      "#$#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:white_carpet",
+      "$": "minecraft:black_dye"
+    },
+    "properties": {
+      "removed": "1.20",
+      "version": "1.14"
+    }
+  },
+  "black_wool": {
+    "result": {
+      "id": "minecraft:black_wool"
+    },
+    "ingredients": [
+      "minecraft:black_dye",
+      "minecraft:white_wool"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20",
+      "version": "1.14"
+    }
+  },
+  "blue_bed_from_white_bed": {
+    "result": {
+      "id": "minecraft:blue_bed"
+    },
+    "ingredients": [
+      "minecraft:white_bed",
+      "minecraft:blue_dye"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20",
+      "version": "1.14"
+    }
+  },
+  "blue_carpet_from_white_carpet": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:blue_carpet"
+    },
+    "pattern": [
+      "###",
+      "#$#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:white_carpet",
+      "$": "minecraft:blue_dye"
+    },
+    "properties": {
+      "removed": "1.20",
+      "version": "1.14"
+    }
+  },
+  "blue_wool": {
+    "result": {
+      "id": "minecraft:blue_wool"
+    },
+    "ingredients": [
+      "minecraft:blue_dye",
+      "minecraft:white_wool"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20",
+      "version": "1.14"
+    }
+  },
+  "brown_bed_from_white_bed": {
+    "result": {
+      "id": "minecraft:brown_bed"
+    },
+    "ingredients": [
+      "minecraft:white_bed",
+      "minecraft:brown_dye"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20",
+      "version": "1.14"
+    }
+  },
+  "brown_carpet_from_white_carpet": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:brown_carpet"
+    },
+    "pattern": [
+      "###",
+      "#$#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:white_carpet",
+      "$": "minecraft:brown_dye"
+    },
+    "properties": {
+      "removed": "1.20",
+      "version": "1.14"
+    }
+  },
+  "brown_wool": {
+    "result": {
+      "id": "minecraft:brown_wool"
+    },
+    "ingredients": [
+      "minecraft:brown_dye",
+      "minecraft:white_wool"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.20",
+      "version": "1.14"
+    }
+  },
+  "cyan_carpet_from_white_carpet": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:cyan_carpet"
+    },
+    "pattern": [
+      "###",
+      "#$#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:white_carpet",
+      "$": "minecraft:cyan_dye"
+    },
+    "properties": {
+      "removed": "1.20",
+      "version": "1.14"
+    }
+  },
+  "gray_carpet_from_white_carpet": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:gray_carpet"
+    },
+    "pattern": [
+      "###",
+      "#$#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:white_carpet",
+      "$": "minecraft:gray_dye"
+    },
+    "properties": {
+      "removed": "1.20",
+      "version": "1.14"
+    }
+  },
+  "green_carpet_from_white_carpet": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:green_carpet"
+    },
+    "pattern": [
+      "###",
+      "#$#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:white_carpet",
+      "$": "minecraft:green_dye"
+    },
+    "properties": {
+      "removed": "1.20",
+      "version": "1.14"
+    }
+  },
+  "light_blue_carpet_from_white_carpet": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:light_blue_carpet"
+    },
+    "pattern": [
+      "###",
+      "#$#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:white_carpet",
+      "$": "minecraft:light_blue_dye"
+    },
+    "properties": {
+      "removed": "1.20",
+      "version": "1.14"
+    }
+  },
+  "light_gray_carpet_from_white_carpet": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:light_gray_carpet"
+    },
+    "pattern": [
+      "###",
+      "#$#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:white_carpet",
+      "$": "minecraft:light_gray_dye"
+    },
+    "properties": {
+      "removed": "1.20",
+      "version": "1.14"
+    }
+  },
+  "lime_carpet_from_white_carpet": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:lime_carpet"
+    },
+    "pattern": [
+      "###",
+      "#$#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:white_carpet",
+      "$": "minecraft:lime_dye"
+    },
+    "properties": {
+      "removed": "1.20",
+      "version": "1.14"
+    }
+  },
+  "magenta_carpet_from_white_carpet": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:magenta_carpet"
+    },
+    "pattern": [
+      "###",
+      "#$#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:white_carpet",
+      "$": "minecraft:magenta_dye"
+    },
+    "properties": {
+      "removed": "1.20",
+      "version": "1.14"
+    }
+  },
+  "orange_carpet_from_white_carpet": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:orange_carpet"
+    },
+    "pattern": [
+      "###",
+      "#$#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:white_carpet",
+      "$": "minecraft:orange_dye"
+    },
+    "properties": {
+      "removed": "1.20",
+      "version": "1.14"
+    }
+  },
+  "pink_carpet_from_white_carpet": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:pink_carpet"
+    },
+    "pattern": [
+      "###",
+      "#$#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:white_carpet",
+      "$": "minecraft:pink_dye"
+    },
+    "properties": {
+      "removed": "1.20",
+      "version": "1.14"
+    }
+  },
+  "purple_carpet_from_white_carpet": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:purple_carpet"
+    },
+    "pattern": [
+      "###",
+      "#$#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:white_carpet",
+      "$": "minecraft:purple_dye"
+    },
+    "properties": {
+      "removed": "1.20",
+      "version": "1.14"
+    }
+  },
+  "red_carpet_from_white_carpet": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:red_carpet"
+    },
+    "pattern": [
+      "###",
+      "#$#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:white_carpet",
+      "$": "minecraft:red_dye"
+    },
+    "properties": {
+      "removed": "1.20",
+      "version": "1.14"
+    }
+  },
+  "yellow_carpet_from_white_carpet": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:yellow_carpet"
+    },
+    "pattern": [
+      "###",
+      "#$#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:white_carpet",
+      "$": "minecraft:yellow_dye"
+    },
+    "properties": {
+      "removed": "1.20",
+      "version": "1.14"
+    }
+  },
+  "netherite_axe_smithing_legacy": {
+    "result": {
+      "id": "minecraft:netherite_axe"
+    },
+    "type": "minecraft:smithing",
+    "properties": {
+      "flag_removed_version": "1.19.4",
+      "removed_in_flag": "1.20",
+      "removed": "1.20",
+      "version": "1.16"
+    },
+    "addition": "minecraft:netherite_ingot",
+    "base": "minecraft:diamond_axe"
+  },
+  "netherite_boots_smithing_legacy": {
+    "result": {
+      "id": "minecraft:netherite_boots"
+    },
+    "type": "minecraft:smithing",
+    "properties": {
+      "flag_removed_version": "1.19.4",
+      "removed_in_flag": "1.20",
+      "removed": "1.20",
+      "version": "1.16"
+    },
+    "addition": "minecraft:netherite_ingot",
+    "base": "minecraft:diamond_boots"
+  },
+  "netherite_chestplate_smithing_legacy": {
+    "result": {
+      "id": "minecraft:netherite_chestplate"
+    },
+    "type": "minecraft:smithing",
+    "properties": {
+      "flag_removed_version": "1.19.4",
+      "removed_in_flag": "1.20",
+      "removed": "1.20",
+      "version": "1.16"
+    },
+    "addition": "minecraft:netherite_ingot",
+    "base": "minecraft:diamond_chestplate"
+  },
+  "netherite_helmet_smithing_legacy": {
+    "result": {
+      "id": "minecraft:netherite_helmet"
+    },
+    "type": "minecraft:smithing",
+    "properties": {
+      "flag_removed_version": "1.19.4",
+      "removed_in_flag": "1.20",
+      "removed": "1.20",
+      "version": "1.16"
+    },
+    "addition": "minecraft:netherite_ingot",
+    "base": "minecraft:diamond_helmet"
+  },
+  "netherite_hoe_smithing_legacy": {
+    "result": {
+      "id": "minecraft:netherite_hoe"
+    },
+    "type": "minecraft:smithing",
+    "properties": {
+      "flag_removed_version": "1.19.4",
+      "removed_in_flag": "1.20",
+      "removed": "1.20",
+      "version": "1.16"
+    },
+    "addition": "minecraft:netherite_ingot",
+    "base": "minecraft:diamond_hoe"
+  },
+  "netherite_leggings_smithing_legacy": {
+    "result": {
+      "id": "minecraft:netherite_leggings"
+    },
+    "type": "minecraft:smithing",
+    "properties": {
+      "flag_removed_version": "1.19.4",
+      "removed_in_flag": "1.20",
+      "removed": "1.20",
+      "version": "1.16"
+    },
+    "addition": "minecraft:netherite_ingot",
+    "base": "minecraft:diamond_leggings"
+  },
+  "netherite_pickaxe_smithing_legacy": {
+    "result": {
+      "id": "minecraft:netherite_pickaxe"
+    },
+    "type": "minecraft:smithing",
+    "properties": {
+      "flag_removed_version": "1.19.4",
+      "removed_in_flag": "1.20",
+      "removed": "1.20",
+      "version": "1.16"
+    },
+    "addition": "minecraft:netherite_ingot",
+    "base": "minecraft:diamond_pickaxe"
+  },
+  "netherite_shovel_smithing_legacy": {
+    "result": {
+      "id": "minecraft:netherite_shovel"
+    },
+    "type": "minecraft:smithing",
+    "properties": {
+      "flag_removed_version": "1.19.4",
+      "removed_in_flag": "1.20",
+      "removed": "1.20",
+      "version": "1.16"
+    },
+    "addition": "minecraft:netherite_ingot",
+    "base": "minecraft:diamond_shovel"
+  },
+  "netherite_sword_smithing_legacy": {
+    "result": {
+      "id": "minecraft:netherite_sword"
+    },
+    "type": "minecraft:smithing",
+    "properties": {
+      "flag_removed_version": "1.19.4",
+      "removed_in_flag": "1.20",
+      "removed": "1.20",
+      "version": "1.16"
+    },
+    "addition": "minecraft:netherite_ingot",
+    "base": "minecraft:diamond_sword"
+  },
+  "dark_prismarine_legacy": {
+    "result": {
+      "id": "minecraft:dark_prismarine"
+    },
+    "pattern": [
+      "SSS",
+      "SIS",
+      "SSS"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "S": "minecraft:prismarine_shard",
+      "I": "minecraft:ink_sac"
+    },
+    "properties": {
+      "removed": "1.15",
+      "version": "1.8"
+    }
+  },
+  "composter_legacy": {
+    "result": {
+      "id": "minecraft:composter"
+    },
+    "pattern": [
+      "X X",
+      "X X",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": [
+        "minecraft:oak_planks",
+        "minecraft:spruce_planks",
+        "minecraft:birch_planks",
+        "minecraft:jungle_planks",
+        "minecraft:acacia_planks",
+        "minecraft:dark_oak_planks"
+      ],
+      "X": [
+        "minecraft:oak_fence",
+        "minecraft:spruce_fence",
+        "minecraft:birch_fence",
+        "minecraft:jungle_fence",
+        "minecraft:acacia_fence",
+        "minecraft:dark_oak_fence"
+      ]
+    },
+    "properties": {
+      "removed": "1.15",
+      "animated": true,
+      "version": "1.14"
+    }
+  },
+  "black_stained_glass_legacy": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:black_stained_glass"
+    },
+    "pattern": [
+      "###",
+      "#X#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:glass",
+      "X": "minecraft:ink_sac"
+    },
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "black_stained_glass_pane_from_glass_pane_legacy": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:black_stained_glass_pane"
+    },
+    "pattern": [
+      "###",
+      "#X#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:glass_pane",
+      "X": "minecraft:ink_sac"
+    },
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "black_terracotta_legacy": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:black_terracotta"
+    },
+    "pattern": [
+      "###",
+      "#X#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:terracotta",
+      "X": "minecraft:ink_sac"
+    },
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "black_wool_legacy": {
+    "result": {
+      "id": "minecraft:black_wool"
+    },
+    "ingredients": [
+      "minecraft:ink_sac",
+      "minecraft:white_wool"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "blue_stained_glass_legacy": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:blue_stained_glass"
+    },
+    "pattern": [
+      "###",
+      "#X#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:glass",
+      "X": "minecraft:lapis_lazuli"
+    },
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "blue_stained_glass_pane_from_glass_pane_legacy": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:blue_stained_glass_pane"
+    },
+    "pattern": [
+      "###",
+      "#X#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:glass_pane",
+      "X": "minecraft:lapis_lazuli"
+    },
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "blue_terracotta_legacy": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:blue_terracotta"
+    },
+    "pattern": [
+      "###",
+      "#X#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:terracotta",
+      "X": "minecraft:lapis_lazuli"
+    },
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "blue_wool_legacy": {
+    "result": {
+      "id": "minecraft:blue_wool"
+    },
+    "ingredients": [
+      "minecraft:lapis_lazuli",
+      "minecraft:white_wool"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "brown_stained_glass_legacy": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:brown_stained_glass"
+    },
+    "pattern": [
+      "###",
+      "#X#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:glass",
+      "X": "minecraft:cocoa_beans"
+    },
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "brown_stained_glass_pane_from_glass_pane_legacy": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:brown_stained_glass_pane"
+    },
+    "pattern": [
+      "###",
+      "#X#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:glass_pane",
+      "X": "minecraft:cocoa_beans"
+    },
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "brown_terracotta_legacy": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:brown_terracotta"
+    },
+    "pattern": [
+      "###",
+      "#X#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:terracotta",
+      "X": "minecraft:cocoa_beans"
+    },
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "brown_wool_legacy": {
+    "result": {
+      "id": "minecraft:brown_wool"
+    },
+    "ingredients": [
+      "minecraft:cocoa_beans",
+      "minecraft:white_wool"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "cyan_dye_legacy": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:cyan_dye"
+    },
+    "ingredients": [
+      "minecraft:lapis_lazuli",
+      "minecraft:green_dye"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "firework_star_fade_legacy": {
+    "result": {
+      "id": "minecraft:firework_star"
+    },
+    "ingredients": [
+      "minecraft:firework_star",
+      [
+        "minecraft:bone_meal",
+        "minecraft:orange_dye",
+        "minecraft:magenta_dye",
+        "minecraft:light_blue_dye",
+        "minecraft:yellow_dye",
+        "minecraft:lime_dye",
+        "minecraft:pink_dye",
+        "minecraft:gray_dye",
+        "minecraft:light_gray_dye",
+        "minecraft:cyan_dye",
+        "minecraft:purple_dye",
+        "minecraft:lapis_lazuli",
+        "minecraft:cocoa_beans",
+        "minecraft:green_dye",
+        "minecraft:red_dye",
+        "minecraft:ink_sac"
+      ]
+    ],
+    "type": "minecraft:crafting_special_firework_star_fade",
+    "lang": {
+      "en_US": {
+        "notes": "Adds a fade effect to the firework."
+      }
+    },
+    "properties": {
+      "removed": "1.14",
+      "animated": true
+    }
+  },
+  "firework_star_legacy": {
+    "result": {
+      "id": "minecraft:firework_star"
+    },
+    "ingredients": [
+      "minecraft:gunpowder",
+      [
+        "minecraft:bone_meal",
+        "minecraft:orange_dye",
+        "minecraft:magenta_dye",
+        "minecraft:light_blue_dye",
+        "minecraft:yellow_dye",
+        "minecraft:lime_dye",
+        "minecraft:pink_dye",
+        "minecraft:gray_dye",
+        "minecraft:light_gray_dye",
+        "minecraft:cyan_dye",
+        "minecraft:purple_dye",
+        "minecraft:lapis_lazuli",
+        "minecraft:cocoa_beans",
+        "minecraft:green_dye",
+        "minecraft:red_dye",
+        "minecraft:ink_sac"
+      ],
+      [
+        "minecraft:fire_charge",
+        "minecraft:gold_nugget",
+        "minecraft:skeleton_skull",
+        "minecraft:wither_skeleton_skull",
+        "minecraft:zombie_head",
+        "minecraft:player_head",
+        "minecraft:creeper_head",
+        "minecraft:dragon_head",
+        "minecraft:feather"
+      ],
+      "minecraft:glowstone_dust",
+      "minecraft:diamond"
+    ],
+    "type": "minecraft:crafting_special_firework_star",
+    "lang": {
+      "en_US": {
+        "notes": "\nUp to 8 dyes can be added.\nFire Charge - Large Ball explosion\nGold Nugget - Star-Shaped explosion\nHead - Creeper-Shaped explosion\nFeather - Burst explosion\nGlowstune Dust - Twinkle effect\nDiamond - Trail effect"
+      }
+    },
+    "properties": {
+      "removed": "1.14",
+      "animated": true
+    }
+  },
+  "gray_dye_legacy": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:gray_dye"
+    },
+    "ingredients": [
+      "minecraft:ink_sac",
+      "minecraft:bone_meal"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "light_blue_dye_from_blue_white_dye_legacy": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:light_blue_dye"
+    },
+    "ingredients": [
+      "minecraft:lapis_lazuli",
+      "minecraft:bone_meal"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "light_gray_dye_from_black_white_dye_legacy": {
+    "result": {
+      "count": 3,
+      "id": "minecraft:light_gray_dye"
+    },
+    "ingredients": [
+      "minecraft:ink_sac",
+      "minecraft:bone_meal",
+      "minecraft:bone_meal"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "light_gray_dye_from_gray_white_dye_legacy": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:light_gray_dye"
+    },
+    "ingredients": [
+      "minecraft:gray_dye",
+      "minecraft:bone_meal"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "lime_dye_legacy": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:lime_dye"
+    },
+    "ingredients": [
+      "minecraft:green_dye",
+      "minecraft:bone_meal"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "magenta_dye_from_blue_red_pink_legacy": {
+    "result": {
+      "count": 3,
+      "id": "minecraft:magenta_dye"
+    },
+    "ingredients": [
+      "minecraft:lapis_lazuli",
+      "minecraft:red_dye",
+      "minecraft:pink_dye"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "magenta_dye_from_blue_red_white_dye_legacy": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:magenta_dye"
+    },
+    "ingredients": [
+      "minecraft:lapis_lazuli",
+      "minecraft:red_dye",
+      "minecraft:red_dye",
+      "minecraft:bone_meal"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "nether_brick_fence_legacy": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:nether_brick_fence"
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:nether_bricks"
+    },
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "pink_dye_from_red_white_dye_legacy": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:pink_dye"
+    },
+    "ingredients": [
+      "minecraft:red_dye",
+      "minecraft:bone_meal"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "purple_dye_legacy": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:purple_dye"
+    },
+    "ingredients": [
+      "minecraft:lapis_lazuli",
+      "minecraft:red_dye"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "white_stained_glass_legacy": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:white_stained_glass"
+    },
+    "pattern": [
+      "###",
+      "#X#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:glass",
+      "X": "minecraft:bone_meal"
+    },
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "white_stained_glass_pane_from_glass_pane_legacy": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:white_stained_glass_pane"
+    },
+    "pattern": [
+      "###",
+      "#X#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:glass_pane",
+      "X": "minecraft:bone_meal"
+    },
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "white_terracotta_legacy": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:white_terracotta"
+    },
+    "pattern": [
+      "###",
+      "#X#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:terracotta",
+      "X": "minecraft:bone_meal"
+    },
+    "properties": {
+      "removed": "1.14"
+    }
+  },
+  "shulker_box_coloring_black_legacy": {
+    "result": {
+      "id": "minecraft:black_shulker_box"
+    },
+    "ingredients": [
+      "minecraft:ink_sac",
+      "#minecraft:shulker_boxes"
+    ],
+    "type": "minecraft:crafting_special_shulkerboxcoloring",
+    "properties": {
+      "removed": "1.14",
+      "animated": true,
+      "version": "1.11"
+    }
+  },
+  "shulker_box_coloring_blue_legacy": {
+    "result": {
+      "id": "minecraft:blue_shulker_box"
+    },
+    "ingredients": [
+      "minecraft:lapis_lazuli",
+      "#minecraft:shulker_boxes"
+    ],
+    "type": "minecraft:crafting_special_shulkerboxcoloring",
+    "properties": {
+      "removed": "1.14",
+      "animated": true,
+      "version": "1.11"
+    }
+  },
+  "shulker_box_coloring_brown_legacy": {
+    "result": {
+      "id": "minecraft:brown_shulker_box"
+    },
+    "ingredients": [
+      "minecraft:cocoa_beans",
+      "#minecraft:shulker_boxes"
+    ],
+    "type": "minecraft:crafting_special_shulkerboxcoloring",
+    "properties": {
+      "removed": "1.14",
+      "animated": true,
+      "version": "1.11"
+    }
+  },
+  "shulker_box_coloring_white_legacy": {
+    "result": {
+      "id": "minecraft:white_shulker_box"
+    },
+    "ingredients": [
+      "minecraft:bone_meal",
+      "#minecraft:shulker_boxes"
+    ],
+    "type": "minecraft:crafting_special_shulkerboxcoloring",
+    "properties": {
+      "removed": "1.14",
+      "animated": true,
+      "version": "1.11"
+    }
+  },
+  "black_bed_from_white_bed_legacy": {
+    "result": {
+      "id": "minecraft:black_bed"
+    },
+    "ingredients": [
+      "minecraft:white_bed",
+      "minecraft:ink_sac"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.14",
+      "version": "1.12"
+    }
+  },
+  "black_concrete_powder_legacy": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:black_concrete_powder"
+    },
+    "ingredients": [
+      "minecraft:ink_sac",
+      "minecraft:sand",
+      "minecraft:sand",
+      "minecraft:sand",
+      "minecraft:sand",
+      "minecraft:gravel",
+      "minecraft:gravel",
+      "minecraft:gravel",
+      "minecraft:gravel"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.14",
+      "version": "1.12"
+    }
+  },
+  "blue_bed_from_white_bed_legacy": {
+    "result": {
+      "id": "minecraft:blue_bed"
+    },
+    "ingredients": [
+      "minecraft:white_bed",
+      "minecraft:lapis_lazuli"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.14",
+      "version": "1.12"
+    }
+  },
+  "blue_concrete_powder_legacy": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:blue_concrete_powder"
+    },
+    "ingredients": [
+      "minecraft:lapis_lazuli",
+      "minecraft:sand",
+      "minecraft:sand",
+      "minecraft:sand",
+      "minecraft:sand",
+      "minecraft:gravel",
+      "minecraft:gravel",
+      "minecraft:gravel",
+      "minecraft:gravel"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.14",
+      "version": "1.12"
+    }
+  },
+  "brown_bed_from_white_bed_legacy": {
+    "result": {
+      "id": "minecraft:brown_bed"
+    },
+    "ingredients": [
+      "minecraft:white_bed",
+      "minecraft:cocoa_beans"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.14",
+      "version": "1.12"
+    }
+  },
+  "brown_concrete_powder_legacy": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:brown_concrete_powder"
+    },
+    "ingredients": [
+      "minecraft:cocoa_beans",
+      "minecraft:sand",
+      "minecraft:sand",
+      "minecraft:sand",
+      "minecraft:sand",
+      "minecraft:gravel",
+      "minecraft:gravel",
+      "minecraft:gravel",
+      "minecraft:gravel"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.14",
+      "version": "1.12"
+    }
+  },
+  "white_concrete_powder_legacy": {
+    "result": {
+      "count": 8,
+      "id": "minecraft:white_concrete_powder"
+    },
+    "ingredients": [
+      "minecraft:bone_meal",
+      "minecraft:sand",
+      "minecraft:sand",
+      "minecraft:sand",
+      "minecraft:sand",
+      "minecraft:gravel",
+      "minecraft:gravel",
+      "minecraft:gravel",
+      "minecraft:gravel"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "1.14",
+      "version": "1.12"
+    }
+  },
+  "enchanted_golden_apple": {
+    "result": {
+      "id": "minecraft:enchanted_golden_apple"
+    },
+    "pattern": [
+      "###",
+      "#X#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:gold_block",
+      "X": "minecraft:apple"
+    },
+    "properties": {
+      "removed": "1.9"
+    }
+  },
+  "extended_slowness_potion_from_corrupt_legacy": {
+    "result": {
+      "id": "minecraft.potion.effect.slowness.extended"
+    },
+    "reagent": "minecraft:fermented_spider_eye",
+    "type": "minecraft.brewing",
+    "properties": {
+      "removed": "1.9"
+    },
+    "base": "minecraft.potion.effect.fire_resistance.extended"
+  },
+  "extended_weakness_potion_from_corrupt": {
+    "result": {
+      "id": "minecraft.potion.effect.weakness.extended"
+    },
+    "reagent": "minecraft:fermented_spider_eye",
+    "type": "minecraft.brewing",
+    "properties": {
+      "removed": "1.9"
+    },
+    "base": [
+      "minecraft.potion.effect.strength.extended",
+      "minecraft.potion.effect.regeneration.extended"
+    ]
+  },
+  "extended_weakness_potion_legacy": {
+    "result": {
+      "id": "minecraft.potion.effect.weakness.extended"
+    },
+    "reagent": "minecraft:fermented_spider_eye",
+    "type": "minecraft.brewing",
+    "properties": {
+      "removed": "1.9"
+    },
+    "base": "minecraft.potion.effect.mundane.extended"
+  },
+  "harming_potion_from_corrupt_legacy": {
+    "result": {
+      "id": "minecraft.potion.effect.harming"
+    },
+    "reagent": "minecraft:fermented_spider_eye",
+    "type": "minecraft.brewing",
+    "properties": {
+      "removed": "1.9"
+    },
+    "base": "minecraft.potion.effect.water_breathing"
+  },
+  "slowness_potion_from_corrupt_legacy": {
+    "result": {
+      "id": "minecraft.potion.effect.slowness"
+    },
+    "reagent": "minecraft:fermented_spider_eye",
+    "type": "minecraft.brewing",
+    "properties": {
+      "removed": "1.9"
+    },
+    "base": "minecraft.potion.effect.fire_resistance"
+  },
+  "splash_extended_slowness_potion_from_corrupt_legacy": {
+    "result": {
+      "id": "minecraft.splash_potion.effect.slowness.extended"
+    },
+    "reagent": "minecraft:fermented_spider_eye",
+    "type": "minecraft.brewing",
+    "properties": {
+      "removed": "1.9"
+    },
+    "base": "minecraft.splash_potion.effect.fire_resistance.extended"
+  },
+  "splash_extended_weakness_potion_from_corrupt": {
+    "result": {
+      "id": "minecraft.splash_potion.effect.weakness.extended"
+    },
+    "reagent": "minecraft:fermented_spider_eye",
+    "type": "minecraft.brewing",
+    "properties": {
+      "removed": "1.9"
+    },
+    "base": [
+      "minecraft.splash_potion.effect.strength.extended",
+      "minecraft.splash_potion.effect.regeneration.extended"
+    ]
+  },
+  "splash_extended_weakness_potion_legacy": {
+    "result": {
+      "id": "minecraft.splash_potion.effect.weakness.extended"
+    },
+    "reagent": "minecraft:fermented_spider_eye",
+    "type": "minecraft.brewing",
+    "properties": {
+      "removed": "1.9"
+    },
+    "base": "minecraft.splash_potion.effect.mundane.extended"
+  },
+  "splash_harming_potion_from_corrupt_legacy": {
+    "result": {
+      "id": "minecraft.splash_potion.effect.harming"
+    },
+    "reagent": "minecraft:fermented_spider_eye",
+    "type": "minecraft.brewing",
+    "properties": {
+      "removed": "1.9"
+    },
+    "base": "minecraft.splash_potion.effect.water_breathing"
+  },
+  "splash_slowness_potion_from_corrupt_legacy": {
+    "result": {
+      "id": "minecraft.splash_potion.effect.slowness"
+    },
+    "reagent": "minecraft:fermented_spider_eye",
+    "type": "minecraft.brewing",
+    "properties": {
+      "removed": "1.9"
+    },
+    "base": "minecraft.splash_potion.effect.fire_resistance"
+  },
+  "splash_weakness_potion_legacy": {
+    "result": {
+      "id": "minecraft.splash_potion.effect.weakness"
+    },
+    "reagent": "minecraft:fermented_spider_eye",
+    "type": "minecraft.brewing",
+    "properties": {
+      "removed": "1.9"
+    },
+    "base": [
+      "minecraft.splash_potion.effect.mundane",
+      "minecraft.splash_potion.effect.thick",
+      "minecraft.splash_potion.effect.awkward"
+    ]
+  },
+  "weakness_potion_legacy": {
+    "result": {
+      "id": "minecraft.potion.effect.weakness"
+    },
+    "reagent": "minecraft:fermented_spider_eye",
+    "type": "minecraft.brewing",
+    "properties": {
+      "removed": "1.9"
+    },
+    "base": [
+      "minecraft.potion.effect.mundane",
+      "minecraft.potion.effect.thick",
+      "minecraft.potion.effect.awkward"
+    ]
+  },
+  "amplified_slowness_potion_from_corrupt": {
+    "result": {
+      "id": "minecraft.potion.effect.slowness.iv"
+    },
+    "reagent": "minecraft:fermented_spider_eye",
+    "type": "minecraft.brewing",
+    "properties": {
+      "removed": "1.9",
+      "version": "1.13"
+    },
+    "base": [
+      "minecraft.potion.effect.swiftness.ii",
+      "minecraft.potion.effect.leaping.ii"
+    ]
+  },
+  "splash_amplified_slowness_potion_from_corrupt": {
+    "result": {
+      "id": "minecraft.splash_potion.effect.slowness.iv"
+    },
+    "reagent": "minecraft:fermented_spider_eye",
+    "type": "minecraft.brewing",
+    "properties": {
+      "removed": "1.9",
+      "version": "1.13"
+    },
+    "base": [
+      "minecraft.splash_potion.effect.swiftness.ii",
+      "minecraft.splash_potion.effect.leaping.ii"
+    ]
+  },
+  "chainmail_boots": {
+    "result": {
+      "id": "minecraft:chainmail_boots"
+    },
+    "pattern": [
+      "X X",
+      "X X"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "X": "minecraft:fire"
+    },
+    "properties": {
+      "removed": "1.8"
+    }
+  },
+  "chainmail_chestplate": {
+    "result": {
+      "id": "minecraft:chainmail_chestplate"
+    },
+    "pattern": [
+      "X X",
+      "XXX",
+      "XXX"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "X": "minecraft:fire"
+    },
+    "properties": {
+      "removed": "1.8"
+    }
+  },
+  "chainmail_helmet": {
+    "result": {
+      "id": "minecraft:chainmail_helmet"
+    },
+    "pattern": [
+      "XXX",
+      "X X"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "X": "minecraft:fire"
+    },
+    "properties": {
+      "removed": "1.8"
+    }
+  },
+  "chainmail_leggings": {
+    "result": {
+      "id": "minecraft:chainmail_leggings"
+    },
+    "pattern": [
+      "XXX",
+      "X X",
+      "X X"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "X": "minecraft:fire"
+    },
+    "properties": {
+      "removed": "1.8"
+    }
+  },
+  "oak_fence_legacy": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:oak_fence"
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stick"
+    },
+    "properties": {
+      "removed": "1.8"
     }
   }
 }
