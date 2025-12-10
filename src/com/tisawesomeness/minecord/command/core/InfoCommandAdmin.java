@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.command.core;
 
 import com.tisawesomeness.minecord.command.LegacyCommand;
-
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class InfoCommandAdmin extends LegacyCommand {

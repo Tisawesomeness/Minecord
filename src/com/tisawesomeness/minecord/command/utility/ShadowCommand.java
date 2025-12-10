@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command.utility;
 
+import com.tisawesomeness.minecord.command.OptionTypes;
 import com.tisawesomeness.minecord.command.SlashCommand;
-
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
@@ -38,8 +38,11 @@ public class ShadowCommand extends SlashCommand {
     }
 
     public Result run(SlashCommandInteractionEvent e) {
-        String input = e.getOption("seed").getAsString();
-        long shadow = shadow(stringToSeed(input));
+        String seed = getOption(e, "seed", OptionTypes.STRING);
+        if (seed == null) {
+            return Result.SLASH_COMMAND_FAIL;
+        }
+        long shadow = shadow(stringToSeed(seed));
         return new Result(Outcome.SUCCESS, String.format("Shadow Seed: `%s`", shadow));
     }
 

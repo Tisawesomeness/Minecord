@@ -4,7 +4,6 @@ import com.tisawesomeness.minecord.network.APIClient;
 import com.tisawesomeness.minecord.network.NetUtil;
 import com.tisawesomeness.minecord.network.StatusCodes;
 import com.tisawesomeness.minecord.util.UrlUtils;
-
 import lombok.Cleanup;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

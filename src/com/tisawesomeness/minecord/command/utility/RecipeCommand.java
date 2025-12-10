@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command.utility;
 
+import com.tisawesomeness.minecord.command.OptionTypes;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.interaction.InteractionTracker;
 import com.tisawesomeness.minecord.interaction.RecipeMenu;
@@ -8,7 +9,6 @@ import com.tisawesomeness.minecord.mc.item.ItemRegistry;
 import com.tisawesomeness.minecord.mc.recipe.Recipe;
 import com.tisawesomeness.minecord.mc.recipe.RecipeRegistry;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
@@ -52,23 +52,18 @@ public class RecipeCommand extends SlashCommand {
     public Result run(SlashCommandInteractionEvent e) {
 
         // Search through the recipe database with full args first
-        String search = e.getOption("item").getAsString();
+        String search = getOption(e, "item", OptionTypes.STRING);
         String item = ItemRegistry.search(search);
         if (item == null) {
             return new Result(Outcome.WARNING,
                     ":warning: That item does not exist! " + "\n" + "Did you spell it correctly?");
         }
 
-        OptionMapping option = e.getOption("page");
-        int page;
-        if (option == null) {
-            page = 0;
-        } else {
-            page = option.getAsInt() - 1;
-            if (page < 0) {
-                return new Result(Outcome.WARNING, ":warning: Page must be 1 or higher.");
-            }
+        int page = getOption(e, "page", 1, OptionTypes.INTEGER);
+        if (page < 1) {
+            return new Result(Outcome.WARNING, ":warning: Page must be 1 or higher.");
         }
+        page -= 1;
 
         List<Recipe> recipes = RecipeRegistry.searchOutput(item);
         if (recipes.isEmpty()) {

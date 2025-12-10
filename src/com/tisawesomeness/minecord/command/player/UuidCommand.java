@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.command.OptionTypes;
 import com.tisawesomeness.minecord.mc.player.*;
 import com.tisawesomeness.minecord.util.UuidUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -51,7 +52,10 @@ public class UuidCommand extends AbstractPlayerCommand {
     }
 
     public Result run(SlashCommandInteractionEvent e) {
-        String input = e.getOption("uuid_or_username").getAsString();
+        String input = getOption(e, "uuid_or_username", OptionTypes.STRING);
+        if (input == null) {
+            return Result.SLASH_COMMAND_FAIL;
+        }
         Optional<UUID> parsedUuidOpt = UuidUtils.fromString(input);
         if (parsedUuidOpt.isPresent()) {
             UUID uuid = parsedUuidOpt.get();

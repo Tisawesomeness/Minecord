@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.mc.external;
 
 import com.tisawesomeness.minecord.mc.player.AccountStatus;
 import com.tisawesomeness.minecord.util.UuidUtils;
-
 import lombok.NonNull;
 import org.json.JSONObject;
 

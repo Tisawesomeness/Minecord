@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord;
 
 import com.tisawesomeness.minecord.util.DiscordUtils;
 import com.tisawesomeness.minecord.util.RequestUtils;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 

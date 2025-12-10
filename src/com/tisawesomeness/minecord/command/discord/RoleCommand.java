@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command.discord;
 
+import com.tisawesomeness.minecord.command.OptionTypes;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
@@ -50,7 +51,10 @@ public class RoleCommand extends SlashCommand {
     }
 
     public Result run(SlashCommandInteractionEvent e) {
-        Role role = e.getOption("role").getAsRole();
+        Role role = getOption(e, "role", OptionTypes.ROLE);
+        if (role == null) {
+            return Result.SLASH_COMMAND_FAIL;
+        }
         return run(role, e.getGuild());
     }
 

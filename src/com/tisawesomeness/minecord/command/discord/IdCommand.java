@@ -1,7 +1,7 @@
 package com.tisawesomeness.minecord.command.discord;
 
+import com.tisawesomeness.minecord.command.OptionTypes;
 import com.tisawesomeness.minecord.command.SlashCommand;
-
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
@@ -47,7 +47,10 @@ public class IdCommand extends SlashCommand {
 
     @Override
     public Result run(SlashCommandInteractionEvent e) throws Exception {
-        long id = e.getOption("id").getAsLong();
+        Long id = getOption(e, "id", OptionTypes.LONG);
+        if (id == null) {
+            return Result.SLASH_COMMAND_FAIL;
+        }
         OffsetDateTime time = TimeUtil.getTimeCreated(id);
         return new Result(Outcome.SUCCESS, "Created " + TimeFormat.RELATIVE.format(time));
     }

@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.command.OptionTypes;
 import com.tisawesomeness.minecord.mc.external.PlayerProvider;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.Render;
@@ -39,7 +40,10 @@ public abstract class BaseRenderCommand extends AbstractPlayerCommand {
     protected Result parseAndSendRender(SlashCommandInteractionEvent e, RenderType type) {
         // If username is quoted, the location of the scale and overlay args changes
         // and an unquoted string could also be a UUID
-        String playerArg = e.getOption("player").getAsString();
+        String playerArg = getOption(e, "player", OptionTypes.STRING);
+        if (playerArg == null) {
+            return Result.SLASH_COMMAND_FAIL;
+        }
         ImpersonalRender irender = parseRender(type, e);
 
         Optional<UUID> parsedUuidOpt = UuidUtils.fromString(playerArg);

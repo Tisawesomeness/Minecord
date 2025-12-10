@@ -3,7 +3,6 @@ package com.tisawesomeness.minecord.command.utility;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 

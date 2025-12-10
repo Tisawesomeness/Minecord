@@ -1,8 +1,7 @@
 package com.tisawesomeness.minecord.debug.cache;
 
-import com.tisawesomeness.minecord.command.Registry;
-
 import com.github.benmanes.caffeine.cache.stats.CacheStats;
+import com.tisawesomeness.minecord.command.Registry;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 

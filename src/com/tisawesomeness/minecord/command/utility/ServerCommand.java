@@ -8,6 +8,7 @@ import br.com.azalim.mcserverping.MCPingUtil;
 import com.google.gson.JsonSyntaxException;
 import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.Config;
+import com.tisawesomeness.minecord.command.OptionTypes;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.mc.Favicon;
 import com.tisawesomeness.minecord.network.NetUtil;
@@ -85,7 +86,10 @@ public class ServerCommand extends SlashCommand {
     public Result run(SlashCommandInteractionEvent e) {
 
         // Parse arguments
-        String arg = e.getOption("address").getAsString();
+        String arg = getOption(e, "address", OptionTypes.STRING);
+        if (arg == null) {
+            return Result.SLASH_COMMAND_FAIL;
+        }
         boolean ip;
         if (!IP_PATTERN.matcher(arg).matches()) {
             ip = false;
@@ -109,7 +113,7 @@ public class ServerCommand extends SlashCommand {
             hostname = arg;
         }
 
-        boolean showReportStatus = e.getOption("show-report-status").getAsBoolean();
+        boolean showReportStatus = getOption(e, "show-report-status", false, OptionTypes.BOOLEAN);
 
         e.deferReply().queue();
         CompletableFuture.runAsync(ServerCommand::refreshBlockedServers)

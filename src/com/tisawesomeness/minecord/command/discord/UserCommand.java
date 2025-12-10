@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.discord;
 
 import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.command.OptionTypes;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -47,13 +48,11 @@ public class UserCommand extends SlashCommand {
     }
 
     public Result run(SlashCommandInteractionEvent e) {
-        Member mem = e.getOption("user").getAsMember();
-        User u;
-        if (mem != null) {
-            u = mem.getUser();
-        } else {
-            u = e.getOption("user").getAsUser();
+        User u = getOption(e, "user", OptionTypes.USER);
+        if (u == null) {
+            return Result.SLASH_COMMAND_FAIL;
         }
+        Member mem = getOption(e, "user", OptionTypes.MEMBER);
 
         // Build role string
         String roles = getRoleString(mem);

@@ -2,7 +2,6 @@ package com.tisawesomeness.minecord.mc.player;
 
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.util.UrlUtils;
-
 import lombok.NonNull;
 import lombok.Value;
 

@@ -4,7 +4,6 @@ import com.tisawesomeness.minecord.Bot;
 import com.tisawesomeness.minecord.command.LegacyCommand;
 import com.tisawesomeness.minecord.util.ArrayUtils;
 import com.tisawesomeness.minecord.util.DiscordUtils;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;

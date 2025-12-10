@@ -1,11 +1,11 @@
 package com.tisawesomeness.minecord.command.utility;
 
+import com.tisawesomeness.minecord.command.OptionTypes;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.mc.item.Container;
 import com.tisawesomeness.minecord.mc.item.ItemCount;
 import com.tisawesomeness.minecord.util.type.HumanDecimalFormat;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
@@ -51,13 +51,13 @@ public class StackCommand extends SlashCommand {
 
     @Override
     public Result run(SlashCommandInteractionEvent e) {
-        long items = e.getOption("items", 0L, OptionMapping::getAsLong);
-        long stacks = e.getOption("stacks", 0L, OptionMapping::getAsLong);
-        long chests = e.getOption("chests", 0L, OptionMapping::getAsLong);
-        long doubleChests = e.getOption("double-chests", 0L, OptionMapping::getAsLong);
-        long chestShulkers = e.getOption("chest-shulkers", 0L, OptionMapping::getAsLong);
-        long doubleChestShulkers = e.getOption("double-chest-shulkers", 0L, OptionMapping::getAsLong);
-        int stackSize = e.getOption("stack-size", 64, OptionMapping::getAsInt);
+        long items = getOption(e, "items", 0L, OptionTypes.LONG);
+        long stacks = getOption(e, "stacks", 0L, OptionTypes.LONG);
+        long chests = getOption(e, "chests", 0L, OptionTypes.LONG);
+        long doubleChests = getOption(e, "double-chests", 0L, OptionTypes.LONG);
+        long chestShulkers = getOption(e, "chest-shulkers", 0L, OptionTypes.LONG);
+        long doubleChestShulkers = getOption(e, "double-chest-shulkers", 0L, OptionTypes.LONG);
+        int stackSize = getOption(e, "stack-size", 64, OptionTypes.INTEGER);
 
         ItemCount itemCount = new ItemCount(items, stackSize)
                 .addStacks(stacks)

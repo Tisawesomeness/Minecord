@@ -3,7 +3,6 @@ package com.tisawesomeness.minecord.mc;
 import com.tisawesomeness.minecord.mc.external.DualPlayerProvider;
 import com.tisawesomeness.minecord.mc.external.PlayerProvider;
 import com.tisawesomeness.minecord.network.APIClient;
-
 import lombok.Getter;
 import lombok.NonNull;
 

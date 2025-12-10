@@ -1,19 +1,18 @@
 package com.tisawesomeness.minecord.command.player;
 
+import com.tisawesomeness.minecord.command.OptionTypes;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.Render;
 import com.tisawesomeness.minecord.mc.player.RenderType;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.util.ColorUtils;
-
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 
 import javax.imageio.ImageIO;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -60,7 +59,7 @@ public class AnsiCommand extends BaseRenderCommand {
     }
 
     protected ImpersonalRender parseRender(RenderType type, SlashCommandInteractionEvent e) {
-        boolean overlay = e.getOption("overlay", RenderCommand.DEFAULT_OVERLAY, OptionMapping::getAsBoolean);
+        boolean overlay = getOption(e, "overlay", RenderCommand.DEFAULT_OVERLAY, OptionTypes.BOOLEAN);
         return new ImpersonalRender(RenderType.AVATAR, overlay, IMAGE_SIZE);
     }
 
