@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command.utility;
 
+import com.tisawesomeness.minecord.command.OptionTypes;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.command.player.UuidCommand;
 import com.tisawesomeness.minecord.util.ColorUtils;
@@ -14,7 +15,6 @@ import com.tisawesomeness.minecord.util.type.HumanDecimalFormat;
 import lombok.AllArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
@@ -89,6 +89,10 @@ public class RandomCommand extends SlashCommand {
 
     @Override
     public Result run(SlashCommandInteractionEvent e) {
+        String subcommandName = e.getSubcommandName();
+        if (subcommandName == null) {
+            return Result.SLASH_COMMAND_FAIL;
+        }
         switch (e.getSubcommandName()) {
             case "value":
                 return valueSubcommand(e);
@@ -103,13 +107,13 @@ public class RandomCommand extends SlashCommand {
             case "color":
                 return colorSubcommand(e);
             default:
-                throw new RuntimeException("Invalid subcommand " + e.getSubcommandName());
+                return Result.SLASH_COMMAND_FAIL;
         }
     }
 
     private static Result valueSubcommand(SlashCommandInteractionEvent e) {
-        long min = e.getOption("min", (long) Integer.MIN_VALUE, OptionMapping::getAsLong);
-        long max = e.getOption("max", (long) Integer.MAX_VALUE, OptionMapping::getAsLong);
+        long min = getOption(e, "min", (long) Integer.MIN_VALUE, OptionTypes.LONG);
+        long max = getOption(e, "max", (long) Integer.MAX_VALUE, OptionTypes.LONG);
         if (min > max) {
             return new Result(Outcome.WARNING, String.format("Minimum (%d) cannot be greater than maximum (%d)", min, max));
         }
@@ -121,9 +125,9 @@ public class RandomCommand extends SlashCommand {
     }
 
     private static Result uniformSubcommand(SlashCommandInteractionEvent e) {
-        double min = e.getOption("min", 0.0, OptionMapping::getAsDouble);
+        double min = getOption(e, "min", 0.0, OptionTypes.DOUBLE);
         String minStr = BOUNDS_FORMAT.format(min);
-        double max = e.getOption("max", 1.0, OptionMapping::getAsDouble);
+        double max = getOption(e, "max", 1.0, OptionTypes.DOUBLE);
         String maxStr = BOUNDS_FORMAT.format(max);
         if (min >= max) {
             return new Result(Outcome.WARNING, String.format("Minimum (%s) cannot be greater than or equal to maximum (%s)", minStr, maxStr));
@@ -139,9 +143,11 @@ public class RandomCommand extends SlashCommand {
         return new Result(Outcome.SUCCESS, UuidCommand.constructDescription(UuidUtils.randomUuidInsecure()));
     }
 
-    private static Result chooseSubcommand(SlashCommandInteractionEvent e) {
-        String choices = e.getOption("choices", OptionMapping::getAsString);
-        assert choices != null;
+    private Result chooseSubcommand(SlashCommandInteractionEvent e) {
+        String choices = getOption(e, "choices", OptionTypes.STRING);
+        if (choices == null) {
+            return Result.SLASH_COMMAND_FAIL;
+        }
 
         String trimmed = trimLeadingCommas(choices); // split() ignores trailing commas, ignore leading to be consistent
         if (trimmed.isEmpty()) {
@@ -163,9 +169,11 @@ public class RandomCommand extends SlashCommand {
         return "";
     }
 
-    private static Result diceSubcommand(SlashCommandInteractionEvent e) {
-        String diceNotation = e.getOption("dice", OptionMapping::getAsString);
-        assert diceNotation != null;
+    private Result diceSubcommand(SlashCommandInteractionEvent e) {
+        String diceNotation = getOption(e, "dice", OptionTypes.STRING);
+        if (diceNotation == null) {
+            return Result.SLASH_COMMAND_FAIL;
+        }
 
         Either<DiceCombination.Error, DiceCombination> errorOrDice = DiceCombination.parse(diceNotation);
         if (errorOrDice.isLeft()) {
@@ -277,8 +285,11 @@ public class RandomCommand extends SlashCommand {
         return MathUtils.shuffle(rolls);
     }
 
-    private static Result colorSubcommand(SlashCommandInteractionEvent e) {
-        int colorTypeId = e.getOption("type", OptionMapping::getAsInt);
+    private Result colorSubcommand(SlashCommandInteractionEvent e) {
+        Integer colorTypeId = getOption(e, "type", OptionTypes.INTEGER);
+        if (colorTypeId == null) {
+            return Result.SLASH_COMMAND_FAIL;
+        }
         Optional<ColorType> colorTypeOpt = ColorType.of(colorTypeId);
         if (!colorTypeOpt.isPresent()) {
             return new Result(Outcome.ERROR, "Invalid argument in /random color");

@@ -1,12 +1,14 @@
 package com.tisawesomeness.minecord.command.discord;
 
 import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.command.OptionTypes;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import com.tisawesomeness.minecord.util.StringUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.IMentionable;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.IntegrationType;
 import net.dv8tion.jda.api.interactions.InteractionContextType;
@@ -46,9 +48,14 @@ public class RolesCommand extends SlashCommand {
 
     public Result run(SlashCommandInteractionEvent e) {
         // Find user
-        Member mem = e.getOption("user").getAsMember();
+        Member mem = getOption(e, "user", OptionTypes.MEMBER);
         if (mem == null) {
-            return new Result(Outcome.WARNING, ":warning: That user is not in this guild.");
+            User user = getOption(e, "user", OptionTypes.USER);
+            if (user == null) {
+                return Result.SLASH_COMMAND_FAIL;
+            } else {
+                return new Result(Outcome.WARNING, ":warning: That user is not in this guild.");
+            }
         }
 
         EmbedBuilder eb = new EmbedBuilder()

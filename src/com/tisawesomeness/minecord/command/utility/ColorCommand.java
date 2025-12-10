@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command.utility;
 
+import com.tisawesomeness.minecord.command.OptionTypes;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
@@ -49,11 +50,12 @@ public class ColorCommand extends SlashCommand {
     }
 
     public Result run(SlashCommandInteractionEvent e) {
-        Color c = ColorUtils.parseColor(e.getOption("color").getAsString(), "en_US");
-        if (c == null) {
+        String colorArg = getOption(e, "color", OptionTypes.STRING);
+        Color color = ColorUtils.parseColor(colorArg, "en_US");
+        if (color == null) {
             return new Result(Outcome.WARNING, ":warning: Not a valid color!");
         }
-        EmbedBuilder eb = buildEmbed(c);
+        EmbedBuilder eb = buildEmbed(color);
         return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
     }
 

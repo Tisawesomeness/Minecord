@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.command.OptionTypes;
 import com.tisawesomeness.minecord.mc.external.PlayerProvider;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.Username;
@@ -34,7 +35,11 @@ public abstract class BasePlayerCommand extends AbstractPlayerCommand {
     public Result run(SlashCommandInteractionEvent e) {
         PlayerProvider provider = Bot.mcLibrary.getPlayerProvider();
 
-        String input = String.join(" ", e.getOption("player").getAsString());
+        String player = getOption(e, "player", OptionTypes.STRING);
+        if (player == null) {
+            return Result.SLASH_COMMAND_FAIL;
+        }
+        String input = String.join(" ", player);
         Optional<UUID> parsedUuidOpt = UuidUtils.fromString(input);
         if (parsedUuidOpt.isPresent()) {
             UUID uuid = parsedUuidOpt.get();

@@ -1,8 +1,7 @@
 package com.tisawesomeness.minecord.debug.cache;
 
-import com.tisawesomeness.minecord.debug.DebugOption;
-
 import com.github.benmanes.caffeine.cache.stats.CacheStats;
+import com.tisawesomeness.minecord.debug.DebugOption;
 import lombok.NonNull;
 
 import java.util.Optional;

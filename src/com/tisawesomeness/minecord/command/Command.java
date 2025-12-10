@@ -183,6 +183,12 @@ public interface Command<T extends Event> {
      * Represents the result of a command.
      */
     class Result {
+
+        // because discord is incapable of propagating slash command changes in a reasonable amount of time
+        public static final Result SLASH_COMMAND_FAIL = new Result(Outcome.ERROR,
+                ":arrows_counterclockwise: Your slash commands are not updated, reload Discord to use this command.\n" +
+                "If reloading doesn't work, wait a few minutes for Discord to update and try again.");
+
         public final Outcome outcome;
         public final MessageCreateData message;
 

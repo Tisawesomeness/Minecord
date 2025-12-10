@@ -11,7 +11,6 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.IntegrationType;
 import net.dv8tion.jda.api.interactions.InteractionContextType;
-import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
@@ -62,7 +61,7 @@ public class HelpCommand extends SlashCommand {
     }
 
     public Result run(SlashCommandInteractionEvent e) {
-        String page = e.getOption("command", OptionMapping::getAsString);
+        String page = getOption(e, "command", OptionTypes.STRING);
         return run(page, e.getUser(), e.getJDA(), DiscordUtils.getInstallTypes(e), e.getContext());
     }
 

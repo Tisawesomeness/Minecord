@@ -1,9 +1,9 @@
 package com.tisawesomeness.minecord.command.utility;
 
+import com.tisawesomeness.minecord.command.OptionTypes;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.mc.pos.*;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
@@ -40,10 +40,13 @@ public class CoordsCommand extends SlashCommand {
 
     @Override
     public Result run(SlashCommandInteractionEvent e) {
-        int typeInt = e.getOption("type", Type.POSITION.ordinal(), OptionMapping::getAsInt);
+        int typeInt = getOption(e, "type", Type.POSITION.ordinal(), OptionTypes.INTEGER);
         Type type = Type.values()[typeInt];
 
-        String coordinateStr = e.getOption("coordinate", OptionMapping::getAsString);
+        String coordinateStr = getOption(e, "coordinate", OptionTypes.STRING);
+        if (coordinateStr == null) {
+            return Result.SLASH_COMMAND_FAIL;
+        }
         Vec vec = Vec.parse(coordinateStr);
         if (vec == null) {
             return new Result(Outcome.WARNING, "Could not parse coordinate.");
@@ -56,7 +59,7 @@ public class CoordsCommand extends SlashCommand {
             return new Result(Outcome.WARNING, "Coordinate is outside the world border at 29,999,984 blocks.");
         }
 
-        int dimensionInt = e.getOption("dimension", Dimension.OVERWORLD.ordinal(), OptionMapping::getAsInt);
+        int dimensionInt = getOption(e, "dimension", Dimension.OVERWORLD.ordinal(), OptionTypes.INTEGER);
         Dimension dimension = Dimension.values()[dimensionInt];
 
         return new Result(Outcome.SUCCESS, buildMessage(coordinate, dimension));

@@ -1,8 +1,7 @@
 package com.tisawesomeness.minecord.database;
 
-import com.tisawesomeness.minecord.Config;
-
 import com.mysql.cj.jdbc.MysqlDataSource;
+import com.tisawesomeness.minecord.Config;
 import org.sqlite.SQLiteDataSource;
 
 import javax.sql.DataSource;

@@ -9,7 +9,6 @@ import com.tisawesomeness.minecord.debug.cache.StatusCacheDebugOption;
 import com.tisawesomeness.minecord.debug.cache.UuidCacheDebugOption;
 import com.tisawesomeness.minecord.mc.external.PlayerProvider;
 import com.tisawesomeness.minecord.util.StringUtils;
-
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;

@@ -5,13 +5,16 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.interactions.IntegrationType;
 import net.dv8tion.jda.api.interactions.InteractionContextType;
 import net.dv8tion.jda.api.interactions.commands.ICommandReference;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
+import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public abstract class SlashCommand implements Command<SlashCommandInteractionEvent> {
@@ -73,6 +76,41 @@ public abstract class SlashCommand implements Command<SlashCommandInteractionEve
         return Bot.getSlashCommands().stream()
                 .filter(c -> c.getName().equals(getInfo().name))
                 .findFirst();
+    }
+
+    /**
+     * Like {@link SlashCommandInteractionEvent#getOption(String, Function) getOption(name, resolver)}, except that
+     * trying to resolve an option that is different from the expected type returns null instead of throwing an exception.
+     * @param e The slash command event that was just executed
+     * @param name The option name
+     * @param type The expected option type
+     * @return The resolved value of the option, or null if the option doesn't exist or is of a different type than expected
+     * @param <T> The expected type of the resolved option value
+     */
+    protected final <T> @Nullable T getOption(SlashCommandInteractionEvent e, String name, OptionTypes.Type<T> type) {
+        return getOption(e, name, null, type);
+    }
+    /**
+     * Like {@link SlashCommandInteractionEvent#getOption(String, T, Function) getOption(name, resolver)}, except that
+     * resolving null returns the fallback, and trying to resolve an option that is different from the expected type
+     * returns the fallback instead of throwing an exception.
+     * @param e The slash command event that was just executed
+     * @param name The option name
+     * @param fallback The fallback value
+     * @param type The expected option type
+     * @return The resolved value of the option, or the fallback if the resolved value is null, the option doesn't exist,
+     * or is of a different type than expected
+     * @param <T> The expected type of the resolved option value
+     */
+    protected static <T> T getOption(SlashCommandInteractionEvent e, String name, T fallback, OptionTypes.Type<T> type) {
+        OptionMapping mapping = e.getOption(name);
+        if (mapping != null) {
+            T result = type.resolve(mapping);
+            if (result != null) {
+                return result;
+            }
+        }
+        return fallback;
     }
 
     @Override

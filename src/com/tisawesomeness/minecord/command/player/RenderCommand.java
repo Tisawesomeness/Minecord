@@ -1,6 +1,7 @@
 package com.tisawesomeness.minecord.command.player;
 
 import com.tisawesomeness.minecord.Bot;
+import com.tisawesomeness.minecord.command.OptionTypes;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.Render;
 import com.tisawesomeness.minecord.mc.player.RenderType;
@@ -9,7 +10,6 @@ import com.tisawesomeness.minecord.util.ColorUtils;
 import com.tisawesomeness.minecord.util.MessageUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
@@ -70,8 +70,8 @@ public class RenderCommand extends BaseRenderCommand {
         return parseRenderFromArgs(type, e);
     }
     protected static ImpersonalRender parseRenderFromArgs(RenderType type, SlashCommandInteractionEvent e) {
-        int scale = e.getOption("scale", type.getDefaultScale(), OptionMapping::getAsInt);
-        boolean overlay = e.getOption("overlay", DEFAULT_OVERLAY, OptionMapping::getAsBoolean);
+        int scale = getOption(e, "scale", type.getDefaultScale(), OptionTypes.INTEGER);
+        boolean overlay = getOption(e, "overlay", DEFAULT_OVERLAY, OptionTypes.BOOLEAN);
         return new ImpersonalRender(type, overlay, scale);
     }
 

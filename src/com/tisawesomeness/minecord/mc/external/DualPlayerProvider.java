@@ -1,5 +1,8 @@
 package com.tisawesomeness.minecord.mc.external;
 
+import com.github.benmanes.caffeine.cache.AsyncLoadingCache;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.mc.player.AccountStatus;
 import com.tisawesomeness.minecord.mc.player.Player;
@@ -7,10 +10,6 @@ import com.tisawesomeness.minecord.mc.player.Profile;
 import com.tisawesomeness.minecord.mc.player.Username;
 import com.tisawesomeness.minecord.network.APIClient;
 import com.tisawesomeness.minecord.util.type.ThrowingFunction;
-
-import com.github.benmanes.caffeine.cache.AsyncLoadingCache;
-import com.github.benmanes.caffeine.cache.Caffeine;
-import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import dev.failsafe.CircuitBreaker;
 import dev.failsafe.Failsafe;
 import dev.failsafe.FailsafeException;

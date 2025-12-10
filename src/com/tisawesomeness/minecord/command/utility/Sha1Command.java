@@ -1,8 +1,8 @@
 package com.tisawesomeness.minecord.command.utility;
 
+import com.tisawesomeness.minecord.command.OptionTypes;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.util.MathUtils;
-
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
@@ -41,7 +41,11 @@ public class Sha1Command extends SlashCommand {
     }
 
     public Result run(SlashCommandInteractionEvent e) {
-        return new Result(Outcome.SUCCESS, MathUtils.sha1(e.getOption("text").getAsString()));
+        String text = getOption(e, "text", OptionTypes.STRING);
+        if (text == null) {
+            return Result.SLASH_COMMAND_FAIL;
+        }
+        return new Result(Outcome.SUCCESS, MathUtils.sha1(text));
     }
 
 }

@@ -1,7 +1,6 @@
 package com.tisawesomeness.minecord.debug;
 
 import com.tisawesomeness.minecord.network.APIClient;
-
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 

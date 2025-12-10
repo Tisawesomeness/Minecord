@@ -3,7 +3,6 @@ package com.tisawesomeness.minecord.mc.external;
 import com.tisawesomeness.minecord.mc.player.AccountStatus;
 import com.tisawesomeness.minecord.mc.player.Player;
 import com.tisawesomeness.minecord.mc.player.Username;
-
 import lombok.NonNull;
 
 import java.io.IOException;

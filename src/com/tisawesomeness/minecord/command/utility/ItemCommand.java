@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.command.utility;
 
+import com.tisawesomeness.minecord.command.OptionTypes;
 import com.tisawesomeness.minecord.command.SlashCommand;
 import com.tisawesomeness.minecord.mc.VersionRegistry;
 import com.tisawesomeness.minecord.mc.item.ItemRegistry;
@@ -42,7 +43,10 @@ public class ItemCommand extends SlashCommand {
 
     public Result run(SlashCommandInteractionEvent e) {
         // Search through the item database
-        String search = e.getOption("item").getAsString();
+        String search = getOption(e, "item", OptionTypes.STRING);
+        if (search == null) {
+            return Result.SLASH_COMMAND_FAIL;
+        }
         String item = ItemRegistry.search(search);
 
         // If nothing is found
