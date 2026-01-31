@@ -25,7 +25,7 @@ public enum ProfileAction {
         }
         Set<ProfileAction> profileActions = EnumSet.noneOf(ProfileAction.class);
         for (int i = 0; i < arr.length(); i++) {
-            String actionStr = arr.getString(i);
+            String actionStr = arr.getJSONObject(i).getString("action");
             ProfileAction.from(actionStr.toUpperCase(Locale.ROOT)).ifPresent(profileActions::add);
         }
         return profileActions;
