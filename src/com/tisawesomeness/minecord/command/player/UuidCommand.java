@@ -101,7 +101,7 @@ public class UuidCommand extends AbstractPlayerCommand {
 
     private static void constructReply(SlashCommandInteractionEvent e, UUID uuid, String title) {
         String nameMCUrl = Player.getNameMCUrlFor(uuid).toString();
-        String avatarUrl = new Render(uuid, RenderType.AVATAR, true).render().toString();
+        String avatarUrl = new Render(uuid, RenderType.AVATAR, true, DEFAULT_AVATAR_WIDTH).render().toString();
         EmbedBuilder eb = new EmbedBuilder()
                 .setAuthor(title, nameMCUrl, avatarUrl)
                 .setDescription(constructDescription(uuid));

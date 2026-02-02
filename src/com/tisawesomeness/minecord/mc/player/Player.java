@@ -148,19 +148,12 @@ public class Player implements Comparable<Player> {
      * Creates a render of this player.
      * @param type The type of render
      * @param overlay Whether to show the second skin layer, or overlay
+     * @param width The width (and height) of the render in pixels
+     * @throws IllegalArgumentException If the scale is zero or negative,
+     * or if overlay is true and the render type does not support overlay
      */
-    public @NonNull Render createRender(RenderType type, boolean overlay) {
-        return new Render(uuid, type, overlay);
-    }
-    /**
-     * Creates a render of this player.
-     * @param type The type of render
-     * @param overlay Whether to show the second skin layer, or overlay
-     * @param scale The scale of the render, capped at {@link RenderType#getMaxScale()}
-     * @throws IllegalArgumentException If the scale is zero or negative
-     */
-    public @NonNull Render createRender(RenderType type, boolean overlay, int scale) {
-        return new Render(uuid, type, overlay, scale);
+    public @NonNull Render createRender(RenderType type, boolean overlay, int width) {
+        return new Render(uuid, type, overlay, width);
     }
 
     /**

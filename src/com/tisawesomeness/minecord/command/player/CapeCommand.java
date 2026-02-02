@@ -67,7 +67,7 @@ public class CapeCommand extends BasePlayerCommand {
 
     private void sendCape(SlashCommandInteractionEvent e, Player player, URL capeUrl, String capeType) {
         String nameMcUrl = player.getNameMCUrl().toString();
-        String avatarUrl = player.createRender(RenderType.AVATAR, true).render().toString();
+        String avatarUrl = player.createRender(RenderType.AVATAR, true, DEFAULT_AVATAR_WIDTH).render().toString();
         String title = capeType + " Cape for " + player.getUsername();
         Color color = player.isRainbow() ? ColorUtils.randomColor() : Bot.color;
         EmbedBuilder eb = new EmbedBuilder()

@@ -46,7 +46,7 @@ public class AnsiCommand extends BaseRenderCommand {
                 "- `<player>` can be a username or a UUID.\n" +
                 "- `[<overlay?>]` is whether to include the second skin layer, defaults to true.\n" +
                 "Use `{&}help usernameInput|uuidInput|phd` for more help.\n" +
-                "Note that Crafatar caches images for 20-60 minutes.\n" +
+                "Note that changes many not appear immediately due to caching.\n" +
                 "\n" +
                 "- `{&}ansi Tis_awesomeness`\n" +
                 "- `{&}ansi LadyAgnes true`\n" +

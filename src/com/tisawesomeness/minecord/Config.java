@@ -47,8 +47,8 @@ public class Config {
     private static boolean recordCacheStats;
     @Getter private static String itemImageHost;
     @Getter private static String recipeImageHost;
-    @Getter private static String crafatarHost;
-    private static boolean reuploadCrafatarImages;
+    @Getter private static String minotarHost;
+    private static boolean reuploadMinotarImages;
 
     private static boolean sendServerCount;
     private static boolean sendSlashCommands;
@@ -158,8 +158,8 @@ public class Config {
         recordCacheStats = settings.optBoolean("recordCacheStats", false);
         itemImageHost = settings.optString("itemImageHost", "https://minecord.github.io/item/");
         recipeImageHost = settings.optString("recipeImageHost", "https://minecord.github.io/recipe/");
-        crafatarHost = settings.optString("crafatarHost", "https://crafatar.com/");
-        reuploadCrafatarImages = settings.optBoolean("reuploadCrafatarImages", false);
+        minotarHost = settings.optString("minotarHost", "https://crafthead.net/");
+        reuploadMinotarImages = settings.optBoolean("reuploadMinotarImages", false);
 
         JSONObject botLists = config.optJSONObject("botLists");
         if (botLists == null || isSelfHosted) {
@@ -200,7 +200,7 @@ public class Config {
     public static boolean getUseElectroidAPI() { return useElectroidAPI; }
     public static boolean getUseGappleAPI() { return useGappleAPI; }
     public static boolean getRecordCacheStats() { return recordCacheStats; }
-    public static boolean getReuploadCrafatarImages() { return reuploadCrafatarImages; }
+    public static boolean getReuploadMinotarImages() { return reuploadMinotarImages; }
     public static boolean getSendServerCount() { return sendServerCount; }
     public static boolean getSendSlashCommands() { return sendSlashCommands; }
     public static boolean getReceiveVotes() { return receiveVotes; }

@@ -21,6 +21,8 @@ import java.util.concurrent.CompletableFuture;
 
 public class ProfileCommand extends BasePlayerCommand {
 
+    private static final int BODY_WIDTH = 128;
+
     public CommandInfo getInfo() {
         return new CommandInfo(
                 "profile",
@@ -70,8 +72,8 @@ public class ProfileCommand extends BasePlayerCommand {
     private void onSuccessfulStatus(SlashCommandInteractionEvent e, Player player, Optional<AccountStatus> statusOpt) {
         String title = "Profile for " + player.getUsername();
         String nameMCUrl = player.getNameMCUrl().toString();
-        String avatarUrl = player.createRender(RenderType.AVATAR, true).render().toString();
-        String bodyUrl = player.createRender(RenderType.BODY, true).render().toString();
+        String avatarUrl = player.createRender(RenderType.AVATAR, true, DEFAULT_AVATAR_WIDTH).render().toString();
+        String bodyUrl = player.createRender(RenderType.BODY, true, BODY_WIDTH).render().toString();
 
         String desc = constructDescription(player);
         Color color = player.isRainbow() ? ColorUtils.randomColor() : Bot.color;
