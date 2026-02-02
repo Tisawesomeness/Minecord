@@ -21,6 +21,8 @@ import java.util.function.Consumer;
 
 public abstract class AbstractPlayerCommand extends SlashCommand {
 
+    protected static final int DEFAULT_AVATAR_WIDTH = 64;
+
     protected static void handleMojangIOE(Throwable ex, SlashCommandInteractionEvent e, String errorMessage) {
         handleIOE(ex, e, errorMessage, true);
     }
@@ -55,14 +57,14 @@ public abstract class AbstractPlayerCommand extends SlashCommand {
     }
 
     /**
-     * If Crafatar reuploading is enabled, images in the embed will be downloaded and sent with the embed as attachments.
+     * If Minotar reuploading is enabled, images in the embed will be downloaded and sent with the embed as attachments.
      * Otherwise, the embed will be sent as-is. If an image file fails to download, the embed will link to the image
      * URL as normal. Assumes .png images.
      * @param e event, a defer reply request must have been sent before
      * @param emb the embed to send
      */
     protected static void uploadOrEmbedImages(SlashCommandInteractionEvent e, MessageEmbed emb) {
-        if (Config.getReuploadCrafatarImages()) {
+        if (Config.getReuploadMinotarImages()) {
             EmbedBuilder eb = new EmbedBuilder(emb);
             List<FileUpload> files = new ArrayList<>();
 

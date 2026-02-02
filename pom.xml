@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.tisawesomeness</groupId>
   <artifactId>minecord</artifactId>
-  <version>0.18.7</version>
+  <version>0.18.8</version>
 
   <repositories>
     <repository>
@@ -21,7 +21,7 @@
     <dependency>
       <groupId>net.dv8tion</groupId>
       <artifactId>JDA</artifactId>
-      <version>6.1.3</version>
+      <version>6.3.0</version>
       <exclusions>
         <exclusion>
           <groupId>club.minnced</groupId>
@@ -37,7 +37,7 @@
     <dependency>
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
-      <version>20250517</version>
+      <version>20251224</version>
     </dependency>
     <dependency>
       <groupId>club.minnced</groupId>
@@ -47,7 +47,7 @@
     <dependency>
       <groupId>com.mysql</groupId>
       <artifactId>mysql-connector-j</artifactId>
-      <version>9.5.0</version>
+      <version>9.6.0</version>
     </dependency>
     <dependency>
       <groupId>org.xerial</groupId>
@@ -57,7 +57,7 @@
     <dependency>
       <groupId>dnsjava</groupId>
       <artifactId>dnsjava</artifactId>
-      <version>3.6.3</version>
+      <version>3.6.4</version>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>

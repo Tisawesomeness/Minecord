@@ -3,20 +3,18 @@ package com.tisawesomeness.minecord.mc.player;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import javax.annotation.Nullable;
+
 /**
  * An enum of renders supported by {@link Render}.
- * See <a href="https://crafatar.com/">https://crafatar.com/</a>
+ * See <a href="https://minotar.net/">https://minotar.net/</a>
  */
 @RequiredArgsConstructor
 public enum RenderType {
-    AVATAR("avatar", "Avatar", "avatars", false),
-    HEAD("head", "Head", "renders/head", true),
-    BODY("body", "Body", "renders/body", true);
-
-    public static final int MAX_SIZE = 512;
-    public static final int DEFAULT_SIZE = 160;
-    public static final int MAX_SCALE = 10;
-    public static final int DEFAULT_SCALE = 6;
+    AVATAR("avatar", "Avatar", "avatar", "helm"),
+    HEAD("head", "Head", "cube", null),
+    BODY("body", "Body", "body", "armor/body"),
+    BUST("bust", "Bust", "bust", "armor/bust");
 
     /**
      * The name of the render type
@@ -27,22 +25,10 @@ public enum RenderType {
      * The path to the API endpoint
      */
     @Getter private final String basePath;
-    /**
-     * Whether Crafatar recognizes this type as a render, and scale should be used instead of size
-     */
-    @Getter private final boolean isRender;
+    @Getter private final @Nullable String overlayPath;
 
-    /**
-     * @return The maximum scale of this render type
-     */
-    public int getMaxScale() {
-        return isRender ? MAX_SCALE : MAX_SIZE;
-    }
-    /**
-     * @return The default scale of this render type
-     */
-    public int getDefaultScale() {
-        return isRender ? DEFAULT_SCALE : DEFAULT_SIZE;
+    public boolean supportsOverlay() {
+        return overlayPath != null;
     }
 
     @Override

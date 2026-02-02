@@ -44,7 +44,7 @@ public class HistoryCommand extends BasePlayerCommand {
     protected void onSuccessfulPlayer(SlashCommandInteractionEvent e, Player player) {
         String title = "Name History for " + player.getUsername();
         String nameMCUrl = player.getNameMCUrl().toString();
-        String avatarUrl = player.createRender(RenderType.AVATAR, true).render().toString();
+        String avatarUrl = player.createRender(RenderType.AVATAR, true, DEFAULT_AVATAR_WIDTH).render().toString();
         Color color = player.isRainbow() ? ColorUtils.randomColor() : Bot.color;
         EmbedBuilder eb = MessageUtils.addFooter(new EmbedBuilder())
                 .setAuthor(title, nameMCUrl, avatarUrl)

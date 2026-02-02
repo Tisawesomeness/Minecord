@@ -57,7 +57,7 @@ public class EvalCommand extends LegacyCommand {
     public Result run(String[] args, MessageReceivedEvent e) {
 
         if (!Config.getEvil()) {
-            return new Result(Outcome.SUCCESS, "Eval is evil.");
+            return new Result(Outcome.WARNING, "Eval is evil.");
         }
 
         // Parse args

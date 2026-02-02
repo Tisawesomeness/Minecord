@@ -20,7 +20,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 /**
- * A command that extends this class can parse a player from {@code &cmd <username|uuid>} and create a Crafatar render.
+ * A command that extends this class can parse a player from {@code &cmd <username|uuid>} and create a Minotar render.
  * Invalid inputs and API errors are handled automatically.
  */
 public abstract class BaseRenderCommand extends AbstractPlayerCommand {

@@ -9,42 +9,35 @@ import java.net.URL;
 import java.util.UUID;
 
 /**
- * Represents a Crafatar player render.
+ * Represents a Minotar player render.
  */
 @Value
 public class Render {
     @NonNull UUID player;
     RenderType type;
     boolean overlay;
-    int scale;
-    int providedScale;
+    int width;
 
     /**
      * Creates a render.
      * @param player The UUID of the player to render
      * @param type The type of render
      * @param overlay Whether to show the second skin layer, or overlay
+     * @param width The width (and height) of the render in pixels
+     * @throws IllegalArgumentException If the width is zero or negative,
+     * or if overlay is true and the render type does not support overlay
      */
-    public Render(@NonNull UUID player, RenderType type, boolean overlay) {
-        this(player, type, overlay, type.getDefaultScale());
-    }
-    /**
-     * Creates a render.
-     * @param player The UUID of the player to render
-     * @param type The type of render
-     * @param overlay Whether to show the second skin layer, or overlay
-     * @param scale The scale of the render, capped at {@link RenderType#getMaxScale()}
-     * @throws IllegalArgumentException If the scale is zero or negative
-     */
-    public Render(@NonNull UUID player, RenderType type, boolean overlay, int scale) {
-        if (scale < 1) {
-            throw new IllegalArgumentException("The render scale must be positive but was " + scale);
+    public Render(@NonNull UUID player, RenderType type, boolean overlay, int width) {
+        if (width < 1) {
+            throw new IllegalArgumentException("The render scale must be positive but was " + width);
+        }
+        if (overlay && !type.supportsOverlay()) {
+            throw new IllegalArgumentException("Render type " + type + " does not support overlay");
         }
         this.player = player;
         this.type = type;
         this.overlay = overlay;
-        this.scale = Math.min(scale, type.getMaxScale());
-        providedScale = scale;
+        this.width = width;
     }
 
     /**
@@ -52,9 +45,8 @@ public class Render {
      * @return The render's URL
      */
     public @NonNull URL render() {
-        String query = type.isRender() ? "scale" : "size";
-        String overlayStr = overlay ? "&overlay" : "";
-        return UrlUtils.createUrl(String.format("%s%s/%s?%s=%d%s",
-                Config.getCrafatarHost(), type.getBasePath(), player, query, scale, overlayStr));
+        String path = overlay ? type.getOverlayPath() : type.getBasePath();
+        return UrlUtils.createUrl(String.format("%s%s/%s/%s.png",
+                Config.getMinotarHost(), path, player, width));
     }
 }

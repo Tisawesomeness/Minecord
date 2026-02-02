@@ -40,7 +40,7 @@ public class SkinCommand extends BasePlayerCommand {
     protected void onSuccessfulPlayer(SlashCommandInteractionEvent e, Player player) {
         String title = "Skin for " + player.getUsername();
         String skinHistoryUrl = player.getMCSkinHistoryUrl().toString();
-        String avatarUrl = player.createRender(RenderType.AVATAR, true).render().toString();
+        String avatarUrl = player.createRender(RenderType.AVATAR, true, DEFAULT_AVATAR_WIDTH).render().toString();
         String skinUrl = player.getSkinUrl().toString();
         String description = constructDescription(player);
 
