@@ -13,7 +13,8 @@ import javax.annotation.Nullable;
 public enum RenderType {
     AVATAR("avatar", "Avatar", "avatar", "helm"),
     HEAD("head", "Head", "cube", null),
-    BODY("body", "Body", "body", "armor/body");
+    BODY("body", "Body", "body", "armor/body"),
+    BUST("bust", "Bust", "bust", "armor/bust");
 
     /**
      * The name of the render type
