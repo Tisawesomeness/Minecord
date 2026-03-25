@@ -52,8 +52,12 @@ public class InfoCommand extends SlashCommand {
         // Build message
         EmbedBuilder eb = new EmbedBuilder();
 
+        if (!Config.isSelfHosted()) {
+            eb.setDescription("**Play Hytale?** " + MarkdownUtil.maskedLink("Also try Gaia!", "https://gaia.tis.codes/"));
+        }
+
         eb.setColor(Bot.color);
-        eb.addField("Author", Bot.author, true);
+        eb.addField("Author", MarkdownUtil.maskedLink(Bot.author, Bot.authorWebsite), true);
         if (Config.isSelfHosted()) {
             eb.addField("Self-Hoster", Config.getAuthor(), true);
         }
