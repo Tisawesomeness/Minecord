@@ -166,7 +166,6 @@
   },
   "anvil": {
     "result": {
-      "count": 1,
       "id": "minecraft:anvil"
     },
     "pattern": [
@@ -231,7 +230,6 @@
   },
   "beacon": {
     "result": {
-      "count": 1,
       "id": "minecraft:beacon"
     },
     "pattern": [
@@ -289,7 +287,6 @@
   },
   "black_banner": {
     "result": {
-      "count": 1,
       "id": "minecraft:black_banner"
     },
     "pattern": [
@@ -342,7 +339,6 @@
   },
   "blue_banner": {
     "result": {
-      "count": 1,
       "id": "minecraft:blue_banner"
     },
     "pattern": [
@@ -395,7 +391,6 @@
   },
   "book": {
     "result": {
-      "count": 1,
       "id": "minecraft:book"
     },
     "ingredients": [
@@ -406,9 +401,24 @@
     ],
     "type": "minecraft:crafting_shapeless"
   },
+  "book_cloning": {
+    "result": {
+      "id": "minecraft:written_book"
+    },
+    "material": "#minecraft:book_cloning_target",
+    "source": "minecraft:written_book",
+    "type": "minecraft:crafting_special_bookcloning",
+    "lang": {
+      "en_US": {
+        "notes": "Copies the written book onto all book and quills"
+      }
+    },
+    "properties": {
+      "animated": true
+    }
+  },
   "bookshelf": {
     "result": {
-      "count": 1,
       "id": "minecraft:bookshelf"
     },
     "pattern": [
@@ -427,7 +437,6 @@
   },
   "bow": {
     "result": {
-      "count": 1,
       "id": "minecraft:bow"
     },
     "pattern": [
@@ -460,7 +469,6 @@
   },
   "bread": {
     "result": {
-      "count": 1,
       "id": "minecraft:bread"
     },
     "pattern": [
@@ -523,7 +531,6 @@
   },
   "bricks": {
     "result": {
-      "count": 1,
       "id": "minecraft:bricks"
     },
     "pattern": [
@@ -537,7 +544,6 @@
   },
   "brown_banner": {
     "result": {
-      "count": 1,
       "id": "minecraft:brown_banner"
     },
     "pattern": [
@@ -580,7 +586,6 @@
   },
   "bucket": {
     "result": {
-      "count": 1,
       "id": "minecraft:bucket"
     },
     "pattern": [
@@ -594,7 +599,6 @@
   },
   "cake": {
     "result": {
-      "count": 1,
       "id": "minecraft:cake"
     },
     "pattern": [
@@ -620,7 +624,6 @@
   },
   "carrot_on_a_stick": {
     "result": {
-      "count": 1,
       "id": "minecraft:carrot_on_a_stick"
     },
     "pattern": [
@@ -635,7 +638,6 @@
   },
   "cauldron": {
     "result": {
-      "count": 1,
       "id": "minecraft:cauldron"
     },
     "pattern": [
@@ -661,7 +663,6 @@
   },
   "chest": {
     "result": {
-      "count": 1,
       "id": "minecraft:chest"
     },
     "pattern": [
@@ -679,7 +680,6 @@
   },
   "chest_minecart": {
     "result": {
-      "count": 1,
       "id": "minecraft:chest_minecart"
     },
     "ingredients": [
@@ -695,7 +695,6 @@
   },
   "chiseled_quartz_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_quartz_block"
     },
     "pattern": [
@@ -709,7 +708,6 @@
   },
   "chiseled_red_sandstone": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_red_sandstone"
     },
     "pattern": [
@@ -723,7 +721,6 @@
   },
   "chiseled_sandstone": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_sandstone"
     },
     "pattern": [
@@ -737,7 +734,6 @@
   },
   "clay": {
     "result": {
-      "count": 1,
       "id": "minecraft:clay"
     },
     "pattern": [
@@ -751,7 +747,6 @@
   },
   "clock": {
     "result": {
-      "count": 1,
       "id": "minecraft:clock"
     },
     "pattern": [
@@ -777,7 +772,6 @@
   },
   "coal_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:coal_block"
     },
     "pattern": [
@@ -829,7 +823,6 @@
   },
   "comparator": {
     "result": {
-      "count": 1,
       "id": "minecraft:comparator"
     },
     "pattern": [
@@ -846,7 +839,6 @@
   },
   "compass": {
     "result": {
-      "count": 1,
       "id": "minecraft:compass"
     },
     "pattern": [
@@ -1028,7 +1020,6 @@
   },
   "crafting_table": {
     "result": {
-      "count": 1,
       "id": "minecraft:crafting_table"
     },
     "pattern": [
@@ -1045,7 +1036,6 @@
   },
   "cyan_banner": {
     "result": {
-      "count": 1,
       "id": "minecraft:cyan_banner"
     },
     "pattern": [
@@ -1177,7 +1167,6 @@
   },
   "daylight_detector": {
     "result": {
-      "count": 1,
       "id": "minecraft:daylight_detector"
     },
     "pattern": [
@@ -1224,7 +1213,6 @@
   },
   "diamond_axe": {
     "result": {
-      "count": 1,
       "id": "minecraft:diamond_axe"
     },
     "pattern": [
@@ -1240,7 +1228,6 @@
   },
   "diamond_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:diamond_block"
     },
     "pattern": [
@@ -1255,7 +1242,6 @@
   },
   "diamond_boots": {
     "result": {
-      "count": 1,
       "id": "minecraft:diamond_boots"
     },
     "pattern": [
@@ -1269,7 +1255,6 @@
   },
   "diamond_chestplate": {
     "result": {
-      "count": 1,
       "id": "minecraft:diamond_chestplate"
     },
     "pattern": [
@@ -1300,7 +1285,6 @@
   },
   "diamond_helmet": {
     "result": {
-      "count": 1,
       "id": "minecraft:diamond_helmet"
     },
     "pattern": [
@@ -1314,7 +1298,6 @@
   },
   "diamond_hoe": {
     "result": {
-      "count": 1,
       "id": "minecraft:diamond_hoe"
     },
     "pattern": [
@@ -1330,7 +1313,6 @@
   },
   "diamond_leggings": {
     "result": {
-      "count": 1,
       "id": "minecraft:diamond_leggings"
     },
     "pattern": [
@@ -1345,7 +1327,6 @@
   },
   "diamond_pickaxe": {
     "result": {
-      "count": 1,
       "id": "minecraft:diamond_pickaxe"
     },
     "pattern": [
@@ -1361,7 +1342,6 @@
   },
   "diamond_shovel": {
     "result": {
-      "count": 1,
       "id": "minecraft:diamond_shovel"
     },
     "pattern": [
@@ -1377,7 +1357,6 @@
   },
   "diamond_sword": {
     "result": {
-      "count": 1,
       "id": "minecraft:diamond_sword"
     },
     "pattern": [
@@ -1393,7 +1372,6 @@
   },
   "dispenser": {
     "result": {
-      "count": 1,
       "id": "minecraft:dispenser"
     },
     "pattern": [
@@ -1410,7 +1388,6 @@
   },
   "dropper": {
     "result": {
-      "count": 1,
       "id": "minecraft:dropper"
     },
     "pattern": [
@@ -1436,7 +1413,6 @@
   },
   "emerald_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:emerald_block"
     },
     "pattern": [
@@ -1467,7 +1443,6 @@
   },
   "enchanting_table": {
     "result": {
-      "count": 1,
       "id": "minecraft:enchanting_table"
     },
     "pattern": [
@@ -1484,7 +1459,6 @@
   },
   "ender_chest": {
     "result": {
-      "count": 1,
       "id": "minecraft:ender_chest"
     },
     "pattern": [
@@ -1500,7 +1474,6 @@
   },
   "ender_eye": {
     "result": {
-      "count": 1,
       "id": "minecraft:ender_eye"
     },
     "ingredients": [
@@ -1690,7 +1663,6 @@
   },
   "fermented_spider_eye": {
     "result": {
-      "count": 1,
       "id": "minecraft:fermented_spider_eye"
     },
     "ingredients": [
@@ -1736,13 +1708,12 @@
   },
   "firework_rocket": {
     "result": {
+      "count": 3,
       "id": "minecraft:firework_rocket"
     },
-    "ingredients": [
-      "minecraft:firework_star",
-      "minecraft:gunpowder",
-      "minecraft:paper"
-    ],
+    "star": "minecraft:firework_star",
+    "shell": "minecraft:paper",
+    "fuel": "minecraft:gunpowder",
     "type": "minecraft:crafting_special_firework_rocket",
     "lang": {
       "en_US": {
@@ -1755,7 +1726,6 @@
   },
   "fishing_rod": {
     "result": {
-      "count": 1,
       "id": "minecraft:fishing_rod"
     },
     "pattern": [
@@ -1771,7 +1741,6 @@
   },
   "flint_and_steel": {
     "result": {
-      "count": 1,
       "id": "minecraft:flint_and_steel"
     },
     "ingredients": [
@@ -1782,7 +1751,6 @@
   },
   "flower_pot": {
     "result": {
-      "count": 1,
       "id": "minecraft:flower_pot"
     },
     "pattern": [
@@ -1796,7 +1764,6 @@
   },
   "furnace": {
     "result": {
-      "count": 1,
       "id": "minecraft:furnace"
     },
     "pattern": [
@@ -1814,7 +1781,6 @@
   },
   "furnace_minecart": {
     "result": {
-      "count": 1,
       "id": "minecraft:furnace_minecart"
     },
     "ingredients": [
@@ -1869,7 +1835,6 @@
   },
   "glistering_melon_slice": {
     "result": {
-      "count": 1,
       "id": "minecraft:glistering_melon_slice"
     },
     "pattern": [
@@ -1885,7 +1850,6 @@
   },
   "glowstone": {
     "result": {
-      "count": 1,
       "id": "minecraft:glowstone"
     },
     "pattern": [
@@ -1899,7 +1863,6 @@
   },
   "gold_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:gold_block"
     },
     "pattern": [
@@ -1932,7 +1895,6 @@
   },
   "gold_ingot_from_nuggets": {
     "result": {
-      "count": 1,
       "id": "minecraft:gold_ingot"
     },
     "pattern": [
@@ -1986,7 +1948,6 @@
   },
   "golden_apple": {
     "result": {
-      "count": 1,
       "id": "minecraft:golden_apple"
     },
     "pattern": [
@@ -2002,7 +1963,6 @@
   },
   "golden_axe": {
     "result": {
-      "count": 1,
       "id": "minecraft:golden_axe"
     },
     "pattern": [
@@ -2018,7 +1978,6 @@
   },
   "golden_boots": {
     "result": {
-      "count": 1,
       "id": "minecraft:golden_boots"
     },
     "pattern": [
@@ -2032,7 +1991,6 @@
   },
   "golden_carrot": {
     "result": {
-      "count": 1,
       "id": "minecraft:golden_carrot"
     },
     "pattern": [
@@ -2048,7 +2006,6 @@
   },
   "golden_chestplate": {
     "result": {
-      "count": 1,
       "id": "minecraft:golden_chestplate"
     },
     "pattern": [
@@ -2063,7 +2020,6 @@
   },
   "golden_helmet": {
     "result": {
-      "count": 1,
       "id": "minecraft:golden_helmet"
     },
     "pattern": [
@@ -2077,7 +2033,6 @@
   },
   "golden_hoe": {
     "result": {
-      "count": 1,
       "id": "minecraft:golden_hoe"
     },
     "pattern": [
@@ -2093,7 +2048,6 @@
   },
   "golden_leggings": {
     "result": {
-      "count": 1,
       "id": "minecraft:golden_leggings"
     },
     "pattern": [
@@ -2108,7 +2062,6 @@
   },
   "golden_pickaxe": {
     "result": {
-      "count": 1,
       "id": "minecraft:golden_pickaxe"
     },
     "pattern": [
@@ -2124,7 +2077,6 @@
   },
   "golden_shovel": {
     "result": {
-      "count": 1,
       "id": "minecraft:golden_shovel"
     },
     "pattern": [
@@ -2140,7 +2092,6 @@
   },
   "golden_sword": {
     "result": {
-      "count": 1,
       "id": "minecraft:golden_sword"
     },
     "pattern": [
@@ -2156,7 +2107,6 @@
   },
   "gray_banner": {
     "result": {
-      "count": 1,
       "id": "minecraft:gray_banner"
     },
     "pattern": [
@@ -2247,7 +2197,6 @@
   },
   "green_banner": {
     "result": {
-      "count": 1,
       "id": "minecraft:green_banner"
     },
     "pattern": [
@@ -2365,7 +2314,6 @@
   },
   "hay_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:hay_block"
     },
     "ingredients": [
@@ -2399,7 +2347,6 @@
   },
   "heavy_weighted_pressure_plate": {
     "result": {
-      "count": 1,
       "id": "minecraft:heavy_weighted_pressure_plate"
     },
     "pattern": [
@@ -2412,7 +2359,6 @@
   },
   "hopper": {
     "result": {
-      "count": 1,
       "id": "minecraft:hopper"
     },
     "pattern": [
@@ -2428,7 +2374,6 @@
   },
   "hopper_minecart": {
     "result": {
-      "count": 1,
       "id": "minecraft:hopper_minecart"
     },
     "ingredients": [
@@ -2460,7 +2405,6 @@
   },
   "iron_axe": {
     "result": {
-      "count": 1,
       "id": "minecraft:iron_axe"
     },
     "pattern": [
@@ -2490,7 +2434,6 @@
   },
   "iron_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:iron_block"
     },
     "pattern": [
@@ -2505,7 +2448,6 @@
   },
   "iron_boots": {
     "result": {
-      "count": 1,
       "id": "minecraft:iron_boots"
     },
     "pattern": [
@@ -2519,7 +2461,6 @@
   },
   "iron_chestplate": {
     "result": {
-      "count": 1,
       "id": "minecraft:iron_chestplate"
     },
     "pattern": [
@@ -2549,7 +2490,6 @@
   },
   "iron_helmet": {
     "result": {
-      "count": 1,
       "id": "minecraft:iron_helmet"
     },
     "pattern": [
@@ -2563,7 +2503,6 @@
   },
   "iron_hoe": {
     "result": {
-      "count": 1,
       "id": "minecraft:iron_hoe"
     },
     "pattern": [
@@ -2605,7 +2544,6 @@
   },
   "iron_leggings": {
     "result": {
-      "count": 1,
       "id": "minecraft:iron_leggings"
     },
     "pattern": [
@@ -2620,7 +2558,6 @@
   },
   "iron_pickaxe": {
     "result": {
-      "count": 1,
       "id": "minecraft:iron_pickaxe"
     },
     "pattern": [
@@ -2636,7 +2573,6 @@
   },
   "iron_shovel": {
     "result": {
-      "count": 1,
       "id": "minecraft:iron_shovel"
     },
     "pattern": [
@@ -2652,7 +2588,6 @@
   },
   "iron_sword": {
     "result": {
-      "count": 1,
       "id": "minecraft:iron_sword"
     },
     "pattern": [
@@ -2668,7 +2603,6 @@
   },
   "item_frame": {
     "result": {
-      "count": 1,
       "id": "minecraft:item_frame"
     },
     "pattern": [
@@ -2684,7 +2618,6 @@
   },
   "jack_o_lantern": {
     "result": {
-      "count": 1,
       "id": "minecraft:jack_o_lantern"
     },
     "pattern": [
@@ -2699,7 +2632,6 @@
   },
   "jukebox": {
     "result": {
-      "count": 1,
       "id": "minecraft:jukebox"
     },
     "pattern": [
@@ -2774,7 +2706,6 @@
   },
   "lapis_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:lapis_block"
     },
     "pattern": [
@@ -2815,7 +2746,6 @@
   },
   "leather_boots": {
     "result": {
-      "count": 1,
       "id": "minecraft:leather_boots"
     },
     "pattern": [
@@ -2829,7 +2759,6 @@
   },
   "leather_chestplate": {
     "result": {
-      "count": 1,
       "id": "minecraft:leather_chestplate"
     },
     "pattern": [
@@ -2844,7 +2773,6 @@
   },
   "leather_helmet": {
     "result": {
-      "count": 1,
       "id": "minecraft:leather_helmet"
     },
     "pattern": [
@@ -2858,7 +2786,6 @@
   },
   "leather_leggings": {
     "result": {
-      "count": 1,
       "id": "minecraft:leather_leggings"
     },
     "pattern": [
@@ -2873,7 +2800,6 @@
   },
   "lever": {
     "result": {
-      "count": 1,
       "id": "minecraft:lever"
     },
     "pattern": [
@@ -2888,7 +2814,6 @@
   },
   "light_blue_banner": {
     "result": {
-      "count": 1,
       "id": "minecraft:light_blue_banner"
     },
     "pattern": [
@@ -2917,7 +2842,6 @@
   },
   "light_blue_dye_from_blue_orchid": {
     "result": {
-      "count": 1,
       "id": "minecraft:light_blue_dye"
     },
     "ingredients": [
@@ -2989,7 +2913,6 @@
   },
   "light_gray_banner": {
     "result": {
-      "count": 1,
       "id": "minecraft:light_gray_banner"
     },
     "pattern": [
@@ -3018,7 +2941,6 @@
   },
   "light_gray_dye_from_azure_bluet": {
     "result": {
-      "count": 1,
       "id": "minecraft:light_gray_dye"
     },
     "ingredients": [
@@ -3028,7 +2950,6 @@
   },
   "light_gray_dye_from_oxeye_daisy": {
     "result": {
-      "count": 1,
       "id": "minecraft:light_gray_dye"
     },
     "ingredients": [
@@ -3038,7 +2959,6 @@
   },
   "light_gray_dye_from_white_tulip": {
     "result": {
-      "count": 1,
       "id": "minecraft:light_gray_dye"
     },
     "ingredients": [
@@ -3110,7 +3030,6 @@
   },
   "light_weighted_pressure_plate": {
     "result": {
-      "count": 1,
       "id": "minecraft:light_weighted_pressure_plate"
     },
     "pattern": [
@@ -3123,7 +3042,6 @@
   },
   "lime_banner": {
     "result": {
-      "count": 1,
       "id": "minecraft:lime_banner"
     },
     "pattern": [
@@ -3222,7 +3140,6 @@
   },
   "magenta_banner": {
     "result": {
-      "count": 1,
       "id": "minecraft:magenta_banner"
     },
     "pattern": [
@@ -3251,7 +3168,6 @@
   },
   "magenta_dye_from_allium": {
     "result": {
-      "count": 1,
       "id": "minecraft:magenta_dye"
     },
     "ingredients": [
@@ -3344,7 +3260,6 @@
   },
   "magma_cream": {
     "result": {
-      "count": 1,
       "id": "minecraft:magma_cream"
     },
     "ingredients": [
@@ -3355,7 +3270,6 @@
   },
   "map": {
     "result": {
-      "count": 1,
       "id": "minecraft:map"
     },
     "pattern": [
@@ -3369,9 +3283,42 @@
       "X": "minecraft:compass"
     }
   },
+  "map_cloning": {
+    "result": {
+      "id": "minecraft:filled_map"
+    },
+    "input": "minecraft:filled_map",
+    "material": "minecraft:map",
+    "type": "minecraft:crafting_transmute",
+    "lang": {
+      "en_US": {
+        "notes": "Creates a copy of the map"
+      }
+    },
+    "add_material_count_to_result": true,
+    "material_count": {
+      "min": 1,
+      "max": 8
+    },
+    "properties": {
+      "animated": true
+    }
+  },
+  "map_extending": {
+    "result": {
+      "id": "minecraft:filled_map"
+    },
+    "material": "minecraft:paper",
+    "type": "minecraft:crafting_special_mapextending",
+    "lang": {
+      "en_US": {
+        "notes": "Zooms out the map by one level"
+      }
+    },
+    "map": "minecraft:filled_map"
+  },
   "melon": {
     "result": {
-      "count": 1,
       "id": "minecraft:melon"
     },
     "ingredients": [
@@ -3389,7 +3336,6 @@
   },
   "melon_seeds": {
     "result": {
-      "count": 1,
       "id": "minecraft:melon_seeds"
     },
     "ingredients": [
@@ -3399,7 +3345,6 @@
   },
   "minecart": {
     "result": {
-      "count": 1,
       "id": "minecraft:minecart"
     },
     "pattern": [
@@ -3433,7 +3378,6 @@
   },
   "mushroom_stew": {
     "result": {
-      "count": 1,
       "id": "minecraft:mushroom_stew"
     },
     "ingredients": [
@@ -3481,7 +3425,6 @@
   },
   "nether_bricks": {
     "result": {
-      "count": 1,
       "id": "minecraft:nether_bricks"
     },
     "pattern": [
@@ -3511,7 +3454,6 @@
   },
   "note_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:note_block"
     },
     "pattern": [
@@ -3530,7 +3472,6 @@
   },
   "oak_boat": {
     "result": {
-      "count": 1,
       "id": "minecraft:oak_boat"
     },
     "pattern": [
@@ -3544,7 +3485,6 @@
   },
   "oak_button": {
     "result": {
-      "count": 1,
       "id": "minecraft:oak_button"
     },
     "ingredients": [
@@ -3589,7 +3529,6 @@
   },
   "oak_fence_gate": {
     "result": {
-      "count": 1,
       "id": "minecraft:oak_fence_gate"
     },
     "pattern": [
@@ -3617,7 +3556,6 @@
   },
   "oak_pressure_plate": {
     "result": {
-      "count": 1,
       "id": "minecraft:oak_pressure_plate"
     },
     "pattern": [
@@ -3688,7 +3626,6 @@
   },
   "orange_banner": {
     "result": {
-      "count": 1,
       "id": "minecraft:orange_banner"
     },
     "pattern": [
@@ -3717,7 +3654,6 @@
   },
   "orange_dye_from_orange_tulip": {
     "result": {
-      "count": 1,
       "id": "minecraft:orange_dye"
     },
     "ingredients": [
@@ -3800,7 +3736,6 @@
   },
   "painting": {
     "result": {
-      "count": 1,
       "id": "minecraft:painting"
     },
     "pattern": [
@@ -3832,7 +3767,6 @@
   },
   "pink_banner": {
     "result": {
-      "count": 1,
       "id": "minecraft:pink_banner"
     },
     "pattern": [
@@ -3871,7 +3805,6 @@
   },
   "pink_dye_from_pink_tulip": {
     "result": {
-      "count": 1,
       "id": "minecraft:pink_dye"
     },
     "ingredients": [
@@ -3943,7 +3876,6 @@
   },
   "piston": {
     "result": {
-      "count": 1,
       "id": "minecraft:piston"
     },
     "pattern": [
@@ -3997,7 +3929,6 @@
   },
   "purple_banner": {
     "result": {
-      "count": 1,
       "id": "minecraft:purple_banner"
     },
     "pattern": [
@@ -4096,7 +4027,6 @@
   },
   "quartz_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:quartz_block"
     },
     "pattern": [
@@ -4198,7 +4128,6 @@
   },
   "red_banner": {
     "result": {
-      "count": 1,
       "id": "minecraft:red_banner"
     },
     "pattern": [
@@ -4227,7 +4156,6 @@
   },
   "red_dye_from_poppy": {
     "result": {
-      "count": 1,
       "id": "minecraft:red_dye"
     },
     "ingredients": [
@@ -4247,7 +4175,6 @@
   },
   "red_dye_from_tulip": {
     "result": {
-      "count": 1,
       "id": "minecraft:red_dye"
     },
     "ingredients": [
@@ -4370,7 +4297,6 @@
   },
   "redstone_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:redstone_block"
     },
     "pattern": [
@@ -4401,7 +4327,6 @@
   },
   "redstone_lamp": {
     "result": {
-      "count": 1,
       "id": "minecraft:redstone_lamp"
     },
     "pattern": [
@@ -4417,7 +4342,6 @@
   },
   "redstone_torch": {
     "result": {
-      "count": 1,
       "id": "minecraft:redstone_torch"
     },
     "pattern": [
@@ -4448,7 +4372,6 @@
   },
   "repeater": {
     "result": {
-      "count": 1,
       "id": "minecraft:repeater"
     },
     "pattern": [
@@ -4464,7 +4387,6 @@
   },
   "sandstone": {
     "result": {
-      "count": 1,
       "id": "minecraft:sandstone"
     },
     "pattern": [
@@ -4519,7 +4441,6 @@
   },
   "shears": {
     "result": {
-      "count": 1,
       "id": "minecraft:shears"
     },
     "pattern": [
@@ -4586,7 +4507,6 @@
   },
   "snow_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:snow_block"
     },
     "pattern": [
@@ -4922,7 +4842,6 @@
   },
   "sticky_piston": {
     "result": {
-      "count": 1,
       "id": "minecraft:sticky_piston"
     },
     "pattern": [
@@ -4945,7 +4864,6 @@
   },
   "stone_axe": {
     "result": {
-      "count": 1,
       "id": "minecraft:stone_axe"
     },
     "pattern": [
@@ -5006,7 +4924,6 @@
   },
   "stone_button": {
     "result": {
-      "count": 1,
       "id": "minecraft:stone_button"
     },
     "ingredients": [
@@ -5016,7 +4933,6 @@
   },
   "stone_hoe": {
     "result": {
-      "count": 1,
       "id": "minecraft:stone_hoe"
     },
     "pattern": [
@@ -5035,7 +4951,6 @@
   },
   "stone_pickaxe": {
     "result": {
-      "count": 1,
       "id": "minecraft:stone_pickaxe"
     },
     "pattern": [
@@ -5054,7 +4969,6 @@
   },
   "stone_pressure_plate": {
     "result": {
-      "count": 1,
       "id": "minecraft:stone_pressure_plate"
     },
     "pattern": [
@@ -5067,7 +4981,6 @@
   },
   "stone_shovel": {
     "result": {
-      "count": 1,
       "id": "minecraft:stone_shovel"
     },
     "pattern": [
@@ -5086,7 +4999,6 @@
   },
   "stone_sword": {
     "result": {
-      "count": 1,
       "id": "minecraft:stone_sword"
     },
     "pattern": [
@@ -5121,7 +5033,6 @@
   },
   "sugar_from_sugar_cane": {
     "result": {
-      "count": 1,
       "id": "minecraft:sugar"
     },
     "ingredients": [
@@ -5174,20 +5085,12 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.thick"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.thick",
-      "A": "minecraft:arrow"
-    }
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.thick",
+    "type": "minecraft:crafting_imbue"
   },
   "tnt": {
     "result": {
-      "count": 1,
       "id": "minecraft:tnt"
     },
     "pattern": [
@@ -5209,7 +5112,6 @@
   },
   "tnt_minecart": {
     "result": {
-      "count": 1,
       "id": "minecraft:tnt_minecart"
     },
     "ingredients": [
@@ -5246,7 +5148,6 @@
   },
   "trapped_chest": {
     "result": {
-      "count": 1,
       "id": "minecraft:trapped_chest"
     },
     "ingredients": [
@@ -5355,7 +5256,6 @@
   },
   "white_wool_from_string": {
     "result": {
-      "count": 1,
       "id": "minecraft:white_wool"
     },
     "pattern": [
@@ -5369,7 +5269,6 @@
   },
   "wooden_axe": {
     "result": {
-      "count": 1,
       "id": "minecraft:wooden_axe"
     },
     "pattern": [
@@ -5388,7 +5287,6 @@
   },
   "wooden_hoe": {
     "result": {
-      "count": 1,
       "id": "minecraft:wooden_hoe"
     },
     "pattern": [
@@ -5407,7 +5305,6 @@
   },
   "wooden_pickaxe": {
     "result": {
-      "count": 1,
       "id": "minecraft:wooden_pickaxe"
     },
     "pattern": [
@@ -5426,7 +5323,6 @@
   },
   "wooden_shovel": {
     "result": {
-      "count": 1,
       "id": "minecraft:wooden_shovel"
     },
     "pattern": [
@@ -5445,7 +5341,6 @@
   },
   "wooden_sword": {
     "result": {
-      "count": 1,
       "id": "minecraft:wooden_sword"
     },
     "pattern": [
@@ -5464,7 +5359,6 @@
   },
   "writable_book": {
     "result": {
-      "count": 1,
       "id": "minecraft:writable_book"
     },
     "ingredients": [
@@ -5476,7 +5370,6 @@
   },
   "yellow_banner": {
     "result": {
-      "count": 1,
       "id": "minecraft:yellow_banner"
     },
     "pattern": [
@@ -5505,7 +5398,6 @@
   },
   "yellow_dye_from_dandelion": {
     "result": {
-      "count": 1,
       "id": "minecraft:yellow_dye"
     },
     "ingredients": [
@@ -5623,7 +5515,6 @@
   },
   "acacia_fence_gate": {
     "result": {
-      "count": 1,
       "id": "minecraft:acacia_fence_gate"
     },
     "pattern": [
@@ -5677,7 +5568,6 @@
   },
   "armor_stand": {
     "result": {
-      "count": 1,
       "id": "minecraft:armor_stand"
     },
     "pattern": [
@@ -5732,7 +5622,6 @@
   },
   "birch_fence_gate": {
     "result": {
-      "count": 1,
       "id": "minecraft:birch_fence_gate"
     },
     "pattern": [
@@ -5748,9 +5637,53 @@
       "version": "1.8"
     }
   },
+  "black_banner_duplicate": {
+    "result": {
+      "id": "minecraft:black_banner"
+    },
+    "banner": "minecraft:black_banner",
+    "type": "minecraft:crafting_special_bannerduplicate",
+    "lang": {
+      "en_US": {
+        "notes": "Creates a copy of the banner"
+      }
+    },
+    "properties": {
+      "version": "1.8"
+    }
+  },
+  "blue_banner_duplicate": {
+    "result": {
+      "id": "minecraft:blue_banner"
+    },
+    "banner": "minecraft:blue_banner",
+    "type": "minecraft:crafting_special_bannerduplicate",
+    "lang": {
+      "en_US": {
+        "notes": "Creates a copy of the banner"
+      }
+    },
+    "properties": {
+      "version": "1.8"
+    }
+  },
+  "brown_banner_duplicate": {
+    "result": {
+      "id": "minecraft:brown_banner"
+    },
+    "banner": "minecraft:brown_banner",
+    "type": "minecraft:crafting_special_bannerduplicate",
+    "lang": {
+      "en_US": {
+        "notes": "Creates a copy of the banner"
+      }
+    },
+    "properties": {
+      "version": "1.8"
+    }
+  },
   "chiseled_stone_bricks": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_stone_bricks"
     },
     "pattern": [
@@ -5816,6 +5749,21 @@
       "version": "1.8"
     }
   },
+  "cyan_banner_duplicate": {
+    "result": {
+      "id": "minecraft:cyan_banner"
+    },
+    "banner": "minecraft:cyan_banner",
+    "type": "minecraft:crafting_special_bannerduplicate",
+    "lang": {
+      "en_US": {
+        "notes": "Creates a copy of the banner"
+      }
+    },
+    "properties": {
+      "version": "1.8"
+    }
+  },
   "dark_oak_door": {
     "result": {
       "count": 3,
@@ -5854,7 +5802,6 @@
   },
   "dark_oak_fence_gate": {
     "result": {
-      "count": 1,
       "id": "minecraft:dark_oak_fence_gate"
     },
     "pattern": [
@@ -5912,7 +5859,6 @@
   },
   "granite": {
     "result": {
-      "count": 1,
       "id": "minecraft:granite"
     },
     "ingredients": [
@@ -5924,9 +5870,38 @@
       "version": "1.8"
     }
   },
+  "gray_banner_duplicate": {
+    "result": {
+      "id": "minecraft:gray_banner"
+    },
+    "banner": "minecraft:gray_banner",
+    "type": "minecraft:crafting_special_bannerduplicate",
+    "lang": {
+      "en_US": {
+        "notes": "Creates a copy of the banner"
+      }
+    },
+    "properties": {
+      "version": "1.8"
+    }
+  },
+  "green_banner_duplicate": {
+    "result": {
+      "id": "minecraft:green_banner"
+    },
+    "banner": "minecraft:green_banner",
+    "type": "minecraft:crafting_special_bannerduplicate",
+    "lang": {
+      "en_US": {
+        "notes": "Creates a copy of the banner"
+      }
+    },
+    "properties": {
+      "version": "1.8"
+    }
+  },
   "iron_trapdoor": {
     "result": {
-      "count": 1,
       "id": "minecraft:iron_trapdoor"
     },
     "pattern": [
@@ -5979,7 +5954,6 @@
   },
   "jungle_fence_gate": {
     "result": {
-      "count": 1,
       "id": "minecraft:jungle_fence_gate"
     },
     "pattern": [
@@ -6019,7 +5993,6 @@
   },
   "leather": {
     "result": {
-      "count": 1,
       "id": "minecraft:leather"
     },
     "pattern": [
@@ -6034,9 +6007,68 @@
       "version": "1.8"
     }
   },
+  "light_blue_banner_duplicate": {
+    "result": {
+      "id": "minecraft:light_blue_banner"
+    },
+    "banner": "minecraft:light_blue_banner",
+    "type": "minecraft:crafting_special_bannerduplicate",
+    "lang": {
+      "en_US": {
+        "notes": "Creates a copy of the banner"
+      }
+    },
+    "properties": {
+      "version": "1.8"
+    }
+  },
+  "light_gray_banner_duplicate": {
+    "result": {
+      "id": "minecraft:light_gray_banner"
+    },
+    "banner": "minecraft:light_gray_banner",
+    "type": "minecraft:crafting_special_bannerduplicate",
+    "lang": {
+      "en_US": {
+        "notes": "Creates a copy of the banner"
+      }
+    },
+    "properties": {
+      "version": "1.8"
+    }
+  },
+  "lime_banner_duplicate": {
+    "result": {
+      "id": "minecraft:lime_banner"
+    },
+    "banner": "minecraft:lime_banner",
+    "type": "minecraft:crafting_special_bannerduplicate",
+    "lang": {
+      "en_US": {
+        "notes": "Creates a copy of the banner"
+      }
+    },
+    "properties": {
+      "version": "1.8"
+    }
+  },
+  "magenta_banner_duplicate": {
+    "result": {
+      "id": "minecraft:magenta_banner"
+    },
+    "banner": "minecraft:magenta_banner",
+    "type": "minecraft:crafting_special_bannerduplicate",
+    "lang": {
+      "en_US": {
+        "notes": "Creates a copy of the banner"
+      }
+    },
+    "properties": {
+      "version": "1.8"
+    }
+  },
   "mossy_cobblestone_from_vine": {
     "result": {
-      "count": 1,
       "id": "minecraft:mossy_cobblestone"
     },
     "ingredients": [
@@ -6050,7 +6082,6 @@
   },
   "mossy_stone_bricks_from_vine": {
     "result": {
-      "count": 1,
       "id": "minecraft:mossy_stone_bricks"
     },
     "ingredients": [
@@ -6058,6 +6089,36 @@
       "minecraft:vine"
     ],
     "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "1.8"
+    }
+  },
+  "orange_banner_duplicate": {
+    "result": {
+      "id": "minecraft:orange_banner"
+    },
+    "banner": "minecraft:orange_banner",
+    "type": "minecraft:crafting_special_bannerduplicate",
+    "lang": {
+      "en_US": {
+        "notes": "Creates a copy of the banner"
+      }
+    },
+    "properties": {
+      "version": "1.8"
+    }
+  },
+  "pink_banner_duplicate": {
+    "result": {
+      "id": "minecraft:pink_banner"
+    },
+    "banner": "minecraft:pink_banner",
+    "type": "minecraft:crafting_special_bannerduplicate",
+    "lang": {
+      "en_US": {
+        "notes": "Creates a copy of the banner"
+      }
+    },
     "properties": {
       "version": "1.8"
     }
@@ -6115,7 +6176,6 @@
   },
   "prismarine": {
     "result": {
-      "count": 1,
       "id": "minecraft:prismarine"
     },
     "pattern": [
@@ -6132,7 +6192,6 @@
   },
   "prismarine_bricks": {
     "result": {
-      "count": 1,
       "id": "minecraft:prismarine_bricks"
     },
     "ingredients": [
@@ -6151,9 +6210,23 @@
       "version": "1.8"
     }
   },
+  "purple_banner_duplicate": {
+    "result": {
+      "id": "minecraft:purple_banner"
+    },
+    "banner": "minecraft:purple_banner",
+    "type": "minecraft:crafting_special_bannerduplicate",
+    "lang": {
+      "en_US": {
+        "notes": "Creates a copy of the banner"
+      }
+    },
+    "properties": {
+      "version": "1.8"
+    }
+  },
   "rabbit_stew_from_brown_mushroom": {
     "result": {
-      "count": 1,
       "id": "minecraft:rabbit_stew"
     },
     "ingredients": [
@@ -6175,7 +6248,6 @@
   },
   "rabbit_stew_from_red_mushroom": {
     "result": {
-      "count": 1,
       "id": "minecraft:rabbit_stew"
     },
     "ingredients": [
@@ -6195,9 +6267,23 @@
       "version": "1.8"
     }
   },
+  "red_banner_duplicate": {
+    "result": {
+      "id": "minecraft:red_banner"
+    },
+    "banner": "minecraft:red_banner",
+    "type": "minecraft:crafting_special_bannerduplicate",
+    "lang": {
+      "en_US": {
+        "notes": "Creates a copy of the banner"
+      }
+    },
+    "properties": {
+      "version": "1.8"
+    }
+  },
   "red_sandstone": {
     "result": {
-      "count": 1,
       "id": "minecraft:red_sandstone"
     },
     "pattern": [
@@ -6214,7 +6300,6 @@
   },
   "sea_lantern": {
     "result": {
-      "count": 1,
       "id": "minecraft:sea_lantern"
     },
     "pattern": [
@@ -6246,7 +6331,6 @@
   },
   "slime_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:slime_block"
     },
     "pattern": [
@@ -6360,7 +6444,6 @@
   },
   "spruce_fence_gate": {
     "result": {
-      "count": 1,
       "id": "minecraft:spruce_fence_gate"
     },
     "pattern": [
@@ -6378,7 +6461,6 @@
   },
   "white_banner": {
     "result": {
-      "count": 1,
       "id": "minecraft:white_banner"
     },
     "pattern": [
@@ -6395,9 +6477,38 @@
       "version": "1.8"
     }
   },
+  "white_banner_duplicate": {
+    "result": {
+      "id": "minecraft:white_banner"
+    },
+    "banner": "minecraft:white_banner",
+    "type": "minecraft:crafting_special_bannerduplicate",
+    "lang": {
+      "en_US": {
+        "notes": "Creates a copy of the banner"
+      }
+    },
+    "properties": {
+      "version": "1.8"
+    }
+  },
+  "yellow_banner_duplicate": {
+    "result": {
+      "id": "minecraft:yellow_banner"
+    },
+    "banner": "minecraft:yellow_banner",
+    "type": "minecraft:crafting_special_bannerduplicate",
+    "lang": {
+      "en_US": {
+        "notes": "Creates a copy of the banner"
+      }
+    },
+    "properties": {
+      "version": "1.8"
+    }
+  },
   "acacia_boat": {
     "result": {
-      "count": 1,
       "id": "minecraft:acacia_boat"
     },
     "pattern": [
@@ -6513,7 +6624,6 @@
   },
   "beetroot_soup": {
     "result": {
-      "count": 1,
       "id": "minecraft:beetroot_soup"
     },
     "ingredients": [
@@ -6537,7 +6647,6 @@
   },
   "birch_boat": {
     "result": {
-      "count": 1,
       "id": "minecraft:birch_boat"
     },
     "pattern": [
@@ -6554,7 +6663,6 @@
   },
   "dark_oak_boat": {
     "result": {
-      "count": 1,
       "id": "minecraft:dark_oak_boat"
     },
     "pattern": [
@@ -6593,7 +6701,6 @@
   },
   "end_crystal": {
     "result": {
-      "count": 1,
       "id": "minecraft:end_crystal"
     },
     "pattern": [
@@ -6835,7 +6942,6 @@
   },
   "jungle_boat": {
     "result": {
-      "count": 1,
       "id": "minecraft:jungle_boat"
     },
     "pattern": [
@@ -7430,7 +7536,6 @@
   },
   "purpur_pillar": {
     "result": {
-      "count": 1,
       "id": "minecraft:purpur_pillar"
     },
     "pattern": [
@@ -7489,7 +7594,6 @@
   },
   "red_dye_from_beetroot": {
     "result": {
-      "count": 1,
       "id": "minecraft:red_dye"
     },
     "ingredients": [
@@ -7513,7 +7617,6 @@
   },
   "shield": {
     "result": {
-      "count": 1,
       "id": "minecraft:shield"
     },
     "pattern": [
@@ -7530,6 +7633,23 @@
       "animated": true,
       "version": "1.9"
     }
+  },
+  "shield_decoration": {
+    "result": {
+      "id": "minecraft:shield"
+    },
+    "banner": "#minecraft:banners",
+    "type": "minecraft:crafting_special_shielddecoration",
+    "lang": {
+      "en_US": {
+        "notes": "Applies the banner to the shield"
+      }
+    },
+    "properties": {
+      "animated": true,
+      "version": "1.9"
+    },
+    "target": "minecraft:shield"
   },
   "slowness_lingering_potion": {
     "result": {
@@ -7606,7 +7726,6 @@
   },
   "spruce_boat": {
     "result": {
-      "count": 1,
       "id": "minecraft:spruce_boat"
     },
     "pattern": [
@@ -7659,16 +7778,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.awkward"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.awkward",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.awkward",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -7678,16 +7790,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.fire_resistance"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.fire_resistance",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.fire_resistance",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -7697,16 +7802,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.fire_resistance.extended"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.fire_resistance.extended",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.fire_resistance.extended",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -7716,16 +7814,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.harming"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.harming",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.harming",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -7735,16 +7826,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.harming.ii"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.harming.ii",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.harming.ii",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -7754,16 +7838,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.healing"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.healing",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.healing",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -7773,16 +7850,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.healing.ii"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.healing.ii",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.healing.ii",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -7792,16 +7862,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.invisibility"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.invisibility",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.invisibility",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -7811,16 +7874,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.invisibility.extended"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.invisibility.extended",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.invisibility.extended",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -7830,16 +7886,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.leaping"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.leaping",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.leaping",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -7849,16 +7898,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.leaping.extended"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.leaping.extended",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.leaping.extended",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -7868,16 +7910,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.leaping.ii"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.leaping.ii",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.leaping.ii",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -7887,16 +7922,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.luck"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.luck",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.luck",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -7906,16 +7934,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.mundane"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.mundane",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.mundane",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -7925,16 +7946,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.mundane.extended"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.mundane.extended",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.mundane.extended",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -7944,16 +7958,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.night_vision"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.night_vision",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.night_vision",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -7963,16 +7970,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.night_vision.extended"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.night_vision.extended",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.night_vision.extended",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -7982,16 +7982,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.poison"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.poison",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.poison",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -8001,16 +7994,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.poison.extended"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.poison.extended",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.poison.extended",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -8020,16 +8006,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.poison.ii"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.poison.ii",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.poison.ii",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -8039,16 +8018,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.regeneration"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.regeneration",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.regeneration",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -8058,16 +8030,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.regeneration.extended"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.regeneration.extended",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.regeneration.extended",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -8077,16 +8042,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.regeneration.ii"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.regeneration.ii",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.regeneration.ii",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -8096,16 +8054,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.slowness"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.slowness",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.slowness",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -8115,16 +8066,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.slowness.extended"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.slowness.extended",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.slowness.extended",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -8134,16 +8078,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.slowness.iv"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.slowness.iv",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.slowness.iv",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -8153,16 +8090,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.strength"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.strength",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.strength",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -8172,16 +8102,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.strength.extended"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.strength.extended",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.strength.extended",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -8191,16 +8114,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.strength.ii"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.strength.ii",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.strength.ii",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -8210,16 +8126,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.swiftness"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.swiftness",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.swiftness",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -8229,16 +8138,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.swiftness.extended"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.swiftness.extended",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.swiftness.extended",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -8248,16 +8150,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.swiftness.ii"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.swiftness.ii",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.swiftness.ii",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -8267,16 +8162,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.water"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.water",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.water",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -8286,16 +8174,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.water_breathing"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.water_breathing",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.water_breathing",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -8305,16 +8186,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.water_breathing.extended"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.water_breathing.extended",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.water_breathing.extended",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -8324,16 +8198,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.weakness"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.weakness",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.weakness",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -8343,16 +8210,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.weakness.extended"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.weakness.extended",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.weakness.extended",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.9"
     }
@@ -8403,7 +8263,6 @@
   },
   "bone_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:bone_block"
     },
     "pattern": [
@@ -8434,7 +8293,6 @@
   },
   "magma_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:magma_block"
     },
     "pattern": [
@@ -8451,7 +8309,6 @@
   },
   "nether_wart_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:nether_wart_block"
     },
     "ingredients": [
@@ -8472,7 +8329,6 @@
   },
   "red_nether_bricks": {
     "result": {
-      "count": 1,
       "id": "minecraft:red_nether_bricks"
     },
     "pattern": [
@@ -8623,7 +8479,6 @@
   },
   "iron_ingot_from_nuggets": {
     "result": {
-      "count": 1,
       "id": "minecraft:iron_ingot"
     },
     "pattern": [
@@ -8783,7 +8638,6 @@
   },
   "observer": {
     "result": {
-      "count": 1,
       "id": "minecraft:observer"
     },
     "pattern": [
@@ -8875,7 +8729,6 @@
   },
   "shulker_box": {
     "result": {
-      "count": 1,
       "id": "minecraft:shulker_box"
     },
     "pattern": [
@@ -8930,7 +8783,6 @@
   },
   "black_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:black_bed"
     },
     "pattern": [
@@ -8960,7 +8812,6 @@
   },
   "blue_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:blue_bed"
     },
     "pattern": [
@@ -8990,7 +8841,6 @@
   },
   "brown_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:brown_bed"
     },
     "pattern": [
@@ -9020,7 +8870,6 @@
   },
   "cyan_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:cyan_bed"
     },
     "pattern": [
@@ -9071,7 +8920,6 @@
   },
   "gray_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:gray_bed"
     },
     "pattern": [
@@ -9122,7 +8970,6 @@
   },
   "green_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:green_bed"
     },
     "pattern": [
@@ -9173,7 +9020,6 @@
   },
   "light_blue_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:light_blue_bed"
     },
     "pattern": [
@@ -9224,7 +9070,6 @@
   },
   "light_gray_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:light_gray_bed"
     },
     "pattern": [
@@ -9275,7 +9120,6 @@
   },
   "lime_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:lime_bed"
     },
     "pattern": [
@@ -9326,7 +9170,6 @@
   },
   "magenta_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:magenta_bed"
     },
     "pattern": [
@@ -9377,7 +9220,6 @@
   },
   "orange_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:orange_bed"
     },
     "pattern": [
@@ -9428,7 +9270,6 @@
   },
   "pink_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:pink_bed"
     },
     "pattern": [
@@ -9479,7 +9320,6 @@
   },
   "purple_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:purple_bed"
     },
     "pattern": [
@@ -9530,7 +9370,6 @@
   },
   "red_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:red_bed"
     },
     "pattern": [
@@ -9581,7 +9420,6 @@
   },
   "white_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:white_bed"
     },
     "pattern": [
@@ -9611,7 +9449,6 @@
   },
   "yellow_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:yellow_bed"
     },
     "pattern": [
@@ -9662,7 +9499,6 @@
   },
   "acacia_button": {
     "result": {
-      "count": 1,
       "id": "minecraft:acacia_button"
     },
     "ingredients": [
@@ -9675,7 +9511,6 @@
   },
   "acacia_pressure_plate": {
     "result": {
-      "count": 1,
       "id": "minecraft:acacia_pressure_plate"
     },
     "pattern": [
@@ -9791,7 +9626,6 @@
   },
   "birch_button": {
     "result": {
-      "count": 1,
       "id": "minecraft:birch_button"
     },
     "ingredients": [
@@ -9804,7 +9638,6 @@
   },
   "birch_pressure_plate": {
     "result": {
-      "count": 1,
       "id": "minecraft:birch_pressure_plate"
     },
     "pattern": [
@@ -9854,7 +9687,6 @@
   },
   "blue_ice": {
     "result": {
-      "count": 1,
       "id": "minecraft:blue_ice"
     },
     "ingredients": [
@@ -9875,7 +9707,6 @@
   },
   "conduit": {
     "result": {
-      "count": 1,
       "id": "minecraft:conduit"
     },
     "pattern": [
@@ -9960,7 +9791,6 @@
   },
   "dark_oak_button": {
     "result": {
-      "count": 1,
       "id": "minecraft:dark_oak_button"
     },
     "ingredients": [
@@ -9973,7 +9803,6 @@
   },
   "dark_oak_pressure_plate": {
     "result": {
-      "count": 1,
       "id": "minecraft:dark_oak_pressure_plate"
     },
     "pattern": [
@@ -10070,7 +9899,6 @@
   },
   "dried_kelp_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:dried_kelp_block"
     },
     "pattern": [
@@ -10187,7 +10015,6 @@
   },
   "jungle_button": {
     "result": {
-      "count": 1,
       "id": "minecraft:jungle_button"
     },
     "ingredients": [
@@ -10200,7 +10027,6 @@
   },
   "jungle_pressure_plate": {
     "result": {
-      "count": 1,
       "id": "minecraft:jungle_pressure_plate"
     },
     "pattern": [
@@ -10358,7 +10184,6 @@
   },
   "packed_ice": {
     "result": {
-      "count": 1,
       "id": "minecraft:packed_ice"
     },
     "ingredients": [
@@ -10447,7 +10272,6 @@
   },
   "pumpkin_pie": {
     "result": {
-      "count": 1,
       "id": "minecraft:pumpkin_pie"
     },
     "ingredients": [
@@ -10575,7 +10399,6 @@
   },
   "spruce_button": {
     "result": {
-      "count": 1,
       "id": "minecraft:spruce_button"
     },
     "ingredients": [
@@ -10588,7 +10411,6 @@
   },
   "spruce_pressure_plate": {
     "result": {
-      "count": 1,
       "id": "minecraft:spruce_pressure_plate"
     },
     "pattern": [
@@ -10657,16 +10479,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.slow_falling"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.slow_falling",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.slow_falling",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.13"
     }
@@ -10676,16 +10491,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.slow_falling.extended"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.slow_falling.extended",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.slow_falling.extended",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.13"
     }
@@ -10695,16 +10503,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.turtle_master"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.turtle_master",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.turtle_master",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.13"
     }
@@ -10714,16 +10515,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.turtle_master.extended"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.turtle_master.extended",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.turtle_master.extended",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.13"
     }
@@ -10733,23 +10527,15 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.turtle_master.ii"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.turtle_master.ii",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.turtle_master.ii",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "version": "1.13"
     }
   },
   "turtle_helmet": {
     "result": {
-      "count": 1,
       "id": "minecraft:turtle_helmet"
     },
     "pattern": [
@@ -10863,7 +10649,6 @@
   },
   "andesite_stairs_from_andesite_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:andesite_stairs"
     },
     "ingredient": "minecraft:andesite",
@@ -10891,7 +10676,6 @@
   },
   "andesite_wall_from_andesite_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:andesite_wall"
     },
     "ingredient": "minecraft:andesite",
@@ -10902,7 +10686,6 @@
   },
   "barrel": {
     "result": {
-      "count": 1,
       "id": "minecraft:barrel"
     },
     "pattern": [
@@ -10962,7 +10745,6 @@
   },
   "black_dye": {
     "result": {
-      "count": 1,
       "id": "minecraft:black_dye"
     },
     "ingredients": [
@@ -10975,7 +10757,6 @@
   },
   "black_dye_from_wither_rose": {
     "result": {
-      "count": 1,
       "id": "minecraft:black_dye"
     },
     "ingredients": [
@@ -11045,7 +10826,6 @@
   },
   "blast_furnace": {
     "result": {
-      "count": 1,
       "id": "minecraft:blast_furnace"
     },
     "pattern": [
@@ -11086,7 +10866,6 @@
   },
   "blue_dye": {
     "result": {
-      "count": 1,
       "id": "minecraft:blue_dye"
     },
     "ingredients": [
@@ -11099,7 +10878,6 @@
   },
   "blue_dye_from_cornflower": {
     "result": {
-      "count": 1,
       "id": "minecraft:blue_dye"
     },
     "ingredients": [
@@ -11180,7 +10958,6 @@
   },
   "brick_stairs_from_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:brick_stairs"
     },
     "ingredient": "minecraft:bricks",
@@ -11208,7 +10985,6 @@
   },
   "brick_wall_from_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:brick_wall"
     },
     "ingredient": "minecraft:bricks",
@@ -11240,7 +11016,6 @@
   },
   "brown_dye": {
     "result": {
-      "count": 1,
       "id": "minecraft:brown_dye"
     },
     "ingredients": [
@@ -11310,7 +11085,6 @@
   },
   "campfire": {
     "result": {
-      "count": 1,
       "id": "minecraft:campfire"
     },
     "pattern": [
@@ -11329,9 +11103,57 @@
       "version": "1.14"
     }
   },
+  "cartography_map_cloning": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:filled_map"
+    },
+    "material": "minecraft:map",
+    "type": "minecraft.cartography",
+    "lang": {
+      "en_US": {
+        "notes": "Creates a copy of the map"
+      }
+    },
+    "map": "minecraft:filled_map",
+    "properties": {
+      "version": "1.14"
+    }
+  },
+  "cartography_map_extending": {
+    "result": {
+      "id": "minecraft:filled_map"
+    },
+    "material": "minecraft:paper",
+    "type": "minecraft.cartography",
+    "lang": {
+      "en_US": {
+        "notes": "Zooms out the map by one level"
+      }
+    },
+    "map": "minecraft:filled_map",
+    "properties": {
+      "version": "1.14"
+    }
+  },
+  "cartography_map_locking": {
+    "result": {
+      "id": "minecraft:filled_map"
+    },
+    "material": "minecraft:glass_pane",
+    "type": "minecraft.cartography",
+    "lang": {
+      "en_US": {
+        "notes": "Locks the map"
+      }
+    },
+    "map": "minecraft:filled_map",
+    "properties": {
+      "version": "1.14"
+    }
+  },
   "cartography_table": {
     "result": {
-      "count": 1,
       "id": "minecraft:cartography_table"
     },
     "pattern": [
@@ -11351,7 +11173,6 @@
   },
   "chiseled_quartz_block_from_quartz_block_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_quartz_block"
     },
     "ingredient": "minecraft:quartz_block",
@@ -11362,7 +11183,6 @@
   },
   "chiseled_red_sandstone_from_red_sandstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_red_sandstone"
     },
     "ingredient": "minecraft:red_sandstone",
@@ -11373,7 +11193,6 @@
   },
   "chiseled_sandstone_from_sandstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_sandstone"
     },
     "ingredient": "minecraft:sandstone",
@@ -11384,7 +11203,6 @@
   },
   "chiseled_stone_bricks_from_stone_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_stone_bricks"
     },
     "ingredient": "minecraft:stone_bricks",
@@ -11393,9 +11211,8 @@
       "version": "1.14"
     }
   },
-  "chiseled_stone_bricks_stone_from_stonecutting": {
+  "chiseled_stone_bricks_from_stone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_stone_bricks"
     },
     "ingredient": "minecraft:stone",
@@ -11433,7 +11250,6 @@
   },
   "cobblestone_stairs_from_cobblestone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:cobblestone_stairs"
     },
     "ingredient": "minecraft:cobblestone",
@@ -11444,7 +11260,6 @@
   },
   "cobblestone_wall_from_cobblestone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:cobblestone_wall"
     },
     "ingredient": "minecraft:cobblestone",
@@ -11455,7 +11270,6 @@
   },
   "creeper_banner_pattern": {
     "result": {
-      "count": 1,
       "id": "minecraft:creeper_banner_pattern"
     },
     "ingredients": [
@@ -11469,7 +11283,6 @@
   },
   "crossbow": {
     "result": {
-      "count": 1,
       "id": "minecraft:crossbow"
     },
     "pattern": [
@@ -11490,7 +11303,6 @@
   },
   "cut_red_sandstone_from_red_sandstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:cut_red_sandstone"
     },
     "ingredient": "minecraft:red_sandstone",
@@ -11523,7 +11335,6 @@
   },
   "cut_sandstone_from_sandstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:cut_sandstone"
     },
     "ingredient": "minecraft:sandstone",
@@ -11600,7 +11411,6 @@
   },
   "dark_prismarine_stairs_from_dark_prismarine_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:dark_prismarine_stairs"
     },
     "ingredient": "minecraft:dark_prismarine",
@@ -11656,7 +11466,6 @@
   },
   "diorite_stairs_from_diorite_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:diorite_stairs"
     },
     "ingredient": "minecraft:diorite",
@@ -11684,7 +11493,6 @@
   },
   "diorite_wall_from_diorite_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:diorite_wall"
     },
     "ingredient": "minecraft:diorite",
@@ -11709,7 +11517,7 @@
       "version": "1.14"
     }
   },
-  "end_stone_brick_slab_from_end_stone_brick_stonecutting": {
+  "end_stone_brick_slab_from_end_stone_bricks_stonecutting": {
     "result": {
       "count": 2,
       "id": "minecraft:end_stone_brick_slab"
@@ -11749,9 +11557,8 @@
       "version": "1.14"
     }
   },
-  "end_stone_brick_stairs_from_end_stone_brick_stonecutting": {
+  "end_stone_brick_stairs_from_end_stone_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:end_stone_brick_stairs"
     },
     "ingredient": "minecraft:end_stone_bricks",
@@ -11762,7 +11569,6 @@
   },
   "end_stone_brick_stairs_from_end_stone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:end_stone_brick_stairs"
     },
     "ingredient": "minecraft:end_stone",
@@ -11788,9 +11594,8 @@
       "version": "1.14"
     }
   },
-  "end_stone_brick_wall_from_end_stone_brick_stonecutting": {
+  "end_stone_brick_wall_from_end_stone_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:end_stone_brick_wall"
     },
     "ingredient": "minecraft:end_stone_bricks",
@@ -11801,7 +11606,6 @@
   },
   "end_stone_brick_wall_from_end_stone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:end_stone_brick_wall"
     },
     "ingredient": "minecraft:end_stone",
@@ -11812,7 +11616,6 @@
   },
   "end_stone_bricks_from_end_stone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:end_stone_bricks"
     },
     "ingredient": "minecraft:end_stone",
@@ -11825,41 +11628,16 @@
     "result": {
       "id": "minecraft:firework_star"
     },
-    "ingredients": [
-      "minecraft:gunpowder",
-      [
-        "minecraft:white_dye",
-        "minecraft:orange_dye",
-        "minecraft:magenta_dye",
-        "minecraft:light_blue_dye",
-        "minecraft:yellow_dye",
-        "minecraft:lime_dye",
-        "minecraft:pink_dye",
-        "minecraft:gray_dye",
-        "minecraft:light_gray_dye",
-        "minecraft:cyan_dye",
-        "minecraft:purple_dye",
-        "minecraft:blue_dye",
-        "minecraft:brown_dye",
-        "minecraft:green_dye",
-        "minecraft:red_dye",
-        "minecraft:black_dye"
-      ],
-      [
-        "minecraft:fire_charge",
-        "minecraft:gold_nugget",
-        "minecraft:skeleton_skull",
-        "minecraft:wither_skeleton_skull",
-        "minecraft:zombie_head",
-        "minecraft:player_head",
-        "minecraft:creeper_head",
-        "minecraft:dragon_head",
-        "minecraft:piglin_head",
-        "minecraft:feather"
-      ],
-      "minecraft:glowstone_dust",
-      "minecraft:diamond"
-    ],
+    "dye": "#minecraft:dyes",
+    "trail": "minecraft:diamond",
+    "twinkle": "minecraft:glowstone_dust",
+    "fuel": "minecraft:gunpowder",
+    "shapes": {
+      "large_ball": "minecraft:fire_charge",
+      "star": "minecraft:gold_nugget",
+      "burst": "minecraft:feather",
+      "creeper": "#minecraft:skulls"
+    },
     "type": "minecraft:crafting_special_firework_star",
     "lang": {
       "en_US": {
@@ -11875,27 +11653,7 @@
     "result": {
       "id": "minecraft:firework_star"
     },
-    "ingredients": [
-      "minecraft:firework_star",
-      [
-        "minecraft:white_dye",
-        "minecraft:orange_dye",
-        "minecraft:magenta_dye",
-        "minecraft:light_blue_dye",
-        "minecraft:yellow_dye",
-        "minecraft:lime_dye",
-        "minecraft:pink_dye",
-        "minecraft:gray_dye",
-        "minecraft:light_gray_dye",
-        "minecraft:cyan_dye",
-        "minecraft:purple_dye",
-        "minecraft:blue_dye",
-        "minecraft:brown_dye",
-        "minecraft:green_dye",
-        "minecraft:red_dye",
-        "minecraft:black_dye"
-      ]
-    ],
+    "dye": "#minecraft:dyes",
     "type": "minecraft:crafting_special_firework_star_fade",
     "lang": {
       "en_US": {
@@ -11905,11 +11663,11 @@
     "properties": {
       "animated": true,
       "version": "1.14"
-    }
+    },
+    "target": "minecraft:firework_star"
   },
   "fletching_table": {
     "result": {
-      "count": 1,
       "id": "minecraft:fletching_table"
     },
     "pattern": [
@@ -11929,7 +11687,6 @@
   },
   "flower_banner_pattern": {
     "result": {
-      "count": 1,
       "id": "minecraft:flower_banner_pattern"
     },
     "ingredients": [
@@ -11988,7 +11745,6 @@
   },
   "granite_stairs_from_granite_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:granite_stairs"
     },
     "ingredient": "minecraft:granite",
@@ -12016,7 +11772,6 @@
   },
   "granite_wall_from_granite_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:granite_wall"
     },
     "ingredient": "minecraft:granite",
@@ -12041,7 +11796,6 @@
   },
   "grindstone": {
     "result": {
-      "count": 1,
       "id": "minecraft:grindstone"
     },
     "pattern": [
@@ -12080,7 +11834,6 @@
   },
   "lantern": {
     "result": {
-      "count": 1,
       "id": "minecraft:lantern"
     },
     "pattern": [
@@ -12097,9 +11850,59 @@
       "version": "1.14"
     }
   },
+  "leather_boots_dyed": {
+    "result": {
+      "id": "minecraft:leather_boots"
+    },
+    "dye": "#minecraft:dyes",
+    "type": "minecraft:crafting_dye",
+    "lang": {
+      "en_US": {
+        "notes": "Mixes the leather boots color with the provided dyes"
+      }
+    },
+    "properties": {
+      "animated": true,
+      "version": "1.14"
+    },
+    "target": "minecraft:leather_boots"
+  },
+  "leather_chestplate_dyed": {
+    "result": {
+      "id": "minecraft:leather_chestplate"
+    },
+    "dye": "#minecraft:dyes",
+    "type": "minecraft:crafting_dye",
+    "lang": {
+      "en_US": {
+        "notes": "Mixes the leather tunic color with the provided dyes"
+      }
+    },
+    "properties": {
+      "animated": true,
+      "version": "1.14"
+    },
+    "target": "minecraft:leather_chestplate"
+  },
+  "leather_helmet_dyed": {
+    "result": {
+      "id": "minecraft:leather_helmet"
+    },
+    "dye": "#minecraft:dyes",
+    "type": "minecraft:crafting_dye",
+    "lang": {
+      "en_US": {
+        "notes": "Mixes the leather cap color with the provided dyes"
+      }
+    },
+    "properties": {
+      "animated": true,
+      "version": "1.14"
+    },
+    "target": "minecraft:leather_helmet"
+  },
   "leather_horse_armor": {
     "result": {
-      "count": 1,
       "id": "minecraft:leather_horse_armor"
     },
     "pattern": [
@@ -12115,9 +11918,42 @@
       "version": "1.14"
     }
   },
+  "leather_horse_armor_dyed": {
+    "result": {
+      "id": "minecraft:leather_horse_armor"
+    },
+    "dye": "#minecraft:dyes",
+    "type": "minecraft:crafting_dye",
+    "lang": {
+      "en_US": {
+        "notes": "Mixes the leather horse armor color with the provided dyes"
+      }
+    },
+    "properties": {
+      "animated": true,
+      "version": "1.14"
+    },
+    "target": "minecraft:leather_horse_armor"
+  },
+  "leather_leggings_dyed": {
+    "result": {
+      "id": "minecraft:leather_leggings"
+    },
+    "dye": "#minecraft:dyes",
+    "type": "minecraft:crafting_dye",
+    "lang": {
+      "en_US": {
+        "notes": "Mixes the leather pants color with the provided dyes"
+      }
+    },
+    "properties": {
+      "animated": true,
+      "version": "1.14"
+    },
+    "target": "minecraft:leather_leggings"
+  },
   "lectern": {
     "result": {
-      "count": 1,
       "id": "minecraft:lectern"
     },
     "pattern": [
@@ -12194,7 +12030,6 @@
   },
   "loom": {
     "result": {
-      "count": 1,
       "id": "minecraft:loom"
     },
     "pattern": [
@@ -12244,7 +12079,6 @@
   },
   "mojang_banner_pattern": {
     "result": {
-      "count": 1,
       "id": "minecraft:mojang_banner_pattern"
     },
     "ingredients": [
@@ -12303,7 +12137,6 @@
   },
   "mossy_cobblestone_stairs_from_mossy_cobblestone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:mossy_cobblestone_stairs"
     },
     "ingredient": "minecraft:mossy_cobblestone",
@@ -12331,7 +12164,6 @@
   },
   "mossy_cobblestone_wall_from_mossy_cobblestone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:mossy_cobblestone_wall"
     },
     "ingredient": "minecraft:mossy_cobblestone",
@@ -12356,7 +12188,7 @@
       "version": "1.14"
     }
   },
-  "mossy_stone_brick_slab_from_mossy_stone_brick_stonecutting": {
+  "mossy_stone_brick_slab_from_mossy_stone_bricks_stonecutting": {
     "result": {
       "count": 2,
       "id": "minecraft:mossy_stone_brick_slab"
@@ -12385,9 +12217,8 @@
       "version": "1.14"
     }
   },
-  "mossy_stone_brick_stairs_from_mossy_stone_brick_stonecutting": {
+  "mossy_stone_brick_stairs_from_mossy_stone_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:mossy_stone_brick_stairs"
     },
     "ingredient": "minecraft:mossy_stone_bricks",
@@ -12413,9 +12244,8 @@
       "version": "1.14"
     }
   },
-  "mossy_stone_brick_wall_from_mossy_stone_brick_stonecutting": {
+  "mossy_stone_brick_wall_from_mossy_stone_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:mossy_stone_brick_wall"
     },
     "ingredient": "minecraft:mossy_stone_bricks",
@@ -12455,7 +12285,6 @@
   },
   "nether_brick_stairs_from_nether_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:nether_brick_stairs"
     },
     "ingredient": "minecraft:nether_bricks",
@@ -12483,7 +12312,6 @@
   },
   "nether_brick_wall_from_nether_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:nether_brick_wall"
     },
     "ingredient": "minecraft:nether_bricks",
@@ -12508,7 +12336,6 @@
   },
   "polished_andesite_from_andesite_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_andesite"
     },
     "ingredient": "minecraft:andesite",
@@ -12575,7 +12402,6 @@
   },
   "polished_andesite_stairs_from_andesite_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_andesite_stairs"
     },
     "ingredient": "minecraft:andesite",
@@ -12586,7 +12412,6 @@
   },
   "polished_andesite_stairs_from_polished_andesite_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_andesite_stairs"
     },
     "ingredient": "minecraft:polished_andesite",
@@ -12597,7 +12422,6 @@
   },
   "polished_diorite_from_diorite_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_diorite"
     },
     "ingredient": "minecraft:diorite",
@@ -12664,7 +12488,6 @@
   },
   "polished_diorite_stairs_from_diorite_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_diorite_stairs"
     },
     "ingredient": "minecraft:diorite",
@@ -12675,7 +12498,6 @@
   },
   "polished_diorite_stairs_from_polished_diorite_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_diorite_stairs"
     },
     "ingredient": "minecraft:polished_diorite",
@@ -12686,7 +12508,6 @@
   },
   "polished_granite_from_granite_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_granite"
     },
     "ingredient": "minecraft:granite",
@@ -12753,7 +12574,6 @@
   },
   "polished_granite_stairs_from_granite_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_granite_stairs"
     },
     "ingredient": "minecraft:granite",
@@ -12764,7 +12584,6 @@
   },
   "polished_granite_stairs_from_polished_granite_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_granite_stairs"
     },
     "ingredient": "minecraft:polished_granite",
@@ -12773,7 +12592,7 @@
       "version": "1.14"
     }
   },
-  "prismarine_brick_slab_from_prismarine_stonecutting": {
+  "prismarine_brick_slab_from_prismarine_bricks_stonecutting": {
     "result": {
       "count": 2,
       "id": "minecraft:prismarine_brick_slab"
@@ -12784,9 +12603,8 @@
       "version": "1.14"
     }
   },
-  "prismarine_brick_stairs_from_prismarine_stonecutting": {
+  "prismarine_brick_stairs_from_prismarine_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:prismarine_brick_stairs"
     },
     "ingredient": "minecraft:prismarine_bricks",
@@ -12808,7 +12626,6 @@
   },
   "prismarine_stairs_from_prismarine_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:prismarine_stairs"
     },
     "ingredient": "minecraft:prismarine",
@@ -12836,7 +12653,6 @@
   },
   "prismarine_wall_from_prismarine_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:prismarine_wall"
     },
     "ingredient": "minecraft:prismarine",
@@ -12861,7 +12677,6 @@
   },
   "purpur_pillar_from_purpur_block_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:purpur_pillar"
     },
     "ingredient": "minecraft:purpur_block",
@@ -12883,7 +12698,6 @@
   },
   "purpur_stairs_from_purpur_block_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:purpur_stairs"
     },
     "ingredient": "minecraft:purpur_block",
@@ -12894,7 +12708,6 @@
   },
   "quartz_pillar_from_quartz_block_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:quartz_pillar"
     },
     "ingredient": "minecraft:quartz_block",
@@ -12903,7 +12716,7 @@
       "version": "1.14"
     }
   },
-  "quartz_slab_from_stonecutting": {
+  "quartz_slab_from_quartz_block_stonecutting": {
     "result": {
       "count": 2,
       "id": "minecraft:quartz_slab"
@@ -12916,7 +12729,6 @@
   },
   "quartz_stairs_from_quartz_block_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:quartz_stairs"
     },
     "ingredient": "minecraft:quartz_block",
@@ -12972,7 +12784,6 @@
   },
   "red_nether_brick_stairs_from_red_nether_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:red_nether_brick_stairs"
     },
     "ingredient": "minecraft:red_nether_bricks",
@@ -13000,7 +12811,6 @@
   },
   "red_nether_brick_wall_from_red_nether_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:red_nether_brick_wall"
     },
     "ingredient": "minecraft:red_nether_bricks",
@@ -13022,7 +12832,6 @@
   },
   "red_sandstone_stairs_from_red_sandstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:red_sandstone_stairs"
     },
     "ingredient": "minecraft:red_sandstone",
@@ -13050,7 +12859,6 @@
   },
   "red_sandstone_wall_from_red_sandstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:red_sandstone_wall"
     },
     "ingredient": "minecraft:red_sandstone",
@@ -13072,7 +12880,6 @@
   },
   "sandstone_stairs_from_sandstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:sandstone_stairs"
     },
     "ingredient": "minecraft:sandstone",
@@ -13100,7 +12907,6 @@
   },
   "sandstone_wall_from_sandstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:sandstone_wall"
     },
     "ingredient": "minecraft:sandstone",
@@ -13130,7 +12936,6 @@
   },
   "skull_banner_pattern": {
     "result": {
-      "count": 1,
       "id": "minecraft:skull_banner_pattern"
     },
     "ingredients": [
@@ -13144,7 +12949,6 @@
   },
   "smithing_table": {
     "result": {
-      "count": 1,
       "id": "minecraft:smithing_table"
     },
     "pattern": [
@@ -13164,7 +12968,6 @@
   },
   "smoker": {
     "result": {
-      "count": 1,
       "id": "minecraft:smoker"
     },
     "pattern": [
@@ -13240,7 +13043,6 @@
   },
   "smooth_quartz_stairs_from_smooth_quartz_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:smooth_quartz_stairs"
     },
     "ingredient": "minecraft:smooth_quartz",
@@ -13296,7 +13098,6 @@
   },
   "smooth_red_sandstone_stairs_from_smooth_red_sandstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:smooth_red_sandstone_stairs"
     },
     "ingredient": "minecraft:smooth_red_sandstone",
@@ -13352,7 +13153,6 @@
   },
   "smooth_sandstone_stairs_from_smooth_sandstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:smooth_sandstone_stairs"
     },
     "ingredient": "minecraft:smooth_sandstone",
@@ -13404,7 +13204,6 @@
   },
   "stick_from_bamboo_item": {
     "result": {
-      "count": 1,
       "id": "minecraft:stick"
     },
     "pattern": [
@@ -13443,7 +13242,6 @@
   },
   "stone_brick_stairs_from_stone_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:stone_brick_stairs"
     },
     "ingredient": "minecraft:stone_bricks",
@@ -13454,7 +13252,6 @@
   },
   "stone_brick_stairs_from_stone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:stone_brick_stairs"
     },
     "ingredient": "minecraft:stone",
@@ -13482,7 +13279,6 @@
   },
   "stone_brick_wall_from_stone_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:stone_brick_wall"
     },
     "ingredient": "minecraft:stone_bricks",
@@ -13491,9 +13287,8 @@
       "version": "1.14"
     }
   },
-  "stone_brick_walls_from_stone_stonecutting": {
+  "stone_brick_wall_from_stone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:stone_brick_wall"
     },
     "ingredient": "minecraft:stone",
@@ -13504,7 +13299,6 @@
   },
   "stone_bricks_from_stone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:stone_bricks"
     },
     "ingredient": "minecraft:stone",
@@ -13544,7 +13338,6 @@
   },
   "stone_stairs_from_stone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:stone_stairs"
     },
     "ingredient": "minecraft:stone",
@@ -13555,7 +13348,6 @@
   },
   "stonecutter": {
     "result": {
-      "count": 1,
       "id": "minecraft:stonecutter"
     },
     "pattern": [
@@ -13594,7 +13386,6 @@
   },
   "white_dye": {
     "result": {
-      "count": 1,
       "id": "minecraft:white_dye"
     },
     "ingredients": [
@@ -13607,7 +13398,6 @@
   },
   "white_dye_from_lily_of_the_valley": {
     "result": {
-      "count": 1,
       "id": "minecraft:white_dye"
     },
     "ingredients": [
@@ -13677,7 +13467,6 @@
   },
   "beehive": {
     "result": {
-      "count": 1,
       "id": "minecraft:beehive"
     },
     "pattern": [
@@ -13697,7 +13486,6 @@
   },
   "composter": {
     "result": {
-      "count": 1,
       "id": "minecraft:composter"
     },
     "pattern": [
@@ -13716,7 +13504,6 @@
   },
   "dark_prismarine": {
     "result": {
-      "count": 1,
       "id": "minecraft:dark_prismarine"
     },
     "pattern": [
@@ -13735,7 +13522,6 @@
   },
   "honey_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:honey_block"
     },
     "pattern": [
@@ -13774,7 +13560,6 @@
   },
   "honeycomb_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:honeycomb_block"
     },
     "pattern": [
@@ -13951,7 +13736,6 @@
   },
   "blackstone_stairs_from_blackstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:blackstone_stairs"
     },
     "ingredient": "minecraft:blackstone",
@@ -13979,7 +13763,6 @@
   },
   "blackstone_wall_from_blackstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:blackstone_wall"
     },
     "ingredient": "minecraft:blackstone",
@@ -13990,7 +13773,6 @@
   },
   "chiseled_nether_bricks": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_nether_bricks"
     },
     "pattern": [
@@ -14007,7 +13789,6 @@
   },
   "chiseled_nether_bricks_from_nether_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_nether_bricks"
     },
     "ingredient": "minecraft:nether_bricks",
@@ -14018,7 +13799,6 @@
   },
   "chiseled_polished_blackstone": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_polished_blackstone"
     },
     "pattern": [
@@ -14035,7 +13815,6 @@
   },
   "chiseled_polished_blackstone_from_blackstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_polished_blackstone"
     },
     "ingredient": "minecraft:blackstone",
@@ -14046,7 +13825,6 @@
   },
   "chiseled_polished_blackstone_from_polished_blackstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_polished_blackstone"
     },
     "ingredient": "minecraft:polished_blackstone",
@@ -14079,7 +13857,6 @@
   },
   "crimson_button": {
     "result": {
-      "count": 1,
       "id": "minecraft:crimson_button"
     },
     "ingredients": [
@@ -14128,7 +13905,6 @@
   },
   "crimson_fence_gate": {
     "result": {
-      "count": 1,
       "id": "minecraft:crimson_fence_gate"
     },
     "pattern": [
@@ -14177,7 +13953,6 @@
   },
   "crimson_pressure_plate": {
     "result": {
-      "count": 1,
       "id": "minecraft:crimson_pressure_plate"
     },
     "pattern": [
@@ -14285,7 +14060,6 @@
   },
   "iron_chain": {
     "result": {
-      "count": 1,
       "id": "minecraft:iron_chain"
     },
     "pattern": [
@@ -14304,7 +14078,6 @@
   },
   "netherite_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:netherite_block"
     },
     "pattern": [
@@ -14322,7 +14095,6 @@
   },
   "netherite_ingot": {
     "result": {
-      "count": 1,
       "id": "minecraft:netherite_ingot"
     },
     "ingredients": [
@@ -14394,7 +14166,6 @@
   },
   "polished_basalt_from_basalt_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_basalt"
     },
     "ingredient": "minecraft:basalt",
@@ -14489,7 +14260,6 @@
   },
   "polished_blackstone_brick_stairs_from_blackstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_blackstone_brick_stairs"
     },
     "ingredient": "minecraft:blackstone",
@@ -14500,7 +14270,6 @@
   },
   "polished_blackstone_brick_stairs_from_polished_blackstone_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_blackstone_brick_stairs"
     },
     "ingredient": "minecraft:polished_blackstone_bricks",
@@ -14511,7 +14280,6 @@
   },
   "polished_blackstone_brick_stairs_from_polished_blackstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_blackstone_brick_stairs"
     },
     "ingredient": "minecraft:polished_blackstone",
@@ -14539,7 +14307,6 @@
   },
   "polished_blackstone_brick_wall_from_blackstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_blackstone_brick_wall"
     },
     "ingredient": "minecraft:blackstone",
@@ -14550,7 +14317,6 @@
   },
   "polished_blackstone_brick_wall_from_polished_blackstone_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_blackstone_brick_wall"
     },
     "ingredient": "minecraft:polished_blackstone_bricks",
@@ -14561,7 +14327,6 @@
   },
   "polished_blackstone_brick_wall_from_polished_blackstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_blackstone_brick_wall"
     },
     "ingredient": "minecraft:polished_blackstone",
@@ -14576,12 +14341,12 @@
       "id": "minecraft:polished_blackstone_bricks"
     },
     "pattern": [
-      "SS",
-      "SS"
+      "##",
+      "##"
     ],
     "type": "minecraft:crafting_shaped",
     "key": {
-      "S": "minecraft:polished_blackstone"
+      "#": "minecraft:polished_blackstone"
     },
     "properties": {
       "version": "1.16"
@@ -14589,7 +14354,6 @@
   },
   "polished_blackstone_bricks_from_blackstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_blackstone_bricks"
     },
     "ingredient": "minecraft:blackstone",
@@ -14600,7 +14364,6 @@
   },
   "polished_blackstone_bricks_from_polished_blackstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_blackstone_bricks"
     },
     "ingredient": "minecraft:polished_blackstone",
@@ -14611,7 +14374,6 @@
   },
   "polished_blackstone_button": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_blackstone_button"
     },
     "ingredients": [
@@ -14624,7 +14386,6 @@
   },
   "polished_blackstone_from_blackstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_blackstone"
     },
     "ingredient": "minecraft:blackstone",
@@ -14635,7 +14396,6 @@
   },
   "polished_blackstone_pressure_plate": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_blackstone_pressure_plate"
     },
     "pattern": [
@@ -14707,7 +14467,6 @@
   },
   "polished_blackstone_stairs_from_blackstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_blackstone_stairs"
     },
     "ingredient": "minecraft:blackstone",
@@ -14718,7 +14477,6 @@
   },
   "polished_blackstone_stairs_from_polished_blackstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_blackstone_stairs"
     },
     "ingredient": "minecraft:polished_blackstone",
@@ -14746,7 +14504,6 @@
   },
   "polished_blackstone_wall_from_blackstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_blackstone_wall"
     },
     "ingredient": "minecraft:blackstone",
@@ -14757,7 +14514,6 @@
   },
   "polished_blackstone_wall_from_polished_blackstone_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_blackstone_wall"
     },
     "ingredient": "minecraft:polished_blackstone",
@@ -14785,7 +14541,6 @@
   },
   "quartz_bricks_from_quartz_block_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:quartz_bricks"
     },
     "ingredient": "minecraft:quartz_block",
@@ -14796,7 +14551,6 @@
   },
   "respawn_anchor": {
     "result": {
-      "count": 1,
       "id": "minecraft:respawn_anchor"
     },
     "pattern": [
@@ -14815,7 +14569,6 @@
   },
   "soul_campfire": {
     "result": {
-      "count": 1,
       "id": "minecraft:soul_campfire"
     },
     "pattern": [
@@ -14836,7 +14589,6 @@
   },
   "soul_lantern": {
     "result": {
-      "count": 1,
       "id": "minecraft:soul_lantern"
     },
     "pattern": [
@@ -14913,7 +14665,6 @@
   },
   "target": {
     "result": {
-      "count": 1,
       "id": "minecraft:target"
     },
     "pattern": [
@@ -14932,7 +14683,6 @@
   },
   "warped_button": {
     "result": {
-      "count": 1,
       "id": "minecraft:warped_button"
     },
     "ingredients": [
@@ -14981,7 +14731,6 @@
   },
   "warped_fence_gate": {
     "result": {
-      "count": 1,
       "id": "minecraft:warped_fence_gate"
     },
     "pattern": [
@@ -14999,7 +14748,6 @@
   },
   "warped_fungus_on_a_stick": {
     "result": {
-      "count": 1,
       "id": "minecraft:warped_fungus_on_a_stick"
     },
     "pattern": [
@@ -15048,7 +14796,6 @@
   },
   "warped_pressure_plate": {
     "result": {
-      "count": 1,
       "id": "minecraft:warped_pressure_plate"
     },
     "pattern": [
@@ -15151,7 +14898,6 @@
   },
   "amethyst_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:amethyst_block"
     },
     "pattern": [
@@ -15168,7 +14914,6 @@
   },
   "black_candle": {
     "result": {
-      "count": 1,
       "id": "minecraft:black_candle"
     },
     "ingredients": [
@@ -15182,7 +14927,6 @@
   },
   "blue_candle": {
     "result": {
-      "count": 1,
       "id": "minecraft:blue_candle"
     },
     "ingredients": [
@@ -15213,7 +14957,6 @@
   },
   "brown_candle": {
     "result": {
-      "count": 1,
       "id": "minecraft:brown_candle"
     },
     "ingredients": [
@@ -15227,7 +14970,6 @@
   },
   "candle": {
     "result": {
-      "count": 1,
       "id": "minecraft:candle"
     },
     "pattern": [
@@ -15245,7 +14987,6 @@
   },
   "chiseled_deepslate": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_deepslate"
     },
     "pattern": [
@@ -15262,7 +15003,6 @@
   },
   "chiseled_deepslate_from_cobbled_deepslate_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_deepslate"
     },
     "ingredient": "minecraft:cobbled_deepslate",
@@ -15351,7 +15091,6 @@
   },
   "cobbled_deepslate_stairs_from_cobbled_deepslate_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:cobbled_deepslate_stairs"
     },
     "ingredient": "minecraft:cobbled_deepslate",
@@ -15379,7 +15118,6 @@
   },
   "cobbled_deepslate_wall_from_cobbled_deepslate_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:cobbled_deepslate_wall"
     },
     "ingredient": "minecraft:cobbled_deepslate",
@@ -15390,7 +15128,6 @@
   },
   "copper_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:copper_block"
     },
     "pattern": [
@@ -15632,7 +15369,6 @@
   },
   "cut_copper_stairs_from_cut_copper_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:cut_copper_stairs"
     },
     "ingredient": "minecraft:cut_copper",
@@ -15643,7 +15379,6 @@
   },
   "cyan_candle": {
     "result": {
-      "count": 1,
       "id": "minecraft:cyan_candle"
     },
     "ingredients": [
@@ -15735,7 +15470,6 @@
   },
   "deepslate_brick_stairs_from_cobbled_deepslate_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:deepslate_brick_stairs"
     },
     "ingredient": "minecraft:cobbled_deepslate",
@@ -15746,7 +15480,6 @@
   },
   "deepslate_brick_stairs_from_deepslate_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:deepslate_brick_stairs"
     },
     "ingredient": "minecraft:deepslate_bricks",
@@ -15757,7 +15490,6 @@
   },
   "deepslate_brick_stairs_from_polished_deepslate_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:deepslate_brick_stairs"
     },
     "ingredient": "minecraft:polished_deepslate",
@@ -15785,7 +15517,6 @@
   },
   "deepslate_brick_wall_from_cobbled_deepslate_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:deepslate_brick_wall"
     },
     "ingredient": "minecraft:cobbled_deepslate",
@@ -15796,7 +15527,6 @@
   },
   "deepslate_brick_wall_from_deepslate_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:deepslate_brick_wall"
     },
     "ingredient": "minecraft:deepslate_bricks",
@@ -15807,7 +15537,6 @@
   },
   "deepslate_brick_wall_from_polished_deepslate_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:deepslate_brick_wall"
     },
     "ingredient": "minecraft:polished_deepslate",
@@ -15822,12 +15551,12 @@
       "id": "minecraft:deepslate_bricks"
     },
     "pattern": [
-      "SS",
-      "SS"
+      "##",
+      "##"
     ],
     "type": "minecraft:crafting_shaped",
     "key": {
-      "S": "minecraft:polished_deepslate"
+      "#": "minecraft:polished_deepslate"
     },
     "properties": {
       "version": "1.17"
@@ -15835,7 +15564,6 @@
   },
   "deepslate_bricks_from_cobbled_deepslate_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:deepslate_bricks"
     },
     "ingredient": "minecraft:cobbled_deepslate",
@@ -15846,7 +15574,6 @@
   },
   "deepslate_bricks_from_polished_deepslate_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:deepslate_bricks"
     },
     "ingredient": "minecraft:polished_deepslate",
@@ -15935,7 +15662,6 @@
   },
   "deepslate_tile_stairs_from_cobbled_deepslate_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:deepslate_tile_stairs"
     },
     "ingredient": "minecraft:cobbled_deepslate",
@@ -15946,7 +15672,6 @@
   },
   "deepslate_tile_stairs_from_deepslate_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:deepslate_tile_stairs"
     },
     "ingredient": "minecraft:deepslate_bricks",
@@ -15957,7 +15682,6 @@
   },
   "deepslate_tile_stairs_from_deepslate_tiles_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:deepslate_tile_stairs"
     },
     "ingredient": "minecraft:deepslate_tiles",
@@ -15968,7 +15692,6 @@
   },
   "deepslate_tile_stairs_from_polished_deepslate_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:deepslate_tile_stairs"
     },
     "ingredient": "minecraft:polished_deepslate",
@@ -15996,7 +15719,6 @@
   },
   "deepslate_tile_wall_from_cobbled_deepslate_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:deepslate_tile_wall"
     },
     "ingredient": "minecraft:cobbled_deepslate",
@@ -16007,7 +15729,6 @@
   },
   "deepslate_tile_wall_from_deepslate_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:deepslate_tile_wall"
     },
     "ingredient": "minecraft:deepslate_bricks",
@@ -16018,7 +15739,6 @@
   },
   "deepslate_tile_wall_from_deepslate_tiles_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:deepslate_tile_wall"
     },
     "ingredient": "minecraft:deepslate_tiles",
@@ -16029,7 +15749,6 @@
   },
   "deepslate_tile_wall_from_polished_deepslate_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:deepslate_tile_wall"
     },
     "ingredient": "minecraft:polished_deepslate",
@@ -16044,12 +15763,12 @@
       "id": "minecraft:deepslate_tiles"
     },
     "pattern": [
-      "SS",
-      "SS"
+      "##",
+      "##"
     ],
     "type": "minecraft:crafting_shaped",
     "key": {
-      "S": "minecraft:deepslate_bricks"
+      "#": "minecraft:deepslate_bricks"
     },
     "properties": {
       "version": "1.17"
@@ -16057,7 +15776,6 @@
   },
   "deepslate_tiles_from_cobbled_deepslate_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:deepslate_tiles"
     },
     "ingredient": "minecraft:cobbled_deepslate",
@@ -16068,7 +15786,6 @@
   },
   "deepslate_tiles_from_deepslate_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:deepslate_tiles"
     },
     "ingredient": "minecraft:deepslate_bricks",
@@ -16079,7 +15796,6 @@
   },
   "deepslate_tiles_from_polished_deepslate_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:deepslate_tiles"
     },
     "ingredient": "minecraft:polished_deepslate",
@@ -16112,7 +15828,6 @@
   },
   "dripstone_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:dripstone_block"
     },
     "pattern": [
@@ -16261,7 +15976,6 @@
   },
   "exposed_cut_copper_stairs_from_exposed_cut_copper_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:exposed_cut_copper_stairs"
     },
     "ingredient": "minecraft:exposed_cut_copper",
@@ -16272,7 +15986,6 @@
   },
   "glow_item_frame": {
     "result": {
-      "count": 1,
       "id": "minecraft:glow_item_frame"
     },
     "ingredients": [
@@ -16330,7 +16043,6 @@
   },
   "gray_candle": {
     "result": {
-      "count": 1,
       "id": "minecraft:gray_candle"
     },
     "ingredients": [
@@ -16344,7 +16056,6 @@
   },
   "green_candle": {
     "result": {
-      "count": 1,
       "id": "minecraft:green_candle"
     },
     "ingredients": [
@@ -16424,7 +16135,6 @@
   },
   "light_blue_candle": {
     "result": {
-      "count": 1,
       "id": "minecraft:light_blue_candle"
     },
     "ingredients": [
@@ -16438,7 +16148,6 @@
   },
   "light_gray_candle": {
     "result": {
-      "count": 1,
       "id": "minecraft:light_gray_candle"
     },
     "ingredients": [
@@ -16452,7 +16161,6 @@
   },
   "lightning_rod": {
     "result": {
-      "count": 1,
       "id": "minecraft:lightning_rod"
     },
     "pattern": [
@@ -16470,7 +16178,6 @@
   },
   "lime_candle": {
     "result": {
-      "count": 1,
       "id": "minecraft:lime_candle"
     },
     "ingredients": [
@@ -16484,7 +16191,6 @@
   },
   "magenta_candle": {
     "result": {
-      "count": 1,
       "id": "minecraft:magenta_candle"
     },
     "ingredients": [
@@ -16514,7 +16220,6 @@
   },
   "mossy_cobblestone_from_moss_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:mossy_cobblestone"
     },
     "ingredients": [
@@ -16528,7 +16233,6 @@
   },
   "mossy_stone_bricks_from_moss_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:mossy_stone_bricks"
     },
     "ingredients": [
@@ -16542,7 +16246,6 @@
   },
   "orange_candle": {
     "result": {
-      "count": 1,
       "id": "minecraft:orange_candle"
     },
     "ingredients": [
@@ -16666,7 +16369,6 @@
   },
   "oxidized_cut_copper_stairs_from_oxidized_cut_copper_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:oxidized_cut_copper_stairs"
     },
     "ingredient": "minecraft:oxidized_cut_copper",
@@ -16677,7 +16379,6 @@
   },
   "pink_candle": {
     "result": {
-      "count": 1,
       "id": "minecraft:pink_candle"
     },
     "ingredients": [
@@ -16708,7 +16409,6 @@
   },
   "polished_deepslate_from_cobbled_deepslate_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_deepslate"
     },
     "ingredient": "minecraft:cobbled_deepslate",
@@ -16775,7 +16475,6 @@
   },
   "polished_deepslate_stairs_from_cobbled_deepslate_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_deepslate_stairs"
     },
     "ingredient": "minecraft:cobbled_deepslate",
@@ -16786,7 +16485,6 @@
   },
   "polished_deepslate_stairs_from_polished_deepslate_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_deepslate_stairs"
     },
     "ingredient": "minecraft:polished_deepslate",
@@ -16814,7 +16512,6 @@
   },
   "polished_deepslate_wall_from_cobbled_deepslate_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_deepslate_wall"
     },
     "ingredient": "minecraft:cobbled_deepslate",
@@ -16825,7 +16522,6 @@
   },
   "polished_deepslate_wall_from_polished_deepslate_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_deepslate_wall"
     },
     "ingredient": "minecraft:polished_deepslate",
@@ -16836,7 +16532,6 @@
   },
   "purple_candle": {
     "result": {
-      "count": 1,
       "id": "minecraft:purple_candle"
     },
     "ingredients": [
@@ -16863,7 +16558,6 @@
   },
   "raw_copper_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:raw_copper_block"
     },
     "pattern": [
@@ -16894,7 +16588,6 @@
   },
   "raw_gold_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:raw_gold_block"
     },
     "pattern": [
@@ -16925,7 +16618,6 @@
   },
   "raw_iron_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:raw_iron_block"
     },
     "pattern": [
@@ -16943,7 +16635,6 @@
   },
   "red_candle": {
     "result": {
-      "count": 1,
       "id": "minecraft:red_candle"
     },
     "ingredients": [
@@ -16990,7 +16681,6 @@
   },
   "spyglass": {
     "result": {
-      "count": 1,
       "id": "minecraft:spyglass"
     },
     "pattern": [
@@ -17028,7 +16718,6 @@
   },
   "waxed_copper_block_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_copper_block"
     },
     "ingredients": [
@@ -17059,7 +16748,6 @@
   },
   "waxed_cut_copper_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_cut_copper"
     },
     "ingredients": [
@@ -17105,7 +16793,6 @@
   },
   "waxed_cut_copper_slab_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_cut_copper_slab"
     },
     "ingredients": [
@@ -17164,7 +16851,6 @@
   },
   "waxed_cut_copper_stairs_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_cut_copper_stairs"
     },
     "ingredients": [
@@ -17194,7 +16880,6 @@
   },
   "waxed_cut_copper_stairs_from_waxed_cut_copper_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_cut_copper_stairs"
     },
     "ingredient": "minecraft:waxed_cut_copper",
@@ -17205,7 +16890,6 @@
   },
   "waxed_exposed_copper_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_exposed_copper"
     },
     "ingredients": [
@@ -17236,7 +16920,6 @@
   },
   "waxed_exposed_cut_copper_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_exposed_cut_copper"
     },
     "ingredients": [
@@ -17282,7 +16965,6 @@
   },
   "waxed_exposed_cut_copper_slab_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_exposed_cut_copper_slab"
     },
     "ingredients": [
@@ -17341,7 +17023,6 @@
   },
   "waxed_exposed_cut_copper_stairs_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_exposed_cut_copper_stairs"
     },
     "ingredients": [
@@ -17371,7 +17052,6 @@
   },
   "waxed_exposed_cut_copper_stairs_from_waxed_exposed_cut_copper_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_exposed_cut_copper_stairs"
     },
     "ingredient": "minecraft:waxed_exposed_cut_copper",
@@ -17382,7 +17062,6 @@
   },
   "waxed_oxidized_copper_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_oxidized_copper"
     },
     "ingredients": [
@@ -17413,7 +17092,6 @@
   },
   "waxed_oxidized_cut_copper_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_oxidized_cut_copper"
     },
     "ingredients": [
@@ -17459,7 +17137,6 @@
   },
   "waxed_oxidized_cut_copper_slab_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_oxidized_cut_copper_slab"
     },
     "ingredients": [
@@ -17518,7 +17195,6 @@
   },
   "waxed_oxidized_cut_copper_stairs_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_oxidized_cut_copper_stairs"
     },
     "ingredients": [
@@ -17548,7 +17224,6 @@
   },
   "waxed_oxidized_cut_copper_stairs_from_waxed_oxidized_cut_copper_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_oxidized_cut_copper_stairs"
     },
     "ingredient": "minecraft:waxed_oxidized_cut_copper",
@@ -17559,7 +17234,6 @@
   },
   "waxed_weathered_copper_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_weathered_copper"
     },
     "ingredients": [
@@ -17590,7 +17264,6 @@
   },
   "waxed_weathered_cut_copper_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_weathered_cut_copper"
     },
     "ingredients": [
@@ -17636,7 +17309,6 @@
   },
   "waxed_weathered_cut_copper_slab_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_weathered_cut_copper_slab"
     },
     "ingredients": [
@@ -17695,7 +17367,6 @@
   },
   "waxed_weathered_cut_copper_stairs_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_weathered_cut_copper_stairs"
     },
     "ingredients": [
@@ -17725,7 +17396,6 @@
   },
   "waxed_weathered_cut_copper_stairs_from_waxed_weathered_cut_copper_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_weathered_cut_copper_stairs"
     },
     "ingredient": "minecraft:waxed_weathered_cut_copper",
@@ -17846,7 +17516,6 @@
   },
   "weathered_cut_copper_stairs_from_weathered_cut_copper_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:weathered_cut_copper_stairs"
     },
     "ingredient": "minecraft:weathered_cut_copper",
@@ -17857,7 +17526,6 @@
   },
   "white_candle": {
     "result": {
-      "count": 1,
       "id": "minecraft:white_candle"
     },
     "ingredients": [
@@ -17871,7 +17539,6 @@
   },
   "yellow_candle": {
     "result": {
-      "count": 1,
       "id": "minecraft:yellow_candle"
     },
     "ingredients": [
@@ -17885,7 +17552,6 @@
   },
   "acacia_chest_boat": {
     "result": {
-      "count": 1,
       "id": "minecraft:acacia_chest_boat"
     },
     "ingredients": [
@@ -17899,7 +17565,6 @@
   },
   "birch_chest_boat": {
     "result": {
-      "count": 1,
       "id": "minecraft:birch_chest_boat"
     },
     "ingredients": [
@@ -17913,7 +17578,6 @@
   },
   "dark_oak_chest_boat": {
     "result": {
-      "count": 1,
       "id": "minecraft:dark_oak_chest_boat"
     },
     "ingredients": [
@@ -17927,7 +17591,6 @@
   },
   "jungle_chest_boat": {
     "result": {
-      "count": 1,
       "id": "minecraft:jungle_chest_boat"
     },
     "ingredients": [
@@ -17941,7 +17604,6 @@
   },
   "mangrove_boat": {
     "result": {
-      "count": 1,
       "id": "minecraft:mangrove_boat"
     },
     "pattern": [
@@ -17958,7 +17620,6 @@
   },
   "mangrove_button": {
     "result": {
-      "count": 1,
       "id": "minecraft:mangrove_button"
     },
     "ingredients": [
@@ -17971,7 +17632,6 @@
   },
   "mangrove_chest_boat": {
     "result": {
-      "count": 1,
       "id": "minecraft:mangrove_chest_boat"
     },
     "ingredients": [
@@ -18021,7 +17681,6 @@
   },
   "mangrove_fence_gate": {
     "result": {
-      "count": 1,
       "id": "minecraft:mangrove_fence_gate"
     },
     "pattern": [
@@ -18053,7 +17712,6 @@
   },
   "mangrove_pressure_plate": {
     "result": {
-      "count": 1,
       "id": "minecraft:mangrove_pressure_plate"
     },
     "pattern": [
@@ -18201,7 +17859,6 @@
   },
   "mud_brick_stairs_from_mud_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:mud_brick_stairs"
     },
     "ingredient": "minecraft:mud_bricks",
@@ -18229,7 +17886,6 @@
   },
   "mud_brick_wall_from_mud_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:mud_brick_wall"
     },
     "ingredient": "minecraft:mud_bricks",
@@ -18257,7 +17913,6 @@
   },
   "muddy_mangrove_roots": {
     "result": {
-      "count": 1,
       "id": "minecraft:muddy_mangrove_roots"
     },
     "ingredients": [
@@ -18271,7 +17926,6 @@
   },
   "music_disc_5": {
     "result": {
-      "count": 1,
       "id": "minecraft:music_disc_5"
     },
     "ingredients": [
@@ -18292,7 +17946,6 @@
   },
   "oak_chest_boat": {
     "result": {
-      "count": 1,
       "id": "minecraft:oak_chest_boat"
     },
     "ingredients": [
@@ -18306,7 +17959,6 @@
   },
   "packed_mud": {
     "result": {
-      "count": 1,
       "id": "minecraft:packed_mud"
     },
     "ingredients": [
@@ -18320,7 +17972,6 @@
   },
   "recovery_compass": {
     "result": {
-      "count": 1,
       "id": "minecraft:recovery_compass"
     },
     "pattern": [
@@ -18339,7 +17990,6 @@
   },
   "spruce_chest_boat": {
     "result": {
-      "count": 1,
       "id": "minecraft:spruce_chest_boat"
     },
     "ingredients": [
@@ -18390,7 +18040,6 @@
   },
   "bamboo_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:bamboo_block"
     },
     "ingredients": [
@@ -18412,7 +18061,6 @@
   },
   "bamboo_button": {
     "result": {
-      "count": 1,
       "id": "minecraft:bamboo_button"
     },
     "ingredients": [
@@ -18426,7 +18074,6 @@
   },
   "bamboo_chest_raft": {
     "result": {
-      "count": 1,
       "id": "minecraft:bamboo_chest_raft"
     },
     "ingredients": [
@@ -18479,7 +18126,6 @@
   },
   "bamboo_fence_gate": {
     "result": {
-      "count": 1,
       "id": "minecraft:bamboo_fence_gate"
     },
     "pattern": [
@@ -18518,7 +18164,6 @@
   },
   "bamboo_mosaic": {
     "result": {
-      "count": 1,
       "id": "minecraft:bamboo_mosaic"
     },
     "pattern": [
@@ -18587,7 +18232,6 @@
   },
   "bamboo_pressure_plate": {
     "result": {
-      "count": 1,
       "id": "minecraft:bamboo_pressure_plate"
     },
     "pattern": [
@@ -18604,7 +18248,6 @@
   },
   "bamboo_raft": {
     "result": {
-      "count": 1,
       "id": "minecraft:bamboo_raft"
     },
     "pattern": [
@@ -18716,7 +18359,6 @@
   },
   "chiseled_bookshelf": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_bookshelf"
     },
     "pattern": [
@@ -18877,7 +18519,6 @@
   },
   "brush": {
     "result": {
-      "count": 1,
       "id": "minecraft:brush"
     },
     "pattern": [
@@ -18898,7 +18539,6 @@
   },
   "cherry_boat": {
     "result": {
-      "count": 1,
       "id": "minecraft:cherry_boat"
     },
     "pattern": [
@@ -18916,7 +18556,6 @@
   },
   "cherry_button": {
     "result": {
-      "count": 1,
       "id": "minecraft:cherry_button"
     },
     "ingredients": [
@@ -18930,7 +18569,6 @@
   },
   "cherry_chest_boat": {
     "result": {
-      "count": 1,
       "id": "minecraft:cherry_chest_boat"
     },
     "ingredients": [
@@ -18983,7 +18621,6 @@
   },
   "cherry_fence_gate": {
     "result": {
-      "count": 1,
       "id": "minecraft:cherry_fence_gate"
     },
     "pattern": [
@@ -19037,7 +18674,6 @@
   },
   "cherry_pressure_plate": {
     "result": {
-      "count": 1,
       "id": "minecraft:cherry_pressure_plate"
     },
     "pattern": [
@@ -19169,15 +18805,11 @@
     "result": {
       "id": "minecraft:decorated_pot"
     },
-    "pattern": [
-      " # ",
-      "# #",
-      " # "
-    ],
+    "left": "#minecraft:decorated_pot_ingredients",
+    "back": "#minecraft:decorated_pot_ingredients",
+    "front": "#minecraft:decorated_pot_ingredients",
+    "right": "#minecraft:decorated_pot_ingredients",
     "type": "minecraft:crafting_decorated_pot",
-    "key": {
-      "#": "#minecraft:decorated_pot_ingredients"
-    },
     "properties": {
       "feature_flag": "1.20",
       "animated": true,
@@ -19366,7 +18998,6 @@
   },
   "orange_dye_from_torchflower": {
     "result": {
-      "count": 1,
       "id": "minecraft:orange_dye"
     },
     "ingredients": [
@@ -19380,7 +19011,6 @@
   },
   "pink_dye_from_pink_petals": {
     "result": {
-      "count": 1,
       "id": "minecraft:pink_dye"
     },
     "ingredients": [
@@ -20405,7 +20035,6 @@
   },
   "calibrated_sculk_sensor": {
     "result": {
-      "count": 1,
       "id": "minecraft:calibrated_sculk_sensor"
     },
     "pattern": [
@@ -20436,7 +20065,6 @@
   },
   "dye_black_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:black_bed"
     },
     "ingredients": [
@@ -20467,7 +20095,6 @@
   },
   "dye_black_carpet": {
     "result": {
-      "count": 1,
       "id": "minecraft:black_carpet"
     },
     "ingredients": [
@@ -20498,7 +20125,6 @@
   },
   "dye_black_wool": {
     "result": {
-      "count": 1,
       "id": "minecraft:black_wool"
     },
     "ingredients": [
@@ -20529,7 +20155,6 @@
   },
   "dye_blue_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:blue_bed"
     },
     "ingredients": [
@@ -20560,7 +20185,6 @@
   },
   "dye_blue_carpet": {
     "result": {
-      "count": 1,
       "id": "minecraft:blue_carpet"
     },
     "ingredients": [
@@ -20591,7 +20215,6 @@
   },
   "dye_blue_wool": {
     "result": {
-      "count": 1,
       "id": "minecraft:blue_wool"
     },
     "ingredients": [
@@ -20622,7 +20245,6 @@
   },
   "dye_brown_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:brown_bed"
     },
     "ingredients": [
@@ -20653,7 +20275,6 @@
   },
   "dye_brown_carpet": {
     "result": {
-      "count": 1,
       "id": "minecraft:brown_carpet"
     },
     "ingredients": [
@@ -20684,7 +20305,6 @@
   },
   "dye_brown_wool": {
     "result": {
-      "count": 1,
       "id": "minecraft:brown_wool"
     },
     "ingredients": [
@@ -20715,7 +20335,6 @@
   },
   "dye_cyan_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:cyan_bed"
     },
     "ingredients": [
@@ -20746,7 +20365,6 @@
   },
   "dye_cyan_carpet": {
     "result": {
-      "count": 1,
       "id": "minecraft:cyan_carpet"
     },
     "ingredients": [
@@ -20777,7 +20395,6 @@
   },
   "dye_cyan_wool": {
     "result": {
-      "count": 1,
       "id": "minecraft:cyan_wool"
     },
     "ingredients": [
@@ -20808,7 +20425,6 @@
   },
   "dye_gray_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:gray_bed"
     },
     "ingredients": [
@@ -20839,7 +20455,6 @@
   },
   "dye_gray_carpet": {
     "result": {
-      "count": 1,
       "id": "minecraft:gray_carpet"
     },
     "ingredients": [
@@ -20870,7 +20485,6 @@
   },
   "dye_gray_wool": {
     "result": {
-      "count": 1,
       "id": "minecraft:gray_wool"
     },
     "ingredients": [
@@ -20901,7 +20515,6 @@
   },
   "dye_green_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:green_bed"
     },
     "ingredients": [
@@ -20932,7 +20545,6 @@
   },
   "dye_green_carpet": {
     "result": {
-      "count": 1,
       "id": "minecraft:green_carpet"
     },
     "ingredients": [
@@ -20963,7 +20575,6 @@
   },
   "dye_green_wool": {
     "result": {
-      "count": 1,
       "id": "minecraft:green_wool"
     },
     "ingredients": [
@@ -20994,7 +20605,6 @@
   },
   "dye_light_blue_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:light_blue_bed"
     },
     "ingredients": [
@@ -21025,7 +20635,6 @@
   },
   "dye_light_blue_carpet": {
     "result": {
-      "count": 1,
       "id": "minecraft:light_blue_carpet"
     },
     "ingredients": [
@@ -21056,7 +20665,6 @@
   },
   "dye_light_blue_wool": {
     "result": {
-      "count": 1,
       "id": "minecraft:light_blue_wool"
     },
     "ingredients": [
@@ -21087,7 +20695,6 @@
   },
   "dye_light_gray_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:light_gray_bed"
     },
     "ingredients": [
@@ -21118,7 +20725,6 @@
   },
   "dye_light_gray_carpet": {
     "result": {
-      "count": 1,
       "id": "minecraft:light_gray_carpet"
     },
     "ingredients": [
@@ -21149,7 +20755,6 @@
   },
   "dye_light_gray_wool": {
     "result": {
-      "count": 1,
       "id": "minecraft:light_gray_wool"
     },
     "ingredients": [
@@ -21180,7 +20785,6 @@
   },
   "dye_lime_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:lime_bed"
     },
     "ingredients": [
@@ -21211,7 +20815,6 @@
   },
   "dye_lime_carpet": {
     "result": {
-      "count": 1,
       "id": "minecraft:lime_carpet"
     },
     "ingredients": [
@@ -21242,7 +20845,6 @@
   },
   "dye_lime_wool": {
     "result": {
-      "count": 1,
       "id": "minecraft:lime_wool"
     },
     "ingredients": [
@@ -21273,7 +20875,6 @@
   },
   "dye_magenta_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:magenta_bed"
     },
     "ingredients": [
@@ -21304,7 +20905,6 @@
   },
   "dye_magenta_carpet": {
     "result": {
-      "count": 1,
       "id": "minecraft:magenta_carpet"
     },
     "ingredients": [
@@ -21335,7 +20935,6 @@
   },
   "dye_magenta_wool": {
     "result": {
-      "count": 1,
       "id": "minecraft:magenta_wool"
     },
     "ingredients": [
@@ -21366,7 +20965,6 @@
   },
   "dye_orange_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:orange_bed"
     },
     "ingredients": [
@@ -21397,7 +20995,6 @@
   },
   "dye_orange_carpet": {
     "result": {
-      "count": 1,
       "id": "minecraft:orange_carpet"
     },
     "ingredients": [
@@ -21428,7 +21025,6 @@
   },
   "dye_orange_wool": {
     "result": {
-      "count": 1,
       "id": "minecraft:orange_wool"
     },
     "ingredients": [
@@ -21459,7 +21055,6 @@
   },
   "dye_pink_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:pink_bed"
     },
     "ingredients": [
@@ -21490,7 +21085,6 @@
   },
   "dye_pink_carpet": {
     "result": {
-      "count": 1,
       "id": "minecraft:pink_carpet"
     },
     "ingredients": [
@@ -21521,7 +21115,6 @@
   },
   "dye_pink_wool": {
     "result": {
-      "count": 1,
       "id": "minecraft:pink_wool"
     },
     "ingredients": [
@@ -21552,7 +21145,6 @@
   },
   "dye_purple_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:purple_bed"
     },
     "ingredients": [
@@ -21583,7 +21175,6 @@
   },
   "dye_purple_carpet": {
     "result": {
-      "count": 1,
       "id": "minecraft:purple_carpet"
     },
     "ingredients": [
@@ -21614,7 +21205,6 @@
   },
   "dye_purple_wool": {
     "result": {
-      "count": 1,
       "id": "minecraft:purple_wool"
     },
     "ingredients": [
@@ -21645,7 +21235,6 @@
   },
   "dye_red_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:red_bed"
     },
     "ingredients": [
@@ -21676,7 +21265,6 @@
   },
   "dye_red_carpet": {
     "result": {
-      "count": 1,
       "id": "minecraft:red_carpet"
     },
     "ingredients": [
@@ -21707,7 +21295,6 @@
   },
   "dye_red_wool": {
     "result": {
-      "count": 1,
       "id": "minecraft:red_wool"
     },
     "ingredients": [
@@ -21738,7 +21325,6 @@
   },
   "dye_white_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:white_bed"
     },
     "ingredients": [
@@ -21769,7 +21355,6 @@
   },
   "dye_white_carpet": {
     "result": {
-      "count": 1,
       "id": "minecraft:white_carpet"
     },
     "ingredients": [
@@ -21800,7 +21385,6 @@
   },
   "dye_white_wool": {
     "result": {
-      "count": 1,
       "id": "minecraft:white_wool"
     },
     "ingredients": [
@@ -21831,7 +21415,6 @@
   },
   "dye_yellow_bed": {
     "result": {
-      "count": 1,
       "id": "minecraft:yellow_bed"
     },
     "ingredients": [
@@ -21862,7 +21445,6 @@
   },
   "dye_yellow_carpet": {
     "result": {
-      "count": 1,
       "id": "minecraft:yellow_carpet"
     },
     "ingredients": [
@@ -21893,7 +21475,6 @@
   },
   "dye_yellow_wool": {
     "result": {
-      "count": 1,
       "id": "minecraft:yellow_wool"
     },
     "ingredients": [
@@ -22024,7 +21605,6 @@
   },
   "chiseled_copper": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_copper"
     },
     "pattern": [
@@ -22054,7 +21634,6 @@
   },
   "chiseled_copper_from_cut_copper_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_copper"
     },
     "ingredient": "minecraft:cut_copper",
@@ -22066,7 +21645,6 @@
   },
   "chiseled_tuff": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_tuff"
     },
     "pattern": [
@@ -22084,7 +21662,6 @@
   },
   "chiseled_tuff_bricks": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_tuff_bricks"
     },
     "pattern": [
@@ -22102,7 +21679,6 @@
   },
   "chiseled_tuff_bricks_from_polished_tuff_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_tuff_bricks"
     },
     "ingredient": "minecraft:polished_tuff",
@@ -22114,7 +21690,6 @@
   },
   "chiseled_tuff_bricks_from_tuff_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_tuff_bricks"
     },
     "ingredient": "minecraft:tuff_bricks",
@@ -22126,7 +21701,6 @@
   },
   "chiseled_tuff_bricks_from_tuff_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_tuff_bricks"
     },
     "ingredient": "minecraft:tuff",
@@ -22138,7 +21712,6 @@
   },
   "chiseled_tuff_from_tuff_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_tuff"
     },
     "ingredient": "minecraft:tuff",
@@ -22221,7 +21794,6 @@
   },
   "crafter": {
     "result": {
-      "count": 1,
       "id": "minecraft:crafter"
     },
     "pattern": [
@@ -22243,7 +21815,6 @@
   },
   "exposed_chiseled_copper": {
     "result": {
-      "count": 1,
       "id": "minecraft:exposed_chiseled_copper"
     },
     "pattern": [
@@ -22273,7 +21844,6 @@
   },
   "exposed_chiseled_copper_from_exposed_cut_copper_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:exposed_chiseled_copper"
     },
     "ingredient": "minecraft:exposed_cut_copper",
@@ -22356,7 +21926,6 @@
   },
   "oxidized_chiseled_copper": {
     "result": {
-      "count": 1,
       "id": "minecraft:oxidized_chiseled_copper"
     },
     "pattern": [
@@ -22386,7 +21955,6 @@
   },
   "oxidized_chiseled_copper_from_oxidized_cut_copper_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:oxidized_chiseled_copper"
     },
     "ingredient": "minecraft:oxidized_cut_copper",
@@ -22487,7 +22055,6 @@
   },
   "polished_tuff_from_tuff_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_tuff"
     },
     "ingredient": "minecraft:tuff",
@@ -22559,7 +22126,6 @@
   },
   "polished_tuff_stairs_from_polished_tuff_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_tuff_stairs"
     },
     "ingredient": "minecraft:polished_tuff",
@@ -22571,7 +22137,6 @@
   },
   "polished_tuff_stairs_from_tuff_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_tuff_stairs"
     },
     "ingredient": "minecraft:tuff",
@@ -22601,7 +22166,6 @@
   },
   "polished_tuff_wall_from_polished_tuff_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_tuff_wall"
     },
     "ingredient": "minecraft:polished_tuff",
@@ -22613,7 +22177,6 @@
   },
   "polished_tuff_wall_from_tuff_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:polished_tuff_wall"
     },
     "ingredient": "minecraft:tuff",
@@ -22697,7 +22260,6 @@
   },
   "tuff_brick_stairs_from_polished_tuff_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:tuff_brick_stairs"
     },
     "ingredient": "minecraft:polished_tuff",
@@ -22709,7 +22271,6 @@
   },
   "tuff_brick_stairs_from_tuff_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:tuff_brick_stairs"
     },
     "ingredient": "minecraft:tuff_bricks",
@@ -22721,7 +22282,6 @@
   },
   "tuff_brick_stairs_from_tuff_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:tuff_brick_stairs"
     },
     "ingredient": "minecraft:tuff",
@@ -22751,7 +22311,6 @@
   },
   "tuff_brick_wall_from_polished_tuff_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:tuff_brick_wall"
     },
     "ingredient": "minecraft:polished_tuff",
@@ -22763,7 +22322,6 @@
   },
   "tuff_brick_wall_from_tuff_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:tuff_brick_wall"
     },
     "ingredient": "minecraft:tuff_bricks",
@@ -22775,7 +22333,6 @@
   },
   "tuff_brick_wall_from_tuff_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:tuff_brick_wall"
     },
     "ingredient": "minecraft:tuff",
@@ -22791,12 +22348,12 @@
       "id": "minecraft:tuff_bricks"
     },
     "pattern": [
-      "SS",
-      "SS"
+      "##",
+      "##"
     ],
     "type": "minecraft:crafting_shaped",
     "key": {
-      "S": "minecraft:polished_tuff"
+      "#": "minecraft:polished_tuff"
     },
     "properties": {
       "feature_flag": "1.21",
@@ -22805,7 +22362,6 @@
   },
   "tuff_bricks_from_polished_tuff_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:tuff_bricks"
     },
     "ingredient": "minecraft:polished_tuff",
@@ -22817,7 +22373,6 @@
   },
   "tuff_bricks_from_tuff_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:tuff_bricks"
     },
     "ingredient": "minecraft:tuff",
@@ -22877,7 +22432,6 @@
   },
   "tuff_stairs_from_tuff_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:tuff_stairs"
     },
     "ingredient": "minecraft:tuff",
@@ -22907,7 +22461,6 @@
   },
   "tuff_wall_from_tuff_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:tuff_wall"
     },
     "ingredient": "minecraft:tuff",
@@ -22919,7 +22472,6 @@
   },
   "waxed_chiseled_copper": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_chiseled_copper"
     },
     "pattern": [
@@ -22937,7 +22489,6 @@
   },
   "waxed_chiseled_copper_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_chiseled_copper"
     },
     "ingredients": [
@@ -22964,7 +22515,6 @@
   },
   "waxed_chiseled_copper_from_waxed_cut_copper_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_chiseled_copper"
     },
     "ingredient": "minecraft:waxed_cut_copper",
@@ -22997,7 +22547,6 @@
   },
   "waxed_copper_bulb_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_copper_bulb"
     },
     "ingredients": [
@@ -23031,7 +22580,6 @@
   },
   "waxed_copper_door_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_copper_door"
     },
     "ingredients": [
@@ -23065,7 +22613,6 @@
   },
   "waxed_copper_grate_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_copper_grate"
     },
     "ingredients": [
@@ -23092,7 +22639,6 @@
   },
   "waxed_copper_trapdoor_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_copper_trapdoor"
     },
     "ingredients": [
@@ -23107,7 +22653,6 @@
   },
   "waxed_exposed_chiseled_copper": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_exposed_chiseled_copper"
     },
     "pattern": [
@@ -23125,7 +22670,6 @@
   },
   "waxed_exposed_chiseled_copper_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_exposed_chiseled_copper"
     },
     "ingredients": [
@@ -23152,7 +22696,6 @@
   },
   "waxed_exposed_chiseled_copper_from_waxed_exposed_cut_copper_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_exposed_chiseled_copper"
     },
     "ingredient": "minecraft:waxed_exposed_cut_copper",
@@ -23185,7 +22728,6 @@
   },
   "waxed_exposed_copper_bulb_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_exposed_copper_bulb"
     },
     "ingredients": [
@@ -23219,7 +22761,6 @@
   },
   "waxed_exposed_copper_door_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_exposed_copper_door"
     },
     "ingredients": [
@@ -23253,7 +22794,6 @@
   },
   "waxed_exposed_copper_grate_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_exposed_copper_grate"
     },
     "ingredients": [
@@ -23280,7 +22820,6 @@
   },
   "waxed_exposed_copper_trapdoor_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_exposed_copper_trapdoor"
     },
     "ingredients": [
@@ -23295,7 +22834,6 @@
   },
   "waxed_oxidized_chiseled_copper": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_oxidized_chiseled_copper"
     },
     "pattern": [
@@ -23313,7 +22851,6 @@
   },
   "waxed_oxidized_chiseled_copper_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_oxidized_chiseled_copper"
     },
     "ingredients": [
@@ -23340,7 +22877,6 @@
   },
   "waxed_oxidized_chiseled_copper_from_waxed_oxidized_cut_copper_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_oxidized_chiseled_copper"
     },
     "ingredient": "minecraft:waxed_oxidized_cut_copper",
@@ -23373,7 +22909,6 @@
   },
   "waxed_oxidized_copper_bulb_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_oxidized_copper_bulb"
     },
     "ingredients": [
@@ -23407,7 +22942,6 @@
   },
   "waxed_oxidized_copper_door_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_oxidized_copper_door"
     },
     "ingredients": [
@@ -23441,7 +22975,6 @@
   },
   "waxed_oxidized_copper_grate_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_oxidized_copper_grate"
     },
     "ingredients": [
@@ -23468,7 +23001,6 @@
   },
   "waxed_oxidized_copper_trapdoor_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_oxidized_copper_trapdoor"
     },
     "ingredients": [
@@ -23483,7 +23015,6 @@
   },
   "waxed_weathered_chiseled_copper": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_weathered_chiseled_copper"
     },
     "pattern": [
@@ -23501,7 +23032,6 @@
   },
   "waxed_weathered_chiseled_copper_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_weathered_chiseled_copper"
     },
     "ingredients": [
@@ -23528,7 +23058,6 @@
   },
   "waxed_weathered_chiseled_copper_from_waxed_weathered_cut_copper_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_weathered_chiseled_copper"
     },
     "ingredient": "minecraft:waxed_weathered_cut_copper",
@@ -23561,7 +23090,6 @@
   },
   "waxed_weathered_copper_bulb_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_weathered_copper_bulb"
     },
     "ingredients": [
@@ -23595,7 +23123,6 @@
   },
   "waxed_weathered_copper_door_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_weathered_copper_door"
     },
     "ingredients": [
@@ -23629,7 +23156,6 @@
   },
   "waxed_weathered_copper_grate_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_weathered_copper_grate"
     },
     "ingredients": [
@@ -23656,7 +23182,6 @@
   },
   "waxed_weathered_copper_trapdoor_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_weathered_copper_trapdoor"
     },
     "ingredients": [
@@ -23671,7 +23196,6 @@
   },
   "weathered_chiseled_copper": {
     "result": {
-      "count": 1,
       "id": "minecraft:weathered_chiseled_copper"
     },
     "pattern": [
@@ -23701,7 +23225,6 @@
   },
   "weathered_chiseled_copper_from_weathered_cut_copper_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:weathered_chiseled_copper"
     },
     "ingredient": "minecraft:weathered_cut_copper",
@@ -23866,7 +23389,6 @@
   },
   "mace": {
     "result": {
-      "count": 1,
       "id": "minecraft:mace"
     },
     "pattern": [
@@ -23960,16 +23482,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.infested"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.infested",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.infested",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "feature_flag": "1.21",
       "version": "1.20.5"
@@ -23980,16 +23495,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.oozing"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.oozing",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.oozing",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "feature_flag": "1.21",
       "version": "1.20.5"
@@ -24000,16 +23508,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.weaving"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.weaving",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.weaving",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "feature_flag": "1.21",
       "version": "1.20.5"
@@ -24020,16 +23521,9 @@
       "count": 8,
       "id": "minecraft.tipped_arrow.effect.wind_charged"
     },
-    "pattern": [
-      "AAA",
-      "APA",
-      "AAA"
-    ],
-    "type": "minecraft:crafting_special_tippedarrow",
-    "key": {
-      "P": "minecraft.lingering_potion.effect.wind_charged",
-      "A": "minecraft:arrow"
-    },
+    "material": "minecraft:arrow",
+    "source": "minecraft.lingering_potion.effect.wind_charged",
+    "type": "minecraft:crafting_imbue",
     "properties": {
       "feature_flag": "1.21",
       "version": "1.20.5"
@@ -24123,7 +23617,6 @@
   },
   "wolf_armor": {
     "result": {
-      "count": 1,
       "id": "minecraft:wolf_armor"
     },
     "pattern": [
@@ -24138,6 +23631,23 @@
     "properties": {
       "version": "1.20.5"
     }
+  },
+  "wolf_armor_dyed": {
+    "result": {
+      "id": "minecraft:wolf_armor"
+    },
+    "dye": "#minecraft:dyes",
+    "type": "minecraft:crafting_dye",
+    "lang": {
+      "en_US": {
+        "notes": "Mixes the leather wolf armor color with the provided dyes"
+      }
+    },
+    "properties": {
+      "animated": true,
+      "version": "1.20.5"
+    },
+    "target": "minecraft:wolf_armor"
   },
   "lead": {
     "result": {
@@ -24183,7 +23693,6 @@
   },
   "bordure_indented_banner_pattern": {
     "result": {
-      "count": 1,
       "id": "minecraft:bordure_indented_banner_pattern"
     },
     "ingredients": [
@@ -24209,7 +23718,6 @@
   },
   "bundle": {
     "result": {
-      "count": 1,
       "id": "minecraft:bundle"
     },
     "pattern": [
@@ -24239,7 +23747,6 @@
   },
   "field_masoned_banner_pattern": {
     "result": {
-      "count": 1,
       "id": "minecraft:field_masoned_banner_pattern"
     },
     "ingredients": [
@@ -24354,7 +23861,6 @@
   },
   "pale_oak_boat": {
     "result": {
-      "count": 1,
       "id": "minecraft:pale_oak_boat"
     },
     "pattern": [
@@ -24372,7 +23878,6 @@
   },
   "pale_oak_button": {
     "result": {
-      "count": 1,
       "id": "minecraft:pale_oak_button"
     },
     "ingredients": [
@@ -24386,7 +23891,6 @@
   },
   "pale_oak_chest_boat": {
     "result": {
-      "count": 1,
       "id": "minecraft:pale_oak_chest_boat"
     },
     "ingredients": [
@@ -24439,7 +23943,6 @@
   },
   "pale_oak_fence_gate": {
     "result": {
-      "count": 1,
       "id": "minecraft:pale_oak_fence_gate"
     },
     "pattern": [
@@ -24493,7 +23996,6 @@
   },
   "pale_oak_pressure_plate": {
     "result": {
-      "count": 1,
       "id": "minecraft:pale_oak_pressure_plate"
     },
     "pattern": [
@@ -24680,7 +24182,6 @@
   },
   "chiseled_resin_bricks": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_resin_bricks"
     },
     "pattern": [
@@ -24697,7 +24198,6 @@
   },
   "chiseled_resin_bricks_from_resin_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:chiseled_resin_bricks"
     },
     "ingredient": "minecraft:resin_bricks",
@@ -24708,7 +24208,6 @@
   },
   "creaking_heart": {
     "result": {
-      "count": 1,
       "id": "minecraft:creaking_heart"
     },
     "pattern": [
@@ -24727,7 +24226,6 @@
   },
   "gray_dye_from_closed_eyeblossom": {
     "result": {
-      "count": 1,
       "id": "minecraft:gray_dye"
     },
     "ingredients": [
@@ -24740,7 +24238,6 @@
   },
   "orange_dye_from_open_eyeblossom": {
     "result": {
-      "count": 1,
       "id": "minecraft:orange_dye"
     },
     "ingredients": [
@@ -24753,7 +24250,6 @@
   },
   "pink_dye_from_cactus_flower": {
     "result": {
-      "count": 1,
       "id": "minecraft:pink_dye"
     },
     "ingredients": [
@@ -24766,7 +24262,6 @@
   },
   "resin_block": {
     "result": {
-      "count": 1,
       "id": "minecraft:resin_block"
     },
     "pattern": [
@@ -24840,7 +24335,6 @@
   },
   "resin_brick_stairs_from_resin_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:resin_brick_stairs"
     },
     "ingredient": "minecraft:resin_bricks",
@@ -24868,7 +24362,6 @@
   },
   "resin_brick_wall_from_resin_bricks_stonecutting": {
     "result": {
-      "count": 1,
       "id": "minecraft:resin_brick_wall"
     },
     "ingredient": "minecraft:resin_bricks",
@@ -24879,7 +24372,6 @@
   },
   "resin_bricks": {
     "result": {
-      "count": 1,
       "id": "minecraft:resin_bricks"
     },
     "pattern": [
@@ -24921,6 +24413,7 @@
         "minecraft:open_eyeblossom",
         "minecraft:blue_orchid",
         "minecraft:dandelion",
+        "minecraft:golden_dandelion",
         "minecraft:closed_eyeblossom",
         "minecraft:cornflower",
         "minecraft:lily_of_the_valley",
@@ -24937,7 +24430,7 @@
     "type": "minecraft:crafting_special_suspiciousstew",
     "lang": {
       "en_US": {
-        "notes": "\nAllium - Fire Resistance 3s\nAzure Bluet - Blindness 11s\nOpen Eyeblossom - Blindness 11s\nBlue Orchid - Saturation 0.35s\nDandelion - Saturation 0.35s\nClosed Eyeblossom - Nausea 7s\nCornflower - Jump Boost 5s\nLily of the Valley - Poison 11s\nOxeye Daisy - Regeneration 7s\nPoppy - Night Vision 5s\nTorchflower - Night Vision 5s\nTulips - Weakness 9s\nWither Rose - Wither 7s"
+        "notes": "\nAllium - Fire Resistance 3s\nAzure Bluet - Blindness 11s\nOpen Eyeblossom - Blindness 11s\nBlue Orchid - Saturation 0.35s\nDandelion - Saturation 0.35s\nGolden Dandelion - Saturation 0.35s\nClosed Eyeblossom - Nausea 7s\nCornflower - Jump Boost 5s\nLily of the Valley - Poison 11s\nOxeye Daisy - Regeneration 7s\nPoppy - Night Vision 5s\nTorchflower - Night Vision 5s\nTulips - Weakness 9s\nWither Rose - Wither 7s"
       }
     },
     "properties": {
@@ -24947,7 +24440,6 @@
   },
   "yellow_dye_from_wildflowers": {
     "result": {
-      "count": 1,
       "id": "minecraft:yellow_dye"
     },
     "ingredients": [
@@ -24972,7 +24464,6 @@
   },
   "lodestone": {
     "result": {
-      "count": 1,
       "id": "minecraft:lodestone"
     },
     "pattern": [
@@ -24991,7 +24482,6 @@
   },
   "black_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:black_harness"
     },
     "pattern": [
@@ -25010,7 +24500,6 @@
   },
   "blue_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:blue_harness"
     },
     "pattern": [
@@ -25029,7 +24518,6 @@
   },
   "brown_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:brown_harness"
     },
     "pattern": [
@@ -25048,7 +24536,6 @@
   },
   "cyan_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:cyan_harness"
     },
     "pattern": [
@@ -25067,7 +24554,6 @@
   },
   "dried_ghast": {
     "result": {
-      "count": 1,
       "id": "minecraft:dried_ghast"
     },
     "pattern": [
@@ -25086,7 +24572,6 @@
   },
   "dye_black_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:black_harness"
     },
     "ingredients": [
@@ -25117,7 +24602,6 @@
   },
   "dye_blue_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:blue_harness"
     },
     "ingredients": [
@@ -25148,7 +24632,6 @@
   },
   "dye_brown_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:brown_harness"
     },
     "ingredients": [
@@ -25179,7 +24662,6 @@
   },
   "dye_cyan_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:cyan_harness"
     },
     "ingredients": [
@@ -25210,7 +24692,6 @@
   },
   "dye_gray_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:gray_harness"
     },
     "ingredients": [
@@ -25241,7 +24722,6 @@
   },
   "dye_green_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:green_harness"
     },
     "ingredients": [
@@ -25272,7 +24752,6 @@
   },
   "dye_light_blue_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:light_blue_harness"
     },
     "ingredients": [
@@ -25303,7 +24782,6 @@
   },
   "dye_light_gray_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:light_gray_harness"
     },
     "ingredients": [
@@ -25334,7 +24812,6 @@
   },
   "dye_lime_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:lime_harness"
     },
     "ingredients": [
@@ -25365,7 +24842,6 @@
   },
   "dye_magenta_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:magenta_harness"
     },
     "ingredients": [
@@ -25396,7 +24872,6 @@
   },
   "dye_orange_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:orange_harness"
     },
     "ingredients": [
@@ -25427,7 +24902,6 @@
   },
   "dye_pink_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:pink_harness"
     },
     "ingredients": [
@@ -25458,7 +24932,6 @@
   },
   "dye_purple_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:purple_harness"
     },
     "ingredients": [
@@ -25489,7 +24962,6 @@
   },
   "dye_red_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:red_harness"
     },
     "ingredients": [
@@ -25520,7 +24992,6 @@
   },
   "dye_white_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:white_harness"
     },
     "ingredients": [
@@ -25551,7 +25022,6 @@
   },
   "dye_yellow_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:yellow_harness"
     },
     "ingredients": [
@@ -25582,7 +25052,6 @@
   },
   "gray_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:gray_harness"
     },
     "pattern": [
@@ -25601,7 +25070,6 @@
   },
   "green_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:green_harness"
     },
     "pattern": [
@@ -25620,7 +25088,6 @@
   },
   "light_blue_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:light_blue_harness"
     },
     "pattern": [
@@ -25639,7 +25106,6 @@
   },
   "light_gray_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:light_gray_harness"
     },
     "pattern": [
@@ -25658,7 +25124,6 @@
   },
   "lime_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:lime_harness"
     },
     "pattern": [
@@ -25677,7 +25142,6 @@
   },
   "magenta_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:magenta_harness"
     },
     "pattern": [
@@ -25696,7 +25160,6 @@
   },
   "orange_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:orange_harness"
     },
     "pattern": [
@@ -25715,7 +25178,6 @@
   },
   "pink_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:pink_harness"
     },
     "pattern": [
@@ -25734,7 +25196,6 @@
   },
   "purple_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:purple_harness"
     },
     "pattern": [
@@ -25753,7 +25214,6 @@
   },
   "red_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:red_harness"
     },
     "pattern": [
@@ -25772,7 +25232,6 @@
   },
   "saddle": {
     "result": {
-      "count": 1,
       "id": "minecraft:saddle"
     },
     "pattern": [
@@ -25790,7 +25249,6 @@
   },
   "white_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:white_harness"
     },
     "pattern": [
@@ -25809,7 +25267,6 @@
   },
   "yellow_harness": {
     "result": {
-      "count": 1,
       "id": "minecraft:yellow_harness"
     },
     "pattern": [
@@ -25900,7 +25357,6 @@
   },
   "copper_axe": {
     "result": {
-      "count": 1,
       "id": "minecraft:copper_axe"
     },
     "pattern": [
@@ -25936,7 +25392,6 @@
   },
   "copper_boots": {
     "result": {
-      "count": 1,
       "id": "minecraft:copper_boots"
     },
     "pattern": [
@@ -25953,7 +25408,6 @@
   },
   "copper_chain": {
     "result": {
-      "count": 1,
       "id": "minecraft:copper_chain"
     },
     "pattern": [
@@ -25972,7 +25426,6 @@
   },
   "copper_chest": {
     "result": {
-      "count": 1,
       "id": "minecraft:copper_chest"
     },
     "pattern": [
@@ -25991,7 +25444,6 @@
   },
   "copper_chestplate": {
     "result": {
-      "count": 1,
       "id": "minecraft:copper_chestplate"
     },
     "pattern": [
@@ -26009,7 +25461,6 @@
   },
   "copper_helmet": {
     "result": {
-      "count": 1,
       "id": "minecraft:copper_helmet"
     },
     "pattern": [
@@ -26026,7 +25477,6 @@
   },
   "copper_hoe": {
     "result": {
-      "count": 1,
       "id": "minecraft:copper_hoe"
     },
     "pattern": [
@@ -26045,7 +25495,6 @@
   },
   "copper_ingot_from_nuggets": {
     "result": {
-      "count": 1,
       "id": "minecraft:copper_ingot"
     },
     "pattern": [
@@ -26063,7 +25512,6 @@
   },
   "copper_lantern": {
     "result": {
-      "count": 1,
       "id": "minecraft:copper_lantern"
     },
     "pattern": [
@@ -26082,7 +25530,6 @@
   },
   "copper_leggings": {
     "result": {
-      "count": 1,
       "id": "minecraft:copper_leggings"
     },
     "pattern": [
@@ -26162,7 +25609,6 @@
   },
   "copper_pickaxe": {
     "result": {
-      "count": 1,
       "id": "minecraft:copper_pickaxe"
     },
     "pattern": [
@@ -26181,7 +25627,6 @@
   },
   "copper_shovel": {
     "result": {
-      "count": 1,
       "id": "minecraft:copper_shovel"
     },
     "pattern": [
@@ -26200,7 +25645,6 @@
   },
   "copper_sword": {
     "result": {
-      "count": 1,
       "id": "minecraft:copper_sword"
     },
     "pattern": [
@@ -26243,7 +25687,6 @@
   },
   "copper_trapdoor": {
     "result": {
-      "count": 1,
       "id": "minecraft:copper_trapdoor"
     },
     "pattern": [
@@ -26532,7 +25975,6 @@
   },
   "waxed_copper_bars_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_copper_bars"
     },
     "ingredients": [
@@ -26546,7 +25988,6 @@
   },
   "waxed_copper_chain_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_copper_chain"
     },
     "ingredients": [
@@ -26560,7 +26001,6 @@
   },
   "waxed_copper_chest_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_copper_chest"
     },
     "ingredients": [
@@ -26574,7 +26014,6 @@
   },
   "waxed_copper_golem_statue_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_copper_golem_statue"
     },
     "ingredients": [
@@ -26588,7 +26027,6 @@
   },
   "waxed_copper_lantern_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_copper_lantern"
     },
     "ingredients": [
@@ -26602,7 +26040,6 @@
   },
   "waxed_exposed_copper_bars_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_exposed_copper_bars"
     },
     "ingredients": [
@@ -26616,7 +26053,6 @@
   },
   "waxed_exposed_copper_chain_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_exposed_copper_chain"
     },
     "ingredients": [
@@ -26630,7 +26066,6 @@
   },
   "waxed_exposed_copper_chest_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_exposed_copper_chest"
     },
     "ingredients": [
@@ -26644,7 +26079,6 @@
   },
   "waxed_exposed_copper_golem_statue_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_exposed_copper_golem_statue"
     },
     "ingredients": [
@@ -26658,7 +26092,6 @@
   },
   "waxed_exposed_copper_lantern_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_exposed_copper_lantern"
     },
     "ingredients": [
@@ -26672,7 +26105,6 @@
   },
   "waxed_exposed_lightning_rod_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_exposed_lightning_rod"
     },
     "ingredients": [
@@ -26686,7 +26118,6 @@
   },
   "waxed_lightning_rod_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_lightning_rod"
     },
     "ingredients": [
@@ -26700,7 +26131,6 @@
   },
   "waxed_oxidized_copper_bars_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_oxidized_copper_bars"
     },
     "ingredients": [
@@ -26714,7 +26144,6 @@
   },
   "waxed_oxidized_copper_chain_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_oxidized_copper_chain"
     },
     "ingredients": [
@@ -26728,7 +26157,6 @@
   },
   "waxed_oxidized_copper_chest_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_oxidized_copper_chest"
     },
     "ingredients": [
@@ -26742,7 +26170,6 @@
   },
   "waxed_oxidized_copper_golem_statue_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_oxidized_copper_golem_statue"
     },
     "ingredients": [
@@ -26756,7 +26183,6 @@
   },
   "waxed_oxidized_copper_lantern_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_oxidized_copper_lantern"
     },
     "ingredients": [
@@ -26770,7 +26196,6 @@
   },
   "waxed_oxidized_lightning_rod_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_oxidized_lightning_rod"
     },
     "ingredients": [
@@ -26784,7 +26209,6 @@
   },
   "waxed_weathered_copper_bars_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_weathered_copper_bars"
     },
     "ingredients": [
@@ -26798,7 +26222,6 @@
   },
   "waxed_weathered_copper_chain_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_weathered_copper_chain"
     },
     "ingredients": [
@@ -26812,7 +26235,6 @@
   },
   "waxed_weathered_copper_chest_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_weathered_copper_chest"
     },
     "ingredients": [
@@ -26826,7 +26248,6 @@
   },
   "waxed_weathered_copper_golem_statue_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_weathered_copper_golem_statue"
     },
     "ingredients": [
@@ -26840,7 +26261,6 @@
   },
   "waxed_weathered_copper_lantern_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_weathered_copper_lantern"
     },
     "ingredients": [
@@ -26854,7 +26274,6 @@
   },
   "waxed_weathered_lightning_rod_from_honeycomb": {
     "result": {
-      "count": 1,
       "id": "minecraft:waxed_weathered_lightning_rod"
     },
     "ingredients": [
@@ -26868,7 +26287,6 @@
   },
   "copper_spear": {
     "result": {
-      "count": 1,
       "id": "minecraft:copper_spear"
     },
     "pattern": [
@@ -26887,7 +26305,6 @@
   },
   "diamond_spear": {
     "result": {
-      "count": 1,
       "id": "minecraft:diamond_spear"
     },
     "pattern": [
@@ -26906,7 +26323,6 @@
   },
   "golden_spear": {
     "result": {
-      "count": 1,
       "id": "minecraft:golden_spear"
     },
     "pattern": [
@@ -26925,7 +26341,6 @@
   },
   "iron_spear": {
     "result": {
-      "count": 1,
       "id": "minecraft:iron_spear"
     },
     "pattern": [
@@ -26980,7 +26395,6 @@
   },
   "stone_spear": {
     "result": {
-      "count": 1,
       "id": "minecraft:stone_spear"
     },
     "pattern": [
@@ -27000,7 +26414,6 @@
   },
   "wooden_spear": {
     "result": {
-      "count": 1,
       "id": "minecraft:wooden_spear"
     },
     "pattern": [
@@ -27018,9 +26431,271 @@
       "version": "1.21.11"
     }
   },
+  "chiseled_deepslate_from_deepslate_stonecutting": {
+    "result": {
+      "id": "minecraft:chiseled_deepslate"
+    },
+    "ingredient": "minecraft:deepslate",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.1"
+    }
+  },
+  "cobbled_deepslate_from_deepslate_stonecutting": {
+    "result": {
+      "id": "minecraft:cobbled_deepslate"
+    },
+    "ingredient": "minecraft:deepslate",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.1"
+    }
+  },
+  "cobbled_deepslate_slab_from_deepslate_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:cobbled_deepslate_slab"
+    },
+    "ingredient": "minecraft:deepslate",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.1"
+    }
+  },
+  "cobbled_deepslate_stairs_from_deepslate_stonecutting": {
+    "result": {
+      "id": "minecraft:cobbled_deepslate_stairs"
+    },
+    "ingredient": "minecraft:deepslate",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.1"
+    }
+  },
+  "cobbled_deepslate_wall_from_deepslate_stonecutting": {
+    "result": {
+      "id": "minecraft:cobbled_deepslate_wall"
+    },
+    "ingredient": "minecraft:deepslate",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.1"
+    }
+  },
+  "cobblestone_from_stone_stonecutting": {
+    "result": {
+      "id": "minecraft:cobblestone"
+    },
+    "ingredient": "minecraft:stone",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.1"
+    }
+  },
+  "cobblestone_slab_from_stone_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:cobblestone_slab"
+    },
+    "ingredient": "minecraft:stone",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.1"
+    }
+  },
+  "cobblestone_stairs_from_stone_stonecutting": {
+    "result": {
+      "id": "minecraft:cobblestone_stairs"
+    },
+    "ingredient": "minecraft:stone",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.1"
+    }
+  },
+  "cobblestone_wall_from_stone_stonecutting": {
+    "result": {
+      "id": "minecraft:cobblestone_wall"
+    },
+    "ingredient": "minecraft:stone",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.1"
+    }
+  },
+  "deepslate_brick_slab_from_deepslate_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:deepslate_brick_slab"
+    },
+    "ingredient": "minecraft:deepslate",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.1"
+    }
+  },
+  "deepslate_brick_stairs_from_deepslate_stonecutting": {
+    "result": {
+      "id": "minecraft:deepslate_brick_stairs"
+    },
+    "ingredient": "minecraft:deepslate",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.1"
+    }
+  },
+  "deepslate_brick_wall_from_deepslate_stonecutting": {
+    "result": {
+      "id": "minecraft:deepslate_brick_wall"
+    },
+    "ingredient": "minecraft:deepslate",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.1"
+    }
+  },
+  "deepslate_bricks_from_deepslate_stonecutting": {
+    "result": {
+      "id": "minecraft:deepslate_bricks"
+    },
+    "ingredient": "minecraft:deepslate",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.1"
+    }
+  },
+  "deepslate_tile_slab_from_deepslate_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:deepslate_tile_slab"
+    },
+    "ingredient": "minecraft:deepslate",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.1"
+    }
+  },
+  "deepslate_tile_stairs_from_deepslate_stonecutting": {
+    "result": {
+      "id": "minecraft:deepslate_tile_stairs"
+    },
+    "ingredient": "minecraft:deepslate",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.1"
+    }
+  },
+  "deepslate_tile_wall_from_deepslate_stonecutting": {
+    "result": {
+      "id": "minecraft:deepslate_tile_wall"
+    },
+    "ingredient": "minecraft:deepslate",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.1"
+    }
+  },
+  "deepslate_tiles_from_deepslate_stonecutting": {
+    "result": {
+      "id": "minecraft:deepslate_tiles"
+    },
+    "ingredient": "minecraft:deepslate",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.1"
+    }
+  },
+  "golden_dandelion": {
+    "result": {
+      "id": "minecraft:golden_dandelion"
+    },
+    "pattern": [
+      "###",
+      "#I#",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:gold_nugget",
+      "I": "minecraft:dandelion"
+    },
+    "properties": {
+      "version": "26.1"
+    }
+  },
+  "name_tag": {
+    "result": {
+      "id": "minecraft:name_tag"
+    },
+    "pattern": [
+      " X",
+      "# "
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:paper",
+      "X": "#minecraft:metal_nuggets"
+    },
+    "properties": {
+      "animated": true,
+      "version": "26.1"
+    }
+  },
+  "polished_deepslate_from_deepslate_stonecutting": {
+    "result": {
+      "id": "minecraft:polished_deepslate"
+    },
+    "ingredient": "minecraft:deepslate",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.1"
+    }
+  },
+  "polished_deepslate_slab_from_deepslate_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:polished_deepslate_slab"
+    },
+    "ingredient": "minecraft:deepslate",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.1"
+    }
+  },
+  "polished_deepslate_stairs_from_deepslate_stonecutting": {
+    "result": {
+      "id": "minecraft:polished_deepslate_stairs"
+    },
+    "ingredient": "minecraft:deepslate",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.1"
+    }
+  },
+  "polished_deepslate_wall_from_deepslate_stonecutting": {
+    "result": {
+      "id": "minecraft:polished_deepslate_wall"
+    },
+    "ingredient": "minecraft:deepslate",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.1"
+    }
+  },
+  "yellow_dye_from_golden_dandelion": {
+    "result": {
+      "id": "minecraft:yellow_dye"
+    },
+    "ingredients": [
+      "minecraft:golden_dandelion"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "26.1"
+    }
+  },
   "copper_trapdoor_legacy": {
     "result": {
-      "count": 1,
       "id": "minecraft:copper_trapdoor"
     },
     "pattern": [
@@ -27038,7 +26713,6 @@
   },
   "lodestone_legacy": {
     "result": {
-      "count": 1,
       "id": "minecraft:lodestone"
     },
     "pattern": [
@@ -27095,7 +26769,6 @@
   },
   "bundle_legacy": {
     "result": {
-      "count": 1,
       "id": "minecraft:bundle"
     },
     "pattern": [
@@ -27117,7 +26790,6 @@
   },
   "copper_trapdoor_legacy_legacy": {
     "result": {
-      "count": 1,
       "id": "minecraft:copper_trapdoor"
     },
     "pattern": [
@@ -28401,26 +28073,23 @@
     "result": {
       "id": "minecraft:firework_star"
     },
-    "ingredients": [
-      "minecraft:firework_star",
-      [
-        "minecraft:bone_meal",
-        "minecraft:orange_dye",
-        "minecraft:magenta_dye",
-        "minecraft:light_blue_dye",
-        "minecraft:yellow_dye",
-        "minecraft:lime_dye",
-        "minecraft:pink_dye",
-        "minecraft:gray_dye",
-        "minecraft:light_gray_dye",
-        "minecraft:cyan_dye",
-        "minecraft:purple_dye",
-        "minecraft:lapis_lazuli",
-        "minecraft:cocoa_beans",
-        "minecraft:green_dye",
-        "minecraft:red_dye",
-        "minecraft:ink_sac"
-      ]
+    "dye": [
+      "minecraft:bone_meal",
+      "minecraft:orange_dye",
+      "minecraft:magenta_dye",
+      "minecraft:light_blue_dye",
+      "minecraft:yellow_dye",
+      "minecraft:lime_dye",
+      "minecraft:pink_dye",
+      "minecraft:gray_dye",
+      "minecraft:light_gray_dye",
+      "minecraft:cyan_dye",
+      "minecraft:purple_dye",
+      "minecraft:lapis_lazuli",
+      "minecraft:cocoa_beans",
+      "minecraft:green_dye",
+      "minecraft:red_dye",
+      "minecraft:ink_sac"
     ],
     "type": "minecraft:crafting_special_firework_star_fade",
     "lang": {
@@ -28431,46 +28100,40 @@
     "properties": {
       "removed": "1.14",
       "animated": true
-    }
+    },
+    "target": "minecraft:firework_star"
   },
   "firework_star_legacy": {
     "result": {
       "id": "minecraft:firework_star"
     },
-    "ingredients": [
-      "minecraft:gunpowder",
-      [
-        "minecraft:bone_meal",
-        "minecraft:orange_dye",
-        "minecraft:magenta_dye",
-        "minecraft:light_blue_dye",
-        "minecraft:yellow_dye",
-        "minecraft:lime_dye",
-        "minecraft:pink_dye",
-        "minecraft:gray_dye",
-        "minecraft:light_gray_dye",
-        "minecraft:cyan_dye",
-        "minecraft:purple_dye",
-        "minecraft:lapis_lazuli",
-        "minecraft:cocoa_beans",
-        "minecraft:green_dye",
-        "minecraft:red_dye",
-        "minecraft:ink_sac"
-      ],
-      [
-        "minecraft:fire_charge",
-        "minecraft:gold_nugget",
-        "minecraft:skeleton_skull",
-        "minecraft:wither_skeleton_skull",
-        "minecraft:zombie_head",
-        "minecraft:player_head",
-        "minecraft:creeper_head",
-        "minecraft:dragon_head",
-        "minecraft:feather"
-      ],
-      "minecraft:glowstone_dust",
-      "minecraft:diamond"
+    "dye": [
+      "minecraft:bone_meal",
+      "minecraft:orange_dye",
+      "minecraft:magenta_dye",
+      "minecraft:light_blue_dye",
+      "minecraft:yellow_dye",
+      "minecraft:lime_dye",
+      "minecraft:pink_dye",
+      "minecraft:gray_dye",
+      "minecraft:light_gray_dye",
+      "minecraft:cyan_dye",
+      "minecraft:purple_dye",
+      "minecraft:lapis_lazuli",
+      "minecraft:cocoa_beans",
+      "minecraft:green_dye",
+      "minecraft:red_dye",
+      "minecraft:ink_sac"
     ],
+    "trail": "minecraft:diamond",
+    "twinkle": "minecraft:glowstone_dust",
+    "fuel": "minecraft:gunpowder",
+    "shapes": {
+      "large_ball": "minecraft:fire_charge",
+      "star": "minecraft:gold_nugget",
+      "burst": "minecraft:feather",
+      "creeper": "#minecraft:skulls"
+    },
     "type": "minecraft:crafting_special_firework_star",
     "lang": {
       "en_US": {
@@ -28495,6 +28158,142 @@
     "properties": {
       "removed": "1.14"
     }
+  },
+  "leather_boots_dyed_legacy": {
+    "result": {
+      "id": "minecraft:leather_boots"
+    },
+    "dye": [
+      "minecraft:bone_meal",
+      "minecraft:orange_dye",
+      "minecraft:magenta_dye",
+      "minecraft:light_blue_dye",
+      "minecraft:yellow_dye",
+      "minecraft:lime_dye",
+      "minecraft:pink_dye",
+      "minecraft:gray_dye",
+      "minecraft:light_gray_dye",
+      "minecraft:cyan_dye",
+      "minecraft:purple_dye",
+      "minecraft:lapis_lazuli",
+      "minecraft:cocoa_beans",
+      "minecraft:green_dye",
+      "minecraft:red_dye",
+      "minecraft:ink_sac"
+    ],
+    "type": "minecraft:crafting_dye",
+    "lang": {
+      "en_US": {
+        "notes": "Mixes the leather boots color with the provided dyes"
+      }
+    },
+    "properties": {
+      "removed": "1.14",
+      "animated": true
+    },
+    "target": "minecraft:leather_boots"
+  },
+  "leather_chestplate_dyed_legacy": {
+    "result": {
+      "id": "minecraft:leather_chestplate"
+    },
+    "dye": [
+      "minecraft:bone_meal",
+      "minecraft:orange_dye",
+      "minecraft:magenta_dye",
+      "minecraft:light_blue_dye",
+      "minecraft:yellow_dye",
+      "minecraft:lime_dye",
+      "minecraft:pink_dye",
+      "minecraft:gray_dye",
+      "minecraft:light_gray_dye",
+      "minecraft:cyan_dye",
+      "minecraft:purple_dye",
+      "minecraft:lapis_lazuli",
+      "minecraft:cocoa_beans",
+      "minecraft:green_dye",
+      "minecraft:red_dye",
+      "minecraft:ink_sac"
+    ],
+    "type": "minecraft:crafting_dye",
+    "lang": {
+      "en_US": {
+        "notes": "Mixes the leather tunic color with the provided dyes"
+      }
+    },
+    "properties": {
+      "removed": "1.14",
+      "animated": true
+    },
+    "target": "minecraft:leather_chestplate"
+  },
+  "leather_helmet_dyed_legacy": {
+    "result": {
+      "id": "minecraft:leather_helmet"
+    },
+    "dye": [
+      "minecraft:bone_meal",
+      "minecraft:orange_dye",
+      "minecraft:magenta_dye",
+      "minecraft:light_blue_dye",
+      "minecraft:yellow_dye",
+      "minecraft:lime_dye",
+      "minecraft:pink_dye",
+      "minecraft:gray_dye",
+      "minecraft:light_gray_dye",
+      "minecraft:cyan_dye",
+      "minecraft:purple_dye",
+      "minecraft:lapis_lazuli",
+      "minecraft:cocoa_beans",
+      "minecraft:green_dye",
+      "minecraft:red_dye",
+      "minecraft:ink_sac"
+    ],
+    "type": "minecraft:crafting_dye",
+    "lang": {
+      "en_US": {
+        "notes": "Mixes the leather cap color with the provided dyes"
+      }
+    },
+    "properties": {
+      "removed": "1.14",
+      "animated": true
+    },
+    "target": "minecraft:leather_helmet"
+  },
+  "leather_leggings_dyed_legacy": {
+    "result": {
+      "id": "minecraft:leather_leggings"
+    },
+    "dye": [
+      "minecraft:bone_meal",
+      "minecraft:orange_dye",
+      "minecraft:magenta_dye",
+      "minecraft:light_blue_dye",
+      "minecraft:yellow_dye",
+      "minecraft:lime_dye",
+      "minecraft:pink_dye",
+      "minecraft:gray_dye",
+      "minecraft:light_gray_dye",
+      "minecraft:cyan_dye",
+      "minecraft:purple_dye",
+      "minecraft:lapis_lazuli",
+      "minecraft:cocoa_beans",
+      "minecraft:green_dye",
+      "minecraft:red_dye",
+      "minecraft:ink_sac"
+    ],
+    "type": "minecraft:crafting_dye",
+    "lang": {
+      "en_US": {
+        "notes": "Mixes the leather pants color with the provided dyes"
+      }
+    },
+    "properties": {
+      "removed": "1.14",
+      "animated": true
+    },
+    "target": "minecraft:leather_leggings"
   },
   "light_blue_dye_from_blue_white_dye_legacy": {
     "result": {

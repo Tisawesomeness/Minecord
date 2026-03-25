@@ -7,6 +7,7 @@ import com.tisawesomeness.minecord.mc.FeatureFlagRegistry;
 import com.tisawesomeness.minecord.mc.Version;
 import com.tisawesomeness.minecord.mc.VersionRegistry;
 import com.tisawesomeness.minecord.mc.item.ItemRegistry;
+import com.tisawesomeness.minecord.mc.recipe.type.*;
 import com.tisawesomeness.minecord.util.RequestUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import org.apache.commons.collections4.OrderedMap;
@@ -23,8 +24,32 @@ import java.util.stream.Collectors;
 public class RecipeRegistry {
 
     private static final List<Class<? extends Recipe>> RECIPE_TYPE_ORDER = Arrays.asList(
-            ShapedRecipe.class, ShapelessRecipe.class, TransmuteRecipe.class, StonecuttingRecipe.class,
-            SmeltingRecipe.class, SmithingRecipe.class, LegacySmithingRecipe.class, BrewingRecipe.class
+            // shaped
+            ShapedRecipe.class,
+            DecoratedPotRecipe.class,
+            MapExtendingRecipe.class,
+            // shapeless
+            ShapelessRecipe.class,
+            FireworkStarRecipe.class,
+            FireworkStarFadeRecipe.class,
+            FireworkRocketRecipe.class,
+            TransmuteRecipe.class,
+            DyeRecipe.class,
+            BannerDuplicateRecipe.class,
+            ShieldDecorationRecipe.class,
+            BookCloningRecipe.class,
+            // stonecutting
+            StonecuttingRecipe.class,
+            // smelting
+            SmeltingRecipe.class,
+            // smithing
+            SmithingRecipe.class,
+            LegacySmithingRecipe.class,
+            // cartography
+            CartographyRecipe.class,
+            // brewing
+            BrewingRecipe.class,
+            ImbueRecipe.class
     );
 
     private static OrderedMap<String, Recipe> recipes;

@@ -1,7 +1,11 @@
 package com.tisawesomeness.minecord.interaction;
 
 import com.tisawesomeness.minecord.mc.item.ItemRegistry;
-import com.tisawesomeness.minecord.mc.recipe.*;
+import com.tisawesomeness.minecord.mc.recipe.Recipe;
+import com.tisawesomeness.minecord.mc.recipe.RecipeRegistry;
+import com.tisawesomeness.minecord.mc.recipe.type.BrewingRecipe;
+import com.tisawesomeness.minecord.mc.recipe.type.CraftingRecipe;
+import com.tisawesomeness.minecord.mc.recipe.type.SmeltingRecipe;
 import com.tisawesomeness.minecord.util.MathUtils;
 import net.dv8tion.jda.api.components.actionrow.ActionRow;
 import net.dv8tion.jda.api.components.buttons.Button;

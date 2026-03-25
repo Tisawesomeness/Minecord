@@ -1,5 +1,7 @@
-package com.tisawesomeness.minecord.mc.recipe;
+package com.tisawesomeness.minecord.mc.recipe.type;
 
+import com.tisawesomeness.minecord.mc.recipe.Ingredient;
+import com.tisawesomeness.minecord.mc.recipe.Recipe;
 import org.apache.commons.collections4.ListUtils;
 import org.json.JSONObject;
 
@@ -7,7 +9,7 @@ import java.util.List;
 
 public class BrewingRecipe extends Recipe {
 
-    protected BrewingRecipe(String key, JSONObject recipe) {
+    public BrewingRecipe(String key, JSONObject recipe) {
         super(key, recipe);
     }
 

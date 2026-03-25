@@ -14974,7 +14974,8 @@
     },
     "properties": {
       "id": 442,
-      "version": "1.9"
+      "version": "1.9",
+      "actual_id": "minecraft.shield"
     }
   },
   "minecraft.shield.blue": {
@@ -14985,7 +14986,8 @@
     },
     "properties": {
       "id": 442,
-      "version": "1.9"
+      "version": "1.9",
+      "actual_id": "minecraft.shield"
     }
   },
   "minecraft.shield.brown": {
@@ -14996,7 +14998,8 @@
     },
     "properties": {
       "id": 442,
-      "version": "1.9"
+      "version": "1.9",
+      "actual_id": "minecraft.shield"
     }
   },
   "minecraft.shield.cyan": {
@@ -15007,7 +15010,8 @@
     },
     "properties": {
       "id": 442,
-      "version": "1.9"
+      "version": "1.9",
+      "actual_id": "minecraft.shield"
     }
   },
   "minecraft.shield.gray": {
@@ -15018,7 +15022,8 @@
     },
     "properties": {
       "id": 442,
-      "version": "1.9"
+      "version": "1.9",
+      "actual_id": "minecraft.shield"
     }
   },
   "minecraft.shield.green": {
@@ -15029,7 +15034,8 @@
     },
     "properties": {
       "id": 442,
-      "version": "1.9"
+      "version": "1.9",
+      "actual_id": "minecraft.shield"
     }
   },
   "minecraft.shield.light_blue": {
@@ -15040,7 +15046,8 @@
     },
     "properties": {
       "id": 442,
-      "version": "1.9"
+      "version": "1.9",
+      "actual_id": "minecraft.shield"
     }
   },
   "minecraft.shield.light_gray": {
@@ -15051,7 +15058,8 @@
     },
     "properties": {
       "id": 442,
-      "version": "1.9"
+      "version": "1.9",
+      "actual_id": "minecraft.shield"
     }
   },
   "minecraft.shield.lime": {
@@ -15062,7 +15070,8 @@
     },
     "properties": {
       "id": 442,
-      "version": "1.9"
+      "version": "1.9",
+      "actual_id": "minecraft.shield"
     }
   },
   "minecraft.shield.magenta": {
@@ -15073,7 +15082,8 @@
     },
     "properties": {
       "id": 442,
-      "version": "1.9"
+      "version": "1.9",
+      "actual_id": "minecraft.shield"
     }
   },
   "minecraft.shield.orange": {
@@ -15084,7 +15094,8 @@
     },
     "properties": {
       "id": 442,
-      "version": "1.9"
+      "version": "1.9",
+      "actual_id": "minecraft.shield"
     }
   },
   "minecraft.shield.pink": {
@@ -15095,7 +15106,8 @@
     },
     "properties": {
       "id": 442,
-      "version": "1.9"
+      "version": "1.9",
+      "actual_id": "minecraft.shield"
     }
   },
   "minecraft.shield.purple": {
@@ -15106,7 +15118,8 @@
     },
     "properties": {
       "id": 442,
-      "version": "1.9"
+      "version": "1.9",
+      "actual_id": "minecraft.shield"
     }
   },
   "minecraft.shield.red": {
@@ -15117,7 +15130,8 @@
     },
     "properties": {
       "id": 442,
-      "version": "1.9"
+      "version": "1.9",
+      "actual_id": "minecraft.shield"
     }
   },
   "minecraft.shield.white": {
@@ -15131,7 +15145,8 @@
     },
     "properties": {
       "id": 442,
-      "version": "1.9"
+      "version": "1.9",
+      "actual_id": "minecraft.shield"
     }
   },
   "minecraft.shield.yellow": {
@@ -15142,7 +15157,8 @@
     },
     "properties": {
       "id": 442,
-      "version": "1.9"
+      "version": "1.9",
+      "actual_id": "minecraft.shield"
     }
   },
   "minecraft.elytra": {
@@ -19530,7 +19546,9 @@
       "en_US": {
         "search_names": [
           "Bath Salt",
-          "Bath Salts"
+          "Bath Salts",
+          "Bass Salt",
+          "Bass Salts"
         ],
         "display_name": "Basalt"
       }
@@ -20175,7 +20193,9 @@
       "en_US": {
         "search_names": [
           "Square Bath Salt",
-          "Square Bath Salts"
+          "Square Bath Salts",
+          "Square Bass Salt",
+          "Square Bass Salts"
         ],
         "display_name": "Polished Basalt"
       }
@@ -22583,7 +22603,9 @@
       "en_US": {
         "search_names": [
           "Round Bath Salt",
-          "Round Bath Salts"
+          "Round Bath Salts",
+          "Round Bass Salt",
+          "Round Bass Salts"
         ],
         "display_name": "Smooth Basalt"
       }
@@ -31112,6 +31134,41 @@
     },
     "properties": {
       "version": "1.21.11"
+    }
+  },
+  "minecraft.golden_dandelion": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Gold Dandelion",
+          "Dandelion Gold",
+          "Golden Dandelion Which Is A Golden Dandelion"
+        ],
+        "display_name": "Golden Dandelion"
+      }
+    },
+    "properties": {
+      "version": "26.1"
+    }
+  },
+  "minecraft.potted_golden_dandelion": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Potted Gold Dandelion",
+          "Potted Dandelion Gold",
+          "Potted Golden Dandelion Which Is A Golden Dandelion",
+          "Potted Golden Dandelion Which Is A Potted Golden Dandelion",
+          "Gold Dandelion Pot",
+          "Dandelion Gold Pot",
+          "Golden Dandelion Which Is A Golden Dandelion Pot",
+          "Golden Dandelion Pot Which Is A Golden Dandelion Pot"
+        ],
+        "display_name": "Potted Golden Dandelion"
+      }
+    },
+    "properties": {
+      "version": "26.1"
     }
   }
 }

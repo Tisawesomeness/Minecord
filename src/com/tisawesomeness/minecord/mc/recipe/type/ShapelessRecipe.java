@@ -1,5 +1,6 @@
-package com.tisawesomeness.minecord.mc.recipe;
+package com.tisawesomeness.minecord.mc.recipe.type;
 
+import com.tisawesomeness.minecord.mc.recipe.Ingredient;
 import com.tisawesomeness.minecord.util.Utils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -9,8 +10,13 @@ import java.util.List;
 
 public class ShapelessRecipe extends CraftingRecipe {
 
-    protected ShapelessRecipe(String key, JSONObject recipe) {
+    public ShapelessRecipe(String key, JSONObject recipe) {
         super(key, recipe);
+    }
+
+    @Override
+    public boolean isShapeless() {
+        return true;
     }
 
     @Override
