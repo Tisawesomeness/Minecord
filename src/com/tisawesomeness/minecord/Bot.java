@@ -50,8 +50,9 @@ import java.util.stream.Collectors;
 public class Bot {
 
     private static final String mainClass = "com.tisawesomeness.minecord.Main";
-    public static final String author = "Tis_awesomeness";
+    public static final String author = "Tis";
     public static final String authorTag = "@tis_awesomeness";
+    public static final String authorWebsite = "https://tis.codes/";
     public static final String invite = "https://minecord.github.io/invite";
     public static final String helpServer = "https://minecord.github.io/support";
     public static final String website = "https://minecord.github.io";
@@ -59,8 +60,8 @@ public class Bot {
     public static final String donate = "https://ko-fi.com/tis_awesomeness";
     public static final String terms = "https://minecord.github.io/terms";
     public static final String privacy = "https://minecord.github.io/privacy";
-    public static final String version = "0.18.8";
-    public static final String jdaVersion = "6.3.0";
+    public static final String version = "0.18.9";
+    public static final String jdaVersion = "6.3.2";
     public static final Color color = Color.GREEN;
 
     public static ShardManager shardManager;

@@ -209,9 +209,20 @@
       "minecraft:red_candle",
       "minecraft:black_candle"
     ],
+    "cat_collar_dyes": [
+      "#minecraft:dyes"
+    ],
     "cat_food": [
       "minecraft:cod",
       "minecraft:salmon"
+    ],
+    "cauldron_can_remove_dye": [
+      "minecraft:leather_helmet",
+      "minecraft:leather_chestplate",
+      "minecraft:leather_leggings",
+      "minecraft:leather_boots",
+      "minecraft:leather_horse_armor",
+      "minecraft:wolf_armor"
     ],
     "chains": [
       "minecraft:iron_chain",
@@ -397,15 +408,8 @@
     ],
     "dirt": [
       "minecraft:dirt",
-      "minecraft:grass_block",
-      "minecraft:podzol",
       "minecraft:coarse_dirt",
-      "minecraft:mycelium",
-      "minecraft:rooted_dirt",
-      "minecraft:moss_block",
-      "minecraft:pale_moss_block",
-      "minecraft:mud",
-      "minecraft:muddy_mangrove_roots"
+      "minecraft:rooted_dirt"
     ],
     "doors": [
       "#minecraft:wooden_doors",
@@ -425,13 +429,23 @@
     "duplicates_allays": [
       "minecraft:amethyst_shard"
     ],
-    "dyeable": [
-      "minecraft:leather_helmet",
-      "minecraft:leather_chestplate",
-      "minecraft:leather_leggings",
-      "minecraft:leather_boots",
-      "minecraft:leather_horse_armor",
-      "minecraft:wolf_armor"
+    "dyes": [
+      "minecraft:white_dye",
+      "minecraft:orange_dye",
+      "minecraft:magenta_dye",
+      "minecraft:light_blue_dye",
+      "minecraft:yellow_dye",
+      "minecraft:lime_dye",
+      "minecraft:pink_dye",
+      "minecraft:gray_dye",
+      "minecraft:light_gray_dye",
+      "minecraft:cyan_dye",
+      "minecraft:purple_dye",
+      "minecraft:blue_dye",
+      "minecraft:brown_dye",
+      "minecraft:green_dye",
+      "minecraft:red_dye",
+      "minecraft:black_dye"
     ],
     "eggs": [
       "minecraft:egg",
@@ -525,6 +539,11 @@
     ],
     "gold_tool_materials": [
       "minecraft:gold_ingot"
+    ],
+    "grass_blocks": [
+      "minecraft:grass_block",
+      "minecraft:podzol",
+      "minecraft:mycelium"
     ],
     "hanging_signs": [
       "minecraft:oak_hanging_sign",
@@ -693,6 +712,21 @@
       "#minecraft:cherry_logs",
       "#minecraft:pale_oak_logs"
     ],
+    "loom_dyes": [
+      "#minecraft:dyes"
+    ],
+    "loom_patterns": [
+      "minecraft:flower_banner_pattern",
+      "minecraft:creeper_banner_pattern",
+      "minecraft:skull_banner_pattern",
+      "minecraft:mojang_banner_pattern",
+      "minecraft:globe_banner_pattern",
+      "minecraft:piglin_banner_pattern",
+      "minecraft:flow_banner_pattern",
+      "minecraft:guster_banner_pattern",
+      "minecraft:field_masoned_banner_pattern",
+      "minecraft:bordure_indented_banner_pattern"
+    ],
     "mangrove_logs": [
       "minecraft:mangrove_log",
       "minecraft:mangrove_wood",
@@ -714,6 +748,19 @@
       "minecraft:porkchop",
       "minecraft:rabbit",
       "minecraft:rotten_flesh"
+    ],
+    "metal_nuggets": [
+      "minecraft:copper_nugget",
+      "minecraft:iron_nugget",
+      "minecraft:gold_nugget"
+    ],
+    "moss_blocks": [
+      "minecraft:moss_block",
+      "minecraft:pale_moss_block"
+    ],
+    "mud": [
+      "minecraft:mud",
+      "minecraft:muddy_mangrove_roots"
     ],
     "nautilus_bucket_food": [
       "minecraft:pufferfish_bucket",
@@ -852,7 +899,8 @@
       "minecraft:golden_axe",
       "minecraft:golden_hoe",
       "minecraft:raw_gold",
-      "minecraft:raw_gold_block"
+      "minecraft:raw_gold_block",
+      "minecraft:golden_dandelion"
     ],
     "piglin_preferred_weapons": [
       "minecraft:crossbow",
@@ -1075,7 +1123,8 @@
       "minecraft:lily_of_the_valley",
       "minecraft:wither_rose",
       "minecraft:torchflower",
-      "minecraft:closed_eyeblossom"
+      "minecraft:closed_eyeblossom",
+      "minecraft:golden_dandelion"
     ],
     "smelts_to_glass": [
       "minecraft:sand",
@@ -1296,6 +1345,9 @@
     "wither_skeleton_disliked_weapons": [
       "minecraft:bow",
       "minecraft:crossbow"
+    ],
+    "wolf_collar_dyes": [
+      "#minecraft:dyes"
     ],
     "wolf_food": [
       "#minecraft:meat",

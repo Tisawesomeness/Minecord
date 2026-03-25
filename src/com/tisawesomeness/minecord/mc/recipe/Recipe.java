@@ -3,6 +3,7 @@ package com.tisawesomeness.minecord.mc.recipe;
 import com.tisawesomeness.minecord.mc.FeatureFlag;
 import com.tisawesomeness.minecord.mc.FeatureFlagRegistry;
 import com.tisawesomeness.minecord.mc.Version;
+import com.tisawesomeness.minecord.mc.recipe.type.*;
 import com.tisawesomeness.minecord.util.Utils;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,7 +14,6 @@ import org.json.JSONObject;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,21 +22,6 @@ import java.util.List;
  */
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class Recipe {
-
-    private static final List<String> SHAPED_TYPES = Arrays.asList(
-            "crafting_shaped", "crafting_special_tippedarrow", "crafting_decorated_pot"
-    );
-    private static final List<String> SHAPELSS_TYPES = Arrays.asList(
-            "crafting_shapeless",
-            "crafting_special_firework_star", "crafting_special_firework_star_fade", "crafting_special_firework_rocket",
-            "crafting_special_shulkerboxcoloring", "crafting_special_suspiciousstew"
-    );
-    private static final List<String> SMELTING_TYPES = Arrays.asList(
-            "smelting", "blasting", "smoking", "campfire_cooking"
-    );
-    private static final List<String> SMITHING_TYPES = Arrays.asList(
-            "smithing_trim", "smithing_transform"
-    );
 
     /**
      * The id/key/name of this recipe. Usually the same as the filename in data/minecraft/recipe,
@@ -60,31 +45,55 @@ public abstract class Recipe {
      */
     public static Recipe parse(String key, JSONObject recipe) {
         String type = recipe.getString("type").substring("minecraft:".length());
-        if (SHAPED_TYPES.contains(type)) {
-            return new ShapedRecipe(key, recipe);
+        switch (type) {
+            case "crafting_shaped":
+                return new ShapedRecipe(key, recipe);
+            case "crafting_decorated_pot":
+                return new DecoratedPotRecipe(key, recipe);
+            case "crafting_imbue":
+                return new ImbueRecipe(key, recipe);
+            case "crafting_special_mapextending":
+                return new MapExtendingRecipe(key, recipe);
+            case "crafting_shapeless":
+            case "crafting_special_shulkerboxcoloring":
+            case "crafting_special_suspiciousstew":
+                return new ShapelessRecipe(key, recipe);
+            case "crafting_special_firework_star":
+                return new FireworkStarRecipe(key, recipe);
+            case "crafting_special_firework_star_fade":
+                return new FireworkStarFadeRecipe(key, recipe);
+            case "crafting_special_firework_rocket":
+                return new FireworkRocketRecipe(key, recipe);
+            case "crafting_transmute":
+                return new TransmuteRecipe(key, recipe);
+            case "crafting_dye":
+                return new DyeRecipe(key, recipe);
+            case "crafting_special_bannerduplicate":
+                return new BannerDuplicateRecipe(key, recipe);
+            case "crafting_special_bookcloning":
+                return new BookCloningRecipe(key, recipe);
+            case "crafting_special_shielddecoration":
+                return new ShieldDecorationRecipe(key, recipe);
+            case "smelting":
+            case "blasting":
+            case "smoking":
+            case "campfire_cooking":
+                return new SmeltingRecipe(key, recipe);
+            case "stonecutting":
+                return new StonecuttingRecipe(key, recipe);
+            case "smithing":
+                return new LegacySmithingRecipe(key, recipe);
+            case "smithing_trim":
+            case "smithing_transform":
+                return new SmithingRecipe(key, recipe);
+            case "brewing":
+                return new BrewingRecipe(key, recipe);
+            case "cartography":
+                return new CartographyRecipe(key, recipe);
+            // no repair item recipes since that would clutter the recipe browser
+            default:
+                throw new IllegalArgumentException("invalid recipe type " + type);
         }
-        if (SHAPELSS_TYPES.contains(type)) {
-            return new ShapelessRecipe(key, recipe);
-        }
-        if ("crafting_transmute".equals(type)) {
-            return new TransmuteRecipe(key, recipe);
-        }
-        if (SMELTING_TYPES.contains(type)) {
-            return new SmeltingRecipe(key, recipe);
-        }
-        if ("brewing".equals(type)) {
-            return new BrewingRecipe(key, recipe);
-        }
-        if ("stonecutting".equals(type)) {
-            return new StonecuttingRecipe(key, recipe);
-        }
-        if ("smithing".equals(type)) {
-            return new LegacySmithingRecipe(key, recipe);
-        }
-        if (SMITHING_TYPES.contains(type)) {
-            return new SmithingRecipe(key, recipe);
-        }
-        throw new IllegalArgumentException("invalid recipe type " + type);
     }
 
     /**

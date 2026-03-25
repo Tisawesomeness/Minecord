@@ -1,5 +1,7 @@
-package com.tisawesomeness.minecord.mc.recipe;
+package com.tisawesomeness.minecord.mc.recipe.type;
 
+import com.tisawesomeness.minecord.mc.recipe.Ingredient;
+import com.tisawesomeness.minecord.mc.recipe.Recipe;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.ListUtils;
 import org.json.JSONObject;
@@ -8,7 +10,7 @@ import java.util.List;
 
 public class SmithingRecipe extends Recipe {
 
-    protected SmithingRecipe(String key, JSONObject recipe) {
+    public SmithingRecipe(String key, JSONObject recipe) {
         super(key, recipe);
     }
 

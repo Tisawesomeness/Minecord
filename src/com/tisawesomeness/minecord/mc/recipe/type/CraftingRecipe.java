@@ -1,12 +1,15 @@
-package com.tisawesomeness.minecord.mc.recipe;
+package com.tisawesomeness.minecord.mc.recipe.type;
 
+import com.tisawesomeness.minecord.mc.recipe.Recipe;
 import org.json.JSONObject;
 
 public abstract class CraftingRecipe extends Recipe {
 
-    protected CraftingRecipe(String key, JSONObject recipe) {
+    public CraftingRecipe(String key, JSONObject recipe) {
         super(key, recipe);
     }
+
+    public abstract boolean isShapeless();
 
     @Override
     public String getTableItem() {

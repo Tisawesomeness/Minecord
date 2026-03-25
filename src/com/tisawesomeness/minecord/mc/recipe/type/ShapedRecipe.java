@@ -1,5 +1,6 @@
-package com.tisawesomeness.minecord.mc.recipe;
+package com.tisawesomeness.minecord.mc.recipe.type;
 
+import com.tisawesomeness.minecord.mc.recipe.Ingredient;
 import com.tisawesomeness.minecord.util.Utils;
 import org.apache.commons.collections4.OrderedMap;
 import org.apache.commons.collections4.map.LinkedMap;
@@ -10,8 +11,13 @@ import java.util.List;
 
 public class ShapedRecipe extends CraftingRecipe {
 
-    protected ShapedRecipe(String key, JSONObject recipe) {
+    public ShapedRecipe(String key, JSONObject recipe) {
         super(key, recipe);
+    }
+
+    @Override
+    public boolean isShapeless() {
+        return false;
     }
 
     @Override

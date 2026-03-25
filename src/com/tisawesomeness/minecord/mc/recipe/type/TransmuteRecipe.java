@@ -1,6 +1,8 @@
-package com.tisawesomeness.minecord.mc.recipe;
+package com.tisawesomeness.minecord.mc.recipe.type;
 
+import com.tisawesomeness.minecord.mc.recipe.Ingredient;
 import com.tisawesomeness.minecord.util.Utils;
+import com.tisawesomeness.minecord.util.type.IntRange;
 import org.apache.commons.collections4.ListUtils;
 import org.json.JSONObject;
 
@@ -8,8 +10,13 @@ import java.util.List;
 
 public class TransmuteRecipe extends CraftingRecipe {
 
-    protected TransmuteRecipe(String key, JSONObject recipe) {
+    public TransmuteRecipe(String key, JSONObject recipe) {
         super(key, recipe);
+    }
+
+    @Override
+    public boolean isShapeless() {
+        return true;
     }
 
     @Override
@@ -21,6 +28,17 @@ public class TransmuteRecipe extends CraftingRecipe {
     }
     public List<Ingredient> getMaterial() {
         return parseIngredients(recipe.get("material"));
+    }
+
+    public IntRange getMaterialCount() {
+        JSONObject materialCount = recipe.optJSONObject("material_count");
+        if (materialCount == null) {
+            return new IntRange(1, 1);
+        }
+        return new IntRange(materialCount.optInt("min", 1), materialCount.optInt("max", 1));
+    }
+    public boolean addMaterialCountToResult() {
+        return recipe.optBoolean("add_material_count_to_result", false);
     }
 
     /**
