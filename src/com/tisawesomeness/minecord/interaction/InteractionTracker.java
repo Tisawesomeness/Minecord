@@ -2,10 +2,10 @@ package com.tisawesomeness.minecord.interaction;
 
 import com.tisawesomeness.minecord.Config;
 import com.tisawesomeness.minecord.database.Database;
-import com.tisawesomeness.minecord.util.Utils;
 import lombok.AllArgsConstructor;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.GenericComponentInteractionCreateEvent;
@@ -32,16 +32,22 @@ public class InteractionTracker {
      */
     public static void post(InteractionHook hook, UpdatingMessage updatingMessage) {
         hook.sendMessage(updatingMessage.render(true)).queue(message -> {
-            interactions.put(message.getIdLong(), new Tracker(updatingMessage, hook.getExpirationTimestamp()));
+            long userId = hook.getInteraction().getUser().getIdLong();
+            interactions.put(message.getIdLong(), new Tracker(updatingMessage, userId, hook.getExpirationTimestamp()));
         });
     }
 
     public static void onInteract(GenericComponentInteractionCreateEvent e) {
-        UpdatingMessage updatingMessage = get(e.getMessage());
-        if (updatingMessage == null) {
+        Tracker tracker = get(e.getMessage());
+        if (tracker == null) {
             e.reply("That menu has expired.").setEphemeral(true).queue();
             return;
         }
+        if (!tracker.isUser(e.getUser())) {
+            e.reply("You cannot interact with that menu.").setEphemeral(true).queue();
+            return;
+        }
+        UpdatingMessage updatingMessage = tracker.message;
         boolean modified = updatingMessage.onInteract(e);
         if (!e.isAcknowledged()) {
             e.deferEdit().queue();
@@ -52,11 +58,16 @@ public class InteractionTracker {
     }
 
     public static void onSubmit(ModalInteractionEvent e) {
-        UpdatingMessage updatingMessage = get(e.getMessage());
-        if (updatingMessage == null) {
+        Tracker tracker = get(e.getMessage());
+        if (tracker == null) {
             e.reply("That menu has expired.").setEphemeral(true).queue();
             return;
         }
+        if (!tracker.isUser(e.getUser())) {
+            e.reply("You cannot interact with that menu.").setEphemeral(true).queue();
+            return;
+        }
+        UpdatingMessage updatingMessage = tracker.message;
         boolean modified = updatingMessage.onSubmit(e);
         if (!e.isAcknowledged()) {
             e.deferEdit().queue();
@@ -66,11 +77,11 @@ public class InteractionTracker {
         }
     }
 
-    private static UpdatingMessage get(@Nullable Message m) {
+    private static @Nullable Tracker get(@Nullable Message m) {
         if (m == null) {
             return null;
         }
-        return Utils.mapNullable(interactions.get(m.getIdLong()), t -> t.message);
+        return interactions.get(m.getIdLong());
     }
 
     /**
@@ -99,8 +110,12 @@ public class InteractionTracker {
     @AllArgsConstructor
     private static class Tracker {
         private final UpdatingMessage message;
+        private final long userId;
         private final long expirationTimestamp;
 
+        public boolean isUser(User user) {
+            return user.getIdLong() == userId;
+        }
         public boolean isExpired() {
             return expirationTimestamp < System.currentTimeMillis();
         }
