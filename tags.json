@@ -56,12 +56,12 @@
     "bars": [
       "minecraft:iron_bars",
       "minecraft:copper_bars",
-      "minecraft:waxed_copper_bars",
       "minecraft:exposed_copper_bars",
-      "minecraft:waxed_exposed_copper_bars",
       "minecraft:weathered_copper_bars",
-      "minecraft:waxed_weathered_copper_bars",
       "minecraft:oxidized_copper_bars",
+      "minecraft:waxed_copper_bars",
+      "minecraft:waxed_exposed_copper_bars",
+      "minecraft:waxed_weathered_copper_bars",
       "minecraft:waxed_oxidized_copper_bars"
     ],
     "beacon_payment_items": [
@@ -227,12 +227,12 @@
     "chains": [
       "minecraft:iron_chain",
       "minecraft:copper_chain",
-      "minecraft:waxed_copper_chain",
       "minecraft:exposed_copper_chain",
-      "minecraft:waxed_exposed_copper_chain",
       "minecraft:weathered_copper_chain",
-      "minecraft:waxed_weathered_copper_chain",
       "minecraft:oxidized_copper_chain",
+      "minecraft:waxed_copper_chain",
+      "minecraft:waxed_exposed_copper_chain",
+      "minecraft:waxed_weathered_copper_chain",
       "minecraft:waxed_oxidized_copper_chain"
     ],
     "cherry_logs": [
@@ -295,6 +295,42 @@
       "#minecraft:logs",
       "#minecraft:leaves",
       "#minecraft:wart_blocks"
+    ],
+    "concrete": [
+      "minecraft:white_concrete",
+      "minecraft:orange_concrete",
+      "minecraft:magenta_concrete",
+      "minecraft:light_blue_concrete",
+      "minecraft:yellow_concrete",
+      "minecraft:lime_concrete",
+      "minecraft:pink_concrete",
+      "minecraft:gray_concrete",
+      "minecraft:light_gray_concrete",
+      "minecraft:cyan_concrete",
+      "minecraft:purple_concrete",
+      "minecraft:blue_concrete",
+      "minecraft:brown_concrete",
+      "minecraft:green_concrete",
+      "minecraft:red_concrete",
+      "minecraft:black_concrete"
+    ],
+    "concrete_powders": [
+      "minecraft:white_concrete_powder",
+      "minecraft:orange_concrete_powder",
+      "minecraft:magenta_concrete_powder",
+      "minecraft:light_blue_concrete_powder",
+      "minecraft:yellow_concrete_powder",
+      "minecraft:lime_concrete_powder",
+      "minecraft:pink_concrete_powder",
+      "minecraft:gray_concrete_powder",
+      "minecraft:light_gray_concrete_powder",
+      "minecraft:cyan_concrete_powder",
+      "minecraft:purple_concrete_powder",
+      "minecraft:blue_concrete_powder",
+      "minecraft:brown_concrete_powder",
+      "minecraft:green_concrete_powder",
+      "minecraft:red_concrete_powder",
+      "minecraft:black_concrete_powder"
     ],
     "copper": [
       "minecraft:copper_block",
@@ -529,6 +565,24 @@
     "gaze_disguise_equipment": [
       "minecraft:carved_pumpkin"
     ],
+    "glazed_terracotta": [
+      "minecraft:white_glazed_terracotta",
+      "minecraft:orange_glazed_terracotta",
+      "minecraft:magenta_glazed_terracotta",
+      "minecraft:light_blue_glazed_terracotta",
+      "minecraft:yellow_glazed_terracotta",
+      "minecraft:lime_glazed_terracotta",
+      "minecraft:pink_glazed_terracotta",
+      "minecraft:gray_glazed_terracotta",
+      "minecraft:light_gray_glazed_terracotta",
+      "minecraft:cyan_glazed_terracotta",
+      "minecraft:purple_glazed_terracotta",
+      "minecraft:blue_glazed_terracotta",
+      "minecraft:brown_glazed_terracotta",
+      "minecraft:green_glazed_terracotta",
+      "minecraft:red_glazed_terracotta",
+      "minecraft:black_glazed_terracotta"
+    ],
     "goat_food": [
       "minecraft:wheat"
     ],
@@ -641,12 +695,12 @@
       "minecraft:lantern",
       "minecraft:soul_lantern",
       "minecraft:copper_lantern",
-      "minecraft:waxed_copper_lantern",
       "minecraft:exposed_copper_lantern",
-      "minecraft:waxed_exposed_copper_lantern",
       "minecraft:weathered_copper_lantern",
-      "minecraft:waxed_weathered_copper_lantern",
       "minecraft:oxidized_copper_lantern",
+      "minecraft:waxed_copper_lantern",
+      "minecraft:waxed_exposed_copper_lantern",
+      "minecraft:waxed_weathered_copper_lantern",
       "minecraft:waxed_oxidized_copper_lantern"
     ],
     "lapis_ores": [
@@ -1093,19 +1147,25 @@
       "minecraft:polished_deepslate_slab",
       "minecraft:deepslate_tile_slab",
       "minecraft:deepslate_brick_slab",
-      "minecraft:waxed_weathered_cut_copper_slab",
-      "minecraft:waxed_exposed_cut_copper_slab",
-      "minecraft:waxed_cut_copper_slab",
-      "minecraft:oxidized_cut_copper_slab",
-      "minecraft:weathered_cut_copper_slab",
-      "minecraft:exposed_cut_copper_slab",
-      "minecraft:cut_copper_slab",
-      "minecraft:waxed_oxidized_cut_copper_slab",
       "minecraft:mud_brick_slab",
       "minecraft:tuff_slab",
       "minecraft:polished_tuff_slab",
       "minecraft:tuff_brick_slab",
-      "minecraft:resin_brick_slab"
+      "minecraft:resin_brick_slab",
+      "minecraft:cinnabar_slab",
+      "minecraft:polished_cinnabar_slab",
+      "minecraft:cinnabar_brick_slab",
+      "minecraft:sulfur_slab",
+      "minecraft:polished_sulfur_slab",
+      "minecraft:sulfur_brick_slab",
+      "minecraft:cut_copper_slab",
+      "minecraft:exposed_cut_copper_slab",
+      "minecraft:weathered_cut_copper_slab",
+      "minecraft:oxidized_cut_copper_slab",
+      "minecraft:waxed_cut_copper_slab",
+      "minecraft:waxed_exposed_cut_copper_slab",
+      "minecraft:waxed_weathered_cut_copper_slab",
+      "minecraft:waxed_oxidized_cut_copper_slab"
     ],
     "small_flowers": [
       "minecraft:dandelion",
@@ -1187,19 +1247,25 @@
       "minecraft:polished_deepslate_stairs",
       "minecraft:deepslate_tile_stairs",
       "minecraft:deepslate_brick_stairs",
-      "minecraft:oxidized_cut_copper_stairs",
-      "minecraft:weathered_cut_copper_stairs",
-      "minecraft:exposed_cut_copper_stairs",
-      "minecraft:cut_copper_stairs",
-      "minecraft:waxed_weathered_cut_copper_stairs",
-      "minecraft:waxed_exposed_cut_copper_stairs",
-      "minecraft:waxed_cut_copper_stairs",
-      "minecraft:waxed_oxidized_cut_copper_stairs",
       "minecraft:mud_brick_stairs",
       "minecraft:tuff_stairs",
       "minecraft:polished_tuff_stairs",
       "minecraft:tuff_brick_stairs",
-      "minecraft:resin_brick_stairs"
+      "minecraft:resin_brick_stairs",
+      "minecraft:cinnabar_stairs",
+      "minecraft:polished_cinnabar_stairs",
+      "minecraft:cinnabar_brick_stairs",
+      "minecraft:sulfur_stairs",
+      "minecraft:polished_sulfur_stairs",
+      "minecraft:sulfur_brick_stairs",
+      "minecraft:cut_copper_stairs",
+      "minecraft:exposed_cut_copper_stairs",
+      "minecraft:weathered_cut_copper_stairs",
+      "minecraft:oxidized_cut_copper_stairs",
+      "minecraft:waxed_cut_copper_stairs",
+      "minecraft:waxed_exposed_cut_copper_stairs",
+      "minecraft:waxed_weathered_cut_copper_stairs",
+      "minecraft:waxed_oxidized_cut_copper_stairs"
     ],
     "stone_bricks": [
       "minecraft:stone_bricks",
@@ -1227,6 +1293,23 @@
     "strider_tempt_items": [
       "minecraft:warped_fungus_on_a_stick",
       "#minecraft:strider_food"
+    ],
+    "sulfur_cube_food": [
+      "minecraft:slime_ball"
+    ],
+    "sulfur_cube_swallowable": [
+      "#minecraft:sulfur_cube_archetype/bouncy",
+      "#minecraft:sulfur_cube_archetype/regular",
+      "#minecraft:sulfur_cube_archetype/slow_flat",
+      "#minecraft:sulfur_cube_archetype/fast_flat",
+      "#minecraft:sulfur_cube_archetype/light",
+      "#minecraft:sulfur_cube_archetype/fast_sliding",
+      "#minecraft:sulfur_cube_archetype/slow_sliding",
+      "#minecraft:sulfur_cube_archetype/sticky",
+      "#minecraft:sulfur_cube_archetype/high_resistance",
+      "#minecraft:sulfur_cube_archetype/explosive",
+      "#minecraft:sulfur_cube_archetype/hot",
+      "#minecraft:sulfur_cube_archetype/slow_bouncy"
     ],
     "swords": [
       "minecraft:diamond_sword",
@@ -1330,7 +1413,13 @@
       "minecraft:tuff_wall",
       "minecraft:polished_tuff_wall",
       "minecraft:tuff_brick_wall",
-      "minecraft:resin_brick_wall"
+      "minecraft:resin_brick_wall",
+      "minecraft:cinnabar_wall",
+      "minecraft:polished_cinnabar_wall",
+      "minecraft:cinnabar_brick_wall",
+      "minecraft:sulfur_wall",
+      "minecraft:polished_sulfur_wall",
+      "minecraft:sulfur_brick_wall"
     ],
     "warped_stems": [
       "minecraft:warped_hyphae",
