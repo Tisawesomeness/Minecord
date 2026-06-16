@@ -20070,21 +20070,21 @@
     "ingredients": [
       "minecraft:black_dye",
       [
+        "minecraft:white_bed",
+        "minecraft:orange_bed",
+        "minecraft:magenta_bed",
+        "minecraft:light_blue_bed",
+        "minecraft:yellow_bed",
+        "minecraft:lime_bed",
+        "minecraft:pink_bed",
+        "minecraft:gray_bed",
+        "minecraft:light_gray_bed",
+        "minecraft:cyan_bed",
+        "minecraft:purple_bed",
         "minecraft:blue_bed",
         "minecraft:brown_bed",
-        "minecraft:cyan_bed",
-        "minecraft:gray_bed",
         "minecraft:green_bed",
-        "minecraft:light_blue_bed",
-        "minecraft:light_gray_bed",
-        "minecraft:lime_bed",
-        "minecraft:magenta_bed",
-        "minecraft:orange_bed",
-        "minecraft:pink_bed",
-        "minecraft:purple_bed",
-        "minecraft:red_bed",
-        "minecraft:yellow_bed",
-        "minecraft:white_bed"
+        "minecraft:red_bed"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20100,21 +20100,21 @@
     "ingredients": [
       "minecraft:black_dye",
       [
+        "minecraft:white_carpet",
+        "minecraft:orange_carpet",
+        "minecraft:magenta_carpet",
+        "minecraft:light_blue_carpet",
+        "minecraft:yellow_carpet",
+        "minecraft:lime_carpet",
+        "minecraft:pink_carpet",
+        "minecraft:gray_carpet",
+        "minecraft:light_gray_carpet",
+        "minecraft:cyan_carpet",
+        "minecraft:purple_carpet",
         "minecraft:blue_carpet",
         "minecraft:brown_carpet",
-        "minecraft:cyan_carpet",
-        "minecraft:gray_carpet",
         "minecraft:green_carpet",
-        "minecraft:light_blue_carpet",
-        "minecraft:light_gray_carpet",
-        "minecraft:lime_carpet",
-        "minecraft:magenta_carpet",
-        "minecraft:orange_carpet",
-        "minecraft:pink_carpet",
-        "minecraft:purple_carpet",
-        "minecraft:red_carpet",
-        "minecraft:yellow_carpet",
-        "minecraft:white_carpet"
+        "minecraft:red_carpet"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20130,21 +20130,21 @@
     "ingredients": [
       "minecraft:black_dye",
       [
+        "minecraft:white_wool",
+        "minecraft:orange_wool",
+        "minecraft:magenta_wool",
+        "minecraft:light_blue_wool",
+        "minecraft:yellow_wool",
+        "minecraft:lime_wool",
+        "minecraft:pink_wool",
+        "minecraft:gray_wool",
+        "minecraft:light_gray_wool",
+        "minecraft:cyan_wool",
+        "minecraft:purple_wool",
         "minecraft:blue_wool",
         "minecraft:brown_wool",
-        "minecraft:cyan_wool",
-        "minecraft:gray_wool",
         "minecraft:green_wool",
-        "minecraft:light_blue_wool",
-        "minecraft:light_gray_wool",
-        "minecraft:lime_wool",
-        "minecraft:magenta_wool",
-        "minecraft:orange_wool",
-        "minecraft:pink_wool",
-        "minecraft:purple_wool",
-        "minecraft:red_wool",
-        "minecraft:yellow_wool",
-        "minecraft:white_wool"
+        "minecraft:red_wool"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20160,21 +20160,21 @@
     "ingredients": [
       "minecraft:blue_dye",
       [
-        "minecraft:black_bed",
-        "minecraft:brown_bed",
-        "minecraft:cyan_bed",
-        "minecraft:gray_bed",
-        "minecraft:green_bed",
-        "minecraft:light_blue_bed",
-        "minecraft:light_gray_bed",
-        "minecraft:lime_bed",
-        "minecraft:magenta_bed",
+        "minecraft:white_bed",
         "minecraft:orange_bed",
-        "minecraft:pink_bed",
-        "minecraft:purple_bed",
-        "minecraft:red_bed",
+        "minecraft:magenta_bed",
+        "minecraft:light_blue_bed",
         "minecraft:yellow_bed",
-        "minecraft:white_bed"
+        "minecraft:lime_bed",
+        "minecraft:pink_bed",
+        "minecraft:gray_bed",
+        "minecraft:light_gray_bed",
+        "minecraft:cyan_bed",
+        "minecraft:purple_bed",
+        "minecraft:brown_bed",
+        "minecraft:green_bed",
+        "minecraft:red_bed",
+        "minecraft:black_bed"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20190,21 +20190,21 @@
     "ingredients": [
       "minecraft:blue_dye",
       [
-        "minecraft:black_carpet",
-        "minecraft:brown_carpet",
-        "minecraft:cyan_carpet",
-        "minecraft:gray_carpet",
-        "minecraft:green_carpet",
-        "minecraft:light_blue_carpet",
-        "minecraft:light_gray_carpet",
-        "minecraft:lime_carpet",
-        "minecraft:magenta_carpet",
+        "minecraft:white_carpet",
         "minecraft:orange_carpet",
-        "minecraft:pink_carpet",
-        "minecraft:purple_carpet",
-        "minecraft:red_carpet",
+        "minecraft:magenta_carpet",
+        "minecraft:light_blue_carpet",
         "minecraft:yellow_carpet",
-        "minecraft:white_carpet"
+        "minecraft:lime_carpet",
+        "minecraft:pink_carpet",
+        "minecraft:gray_carpet",
+        "minecraft:light_gray_carpet",
+        "minecraft:cyan_carpet",
+        "minecraft:purple_carpet",
+        "minecraft:brown_carpet",
+        "minecraft:green_carpet",
+        "minecraft:red_carpet",
+        "minecraft:black_carpet"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20220,21 +20220,21 @@
     "ingredients": [
       "minecraft:blue_dye",
       [
-        "minecraft:black_wool",
-        "minecraft:brown_wool",
-        "minecraft:cyan_wool",
-        "minecraft:gray_wool",
-        "minecraft:green_wool",
-        "minecraft:light_blue_wool",
-        "minecraft:light_gray_wool",
-        "minecraft:lime_wool",
-        "minecraft:magenta_wool",
+        "minecraft:white_wool",
         "minecraft:orange_wool",
-        "minecraft:pink_wool",
-        "minecraft:purple_wool",
-        "minecraft:red_wool",
+        "minecraft:magenta_wool",
+        "minecraft:light_blue_wool",
         "minecraft:yellow_wool",
-        "minecraft:white_wool"
+        "minecraft:lime_wool",
+        "minecraft:pink_wool",
+        "minecraft:gray_wool",
+        "minecraft:light_gray_wool",
+        "minecraft:cyan_wool",
+        "minecraft:purple_wool",
+        "minecraft:brown_wool",
+        "minecraft:green_wool",
+        "minecraft:red_wool",
+        "minecraft:black_wool"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20250,21 +20250,21 @@
     "ingredients": [
       "minecraft:brown_dye",
       [
-        "minecraft:black_bed",
-        "minecraft:blue_bed",
-        "minecraft:cyan_bed",
-        "minecraft:gray_bed",
-        "minecraft:green_bed",
-        "minecraft:light_blue_bed",
-        "minecraft:light_gray_bed",
-        "minecraft:lime_bed",
-        "minecraft:magenta_bed",
+        "minecraft:white_bed",
         "minecraft:orange_bed",
-        "minecraft:pink_bed",
-        "minecraft:purple_bed",
-        "minecraft:red_bed",
+        "minecraft:magenta_bed",
+        "minecraft:light_blue_bed",
         "minecraft:yellow_bed",
-        "minecraft:white_bed"
+        "minecraft:lime_bed",
+        "minecraft:pink_bed",
+        "minecraft:gray_bed",
+        "minecraft:light_gray_bed",
+        "minecraft:cyan_bed",
+        "minecraft:purple_bed",
+        "minecraft:blue_bed",
+        "minecraft:green_bed",
+        "minecraft:red_bed",
+        "minecraft:black_bed"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20280,21 +20280,21 @@
     "ingredients": [
       "minecraft:brown_dye",
       [
-        "minecraft:black_carpet",
-        "minecraft:blue_carpet",
-        "minecraft:cyan_carpet",
-        "minecraft:gray_carpet",
-        "minecraft:green_carpet",
-        "minecraft:light_blue_carpet",
-        "minecraft:light_gray_carpet",
-        "minecraft:lime_carpet",
-        "minecraft:magenta_carpet",
+        "minecraft:white_carpet",
         "minecraft:orange_carpet",
-        "minecraft:pink_carpet",
-        "minecraft:purple_carpet",
-        "minecraft:red_carpet",
+        "minecraft:magenta_carpet",
+        "minecraft:light_blue_carpet",
         "minecraft:yellow_carpet",
-        "minecraft:white_carpet"
+        "minecraft:lime_carpet",
+        "minecraft:pink_carpet",
+        "minecraft:gray_carpet",
+        "minecraft:light_gray_carpet",
+        "minecraft:cyan_carpet",
+        "minecraft:purple_carpet",
+        "minecraft:blue_carpet",
+        "minecraft:green_carpet",
+        "minecraft:red_carpet",
+        "minecraft:black_carpet"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20310,21 +20310,21 @@
     "ingredients": [
       "minecraft:brown_dye",
       [
-        "minecraft:black_wool",
-        "minecraft:blue_wool",
-        "minecraft:cyan_wool",
-        "minecraft:gray_wool",
-        "minecraft:green_wool",
-        "minecraft:light_blue_wool",
-        "minecraft:light_gray_wool",
-        "minecraft:lime_wool",
-        "minecraft:magenta_wool",
+        "minecraft:white_wool",
         "minecraft:orange_wool",
-        "minecraft:pink_wool",
-        "minecraft:purple_wool",
-        "minecraft:red_wool",
+        "minecraft:magenta_wool",
+        "minecraft:light_blue_wool",
         "minecraft:yellow_wool",
-        "minecraft:white_wool"
+        "minecraft:lime_wool",
+        "minecraft:pink_wool",
+        "minecraft:gray_wool",
+        "minecraft:light_gray_wool",
+        "minecraft:cyan_wool",
+        "minecraft:purple_wool",
+        "minecraft:blue_wool",
+        "minecraft:green_wool",
+        "minecraft:red_wool",
+        "minecraft:black_wool"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20340,21 +20340,21 @@
     "ingredients": [
       "minecraft:cyan_dye",
       [
-        "minecraft:black_bed",
+        "minecraft:white_bed",
+        "minecraft:orange_bed",
+        "minecraft:magenta_bed",
+        "minecraft:light_blue_bed",
+        "minecraft:yellow_bed",
+        "minecraft:lime_bed",
+        "minecraft:pink_bed",
+        "minecraft:gray_bed",
+        "minecraft:light_gray_bed",
+        "minecraft:purple_bed",
         "minecraft:blue_bed",
         "minecraft:brown_bed",
-        "minecraft:gray_bed",
         "minecraft:green_bed",
-        "minecraft:light_blue_bed",
-        "minecraft:light_gray_bed",
-        "minecraft:lime_bed",
-        "minecraft:magenta_bed",
-        "minecraft:orange_bed",
-        "minecraft:pink_bed",
-        "minecraft:purple_bed",
         "minecraft:red_bed",
-        "minecraft:yellow_bed",
-        "minecraft:white_bed"
+        "minecraft:black_bed"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20370,21 +20370,21 @@
     "ingredients": [
       "minecraft:cyan_dye",
       [
-        "minecraft:black_carpet",
+        "minecraft:white_carpet",
+        "minecraft:orange_carpet",
+        "minecraft:magenta_carpet",
+        "minecraft:light_blue_carpet",
+        "minecraft:yellow_carpet",
+        "minecraft:lime_carpet",
+        "minecraft:pink_carpet",
+        "minecraft:gray_carpet",
+        "minecraft:light_gray_carpet",
+        "minecraft:purple_carpet",
         "minecraft:blue_carpet",
         "minecraft:brown_carpet",
-        "minecraft:gray_carpet",
         "minecraft:green_carpet",
-        "minecraft:light_blue_carpet",
-        "minecraft:light_gray_carpet",
-        "minecraft:lime_carpet",
-        "minecraft:magenta_carpet",
-        "minecraft:orange_carpet",
-        "minecraft:pink_carpet",
-        "minecraft:purple_carpet",
         "minecraft:red_carpet",
-        "minecraft:yellow_carpet",
-        "minecraft:white_carpet"
+        "minecraft:black_carpet"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20400,21 +20400,21 @@
     "ingredients": [
       "minecraft:cyan_dye",
       [
-        "minecraft:black_wool",
+        "minecraft:white_wool",
+        "minecraft:orange_wool",
+        "minecraft:magenta_wool",
+        "minecraft:light_blue_wool",
+        "minecraft:yellow_wool",
+        "minecraft:lime_wool",
+        "minecraft:pink_wool",
+        "minecraft:gray_wool",
+        "minecraft:light_gray_wool",
+        "minecraft:purple_wool",
         "minecraft:blue_wool",
         "minecraft:brown_wool",
-        "minecraft:gray_wool",
         "minecraft:green_wool",
-        "minecraft:light_blue_wool",
-        "minecraft:light_gray_wool",
-        "minecraft:lime_wool",
-        "minecraft:magenta_wool",
-        "minecraft:orange_wool",
-        "minecraft:pink_wool",
-        "minecraft:purple_wool",
         "minecraft:red_wool",
-        "minecraft:yellow_wool",
-        "minecraft:white_wool"
+        "minecraft:black_wool"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20430,21 +20430,21 @@
     "ingredients": [
       "minecraft:gray_dye",
       [
-        "minecraft:black_bed",
+        "minecraft:white_bed",
+        "minecraft:orange_bed",
+        "minecraft:magenta_bed",
+        "minecraft:light_blue_bed",
+        "minecraft:yellow_bed",
+        "minecraft:lime_bed",
+        "minecraft:pink_bed",
+        "minecraft:light_gray_bed",
+        "minecraft:cyan_bed",
+        "minecraft:purple_bed",
         "minecraft:blue_bed",
         "minecraft:brown_bed",
-        "minecraft:cyan_bed",
         "minecraft:green_bed",
-        "minecraft:light_blue_bed",
-        "minecraft:light_gray_bed",
-        "minecraft:lime_bed",
-        "minecraft:magenta_bed",
-        "minecraft:orange_bed",
-        "minecraft:pink_bed",
-        "minecraft:purple_bed",
         "minecraft:red_bed",
-        "minecraft:yellow_bed",
-        "minecraft:white_bed"
+        "minecraft:black_bed"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20460,21 +20460,21 @@
     "ingredients": [
       "minecraft:gray_dye",
       [
-        "minecraft:black_carpet",
+        "minecraft:white_carpet",
+        "minecraft:orange_carpet",
+        "minecraft:magenta_carpet",
+        "minecraft:light_blue_carpet",
+        "minecraft:yellow_carpet",
+        "minecraft:lime_carpet",
+        "minecraft:pink_carpet",
+        "minecraft:light_gray_carpet",
+        "minecraft:cyan_carpet",
+        "minecraft:purple_carpet",
         "minecraft:blue_carpet",
         "minecraft:brown_carpet",
-        "minecraft:cyan_carpet",
         "minecraft:green_carpet",
-        "minecraft:light_blue_carpet",
-        "minecraft:light_gray_carpet",
-        "minecraft:lime_carpet",
-        "minecraft:magenta_carpet",
-        "minecraft:orange_carpet",
-        "minecraft:pink_carpet",
-        "minecraft:purple_carpet",
         "minecraft:red_carpet",
-        "minecraft:yellow_carpet",
-        "minecraft:white_carpet"
+        "minecraft:black_carpet"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20490,21 +20490,21 @@
     "ingredients": [
       "minecraft:gray_dye",
       [
-        "minecraft:black_wool",
+        "minecraft:white_wool",
+        "minecraft:orange_wool",
+        "minecraft:magenta_wool",
+        "minecraft:light_blue_wool",
+        "minecraft:yellow_wool",
+        "minecraft:lime_wool",
+        "minecraft:pink_wool",
+        "minecraft:light_gray_wool",
+        "minecraft:cyan_wool",
+        "minecraft:purple_wool",
         "minecraft:blue_wool",
         "minecraft:brown_wool",
-        "minecraft:cyan_wool",
         "minecraft:green_wool",
-        "minecraft:light_blue_wool",
-        "minecraft:light_gray_wool",
-        "minecraft:lime_wool",
-        "minecraft:magenta_wool",
-        "minecraft:orange_wool",
-        "minecraft:pink_wool",
-        "minecraft:purple_wool",
         "minecraft:red_wool",
-        "minecraft:yellow_wool",
-        "minecraft:white_wool"
+        "minecraft:black_wool"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20520,21 +20520,21 @@
     "ingredients": [
       "minecraft:green_dye",
       [
-        "minecraft:black_bed",
+        "minecraft:white_bed",
+        "minecraft:orange_bed",
+        "minecraft:magenta_bed",
+        "minecraft:light_blue_bed",
+        "minecraft:yellow_bed",
+        "minecraft:lime_bed",
+        "minecraft:pink_bed",
+        "minecraft:gray_bed",
+        "minecraft:light_gray_bed",
+        "minecraft:cyan_bed",
+        "minecraft:purple_bed",
         "minecraft:blue_bed",
         "minecraft:brown_bed",
-        "minecraft:cyan_bed",
-        "minecraft:gray_bed",
-        "minecraft:light_blue_bed",
-        "minecraft:light_gray_bed",
-        "minecraft:lime_bed",
-        "minecraft:magenta_bed",
-        "minecraft:orange_bed",
-        "minecraft:pink_bed",
-        "minecraft:purple_bed",
         "minecraft:red_bed",
-        "minecraft:yellow_bed",
-        "minecraft:white_bed"
+        "minecraft:black_bed"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20550,21 +20550,21 @@
     "ingredients": [
       "minecraft:green_dye",
       [
-        "minecraft:black_carpet",
+        "minecraft:white_carpet",
+        "minecraft:orange_carpet",
+        "minecraft:magenta_carpet",
+        "minecraft:light_blue_carpet",
+        "minecraft:yellow_carpet",
+        "minecraft:lime_carpet",
+        "minecraft:pink_carpet",
+        "minecraft:gray_carpet",
+        "minecraft:light_gray_carpet",
+        "minecraft:cyan_carpet",
+        "minecraft:purple_carpet",
         "minecraft:blue_carpet",
         "minecraft:brown_carpet",
-        "minecraft:cyan_carpet",
-        "minecraft:gray_carpet",
-        "minecraft:light_blue_carpet",
-        "minecraft:light_gray_carpet",
-        "minecraft:lime_carpet",
-        "minecraft:magenta_carpet",
-        "minecraft:orange_carpet",
-        "minecraft:pink_carpet",
-        "minecraft:purple_carpet",
         "minecraft:red_carpet",
-        "minecraft:yellow_carpet",
-        "minecraft:white_carpet"
+        "minecraft:black_carpet"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20580,21 +20580,21 @@
     "ingredients": [
       "minecraft:green_dye",
       [
-        "minecraft:black_wool",
+        "minecraft:white_wool",
+        "minecraft:orange_wool",
+        "minecraft:magenta_wool",
+        "minecraft:light_blue_wool",
+        "minecraft:yellow_wool",
+        "minecraft:lime_wool",
+        "minecraft:pink_wool",
+        "minecraft:gray_wool",
+        "minecraft:light_gray_wool",
+        "minecraft:cyan_wool",
+        "minecraft:purple_wool",
         "minecraft:blue_wool",
         "minecraft:brown_wool",
-        "minecraft:cyan_wool",
-        "minecraft:gray_wool",
-        "minecraft:light_blue_wool",
-        "minecraft:light_gray_wool",
-        "minecraft:lime_wool",
-        "minecraft:magenta_wool",
-        "minecraft:orange_wool",
-        "minecraft:pink_wool",
-        "minecraft:purple_wool",
         "minecraft:red_wool",
-        "minecraft:yellow_wool",
-        "minecraft:white_wool"
+        "minecraft:black_wool"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20610,21 +20610,21 @@
     "ingredients": [
       "minecraft:light_blue_dye",
       [
-        "minecraft:black_bed",
+        "minecraft:white_bed",
+        "minecraft:orange_bed",
+        "minecraft:magenta_bed",
+        "minecraft:yellow_bed",
+        "minecraft:lime_bed",
+        "minecraft:pink_bed",
+        "minecraft:gray_bed",
+        "minecraft:light_gray_bed",
+        "minecraft:cyan_bed",
+        "minecraft:purple_bed",
         "minecraft:blue_bed",
         "minecraft:brown_bed",
-        "minecraft:cyan_bed",
-        "minecraft:gray_bed",
         "minecraft:green_bed",
-        "minecraft:light_gray_bed",
-        "minecraft:lime_bed",
-        "minecraft:magenta_bed",
-        "minecraft:orange_bed",
-        "minecraft:pink_bed",
-        "minecraft:purple_bed",
         "minecraft:red_bed",
-        "minecraft:yellow_bed",
-        "minecraft:white_bed"
+        "minecraft:black_bed"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20640,21 +20640,21 @@
     "ingredients": [
       "minecraft:light_blue_dye",
       [
-        "minecraft:black_carpet",
+        "minecraft:white_carpet",
+        "minecraft:orange_carpet",
+        "minecraft:magenta_carpet",
+        "minecraft:yellow_carpet",
+        "minecraft:lime_carpet",
+        "minecraft:pink_carpet",
+        "minecraft:gray_carpet",
+        "minecraft:light_gray_carpet",
+        "minecraft:cyan_carpet",
+        "minecraft:purple_carpet",
         "minecraft:blue_carpet",
         "minecraft:brown_carpet",
-        "minecraft:cyan_carpet",
-        "minecraft:gray_carpet",
         "minecraft:green_carpet",
-        "minecraft:light_gray_carpet",
-        "minecraft:lime_carpet",
-        "minecraft:magenta_carpet",
-        "minecraft:orange_carpet",
-        "minecraft:pink_carpet",
-        "minecraft:purple_carpet",
         "minecraft:red_carpet",
-        "minecraft:yellow_carpet",
-        "minecraft:white_carpet"
+        "minecraft:black_carpet"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20670,21 +20670,21 @@
     "ingredients": [
       "minecraft:light_blue_dye",
       [
-        "minecraft:black_wool",
+        "minecraft:white_wool",
+        "minecraft:orange_wool",
+        "minecraft:magenta_wool",
+        "minecraft:yellow_wool",
+        "minecraft:lime_wool",
+        "minecraft:pink_wool",
+        "minecraft:gray_wool",
+        "minecraft:light_gray_wool",
+        "minecraft:cyan_wool",
+        "minecraft:purple_wool",
         "minecraft:blue_wool",
         "minecraft:brown_wool",
-        "minecraft:cyan_wool",
-        "minecraft:gray_wool",
         "minecraft:green_wool",
-        "minecraft:light_gray_wool",
-        "minecraft:lime_wool",
-        "minecraft:magenta_wool",
-        "minecraft:orange_wool",
-        "minecraft:pink_wool",
-        "minecraft:purple_wool",
         "minecraft:red_wool",
-        "minecraft:yellow_wool",
-        "minecraft:white_wool"
+        "minecraft:black_wool"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20700,21 +20700,21 @@
     "ingredients": [
       "minecraft:light_gray_dye",
       [
-        "minecraft:black_bed",
+        "minecraft:white_bed",
+        "minecraft:orange_bed",
+        "minecraft:magenta_bed",
+        "minecraft:light_blue_bed",
+        "minecraft:yellow_bed",
+        "minecraft:lime_bed",
+        "minecraft:pink_bed",
+        "minecraft:gray_bed",
+        "minecraft:cyan_bed",
+        "minecraft:purple_bed",
         "minecraft:blue_bed",
         "minecraft:brown_bed",
-        "minecraft:cyan_bed",
-        "minecraft:gray_bed",
         "minecraft:green_bed",
-        "minecraft:light_blue_bed",
-        "minecraft:lime_bed",
-        "minecraft:magenta_bed",
-        "minecraft:orange_bed",
-        "minecraft:pink_bed",
-        "minecraft:purple_bed",
         "minecraft:red_bed",
-        "minecraft:yellow_bed",
-        "minecraft:white_bed"
+        "minecraft:black_bed"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20730,21 +20730,21 @@
     "ingredients": [
       "minecraft:light_gray_dye",
       [
-        "minecraft:black_carpet",
+        "minecraft:white_carpet",
+        "minecraft:orange_carpet",
+        "minecraft:magenta_carpet",
+        "minecraft:light_blue_carpet",
+        "minecraft:yellow_carpet",
+        "minecraft:lime_carpet",
+        "minecraft:pink_carpet",
+        "minecraft:gray_carpet",
+        "minecraft:cyan_carpet",
+        "minecraft:purple_carpet",
         "minecraft:blue_carpet",
         "minecraft:brown_carpet",
-        "minecraft:cyan_carpet",
-        "minecraft:gray_carpet",
         "minecraft:green_carpet",
-        "minecraft:light_blue_carpet",
-        "minecraft:lime_carpet",
-        "minecraft:magenta_carpet",
-        "minecraft:orange_carpet",
-        "minecraft:pink_carpet",
-        "minecraft:purple_carpet",
         "minecraft:red_carpet",
-        "minecraft:yellow_carpet",
-        "minecraft:white_carpet"
+        "minecraft:black_carpet"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20760,21 +20760,21 @@
     "ingredients": [
       "minecraft:light_gray_dye",
       [
-        "minecraft:black_wool",
+        "minecraft:white_wool",
+        "minecraft:orange_wool",
+        "minecraft:magenta_wool",
+        "minecraft:light_blue_wool",
+        "minecraft:yellow_wool",
+        "minecraft:lime_wool",
+        "minecraft:pink_wool",
+        "minecraft:gray_wool",
+        "minecraft:cyan_wool",
+        "minecraft:purple_wool",
         "minecraft:blue_wool",
         "minecraft:brown_wool",
-        "minecraft:cyan_wool",
-        "minecraft:gray_wool",
         "minecraft:green_wool",
-        "minecraft:light_blue_wool",
-        "minecraft:lime_wool",
-        "minecraft:magenta_wool",
-        "minecraft:orange_wool",
-        "minecraft:pink_wool",
-        "minecraft:purple_wool",
         "minecraft:red_wool",
-        "minecraft:yellow_wool",
-        "minecraft:white_wool"
+        "minecraft:black_wool"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20790,21 +20790,21 @@
     "ingredients": [
       "minecraft:lime_dye",
       [
-        "minecraft:black_bed",
+        "minecraft:white_bed",
+        "minecraft:orange_bed",
+        "minecraft:magenta_bed",
+        "minecraft:light_blue_bed",
+        "minecraft:yellow_bed",
+        "minecraft:pink_bed",
+        "minecraft:gray_bed",
+        "minecraft:light_gray_bed",
+        "minecraft:cyan_bed",
+        "minecraft:purple_bed",
         "minecraft:blue_bed",
         "minecraft:brown_bed",
-        "minecraft:cyan_bed",
-        "minecraft:gray_bed",
         "minecraft:green_bed",
-        "minecraft:light_blue_bed",
-        "minecraft:light_gray_bed",
-        "minecraft:magenta_bed",
-        "minecraft:orange_bed",
-        "minecraft:pink_bed",
-        "minecraft:purple_bed",
         "minecraft:red_bed",
-        "minecraft:yellow_bed",
-        "minecraft:white_bed"
+        "minecraft:black_bed"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20820,21 +20820,21 @@
     "ingredients": [
       "minecraft:lime_dye",
       [
-        "minecraft:black_carpet",
+        "minecraft:white_carpet",
+        "minecraft:orange_carpet",
+        "minecraft:magenta_carpet",
+        "minecraft:light_blue_carpet",
+        "minecraft:yellow_carpet",
+        "minecraft:pink_carpet",
+        "minecraft:gray_carpet",
+        "minecraft:light_gray_carpet",
+        "minecraft:cyan_carpet",
+        "minecraft:purple_carpet",
         "minecraft:blue_carpet",
         "minecraft:brown_carpet",
-        "minecraft:cyan_carpet",
-        "minecraft:gray_carpet",
         "minecraft:green_carpet",
-        "minecraft:light_blue_carpet",
-        "minecraft:light_gray_carpet",
-        "minecraft:magenta_carpet",
-        "minecraft:orange_carpet",
-        "minecraft:pink_carpet",
-        "minecraft:purple_carpet",
         "minecraft:red_carpet",
-        "minecraft:yellow_carpet",
-        "minecraft:white_carpet"
+        "minecraft:black_carpet"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20850,21 +20850,21 @@
     "ingredients": [
       "minecraft:lime_dye",
       [
-        "minecraft:black_wool",
+        "minecraft:white_wool",
+        "minecraft:orange_wool",
+        "minecraft:magenta_wool",
+        "minecraft:light_blue_wool",
+        "minecraft:yellow_wool",
+        "minecraft:pink_wool",
+        "minecraft:gray_wool",
+        "minecraft:light_gray_wool",
+        "minecraft:cyan_wool",
+        "minecraft:purple_wool",
         "minecraft:blue_wool",
         "minecraft:brown_wool",
-        "minecraft:cyan_wool",
-        "minecraft:gray_wool",
         "minecraft:green_wool",
-        "minecraft:light_blue_wool",
-        "minecraft:light_gray_wool",
-        "minecraft:magenta_wool",
-        "minecraft:orange_wool",
-        "minecraft:pink_wool",
-        "minecraft:purple_wool",
         "minecraft:red_wool",
-        "minecraft:yellow_wool",
-        "minecraft:white_wool"
+        "minecraft:black_wool"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20880,21 +20880,21 @@
     "ingredients": [
       "minecraft:magenta_dye",
       [
-        "minecraft:black_bed",
+        "minecraft:white_bed",
+        "minecraft:orange_bed",
+        "minecraft:light_blue_bed",
+        "minecraft:yellow_bed",
+        "minecraft:lime_bed",
+        "minecraft:pink_bed",
+        "minecraft:gray_bed",
+        "minecraft:light_gray_bed",
+        "minecraft:cyan_bed",
+        "minecraft:purple_bed",
         "minecraft:blue_bed",
         "minecraft:brown_bed",
-        "minecraft:cyan_bed",
-        "minecraft:gray_bed",
         "minecraft:green_bed",
-        "minecraft:light_blue_bed",
-        "minecraft:light_gray_bed",
-        "minecraft:lime_bed",
-        "minecraft:orange_bed",
-        "minecraft:pink_bed",
-        "minecraft:purple_bed",
         "minecraft:red_bed",
-        "minecraft:yellow_bed",
-        "minecraft:white_bed"
+        "minecraft:black_bed"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20910,21 +20910,21 @@
     "ingredients": [
       "minecraft:magenta_dye",
       [
-        "minecraft:black_carpet",
+        "minecraft:white_carpet",
+        "minecraft:orange_carpet",
+        "minecraft:light_blue_carpet",
+        "minecraft:yellow_carpet",
+        "minecraft:lime_carpet",
+        "minecraft:pink_carpet",
+        "minecraft:gray_carpet",
+        "minecraft:light_gray_carpet",
+        "minecraft:cyan_carpet",
+        "minecraft:purple_carpet",
         "minecraft:blue_carpet",
         "minecraft:brown_carpet",
-        "minecraft:cyan_carpet",
-        "minecraft:gray_carpet",
         "minecraft:green_carpet",
-        "minecraft:light_blue_carpet",
-        "minecraft:light_gray_carpet",
-        "minecraft:lime_carpet",
-        "minecraft:orange_carpet",
-        "minecraft:pink_carpet",
-        "minecraft:purple_carpet",
         "minecraft:red_carpet",
-        "minecraft:yellow_carpet",
-        "minecraft:white_carpet"
+        "minecraft:black_carpet"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20940,21 +20940,21 @@
     "ingredients": [
       "minecraft:magenta_dye",
       [
-        "minecraft:black_wool",
+        "minecraft:white_wool",
+        "minecraft:orange_wool",
+        "minecraft:light_blue_wool",
+        "minecraft:yellow_wool",
+        "minecraft:lime_wool",
+        "minecraft:pink_wool",
+        "minecraft:gray_wool",
+        "minecraft:light_gray_wool",
+        "minecraft:cyan_wool",
+        "minecraft:purple_wool",
         "minecraft:blue_wool",
         "minecraft:brown_wool",
-        "minecraft:cyan_wool",
-        "minecraft:gray_wool",
         "minecraft:green_wool",
-        "minecraft:light_blue_wool",
-        "minecraft:light_gray_wool",
-        "minecraft:lime_wool",
-        "minecraft:orange_wool",
-        "minecraft:pink_wool",
-        "minecraft:purple_wool",
         "minecraft:red_wool",
-        "minecraft:yellow_wool",
-        "minecraft:white_wool"
+        "minecraft:black_wool"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -20970,21 +20970,21 @@
     "ingredients": [
       "minecraft:orange_dye",
       [
-        "minecraft:black_bed",
+        "minecraft:white_bed",
+        "minecraft:magenta_bed",
+        "minecraft:light_blue_bed",
+        "minecraft:yellow_bed",
+        "minecraft:lime_bed",
+        "minecraft:pink_bed",
+        "minecraft:gray_bed",
+        "minecraft:light_gray_bed",
+        "minecraft:cyan_bed",
+        "minecraft:purple_bed",
         "minecraft:blue_bed",
         "minecraft:brown_bed",
-        "minecraft:cyan_bed",
-        "minecraft:gray_bed",
         "minecraft:green_bed",
-        "minecraft:light_blue_bed",
-        "minecraft:light_gray_bed",
-        "minecraft:lime_bed",
-        "minecraft:magenta_bed",
-        "minecraft:pink_bed",
-        "minecraft:purple_bed",
         "minecraft:red_bed",
-        "minecraft:yellow_bed",
-        "minecraft:white_bed"
+        "minecraft:black_bed"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -21000,21 +21000,21 @@
     "ingredients": [
       "minecraft:orange_dye",
       [
-        "minecraft:black_carpet",
+        "minecraft:white_carpet",
+        "minecraft:magenta_carpet",
+        "minecraft:light_blue_carpet",
+        "minecraft:yellow_carpet",
+        "minecraft:lime_carpet",
+        "minecraft:pink_carpet",
+        "minecraft:gray_carpet",
+        "minecraft:light_gray_carpet",
+        "minecraft:cyan_carpet",
+        "minecraft:purple_carpet",
         "minecraft:blue_carpet",
         "minecraft:brown_carpet",
-        "minecraft:cyan_carpet",
-        "minecraft:gray_carpet",
         "minecraft:green_carpet",
-        "minecraft:light_blue_carpet",
-        "minecraft:light_gray_carpet",
-        "minecraft:lime_carpet",
-        "minecraft:magenta_carpet",
-        "minecraft:pink_carpet",
-        "minecraft:purple_carpet",
         "minecraft:red_carpet",
-        "minecraft:yellow_carpet",
-        "minecraft:white_carpet"
+        "minecraft:black_carpet"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -21030,21 +21030,21 @@
     "ingredients": [
       "minecraft:orange_dye",
       [
-        "minecraft:black_wool",
+        "minecraft:white_wool",
+        "minecraft:magenta_wool",
+        "minecraft:light_blue_wool",
+        "minecraft:yellow_wool",
+        "minecraft:lime_wool",
+        "minecraft:pink_wool",
+        "minecraft:gray_wool",
+        "minecraft:light_gray_wool",
+        "minecraft:cyan_wool",
+        "minecraft:purple_wool",
         "minecraft:blue_wool",
         "minecraft:brown_wool",
-        "minecraft:cyan_wool",
-        "minecraft:gray_wool",
         "minecraft:green_wool",
-        "minecraft:light_blue_wool",
-        "minecraft:light_gray_wool",
-        "minecraft:lime_wool",
-        "minecraft:magenta_wool",
-        "minecraft:pink_wool",
-        "minecraft:purple_wool",
         "minecraft:red_wool",
-        "minecraft:yellow_wool",
-        "minecraft:white_wool"
+        "minecraft:black_wool"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -21060,21 +21060,21 @@
     "ingredients": [
       "minecraft:pink_dye",
       [
-        "minecraft:black_bed",
+        "minecraft:white_bed",
+        "minecraft:orange_bed",
+        "minecraft:magenta_bed",
+        "minecraft:light_blue_bed",
+        "minecraft:yellow_bed",
+        "minecraft:lime_bed",
+        "minecraft:gray_bed",
+        "minecraft:light_gray_bed",
+        "minecraft:cyan_bed",
+        "minecraft:purple_bed",
         "minecraft:blue_bed",
         "minecraft:brown_bed",
-        "minecraft:cyan_bed",
-        "minecraft:gray_bed",
         "minecraft:green_bed",
-        "minecraft:light_blue_bed",
-        "minecraft:light_gray_bed",
-        "minecraft:lime_bed",
-        "minecraft:magenta_bed",
-        "minecraft:orange_bed",
-        "minecraft:purple_bed",
         "minecraft:red_bed",
-        "minecraft:yellow_bed",
-        "minecraft:white_bed"
+        "minecraft:black_bed"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -21090,21 +21090,21 @@
     "ingredients": [
       "minecraft:pink_dye",
       [
-        "minecraft:black_carpet",
+        "minecraft:white_carpet",
+        "minecraft:orange_carpet",
+        "minecraft:magenta_carpet",
+        "minecraft:light_blue_carpet",
+        "minecraft:yellow_carpet",
+        "minecraft:lime_carpet",
+        "minecraft:gray_carpet",
+        "minecraft:light_gray_carpet",
+        "minecraft:cyan_carpet",
+        "minecraft:purple_carpet",
         "minecraft:blue_carpet",
         "minecraft:brown_carpet",
-        "minecraft:cyan_carpet",
-        "minecraft:gray_carpet",
         "minecraft:green_carpet",
-        "minecraft:light_blue_carpet",
-        "minecraft:light_gray_carpet",
-        "minecraft:lime_carpet",
-        "minecraft:magenta_carpet",
-        "minecraft:orange_carpet",
-        "minecraft:purple_carpet",
         "minecraft:red_carpet",
-        "minecraft:yellow_carpet",
-        "minecraft:white_carpet"
+        "minecraft:black_carpet"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -21120,21 +21120,21 @@
     "ingredients": [
       "minecraft:pink_dye",
       [
-        "minecraft:black_wool",
+        "minecraft:white_wool",
+        "minecraft:orange_wool",
+        "minecraft:magenta_wool",
+        "minecraft:light_blue_wool",
+        "minecraft:yellow_wool",
+        "minecraft:lime_wool",
+        "minecraft:gray_wool",
+        "minecraft:light_gray_wool",
+        "minecraft:cyan_wool",
+        "minecraft:purple_wool",
         "minecraft:blue_wool",
         "minecraft:brown_wool",
-        "minecraft:cyan_wool",
-        "minecraft:gray_wool",
         "minecraft:green_wool",
-        "minecraft:light_blue_wool",
-        "minecraft:light_gray_wool",
-        "minecraft:lime_wool",
-        "minecraft:magenta_wool",
-        "minecraft:orange_wool",
-        "minecraft:purple_wool",
         "minecraft:red_wool",
-        "minecraft:yellow_wool",
-        "minecraft:white_wool"
+        "minecraft:black_wool"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -21150,21 +21150,21 @@
     "ingredients": [
       "minecraft:purple_dye",
       [
-        "minecraft:black_bed",
+        "minecraft:white_bed",
+        "minecraft:orange_bed",
+        "minecraft:magenta_bed",
+        "minecraft:light_blue_bed",
+        "minecraft:yellow_bed",
+        "minecraft:lime_bed",
+        "minecraft:pink_bed",
+        "minecraft:gray_bed",
+        "minecraft:light_gray_bed",
+        "minecraft:cyan_bed",
         "minecraft:blue_bed",
         "minecraft:brown_bed",
-        "minecraft:cyan_bed",
-        "minecraft:gray_bed",
         "minecraft:green_bed",
-        "minecraft:light_blue_bed",
-        "minecraft:light_gray_bed",
-        "minecraft:lime_bed",
-        "minecraft:magenta_bed",
-        "minecraft:orange_bed",
-        "minecraft:pink_bed",
         "minecraft:red_bed",
-        "minecraft:yellow_bed",
-        "minecraft:white_bed"
+        "minecraft:black_bed"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -21180,21 +21180,21 @@
     "ingredients": [
       "minecraft:purple_dye",
       [
-        "minecraft:black_carpet",
+        "minecraft:white_carpet",
+        "minecraft:orange_carpet",
+        "minecraft:magenta_carpet",
+        "minecraft:light_blue_carpet",
+        "minecraft:yellow_carpet",
+        "minecraft:lime_carpet",
+        "minecraft:pink_carpet",
+        "minecraft:gray_carpet",
+        "minecraft:light_gray_carpet",
+        "minecraft:cyan_carpet",
         "minecraft:blue_carpet",
         "minecraft:brown_carpet",
-        "minecraft:cyan_carpet",
-        "minecraft:gray_carpet",
         "minecraft:green_carpet",
-        "minecraft:light_blue_carpet",
-        "minecraft:light_gray_carpet",
-        "minecraft:lime_carpet",
-        "minecraft:magenta_carpet",
-        "minecraft:orange_carpet",
-        "minecraft:pink_carpet",
         "minecraft:red_carpet",
-        "minecraft:yellow_carpet",
-        "minecraft:white_carpet"
+        "minecraft:black_carpet"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -21210,21 +21210,21 @@
     "ingredients": [
       "minecraft:purple_dye",
       [
-        "minecraft:black_wool",
+        "minecraft:white_wool",
+        "minecraft:orange_wool",
+        "minecraft:magenta_wool",
+        "minecraft:light_blue_wool",
+        "minecraft:yellow_wool",
+        "minecraft:lime_wool",
+        "minecraft:pink_wool",
+        "minecraft:gray_wool",
+        "minecraft:light_gray_wool",
+        "minecraft:cyan_wool",
         "minecraft:blue_wool",
         "minecraft:brown_wool",
-        "minecraft:cyan_wool",
-        "minecraft:gray_wool",
         "minecraft:green_wool",
-        "minecraft:light_blue_wool",
-        "minecraft:light_gray_wool",
-        "minecraft:lime_wool",
-        "minecraft:magenta_wool",
-        "minecraft:orange_wool",
-        "minecraft:pink_wool",
         "minecraft:red_wool",
-        "minecraft:yellow_wool",
-        "minecraft:white_wool"
+        "minecraft:black_wool"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -21240,21 +21240,21 @@
     "ingredients": [
       "minecraft:red_dye",
       [
-        "minecraft:black_bed",
+        "minecraft:white_bed",
+        "minecraft:orange_bed",
+        "minecraft:magenta_bed",
+        "minecraft:light_blue_bed",
+        "minecraft:yellow_bed",
+        "minecraft:lime_bed",
+        "minecraft:pink_bed",
+        "minecraft:gray_bed",
+        "minecraft:light_gray_bed",
+        "minecraft:cyan_bed",
+        "minecraft:purple_bed",
         "minecraft:blue_bed",
         "minecraft:brown_bed",
-        "minecraft:cyan_bed",
-        "minecraft:gray_bed",
         "minecraft:green_bed",
-        "minecraft:light_blue_bed",
-        "minecraft:light_gray_bed",
-        "minecraft:lime_bed",
-        "minecraft:magenta_bed",
-        "minecraft:orange_bed",
-        "minecraft:pink_bed",
-        "minecraft:purple_bed",
-        "minecraft:yellow_bed",
-        "minecraft:white_bed"
+        "minecraft:black_bed"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -21270,21 +21270,21 @@
     "ingredients": [
       "minecraft:red_dye",
       [
-        "minecraft:black_carpet",
+        "minecraft:white_carpet",
+        "minecraft:orange_carpet",
+        "minecraft:magenta_carpet",
+        "minecraft:light_blue_carpet",
+        "minecraft:yellow_carpet",
+        "minecraft:lime_carpet",
+        "minecraft:pink_carpet",
+        "minecraft:gray_carpet",
+        "minecraft:light_gray_carpet",
+        "minecraft:cyan_carpet",
+        "minecraft:purple_carpet",
         "minecraft:blue_carpet",
         "minecraft:brown_carpet",
-        "minecraft:cyan_carpet",
-        "minecraft:gray_carpet",
         "minecraft:green_carpet",
-        "minecraft:light_blue_carpet",
-        "minecraft:light_gray_carpet",
-        "minecraft:lime_carpet",
-        "minecraft:magenta_carpet",
-        "minecraft:orange_carpet",
-        "minecraft:pink_carpet",
-        "minecraft:purple_carpet",
-        "minecraft:yellow_carpet",
-        "minecraft:white_carpet"
+        "minecraft:black_carpet"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -21300,21 +21300,21 @@
     "ingredients": [
       "minecraft:red_dye",
       [
-        "minecraft:black_wool",
+        "minecraft:white_wool",
+        "minecraft:orange_wool",
+        "minecraft:magenta_wool",
+        "minecraft:light_blue_wool",
+        "minecraft:yellow_wool",
+        "minecraft:lime_wool",
+        "minecraft:pink_wool",
+        "minecraft:gray_wool",
+        "minecraft:light_gray_wool",
+        "minecraft:cyan_wool",
+        "minecraft:purple_wool",
         "minecraft:blue_wool",
         "minecraft:brown_wool",
-        "minecraft:cyan_wool",
-        "minecraft:gray_wool",
         "minecraft:green_wool",
-        "minecraft:light_blue_wool",
-        "minecraft:light_gray_wool",
-        "minecraft:lime_wool",
-        "minecraft:magenta_wool",
-        "minecraft:orange_wool",
-        "minecraft:pink_wool",
-        "minecraft:purple_wool",
-        "minecraft:yellow_wool",
-        "minecraft:white_wool"
+        "minecraft:black_wool"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -21330,21 +21330,21 @@
     "ingredients": [
       "minecraft:white_dye",
       [
-        "minecraft:black_bed",
+        "minecraft:orange_bed",
+        "minecraft:magenta_bed",
+        "minecraft:light_blue_bed",
+        "minecraft:yellow_bed",
+        "minecraft:lime_bed",
+        "minecraft:pink_bed",
+        "minecraft:gray_bed",
+        "minecraft:light_gray_bed",
+        "minecraft:cyan_bed",
+        "minecraft:purple_bed",
         "minecraft:blue_bed",
         "minecraft:brown_bed",
-        "minecraft:cyan_bed",
-        "minecraft:gray_bed",
         "minecraft:green_bed",
-        "minecraft:light_blue_bed",
-        "minecraft:light_gray_bed",
-        "minecraft:lime_bed",
-        "minecraft:magenta_bed",
-        "minecraft:orange_bed",
-        "minecraft:pink_bed",
-        "minecraft:purple_bed",
         "minecraft:red_bed",
-        "minecraft:yellow_bed"
+        "minecraft:black_bed"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -21360,21 +21360,21 @@
     "ingredients": [
       "minecraft:white_dye",
       [
-        "minecraft:black_carpet",
+        "minecraft:orange_carpet",
+        "minecraft:magenta_carpet",
+        "minecraft:light_blue_carpet",
+        "minecraft:yellow_carpet",
+        "minecraft:lime_carpet",
+        "minecraft:pink_carpet",
+        "minecraft:gray_carpet",
+        "minecraft:light_gray_carpet",
+        "minecraft:cyan_carpet",
+        "minecraft:purple_carpet",
         "minecraft:blue_carpet",
         "minecraft:brown_carpet",
-        "minecraft:cyan_carpet",
-        "minecraft:gray_carpet",
         "minecraft:green_carpet",
-        "minecraft:light_blue_carpet",
-        "minecraft:light_gray_carpet",
-        "minecraft:lime_carpet",
-        "minecraft:magenta_carpet",
-        "minecraft:orange_carpet",
-        "minecraft:pink_carpet",
-        "minecraft:purple_carpet",
         "minecraft:red_carpet",
-        "minecraft:yellow_carpet"
+        "minecraft:black_carpet"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -21390,21 +21390,21 @@
     "ingredients": [
       "minecraft:white_dye",
       [
-        "minecraft:black_wool",
+        "minecraft:orange_wool",
+        "minecraft:magenta_wool",
+        "minecraft:light_blue_wool",
+        "minecraft:yellow_wool",
+        "minecraft:lime_wool",
+        "minecraft:pink_wool",
+        "minecraft:gray_wool",
+        "minecraft:light_gray_wool",
+        "minecraft:cyan_wool",
+        "minecraft:purple_wool",
         "minecraft:blue_wool",
         "minecraft:brown_wool",
-        "minecraft:cyan_wool",
-        "minecraft:gray_wool",
         "minecraft:green_wool",
-        "minecraft:light_blue_wool",
-        "minecraft:light_gray_wool",
-        "minecraft:lime_wool",
-        "minecraft:magenta_wool",
-        "minecraft:orange_wool",
-        "minecraft:pink_wool",
-        "minecraft:purple_wool",
         "minecraft:red_wool",
-        "minecraft:yellow_wool"
+        "minecraft:black_wool"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -21420,21 +21420,21 @@
     "ingredients": [
       "minecraft:yellow_dye",
       [
-        "minecraft:black_bed",
+        "minecraft:white_bed",
+        "minecraft:orange_bed",
+        "minecraft:magenta_bed",
+        "minecraft:light_blue_bed",
+        "minecraft:lime_bed",
+        "minecraft:pink_bed",
+        "minecraft:gray_bed",
+        "minecraft:light_gray_bed",
+        "minecraft:cyan_bed",
+        "minecraft:purple_bed",
         "minecraft:blue_bed",
         "minecraft:brown_bed",
-        "minecraft:cyan_bed",
-        "minecraft:gray_bed",
         "minecraft:green_bed",
-        "minecraft:light_blue_bed",
-        "minecraft:light_gray_bed",
-        "minecraft:lime_bed",
-        "minecraft:magenta_bed",
-        "minecraft:orange_bed",
-        "minecraft:pink_bed",
-        "minecraft:purple_bed",
         "minecraft:red_bed",
-        "minecraft:white_bed"
+        "minecraft:black_bed"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -21450,21 +21450,21 @@
     "ingredients": [
       "minecraft:yellow_dye",
       [
-        "minecraft:black_carpet",
+        "minecraft:white_carpet",
+        "minecraft:orange_carpet",
+        "minecraft:magenta_carpet",
+        "minecraft:light_blue_carpet",
+        "minecraft:lime_carpet",
+        "minecraft:pink_carpet",
+        "minecraft:gray_carpet",
+        "minecraft:light_gray_carpet",
+        "minecraft:cyan_carpet",
+        "minecraft:purple_carpet",
         "minecraft:blue_carpet",
         "minecraft:brown_carpet",
-        "minecraft:cyan_carpet",
-        "minecraft:gray_carpet",
         "minecraft:green_carpet",
-        "minecraft:light_blue_carpet",
-        "minecraft:light_gray_carpet",
-        "minecraft:lime_carpet",
-        "minecraft:magenta_carpet",
-        "minecraft:orange_carpet",
-        "minecraft:pink_carpet",
-        "minecraft:purple_carpet",
         "minecraft:red_carpet",
-        "minecraft:white_carpet"
+        "minecraft:black_carpet"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -21480,21 +21480,21 @@
     "ingredients": [
       "minecraft:yellow_dye",
       [
-        "minecraft:black_wool",
+        "minecraft:white_wool",
+        "minecraft:orange_wool",
+        "minecraft:magenta_wool",
+        "minecraft:light_blue_wool",
+        "minecraft:lime_wool",
+        "minecraft:pink_wool",
+        "minecraft:gray_wool",
+        "minecraft:light_gray_wool",
+        "minecraft:cyan_wool",
+        "minecraft:purple_wool",
         "minecraft:blue_wool",
         "minecraft:brown_wool",
-        "minecraft:cyan_wool",
-        "minecraft:gray_wool",
         "minecraft:green_wool",
-        "minecraft:light_blue_wool",
-        "minecraft:light_gray_wool",
-        "minecraft:lime_wool",
-        "minecraft:magenta_wool",
-        "minecraft:orange_wool",
-        "minecraft:pink_wool",
-        "minecraft:purple_wool",
         "minecraft:red_wool",
-        "minecraft:white_wool"
+        "minecraft:black_wool"
       ]
     ],
     "type": "minecraft:crafting_shapeless",
@@ -26692,6 +26692,900 @@
     "type": "minecraft:crafting_shapeless",
     "properties": {
       "version": "26.1"
+    }
+  },
+  "chiseled_cinnabar": {
+    "result": {
+      "id": "minecraft:chiseled_cinnabar"
+    },
+    "pattern": [
+      "#",
+      "#"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:cinnabar_slab"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "chiseled_cinnabar_from_cinnabar_stonecutting": {
+    "result": {
+      "id": "minecraft:chiseled_cinnabar"
+    },
+    "ingredient": "minecraft:cinnabar",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "chiseled_sulfur": {
+    "result": {
+      "id": "minecraft:chiseled_sulfur"
+    },
+    "pattern": [
+      "#",
+      "#"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:sulfur_slab"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "chiseled_sulfur_from_sulfur_stonecutting": {
+    "result": {
+      "id": "minecraft:chiseled_sulfur"
+    },
+    "ingredient": "minecraft:sulfur",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "cinnabar_brick_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:cinnabar_brick_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:cinnabar_bricks"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "cinnabar_brick_slab_from_cinnabar_bricks_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:cinnabar_brick_slab"
+    },
+    "ingredient": "minecraft:cinnabar_bricks",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "cinnabar_brick_slab_from_cinnabar_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:cinnabar_brick_slab"
+    },
+    "ingredient": "minecraft:cinnabar",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "cinnabar_brick_slab_from_polished_cinnabar_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:cinnabar_brick_slab"
+    },
+    "ingredient": "minecraft:polished_cinnabar",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "cinnabar_brick_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:cinnabar_brick_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:cinnabar_bricks"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "cinnabar_brick_stairs_from_cinnabar_bricks_stonecutting": {
+    "result": {
+      "id": "minecraft:cinnabar_brick_stairs"
+    },
+    "ingredient": "minecraft:cinnabar_bricks",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "cinnabar_brick_stairs_from_cinnabar_stonecutting": {
+    "result": {
+      "id": "minecraft:cinnabar_brick_stairs"
+    },
+    "ingredient": "minecraft:cinnabar",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "cinnabar_brick_stairs_from_polished_cinnabar_stonecutting": {
+    "result": {
+      "id": "minecraft:cinnabar_brick_stairs"
+    },
+    "ingredient": "minecraft:polished_cinnabar",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "cinnabar_brick_wall": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:cinnabar_brick_wall"
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:cinnabar_bricks"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "cinnabar_brick_wall_from_cinnabar_bricks_stonecutting": {
+    "result": {
+      "id": "minecraft:cinnabar_brick_wall"
+    },
+    "ingredient": "minecraft:cinnabar_bricks",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "cinnabar_brick_wall_from_cinnabar_stonecutting": {
+    "result": {
+      "id": "minecraft:cinnabar_brick_wall"
+    },
+    "ingredient": "minecraft:cinnabar",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "cinnabar_brick_wall_from_polished_cinnabar_stonecutting": {
+    "result": {
+      "id": "minecraft:cinnabar_brick_wall"
+    },
+    "ingredient": "minecraft:polished_cinnabar",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "cinnabar_bricks": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:cinnabar_bricks"
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:polished_cinnabar"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "cinnabar_bricks_from_cinnabar_stonecutting": {
+    "result": {
+      "id": "minecraft:cinnabar_bricks"
+    },
+    "ingredient": "minecraft:cinnabar",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "cinnabar_bricks_from_polished_cinnabar_stonecutting": {
+    "result": {
+      "id": "minecraft:cinnabar_bricks"
+    },
+    "ingredient": "minecraft:polished_cinnabar",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "cinnabar_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:cinnabar_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:cinnabar"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "cinnabar_slab_from_cinnabar_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:cinnabar_slab"
+    },
+    "ingredient": "minecraft:cinnabar",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "cinnabar_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:cinnabar_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:cinnabar"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "cinnabar_stairs_from_cinnabar_stonecutting": {
+    "result": {
+      "id": "minecraft:cinnabar_stairs"
+    },
+    "ingredient": "minecraft:cinnabar",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "cinnabar_wall": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:cinnabar_wall"
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:cinnabar"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "cinnabar_wall_from_cinnabar_stonecutting": {
+    "result": {
+      "id": "minecraft:cinnabar_wall"
+    },
+    "ingredient": "minecraft:cinnabar",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "polished_cinnabar": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:polished_cinnabar"
+    },
+    "pattern": [
+      "SS",
+      "SS"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "S": "minecraft:cinnabar"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "polished_cinnabar_from_cinnabar_stonecutting": {
+    "result": {
+      "id": "minecraft:polished_cinnabar"
+    },
+    "ingredient": "minecraft:cinnabar",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "polished_cinnabar_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:polished_cinnabar_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:polished_cinnabar"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "polished_cinnabar_slab_from_cinnabar_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:polished_cinnabar_slab"
+    },
+    "ingredient": "minecraft:cinnabar",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "polished_cinnabar_slab_from_polished_cinnabar_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:polished_cinnabar_slab"
+    },
+    "ingredient": "minecraft:polished_cinnabar",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "polished_cinnabar_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:polished_cinnabar_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:polished_cinnabar"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "polished_cinnabar_stairs_from_cinnabar_stonecutting": {
+    "result": {
+      "id": "minecraft:polished_cinnabar_stairs"
+    },
+    "ingredient": "minecraft:cinnabar",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "polished_cinnabar_stairs_from_polished_cinnabar_stonecutting": {
+    "result": {
+      "id": "minecraft:polished_cinnabar_stairs"
+    },
+    "ingredient": "minecraft:polished_cinnabar",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "polished_cinnabar_wall": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:polished_cinnabar_wall"
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:polished_cinnabar"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "polished_cinnabar_wall_from_cinnabar_stonecutting": {
+    "result": {
+      "id": "minecraft:polished_cinnabar_wall"
+    },
+    "ingredient": "minecraft:cinnabar",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "polished_cinnabar_wall_from_polished_cinnabar_stonecutting": {
+    "result": {
+      "id": "minecraft:polished_cinnabar_wall"
+    },
+    "ingredient": "minecraft:polished_cinnabar",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "polished_sulfur": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:polished_sulfur"
+    },
+    "pattern": [
+      "SS",
+      "SS"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "S": "minecraft:sulfur"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "polished_sulfur_from_sulfur_stonecutting": {
+    "result": {
+      "id": "minecraft:polished_sulfur"
+    },
+    "ingredient": "minecraft:sulfur",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "polished_sulfur_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:polished_sulfur_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:polished_sulfur"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "polished_sulfur_slab_from_polished_sulfur_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:polished_sulfur_slab"
+    },
+    "ingredient": "minecraft:polished_sulfur",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "polished_sulfur_slab_from_sulfur_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:polished_sulfur_slab"
+    },
+    "ingredient": "minecraft:sulfur",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "polished_sulfur_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:polished_sulfur_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:polished_sulfur"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "polished_sulfur_stairs_from_polished_sulfur_stonecutting": {
+    "result": {
+      "id": "minecraft:polished_sulfur_stairs"
+    },
+    "ingredient": "minecraft:polished_sulfur",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "polished_sulfur_stairs_from_sulfur_stonecutting": {
+    "result": {
+      "id": "minecraft:polished_sulfur_stairs"
+    },
+    "ingredient": "minecraft:sulfur",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "polished_sulfur_wall": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:polished_sulfur_wall"
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:polished_sulfur"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "polished_sulfur_wall_from_polished_sulfur_stonecutting": {
+    "result": {
+      "id": "minecraft:polished_sulfur_wall"
+    },
+    "ingredient": "minecraft:polished_sulfur",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "polished_sulfur_wall_from_sulfur_stonecutting": {
+    "result": {
+      "id": "minecraft:polished_sulfur_wall"
+    },
+    "ingredient": "minecraft:sulfur",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "potent_sulfur": {
+    "result": {
+      "id": "minecraft:potent_sulfur"
+    },
+    "ingredients": [
+      "minecraft:sulfur",
+      "minecraft:sulfur",
+      "minecraft:sulfur",
+      "minecraft:sulfur",
+      "minecraft:sulfur",
+      "minecraft:sulfur",
+      "minecraft:sulfur",
+      "minecraft:sulfur",
+      "minecraft:sulfur"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "sulfur_brick_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:sulfur_brick_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:sulfur_bricks"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "sulfur_brick_slab_from_polished_sulfur_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:sulfur_brick_slab"
+    },
+    "ingredient": "minecraft:polished_sulfur",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "sulfur_brick_slab_from_sulfur_bricks_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:sulfur_brick_slab"
+    },
+    "ingredient": "minecraft:sulfur_bricks",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "sulfur_brick_slab_from_sulfur_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:sulfur_brick_slab"
+    },
+    "ingredient": "minecraft:sulfur",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "sulfur_brick_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:sulfur_brick_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:sulfur_bricks"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "sulfur_brick_stairs_from_polished_sulfur_stonecutting": {
+    "result": {
+      "id": "minecraft:sulfur_brick_stairs"
+    },
+    "ingredient": "minecraft:polished_sulfur",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "sulfur_brick_stairs_from_sulfur_bricks_stonecutting": {
+    "result": {
+      "id": "minecraft:sulfur_brick_stairs"
+    },
+    "ingredient": "minecraft:sulfur_bricks",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "sulfur_brick_stairs_from_sulfur_stonecutting": {
+    "result": {
+      "id": "minecraft:sulfur_brick_stairs"
+    },
+    "ingredient": "minecraft:sulfur",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "sulfur_brick_wall": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:sulfur_brick_wall"
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:sulfur_bricks"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "sulfur_brick_wall_from_polished_sulfur_stonecutting": {
+    "result": {
+      "id": "minecraft:sulfur_brick_wall"
+    },
+    "ingredient": "minecraft:polished_sulfur",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "sulfur_brick_wall_from_sulfur_bricks_stonecutting": {
+    "result": {
+      "id": "minecraft:sulfur_brick_wall"
+    },
+    "ingredient": "minecraft:sulfur_bricks",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "sulfur_brick_wall_from_sulfur_stonecutting": {
+    "result": {
+      "id": "minecraft:sulfur_brick_wall"
+    },
+    "ingredient": "minecraft:sulfur",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "sulfur_bricks": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:sulfur_bricks"
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:polished_sulfur"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "sulfur_bricks_from_polished_sulfur_stonecutting": {
+    "result": {
+      "id": "minecraft:sulfur_bricks"
+    },
+    "ingredient": "minecraft:polished_sulfur",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "sulfur_bricks_from_sulfur_stonecutting": {
+    "result": {
+      "id": "minecraft:sulfur_bricks"
+    },
+    "ingredient": "minecraft:sulfur",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "sulfur_from_sulfur_spikes": {
+    "result": {
+      "id": "minecraft:sulfur"
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:sulfur_spike"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "sulfur_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:sulfur_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:sulfur"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "sulfur_slab_from_sulfur_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:sulfur_slab"
+    },
+    "ingredient": "minecraft:sulfur",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "sulfur_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:sulfur_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:sulfur"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "sulfur_stairs_from_sulfur_stonecutting": {
+    "result": {
+      "id": "minecraft:sulfur_stairs"
+    },
+    "ingredient": "minecraft:sulfur",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "sulfur_wall": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:sulfur_wall"
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:sulfur"
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "sulfur_wall_from_sulfur_stonecutting": {
+    "result": {
+      "id": "minecraft:sulfur_wall"
+    },
+    "ingredient": "minecraft:sulfur",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.2"
     }
   },
   "copper_trapdoor_legacy": {
