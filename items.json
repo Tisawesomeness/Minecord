@@ -14973,9 +14973,9 @@
       }
     },
     "properties": {
+      "actual_id": "minecraft.shield",
       "id": 442,
-      "version": "1.9",
-      "actual_id": "minecraft.shield"
+      "version": "1.9"
     }
   },
   "minecraft.shield.blue": {
@@ -14985,9 +14985,9 @@
       }
     },
     "properties": {
+      "actual_id": "minecraft.shield",
       "id": 442,
-      "version": "1.9",
-      "actual_id": "minecraft.shield"
+      "version": "1.9"
     }
   },
   "minecraft.shield.brown": {
@@ -14997,9 +14997,9 @@
       }
     },
     "properties": {
+      "actual_id": "minecraft.shield",
       "id": 442,
-      "version": "1.9",
-      "actual_id": "minecraft.shield"
+      "version": "1.9"
     }
   },
   "minecraft.shield.cyan": {
@@ -15009,9 +15009,9 @@
       }
     },
     "properties": {
+      "actual_id": "minecraft.shield",
       "id": 442,
-      "version": "1.9",
-      "actual_id": "minecraft.shield"
+      "version": "1.9"
     }
   },
   "minecraft.shield.gray": {
@@ -15021,9 +15021,9 @@
       }
     },
     "properties": {
+      "actual_id": "minecraft.shield",
       "id": 442,
-      "version": "1.9",
-      "actual_id": "minecraft.shield"
+      "version": "1.9"
     }
   },
   "minecraft.shield.green": {
@@ -15033,9 +15033,9 @@
       }
     },
     "properties": {
+      "actual_id": "minecraft.shield",
       "id": 442,
-      "version": "1.9",
-      "actual_id": "minecraft.shield"
+      "version": "1.9"
     }
   },
   "minecraft.shield.light_blue": {
@@ -15045,9 +15045,9 @@
       }
     },
     "properties": {
+      "actual_id": "minecraft.shield",
       "id": 442,
-      "version": "1.9",
-      "actual_id": "minecraft.shield"
+      "version": "1.9"
     }
   },
   "minecraft.shield.light_gray": {
@@ -15057,9 +15057,9 @@
       }
     },
     "properties": {
+      "actual_id": "minecraft.shield",
       "id": 442,
-      "version": "1.9",
-      "actual_id": "minecraft.shield"
+      "version": "1.9"
     }
   },
   "minecraft.shield.lime": {
@@ -15069,9 +15069,9 @@
       }
     },
     "properties": {
+      "actual_id": "minecraft.shield",
       "id": 442,
-      "version": "1.9",
-      "actual_id": "minecraft.shield"
+      "version": "1.9"
     }
   },
   "minecraft.shield.magenta": {
@@ -15081,9 +15081,9 @@
       }
     },
     "properties": {
+      "actual_id": "minecraft.shield",
       "id": 442,
-      "version": "1.9",
-      "actual_id": "minecraft.shield"
+      "version": "1.9"
     }
   },
   "minecraft.shield.orange": {
@@ -15093,9 +15093,9 @@
       }
     },
     "properties": {
+      "actual_id": "minecraft.shield",
       "id": 442,
-      "version": "1.9",
-      "actual_id": "minecraft.shield"
+      "version": "1.9"
     }
   },
   "minecraft.shield.pink": {
@@ -15105,9 +15105,9 @@
       }
     },
     "properties": {
+      "actual_id": "minecraft.shield",
       "id": 442,
-      "version": "1.9",
-      "actual_id": "minecraft.shield"
+      "version": "1.9"
     }
   },
   "minecraft.shield.purple": {
@@ -15117,9 +15117,9 @@
       }
     },
     "properties": {
+      "actual_id": "minecraft.shield",
       "id": 442,
-      "version": "1.9",
-      "actual_id": "minecraft.shield"
+      "version": "1.9"
     }
   },
   "minecraft.shield.red": {
@@ -15129,9 +15129,9 @@
       }
     },
     "properties": {
+      "actual_id": "minecraft.shield",
       "id": 442,
-      "version": "1.9",
-      "actual_id": "minecraft.shield"
+      "version": "1.9"
     }
   },
   "minecraft.shield.white": {
@@ -15144,9 +15144,9 @@
       }
     },
     "properties": {
+      "actual_id": "minecraft.shield",
       "id": 442,
-      "version": "1.9",
-      "actual_id": "minecraft.shield"
+      "version": "1.9"
     }
   },
   "minecraft.shield.yellow": {
@@ -15156,9 +15156,9 @@
       }
     },
     "properties": {
+      "actual_id": "minecraft.shield",
       "id": 442,
-      "version": "1.9",
-      "actual_id": "minecraft.shield"
+      "version": "1.9"
     }
   },
   "minecraft.elytra": {
@@ -31169,6 +31169,356 @@
     },
     "properties": {
       "version": "26.1"
+    }
+  },
+  "minecraft.chiseled_cinnabar": {
+    "lang": {
+      "en_US": {
+        "display_name": "Chiseled Cinnabar"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.chiseled_sulfur": {
+    "lang": {
+      "en_US": {
+        "display_name": "Chiseled Sulfur"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.cinnabar": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cinnabar"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.cinnabar_brick_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cinnabar Brick Slab"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.cinnabar_brick_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Cinnabar Brick Stair"
+        ],
+        "display_name": "Cinnabar Brick Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.cinnabar_brick_wall": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cinnabar Brick Wall"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.cinnabar_bricks": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cinnabar Bricks"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.cinnabar_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cinnabar Slab"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.cinnabar_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Cinnabar Stair"
+        ],
+        "display_name": "Cinnabar Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.cinnabar_wall": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cinnabar Wall"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.music_disc_bounce": {
+    "lang": {
+      "en_US": {
+        "distinct_display_name": "Music Disc Bounce",
+        "lore": "fingerspit - Bounce",
+        "search_names": [
+          "Bounce Disc",
+          "Bounce Music Disc",
+          "Disc Bounce",
+          "fingerspit - Bounce",
+          "fingerspit Bounce",
+          "Bounce"
+        ],
+        "display_name": "Music Disc",
+        "name_conflict": true
+      }
+    },
+    "properties": {
+      "image_key": "Music Disc Bounce",
+      "version": "26.2"
+    }
+  },
+  "minecraft.polished_cinnabar": {
+    "lang": {
+      "en_US": {
+        "display_name": "Polished Cinnabar"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.polished_cinnabar_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Polished Cinnabar Slab"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.polished_cinnabar_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Polished Cinnabar Stair"
+        ],
+        "display_name": "Polished Cinnabar Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.polished_cinnabar_wall": {
+    "lang": {
+      "en_US": {
+        "display_name": "Polished Cinnabar Wall"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.polished_sulfur": {
+    "lang": {
+      "en_US": {
+        "display_name": "Polished Sulfur"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.polished_sulfur_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Polished Sulfur Slab"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.polished_sulfur_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Polished Sulfur Stair"
+        ],
+        "display_name": "Polished Sulfur Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.polished_sulfur_wall": {
+    "lang": {
+      "en_US": {
+        "display_name": "Polished Sulfur Wall"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.potent_sulfur": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Geyser"
+        ],
+        "display_name": "Potent Sulfur"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.sulfur": {
+    "lang": {
+      "en_US": {
+        "display_name": "Sulfur"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.sulfur_brick_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Sulfur Brick Slab"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.sulfur_brick_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Sulfur Brick Stair"
+        ],
+        "display_name": "Sulfur Brick Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.sulfur_brick_wall": {
+    "lang": {
+      "en_US": {
+        "display_name": "Sulfur Brick Wall"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.sulfur_bricks": {
+    "lang": {
+      "en_US": {
+        "display_name": "Sulfur Bricks"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.sulfur_cube_bucket": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Sulfur Cube Bucket"
+        ],
+        "display_name": "Bucket of Sulfur Cube"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.sulfur_cube_spawn_egg": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Spawn Sulfur Cube",
+          "Sulfur Cube Egg"
+        ],
+        "display_name": "Sulfur Cube Spawn Egg"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.sulfur_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Sulfur Slab"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.sulfur_spike": {
+    "lang": {
+      "en_US": {
+        "display_name": "Sulfur Spike"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.sulfur_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Sulfur Stair"
+        ],
+        "display_name": "Sulfur Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.2"
+    }
+  },
+  "minecraft.sulfur_wall": {
+    "lang": {
+      "en_US": {
+        "display_name": "Sulfur Wall"
+      }
+    },
+    "properties": {
+      "version": "26.2"
     }
   }
 }
