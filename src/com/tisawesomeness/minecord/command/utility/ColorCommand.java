@@ -55,21 +55,21 @@ public class ColorCommand extends SlashCommand {
         if (color == null) {
             return new Result(Outcome.WARNING, ":warning: Not a valid color!");
         }
-        EmbedBuilder eb = buildEmbed(color);
+        EmbedBuilder eb = buildEmbed("Color Info", color);
         return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
     }
 
-    public static EmbedBuilder buildEmbed(Color c) {
+    public static EmbedBuilder buildEmbed(String title, Color c) {
         String formats = ColorUtils.getRGB(c) + "\n" +
                 ColorUtils.getRGBA(c) + "\n" +
                 ColorUtils.getHSL(c) + "\n" +
                 ColorUtils.getHSLA(c) + "\n" +
                 ColorUtils.getHSV(c) + "\n" +
                 ColorUtils.getCMYK(c);
-        String hexCode = String.format("%s (w/o alpha)\n%s (w/ alpha)", ColorUtils.getHexCode(c), ColorUtils.getHexCodeWithAlpha(c));
-        String integer = String.format("%d (w/o alpha)\n%d (w/ alpha)", ColorUtils.getInt(c), ColorUtils.getIntWithAlpha(c));
+        String hexCode = String.format("`%s` (w/o alpha)\n`%s` (w/ alpha)", ColorUtils.getHexCode(c), ColorUtils.getHexCodeWithAlpha(c));
+        String integer = String.format("`%d` (w/o alpha)\n`%d` (w/ alpha)", ColorUtils.getInt(c), ColorUtils.getIntWithAlpha(c));
         EmbedBuilder eb = new EmbedBuilder()
-                .setTitle("Color Info")
+                .setTitle(title)
                 .setColor(c)
                 .addField("Other formats", formats, true)
                 .addField("Hex Code", hexCode, true)

@@ -295,7 +295,7 @@ public class RandomCommand extends SlashCommand {
             return new Result(Outcome.ERROR, "Invalid argument in /random color");
         }
         Color randomColor = colorTypeOpt.get().colorGenerator.get();
-        EmbedBuilder eb = ColorCommand.buildEmbed(randomColor);
+        EmbedBuilder eb = ColorCommand.buildEmbed("Color Info", randomColor);
         return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
     }
 

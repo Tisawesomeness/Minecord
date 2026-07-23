@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 public class ColorUtils {
 
@@ -301,6 +302,98 @@ public class ColorUtils {
      */
     public static String getName(int index) {
         return mcColorNames.get(index);
+    }
+
+    public static Color getDefaultLocatorBarColor(UUID uuid) {
+        return setBrightness(color(255, uuid.hashCode()), 0.9f);
+    }
+
+    private static Color color(int alpha, int rgb) {
+        return new Color(alpha << 24 | rgb & 16777215, true);
+    }
+
+    private static Color setBrightness(Color color, float brightness) {
+        int rgbMax = Math.max(Math.max(color.getRed(), color.getGreen()), color.getBlue());
+        int rgbMin = Math.min(Math.min(color.getRed(), color.getGreen()), color.getBlue());
+        float rgbConstantRange = rgbMax - rgbMin;
+        float saturation;
+        if (rgbMax != 0) {
+            saturation = rgbConstantRange / rgbMax;
+        } else {
+            saturation = 0.0f;
+        }
+
+        float hue;
+        if (saturation == 0.0f) {
+            hue = 0.0f;
+        } else {
+            float constantRed = (rgbMax - color.getRed()) / rgbConstantRange;
+            float constantGreen = (rgbMax - color.getGreen()) / rgbConstantRange;
+            float constantBlue = (rgbMax - color.getBlue()) / rgbConstantRange;
+            if (color.getRed() == rgbMax) {
+                hue = constantBlue - constantGreen;
+            } else if (color.getGreen() == rgbMax) {
+                hue = 2.0f + constantRed - constantBlue;
+            } else {
+                hue = 4.0f + constantGreen - constantRed;
+            }
+
+            hue /= 6.0f;
+            if (hue < 0.0f) {
+                hue++;
+            }
+        }
+
+        if (saturation == 0.0f) {
+            int all = Math.round(brightness * 255.0f);
+            return new Color(all, all, all, color.getAlpha());
+        } else {
+            float colorWheelSegment = (hue - (float) Math.floor(hue)) * 6.0f;
+            float colorWheelOffset = colorWheelSegment - (float) Math.floor(colorWheelSegment);
+            float primaryColor = brightness * (1.0f - saturation);
+            float secondaryColor = brightness * (1.0f - saturation * colorWheelOffset);
+            float tertiaryColor = brightness * (1.0f - saturation * (1.0f - colorWheelOffset));
+            switch ((int) colorWheelSegment) {
+                case 0:
+                    return new Color(
+                            Math.round(brightness * 255.0f),
+                            Math.round(tertiaryColor * 255.0f),
+                            Math.round(primaryColor * 255.0f)
+                    );
+                case 1:
+                    return new Color(
+                            Math.round(secondaryColor * 255.0f),
+                            Math.round(brightness * 255.0f),
+                            Math.round(primaryColor * 255.0f)
+                    );
+                case 2:
+                    return new Color(
+                            Math.round(primaryColor * 255.0f),
+                            Math.round(brightness * 255.0f),
+                            Math.round(tertiaryColor * 255.0f)
+                    );
+                case 3:
+                    return new Color(
+                            Math.round(primaryColor * 255.0f),
+                            Math.round(secondaryColor * 255.0f),
+                            Math.round(brightness * 255.0f)
+                    );
+                case 4:
+                    return new Color(
+                            Math.round(tertiaryColor * 255.0f),
+                            Math.round(primaryColor * 255.0f),
+                            Math.round(brightness * 255.0f)
+                    );
+                case 5:
+                    return new Color(
+                            Math.round(brightness * 255.0f),
+                            Math.round(primaryColor * 255.0f),
+                            Math.round(secondaryColor * 255.0f)
+                    );
+                default:
+                    return color;
+            }
+        }
     }
 
     /**
