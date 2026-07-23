@@ -61,7 +61,8 @@ public class Registry {
                     new RenderCommand(RenderType.HEAD),
                     new RenderCommand(RenderType.BODY),
                     new RenderCommand(RenderType.BUST),
-                    new AnsiCommand()
+                    new AnsiCommand(),
+                    new LocatorCommand()
             ),
             new Module("Utility",
                     new StatusCommand(),
