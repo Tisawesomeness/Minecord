@@ -159,7 +159,7 @@ public class HelpCommand extends SlashCommand {
                 }
             }
             String desc = String.format("%s\nModule: `%s`", help, Registry.findModuleName(ci.name));
-            eb.setAuthor(c.getMention() + " Help").setDescription(desc);
+            eb.setAuthor("Help for /" + ci.name).setDescription(desc);
             return new Result(Outcome.SUCCESS, MessageUtils.addFooter(eb).build());
         }
 
