@@ -30,7 +30,7 @@ public class HistoryCommand extends BasePlayerCommand {
 
     @Override
     public String getHelp() {
-        return "`{&}history <player>` - Shows a player''s name history.\n" +
+        return "`{&}history <player>` - Shows a player's name history.\n" +
                 "- `<player>` can be a username or UUID.\n" +
                 "Use `{&}help usernameInput|uuidInput|phd` for more help.\n" +
                 "\n" +
@@ -41,6 +41,7 @@ public class HistoryCommand extends BasePlayerCommand {
                 "- `{&}history 069a79f4-44e9-4726-a5be-fca90e38aaf5`\n";
     }
 
+    @Override
     protected void onSuccessfulPlayer(SlashCommandInteractionEvent e, Player player) {
         String title = "Name History for " + player.getUsername();
         String nameMCUrl = player.getNameMCUrl().toString();
