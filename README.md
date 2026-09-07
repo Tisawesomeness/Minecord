@@ -1,16 +1,14 @@
 # Minecord
 
-A Discord bot with many Minecraft-related features, such as name history, skin renders, color codes, and recipe lookup!
+This branch is an in-progress remake of Minecord from scratch in Kotlin.
 
-- **Official Bot Invite: https://minecord.github.io/invite**
-- Bot User: `Minecord#1216`
-- Support Server: https://minecord.github.io/support
+## Why?
 
-### How to Install
+- Minecord's code is approaching [10 years old](https://github.com/Tisawesomeness/Minecord/commit/4a18472533f445d481054f3229d52f701bb669a7).
+- [Minecraft 26.3](https://minecraft.wiki/w/Java_Edition_26.3) made many changes that require a full rewrite of Minecord's item format.
+- Kotlin is both [easier](https://kotlinlang.org/docs/idioms.html#if-not-null-shorthand) and [safer](https://kotlinlang.org/docs/null-safety.html) to work with than Java.
+- Kotlin supports the JVM, which is necessary to integrate with mods/plugins in the future (sorry Rust).
 
-To use the bot on your Discord server, **invite the bot at https://minecord.github.io/invite**.
+## How to Install
 
-### Self Hosting
-
-- If you only want to use commands, simply [invite the public bot](https://minecord.github.io/invite).
-- If you want to host it locally, download the [latest release](https://github.com/Tisawesomeness/Minecord/releases), unzip the archive, and follow the [self-hosting instructions](https://github.com/Tisawesomeness/Minecord/wiki/Self%E2%80%90Hosting).
+See the [main branch](https://github.com/Tisawesomeness/Minecord).
