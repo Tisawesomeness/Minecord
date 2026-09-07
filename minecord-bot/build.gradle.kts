@@ -1,14 +1,14 @@
 plugins {
     id("buildsrc.convention.minecord-conventions")
     alias(libs.plugins.shadow)
+    alias(libs.plugins.kotest)
 }
 
 dependencies {
     implementation(libs.kotlinxCoroutines)
     implementation(libs.argparser)
 
-    testImplementation(kotlin("test"))
-    testImplementation(libs.assertk)
+    testImplementation(libs.bundles.kotest)
 }
 
 tasks {

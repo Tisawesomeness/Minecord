@@ -10,13 +10,19 @@ kotlin = "2.4.10"
 kotlinxCoroutines = "1.11.0"
 argparser = "2.0.7"
 # test
-assertk = "0.28.1"
+kotest = "6.2.4"
 
 [libraries]
 kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinxCoroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 argparser = { module = "com.xenomachina:kotlin-argparser", version.ref = "argparser" }
-assertk = { module = "com.willowtreeapps.assertk:assertk", version.ref = "assertk" }
+kotestAssertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+kotestFramework = { module = "io.kotest:kotest-framework-engine", version.ref = "kotest" }
+kotestRunner = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
+
+[bundles]
+kotest = ["kotestAssertions", "kotestFramework", "kotestRunner"]
 
 [plugins]
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
+kotest = { id = "io.kotest", version.ref = "kotest" }

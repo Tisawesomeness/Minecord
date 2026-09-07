@@ -1,16 +1,10 @@
-import assertk.all
-import assertk.assertThat
-import assertk.assertions.doesNotContain
-import assertk.assertions.isNotEmpty
 import com.tis.minecord.BuildProperties
-import kotlin.test.Test
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.equals.shouldNotEqual
+import io.kotest.matchers.string.shouldNotContain
 
-internal class BuildPropertiesTest {
-    @Test
-    fun versionWasParsed() {
-        assertThat(BuildProperties.version).all {
-            isNotEmpty()
-            doesNotContain("$")
-        }
+class BuildPropertiesTest : FunSpec({
+    test("String length should return the length of the string") {
+        BuildProperties.version shouldNotEqual "" shouldNotContain "$"
     }
-}
+})
