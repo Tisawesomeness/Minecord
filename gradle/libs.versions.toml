@@ -3,13 +3,18 @@
 # https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
 
 [versions]
+# build
+shadow = "9.6.1"
+# runtime
 kotlin = "2.4.10"
 kotlinxCoroutines = "1.11.0"
-shadow = "9.6.1"
+# test
+assertk = "0.28.1"
 
 [libraries]
 kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinxCoroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+assertk = { module = "com.willowtreeapps.assertk:assertk", version.ref = "assertk" }
 
 [plugins]
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }

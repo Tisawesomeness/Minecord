@@ -5,6 +5,8 @@ plugins {
 
 dependencies {
     implementation(libs.kotlinxCoroutines)
+    testImplementation(kotlin("test"))
+    testImplementation(libs.assertk)
 }
 
 tasks {
