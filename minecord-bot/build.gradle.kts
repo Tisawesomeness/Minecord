@@ -1,5 +1,5 @@
 plugins {
-    id("buildsrc.convention.kotlin-jvm")
+    id("buildsrc.convention.minecord-conventions")
     alias(libs.plugins.shadow)
 }
 
@@ -8,6 +8,13 @@ dependencies {
 }
 
 tasks {
+    val versionValue = version
+    processResources {
+        filesMatching("build.properties") {
+            expand(mapOf("version" to versionValue))
+        }
+    }
+
     jar {
         manifest {
             attributes["Main-Class"] = "com.tis.minecord.BootstrapKt"

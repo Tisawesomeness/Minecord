@@ -8,6 +8,9 @@ plugins {
     kotlin("jvm")
 }
 
+group = "com.tis.minecord"
+version = project.extra["minecord_version"] as String
+
 kotlin {
     jvmToolchain(25)
 }
