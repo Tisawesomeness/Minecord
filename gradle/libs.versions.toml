@@ -8,12 +8,14 @@ shadow = "9.6.1"
 # runtime
 kotlin = "2.4.10"
 kotlinxCoroutines = "1.11.0"
+argparser = "2.0.7"
 # test
 assertk = "0.28.1"
 
 [libraries]
 kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinxCoroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+argparser = { module = "com.xenomachina:kotlin-argparser", version.ref = "argparser" }
 assertk = { module = "com.willowtreeapps.assertk:assertk", version.ref = "assertk" }
 
 [plugins]
