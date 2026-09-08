@@ -1,6 +1,5 @@
 package codes.tis.minecord
 
-import ch.qos.logback.classic.Level
 import ch.qos.logback.classic.Logger
 import codes.tis.minecord.util.env
 import com.xenomachina.argparser.ArgParser
@@ -16,7 +15,7 @@ fun main(args: Array<String>) = mainBody {
         if (version) {
             println(BuildProperties.version)
         } else {
-            (LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME) as Logger).apply { level = Level.INFO }
+            (LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME) as Logger).apply { level = logLevel }
 
             val token = Token.make(env("MINECORD_TOKEN"))
             if (token == null) {
@@ -29,11 +28,4 @@ fun main(args: Array<String>) = mainBody {
             }
         }
     }
-}
-
-private class Args(parser: ArgParser) {
-    val version by parser.flagging(
-        "-v", "--version",
-        help = "show version and exit",
-    )
 }
