@@ -4,6 +4,7 @@ import java.util.Properties
 
 object BuildProperties {
     val version: String
+    val jdaVersion: String
 
     init {
         val props = Properties()
@@ -11,5 +12,6 @@ object BuildProperties {
             props.load(it)
         } ?: error("build.properties not found on classpath")
         version = props.getProperty("version")
+        jdaVersion = props.getProperty("jdaVersion")
     }
 }

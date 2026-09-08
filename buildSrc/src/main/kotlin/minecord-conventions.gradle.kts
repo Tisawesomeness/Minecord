@@ -8,8 +8,10 @@ plugins {
     kotlin("jvm")
 }
 
+val libs = extensions.getByType(VersionCatalogsExtension::class.java).named("libs")
+
 group = "com.tis.minecord"
-version = project.extra["minecord_version"] as String
+version = libs.findVersion("minecord").get().requiredVersion
 
 kotlin {
     jvmToolchain(25)

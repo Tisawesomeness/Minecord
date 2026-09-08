@@ -6,16 +6,25 @@ plugins {
 
 dependencies {
     implementation(libs.kotlinxCoroutines)
+    implementation(libs.logback)
+    implementation(libs.bundles.jda) {
+         exclude(module="opus-java")
+         exclude(module="tink")
+    }
     implementation(libs.argparser)
 
     testImplementation(libs.bundles.kotest)
 }
 
 tasks {
-    val versionValue = version
+    val minecordVersion = version
+    val jdaVersion = libs.versions.jda
     processResources {
         filesMatching("build.properties") {
-            expand(mapOf("version" to versionValue))
+            expand(mapOf(
+                "version" to minecordVersion,
+                "jdaVersion" to jdaVersion
+            ))
         }
     }
 

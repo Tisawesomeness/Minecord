@@ -1,4 +1,5 @@
-import com.tis.minecord.BuildProperties
+package com.tis.minecord
+
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.equals.shouldNotEqual
 import io.kotest.matchers.string.shouldNotContain
