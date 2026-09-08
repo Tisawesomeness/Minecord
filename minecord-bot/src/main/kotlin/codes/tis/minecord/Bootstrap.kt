@@ -1,8 +1,8 @@
-package com.tis.minecord
+package codes.tis.minecord
 
 import ch.qos.logback.classic.Level
 import ch.qos.logback.classic.Logger
-import com.tis.minecord.util.env
+import codes.tis.minecord.util.env
 import com.xenomachina.argparser.ArgParser
 import com.xenomachina.argparser.mainBody
 import dev.minn.jda.ktx.util.SLF4J

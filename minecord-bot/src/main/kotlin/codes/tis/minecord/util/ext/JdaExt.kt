@@ -1,4 +1,4 @@
-package com.tis.minecord.util.ext
+package codes.tis.minecord.util.ext
 
 import dev.minn.jda.ktx.events.CoroutineEventListener
 import dev.minn.jda.ktx.events.EventTimeout

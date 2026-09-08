@@ -1,4 +1,4 @@
-package com.tis.minecord
+package codes.tis.minecord
 
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.equals.shouldNotEqual

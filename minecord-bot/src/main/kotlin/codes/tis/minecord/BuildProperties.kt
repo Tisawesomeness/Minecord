@@ -1,4 +1,4 @@
-package com.tis.minecord
+package codes.tis.minecord
 
 import java.util.Properties
 

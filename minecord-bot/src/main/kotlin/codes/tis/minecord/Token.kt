@@ -1,4 +1,4 @@
-package com.tis.minecord
+package codes.tis.minecord
 
 /**
  * A non-empty token. [toString] is redacted as a sanity measure, not as a security measure.

@@ -1,4 +1,4 @@
-package com.tis.minecord.util
+package codes.tis.minecord.util
 
 import dev.minn.jda.ktx.jdabuilder.injectKTX
 import net.dv8tion.jda.api.requests.GatewayIntent

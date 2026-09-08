@@ -1,7 +1,7 @@
-package com.tis.minecord
+package codes.tis.minecord
 
-import com.tis.minecord.util.ext.addEventListener
-import com.tis.minecord.util.shardManagerLight
+import codes.tis.minecord.util.ext.addEventListener
+import codes.tis.minecord.util.shardManagerLight
 import dev.minn.jda.ktx.util.SLF4J
 import net.dv8tion.jda.api.OnlineStatus
 import net.dv8tion.jda.api.entities.Activity

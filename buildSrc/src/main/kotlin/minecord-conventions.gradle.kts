@@ -10,7 +10,7 @@ plugins {
 
 val libs = extensions.getByType(VersionCatalogsExtension::class.java).named("libs")
 
-group = "com.tis.minecord"
+group = "codes.tis.minecord"
 version = libs.findVersion("minecord").get().requiredVersion
 
 kotlin {

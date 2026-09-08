@@ -30,7 +30,7 @@ tasks {
 
     jar {
         manifest {
-            attributes["Main-Class"] = "com.tis.minecord.BootstrapKt"
+            attributes["Main-Class"] = "codes.tis.minecord.BootstrapKt"
         }
     }
 
