@@ -2,14 +2,15 @@ plugins {
     id("buildsrc.convention.minecord-conventions")
     alias(libs.plugins.shadow)
     alias(libs.plugins.kotest)
+    alias(libs.plugins.ktlint)
 }
 
 dependencies {
     implementation(libs.kotlinxCoroutines)
     implementation(libs.logback)
     implementation(libs.bundles.jda) {
-         exclude(module="opus-java")
-         exclude(module="tink")
+        exclude(module = "opus-java")
+        exclude(module = "tink")
     }
     implementation(libs.argparser)
 
@@ -21,10 +22,12 @@ tasks {
     val jdaVersion = libs.versions.jda
     processResources {
         filesMatching("build.properties") {
-            expand(mapOf(
-                "version" to minecordVersion,
-                "jdaVersion" to jdaVersion
-            ))
+            expand(
+                mapOf(
+                    "version" to minecordVersion,
+                    "jdaVersion" to jdaVersion,
+                ),
+            )
         }
     }
 

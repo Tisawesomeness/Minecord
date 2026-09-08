@@ -17,10 +17,9 @@ import java.util.concurrent.TimeUnit
 import kotlin.concurrent.thread
 
 object Bot {
-
     private val GATEWAYS = setOf(
         GatewayIntent.DIRECT_MESSAGES, GatewayIntent.DIRECT_MESSAGE_REACTIONS,
-        GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS
+        GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS,
     )
 
     private val log by SLF4J
@@ -69,5 +68,4 @@ object Bot {
         connectionPool.evictAll()
         dispatcher.executorService.shutdown()
     }
-
 }

@@ -5,7 +5,6 @@ package codes.tis.minecord
  */
 @JvmInline
 value class Token private constructor(val token: String) {
-
     companion object {
         /**
          * Makes a token from a non-empty string.
@@ -18,5 +17,4 @@ value class Token private constructor(val token: String) {
     fun value() = token
 
     override fun toString() = "<token>"
-
 }

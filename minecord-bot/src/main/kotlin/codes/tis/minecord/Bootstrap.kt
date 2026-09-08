@@ -34,5 +34,6 @@ fun main(args: Array<String>) = mainBody {
 private class Args(parser: ArgParser) {
     val version by parser.flagging(
         "-v", "--version",
-        help = "show version and exit")
+        help = "show version and exit",
+    )
 }

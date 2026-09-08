@@ -16,14 +16,14 @@ inline fun shardManagerLight(
     enableCoroutines: Boolean = true,
     timeout: Duration = Duration.INFINITE,
     intents: Collection<GatewayIntent>,
-    builder: DefaultShardManagerBuilder.() -> Unit = {}
+    builder: DefaultShardManagerBuilder.() -> Unit = {},
 ): ShardManager {
-    return DefaultShardManagerBuilder.createLight(token, intents)
+    return DefaultShardManagerBuilder
+        .createLight(token, intents)
         .apply(builder)
         .apply {
             if (enableCoroutines) {
-                injectKTX(timeout=timeout)
+                injectKTX(timeout = timeout)
             }
-        }
-        .build()
+        }.build()
 }
