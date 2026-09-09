@@ -6,9 +6,6 @@ package codes.tis.minecord
 @JvmInline
 value class Token private constructor(val token: String) {
     companion object {
-        /**
-         * Makes a token from a non-empty string.
-         */
         fun make(token: String?): Token? {
             return if (token.isNullOrEmpty()) null else Token(token)
         }

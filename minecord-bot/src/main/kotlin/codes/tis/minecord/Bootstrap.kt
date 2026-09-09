@@ -1,14 +1,10 @@
 package codes.tis.minecord
 
 import ch.qos.logback.classic.Logger
-import codes.tis.minecord.util.env
 import com.xenomachina.argparser.ArgParser
 import com.xenomachina.argparser.mainBody
-import dev.minn.jda.ktx.util.SLF4J
 import org.slf4j.LoggerFactory
 import kotlin.system.exitProcess
-
-val log by SLF4J
 
 fun main(args: Array<String>) = mainBody {
     ArgParser(args).parseInto(::Args).run {
@@ -16,14 +12,7 @@ fun main(args: Array<String>) = mainBody {
             println(BuildProperties.version)
         } else {
             (LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME) as Logger).apply { level = logLevel }
-
-            val token = Token.make(env("MINECORD_TOKEN"))
-            if (token == null) {
-                log.error("Token env var not set")
-                exitProcess(1)
-            }
-
-            if (!Bot.start(token)) {
+            if (!Bot.start(configDir)) {
                 exitProcess(1)
             }
         }

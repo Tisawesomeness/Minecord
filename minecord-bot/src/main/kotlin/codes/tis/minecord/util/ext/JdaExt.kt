@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.events.GenericEvent
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder
 import kotlin.time.Duration
 
-// Adapted from  https://github.com/MinnDevelopment/jda-ktx/blob/master/src/main/kotlin/dev/minn/jda/ktx/events/events.kt
+// Adapted from https://github.com/MinnDevelopment/jda-ktx/blob/master/src/main/kotlin/dev/minn/jda/ktx/events/events.kt
 inline fun <reified T : GenericEvent> DefaultShardManagerBuilder.addEventListener(
     timeout: Duration? = null,
     crossinline consumer: suspend CoroutineEventListener.(T) -> Unit,

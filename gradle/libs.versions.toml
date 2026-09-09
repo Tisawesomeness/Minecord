@@ -10,27 +10,34 @@ shadow = "9.6.1"
 ktlint = "14.2.0"
 # runtime
 kotlin = "2.4.10"
-kotlinxCoroutines = "1.11.0"
+kotlinx-coroutines = "1.11.0"
 logback = "1.6.3"
 jda = "6.6.0"
 jda-ktx = "0.15.0"
 argparser = "2.0.7"
+jackson-databind = "3.2.2"
+jackson-kotlin = "3.2.2"
+jackson-yaml = "3.2.2"
 # test
 kotest = "6.2.4"
 
 [libraries]
 kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-kotlinxCoroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 jda = { module = "net.dv8tion:JDA", version.ref = "jda" }
-jdaKtx = { module = "club.minnced:jda-ktx", version.ref = "jda-ktx" }
+jda-ktx = { module = "club.minnced:jda-ktx", version.ref = "jda-ktx" }
 argparser = { module = "com.xenomachina:kotlin-argparser", version.ref = "argparser" }
+jackson-databind = { module = "tools.jackson.core:jackson-databind", version.ref = "jackson-databind" }
+jackson-kotlin = { module = "tools.jackson.module:jackson-module-kotlin", version.ref = "jackson-kotlin" }
+jackson-yaml = { module = "tools.jackson.dataformat:jackson-dataformat-yaml", version.ref = "jackson-yaml" }
 kotestAssertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotestFramework = { module = "io.kotest:kotest-framework-engine", version.ref = "kotest" }
 kotestRunner = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
 
 [bundles]
-jda = ["jda", "jdaKtx"]
+jda = ["jda", "jda-ktx"]
+jackson = ["jackson-databind", "jackson-kotlin"]
 kotest = ["kotestAssertions", "kotestFramework", "kotestRunner"]
 
 [plugins]

@@ -1,0 +1,34 @@
+####################################################
+#       Welcome to the Minecord config file!       #
+####################################################
+
+
+# Need help? Join the support server at https://minecord.github.io/support
+#
+# Remember that Minecord uses the GNU AGPL-3 license,
+# so if you make changes on a public self-hosted bot, you must make it open source.
+# https://github.com/Tisawesomeness/Minecord/blob/remake/LICENSE
+
+
+# To start the bot:
+# 1. Create a new Discord application at https://discord.com/developers/applications
+# 2. Go to your application's Bot tab, click "Reset Token", then copy the token shown
+# 3. Paste the token in between the quotes below:
+token: ""
+# The token MUST be kept secret, or other people will be able to control your bot!
+# If set, the MINECORD_TOKEN environment variable overrides this config.
+
+
+# Advanced options, edit with caution (most self-hosters have little need to edit this section)
+advanced:
+  # The number of shards (separate gateway connections) to Discord
+  # https://docs.discord.com/developers/events/gateway#sharding
+  # Set to -1 to use the recommended amount from Discord
+  shardCount: -1
+
+  # Max requests to one host (usually Discord)
+  maxRequestsPerHost: 25
+  # Max idling connections
+  maxIdleConnections: 5
+  # Keep alive duration in milliseconds
+  keepAlive: 10000

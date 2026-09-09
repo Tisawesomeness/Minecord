@@ -5,6 +5,7 @@ import com.xenomachina.argparser.ArgParser
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.equals.shouldEqual
+import java.nio.file.Path
 
 class ArgsTest : FunSpec({
     test("version flag parsing") {
@@ -18,6 +19,16 @@ class ArgsTest : FunSpec({
             val parsed = ArgParser(args).parseInto(::Args)
             parsed.version shouldEqual expected
         }
+    }
+
+    test("config directory parsing") {
+        val parsed = ArgParser(arrayOf("-c", "custom/config")).parseInto(::Args)
+        parsed.configDir shouldEqual Path.of("custom/config")
+    }
+
+    test("config directory defaults to minecord") {
+        val parsed = ArgParser(emptyArray()).parseInto(::Args)
+        parsed.configDir shouldEqual Path.of("minecord")
     }
 
     test("log level parsing") {

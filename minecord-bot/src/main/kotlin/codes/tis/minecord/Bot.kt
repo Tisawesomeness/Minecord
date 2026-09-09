@@ -1,8 +1,12 @@
 package codes.tis.minecord
 
+import codes.tis.minecord.config.Config
+import codes.tis.minecord.util.env
+import codes.tis.minecord.util.ext.Logger
 import codes.tis.minecord.util.ext.addEventListener
+import codes.tis.minecord.util.ext.fatal
+import codes.tis.minecord.util.openResource
 import codes.tis.minecord.util.shardManagerLight
-import dev.minn.jda.ktx.util.SLF4J
 import net.dv8tion.jda.api.OnlineStatus
 import net.dv8tion.jda.api.entities.Activity
 import net.dv8tion.jda.api.events.session.ReadyEvent
@@ -13,6 +17,8 @@ import net.dv8tion.jda.api.sharding.ShardManager
 import okhttp3.ConnectionPool
 import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
+import java.nio.file.Files
+import java.nio.file.Path
 import java.util.concurrent.TimeUnit
 import kotlin.concurrent.thread
 
@@ -22,7 +28,7 @@ object Bot {
         GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS,
     )
 
-    private val log by SLF4J
+    private val log by Logger
     private lateinit var shardManager: ShardManager
     private lateinit var dispatcher: Dispatcher
     private lateinit var connectionPool: ConnectionPool
@@ -31,16 +37,34 @@ object Bot {
      * Starts the bot for the first time.
      * @return false if an error occurred, and the program should no longer proceed
      */
-    fun start(token: Token): Boolean {
-        dispatcher = Dispatcher().apply { maxRequestsPerHost = 25 }
-        connectionPool = ConnectionPool(5, 10, TimeUnit.SECONDS)
+    fun start(configDir: Path): Boolean {
+        val configFile = configDir.resolve("config.yml")
+        if (!Files.exists(configFile)) {
+            Files.createDirectories(configDir)
+            openResource("/config.yml").use { input ->
+                Files.copy(input, configFile)
+            }
+            log.info("Created config.yml from default configuration")
+        }
+        val config = readConfig<Config>(Files.newInputStream(configFile))
+
+        val token = Token.make(env("MINECORD_TOKEN") ?: config.token)
+        if (token == null) {
+            log.warn("!!! Token not found !!!")
+            log.warn("!!! Follow the instructions in minecord/config.yml to run the bot. !!!")
+            return true
+        }
+
+        val advanced = config.advanced
+        dispatcher = Dispatcher().apply { maxRequestsPerHost = advanced.maxRequestsPerHost.value }
+        connectionPool = ConnectionPool(advanced.maxIdleConnections.value, advanced.keepAlive.value.toLong(), TimeUnit.MILLISECONDS)
         val httpClientBuilder = OkHttpClient.Builder().connectionPool(connectionPool).dispatcher(dispatcher)
 
         log.info("Logging in...")
         try {
             shardManager = shardManagerLight(token.value(), enableCoroutines = true, intents = GATEWAYS) {
                 setAutoReconnect(true)
-                setShardsTotal(1)
+                setShardsTotal(config.advanced.shardCount.value)
                 setStatus(OnlineStatus.IDLE)
                 setActivity(Activity.playing("Loading..."))
                 setHttpClientBuilder(httpClientBuilder)
@@ -48,10 +72,10 @@ object Bot {
                 addEventListener<ReadyEvent> { log.info("Shard ready") }
             }
         } catch (e: ErrorResponseException) {
-            log.error("Error while logging in: ${e.errorCode}: ${e.meaning}")
+            log.fatal("Error while logging in: ${e.errorCode}: ${e.meaning}")
             return false
-        } catch (_: InvalidTokenException) {
-            log.error("Invalid token")
+        } catch (e: InvalidTokenException) {
+            log.fatal("There was an error logging in, check if your token is correct.", e)
             return false
         }
 

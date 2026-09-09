@@ -6,13 +6,16 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.kotlinxCoroutines)
+    implementation(kotlin("reflect"))
+    implementation(libs.kotlinx.coroutines)
     implementation(libs.logback)
     implementation(libs.bundles.jda) {
         exclude(module = "opus-java")
         exclude(module = "tink")
     }
     implementation(libs.argparser)
+    implementation(libs.bundles.jackson)
+    implementation(libs.jackson.yaml)
 
     testImplementation(libs.bundles.kotest)
 }
