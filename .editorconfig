@@ -1,5 +1,6 @@
 [*.{kt,kts}]
 ktlint_standard_argument-list-wrapping = disabled
+ktlint_standard_backing-property-naming = disabled
 # https://github.com/ktlint/ktlint/issues/2423
 ktlint_standard_class-signature = disabled
 ktlint_standard_function-expression-body = disabled

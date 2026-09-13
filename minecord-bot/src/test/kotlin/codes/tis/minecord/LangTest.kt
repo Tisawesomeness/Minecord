@@ -1,16 +1,18 @@
 package codes.tis.minecord
 
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.matchers.shouldBe
+import io.kotest.matchers.equals.shouldEqual
 
 class LangTest : FunSpec({
     test("localize returns localized string") {
-        localize(TranslationKey("minecord.true")) shouldBe "True"
+        localize(TranslationKey("minecord.generic.true")) shouldEqual "True"
     }
+
     test("localize with raw string returns localized string") {
-        localize("minecord.false") shouldBe "False"
+        localize("minecord.generic.false") shouldEqual "False"
     }
+
     test("localize with raw string returns empty if not present") {
-        localize("minecord.definitely.does.not.exist123") shouldBe null
+        localize("minecord.definitely.does.not.exist123") shouldEqual null
     }
 })

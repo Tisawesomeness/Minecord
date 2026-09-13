@@ -46,3 +46,7 @@ tasks {
         addMultiReleaseAttribute = false
     }
 }
+
+kotest {
+    enablePowerAssert = true
+}
