@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonCreator
 @JvmInline
 value class PositiveInt private constructor(val value: Int) {
     companion object {
-        fun make(value: Int): PositiveInt? {
-            return if (value > 0) PositiveInt(value) else null
+        fun make(value: Int?): PositiveInt? {
+            return if (value != null && value > 0) PositiveInt(value) else null
         }
 
         @JvmStatic

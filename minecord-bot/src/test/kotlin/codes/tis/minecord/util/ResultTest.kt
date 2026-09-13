@@ -1,7 +1,7 @@
 package codes.tis.minecord.util
 
-import codes.tis.minecord.testutil.shouldHaveErr
-import codes.tis.minecord.testutil.shouldHaveValue
+import codes.tis.minecord.testutil.assertion.shouldHaveErr
+import codes.tis.minecord.testutil.assertion.shouldHaveValue
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.equals.shouldEqual

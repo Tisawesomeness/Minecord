@@ -1,4 +1,4 @@
-package codes.tis.minecord.testutil
+package codes.tis.minecord.testutil.assertion
 
 import codes.tis.minecord.util.Err
 import codes.tis.minecord.util.Ok

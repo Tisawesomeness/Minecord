@@ -15,6 +15,10 @@ class PositiveIntTest : FunSpec({
         shouldThrow<IllegalArgumentException> { PositiveInt.must(-1) }
     }
 
+    test("make rejects null") {
+        PositiveInt.make(null) shouldEqual null
+    }
+
     test("value property returns the input int") {
         PositiveInt.must(42).value shouldEqual 42
     }
