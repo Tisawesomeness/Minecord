@@ -15,6 +15,9 @@ version = libs.findVersion("minecord").get().requiredVersion
 
 kotlin {
     jvmToolchain(25)
+    compilerOptions {
+        freeCompilerArgs.add("-Xreturn-value-checker=full")
+    }
 }
 
 tasks.withType<Test>().configureEach {
