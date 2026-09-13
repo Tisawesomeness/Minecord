@@ -69,7 +69,7 @@ object Bot {
                 setActivity(Activity.playing("Loading..."))
                 setHttpClientBuilder(httpClientBuilder)
 
-                addEventListener<ReadyEvent> { log.info("Shard ready") }
+                val _ = addEventListener<ReadyEvent> { log.info("Shard ready") }
             }
         } catch (e: ErrorResponseException) {
             log.fatal("Error while logging in: ${e.errorCode}: ${e.meaning}")

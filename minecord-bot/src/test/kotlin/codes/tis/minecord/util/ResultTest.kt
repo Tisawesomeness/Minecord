@@ -105,7 +105,7 @@ class ResultTest : FunSpec({
             val _ = result.orElse { return this }
             return Ok(7)
         }
-        computeResult().shouldHaveValue(42)
+        computeResult().shouldHaveValue(7)
     }
 
     test("Err.orElse early return: returns result immediately") {

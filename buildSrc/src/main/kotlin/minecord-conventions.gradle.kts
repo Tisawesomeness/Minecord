@@ -1,6 +1,5 @@
 package buildsrc.convention
 
-import org.gradle.api.tasks.testing.logging.TestLogEvent
 import java.nio.file.Files
 import java.nio.file.attribute.PosixFilePermission
 
@@ -22,14 +21,6 @@ kotlin {
 
 tasks.withType<Test>().configureEach {
     useJUnitPlatform()
-
-    testLogging {
-        events(
-            TestLogEvent.FAILED,
-            TestLogEvent.PASSED,
-            TestLogEvent.SKIPPED
-        )
-    }
 }
 
 // Reproducible builds
