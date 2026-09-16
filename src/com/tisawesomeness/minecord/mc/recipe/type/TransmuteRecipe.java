@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.mc.recipe.type;
 
+import com.tisawesomeness.minecord.mc.recipe.CraftResult;
 import com.tisawesomeness.minecord.mc.recipe.Ingredient;
 import com.tisawesomeness.minecord.util.Utils;
 import com.tisawesomeness.minecord.util.type.IntRange;
@@ -51,6 +52,18 @@ public class TransmuteRecipe extends CraftingRecipe {
         Boolean includeResult = Utils.mapNullable(recipe.optJSONObject("properties"),
                 prop -> prop.optBoolean("include_result", false));
         return Boolean.TRUE.equals(includeResult);
+    }
+
+    @Override
+    public CraftResult getResult() {
+        Object result = recipe.get("result");
+        if (result instanceof JSONObject) {
+            JSONObject obj = (JSONObject) result;
+            if (!obj.has("id")) {
+                return new CraftResult.Input(getInput(), obj.optInt("count", 1));
+            }
+        }
+        return super.getResult();
     }
 
 }

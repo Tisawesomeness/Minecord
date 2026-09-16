@@ -1,5 +1,6 @@
 package com.tisawesomeness.minecord.mc.recipe.type;
 
+import com.tisawesomeness.minecord.mc.recipe.CraftResult;
 import com.tisawesomeness.minecord.mc.recipe.Ingredient;
 import com.tisawesomeness.minecord.mc.recipe.Recipe;
 import org.apache.commons.collections4.ListUtils;
@@ -27,6 +28,18 @@ public class MapExtendingRecipe extends CraftingRecipe {
     }
     public List<Ingredient> getMaterial() {
         return Recipe.parseIngredients(recipe.get("material"));
+    }
+
+    @Override
+    public CraftResult getResult() {
+        Object result = recipe.get("result");
+        if (result instanceof JSONObject) {
+            JSONObject obj = (JSONObject) result;
+            if (!obj.has("id")) {
+                return new CraftResult.Input(getMap(), obj.optInt("count", 1));
+            }
+        }
+        return super.getResult();
     }
 
 }

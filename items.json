@@ -8145,15 +8145,11 @@
   "minecraft.filled_map": {
     "lang": {
       "en_US": {
-        "search_names": [
-          "Buried Treasure Map",
-          "Treasure Map"
-        ],
         "display_name": "Map"
       }
     },
     "properties": {
-      "image_key": "Buried Treasure Map",
+      "image_key": "Filled Map",
       "id": 358
     }
   },
@@ -10222,6 +10218,7 @@
       }
     },
     "properties": {
+      "image_key": "Map",
       "id": 395
     }
   },
@@ -15696,6 +15693,24 @@
       "version": "1.9"
     }
   },
+  "minecraft.ocean_monument_map": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Ocean Map",
+          "Monument Map",
+          "Ocean Monument Explorer Map",
+          "Ocean Explorer Map",
+          "Monument Explorer Map"
+        ],
+        "display_name": "Ocean Monument Map"
+      }
+    },
+    "properties": {
+      "previous_id": "minecraft.filled_map",
+      "version": "1.11"
+    }
+  },
   "minecraft.shulker_box": {
     "lang": {
       "en_US": {
@@ -15707,6 +15722,24 @@
       }
     },
     "properties": {
+      "version": "1.11"
+    }
+  },
+  "minecraft.woodland_mansion_map": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Woodland Map",
+          "Mansion Map",
+          "Woodland Mansion Explorer Map",
+          "Woodland Explorer Map",
+          "Mansion Explorer Map"
+        ],
+        "display_name": "Woodland Mansion Map"
+      }
+    },
+    "properties": {
+      "previous_id": "minecraft.filled_map",
       "version": "1.11"
     }
   },
@@ -16149,6 +16182,22 @@
     },
     "properties": {
       "image_key": "Bubble Coral Fan",
+      "version": "1.13"
+    }
+  },
+  "minecraft.buried_treasure_map": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Treasure Map",
+          "Buried Treasure Explorer Map",
+          "Treasure Explorer Map"
+        ],
+        "display_name": "Buried Treasure Map"
+      }
+    },
+    "properties": {
+      "previous_id": "minecraft.filled_map",
       "version": "1.13"
     }
   },
@@ -26693,6 +26742,120 @@
       "version": "1.20"
     }
   },
+  "minecraft.desert_village_map": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Desert Village Explorer Map"
+        ],
+        "display_name": "Desert Village Map"
+      }
+    },
+    "properties": {
+      "flag_removed_version": "1.21.5",
+      "previous_id": "minecraft.filled_map",
+      "feature_flag": "trade_rebalance",
+      "version": "1.20.2"
+    }
+  },
+  "minecraft.jungle_pyramid_map": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Jungle Pyramid Explorer Map"
+        ],
+        "display_name": "Jungle Pyramid Map"
+      }
+    },
+    "properties": {
+      "flag_removed_version": "1.21.5",
+      "previous_id": "minecraft.filled_map",
+      "feature_flag": "trade_rebalance",
+      "version": "1.20.2"
+    }
+  },
+  "minecraft.plains_village_map": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Plains Village Explorer Map"
+        ],
+        "display_name": "Plains Village Map"
+      }
+    },
+    "properties": {
+      "flag_removed_version": "1.21.5",
+      "previous_id": "minecraft.filled_map",
+      "feature_flag": "trade_rebalance",
+      "version": "1.20.2"
+    }
+  },
+  "minecraft.savanna_village_map": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Savanna Village Explorer Map"
+        ],
+        "display_name": "Savanna Village Map"
+      }
+    },
+    "properties": {
+      "flag_removed_version": "1.21.5",
+      "previous_id": "minecraft.filled_map",
+      "feature_flag": "trade_rebalance",
+      "version": "1.20.2"
+    }
+  },
+  "minecraft.snowy_village_map": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Snowy Village Explorer Map"
+        ],
+        "display_name": "Snowy Village Map"
+      }
+    },
+    "properties": {
+      "flag_removed_version": "1.21.5",
+      "previous_id": "minecraft.filled_map",
+      "feature_flag": "trade_rebalance",
+      "version": "1.20.2"
+    }
+  },
+  "minecraft.swamp_hut_map": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Swamp Map",
+          "Swamp Hut Explorer Map",
+          "Swamp Explorer Map"
+        ],
+        "display_name": "Swamp Hut Map"
+      }
+    },
+    "properties": {
+      "flag_removed_version": "1.21.5",
+      "previous_id": "minecraft.filled_map",
+      "feature_flag": "trade_rebalance",
+      "version": "1.20.2"
+    }
+  },
+  "minecraft.taiga_village_map": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Taiga Village Explorer Map"
+        ],
+        "display_name": "Taiga Village Map"
+      }
+    },
+    "properties": {
+      "flag_removed_version": "1.21.5",
+      "previous_id": "minecraft.filled_map",
+      "feature_flag": "trade_rebalance",
+      "version": "1.20.2"
+    }
+  },
   "minecraft.breeze_spawn_egg": {
     "lang": {
       "en_US": {
@@ -27848,6 +28011,31 @@
       }
     },
     "properties": {
+      "feature_flag": "1.21",
+      "version": "1.20.5"
+    }
+  },
+  "minecraft.buried_trial_chambers_map": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Buried Trial Chamber Map",
+          "Buried Trial Map",
+          "Trial Chambers Map",
+          "Trial Chamber Map",
+          "Trial Map",
+          "Buried Trial Chambers Explorer Map",
+          "Buried Trial Chamber Explorer Map",
+          "Buried Trial Explorer Map",
+          "Trial Chambers Explorer Map",
+          "Trial Chamber Explorer Map",
+          "Trial Explorer Map"
+        ],
+        "display_name": "Buried Trial Chambers Map"
+      }
+    },
+    "properties": {
+      "previous_id": "minecraft.filled_map",
       "feature_flag": "1.21",
       "version": "1.20.5"
     }
@@ -31142,7 +31330,9 @@
         "search_names": [
           "Gold Dandelion",
           "Dandelion Gold",
-          "Golden Dandelion Which Is A Golden Dandelion"
+          "Golden Dandelion Which Is A Golden Dandelion",
+          "Flowery",
+          "Jarona"
         ],
         "display_name": "Golden Dandelion"
       }
@@ -31159,10 +31349,14 @@
           "Potted Dandelion Gold",
           "Potted Golden Dandelion Which Is A Golden Dandelion",
           "Potted Golden Dandelion Which Is A Potted Golden Dandelion",
+          "Potted Flowery",
+          "Potted Jarona",
           "Gold Dandelion Pot",
           "Dandelion Gold Pot",
           "Golden Dandelion Which Is A Golden Dandelion Pot",
-          "Golden Dandelion Pot Which Is A Golden Dandelion Pot"
+          "Golden Dandelion Pot Which Is A Golden Dandelion Pot",
+          "Flowery Pot",
+          "Jarona Pot"
         ],
         "display_name": "Potted Golden Dandelion"
       }
@@ -31519,6 +31713,1545 @@
     },
     "properties": {
       "version": "26.2"
+    }
+  },
+  "minecraft.abandoned_camp_map": {
+    "lang": {
+      "en_US": {
+        "display_name": "Abandoned Camp Map",
+        "search_names": [
+          "Abandoned Bamboo Map",
+          "Abandoned Bamboo Explorer Map",
+          "Abandoned Bamboo Camp Map",
+          "Abandoned Bamboo Camp Explorer Map",
+          "Abandoned Bamboo Campsite Map",
+          "Abandoned Bamboo Campsite Explorer Map",
+          "Abandoned Bamboo Jungle Map",
+          "Abandoned Bamboo Jungle Explorer Map",
+          "Abandoned Bamboo Jungle Camp Map",
+          "Abandoned Bamboo Jungle Camp Explorer Map",
+          "Abandoned Bamboo Jungle Campsite Map",
+          "Abandoned Bamboo Jungle Campsite Explorer Map",
+          "Abandoned Birch Forest Map",
+          "Abandoned Birch Forest Explorer Map",
+          "Abandoned Birch Forest Camp Map",
+          "Abandoned Birch Forest Camp Explorer Map",
+          "Abandoned Birch Forest Campsite Map",
+          "Abandoned Birch Forest Campsite Explorer Map",
+          "Abandoned Birch Map",
+          "Abandoned Birch Explorer Map",
+          "Abandoned Birch Camp Map",
+          "Abandoned Birch Camp Explorer Map",
+          "Abandoned Birch Campsite Map",
+          "Abandoned Birch Campsite Explorer Map",
+          "Abandoned Cherry Grove Map",
+          "Abandoned Cherry Grove Explorer Map",
+          "Abandoned Cherry Grove Camp Map",
+          "Abandoned Cherry Grove Camp Explorer Map",
+          "Abandoned Cherry Grove Campsite Map",
+          "Abandoned Cherry Grove Campsite Explorer Map",
+          "Abandoned Cherry Forest Map",
+          "Abandoned Cherry Forest Explorer Map",
+          "Abandoned Cherry Forest Camp Map",
+          "Abandoned Cherry Forest Camp Explorer Map",
+          "Abandoned Cherry Forest Campsite Map",
+          "Abandoned Cherry Forest Campsite Explorer Map",
+          "Abandoned Cherry Map",
+          "Abandoned Cherry Explorer Map",
+          "Abandoned Cherry Camp Map",
+          "Abandoned Cherry Camp Explorer Map",
+          "Abandoned Cherry Campsite Map",
+          "Abandoned Cherry Campsite Explorer Map",
+          "Abandoned Dappled Forest Map",
+          "Abandoned Dappled Forest Explorer Map",
+          "Abandoned Dappled Forest Camp Map",
+          "Abandoned Dappled Forest Camp Explorer Map",
+          "Abandoned Dappled Forest Campsite Map",
+          "Abandoned Dappled Forest Campsite Explorer Map",
+          "Abandoned Dappled Map",
+          "Abandoned Dappled Explorer Map",
+          "Abandoned Dappled Camp Map",
+          "Abandoned Dappled Camp Explorer Map",
+          "Abandoned Dappled Campsite Map",
+          "Abandoned Dappled Campsite Explorer Map",
+          "Abandoned Flower Forest Map",
+          "Abandoned Flower Forest Explorer Map",
+          "Abandoned Flower Forest Camp Map",
+          "Abandoned Flower Forest Camp Explorer Map",
+          "Abandoned Flower Forest Campsite Map",
+          "Abandoned Flower Forest Campsite Explorer Map",
+          "Abandoned Flower Map",
+          "Abandoned Flower Explorer Map",
+          "Abandoned Flower Camp Map",
+          "Abandoned Flower Camp Explorer Map",
+          "Abandoned Flower Campsite Map",
+          "Abandoned Flower Campsite Explorer Map",
+          "Abandoned Pale Garden Map",
+          "Abandoned Pale Garden Explorer Map",
+          "Abandoned Pale Garden Camp Map",
+          "Abandoned Pale Garden Camp Explorer Map",
+          "Abandoned Pale Garden Campsite Map",
+          "Abandoned Pale Garden Campsite Explorer Map",
+          "Abandoned Pale Forest Map",
+          "Abandoned Pale Forest Explorer Map",
+          "Abandoned Pale Forest Camp Map",
+          "Abandoned Pale Forest Camp Explorer Map",
+          "Abandoned Pale Forest Campsite Map",
+          "Abandoned Pale Forest Campsite Explorer Map",
+          "Abandoned Swamp Map",
+          "Abandoned Swamp Explorer Map",
+          "Abandoned Swamp Camp Map",
+          "Abandoned Swamp Camp Explorer Map",
+          "Abandoned Swamp Campsite Map",
+          "Abandoned Swamp Campsite Explorer Map",
+          "Abandoned Windswept Forest Map",
+          "Abandoned Windswept Forest Explorer Map",
+          "Abandoned Windswept Forest Camp Map",
+          "Abandoned Windswept Forest Camp Explorer Map",
+          "Abandoned Windswept Forest Campsite Map",
+          "Abandoned Windswept Forest Campsite Explorer Map",
+          "Abandoned Windswept Map",
+          "Abandoned Windswept Explorer Map",
+          "Abandoned Windswept Camp Map",
+          "Abandoned Windswept Camp Explorer Map",
+          "Abandoned Windswept Campsite Map",
+          "Abandoned Windswept Campsite Explorer Map",
+          "Abandoned Map",
+          "Abandoned Explorer Map",
+          "Abandoned Camp Map",
+          "Abandoned Camp Explorer Map",
+          "Abandoned Campsite Map",
+          "Abandoned Campsite Explorer Map",
+          "Bamboo Map",
+          "Bamboo Explorer Map",
+          "Bamboo Camp Map",
+          "Bamboo Camp Explorer Map",
+          "Bamboo Campsite Map",
+          "Bamboo Campsite Explorer Map",
+          "Bamboo Abandoned Camp Map",
+          "Bamboo Abandoned Camp Explorer Map",
+          "Bamboo Abandoned Campsite Map",
+          "Bamboo Abandoned Campsite Explorer Map",
+          "Bamboo Jungle Map",
+          "Bamboo Jungle Explorer Map",
+          "Bamboo Jungle Camp Map",
+          "Bamboo Jungle Camp Explorer Map",
+          "Bamboo Jungle Campsite Map",
+          "Bamboo Jungle Campsite Explorer Map",
+          "Bamboo Jungle Abandoned Camp Map",
+          "Bamboo Jungle Abandoned Camp Explorer Map",
+          "Bamboo Jungle Abandoned Campsite Map",
+          "Bamboo Jungle Abandoned Campsite Explorer Map",
+          "Birch Forest Map",
+          "Birch Forest Explorer Map",
+          "Birch Forest Camp Map",
+          "Birch Forest Camp Explorer Map",
+          "Birch Forest Campsite Map",
+          "Birch Forest Campsite Explorer Map",
+          "Birch Forest Abandoned Camp Map",
+          "Birch Forest Abandoned Camp Explorer Map",
+          "Birch Forest Abandoned Campsite Map",
+          "Birch Forest Abandoned Campsite Explorer Map",
+          "Birch Map",
+          "Birch Explorer Map",
+          "Birch Camp Map",
+          "Birch Camp Explorer Map",
+          "Birch Campsite Map",
+          "Birch Campsite Explorer Map",
+          "Birch Abandoned Camp Map",
+          "Birch Abandoned Camp Explorer Map",
+          "Birch Abandoned Campsite Map",
+          "Birch Abandoned Campsite Explorer Map",
+          "Cherry Grove Map",
+          "Cherry Grove Explorer Map",
+          "Cherry Grove Camp Map",
+          "Cherry Grove Camp Explorer Map",
+          "Cherry Grove Campsite Map",
+          "Cherry Grove Campsite Explorer Map",
+          "Cherry Grove Abandoned Camp Map",
+          "Cherry Grove Abandoned Camp Explorer Map",
+          "Cherry Grove Abandoned Campsite Map",
+          "Cherry Grove Abandoned Campsite Explorer Map",
+          "Cherry Forest Map",
+          "Cherry Forest Explorer Map",
+          "Cherry Forest Camp Map",
+          "Cherry Forest Camp Explorer Map",
+          "Cherry Forest Campsite Map",
+          "Cherry Forest Campsite Explorer Map",
+          "Cherry Forest Abandoned Camp Map",
+          "Cherry Forest Abandoned Camp Explorer Map",
+          "Cherry Forest Abandoned Campsite Map",
+          "Cherry Forest Abandoned Campsite Explorer Map",
+          "Cherry Map",
+          "Cherry Explorer Map",
+          "Cherry Camp Map",
+          "Cherry Camp Explorer Map",
+          "Cherry Campsite Map",
+          "Cherry Campsite Explorer Map",
+          "Cherry Abandoned Camp Map",
+          "Cherry Abandoned Camp Explorer Map",
+          "Cherry Abandoned Campsite Map",
+          "Cherry Abandoned Campsite Explorer Map",
+          "Dappled Forest Map",
+          "Dappled Forest Explorer Map",
+          "Dappled Forest Camp Map",
+          "Dappled Forest Camp Explorer Map",
+          "Dappled Forest Campsite Map",
+          "Dappled Forest Campsite Explorer Map",
+          "Dappled Forest Abandoned Camp Map",
+          "Dappled Forest Abandoned Camp Explorer Map",
+          "Dappled Forest Abandoned Campsite Map",
+          "Dappled Forest Abandoned Campsite Explorer Map",
+          "Dappled Map",
+          "Dappled Explorer Map",
+          "Dappled Camp Map",
+          "Dappled Camp Explorer Map",
+          "Dappled Campsite Map",
+          "Dappled Campsite Explorer Map",
+          "Dappled Abandoned Camp Map",
+          "Dappled Abandoned Camp Explorer Map",
+          "Dappled Abandoned Campsite Map",
+          "Dappled Abandoned Campsite Explorer Map",
+          "Flower Forest Map",
+          "Flower Forest Explorer Map",
+          "Flower Forest Camp Map",
+          "Flower Forest Camp Explorer Map",
+          "Flower Forest Campsite Map",
+          "Flower Forest Campsite Explorer Map",
+          "Flower Forest Abandoned Camp Map",
+          "Flower Forest Abandoned Camp Explorer Map",
+          "Flower Forest Abandoned Campsite Map",
+          "Flower Forest Abandoned Campsite Explorer Map",
+          "Flower Map",
+          "Flower Explorer Map",
+          "Flower Camp Map",
+          "Flower Camp Explorer Map",
+          "Flower Campsite Map",
+          "Flower Campsite Explorer Map",
+          "Flower Abandoned Camp Map",
+          "Flower Abandoned Camp Explorer Map",
+          "Flower Abandoned Campsite Map",
+          "Flower Abandoned Campsite Explorer Map",
+          "Pale Garden Map",
+          "Pale Garden Explorer Map",
+          "Pale Garden Camp Map",
+          "Pale Garden Camp Explorer Map",
+          "Pale Garden Campsite Map",
+          "Pale Garden Campsite Explorer Map",
+          "Pale Garden Abandoned Camp Map",
+          "Pale Garden Abandoned Camp Explorer Map",
+          "Pale Garden Abandoned Campsite Map",
+          "Pale Garden Abandoned Campsite Explorer Map",
+          "Pale Forest Map",
+          "Pale Forest Explorer Map",
+          "Pale Forest Camp Map",
+          "Pale Forest Camp Explorer Map",
+          "Pale Forest Campsite Map",
+          "Pale Forest Campsite Explorer Map",
+          "Pale Forest Abandoned Camp Map",
+          "Pale Forest Abandoned Camp Explorer Map",
+          "Pale Forest Abandoned Campsite Map",
+          "Pale Forest Abandoned Campsite Explorer Map",
+          "Swamp Map",
+          "Swamp Explorer Map",
+          "Swamp Camp Map",
+          "Swamp Camp Explorer Map",
+          "Swamp Campsite Map",
+          "Swamp Campsite Explorer Map",
+          "Swamp Abandoned Camp Map",
+          "Swamp Abandoned Camp Explorer Map",
+          "Swamp Abandoned Campsite Map",
+          "Swamp Abandoned Campsite Explorer Map",
+          "Windswept Forest Map",
+          "Windswept Forest Explorer Map",
+          "Windswept Forest Camp Map",
+          "Windswept Forest Camp Explorer Map",
+          "Windswept Forest Campsite Map",
+          "Windswept Forest Campsite Explorer Map",
+          "Windswept Forest Abandoned Camp Map",
+          "Windswept Forest Abandoned Camp Explorer Map",
+          "Windswept Forest Abandoned Campsite Map",
+          "Windswept Forest Abandoned Campsite Explorer Map",
+          "Windswept Map",
+          "Windswept Explorer Map",
+          "Windswept Camp Map",
+          "Windswept Camp Explorer Map",
+          "Windswept Campsite Map",
+          "Windswept Campsite Explorer Map",
+          "Windswept Abandoned Camp Map",
+          "Windswept Abandoned Camp Explorer Map",
+          "Windswept Abandoned Campsite Map",
+          "Windswept Abandoned Campsite Explorer Map",
+          "Camp Map",
+          "Camp Explorer Map",
+          "Campsite Map",
+          "Campsite Explorer Map",
+          "Abandoned Camp Explorer Map",
+          "Abandoned Campsite Map",
+          "Abandoned Campsite Explorer Map"
+        ]
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.black_concrete_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Black Concrete Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.black_concrete_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Black Concrete Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.black_cushion": {
+    "lang": {
+      "en_US": {
+        "display_name": "Black Cushion"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.black_wool_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Black Wool Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.black_wool_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Black Wool Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.blue_concrete_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Blue Concrete Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.blue_concrete_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Blue Concrete Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.blue_cushion": {
+    "lang": {
+      "en_US": {
+        "display_name": "Blue Cushion"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.blue_wool_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Blue Wool Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.blue_wool_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Blue Wool Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.brown_concrete_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Brown Concrete Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.brown_concrete_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Brown Concrete Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.brown_cushion": {
+    "lang": {
+      "en_US": {
+        "display_name": "Brown Cushion"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.brown_wool_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Brown Wool Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.brown_wool_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Brown Wool Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.buried_ancient_city_map": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Buried Ancient City Explorer Map",
+          "Ancient City Map",
+          "Ancient City Explorer Map"
+        ],
+        "display_name": "Buried Ancient City Map"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.buried_mineshaft_map": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Buried Mineshaft Explorer Map",
+          "Mineshaft Map",
+          "Mineshaft Explorer Map"
+        ],
+        "display_name": "Buried Mineshaft Map"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.cyan_concrete_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cyan Concrete Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.cyan_concrete_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cyan Concrete Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.cyan_cushion": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cyan Cushion"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.cyan_wool_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cyan Wool Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.cyan_wool_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Cyan Wool Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.desert_pyramid_map": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Desert Pyramid Explorer Map"
+        ],
+        "display_name": "Desert Pyramid Map"
+      }
+    },
+    "properties": {
+      "previous_id": "minecraft.filled_map",
+      "version": "26.3"
+    }
+  },
+  "minecraft.gray_concrete_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Gray Concrete Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.gray_concrete_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Gray Concrete Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.gray_cushion": {
+    "lang": {
+      "en_US": {
+        "display_name": "Gray Cushion"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.gray_wool_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Gray Wool Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.gray_wool_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Gray Wool Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.green_concrete_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Green Concrete Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.green_concrete_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Green Concrete Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.green_cushion": {
+    "lang": {
+      "en_US": {
+        "display_name": "Green Cushion"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.green_wool_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Green Wool Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.green_wool_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Green Wool Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.light_blue_concrete_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Light Blue Concrete Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.light_blue_concrete_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Light Blue Concrete Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.light_blue_cushion": {
+    "lang": {
+      "en_US": {
+        "display_name": "Light Blue Cushion"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.light_blue_wool_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Light Blue Wool Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.light_blue_wool_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Light Blue Wool Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.light_gray_concrete_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Light Gray Concrete Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.light_gray_concrete_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Light Gray Concrete Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.light_gray_cushion": {
+    "lang": {
+      "en_US": {
+        "display_name": "Light Gray Cushion"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.light_gray_wool_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Light Gray Wool Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.light_gray_wool_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Light Gray Wool Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.lime_concrete_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Lime Concrete Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.lime_concrete_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Lime Concrete Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.lime_cushion": {
+    "lang": {
+      "en_US": {
+        "display_name": "Lime Cushion"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.lime_wool_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Lime Wool Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.lime_wool_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Lime Wool Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.magenta_concrete_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Magenta Concrete Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.magenta_concrete_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Magenta Concrete Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.magenta_cushion": {
+    "lang": {
+      "en_US": {
+        "display_name": "Magenta Cushion"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.magenta_wool_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Magenta Wool Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.magenta_wool_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Magenta Wool Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.orange_concrete_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Orange Concrete Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.orange_concrete_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Orange Concrete Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.orange_cushion": {
+    "lang": {
+      "en_US": {
+        "display_name": "Orange Cushion"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.orange_poplar_leaves": {
+    "lang": {
+      "en_US": {
+        "display_name": "Orange Poplar Leaves"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.orange_wool_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Orange Wool Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.orange_wool_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Orange Wool Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.pink_concrete_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Pink Concrete Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.pink_concrete_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Pink Concrete Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.pink_cushion": {
+    "lang": {
+      "en_US": {
+        "display_name": "Pink Cushion"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.pink_wool_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Pink Wool Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.pink_wool_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Pink Wool Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.poplar_boat": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Poplar Wood Boat"
+        ],
+        "display_name": "Poplar Boat"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.poplar_button": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Poplar Wood Button"
+        ],
+        "display_name": "Poplar Button"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.poplar_chest_boat": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Poplar Chest Boat",
+          "Poplar Wood Boat with Chest",
+          "Poplar Wood Chest Boat"
+        ],
+        "display_name": "Poplar Boat with Chest"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.poplar_door": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Poplar Wood Door"
+        ],
+        "display_name": "Poplar Door"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.poplar_fence": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Poplar Wood Fence"
+        ],
+        "display_name": "Poplar Fence"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.poplar_fence_gate": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Poplar Wood Fence Gate",
+          "Poplar Wood Gate",
+          "Poplar Gate"
+        ],
+        "display_name": "Poplar Fence Gate"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.poplar_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Poplar Wood Hanging Sign",
+          "Hanging Poplar Sign",
+          "Hanging Poplar Wood Sign"
+        ],
+        "display_name": "Poplar Hanging Sign"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.poplar_log": {
+    "lang": {
+      "en_US": {
+        "display_name": "Poplar Log"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.poplar_planks": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Poplar Plank"
+        ],
+        "display_name": "Poplar Planks"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.poplar_pressure_plate": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Poplar Wood Pressure Plate",
+          "Poplar Wood Plate",
+          "Poplar Plate"
+        ],
+        "display_name": "Poplar Pressure Plate"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.poplar_sapling": {
+    "lang": {
+      "en_US": {
+        "display_name": "Poplar Sapling"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.poplar_shelf": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Poplar Wood Shelf"
+        ],
+        "display_name": "Poplar Shelf"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.poplar_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Poplar Wood Sign"
+        ],
+        "display_name": "Poplar Sign"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.poplar_slab": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Poplar Wood Slab"
+        ],
+        "display_name": "Poplar Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.poplar_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Poplar Wood Stairs",
+          "Poplar Wood Stair",
+          "Poplar Stair"
+        ],
+        "display_name": "Poplar Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.poplar_trapdoor": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Poplar Wood Trapdoor",
+          "Poplar Wood Trap Door",
+          "Poplar Trap Door"
+        ],
+        "display_name": "Poplar Trapdoor"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.poplar_wall_hanging_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Poplar Wood Wall Hanging Sign",
+          "Wall Hanging Poplar Sign",
+          "Wall Hanging Poplar Wood Sign",
+          "Poplar Hanging Wall Sign",
+          "Poplar Wood Hanging Wall Sign",
+          "Hanging Poplar Wall Sign",
+          "Hanging Poplar Wood Wall Sign"
+        ],
+        "display_name": "Poplar Wall Hanging Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Poplar Hanging Sign",
+      "version": "26.3"
+    }
+  },
+  "minecraft.poplar_wall_sign": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Poplar Wood Wall Sign"
+        ],
+        "display_name": "Poplar Wall Sign"
+      }
+    },
+    "properties": {
+      "image_key": "Poplar Sign",
+      "version": "26.3"
+    }
+  },
+  "minecraft.poplar_wood": {
+    "lang": {
+      "en_US": {
+        "display_name": "Poplar Wood"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.potted_poplar_sapling": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Potted Poplar",
+          "Poplar Sapling Pot",
+          "Poplar Pot"
+        ],
+        "display_name": "Potted Poplar Sapling"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.purple_concrete_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Purple Concrete Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.purple_concrete_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Purple Concrete Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.purple_cushion": {
+    "lang": {
+      "en_US": {
+        "display_name": "Purple Cushion"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.purple_wool_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Purple Wool Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.purple_wool_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Purple Wool Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.red_concrete_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Red Concrete Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.red_concrete_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Red Concrete Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.red_cushion": {
+    "lang": {
+      "en_US": {
+        "display_name": "Red Cushion"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.red_poplar_leaves": {
+    "lang": {
+      "en_US": {
+        "display_name": "Red Poplar Leaves"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.red_shrub": {
+    "lang": {
+      "en_US": {
+        "display_name": "Red Shrub"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.red_wool_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Red Wool Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.red_wool_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Red Wool Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.shelf_mushroom": {
+    "lang": {
+      "en_US": {
+        "display_name": "Shelf Mushroom"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.straw_bed": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Hay Bed"
+        ],
+        "display_name": "Straw Bed"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.stripped_poplar_log": {
+    "lang": {
+      "en_US": {
+        "display_name": "Stripped Poplar Log"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.stripped_poplar_wood": {
+    "lang": {
+      "en_US": {
+        "display_name": "Stripped Poplar Wood"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.warm_ocean_ruins_map": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Ocean Ruins Map",
+          "Warm Ruins Map",
+          "Warm Ocean Ruins Explorer Map",
+          "Ocean Ruins Explorer Map",
+          "Warm Ruins Explorer Map"
+        ],
+        "display_name": "Warm Ocean Ruins Map"
+      }
+    },
+    "properties": {
+      "previous_id": "minecraft.filled_map",
+      "version": "26.3"
+    }
+  },
+  "minecraft.white_concrete_slab": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Concrete Slab"
+        ],
+        "uncolored": [
+          "Concrete Slab"
+        ],
+        "display_name": "White Concrete Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.white_concrete_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Concrete Stair",
+          "Concrete Stairs"
+        ],
+        "uncolored": [
+          "Concrete Stair",
+          "Concrete Stairs"
+        ],
+        "display_name": "White Concrete Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.white_cushion": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Cushion"
+        ],
+        "uncolored": [
+          "Cushion"
+        ],
+        "display_name": "White Cushion"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.white_wool_slab": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Wool Slab",
+          "Cloth Slab"
+        ],
+        "uncolored": [
+          "Wool Slab",
+          "Cloth Slab"
+        ],
+        "display_name": "White Wool Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.white_wool_stairs": {
+    "lang": {
+      "en_US": {
+        "search_names": [
+          "Wool Stairs",
+          "Wool Stair",
+          "Cloth Stairs",
+          "Cloth Stair"
+        ],
+        "uncolored": [
+          "Wool Stairs",
+          "Wool Stair",
+          "Cloth Stairs",
+          "Cloth Stair"
+        ],
+        "display_name": "White Wool Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.yellow_concrete_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Yellow Concrete Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.yellow_concrete_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Yellow Concrete Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.yellow_cushion": {
+    "lang": {
+      "en_US": {
+        "display_name": "Yellow Cushion"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.yellow_poplar_leaves": {
+    "lang": {
+      "en_US": {
+        "display_name": "Yellow Poplar Leaves"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.yellow_wool_slab": {
+    "lang": {
+      "en_US": {
+        "display_name": "Yellow Wool Slab"
+      }
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "minecraft.yellow_wool_stairs": {
+    "lang": {
+      "en_US": {
+        "display_name": "Yellow Wool Stairs"
+      }
+    },
+    "properties": {
+      "version": "26.3"
     }
   }
 }

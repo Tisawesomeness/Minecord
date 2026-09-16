@@ -16,6 +16,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A recipe parsed from the recipes.json format.
@@ -118,10 +119,10 @@ public abstract class Recipe {
     public CraftResult getResult() {
         Object result = recipe.get("result");
         if (result instanceof String) {
-            return new CraftResult((String) result, 1);
+            return new CraftResult.Item((String) result, 1);
         }
         JSONObject obj = (JSONObject) result;
-        return new CraftResult(obj.getString("id"), obj.optInt("count", 1));
+        return new CraftResult.Item(obj.getString("id"), obj.optInt("count", 1));
     }
 
     /**
@@ -198,6 +199,15 @@ public abstract class Recipe {
     }
 
     /**
+     * @return the recipe name to use instead of the result item
+     */
+    public @Nullable String getNameOverride() {
+        return Utils.mapNullable(recipe.optJSONObject("lang"),
+                langs -> langs.optJSONObject("en_US"),
+                lang -> lang.optString("name", null));
+    }
+
+    /**
      * @return additional details about the recipe to display to the user
      */
     public @Nullable String getNotes() {
@@ -223,6 +233,18 @@ public abstract class Recipe {
             return list;
         }
         throw new IllegalArgumentException("invalid ingredient " + ingredients);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Recipe)) return false;
+        Recipe recipe = (Recipe) o;
+        return Objects.equals(key, recipe.key);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(key);
     }
 
     @Override
