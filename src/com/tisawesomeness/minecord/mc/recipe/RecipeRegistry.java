@@ -95,13 +95,22 @@ public class RecipeRegistry {
      */
     public static EmbedBuilder displayImg(Recipe recipe) {
         EmbedBuilder eb = new EmbedBuilder();
-        String item = ItemRegistry.searchNoStats(recipe.getResult().getItem());
-        eb.setTitle(ItemRegistry.getDistinctDisplayName(item));
+        eb.setTitle(getName(recipe));
         String img = Config.getRecipeImageHost() + getImage(recipe);
         eb.setImage(img);
         eb.setColor(Bot.color);
         eb.setDescription(getMetadata(recipe));
         return eb;
+    }
+    private static String getName(Recipe recipe) {
+        String override = recipe.getNameOverride();
+        if (override != null) {
+            return override;
+        }
+        String firstResult = expandResults(recipe).get(0);
+        String item = ItemRegistry.searchNoStats(firstResult);
+        return ItemRegistry.getDistinctDisplayName(item);
+
     }
     private static String getMetadata(Recipe recipe) {
         StringJoiner lines = new StringJoiner("\n");
@@ -133,9 +142,14 @@ public class RecipeRegistry {
         } else if (version != null) {
             if (feature != null) {
                 lines.add(String.format("**Version:** %s (%s experiment)", versionStr, feature.getDisplayName()));
-                feature.getReleaseVersion().ifPresent(releaseVersion -> {
-                    lines.add(String.format("**Released:** %s", releaseVersion));
-                });
+                Version flagRemovedVersion = recipe.getFlagRemovedVersion();
+                if (flagRemovedVersion != null) {
+                    lines.add(String.format("**Released:** %s", flagRemovedVersion));
+                } else {
+                    feature.getReleaseVersion().ifPresent(releaseVersion -> {
+                        lines.add(String.format("**Released:** %s", releaseVersion));
+                    });
+                }
             } else {
                 lines.add(String.format("**Version:** %s", versionStr));
             }
@@ -144,8 +158,12 @@ public class RecipeRegistry {
         }
         Version flagRemovedVersion = recipe.getFlagRemovedVersion();
         FeatureFlag removedInFlag = recipe.getRemovedInFlag();
-        if (flagRemovedVersion != null && removedInFlag != null) {
-            lines.add(String.format("Removed in %s experiment, version %s", removedInFlag.getDisplayName(), flagRemovedVersion));
+        if (removedInFlag != null) {
+            if (flagRemovedVersion != null) {
+                lines.add(String.format("Removed in %s experiment, version %s", removedInFlag.getDisplayName(), flagRemovedVersion));
+            } else {
+                lines.add(String.format("Removed in %s experiment", removedInFlag.getDisplayName()));
+            }
         }
         String notes = recipe.getNotes();
         if (notes != null) {
@@ -180,10 +198,11 @@ public class RecipeRegistry {
             if (isIgnoredRecipe(recipe)) {
                 continue;
             }
-            String result = recipe.getResult().getItem();
             // Check if they match
-            if (result.equals(namespacedID)) {
-                recipesFound.add(recipe);
+            for (String result : expandResults(recipe)) {
+                if (result.equals(namespacedID)) {
+                    recipesFound.add(recipe);
+                }
             }
         }
         // Wet sponge into bucket special case
@@ -233,11 +252,14 @@ public class RecipeRegistry {
      */
     public static List<String> getIngredientItems(Recipe recipe) {
         List<String> items = expandIngredients(recipe.getIngredients());
-        if (recipe instanceof TransmuteRecipe && !((TransmuteRecipe) recipe).shouldIngredientsIncludeResult()) {
-            items.remove(recipe.getResult().getItem());
+        if (recipe instanceof TransmuteRecipe
+                && !((TransmuteRecipe) recipe).shouldIngredientsIncludeResult()
+                && recipe.getResult() instanceof CraftResult.Item) {
+            items.remove(((CraftResult.Item) recipe.getResult()).getItem());
         }
         return items;
     }
+
     @VisibleForTesting
     public static List<String> expandIngredients(List<Ingredient> ingredients) {
         // LinkedHashSet required to de-duplicate items in shapeless recipes while preserving consistent ordering
@@ -251,6 +273,16 @@ public class RecipeRegistry {
             }
         }
         return new ArrayList<>(items);
+    }
+
+    @VisibleForTesting
+    public static List<String> expandResults(Recipe recipe) {
+        CraftResult result = recipe.getResult();
+        if (result instanceof CraftResult.Item) {
+            return Collections.singletonList(((CraftResult.Item) result).getItem());
+        } else {
+            return expandIngredients(((CraftResult.Input) result).getIngredients());
+        }
     }
 
     /**

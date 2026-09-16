@@ -21,9 +21,7 @@ import net.dv8tion.jda.api.modals.Modal;
 import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
 import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.OptionalInt;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class RecipeMenu implements UpdatingMessage {
@@ -296,7 +294,11 @@ public class RecipeMenu implements UpdatingMessage {
     }
 
     private List<Recipe> craftableFromOutput() {
-        return RecipeRegistry.searchIngredient(ItemRegistry.searchNoStats(currentRecipe().getResult().getItem()));
+        Set<Recipe> recipes = new HashSet<>();
+        for (String result : RecipeRegistry.expandResults(currentRecipe())) {
+            recipes.addAll(RecipeRegistry.searchIngredient(ItemRegistry.searchNoStats(result)));
+        }
+        return new ArrayList<>(recipes);
     }
 
 }

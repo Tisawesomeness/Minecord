@@ -31,7 +31,9 @@ public class ItemRegistry {
             "minecraft.white_stained_glass", "minecraft.white_terracotta", "minecraft.white_stained_glass_pane",
             "minecraft.shield.white", "minecraft.white_shulker_box", "minecraft.white_bed",
             "minecraft.white_glazed_terracotta", "minecraft.white_concrete", "minecraft.white_concrete_powder",
-            "minecraft.white_dye", "minecraft.white_candle", "minecraft.white_bundle", "minecraft.white_harness" };
+            "minecraft.white_dye", "minecraft.white_candle", "minecraft.white_bundle", "minecraft.white_harness",
+            "minecraft.white_concrete_slab", "minecraft.white_concrete_stairs", "minecraft.white_cushion",
+            "minecraft.white_wool_slab", "minecraft.white_wool_stairs" };
 
     private static JSONObject items;
     private static JSONObject data;
@@ -96,9 +98,13 @@ public class ItemRegistry {
             if (properties.has("feature_flag")) {
                 FeatureFlag flag = FeatureFlagRegistry.get(properties.getString("feature_flag")).get();
                 sb.append(String.format("**Version:** %s (%s experiment)\n", properties.getString("version"), flag.getDisplayName()));
-                flag.getReleaseVersion().ifPresent(releaseVersion -> {
-                    sb.append(String.format("**Released:** %s\n", releaseVersion));
-                });
+                if (properties.has("flag_removed_version")) {
+                    sb.append(String.format("**Released:** %s\n", properties.getString("flag_removed_version")));
+                } else {
+                    flag.getReleaseVersion().ifPresent(releaseVersion -> {
+                        sb.append(String.format("**Released:** %s\n", releaseVersion));
+                    });
+                }
             } else {
                 sb.append(String.format("**Version:** %s\n", properties.getString("version")));
             }

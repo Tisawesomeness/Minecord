@@ -3283,40 +3283,6 @@
       "X": "minecraft:compass"
     }
   },
-  "map_cloning": {
-    "result": {
-      "id": "minecraft:filled_map"
-    },
-    "input": "minecraft:filled_map",
-    "material": "minecraft:map",
-    "type": "minecraft:crafting_transmute",
-    "lang": {
-      "en_US": {
-        "notes": "Creates a copy of the map"
-      }
-    },
-    "add_material_count_to_result": true,
-    "material_count": {
-      "min": 1,
-      "max": 8
-    },
-    "properties": {
-      "animated": true
-    }
-  },
-  "map_extending": {
-    "result": {
-      "id": "minecraft:filled_map"
-    },
-    "material": "minecraft:paper",
-    "type": "minecraft:crafting_special_mapextending",
-    "lang": {
-      "en_US": {
-        "notes": "Zooms out the map by one level"
-      }
-    },
-    "map": "minecraft:filled_map"
-  },
   "melon": {
     "result": {
       "id": "minecraft:melon"
@@ -3375,17 +3341,6 @@
       "animated": true
     },
     "base": "minecraft.potion.effect.water"
-  },
-  "mushroom_stew": {
-    "result": {
-      "id": "minecraft:mushroom_stew"
-    },
-    "ingredients": [
-      "minecraft:brown_mushroom",
-      "minecraft:red_mushroom",
-      "minecraft:bowl"
-    ],
-    "type": "minecraft:crafting_shapeless"
   },
   "nether_brick": {
     "result": {
@@ -11105,50 +11060,53 @@
   },
   "cartography_map_cloning": {
     "result": {
-      "count": 2,
-      "id": "minecraft:filled_map"
+      "count": 2
     },
     "material": "minecraft:map",
     "type": "minecraft.cartography",
     "lang": {
       "en_US": {
-        "notes": "Creates a copy of the map"
+        "notes": "Creates a copy of the map",
+        "name": "Map Cloning"
       }
     },
-    "map": "minecraft:filled_map",
+    "map": "#minecraft:clonable_maps",
     "properties": {
-      "version": "1.14"
-    }
-  },
-  "cartography_map_extending": {
-    "result": {
-      "id": "minecraft:filled_map"
-    },
-    "material": "minecraft:paper",
-    "type": "minecraft.cartography",
-    "lang": {
-      "en_US": {
-        "notes": "Zooms out the map by one level"
-      }
-    },
-    "map": "minecraft:filled_map",
-    "properties": {
+      "animated": true,
       "version": "1.14"
     }
   },
   "cartography_map_locking": {
-    "result": {
-      "id": "minecraft:filled_map"
-    },
+    "result": {},
     "material": "minecraft:glass_pane",
     "type": "minecraft.cartography",
     "lang": {
       "en_US": {
-        "notes": "Locks the map"
+        "notes": "Locks the map",
+        "name": "Map Locking"
       }
     },
-    "map": "minecraft:filled_map",
+    "map": [
+      "minecraft:jungle_pyramid_map",
+      "minecraft:filled_map",
+      "minecraft:ocean_monument_map",
+      "minecraft:woodland_mansion_map",
+      "minecraft:buried_trial_chambers_map",
+      "minecraft:swamp_hut_map",
+      "minecraft:desert_village_map",
+      "minecraft:plains_village_map",
+      "minecraft:savanna_village_map",
+      "minecraft:snowy_village_map",
+      "minecraft:taiga_village_map",
+      "minecraft:buried_treasure_map",
+      "minecraft:buried_ancient_city_map",
+      "minecraft:buried_mineshaft_map",
+      "minecraft:desert_pyramid_map",
+      "minecraft:abandoned_camp_map",
+      "minecraft:warm_ocean_ruins_map"
+    ],
     "properties": {
+      "animated": true,
       "version": "1.14"
     }
   },
@@ -24399,45 +24357,6 @@
       "version": "1.21.4"
     }
   },
-  "suspicious_stew": {
-    "result": {
-      "id": "minecraft:suspicious_stew"
-    },
-    "ingredients": [
-      "minecraft:brown_mushroom",
-      "minecraft:red_mushroom",
-      "minecraft:bowl",
-      [
-        "minecraft:allium",
-        "minecraft:azure_bluet",
-        "minecraft:open_eyeblossom",
-        "minecraft:blue_orchid",
-        "minecraft:dandelion",
-        "minecraft:golden_dandelion",
-        "minecraft:closed_eyeblossom",
-        "minecraft:cornflower",
-        "minecraft:lily_of_the_valley",
-        "minecraft:oxeye_daisy",
-        "minecraft:poppy",
-        "minecraft:torchflower",
-        "minecraft:orange_tulip",
-        "minecraft:pink_tulip",
-        "minecraft:red_tulip",
-        "minecraft:white_tulip",
-        "minecraft:wither_rose"
-      ]
-    ],
-    "type": "minecraft:crafting_special_suspiciousstew",
-    "lang": {
-      "en_US": {
-        "notes": "\nAllium - Fire Resistance 3s\nAzure Bluet - Blindness 11s\nOpen Eyeblossom - Blindness 11s\nBlue Orchid - Saturation 0.35s\nDandelion - Saturation 0.35s\nGolden Dandelion - Saturation 0.35s\nClosed Eyeblossom - Nausea 7s\nCornflower - Jump Boost 5s\nLily of the Valley - Poison 11s\nOxeye Daisy - Regeneration 7s\nPoppy - Night Vision 5s\nTorchflower - Night Vision 5s\nTulips - Weakness 9s\nWither Rose - Wither 7s"
-      }
-    },
-    "properties": {
-      "animated": true,
-      "version": "1.21.4"
-    }
-  },
   "yellow_dye_from_wildflowers": {
     "result": {
       "id": "minecraft:yellow_dye"
@@ -27588,6 +27507,3648 @@
       "version": "26.2"
     }
   },
+  "black_concrete_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:black_concrete_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:black_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "black_concrete_slab_from_black_concrete_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:black_concrete_slab"
+    },
+    "ingredient": "minecraft:black_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "black_concrete_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:black_concrete_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:black_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "black_concrete_stairs_from_black_concrete_stonecutting": {
+    "result": {
+      "id": "minecraft:black_concrete_stairs"
+    },
+    "ingredient": "minecraft:black_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "black_cushion": {
+    "result": {
+      "id": "minecraft:black_cushion"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:black_wool_slab"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "black_wool_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:black_wool_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:black_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "black_wool_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:black_wool_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:black_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "blue_concrete_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:blue_concrete_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:blue_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "blue_concrete_slab_from_blue_concrete_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:blue_concrete_slab"
+    },
+    "ingredient": "minecraft:blue_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "blue_concrete_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:blue_concrete_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:blue_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "blue_concrete_stairs_from_blue_concrete_stonecutting": {
+    "result": {
+      "id": "minecraft:blue_concrete_stairs"
+    },
+    "ingredient": "minecraft:blue_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "blue_cushion": {
+    "result": {
+      "id": "minecraft:blue_cushion"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:blue_wool_slab"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "blue_wool_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:blue_wool_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:blue_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "blue_wool_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:blue_wool_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:blue_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "brown_concrete_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:brown_concrete_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:brown_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "brown_concrete_slab_from_brown_concrete_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:brown_concrete_slab"
+    },
+    "ingredient": "minecraft:brown_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "brown_concrete_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:brown_concrete_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:brown_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "brown_concrete_stairs_from_brown_concrete_stonecutting": {
+    "result": {
+      "id": "minecraft:brown_concrete_stairs"
+    },
+    "ingredient": "minecraft:brown_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "brown_cushion": {
+    "result": {
+      "id": "minecraft:brown_cushion"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:brown_wool_slab"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "brown_wool_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:brown_wool_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:brown_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "brown_wool_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:brown_wool_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:brown_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "cartography_map_extending": {
+    "result": {},
+    "material": "minecraft:paper",
+    "type": "minecraft.cartography",
+    "lang": {
+      "en_US": {
+        "notes": "Zooms out the map by one level",
+        "name": "Map Zooming"
+      }
+    },
+    "map": "#minecraft:extendable_maps",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "cyan_concrete_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:cyan_concrete_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:cyan_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "cyan_concrete_slab_from_cyan_concrete_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:cyan_concrete_slab"
+    },
+    "ingredient": "minecraft:cyan_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "cyan_concrete_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:cyan_concrete_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:cyan_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "cyan_concrete_stairs_from_cyan_concrete_stonecutting": {
+    "result": {
+      "id": "minecraft:cyan_concrete_stairs"
+    },
+    "ingredient": "minecraft:cyan_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "cyan_cushion": {
+    "result": {
+      "id": "minecraft:cyan_cushion"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:cyan_wool_slab"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "cyan_wool_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:cyan_wool_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:cyan_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "cyan_wool_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:cyan_wool_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:cyan_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "dye_black_cushion": {
+    "result": {
+      "id": "minecraft:black_cushion"
+    },
+    "ingredients": [
+      "minecraft:black_dye",
+      [
+        "minecraft:white_cushion",
+        "minecraft:orange_cushion",
+        "minecraft:magenta_cushion",
+        "minecraft:light_blue_cushion",
+        "minecraft:yellow_cushion",
+        "minecraft:lime_cushion",
+        "minecraft:pink_cushion",
+        "minecraft:gray_cushion",
+        "minecraft:light_gray_cushion",
+        "minecraft:cyan_cushion",
+        "minecraft:purple_cushion",
+        "minecraft:blue_cushion",
+        "minecraft:brown_cushion",
+        "minecraft:green_cushion",
+        "minecraft:red_cushion"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_black_wool_slab": {
+    "result": {
+      "id": "minecraft:black_wool_slab"
+    },
+    "ingredients": [
+      "minecraft:black_dye",
+      [
+        "minecraft:white_wool_slab",
+        "minecraft:orange_wool_slab",
+        "minecraft:magenta_wool_slab",
+        "minecraft:light_blue_wool_slab",
+        "minecraft:yellow_wool_slab",
+        "minecraft:lime_wool_slab",
+        "minecraft:pink_wool_slab",
+        "minecraft:gray_wool_slab",
+        "minecraft:light_gray_wool_slab",
+        "minecraft:cyan_wool_slab",
+        "minecraft:purple_wool_slab",
+        "minecraft:blue_wool_slab",
+        "minecraft:brown_wool_slab",
+        "minecraft:green_wool_slab",
+        "minecraft:red_wool_slab"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_black_wool_stairs": {
+    "result": {
+      "id": "minecraft:black_wool_stairs"
+    },
+    "ingredients": [
+      "minecraft:black_dye",
+      [
+        "minecraft:white_wool_stairs",
+        "minecraft:orange_wool_stairs",
+        "minecraft:magenta_wool_stairs",
+        "minecraft:light_blue_wool_stairs",
+        "minecraft:yellow_wool_stairs",
+        "minecraft:lime_wool_stairs",
+        "minecraft:pink_wool_stairs",
+        "minecraft:gray_wool_stairs",
+        "minecraft:light_gray_wool_stairs",
+        "minecraft:cyan_wool_stairs",
+        "minecraft:purple_wool_stairs",
+        "minecraft:blue_wool_stairs",
+        "minecraft:brown_wool_stairs",
+        "minecraft:green_wool_stairs",
+        "minecraft:red_wool_stairs"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_blue_cushion": {
+    "result": {
+      "id": "minecraft:blue_cushion"
+    },
+    "ingredients": [
+      "minecraft:blue_dye",
+      [
+        "minecraft:white_cushion",
+        "minecraft:orange_cushion",
+        "minecraft:magenta_cushion",
+        "minecraft:light_blue_cushion",
+        "minecraft:yellow_cushion",
+        "minecraft:lime_cushion",
+        "minecraft:pink_cushion",
+        "minecraft:gray_cushion",
+        "minecraft:light_gray_cushion",
+        "minecraft:cyan_cushion",
+        "minecraft:purple_cushion",
+        "minecraft:brown_cushion",
+        "minecraft:green_cushion",
+        "minecraft:red_cushion",
+        "minecraft:black_cushion"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_blue_wool_slab": {
+    "result": {
+      "id": "minecraft:blue_wool_slab"
+    },
+    "ingredients": [
+      "minecraft:blue_dye",
+      [
+        "minecraft:white_wool_slab",
+        "minecraft:orange_wool_slab",
+        "minecraft:magenta_wool_slab",
+        "minecraft:light_blue_wool_slab",
+        "minecraft:yellow_wool_slab",
+        "minecraft:lime_wool_slab",
+        "minecraft:pink_wool_slab",
+        "minecraft:gray_wool_slab",
+        "minecraft:light_gray_wool_slab",
+        "minecraft:cyan_wool_slab",
+        "minecraft:purple_wool_slab",
+        "minecraft:brown_wool_slab",
+        "minecraft:green_wool_slab",
+        "minecraft:red_wool_slab",
+        "minecraft:black_wool_slab"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_blue_wool_stairs": {
+    "result": {
+      "id": "minecraft:blue_wool_stairs"
+    },
+    "ingredients": [
+      "minecraft:blue_dye",
+      [
+        "minecraft:white_wool_stairs",
+        "minecraft:orange_wool_stairs",
+        "minecraft:magenta_wool_stairs",
+        "minecraft:light_blue_wool_stairs",
+        "minecraft:yellow_wool_stairs",
+        "minecraft:lime_wool_stairs",
+        "minecraft:pink_wool_stairs",
+        "minecraft:gray_wool_stairs",
+        "minecraft:light_gray_wool_stairs",
+        "minecraft:cyan_wool_stairs",
+        "minecraft:purple_wool_stairs",
+        "minecraft:brown_wool_stairs",
+        "minecraft:green_wool_stairs",
+        "minecraft:red_wool_stairs",
+        "minecraft:black_wool_stairs"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_brown_cushion": {
+    "result": {
+      "id": "minecraft:brown_cushion"
+    },
+    "ingredients": [
+      "minecraft:brown_dye",
+      [
+        "minecraft:white_cushion",
+        "minecraft:orange_cushion",
+        "minecraft:magenta_cushion",
+        "minecraft:light_blue_cushion",
+        "minecraft:yellow_cushion",
+        "minecraft:lime_cushion",
+        "minecraft:pink_cushion",
+        "minecraft:gray_cushion",
+        "minecraft:light_gray_cushion",
+        "minecraft:cyan_cushion",
+        "minecraft:purple_cushion",
+        "minecraft:blue_cushion",
+        "minecraft:green_cushion",
+        "minecraft:red_cushion",
+        "minecraft:black_cushion"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_brown_wool_slab": {
+    "result": {
+      "id": "minecraft:brown_wool_slab"
+    },
+    "ingredients": [
+      "minecraft:brown_dye",
+      [
+        "minecraft:white_wool_slab",
+        "minecraft:orange_wool_slab",
+        "minecraft:magenta_wool_slab",
+        "minecraft:light_blue_wool_slab",
+        "minecraft:yellow_wool_slab",
+        "minecraft:lime_wool_slab",
+        "minecraft:pink_wool_slab",
+        "minecraft:gray_wool_slab",
+        "minecraft:light_gray_wool_slab",
+        "minecraft:cyan_wool_slab",
+        "minecraft:purple_wool_slab",
+        "minecraft:blue_wool_slab",
+        "minecraft:green_wool_slab",
+        "minecraft:red_wool_slab",
+        "minecraft:black_wool_slab"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_brown_wool_stairs": {
+    "result": {
+      "id": "minecraft:brown_wool_stairs"
+    },
+    "ingredients": [
+      "minecraft:brown_dye",
+      [
+        "minecraft:white_wool_stairs",
+        "minecraft:orange_wool_stairs",
+        "minecraft:magenta_wool_stairs",
+        "minecraft:light_blue_wool_stairs",
+        "minecraft:yellow_wool_stairs",
+        "minecraft:lime_wool_stairs",
+        "minecraft:pink_wool_stairs",
+        "minecraft:gray_wool_stairs",
+        "minecraft:light_gray_wool_stairs",
+        "minecraft:cyan_wool_stairs",
+        "minecraft:purple_wool_stairs",
+        "minecraft:blue_wool_stairs",
+        "minecraft:green_wool_stairs",
+        "minecraft:red_wool_stairs",
+        "minecraft:black_wool_stairs"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_cyan_cushion": {
+    "result": {
+      "id": "minecraft:cyan_cushion"
+    },
+    "ingredients": [
+      "minecraft:cyan_dye",
+      [
+        "minecraft:white_cushion",
+        "minecraft:orange_cushion",
+        "minecraft:magenta_cushion",
+        "minecraft:light_blue_cushion",
+        "minecraft:yellow_cushion",
+        "minecraft:lime_cushion",
+        "minecraft:pink_cushion",
+        "minecraft:gray_cushion",
+        "minecraft:light_gray_cushion",
+        "minecraft:purple_cushion",
+        "minecraft:blue_cushion",
+        "minecraft:brown_cushion",
+        "minecraft:green_cushion",
+        "minecraft:red_cushion",
+        "minecraft:black_cushion"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_cyan_wool_slab": {
+    "result": {
+      "id": "minecraft:cyan_wool_slab"
+    },
+    "ingredients": [
+      "minecraft:cyan_dye",
+      [
+        "minecraft:white_wool_slab",
+        "minecraft:orange_wool_slab",
+        "minecraft:magenta_wool_slab",
+        "minecraft:light_blue_wool_slab",
+        "minecraft:yellow_wool_slab",
+        "minecraft:lime_wool_slab",
+        "minecraft:pink_wool_slab",
+        "minecraft:gray_wool_slab",
+        "minecraft:light_gray_wool_slab",
+        "minecraft:purple_wool_slab",
+        "minecraft:blue_wool_slab",
+        "minecraft:brown_wool_slab",
+        "minecraft:green_wool_slab",
+        "minecraft:red_wool_slab",
+        "minecraft:black_wool_slab"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_cyan_wool_stairs": {
+    "result": {
+      "id": "minecraft:cyan_wool_stairs"
+    },
+    "ingredients": [
+      "minecraft:cyan_dye",
+      [
+        "minecraft:white_wool_stairs",
+        "minecraft:orange_wool_stairs",
+        "minecraft:magenta_wool_stairs",
+        "minecraft:light_blue_wool_stairs",
+        "minecraft:yellow_wool_stairs",
+        "minecraft:lime_wool_stairs",
+        "minecraft:pink_wool_stairs",
+        "minecraft:gray_wool_stairs",
+        "minecraft:light_gray_wool_stairs",
+        "minecraft:purple_wool_stairs",
+        "minecraft:blue_wool_stairs",
+        "minecraft:brown_wool_stairs",
+        "minecraft:green_wool_stairs",
+        "minecraft:red_wool_stairs",
+        "minecraft:black_wool_stairs"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_gray_cushion": {
+    "result": {
+      "id": "minecraft:gray_cushion"
+    },
+    "ingredients": [
+      "minecraft:gray_dye",
+      [
+        "minecraft:white_cushion",
+        "minecraft:orange_cushion",
+        "minecraft:magenta_cushion",
+        "minecraft:light_blue_cushion",
+        "minecraft:yellow_cushion",
+        "minecraft:lime_cushion",
+        "minecraft:pink_cushion",
+        "minecraft:light_gray_cushion",
+        "minecraft:cyan_cushion",
+        "minecraft:purple_cushion",
+        "minecraft:blue_cushion",
+        "minecraft:brown_cushion",
+        "minecraft:green_cushion",
+        "minecraft:red_cushion",
+        "minecraft:black_cushion"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_gray_wool_slab": {
+    "result": {
+      "id": "minecraft:gray_wool_slab"
+    },
+    "ingredients": [
+      "minecraft:gray_dye",
+      [
+        "minecraft:white_wool_slab",
+        "minecraft:orange_wool_slab",
+        "minecraft:magenta_wool_slab",
+        "minecraft:light_blue_wool_slab",
+        "minecraft:yellow_wool_slab",
+        "minecraft:lime_wool_slab",
+        "minecraft:pink_wool_slab",
+        "minecraft:light_gray_wool_slab",
+        "minecraft:cyan_wool_slab",
+        "minecraft:purple_wool_slab",
+        "minecraft:blue_wool_slab",
+        "minecraft:brown_wool_slab",
+        "minecraft:green_wool_slab",
+        "minecraft:red_wool_slab",
+        "minecraft:black_wool_slab"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_gray_wool_stairs": {
+    "result": {
+      "id": "minecraft:gray_wool_stairs"
+    },
+    "ingredients": [
+      "minecraft:gray_dye",
+      [
+        "minecraft:white_wool_stairs",
+        "minecraft:orange_wool_stairs",
+        "minecraft:magenta_wool_stairs",
+        "minecraft:light_blue_wool_stairs",
+        "minecraft:yellow_wool_stairs",
+        "minecraft:lime_wool_stairs",
+        "minecraft:pink_wool_stairs",
+        "minecraft:light_gray_wool_stairs",
+        "minecraft:cyan_wool_stairs",
+        "minecraft:purple_wool_stairs",
+        "minecraft:blue_wool_stairs",
+        "minecraft:brown_wool_stairs",
+        "minecraft:green_wool_stairs",
+        "minecraft:red_wool_stairs",
+        "minecraft:black_wool_stairs"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_green_cushion": {
+    "result": {
+      "id": "minecraft:green_cushion"
+    },
+    "ingredients": [
+      "minecraft:green_dye",
+      [
+        "minecraft:white_cushion",
+        "minecraft:orange_cushion",
+        "minecraft:magenta_cushion",
+        "minecraft:light_blue_cushion",
+        "minecraft:yellow_cushion",
+        "minecraft:lime_cushion",
+        "minecraft:pink_cushion",
+        "minecraft:gray_cushion",
+        "minecraft:light_gray_cushion",
+        "minecraft:cyan_cushion",
+        "minecraft:purple_cushion",
+        "minecraft:blue_cushion",
+        "minecraft:brown_cushion",
+        "minecraft:red_cushion",
+        "minecraft:black_cushion"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_green_wool_slab": {
+    "result": {
+      "id": "minecraft:green_wool_slab"
+    },
+    "ingredients": [
+      "minecraft:green_dye",
+      [
+        "minecraft:white_wool_slab",
+        "minecraft:orange_wool_slab",
+        "minecraft:magenta_wool_slab",
+        "minecraft:light_blue_wool_slab",
+        "minecraft:yellow_wool_slab",
+        "minecraft:lime_wool_slab",
+        "minecraft:pink_wool_slab",
+        "minecraft:gray_wool_slab",
+        "minecraft:light_gray_wool_slab",
+        "minecraft:cyan_wool_slab",
+        "minecraft:purple_wool_slab",
+        "minecraft:blue_wool_slab",
+        "minecraft:brown_wool_slab",
+        "minecraft:red_wool_slab",
+        "minecraft:black_wool_slab"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_green_wool_stairs": {
+    "result": {
+      "id": "minecraft:green_wool_stairs"
+    },
+    "ingredients": [
+      "minecraft:green_dye",
+      [
+        "minecraft:white_wool_stairs",
+        "minecraft:orange_wool_stairs",
+        "minecraft:magenta_wool_stairs",
+        "minecraft:light_blue_wool_stairs",
+        "minecraft:yellow_wool_stairs",
+        "minecraft:lime_wool_stairs",
+        "minecraft:pink_wool_stairs",
+        "minecraft:gray_wool_stairs",
+        "minecraft:light_gray_wool_stairs",
+        "minecraft:cyan_wool_stairs",
+        "minecraft:purple_wool_stairs",
+        "minecraft:blue_wool_stairs",
+        "minecraft:brown_wool_stairs",
+        "minecraft:red_wool_stairs",
+        "minecraft:black_wool_stairs"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_light_blue_cushion": {
+    "result": {
+      "id": "minecraft:light_blue_cushion"
+    },
+    "ingredients": [
+      "minecraft:light_blue_dye",
+      [
+        "minecraft:white_cushion",
+        "minecraft:orange_cushion",
+        "minecraft:magenta_cushion",
+        "minecraft:yellow_cushion",
+        "minecraft:lime_cushion",
+        "minecraft:pink_cushion",
+        "minecraft:gray_cushion",
+        "minecraft:light_gray_cushion",
+        "minecraft:cyan_cushion",
+        "minecraft:purple_cushion",
+        "minecraft:blue_cushion",
+        "minecraft:brown_cushion",
+        "minecraft:green_cushion",
+        "minecraft:red_cushion",
+        "minecraft:black_cushion"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_light_blue_wool_slab": {
+    "result": {
+      "id": "minecraft:light_blue_wool_slab"
+    },
+    "ingredients": [
+      "minecraft:light_blue_dye",
+      [
+        "minecraft:white_wool_slab",
+        "minecraft:orange_wool_slab",
+        "minecraft:magenta_wool_slab",
+        "minecraft:yellow_wool_slab",
+        "minecraft:lime_wool_slab",
+        "minecraft:pink_wool_slab",
+        "minecraft:gray_wool_slab",
+        "minecraft:light_gray_wool_slab",
+        "minecraft:cyan_wool_slab",
+        "minecraft:purple_wool_slab",
+        "minecraft:blue_wool_slab",
+        "minecraft:brown_wool_slab",
+        "minecraft:green_wool_slab",
+        "minecraft:red_wool_slab",
+        "minecraft:black_wool_slab"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_light_blue_wool_stairs": {
+    "result": {
+      "id": "minecraft:light_blue_wool_stairs"
+    },
+    "ingredients": [
+      "minecraft:light_blue_dye",
+      [
+        "minecraft:white_wool_stairs",
+        "minecraft:orange_wool_stairs",
+        "minecraft:magenta_wool_stairs",
+        "minecraft:yellow_wool_stairs",
+        "minecraft:lime_wool_stairs",
+        "minecraft:pink_wool_stairs",
+        "minecraft:gray_wool_stairs",
+        "minecraft:light_gray_wool_stairs",
+        "minecraft:cyan_wool_stairs",
+        "minecraft:purple_wool_stairs",
+        "minecraft:blue_wool_stairs",
+        "minecraft:brown_wool_stairs",
+        "minecraft:green_wool_stairs",
+        "minecraft:red_wool_stairs",
+        "minecraft:black_wool_stairs"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_light_gray_cushion": {
+    "result": {
+      "id": "minecraft:light_gray_cushion"
+    },
+    "ingredients": [
+      "minecraft:light_gray_dye",
+      [
+        "minecraft:white_cushion",
+        "minecraft:orange_cushion",
+        "minecraft:magenta_cushion",
+        "minecraft:light_blue_cushion",
+        "minecraft:yellow_cushion",
+        "minecraft:lime_cushion",
+        "minecraft:pink_cushion",
+        "minecraft:gray_cushion",
+        "minecraft:cyan_cushion",
+        "minecraft:purple_cushion",
+        "minecraft:blue_cushion",
+        "minecraft:brown_cushion",
+        "minecraft:green_cushion",
+        "minecraft:red_cushion",
+        "minecraft:black_cushion"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_light_gray_wool_slab": {
+    "result": {
+      "id": "minecraft:light_gray_wool_slab"
+    },
+    "ingredients": [
+      "minecraft:light_gray_dye",
+      [
+        "minecraft:white_wool_slab",
+        "minecraft:orange_wool_slab",
+        "minecraft:magenta_wool_slab",
+        "minecraft:light_blue_wool_slab",
+        "minecraft:yellow_wool_slab",
+        "minecraft:lime_wool_slab",
+        "minecraft:pink_wool_slab",
+        "minecraft:gray_wool_slab",
+        "minecraft:cyan_wool_slab",
+        "minecraft:purple_wool_slab",
+        "minecraft:blue_wool_slab",
+        "minecraft:brown_wool_slab",
+        "minecraft:green_wool_slab",
+        "minecraft:red_wool_slab",
+        "minecraft:black_wool_slab"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_light_gray_wool_stairs": {
+    "result": {
+      "id": "minecraft:light_gray_wool_stairs"
+    },
+    "ingredients": [
+      "minecraft:light_gray_dye",
+      [
+        "minecraft:white_wool_stairs",
+        "minecraft:orange_wool_stairs",
+        "minecraft:magenta_wool_stairs",
+        "minecraft:light_blue_wool_stairs",
+        "minecraft:yellow_wool_stairs",
+        "minecraft:lime_wool_stairs",
+        "minecraft:pink_wool_stairs",
+        "minecraft:gray_wool_stairs",
+        "minecraft:cyan_wool_stairs",
+        "minecraft:purple_wool_stairs",
+        "minecraft:blue_wool_stairs",
+        "minecraft:brown_wool_stairs",
+        "minecraft:green_wool_stairs",
+        "minecraft:red_wool_stairs",
+        "minecraft:black_wool_stairs"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_lime_cushion": {
+    "result": {
+      "id": "minecraft:lime_cushion"
+    },
+    "ingredients": [
+      "minecraft:lime_dye",
+      [
+        "minecraft:white_cushion",
+        "minecraft:orange_cushion",
+        "minecraft:magenta_cushion",
+        "minecraft:light_blue_cushion",
+        "minecraft:yellow_cushion",
+        "minecraft:pink_cushion",
+        "minecraft:gray_cushion",
+        "minecraft:light_gray_cushion",
+        "minecraft:cyan_cushion",
+        "minecraft:purple_cushion",
+        "minecraft:blue_cushion",
+        "minecraft:brown_cushion",
+        "minecraft:green_cushion",
+        "minecraft:red_cushion",
+        "minecraft:black_cushion"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_lime_wool_slab": {
+    "result": {
+      "id": "minecraft:lime_wool_slab"
+    },
+    "ingredients": [
+      "minecraft:lime_dye",
+      [
+        "minecraft:white_wool_slab",
+        "minecraft:orange_wool_slab",
+        "minecraft:magenta_wool_slab",
+        "minecraft:light_blue_wool_slab",
+        "minecraft:yellow_wool_slab",
+        "minecraft:pink_wool_slab",
+        "minecraft:gray_wool_slab",
+        "minecraft:light_gray_wool_slab",
+        "minecraft:cyan_wool_slab",
+        "minecraft:purple_wool_slab",
+        "minecraft:blue_wool_slab",
+        "minecraft:brown_wool_slab",
+        "minecraft:green_wool_slab",
+        "minecraft:red_wool_slab",
+        "minecraft:black_wool_slab"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_lime_wool_stairs": {
+    "result": {
+      "id": "minecraft:lime_wool_stairs"
+    },
+    "ingredients": [
+      "minecraft:lime_dye",
+      [
+        "minecraft:white_wool_stairs",
+        "minecraft:orange_wool_stairs",
+        "minecraft:magenta_wool_stairs",
+        "minecraft:light_blue_wool_stairs",
+        "minecraft:yellow_wool_stairs",
+        "minecraft:pink_wool_stairs",
+        "minecraft:gray_wool_stairs",
+        "minecraft:light_gray_wool_stairs",
+        "minecraft:cyan_wool_stairs",
+        "minecraft:purple_wool_stairs",
+        "minecraft:blue_wool_stairs",
+        "minecraft:brown_wool_stairs",
+        "minecraft:green_wool_stairs",
+        "minecraft:red_wool_stairs",
+        "minecraft:black_wool_stairs"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_magenta_cushion": {
+    "result": {
+      "id": "minecraft:magenta_cushion"
+    },
+    "ingredients": [
+      "minecraft:magenta_dye",
+      [
+        "minecraft:white_cushion",
+        "minecraft:orange_cushion",
+        "minecraft:light_blue_cushion",
+        "minecraft:yellow_cushion",
+        "minecraft:lime_cushion",
+        "minecraft:pink_cushion",
+        "minecraft:gray_cushion",
+        "minecraft:light_gray_cushion",
+        "minecraft:cyan_cushion",
+        "minecraft:purple_cushion",
+        "minecraft:blue_cushion",
+        "minecraft:brown_cushion",
+        "minecraft:green_cushion",
+        "minecraft:red_cushion",
+        "minecraft:black_cushion"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_magenta_wool_slab": {
+    "result": {
+      "id": "minecraft:magenta_wool_slab"
+    },
+    "ingredients": [
+      "minecraft:magenta_dye",
+      [
+        "minecraft:white_wool_slab",
+        "minecraft:orange_wool_slab",
+        "minecraft:light_blue_wool_slab",
+        "minecraft:yellow_wool_slab",
+        "minecraft:lime_wool_slab",
+        "minecraft:pink_wool_slab",
+        "minecraft:gray_wool_slab",
+        "minecraft:light_gray_wool_slab",
+        "minecraft:cyan_wool_slab",
+        "minecraft:purple_wool_slab",
+        "minecraft:blue_wool_slab",
+        "minecraft:brown_wool_slab",
+        "minecraft:green_wool_slab",
+        "minecraft:red_wool_slab",
+        "minecraft:black_wool_slab"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_magenta_wool_stairs": {
+    "result": {
+      "id": "minecraft:magenta_wool_stairs"
+    },
+    "ingredients": [
+      "minecraft:magenta_dye",
+      [
+        "minecraft:white_wool_stairs",
+        "minecraft:orange_wool_stairs",
+        "minecraft:light_blue_wool_stairs",
+        "minecraft:yellow_wool_stairs",
+        "minecraft:lime_wool_stairs",
+        "minecraft:pink_wool_stairs",
+        "minecraft:gray_wool_stairs",
+        "minecraft:light_gray_wool_stairs",
+        "minecraft:cyan_wool_stairs",
+        "minecraft:purple_wool_stairs",
+        "minecraft:blue_wool_stairs",
+        "minecraft:brown_wool_stairs",
+        "minecraft:green_wool_stairs",
+        "minecraft:red_wool_stairs",
+        "minecraft:black_wool_stairs"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_orange_cushion": {
+    "result": {
+      "id": "minecraft:orange_cushion"
+    },
+    "ingredients": [
+      "minecraft:orange_dye",
+      [
+        "minecraft:white_cushion",
+        "minecraft:magenta_cushion",
+        "minecraft:light_blue_cushion",
+        "minecraft:yellow_cushion",
+        "minecraft:lime_cushion",
+        "minecraft:pink_cushion",
+        "minecraft:gray_cushion",
+        "minecraft:light_gray_cushion",
+        "minecraft:cyan_cushion",
+        "minecraft:purple_cushion",
+        "minecraft:blue_cushion",
+        "minecraft:brown_cushion",
+        "minecraft:green_cushion",
+        "minecraft:red_cushion",
+        "minecraft:black_cushion"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_orange_wool_slab": {
+    "result": {
+      "id": "minecraft:orange_wool_slab"
+    },
+    "ingredients": [
+      "minecraft:orange_dye",
+      [
+        "minecraft:white_wool_slab",
+        "minecraft:magenta_wool_slab",
+        "minecraft:light_blue_wool_slab",
+        "minecraft:yellow_wool_slab",
+        "minecraft:lime_wool_slab",
+        "minecraft:pink_wool_slab",
+        "minecraft:gray_wool_slab",
+        "minecraft:light_gray_wool_slab",
+        "minecraft:cyan_wool_slab",
+        "minecraft:purple_wool_slab",
+        "minecraft:blue_wool_slab",
+        "minecraft:brown_wool_slab",
+        "minecraft:green_wool_slab",
+        "minecraft:red_wool_slab",
+        "minecraft:black_wool_slab"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_orange_wool_stairs": {
+    "result": {
+      "id": "minecraft:orange_wool_stairs"
+    },
+    "ingredients": [
+      "minecraft:orange_dye",
+      [
+        "minecraft:white_wool_stairs",
+        "minecraft:magenta_wool_stairs",
+        "minecraft:light_blue_wool_stairs",
+        "minecraft:yellow_wool_stairs",
+        "minecraft:lime_wool_stairs",
+        "minecraft:pink_wool_stairs",
+        "minecraft:gray_wool_stairs",
+        "minecraft:light_gray_wool_stairs",
+        "minecraft:cyan_wool_stairs",
+        "minecraft:purple_wool_stairs",
+        "minecraft:blue_wool_stairs",
+        "minecraft:brown_wool_stairs",
+        "minecraft:green_wool_stairs",
+        "minecraft:red_wool_stairs",
+        "minecraft:black_wool_stairs"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_pink_cushion": {
+    "result": {
+      "id": "minecraft:pink_cushion"
+    },
+    "ingredients": [
+      "minecraft:pink_dye",
+      [
+        "minecraft:white_cushion",
+        "minecraft:orange_cushion",
+        "minecraft:magenta_cushion",
+        "minecraft:light_blue_cushion",
+        "minecraft:yellow_cushion",
+        "minecraft:lime_cushion",
+        "minecraft:gray_cushion",
+        "minecraft:light_gray_cushion",
+        "minecraft:cyan_cushion",
+        "minecraft:purple_cushion",
+        "minecraft:blue_cushion",
+        "minecraft:brown_cushion",
+        "minecraft:green_cushion",
+        "minecraft:red_cushion",
+        "minecraft:black_cushion"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_pink_wool_slab": {
+    "result": {
+      "id": "minecraft:pink_wool_slab"
+    },
+    "ingredients": [
+      "minecraft:pink_dye",
+      [
+        "minecraft:white_wool_slab",
+        "minecraft:orange_wool_slab",
+        "minecraft:magenta_wool_slab",
+        "minecraft:light_blue_wool_slab",
+        "minecraft:yellow_wool_slab",
+        "minecraft:lime_wool_slab",
+        "minecraft:gray_wool_slab",
+        "minecraft:light_gray_wool_slab",
+        "minecraft:cyan_wool_slab",
+        "minecraft:purple_wool_slab",
+        "minecraft:blue_wool_slab",
+        "minecraft:brown_wool_slab",
+        "minecraft:green_wool_slab",
+        "minecraft:red_wool_slab",
+        "minecraft:black_wool_slab"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_pink_wool_stairs": {
+    "result": {
+      "id": "minecraft:pink_wool_stairs"
+    },
+    "ingredients": [
+      "minecraft:pink_dye",
+      [
+        "minecraft:white_wool_stairs",
+        "minecraft:orange_wool_stairs",
+        "minecraft:magenta_wool_stairs",
+        "minecraft:light_blue_wool_stairs",
+        "minecraft:yellow_wool_stairs",
+        "minecraft:lime_wool_stairs",
+        "minecraft:gray_wool_stairs",
+        "minecraft:light_gray_wool_stairs",
+        "minecraft:cyan_wool_stairs",
+        "minecraft:purple_wool_stairs",
+        "minecraft:blue_wool_stairs",
+        "minecraft:brown_wool_stairs",
+        "minecraft:green_wool_stairs",
+        "minecraft:red_wool_stairs",
+        "minecraft:black_wool_stairs"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_purple_cushion": {
+    "result": {
+      "id": "minecraft:purple_cushion"
+    },
+    "ingredients": [
+      "minecraft:purple_dye",
+      [
+        "minecraft:white_cushion",
+        "minecraft:orange_cushion",
+        "minecraft:magenta_cushion",
+        "minecraft:light_blue_cushion",
+        "minecraft:yellow_cushion",
+        "minecraft:lime_cushion",
+        "minecraft:pink_cushion",
+        "minecraft:gray_cushion",
+        "minecraft:light_gray_cushion",
+        "minecraft:cyan_cushion",
+        "minecraft:blue_cushion",
+        "minecraft:brown_cushion",
+        "minecraft:green_cushion",
+        "minecraft:red_cushion",
+        "minecraft:black_cushion"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_purple_wool_slab": {
+    "result": {
+      "id": "minecraft:purple_wool_slab"
+    },
+    "ingredients": [
+      "minecraft:purple_dye",
+      [
+        "minecraft:white_wool_slab",
+        "minecraft:orange_wool_slab",
+        "minecraft:magenta_wool_slab",
+        "minecraft:light_blue_wool_slab",
+        "minecraft:yellow_wool_slab",
+        "minecraft:lime_wool_slab",
+        "minecraft:pink_wool_slab",
+        "minecraft:gray_wool_slab",
+        "minecraft:light_gray_wool_slab",
+        "minecraft:cyan_wool_slab",
+        "minecraft:blue_wool_slab",
+        "minecraft:brown_wool_slab",
+        "minecraft:green_wool_slab",
+        "minecraft:red_wool_slab",
+        "minecraft:black_wool_slab"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_purple_wool_stairs": {
+    "result": {
+      "id": "minecraft:purple_wool_stairs"
+    },
+    "ingredients": [
+      "minecraft:purple_dye",
+      [
+        "minecraft:white_wool_stairs",
+        "minecraft:orange_wool_stairs",
+        "minecraft:magenta_wool_stairs",
+        "minecraft:light_blue_wool_stairs",
+        "minecraft:yellow_wool_stairs",
+        "minecraft:lime_wool_stairs",
+        "minecraft:pink_wool_stairs",
+        "minecraft:gray_wool_stairs",
+        "minecraft:light_gray_wool_stairs",
+        "minecraft:cyan_wool_stairs",
+        "minecraft:blue_wool_stairs",
+        "minecraft:brown_wool_stairs",
+        "minecraft:green_wool_stairs",
+        "minecraft:red_wool_stairs",
+        "minecraft:black_wool_stairs"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_red_cushion": {
+    "result": {
+      "id": "minecraft:red_cushion"
+    },
+    "ingredients": [
+      "minecraft:red_dye",
+      [
+        "minecraft:white_cushion",
+        "minecraft:orange_cushion",
+        "minecraft:magenta_cushion",
+        "minecraft:light_blue_cushion",
+        "minecraft:yellow_cushion",
+        "minecraft:lime_cushion",
+        "minecraft:pink_cushion",
+        "minecraft:gray_cushion",
+        "minecraft:light_gray_cushion",
+        "minecraft:cyan_cushion",
+        "minecraft:purple_cushion",
+        "minecraft:blue_cushion",
+        "minecraft:brown_cushion",
+        "minecraft:green_cushion",
+        "minecraft:black_cushion"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_red_wool_slab": {
+    "result": {
+      "id": "minecraft:red_wool_slab"
+    },
+    "ingredients": [
+      "minecraft:red_dye",
+      [
+        "minecraft:white_wool_slab",
+        "minecraft:orange_wool_slab",
+        "minecraft:magenta_wool_slab",
+        "minecraft:light_blue_wool_slab",
+        "minecraft:yellow_wool_slab",
+        "minecraft:lime_wool_slab",
+        "minecraft:pink_wool_slab",
+        "minecraft:gray_wool_slab",
+        "minecraft:light_gray_wool_slab",
+        "minecraft:cyan_wool_slab",
+        "minecraft:purple_wool_slab",
+        "minecraft:blue_wool_slab",
+        "minecraft:brown_wool_slab",
+        "minecraft:green_wool_slab",
+        "minecraft:black_wool_slab"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_red_wool_stairs": {
+    "result": {
+      "id": "minecraft:red_wool_stairs"
+    },
+    "ingredients": [
+      "minecraft:red_dye",
+      [
+        "minecraft:white_wool_stairs",
+        "minecraft:orange_wool_stairs",
+        "minecraft:magenta_wool_stairs",
+        "minecraft:light_blue_wool_stairs",
+        "minecraft:yellow_wool_stairs",
+        "minecraft:lime_wool_stairs",
+        "minecraft:pink_wool_stairs",
+        "minecraft:gray_wool_stairs",
+        "minecraft:light_gray_wool_stairs",
+        "minecraft:cyan_wool_stairs",
+        "minecraft:purple_wool_stairs",
+        "minecraft:blue_wool_stairs",
+        "minecraft:brown_wool_stairs",
+        "minecraft:green_wool_stairs",
+        "minecraft:black_wool_stairs"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_white_cushion": {
+    "result": {
+      "id": "minecraft:white_cushion"
+    },
+    "ingredients": [
+      "minecraft:white_dye",
+      [
+        "minecraft:orange_cushion",
+        "minecraft:magenta_cushion",
+        "minecraft:light_blue_cushion",
+        "minecraft:yellow_cushion",
+        "minecraft:lime_cushion",
+        "minecraft:pink_cushion",
+        "minecraft:gray_cushion",
+        "minecraft:light_gray_cushion",
+        "minecraft:cyan_cushion",
+        "minecraft:purple_cushion",
+        "minecraft:blue_cushion",
+        "minecraft:brown_cushion",
+        "minecraft:green_cushion",
+        "minecraft:red_cushion",
+        "minecraft:black_cushion"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_white_wool_slab": {
+    "result": {
+      "id": "minecraft:white_wool_slab"
+    },
+    "ingredients": [
+      "minecraft:white_dye",
+      [
+        "minecraft:orange_wool_slab",
+        "minecraft:magenta_wool_slab",
+        "minecraft:light_blue_wool_slab",
+        "minecraft:yellow_wool_slab",
+        "minecraft:lime_wool_slab",
+        "minecraft:pink_wool_slab",
+        "minecraft:gray_wool_slab",
+        "minecraft:light_gray_wool_slab",
+        "minecraft:cyan_wool_slab",
+        "minecraft:purple_wool_slab",
+        "minecraft:blue_wool_slab",
+        "minecraft:brown_wool_slab",
+        "minecraft:green_wool_slab",
+        "minecraft:red_wool_slab",
+        "minecraft:black_wool_slab"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_white_wool_stairs": {
+    "result": {
+      "id": "minecraft:white_wool_stairs"
+    },
+    "ingredients": [
+      "minecraft:white_dye",
+      [
+        "minecraft:orange_wool_stairs",
+        "minecraft:magenta_wool_stairs",
+        "minecraft:light_blue_wool_stairs",
+        "minecraft:yellow_wool_stairs",
+        "minecraft:lime_wool_stairs",
+        "minecraft:pink_wool_stairs",
+        "minecraft:gray_wool_stairs",
+        "minecraft:light_gray_wool_stairs",
+        "minecraft:cyan_wool_stairs",
+        "minecraft:purple_wool_stairs",
+        "minecraft:blue_wool_stairs",
+        "minecraft:brown_wool_stairs",
+        "minecraft:green_wool_stairs",
+        "minecraft:red_wool_stairs",
+        "minecraft:black_wool_stairs"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_yellow_cushion": {
+    "result": {
+      "id": "minecraft:yellow_cushion"
+    },
+    "ingredients": [
+      "minecraft:yellow_dye",
+      [
+        "minecraft:white_cushion",
+        "minecraft:orange_cushion",
+        "minecraft:magenta_cushion",
+        "minecraft:light_blue_cushion",
+        "minecraft:lime_cushion",
+        "minecraft:pink_cushion",
+        "minecraft:gray_cushion",
+        "minecraft:light_gray_cushion",
+        "minecraft:cyan_cushion",
+        "minecraft:purple_cushion",
+        "minecraft:blue_cushion",
+        "minecraft:brown_cushion",
+        "minecraft:green_cushion",
+        "minecraft:red_cushion",
+        "minecraft:black_cushion"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_yellow_wool_slab": {
+    "result": {
+      "id": "minecraft:yellow_wool_slab"
+    },
+    "ingredients": [
+      "minecraft:yellow_dye",
+      [
+        "minecraft:white_wool_slab",
+        "minecraft:orange_wool_slab",
+        "minecraft:magenta_wool_slab",
+        "minecraft:light_blue_wool_slab",
+        "minecraft:lime_wool_slab",
+        "minecraft:pink_wool_slab",
+        "minecraft:gray_wool_slab",
+        "minecraft:light_gray_wool_slab",
+        "minecraft:cyan_wool_slab",
+        "minecraft:purple_wool_slab",
+        "minecraft:blue_wool_slab",
+        "minecraft:brown_wool_slab",
+        "minecraft:green_wool_slab",
+        "minecraft:red_wool_slab",
+        "minecraft:black_wool_slab"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "dye_yellow_wool_stairs": {
+    "result": {
+      "id": "minecraft:yellow_wool_stairs"
+    },
+    "ingredients": [
+      "minecraft:yellow_dye",
+      [
+        "minecraft:white_wool_stairs",
+        "minecraft:orange_wool_stairs",
+        "minecraft:magenta_wool_stairs",
+        "minecraft:light_blue_wool_stairs",
+        "minecraft:lime_wool_stairs",
+        "minecraft:pink_wool_stairs",
+        "minecraft:gray_wool_stairs",
+        "minecraft:light_gray_wool_stairs",
+        "minecraft:cyan_wool_stairs",
+        "minecraft:purple_wool_stairs",
+        "minecraft:blue_wool_stairs",
+        "minecraft:brown_wool_stairs",
+        "minecraft:green_wool_stairs",
+        "minecraft:red_wool_stairs",
+        "minecraft:black_wool_stairs"
+      ]
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "gray_concrete_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:gray_concrete_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:gray_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "gray_concrete_slab_from_gray_concrete_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:gray_concrete_slab"
+    },
+    "ingredient": "minecraft:gray_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "gray_concrete_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:gray_concrete_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:gray_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "gray_concrete_stairs_from_gray_concrete_stonecutting": {
+    "result": {
+      "id": "minecraft:gray_concrete_stairs"
+    },
+    "ingredient": "minecraft:gray_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "gray_cushion": {
+    "result": {
+      "id": "minecraft:gray_cushion"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:gray_wool_slab"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "gray_wool_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:gray_wool_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:gray_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "gray_wool_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:gray_wool_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:gray_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "green_concrete_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:green_concrete_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:green_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "green_concrete_slab_from_green_concrete_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:green_concrete_slab"
+    },
+    "ingredient": "minecraft:green_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "green_concrete_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:green_concrete_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:green_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "green_concrete_stairs_from_green_concrete_stonecutting": {
+    "result": {
+      "id": "minecraft:green_concrete_stairs"
+    },
+    "ingredient": "minecraft:green_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "green_cushion": {
+    "result": {
+      "id": "minecraft:green_cushion"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:green_wool_slab"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "green_wool_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:green_wool_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:green_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "green_wool_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:green_wool_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:green_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "light_blue_concrete_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:light_blue_concrete_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:light_blue_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "light_blue_concrete_slab_from_light_blue_concrete_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:light_blue_concrete_slab"
+    },
+    "ingredient": "minecraft:light_blue_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "light_blue_concrete_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:light_blue_concrete_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:light_blue_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "light_blue_concrete_stairs_from_light_blue_concrete_stonecutting": {
+    "result": {
+      "id": "minecraft:light_blue_concrete_stairs"
+    },
+    "ingredient": "minecraft:light_blue_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "light_blue_cushion": {
+    "result": {
+      "id": "minecraft:light_blue_cushion"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:light_blue_wool_slab"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "light_blue_wool_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:light_blue_wool_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:light_blue_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "light_blue_wool_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:light_blue_wool_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:light_blue_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "light_gray_concrete_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:light_gray_concrete_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:light_gray_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "light_gray_concrete_slab_from_light_gray_concrete_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:light_gray_concrete_slab"
+    },
+    "ingredient": "minecraft:light_gray_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "light_gray_concrete_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:light_gray_concrete_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:light_gray_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "light_gray_concrete_stairs_from_light_gray_concrete_stonecutting": {
+    "result": {
+      "id": "minecraft:light_gray_concrete_stairs"
+    },
+    "ingredient": "minecraft:light_gray_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "light_gray_cushion": {
+    "result": {
+      "id": "minecraft:light_gray_cushion"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:light_gray_wool_slab"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "light_gray_wool_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:light_gray_wool_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:light_gray_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "light_gray_wool_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:light_gray_wool_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:light_gray_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "lime_concrete_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:lime_concrete_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:lime_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "lime_concrete_slab_from_lime_concrete_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:lime_concrete_slab"
+    },
+    "ingredient": "minecraft:lime_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "lime_concrete_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:lime_concrete_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:lime_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "lime_concrete_stairs_from_lime_concrete_stonecutting": {
+    "result": {
+      "id": "minecraft:lime_concrete_stairs"
+    },
+    "ingredient": "minecraft:lime_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "lime_cushion": {
+    "result": {
+      "id": "minecraft:lime_cushion"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:lime_wool_slab"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "lime_wool_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:lime_wool_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:lime_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "lime_wool_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:lime_wool_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:lime_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "magenta_concrete_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:magenta_concrete_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:magenta_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "magenta_concrete_slab_from_magenta_concrete_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:magenta_concrete_slab"
+    },
+    "ingredient": "minecraft:magenta_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "magenta_concrete_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:magenta_concrete_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:magenta_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "magenta_concrete_stairs_from_magenta_concrete_stonecutting": {
+    "result": {
+      "id": "minecraft:magenta_concrete_stairs"
+    },
+    "ingredient": "minecraft:magenta_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "magenta_cushion": {
+    "result": {
+      "id": "minecraft:magenta_cushion"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:magenta_wool_slab"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "magenta_wool_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:magenta_wool_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:magenta_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "magenta_wool_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:magenta_wool_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:magenta_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "map_cloning": {
+    "result": {},
+    "input": "#minecraft:clonable_maps",
+    "material": "minecraft:map",
+    "type": "minecraft:crafting_transmute",
+    "lang": {
+      "en_US": {
+        "notes": "Creates a copy of the map",
+        "name": "Map Cloning"
+      }
+    },
+    "add_material_count_to_result": true,
+    "material_count": {
+      "min": 1,
+      "max": 8
+    },
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "map_extending": {
+    "result": {},
+    "material": "minecraft:paper",
+    "type": "minecraft:crafting_special_mapextending",
+    "lang": {
+      "en_US": {
+        "notes": "Zooms out the map by one level",
+        "name": "Map Zooming"
+      }
+    },
+    "map": "#minecraft:extendable_maps",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "mushroom_stew": {
+    "result": {
+      "id": "minecraft:mushroom_stew"
+    },
+    "ingredients": [
+      "#minecraft:mushrooms",
+      "#minecraft:mushrooms",
+      "minecraft:bowl"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "orange_concrete_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:orange_concrete_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:orange_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "orange_concrete_slab_from_orange_concrete_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:orange_concrete_slab"
+    },
+    "ingredient": "minecraft:orange_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "orange_concrete_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:orange_concrete_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:orange_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "orange_concrete_stairs_from_orange_concrete_stonecutting": {
+    "result": {
+      "id": "minecraft:orange_concrete_stairs"
+    },
+    "ingredient": "minecraft:orange_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "orange_cushion": {
+    "result": {
+      "id": "minecraft:orange_cushion"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:orange_wool_slab"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "orange_wool_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:orange_wool_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:orange_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "orange_wool_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:orange_wool_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:orange_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "pink_concrete_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:pink_concrete_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:pink_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "pink_concrete_slab_from_pink_concrete_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:pink_concrete_slab"
+    },
+    "ingredient": "minecraft:pink_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "pink_concrete_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:pink_concrete_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:pink_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "pink_concrete_stairs_from_pink_concrete_stonecutting": {
+    "result": {
+      "id": "minecraft:pink_concrete_stairs"
+    },
+    "ingredient": "minecraft:pink_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "pink_cushion": {
+    "result": {
+      "id": "minecraft:pink_cushion"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:pink_wool_slab"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "pink_wool_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:pink_wool_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:pink_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "pink_wool_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:pink_wool_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:pink_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "poplar_boat": {
+    "result": {
+      "id": "minecraft:poplar_boat"
+    },
+    "pattern": [
+      "# #",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:poplar_planks"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "poplar_button": {
+    "result": {
+      "id": "minecraft:poplar_button"
+    },
+    "ingredients": [
+      "minecraft:poplar_planks"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "poplar_chest_boat": {
+    "result": {
+      "id": "minecraft:poplar_chest_boat"
+    },
+    "ingredients": [
+      "minecraft:chest",
+      "minecraft:poplar_boat"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "poplar_door": {
+    "result": {
+      "count": 3,
+      "id": "minecraft:poplar_door"
+    },
+    "pattern": [
+      "##",
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:poplar_planks"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "poplar_fence": {
+    "result": {
+      "count": 3,
+      "id": "minecraft:poplar_fence"
+    },
+    "pattern": [
+      "W#W",
+      "W#W"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stick",
+      "W": "minecraft:poplar_planks"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "poplar_fence_gate": {
+    "result": {
+      "id": "minecraft:poplar_fence_gate"
+    },
+    "pattern": [
+      "#W#",
+      "#W#"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stick",
+      "W": "minecraft:poplar_planks"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "poplar_hanging_sign": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:poplar_hanging_sign"
+    },
+    "pattern": [
+      "X X",
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stripped_poplar_log",
+      "X": "minecraft:iron_chain"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "poplar_planks": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:poplar_planks"
+    },
+    "ingredients": [
+      "#minecraft:poplar_logs"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "poplar_pressure_plate": {
+    "result": {
+      "id": "minecraft:poplar_pressure_plate"
+    },
+    "pattern": [
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:poplar_planks"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "poplar_shelf": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:poplar_shelf"
+    },
+    "pattern": [
+      "###",
+      "   ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stripped_poplar_log"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "poplar_sign": {
+    "result": {
+      "count": 3,
+      "id": "minecraft:poplar_sign"
+    },
+    "pattern": [
+      "###",
+      "###",
+      " X "
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:poplar_planks",
+      "X": "minecraft:stick"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "poplar_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:poplar_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:poplar_planks"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "poplar_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:poplar_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:poplar_planks"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "poplar_trapdoor": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:poplar_trapdoor"
+    },
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:poplar_planks"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "poplar_wood": {
+    "result": {
+      "count": 3,
+      "id": "minecraft:poplar_wood"
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:poplar_log"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "purple_concrete_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:purple_concrete_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:purple_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "purple_concrete_slab_from_purple_concrete_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:purple_concrete_slab"
+    },
+    "ingredient": "minecraft:purple_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "purple_concrete_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:purple_concrete_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:purple_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "purple_concrete_stairs_from_purple_concrete_stonecutting": {
+    "result": {
+      "id": "minecraft:purple_concrete_stairs"
+    },
+    "ingredient": "minecraft:purple_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "purple_cushion": {
+    "result": {
+      "id": "minecraft:purple_cushion"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:purple_wool_slab"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "purple_wool_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:purple_wool_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:purple_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "purple_wool_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:purple_wool_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:purple_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "rabbit_stew_from_shelf_mushroom": {
+    "result": {
+      "id": "minecraft:rabbit_stew"
+    },
+    "ingredients": [
+      "minecraft:baked_potato",
+      "minecraft:cooked_rabbit",
+      "minecraft:bowl",
+      "minecraft:carrot",
+      "minecraft:shelf_mushroom"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "red_concrete_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:red_concrete_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:red_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "red_concrete_slab_from_red_concrete_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:red_concrete_slab"
+    },
+    "ingredient": "minecraft:red_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "red_concrete_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:red_concrete_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:red_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "red_concrete_stairs_from_red_concrete_stonecutting": {
+    "result": {
+      "id": "minecraft:red_concrete_stairs"
+    },
+    "ingredient": "minecraft:red_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "red_cushion": {
+    "result": {
+      "id": "minecraft:red_cushion"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:red_wool_slab"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "red_wool_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:red_wool_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:red_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "red_wool_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:red_wool_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:red_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "straw_bed": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:straw_bed"
+    },
+    "pattern": [
+      "XXX"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "X": "minecraft:hay_block"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "stripped_poplar_wood": {
+    "result": {
+      "count": 3,
+      "id": "minecraft:stripped_poplar_wood"
+    },
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:stripped_poplar_log"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "suspicious_stew": {
+    "result": {
+      "id": "minecraft:suspicious_stew"
+    },
+    "ingredients": [
+      "#minecraft:mushrooms",
+      "#minecraft:mushrooms",
+      "minecraft:bowl",
+      [
+        "minecraft:allium",
+        "minecraft:azure_bluet",
+        "minecraft:open_eyeblossom",
+        "minecraft:blue_orchid",
+        "minecraft:dandelion",
+        "minecraft:golden_dandelion",
+        "minecraft:closed_eyeblossom",
+        "minecraft:cornflower",
+        "minecraft:lily_of_the_valley",
+        "minecraft:oxeye_daisy",
+        "minecraft:poppy",
+        "minecraft:torchflower",
+        "minecraft:orange_tulip",
+        "minecraft:pink_tulip",
+        "minecraft:red_tulip",
+        "minecraft:white_tulip",
+        "minecraft:wither_rose"
+      ]
+    ],
+    "type": "minecraft:crafting_special_suspiciousstew",
+    "lang": {
+      "en_US": {
+        "notes": "\nAllium - Fire Resistance 3s\nAzure Bluet - Blindness 11s\nOpen Eyeblossom - Blindness 11s\nBlue Orchid - Saturation 0.35s\nDandelion - Saturation 0.35s\nGolden Dandelion - Saturation 0.35s\nClosed Eyeblossom - Nausea 7s\nCornflower - Jump Boost 5s\nLily of the Valley - Poison 11s\nOxeye Daisy - Regeneration 7s\nPoppy - Night Vision 5s\nTorchflower - Night Vision 5s\nTulips - Weakness 9s\nWither Rose - Wither 7s"
+      }
+    },
+    "properties": {
+      "animated": true,
+      "version": "26.3"
+    }
+  },
+  "white_concrete_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:white_concrete_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:white_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "white_concrete_slab_from_white_concrete_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:white_concrete_slab"
+    },
+    "ingredient": "minecraft:white_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "white_concrete_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:white_concrete_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:white_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "white_concrete_stairs_from_white_concrete_stonecutting": {
+    "result": {
+      "id": "minecraft:white_concrete_stairs"
+    },
+    "ingredient": "minecraft:white_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "white_cushion": {
+    "result": {
+      "id": "minecraft:white_cushion"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:white_wool_slab"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "white_wool_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:white_wool_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:white_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "white_wool_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:white_wool_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:white_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "yellow_concrete_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:yellow_concrete_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:yellow_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "yellow_concrete_slab_from_yellow_concrete_stonecutting": {
+    "result": {
+      "count": 2,
+      "id": "minecraft:yellow_concrete_slab"
+    },
+    "ingredient": "minecraft:yellow_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "yellow_concrete_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:yellow_concrete_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:yellow_concrete"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "yellow_concrete_stairs_from_yellow_concrete_stonecutting": {
+    "result": {
+      "id": "minecraft:yellow_concrete_stairs"
+    },
+    "ingredient": "minecraft:yellow_concrete",
+    "type": "minecraft:stonecutting",
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "yellow_cushion": {
+    "result": {
+      "id": "minecraft:yellow_cushion"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:yellow_wool_slab"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "yellow_wool_slab": {
+    "result": {
+      "count": 6,
+      "id": "minecraft:yellow_wool_slab"
+    },
+    "pattern": [
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:yellow_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "yellow_wool_stairs": {
+    "result": {
+      "count": 4,
+      "id": "minecraft:yellow_wool_stairs"
+    },
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": "minecraft:yellow_wool"
+    },
+    "properties": {
+      "version": "26.3"
+    }
+  },
+  "map_cloning_legacy": {
+    "result": {},
+    "input": [
+      "minecraft:jungle_pyramid_map",
+      "minecraft:filled_map",
+      "minecraft:ocean_monument_map",
+      "minecraft:woodland_mansion_map",
+      "minecraft:buried_trial_chambers_map",
+      "minecraft:swamp_hut_map",
+      "minecraft:desert_village_map",
+      "minecraft:plains_village_map",
+      "minecraft:savanna_village_map",
+      "minecraft:snowy_village_map",
+      "minecraft:taiga_village_map",
+      "minecraft:buried_treasure_map"
+    ],
+    "material": "minecraft:map",
+    "type": "minecraft:crafting_transmute",
+    "lang": {
+      "en_US": {
+        "notes": "Creates a copy of the map",
+        "name": "Map Cloning"
+      }
+    },
+    "add_material_count_to_result": true,
+    "material_count": {
+      "min": 1,
+      "max": 8
+    },
+    "properties": {
+      "removed": "26.3",
+      "animated": true
+    }
+  },
+  "map_extending_legacy": {
+    "result": {},
+    "material": "minecraft:paper",
+    "type": "minecraft:crafting_special_mapextending",
+    "lang": {
+      "en_US": {
+        "notes": "Zooms out the map by one level",
+        "name": "Map Zooming"
+      }
+    },
+    "map": [
+      "minecraft:filled_map",
+      "minecraft:buried_treasure_map"
+    ],
+    "properties": {
+      "removed": "26.3",
+      "animated": true
+    }
+  },
+  "mushroom_stew_legacy": {
+    "result": {
+      "id": "minecraft:mushroom_stew"
+    },
+    "ingredients": [
+      "minecraft:brown_mushroom",
+      "minecraft:red_mushroom",
+      "minecraft:bowl"
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "properties": {
+      "removed": "26.3"
+    }
+  },
+  "cartography_map_extending_legacy": {
+    "result": {},
+    "material": "minecraft:paper",
+    "type": "minecraft.cartography",
+    "lang": {
+      "en_US": {
+        "notes": "Zooms out the map by one level",
+        "name": "Map Zooming"
+      }
+    },
+    "map": [
+      "minecraft:jungle_pyramid_map",
+      "minecraft:filled_map",
+      "minecraft:ocean_monument_map",
+      "minecraft:woodland_mansion_map",
+      "minecraft:buried_trial_chambers_map",
+      "minecraft:swamp_hut_map",
+      "minecraft:desert_village_map",
+      "minecraft:plains_village_map",
+      "minecraft:savanna_village_map",
+      "minecraft:snowy_village_map",
+      "minecraft:taiga_village_map",
+      "minecraft:buried_treasure_map"
+    ],
+    "properties": {
+      "removed": "26.3",
+      "animated": true,
+      "version": "1.14"
+    }
+  },
+  "suspicious_stew_legacy": {
+    "result": {
+      "id": "minecraft:suspicious_stew"
+    },
+    "ingredients": [
+      "minecraft:brown_mushroom",
+      "minecraft:red_mushroom",
+      "minecraft:bowl",
+      [
+        "minecraft:allium",
+        "minecraft:azure_bluet",
+        "minecraft:open_eyeblossom",
+        "minecraft:blue_orchid",
+        "minecraft:dandelion",
+        "minecraft:golden_dandelion",
+        "minecraft:closed_eyeblossom",
+        "minecraft:cornflower",
+        "minecraft:lily_of_the_valley",
+        "minecraft:oxeye_daisy",
+        "minecraft:poppy",
+        "minecraft:torchflower",
+        "minecraft:orange_tulip",
+        "minecraft:pink_tulip",
+        "minecraft:red_tulip",
+        "minecraft:white_tulip",
+        "minecraft:wither_rose"
+      ]
+    ],
+    "type": "minecraft:crafting_special_suspiciousstew",
+    "lang": {
+      "en_US": {
+        "notes": "\nAllium - Fire Resistance 3s\nAzure Bluet - Blindness 11s\nOpen Eyeblossom - Blindness 11s\nBlue Orchid - Saturation 0.35s\nDandelion - Saturation 0.35s\nGolden Dandelion - Saturation 0.35s\nClosed Eyeblossom - Nausea 7s\nCornflower - Jump Boost 5s\nLily of the Valley - Poison 11s\nOxeye Daisy - Regeneration 7s\nPoppy - Night Vision 5s\nTorchflower - Night Vision 5s\nTulips - Weakness 9s\nWither Rose - Wither 7s"
+      }
+    },
+    "properties": {
+      "removed": "26.3",
+      "animated": true,
+      "version": "1.21.4"
+    }
+  },
   "copper_trapdoor_legacy": {
     "result": {
       "id": "minecraft:copper_trapdoor"
@@ -27624,7 +31185,7 @@
       "version": "1.16"
     }
   },
-  "suspicious_stew_legacy": {
+  "suspicious_stew_legacy_legacy": {
     "result": {
       "id": "minecraft:suspicious_stew"
     },

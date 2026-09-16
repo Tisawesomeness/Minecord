@@ -137,6 +137,7 @@
       "minecraft:bamboo_raft",
       "minecraft:cherry_boat",
       "minecraft:pale_oak_boat",
+      "minecraft:poplar_boat",
       "#minecraft:chest_boats"
     ],
     "book_cloning_target": [
@@ -158,8 +159,11 @@
       "minecraft:trident",
       "minecraft:mace"
     ],
-    "brewing_fuel": [
-      "minecraft:blaze_powder"
+    "brewing_potion_inputs": [
+      "minecraft:potion",
+      "minecraft:splash_potion",
+      "minecraft:lingering_potion",
+      "minecraft:glass_bottle"
     ],
     "bundles": [
       "minecraft:bundle",
@@ -260,7 +264,8 @@
       "minecraft:mangrove_chest_boat",
       "minecraft:bamboo_chest_raft",
       "minecraft:cherry_chest_boat",
-      "minecraft:pale_oak_chest_boat"
+      "minecraft:pale_oak_chest_boat",
+      "minecraft:poplar_chest_boat"
     ],
     "chicken_food": [
       "minecraft:wheat_seeds",
@@ -269,6 +274,25 @@
       "minecraft:beetroot_seeds",
       "minecraft:torchflower_seeds",
       "minecraft:pitcher_pod"
+    ],
+    "clonable_maps": [
+      "minecraft:jungle_pyramid_map",
+      "minecraft:filled_map",
+      "minecraft:ocean_monument_map",
+      "minecraft:woodland_mansion_map",
+      "minecraft:buried_trial_chambers_map",
+      "minecraft:swamp_hut_map",
+      "minecraft:desert_village_map",
+      "minecraft:plains_village_map",
+      "minecraft:savanna_village_map",
+      "minecraft:snowy_village_map",
+      "minecraft:taiga_village_map",
+      "minecraft:buried_treasure_map",
+      "minecraft:buried_ancient_city_map",
+      "minecraft:buried_mineshaft_map",
+      "minecraft:desert_pyramid_map",
+      "minecraft:abandoned_camp_map",
+      "minecraft:warm_ocean_ruins_map"
     ],
     "cluster_max_harvestables": [
       "minecraft:diamond_pickaxe",
@@ -331,6 +355,42 @@
       "minecraft:green_concrete_powder",
       "minecraft:red_concrete_powder",
       "minecraft:black_concrete_powder"
+    ],
+    "concrete_slabs": [
+      "minecraft:white_concrete_slab",
+      "minecraft:orange_concrete_slab",
+      "minecraft:magenta_concrete_slab",
+      "minecraft:light_blue_concrete_slab",
+      "minecraft:yellow_concrete_slab",
+      "minecraft:lime_concrete_slab",
+      "minecraft:pink_concrete_slab",
+      "minecraft:gray_concrete_slab",
+      "minecraft:light_gray_concrete_slab",
+      "minecraft:cyan_concrete_slab",
+      "minecraft:purple_concrete_slab",
+      "minecraft:blue_concrete_slab",
+      "minecraft:brown_concrete_slab",
+      "minecraft:green_concrete_slab",
+      "minecraft:red_concrete_slab",
+      "minecraft:black_concrete_slab"
+    ],
+    "concrete_stairs": [
+      "minecraft:white_concrete_stairs",
+      "minecraft:orange_concrete_stairs",
+      "minecraft:magenta_concrete_stairs",
+      "minecraft:light_blue_concrete_stairs",
+      "minecraft:yellow_concrete_stairs",
+      "minecraft:lime_concrete_stairs",
+      "minecraft:pink_concrete_stairs",
+      "minecraft:gray_concrete_stairs",
+      "minecraft:light_gray_concrete_stairs",
+      "minecraft:cyan_concrete_stairs",
+      "minecraft:purple_concrete_stairs",
+      "minecraft:blue_concrete_stairs",
+      "minecraft:brown_concrete_stairs",
+      "minecraft:green_concrete_stairs",
+      "minecraft:red_concrete_stairs",
+      "minecraft:black_concrete_stairs"
     ],
     "copper": [
       "minecraft:copper_block",
@@ -396,9 +456,29 @@
       "minecraft:stripped_crimson_hyphae",
       "minecraft:stripped_crimson_stem"
     ],
+    "cushions": [
+      "minecraft:white_cushion",
+      "minecraft:orange_cushion",
+      "minecraft:magenta_cushion",
+      "minecraft:light_blue_cushion",
+      "minecraft:yellow_cushion",
+      "minecraft:lime_cushion",
+      "minecraft:pink_cushion",
+      "minecraft:gray_cushion",
+      "minecraft:light_gray_cushion",
+      "minecraft:cyan_cushion",
+      "minecraft:purple_cushion",
+      "minecraft:blue_cushion",
+      "minecraft:brown_cushion",
+      "minecraft:green_cushion",
+      "minecraft:red_cushion",
+      "minecraft:black_cushion"
+    ],
     "dampens_vibrations": [
       "#minecraft:wool",
-      "#minecraft:wool_carpets"
+      "#minecraft:wool_carpets",
+      "#minecraft:wool_slabs",
+      "#minecraft:wool_stairs"
     ],
     "dark_oak_logs": [
       "minecraft:dark_oak_log",
@@ -459,6 +539,9 @@
       "minecraft:waxed_oxidized_copper_door",
       "minecraft:iron_door"
     ],
+    "douses_campfires": [
+      "#minecraft:shovels"
+    ],
     "drowned_preferred_weapons": [
       "minecraft:trident"
     ],
@@ -492,6 +575,9 @@
       "minecraft:emerald_ore",
       "minecraft:deepslate_emerald_ore"
     ],
+    "extendable_maps": [
+      "minecraft:filled_map"
+    ],
     "fence_gates": [
       "minecraft:oak_fence_gate",
       "minecraft:spruce_fence_gate",
@@ -504,7 +590,8 @@
       "minecraft:mangrove_fence_gate",
       "minecraft:bamboo_fence_gate",
       "minecraft:cherry_fence_gate",
-      "minecraft:pale_oak_fence_gate"
+      "minecraft:pale_oak_fence_gate",
+      "minecraft:poplar_fence_gate"
     ],
     "fences": [
       "#minecraft:wooden_fences",
@@ -557,6 +644,10 @@
     ],
     "frog_food": [
       "minecraft:slime_ball"
+    ],
+    "furnace_fuel_bottom_takeable": [
+      "minecraft:water_bucket",
+      "minecraft:bucket"
     ],
     "furnace_minecart_fuel": [
       "minecraft:coal",
@@ -611,7 +702,8 @@
       "minecraft:mangrove_hanging_sign",
       "minecraft:bamboo_hanging_sign",
       "minecraft:cherry_hanging_sign",
-      "minecraft:pale_oak_hanging_sign"
+      "minecraft:pale_oak_hanging_sign",
+      "minecraft:poplar_hanging_sign"
     ],
     "happy_ghast_food": [
       "minecraft:snowball"
@@ -718,7 +810,10 @@
       "minecraft:cherry_leaves",
       "minecraft:pale_oak_leaves",
       "minecraft:azalea_leaves",
-      "minecraft:flowering_azalea_leaves"
+      "minecraft:flowering_azalea_leaves",
+      "minecraft:red_poplar_leaves",
+      "minecraft:orange_poplar_leaves",
+      "minecraft:yellow_poplar_leaves"
     ],
     "lectern_books": [
       "minecraft:written_book",
@@ -764,7 +859,8 @@
       "#minecraft:dark_oak_logs",
       "#minecraft:mangrove_logs",
       "#minecraft:cherry_logs",
-      "#minecraft:pale_oak_logs"
+      "#minecraft:pale_oak_logs",
+      "#minecraft:poplar_logs"
     ],
     "loom_dyes": [
       "#minecraft:dyes"
@@ -815,6 +911,11 @@
     "mud": [
       "minecraft:mud",
       "minecraft:muddy_mangrove_roots"
+    ],
+    "mushrooms": [
+      "minecraft:brown_mushroom",
+      "minecraft:red_mushroom",
+      "minecraft:shelf_mushroom"
     ],
     "nautilus_bucket_food": [
       "minecraft:pufferfish_bucket",
@@ -885,6 +986,17 @@
     "ocelot_food": [
       "minecraft:cod",
       "minecraft:salmon"
+    ],
+    "ores": [
+      "#minecraft:copper_ores",
+      "#minecraft:gold_ores",
+      "#minecraft:iron_ores",
+      "#minecraft:coal_ores",
+      "#minecraft:diamond_ores",
+      "#minecraft:emerald_ores",
+      "#minecraft:lapis_ores",
+      "#minecraft:redstone_ores",
+      "minecraft:nether_quartz_ore"
     ],
     "pale_oak_logs": [
       "minecraft:pale_oak_log",
@@ -986,7 +1098,14 @@
       "minecraft:mangrove_planks",
       "minecraft:bamboo_planks",
       "minecraft:cherry_planks",
-      "minecraft:pale_oak_planks"
+      "minecraft:pale_oak_planks",
+      "minecraft:poplar_planks"
+    ],
+    "poplar_logs": [
+      "minecraft:poplar_log",
+      "minecraft:poplar_wood",
+      "minecraft:stripped_poplar_log",
+      "minecraft:stripped_poplar_wood"
     ],
     "rabbit_food": [
       "minecraft:carrot",
@@ -1046,7 +1165,8 @@
       "minecraft:cherry_sapling",
       "minecraft:pale_oak_sapling",
       "minecraft:azalea",
-      "minecraft:flowering_azalea"
+      "minecraft:flowering_azalea",
+      "minecraft:poplar_sapling"
     ],
     "shearable_from_copper_golem": [
       "minecraft:poppy"
@@ -1094,7 +1214,8 @@
       "minecraft:mangrove_sign",
       "minecraft:bamboo_sign",
       "minecraft:cherry_sign",
-      "minecraft:pale_oak_sign"
+      "minecraft:pale_oak_sign",
+      "minecraft:poplar_sign"
     ],
     "skeleton_preferred_weapons": [
       "minecraft:bow"
@@ -1115,38 +1236,46 @@
       "minecraft:smooth_stone_slab",
       "minecraft:stone_brick_slab",
       "minecraft:sandstone_slab",
-      "minecraft:purpur_slab",
+      "minecraft:cobblestone_slab",
+      "minecraft:brick_slab",
+      "minecraft:nether_brick_slab",
       "minecraft:quartz_slab",
       "minecraft:red_sandstone_slab",
-      "minecraft:brick_slab",
-      "minecraft:cobblestone_slab",
-      "minecraft:nether_brick_slab",
-      "minecraft:petrified_oak_slab",
       "minecraft:prismarine_slab",
       "minecraft:prismarine_brick_slab",
       "minecraft:dark_prismarine_slab",
-      "minecraft:polished_granite_slab",
-      "minecraft:smooth_red_sandstone_slab",
-      "minecraft:mossy_stone_brick_slab",
-      "minecraft:polished_diorite_slab",
-      "minecraft:mossy_cobblestone_slab",
+      "minecraft:purpur_slab",
       "minecraft:end_stone_brick_slab",
-      "minecraft:smooth_sandstone_slab",
-      "minecraft:smooth_quartz_slab",
-      "minecraft:granite_slab",
-      "minecraft:andesite_slab",
-      "minecraft:red_nether_brick_slab",
-      "minecraft:polished_andesite_slab",
-      "minecraft:diorite_slab",
+      "minecraft:petrified_oak_slab",
       "minecraft:cut_sandstone_slab",
+      "minecraft:smooth_sandstone_slab",
       "minecraft:cut_red_sandstone_slab",
+      "minecraft:smooth_red_sandstone_slab",
+      "minecraft:smooth_quartz_slab",
+      "minecraft:mossy_cobblestone_slab",
+      "minecraft:mossy_stone_brick_slab",
+      "minecraft:granite_slab",
+      "minecraft:polished_granite_slab",
+      "minecraft:diorite_slab",
+      "minecraft:polished_diorite_slab",
+      "minecraft:andesite_slab",
+      "minecraft:polished_andesite_slab",
+      "minecraft:red_nether_brick_slab",
       "minecraft:blackstone_slab",
-      "minecraft:polished_blackstone_brick_slab",
       "minecraft:polished_blackstone_slab",
+      "minecraft:polished_blackstone_brick_slab",
+      "minecraft:cut_copper_slab",
+      "minecraft:exposed_cut_copper_slab",
+      "minecraft:weathered_cut_copper_slab",
+      "minecraft:oxidized_cut_copper_slab",
+      "minecraft:waxed_cut_copper_slab",
+      "minecraft:waxed_exposed_cut_copper_slab",
+      "minecraft:waxed_weathered_cut_copper_slab",
+      "minecraft:waxed_oxidized_cut_copper_slab",
       "minecraft:cobbled_deepslate_slab",
       "minecraft:polished_deepslate_slab",
-      "minecraft:deepslate_tile_slab",
       "minecraft:deepslate_brick_slab",
+      "minecraft:deepslate_tile_slab",
       "minecraft:mud_brick_slab",
       "minecraft:tuff_slab",
       "minecraft:polished_tuff_slab",
@@ -1158,14 +1287,8 @@
       "minecraft:sulfur_slab",
       "minecraft:polished_sulfur_slab",
       "minecraft:sulfur_brick_slab",
-      "minecraft:cut_copper_slab",
-      "minecraft:exposed_cut_copper_slab",
-      "minecraft:weathered_cut_copper_slab",
-      "minecraft:oxidized_cut_copper_slab",
-      "minecraft:waxed_cut_copper_slab",
-      "minecraft:waxed_exposed_cut_copper_slab",
-      "minecraft:waxed_weathered_cut_copper_slab",
-      "minecraft:waxed_oxidized_cut_copper_slab"
+      "#minecraft:wool_slabs",
+      "#minecraft:concrete_slabs"
     ],
     "small_flowers": [
       "minecraft:dandelion",
@@ -1217,36 +1340,44 @@
       "#minecraft:wooden_stairs",
       "minecraft:cobblestone_stairs",
       "minecraft:sandstone_stairs",
-      "minecraft:nether_brick_stairs",
-      "minecraft:stone_brick_stairs",
       "minecraft:brick_stairs",
-      "minecraft:purpur_stairs",
+      "minecraft:stone_brick_stairs",
+      "minecraft:nether_brick_stairs",
       "minecraft:quartz_stairs",
       "minecraft:red_sandstone_stairs",
-      "minecraft:prismarine_brick_stairs",
       "minecraft:prismarine_stairs",
+      "minecraft:prismarine_brick_stairs",
       "minecraft:dark_prismarine_stairs",
-      "minecraft:polished_granite_stairs",
-      "minecraft:smooth_red_sandstone_stairs",
-      "minecraft:mossy_stone_brick_stairs",
-      "minecraft:polished_diorite_stairs",
-      "minecraft:mossy_cobblestone_stairs",
+      "minecraft:purpur_stairs",
       "minecraft:end_stone_brick_stairs",
       "minecraft:stone_stairs",
       "minecraft:smooth_sandstone_stairs",
+      "minecraft:smooth_red_sandstone_stairs",
       "minecraft:smooth_quartz_stairs",
+      "minecraft:mossy_cobblestone_stairs",
+      "minecraft:mossy_stone_brick_stairs",
       "minecraft:granite_stairs",
-      "minecraft:andesite_stairs",
-      "minecraft:red_nether_brick_stairs",
-      "minecraft:polished_andesite_stairs",
+      "minecraft:polished_granite_stairs",
       "minecraft:diorite_stairs",
+      "minecraft:polished_diorite_stairs",
+      "minecraft:andesite_stairs",
+      "minecraft:polished_andesite_stairs",
+      "minecraft:red_nether_brick_stairs",
       "minecraft:blackstone_stairs",
-      "minecraft:polished_blackstone_brick_stairs",
       "minecraft:polished_blackstone_stairs",
+      "minecraft:polished_blackstone_brick_stairs",
+      "minecraft:cut_copper_stairs",
+      "minecraft:exposed_cut_copper_stairs",
+      "minecraft:weathered_cut_copper_stairs",
+      "minecraft:oxidized_cut_copper_stairs",
+      "minecraft:waxed_cut_copper_stairs",
+      "minecraft:waxed_exposed_cut_copper_stairs",
+      "minecraft:waxed_weathered_cut_copper_stairs",
+      "minecraft:waxed_oxidized_cut_copper_stairs",
       "minecraft:cobbled_deepslate_stairs",
       "minecraft:polished_deepslate_stairs",
-      "minecraft:deepslate_tile_stairs",
       "minecraft:deepslate_brick_stairs",
+      "minecraft:deepslate_tile_stairs",
       "minecraft:mud_brick_stairs",
       "minecraft:tuff_stairs",
       "minecraft:polished_tuff_stairs",
@@ -1258,14 +1389,8 @@
       "minecraft:sulfur_stairs",
       "minecraft:polished_sulfur_stairs",
       "minecraft:sulfur_brick_stairs",
-      "minecraft:cut_copper_stairs",
-      "minecraft:exposed_cut_copper_stairs",
-      "minecraft:weathered_cut_copper_stairs",
-      "minecraft:oxidized_cut_copper_stairs",
-      "minecraft:waxed_cut_copper_stairs",
-      "minecraft:waxed_exposed_cut_copper_stairs",
-      "minecraft:waxed_weathered_cut_copper_stairs",
-      "minecraft:waxed_oxidized_cut_copper_stairs"
+      "#minecraft:wool_stairs",
+      "#minecraft:concrete_stairs"
     ],
     "stone_bricks": [
       "minecraft:stone_bricks",
@@ -1460,7 +1585,8 @@
       "minecraft:mangrove_button",
       "minecraft:bamboo_button",
       "minecraft:cherry_button",
-      "minecraft:pale_oak_button"
+      "minecraft:pale_oak_button",
+      "minecraft:poplar_button"
     ],
     "wooden_doors": [
       "minecraft:oak_door",
@@ -1474,7 +1600,8 @@
       "minecraft:mangrove_door",
       "minecraft:bamboo_door",
       "minecraft:cherry_door",
-      "minecraft:pale_oak_door"
+      "minecraft:pale_oak_door",
+      "minecraft:poplar_door"
     ],
     "wooden_fences": [
       "minecraft:oak_fence",
@@ -1488,7 +1615,8 @@
       "minecraft:mangrove_fence",
       "minecraft:bamboo_fence",
       "minecraft:cherry_fence",
-      "minecraft:pale_oak_fence"
+      "minecraft:pale_oak_fence",
+      "minecraft:poplar_fence"
     ],
     "wooden_pressure_plates": [
       "minecraft:oak_pressure_plate",
@@ -1502,7 +1630,8 @@
       "minecraft:mangrove_pressure_plate",
       "minecraft:bamboo_pressure_plate",
       "minecraft:cherry_pressure_plate",
-      "minecraft:pale_oak_pressure_plate"
+      "minecraft:pale_oak_pressure_plate",
+      "minecraft:poplar_pressure_plate"
     ],
     "wooden_shelves": [
       "minecraft:oak_shelf",
@@ -1516,7 +1645,8 @@
       "minecraft:mangrove_shelf",
       "minecraft:bamboo_shelf",
       "minecraft:cherry_shelf",
-      "minecraft:pale_oak_shelf"
+      "minecraft:pale_oak_shelf",
+      "minecraft:poplar_shelf"
     ],
     "wooden_slabs": [
       "minecraft:oak_slab",
@@ -1530,7 +1660,8 @@
       "minecraft:mangrove_slab",
       "minecraft:bamboo_slab",
       "minecraft:cherry_slab",
-      "minecraft:pale_oak_slab"
+      "minecraft:pale_oak_slab",
+      "minecraft:poplar_slab"
     ],
     "wooden_stairs": [
       "minecraft:oak_stairs",
@@ -1544,7 +1675,8 @@
       "minecraft:mangrove_stairs",
       "minecraft:bamboo_stairs",
       "minecraft:cherry_stairs",
-      "minecraft:pale_oak_stairs"
+      "minecraft:pale_oak_stairs",
+      "minecraft:poplar_stairs"
     ],
     "wooden_tool_materials": [
       "#minecraft:planks"
@@ -1561,7 +1693,8 @@
       "minecraft:mangrove_trapdoor",
       "minecraft:bamboo_trapdoor",
       "minecraft:cherry_trapdoor",
-      "minecraft:pale_oak_trapdoor"
+      "minecraft:pale_oak_trapdoor",
+      "minecraft:poplar_trapdoor"
     ],
     "wool": [
       "minecraft:white_wool",
@@ -1598,6 +1731,42 @@
       "minecraft:green_carpet",
       "minecraft:red_carpet",
       "minecraft:black_carpet"
+    ],
+    "wool_slabs": [
+      "minecraft:white_wool_slab",
+      "minecraft:orange_wool_slab",
+      "minecraft:magenta_wool_slab",
+      "minecraft:light_blue_wool_slab",
+      "minecraft:yellow_wool_slab",
+      "minecraft:lime_wool_slab",
+      "minecraft:pink_wool_slab",
+      "minecraft:gray_wool_slab",
+      "minecraft:light_gray_wool_slab",
+      "minecraft:cyan_wool_slab",
+      "minecraft:purple_wool_slab",
+      "minecraft:blue_wool_slab",
+      "minecraft:brown_wool_slab",
+      "minecraft:green_wool_slab",
+      "minecraft:red_wool_slab",
+      "minecraft:black_wool_slab"
+    ],
+    "wool_stairs": [
+      "minecraft:white_wool_stairs",
+      "minecraft:orange_wool_stairs",
+      "minecraft:magenta_wool_stairs",
+      "minecraft:light_blue_wool_stairs",
+      "minecraft:yellow_wool_stairs",
+      "minecraft:lime_wool_stairs",
+      "minecraft:pink_wool_stairs",
+      "minecraft:gray_wool_stairs",
+      "minecraft:light_gray_wool_stairs",
+      "minecraft:cyan_wool_stairs",
+      "minecraft:purple_wool_stairs",
+      "minecraft:blue_wool_stairs",
+      "minecraft:brown_wool_stairs",
+      "minecraft:green_wool_stairs",
+      "minecraft:red_wool_stairs",
+      "minecraft:black_wool_stairs"
     ],
     "zombie_horse_food": [
       "minecraft:red_mushroom"

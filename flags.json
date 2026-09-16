@@ -16,6 +16,10 @@
     "release": "1.21.4"
   },
   {
+    "id": "trade_rebalance",
+    "name": "Villager Trade Rebalance"
+  },
+  {
     "id": "vanilla"
   }
 ]
