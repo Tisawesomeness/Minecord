@@ -17,6 +17,18 @@ public class MessageUtils {
 
     /**
      * If the message is over the content length limit, trim it down by ending it with an ellipsis.
+     * @param msg the message
+     * @return the trimmed message
+     */
+    public static String trim(String msg) {
+        if (msg.length() <= Message.MAX_CONTENT_LENGTH) {
+            return msg;
+        }
+        return msg.substring(0, Message.MAX_CONTENT_LENGTH - 3) + "...";
+    }
+
+    /**
+     * If the message is over the content length limit, trim it down by ending it with an ellipsis.
      * @param msg the message in a code block (ending in ```)
      * @return the trimmed message
      */

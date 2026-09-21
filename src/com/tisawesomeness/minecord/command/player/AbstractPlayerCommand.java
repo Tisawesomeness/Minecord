@@ -21,6 +21,8 @@ import java.util.function.Consumer;
 
 public abstract class AbstractPlayerCommand extends SlashCommand {
 
+    // `UUIDMost:-700138796005504542,UUIDLeast:-7490006962183355473` is 60 chars
+    public static final int MAX_INPUT_LENGTH = 64;
     protected static final int DEFAULT_AVATAR_WIDTH = 64;
 
     protected static void handleMojangIOE(Throwable ex, SlashCommandInteractionEvent e, String errorMessage) {
