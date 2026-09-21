@@ -29,7 +29,10 @@ public class UuidCommand extends AbstractPlayerCommand {
 
     @Override
     public SlashCommandData addCommandSyntax(SlashCommandData builder) {
-        return builder.addOptions(new OptionData(OptionType.STRING, "uuid_or_username", "The UUID or username of the player or entity.", true));
+        return builder.addOptions(
+                new OptionData(OptionType.STRING, "uuid_or_username", "The UUID or username of the player or entity.", true)
+                        .setMaxLength(MAX_INPUT_LENGTH)
+        );
     }
 
     @Override

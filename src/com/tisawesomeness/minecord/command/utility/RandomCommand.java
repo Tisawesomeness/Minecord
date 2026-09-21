@@ -50,6 +50,8 @@ public class RandomCommand extends SlashCommand {
     private static final int DICE_GROUP_ROLL_EXACT_LIMIT = 50;
     private static final BigInteger ROLL_EXACT_LIMIT = BigInteger.valueOf(1000);
 
+    private static final int ERROR_MAX_LENGTH = 1000;
+
     @Override
     public CommandInfo getInfo() {
         return new CommandInfo(
@@ -157,7 +159,8 @@ public class RandomCommand extends SlashCommand {
         if (choice.isEmpty()) {
             choice = "(empty)";
         }
-        return new Result(Outcome.SUCCESS, "Chose: " + choice);
+        String output = "Chose: " + choice;
+        return new Result(Outcome.SUCCESS, MessageUtils.trim(output));
     }
     private static String trimLeadingCommas(String s) {
         for (int i = 0; i < s.length(); i++) {
@@ -199,6 +202,9 @@ public class RandomCommand extends SlashCommand {
     private static String handleParseError(DiceCombination.Error error) {
         switch (error.getType()) {
             case DICE_ERROR:
+                if (error.getFailedDiceString().length() > ERROR_MAX_LENGTH) {
+                    return String.format("Input could not be parsed: %s.", translateDiceError(error.getDiceError()));
+                }
                 return String.format("`%s` could not be parsed: %s.",
                         error.getFailedDiceString(), translateDiceError(error.getDiceError()));
             case PARSE_FAILED:
