@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.tisawesomeness</groupId>
   <artifactId>minecord</artifactId>
-  <version>0.19.2</version>
+  <version>0.19.3</version>
 
   <repositories>
     <repository>
@@ -21,7 +21,7 @@
     <dependency>
       <groupId>net.dv8tion</groupId>
       <artifactId>JDA</artifactId>
-      <version>6.6.0</version>
+      <version>6.7.0</version>
       <exclusions>
         <exclusion>
           <groupId>club.minnced</groupId>
@@ -62,7 +62,7 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.46</version>
+      <version>1.18.48</version>
       <scope>provided</scope>
     </dependency>
     <dependency>

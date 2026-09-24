@@ -62,7 +62,7 @@ public class MCPingResponse {
      */
     private String favicon;
 
-    // below 3 are modifications from tis
+    // below are modifications from tis
     /**
      * Whether the server is announcing that it requires players to send public keys to join.
      * These servers enforce chat reports.
@@ -81,6 +81,12 @@ public class MCPingResponse {
      * This is a custom response used to show an icon in the NoChatReports mod.
      */
     private boolean preventsChatReports;
+
+    /**
+     * A human-readable string telling the reader where to contact the server owner.
+     */
+    private String contact;
+    // end modification
 
     /**
      * Ping in ms.
