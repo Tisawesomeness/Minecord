@@ -32,6 +32,8 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
+import java.util.Map;
 
 /**
  * Storage class for {@link MCPing} options.
@@ -51,6 +53,16 @@ public class MCPingOptions {
     @Getter
     @Builder.Default
     private int port = 25565;
+
+    // Modification from tis
+    @Getter
+    @Builder.Default
+    private Map<String, String> query = Collections.emptyMap();
+
+    // Modification from tis
+    @Getter
+    @Builder.Default
+    private boolean originProperty = false;
 
     @Getter
     @Builder.Default

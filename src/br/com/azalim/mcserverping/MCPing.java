@@ -32,6 +32,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import lombok.SneakyThrows;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
@@ -44,7 +45,12 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class MCPing {
 
@@ -120,8 +126,20 @@ public class MCPing {
 
                 handshake.writeByte(MCPingUtil.PACKET_HANDSHAKE);
                 MCPingUtil.writeVarInt(handshake, MCPingUtil.PROTOCOL_VERSION);
-                MCPingUtil.writeVarInt(handshake, options.getHostname().length());
-                handshake.writeBytes(options.getHostname());
+                // Modification from tis
+                Map<String, String> query = options.getQuery();
+                if (options.isOriginProperty()) {
+                    query = new HashMap<>(query);
+                    query.put("_o", options.getHostname() + ":" + options.getPort());
+                }
+                if (!query.isEmpty()) {
+                    hostname += "?" + query.entrySet().stream()
+                            .map(en -> escape(en.getKey()) + "=" + escape(en.getValue()))
+                            .collect(Collectors.joining("&"));
+                }
+                MCPingUtil.writeVarInt(handshake, hostname.length());
+                handshake.writeBytes(hostname);
+                // end modification
                 handshake.writeShort(options.getPort());
                 MCPingUtil.writeVarInt(handshake, MCPingUtil.STATUS_HANDSHAKE);
 
@@ -214,6 +232,12 @@ public class MCPing {
         for (Component child : tc.children()) {
             addContent(child, sb);
         }
+    }
+
+    // Modification from tis
+    @SneakyThrows
+    private static String escape(String str) {
+        return URLEncoder.encode(str, StandardCharsets.UTF_8.name());
     }
 
 }
