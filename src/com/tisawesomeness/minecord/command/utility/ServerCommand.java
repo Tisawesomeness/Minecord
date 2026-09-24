@@ -227,16 +227,15 @@ public class ServerCommand extends SlashCommand {
             Optional<Favicon> iconOpt = Favicon.parse(reply.getFavicon());
             if (iconOpt.isPresent()) {
                 Favicon icon = iconOpt.get();
-                Either<Favicon.PngError, Dimensions> errorOrDimensions = icon.validate();
-                if (errorOrDimensions.isLeft()) {
-                    Favicon.PngError error = errorOrDimensions.getLeft();
+                Favicon.Png png = icon.validate();
+                Favicon.PngError error = png.getError();
+                if (error != null) {
                     m += "\n" + getMessage(error);
-                } else {
-                    Dimensions dimensions = errorOrDimensions.getRight();
-                    if (dimensions.getWidth() != Favicon.EXPECTED_SIZE || dimensions.getHeight() != Favicon.EXPECTED_SIZE) {
-                        m += String.format("\n:information_source: Icon is %dx%d, only %dx%d icons may display properly.",
-                                dimensions.getWidth(), dimensions.getHeight(), Favicon.EXPECTED_SIZE, Favicon.EXPECTED_SIZE);
-                    }
+                }
+                Dimensions dimensions = png.getDimensions();
+                if (dimensions != null && (dimensions.getWidth() != Favicon.EXPECTED_SIZE || dimensions.getHeight() != Favicon.EXPECTED_SIZE)) {
+                    m += String.format("\n:information_source: Icon is %dx%d, only %dx%d icons may display properly.",
+                            dimensions.getWidth(), dimensions.getHeight(), Favicon.EXPECTED_SIZE, Favicon.EXPECTED_SIZE);
                 }
                 MessageEmbed embed = eb.setDescription(m).setThumbnail("attachment://favicon.png").build();
                 e.getHook().sendFiles(FileUpload.fromData(icon.getData(), "favicon.png")).setEmbeds(embed).queue();
@@ -316,13 +315,16 @@ public class ServerCommand extends SlashCommand {
     private static String getMessage(@NonNull Favicon.PngError error) {
         switch (error) {
             case TOO_SHORT:
-                return "Icon data is too short to be a valid PNG image.";
             case BAD_SIGNATURE:
             case BAD_IHDR_LENGTH:
             case BAD_IHDR_TYPE:
             case NEGATIVE_WIDTH:
             case NEGATIVE_HEIGHT:
+            case TOO_BIG:
                 return "Icon is not a valid PNG image.";
+            case BAD_BIT_DEPTH:
+            case BAD_COLOR_TYPE:
+                return "Icon is not a valid PNG image, new clients may not display properly.";
             default:
                 throw new AssertionError("unreachable");
         }
